@@ -1,0 +1,181 @@
+/* Datewheel overlay */
+.dw {
+    padding: 0 10px;
+    position: absolute;
+    top: 5%;
+    left: 0;
+    z-index: 1001;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    background: #fff;
+    color: #000;
+}
+/* Datewheel overlay background */
+.dwo {
+    width: 100%;
+    background: #000;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    opacity: .7;
+    filter:Alpha(Opacity=70);
+}
+/* Datewheel wheel container wrapper */
+.dwc {
+    display: block;
+    float: left;
+    margin: 0 2px 5px 2px;
+    padding-top: 30px;
+}
+/* Datewheel label */
+.dwl {
+    margin: 0 2px;
+    text-align: center;
+    line-height: 30px;
+    height: 30px;
+    white-space: nowrap;
+    position: relative;
+    top: -30px;
+}
+/* Datewheel value */
+.dwv {
+    padding: 10px 0;
+    border-bottom: 1px solid #000;
+}
+/* Datewheel wheel container */
+.dwwc {
+    display: block;
+    margin: 0;
+    padding: 0 2px;
+    position: relative;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    background: #000;
+}
+/* Datewheel wheels */
+.dwwl {
+    margin: 4px 2px;
+    float: left;
+    display: block;
+    position: relative;
+    background: #888;
+    background: -webkit-gradient(linear,left bottom,left top,color-stop(0, #000),color-stop(0.35, #333),color-stop(0.50, #888),color-stop(0.65, #333),color-stop(1, #000));
+    background: -moz-linear-gradient(center bottom,#000 0%,#333 35%, #888 50%,#333 65%,#000 100%);
+}
+.dww {
+    margin: 0 2px;
+    overflow: hidden;
+    position: relative;
+    top: -30px;
+    color: #fff;
+    background: #444;
+    background: -webkit-gradient(linear,left bottom,left top,color-stop(0, #000),color-stop(0.45, #444),color-stop(0.55, #444),color-stop(1, #000));
+    background: -moz-linear-gradient(center bottom,#000 0%,#444 45%, #444 55%, #000 100%);
+}
+.dww ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: block;
+    width: 100%;
+    position: relative;
+    z-index: 2;
+    /*top: 0;
+    left: 0;*/
+}
+.dww li {
+    list-style: none;
+    margin: 0;
+    padding: 0 5px;
+    display: block;
+    text-align: center;
+    line-height: 40px;
+    font-size: 26px;
+    text-shadow:0 1px 1px #000;
+}
+/* Datewheel wheel overlay */
+.dwwo {
+    position: absolute;
+    z-index: 3;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: -webkit-gradient(linear,left bottom,left top,color-stop(0, rgb(0,0,0)),color-stop(0.5, rgba(44,44,44,0)),color-stop(1, rgb(0,0,0)));
+    background: -moz-linear-gradient(center bottom,#000 0%,rgba(44,44,44,0) 50%, #000 100%);
+}
+/* Background line */
+.dwwol {
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 0;
+    margin-top: -1px;
+    border-top: 1px solid #333;
+    border-bottom: 1px solid #555;
+}
+/* Datewheel button */
+.dwb, .dwb:visited, .dwb:link {
+    display: inline-block;
+    width: 70px;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 15px;
+    margin: 0 2px 5px 2px;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    text-shadow:0 -1px 1px #000;
+    -moz-border-radius: 5px;
+    -webkit-border-radius:5px;
+    -moz-box-shadow:0 1px 3px rgba(0,0,0,0.5);
+    -webkit-box-shadow:0 1px 3px rgba(0,0,0,0.5);
+    color: #fff;
+    background: #000;
+    background: -webkit-gradient(linear,left bottom,left top,color-stop(0.5, rgb(0,0,0)),color-stop(0.5, rgb(110,110,110)));
+    background: -moz-linear-gradient(center bottom,rgb(0,0,0) 50%,rgb(110,110,110) 50%);
+}
+/* Datewheel button container */
+.dwbc {
+    margin-top: 5px;
+    text-align: center;
+}
+/* Color presets */
+/* Black */
+.sense-ui {
+    padding: 0;
+    background: #222;
+    border: 2px solid #fff;
+    color: #fff;
+}
+.sense-ui .dwwo {
+}
+.sense-ui .dwwol {
+}
+.sense-ui .dwv {
+    padding: 5px 10px;
+    border-bottom: 1px solid #fff;
+    text-align: left;
+}
+.sense-ui .dwlc {
+}
+.sense-ui .dwl {
+}
+.sense-ui .dwwc {
+    background: #222;
+}
+.sense-ui .dwwl {
+}
+.sense-ui .dww {
+}
+.sense-ui .dwbc {
+
+}
+.sense-ui .dwb {
+}
+
