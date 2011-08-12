@@ -598,7 +598,7 @@
 
     var defaults = {
         // Options
-        width: 80,
+        width: 90,
         height: 40,
         rows: 3,
         fx: false,
