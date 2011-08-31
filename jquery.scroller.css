@@ -45,14 +45,16 @@
     border-bottom: 1px solid #000;
 }
 /* Datewheel wheel container */
+.dwrc {
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
 .dwwc {
     display: block;
     margin: 0;
     padding: 0 2px;
     position: relative;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
     background: #000;
 }
 /* Datewheel wheels */
@@ -83,9 +85,11 @@
     width: 100%;
     position: relative;
     z-index: 2;
-    /*top: 0;
-    left: 0;*/
 }
+/*.dww ul.dwa {
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+}*/
 .dww li {
     list-style: none;
     margin: 0;
@@ -96,6 +100,56 @@
     font-size: 26px;
     text-shadow:0 1px 1px #000;
 }
+/* Wheel +/- buttons */
+.dwwb {
+    position: absolute;
+    z-index: 4;
+    left: 0;
+    cursor: pointer;
+    width: 100%;
+    height: 40px;
+    background: #ccc;
+    text-align: center;
+    color: #888;
+    text-shadow: 0 -1px 1px #333;
+    box-shadow: 0 0 5px #333;
+    -webkit-box-shadow: 0 0 5px #333;
+    -moz-box-shadow: 0 0 5px #333;
+}
+.dwwbp {
+    top: 0;
+    -webkit-border-radius: 3px 3px 0 0;
+    -moz-border-radius: 3px 3px 0 0;
+    border-radius: 3px 3px 0 0;
+    background: -webkit-gradient(linear,left bottom,left top,color-stop(0, #bdbdbd),color-stop(1, #f7f7f7));
+    background: -moz-linear-gradient(center bottom,#bdbdbd 0%,#f7f7f7 100%);
+    font-size: 40px;
+}
+.dwwbm {
+    bottom: 0;
+    -webkit-border-radius: 0 0 3px 3px;
+    -moz-border-radius: 0 0 3px 3px;
+    border-radius: 0 0 3px 3px;
+    background: -webkit-gradient(linear,left bottom,left top,color-stop(0, #f7f7f7),color-stop(1, #bdbdbd));
+    background: -moz-linear-gradient(center bottom,#f7f7f7 0%,#bdbdbd 100%);
+    font-size: 32px;
+    font-weight: bold;
+}
+.dwpm .dwwc {
+    background: transparent;
+}
+.dwpm .dww {
+    margin: -1px;
+    color: #000;
+    background: #fff;
+    border: 1px solid #AAA;
+}
+.dwpm .dww li {
+    text-shadow: none;
+}
+.dwpm .dwwol {
+    display: none;
+}
 /* Datewheel wheel overlay */
 .dwwo {
     position: absolute;
@@ -104,8 +158,8 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: -webkit-gradient(linear,left bottom,left top,color-stop(0, rgb(0,0,0)),color-stop(0.5, rgba(44,44,44,0)),color-stop(1, rgb(0,0,0)));
-    background: -moz-linear-gradient(center bottom,#000 0%,rgba(44,44,44,0) 50%, #000 100%);
+    background: -webkit-gradient(linear,left bottom,left top,color-stop(0, #000),color-stop(0.52, rgba(44,44,44,0)),color-stop(0.48, rgba(44,44,44,0)),color-stop(1, #000));
+    background: -moz-linear-gradient(center bottom,#000 0%,rgba(44,44,44,0) 52%, rgba(44,44,44,0) 48%, #000 100%);
 }
 /* Background line */
 .dwwol {
@@ -120,62 +174,272 @@
     border-bottom: 1px solid #555;
 }
 /* Datewheel button */
-.dwb, .dwb:visited, .dwb:link {
-    display: inline-block;
-    width: 70px;
+.dwb {
+    display: block;
+    /*width: 70px;*/
     height: 40px;
     line-height: 40px;
     padding: 0 15px;
-    margin: 0 2px 5px 2px;
+    margin: 0 2px;
     font-size: 14px;
     font-weight: bold;
     text-decoration: none;
     text-shadow:0 -1px 1px #000;
+    border-radius: 5px;
     -moz-border-radius: 5px;
     -webkit-border-radius:5px;
+    box-shadow:0 1px 3px rgba(0,0,0,0.5);
     -moz-box-shadow:0 1px 3px rgba(0,0,0,0.5);
     -webkit-box-shadow:0 1px 3px rgba(0,0,0,0.5);
     color: #fff;
     background: #000;
-    background: -webkit-gradient(linear,left bottom,left top,color-stop(0.5, rgb(0,0,0)),color-stop(0.5, rgb(110,110,110)));
-    background: -moz-linear-gradient(center bottom,rgb(0,0,0) 50%,rgb(110,110,110) 50%);
+    background: -webkit-gradient(linear,left bottom,left top,color-stop(0.5, #000),color-stop(0.5, #6e6e6e));
+    background: -moz-linear-gradient(center bottom,#000 50%,#6e6e6e 50%);
+}
+.dwb-a {
+    background:-webkit-gradient(linear,left bottom,left top,color-stop(0.5, #3c7500),color-stop(0.5, #94c840));
+    background:-moz-linear-gradient(center bottom,#3c7500 50%,#94c840 50%);
+}
+.dwwl .dwb-a {
+    background:-webkit-gradient(linear,left bottom,left top,color-stop(0, #3c7500),color-stop(1, #94c840));
+    background:-moz-linear-gradient(center bottom,#3c7500 0,#94c840 100%);
 }
 /* Datewheel button container */
 .dwbc {
-    margin-top: 5px;
+    /*margin-top: 5px;*/
+    padding: 5px 0;
     text-align: center;
 }
-/* Color presets */
-/* Black */
+/* Datewheel button wrapper */
+.dwbw {
+    display: inline-block;
+    width: 50%;
+}
+/* Android Skin */
+.android {
+    padding: 0;
+    background: #000;
+    border: 2px solid #555;
+    color: #fff;
+}
+.android .dwv {
+    padding: 10px;
+    border-bottom: 1px solid #333;
+}
+.android .dwwc {
+    background: #000;
+}
+.android .dwc {
+    padding-top: 8px;
+}
+.android .dwwl {
+    margin: 4px 1px;
+    border: 1px solid #9C9C9C;
+}
+.android .dww {
+    top: 0;
+    border: 0;
+    background: #fff;
+}
+.android .dwpm .dww {
+    margin: 0;
+}
+.android .dwpm .dwwl {
+    margin: 4px 2px;
+    border: 0;
+}
+.android .dww li {
+    color: #000;
+    text-shadow: none;
+}
+.android .dwl  {
+    display: none;
+}
+.android .dwwol {
+    border-bottom: 1px solid #ddd;
+    border-top: 1px solid #9C9C9C;
+}
+.android .dwbc {
+    padding: 5px 1px;
+    background: #9c9c9c;
+}
+.android .dwb {
+    margin: 0 5px;
+    background: #ccc;
+    background: -webkit-gradient(linear,left bottom,left top,color-stop(0, #ccc),color-stop(1, #eee));
+    background: -moz-linear-gradient(center bottom,#ccc 0%,#eee 100%);
+    color: #000;
+    font-weight: normal;
+    text-shadow: none;
+    border-radius: 0;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+}
+.android .dwb-a {
+    background: #ffb25a;
+    background: -webkit-gradient(linear,left bottom,left top,color-stop(0, #ef6100),color-stop(1, #ffb25a));
+    background: -moz-linear-gradient(center bottom,#ef6100 0%,#ffb25a 100%);
+}
+/* Sense UI Skin */
 .sense-ui {
     padding: 0;
-    background: #222;
+    background: #333;
     border: 2px solid #fff;
     color: #fff;
 }
-.sense-ui .dwwo {
-}
-.sense-ui .dwwol {
-}
 .sense-ui .dwv {
     padding: 5px 10px;
-    border-bottom: 1px solid #fff;
+    border-bottom: 1px solid #666;
     text-align: left;
 }
-.sense-ui .dwlc {
-}
-.sense-ui .dwl {
-}
 .sense-ui .dwwc {
-    background: #222;
-}
-.sense-ui .dwwl {
+    background: #333;
 }
 .sense-ui .dww {
+    margin: 0 2px;
+}
+.sense-ui .dwpm .dww {
+    margin: 0;
+    border: 0;
 }
 .sense-ui .dwbc {
-
+    padding: 5px 1px;
+    background: #000;
+    background: -webkit-gradient(linear,left bottom,left top,color-stop(0.5, #000),color-stop(0.5, #666));
+    background: -moz-linear-gradient(center bottom,#000 50%,#666 50%);
 }
 .sense-ui .dwb {
+    margin: 0 5px;
+    background: #000;
+    border: 1px solid #333;
+    background: -webkit-gradient(linear,left bottom,left top,color-stop(0, #000),color-stop(1, #444));
+    background: -moz-linear-gradient(center bottom,#000 0%,#444 100%);
+    box-shadow: inset 0 0 5px #000;
 }
-
+.sense-ui .dwb-a {
+    background:-webkit-gradient(linear,left bottom,left top,color-stop(0, #3c7500),color-stop(1, #94c840));
+    background:-moz-linear-gradient(center bottom,#3c7500 0,#94c840 100%);
+}
+/* iOS Skin */
+.ios {
+    padding: 40px 10px 10px 10px;
+    border: 1px solid #2d3034;
+    background: #50515d;
+    background: -webkit-gradient(linear,left bottom,left top,color-stop(0, #484a56),color-stop(1, #a2a3ab));
+    background: -moz-linear-gradient(center bottom,#484a56 0%, #a2a3ab 100%);
+    color: #fff;
+    border-radius: 0;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+}
+.ios .dwv {
+    display: none;
+}
+.ios .dwwc {
+    background: transparent;
+}
+.ios .dwwl {
+    margin: 4px 0;
+    border-left: 1px solid #000;
+    border-right: 1px solid #000;
+    background: #cbcce0;
+    background: -webkit-gradient(linear,left bottom,left top,color-stop(0, #2c2c38),color-stop(0.35, #cbcce0),color-stop(0.65, #cbcce0),color-stop(1, #2c2c38));
+    background: -moz-linear-gradient(center bottom,#2c2c38 0%,#cbcce0 35%, #cbcce0 65%,#2c2c38 100%);
+}
+.ios .dww {
+    margin: 0 3px;
+    background: #fff;
+    background: -webkit-gradient(linear,left bottom,left top,color-stop(0, #333),color-stop(0.10, #999),color-stop(0.30, #fff),color-stop(0.70, #fff),color-stop(0.90, #999),color-stop(1, #333));
+    background: -moz-linear-gradient(center bottom,#333 0%, #999 10%, #fff 30%, #fff 70%, #999 90%, #333 100%);
+    border-radius: 0;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+}
+.ios .dwpm .dww {
+    background: -webkit-gradient(linear,left bottom,left top,color-stop(0, #333),color-stop(0.48, #fff),color-stop(0.52, #fff),color-stop(1, #333));
+    background: -moz-linear-gradient(center bottom,#000 0%, #fff 48%, #fff 52%, #000 100%);
+}
+.ios .dwpm .dwwl {
+    margin: 4px 2px;
+}
+.ios .dwpm .dww {
+    margin: 0;
+    border: 0;
+}
+.ios .dww li {
+    color: #000;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: right;
+    text-shadow: none;
+}
+.ios .dwwo {
+    display: none;
+}
+.ios .dwwol {
+    height: 28px;
+    padding: 1px;
+    margin-top: -16px;
+    border-color: #7b8699;
+    background: #6f75b0;
+    background: -webkit-gradient(linear,left bottom,left top,color-stop(0.5, rgba(111, 117, 176, 0.5)),color-stop(0.5, rgba(151, 157, 197, 0.5)));
+    background: -moz-linear-gradient(center bottom,rgba(111, 117, 176, 0.5) 50%,rgba(151, 157, 197, 0.5) 50%);
+    z-index: 10;
+    left: -1px;
+    filter: alpha(opacity=50);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+}
+.ios .dwbc {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 5px 0;
+    background: #8093b0;
+    background: -webkit-gradient(linear,left bottom,left top,color-stop(0, #6e83a4),color-stop(0.5, #8093b0),color-stop(0.5, #889ab5),color-stop(1, #b1bccf));
+    background: -moz-linear-gradient(center bottom,#6e83a4 0%, #8093b0 50%, #889ab5 50%, #b1bccf 100%);
+    border-bottom: 1px solid #2d3034;
+}
+.ios .dwb {
+    margin: 0 5px;
+    display: inline-block;
+    font-size: 12px;
+    height: 26px;
+    line-height: 26px;
+    border: 1px solid #1947bb;
+    background: #2461e6;
+    background: -webkit-gradient(linear,left bottom,left top,color-stop(0, #2461e6),color-stop(0.5, #225ee5),color-stop(0.5, #386de8),color-stop(1, #7c9df0));
+    background: -moz-linear-gradient(center bottom,#2461e6 0%, #225ee5 50%, #386de8 50%, #7c9df0 100%);
+    box-shadow: 0 1px 0 rgba(255,255,255,0.5);
+    -moz-box-shadow: 0 1px 0 rgba(255,255,255,0.5);
+    -webkit-box-shadow: 0 1px 0 rgba(255,255,255,0.5);
+}
+.ios .dwb-a {
+    border: 1px solid #394f76;
+    background: #2461e6;
+    background: -webkit-gradient(linear,left bottom,left top,color-stop(0, #4c6b9f),color-stop(0.5, #49689d),color-stop(0.5, #5a76a6),color-stop(1, #8fa4c4));
+    background: -moz-linear-gradient(center bottom,#4c6b9f 0%, #49689d 50%, #5a76a6 50%, #8fa4c4 100%);
+}
+.ios .dwwb {
+    color: #fff;
+    border: 0;
+    background: #3f4e68;
+    background: -webkit-gradient(linear,left bottom,left top,color-stop(0, #3f4e68),color-stop(0.5, #75859f),color-stop(0.5, #808ea6),color-stop(1, #c7d1e2));
+    background: -moz-linear-gradient(center bottom,#3f4e68 0%, #75859f 50%, #808ea6 50%, #c7d1e2 100%);
+}
+.ios .dwwl .dwb-a {
+    background: #252c36;
+    background: -webkit-gradient(linear,left bottom,left top,color-stop(0, #252c36),color-stop(0.5, #171e28),color-stop(0.5, #272e38),color-stop(1, #6b6e75));
+    background: -moz-linear-gradient(center bottom,#252c36 0%, #171e28 50%, #272e38 50%, #6b6e75 100%);
+}
+.ios .dwb-s {
+    float: right;
+    text-align: right;
+}
+.ios .dwb-c {
+    float: left;
+    text-align: left;
+}
