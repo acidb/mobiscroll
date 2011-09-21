@@ -18,6 +18,32 @@ If you like it, spread the word!
 For the latest info follow us on Twitter http://twitter.com/#!/mobiscroll !
 Like us on Facebook http://www.facebook.com/pages/Mobiscroll/226962304011802 !
 
+Changelog 1.5.1
+===============
+
+Bugfixes
+--------
+
+  * Fixed: Destroy didn't set correctly the original readonly state of the input element.
+
+  * Fixed: Input element is not set to readonly if showOnFocus is false
+
+  * Fixed: Disabled state of form inputs was not correctly reset after hiding the scroller.
+
+  * Fixed: Don't show scroller if disabled and show is called programatically.
+
+Enhancements
+------------
+
+  * Added: if the onClose handler returns false, close is now prevented.
+
+  * Added: onCancel event handler.
+
+Notes
+-----
+
+  * From now we are using .prop to set readonly/disabled states. This means thet jQuery >= 1.6 is required.
+
 Changelog 1.5
 =============
 

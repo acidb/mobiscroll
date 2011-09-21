@@ -1,5 +1,5 @@
 ﻿/*!
- * jQuery MobiScroll v1.5
+ * jQuery MobiScroll v1.5.1
  * http://mobiscroll.com
  *
  * Copyright 2010-2011, Acid Media
@@ -10,21 +10,51 @@
 
     function Scroller(elm, dw, settings) {
         var that = this,
+            s = settings,
             yOrd,
             mOrd,
             dOrd,
-            show = false;
+            visible = false;
 
-        this.settings = settings;
+        this.settings = s;
         this.values = null;
         this.val = null;
         // Temporary values
         this.temp = null;
 
+        /**
+        * Set settings for all instances.
+        * @param {Object} o - New default settings.
+        */
         this.setDefaults = function(o) {
             $.extend(defaults, o);
         }
 
+        /**
+        * Enables the scroller and the associated input.
+        */
+        this.enable = function() {
+            s.disabled = false;
+            if ($(elm).is(':input'))
+                $(elm).prop('disabled', false);
+        }
+
+        /**
+        * Disables the scroller and the associated input.
+        */
+        this.disable = function() {
+            s.disabled = true;
+            if ($(elm).is(':input'))
+                $(elm).prop('disabled', true);
+        }
+
+        /**
+        * Format a date into a string value with a specified format.
+        * @param {String} format - Output format.
+        * @param {Date} date - Date to format.
+        * @param {Object} settings - Settings.
+        * @return {String} - Returns the formatted date string.
+        */
         this.formatDate = function (format, date, settings) {
             if (!date) return null;
             var s = $.extend({}, this.settings, settings),
@@ -106,6 +136,13 @@
             return output;
         }
 
+        /**
+        * Extract a date from a string value with a specified format.
+        * @param {String} format - Input format.
+        * @param {String} value - String to parse.
+        * @param {Object} settings - Settings.
+        * @return {Date} - Returns the extracted date.
+        */
         this.parseDate = function (format, value, settings) {
             var def = new Date();
             if (!format || !value) return def;
@@ -233,17 +270,25 @@
             return date;
         }
 
+        /**
+        * Gets the selected wheel values, formats it, and set the value of the scroller instance.
+        * If input parameter is true, populates the associated input element.
+        * @param {Boolean} [input] - Also set the value of the associated input element. Default is true.
+        */
         this.setValue = function (input) {
             if (input == undefined) input = true;
             var v = this.formatResult();
             this.val = v;
             this.values = this.temp.slice(0);
-            if (input && $(elm).is('input')) $(elm).val(v).change();
+            if (input && $(elm).is(':input')) $(elm).val(v).change();
         }
 
+        /**
+        * Returns the currently selected date.
+        * @return {Date}
+        */
         this.getDate = function () {
             var d = this.values;
-            var s = this.settings;
             if (s.preset == 'date')
                 return new Date(d[yOrd], d[mOrd], d[dOrd]);
             if (s.preset == 'time') {
@@ -256,8 +301,12 @@
             }
         }
 
+        /**
+        * Sets the selected date
+        * @param {Date} d - Date to select.
+        * @param {Boolean} [input] - Also set the value of the associated input element. Default is true.
+        */
         this.setDate = function (d, input) {
-            var s = this.settings;
             if (s.preset.match(/date/i)) {
                 this.temp[yOrd] = d.getFullYear();
                 this.temp[mOrd] = d.getMonth();
@@ -280,8 +329,12 @@
             this.setValue(input);
         }
 
+        /**
+        * Extracts the selected wheel values form the string value.
+        * @param {String} val - String to parse.
+        * @return {Array} Array with the selected wheel values.
+        */
         this.parseValue = function (val) {
-            var s = this.settings;
             if (this.preset) {
                 var result = [];
                 if (s.preset == 'date') {
@@ -314,8 +367,11 @@
             return s.parseValue(val);
         }
 
+        /**
+        * Formats the selected wheel values form the required format.
+        * @return {String} Formatted string.
+        */
         this.formatResult = function () {
-            var s = this.settings;
             var d = this.temp;
             if (this.preset) {
                 if (s.preset == 'date') {
@@ -333,10 +389,14 @@
             return s.formatResult(d);
         }
 
+        /**
+        * Checks if the current selected values are valid together.
+        * In case of date presets it checks the number of days in a month.
+        * @param {Integer} i - Currently changed wheel index, -1 if initial validation.
+        */
         this.validate = function(i) {
-            var s = this.settings;
             // If target is month, show/hide days
-            if (this.preset && s.preset.match(/date/i) && ((i == yOrd) || (i == mOrd))) {
+            if (this.preset && s.preset.match(/date/i) && ((i == yOrd) || (i == mOrd) || (i == -1))) {
                 var days = 32 - new Date(this.temp[yOrd], this.temp[mOrd], 32).getDate() - 1;
                 var day = $('ul:eq(' + dOrd + ')', dw);
                 $('li', day).show();
@@ -347,23 +407,35 @@
                 }
             }
             else {
-                methods.validate(i);
+                s.validate(i);
             }
         }
 
+        /**
+        * Hides the scroller instance.
+        */
         this.hide = function () {
-            this.settings.onClose(this.val, this);
-            $(':input:not(.dwtd)').attr('disabled', false).removeClass('dwtd');
+            // If onClose handler returns false, prevent hide
+            if (s.onClose(this.val, this) === false) return false;
+            // Re-enable temporary disabled fields
+            $('.dwtd').prop('disabled', false).removeClass('dwtd');
             $(elm).blur();
+            // Hide wheels and overlay
             dw.hide();
             dwo.hide();
-            show = false;
-            if (this.preset) this.settings.wheels = null;
+            visible = false;
+            if (this.preset)
+                s.wheels = null;
+            // Stop positioning on window resize
             $(window).unbind('resize.dw');
         }
 
+        /**
+        * Shows the scroller instance.
+        */
         this.show = function () {
-            var s = this.settings;
+            if (s.disabled || visible) return false;
+
             s.beforeShow(elm, this);
             // Set global wheel element height
             h = s.height;
@@ -451,6 +523,8 @@
             });
             // Set value text
             $('.dwv', dw).html(this.formatResult());
+            // Initial validate
+            that.validate(-1);
 
             // Init buttons
             $('#dw_set', dw).text(s.setText).unbind().bind('click', function (e) {
@@ -461,17 +535,18 @@
             });
 
             $('#dw_cancel', dw).text(s.cancelText).unbind().bind('click', function (e) {
+                s.onCancel(that.val, inst);
                 that.hide();
                 return false;
             });
 
             // Disable inputs to prevent bleed through (Android bug)
-            $(':input:disabled').addClass('dwtd');
-            $(':input').attr('disabled', true);
+            $(':input:not(:disabled)').addClass('dwtd');
+            $(':input').prop('disabled', true);
             // Show
             dwo.show();
             dw.attr('class', 'dw ' + s.theme).show();
-            show = true;
+            visible = true;
             // Set sizes
             $('.dww, .dwwl', dw).height(s.rows * h);
             $('.dww', dw).each(function() { $(this).width($(this).parent().width() < s.width ? s.width : $(this).parent().width()); });
@@ -493,7 +568,9 @@
             $(window).bind('resize.dw', function() { that.pos(); });
         }
 
-        // Set position
+        /**
+        * Positions the scroller instance to the center of the viewport.
+        */
         this.pos = function() {
             var totalw = 0,
                 minw = 0,
@@ -516,10 +593,12 @@
             dwo.height($(document).height());
         }
 
+        /**
+        * Scroller initialization.
+        */
         this.init = function() {
-            var s = this.settings,
-                // Set year-month-day order
-                ty = s.dateOrder.search(/y/i),
+            // Set year-month-day order
+            var ty = s.dateOrder.search(/y/i),
                 tm = s.dateOrder.search(/m/i),
                 td = s.dateOrder.search(/d/i);
             yOrd = (ty < tm) ? (ty < td ? 0 : 1) : (ty < td ? 1 : 2);
@@ -527,24 +606,25 @@
             dOrd = (td < ty) ? (td < tm ? 0 : 1) : (td < tm ? 1 : 2);
             this.preset = (s.wheels === null);
             // Set values
-            if (this.values !== null) {
+            /*if (this.values !== null) {
                 // Clone values array
                 this.temp = this.values.slice(0);
             }
-            else {
-                this.temp = this.parseValue($(elm).val() ? $(elm).val() : '');
-                this.setValue(false);
-            }
+            else {*/
+            this.temp = this.parseValue($(elm).val() ? $(elm).val() : '');
+            this.setValue(false);
+            //}
         }
 
         this.init();
 
         // Set element readonly, save original state
-        $(elm).is('input') ? $(elm).attr('readonly', 'readonly').data('readonly', $(elm).attr('readonly')) : false;
+        if ($(elm).is(':input') && s.showOnFocus)
+            $(elm).data('dwro', $(elm).prop('readonly')).prop('readonly', true);
 
         // Init show datewheel
         $(elm).addClass('scroller').unbind('focus.dw').bind('focus.dw', function (e) {
-            if (!that.settings.disabled && that.settings.showOnFocus && !show)
+            if (s.showOnFocus)
                 that.show();
         });
     }
@@ -606,6 +686,7 @@
             beforeShow: function() {},
             onClose: function() {},
             onSelect: function() {},
+            onCancel: function() {},
             formatResult: function(d) {
                 var out = '';
                 for (var i = 0; i < d.length; i++) {
@@ -615,6 +696,9 @@
             },
             parseValue: function(val) {
                 return val.split(' ');
+            },
+            validate: function() {
+                return true;
             }
         },
 
@@ -794,15 +878,14 @@
                     scrollers[this.id] = new Scroller(this, dw, settings);
                 });
             },
-            validate: function() { },
             enable: function() {
                 return this.each(function () {
-                    if (scrollers[this.id]) scrollers[this.id].settings.disabled = false;
+                    if (scrollers[this.id]) scrollers[this.id].enable();
                 });
             },
             disable: function() {
                 return this.each(function () {
-                    if (scrollers[this.id]) scrollers[this.id].settings.disabled = true;
+                    if (scrollers[this.id]) scrollers[this.id].disable();
                 });
             },
             isDisabled: function() {
@@ -859,7 +942,8 @@
                 return this.each(function () {
                     if (scrollers[this.id]) {
                         $(this).unbind('focus.dw').removeClass('scroller');
-                        $(this).is('input') ? $(this).attr('readonly', $(this).data('readonly')) : false;
+                        if ($(this).is(':input'))
+                            $(this).prop('readonly', $(this).data('dwro'));
                         delete scrollers[this.id];
                     }
                 });
