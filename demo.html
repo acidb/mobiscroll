@@ -1,21 +1,21 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
     <meta name="description" content="Mobiscroll is a scroller style date/time picker optimized for touch devices such as iPhone, iPad, Android, to easily enter date and/or time. It's easily customizable and comes with very nice pre-defined themes: iOS, Android, Sense UI, Default."/>
     <meta name="keywords" content="jQuery, JavaScript, datepicker, timepicker, touchscreen, Webkit, android, iPhone, iPad, webapps, GalaxyTab, dropdown, mobile, wheel, senseui, wheel, barrel, scroller-style, clickpick"/>
-    <title>jQuery MobiScroll Demo</title>
+    <title>Mobiscroll</title>
     <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 
-    <link rel="stylesheet"  href="http://code.jquery.com/mobile/1.0b3/jquery.mobile-1.0b3.min.css" />
+    <link rel="stylesheet"  href="http://code.jquery.com/mobile/1.0rc2/jquery.mobile-1.0rc2.min.css" />
 
-    <script src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
-    <script src="http://code.jquery.com/mobile/1.0b3/jquery.mobile-1.0b3.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.0rc2/jquery.mobile-1.0rc2.min.js"></script>
 
-    <script src="js/mobiscroll-1.5.1.js" type="text/javascript"></script>
+    <script src="js/mobiscroll-1.5.2.js" type="text/javascript"></script>
 
-    <link href="css/mobiscroll-1.5.1.css" rel="stylesheet" type="text/css" />
+    <link href="css/mobiscroll-1.5.2.css" rel="stylesheet" type="text/css" />
 
     <style type="text/css">
         body {
@@ -32,50 +32,26 @@
     <script type="text/javascript">
         $(document).ready(function () {
             // Date with external button
-            $('#date1').scroller({ showOnFocus: false });
-            $('#show').click(function() { $('#date1').scroller('show'); return false; });
+            $('#date1').scroller();
             // Time
             $('#date2').scroller({ preset: 'time' });
             // Datetime
             $('#date3').scroller({ preset: 'datetime' });
 
-            var wheels = [{
-                'Label 1': {
-                    1: '<img src="img/siesta-strawberry.png" />',
-                    2: '<img src="img/brilliant-pear.png" />',
-                    3: '<img src="img/roman-grape.png" />',
-                    4: '<img src="img/mute-orange.png" />',
-                    5: '<img src="img/rasta-ananas.png" />'
-                },
-                'Label 2': {
-                    1: '<img src="img/siesta-strawberry.png" />',
-                    2: '<img src="img/brilliant-pear.png" />',
-                    3: '<img src="img/roman-grape.png" />',
-                    4: '<img src="img/mute-orange.png" />',
-                    5: '<img src="img/rasta-ananas.png" />'
-                },
-                'Label 3': {
-                    1: '<img src="img/siesta-strawberry.png" />',
-                    2: '<img src="img/brilliant-pear.png" />',
-                    3: '<img src="img/roman-grape.png" />',
-                    4: '<img src="img/mute-orange.png" />',
-                    5: '<img src="img/rasta-ananas.png" />'
+            var group = {};
+            var wheels = [group];
+            for (var i = 1; i < 4; i++) {
+                var wheel = {};
+                for (var j = 0; j < 100; j++) {
+                    wheel[j] = '<img src="img/fruit-' + (j % 5 + 1) + '.png" />'
                 }
-            }];
+                group['Fruit ' + i] = wheel;
+            }
+
             $('#custom').scroller({
                 width: 90,
-                wheels: wheels,
-                parseValue: function (s) {
-                    if (s !== '') {
-                        var d = s.split(' ');
-                    }
-                    else {
-                        var d = [1,1,1];
-                    }
-                    return d;
-                }
+                wheels: wheels
             });
-            $('#custom').click(function() { $(this).scroller('show'); });
 
             $('#disable').click(function() {
                 $('#date1').scroller('disable');
@@ -100,7 +76,7 @@
             $('#theme, #mode').change(function() {
                 var t = $('#theme').val();
                 var m = $('#mode').val();
-                $('#date1').scroller('destroy').scroller({ showOnFocus: false, theme: t, mode: m });
+                $('#date1').scroller('destroy').scroller({ theme: t, mode: m });
                 $('#date2').scroller('destroy').scroller({ preset: 'time', theme: t, mode: m });
                 $('#date3').scroller('destroy').scroller({ preset: 'datetime', theme: t, mode: m });
                 $('#custom').scroller('option', { theme: t, mode: m });
@@ -137,13 +113,14 @@
 
                 <div data-role="fieldcontain">
                     <label for="date1">Date</label>
-                    <input type="text" name="date1" id="date1" class="mobiscroll" value="09/30/2011" />
+                    <input type="text" name="date1" id="date1" class="mobiscroll" value="01.01.2011" />
                 </div>
 
                 <div data-role="controlgroup" data-type="horizontal">
-                    <button id="show" data-theme="a">Show</button>
                     <button id="disable" data-theme="a">Disable</button>
                     <button id="enable" data-theme="a">Enable</button>
+                </div>
+                <div data-role="controlgroup" data-type="horizontal">
                     <button id="get" data-theme="a">Get</button>
                     <button id="set" data-theme="a">Set</button>
                 </div>
@@ -160,7 +137,7 @@
 
                 <div data-role="fieldcontain">
                     <label for="custom">Custom (Fruits :D)</label>
-                    <input type="text" name="custom" id="custom" class="mobiscroll" value="" />
+                    <input type="text" name="custom" id="custom" class="mobiscroll" value="1 0 1" />
                 </div>
             </form>
         </div>
