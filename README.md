@@ -18,6 +18,23 @@ If you like it, spread the word!
 For the latest info follow us on Twitter http://twitter.com/#!/mobiscroll !
 Like us on Facebook http://www.facebook.com/pages/Mobiscroll/226962304011802 !
 
+Changelog 1.5.2
+===============
+
+Bugfixes
+--------
+
+  * Fixed: First selected value did not work correctly by default for custom scrollers
+
+  * Fixed: Incorerect parsing of am/pm time for 12:xx AM
+
+Enhancements
+------------
+
+  * Added: animation on touchend/mouseup event
+
+  * Added: full CSS3 support for Opera 11 and IE10
+
 Changelog 1.5.1
 ===============
 

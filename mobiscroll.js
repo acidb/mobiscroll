@@ -1,5 +1,5 @@
 ﻿/*!
- * jQuery MobiScroll v1.5.1
+ * jQuery MobiScroll v1.5.2
  * http://mobiscroll.com
  *
  * Copyright 2010-2011, Acid Media
@@ -14,6 +14,7 @@
             yOrd,
             mOrd,
             dOrd,
+            iv = {},
             visible = false;
 
         this.settings = s;
@@ -37,6 +38,37 @@
             s.disabled = false;
             if ($(elm).is(':input'))
                 $(elm).prop('disabled', false);
+        }
+
+        /**
+        * Scrolls target to the specified position
+        * @param {Object} t - Target wheel jQuery object.
+        * @param {Number} val - Value.
+        * @param {Number} [time] - Duration of the animation, optional.
+        */
+        this.scroll = function(t, val, time, orig, index) {
+            //t.data('pos', val)
+            t.attr('style', (time ? (prefix + '-transition:all ' + time.toFixed(1) + 's ease-out;') : '') + (has3d ? (prefix + '-transform:translate3d(0,' + (val * h) + 'px,0);') : ('top:' + (val * h) + 'px;')));
+
+            function getVal(t, b, c, d) {
+                return c * Math.sin(t/d * (Math.PI/2)) + b;
+            }
+
+            if (time) {
+                var i = 0;
+                clearInterval(iv[index]);
+                iv[index] = setInterval(function() {
+                    i += 0.1;
+                    t.data('pos', Math.round(getVal(i, orig, val - orig, time)));
+                    if (i >= time) {
+                        clearInterval(iv[index]);
+                        t.data('pos', val);
+                    }
+                }, 100);
+            }
+            else {
+                t.data('pos', val)
+            }
         }
 
         /**
@@ -155,7 +187,7 @@
                 hours = def.getHours(),
                 minutes = def.getMinutes(),
                 seconds = def.getSeconds(),
-                ampm = 0,
+                ampm = -1,
                 literal = false,
                 // Check whether a format character is doubled
                 lookAhead = function(match) {
@@ -263,7 +295,8 @@
                     day -= dim;
                 } while (true);
             }
-            if (ampm && hours < 12) hours += 12;
+            hours = (ampm == -1) ? hours : ((ampm && hours < 12) ? (hours + 12) : (!ampm && hours == 12 ? 0 : hours));
+            //if (ampm && hours < 12) hours += 12;
             var date = new Date(year, month - 1, day, hours, minutes, seconds);
             if (date.getFullYear() != year || date.getMonth() + 1 != month || date.getDate() != day)
                 throw 'Invalid date'; // E.g. 31/02/*
@@ -292,11 +325,11 @@
             if (s.preset == 'date')
                 return new Date(d[yOrd], d[mOrd], d[dOrd]);
             if (s.preset == 'time') {
-                var hour = (s.ampm && d[s.seconds ? 3 : 2] == 'PM' && (d[0] - 0) < 12) ? (d[0] - 0 + 12) : d[0];
+                var hour = (s.ampm) ? ((d[s.seconds ? 3 : 2] == 'PM' && (d[0] - 0) < 12) ? (d[0] - 0 + 12) : (d[s.seconds ? 3 : 2] == 'AM' && (d[0] == 12) ? 0 : d[0])) : d[0];
                 return new Date(1970, 0, 1, hour, d[1], s.seconds ? d[2] : null);
             }
             if (s.preset == 'datetime') {
-                var hour = (s.ampm && d[s.seconds ? 6 : 5] == 'PM' && (d[3] - 0) < 12) ? (d[3] - 0 + 12) : d[3];
+                var hour = (s.ampm) ? ((d[s.seconds ? 6 : 5] == 'PM' && (d[3] - 0) < 12) ? (d[3] - 0 + 12) : (d[s.seconds ? 6 : 5] == 'AM' && (d[3] == 12) ? 0 : d[3])) : d[3];
                 return new Date(d[yOrd], d[mOrd], d[dOrd], hour, d[4], s.seconds ? d[5] : null);
             }
         }
@@ -364,7 +397,7 @@
                 }
                 return result;
             }
-            return s.parseValue(val);
+            return s.parseValue(val, this);
         }
 
         /**
@@ -402,7 +435,7 @@
                 $('li', day).show();
                 $('li:gt(' + days + ')', day).hide();
                 if (this.temp[dOrd] > days) {
-                    day.addClass('dwa').css('top', (h * (m - days - 1)) + 'px');
+                    this.scroll(day, m - days - 1);
                     this.temp[dOrd] = $('li:eq(' + days + ')', day).data('val');
                 }
             }
@@ -478,7 +511,7 @@
                     s.stepSecond = (s.stepSecond < 1) ? 1 : parseInt(s.stepSecond);
                     var w = {};
                     w[s.hourText] = {};
-                    for (var i = 0; i < (s.ampm ? 13 : 24); i += s.stepHour)
+                    for (var i = (s.ampm ? 1 : 0); i < (s.ampm ? 13 : 24); i += s.stepHour)
                         w[s.hourText][i] = (i < 10) ? ('0' + i) : i;
                     w[s.minuteText] = {};
                     for (var i = 0; i < 60; i += s.stepMinute)
@@ -518,8 +551,7 @@
                 while ((x < 0) && (--that.temp[i] >= 0)) {
                   x = $('li', this).index($('li.val_' + that.temp[i], this));
                 }
-                var val = h * (m - (x < 0 ? 0 : x) - 1);
-                $(this).css('top', val);
+                that.scroll($(this), m - (x < 0 ? 0 : x) - 1);
             });
             // Set value text
             $('.dwv', dw).html(this.formatResult());
@@ -605,15 +637,8 @@
             mOrd = (tm < ty) ? (tm < td ? 0 : 1) : (tm < td ? 1 : 2);
             dOrd = (td < ty) ? (td < tm ? 0 : 1) : (td < tm ? 1 : 2);
             this.preset = (s.wheels === null);
-            // Set values
-            /*if (this.values !== null) {
-                // Clone values array
-                this.temp = this.values.slice(0);
-            }
-            else {*/
-            this.temp = this.parseValue($(elm).val() ? $(elm).val() : '');
+            this.temp = ($(elm).is('input') || this.values === null) ? this.parseValue($(elm).val() ? $(elm).val() : '') : this.values.slice(0);
             this.setValue(false);
-            //}
         }
 
         this.init();
@@ -629,10 +654,29 @@
         });
     }
 
+    function testProps(props) {
+        for (var i in props) {
+            if (mod[props[i]] !== undefined ) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    function testPrefix() {
+        var prefixes = ['Webkit', 'Moz', 'O', 'ms'];
+        for (var p in prefixes) {
+            if (testProps([prefixes[p] + 'Transform']))
+                return '-' + prefixes[p].toLowerCase();
+        }
+        return '';
+    }
+
     var dw,
         dwo,
         h,
         m,
+        l,
         inst, // Current instance
         scrollers = {}, // Scroller instances
         date = new Date(),
@@ -641,14 +685,19 @@
         target = null,
         start,
         stop,
+        startTime,
+        endTime,
         pos,
+        mod = document.createElement(mod).style,
+        has3d = testProps(['perspectiveProperty', 'WebkitPerspective', 'MozPerspective', 'OPerspective', 'msPerspective']) && 'webkitPerspective' in document.documentElement.style,
+        prefix = testPrefix(),
         touch = ('ontouchstart' in window),
         START_EVENT = touch ? 'touchstart' : 'mousedown',
         MOVE_EVENT = touch ? 'touchmove' : 'mousemove',
         END_EVENT = touch ? 'touchend' : 'mouseup',
         defaults = {
             // Options
-            width: 90,
+            width: 80,
             height: 40,
             rows: 3,
             disabled: false,
@@ -662,8 +711,8 @@
             ampm: true,
             seconds: false,
             timeFormat: 'hh:ii A',
-            startYear: date.getFullYear() - 10,
-            endYear: date.getFullYear() + 10,
+            startYear: date.getFullYear() - 100,
+            endYear: date.getFullYear() + 1,
             monthNames: ['January','February','March','April','May','June', 'July','August','September','October','November','December'],
             monthNamesShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
             dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
@@ -694,8 +743,21 @@
                 }
                 return out;
             },
-            parseValue: function(val) {
-                return val.split(' ');
+            parseValue: function(val, inst) {
+                var w = inst.settings.wheels,
+                    ret = val.split(' '),
+                    def = [],
+                    total = 0;
+                for (var i = 0; i < w.length; i++) {
+                    for (var l in w[i]) {
+                        total++;
+                        for (var v in w[i][l]) {
+                            def.push(v);
+                            break;
+                        }
+                    }
+                }
+                return ret.length == total ? ret : def;
             },
             validate: function() {
                 return true;
@@ -740,9 +802,52 @@
 
                     dw.hide().appendTo('body');
 
+                    function getY(e) {
+                        return touch ? e.originalEvent.changedTouches[0].pageY : e.pageY;
+                    }
+
+                    function calc(t, val, anim, orig) {
+                        var i = $('ul', dw).index(t);
+                        val = val > (m - 1) ? (m - 1) : val;
+                        val = val < (m - l) ? (m - l) : val;
+                        // Call scroll with animation (calc animation time)
+                        inst.scroll(t, val, anim ? (val == orig ? 0.1 : Math.abs((val - orig) * 0.1)) : 0, orig, i);
+                        // Set selected scroller value
+                        inst.temp[i] = $('li:eq(' + (m - 1 - val) + ')', t).data('val');
+                        // Validate
+                        inst.validate(i);
+                        // Set value text
+                        $('.dwv', dw).html(inst.formatResult());
+                    }
+
+                    function plus(t) {
+                        if (plustap) {
+                            var p = t.data('pos'),
+                                val = p - 1;
+                            val = val < (m - l) ? (m - 1) : val;
+                            calc(t, val);
+                        }
+                        else {
+                            clearInterval(plustap);
+                        }
+                    }
+
+                    function minus(t) {
+                        if (minustap) {
+                            var p = t.data('pos'),
+                                val = p + 1;
+                            val = val > (m - 1) ? (m - l) : val;
+                            calc(t, val);
+                        }
+                        else {
+                            clearInterval(minustap);
+                        }
+                    }
+
                     $(document).bind(MOVE_EVENT, function (e) {
                         if (move) {
-                            stop = touch ? e.originalEvent.changedTouches[0].pageY : e.pageY;
+                            e.preventDefault();
+                            stop = getY(e);
 
                             // Circular wheels
                             /*var diff = Math.round((stop - start) / h);
@@ -754,61 +859,34 @@
                                 start -= h;
                                 $('li:first', target).appendTo(target);
                             }*/
-
-
-                            target.removeClass('dwa').css('top', (pos + stop - start) + 'px');
-                            e.preventDefault();
-                            e.stopPropagation();
-                            return false;
+                            var val = pos + (stop - start) / h;
+                            val = val > (m - 1 + 1) ? (m - 1 + 1) : val;
+                            val = val < (m - l - 1) ? (m - l - 1) : val;
+                            inst.scroll(target, val);
                         }
                     });
 
-                    function calc(t, val) {
-                        var i = $('ul', dw).index(t),
-                            l = $('li:visible', t).length;
-                        val = val > (m - 1) ? (m - 1) : val;
-                        val = val < (m - l) ? (m - l) : val;
-                        t.addClass('dwa').css('top', val * h);
-                        // Set selected scroller value
-                        inst.temp[i] = $('li:eq(' + (m - 1 - val) + ')', t).data('val');
-                        // Validate
-                        inst.validate(i);
-                        // Set value text
-                        $('.dwv', dw).html(inst.formatResult());
-                    }
-
-                    function plus(t) {
-                        if (plustap) {
-                            var p = t.css('top').replace(/px/i, '') - 0,
-                                val = (p - h) / h;
-                            val = val < (m - $('li:visible', t).length) ? (m - 1) : val;
-                            calc(t, val);
-                        }
-                        else {
-                            clearInterval(plustap);
-                        }
-                    }
-
-                    function minus(t) {
-                        if (minustap) {
-                            var p = t.css('top').replace(/px/i, '') - 0,
-                                val = (p + h) / h;
-                            val = val > (m - 1) ? (m - $('li:visible', t).length) : val;
-                            calc(t, val);
-                        }
-                        else {
-                            clearInterval(minustap);
-                        }
-                    }
-
                     $(document).bind(END_EVENT, function (e) {
                         if (move) {
-                            var val = Math.round((pos + stop - start) / h);
-                            calc(target, val);
+                            e.preventDefault();
+                            var time = new Date() - startTime;
+
+                            var val = pos + (stop - start) / h;
+                            val = val > (m - 1 + 1) ? (m - 1 + 1) : val;
+                            val = val < (m - l - 1) ? (m - l - 1) : val;
+
+                            /*if (time < 300) {
+                                var speed = (stop - start) / time;
+                                var dist = (speed * speed) / (2 * 0.0006);
+                                if (stop - start < 0) dist = -dist;
+                            }
+                            else {
+                                var dist = stop - start;
+                            }*/
+                            var dist = stop - start;
+                            calc(target, Math.round(pos + dist / h), true, Math.round(val));
                             move = false;
                             target = null;
-                            e.preventDefault();
-                            e.stopPropagation();
                         }
                         clearInterval(plustap);
                         clearInterval(minustap);
@@ -818,10 +896,12 @@
                     });
 
                     dw.delegate('.dwwl', 'DOMMouseScroll mousewheel', function (e) {
+                        e.preventDefault();
                         var delta = e.wheelDelta ? (e.wheelDelta / 120) : (e.detail ? (-e.detail / 3) : 0),
                             t = $('ul', this),
-                            p = t.css('top').replace(/px/i, '') - 0,
-                            val = Math.round((p + delta * h) / h);
+                            p = t.data('pos'),
+                            val = Math.round(p + delta);
+                        l = $('li:visible', t).length;
 
                         // Circular wheels
                         /*if (p > val) {
@@ -832,11 +912,7 @@
                             val -= 40;
                             $('li:last', t).prependTo(t);
                         }*/
-
-
                         calc(t, val);
-                        e.preventDefault();
-                        e.stopPropagation();
                     }).delegate('.dwb, .dwwb', START_EVENT, function (e) {
                         // Active button
                         $(this).addClass('dwb-a');
@@ -844,6 +920,7 @@
                         // + Button
                         e.preventDefault();
                         var t = $(this).closest('.dwwl').find('ul');
+                        l = $('li:visible', t).length;
                         clearInterval(plustap);
                         plustap = setInterval(function() { plus(t); }, 200);
                         plus(t);
@@ -851,21 +928,22 @@
                         // - Button
                         e.preventDefault();
                         var t = $(this).closest('.dwwl').find('ul');
+                        l = $('li:visible', t).length;
                         clearInterval(minustap);
                         minustap = setInterval(function() { minus(t); }, 200);
                         minus(t);
                     }).delegate('.dwwl', START_EVENT, function (e) {
                         // Scroll start
                         if (!move && inst.settings.mode == 'scroller') {
-                            var x1 = touch ? e.originalEvent.changedTouches[0].pageX : e.pageX,
-                                x2 = $(this).offset().left;
+                            e.preventDefault();
                             move = true;
                             target = $('ul', this);
-                            pos = target.css('top').replace(/px/i, '') - 0;
-                            start = touch ? e.originalEvent.changedTouches[0].pageY : e.pageY;
+                            pos = target.data('pos');
+                            l = $('li:visible', target).length;
+                            start = getY(e);
+                            startTime = new Date();
                             stop = start;
-                            e.preventDefault();
-                            e.stopPropagation();
+                            inst.scroll(target, pos);
                         }
                     });
                 }
