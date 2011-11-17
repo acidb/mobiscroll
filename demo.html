@@ -36,6 +36,10 @@
             $('#date2').scroller({ preset: 'time' });
             // Datetime
             $('#date3').scroller({ preset: 'datetime' });
+            // Day
+            $('#date4').scroller({ preset: 'day' });
+            // DayTime
+            $('#date5').scroller({ preset: 'daytime' });
 
             var group = {};
             var wheels = [group];
@@ -78,6 +82,8 @@
                 $('#date1').scroller('destroy').scroller({ theme: t, mode: m });
                 $('#date2').scroller('destroy').scroller({ preset: 'time', theme: t, mode: m });
                 $('#date3').scroller('destroy').scroller({ preset: 'datetime', theme: t, mode: m });
+                $('#date4').scroller('destroy').scroller({ preset: 'day', theme: t, mode: m });
+                $('#date5').scroller('destroy').scroller({ preset: 'daytime', theme: t, mode: m });
                 $('#custom').scroller('option', { theme: t, mode: m });
             });
         });
@@ -132,6 +138,16 @@
                 <div data-role="fieldcontain">
                     <label for="date3">Datetime</label>
                     <input type="text" name="date3" id="date3" class="mobiscroll" />
+                </div>
+                
+                <div data-role="fieldcontain">
+                    <label for="date4">Day</label>
+                    <input type="text" name="date4" id="date4" class="mobiscroll" value="0" />
+                </div>
+                
+                <div data-role="fieldcontain">
+                    <label for="date5">Daytime</label>
+                    <input type="text" name="date5" id="date5" class="mobiscroll" />
                 </div>
 
                 <div data-role="fieldcontain">

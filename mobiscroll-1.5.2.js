@@ -328,9 +328,15 @@
                 var hour = (s.ampm) ? ((d[s.seconds ? 3 : 2] == 'PM' && (d[0] - 0) < 12) ? (d[0] - 0 + 12) : (d[s.seconds ? 3 : 2] == 'AM' && (d[0] == 12) ? 0 : d[0])) : d[0];
                 return new Date(1970, 0, 1, hour, d[1], s.seconds ? d[2] : null);
             }
+            if (s.preset == 'day') {
+                return new Date(); // TODO
+            }
             if (s.preset == 'datetime') {
                 var hour = (s.ampm) ? ((d[s.seconds ? 6 : 5] == 'PM' && (d[3] - 0) < 12) ? (d[3] - 0 + 12) : (d[s.seconds ? 6 : 5] == 'AM' && (d[3] == 12) ? 0 : d[3])) : d[3];
                 return new Date(d[yOrd], d[mOrd], d[dOrd], hour, d[4], s.seconds ? d[5] : null);
+            }
+            if (s.preset == 'daytime') {
+                return new Date(); // TODO
             }
         }
 
@@ -352,11 +358,21 @@
                 if (s.seconds) this.temp[2] = d.getSeconds();
                 if (s.ampm) this.temp[s.seconds ? 3 : 2] = hour > 11 ? 'PM' : 'AM';
             }
+            if (s.preset.match(/day/i)) {
+                this.temp[0] = d.getDay();
+            }
             if (s.preset == 'datetime') {
                 var hour = d.getHours();
                 this.temp[3] = (s.ampm) ? (hour > 12 ? (hour - 12) : (hour == 0 ? 12 : hour)) : hour;
                 this.temp[4] = d.getMinutes();
                 if (s.seconds) this.temp[5] = d.getSeconds();
+                if (s.ampm) this.temp[s.seconds ? 6 : 5] = hour > 11 ? 'PM' : 'AM';
+            }
+            if (s.preset == 'daytime') {
+                var hour = d.getHours();
+                this.temp[1] = (s.ampm) ? (hour > 12 ? (hour - 12) : (hour == 0 ? 12 : hour)) : hour;
+                this.temp[2] = d.getMinutes();
+                if (s.seconds) this.temp[3] = d.getSeconds();
                 if (s.ampm) this.temp[s.seconds ? 6 : 5] = hour > 11 ? 'PM' : 'AM';
             }
             this.setValue(input);
@@ -384,6 +400,10 @@
                     if (s.seconds) result[2] = d.getSeconds();
                     if (s.ampm) result[s.seconds ? 3 : 2] = hour > 11 ? 'PM' : 'AM';
                 }
+                else if (s.preset == 'day') {
+                    try { var d = this.parseDate(s.dateFormat, val, s); } catch (e) { var d = new Date(); };
+                    result[0] = d.getDay();
+                }
                 else if (s.preset == 'datetime') {
                     try { var d = this.parseDate(s.dateFormat + ' ' + s.timeFormat, val, s); } catch (e) { var d = new Date(); };
                     var hour = d.getHours();
@@ -394,6 +414,18 @@
                     result[4] = d.getMinutes();
                     if (s.seconds) result[5] = d.getSeconds();
                     if (s.ampm) result[s.seconds ? 6 : 5] = hour > 11 ? 'PM' : 'AM';
+                }
+                else if (s.preset == 'daytime') {
+                    try { var d = this.parseDate(s.dateFormat + ' ' + s.timeFormat, val, s); } catch (e) { var d = new Date(); };
+                    var hour = d.getHours();
+                    result[0] = d.getDay();
+                    //result[yOrd] = d.getFullYear();
+                    //result[mOrd] = d.getMonth();
+                    //result[dOrd] = d.getDate();
+                    result[1] = (s.ampm) ? (hour > 12 ? (hour - 12) : (hour == 0 ? 12 : hour)) : hour;
+                    result[2] = d.getMinutes();
+                    if (s.seconds) result[3] = d.getSeconds();
+                    if (s.ampm) result[s.seconds ? 4 : 3] = hour > 11 ? 'PM' : 'AM';
                 }
                 return result;
             }
@@ -417,6 +449,23 @@
                 else if (s.preset == 'time') {
                     var hour = (s.ampm) ? ((d[s.seconds ? 3 : 2] == 'PM' && (d[0] - 0) < 12) ? (d[0] - 0 + 12) : (d[s.seconds ? 3 : 2] == 'AM' && (d[0] == 12) ? 0 : d[0])) : d[0];
                     return this.formatDate(s.timeFormat, new Date(1970, 0, 1, hour, d[1], s.seconds ? d[2] : null), s);
+                }
+                else if (s.preset == 'day') {
+                    var Today = new Date();
+                    var newDate = Today.getDate() + parseInt(d[0]);
+                    newDate = (new Date()).setDate(newDate);
+                    return this.formatDate(s.dateFormat, new Date(newDate), s);
+                }
+                else if (s.preset == 'daytime') {
+                    var hour = (s.ampm) ? ((d[s.seconds ? 4 : 3] == 'PM' && (d[1] - 0) < 12) ? (d[1] - 0 + 12) : (d[s.seconds ? 4 : 3] == 'AM' && (d[1] == 12) ? 0 : d[1])) : d[1];
+                    var Today = new Date();
+                    var dateOffset = Today.getDate() + parseInt(d[0]);
+                    var newDate = (new Date()).setDate(dateOffset);
+                    newDate = new Date(newDate);
+                    newDate.setHours(hour); 
+                    newDate.setMinutes(d[2]);
+                    newDate.setSeconds(s.seconds ? d[3] : null);
+                    return this.formatDate(s.dateFormat + ' ' + s.timeFormat, newDate, s);
                 }
             }
             return s.formatResult(d);
@@ -481,6 +530,19 @@
             if (this.preset) {
                 // Create preset wheels
                 s.wheels = new Array();
+                if (s.preset.match(/day/i)) {
+                    var w = {};
+                    w[s.dayText] = {};
+                    var Today = new Date();
+                    for (var i = 0; i < 7; i++) {
+                      var TodayDate = Today.getDate();
+                      var offsetDate = (new Date()).setDate(TodayDate + i);
+                      offsetDate = new Date(offsetDate);
+                      var day = offsetDate.getDay();
+                      w[s.dayText][i] = (i < 2) ? s.todayTomorrow[i] : s.dayNames[day];
+                    }
+                    s.wheels.push(w);
+                }
                 if (s.preset.match(/date/i)) {
                     var w = {};
                     for (var k = 0; k < 3; k++) {
@@ -717,6 +779,7 @@
             monthNamesShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
             dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
             dayNamesShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+            todayTomorrow: ['Today', 'Tomorrow'],
             shortYearCutoff: '+10',
             monthText: 'Month',
             dayText: 'Day',
