@@ -31,15 +31,20 @@
     <script type="text/javascript">
         $(document).ready(function () {
             // Date with external button
-            $('#date1').scroller();
+            
+            function consoleDate(valueText, inst) {
+              var date = new Date(valueText);
+              console.log(date);
+            }
+            $('#date1').scroller({ onSelect: consoleDate });
             // Time
             $('#date2').scroller({ preset: 'time' });
             // Datetime
-            $('#date3').scroller({ preset: 'datetime' });
+            $('#date3').scroller({ preset: 'datetime', onSelect: consoleDate });
             // Day
-            $('#date4').scroller({ preset: 'day' });
+            $('#date4').scroller({ preset: 'day', onSelect: consoleDate });
             // DayTime
-            $('#date5').scroller({ preset: 'daytime' });
+            $('#date5').scroller({ preset: 'daytime', onSelect: consoleDate });
 
             var group = {};
             var wheels = [group];
@@ -118,7 +123,7 @@
 
                 <div data-role="fieldcontain">
                     <label for="date1">Date</label>
-                    <input type="text" name="date1" id="date1" class="mobiscroll" value="01.01.2011" />
+                    <input type="text" name="date1" id="date1" class="mobiscroll" value="01/01/2011" />
                 </div>
 
                 <div data-role="controlgroup" data-type="horizontal">
@@ -137,12 +142,12 @@
 
                 <div data-role="fieldcontain">
                     <label for="date3">Datetime</label>
-                    <input type="text" name="date3" id="date3" class="mobiscroll" />
+                    <input type="text" name="date3" id="date3" class="mobiscroll" value="08/17/2011 12:19 PM" />
                 </div>
                 
                 <div data-role="fieldcontain">
                     <label for="date4">Day</label>
-                    <input type="text" name="date4" id="date4" class="mobiscroll" value="0" />
+                    <input type="text" name="date4" id="date4" class="mobiscroll" />
                 </div>
                 
                 <div data-role="fieldcontain">

@@ -402,7 +402,16 @@
                 }
                 else if (s.preset == 'day') {
                     try { var d = this.parseDate(s.dateFormat, val, s); } catch (e) { var d = new Date(); };
-                    result[0] = d.getDay();
+                    var Today = new Date();
+                    var offset = Math.round((d - Today) / (60 * 60 * 24 * 1000));
+                    // NOTE:  This offset checking code may have boundary issues between -1 & 0 and between 6 and 7 due to the way 
+                    //        Math.round works. These presence of such boundary issues have not been checked yet.
+                    if (offset > 6 || offset < 0) {
+                      s.preset = 'date';
+                      return this.parseValue(val);
+                    };
+                    var hour = d.getHours();
+                    result[0] = offset;
                 }
                 else if (s.preset == 'datetime') {
                     try { var d = this.parseDate(s.dateFormat + ' ' + s.timeFormat, val, s); } catch (e) { var d = new Date(); };
@@ -417,11 +426,16 @@
                 }
                 else if (s.preset == 'daytime') {
                     try { var d = this.parseDate(s.dateFormat + ' ' + s.timeFormat, val, s); } catch (e) { var d = new Date(); };
+                    var Today = new Date();
+                    var offset = Math.round((d - Today) / (60 * 60 * 24 * 1000));
+                    // NOTE:  This offset checking code may have boundary issues between -1 & 0 and between 6 and 7 due to the way 
+                    //        Math.round works. These presence of such boundary issues have not been checked yet.
+                    if (offset > 6 || offset < 0) {
+                      s.preset = 'datetime';
+                      return this.parseValue(val);
+                    };
                     var hour = d.getHours();
-                    result[0] = d.getDay();
-                    //result[yOrd] = d.getFullYear();
-                    //result[mOrd] = d.getMonth();
-                    //result[dOrd] = d.getDate();
+                    result[0] = offset;
                     result[1] = (s.ampm) ? (hour > 12 ? (hour - 12) : (hour == 0 ? 12 : hour)) : hour;
                     result[2] = d.getMinutes();
                     if (s.seconds) result[3] = d.getSeconds();
