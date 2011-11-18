@@ -329,14 +329,22 @@
                 return new Date(1970, 0, 1, hour, d[1], s.seconds ? d[2] : null);
             }
             if (s.preset == 'day') {
-                return new Date(); // TODO
+                var dayLength = (60 * 60 * 24 * 1000);
+                var Today = new Date();
+                return new Date(Today.getTime() + (dayLength * d[0]));
             }
             if (s.preset == 'datetime') {
                 var hour = (s.ampm) ? ((d[s.seconds ? 6 : 5] == 'PM' && (d[3] - 0) < 12) ? (d[3] - 0 + 12) : (d[s.seconds ? 6 : 5] == 'AM' && (d[3] == 12) ? 0 : d[3])) : d[3];
                 return new Date(d[yOrd], d[mOrd], d[dOrd], hour, d[4], s.seconds ? d[5] : null);
             }
             if (s.preset == 'daytime') {
-                return new Date(); // TODO
+                var dayLength = (60 * 60 * 24 * 1000);
+                var Today = new Date();
+                var offset = new Date(Today.getTime() + (dayLength * d[0]));
+                offset.setHours(d[1]);
+                offset.setMinutes(d[2]);
+                if (s.seconds) offset.setSeconds(d[3]);
+                return offset;
             }
         }
 
@@ -359,7 +367,9 @@
                 if (s.ampm) this.temp[s.seconds ? 3 : 2] = hour > 11 ? 'PM' : 'AM';
             }
             if (s.preset.match(/day/i)) {
-                this.temp[0] = d.getDay();
+                var Today = new Date();
+                var offset = Math.round((d - Today) / (60 * 60 * 24 * 1000));
+                this.temp[0] = offset;
             }
             if (s.preset == 'datetime') {
                 var hour = d.getHours();
@@ -373,7 +383,7 @@
                 this.temp[1] = (s.ampm) ? (hour > 12 ? (hour - 12) : (hour == 0 ? 12 : hour)) : hour;
                 this.temp[2] = d.getMinutes();
                 if (s.seconds) this.temp[3] = d.getSeconds();
-                if (s.ampm) this.temp[s.seconds ? 6 : 5] = hour > 11 ? 'PM' : 'AM';
+                if (s.ampm) this.temp[s.seconds ? 4 : 3] = hour > 11 ? 'PM' : 'AM';
             }
             this.setValue(input);
         }
@@ -430,7 +440,7 @@
                     var offset = Math.round((d - Today) / (60 * 60 * 24 * 1000));
                     // NOTE:  This offset checking code may have boundary issues between -1 & 0 and between 6 and 7 due to the way 
                     //        Math.round works. These presence of such boundary issues have not been checked yet.
-                    if (offset > 6 || offset < 0) {
+                    if (offset > (s.daytimeLength - 1) || offset < 0) {
                       s.preset = 'datetime';
                       return this.parseValue(val);
                     };
@@ -548,14 +558,17 @@
                     var w = {};
                     w[s.dayText] = {};
                     var Today = new Date();
-                    for (var i = 0; i < 7; i++) {
-                      var TodayDate = Today.getDate();
-                      var offsetDate = (new Date()).setDate(TodayDate + i);
-                      offsetDate = new Date(offsetDate);
-                      var day = offsetDate.getDay();
-                      w[s.dayText][i] = (i < 2) ? s.todayTomorrow[i] : s.dayNames[day];
+                    for (var i = 0; i < s.daytimeLength; i++) {
+                      var dayLength = (24 * 60 * 60 * 1000); 
+                      var d = new Date(Today.getTime() + (dayLength * i));
+                      w[s.dayText][i] = (i < 2) ? s.todayTomorrow[i] : s.dayNamesShort[d.getDay()] + ', ' + s.monthNamesShort[d.getMonth()] + ' ' + d.getDate();
                     }
-                    s.wheels.push(w);
+                    if (s.separateWheels) { 
+                      s.wheels.push(w); 
+                    } else { 
+                      if (!s.wheels[0]) s.wheels.push({});
+                      $.extend(s.wheels[0], w); 
+                    };
                 }
                 if (s.preset.match(/date/i)) {
                     var w = {};
@@ -579,7 +592,12 @@
                                 w[s.dayText][i] = s.dateOrder.search(/dd/i) < 0 ? i : (i < 10) ? ('0' + i) : i;
                         }
                     }
-                    s.wheels.push(w);
+                    if (s.separateWheels) { 
+                      s.wheels.push(w); 
+                    } else { 
+                      if (!s.wheels[0]) s.wheels.push({});
+                      $.extend(s.wheels[0], w); 
+                    };
                 }
                 if (s.preset.match(/time/i)) {
                     s.stepHour = (s.stepHour < 1) ? 1 : parseInt(s.stepHour);
@@ -602,7 +620,11 @@
                         w[s.ampmText]['AM'] = 'AM';
                         w[s.ampmText]['PM'] = 'PM';
                     }
-                    s.wheels.push(w);
+                    if (s.separateWheels) { 
+                      s.wheels.push(w); 
+                    } else { 
+                      $.extend(s.wheels[0], w);
+                    };
                 }
             }
 
@@ -613,7 +635,7 @@
                 // Create wheels
                 for (var label in s.wheels[i]) {
                     var to1 = $('.dwwc .clear', dwc);
-                    var w = $('<div class="dwwl dwrc">' + (s.mode == 'clickpick' ? '<div class="dwwb dwwbp">+</div><div class="dwwb dwwbm">&ndash;</div>' : '') + '<div class="dwl">' + label + '</div><div class="dww dwrc"><ul></ul><div class="dwwo"></div></div><div class="dwwol"></div></div>').insertBefore(to1);
+                    var w = $('<div class="dwwl dwrc">' + (s.mode == 'clickpick' ? '<div class="dwwb dwwbp">+</div><div class="dwwb dwwbm">&ndash;</div>' : '') + (s.labels ? '<div class="dwl">' + label + '</div>' : '') + '<div class="dww dwrc"><ul></ul><div class="dwwo"></div></div><div class="dwwol"></div></div>').insertBefore(to1);
                     // Create wheel values
                     for (var j in s.wheels[i][label]) {
                         $('<li class="val_' + j + '">' + s.wheels[i][label][j] + '</li>').data('val', j).appendTo($('ul', w));
@@ -671,6 +693,10 @@
             $('.dwc', dw).each(function() {
                 $(this).width($('.dwwc', this).outerWidth(true));
             });
+            if (!s.labels) {
+              $('.dwc', dw).css('padding-top', 0);
+              $('.dww', dw).css('top', 0);
+            };
             // Set position
             this.pos();
             $(window).bind('resize.dw', function() { that.pos(); });
@@ -808,6 +834,9 @@
             stepHour: 1,
             stepMinute: 1,
             stepSecond: 1,
+            labels: true,
+            separateWheels: true,
+            daytimeLength: 14,
             // Events
             beforeShow: function() {},
             onClose: function() {},

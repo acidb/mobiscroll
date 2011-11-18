@@ -34,6 +34,7 @@
             
             function consoleDate(valueText, inst) {
               var date = new Date(valueText);
+              console.log(inst.getDate());
               console.log(date);
             }
             $('#date1').scroller({ onSelect: consoleDate });
@@ -44,7 +45,14 @@
             // Day
             $('#date4').scroller({ preset: 'day', onSelect: consoleDate });
             // DayTime
-            $('#date5').scroller({ preset: 'daytime', onSelect: consoleDate });
+            $('#date5').scroller({ 
+              theme: 'ios', 
+              preset: 'daytime', 
+              labels: false, 
+              width: 30, 
+              separateWheels: false, 
+              onSelect: consoleDate 
+            });
 
             var group = {};
             var wheels = [group];
