@@ -328,9 +328,23 @@
                 var hour = (s.ampm) ? ((d[s.seconds ? 3 : 2] == 'PM' && (d[0] - 0) < 12) ? (d[0] - 0 + 12) : (d[s.seconds ? 3 : 2] == 'AM' && (d[0] == 12) ? 0 : d[0])) : d[0];
                 return new Date(1970, 0, 1, hour, d[1], s.seconds ? d[2] : null);
             }
+            if (s.preset == 'day') {
+                var dayLength = (60 * 60 * 24 * 1000);
+                var Today = new Date();
+                return new Date(Today.getTime() + (dayLength * d[0]));
+            }
             if (s.preset == 'datetime') {
                 var hour = (s.ampm) ? ((d[s.seconds ? 6 : 5] == 'PM' && (d[3] - 0) < 12) ? (d[3] - 0 + 12) : (d[s.seconds ? 6 : 5] == 'AM' && (d[3] == 12) ? 0 : d[3])) : d[3];
                 return new Date(d[yOrd], d[mOrd], d[dOrd], hour, d[4], s.seconds ? d[5] : null);
+            }
+            if (s.preset == 'daytime') {
+                var dayLength = (60 * 60 * 24 * 1000);
+                var Today = new Date();
+                var offset = new Date(Today.getTime() + (dayLength * d[0]));
+                offset.setHours(d[1]);
+                offset.setMinutes(d[2]);
+                if (s.seconds) offset.setSeconds(d[3]);
+                return offset;
             }
         }
 
@@ -352,12 +366,24 @@
                 if (s.seconds) this.temp[2] = d.getSeconds();
                 if (s.ampm) this.temp[s.seconds ? 3 : 2] = hour > 11 ? 'PM' : 'AM';
             }
+            if (s.preset.match(/day/i)) {
+                var Today = new Date();
+                var offset = Math.round((d - Today) / (60 * 60 * 24 * 1000));
+                this.temp[0] = offset;
+            }
             if (s.preset == 'datetime') {
                 var hour = d.getHours();
                 this.temp[3] = (s.ampm) ? (hour > 12 ? (hour - 12) : (hour == 0 ? 12 : hour)) : hour;
                 this.temp[4] = d.getMinutes();
                 if (s.seconds) this.temp[5] = d.getSeconds();
                 if (s.ampm) this.temp[s.seconds ? 6 : 5] = hour > 11 ? 'PM' : 'AM';
+            }
+            if (s.preset == 'daytime') {
+                var hour = d.getHours();
+                this.temp[1] = (s.ampm) ? (hour > 12 ? (hour - 12) : (hour == 0 ? 12 : hour)) : hour;
+                this.temp[2] = d.getMinutes();
+                if (s.seconds) this.temp[3] = d.getSeconds();
+                if (s.ampm) this.temp[s.seconds ? 4 : 3] = hour > 11 ? 'PM' : 'AM';
             }
             this.setValue(input);
         }
@@ -384,6 +410,19 @@
                     if (s.seconds) result[2] = d.getSeconds();
                     if (s.ampm) result[s.seconds ? 3 : 2] = hour > 11 ? 'PM' : 'AM';
                 }
+                else if (s.preset == 'day') {
+                    try { var d = this.parseDate(s.dateFormat, val, s); } catch (e) { var d = new Date(); };
+                    var Today = new Date();
+                    var offset = Math.round((d - Today) / (60 * 60 * 24 * 1000));
+                    // NOTE:  This offset checking code may have boundary issues between -1 & 0 and between 6 and 7 due to the way 
+                    //        Math.round works. These presence of such boundary issues have not been checked yet.
+                    if (offset > 6 || offset < 0) {
+                      s.preset = 'date';
+                      return this.parseValue(val);
+                    };
+                    var hour = d.getHours();
+                    result[0] = offset;
+                }
                 else if (s.preset == 'datetime') {
                     try { var d = this.parseDate(s.dateFormat + ' ' + s.timeFormat, val, s); } catch (e) { var d = new Date(); };
                     var hour = d.getHours();
@@ -394,6 +433,23 @@
                     result[4] = d.getMinutes();
                     if (s.seconds) result[5] = d.getSeconds();
                     if (s.ampm) result[s.seconds ? 6 : 5] = hour > 11 ? 'PM' : 'AM';
+                }
+                else if (s.preset == 'daytime') {
+                    try { var d = this.parseDate(s.dateFormat + ' ' + s.timeFormat, val, s); } catch (e) { var d = new Date(); };
+                    var Today = new Date();
+                    var offset = Math.round((d - Today) / (60 * 60 * 24 * 1000));
+                    // NOTE:  This offset checking code may have boundary issues between -1 & 0 and between 6 and 7 due to the way 
+                    //        Math.round works. These presence of such boundary issues have not been checked yet.
+                    if (offset > (s.daytimeLength - 1) || offset < 0) {
+                      s.preset = 'datetime';
+                      return this.parseValue(val);
+                    };
+                    var hour = d.getHours();
+                    result[0] = offset;
+                    result[1] = (s.ampm) ? (hour > 12 ? (hour - 12) : (hour == 0 ? 12 : hour)) : hour;
+                    result[2] = d.getMinutes();
+                    if (s.seconds) result[3] = d.getSeconds();
+                    if (s.ampm) result[s.seconds ? 4 : 3] = hour > 11 ? 'PM' : 'AM';
                 }
                 return result;
             }
@@ -417,6 +473,23 @@
                 else if (s.preset == 'time') {
                     var hour = (s.ampm) ? ((d[s.seconds ? 3 : 2] == 'PM' && (d[0] - 0) < 12) ? (d[0] - 0 + 12) : (d[s.seconds ? 3 : 2] == 'AM' && (d[0] == 12) ? 0 : d[0])) : d[0];
                     return this.formatDate(s.timeFormat, new Date(1970, 0, 1, hour, d[1], s.seconds ? d[2] : null), s);
+                }
+                else if (s.preset == 'day') {
+                    var Today = new Date();
+                    var newDate = Today.getDate() + parseInt(d[0]);
+                    newDate = (new Date()).setDate(newDate);
+                    return this.formatDate(s.dateFormat, new Date(newDate), s);
+                }
+                else if (s.preset == 'daytime') {
+                    var hour = (s.ampm) ? ((d[s.seconds ? 4 : 3] == 'PM' && (d[1] - 0) < 12) ? (d[1] - 0 + 12) : (d[s.seconds ? 4 : 3] == 'AM' && (d[1] == 12) ? 0 : d[1])) : d[1];
+                    var Today = new Date();
+                    var dateOffset = Today.getDate() + parseInt(d[0]);
+                    var newDate = (new Date()).setDate(dateOffset);
+                    newDate = new Date(newDate);
+                    newDate.setHours(hour); 
+                    newDate.setMinutes(d[2]);
+                    newDate.setSeconds(s.seconds ? d[3] : null);
+                    return this.formatDate(s.dateFormat + ' ' + s.timeFormat, newDate, s);
                 }
             }
             return s.formatResult(d);
@@ -481,6 +554,22 @@
             if (this.preset) {
                 // Create preset wheels
                 s.wheels = new Array();
+                if (s.preset.match(/day/i)) {
+                    var w = {};
+                    w[s.dayText] = {};
+                    var Today = new Date();
+                    for (var i = 0; i < s.daytimeLength; i++) {
+                      var dayLength = (24 * 60 * 60 * 1000); 
+                      var d = new Date(Today.getTime() + (dayLength * i));
+                      w[s.dayText][i] = (i < 2) ? s.todayTomorrow[i] : s.dayNamesShort[d.getDay()] + ', ' + s.monthNamesShort[d.getMonth()] + ' ' + d.getDate();
+                    }
+                    if (s.separateWheels) { 
+                      s.wheels.push(w); 
+                    } else { 
+                      if (!s.wheels[0]) s.wheels.push({});
+                      $.extend(s.wheels[0], w); 
+                    };
+                }
                 if (s.preset.match(/date/i)) {
                     var w = {};
                     for (var k = 0; k < 3; k++) {
@@ -503,7 +592,12 @@
                                 w[s.dayText][i] = s.dateOrder.search(/dd/i) < 0 ? i : (i < 10) ? ('0' + i) : i;
                         }
                     }
-                    s.wheels.push(w);
+                    if (s.separateWheels) { 
+                      s.wheels.push(w); 
+                    } else { 
+                      if (!s.wheels[0]) s.wheels.push({});
+                      $.extend(s.wheels[0], w); 
+                    };
                 }
                 if (s.preset.match(/time/i)) {
                     s.stepHour = (s.stepHour < 1) ? 1 : parseInt(s.stepHour);
@@ -526,7 +620,11 @@
                         w[s.ampmText]['AM'] = 'AM';
                         w[s.ampmText]['PM'] = 'PM';
                     }
-                    s.wheels.push(w);
+                    if (s.separateWheels) { 
+                      s.wheels.push(w); 
+                    } else { 
+                      $.extend(s.wheels[0], w);
+                    };
                 }
             }
 
@@ -537,7 +635,7 @@
                 // Create wheels
                 for (var label in s.wheels[i]) {
                     var to1 = $('.dwwc .clear', dwc);
-                    var w = $('<div class="dwwl dwrc">' + (s.mode == 'clickpick' ? '<div class="dwwb dwwbp">+</div><div class="dwwb dwwbm">&ndash;</div>' : '') + '<div class="dwl">' + label + '</div><div class="dww dwrc"><ul></ul><div class="dwwo"></div></div><div class="dwwol"></div></div>').insertBefore(to1);
+                    var w = $('<div class="dwwl dwrc">' + (s.mode == 'clickpick' ? '<div class="dwwb dwwbp">+</div><div class="dwwb dwwbm">&ndash;</div>' : '') + (s.labels ? '<div class="dwl">' + label + '</div>' : '') + '<div class="dww dwrc"><ul></ul><div class="dwwo"></div></div><div class="dwwol"></div></div>').insertBefore(to1);
                     // Create wheel values
                     for (var j in s.wheels[i][label]) {
                         $('<li class="val_' + j + '">' + s.wheels[i][label][j] + '</li>').data('val', j).appendTo($('ul', w));
@@ -595,6 +693,10 @@
             $('.dwc', dw).each(function() {
                 $(this).width($('.dwwc', this).outerWidth(true));
             });
+            if (!s.labels) {
+              $('.dwc', dw).css('padding-top', 0);
+              $('.dww', dw).css('top', 0);
+            };
             // Set position
             this.pos();
             $(window).bind('resize.dw', function() { that.pos(); });
@@ -717,6 +819,7 @@
             monthNamesShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
             dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
             dayNamesShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+            todayTomorrow: ['Today', 'Tomorrow'],
             shortYearCutoff: '+10',
             monthText: 'Month',
             dayText: 'Day',
@@ -731,6 +834,9 @@
             stepHour: 1,
             stepMinute: 1,
             stepSecond: 1,
+            labels: true,
+            separateWheels: true,
+            daytimeLength: 14,
             // Events
             beforeShow: function() {},
             onClose: function() {},
