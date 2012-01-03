@@ -1,5 +1,5 @@
 ﻿/*!
- * jQuery MobiScroll v1.5.2
+ * jQuery MobiScroll v1.5.3
  * http://mobiscroll.com
  *
  * Copyright 2010-2011, Acid Media
@@ -181,7 +181,7 @@
             value = (typeof value == 'object' ? value.toString() : value + '');
             var s = $.extend({}, this.settings, settings),
                 year = def.getFullYear(),
-                month = def.getMonth(),
+                month = def.getMonth() + 1,
                 day = def.getDate(),
                 doy = -1,
                 hours = def.getHours(),
@@ -633,11 +633,11 @@
             var ty = s.dateOrder.search(/y/i),
                 tm = s.dateOrder.search(/m/i),
                 td = s.dateOrder.search(/d/i);
-            yOrd = (ty < tm) ? (ty < td ? 0 : 1) : (ty < td ? 1 : 2);
-            mOrd = (tm < ty) ? (tm < td ? 0 : 1) : (tm < td ? 1 : 2);
-            dOrd = (td < ty) ? (td < tm ? 0 : 1) : (td < tm ? 1 : 2);
+            yOrd = ty < tm ? (ty < td ? 0 : 1) : (ty < td ? 1 : 2);
+            mOrd = tm < ty ? (tm < td ? 0 : 1) : (tm < td ? 1 : 2);
+            dOrd = td < ty ? (td < tm ? 0 : 1) : (td < tm ? 1 : 2);
             this.preset = (s.wheels === null);
-            this.temp = ($(elm).is('input') || this.values === null) ? this.parseValue($(elm).val() ? $(elm).val() : '') : this.values.slice(0);
+            this.temp = (($(elm).is('input') && this.val !== null && this.val != $(elm).val()) || this.values === null) ? this.parseValue($(elm).val() ? $(elm).val() : '') : this.values.slice(0);
             this.setValue(false);
         }
 
@@ -875,15 +875,15 @@
                             val = val > (m - 1 + 1) ? (m - 1 + 1) : val;
                             val = val < (m - l - 1) ? (m - l - 1) : val;
 
-                            /*if (time < 300) {
+                            if (time < 300) {
                                 var speed = (stop - start) / time;
                                 var dist = (speed * speed) / (2 * 0.0006);
                                 if (stop - start < 0) dist = -dist;
                             }
                             else {
                                 var dist = stop - start;
-                            }*/
-                            var dist = stop - start;
+                            }
+                            //var dist = stop - start;
                             calc(target, Math.round(pos + dist / h), true, Math.round(val));
                             move = false;
                             target = null;
@@ -897,6 +897,7 @@
 
                     dw.delegate('.dwwl', 'DOMMouseScroll mousewheel', function (e) {
                         e.preventDefault();
+                        e = e.originalEvent;
                         var delta = e.wheelDelta ? (e.wheelDelta / 120) : (e.detail ? (-e.detail / 3) : 0),
                             t = $('ul', this),
                             p = t.data('pos'),
