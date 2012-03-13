@@ -18,6 +18,10 @@ If you like it, spread the word!
 For the latest info follow us on Twitter http://twitter.com/#!/mobiscroll !
 Like us on Facebook http://www.facebook.com/pages/Mobiscroll/226962304011802 !
 
+
+It'd be cool to see how you're using Mobiscroll! We're looking at showcasing some of the best work on http://mobiscroll.com. Feel free to let us know on twitter @mobiscroll!
+
+
 Changelog 1.5.2
 ===============
 
