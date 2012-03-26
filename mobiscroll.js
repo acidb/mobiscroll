@@ -1,5 +1,5 @@
 ﻿/*!
- * jQuery MobiScroll v1.5.3
+ * jQuery MobiScroll v1.6
  * http://mobiscroll.com
  *
  * Copyright 2010-2011, Acid Media
@@ -15,6 +15,7 @@
             mOrd,
             dOrd,
             iv = {},
+            tv = {},
             visible = false;
 
         this.settings = s;
@@ -65,6 +66,12 @@
                         t.data('pos', val);
                     }
                 }, 100);
+                // Show +/- buttons
+                clearTimeout(tv[index]);
+                tv[index] = setTimeout(function() {
+                    if (!t.hasClass('dwa'))
+                        t.closest('.dwwl').find('.dwwb').fadeIn('fast');
+                }, time * 1000);
             }
             else {
                 t.data('pos', val)
@@ -533,11 +540,11 @@
             // Create wheels containers
             $('.dwc', dw).remove();
             for (var i = 0; i < s.wheels.length; i++) {
-                var dwc = $('<div class="dwc' + (s.mode == 'clickpick' ? ' dwpm' : '') + '"><div class="dwwc dwrc"><div class="clear" style="clear:both;"></div></div>').insertBefore($('.dwbc', dw));
+                var dwc = $('<div class="dwc' + (s.mode != 'scroller' ? ' dwpm' : '') + (s.showLabel ? '' : ' dwhl') + '"><div class="dwwc dwrc"><div class="clear" style="clear:both;"></div></div>').insertBefore($('.dwbc', dw));
                 // Create wheels
                 for (var label in s.wheels[i]) {
                     var to1 = $('.dwwc .clear', dwc);
-                    var w = $('<div class="dwwl dwrc">' + (s.mode == 'clickpick' ? '<div class="dwwb dwwbp">+</div><div class="dwwb dwwbm">&ndash;</div>' : '') + '<div class="dwl">' + label + '</div><div class="dww dwrc"><ul></ul><div class="dwwo"></div></div><div class="dwwol"></div></div>').insertBefore(to1);
+                    var w = $('<div class="dwwl dwrc">' + (s.mode != 'scroller' ? '<div class="dwwb dwwbp">+</div><div class="dwwb dwwbm">&ndash;</div>' : '') + '<div class="dwl">' + label + '</div><div class="dww dwrc"><ul></ul><div class="dwwo"></div></div><div class="dwwol"></div></div>').insertBefore(to1);
                     // Create wheel values
                     for (var j in s.wheels[i][label]) {
                         $('<li class="val_' + j + '">' + s.wheels[i][label][j] + '</li>').data('val', j).appendTo($('ul', w));
@@ -554,7 +561,10 @@
                 that.scroll($(this), m - (x < 0 ? 0 : x) - 1);
             });
             // Set value text
-            $('.dwv', dw).html(this.formatResult());
+            if (s.showValue)
+                $('.dwv', dw).html(this.formatResult()).show();
+            else
+                $('.dwv', dw).hide();
             // Initial validate
             that.validate(-1);
 
@@ -702,6 +712,8 @@
             rows: 3,
             disabled: false,
             showOnFocus: true,
+            showValue: true,
+            showLabel: true,
             wheels: null,
             theme: '',
             mode: 'scroller',
@@ -745,19 +757,23 @@
             },
             parseValue: function(val, inst) {
                 var w = inst.settings.wheels,
-                    ret = val.split(' '),
-                    def = [],
-                    total = 0;
+                    val = val.split(' '),
+                    ret = [],
+                    j = 0;
                 for (var i = 0; i < w.length; i++) {
                     for (var l in w[i]) {
-                        total++;
-                        for (var v in w[i][l]) {
-                            def.push(v);
-                            break;
-                        }
+                        if (w[i][l][val[j]] !== undefined)
+                            ret.push(val[j])
+                        else
+                            // Select first value from wheel
+                            for (var v in w[i][l]) {
+                                ret.push(v);
+                                break;
+                            }
+                        j++;
                     }
                 }
-                return ret.length == total ? ret : def;
+                return ret;
             },
             validate: function() {
                 return true;
@@ -768,12 +784,28 @@
             init: function (options) {
                 if (options === undefined) options = {};
                 var defs = {};
+                //options.mode = $.inArray(options.mode, ['scroller', 'clickpick', 'mixed']) == -1 ? 'scroller' : options.mode;
                 // Skin dependent defaults
-                if (options.theme == 'ios') {
-                    defs.dateOrder = 'MMdyy';
-                    defs.rows = 5;
-                    defs.height = 30;
-                    defs.width = 55;
+                switch (options.theme) {
+                    case 'ios':
+                        defs.dateOrder = 'MMdyy';
+                        defs.rows = 5;
+                        defs.height = 30;
+                        defs.width = 55;
+                        defs.showValue = false;
+                        defs.showLabel = false;
+                        break;
+                    case 'android':
+                        defs.dateOrder = 'Mddyy';
+                        break;
+                    case 'android-ics':
+                    case 'android-ics light':
+                        defs.dateOrder = 'Mddyy';
+                        defs.rows = 5;
+                        defs.width = 70;
+                        defs.showLabel = false;
+                        defs.mode = 'mixed';
+                        break;
                 }
                 // Mode dependent defaults
                 if (options.mode == 'clickpick') {
@@ -869,9 +901,9 @@
                     $(document).bind(END_EVENT, function (e) {
                         if (move) {
                             e.preventDefault();
-                            var time = new Date() - startTime;
-
-                            var val = pos + (stop - start) / h;
+                            target.removeClass('dwa');
+                            var time = new Date() - startTime,
+                                val = pos + (stop - start) / h;
                             val = val > (m - 1 + 1) ? (m - 1 + 1) : val;
                             val = val < (m - l - 1) ? (m - l - 1) : val;
 
@@ -920,25 +952,28 @@
                     }).delegate('.dwwbp', START_EVENT, function (e) {
                         // + Button
                         e.preventDefault();
+                        e.stopPropagation();
                         var t = $(this).closest('.dwwl').find('ul');
                         l = $('li:visible', t).length;
                         clearInterval(plustap);
-                        plustap = setInterval(function() { plus(t); }, 200);
+                        plustap = setInterval(function() { plus(t); }, 300);
                         plus(t);
                     }).delegate('.dwwbm', START_EVENT, function (e) {
                         // - Button
                         e.preventDefault();
+                        e.stopPropagation();
                         var t = $(this).closest('.dwwl').find('ul');
                         l = $('li:visible', t).length;
                         clearInterval(minustap);
-                        minustap = setInterval(function() { minus(t); }, 200);
+                        minustap = setInterval(function() { minus(t); }, 300);
                         minus(t);
                     }).delegate('.dwwl', START_EVENT, function (e) {
                         // Scroll start
-                        if (!move && inst.settings.mode == 'scroller') {
+                        if (!move && inst.settings.mode != 'clickpick') {
                             e.preventDefault();
                             move = true;
-                            target = $('ul', this);
+                            target = $('ul', this).addClass('dwa');
+                            $('.dwwb', this).fadeOut('fast');
                             pos = target.data('pos');
                             l = $('li:visible', target).length;
                             start = getY(e);
