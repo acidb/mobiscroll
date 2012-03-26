@@ -1,4 +1,4 @@
-MobiScroll
+Mobiscroll
 ==========
 
 A wheel scroller user control optimized for touchscreens to easily enter date and/or time. The control can easily be customized to support any custom values and can even be used as an intuitive alternative to the native select control (dropdown list). It is designed to be used on touch devices as an alternative to the jQuery UI date picker.
@@ -17,6 +17,37 @@ If you like it, spread the word!
 
 For the latest info follow us on Twitter http://twitter.com/#!/mobiscroll !
 Like us on Facebook http://www.facebook.com/pages/Mobiscroll/226962304011802 !
+
+Changelog 1.6
+===============
+
+Bugfixes
+--------
+
+  * Fixed: Tap & hold changes the value on a 300ms interval instead of 200ms (for slower devices)
+
+  * Fixed: When using custom wheels, parseValue function defaults to first value on the wheel, if cannot parse the input value to a valid wheel value
+
+Enhancements
+============
+
+  * Added: _showLabel_ option - show/hide labels on the top of the wheels, default is *true*
+
+  * Added: _showValue_ option - show/hide formatted value in the header of the popup, default is *true*
+
+  * Added: Android ICS ('android-ics') and Android ICS Light ('android-ics light') skins
+
+Changelog 1.5.3
+===============
+
+Bugfixes
+--------
+
+  * Fixed: Mouse scroll wheel works now with jQuery 1.7+ (Issue 57)
+
+  * Fixed: Don't always parse input value on show, only if changed (Issue 58)
+
+  * Fixed: Time was incorrectly parsed, if there was no date (Issue 61)
 
 Changelog 1.5.2
 ===============
