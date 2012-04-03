@@ -456,7 +456,7 @@
         */
         this.hide = function () {
             // If onClose handler returns false, prevent hide
-            if (s.onClose(this.val, this) === false) return false;
+            if (s.onClose.apply(elm, [this.val, this]) === false) return false;
             // Re-enable temporary disabled fields
             $('.dwtd').prop('disabled', false).removeClass('dwtd');
             $(elm).blur();
@@ -571,13 +571,13 @@
             // Init buttons
             $('#dw_set', dw).text(s.setText).unbind().bind('click', function (e) {
                 that.setValue();
-                s.onSelect(that.val, inst);
+                s.onSelect.apply(elm, [that.val, inst]);
                 that.hide();
                 return false;
             });
 
             $('#dw_cancel', dw).text(s.cancelText).unbind().bind('click', function (e) {
-                s.onCancel(that.val, inst);
+                s.onCancel.apply(elm, [that.val, inst]);
                 that.hide();
                 return false;
             });
