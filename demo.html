@@ -10,9 +10,9 @@
 
     <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 
-    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0-rc.1/jquery.mobile-1.1.0-rc.1.min.css" />
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" />
     <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-    <script src="http://code.jquery.com/mobile/1.1.0-rc.1/jquery.mobile-1.1.0-rc.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js"></script>
 
     <script src="mobiscroll.js" type="text/javascript"></script>
 
@@ -22,11 +22,6 @@
         body {
             font-family: arial, verdana, sans-serif;
             font-size: 12px;
-        }
-        .dww img {
-            width: 30px;
-            height: 30px;
-            margin: 5px 10px;
         }
     </style>
 
@@ -39,19 +34,17 @@
             // Datetime
             $('#date3').scroller({ preset: 'datetime' });
 
-            var group = {};
-            var wheels = [group];
-            for (var i = 1; i < 4; i++) {
-                var wheel = {};
-                for (var j = 0; j < 100; j++) {
-                    wheel[j] = '<img src="img/fruit-' + (j % 5 + 1) + '.png" />'
-                }
-                group['Fruit ' + i] = wheel;
+            var wheels = [{'City' : {1:'Atlanta',2:'Berlin',3:'Boston',4:'Chicago',5:'London',6:'Los Angeles',7:'New York',8:'Paris',9:'San Francisco'}}];
+
+            function parseCustom() {
+                return $('#hidden').val() ? [$('#hidden').val()] : [1];
             }
 
-            $('#custom').scroller({
-                wheels: wheels
-            });
+            function selectCustom(valueText) {
+                $('#custom').val(wheels[0]['City'][valueText]); $('#hidden').val(valueText);
+            }
+
+            $('#custom').scroller({wheels: wheels, showValue: false, onSelect: selectCustom, parseValue: parseCustom });
 
             $('#theme, #mode').change(function() {
                 var t = $('#theme').val();
@@ -59,7 +52,7 @@
                 $('#date1').scroller('destroy').scroller({ theme: t, mode: m });
                 $('#date2').scroller('destroy').scroller({ preset: 'time', theme: t, mode: m });
                 $('#date3').scroller('destroy').scroller({ preset: 'datetime', theme: t, mode: m });
-                $('#custom').scroller('destroy').scroller({ wheels: wheels, theme: t, mode: m });
+                $('#custom').scroller('destroy').scroller({ wheels: wheels, showValue: false, onSelect: selectCustom, parseValue: parseCustom, theme: t, mode: m });
             });
         });
     </script>
@@ -110,8 +103,9 @@
                 </div>
 
                 <div data-role="fieldcontain">
-                    <label for="custom">Custom (Fruits :D)</label>
-                    <input type="text" name="custom" id="custom" class="mobiscroll" value="1 2 3" />
+                    <label for="custom">Custom</label>
+                    <input type="text" name="custom" id="custom" class="mobiscroll" value="Berlin" />
+                    <input type="hidden" name="hidden" id="hidden" class="mobiscroll" value="2" />
                 </div>
             </form>
         </div>

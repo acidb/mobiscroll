@@ -538,10 +538,11 @@
 }
 .android-ics .dwwb {
     background: #292829;
-    color: #292829;
-    font-size: 1px;
     box-shadow: none;
     -webkit-box-shadow: none;
+}
+.android-ics .dwwb span {
+    display: none;
 }
 .android-ics .dwwb:after {
     position: absolute;

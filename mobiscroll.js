@@ -544,7 +544,7 @@
                 // Create wheels
                 for (var label in s.wheels[i]) {
                     var to1 = $('.dwwc .clear', dwc);
-                    var w = $('<div class="dwwl dwrc">' + (s.mode != 'scroller' ? '<div class="dwwb dwwbp">+</div><div class="dwwb dwwbm">&ndash;</div>' : '') + '<div class="dwl">' + label + '</div><div class="dww dwrc"><ul></ul><div class="dwwo"></div></div><div class="dwwol"></div></div>').insertBefore(to1);
+                    var w = $('<div class="dwwl dwrc">' + (s.mode != 'scroller' ? '<div class="dwwb dwwbp"><span>+</span></div><div class="dwwb dwwbm"><span>&ndash;</span></div>' : '') + '<div class="dwl">' + label + '</div><div class="dww dwrc"><ul></ul><div class="dwwo"></div></div><div class="dwwol"></div></div>').insertBefore(to1);
                     // Create wheel values
                     for (var j in s.wheels[i][label]) {
                         $('<li class="val_' + j + '">' + s.wheels[i][label][j] + '</li>').data('val', j).appendTo($('ul', w));
