@@ -16,8 +16,17 @@
 
     <script src="mobiscroll.core.js" type="text/javascript"></script>
     <script src="mobiscroll.datetime.js" type="text/javascript"></script>
+    <script src="mobiscroll.jqm.js" type="text/javascript"></script>
+    <script src="mobiscroll.ios.js" type="text/javascript"></script>
+    <script src="mobiscroll.android.js" type="text/javascript"></script>
+    <script src="mobiscroll.android-ics.js" type="text/javascript"></script>
 
-    <link href="mobiscroll.css" rel="stylesheet" type="text/css" />
+    <link href="mobiscroll.core.css" rel="stylesheet" type="text/css" />
+    <link href="mobiscroll.jqm.css" rel="stylesheet" type="text/css" />
+    <link href="mobiscroll.android.css" rel="stylesheet" type="text/css" />
+    <link href="mobiscroll.android-ics.css" rel="stylesheet" type="text/css" />
+    <link href="mobiscroll.ios.css" rel="stylesheet" type="text/css" />
+    <link href="mobiscroll.sense-ui.css" rel="stylesheet" type="text/css" />
 
     <style type="text/css">
         body {
@@ -32,7 +41,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
             // Date with external button
-            $('#date1').scroller();
+            /*$('#date1').scroller();
             // Time
             $('#date2').scroller({ preset: 'time' });
             // Datetime
@@ -59,8 +68,37 @@
                 $('#date2').scroller('destroy').scroller({ theme: t, mode: m, preset: 'time' });
                 $('#date3').scroller('destroy').scroller({ theme: t, mode: m, preset: 'datetime' });
                 $('#custom').scroller('destroy').scroller({ theme: t, mode: m, wheels: wheels, headerText: false, onSelect: selectCustom, parseValue: parseCustom });
-                $('#inline').scroller('destroy').scroller({ theme: t, mode: m, display: 'inline' });
-            });
+                $('#inline').scroller('destroy').scroller({ theme: t, mode: m, display: 'inline', showLabel: false });
+            });*/
+
+            var opt = {
+                'date': {
+                    preset: 'date'
+                },
+                'datetime': {
+                    preset: 'datetime'
+                },
+                'time': {
+                    preset: 'time'
+                },
+                'custom': {
+                    wheels: [{'City' : {1:'Atlanta',2:'Berlin',3:'Boston',4:'Chicago',5:'London',6:'Los Angeles',7:'New York',8:'Paris',9:'San Francisco'}}],
+                    headerText: false,
+                    onSelect: function() {
+                        $('#test').val(wheels[0]['City'][valueText]); $('#hidden').val(valueText);
+                    },
+                    parseValue: function() {
+                        return $('#hidden').val() ? [$('#hidden').val()] : [1];
+                    }
+                },
+                'inline': {
+                    display: 'inline'
+                }
+            }
+
+            $('select').change(function() {
+                $('#test').scroller('destroy').scroller($.extend(opt[$('#demo').val()], { theme: $('#theme').val(), mode: $('#mode').val() }));
+            }).change();
         });
     </script>
 </head>
@@ -77,6 +115,7 @@
                     <label for="theme">Theme</label>
                     <select name="theme" id="theme" data-native-menu="false">
                         <option value="default">Default</option>
+                        <option value="jqm" selected>jQuery Mobile (New)</option>
                         <option value="android-ics">Android ICS (New)</option>
                         <option value="android-ics light">Android ICS Light (New)</option>
                         <option value="android">Android</option>
@@ -89,12 +128,29 @@
                     <label for="mode">Mode</label>
                     <select name="mode" id="mode" data-native-menu="false">
                         <option value="scroller">Scroller</option>
-                        <option value="clickpick">Clickpick</option>
+                        <option value="clickpick" selected>Clickpick</option>
                         <option value="mixed">Mixed (New)</option>
                     </select>
                 </div>
 
                 <div data-role="fieldcontain">
+                    <label for="demo">Demo</label>
+                    <select name="demo" id="demo" data-native-menu="false">
+                        <option value="date">Date</option>
+                        <option value="datetime">Datetime</option>
+                        <option value="time">Time</option>
+                        <option value="custom">Custom select</option>
+                        <option value="inline">Inline</option>
+                    </select>
+                </div>
+
+                <div data-role="fieldcontain" class="inline">
+                    <label for="test">Click here to try</label>
+                    <input type="text" name="test" id="test" />
+                    <input type="hidden" name="hidden" id="hidden" value="2" />
+                </div>
+
+                <!--<div data-role="fieldcontain">
                     <label for="date1">Date</label>
                     <input type="text" name="date1" id="date1" class="mobiscroll" />
                 </div>
@@ -118,8 +174,7 @@
                 <div data-role="fieldcontain" class="inline">
                     <label for="inline">Inline</label>
                     <input type="text" name="inline" id="inline" class="mobiscroll" value="12/27/2013" />
-                    <!--<div id="inline" style="text-align:center;"></div>-->
-                </div>
+                </div>-->
             </form>
         </div>
     </div>
