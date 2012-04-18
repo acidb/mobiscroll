@@ -5,11 +5,19 @@
     top: 5%;
     left: 0;
     z-index: 1001;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
     background: #fff;
     color: #000;
+    font-family: arial, verdana, sans-serif;
+    font-size: 12px;
+    text-shadow: none;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+}
+.dwi {
+    position: static;
+    margin: 5px;
+    display: inline-block;
 }
 /* Datewheel overlay background */
 .dwo {
@@ -28,6 +36,9 @@
     float: left;
     margin: 0 2px 5px 2px;
     padding-top: 30px;
+}
+.dwcc {
+    clear: both;
 }
 /* Datewheel label */
 .dwl {
@@ -223,6 +234,7 @@
     /*margin-top: 5px;*/
     padding: 5px 0;
     text-align: center;
+    clear: both;
 }
 /* Datewheel button wrapper */
 .dwbw {
@@ -367,6 +379,9 @@
     border-radius: 0;
     -moz-border-radius: 0;
     -webkit-border-radius: 0;
+}
+.ios.dwi {
+    padding: 10px;
 }
 .ios .dwv {
     display: none;
