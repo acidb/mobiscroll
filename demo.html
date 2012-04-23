@@ -41,18 +41,33 @@
 
     <script type="text/javascript">
         $(function () {
+            var curr = new Date().getFullYear();
             var opt = {
                 'date': {
                     preset: 'date',
-                    display: 'modal'
+                    display: 'modal',
+                    minDate: new Date(2011, 2, 10),
+                    maxDate: new Date(2013, 7, 30)
                 },
                 'datetime': {
                     preset: 'datetime',
-                    display: 'modal'
+                    display: 'modal',
+                    //dateOrder: 'mmdd',
+                    //minDate: new Date(2011, 2, 10, 10),
+                    minDate: new Date(2012, 3, 10, 9, 22),
+                    maxDate: new Date(2012, 7, 30, 15, 44),
+                    stepMinute: 5
                 },
                 'time': {
                     preset: 'time',
                     display: 'modal'
+                },
+                'credit': {
+                    dateOrder: 'mmyy',
+                    dateFormat: 'mm/yy',
+                    startYear: curr,
+                    endYear: curr + 10,
+                    width: 100
                 },
                 'inline': {
                     display: 'inline'
@@ -60,10 +75,12 @@
             }
 
             $('select').scroller({ preset: 'select' }).change(function() {
-                $('#test').scroller('option', $.extend(opt[$('#demo').val()], { theme: $('#theme').val(), mode: $('#mode').val() }));
+                $('#test').scroller('destroy').scroller($.extend(opt[$('#demo').val()], { theme: $('#theme').val(), mode: $('#mode').val() }));
             });
 
-            $('#test').scroller();
+            $('#demo').change();
+
+            //$('#test').scroller();
 
         });
     </script>
@@ -101,15 +118,15 @@
                     <label for="demo">Demo</label>
                     <select name="demo" id="demo" data-role="none">
                         <option value="date">Date</option>
-                        <option value="datetime">Datetime</option>
+                        <option value="datetime" selected>Datetime</option>
                         <option value="time">Time</option>
-                        <!--<option value="custom">Custom select</option>-->
+                        <option value="credit">Credit card expiration</option>
                         <option value="inline">Inline</option>
                     </select>
                 </div>
                 <div data-role="fieldcontain" class="inline">
                     <label for="test">Click here to try</label>
-                    <input type="text" name="test" id="test" />
+                    <input type="text" name="test" id="test" value="08/30/2012 04:32 PM" />
                 </div>
             </form>
         </div>
