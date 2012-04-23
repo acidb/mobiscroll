@@ -1,0 +1,46 @@
+/* Sense UI Skin */
+.sense-ui .dw {
+    padding: 0;
+    background: #333;
+    border: 2px solid #fff;
+    color: #fff;
+}
+.sense-ui .dwv {
+    padding: 5px 10px;
+    border-bottom: 1px solid #666;
+    text-align: left;
+}
+.sense-ui .dwwc {
+    background: #333;
+}
+.sense-ui .dww {
+    margin: 0 2px;
+}
+.sense-ui .dwpm .dww {
+    margin: 0;
+    border: 0;
+}
+.sense-ui .dwbc {
+    padding: 5px 1px;
+    background: #000;
+    background: -webkit-gradient(linear,left bottom,left top,color-stop(0.5, #000),color-stop(0.5, #666));
+    background: -moz-linear-gradient(#666 50%,#000 50%);
+    background: -ms-linear-gradient(#666 50%,#000 50%);
+    background: -o-linear-gradient(#666 50%,#000 50%);
+}
+.sense-ui .dwb {
+    margin: 0 5px;
+    background: #000;
+    border: 1px solid #333;
+    background: -webkit-gradient(linear,left bottom,left top,color-stop(0, #000),color-stop(1, #444));
+    background: -moz-linear-gradient(#444,#000);
+    background: -ms-linear-gradient(#444,#000);
+    background: -o-linear-gradient(#444,#000);
+    box-shadow: inset 0 0 5px #000;
+}
+.sense-ui .dwb-a {
+    background:-webkit-gradient(linear,left bottom,left top,color-stop(0, #3c7500),color-stop(1, #94c840));
+    background:-moz-linear-gradient(#94c840,#3c7500);
+    background:-ms-linear-gradient(#94c840,#3c7500);
+    background:-o-linear-gradient(#94c840,#3c7500);
+}

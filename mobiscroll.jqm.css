@@ -1,0 +1,44 @@
+/* jQuery Mobile Theme */
+.jqm .dwo {
+    background: none;
+}
+.jqm .dw {
+    padding: 6px;
+}
+.jqm .dwv {
+    padding: .7em 15px .7em 15px;
+    border: 0;
+}
+.jqm .dwwr {
+    border: 0;
+}
+.jqm .dwpm .dwwo {
+    background: none;
+}
+.jqm .dwc {
+    margin: 0;
+    padding: 30px 5px 5px 5px;
+ }
+.jqm .dwhl {
+    padding: 5px;
+}
+.jqm .dwwb {
+    margin: 0;
+    border: 0;
+}
+.jqm .dwwb span {
+    padding: 0;
+}
+.jqm .dwwbp .ui-btn-inner {
+    -webkit-border-radius: 3px 3px 0 0;
+    -moz-border-radius: 3px 3px 0 0;
+    border-radius: 3px 3px 0 0;
+}
+.jqm .dwwbm .ui-btn-inner {
+    -webkit-border-radius: 0 0 3px 3px;
+    -moz-border-radius: 0 0 3px 3px;
+    border-radius: 0 0 3px 3px;
+}
+.jqm .dwwbp span {
+    font-weight: normal;
+}
