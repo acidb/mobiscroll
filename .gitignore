@@ -1,2 +1,7 @@
 .hg/*
 .hgignore
+.gitignore
+compiler.jar
+yuicompressor.jar
+minify.bat
+mobiscroll.full.*

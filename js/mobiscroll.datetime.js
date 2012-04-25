@@ -40,17 +40,6 @@
                 mind = s.minDate,
                 maxd = s.maxDate;
 
-            // Determine the order of year, month, day wheels
-            $.each(['y', 'm', 'd'], function(i, v) {
-                var i = dord.search(new RegExp(v, 'i'));
-                if (i > -1)
-                    ord.push({ o: i, v: v });
-            });
-            ord.sort(function(a, b) { return a.o > b.o ? 1 : -1; });
-            $.each(ord, function(i, v) {
-                o[v.v] = i;
-            });
-
             if (p == 'date')
                 format = s.dateFormat;
             else if (p == 'time')
@@ -59,6 +48,18 @@
                 format = s.dateFormat + ' ' + s.timeFormat;
 
             if (p.match(/date/i)) {
+
+                // Determine the order of year, month, day wheels
+                $.each(['y', 'm', 'd'], function(i, v) {
+                    var i = dord.search(new RegExp(v, 'i'));
+                    if (i > -1)
+                        ord.push({ o: i, v: v });
+                });
+                ord.sort(function(a, b) { return a.o > b.o ? 1 : -1; });
+                $.each(ord, function(i, v) {
+                    o[v.v] = i;
+                });
+
                 var w = {};
                 for (var k = 0; k < 3; k++) {
                     if (k == o.y) {
@@ -112,7 +113,7 @@
 
             function get(d, i, def) {
                 if (o[i] !== undefined)
-                    return d[o[i]];
+                    return +d[o[i]];
                 if (def !== undefined)
                     return def;
                 return defd[f[i]] ? defd[f[i]]() : f[i](defd);
@@ -120,16 +121,16 @@
 
             function getHour(d) {
                 var hour = d.getHours();
-                hour = s.ampm ? (hour > 12 ? (hour - 12) : hour) : hour;
-                return Math.round(hour / s.stepHour) * s.stepHour;
+                hour = s.ampm ? (hour >= 12 ? (hour - 12) : hour) : hour;
+                return Math.floor(hour / s.stepHour) * s.stepHour;
             }
 
             function getMinute(d) {
-                return Math.round(d.getMinutes() / s.stepMinute) * s.stepMinute;
+                return Math.floor(d.getMinutes() / s.stepMinute) * s.stepMinute;
             }
 
             function getSecond(d) {
-                return Math.round(d.getSeconds() / s.stepSecond) * s.stepSecond;
+                return Math.floor(d.getSeconds() / s.stepSecond) * s.stepSecond;
             }
 
             function getAmPm(d) {
@@ -172,16 +173,19 @@
                 validate: function(dw, i) {
                     var temp = inst.temp,
                         mins = { m: 0, d: 1, h: 0, i: 0, s: 0, ap: 0 },
-                        maxs = { m: 11, d: 31, h: s.ampm ? 12 : 23, i: 59, s: 59, ap: 1 },
+                        maxs = { m: 11, d: 31, h: s.ampm ? 11 : 23, i: 59, s: 59, ap: 1 },
                         w = (mind || maxd) ? ['y', 'm', 'd', 'ap', 'h', 'i', 's'] : ((i == o.y || i == o.m || i === undefined) ? ['d'] : []), // Validate day only, if no min/max date set
                         minprop = true,
                         maxprop = true;
+                    maxs.h = Math.floor(maxs.h / s.stepHour) * s.stepHour;
+                    maxs.i = Math.floor(maxs.i / s.stepMinute) * s.stepMinute;
+                    maxs.s = Math.floor(maxs.s / s.stepSecond) * s.stepSecond;
                     $.each(w, function(x, i) {
                         if (o[i] !== undefined) {
                             var min = mins[i],
                                 max = maxs[i],
                                 val = get(temp, i);
-                                t = $('ul:eq(' + o[i] + ')', dw)
+                                t = $('ul', dw).eq(o[i])
                             if (i == 'd') {
                                 max = 32 - new Date(get(temp, 'y'), get(temp, 'm'), 32).getDate();
                             }
@@ -191,21 +195,19 @@
                             if (maxprop && maxd) {
                                 max = maxd[f[i]] ? maxd[f[i]]() : f[i](maxd);
                             }
-                            if (min > mins[i] || max < maxs[i]) {
+                            if (i != 'y' /*min > mins[i] || max < maxs[i]*/) {
                                 // TODO: move this into core, validation should return min/max?
                                 var i1 = $('li[data-val="' + min + '"]', t).index(),
                                     i2 = $('li[data-val="' + max + '"]', t).index();
-                                $('li', t).addClass('valid');
-                                $('li:lt(' + i1 + ')', t).removeClass('valid');
-                                $('li:gt(' + i2 + ')', t).removeClass('valid');
+                                $('li', t).removeClass('valid').slice(i1, i2 + 1).addClass('valid');
                                 if (val < min) {
                                     inst.scroll(t, i1);
-                                    temp[o[i]] = $('li:eq(' + i1 + ')', t).data('val');
+                                    temp[o[i]] = $('li', t).eq(i1).data('val');
                                     val = min;
                                 }
                                 if (val > max) {
                                     inst.scroll(t, i2);
-                                    temp[o[i]] = $('li:eq(' + i2 + ')', t).data('val');
+                                    temp[o[i]] = $('li', t).eq(i2).data('val');
                                     val = max;
                                 }
                             }
@@ -223,7 +225,8 @@
                     * @return {Date}
                     */
                     getDate: function(temp) {
-                        var inst = $(this).data('scroller');
+                        //var inst = $(this).data('scroller');
+                        var inst = $(this).scroller('getInst');
                         if (inst) {
                             var d = temp ? inst.temp : inst.values
                                 hour = get(d, 'h', 0);
@@ -236,15 +239,16 @@
                     * @param {Boolean} [fill] - Also set the value of the associated input element. Default is true.
                     * @return {Object} - jQuery object to maintain chainability
                     */
-                    setDate: function(d, fill) {
+                    setDate: function(d, fill, time) {
                         if (fill == undefined) fill = false;
                         return this.each(function () {
-                            var inst = $(this).data('scroller');
+                            //var inst = $(this).data('scroller');
+                            var inst = $(this).scroller('getInst');
                             if (inst) {
                                 // Set wheels
                                 for (var i in o)
                                     inst.temp[o[i]] = d[f[i]] ? d[f[i]]() : f[i](d);
-                                inst.setValue(fill);
+                                inst.setValue(fill, time);
                             }
                         });
                     }

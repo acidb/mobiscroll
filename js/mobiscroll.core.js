@@ -23,9 +23,15 @@
 
         // Private functions
 
+        function getDocHeight() {
+            var body = document.body,
+                html = document.documentElement;
+            return Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
+        }
+
         function setGlobals(t) {
-            min = $('li.valid:first', t).index();
-            max = $('li.valid:last', t).index();
+            min = $('li.valid', t).eq(0).index();
+            max = $('li.valid', t).eq(-1).index();
             h = s.height;
             inst = that;
         }
@@ -39,11 +45,11 @@
             that.setValue(false);
         }
 
-        function scrollToPos() {
+        function scrollToPos(time) {
             // Set scrollers to position
             $('.dww ul', dw).each(function(i) {
                 var x = $('li[data-val="' + that.temp[i] + '"]', this).index();
-                that.scroll($(this), x < 0 ? 0 : x);
+                that.scroll($(this), x < 0 ? 0 : x, time);
             });
             // Initial validate
             that.validate();
@@ -71,12 +77,13 @@
             w = d.outerWidth();
             h = d.outerHeight();
             d.css({ left: (ww - w) / 2, top: st + (wh - h) / 2 });
-            o.height(0).height($(document).height());
+            //o.height(0).height($(document).height());
+            o.height(0).height(getDocHeight());
         }
 
         function plus(t) {
             if (plustap) {
-                var p = t.data('pos'),
+                var p = +t.data('pos'),
                     val = p + 1;
                 calc(t, val > max ? min : val);
             }
@@ -87,7 +94,7 @@
 
         function minus(t) {
             if (minustap) {
-                var p = t.data('pos'),
+                var p = +t.data('pos'),
                     val = p - 1;
 
                 calc(t, val < min ? max : val);
@@ -145,7 +152,7 @@
                 // Show +/- buttons
                 clearTimeout(tv[index]);
                 tv[index] = setTimeout(function() {
-                    if (!t.hasClass('dwa'))
+                    if (s.mode == 'mixed' && !t.hasClass('dwa'))
                         t.closest('.dwwl').find('.dwwb').fadeIn('fast');
                 }, time * 1000);
             }
@@ -159,13 +166,13 @@
         * If input parameter is true, populates the associated input element.
         * @param {Boolean} [fill] - Also set the value of the associated input element. Default is true.
         */
-        that.setValue = function (fill) {
+        that.setValue = function (fill, time) {
             if (fill == undefined) fill = true;
             var v = s.formatResult(that.temp);
             that.val = v;
             that.values = that.temp.slice(0);
-            if (visible) scrollToPos();
-            if (fill && input) elm.val(v).change();
+            if (visible) scrollToPos(time);
+            if (fill && input) elm.val(v).trigger('change');
         }
 
         /**
@@ -252,7 +259,9 @@
             $('.dww', dw).each(function() { $(this).width($(this).parent().width() < s.width ? s.width : $(this).parent().width()); });
             $('.dwwc', dw).each(function() {
                 var w = 0;
-                $('.dwwl', this).each(function() { w += $(this).outerWidth(true); });
+                $('.dwwl', this).each(function() {
+                    w += $(this).outerWidth(true);
+                });
                 $(this).width(w);
             });
             $('.dwc', dw).each(function() {
@@ -275,8 +284,13 @@
                 });
 
                 // Disable inputs to prevent bleed through (Android bug)
-                $(':input:not(:disabled)').addClass('dwtd');
-                $(':input').prop('disabled', true);
+                //$(':input:not(:disabled)').addClass('dwtd');
+                //$(':input').prop('disabled', true);
+                $('input,select').each(function() {
+                    if (!$(this).prop('disabled'))
+                        $(this).addClass('dwtd');
+                });
+                $('input,select').prop('disabled', true);
 
                 // Set position
                 position();
@@ -289,7 +303,7 @@
                 e = e.originalEvent;
                 var delta = e.wheelDelta ? (e.wheelDelta / 120) : (e.detail ? (-e.detail / 3) : 0),
                     t = $('ul', this),
-                    p = t.data('pos'),
+                    p = +t.data('pos'),
                     val = Math.round(p + delta);
                 setGlobals(t);
                 calc(t, val);
@@ -316,12 +330,13 @@
                 minus(t);
             }).delegate('.dwwl', START_EVENT, function (e) {
                 // Scroll start
-                if (!move && that.settings.mode != 'clickpick') {
+                if (!move && s.mode != 'clickpick') {
                     e.preventDefault();
                     move = true;
                     target = $('ul', this).addClass('dwa');
-                    $('.dwwb', this).fadeOut('fast');
-                    pos = target.data('pos');
+                    if (s.mode == 'mixed')
+                        $('.dwwb', this).fadeOut('fast');
+                    pos = +target.data('pos');
                     setGlobals(target);
                     start = getY(e);
                     startTime = new Date();
@@ -358,7 +373,7 @@
             }
 
             if (elm.data('dwro') !== undefined)
-                elm.prop('readonly', elm.data('dwro'));
+                e.readOnly = bool(elm.data('dwro'));
 
             if (visible)
                 that.hide();
@@ -370,7 +385,8 @@
                 read();
                 if (input && s.showOnFocus) {
                     // Set element readonly, save original state
-                    elm.data('dwro', elm.prop('readonly')).prop('readonly', true);
+                    elm.data('dwro', e.readOnly);
+                    e.readOnly = true;
                     // Init show datewheel
                     elm.bind('focus.dw', that.show);
                 }
@@ -403,11 +419,15 @@
     }
 
     function getInst(e) {
-        return $(e).data('scroller');
+        return scrollers[e.id];
     }
 
     function getY(e) {
-        return touch ? e.originalEvent.changedTouches[0].pageY : e.pageY;
+        return touch ? (e.originalEvent ? e.originalEvent.changedTouches[0].pageY : e.changedTouches[0].pageY) : e.pageY;
+    }
+
+    function bool(v) {
+        return (v === true || v == 'true');
     }
 
     function calc(t, val, anim, orig) {
@@ -418,14 +438,15 @@
         // Call scroll with animation (calc animation time)
         inst.scroll(t, val, anim ? (val == orig ? 0.1 : Math.abs((val - orig) * 0.1)) : 0, orig, i);
         // Set selected scroller value
-        inst.temp[i] = $('li:eq(' + val + ')', t).data('val');
+        inst.temp[i] = $('li', t).eq(val).data('val');
         // Validate
         inst.validate(i);
         // Set value text
         inst.change(true);
     }
 
-    var plustap = false,
+    var scrollers = {},
+        plustap = false,
         minustap = false,
         empty = function() {},
         h,
@@ -466,7 +487,6 @@
             setText: 'Set',
             cancelText: 'Cancel',
             // Events
-            //beforeShow: empty,
             onShow: empty,
             onClose: empty,
             onSelect: empty,
@@ -510,7 +530,7 @@
                         uuid += 1;
                         this.id = 'scoller' + uuid;
                     }
-                    $(this).data('scroller', new Scroller(this, options));
+                    scrollers[this.id] = new Scroller(this, options);
                 });
             },
             enable: function() {
@@ -526,7 +546,7 @@
                 });
             },
             isDisabled: function() {
-                var inst = getInst(this);
+                var inst = getInst(this[0]);
                 if (inst)
                     return inst.settings.disabled;
             },
@@ -543,23 +563,26 @@
                     }
                 });
             },
-            setValue: function(d, input) {
+            setValue: function(d, input, time) {
                 if (input == undefined) input = false;
                 return this.each(function () {
                     var inst = getInst(this);
                     if (inst) {
                         inst.temp = d;
-                        inst.setValue(d, input);
+                        inst.setValue(input, time);
                     }
                 });
             },
+            getInst: function() {
+                return getInst(this[0]);
+            },
             getValue: function() {
-                var inst = getInst(this);
+                var inst = getInst(this[0]);
                 if (inst)
                     return inst.values;
             },
             show: function() {
-                var inst = getInst(this);
+                var inst = getInst(this[0]);
                 if (inst)
                     return inst.show();
             },
@@ -575,9 +598,10 @@
                     var inst = getInst(this);
                     if (inst) {
                         inst.hide();
-                        $(this).unbind('.dw').removeData('scroller');
+                        $(this).unbind('.dw');
+                        delete scrollers[this.id];
                         if ($(this).is('input'))
-                            $(this).prop('readonly', $(this).data('dwro'));
+                            this.readOnly = bool($(this).data('dwro'));
                     }
                 });
             }

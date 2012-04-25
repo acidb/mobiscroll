@@ -6,20 +6,17 @@
 
     <title>Mobiscroll</title>
 
-    <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-    <script src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js"></script>
-    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css" />
+    <script src="http://zeptojs.com/zepto.js"></script>
 
+    <script src="js/mobiscroll.zepto.js" type="text/javascript"></script>
     <script src="js/mobiscroll.core.js" type="text/javascript"></script>
     <script src="js/mobiscroll.datetime.js" type="text/javascript"></script>
     <script src="js/mobiscroll.select.js" type="text/javascript"></script>
-    <script src="js/mobiscroll.jqm.js" type="text/javascript"></script>
     <script src="js/mobiscroll.ios.js" type="text/javascript"></script>
     <script src="js/mobiscroll.android.js" type="text/javascript"></script>
     <script src="js/mobiscroll.android-ics.js" type="text/javascript"></script>
 
     <link href="css/mobiscroll.core.css" rel="stylesheet" type="text/css" />
-    <link href="css/mobiscroll.jqm.css" rel="stylesheet" type="text/css" />
     <link href="css/mobiscroll.android.css" rel="stylesheet" type="text/css" />
     <link href="css/mobiscroll.android-ics.css" rel="stylesheet" type="text/css" />
     <link href="css/mobiscroll.ios.css" rel="stylesheet" type="text/css" />
@@ -29,18 +26,57 @@
         body {
             font-family: arial, verdana, sans-serif;
             font-size: 12px;
+            padding: 0;
+            margin: 0;
+            background: #F3F3F3;
+        }
+        .text-input {
+            width: 100%;
+            padding: 5px;
+            margin: 5px 0;
+            border: 1px solid #aaa;
+            box-shadow: inset 0 1px 4px rgba(0,0,0,.2);
+            border-radius: 5px;
+            -webkit-box-shadow: inset 0 1px 4px rgba(0,0,0,.2);
+            -webkit-border-radius: 5px;
+        }
+        .header {
+            border: 1px solid #333;
+            background: #111;
+            color: white;
+            font-weight: bold;
+            text-shadow: 0 -1px 1px black;
+            background-image: -webkit-gradient(linear,left top,left bottom,from(#3C3C3C),to(#111));
+            background-image: -webkit-linear-gradient(#3C3C3C,#111);
+            background-image: -moz-linear-gradient(#3C3C3C,#111);
+            background-image: -ms-linear-gradient(#3C3C3C,#111);
+            background-image: -o-linear-gradient(#3C3C3C,#111);
+            background-image: linear-gradient(#3C3C3C,#111);
+        }
+        .header h1 {
+            text-align: center;
+            font-size: 16px;
+            margin: .6em 0;
+            padding: 0;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        .content {
+            padding: 15px;
+            background: #fff;
+        }
+        .fieldcontain {
+            padding-right: 12px;
         }
         .inline > div {
             text-align: center;
         }
         #buttons {
             text-align: left;
-            padding: 1em 0;
         }
-        @media (min-width:450px) {
-            #buttons {
-                padding-left: 22%;
-            }
+        #buttons input {
+            margin: 0;
         }
     </style>
 
@@ -75,7 +111,7 @@
                 }
             }
 
-            $('select').scroller({ preset: 'select' }).on('change', function() {
+            $('select').scroller({ preset: 'select', inputClass: 'text-input' }).on('change', function() {
                 $('#test').val('').scroller('destroy').scroller($.extend(opt[$('#demo').val()], { theme: $('#theme').val(), mode: $('#mode').val() }));
                 $('#demo').val() == 'btn' ? $('#buttons').show() : $('#buttons').hide();
             });
@@ -96,18 +132,17 @@
 </head>
 
 <body>
-    <div data-role="page" data-theme="b">
-        <div data-role="header" data-theme="a">
+    <div class="page">
+        <div class="header">
             <h1>Mobiscroll</h1>
         </div>
 
-        <div data-role="content" data-theme="d">
+        <div class="content">
             <form id="testform">
-                <div data-role="fieldcontain">
+                <div class="fieldcontain">
                     <label for="theme">Theme</label>
-                    <select name="theme" id="theme" data-role="none">
+                    <select name="theme" id="theme">
                         <option value="default">Default</option>
-                        <option value="jqm">jQuery Mobile</option>
                         <option value="android-ics">Android ICS</option>
                         <option value="android-ics light">Android ICS Light</option>
                         <option value="android">Android</option>
@@ -115,17 +150,17 @@
                         <option value="ios">iOS</option>
                     </select>
                 </div>
-                <div data-role="fieldcontain">
+                <div class="fieldcontain">
                     <label for="mode">Mode</label>
-                    <select name="mode" id="mode" data-role="none">
+                    <select name="mode" id="mode">
                         <option value="scroller">Scroller</option>
                         <option value="clickpick">Clickpick</option>
                         <option value="mixed">Mixed</option>
                     </select>
                 </div>
-                <div data-role="fieldcontain">
+                <div class="fieldcontain">
                     <label for="demo">Demo</label>
-                    <select name="demo" id="demo" data-role="none">
+                    <select name="demo" id="demo">
                         <option value="date" selected>Date</option>
                         <option value="datetime">Datetime</option>
                         <option value="time">Time</option>
@@ -134,12 +169,12 @@
                         <option value="inline">Inline</option>
                     </select>
                 </div>
-                <div data-role="fieldcontain" class="inline">
+                <div class="fieldcontain inline">
                     <label for="test">Click here to try</label>
-                    <input type="text" name="test" id="test" />
-                    <div data-role="controlgroup" data-type="horizontal" id="buttons">
-                        <a href="#" id="trigger" data-role="button" data-icon="grid">Choose Date</a>
-                        <a href="#" id="clear" data-role="button" data-icon="delete">Clear</a>
+                    <input type="text" name="test" id="test" class="text-input" />
+                    <div id="buttons">
+                        <input type="submit" value="Choose Date" id="trigger" />
+                        <input type="submit" value="Clear" id="clear" />
                     </div>
                 </div>
             </form>
