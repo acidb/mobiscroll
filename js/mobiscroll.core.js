@@ -435,18 +435,12 @@
             i = $('ul', dw).index(t);
         val = val > max ? max : val;
         val = val < min ? min : val;
-        // Set selected scroller value
-        var cell = $('li', t).eq(val);
-        inst.temp[i] = cell.data('val');
-        // Validate
-        inst.validate(i);
-        while (cell.length && !cell.hasClass('valid')) {
-            cell = cell.prev();
-            val--;
-        }
-        inst.temp[i] = cell.data('val');
         // Call scroll with animation (calc animation time)
         inst.scroll(t, val, anim ? (val == orig ? 0.1 : Math.abs((val - orig) * 0.1)) : 0, orig, i);
+        // Set selected scroller value
+        inst.temp[i] = $('li', t).eq(val).data('val');
+        // Validate
+        inst.validate(i);
         // Set value text
         inst.change(true);
     }

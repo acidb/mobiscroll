@@ -217,7 +217,6 @@
                                 maxprop = val == max;
                         }
                     });
-                    $('li[data-val="27"]', dw).removeClass('valid');
                 },
                 methods: {
                     /**
