@@ -191,7 +191,7 @@
         that.change = function (manual) {
             var v = s.formatResult(that.temp);
             if (s.display == 'inline' && input)
-                elm.val(v);
+                elm.val(v).trigger('change');
             else
                 $('.dwv', dw).html(formatHeader(v));
             if (manual)
@@ -236,7 +236,7 @@
                     html += '<div class="dwwl dwrc" style="height:' + thi + 'px;">' + (s.mode != 'scroller' ? '<div class="dwwb dwwbp" style="height:' + hi + 'px;line-height:' + hi + 'px;"><span>+</span></div><div class="dwwb dwwbm" style="height:' + hi + 'px;line-height:' + hi + 'px;"><span>&ndash;</span></div>' : '') + '<div class="dwl">' + label + '</div><div class="dww dwrc" style="height:' + thi + 'px;"><ul>';
                     // Create wheel values
                     for (var j in s.wheels[i][label]) {
-                        html += '<li class="valid" data-val="' + j + '" style="line-height:' + hi + 'px;">' + s.wheels[i][label][j] + '</li>';
+                        html += '<li class="valid" data-val="' + j + '" style="height:' + hi + 'px;line-height:' + hi + 'px;">' + s.wheels[i][label][j] + '</li>';
                     }
                     html += '</ul><div class="dwwo"></div></div><div class="dwwol"></div></div>';
                 }
@@ -249,7 +249,7 @@
             scrollToPos();
 
             // Show
-            s.display != 'inline' ? dw.appendTo('body') : input ? dw.insertAfter(elm) : elm.html(dw);
+            s.display != 'inline' ? dw.appendTo('body') : elm.is('div') ? elm.html(dw) : dw.insertAfter(elm);
             visible = true;
 
             // Theme init
@@ -284,8 +284,6 @@
                 });
 
                 // Disable inputs to prevent bleed through (Android bug)
-                //$(':input:not(:disabled)').addClass('dwtd');
-                //$(':input').prop('disabled', true);
                 $('input,select').each(function() {
                     if (!$(this).prop('disabled'))
                         $(this).addClass('dwtd');
@@ -478,12 +476,12 @@
             disabled: false,
             showOnFocus: true,
             showLabel: true,
-            wheels: null,
+            wheels: [],
             theme: '',
             headerText: '{value}',
             display: 'modal',
             mode: 'scroller',
-            preset: 'date',
+            preset: '',
             setText: 'Set',
             cancelText: 'Cancel',
             // Events

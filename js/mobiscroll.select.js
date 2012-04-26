@@ -23,7 +23,10 @@
 
         $('#' + id).remove();
 
-        var input = $('<input type="text" id="' + id + '" value="' + main[elm.val()] + '" class="' + s.inputClass + '" readonly />').insertAfter(elm).focus(function() { inst.show() });
+        var input = $('<input type="text" id="' + id + '" value="' + main[elm.val()] + '" class="' + s.inputClass + '" readonly />').insertBefore(elm);
+
+        if (s.showOnFocus)
+            input.focus(function() { inst.show() });
 
         elm.hide().closest('.ui-field-contain').trigger('create');
 
@@ -40,6 +43,12 @@
             onSelect: function(v, inst) {
                 input.val(v);
                 elm.val(inst.values[0]).trigger('change');
+            },
+            onChange: function(v, inst) {
+                if (s.display == 'inline') {
+                    input.val(v);
+                    elm.val(inst.temp[0]).trigger('change');
+                }
             },
             onClose: function() {
                 input.blur();

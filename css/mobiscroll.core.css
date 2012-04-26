@@ -1,5 +1,6 @@
 /* Datewheel overlay */
 .dw {
+    min-width:170px;
     padding: 0 10px;
     position: absolute;
     top: 5%;
