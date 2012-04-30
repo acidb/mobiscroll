@@ -37,6 +37,9 @@
                 dord = s.dateOrder,
                 format = '',
                 defd = new Date(),
+                stepH = s.stepHour,
+                stepM = s.stepMinute,
+                stepS = s.stepSecond,
                 mind = s.minDate,
                 maxd = s.maxDate;
 
@@ -93,15 +96,15 @@
                 o.i = offset++; // Minutes wheel order
                 var w = {};
                 w[s.hourText] = {};
-                for (var i = 0; i < (s.ampm ? 12 : 24); i += s.stepHour)
+                for (var i = 0; i < (s.ampm ? 12 : 24); i += stepH)
                     w[s.hourText][i] = (s.ampm && i == 0) ? 12 : (i < 10) ? ('0' + i) : i;
                 w[s.minuteText] = {};
-                for (var i = 0; i < 60; i += s.stepMinute)
+                for (var i = 0; i < 60; i += stepM)
                     w[s.minuteText][i] = (i < 10) ? ('0' + i) : i;
                 if (s.seconds) {
                     o.s = offset++; // Seconds wheel order
                     w[s.secText] = {};
-                    for (var i = 0; i < 60; i += s.stepSecond)
+                    for (var i = 0; i < 60; i += stepS)
                         w[s.secText][i] = (i < 10) ? ('0' + i) : i;
                 }
                 if (s.ampm) {
@@ -119,18 +122,22 @@
                 return defd[f[i]] ? defd[f[i]]() : f[i](defd);
             }
 
+            function step(v, step) {
+                return Math.floor(v / step) * step;
+            }
+
             function getHour(d) {
                 var hour = d.getHours();
                 hour = s.ampm ? (hour >= 12 ? (hour - 12) : hour) : hour;
-                return Math.floor(hour / s.stepHour) * s.stepHour;
+                return step(hour, stepH);
             }
 
             function getMinute(d) {
-                return Math.floor(d.getMinutes() / s.stepMinute) * s.stepMinute;
+                return step(d.getMinutes(), stepM);
             }
 
             function getSecond(d) {
-                return Math.floor(d.getSeconds() / s.stepSecond) * s.stepSecond;
+                return step(d.getSeconds(), stepS);
             }
 
             function getAmPm(d) {
@@ -173,21 +180,20 @@
                 validate: function(dw, i) {
                     var temp = inst.temp,
                         mins = { m: 0, d: 1, h: 0, i: 0, s: 0, ap: 0 },
-                        maxs = { m: 11, d: 31, h: s.ampm ? 11 : 23, i: 59, s: 59, ap: 1 },
+                        maxs = { m: 11, d: 31, h: step(s.ampm ? 11 : 23, stepH), i: step(59, stepM), s: step(59, stepS), ap: 1 },
                         w = (mind || maxd) ? ['y', 'm', 'd', 'ap', 'h', 'i', 's'] : ((i == o.y || i == o.m || i === undefined) ? ['d'] : []), // Validate day only, if no min/max date set
                         minprop = true,
                         maxprop = true;
-                    maxs.h = Math.floor(maxs.h / s.stepHour) * s.stepHour;
-                    maxs.i = Math.floor(maxs.i / s.stepMinute) * s.stepMinute;
-                    maxs.s = Math.floor(maxs.s / s.stepSecond) * s.stepSecond;
                     $.each(w, function(x, i) {
                         if (o[i] !== undefined) {
                             var min = mins[i],
                                 max = maxs[i],
+                                maxdays = 31,
                                 val = get(temp, i);
                                 t = $('ul', dw).eq(o[i])
                             if (i == 'd') {
-                                max = 32 - new Date(get(temp, 'y'), get(temp, 'm'), 32).getDate();
+                                maxdays = 32 - new Date(get(temp, 'y'), get(temp, 'm'), 32).getDate();
+                                max = maxdays;
                             }
                             if (minprop && mind) {
                                 min = mind[f[i]] ? mind[f[i]]() : f[i](mind);
@@ -195,11 +201,13 @@
                             if (maxprop && maxd) {
                                 max = maxd[f[i]] ? maxd[f[i]]() : f[i](maxd);
                             }
-                            if (i != 'y' /*min > mins[i] || max < maxs[i]*/) {
-                                // TODO: move this into core, validation should return min/max?
+                            if (i != 'y') {
                                 var i1 = $('li[data-val="' + min + '"]', t).index(),
                                     i2 = $('li[data-val="' + max + '"]', t).index();
-                                $('li', t).removeClass('valid').slice(i1, i2 + 1).addClass('valid');
+                                $('li', t).removeClass('dw-v').slice(i1, i2 + 1).addClass('dw-v');
+                                if (i == 'd') { // Hide days not in month
+                                    $('li', t).removeClass('dw-h').slice(maxdays).addClass('dw-h');
+                                }
                                 if (val < min) {
                                     inst.scroll(t, i1);
                                     temp[o[i]] = $('li', t).eq(i1).data('val');

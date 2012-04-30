@@ -137,10 +137,12 @@
     background: -o-linear-gradient(#6b6e75 0%,#272e38 50%,#171e28 50%,#252c36 100%);
 }
 .ios .dwb-s {
+    width: auto;
     float: right;
     text-align: right;
 }
 .ios .dwb-c {
+    width: auto;
     float: left;
     text-align: left;
 }

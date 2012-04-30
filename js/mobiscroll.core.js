@@ -30,8 +30,8 @@
         }
 
         function setGlobals(t) {
-            min = $('li.valid', t).eq(0).index();
-            max = $('li.valid', t).eq(-1).index();
+            min = $('li.dw-v', t).eq(0).index();
+            max = $('li.dw-v', t).eq(-1).index();
             h = s.height;
             inst = that;
         }
@@ -82,25 +82,25 @@
         }
 
         function plus(t) {
-            if (plustap) {
+            if (timer) {
                 var p = +t.data('pos'),
                     val = p + 1;
                 calc(t, val > max ? min : val);
             }
             else {
-                clearInterval(plustap);
+                clearInterval(timer);
             }
         }
 
         function minus(t) {
-            if (minustap) {
+            if (timer) {
                 var p = +t.data('pos'),
                     val = p - 1;
 
                 calc(t, val < min ? max : val);
             }
             else {
-                clearInterval(minustap);
+                clearInterval(timer);
             }
         }
 
@@ -233,10 +233,10 @@
                 html += '<div class="dwc' + (s.mode != 'scroller' ? ' dwpm' : ' dwsc') + (s.showLabel ? '' : ' dwhl') + '"><div class="dwwc dwrc">';
                 // Create wheels
                 for (var label in s.wheels[i]) {
-                    html += '<div class="dwwl dwrc" style="height:' + thi + 'px;">' + (s.mode != 'scroller' ? '<div class="dwwb dwwbp" style="height:' + hi + 'px;line-height:' + hi + 'px;"><span>+</span></div><div class="dwwb dwwbm" style="height:' + hi + 'px;line-height:' + hi + 'px;"><span>&ndash;</span></div>' : '') + '<div class="dwl">' + label + '</div><div class="dww dwrc" style="height:' + thi + 'px;"><ul>';
+                    html += '<div class="dwwl dwrc" style="height:' + thi + 'px;">' + (s.mode != 'scroller' ? '<div class="dwwb dwwbp" style="height:' + hi + 'px;line-height:' + hi + 'px;"><span>+</span></div><div class="dwwb dwwbm" style="height:' + hi + 'px;line-height:' + hi + 'px;"><span>&ndash;</span></div>' : '') + '<div class="dwl">' + label + '</div><div class="dww dwrc" style="height:' + thi + 'px;min-width:' + s.width + 'px;"><ul>';
                     // Create wheel values
                     for (var j in s.wheels[i][label]) {
-                        html += '<li class="valid" data-val="' + j + '" style="height:' + hi + 'px;line-height:' + hi + 'px;">' + s.wheels[i][label][j] + '</li>';
+                        html += '<li class="dw-v" data-val="' + j + '" style="height:' + hi + 'px;line-height:' + hi + 'px;">' + s.wheels[i][label][j] + '</li>';
                     }
                     html += '</ul><div class="dwwo"></div></div><div class="dwwol"></div></div>';
                 }
@@ -254,19 +254,6 @@
 
             // Theme init
             theme.init(dw, that);
-
-            // Set sizes
-            $('.dww', dw).each(function() { $(this).width($(this).parent().width() < s.width ? s.width : $(this).parent().width()); });
-            $('.dwwc', dw).each(function() {
-                var w = 0;
-                $('.dwwl', this).each(function() {
-                    w += $(this).outerWidth(true);
-                });
-                $(this).width(w);
-            });
-            $('.dwc', dw).each(function() {
-                $(this).width($('.dwwc', this).outerWidth(true));
-            });
 
             if (s.display != 'inline') {
                 // Init buttons
@@ -297,38 +284,34 @@
 
             // Events
             dw.delegate('.dwwl', 'DOMMouseScroll mousewheel', function (e) {
-                e.preventDefault();
-                e = e.originalEvent;
-                var delta = e.wheelDelta ? (e.wheelDelta / 120) : (e.detail ? (-e.detail / 3) : 0),
-                    t = $('ul', this),
-                    p = +t.data('pos'),
-                    val = Math.round(p + delta);
-                setGlobals(t);
-                calc(t, val);
+                if (!s.readonly) {
+                    e.preventDefault();
+                    e = e.originalEvent;
+                    var delta = e.wheelDelta ? (e.wheelDelta / 120) : (e.detail ? (-e.detail / 3) : 0),
+                        t = $('ul', this),
+                        p = +t.data('pos'),
+                        val = Math.round(p - delta);
+                    setGlobals(t);
+                    calc(t, val);
+                }
             }).delegate('.dwb, .dwwb', START_EVENT, function (e) {
                 // Active button
                 $(this).addClass('dwb-a');
-            }).delegate('.dwwbp', START_EVENT, function (e) {
-                // + Button
-                e.preventDefault();
-                e.stopPropagation();
-                var t = $(this).closest('.dwwl').find('ul');
-                setGlobals(t);
-                clearInterval(plustap);
-                plustap = setInterval(function() { plus(t); }, s.delay);
-                plus(t);
-            }).delegate('.dwwbm', START_EVENT, function (e) {
-                // - Button
-                e.preventDefault();
-                e.stopPropagation();
-                var t = $(this).closest('.dwwl').find('ul');
-                setGlobals(t);
-                clearInterval(minustap);
-                minustap = setInterval(function() { minus(t); }, s.delay);
-                minus(t);
+            }).delegate('.dwwb', START_EVENT, function (e) {
+                if (!s.readonly) {
+                    // + Button
+                    e.preventDefault();
+                    e.stopPropagation();
+                    var t = $(this).closest('.dwwl').find('ul')
+                        func = $(this).hasClass('dwwbp') ? plus : minus;
+                    setGlobals(t);
+                    clearInterval(timer);
+                    timer = setInterval(function() { func(t); }, s.delay);
+                    plus(t);
+                }
             }).delegate('.dwwl', START_EVENT, function (e) {
                 // Scroll start
-                if (!move && s.mode != 'clickpick') {
+                if (!move && s.mode != 'clickpick' && !s.readonly) {
                     e.preventDefault();
                     move = true;
                     target = $('ul', this).addClass('dwa');
@@ -444,8 +427,7 @@
     }
 
     var scrollers = {},
-        plustap = false,
-        minustap = false,
+        timer,
         empty = function() {},
         h,
         min,
@@ -474,6 +456,7 @@
             rows: 3,
             delay: 300,
             disabled: false,
+            readonly: false,
             showOnFocus: true,
             showLabel: true,
             wheels: [],
@@ -637,10 +620,7 @@
             move = false;
             target = null;
         }
-        clearInterval(plustap);
-        clearInterval(minustap);
-        plustap = false;
-        minustap = false;
+        clearInterval(timer);
         $('.dwb-a').removeClass('dwb-a');
     });
 

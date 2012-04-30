@@ -78,7 +78,7 @@
                 }
             }
 
-            $('select').scroller({ preset: 'select' }).on('change', function() {
+            $('select').scroller({ preset: 'select' }).bind('change', function() {
                 $('#test').val('').scroller('destroy').scroller($.extend(opt[$('#demo').val()], { theme: $('#theme').val(), mode: $('#mode').val() }));
                 $('#demo').val() == 'btn' ? $('#buttons').show() : $('#buttons').hide();
             });
@@ -129,7 +129,7 @@
                 <div data-role="fieldcontain">
                     <label for="demo">Demo</label>
                     <select name="demo" id="demo" data-role="none">
-                        <option value="date" selected>Date</option>
+                        <option value="date">Date</option>
                         <option value="datetime">Datetime</option>
                         <option value="time">Time</option>
                         <option value="credit">Credit card expiration</option>

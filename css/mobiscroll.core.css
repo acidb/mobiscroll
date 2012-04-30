@@ -16,6 +16,9 @@
     margin: 5px;
     display: inline-block;
 }
+.dwwr {
+    zoom: 1;
+}
 /* Datewheel overlay background */
 .dwo {
     width: 100%;
@@ -39,13 +42,14 @@
 }
 /* Datewheel label */
 .dwl {
-    margin: 0 2px;
+    /*margin: 0 2px;*/
     text-align: center;
     line-height: 30px;
     height: 30px;
     white-space: nowrap;
-    position: relative;
+    position: absolute;
     top: -30px;
+    width: 100%;
 }
 /* Datewheel value */
 .dwv {
@@ -64,6 +68,7 @@
     padding: 0 2px;
     position: relative;
     background: #000;
+    zoom:1;
 }
 /* Datewheel wheels */
 .dwwl {
@@ -81,7 +86,7 @@
     margin: 0 2px;
     overflow: hidden;
     position: relative;
-    top: -30px;
+    /*top: -30px;*/
 }
 .dwsc .dww {
     color: #fff;
@@ -95,8 +100,8 @@
     list-style: none;
     margin: 0;
     padding: 0;
-    display: block;
-    width: 100%;
+    /*display: block;
+    width: 100%;*/
     position: relative;
     z-index: 2;
 }
@@ -113,9 +118,14 @@
     opacity: .3;
     filter: Alpha(Opacity=30);
 }
-.dww li.valid {
+/* Valid entry */
+.dww li.dw-v {
     opacity: 1;
     filter: Alpha(Opacity=100);
+}
+/* Hidden entry */
+.dww li.dw-h {
+    display: none;
 }
 /* Wheel +/- buttons */
 .dwwb {
@@ -221,9 +231,6 @@
 }
 .dwhl .dwl {
     display: none;
-}
-.dwhl .dww {
-    top: 0;
 }
 /* Backgrounds */
 .dwbg {
