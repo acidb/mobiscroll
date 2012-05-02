@@ -37,7 +37,8 @@
         }
 
         function formatHeader(v) {
-            return s.headerText ? s.headerText.replace(/{value}/i, v) : '';
+            var t = s.headerText;
+            return t ? (typeof(t) == 'function' ? t.call(e, v) : t.replace(/{value}/i, v)) : '';
         }
 
         function read() {
@@ -48,11 +49,12 @@
         function scrollToPos(time) {
             // Set scrollers to position
             $('.dww ul', dw).each(function(i) {
-                var x = $('li[data-val="' + that.temp[i] + '"]', this).index();
+                var cell = $('li[data-val="' + that.temp[i] + '"]', this),
+                    x = cell.index();
+                // Initial validate
+                x = that.validate(i, x, cell);
                 that.scroll($(this), x < 0 ? 0 : x, time);
             });
-            // Initial validate
-            that.validate();
             // Refromat value if validation changed something
             that.change();
         }
@@ -180,9 +182,30 @@
         * In case of date presets it checks the number of days in a month.
         * @param {Integer} i - Currently changed wheel index, -1 if initial validation.
         */
-        that.validate = function (i) {
+        that.validate = function (i, val, cell) {
             // If target is month, show/hide days
             s.validate.call(e, dw, i)
+
+            // Process invalid cells
+            if (!cell.hasClass('dw-v')) {
+                var cell1 = cell,
+                    cell2 = cell,
+                    dist1 = 0,
+                    dist2 = 0;
+                while (cell1.prev().length && !cell1.hasClass('dw-v')) {
+                    cell1 = cell1.prev();
+                    dist1++;
+                }
+                while (cell2.next().length && !cell2.hasClass('dw-v')) {
+                    cell2 = cell2.next();
+                    dist2++;
+                }
+                cell = dist2 < dist1 ? cell2 : cell1;
+                val = dist2 < dist1 ? val + dist2 : val - dist1;
+                that.temp[i] = cell.data('val');
+            }
+
+            return val;
         }
 
         /**
@@ -412,16 +435,21 @@
     }
 
     function calc(t, val, anim, orig) {
-        var dw = t.closest('.dw'),
-            i = $('ul', dw).index(t);
+        var i = t.closest('.dwwr').find('ul').index(t);
+
         val = val > max ? max : val;
         val = val < min ? min : val;
+
+        var cell = $('li', t).eq(val);
+        // Set selected scroller value
+        inst.temp[i] = cell.data('val');
+
+        // Validate
+        val = inst.validate(i, val, cell);
+
         // Call scroll with animation (calc animation time)
         inst.scroll(t, val, anim ? (val == orig ? 0.1 : Math.abs((val - orig) * 0.1)) : 0, orig, i);
-        // Set selected scroller value
-        inst.temp[i] = $('li', t).eq(val).data('val');
-        // Validate
-        inst.validate(i);
+
         // Set value text
         inst.change(true);
     }

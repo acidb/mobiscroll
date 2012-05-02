@@ -181,7 +181,7 @@
                     var temp = inst.temp,
                         mins = { m: 0, d: 1, h: 0, i: 0, s: 0, ap: 0 },
                         maxs = { m: 11, d: 31, h: step(s.ampm ? 11 : 23, stepH), i: step(59, stepM), s: step(59, stepS), ap: 1 },
-                        w = (mind || maxd) ? ['y', 'm', 'd', 'ap', 'h', 'i', 's'] : ((i == o.y || i == o.m || i === undefined) ? ['d'] : []), // Validate day only, if no min/max date set
+                        w = (mind || maxd) ? ['y', 'm', 'd', 'ap', 'h', 'i', 's'] : ((i == o.y || i == o.m) ? ['d'] : []), // Validate day only, if no min/max date set
                         minprop = true,
                         maxprop = true;
                     $.each(w, function(x, i) {
