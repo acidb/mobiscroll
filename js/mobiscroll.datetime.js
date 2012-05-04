@@ -4,8 +4,7 @@
         defaults = {
             dateFormat: 'mm/dd/yy',
             dateOrder: 'mmddy',
-            ampm: true,
-            seconds: false,
+            timeWheels: 'hhiiA',
             timeFormat: 'hh:ii A',
             startYear: date.getFullYear() - 100,
             endYear: date.getFullYear() + 1,
@@ -23,9 +22,41 @@
             ampmText: '&nbsp;',
             stepHour: 1,
             stepMinute: 1,
-            stepSecond: 1
+            stepSecond: 1,
+            separator: ' '
         },
         preset = function(inst) {
+            var that = $(this),
+                format;
+            // Force format for html5 date inputs (experimental)
+            if (that.is('input')) {
+                switch (that.attr('type')) {
+                    case 'date':
+                        format = 'yy-mm-dd';
+                        break;
+                    case 'datetime':
+                        format = 'yy-mm-ddTHH:ii:ssZ';
+                        break;
+                    case 'datetime-local':
+                        format = 'yy-mm-ddTHH:ii:ss';
+                        break;
+                    case 'month':
+                        format = 'yy-mm';
+                        defaults.dateOrder = 'mmyy';
+                        break;
+                    case 'time':
+                        format = 'HH:ii:ss';
+                        break;
+                }
+                // Check for min/max attributes
+                var min = that.attr('min'),
+                    max = that.attr('max');
+                if (min)
+                    defaults.minDate = new Date(min);
+                if (max)
+                    defaults.maxDate = new Date(max);
+            }
+
             // Set year-month-day order
             var s = $.extend({}, defaults, inst.settings),
                 offset = 0,
@@ -35,7 +66,11 @@
                 f = { y: 'getFullYear', m: 'getMonth', d: 'getDate', h: getHour, i: getMinute, s: getSecond, ap: getAmPm },
                 p = s.preset,
                 dord = s.dateOrder,
-                format = '',
+                tord = s.timeWheels,
+                regen = dord.match(/D/),
+                ampm = tord.match(/a/i),
+                hampm = tord.match(/h/),
+                hformat = p == 'datetime' ? s.dateFormat + s.separator + s.timeFormat : p == 'time' ? s.timeFormat : s.dateFormat,
                 defd = new Date(),
                 stepH = s.stepHour,
                 stepM = s.stepMinute,
@@ -43,12 +78,7 @@
                 mind = s.minDate,
                 maxd = s.maxDate;
 
-            if (p == 'date')
-                format = s.dateFormat;
-            else if (p == 'time')
-                format = s.timeFormat;
-            else if (p == 'datetime')
-                format = s.dateFormat + ' ' + s.timeFormat;
+            format = format ? format : hformat;
 
             if (p.match(/date/i)) {
 
@@ -71,45 +101,50 @@
                         start = mind ? mind.getFullYear() : s.startYear;
                         end = maxd ? maxd.getFullYear() : s.endYear;
                         for (var i = start; i <= end; i++)
-                            w[s.yearText][i] = dord.search(/yy/i) < 0 ? i.toString().substr(2, 2) : i.toString();
+                            w[s.yearText][i] = dord.match(/yy/i) ? i : (i + '').substr(2, 2);
                     }
                     else if (k == o.m) {
                         offset++;
                         w[s.monthText] = {};
                         for (var i = 0; i < 12; i++)
                             w[s.monthText][i] =
-                                (dord.search(/MM/) < 0 ?
-                                (dord.search(/M/) < 0 ?
-                                (dord.search(/mm/) < 0 ? (i + 1) : (i < 9) ? ('0' + (i + 1)) : (i + 1)) : s.monthNamesShort[i]) : s.monthNames[i]);
+                                dord.match(/MM/) ? s.monthNames[i] :
+                                dord.match(/M/) ? s.monthNamesShort[i] :
+                                dord.match(/mm/) && i < 9 ? '0' + (i + 1) : i + 1;
                     }
                     else if (k == o.d) {
                         offset++;
                         w[s.dayText] = {};
                         for (var i = 1; i < 32; i++)
-                            w[s.dayText][i] = dord.search(/dd/i) < 0 ? i : (i < 10) ? ('0' + i) : i;
+                            w[s.dayText][i] = dord.match(/dd/i) && i < 10 ? '0' + i : i;
                     }
                 }
                 wheels.push(w);
             }
             if (p.match(/time/i)) {
-                o.h = offset++; // Hours wheel order
-                o.i = offset++; // Minutes wheel order
                 var w = {};
-                w[s.hourText] = {};
-                for (var i = 0; i < (s.ampm ? 12 : 24); i += stepH)
-                    w[s.hourText][i] = (s.ampm && i == 0) ? 12 : (i < 10) ? ('0' + i) : i;
-                w[s.minuteText] = {};
-                for (var i = 0; i < 60; i += stepM)
-                    w[s.minuteText][i] = (i < 10) ? ('0' + i) : i;
-                if (s.seconds) {
+                if (tord.match(/h/i)) {
+                    o.h = offset++; // Hours wheel order
+                    w[s.hourText] = {};
+                    for (var i = 0; i < (hampm ? 12 : 24); i += stepH)
+                        w[s.hourText][i] = hampm && i == 0 ? 12 : tord.match(/hh/i) && i < 10 ? '0' + i : i;
+                }
+                if (tord.match(/i/)) {
+                    o.i = offset++; // Minutes wheel order
+                    w[s.minuteText] = {};
+                    for (var i = 0; i < 60; i += stepM)
+                        w[s.minuteText][i] = tord.match(/ii/) && i < 10 ? '0' + i : i;
+                }
+                if (tord.match(/s/)) {
                     o.s = offset++; // Seconds wheel order
                     w[s.secText] = {};
                     for (var i = 0; i < 60; i += stepS)
-                        w[s.secText][i] = (i < 10) ? ('0' + i) : i;
+                        w[s.secText][i] = tord.match(/ss/) && i < 10 ? '0' + i : i;
                 }
-                if (s.ampm) {
+                if (ampm) {
                     o.ap = offset++; // ampm wheel order
-                    w[s.ampmText] = { 0: 'AM', 1: 'PM' };
+                    var upper = tord.match(/A/);
+                    w[s.ampmText] = { 0: upper ? 'AM' : 'am', 1: upper ? 'PM' : 'pm' };
                 }
                 wheels.push(w);
             }
@@ -128,7 +163,7 @@
 
             function getHour(d) {
                 var hour = d.getHours();
-                hour = s.ampm ? (hour >= 12 ? (hour - 12) : hour) : hour;
+                hour = hampm && hour >= 12 ? hour - 12 : hour;
                 return step(hour, stepH);
             }
 
@@ -141,19 +176,26 @@
             }
 
             function getAmPm(d) {
-                return s.ampm && d.getHours() > 11 ? 1 : 0;
+                return ampm && d.getHours() > 11 ? 1 : 0;
+            }
+
+            function getDate(d) {
+                var hour = get(d, 'h', 0);
+                return new Date(get(d, 'y'), get(d, 'm'), get(d, 'd'), get(d, 'ap') ? hour + 12 : hour, get(d, 'i', 0), get(d, 's', 0));
             }
 
             return {
                 wheels: wheels,
+                headerText: function(v) {
+                    return $.scroller.formatDate(hformat, getDate(inst.temp), s);
+                },
                 /**
                  * Builds a date object from the wheel selections and formats it to the given date/time format
                  * @param {Array} d - An array containing the selected wheel values
                  * @return {String} - The formatted date string
                  */
                 formatResult: function(d) {
-                    var hour = get(d, 'h', 0);
-                    return $.scroller.formatDate(format, new Date(get(d, 'y'), get(d, 'm'), get(d, 'd'), get(d, 'ap') ? hour + 12 : hour, get(d, 'i', 0), get(d, 's', 0)), s);
+                    return $.scroller.formatDate(format, getDate(d), s);
                 },
                 /**
                  * Builds a date object from the input value and returns an array to set wheel values
@@ -180,7 +222,7 @@
                 validate: function(dw, i) {
                     var temp = inst.temp,
                         mins = { m: 0, d: 1, h: 0, i: 0, s: 0, ap: 0 },
-                        maxs = { m: 11, d: 31, h: step(s.ampm ? 11 : 23, stepH), i: step(59, stepM), s: step(59, stepS), ap: 1 },
+                        maxs = { m: 11, d: 31, h: step(hampm ? 11 : 23, stepH), i: step(59, stepM), s: step(59, stepS), ap: 1 },
                         w = (mind || maxd) ? ['y', 'm', 'd', 'ap', 'h', 'i', 's'] : ((i == o.y || i == o.m) ? ['d'] : []), // Validate day only, if no min/max date set
                         minprop = true,
                         maxprop = true;
@@ -192,8 +234,17 @@
                                 val = get(temp, i);
                                 t = $('ul', dw).eq(o[i])
                             if (i == 'd') {
-                                maxdays = 32 - new Date(get(temp, 'y'), get(temp, 'm'), 32).getDate();
+                                var y = get(temp, 'y'),
+                                    m = get(temp, 'm');
+                                maxdays = 32 - new Date(y, m, 32).getDate();
                                 max = maxdays;
+                                if (regen)
+                                    $('li', t).each(function() {
+                                        var that = $(this),
+                                            d = that.data('val'),
+                                            w = new Date(y, m, d).getDay();
+                                        that.html(dord.replace(/[my]/gi, '').replace(/dd/, d < 10 ? '0' + d : d).replace(/d/, d).replace(/DD/, s.dayNames[w]).replace(/D/, s.dayNamesShort[w]));
+                                    });
                             }
                             if (minprop && mind) {
                                 min = mind[f[i]] ? mind[f[i]]() : f[i](mind);
@@ -235,11 +286,8 @@
                     getDate: function(temp) {
                         //var inst = $(this).data('scroller');
                         var inst = $(this).scroller('getInst');
-                        if (inst) {
-                            var d = temp ? inst.temp : inst.values
-                                hour = get(d, 'h', 0);
-                            return new Date(get(d, 'y'), get(d, 'm'), get(d, 'd'), get(d, 'ap') ? hour + 12 : hour, get(d, 'i', 0), get(d, 's', 0));
-                        }
+                        if (inst)
+                            return getDate(temp ? inst.temp : inst.values);
                     },
                     /**
                     * Sets the selected date
@@ -250,7 +298,6 @@
                     setDate: function(d, fill, time) {
                         if (fill == undefined) fill = false;
                         return this.each(function () {
-                            //var inst = $(this).data('scroller');
                             var inst = $(this).scroller('getInst');
                             if (inst) {
                                 // Set wheels
