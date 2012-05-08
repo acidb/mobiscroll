@@ -52,9 +52,9 @@
                 var min = that.attr('min'),
                     max = that.attr('max');
                 if (min)
-                    defaults.minDate = new Date(min);
+                    defaults.minDate = $.scroller.parseDate(format, min);
                 if (max)
-                    defaults.maxDate = new Date(max);
+                    defaults.maxDate = $.scroller.parseDate(format, max);
             }
 
             // Set year-month-day order
@@ -98,8 +98,8 @@
                     if (k == o.y) {
                         offset++;
                         w[s.yearText] = {};
-                        start = mind ? mind.getFullYear() : s.startYear;
-                        end = maxd ? maxd.getFullYear() : s.endYear;
+                        var start = mind ? mind.getFullYear() : s.startYear,
+                            end = maxd ? maxd.getFullYear() : s.endYear;
                         for (var i = start; i <= end; i++)
                             w[s.yearText][i] = dord.match(/yy/i) ? i : (i + '').substr(2, 2);
                     }
@@ -303,7 +303,7 @@
                                 // Set wheels
                                 for (var i in o)
                                     inst.temp[o[i]] = d[f[i]] ? d[f[i]]() : f[i](d);
-                                inst.setValue(fill, time);
+                                inst.setValue(true, fill, time);
                             }
                         });
                     }
@@ -439,7 +439,8 @@
                 var digits = new RegExp('^\\d{1,' + size + '}');
                 var num = value.substr(iValue).match(digits);
                 if (!num)
-                    throw 'Missing number at position ' + iValue;
+                    return 0;
+                    //throw 'Missing number at position ' + iValue;
                 iValue += num[0].length;
                 return parseInt(num[0], 10);
             },
@@ -452,12 +453,13 @@
                         return i + 1;
                     }
                 }
-                throw 'Unknown name at position ' + iValue;
+                return 0;
+                //throw 'Unknown name at position ' + iValue;
             },
             // Confirm that a literal character matches the string value
             checkLiteral = function() {
-                if (value.charAt(iValue) != format.charAt(iFormat))
-                    throw 'Unexpected literal at position ' + iValue;
+                //if (value.charAt(iValue) != format.charAt(iFormat))
+                    //throw 'Unexpected literal at position ' + iValue;
                 iValue++;
             },
             iValue = 0;

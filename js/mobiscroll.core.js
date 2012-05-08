@@ -43,7 +43,7 @@
 
         function read() {
             that.temp = ((input && that.val !== null && that.val != elm.val()) || that.values === null) ? s.parseValue(elm.val() ? elm.val() : '', that) : that.values.slice(0);
-            that.setValue(false);
+            that.setValue(true);
         }
 
         function scrollToPos(time) {
@@ -168,12 +168,11 @@
         * If input parameter is true, populates the associated input element.
         * @param {Boolean} [fill] - Also set the value of the associated input element. Default is true.
         */
-        that.setValue = function (fill, time) {
-            if (fill == undefined) fill = true;
+        that.setValue = function (sc, fill, time) {
             var v = s.formatResult(that.temp);
             that.val = v;
             that.values = that.temp.slice(0);
-            if (visible) scrollToPos(time);
+            if (visible && sc) scrollToPos(time);
             if (fill && input) elm.val(v).trigger('change');
         }
 
@@ -213,8 +212,8 @@
          */
         that.change = function (manual) {
             var v = s.formatResult(that.temp);
-            if (s.display == 'inline' && input)
-                elm.val(v).trigger('change');
+            if (s.display == 'inline')
+                that.setValue(false, true);
             else
                 $('.dwv', dw).html(formatHeader(v));
             if (manual)
@@ -281,7 +280,7 @@
             if (s.display != 'inline') {
                 // Init buttons
                 $('.dwb-s a', dw).click(function () {
-                    that.setValue();
+                    that.setValue(false, true);
                     that.hide();
                     s.onSelect.call(e, that.val, that);
                     return false;
@@ -330,7 +329,7 @@
                     setGlobals(t);
                     clearInterval(timer);
                     timer = setInterval(function() { func(t); }, s.delay);
-                    plus(t);
+                    func(t);
                 }
             }).delegate('.dwwl', START_EVENT, function (e) {
                 // Scroll start
@@ -357,7 +356,7 @@
         */
         that.init = function(ss) {
             // Get theme defaults
-            theme = $.extend({ defaults: {}, init: empty }, $.scroller.themes[ss.theme]);
+            theme = $.extend({ defaults: {}, init: empty }, $.scroller.themes[ss.theme ? ss.theme : s.theme]);
 
             $.extend(s, theme.defaults, ss);
 
@@ -572,13 +571,12 @@
                     }
                 });
             },
-            setValue: function(d, input, time) {
-                if (input == undefined) input = false;
+            setValue: function(d, fill, time) {
                 return this.each(function () {
                     var inst = getInst(this);
                     if (inst) {
                         inst.temp = d;
-                        inst.setValue(input, time);
+                        inst.setValue(true, fill, time);
                     }
                 });
             },
