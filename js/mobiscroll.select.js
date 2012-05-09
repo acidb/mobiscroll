@@ -1,7 +1,8 @@
 (function ($) {
 
     var defaults = {
-        inputClass: ''
+        inputClass: '',
+        invalid: []
     }
 
     $.scroller.presets.select = function(inst) {
@@ -18,7 +19,9 @@
         var main = w[0][label];
 
         $('option', elm).each(function() {
-            main[$(this).attr('value')] = $(this).text();
+            var v = $(this).attr('value');
+            main[v] = $(this).text();
+            if ($(this).prop('disabled')) s.invalid.push(v);
         });
 
         $('#' + id).remove();
@@ -39,6 +42,11 @@
             },
             parseValue: function() {
                 return [elm.val()];
+            },
+            validate: function(dw) {
+                $.each(s.invalid, function(i, v) {
+                    $('li[data-val="' + v + '"]', dw).removeClass('dw-v');
+                });
             },
             onSelect: function(v, inst) {
                 input.val(v);

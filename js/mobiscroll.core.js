@@ -213,7 +213,7 @@
         that.change = function (manual) {
             var v = s.formatResult(that.temp);
             if (s.display == 'inline')
-                that.setValue(false, true);
+                that.setValue(false, manual);
             else
                 $('.dwv', dw).html(formatHeader(v));
             if (manual)

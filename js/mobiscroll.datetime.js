@@ -23,7 +23,8 @@
             stepHour: 1,
             stepMinute: 1,
             stepSecond: 1,
-            separator: ' '
+            separator: ' ',
+            invalid: []
         },
         preset = function(inst) {
             var that = $(this),
@@ -231,11 +232,12 @@
                             var min = mins[i],
                                 max = maxs[i],
                                 maxdays = 31,
-                                val = get(temp, i);
-                                t = $('ul', dw).eq(o[i])
+                                val = get(temp, i),
+                                t = $('ul', dw).eq(o[i]),
+                                y, m;
                             if (i == 'd') {
-                                var y = get(temp, 'y'),
-                                    m = get(temp, 'm');
+                                y = get(temp, 'y'),
+                                m = get(temp, 'm');
                                 maxdays = 32 - new Date(y, m, 32).getDate();
                                 max = maxdays;
                                 if (regen)
@@ -269,6 +271,14 @@
                                     temp[o[i]] = $('li', t).eq(i2).data('val');
                                     val = max;
                                 }
+                            }
+                            if (i == 'd') {
+                                // Disable dates
+                                $.each(s.invalid, function(i, v) {
+                                    if (v.getFullYear() == y && v.getMonth() == m) {
+                                        $('li[data-val="' + v.getDate() + '"]', t).removeClass('dw-v');
+                                    }
+                                });
                             }
                             if (minprop)
                                 minprop = val == min;
