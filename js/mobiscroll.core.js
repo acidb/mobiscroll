@@ -46,17 +46,51 @@
             that.setValue(true);
         }
 
-        function scrollToPos(time) {
+        function scrollToPos(time, orig, index, manual, dir) {
+            // Initial validate
+            s.validate.call(e, dw, index);
+
             // Set scrollers to position
             $('.dww ul', dw).each(function(i) {
-                var cell = $('li[data-val="' + that.temp[i] + '"]', this),
-                    x = cell.index();
-                // Initial validate
-                x = that.validate(i, x, cell);
-                that.scroll($(this), x < 0 ? 0 : x, time);
+                var t = $(this),
+                    cell = $('li[data-val="' + that.temp[i] + '"]', t),
+                    x = cell.index(),
+                    v = scrollToValid(cell, x, i, dir);
+                if (x != v || i == index || index === undefined)
+                    that.scroll($(this), v, (i == index ? time : 0), orig, i);
             });
-            // Refromat value if validation changed something
-            that.change();
+
+            // Reformat value if validation changed something
+            that.change(manual);
+        }
+
+        function scrollToValid(cell, val, i, dir) {
+            // Process invalid cells
+            if (!cell.hasClass('dw-v')) {
+                var cell1 = cell,
+                    cell2 = cell,
+                    dist1 = 0,
+                    dist2 = 0;
+                while (cell1.prev().length && !cell1.hasClass('dw-v')) {
+                    cell1 = cell1.prev();
+                    dist1++;
+                }
+                while (cell2.next().length && !cell2.hasClass('dw-v')) {
+                    cell2 = cell2.next();
+                    dist2++;
+                }
+                // If we have direction (+/- or mouse wheel), the distance does not count
+                if ((dist2 < dist1 && dist2 && !dir == 1) || !dist1 || !cell1.hasClass('dw-v') || dir == 1) {
+                    cell = cell2;
+                    val = val + dist2;
+                }
+                else {
+                    cell = cell1;
+                    val = val - dist1;
+                }
+                that.temp[i] = cell.data('val');
+            }
+            return val;
         }
 
         function position() {
@@ -84,26 +118,15 @@
         }
 
         function plus(t) {
-            if (timer) {
-                var p = +t.data('pos'),
-                    val = p + 1;
-                calc(t, val > max ? min : val);
-            }
-            else {
-                clearInterval(timer);
-            }
+            var p = +t.data('pos'),
+                val = p + 1;
+            calc(t, val > max ? min : val, 1);
         }
 
         function minus(t) {
-            if (timer) {
-                var p = +t.data('pos'),
-                    val = p - 1;
-
-                calc(t, val < min ? max : val);
-            }
-            else {
-                clearInterval(timer);
-            }
+            var p = +t.data('pos'),
+                val = p - 1;
+            calc(t, val < min ? max : val, 2);
         }
 
         // Public functions
@@ -158,9 +181,8 @@
                         t.closest('.dwwl').find('.dwwb').fadeIn('fast');
                 }, time * 1000);
             }
-            else {
+            else
                 t.data('pos', val)
-            }
         }
 
         /**
@@ -181,30 +203,8 @@
         * In case of date presets it checks the number of days in a month.
         * @param {Integer} i - Currently changed wheel index, -1 if initial validation.
         */
-        that.validate = function (i, val, cell) {
-            // If target is month, show/hide days
-            s.validate.call(e, dw, i)
-
-            // Process invalid cells
-            if (!cell.hasClass('dw-v')) {
-                var cell1 = cell,
-                    cell2 = cell,
-                    dist1 = 0,
-                    dist2 = 0;
-                while (cell1.prev().length && !cell1.hasClass('dw-v')) {
-                    cell1 = cell1.prev();
-                    dist1++;
-                }
-                while (cell2.next().length && !cell2.hasClass('dw-v')) {
-                    cell2 = cell2.next();
-                    dist2++;
-                }
-                cell = dist2 < dist1 ? cell2 : cell1;
-                val = dist2 < dist1 ? val + dist2 : val - dist1;
-                that.temp[i] = cell.data('val');
-            }
-
-            return val;
+        that.validate = function(time, orig, i, dir) {
+            scrollToPos(time, orig, i, true, dir);
         }
 
         /**
@@ -252,17 +252,17 @@
             // Create wheels containers
             var html = '<div class="' + s.theme + '">' + (s.display == 'inline' ? '<div class="dw dwbg dwi"><div class="dwwr">' : '<div class="dwo"></div><div class="dw dwbg"><div class="dwwr">' + (s.headerText ? '<div class="dwv"></div>' : ''));
             for (var i = 0; i < s.wheels.length; i++) {
-                html += '<div class="dwc' + (s.mode != 'scroller' ? ' dwpm' : ' dwsc') + (s.showLabel ? '' : ' dwhl') + '"><div class="dwwc dwrc">';
+                html += '<div class="dwc' + (s.mode != 'scroller' ? ' dwpm' : ' dwsc') + (s.showLabel ? '' : ' dwhl') + '"><div class="dwwc dwrc"><table cellpadding="0" cellspacing="0"><tr>';
                 // Create wheels
                 for (var label in s.wheels[i]) {
-                    html += '<div class="dwwl dwrc" style="height:' + thi + 'px;">' + (s.mode != 'scroller' ? '<div class="dwwb dwwbp" style="height:' + hi + 'px;line-height:' + hi + 'px;"><span>+</span></div><div class="dwwb dwwbm" style="height:' + hi + 'px;line-height:' + hi + 'px;"><span>&ndash;</span></div>' : '') + '<div class="dwl">' + label + '</div><div class="dww dwrc" style="height:' + thi + 'px;min-width:' + s.width + 'px;"><ul>';
+                    html += '<td><div class="dwwl dwrc">' + (s.mode != 'scroller' ? '<div class="dwwb dwwbp" style="height:' + hi + 'px;line-height:' + hi + 'px;"><span>+</span></div><div class="dwwb dwwbm" style="height:' + hi + 'px;line-height:' + hi + 'px;"><span>&ndash;</span></div>' : '') + '<div class="dwl">' + label + '</div><div class="dww dwrc" style="height:' + thi + 'px;min-width:' + s.width + 'px;"><ul>';
                     // Create wheel values
                     for (var j in s.wheels[i][label]) {
                         html += '<li class="dw-v" data-val="' + j + '" style="height:' + hi + 'px;line-height:' + hi + 'px;">' + s.wheels[i][label][j] + '</li>';
                     }
-                    html += '</ul><div class="dwwo"></div></div><div class="dwwol"></div></div>';
+                    html += '</ul><div class="dwwo"></div></div><div class="dwwol"></div></div></td>';
                 }
-                html += '<div class="dwcc"></div></div></div>';
+                html += '</tr></table></div></div>';
             }
             html += (s.display != 'inline' ? '<div class="dwbc"><span class="dwbw dwb-s"><a href="#" class="dwb">' + s.setText + '</a></span><span class="dwbw dwb-c"><a href="#" class="dwb">' + s.cancelText + '</a></span></div>' : '<div class="dwcc"></div>') + '</div></div></div>';
 
@@ -314,7 +314,7 @@
                         p = +t.data('pos'),
                         val = Math.round(p - delta);
                     setGlobals(t);
-                    calc(t, val);
+                    calc(t, val, delta < 0 ? 1 : 2);
                 }
             }).delegate('.dwb, .dwwb', START_EVENT, function (e) {
                 // Active button
@@ -433,7 +433,7 @@
         return (v === true || v == 'true');
     }
 
-    function calc(t, val, anim, orig) {
+    function calc(t, val, dir, anim, orig) {
         var i = t.closest('.dwwr').find('ul').index(t);
 
         val = val > max ? max : val;
@@ -444,13 +444,14 @@
         inst.temp[i] = cell.data('val');
 
         // Validate
-        val = inst.validate(i, val, cell);
+        //val = inst.validate(i, val, cell);
 
         // Call scroll with animation (calc animation time)
-        inst.scroll(t, val, anim ? (val == orig ? 0.1 : Math.abs((val - orig) * 0.1)) : 0, orig, i);
+        //inst.scroll(t, val, anim ? (val == orig ? 0.1 : Math.abs((val - orig) * 0.1)) : 0, orig, i);
+        inst.validate(anim ? (val == orig ? 0.1 : Math.abs((val - orig) * 0.1)) : 0, orig, i, dir);
 
         // Set value text
-        inst.change(true);
+        //inst.change(true);
     }
 
     var scrollers = {},
@@ -642,7 +643,7 @@
             else {
                 var dist = stop - start;
             }
-            calc(target, Math.round(pos - dist / h), true, Math.round(val));
+            calc(target, Math.round(pos - dist / h), 0, true, Math.round(val));
             move = false;
             target = null;
         }

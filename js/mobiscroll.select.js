@@ -1,8 +1,7 @@
 (function ($) {
 
     var defaults = {
-        inputClass: '',
-        invalid: []
+        inputClass: ''
     }
 
     $.scroller.presets.select = function(inst) {
@@ -12,6 +11,7 @@
             l1 = $('label[for="' + this.id + '"]').attr('for', id),
             l2 = $('label[for="' + id + '"]'),
             label = l2.length ? l2.text() : elm.attr('name'),
+            invalid = [],
             w = [{}];
 
         w[0][label] = {};
@@ -21,7 +21,7 @@
         $('option', elm).each(function() {
             var v = $(this).attr('value');
             main[v] = $(this).text();
-            if ($(this).prop('disabled')) s.invalid.push(v);
+            if ($(this).prop('disabled')) invalid.push(v);
         });
 
         $('#' + id).remove();
@@ -44,7 +44,7 @@
                 return [elm.val()];
             },
             validate: function(dw) {
-                $.each(s.invalid, function(i, v) {
+                $.each(invalid, function(i, v) {
                     $('li[data-val="' + v + '"]', dw).removeClass('dw-v');
                 });
             },
