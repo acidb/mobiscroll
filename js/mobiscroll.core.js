@@ -57,7 +57,7 @@
                     x = cell.index(),
                     v = scrollToValid(cell, x, i, dir);
                 if (x != v || i == index || index === undefined)
-                    that.scroll($(this), v, (i == index ? time : 0), orig, i);
+                    that.scroll($(this), v, (i == index ? 0 : time), orig, i);
             });
 
             // Reformat value if validation changed something
