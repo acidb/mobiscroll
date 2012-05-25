@@ -23,6 +23,23 @@ It'd be cool to see how you're using Mobiscroll!
 
 We're looking at showcasing some of the best work on http://mobiscroll.com . Feel free to let us know on twitter @mobiscroll!
 
+Changelog 2.0
+=============
+
+Bugfixes
+--------
+
+  * Fixed: setValue / setDate methods did not animate the scroller if time was specified
+
+  * Fixed: In some cases date validation scrolled the day wheel to empty value
+
+  * Fixed: Datetime preset's setDate and getDate methods were using last created instance's resources
+
+  * Fixed: Select options were reordered, if values were numbers
+
+  * Fixed: When using option method to change options on the fly, preset and theme defaults overrode user settings
+
+
 Changelog 2.0rc3
 ================
 
