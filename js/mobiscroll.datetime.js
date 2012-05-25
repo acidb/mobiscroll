@@ -121,6 +121,7 @@
                 }
                 wheels.push(w);
             }
+
             if (p.match(/time/i)) {
                 var w = {};
                 if (tord.match(/h/i)) {
@@ -182,6 +183,17 @@
             function getDate(d) {
                 var hour = get(d, 'h', 0);
                 return new Date(get(d, 'y'), get(d, 'm'), get(d, 'd'), get(d, 'ap') ? hour + 12 : hour, get(d, 'i', 0), get(d, 's', 0));
+            }
+
+            inst.setDate = function(d, fill, time) {
+                // Set wheels
+                for (var i in o)
+                    this.temp[o[i]] = d[f[i]] ? d[f[i]]() : f[i](d);
+                this.setValue(true, fill, time);
+            }
+
+            inst.getDate = function(d) {
+                return getDate(d);
             }
 
             return {
@@ -316,7 +328,7 @@
                         //var inst = $(this).data('scroller');
                         var inst = $(this).scroller('getInst');
                         if (inst)
-                            return getDate(temp ? inst.temp : inst.values);
+                            return inst.getDate(temp ? inst.temp : inst.values);
                     },
                     /**
                     * Sets the selected date
@@ -328,12 +340,8 @@
                         if (fill == undefined) fill = false;
                         return this.each(function () {
                             var inst = $(this).scroller('getInst');
-                            if (inst) {
-                                // Set wheels
-                                for (var i in o)
-                                    inst.temp[o[i]] = d[f[i]] ? d[f[i]]() : f[i](d);
-                                inst.setValue(true, fill, time);
-                            }
+                            if (inst)
+                                inst.setDate(d, fill, time);
                         });
                     }
                 }

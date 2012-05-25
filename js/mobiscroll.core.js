@@ -55,9 +55,10 @@
                 var t = $(this),
                     cell = $('li[data-val="' + that.temp[i] + '"]', t),
                     x = cell.index(),
-                    v = scrollToValid(cell, x, i, dir);
-                if (x != v || i == index || index === undefined)
-                    that.scroll($(this), v, (i == index ? time : 0), orig, i);
+                    v = scrollToValid(cell, x, i, dir),
+                    sc = i == index || index === undefined;
+                if (x != v || sc)
+                    that.scroll($(this), v, sc ? time : 0, orig, i);
             });
 
             // Reformat value if validation changed something
@@ -80,7 +81,7 @@
                     dist2++;
                 }
                 // If we have direction (+/- or mouse wheel), the distance does not count
-                if ((dist2 < dist1 && dist2 && !dir == 1) || !dist1 || !cell1.hasClass('dw-v') || dir == 1) {
+                if (((dist2 < dist1 && dist2 && !dir == 1) || !dist1 || !cell1.hasClass('dw-v') || dir == 1) && cell2.hasClass('dw-v')) {
                     cell = cell2;
                     val = val + dist2;
                 }
@@ -358,7 +359,7 @@
             // Get theme defaults
             theme = $.extend({ defaults: {}, init: empty }, $.scroller.themes[ss.theme ? ss.theme : s.theme]);
 
-            $.extend(s, theme.defaults, ss);
+            $.extend(s, theme.defaults, settings, ss);
 
             that.settings = s;
 
@@ -370,7 +371,7 @@
 
             if (preset) {
                 var p = preset.call(e, that)
-                $.extend(s, p, ss)
+                $.extend(s, p, settings, ss)
                 // Extend core methods
                 $.extend(methods, p.methods);
             }
