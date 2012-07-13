@@ -471,7 +471,7 @@
         startTime,
         endTime,
         pos,
-        mod = document.createElement(mod).style,
+        mod = document.createElement('modernizr').style,
         has3d = testProps(['perspectiveProperty', 'WebkitPerspective', 'MozPerspective', 'OPerspective', 'msPerspective']) && 'webkitPerspective' in document.documentElement.style,
         prefix = testPrefix(),
         touch = ('ontouchstart' in window),
