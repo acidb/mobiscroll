@@ -121,7 +121,7 @@
 }
 /* Hidden entry */
 .dww li.dw-h {
-    display: none;
+    visibility: hidden;
 }
 /* Wheel +/- buttons */
 .dwwb {

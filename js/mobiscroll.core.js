@@ -53,12 +53,12 @@
             // Set scrollers to position
             $('.dww ul', dw).each(function(i) {
                 var t = $(this),
-                    cell = $('li[data-val="' + that.temp[i] + '"]', t),
+                    cell = $('li[data-val="_' + that.temp[i] + '"]', t),
                     x = cell.index(),
                     v = scrollToValid(cell, x, i, dir),
                     sc = i == index || index === undefined;
                 if (x != v || sc)
-                    that.scroll($(this), v, sc ? time : 0, orig, i);
+                    that.scroll($(this), v, sc ? time : 0.2, orig, i);
             });
 
             // Reformat value if validation changed something
@@ -89,7 +89,7 @@
                     cell = cell1;
                     val = val - dist1;
                 }
-                that.temp[i] = cell.data('val');
+                that.temp[i] = cell.attr('data-val').replace(/^_/, '');
             }
             return val;
         }
@@ -164,7 +164,7 @@
                 return c * Math.sin(t/d * (Math.PI/2)) + b;
             }
 
-            if (time) {
+            if (time && orig !== undefined) {
                 var i = 0;
                 clearInterval(iv[index]);
                 iv[index] = setInterval(function() {
@@ -259,7 +259,7 @@
                     html += '<td><div class="dwwl dwrc">' + (s.mode != 'scroller' ? '<div class="dwwb dwwbp" style="height:' + hi + 'px;line-height:' + hi + 'px;"><span>+</span></div><div class="dwwb dwwbm" style="height:' + hi + 'px;line-height:' + hi + 'px;"><span>&ndash;</span></div>' : '') + '<div class="dwl">' + label + '</div><div class="dww dwrc" style="height:' + thi + 'px;min-width:' + s.width + 'px;"><ul>';
                     // Create wheel values
                     for (var j in s.wheels[i][label]) {
-                        html += '<li class="dw-v" data-val="' + j + '" style="height:' + hi + 'px;line-height:' + hi + 'px;">' + s.wheels[i][label][j] + '</li>';
+                        html += '<li class="dw-v" data-val="_' + j + '" style="height:' + hi + 'px;line-height:' + hi + 'px;">' + s.wheels[i][label][j] + '</li>';
                     }
                     html += '</ul><div class="dwwo"></div></div><div class="dwwol"></div></div></td>';
                 }
@@ -441,18 +441,12 @@
         val = val < min ? min : val;
 
         var cell = $('li', t).eq(val);
+
         // Set selected scroller value
-        inst.temp[i] = cell.data('val');
+        inst.temp[i] = cell.attr('data-val').replace(/^_/, '');
 
         // Validate
-        //val = inst.validate(i, val, cell);
-
-        // Call scroll with animation (calc animation time)
-        //inst.scroll(t, val, anim ? (val == orig ? 0.1 : Math.abs((val - orig) * 0.1)) : 0, orig, i);
         inst.validate(anim ? (val == orig ? 0.1 : Math.abs((val - orig) * 0.1)) : 0, orig, i, dir);
-
-        // Set value text
-        //inst.change(true);
     }
 
     var scrollers = {},
@@ -471,7 +465,7 @@
         startTime,
         endTime,
         pos,
-        mod = document.createElement(mod).style,
+        mod = document.createElement('modernizr').style,
         has3d = testProps(['perspectiveProperty', 'WebkitPerspective', 'MozPerspective', 'OPerspective', 'msPerspective']) && 'webkitPerspective' in document.documentElement.style,
         prefix = testPrefix(),
         touch = ('ontouchstart' in window),

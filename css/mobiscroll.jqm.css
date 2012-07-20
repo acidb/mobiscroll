@@ -4,8 +4,11 @@
 }
 .jqm .dw {
     padding: 6px;
+    z-index: 1003;
 }
 .jqm .dwv {
+    position: static;
+    width: auto;
     padding: .7em 15px .7em 15px;
     border: 0;
 }

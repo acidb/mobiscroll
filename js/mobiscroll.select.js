@@ -20,13 +20,13 @@
 
         $('option', elm).each(function() {
             var v = $(this).attr('value');
-            main['_' + v] = $(this).text();
+            main[v] = $(this).text();
             if ($(this).prop('disabled')) invalid.push(v);
         });
 
         $('#' + id).remove();
 
-        var input = $('<input type="text" id="' + id + '" value="' + main['_' + elm.val()] + '" class="' + s.inputClass + '" readonly />').insertBefore(elm);
+        var input = $('<input type="text" id="' + id + '" value="' + main[elm.val()] + '" class="' + s.inputClass + '" readonly />').insertBefore(elm);
 
         if (s.showOnFocus)
             input.focus(function() { inst.show() });
@@ -41,7 +41,7 @@
                 return main[d[0]];
             },
             parseValue: function() {
-                return ['_' + elm.val()];
+                return [elm.val()];
             },
             validate: function(dw) {
                 $.each(invalid, function(i, v) {
@@ -50,12 +50,12 @@
             },
             onSelect: function(v, inst) {
                 input.val(v);
-                elm.val(inst.values[0].replace(/_/, '')).trigger('change');
+                elm.val(inst.values[0]).trigger('change');
             },
             onChange: function(v, inst) {
                 if (s.display == 'inline') {
                     input.val(v);
-                    elm.val(inst.temp[0].replace(/_/, '')).trigger('change');
+                    elm.val(inst.temp[0]).trigger('change');
                 }
             },
             onClose: function() {
