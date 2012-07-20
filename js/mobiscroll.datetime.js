@@ -267,8 +267,8 @@
                                 max = maxd[f[i]] ? maxd[f[i]]() : f[i](maxd);
                             }
                             if (i != 'y') {
-                                var i1 = $('li[data-val="_' + min + '"]', t).index(),
-                                    i2 = $('li[data-val="_' + max + '"]', t).index();
+                                var i1 = $('li[data-val="' + min + '"]', t).index(),
+                                    i2 = $('li[data-val="' + max + '"]', t).index();
                                 $('li', t).removeClass('dw-v').slice(i1, i2 + 1).addClass('dw-v');
                                 if (i == 'd') { // Hide days not in month
                                     $('li', t).removeClass('dw-h').slice(maxdays).addClass('dw-h');
