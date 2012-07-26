@@ -52,11 +52,8 @@
         }
 
         inst.getSelectVal = function(temp) {
-            var ret = [],
-                val = temp ? inst.temp : inst.values;
-            for (var i = 0; i < val.length; i++)
-                ret[i] = val[i].replace(/_/, '');
-            return ret;
+            var val = temp ? inst.temp : inst.values;
+            return val[0].replace(/_/, '');
         }
 
         return {

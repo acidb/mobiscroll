@@ -124,25 +124,43 @@
             }
 
             if (p.match(/time/i)) {
+
+                // Determine the order of hours, minutes, seconds wheels
+                ord = [];
+                $.each(['h', 'i', 's'], function(i, v) {
+                    var i = tord.search(new RegExp(v, 'i'));
+                    if (i > -1)
+                        ord.push({ o: i, v: v });
+                });
+                ord.sort(function(a, b) {
+                    return a.o > b.o ? 1 : -1;
+                });
+                $.each(ord, function(i, v) {
+                    o[v.v] = i;
+                });
+
                 var w = {};
-                if (tord.match(/h/i)) {
-                    o.h = offset++; // Hours wheel order
-                    w[s.hourText] = {};
-                    for (var i = 0; i < (hampm ? 12 : 24); i += stepH)
-                        w[s.hourText][i] = hampm && i == 0 ? 12 : tord.match(/hh/i) && i < 10 ? '0' + i : i;
+                for (var k = 0; k < 3; k++) {
+                    if (k == o.h) {
+                        o.h = offset++; // Hours wheel order
+                        w[s.hourText] = {};
+                        for (var i = 0; i < (hampm ? 12 : 24); i += stepH)
+                            w[s.hourText][i] = hampm && i == 0 ? 12 : tord.match(/hh/i) && i < 10 ? '0' + i : i;
+                    }
+                    else if (k == o.i) {
+                        o.i = offset++; // Minutes wheel order
+                        w[s.minuteText] = {};
+                        for (var i = 0; i < 60; i += stepM)
+                            w[s.minuteText][i] = tord.match(/ii/) && i < 10 ? '0' + i : i;
+                    }
+                    else if (k == o.s){
+                        o.s = offset++; // Seconds wheel order
+                        w[s.secText] = {};
+                        for (var i = 0; i < 60; i += stepS)
+                            w[s.secText][i] = tord.match(/ss/) && i < 10 ? '0' + i : i;
+                    }
                 }
-                if (tord.match(/i/)) {
-                    o.i = offset++; // Minutes wheel order
-                    w[s.minuteText] = {};
-                    for (var i = 0; i < 60; i += stepM)
-                        w[s.minuteText][i] = tord.match(/ii/) && i < 10 ? '0' + i : i;
-                }
-                if (tord.match(/s/)) {
-                    o.s = offset++; // Seconds wheel order
-                    w[s.secText] = {};
-                    for (var i = 0; i < 60; i += stepS)
-                        w[s.secText][i] = tord.match(/ss/) && i < 10 ? '0' + i : i;
-                }
+
                 if (ampm) {
                     o.ap = offset++; // ampm wheel order
                     var upper = tord.match(/A/);

@@ -183,7 +183,7 @@
                 }, time * 1000);
             }
             else
-                t.data('pos', val)
+                t.data('pos', val);
         }
 
         /**
@@ -325,7 +325,7 @@
                     // + Button
                     e.preventDefault();
                     e.stopPropagation();
-                    var t = $(this).closest('.dwwl').find('ul')
+                    var t = $(this).closest('.dwwl').find('ul'),
                         func = $(this).hasClass('dwwbp') ? plus : minus;
                     setGlobals(t);
                     clearInterval(timer);
@@ -370,8 +370,8 @@
             elm.unbind('.dw');
 
             if (preset) {
-                var p = preset.call(e, that)
-                $.extend(s, p, settings, ss)
+                var p = preset.call(e, that);
+                $.extend(s, p, settings, ss);
                 // Extend core methods
                 $.extend(methods, p.methods);
             }
