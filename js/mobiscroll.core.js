@@ -47,8 +47,8 @@
         }
 
         function scrollToPos(time, orig, index, manual, dir) {
-            // Initial validate
-            s.validate.call(e, dw, index);
+            // Call validation event
+            s.validate.call(e, dw, index, time);
 
             // Set scrollers to position
             $('.dww ul', dw).each(function(i) {
@@ -164,9 +164,10 @@
                 return c * Math.sin(t/d * (Math.PI/2)) + b;
             }
 
+            clearInterval(iv[index]);
+
             if (time && orig !== undefined) {
                 var i = 0;
-                clearInterval(iv[index]);
                 iv[index] = setInterval(function() {
                     i += 0.1;
                     t.data('pos', Math.round(getVal(i, orig, val - orig, time)));
@@ -245,6 +246,7 @@
             if (s.disabled || visible) return false;
 
             var hi = s.height,
+                l;
                 thi = s.rows * hi;
 
             // Parse value from input
@@ -255,13 +257,15 @@
             for (var i = 0; i < s.wheels.length; i++) {
                 html += '<div class="dwc' + (s.mode != 'scroller' ? ' dwpm' : ' dwsc') + (s.showLabel ? '' : ' dwhl') + '"><div class="dwwc dwrc"><table cellpadding="0" cellspacing="0"><tr>';
                 // Create wheels
+                l = 0;
                 for (var label in s.wheels[i]) {
-                    html += '<td><div class="dwwl dwrc">' + (s.mode != 'scroller' ? '<div class="dwwb dwwbp" style="height:' + hi + 'px;line-height:' + hi + 'px;"><span>+</span></div><div class="dwwb dwwbm" style="height:' + hi + 'px;line-height:' + hi + 'px;"><span>&ndash;</span></div>' : '') + '<div class="dwl">' + label + '</div><div class="dww dwrc" style="height:' + thi + 'px;min-width:' + s.width + 'px;"><ul>';
+                    html += '<td><div class="dwwl dwrc dwwl' + l + '">' + (s.mode != 'scroller' ? '<div class="dwwb dwwbp" style="height:' + hi + 'px;line-height:' + hi + 'px;"><span>+</span></div><div class="dwwb dwwbm" style="height:' + hi + 'px;line-height:' + hi + 'px;"><span>&ndash;</span></div>' : '') + '<div class="dwl">' + label + '</div><div class="dww dwrc" style="height:' + thi + 'px;min-width:' + s.width + 'px;"><ul>';
                     // Create wheel values
                     for (var j in s.wheels[i][label]) {
                         html += '<li class="dw-v" data-val="' + j + '" style="height:' + hi + 'px;line-height:' + hi + 'px;">' + s.wheels[i][label][j] + '</li>';
                     }
                     html += '</ul><div class="dwwo"></div></div><div class="dwwol"></div></div></td>';
+                    l++;
                 }
                 html += '</tr></table></div></div>';
             }
