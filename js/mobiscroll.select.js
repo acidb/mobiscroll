@@ -1,16 +1,17 @@
 (function ($) {
 
     var defaults = {
-        inputClass: ''
+        inputClass: '',
+        invalid: []
     }
 
-    $.scroller.presets.select = function(inst) {
+    $.scroller.presets.select = function (inst) {
         var s = $.extend({}, defaults, inst.settings),
             elm = $(this),
             id = this.id + '_dummy',
             l1 = $('label[for="' + this.id + '"]').attr('for', id),
             l2 = $('label[for="' + id + '"]'),
-            label = l2.length ? l2.text() : elm.attr('name'),
+            label = s.label !== undefined ? s.label : (l2.length ? l2.text() : elm.attr('name')),
             invalid = [],
             w = [{}];
 
@@ -18,26 +19,29 @@
 
         var main = w[0][label];
 
-        $('option', elm).each(function() {
+        $('option', elm).each(function () {
             var v = $(this).attr('value');
             main['_' + v] = $(this).text();
             if ($(this).prop('disabled')) invalid.push(v);
         });
+
+        if (!s.invalid.length)
+            s.invalid = invalid;
 
         $('#' + id).remove();
 
         var input = $('<input type="text" id="' + id + '" value="' + main['_' + elm.val()] + '" class="' + s.inputClass + '" readonly />').insertBefore(elm);
 
         if (s.showOnFocus)
-            input.focus(function() { inst.show() });
+            input.focus(function () { inst.show() });
 
-        elm.bind('change', function() {
+        elm.bind('change', function () {
             if (('_' + $(this).val()) !== inst.values[0]) {
                 inst.setSelectVal([$(this).val()], true);
             }
         }).hide().closest('.ui-field-contain').trigger('create');
 
-        inst.setSelectVal = function(d, fill, time) {
+        inst.setSelectVal = function (d, fill, time) {
             inst.temp = ['_' + d[0]];
             inst.setValue(true, fill, time);
             // Set input/select values
@@ -51,7 +55,7 @@
             }
         }
 
-        inst.getSelectVal = function(temp) {
+        inst.getSelectVal = function (temp) {
             var val = temp ? inst.temp : inst.values;
             return val[0].replace(/_/, '');
         }
@@ -60,43 +64,54 @@
             width: 200,
             wheels: w,
             headerText: false,
-            formatResult: function(d) {
+            formatResult: function (d) {
                 return main[d[0]];
             },
-            parseValue: function() {
+            parseValue: function () {
                 return ['_' + elm.val()];
             },
-            validate: function(dw) {
-                $.each(invalid, function(i, v) {
+            validate: function (dw) {
+                $.each(s.invalid, function (i, v) {
                     $('li[data-val="_' + v + '"]', dw).removeClass('dw-v');
                 });
             },
-            onSelect: function(v, inst) {
+            onSelect: function (v, inst) {
                 input.val(v);
                 elm.val(inst.values[0].replace(/_/, '')).trigger('change');
             },
-            onChange: function(v, inst) {
+            onChange: function (v, inst) {
                 if (s.display == 'inline') {
                     input.val(v);
                     elm.val(inst.temp[0].replace(/_/, '')).trigger('change');
                 }
             },
-            onClose: function() {
+            onClose: function () {
                 input.blur();
             },
             methods: {
-                setValue: function(d, fill, time) {
+                setValue: function (d, fill, time) {
                     return this.each(function () {
                         var inst = $(this).scroller('getInst');
                         if (inst) {
-                            inst.setSelectVal(d, fill, time);
+                            if (inst.setSelectVal) {
+                                inst.setSelectVal(d, fill, time);
+                            }
+                            else {
+                                inst.temp = d;
+                                inst.setValue(true, fill, time);
+                            }
                         }
                     });
                 },
-                getValue: function(temp) {
+                getValue: function (temp) {
                     var inst = $(this).scroller('getInst');
                     if (inst)
-                        return inst.getSelectVal(temp);
+                        if (inst.getSelectVal) {
+                            return inst.getSelectVal(temp);
+                        }
+                        else {
+                            return inst.values;
+                        }
                 }
             }
         }
