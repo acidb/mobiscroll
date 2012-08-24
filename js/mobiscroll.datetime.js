@@ -201,7 +201,7 @@
 
             function getDate(d) {
                 var hour = get(d, 'h', 0);
-                return new Date(get(d, 'y'), get(d, 'm'), get(d, 'd'), get(d, 'ap') ? hour + 12 : hour, get(d, 'i', 0), get(d, 's', 0));
+                return new Date(get(d, 'y'), get(d, 'm'), get(d, 'd', 1), get(d, 'ap') ? hour + 12 : hour, get(d, 'i', 0), get(d, 's', 0));
             }
 
             inst.setDate = function(d, fill, time) {
@@ -334,6 +334,9 @@
                                     $('li', t).eq(v).removeClass('dw-v');
                                 });
                             }
+
+                            // Set modified value
+                            temp[o[i]] = val;
                         }
                     });
                 },
@@ -344,7 +347,6 @@
                     * @return {Date}
                     */
                     getDate: function(temp) {
-                        //var inst = $(this).data('scroller');
                         var inst = $(this).scroller('getInst');
                         if (inst)
                             return inst.getDate(temp ? inst.temp : inst.values);
@@ -470,7 +472,9 @@
         var def = new Date();
         if (!format || !value) return def;
         value = (typeof value == 'object' ? value.toString() : value + '');
+
         var s = $.extend({}, defaults, settings),
+            shortYearCutoff = s.shortYearCutoff,
             year = def.getFullYear(),
             month = def.getMonth() + 1,
             day = def.getDate(),
@@ -576,7 +580,7 @@
         }
         if (year < 100)
             year += new Date().getFullYear() - new Date().getFullYear() % 100 +
-                (year <= s.shortYearCutoff ? 0 : -100);
+                (year <= (typeof shortYearCutoff != 'string' ? shortYearCutoff : new Date().getFullYear() % 100 + parseInt(shortYearCutoff, 10)) ? 0 : -100);
         if (doy > -1) {
             month = 1;
             day = doy;
