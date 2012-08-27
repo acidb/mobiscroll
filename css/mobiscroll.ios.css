@@ -1,5 +1,6 @@
 /* iOS Skin */
 .ios .dw {
+    min-width: 134px;
     padding: 40px 10px 10px 10px;
     border: 1px solid #2d3034;
     background: #50515d;

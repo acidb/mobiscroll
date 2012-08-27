@@ -33,15 +33,23 @@
     padding: 0;
 }
 .jqm .dwwbp .ui-btn-inner {
+    font-size: 40px;
     -webkit-border-radius: 3px 3px 0 0;
     -moz-border-radius: 3px 3px 0 0;
     border-radius: 3px 3px 0 0;
 }
 .jqm .dwwbm .ui-btn-inner {
+    font-size: 32px;
     -webkit-border-radius: 0 0 3px 3px;
     -moz-border-radius: 0 0 3px 3px;
     border-radius: 0 0 3px 3px;
 }
 .jqm .dwwbp span {
     font-weight: normal;
+}
+.jqm .dwbc .ui-btn {
+    margin:.5em 5px;
+}
+.jqm .dwbc .ui-btn-inner {
+    font-size:12px;
 }
