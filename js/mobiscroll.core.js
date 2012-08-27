@@ -31,6 +31,7 @@
         function setGlobals(t) {
             min = $('li.dw-v', t).eq(0).index();
             max = $('li.dw-v', t).eq(-1).index();
+            index = $('ul', dw).index(t);
             h = s.height;
             inst = that;
         }
@@ -164,6 +165,7 @@
 
             if (time && orig !== undefined) {
                 var i = 0;
+                clearInterval(iv[index]);
                 iv[index] = setInterval(function() {
                     i += 0.1;
                     t.data('pos', Math.round(getVal(i, orig, val - orig, time)));
@@ -322,7 +324,6 @@
                     var t = $(this).closest('.dwwl').find('ul'),
                         func = $(this).hasClass('dwwbp') ? plus : minus;
                     click = true;
-                    index = $('ul', dw).index(t);
                     setGlobals(t);
                     clearInterval(timer);
                     timer = setInterval(function() { func(t); }, s.delay);
@@ -334,7 +335,6 @@
                     e.preventDefault();
                     move = true;
                     target = $('ul', this);
-                    index = $('ul', dw).index(target);
                     target.closest('.dwwl').addClass('dwa');
                     pos = +target.data('pos');
                     setGlobals(target);
