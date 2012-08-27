@@ -1,5 +1,5 @@
 ﻿/*!
- * jQuery MobiScroll v2.0
+ * jQuery MobiScroll v2.0.2
  * http://mobiscroll.com
  *
  * Copyright 2010-2011, Acid Media
@@ -17,7 +17,6 @@
             m,
             dw,
             iv = {},
-            tv = {},
             input = elm.is('input'),
             visible = false;
 
@@ -114,7 +113,6 @@
             w = d.outerWidth();
             h = d.outerHeight();
             d.css({ left: (ww - w) / 2, top: st + (wh - h) / 2 });
-            //o.height(0).height($(document).height());
             o.height(0).height(getDocHeight());
         }
 
@@ -164,8 +162,6 @@
                 return c * Math.sin(t/d * (Math.PI/2)) + b;
             }
 
-            clearInterval(iv[index]);
-
             if (time && orig !== undefined) {
                 var i = 0;
                 iv[index] = setInterval(function() {
@@ -173,15 +169,9 @@
                     t.data('pos', Math.round(getVal(i, orig, val - orig, time)));
                     if (i >= time) {
                         clearInterval(iv[index]);
-                        t.data('pos', val);
+                        t.data('pos', val).closest('.dwwl').removeClass('dwa');
                     }
                 }, 100);
-                // Show +/- buttons
-                clearTimeout(tv[index]);
-                tv[index] = setTimeout(function() {
-                    if (s.mode == 'mixed' && !t.hasClass('dwa'))
-                        t.closest('.dwwl').find('.dwwb').fadeIn('fast');
-                }, time * 1000);
             }
             else
                 t.data('pos', val);
@@ -325,12 +315,14 @@
                 // Active button
                 $(this).addClass('dwb-a');
             }).delegate('.dwwb', START_EVENT, function (e) {
-                if (!s.readonly) {
+                if (!s.readonly && !$(this).closest('.dwwl').hasClass('dwa')) {
                     // + Button
                     e.preventDefault();
                     e.stopPropagation();
                     var t = $(this).closest('.dwwl').find('ul'),
                         func = $(this).hasClass('dwwbp') ? plus : minus;
+                    click = true;
+                    index = $('ul', dw).index(t);
                     setGlobals(t);
                     clearInterval(timer);
                     timer = setInterval(function() { func(t); }, s.delay);
@@ -338,14 +330,15 @@
                 }
             }).delegate('.dwwl', START_EVENT, function (e) {
                 // Scroll start
-                if (!move && s.mode != 'clickpick' && !s.readonly) {
+                if (!move && !s.readonly && !click) {
                     e.preventDefault();
                     move = true;
-                    target = $('ul', this).addClass('dwa');
-                    if (s.mode == 'mixed')
-                        $('.dwwb', this).fadeOut('fast');
+                    target = $('ul', this);
+                    index = $('ul', dw).index(target);
+                    target.closest('.dwwl').addClass('dwa');
                     pos = +target.data('pos');
                     setGlobals(target);
+                    clearInterval(iv[index]);
                     start = getY(e);
                     startTime = new Date();
                     stop = start;
@@ -439,18 +432,16 @@
     }
 
     function calc(t, val, dir, anim, orig) {
-        var i = t.closest('.dwwr').find('ul').index(t);
-
         val = val > max ? max : val;
         val = val < min ? min : val;
 
         var cell = $('li', t).eq(val);
 
         // Set selected scroller value
-        inst.temp[i] = cell.attr('data-val');
+        inst.temp[index] = cell.attr('data-val');
 
         // Validate
-        inst.validate(anim ? (val == orig ? 0.1 : Math.abs((val - orig) * 0.1)) : 0, orig, i, dir);
+        inst.validate(anim ? (val == orig ? 0.1 : Math.abs((val - orig) * 0.1)) : 0, orig, index, dir);
     }
 
     var scrollers = {},
@@ -462,8 +453,10 @@
         inst, // Current instance
         date = new Date(),
         uuid = date.getTime(),
-        move = false,
-        target = null,
+        move,
+        click,
+        target,
+        index,
         start,
         stop,
         startTime,
@@ -628,7 +621,6 @@
     $(document).bind(END_EVENT, function (e) {
         if (move) {
             e.preventDefault();
-            target.removeClass('dwa');
             var time = new Date() - startTime,
                 val = pos + (start - stop) / h;
             val = val > (max + 1) ? (max + 1) : val;
@@ -646,7 +638,10 @@
             move = false;
             target = null;
         }
-        clearInterval(timer);
+        if (click) {
+            clearInterval(timer);
+            click = false;
+        }
         $('.dwb-a').removeClass('dwb-a');
     });
 

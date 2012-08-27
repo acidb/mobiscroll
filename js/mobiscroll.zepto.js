@@ -61,12 +61,4 @@ var jQuery = Zepto;
         }
     });
 
-    $.fn.fadeIn = function () {
-        return this.show();
-    }
-
-    $.fn.fadeOut = function () {
-        return this.hide();
-    }
-
 })(jQuery);
