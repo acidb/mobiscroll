@@ -251,7 +251,7 @@
                  * @param {Integer} [i] - Index of the changed wheel, not set for initial validation
                  */
                 validate: function(dw, i) {
-                    var temp = inst.temp,
+                    var temp = inst.temp.slice(0),
                         mins = { m: 0, d: 1, h: 0, i: 0, s: 0, ap: 0 },
                         maxs = { m: 11, d: 31, h: step(hampm ? 11 : 23, stepH), i: step(59, stepM), s: step(59, stepS), ap: 1 },
                         w = (mind || maxd) ? ['y', 'm', 'd', 'ap', 'h', 'i', 's'] : ((i == o.y || i == o.m || i === undefined) ? ['d'] : []), // Validate day only, if no min/max date set
