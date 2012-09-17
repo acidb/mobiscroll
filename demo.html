@@ -87,7 +87,7 @@
             }
 
             $('select').scroller({ preset: 'select' }).bind('change', function() {
-                $('#test').val('').scroller('destroy').scroller($.extend(opt[$('#demo').val()], { theme: $('#theme').val(), mode: $('#mode').val() }));
+                $('#test').val('').scroller('destroy').scroller($.extend(opt[$('#demo').val()], { theme: $('#theme').val(), mode: $('#mode').val(), lang: $('#language').val() }));
                 $('#demo').val() == 'btn' ? $('#buttons').show() : $('#buttons').hide();
             });
 
@@ -145,6 +145,14 @@
                         <option value="inline">Inline</option>
                     </select>
                 </div>
+                <div data-role="fieldcontain">
+                    <label for="language">Language</label>
+                    <select name="language" id="language" data-role="none">
+                        <option value="">English</option>
+                        <option value="de">Deutsch</option>
+                        <option value="hu">Magyar</option>
+                    </select>
+                </div>
                 <div data-role="fieldcontain" class="inline">
                     <label for="test">Click here to try</label>
                     <input type="text" name="test" id="test" />
@@ -158,3 +166,4 @@
     </div>
 </body>
 </html>
+
