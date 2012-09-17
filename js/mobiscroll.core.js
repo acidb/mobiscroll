@@ -13,6 +13,7 @@
             e = elm,
             elm = $(e),
             theme,
+            lang,
             s = $.extend({}, defaults),
             m,
             dw,
@@ -57,7 +58,7 @@
                     x = cell.index(),
                     v = scrollToValid(cell, x, i, dir),
                     sc = i == index || index === undefined;
-                if (x != v || sc)
+                if (v != t.data('pos'))
                     that.scroll($(this), v, sc ? time : 0.2, orig, i);
             });
 
@@ -110,7 +111,7 @@
                 minw = (w > minw) ? w : minw;
             });
             w = totalw > ww ? minw : totalw;
-            d.width(w);
+            d.width(w + 1);
             w = d.outerWidth();
             h = d.outerHeight();
             d.css({ left: (ww - w) / 2, top: st + (wh - h) / 2 });
@@ -163,9 +164,10 @@
                 return c * Math.sin(t/d * (Math.PI/2)) + b;
             }
 
+            clearInterval(iv[index]);
+
             if (time && orig !== undefined) {
                 var i = 0;
-                clearInterval(iv[index]);
                 iv[index] = setInterval(function() {
                     i += 0.1;
                     t.data('pos', Math.round(getVal(i, orig, val - orig, time)));
@@ -185,11 +187,14 @@
         * @param {Boolean} [fill] - Also set the value of the associated input element. Default is true.
         */
         that.setValue = function (sc, fill, time) {
-            var v = s.formatResult(that.temp);
-            that.val = v;
             that.values = that.temp.slice(0);
             if (visible && sc) scrollToPos(time);
-            if (fill && input) elm.val(v).trigger('change');
+            if (fill) {
+                var v = s.formatResult(that.temp);
+                that.val = v;
+                if (input)
+                    elm.val(v).trigger('change');
+            }
         }
 
         /**
@@ -239,7 +244,6 @@
 
             var hi = s.height,
                 l;
-                thi = s.rows * hi;
 
             // Parse value from input
             read();
@@ -251,7 +255,7 @@
                 // Create wheels
                 l = 0;
                 for (var label in s.wheels[i]) {
-                    html += '<td><div class="dwwl dwrc dwwl' + l + '">' + (s.mode != 'scroller' ? '<div class="dwwb dwwbp" style="height:' + hi + 'px;line-height:' + hi + 'px;"><span>+</span></div><div class="dwwb dwwbm" style="height:' + hi + 'px;line-height:' + hi + 'px;"><span>&ndash;</span></div>' : '') + '<div class="dwl">' + label + '</div><div class="dww dwrc" style="height:' + thi + 'px;min-width:' + s.width + 'px;"><ul>';
+                    html += '<td><div class="dwwl dwrc dwwl' + l + '">' + (s.mode != 'scroller' ? '<div class="dwwb dwwbp" style="height:' + hi + 'px;line-height:' + hi + 'px;"><span>+</span></div><div class="dwwb dwwbm" style="height:' + hi + 'px;line-height:' + hi + 'px;"><span>&ndash;</span></div>' : '') + '<div class="dwl">' + label + '</div><div class="dww dwrc" style="height:' + (s.rows * hi) + 'px;min-width:' + s.width + 'px;"><ul>';
                     // Create wheel values
                     for (var j in s.wheels[i][label]) {
                         html += '<li class="dw-v" data-val="' + j + '" style="height:' + hi + 'px;line-height:' + hi + 'px;">' + s.wheels[i][label][j] + '</li>';
@@ -331,7 +335,7 @@
                 }
             }).delegate('.dwwl', START_EVENT, function (e) {
                 // Scroll start
-                if (!move && !s.readonly && !click) {
+                if (!move && !s.readonly && !click && s.mode != 'clickpick') {
                     e.preventDefault();
                     move = true;
                     target = $('ul', this);
@@ -356,7 +360,10 @@
             // Get theme defaults
             theme = $.extend({ defaults: {}, init: empty }, $.scroller.themes[ss.theme ? ss.theme : s.theme]);
 
-            $.extend(s, theme.defaults, settings, ss);
+            // Get language defaults
+            lang = $.scroller.i18n[ss.lang ? ss.lang : s.lang];
+
+            $.extend(s, theme.defaults, lang, settings, ss);
 
             that.settings = s;
 
@@ -424,7 +431,7 @@
     }
 
     function getY(e) {
-        return touch ? (e.originalEvent ? e.originalEvent.changedTouches[0].pageY : e.changedTouches[0].pageY) : e.pageY;
+        return e.changedTouches || (e.originalEvent && e.originalEvent.changedTouches) ? (e.originalEvent ? e.originalEvent.changedTouches[0].pageY : e.changedTouches[0].pageY) : e.pageY;
     }
 
     function bool(v) {
@@ -465,10 +472,9 @@
         mod = document.createElement('modernizr').style,
         has3d = testProps(['perspectiveProperty', 'WebkitPerspective', 'MozPerspective', 'OPerspective', 'msPerspective']) && 'webkitPerspective' in document.documentElement.style,
         prefix = testPrefix(),
-        touch = ('ontouchstart' in window),
-        START_EVENT = touch ? 'touchstart' : 'mousedown',
-        MOVE_EVENT = touch ? 'touchmove' : 'mousemove',
-        END_EVENT = touch ? 'touchend' : 'mouseup',
+        START_EVENT = 'touchstart mousedown',
+        MOVE_EVENT = 'touchmove mousemove',
+        END_EVENT = 'touchend mouseup',
         defaults = {
             // Options
             width: 70,
@@ -485,6 +491,7 @@
             display: 'modal',
             mode: 'scroller',
             preset: '',
+            lang: 'en-US',
             setText: 'Set',
             cancelText: 'Cancel',
             // Events
@@ -666,7 +673,8 @@
             $.extend(defaults, o);
         },
         presets: {},
-        themes: {}
+        themes: {},
+        i18n: {}
     };
 
 })(jQuery);

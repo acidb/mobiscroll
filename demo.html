@@ -18,6 +18,11 @@
     <script src="js/mobiscroll.android.js" type="text/javascript"></script>
     <script src="js/mobiscroll.android-ics.js" type="text/javascript"></script>
 
+    <script src="js/i18n/mobiscroll.core-de.js" type="text/javascript"></script>
+    <script src="js/i18n/mobiscroll.core-hu.js" type="text/javascript"></script>
+    <script src="js/i18n/mobiscroll.datetime-de.js" type="text/javascript"></script>
+    <script src="js/i18n/mobiscroll.datetime-hu.js" type="text/javascript"></script>
+
     <link href="css/mobiscroll.core.css" rel="stylesheet" type="text/css" />
     <link href="css/mobiscroll.jqm.css" rel="stylesheet" type="text/css" />
     <link href="css/mobiscroll.android.css" rel="stylesheet" type="text/css" />
@@ -50,6 +55,7 @@
             var opt = {
                 'date': {
                     preset: 'date',
+                    dateOrder: 'd Dmmyy',
                     invalid: { daysOfWeek: [0, 6], daysOfMonth: ['5/1', '12/24', '12/25'] }
                 },
                 'datetime': {
@@ -76,6 +82,7 @@
                 'inline': {
                     preset: 'date',
                     display: 'inline'
+
                 }
             }
 
