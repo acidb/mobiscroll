@@ -76,8 +76,8 @@
                 stepH = s.stepHour,
                 stepM = s.stepMinute,
                 stepS = s.stepSecond,
-                mind = s.minDate,
-                maxd = s.maxDate;
+                mind = s.minDate ? s.minDate : new Date(s.startYear, 0, 1),
+                maxd = s.maxDate ? s.maxDate : new Date(s.endYear, 11, 31, 23, 59, 59);
 
             format = format ? format : hformat;
 
@@ -99,8 +99,8 @@
                     if (k == o.y) {
                         offset++;
                         w[s.yearText] = {};
-                        var start = mind ? mind.getFullYear() : s.startYear,
-                            end = maxd ? maxd.getFullYear() : s.endYear;
+                        var start = mind.getFullYear(),
+                            end = maxd.getFullYear();
                         for (var i = start; i <= end; i++)
                             w[s.yearText][i] = dord.match(/yy/i) ? i : (i + '').substr(2, 2);
                     }
@@ -136,25 +136,25 @@
                     return a.o > b.o ? 1 : -1;
                 });
                 $.each(ord, function(i, v) {
-                    o[v.v] = i;
+                    o[v.v] = offset + i;
                 });
 
                 var w = {};
-                for (var k = 0; k < 3; k++) {
+                for (var k = offset; k < offset + 3; k++) {
                     if (k == o.h) {
-                        o.h = offset++; // Hours wheel order
+                        offset++;
                         w[s.hourText] = {};
                         for (var i = 0; i < (hampm ? 12 : 24); i += stepH)
                             w[s.hourText][i] = hampm && i == 0 ? 12 : tord.match(/hh/i) && i < 10 ? '0' + i : i;
                     }
                     else if (k == o.i) {
-                        o.i = offset++; // Minutes wheel order
+                        offset++;
                         w[s.minuteText] = {};
                         for (var i = 0; i < 60; i += stepM)
                             w[s.minuteText][i] = tord.match(/ii/) && i < 10 ? '0' + i : i;
                     }
                     else if (k == o.s){
-                        o.s = offset++; // Seconds wheel order
+                        offset++;
                         w[s.secText] = {};
                         for (var i = 0; i < 60; i += stepS)
                             w[s.secText][i] = tord.match(/ss/) && i < 10 ? '0' + i : i;
@@ -251,13 +251,13 @@
                  * @param {Integer} [i] - Index of the changed wheel, not set for initial validation
                  */
                 validate: function(dw, i) {
-                    var temp = inst.temp.slice(0),
-                        mins = { m: 0, d: 1, h: 0, i: 0, s: 0, ap: 0 },
-                        maxs = { m: 11, d: 31, h: step(hampm ? 11 : 23, stepH), i: step(59, stepM), s: step(59, stepS), ap: 1 },
-                        w = (mind || maxd) ? ['y', 'm', 'd', 'ap', 'h', 'i', 's'] : ((i == o.y || i == o.m || i === undefined) ? ['d'] : []), // Validate day only, if no min/max date set
+                    var temp = inst.temp, //.slice(0),
+                        mins = { y: mind.getFullYear(), m: 0, d: 1, h: 0, i: 0, s: 0, ap: 0 },
+                        maxs = { y: maxd.getFullYear(), m: 11, d: 31, h: step(hampm ? 11 : 23, stepH), i: step(59, stepM), s: step(59, stepS), ap: 1 },
+                        //w = (mind || maxd) ? ['y', 'm', 'd', 'ap', 'h', 'i', 's'] : ((i == o.y || i == o.m || i === undefined) ? ['d'] : []), // Validate day only, if no min/max date set
                         minprop = true,
                         maxprop = true;
-                    $.each(w, function(x, i) {
+                    $.each(['y', 'm', 'd', 'ap', 'h', 'i', 's'], function(x, i) {
                         if (o[i] !== undefined) {
                             var min = mins[i],
                                 max = maxs[i],
@@ -291,11 +291,11 @@
                                 if (i == 'd') { // Hide days not in month
                                     $('li', t).removeClass('dw-h').slice(maxdays).addClass('dw-h');
                                 }
-                                if (val < min)
-                                    val = min;
-                                if (val > max)
-                                    val = max;
                             }
+                            if (val < min)
+                                val = min;
+                            if (val > max)
+                                val = max;
                             if (minprop)
                                 minprop = val == min;
                             if (maxprop)
