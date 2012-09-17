@@ -31,24 +31,24 @@ Enhancements
 
 _Core_
 
-  * Added: 'lang' option to specify language related default settings and language files
+  * Added: Support for language files. Controlled from 'lang' option. Specify language related default settings and language files.
 
 Bugfixes
 --------
 
 _Core_
 
-  * Fixed: 'clickpick' mode worked as 'mixed' in 2.0.2
+  * Fixed: 'clickpick' mode worked the same way as 'mixed' in 2.0.2
 
-  * Fixed: 'setValue' was not working only if the related input was also filled
+  * Fixed: 'setValue' was not working correctly.
 
-  * Fixed: wheels were misaligned on Firefox with iOS theme and datetime preset
+  * Fixed: Wheels were misaligned on Firefox with ios theme and datetime preset.
 
 _Datetime preset_
 
-  * Fixed: Time was incorrectly parsed if at least one of the year/month/day wheels was not generated
+  * Fixed: Time was incorrectly parsed when missing year, month or day wheel.
 
-  * Fixed: Default year value was not set, if was not between startYear and endYear
+  * Fixed: Default year value was not set, if outside of startYear and endYear.
 
 
 Changelog 2.0.2
