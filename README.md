@@ -42,6 +42,8 @@ _Core_
 
   * Fixed: 'setValue' was not working only if the related input was also filled
 
+  * Fixed: wheels were misaligned on Firefox with iOS theme and datetime preset
+
 _Datetime preset_
 
   * Fixed: Time was incorrectly parsed if at least one of the year/month/day wheels was not generated
