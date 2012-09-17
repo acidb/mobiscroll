@@ -23,6 +23,32 @@ It'd be cool to see how you're using Mobiscroll!
 
 We're looking at showcasing some of the best work on http://mobiscroll.com . Feel free to let us know on twitter @mobiscroll!
 
+Changelog 2.0.3
+===============
+
+Enhancements
+------------
+
+_Core_
+
+  * Added: 'lang' option to specify language related default settings and language files
+
+Bugfixes
+--------
+
+_Core_
+
+  * Fixed: 'clickpick' mode worked as 'mixed' in 2.0.2
+
+  * Fixed: 'setValue' was not working only if the related input was also filled
+
+_Datetime preset_
+
+  * Fixed: Time was incorrectly parsed if at least one of the year/month/day wheels was not generated
+
+  * Fixed: Default year value was not set, if was not between startYear and endYear
+
+
 Changelog 2.0.2
 ===============
 
