@@ -61,4 +61,11 @@ var jQuery = Zepto;
         }
     });
 
+    // Fix zepto.js extend to work with undefined parameter
+    $.__extend = $.extend;
+    $.extend = function() {
+        arguments[0] = arguments[0] || {};
+        return $.__extend.apply(this, arguments);
+    }
+
 })(jQuery);
