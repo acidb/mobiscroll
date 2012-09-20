@@ -21,13 +21,14 @@ $.widget( "mobile.datebox", $.mobile.widget, {
         theme: 'jqm',
         lang: 'en',
         mode: 'scroller',
-        disableManualInput: false,        
+        disableManualInput: false,
+        preset: 'date'
     },
     _create: function(){
         var self = this;
         var o = $.extend(this.options, this.element.data('options'));
         var input = this.element;
-        $(input).scroller({preset: 'date', theme: o.theme, mode: o.mode, lang: o.lang});
+        $(input).scroller(o);
         $(input).on('click', function() {
             $(this).scroller('show');
         });
