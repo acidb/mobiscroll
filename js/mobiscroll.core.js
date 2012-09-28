@@ -1,5 +1,5 @@
 ﻿/*!
- * jQuery MobiScroll v2.0.2
+ * jQuery MobiScroll v2.1
  * http://mobiscroll.com
  *
  * Copyright 2010-2011, Acid Media
@@ -17,11 +17,31 @@
             s = $.extend({}, defaults),
             m,
             dw,
+            warr = [],
             iv = {},
             input = elm.is('input'),
             visible = false;
 
         // Private functions
+
+        function isReadOnly(wh) {
+            if ($.isArray(s.readonly)) {
+                var i = $('.dwwl', dw).index(wh);
+                return s.readonly[i];
+            }
+            else
+                return s.readonly;
+        }
+
+        function generateWheelItems(wIndex) {
+            var html = '',
+                hi = s.height,
+                i = 0;
+            for (var j in warr[wIndex]) {
+                html += '<li class="dw-v" data-val="' + j + '" style="height:' + hi + 'px;line-height:' + hi + 'px;">' + warr[wIndex][j] + '</li>';
+            }
+            return html;
+        }
 
         function getDocHeight() {
             var body = document.body,
@@ -39,7 +59,7 @@
 
         function formatHeader(v) {
             var t = s.headerText;
-            return t ? (typeof(t) == 'function' ? t.call(e, v) : t.replace(/{value}/i, v)) : '';
+            return t ? (typeof (t) == 'function' ? t.call(e, v) : t.replace(/{value}/i, v)) : '';
         }
 
         function read() {
@@ -52,14 +72,14 @@
             s.validate.call(e, dw, index, time);
 
             // Set scrollers to position
-            $('.dww ul', dw).each(function(i) {
+            $('.dww ul', dw).each(function (i) {
                 var t = $(this),
                     cell = $('li[data-val="' + that.temp[i] + '"]', t),
                     x = cell.index(),
                     v = scrollToValid(cell, x, i, dir),
                     sc = i == index || index === undefined;
-                if (v != t.data('pos'))
-                    that.scroll($(this), v, sc ? time : 0.2, orig, i);
+                //if (v != t.data('pos'))
+                that.scroll($(this), v, sc ? time : 0.2, orig, i);
             });
 
             // Reformat value if validation changed something
@@ -96,27 +116,95 @@
         }
 
         function position() {
+
+            if (s.display == 'inline')
+                return;
+
+            function countWidth() {
+                $('.dwc', dw).each(function () {
+                    w = $(this).outerWidth(true);
+                    totalw += w;
+                    minw = (w > minw) ? w : minw;
+                });
+                w = totalw > ww ? minw : totalw;
+                w = $('.dwwr', dw).width(w + 1).outerWidth();
+                h = d.outerHeight();
+            }
+
             var totalw = 0,
                 minw = 0,
                 ww = $(window).width(),
-                wh = $(window).height(),
+                wh = window.innerHeight,
                 st = $(window).scrollTop(),
-                o = $('.dwo', dw),
                 d = $('.dw', dw),
                 w,
-                h;
-            $('.dwc', dw).each(function() {
-                w = $(this).outerWidth(true);
-                totalw += w;
-                minw = (w > minw) ? w : minw;
-            });
-            w = totalw > ww ? minw : totalw;
-            d.width(w + 1);
-            w = d.outerWidth();
-            h = d.outerHeight();
-            d.css({ left: (ww - w) / 2, top: st + (wh - h) / 2 });
-            o.height(0).height(getDocHeight());
+                t,
+                l,
+                h,
+                ew,
+                css = {},
+                needScroll,
+                elma = s.anchor === undefined ? elm : s.anchor;
+
+            wh = wh ? wh : $(window).height();
+
+            if (s.display == 'modal') {
+                countWidth();
+                l = (ww - w) / 2;
+                t = st + (wh - h) / 2;
+            }
+            else if (s.display == 'bubble') {
+                countWidth();
+                var p = elma.offset(),
+                    poc = $('.dw-arr', dw),
+                    pocw = $('.dw-arrw-i', dw),
+                    wd = d.outerWidth();
+
+                // horizontal positioning
+                ew = elma.outerWidth();
+                l = p.left - (d.outerWidth(true) - ew) / 2;
+                l = l > (ww - wd) ? (ww - (wd + 20)) : l;
+                l = l >= 0 ? l : 20;
+
+                // vertical positioning
+                t = p.top - (d.outerHeight() + 3); // above the input
+                if ((t < st) || (p.top > st + wh)) { // if doesn't fit above or the input is out of the screen
+                    d.removeClass('dw-bubble-top').addClass('dw-bubble-bottom');
+                    t = p.top + elma.outerHeight() + 3; // below the input
+                    needScroll = ((t + d.outerHeight(true) > st + wh) || (p.top > st + wh));
+                }
+                else
+                    d.removeClass('dw-bubble-bottom').addClass('dw-bubble-top');
+
+                t = t >= st ? t : st;
+
+                // Calculate Arrow position
+                var pl = p.left + ew / 2 - (l + (wd - pocw.outerWidth()) / 2);
+
+                // Limit Arrow position to [0, pocw.width] intervall
+                if (pl > pocw.outerWidth())
+                    pl = pocw.outerWidth();
+                poc.css({ left: pl });
+            }
+            else {
+                css.width = '100%';
+                if (s.display == 'top') {
+                    t = st;
+                }
+                else if (s.display == 'bottom') {
+                    t = st + wh - d.outerHeight();
+                    t = t >= 0 ? t : 0;
+                }
+            }
+            css.top = t;
+            css.left = l;
+            d.css(css);
+
+            $('.dwo, .dw-persp').height(0).height(getDocHeight());
+            if (needScroll)
+                $(window).scrollTop(t + d.outerHeight(true) - wh);
         }
+
 
         function plus(t) {
             var p = +t.data('pos'),
@@ -135,7 +223,7 @@
         /**
         * Enables the scroller and the associated input.
         */
-        that.enable = function() {
+        that.enable = function () {
             s.disabled = false;
             if (input)
                 elm.prop('disabled', false);
@@ -144,7 +232,7 @@
         /**
         * Disables the scroller and the associated input.
         */
-        that.disable = function() {
+        that.disable = function () {
             s.disabled = true;
             if (input)
                 elm.prop('disabled', true);
@@ -156,19 +244,19 @@
         * @param {Number} val - Value.
         * @param {Number} [time] - Duration of the animation, optional.
         */
-        that.scroll = function(t, val, time, orig, index) {
+        that.scroll = function (t, val, time, orig, index) {
             var px = (m - val) * s.height;
             t.attr('style', (time ? (prefix + '-transition:all ' + time.toFixed(1) + 's ease-out;') : '') + (has3d ? (prefix + '-transform:translate3d(0,' + px + 'px,0);') : ('top:' + px + 'px;')));
 
             function getVal(t, b, c, d) {
-                return c * Math.sin(t/d * (Math.PI/2)) + b;
+                return c * Math.sin(t / d * (Math.PI / 2)) + b;
             }
 
             clearInterval(iv[index]);
 
             if (time && orig !== undefined) {
                 var i = 0;
-                iv[index] = setInterval(function() {
+                iv[index] = setInterval(function () {
                     i += 0.1;
                     t.data('pos', Math.round(getVal(i, orig, val - orig, time)));
                     if (i >= time) {
@@ -185,9 +273,11 @@
         * Gets the selected wheel values, formats it, and set the value of the scroller instance.
         * If input parameter is true, populates the associated input element.
         * @param {Boolean} [fill] - Also set the value of the associated input element. Default is true.
+        * @param {Boolean} [temp] - If true, then only set the temporary value.(only scroll there but not set the value)
         */
-        that.setValue = function (sc, fill, time) {
-            that.values = that.temp.slice(0);
+        that.setValue = function (sc, fill, time, temp) {
+            if (!temp)
+                that.values = that.temp.slice(0);
             if (visible && sc) scrollToPos(time);
             if (fill) {
                 var v = s.formatResult(that.temp);
@@ -202,13 +292,13 @@
         * In case of date presets it checks the number of days in a month.
         * @param {Integer} i - Currently changed wheel index, -1 if initial validation.
         */
-        that.validate = function(time, orig, i, dir) {
+        that.validate = function (time, orig, i, dir) {
             scrollToPos(time, orig, i, true, dir);
         }
 
         /**
-         *
-         */
+        *
+        */
         that.change = function (manual) {
             var v = s.formatResult(that.temp);
             if (s.display == 'inline')
@@ -222,51 +312,99 @@
         /**
         * Hides the scroller instance.
         */
-        that.hide = function () {
+        that.hide = function (prevAnim) {
             // If onClose handler returns false, prevent hide
             if (s.onClose.call(e, that.val, that) === false) return false;
+
             // Re-enable temporary disabled fields
             $('.dwtd').prop('disabled', false).removeClass('dwtd');
             elm.blur();
+
             // Hide wheels and overlay
-            if (dw)
-                dw.remove();
-            visible = false;
-            // Stop positioning on window resize
-            $(window).unbind('.dw');
+            if (dw) {
+                if (s.display != 'inline' && s.anim && !prevAnim) {
+                    $('.dw', dw).addClass(s.anim + ' out');
+                    setTimeout(function () {
+                        dw.remove();
+                    }, 350);
+                }
+                else
+                    dw.remove();
+
+                visible = false;
+                // Stop positioning on window resize
+                $(window).unbind('.dw');
+            }
+        }
+
+        /**
+        * Changes the values of a wheel, and scrolls to the correct position
+        * @param {Number} wIndex - index of the wheel
+        */
+        that.changeWheel = function (wIndex) {
+            if (dw) {
+                var i = 0;
+                for (var j in s.wheels) {
+                    for (var k in s.wheels[j]) {
+                        if (wIndex == i) {
+                            warr[wIndex] = s.wheels[j][k];
+                            var ul = $('ul', dw).eq(wIndex);
+                            ul.html(generateWheelItems(wIndex));
+                            position();
+                            scrollToPos();
+                            return;
+                        }
+                        i++;
+                    }
+                }
+            }
         }
 
         /**
         * Shows the scroller instance.
         */
-        that.show = function () {
+        that.show = function (prevAnim) {
             if (s.disabled || visible) return false;
 
-            var hi = s.height,
-                l;
+            if (s.display == 'top')
+                s.anim = 'slidedown';
+            if (s.display == 'bottom')
+                s.anim = 'slideup';
 
             // Parse value from input
             read();
 
+            s.onBeforeShow.call(e, dw, that);
+
+            // Create wheels
+            var l = 0,
+                hi = s.height,
+                mAnim = '',
+                persPS = '',
+                persPE = '';
+
+            if (s.anim && !prevAnim) {
+                persPS = '<div class="dw-persp">';
+                persPE = '</div>';
+                mAnim = s.anim + ' in';
+            }
             // Create wheels containers
-            var html = '<div class="' + s.theme + '">' + (s.display == 'inline' ? '<div class="dw dwbg dwi"><div class="dwwr">' : '<div class="dwo"></div><div class="dw dwbg"><div class="dwwr">' + (s.headerText ? '<div class="dwv"></div>' : ''));
+            var html = '<div class="' + s.theme + ' dw-' + s.display + '">' + (s.display == 'inline' ? '<div class="dw dwbg dwi"><div class="dwwr">' : persPS + '<div class="dwo"></div><div class="dw dwbg ' + mAnim + '"><div class="dw-arrw"><div class="dw-arrw-i"><div class="dw-arr"></div></div></div><div class="dwwr">' + (s.headerText ? '<div class="dwv"></div>' : ''));
+
             for (var i = 0; i < s.wheels.length; i++) {
                 html += '<div class="dwc' + (s.mode != 'scroller' ? ' dwpm' : ' dwsc') + (s.showLabel ? '' : ' dwhl') + '"><div class="dwwc dwrc"><table cellpadding="0" cellspacing="0"><tr>';
                 // Create wheels
-                l = 0;
                 for (var label in s.wheels[i]) {
+                    warr[l] = s.wheels[i][label];
                     html += '<td><div class="dwwl dwrc dwwl' + l + '">' + (s.mode != 'scroller' ? '<div class="dwwb dwwbp" style="height:' + hi + 'px;line-height:' + hi + 'px;"><span>+</span></div><div class="dwwb dwwbm" style="height:' + hi + 'px;line-height:' + hi + 'px;"><span>&ndash;</span></div>' : '') + '<div class="dwl">' + label + '</div><div class="dww dwrc" style="height:' + (s.rows * hi) + 'px;min-width:' + s.width + 'px;"><ul>';
                     // Create wheel values
-                    for (var j in s.wheels[i][label]) {
-                        html += '<li class="dw-v" data-val="' + j + '" style="height:' + hi + 'px;line-height:' + hi + 'px;">' + s.wheels[i][label][j] + '</li>';
-                    }
+                    html += generateWheelItems(l);
                     html += '</ul><div class="dwwo"></div></div><div class="dwwol"></div></div></td>';
                     l++;
                 }
                 html += '</tr></table></div></div>';
             }
-            html += (s.display != 'inline' ? '<div class="dwbc"><span class="dwbw dwb-s"><a href="#" class="dwb">' + s.setText + '</a></span><span class="dwbw dwb-c"><a href="#" class="dwb">' + s.cancelText + '</a></span></div>' : '<div class="dwcc"></div>') + '</div></div></div>';
-
+            html += (s.display != 'inline' ? '<div class="dwbc' + (s.button3 ? ' dwbc-p' : '') + '"><span class="dwbw dwb-s"><span class="dwb">' + s.setText + '</span></span>' + (s.button3 ? '<span class="dwbw dwb-n"><span class="dwb">' + s.button3Text + '</span></span>' : '') + '<span class="dwbw dwb-c"><span class="dwb">' + s.cancelText + '</span></span></div>' + persPE : '<div class="dwcc"></div>') + '</div></div></div>';
             dw = $(html);
 
             scrollToPos();
@@ -275,26 +413,33 @@
             s.display != 'inline' ? dw.appendTo('body') : elm.is('div') ? elm.html(dw) : dw.insertAfter(elm);
             visible = true;
 
-            // Theme init
-            theme.init(dw, that);
 
             if (s.display != 'inline') {
                 // Init buttons
-                $('.dwb-s a', dw).click(function () {
+                $('.dwb-s span', dw).click(function () {
                     that.setValue(false, true);
                     that.hide();
                     s.onSelect.call(e, that.val, that);
                     return false;
                 });
 
-                $('.dwb-c a', dw).click(function () {
+                $('.dwb-c span', dw).click(function () {
                     that.hide();
                     s.onCancel.call(e, that.val, that);
                     return false;
                 });
 
+                if (s.button3)
+                    $('.dwb-n span', dw).click(s.button3);
+
+                // prevent scrolling if not specified otherwise
+                if (s.prevScroll)
+                    dw.bind('touchmove', function (e) {
+                        e.preventDefault();
+                    });
+
                 // Disable inputs to prevent bleed through (Android bug)
-                $('input,select').each(function() {
+                $('input,select').each(function () {
                     if (!$(this).prop('disabled'))
                         $(this).addClass('dwtd');
                 });
@@ -307,7 +452,7 @@
 
             // Events
             dw.delegate('.dwwl', 'DOMMouseScroll mousewheel', function (e) {
-                if (!s.readonly) {
+                if (!isReadOnly(this)) {
                     e.preventDefault();
                     e = e.originalEvent;
                     var delta = e.wheelDelta ? (e.wheelDelta / 120) : (e.detail ? (-e.detail / 3) : 0),
@@ -321,22 +466,24 @@
                 // Active button
                 $(this).addClass('dwb-a');
             }).delegate('.dwwb', START_EVENT, function (e) {
-                if (!s.readonly && !$(this).closest('.dwwl').hasClass('dwa')) {
+                var w = $(this).closest('.dwwl');
+                if (!isReadOnly(w) && !w.hasClass('dwa')) {
                     // + Button
                     e.preventDefault();
                     e.stopPropagation();
-                    var t = $(this).closest('.dwwl').find('ul'),
+                    var t = w.find('ul'),
                         func = $(this).hasClass('dwwbp') ? plus : minus;
                     click = true;
                     setGlobals(t);
                     clearInterval(timer);
-                    timer = setInterval(function() { func(t); }, s.delay);
+                    timer = setInterval(function () { func(t); }, s.delay);
                     func(t);
                 }
             }).delegate('.dwwl', START_EVENT, function (e) {
+                // Prevent scroll
+                e.preventDefault();
                 // Scroll start
-                if (!move && !s.readonly && !click && s.mode != 'clickpick') {
-                    e.preventDefault();
+                if (!isReadOnly(this) && !click && s.mode != 'clickpick') {
                     move = true;
                     target = $('ul', this);
                     target.closest('.dwwl').addClass('dwa');
@@ -348,15 +495,18 @@
                     stop = start;
                     that.scroll(target, pos);
                 }
-            });
+            })
 
             s.onShow.call(e, dw, that);
+
+            // Theme init
+            theme.init(dw, that);
         }
 
         /**
         * Scroller initialization.
         */
-        that.init = function(ss) {
+        that.init = function (ss) {
             // Get theme defaults
             theme = $.extend({ defaults: {}, init: empty }, $.scroller.themes[ss.theme ? ss.theme : s.theme]);
 
@@ -396,7 +546,7 @@
                     elm.data('dwro', e.readOnly);
                     e.readOnly = true;
                     // Init show datewheel
-                    elm.bind('focus.dw', that.show);
+                    elm.bind('focus.dw', function () { that.show(); });
                 }
             }
         }
@@ -409,11 +559,9 @@
     }
 
     function testProps(props) {
-        for (var i in props) {
-            if (mod[props[i]] !== undefined ) {
+        for (var i in props)
+            if (mod[props[i]] !== undefined)
                 return true;
-            }
-        }
         return false;
     }
 
@@ -432,6 +580,7 @@
 
     function getY(e) {
         return e.changedTouches || (e.originalEvent && e.originalEvent.changedTouches) ? (e.originalEvent ? e.originalEvent.changedTouches[0].pageY : e.changedTouches[0].pageY) : e.pageY;
+
     }
 
     function bool(v) {
@@ -453,7 +602,7 @@
 
     var scrollers = {},
         timer,
-        empty = function() {},
+        empty = function () { },
         h,
         min,
         max,
@@ -494,20 +643,22 @@
             lang: 'en-US',
             setText: 'Set',
             cancelText: 'Cancel',
+            prevScroll: true,
             // Events
+            onBeforeShow: empty,
             onShow: empty,
             onClose: empty,
             onSelect: empty,
             onCancel: empty,
             onChange: empty,
-            formatResult: function(d) {
+            formatResult: function (d) {
                 var out = '';
                 for (var i = 0; i < d.length; i++) {
                     out += (i > 0 ? ' ' : '') + d[i];
                 }
                 return out;
             },
-            parseValue: function(val, inst) {
+            parseValue: function (val, inst) {
                 var w = inst.settings.wheels,
                     val = val.split(' '),
                     ret = [],
@@ -517,7 +668,7 @@
                         if (w[i][l][val[j]] !== undefined)
                             ret.push(val[j])
                         else
-                            // Select first value from wheel
+                        // Select first value from wheel
                             for (var v in w[i][l]) {
                                 ret.push(v);
                                 break;
@@ -541,24 +692,24 @@
                     scrollers[this.id] = new Scroller(this, options);
                 });
             },
-            enable: function() {
+            enable: function () {
                 return this.each(function () {
                     var inst = getInst(this);
                     if (inst) inst.enable();
                 });
             },
-            disable: function() {
+            disable: function () {
                 return this.each(function () {
                     var inst = getInst(this);
                     if (inst) inst.disable();
                 });
             },
-            isDisabled: function() {
+            isDisabled: function () {
                 var inst = getInst(this[0]);
                 if (inst)
                     return inst.settings.disabled;
             },
-            option: function(option, value) {
+            option: function (option, value) {
                 return this.each(function () {
                     var inst = getInst(this);
                     if (inst) {
@@ -571,36 +722,36 @@
                     }
                 });
             },
-            setValue: function(d, fill, time) {
+            setValue: function (d, fill, time, temp) {
                 return this.each(function () {
                     var inst = getInst(this);
                     if (inst) {
                         inst.temp = d;
-                        inst.setValue(true, fill, time);
+                        inst.setValue(true, fill, time, temp);
                     }
                 });
             },
-            getInst: function() {
+            getInst: function () {
                 return getInst(this[0]);
             },
-            getValue: function() {
+            getValue: function () {
                 var inst = getInst(this[0]);
                 if (inst)
                     return inst.values;
             },
-            show: function() {
+            show: function () {
                 var inst = getInst(this[0]);
                 if (inst)
                     return inst.show();
             },
-            hide: function() {
+            hide: function () {
                 return this.each(function () {
                     var inst = getInst(this);
                     if (inst)
                         inst.hide();
                 });
             },
-            destroy: function() {
+            destroy: function () {
                 return this.each(function () {
                     var inst = getInst(this);
                     if (inst) {
@@ -669,7 +820,7 @@
         * Set settings for all instances.
         * @param {Object} o - New default settings.
         */
-        setDefaults: function(o) {
+        setDefaults: function (o) {
             $.extend(defaults, o);
         },
         presets: {},

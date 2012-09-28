@@ -12,8 +12,9 @@
         init: function(elm, inst) {
             var s = inst.settings;
             $('.dw', elm).removeClass('dwbg').addClass('ui-overlay-shadow ui-corner-all ui-body-a');
-            $('.dwb-s a', elm).attr('data-role', 'button').attr('data-theme', s.jqmSet);
-            $('.dwb-c a', elm).attr('data-role', 'button').attr('data-theme', s.jqmCancel);
+            $('.dwb-s span', elm).attr('data-role', 'button').attr('data-theme', s.jqmSet);
+            $('.dwb-n span', elm).attr('data-role', 'button').attr('data-theme', s.jqmCancel);
+            $('.dwb-c span', elm).attr('data-role', 'button').attr('data-theme', s.jqmCancel);
             $('.dwwb', elm).attr('data-role', 'button').attr('data-theme', s.jqmClickPick);
             $('.dwv', elm).addClass('ui-header ui-bar-' + s.jqmHeader);
             $('.dwwr', elm).addClass('ui-body-' + s.jqmBody);

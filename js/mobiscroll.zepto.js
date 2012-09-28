@@ -7,7 +7,7 @@ var jQuery = Zepto;
         $.fn['outer' + Dimension] = function(margin) {
             var elem = this;
             if (elem) {
-                var size = elem[dimension]();
+                var size = elem[0]['offset' + Dimension];
                 var sides = {'width': ['left', 'right'], 'height': ['top', 'bottom']};
                 sides[dimension].forEach(function(side) {
                     if (margin) size += parseInt(elem.css('margin-' + side), 10);

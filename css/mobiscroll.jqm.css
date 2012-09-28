@@ -14,6 +14,7 @@
 }
 .jqm .dwwr {
     border: 0;
+    padding:0;
 }
 .jqm .dwpm .dwwo {
     background: none;
@@ -52,4 +53,30 @@
 }
 .jqm .dwbc .ui-btn-inner {
     font-size:12px;
+}
+/* Bubble positioning */
+.jqm .dw-bubble-bottom .dw-arr
+{
+    border-color:transparent transparent #444 transparent;
+}
+.jqm .dw-bubble-top .dw-arr
+{
+    border-color:#222 transparent transparent transparent;
+}
+/* Docked */
+.jqm.dw-bottom .dw, .jqm.dw-top .dw {
+    padding: 0;
+    border-radius: 0;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+}
+.jqm.dw-top .dw {
+    border-right: 0;
+    border-top: 0;
+    border-left: 0;
+}
+.jqm.dw-bottom .dw {
+    border-bottom: 0;
+    border-right: 0;
+    border-left: 0;
 }
