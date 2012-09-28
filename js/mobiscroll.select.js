@@ -3,7 +3,8 @@
     var defaults = {
         inputClass: '',
         invalid: [],
-        group: false
+        group: false,
+        groupLabel: 'Groups'
     }
 
     $.scroller.presets.select = function (inst) {
@@ -207,7 +208,7 @@
                 $('optgroup', elm).each(function (index) {
                     wheel['_' + index] = $(this).attr('label');
                 });
-                w[wg]['Groups'] = wheel;
+                w[wg][s.groupLabel] = wheel;
                 cont = group;
                 wg++;
             }
