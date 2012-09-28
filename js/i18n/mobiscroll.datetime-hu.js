@@ -13,6 +13,7 @@
         secText: 'Másodperc',
         timeFormat: 'HH:ii',
         timeWheels: 'HHii',
-        yearText: 'Év'
+        yearText: 'Év',
+        nowText: 'Most'
     });
 })(jQuery);

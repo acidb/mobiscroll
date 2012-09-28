@@ -8,7 +8,7 @@
             timeFormat: 'hh:ii A',
             startYear: date.getFullYear() - 100,
             endYear: date.getFullYear() + 1,
-            monthNames: ['January','February','March','April','May','June', 'July','August','September','October','November','December'],
+            monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
             monthNamesShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
             dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
             dayNamesShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
@@ -20,12 +20,14 @@
             minuteText: 'Minutes',
             secText: 'Seconds',
             ampmText: '&nbsp;',
+            nowText: 'Now',
+            showNow: false,
             stepHour: 1,
             stepMinute: 1,
             stepSecond: 1,
             separator: ' '
         },
-        preset = function(inst) {
+        preset = function (inst) {
             var that = $(this),
                 html5def = {},
                 format;
@@ -84,13 +86,13 @@
             if (p.match(/date/i)) {
 
                 // Determine the order of year, month, day wheels
-                $.each(['y', 'm', 'd'], function(i, v) {
+                $.each(['y', 'm', 'd'], function (i, v) {
                     var i = dord.search(new RegExp(v, 'i'));
                     if (i > -1)
                         ord.push({ o: i, v: v });
                 });
-                ord.sort(function(a, b) { return a.o > b.o ? 1 : -1; });
-                $.each(ord, function(i, v) {
+                ord.sort(function (a, b) { return a.o > b.o ? 1 : -1; });
+                $.each(ord, function (i, v) {
                     o[v.v] = i;
                 });
 
@@ -127,15 +129,15 @@
 
                 // Determine the order of hours, minutes, seconds wheels
                 ord = [];
-                $.each(['h', 'i', 's'], function(i, v) {
+                $.each(['h', 'i', 's'], function (i, v) {
                     var i = tord.search(new RegExp(v, 'i'));
                     if (i > -1)
                         ord.push({ o: i, v: v });
                 });
-                ord.sort(function(a, b) {
+                ord.sort(function (a, b) {
                     return a.o > b.o ? 1 : -1;
                 });
-                $.each(ord, function(i, v) {
+                $.each(ord, function (i, v) {
                     o[v.v] = offset + i;
                 });
 
@@ -153,7 +155,7 @@
                         for (var i = 0; i < 60; i += stepM)
                             w[s.minuteText][i] = tord.match(/ii/) && i < 10 ? '0' + i : i;
                     }
-                    else if (k == o.s){
+                    else if (k == o.s) {
                         offset++;
                         w[s.secText] = {};
                         for (var i = 0; i < 60; i += stepS)
@@ -204,35 +206,37 @@
                 return new Date(get(d, 'y'), get(d, 'm'), get(d, 'd', 1), get(d, 'ap') ? hour + 12 : hour, get(d, 'i', 0), get(d, 's', 0));
             }
 
-            inst.setDate = function(d, fill, time) {
+            inst.setDate = function (d, fill, time, temp) {
                 // Set wheels
                 for (var i in o)
                     this.temp[o[i]] = d[f[i]] ? d[f[i]]() : f[i](d);
-                this.setValue(true, fill, time);
+                this.setValue(true, fill, time, temp);
             }
 
-            inst.getDate = function(d) {
+            inst.getDate = function (d) {
                 return getDate(d);
             }
 
             return {
+                button3Text: s.showNow ? s.nowText : undefined,
+                button3: s.showNow ? function () { inst.setDate(new Date(), false, 0.3, true); } : undefined,
                 wheels: wheels,
-                headerText: function(v) {
+                headerText: function (v) {
                     return $.scroller.formatDate(hformat, getDate(inst.temp), s);
                 },
                 /**
-                 * Builds a date object from the wheel selections and formats it to the given date/time format
-                 * @param {Array} d - An array containing the selected wheel values
-                 * @return {String} - The formatted date string
-                 */
-                formatResult: function(d) {
+                * Builds a date object from the wheel selections and formats it to the given date/time format
+                * @param {Array} d - An array containing the selected wheel values
+                * @return {String} - The formatted date string
+                */
+                formatResult: function (d) {
                     return $.scroller.formatDate(format, getDate(d), s);
                 },
                 /**
-                 * Builds a date object from the input value and returns an array to set wheel values
-                 * @return {Array} - An array containing the wheel values to set
-                 */
-                parseValue: function(val) {
+                * Builds a date object from the input value and returns an array to set wheel values
+                * @return {Array} - An array containing the wheel values to set
+                */
+                parseValue: function (val) {
                     var d = new Date(),
                         result = [];
                     try {
@@ -246,18 +250,18 @@
                     return result;
                 },
                 /**
-                 * Validates the selected date to be in the minDate / maxDate range and sets unselectable values to disabled
-                 * @param {Object} dw - jQuery object containing the generated html
-                 * @param {Integer} [i] - Index of the changed wheel, not set for initial validation
-                 */
-                validate: function(dw, i) {
+                * Validates the selected date to be in the minDate / maxDate range and sets unselectable values to disabled
+                * @param {Object} dw - jQuery object containing the generated html
+                * @param {Integer} [i] - Index of the changed wheel, not set for initial validation
+                */
+                validate: function (dw, i) {
                     var temp = inst.temp, //.slice(0),
                         mins = { y: mind.getFullYear(), m: 0, d: 1, h: 0, i: 0, s: 0, ap: 0 },
                         maxs = { y: maxd.getFullYear(), m: 11, d: 31, h: step(hampm ? 11 : 23, stepH), i: step(59, stepM), s: step(59, stepS), ap: 1 },
-                        //w = (mind || maxd) ? ['y', 'm', 'd', 'ap', 'h', 'i', 's'] : ((i == o.y || i == o.m || i === undefined) ? ['d'] : []), // Validate day only, if no min/max date set
+                    //w = (mind || maxd) ? ['y', 'm', 'd', 'ap', 'h', 'i', 's'] : ((i == o.y || i == o.m || i === undefined) ? ['d'] : []), // Validate day only, if no min/max date set
                         minprop = true,
                         maxprop = true;
-                    $.each(['y', 'm', 'd', 'ap', 'h', 'i', 's'], function(x, i) {
+                    $.each(['y', 'm', 'd', 'ap', 'h', 'i', 's'], function (x, i) {
                         if (o[i] !== undefined) {
                             var min = mins[i],
                                 max = maxs[i],
@@ -271,7 +275,7 @@
                                 maxdays = 32 - new Date(y, m, 32).getDate();
                                 max = maxdays;
                                 if (regen)
-                                    $('li', t).each(function() {
+                                    $('li', t).each(function () {
                                         var that = $(this),
                                             d = that.data('val'),
                                             w = new Date(y, m, d).getDay();
@@ -305,7 +309,7 @@
                                 var idx = [];
                                 // Disable exact dates
                                 if (s.invalid.dates)
-                                    $.each(s.invalid.dates, function(i, v) {
+                                    $.each(s.invalid.dates, function (i, v) {
                                         if (v.getFullYear() == y && v.getMonth() == m) {
                                             idx.push(v.getDate() - 1);
                                         }
@@ -313,7 +317,7 @@
                                 // Disable days of week
                                 if (s.invalid.daysOfWeek) {
                                     var first = new Date(y, m, 1).getDay();
-                                    $.each(s.invalid.daysOfWeek, function(i, v) {
+                                    $.each(s.invalid.daysOfWeek, function (i, v) {
                                         for (var j = v - first; j < maxdays; j += 7)
                                             if (j >= 0)
                                                 idx.push(j);
@@ -321,7 +325,7 @@
                                 }
                                 // Disable days of month
                                 if (s.invalid.daysOfMonth)
-                                    $.each(s.invalid.daysOfMonth, function(i, v) {
+                                    $.each(s.invalid.daysOfMonth, function (i, v) {
                                         v = (v + '').split('/');
                                         if (v[1]) {
                                             if (v[0] - 1 == m)
@@ -330,7 +334,7 @@
                                         else
                                             idx.push(v[0] - 1);
                                     });
-                                $.each(idx, function(i, v) {
+                                $.each(idx, function (i, v) {
                                     $('li', t).eq(v).removeClass('dw-v');
                                 });
                             }
@@ -346,7 +350,7 @@
                     * @param {Boolean} temp - If true, return the currently shown date on the picker, otherwise the last selected one
                     * @return {Date}
                     */
-                    getDate: function(temp) {
+                    getDate: function (temp) {
                         var inst = $(this).scroller('getInst');
                         if (inst)
                             return inst.getDate(temp ? inst.temp : inst.values);
@@ -357,12 +361,12 @@
                     * @param {Boolean} [fill] - Also set the value of the associated input element. Default is true.
                     * @return {Object} - jQuery object to maintain chainability
                     */
-                    setDate: function(d, fill, time) {
+                    setDate: function (d, fill, time, temp) {
                         if (fill == undefined) fill = false;
                         return this.each(function () {
                             var inst = $(this).scroller('getInst');
                             if (inst)
-                                inst.setDate(d, fill, time);
+                                inst.setDate(d, fill, time, temp);
                         });
                     }
                 }
@@ -383,22 +387,22 @@
     $.scroller.formatDate = function (format, date, settings) {
         if (!date) return null;
         var s = $.extend({}, defaults, settings),
-            // Check whether a format character is doubled
-            look = function(m) {
+        // Check whether a format character is doubled
+            look = function (m) {
                 var n = 0;
                 while (i + 1 < format.length && format.charAt(i + 1) == m) { n++; i++; };
                 return n;
             },
-            // Format a number, with leading zero if necessary
-            f1 = function(m, val, len) {
+        // Format a number, with leading zero if necessary
+            f1 = function (m, val, len) {
                 var n = '' + val;
                 if (look(m))
                     while (n.length < len)
                         n = '0' + n;
                 return n;
             },
-            // Format a name, short or long as requested
-            f2 = function(m, val, s, l) {
+        // Format a name, short or long as requested
+            f2 = function (m, val, s, l) {
                 return (look(m) ? l[val] : s[val]);
             },
             output = '',
@@ -411,52 +415,52 @@
                     output += format.charAt(i);
             else
                 switch (format.charAt(i)) {
-                    case 'd':
-                        output += f1('d', date.getDate(), 2);
-                        break;
-                    case 'D':
-                        output += f2('D', date.getDay(), s.dayNamesShort, s.dayNames);
-                        break;
-                    case 'o':
-                        output += f1('o', (date.getTime() - new Date(date.getFullYear(), 0, 0).getTime()) / 86400000, 3);
-                        break;
-                    case 'm':
-                        output += f1('m', date.getMonth() + 1, 2);
-                        break;
-                    case 'M':
-                        output += f2('M', date.getMonth(), s.monthNamesShort, s.monthNames);
-                        break;
-                    case 'y':
-                        output += (look('y') ? date.getFullYear() : (date.getYear() % 100 < 10 ? '0' : '') + date.getYear() % 100);
-                        break;
-                    case 'h':
-                        var h = date.getHours();
-                        output += f1('h', (h > 12 ? (h - 12) : (h == 0 ? 12 : h)), 2);
-                        break;
-                    case 'H':
-                        output += f1('H', date.getHours(), 2);
-                        break;
-                    case 'i':
-                        output += f1('i', date.getMinutes(), 2);
-                        break;
-                    case 's':
-                        output += f1('s', date.getSeconds(), 2);
-                        break;
-                    case 'a':
-                        output += date.getHours() > 11 ? 'pm' : 'am';
-                        break;
-                    case 'A':
-                        output += date.getHours() > 11 ? 'PM' : 'AM';
-                        break;
-                    case "'":
-                        if (look("'"))
-                            output += "'";
-                        else
-                            literal = true;
-                        break;
-                    default:
-                        output += format.charAt(i);
-                }
+                case 'd':
+                    output += f1('d', date.getDate(), 2);
+                    break;
+                case 'D':
+                    output += f2('D', date.getDay(), s.dayNamesShort, s.dayNames);
+                    break;
+                case 'o':
+                    output += f1('o', (date.getTime() - new Date(date.getFullYear(), 0, 0).getTime()) / 86400000, 3);
+                    break;
+                case 'm':
+                    output += f1('m', date.getMonth() + 1, 2);
+                    break;
+                case 'M':
+                    output += f2('M', date.getMonth(), s.monthNamesShort, s.monthNames);
+                    break;
+                case 'y':
+                    output += (look('y') ? date.getFullYear() : (date.getYear() % 100 < 10 ? '0' : '') + date.getYear() % 100);
+                    break;
+                case 'h':
+                    var h = date.getHours();
+                    output += f1('h', (h > 12 ? (h - 12) : (h == 0 ? 12 : h)), 2);
+                    break;
+                case 'H':
+                    output += f1('H', date.getHours(), 2);
+                    break;
+                case 'i':
+                    output += f1('i', date.getMinutes(), 2);
+                    break;
+                case 's':
+                    output += f1('s', date.getSeconds(), 2);
+                    break;
+                case 'a':
+                    output += date.getHours() > 11 ? 'pm' : 'am';
+                    break;
+                case 'A':
+                    output += date.getHours() > 11 ? 'PM' : 'AM';
+                    break;
+                case "'":
+                    if (look("'"))
+                        output += "'";
+                    else
+                        literal = true;
+                    break;
+                default:
+                    output += format.charAt(i);
+            }
         }
         return output;
     }
@@ -484,15 +488,15 @@
             seconds = 0, //def.getSeconds(),
             ampm = -1,
             literal = false,
-            // Check whether a format character is doubled
-            lookAhead = function(match) {
+        // Check whether a format character is doubled
+            lookAhead = function (match) {
                 var matches = (iFormat + 1 < format.length && format.charAt(iFormat + 1) == match);
                 if (matches)
                     iFormat++;
                 return matches;
             },
-            // Extract a number from the string value
-            getNumber = function(match) {
+        // Extract a number from the string value
+            getNumber = function (match) {
                 lookAhead(match);
                 var size = (match == '@' ? 14 : (match == '!' ? 20 :
                     (match == 'y' ? 4 : (match == 'o' ? 3 : 2))));
@@ -500,12 +504,12 @@
                 var num = value.substr(iValue).match(digits);
                 if (!num)
                     return 0;
-                    //throw 'Missing number at position ' + iValue;
+                //throw 'Missing number at position ' + iValue;
                 iValue += num[0].length;
                 return parseInt(num[0], 10);
             },
-            // Extract a name from the string value and convert to an index
-            getName = function(match, s, l) {
+        // Extract a name from the string value and convert to an index
+            getName = function (match, s, l) {
                 var names = (lookAhead(match) ? l : s);
                 for (var i = 0; i < names.length; i++) {
                     if (value.substr(iValue, names[i].length).toLowerCase() == names[i].toLowerCase()) {
@@ -516,10 +520,10 @@
                 return 0;
                 //throw 'Unknown name at position ' + iValue;
             },
-            // Confirm that a literal character matches the string value
-            checkLiteral = function() {
+        // Confirm that a literal character matches the string value
+            checkLiteral = function () {
                 //if (value.charAt(iValue) != format.charAt(iFormat))
-                    //throw 'Unexpected literal at position ' + iValue;
+                //throw 'Unexpected literal at position ' + iValue;
                 iValue++;
             },
             iValue = 0;
@@ -532,51 +536,51 @@
                     checkLiteral();
             else
                 switch (format.charAt(iFormat)) {
-                    case 'd':
-                        day = getNumber('d');
-                        break;
-                    case 'D':
-                        getName('D', s.dayNamesShort, s.dayNames);
-                        break;
-                    case 'o':
-                        doy = getNumber('o');
-                        break;
-                    case 'm':
-                        month = getNumber('m');
-                        break;
-                    case 'M':
-                        month = getName('M', s.monthNamesShort, s.monthNames);
-                        break;
-                    case 'y':
-                        year = getNumber('y');
-                        break;
-                    case 'H':
-                        hours = getNumber('H');
-                        break;
-                    case 'h':
-                        hours = getNumber('h');
-                        break;
-                    case 'i':
-                        minutes = getNumber('i');
-                        break;
-                    case 's':
-                        seconds = getNumber('s');
-                        break;
-                    case 'a':
-                        ampm = getName('a', ['am', 'pm'], ['am', 'pm']) - 1;
-                        break;
-                    case 'A':
-                        ampm = getName('A', ['am', 'pm'], ['am', 'pm']) - 1;
-                        break;
-                    case "'":
-                        if (lookAhead("'"))
-                            checkLiteral();
-                        else
-                            literal = true;
-                        break;
-                    default:
+                case 'd':
+                    day = getNumber('d');
+                    break;
+                case 'D':
+                    getName('D', s.dayNamesShort, s.dayNames);
+                    break;
+                case 'o':
+                    doy = getNumber('o');
+                    break;
+                case 'm':
+                    month = getNumber('m');
+                    break;
+                case 'M':
+                    month = getName('M', s.monthNamesShort, s.monthNames);
+                    break;
+                case 'y':
+                    year = getNumber('y');
+                    break;
+                case 'H':
+                    hours = getNumber('H');
+                    break;
+                case 'h':
+                    hours = getNumber('h');
+                    break;
+                case 'i':
+                    minutes = getNumber('i');
+                    break;
+                case 's':
+                    seconds = getNumber('s');
+                    break;
+                case 'a':
+                    ampm = getName('a', ['am', 'pm'], ['am', 'pm']) - 1;
+                    break;
+                case 'A':
+                    ampm = getName('A', ['am', 'pm'], ['am', 'pm']) - 1;
+                    break;
+                case "'":
+                    if (lookAhead("'"))
                         checkLiteral();
-                }
+                    else
+                        literal = true;
+                    break;
+                default:
+                    checkLiteral();
+            }
         }
         if (year < 100)
             year += new Date().getFullYear() - new Date().getFullYear() % 100 +

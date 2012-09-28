@@ -13,6 +13,7 @@
         secText: 'Sekunden',
         timeFormat: 'HH:ii',
         timeWheels: 'HHii',
-        yearText: 'Jahr'
+        yearText: 'Jahr',
+        nowText: 'Jetzt'
     });
 })(jQuery);
