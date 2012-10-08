@@ -23,6 +23,46 @@ It'd be cool to see how you're using Mobiscroll!
 
 We're looking at showcasing some of the best work on http://mobiscroll.com . Feel free to let us know on twitter @mobiscroll!
 
+Changelog 2.1-beta
+==================
+
+Enhancements
+------------
+
+_Core_
+
+  * Added: new display properties, which controls where the scroller is positioned: 'modal', 'bubble', 'top', 'bottom'
+
+  * Added: 'anchor' property to specify the anchor element for positioning, if 'display' is set to 'bubble'
+
+  * Added: 'animate' property to specify predefined animations in 'modal' and 'bubble' modes, during the show/hide of the scroller: 'fade', 'flip', 'pop', 'swing', 'slidevertical', 'slidehorizontal', 'slidedown', 'slideup'
+
+  * Added: 'scrollLock' setting to disable page scrolling in modal/bubble/docked display modes. Default is 'true'
+
+  * Added: 'changeWheel' public method, which takes the wheelindex as argument, and regenerates that wheel based on the wheel object
+
+  * Changed:'readonly' setting now takes an array too, with the boolean values for each wheel
+
+_Select preset_
+
+  * Added: 'group' and 'groupLabel' options to render two wheels based on optgroups
+
+_Datetime preset_
+
+  * Added: 'showNow' and 'nowText' options, which renders an additional 'Now' button (if display is not inline)
+
+_Themes_
+
+  * Changed: iOS theme is updated
+
+Bugfixes
+--------
+
+_Core_
+
+  * Fixed: In 'mixed' mode, if wheel was scrolled and stopped with a tap, +/- buttons remained hidden
+
+
 Changelog 2.0.3
 ===============
 
