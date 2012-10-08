@@ -322,8 +322,8 @@
 
             // Hide wheels and overlay
             if (dw) {
-                if (s.display != 'inline' && s.anim && !prevAnim) {
-                    $('.dw', dw).addClass(s.anim + ' out');
+                if (s.display != 'inline' && s.animate && !prevAnim) {
+                    $('.dw', dw).addClass(s.animate + ' out');
                     setTimeout(function () {
                         dw.remove();
                     }, 350);
@@ -367,9 +367,9 @@
             if (s.disabled || visible) return false;
 
             if (s.display == 'top')
-                s.anim = 'slidedown';
+                s.animate = 'slidedown';
             if (s.display == 'bottom')
-                s.anim = 'slideup';
+                s.animate = 'slideup';
 
             // Parse value from input
             read();
@@ -383,10 +383,10 @@
                 persPS = '',
                 persPE = '';
 
-            if (s.anim && !prevAnim) {
+            if (s.animate && !prevAnim) {
                 persPS = '<div class="dw-persp">';
                 persPE = '</div>';
-                mAnim = s.anim + ' in';
+                mAnim = s.animate + ' in';
             }
             // Create wheels containers
             var html = '<div class="' + s.theme + ' dw-' + s.display + '">' + (s.display == 'inline' ? '<div class="dw dwbg dwi"><div class="dwwr">' : persPS + '<div class="dwo"></div><div class="dw dwbg ' + mAnim + '"><div class="dw-arrw"><div class="dw-arrw-i"><div class="dw-arr"></div></div></div><div class="dwwr">' + (s.headerText ? '<div class="dwv"></div>' : ''));
@@ -433,7 +433,7 @@
                     $('.dwb-n span', dw).click(s.button3);
 
                 // prevent scrolling if not specified otherwise
-                if (s.prevScroll)
+                if (s.scrollLock)
                     dw.bind('touchmove', function (e) {
                         e.preventDefault();
                     });
@@ -643,7 +643,7 @@
             lang: 'en-US',
             setText: 'Set',
             cancelText: 'Cancel',
-            prevScroll: true,
+            scrollLock: true,
             // Events
             onBeforeShow: empty,
             onShow: empty,

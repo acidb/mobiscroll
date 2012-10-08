@@ -101,7 +101,7 @@
     -webkit-animation-duration: 350ms;
     -moz-animation-duration: 350ms;
 }
-.slidehoriz
+.slidehorizontal
 {
     -webkit-transform-origin: 0 0;
     -moz-transform-origin: 0 0;
@@ -110,7 +110,7 @@
     -moz-backface-visibility:hidden;
     -moz-transform:translateX(0); /* Needed to work around an iOS 3.1 bug that causes listview thumbs to disappear when -webkit-visibility:hidden is used. */
 }
-.slidehoriz.in
+.slidehorizontal.in
 {
     -webkit-transform: scale(1);
     -moz-transform: scale(1);
@@ -120,7 +120,7 @@
     -webkit-animation-duration: 350ms;
     -moz-animation-duration: 350ms;
 }
-.slidehoriz.out
+.slidehorizontal.out
 {
     opacity: 0;
     -webkit-animation-name: slideleftout;
@@ -128,7 +128,7 @@
     -webkit-animation-duration: 350ms;
     -moz-animation-duration: 350ms;
 }
-.slidevert
+.slidevertical
 {
     -webkit-transform-origin: 0 0;
     -moz-transform-origin: 0 0;
@@ -137,7 +137,7 @@
     -moz-backface-visibility:hidden;
     -moz-transform:translateX(0); /* Needed to work around an iOS 3.1 bug that causes listview thumbs to disappear when -webkit-visibility:hidden is used. */
 }
-.slidevert.in
+.slidevertical.in
 {
     -webkit-transform: scale(1);
     -moz-transform: scale(1);
@@ -147,7 +147,7 @@
     -webkit-animation-duration: 350ms;
     -moz-animation-duration: 350ms;
 }
-.slidevert.out
+.slidevertical.out
 {
     opacity: 0;
     -webkit-animation-name: slidetopout;
