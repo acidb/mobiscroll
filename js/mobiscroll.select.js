@@ -3,6 +3,7 @@
     var defaults = {
         inputClass: '',
         invalid: [],
+        rtl: false,
         group: false,
         groupLabel: 'Groups'
     }
@@ -32,13 +33,14 @@
         if (!s.invalid.length)
             s.invalid = invalid;
 
-        if (s.group) {
-            wIndex.groups = 0;
-            wIndex.options = 1;
-
-            $('.dwwl0').live('mousedown touchstart', function (e) {
-                clearTimeout(shTime);
-            });
+        if (s.group){
+            if(s.rtl) {
+                wIndex.groups = 1;
+                wIndex.options = 0;
+            } else {
+                wIndex.groups = 0;
+                wIndex.options = 1;
+            }
         }
         else {
             wIndex.groups = -1;
@@ -55,7 +57,7 @@
         inst.settings.anchor = input; // give the core the input element for the bubble positioning
 
         if (s.showOnFocus)
-            input.focus(function () { inst.show() });
+            input.focus(function () {inst.show()});
 
         elm.bind('change', function () {
             if (!prevent && option != elm.val()) {
@@ -67,9 +69,12 @@
         inst.setSelectVal = function (d, fill, time) {
             option = d[0];
 
-            if (s.group) {
+            if (s.group){
                 group = elm.find('option[value="' + option + '"]').parent();
-                inst.temp = ['_' + group.index(), '_' + option];
+                if (s.rtl)
+                    inst.temp = ['_' + option, '_' + group.index()];
+                else 
+                    inst.temp = ['_' + group.index(), '_' + option];
             }
             else
                 inst.temp = ['_' + option];
@@ -102,14 +107,14 @@
             parseValue: function () {
                 option = elm.val();
                 group = elm.find('option[value="' + option + '"]').parent();
-                return s.group ? ['_' + group.index(), '_' + option] : ['_' + option];
+                return (s.group&&s.rtl)? ['_' + option, '_' + group.index()] :s.group ? ['_' + group.index(), '_' + option] : ['_' + option];
             },
             validate: function (dw, index, time) {
                 if (index === wIndex.groups) {
                     var gr = replace(inst.temp[wIndex.groups]);
 
                     if (gr !== prev) {
-                        inst.settings.readonly = [false, true];
+                        inst.settings.readonly = [s.rtl, !s.rtl];
                         group = elm.find('optgroup').eq(gr);
                         option = group.find('option').eq(0).val();
                         option = option ? option : elm.val();
@@ -117,9 +122,12 @@
                         clearTimeout(shTime);
                         shTime = setTimeout(function () {
                             inst.settings.wheels = genWheels();
-                            if (s.group) {
-                                inst.temp = ['_' + group.index(), '_' + option];
-                                inst.changeWheel(1);
+                            if (s.group){
+                                if (s.rtl)
+                                    inst.temp = ['_' + option, '_' + group.index()];
+                                else
+                                    inst.temp = ['_' + group.index(), '_' + option];
+                                inst.changeWheel(wIndex.options);
                                 prev = group.index() + '';
                             }
                             inst.settings.readonly = roPre;
@@ -136,10 +144,18 @@
                     $('li[data-val="_' + v + '"]', dw).removeClass('dw-v');
                 });
             },
+            onShow:function(dw){
+                $('.dwwl'+wIndex.groups, dw).bind('mousedown touchstart', function (e) {
+                    clearTimeout(shTime);
+                });
+            },
             onBeforeShow: function () {
                 inst.settings.wheels = genWheels();
                 if (s.group)
-                    inst.temp = ['_' + group.index(), '_' + option];
+                    if (s.rtl)
+                        inst.temp = ['_' + option, '_' + group.index()];
+                    else
+                        inst.temp = ['_' + group.index(), '_' + option];
             },
             onSelect: function (v, inst) {
                 input.val(v);
@@ -204,13 +220,19 @@
                 w = [{}];
 
             if (s.group) {
+                if (s.rtl)
+                    wg = 1;
                 var wheel = {};
                 $('optgroup', elm).each(function (index) {
                     wheel['_' + index] = $(this).attr('label');
                 });
+                w[wg]={};
                 w[wg][s.groupLabel] = wheel;
                 cont = group;
-                wg++;
+                if (s.rtl)
+                    wg--;
+                else
+                    wg++;
             }
             else {
                 cont = elm;
