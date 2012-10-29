@@ -11,24 +11,24 @@
 .dw-bottom .dw-persp {
     overflow:hidden;
 }
-.in {
+.dw-in {
     -webkit-animation-timing-function: ease-out;
     -webkit-animation-duration: 350ms;
     -moz-animation-timing-function: ease-out;
     -moz-animation-duration: 350ms;
 }
-.out {
+.dw-out {
     -webkit-animation-timing-function: ease-in;
     -webkit-animation-duration: 350ms;
     -moz-animation-timing-function: ease-in;
     -moz-animation-duration: 350;
 }
-.pop
+.dw-pop
 {
     -webkit-transform-origin: 50% 50%;
     -moz-transform-origin: 50% 50%;
 }
-.pop.in
+.dw-pop.dw-in
 {
     -webkit-transform: scale(1);
     -moz-transform: scale(1);
@@ -38,7 +38,7 @@
     -webkit-animation-duration: 350ms;
     -moz-animation-duration: 350ms;
 }
-.pop.out
+.dw-pop.dw-out
 {
     -webkit-animation-name: popout;
     -moz-animation-name: popout;
@@ -47,7 +47,7 @@
     -moz-animation-duration: 350ms;
 }
 
-.flip
+.dw-flip
 {
     /* from pop*/
     -webkit-transform-origin: 50% 50%;
@@ -58,7 +58,7 @@
     -moz-backface-visibility:hidden;
     -moz-transform:translateX(0); /* Needed to work around an iOS 3.1 bug that causes listview thumbs to disappear when -webkit-visibility:hidden is used. */
 }
-.flip.in {
+.dw-flip.dw-in {
     -webkit-transform: scale(1);
     -moz-transform: scale(1);
     opacity: 1;
@@ -67,14 +67,14 @@
     -webkit-animation-duration: 350ms;
     -moz-animation-duration: 350ms;
 }
-.flip.out {
+.dw-flip.dw-out {
     -webkit-animation-name: flipout;
     -moz-animation-name: flipout;
     opacity: 0;
     -webkit-animation-duration: 350ms;
     -moz-animation-duration: 350ms;
 }
-.swing
+.dw-swing
 {
     -webkit-transform-origin: 0 0;
     -moz-transform-origin: 0 0;
@@ -83,7 +83,7 @@
     -moz-backface-visibility:hidden;
     -moz-transform:translateX(0); /* Needed to work around an iOS 3.1 bug that causes listview thumbs to disappear when -webkit-visibility:hidden is used. */
 }
-.swing.in
+.dw-swing.dw-in
 {
     -webkit-transform: scale(1);
     -moz-transform: scale(1);
@@ -93,7 +93,7 @@
     -webkit-animation-duration: 350ms;
     -moz-animation-duration: 350ms;
 }
-.swing.out
+.dw-swing.dw-out
 {
     -webkit-animation-name: swingout;
     -moz-animation-name: swingout;
@@ -101,7 +101,7 @@
     -webkit-animation-duration: 350ms;
     -moz-animation-duration: 350ms;
 }
-.slidehorizontal
+.dw-slidehorizontal
 {
     -webkit-transform-origin: 0 0;
     -moz-transform-origin: 0 0;
@@ -110,7 +110,7 @@
     -moz-backface-visibility:hidden;
     -moz-transform:translateX(0); /* Needed to work around an iOS 3.1 bug that causes listview thumbs to disappear when -webkit-visibility:hidden is used. */
 }
-.slidehorizontal.in
+.dw-slidehorizontal.dw-in
 {
     -webkit-transform: scale(1);
     -moz-transform: scale(1);
@@ -120,7 +120,7 @@
     -webkit-animation-duration: 350ms;
     -moz-animation-duration: 350ms;
 }
-.slidehorizontal.out
+.dw-slidehorizontal.dw-out
 {
     opacity: 0;
     -webkit-animation-name: slideleftout;
@@ -128,7 +128,7 @@
     -webkit-animation-duration: 350ms;
     -moz-animation-duration: 350ms;
 }
-.slidevertical
+.dw-slidevertical
 {
     -webkit-transform-origin: 0 0;
     -moz-transform-origin: 0 0;
@@ -137,7 +137,7 @@
     -moz-backface-visibility:hidden;
     -moz-transform:translateX(0); /* Needed to work around an iOS 3.1 bug that causes listview thumbs to disappear when -webkit-visibility:hidden is used. */
 }
-.slidevertical.in
+.dw-slidevertical.dw-in
 {
     -webkit-transform: scale(1);
     -moz-transform: scale(1);
@@ -147,7 +147,7 @@
     -webkit-animation-duration: 350ms;
     -moz-animation-duration: 350ms;
 }
-.slidevertical.out
+.dw-slidevertical.dw-out
 {
     opacity: 0;
     -webkit-animation-name: slidetopout;
@@ -155,7 +155,7 @@
     -webkit-animation-duration: 350ms;
     -moz-animation-duration: 350ms;
 }
-.slidedown
+.dw-slidedown
 {
     -webkit-transform-origin: 0 0;
     -moz-transform-origin: 0 0;
@@ -164,7 +164,7 @@
     -moz-backface-visibility:hidden;
     -moz-transform:translateX(0); /* Needed to work around an iOS 3.1 bug that causes listview thumbs to disappear when -webkit-visibility:hidden is used. */
 }
-.slidedown.in
+.dw-slidedown.dw-in
 {
     -webkit-transform: scale(1);
     -moz-transform: scale(1);
@@ -174,7 +174,7 @@
     -webkit-animation-duration: 350ms;
     -moz-animation-duration: 350ms;
 }
-.slidedown.out
+.dw-slidedown.dw-out
 {
     opacity: 1;
     -webkit-animation-name: slidetoptotopout;
@@ -182,7 +182,7 @@
     -webkit-animation-duration: 350ms;
     -moz-animation-duration: 350ms;
 }
-.slideup
+.dw-slideup
 {
     -webkit-transform-origin: 0 0;
     -moz-transform-origin: 0 0;
@@ -191,7 +191,7 @@
     -moz-backface-visibility:hidden;
     -moz-transform:translateX(0); /* Needed to work around an iOS 3.1 bug that causes listview thumbs to disappear when -webkit-visibility:hidden is used. */
 }
-.slideup.in
+.dw-slideup.dw-in
 {
     -webkit-transform: scale(1);
     -moz-transform: scale(1);
@@ -201,7 +201,7 @@
     -webkit-animation-duration: 350ms;
     -moz-animation-duration: 350ms;
 }
-.slideup.out
+.dw-slideup.dw-out
 {
     opacity: 1;
     -webkit-animation-name: slidebottomtobottomout;
@@ -209,7 +209,7 @@
     -webkit-animation-duration: 350ms;
     -moz-animation-duration: 350ms;
 }
-.fade
+.dw-fade
 {
     -webkit-transform-origin: 0 0;
     -moz-transform-origin: 0 0;
@@ -218,7 +218,7 @@
     -moz-backface-visibility:hidden;
     -moz-transform:translateX(0); /* Needed to work around an iOS 3.1 bug that causes listview thumbs to disappear when -webkit-visibility:hidden is used. */
 }
-.fade.in
+.dw-fade.dw-in
 {
     opacity: 1;
     -webkit-animation-name: fadein;
@@ -226,7 +226,7 @@
     -webkit-animation-duration: 350ms;
     -moz-animation-duration: 350ms;
 }
-.fade.out
+.dw-fade.dw-out
 {
     opacity: 0;
     -webkit-animation-name: fadeout;
