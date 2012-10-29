@@ -35,11 +35,8 @@ _Core_
 
 _Select preset_
 
-  * Feature: added 'rtl' (right to left) option, when set to true the groups wheel appears on the right
+  * Added: 'rtl' (right to left) option, when set to true the groups wheel appears on the right
 
-_Internationalization_
-
-  * Added: french translation
 
 Bugfixes
 --------
