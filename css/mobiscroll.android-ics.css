@@ -68,19 +68,27 @@
     border-style: solid;
     content: '';
 }
-.android-ics .dwwbp:after {
-    border-color: transparent transparent #7e7e7e transparent;
+.android-ics .dwwbm{
+    top:0;
+    bottom:auto;
+}
+.android-ics .dwwbp{
+    bottom: 0;
+    top: auto;
 }
 .android-ics .dwwbm:after {
+    border-color: transparent transparent #7e7e7e transparent;
+}
+.android-ics .dwwbp:after {
     border-color: #7e7e7e transparent transparent transparent;
 }
 .android-ics .dwwl .dwb-a {
     background: #292829;
 }
-.android-ics .dwwbp.dwb-a:after {
+.android-ics .dwwbm.dwb-a:after {
     border-color: transparent transparent #319abd transparent;
 }
-.android-ics .dwwbm.dwb-a:after {
+.android-ics .dwwbp.dwb-a:after {
     border-color: #319abd transparent transparent transparent;
 }
 .android-ics .dwwol {
