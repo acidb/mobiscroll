@@ -278,8 +278,9 @@
                                     $('li', t).each(function () {
                                         var that = $(this),
                                             d = that.data('val'),
-                                            w = new Date(y, m, d).getDay();
-                                        that.html(dord.replace(/[my]/gi, '').replace(/dd/, d < 10 ? '0' + d : d).replace(/d/, d).replace(/DD/, s.dayNames[w]).replace(/D/, s.dayNamesShort[w]));
+                                            w = new Date(y, m, d).getDay(),
+                                            str = dord.replace(/[my]/gi, '').replace(/dd/, d < 10 ? '0' + d : d).replace(/d/, d);
+                                        that.html(str.match(/DD/) ? str.replace(/DD/, s.dayNames[w]) : str.replace(/D/, s.dayNamesShort[w]) );
                                     });
                             }
                             if (minprop && mind) {
