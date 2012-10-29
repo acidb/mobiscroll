@@ -285,7 +285,7 @@
                 var v = s.formatResult(that.temp);
                 that.val = v;
                 if (input)
-                    elm.val(v).trigger('change');
+                    elm.val(v);
             }
         }
 
@@ -427,6 +427,11 @@
                     that.hide();
                     that.setValue(false, true);
                     s.onSelect.call(e, that.val, that);
+                    
+                    // trigger change event AFTER hiding the scroller so inputs are enabled
+                    if (input)
+                        elm.change();
+                        
                     return false;
                 });
 
