@@ -122,9 +122,11 @@
 
             function countWidth() {
                 $('.dwc', dw).each(function () {
-                    w = $(this).outerWidth(true);
-                    totalw += w;
-                    minw = (w > minw) ? w : minw;
+                    if ($(this).css('display') != 'none') {
+                        w = $(this).outerWidth(true);
+                        totalw += w;
+                        minw = (w > minw) ? w : minw;
+                    }
                 });
                 w = totalw > ww ? minw : totalw;
                 w = $('.dwwr', dw).width(w + 1).outerWidth();
@@ -323,14 +325,16 @@
             // Hide wheels and overlay
             if (dw) {
                 if (s.display != 'inline' && s.animate && !prevAnim) {
-                    $('.dw', dw).addClass(s.animate + ' out');
+                    $('.dw', dw).addClass('dw-' + s.animate + ' dw-out');
                     setTimeout(function () {
                         dw.remove();
+                        dw = null;
                     }, 350);
                 }
-                else
+                else {
                     dw.remove();
-
+                    dw = null;
+                }
                 visible = false;
                 // Stop positioning on window resize
                 $(window).unbind('.dw');
@@ -341,18 +345,21 @@
         * Changes the values of a wheel, and scrolls to the correct position
         * @param {Number} wIndex - index of the wheel
         */
-        that.changeWheel = function (wIndex) {
+        that.changeWheel = function () {
             if (dw) {
-                var i = 0;
+                var i = 0,
+                    al = arguments.length;
                 for (var j in s.wheels) {
                     for (var k in s.wheels[j]) {
-                        if (wIndex == i) {
-                            warr[wIndex] = s.wheels[j][k];
-                            var ul = $('ul', dw).eq(wIndex);
-                            ul.html(generateWheelItems(wIndex));
-                            position();
-                            scrollToPos();
-                            return;
+                        if ($.inArray(i,arguments)> -1 ) {
+                            warr[i] = s.wheels[j][k];
+                            var ul = $('ul', dw).eq(i);
+                            ul.html(generateWheelItems(i));
+                            if (!--al){
+                                position();
+                                scrollToPos();
+                                return;
+                            }
                         }
                         i++;
                     }
@@ -386,7 +393,7 @@
             if (s.animate && !prevAnim) {
                 persPS = '<div class="dw-persp">';
                 persPE = '</div>';
-                mAnim = s.animate + ' in';
+                mAnim = 'dw-' + s.animate + ' dw-in';
             }
             // Create wheels containers
             var html = '<div class="' + s.theme + ' dw-' + s.display + '">' + (s.display == 'inline' ? '<div class="dw dwbg dwi"><div class="dwwr">' : persPS + '<div class="dwo"></div><div class="dw dwbg ' + mAnim + '"><div class="dw-arrw"><div class="dw-arrw-i"><div class="dw-arr"></div></div></div><div class="dwwr">' + (s.headerText ? '<div class="dwv"></div>' : ''));
@@ -417,8 +424,8 @@
             if (s.display != 'inline') {
                 // Init buttons
                 $('.dwb-s span', dw).click(function () {
-                    that.setValue(false, true);
                     that.hide();
+                    that.setValue(false, true);
                     s.onSelect.call(e, that.val, that);
                     return false;
                 });
