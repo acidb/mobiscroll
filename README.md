@@ -23,6 +23,43 @@ It'd be cool to see how you're using Mobiscroll!
 
 We're looking at showcasing some of the best work on http://mobiscroll.com . Feel free to let us know on twitter @mobiscroll!
 
+Changelog 2.1
+=============
+
+Enhancements
+------------
+
+_Core_
+
+  * Changed: changeWheel function can change more than one wheel at once
+
+_Select preset_
+
+  * Feature: added 'rtl' (right to left) option, when set to true the groups wheel appears on the right
+
+_Internationalization_
+
+  * Added: french translation
+
+Bugfixes
+--------
+
+_Core_
+
+  * Fixed: input change is triggered after the modal scroller is hidden (form controls are re-enabled)
+
+  * Fixed: added a dw- prefix for animation css classes to prevent naming collision with other libraries
+
+  * Fixed: the width calculation in positioning skips the width of hidden wheels
+
+_Datetime preset_
+
+  * Fixed: Day names on wheels fixed (if long name contained 'D', both short and long names appeared)
+
+_Themes_
+
+  * Fixed: android-ics skin arrows moves the wheel in correct direction
+
 Changelog 2.1-beta
 ==================
 

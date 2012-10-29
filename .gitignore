@@ -1,5 +1,6 @@
 .hg/*
 .hgignore
+.hgtags
 .gitignore
 compiler.jar
 yuicompressor.jar
