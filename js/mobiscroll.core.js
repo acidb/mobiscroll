@@ -16,6 +16,7 @@
             lang,
             s = $.extend({}, defaults),
             m,
+            v,
             dw,
             warr = [],
             iv = {},
@@ -282,7 +283,6 @@
                 that.values = that.temp.slice(0);
             if (visible && sc) scrollToPos(time);
             if (fill) {
-                var v = s.formatResult(that.temp);
                 that.val = v;
                 if (input)
                     elm.val(v).trigger('change');
@@ -302,7 +302,7 @@
         *
         */
         that.change = function (manual) {
-            var v = s.formatResult(that.temp);
+            v = s.formatResult(that.temp);
             if (s.display == 'inline')
                 that.setValue(false, manual);
             else
@@ -316,7 +316,7 @@
         */
         that.hide = function (prevAnim) {
             // If onClose handler returns false, prevent hide
-            if (s.onClose.call(e, that.val, that) === false) return false;
+            if (s.onClose.call(e, v, that) === false) return false;
 
             // Re-enable temporary disabled fields
             $('.dwtd').prop('disabled', false).removeClass('dwtd');
