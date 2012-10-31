@@ -1,0 +1,90 @@
+/* Android Skin */
+.android .dw {
+    padding: 0;
+    background: #000;
+    border: 2px solid #555;
+    color: #fff;
+}
+.android .dwv {
+    padding: 10px;
+    border-bottom: 1px solid #333;
+}
+.android .dwwr {
+    padding:0;
+}
+.android .dww {
+    top: 0;
+}
+.android .dwwc {
+    background: #000;
+}
+.android .dwc {
+    padding-top: 8px;
+}
+.android .dwpm .dwwl {
+    margin: 4px 1px;
+    border: 1px solid #9C9C9C;
+}
+.android .dwpm .dww {
+    border: 0;
+    background: #fff;
+}
+.android .dwpm .dww {
+    margin: 0;
+}
+.android .dwpm .dwwl {
+    margin: 4px 2px;
+    border: 0;
+}
+.android .dwpm .dww li {
+    color: #000;
+    text-shadow: none;
+}
+.android .dwl  {
+    display: none;
+}
+.android .dwbc {
+    padding: 5px 1px;
+    background: #9c9c9c;
+}
+.android .dwb {
+    margin: 0 5px;
+    background: #ccc;
+    background: -webkit-gradient(linear,left bottom,left top,from(#ccc),to(#eee));
+    background: -moz-linear-gradient(#eee,#ccc);
+    background: -ms-linear-gradient(#eee,#ccc);
+    background: -o-linear-gradient(#eee,#ccc);
+    color: #000;
+    font-weight: normal;
+    text-shadow: none;
+    border-radius: 0;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+}
+.android .dwb-a, .android .dwwl .dwb-a {
+    background: #ffb25a;
+    background: -webkit-gradient(linear,left bottom,left top,from(#ef6100),to(#ffb25a));
+    background: -moz-linear-gradient(#ffb25a,#ef6100);
+    background: -ms-linear-gradient(#ffb25a,#ef6100);
+    background: -o-linear-gradient(#ffb25a,#ef6100);
+}
+/* Bubble positioning */
+.android .dw-bubble-bottom .dw-arr
+{
+    border-color:transparent transparent #000 transparent;
+}
+.android .dw-bubble-top .dw-arr
+{
+    border-color:#9c9c9c transparent transparent transparent;
+}
+/* Docked */
+.android.dw-top .dw {
+    border-right: 0;
+    border-top: 0;
+    border-left: 0;
+}
+.android.dw-bottom .dw {
+    border-bottom: 0;
+    border-right: 0;
+    border-left: 0;
+}
