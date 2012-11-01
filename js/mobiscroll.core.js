@@ -8,7 +8,7 @@
  */
 (function ($) {
 
-    function Scroller(elm, settings) {
+    function Scroller(elm, settings) { // Test change
         var that = this,
             e = elm,
             elm = $(e),
