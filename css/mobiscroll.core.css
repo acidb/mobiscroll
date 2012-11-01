@@ -278,9 +278,15 @@
     text-align: center;
     clear: both;
 }
+.dwbc:after {
+    content: '';
+    display: block;
+    clear: both;
+}
 /* Datewheel button wrapper */
 .dwbw {
     display: inline-block;
+    float: left;
     width: 50%;
     position:relative;
     z-index:1010;
