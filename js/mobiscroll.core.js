@@ -16,6 +16,7 @@
             lang,
             s = $.extend({}, defaults),
             m,
+            hi,
             v,
             dw,
             warr = [],
@@ -36,7 +37,6 @@
 
         function generateWheelItems(wIndex) {
             var html = '',
-                hi = s.height,
                 i = 0;
             for (var j in warr[wIndex]) {
                 html += '<li class="dw-v" data-val="' + j + '" style="height:' + hi + 'px;line-height:' + hi + 'px;">' + warr[wIndex][j] + '</li>';
@@ -54,7 +54,7 @@
             min = $('li.dw-v', t).eq(0).index();
             max = $('li.dw-v', t).eq(-1).index();
             index = $('ul', dw).index(t);
-            h = s.height;
+            h = hi;
             inst = that;
         }
 
@@ -248,7 +248,7 @@
         * @param {Number} [time] - Duration of the animation, optional.
         */
         that.scroll = function (t, val, time, orig, index) {
-            var px = (m - val) * s.height;
+            var px = (m - val) * hi;
             t.attr('style', (time ? (prefix + '-transition:all ' + time.toFixed(1) + 's ease-out;') : '') + (has3d ? (prefix + '-transform:translate3d(0,' + px + 'px,0);') : ('top:' + px + 'px;')));
 
             function getVal(t, b, c, d) {
@@ -385,7 +385,6 @@
 
             // Create wheels
             var l = 0,
-                hi = s.height,
                 mAnim = '',
                 persPS = '',
                 persPE = '';
@@ -524,11 +523,14 @@
 
             that.settings = s;
 
+            // Set private members
             m = Math.floor(s.rows / 2);
+            hi = s.height;
+
+            // Unbind all events (if re-init)
+            elm.unbind('.dw');
 
             var preset = $.scroller.presets[s.preset];
-
-            elm.unbind('.dw');
 
             if (preset) {
                 var p = preset.call(e, that);
