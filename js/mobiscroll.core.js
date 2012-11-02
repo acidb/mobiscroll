@@ -532,9 +532,9 @@
 
             if (preset) {
                 var p = preset.call(e, that);
-                $.extend(s, p, settings, ss);
-                // Extend core methods
-                $.extend(methods, p.methods);
+                $.extend(settings, ss); // Update original user settings
+                $.extend(s, p, settings); // Load preset settings
+                $.extend(methods, p.methods); // Extend core methods
             }
 
             if (elm.data('dwro') !== undefined)
