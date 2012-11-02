@@ -18,29 +18,30 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 (function($, undefined ) {
 
-    $.widget( "mobile.datebox", $.mobile.widget, {
+    $.widget( "mobile.mobiscroll", $.mobile.widget, {
         options: {
             theme: 'jqm',
-            preset: 'date'
+            preset: 'date',
+            animate: 'pop'
         },
         _create: function() {
-            var o = $.extend(this.options, this.element.data('options')),
-                input = $(this.element);
+            var input = this.element,
+                o = $.extend(this.options, input.jqmData('options'));
             input.scroller(o);
         }
     });
 
     $(document).bind("pagebeforecreate", function(c) {
         // Convert date inputs to normal inputs
-        $('input[type="date"]:jqmData(role="datebox")', c.target).prop('type', 'text');
+        $('input[type="date"]:jqmData(role="mobiscroll")', c.target).prop('type', 'text');
     });
 
     $(document).bind("pagecreate create", function(c) {
-        $(document).trigger("dateboxbeforecreate");
+        $(document).trigger("mobiscrollbeforecreate");
 
-        $(':jqmData(role="datebox")', c.target).each(function() {
-            if (typeof ($(this).data("datebox")) === "undefined") {
-                $(this).datebox();
+        $(':jqmData(role="mobiscroll")', c.target).each(function() {
+            if (typeof ($(this).data("mobiscroll")) === "undefined") {
+                $(this).mobiscroll();
             }
         })
     });
