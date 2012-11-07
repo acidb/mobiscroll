@@ -707,12 +707,7 @@
             onCancel: empty,
             onChange: empty,
             formatResult: function (d) {
-                var out = '',
-                    i;
-                for (i = 0; i < d.length; i++) {
-                    out += (i > 0 ? ' ' : '') + d[i];
-                }
-                return out;
+                return d.join(' ');
             },
             parseValue: function (value, inst) {
                 var w = inst.settings.wheels,
