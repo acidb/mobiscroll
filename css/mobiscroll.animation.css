@@ -1,6 +1,9 @@
 .dw-persp {
+    perspective:1000;
     -webkit-perspective: 1000;
     -moz-perspective: 1000;
+    -o-perspective:1000;
+    -ms-perspective:1000;
     position:absolute;
     top:0;
     left:0;
@@ -12,99 +15,182 @@
     overflow:hidden;
 }
 .dw-in {
+    animation-timing-function: ease-out;
+    animation-duration:350ms;
     -webkit-animation-timing-function: ease-out;
     -webkit-animation-duration: 350ms;
     -moz-animation-timing-function: ease-out;
     -moz-animation-duration: 350ms;
+    -o-animation-timing-function:ease-out;
+    -o-animation-duration:350ms;
+    -ms-animation-timing-funciton:ease-out;
+    -ms-animation-duration:350ms;
 }
 .dw-out {
+    animation-timing-function:ease-in;
+    animation-duration:350ms;
     -webkit-animation-timing-function: ease-in;
     -webkit-animation-duration: 350ms;
     -moz-animation-timing-function: ease-in;
-    -moz-animation-duration: 350;
+    -moz-animation-duration: 350ms;
+    -o-animation-timing-function:ease-in;
+    -o-animation-duration:350ms;
+    -ms-animation-timing-function:ease-in;
+    -ms-animation-duration:350ms;
 }
 .dw-pop
 {
+    transform-origin: 50% 50%;
     -webkit-transform-origin: 50% 50%;
     -moz-transform-origin: 50% 50%;
+    -o-transform-origin:50% 50%;
+    -ms-transform-origin:50% 50%;
 }
 .dw-pop.dw-in
 {
+    transform: scale(1);
     -webkit-transform: scale(1);
     -moz-transform: scale(1);
+    -o-transform:scale(1);
+    -ms-transform:scale(1);
+    
     opacity: 1;
+    animation-name:popin;
     -webkit-animation-name: popin;
     -moz-animation-name: popin;
+    -o-animation-name:popin;
+    -ms-animation-name:popin;
+    /*
+    animation-duration:350ms;
     -webkit-animation-duration: 350ms;
     -moz-animation-duration: 350ms;
+    -o-animation-duration:350ms;
+    -ms-animtation-duration:350ms;*/
+    
 }
 .dw-pop.dw-out
 {
+    animation-name:popout;
     -webkit-animation-name: popout;
     -moz-animation-name: popout;
+    -o-animation-name:popout;
+    -ms-animation-name:popout;
     opacity: 0;
+    /*
+    animation-duration:350ms;
     -webkit-animation-duration: 350ms;
     -moz-animation-duration: 350ms;
+    -o-animation-duration:350ms;
+    -ms-animation-duration:350ms;*/
 }
 
 .dw-flip
 {
     /* from pop*/
+    transform-origin:50% 50%;
     -webkit-transform-origin: 50% 50%;
     -moz-transform-origin: 50% 50%;
+    -o-transform-origin:50% 50%;
+    -ms-transform-origin:50% 50%;
     /* from turn */
+    backface-visibility:hidden;
+    transform:translateX(0);
     -webkit-backface-visibility:hidden;
     -webkit-transform:translateX(0); /* Needed to work around an iOS 3.1 bug that causes listview thumbs to disappear when -webkit-visibility:hidden is used. */
     -moz-backface-visibility:hidden;
     -moz-transform:translateX(0); /* Needed to work around an iOS 3.1 bug that causes listview thumbs to disappear when -webkit-visibility:hidden is used. */
+    -o-backface-visibility:hidden;
+    -o-transform:translateX(0);
+    -ms-backface-visibility:hidden;
+    -ms-transform:translateX(0);
 }
 .dw-flip.dw-in {
+    transform:scale(1);
     -webkit-transform: scale(1);
     -moz-transform: scale(1);
+    -o-transform:scale(1);
+    -ms-transform:scale(1);
     opacity: 1;
+    animation-name:flipin;
     -webkit-animation-name: flipin;
     -moz-animation-name: flipin;
-    -webkit-animation-duration: 350ms;
+    -o-animation-name:flipin;
+    -ms-animation-name:flipin;
+/*    -webkit-animation-duration: 350ms;
     -moz-animation-duration: 350ms;
+    -o-animation-duration:350ms;
+    -ms-animation-duration:350ms;*/
 }
 .dw-flip.dw-out {
+    animation-name:flipout;
     -webkit-animation-name: flipout;
     -moz-animation-name: flipout;
+    -o-animation-name:flipout;
+    -ms-animation-name:flipout;
     opacity: 0;
-    -webkit-animation-duration: 350ms;
+    animation-duration:350ms;
+    /*-webkit-animation-duration: 350ms;
     -moz-animation-duration: 350ms;
+    -o-animation-duration:350ms;
+    -ms-animation-duration:350ms;*/
 }
 .dw-swing
 {
+    transform-origin:0 0;
     -webkit-transform-origin: 0 0;
     -moz-transform-origin: 0 0;
+    -o-transform-origin:0 0;
+    -ms-transform-origin:0 0;
+    backface-visibility:hidden;
+    transform:translateX(0);
     -webkit-backface-visibility:hidden;
     -webkit-transform:translateX(0); /* Needed to work around an iOS 3.1 bug that causes listview thumbs to disappear when -webkit-visibility:hidden is used. */
     -moz-backface-visibility:hidden;
     -moz-transform:translateX(0); /* Needed to work around an iOS 3.1 bug that causes listview thumbs to disappear when -webkit-visibility:hidden is used. */
+    -o-backface-visibility:hidden;
+    -o-transform:translateX(0);
+    -ms-backface-visibility:hidden;
+    -ms-transform:translateX(0);
 }
 .dw-swing.dw-in
 {
+    transform: scale(1);
     -webkit-transform: scale(1);
     -moz-transform: scale(1);
+    -o-transform: scale(1);
+    -ms-transform: scale(1);
     opacity: 1;
+    animation-name: swingin;
     -webkit-animation-name: swingin;
     -moz-animation-name: swingin;
-    -webkit-animation-duration: 350ms;
+    -o-animation-name:swingin;
+    -ms-animation-name:swingin;
+    /*-webkit-animation-duration: 350ms;
     -moz-animation-duration: 350ms;
+    -o-animation-duration:350ms;
+    -ms-animation-duration:350ms;*/
 }
 .dw-swing.dw-out
 {
+    animation-name: swingout;
     -webkit-animation-name: swingout;
     -moz-animation-name: swingout;
+    -o-animation-name:swingout;
+    -ms-animation-name:swingout;
     opacity: 0;
+/*    animation-duration:350ms;
     -webkit-animation-duration: 350ms;
     -moz-animation-duration: 350ms;
+    -o-animation-duration:350ms;
+    -ms-animation-duration:350ms;*/
 }
 .dw-slidehorizontal
 {
+    transform-origin: 0 0;
     -webkit-transform-origin: 0 0;
     -moz-transform-origin: 0 0;
+    -o-transform-origin:0 0;
+    -ms-transform-origin:0 0;
     -webkit-backface-visibility:hidden;
     -webkit-transform:translateX(0); /* Needed to work around an iOS 3.1 bug that causes listview thumbs to disappear when -webkit-visibility:hidden is used. */
     -moz-backface-visibility:hidden;
@@ -112,130 +198,210 @@
 }
 .dw-slidehorizontal.dw-in
 {
+    transform:scale(1);
     -webkit-transform: scale(1);
     -moz-transform: scale(1);
+    -o-transform:scale(1);
+    -ms-transform: scale(1);
     opacity: 1;
+    animation-name:slideleftin;
     -webkit-animation-name: slideleftin;
     -moz-animation-name: slideleftin;
-    -webkit-animation-duration: 350ms;
-    -moz-animation-duration: 350ms;
+    -o-animation-name:slideleftin;
+    -ms-animation-name:slideleftin;
+/*    -webkit-animation-duration: 350ms;
+    -moz-animation-duration: 350ms;*/
 }
 .dw-slidehorizontal.dw-out
 {
     opacity: 0;
+    animation-name:slideleftout;
     -webkit-animation-name: slideleftout;
     -moz-animation-name: slideleftout;
-    -webkit-animation-duration: 350ms;
-    -moz-animation-duration: 350ms;
+    -o-animation-name:slideleftout;
+/*    -webkit-animation-duration: 350ms;
+    -moz-animation-duration: 350ms;*/
 }
 .dw-slidevertical
 {
+    transform-origin:0 0;
     -webkit-transform-origin: 0 0;
     -moz-transform-origin: 0 0;
+    -o-transform-origin:0 0;
+    backface-visibility:hidden;
+    transform:translateX(0);
     -webkit-backface-visibility:hidden;
     -webkit-transform:translateX(0); /* Needed to work around an iOS 3.1 bug that causes listview thumbs to disappear when -webkit-visibility:hidden is used. */
     -moz-backface-visibility:hidden;
     -moz-transform:translateX(0); /* Needed to work around an iOS 3.1 bug that causes listview thumbs to disappear when -webkit-visibility:hidden is used. */
+    -o-backface-visibility:hidden;
+    -o-transform:translateX(0);
+    -ms-backface-visibility:hidden;
+    -ms-transform:translateX(0);
 }
 .dw-slidevertical.dw-in
 {
+    transform: scale(1);
     -webkit-transform: scale(1);
     -moz-transform: scale(1);
+    -o-transform:scale(1);
+    -ms-transform: scale(1);
     opacity: 1;
+    animation-name: slidetopin;
     -webkit-animation-name: slidetopin;
     -moz-animation-name: slidetopin;
-    -webkit-animation-duration: 350ms;
-    -moz-animation-duration: 350ms;
+    -o-animation-name:slidetopin;
+    -ms-animation-name:slidetopin;
+/*    -webkit-animation-duration: 350ms;
+    -moz-animation-duration: 350ms;*/
 }
 .dw-slidevertical.dw-out
 {
     opacity: 0;
+    animation-name:slidetopout;
     -webkit-animation-name: slidetopout;
     -moz-animation-name: slidetopout;
-    -webkit-animation-duration: 350ms;
-    -moz-animation-duration: 350ms;
+    -o-animation-name:slidetopout;
+    -ms-animation-name:slidetopout;
+/*    -webkit-animation-duration: 350ms;
+    -moz-animation-duration: 350ms;*/
 }
 .dw-slidedown
 {
+    transform-origin: 0 0;
     -webkit-transform-origin: 0 0;
     -moz-transform-origin: 0 0;
+    -o-transform-origin:0 0;
+    -ms-transform-origin: 0 0;
+    backface-visibility: hidden;
     -webkit-backface-visibility:hidden;
     -webkit-transform:translateX(0); /* Needed to work around an iOS 3.1 bug that causes listview thumbs to disappear when -webkit-visibility:hidden is used. */
     -moz-backface-visibility:hidden;
     -moz-transform:translateX(0); /* Needed to work around an iOS 3.1 bug that causes listview thumbs to disappear when -webkit-visibility:hidden is used. */
+    -o-backface-visibility:hidden;
+    -o-transform:translateX(0);
+    -ms-backface-visibility:hidden;
+    -ms-transform: translateX(0);
 }
 .dw-slidedown.dw-in
 {
+    transform: scale(1);
     -webkit-transform: scale(1);
     -moz-transform: scale(1);
+    -o-transform:scale(1);
+    -ms-transform: scale(1);
     opacity: 1;
+    animation-name: slidetoptotopin;
     -webkit-animation-name: slidetoptotopin;
     -moz-animation-name: slidetoptotopin;
-    -webkit-animation-duration: 350ms;
-    -moz-animation-duration: 350ms;
+    -o-animation-name:slidetoptotopin;
+    -ms-animation-name:slidetoptotopin;
+/*    -webkit-animation-duration: 350ms;
+    -moz-animation-duration: 350ms;*/
 }
 .dw-slidedown.dw-out
 {
     opacity: 1;
+    animation-name: slidetoptotopout;
     -webkit-animation-name: slidetoptotopout;
     -moz-animation-name: slidetoptotopout;
-    -webkit-animation-duration: 350ms;
-    -moz-animation-duration: 350ms;
+    -o-animation-name:slidetoptotopout;
+    -ms-animation-name:slidetoptotopout;
+/*    -webkit-animation-duration: 350ms;
+    -moz-animation-duration: 350ms;*/
 }
 .dw-slideup
 {
+    transform-origin: 0 0;
     -webkit-transform-origin: 0 0;
     -moz-transform-origin: 0 0;
+    -o-transform-origin:0 0;
+    -ms-transform-origin: 0 0;
+    backface-visibility: hidden;
     -webkit-backface-visibility:hidden;
     -webkit-transform:translateX(0); /* Needed to work around an iOS 3.1 bug that causes listview thumbs to disappear when -webkit-visibility:hidden is used. */
     -moz-backface-visibility:hidden;
     -moz-transform:translateX(0); /* Needed to work around an iOS 3.1 bug that causes listview thumbs to disappear when -webkit-visibility:hidden is used. */
+    -o-backface-visibility:hidden;
+    -o-transform:translateX(0);
+    -ms-backface-visibility:hidden;
+    -ms-transform: translateX(0);
 }
 .dw-slideup.dw-in
 {
+    transform: scale(1);
     -webkit-transform: scale(1);
     -moz-transform: scale(1);
+    -o-transform:scale(1);
+    -ms-transform: scale(1);
     opacity: 1;
+    animation-name: slidebottomtobottomin;
     -webkit-animation-name: slidebottomtobottomin;
     -moz-animation-name: slidebottomtobottomin;
-    -webkit-animation-duration: 350ms;
-    -moz-animation-duration: 350ms;
+    -o-animation-name:slidebottomtobottomin;
+    -ms-animation-name:slidebottomtobottomin;
+/*    -webkit-animation-duration: 350ms;
+    -moz-animation-duration: 350ms;*/
 }
 .dw-slideup.dw-out
 {
     opacity: 1;
+    animation-name: slidebottomtobottomout;
     -webkit-animation-name: slidebottomtobottomout;
     -moz-animation-name: slidebottomtobottomout;
-    -webkit-animation-duration: 350ms;
-    -moz-animation-duration: 350ms;
+    -o-animation-name:slidebottomtobottomout;
+    -ms-animation-name:slidebottomtobottomout;
+/*    -webkit-animation-duration: 350ms;
+    -moz-animation-duration: 350ms;*/
 }
 .dw-fade
 {
+    transform-origin: 0 0;
     -webkit-transform-origin: 0 0;
     -moz-transform-origin: 0 0;
+    -o-transform-origin:0 0;
+    backface-visibility: hidden;
     -webkit-backface-visibility:hidden;
     -webkit-transform:translateX(0); /* Needed to work around an iOS 3.1 bug that causes listview thumbs to disappear when -webkit-visibility:hidden is used. */
     -moz-backface-visibility:hidden;
     -moz-transform:translateX(0); /* Needed to work around an iOS 3.1 bug that causes listview thumbs to disappear when -webkit-visibility:hidden is used. */
+    -o-backface-visibility:hidden;
+    -o-transform:translateX(0);
+    -ms-backface-visibility:hidden;
+    -ms-transform: translateX(0);
 }
 .dw-fade.dw-in
 {
     opacity: 1;
+    animation-name: fadein;
     -webkit-animation-name: fadein;
     -moz-animation-name: fadein;
-    -webkit-animation-duration: 350ms;
-    -moz-animation-duration: 350ms;
+    -o-animation-name:fadein;
+    -ms-animation-name:fadein;
+/*    -webkit-animation-duration: 350ms;
+    -moz-animation-duration: 350ms;*/
 }
 .dw-fade.dw-out
 {
     opacity: 0;
+    animation-name:fadeout;
     -webkit-animation-name: fadeout;
     -moz-animation-name: fadeout;
-    -webkit-animation-duration: 350ms;
-    -moz-animation-duration: 350ms;
+    -o-animation-name:fadeout;
+    -ms-animation-name:fadeout;
+/*    -webkit-animation-duration: 350ms;
+    -moz-animation-duration: 350ms;*/
 }
 
-
+@keyframes fadein
+{
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
 
 @-webkit-keyframes fadein
 {
@@ -251,6 +417,22 @@
         opacity: 0;
     } to {
         opacity: 1;
+    }
+}
+@-o-keyframes fadein
+{
+    from {
+        opacity:0;
+    } to {
+        opacity:1;
+    }
+}
+@-ms-keyframes fadein
+{
+    from {
+        opacity:0;
+    } to {
+        opacity:1;
     }
 }
 @-webkit-keyframes fadeout
@@ -269,7 +451,32 @@
         opacity: 0;
     }
 }
-
+@-o-keyframes fadeout
+{
+    from {
+        opacity: 1;
+    } to {
+        opacity: 0;
+    }
+}
+@-ms-keyframes fadeout
+{
+    from {
+        opacity: 1;
+    } to {
+        opacity: 0;
+    }
+}
+@keyframes popin
+{
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    } to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
 @-webkit-keyframes popin
 {
     from {
@@ -288,6 +495,36 @@
     } to {
         opacity: 1;
         -moz-transform: scale(1);
+    }
+}
+@-o-keyframes popin
+{
+    from {
+        opacity: 0;
+        -o-transform: scale(0.8);
+    } to {
+        opacity: 1;
+        -o-transform: scale(1);
+    }
+}
+@-ms-keyframes popin
+{
+    from {
+        opacity: 0;
+        -ms-transform: scale(0.8);
+    } to {
+        opacity: 1;
+        -ms-transform: scale(1);
+    }
+}
+@keyframes popout
+{
+    from {
+        transform: scale(1);
+        opacity: 1;
+    } to {
+        transform: scale(0.8);
+        opacity: 0;
     }
 }
 @-webkit-keyframes popout
@@ -310,6 +547,36 @@
         -moz-transform: scale(0.8);
     }
 }
+@-o-keyframes popout
+{
+    from {
+        opacity: 1;
+        -o-transform: scale(1);
+    } to {
+        opacity: 0;
+        -o-transform: scale(0.8);
+    }
+}
+@-ms-keyframes popout
+{
+    from {
+        opacity: 1;
+        -ms-transform: scale(1);
+    } to {
+        opacity: 0;
+        -ms-transform: scale(0.8);
+    }
+}
+@keyframes flipin
+{
+    from {
+        transform: rotateY(90deg);
+        opacity: 0;
+    } to {
+        transform: rotateY(0);
+        opacity: 1;
+    }
+}
 @-webkit-keyframes flipin
 {
     from {
@@ -328,6 +595,36 @@
     } to {
         opacity: 1;
         -moz-transform: rotateY(0);
+    }
+}
+@-o-keyframes flipin
+{
+    from {
+        opacity: 0;
+        -o-transform: rotateY(90deg);
+    } to {
+        opacity: 1;
+        -o-transform: rotateY(0);
+    }
+}
+@-ms-keyframes flipin
+{
+    from {
+        opacity: 0;
+        -ms-transform: rotateY(90deg);
+    } to {
+        opacity: 1;
+        -ms-transform: rotateY(0);
+    }
+}
+@keyframes flipout
+{
+    from {
+        transform: rotateY(0deg);
+        opacity: 1;
+    } to {
+        transform: rotateY(-90deg);
+        opacity: 0;
     }
 }
 @-webkit-keyframes flipout
@@ -350,6 +647,36 @@
         -moz-transform: rotateY(-90deg);
     }
 }
+@-o-keyframes flipout
+{
+    from {
+        opacity: 1;
+        -o-transform: rotateY(0deg);
+    } to {
+        opacity: 0;
+        -o-transform: rotateY(-90deg);
+    }
+}
+@-ms-keyframes flipout
+{
+    from {
+        opacity: 1;
+        -ms-transform: rotateY(0deg);
+    } to {
+        opacity: 0;
+        -ms-transform: rotateY(-90deg);
+    }
+}
+@keyframes swingin
+{
+    from {
+        opacity:0;
+        transform:rotateY(-90deg);
+    } to {
+        opacity:1;
+        transform:rotateY(0deg);
+    }
+}
 @-webkit-keyframes swingin
 {
     from {
@@ -368,6 +695,36 @@
     } to {
         opacity:1;
         -moz-transform:rotateY(0deg);
+    }
+}
+@-o-keyframes swingin
+{
+    from {
+        opacity:0;
+        -o-transform:rotateY(-90deg);
+    } to {
+        opacity:1;
+        -o-transform:rotateY(0deg);
+    }
+}
+@-ms-keyframes swingin
+{
+    from {
+        opacity:0;
+        -ms-transform:rotateY(-90deg);
+    } to {
+        opacity:1;
+        -ms-transform:rotateY(0deg);
+    }
+}
+@keyframes swingout
+{
+    from {
+        opacity:1;
+        transform:rotateY(0deg);
+    } to {
+        opacity:0;
+        transform:rotateY(-90deg);
     }
 }
 @-webkit-keyframes swingout
@@ -390,7 +747,36 @@
         -moz-transform:rotateY(-90deg);
     }
 }
-
+@-o-keyframes swingout
+{
+    from {
+        opacity:1;
+        -o-transform:rotateY(0deg);
+    } to {
+        opacity:0;
+        -o-transform:rotateY(-90deg);
+    }
+}
+@-ms-keyframes swingout
+{
+    from {
+        opacity:1;
+        -ms-transform:rotateY(0deg);
+    } to {
+        opacity:0;
+        -ms-transform:rotateY(-90deg);
+    }
+}
+@keyframes slideleftin
+{
+    from {
+        opacity:0;
+        transform:translateX(-100%);
+    } to {
+        opacity:1;
+        transform:translateX(0);
+    }
+}
 @-webkit-keyframes slideleftin
 {
     from {
@@ -411,7 +797,36 @@
         -moz-transform:translateX(0);
     }
 }
-
+@-o-keyframes slideleftin
+{
+    from {
+        opacity:0;
+        -o-transform:translateX(-100%);
+    } to {
+        opacity:1;
+        -o-transform:translateX(0);
+    }
+}
+@-ms-keyframes slideleftin
+{
+    from {
+        opacity:0;
+        -ms-transform:translateX(-100%);
+    } to {
+        opacity:1;
+        -ms-transform:translateX(0);
+    }
+}
+@keyframes slideleftout
+{
+    from {
+        opacity:1;
+        transform:translateX(0);
+    } to {
+        opacity:0;
+        transform:translateX(100%);
+    }
+}
 @-webkit-keyframes slideleftout
 {
     from {
@@ -432,7 +847,36 @@
         -moz-transform:translateX(100%);
     }
 }
-
+@-o-keyframes slideleftout
+{
+    from {
+        opacity:1;
+        -o-transform:translateX(0);
+    } to {
+        opacity:0;
+        -o-transform:translateX(100%);
+    }
+}
+@-ms-keyframes slideleftout
+{
+    from {
+        opacity:1;
+        -ms-transform:translateX(0);
+    } to {
+        opacity:0;
+        -ms-transform:translateX(100%);
+    }
+}
+@keyframes slidetopin
+{
+    from {
+        opacity:0;
+        transform:translateY(-100%);
+    } to {
+        opacity:1;
+        transform:translateY(0);
+    }
+}
 @-webkit-keyframes slidetopin
 {
     from {
@@ -453,7 +897,36 @@
         -moz-transform:translateY(0);
     }
 }
-
+@-o-keyframes slidetopin
+{
+    from {
+        opacity:0;
+        -o-transform:translateY(-100%);
+    } to {
+        opacity:1;
+        -o-transform:translateY(0);
+    }
+}
+@-ms-keyframes slidetopin
+{
+    from {
+        opacity:0;
+        -ms-transform:translateY(-100%);
+    } to {
+        opacity:1;
+        -ms-transform:translateY(0);
+    }
+}
+@keyframes slidetopout
+{
+    from {
+        opacity:1;
+        transform:translateY(0);
+    } to {
+        opacity:0;
+        transform:translateY(100%);
+    }
+}
 @-webkit-keyframes slidetopout
 {
     from {
@@ -474,8 +947,38 @@
         -moz-transform:translateY(100%);
     }
 }
-
-
+@-o-keyframes slidetopout
+{
+    from {
+        opacity:1;
+        -o-transform:translateY(0);
+    } to {
+        opacity:0;
+        -o-transform:translateY(100%);
+    }
+}
+@-ms-keyframes slidetopout
+{
+    from {
+        opacity:1;
+        -ms-transform:translateY(0);
+    } to {
+        opacity:0;
+        -ms-transform:translateY(100%);
+    }
+}
+@keyframes slidetoptotopout
+{
+    from
+    {
+        opacity:1;
+        transform:translateY(0);
+    } to
+    {
+        opacity:1;
+        transform:translateY(-100%);
+    }
+}
 @-webkit-keyframes slidetoptotopout
 {
     from
@@ -498,6 +1001,42 @@
     {
         opacity:1;
         -moz-transform:translateY(-100%);
+    }
+}
+@-o-keyframes slidetoptotopout
+{
+    from
+    {
+        opacity:1;
+        -o-transform:translateY(0);
+    } to
+    {
+        opacity:1;
+        -o-transform:translateY(-100%);
+    }
+}
+@-ms-keyframes slidetoptotopout
+{
+    from
+    {
+        opacity:1;
+        -ms-transform:translateY(0);
+    } to
+    {
+        opacity:1;
+        -ms-transform:translateY(-100%);
+    }
+}
+@keyframes slidetoptotopin
+{
+    from
+    {
+        opacity:1;
+        transform:translateY(-100%);
+    } to
+    {
+        opacity:1;
+        transform:translateY(0);
     }
 }
 @-webkit-keyframes slidetoptotopin
@@ -524,6 +1063,42 @@
         -moz-transform:translateY(0);
     }
 }
+@-o-keyframes slidetoptotopin
+{
+    from
+    {
+        opacity:1;
+        -o-transform:translateY(-100%);
+    } to
+    {
+        opacity:1;
+        -o-transform:translateY(0);
+    }
+}
+@-ms-keyframes slidetoptotopin
+{
+    from
+    {
+        opacity:1;
+        -ms-transform:translateY(-100%);
+    } to
+    {
+        opacity:1;
+        -ms-transform:translateY(0);
+    }
+}
+@keyframes slidebottomtobottomin
+{
+    from
+    {
+        opacity:1;
+        transform:translateY(100%);
+    } to
+    {
+        opacity:1;
+        transform:translateY(0);
+    }
+}
 @-webkit-keyframes slidebottomtobottomin
 {
     from
@@ -548,6 +1123,42 @@
         -moz-transform:translateY(0);
     }
 }
+@-o-keyframes slidebottomtobottomin
+{
+    from
+    {
+        opacity:1;
+        -o-transform:translateY(100%);
+    } to
+    {
+        opacity:1;
+        -o-transform:translateY(0);
+    }
+}
+@-ms-keyframes slidebottomtobottomin
+{
+    from
+    {
+        opacity:1;
+        -ms-transform:translateY(100%);
+    } to
+    {
+        opacity:1;
+        -ms-transform:translateY(0);
+    }
+}
+@keyframes slidebottomtobottomout
+{
+    from
+    {
+        opacity:1;
+        transform:translateY(0);
+    } to
+    {
+        opacity:1;
+        transform:translateY(100%);
+    }
+}
 @-webkit-keyframes slidebottomtobottomout
 {
     from
@@ -570,5 +1181,29 @@
     {
         opacity:1;
         -moz-transform:translateY(100%);
+    }
+}
+@-o-keyframes slidebottomtobottomout
+{
+    from
+    {
+        opacity:1;
+        -o-transform:translateY(0);
+    } to
+    {
+        opacity:1;
+        -o-transform:translateY(100%);
+    }
+}
+@-ms-keyframes slidebottomtobottomout
+{
+    from
+    {
+        opacity:1;
+        -ms-transform:translateY(0);
+    } to
+    {
+        opacity:1;
+        -ms-transform:translateY(100%);
     }
 }
