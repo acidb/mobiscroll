@@ -59,14 +59,7 @@
     -webkit-animation-name: popin;
     -moz-animation-name: popin;
     -o-animation-name:popin;
-    -ms-animation-name:popin;
-    /*
-    animation-duration:350ms;
-    -webkit-animation-duration: 350ms;
-    -moz-animation-duration: 350ms;
-    -o-animation-duration:350ms;
-    -ms-animtation-duration:350ms;*/
-    
+    -ms-animation-name:popin;   
 }
 .dw-pop.dw-out
 {
@@ -76,12 +69,6 @@
     -o-animation-name:popout;
     -ms-animation-name:popout;
     opacity: 0;
-    /*
-    animation-duration:350ms;
-    -webkit-animation-duration: 350ms;
-    -moz-animation-duration: 350ms;
-    -o-animation-duration:350ms;
-    -ms-animation-duration:350ms;*/
 }
 
 .dw-flip
@@ -116,10 +103,6 @@
     -moz-animation-name: flipin;
     -o-animation-name:flipin;
     -ms-animation-name:flipin;
-/*    -webkit-animation-duration: 350ms;
-    -moz-animation-duration: 350ms;
-    -o-animation-duration:350ms;
-    -ms-animation-duration:350ms;*/
 }
 .dw-flip.dw-out {
     animation-name:flipout;
@@ -129,10 +112,6 @@
     -ms-animation-name:flipout;
     opacity: 0;
     animation-duration:350ms;
-    /*-webkit-animation-duration: 350ms;
-    -moz-animation-duration: 350ms;
-    -o-animation-duration:350ms;
-    -ms-animation-duration:350ms;*/
 }
 .dw-swing
 {
@@ -165,10 +144,6 @@
     -moz-animation-name: swingin;
     -o-animation-name:swingin;
     -ms-animation-name:swingin;
-    /*-webkit-animation-duration: 350ms;
-    -moz-animation-duration: 350ms;
-    -o-animation-duration:350ms;
-    -ms-animation-duration:350ms;*/
 }
 .dw-swing.dw-out
 {
@@ -178,11 +153,6 @@
     -o-animation-name:swingout;
     -ms-animation-name:swingout;
     opacity: 0;
-/*    animation-duration:350ms;
-    -webkit-animation-duration: 350ms;
-    -moz-animation-duration: 350ms;
-    -o-animation-duration:350ms;
-    -ms-animation-duration:350ms;*/
 }
 .dw-slidehorizontal
 {
@@ -209,8 +179,6 @@
     -moz-animation-name: slideleftin;
     -o-animation-name:slideleftin;
     -ms-animation-name:slideleftin;
-/*    -webkit-animation-duration: 350ms;
-    -moz-animation-duration: 350ms;*/
 }
 .dw-slidehorizontal.dw-out
 {
@@ -219,8 +187,6 @@
     -webkit-animation-name: slideleftout;
     -moz-animation-name: slideleftout;
     -o-animation-name:slideleftout;
-/*    -webkit-animation-duration: 350ms;
-    -moz-animation-duration: 350ms;*/
 }
 .dw-slidevertical
 {
@@ -252,8 +218,6 @@
     -moz-animation-name: slidetopin;
     -o-animation-name:slidetopin;
     -ms-animation-name:slidetopin;
-/*    -webkit-animation-duration: 350ms;
-    -moz-animation-duration: 350ms;*/
 }
 .dw-slidevertical.dw-out
 {
@@ -263,8 +227,6 @@
     -moz-animation-name: slidetopout;
     -o-animation-name:slidetopout;
     -ms-animation-name:slidetopout;
-/*    -webkit-animation-duration: 350ms;
-    -moz-animation-duration: 350ms;*/
 }
 .dw-slidedown
 {
@@ -296,8 +258,6 @@
     -moz-animation-name: slidetoptotopin;
     -o-animation-name:slidetoptotopin;
     -ms-animation-name:slidetoptotopin;
-/*    -webkit-animation-duration: 350ms;
-    -moz-animation-duration: 350ms;*/
 }
 .dw-slidedown.dw-out
 {
@@ -307,8 +267,6 @@
     -moz-animation-name: slidetoptotopout;
     -o-animation-name:slidetoptotopout;
     -ms-animation-name:slidetoptotopout;
-/*    -webkit-animation-duration: 350ms;
-    -moz-animation-duration: 350ms;*/
 }
 .dw-slideup
 {
@@ -340,8 +298,6 @@
     -moz-animation-name: slidebottomtobottomin;
     -o-animation-name:slidebottomtobottomin;
     -ms-animation-name:slidebottomtobottomin;
-/*    -webkit-animation-duration: 350ms;
-    -moz-animation-duration: 350ms;*/
 }
 .dw-slideup.dw-out
 {
@@ -351,8 +307,6 @@
     -moz-animation-name: slidebottomtobottomout;
     -o-animation-name:slidebottomtobottomout;
     -ms-animation-name:slidebottomtobottomout;
-/*    -webkit-animation-duration: 350ms;
-    -moz-animation-duration: 350ms;*/
 }
 .dw-fade
 {
@@ -378,8 +332,6 @@
     -moz-animation-name: fadein;
     -o-animation-name:fadein;
     -ms-animation-name:fadein;
-/*    -webkit-animation-duration: 350ms;
-    -moz-animation-duration: 350ms;*/
 }
 .dw-fade.dw-out
 {
@@ -389,8 +341,6 @@
     -moz-animation-name: fadeout;
     -o-animation-name:fadeout;
     -ms-animation-name:fadeout;
-/*    -webkit-animation-duration: 350ms;
-    -moz-animation-duration: 350ms;*/
 }
 
 @keyframes fadein
