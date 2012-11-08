@@ -104,7 +104,7 @@
                     dist2++;
                 }
                 // If we have direction (+/- or mouse wheel), the distance does not count
-                if (((dist2 < dist1 && dist2 && !(dir == 1)) || !dist1 || !(cell1.hasClass('dw-v')) || dir == 1) && cell2.hasClass('dw-v')) {
+                if (((dist2 < dist1 && dist2 && dir !== 2) || !dist1 || !(cell1.hasClass('dw-v')) || dir == 1) && cell2.hasClass('dw-v')) {
                     cell = cell2;
                     val = val + dist2;
                 } else {
@@ -203,7 +203,7 @@
             css.left = l;
             d.css(css);
 
-            $('.dwo, .dw-persp').height(0).height(getDocHeight());
+            $('.dwo, .dw-persp', dw).height(0).height(getDocHeight());
 
             if (needScroll) {
                 $(window).scrollTop(t + d.outerHeight(true) - wh);
@@ -494,6 +494,7 @@
                 // Set position
                 position();
                 $(window).bind('resize.dw', position);
+
             }
 
             // Events
