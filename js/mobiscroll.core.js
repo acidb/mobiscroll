@@ -532,6 +532,7 @@
                 // Scroll start
                 if (!isReadOnly(this) && !click && s.mode != 'clickpick') {
                     move = true;
+                    moved = false;
                     target = $('ul', this);
                     target.closest('.dwwl').addClass('dwa');
                     pos = +target.data('pos');
@@ -674,6 +675,7 @@
         stop,
         startTime,
         pos,
+        moved,
         mod = document.createElement('modernizr').style,
         has3d = testProps(['perspectiveProperty', 'WebkitPerspective', 'MozPerspective', 'OPerspective', 'msPerspective']) && 'webkitPerspective' in document.documentElement.style,
         prefix = testPrefix(),
@@ -842,6 +844,7 @@
             val = val > (max + 1) ? (max + 1) : val;
             val = val < (min - 1) ? (min - 1) : val;
             inst.scroll(target, val);
+            moved = true;
         }
     });
 
@@ -852,7 +855,9 @@
             var time = new Date() - startTime,
                 val = pos + (start - stop) / h,
                 speed,
-                dist;
+                dist,
+                tindex,
+                ttop = target.offset().top;
 
             val = val > (max + 1) ? (max + 1) : val;
             val = val < (min - 1) ? (min - 1) : val;
@@ -866,7 +871,12 @@
             } else {
                 dist = stop - start;
             }
-            calc(target, Math.round(pos - dist / h), 0, true, Math.round(val));
+            if (!dist && !moved) { // this is a "tap"
+                tindex = Math.floor((stop - ttop) / h);
+            } else {
+                tindex = Math.round(pos - dist / h);
+            }
+            calc(target, tindex, 0, true, Math.round(val));
             move = false;
             target = null;
         }
