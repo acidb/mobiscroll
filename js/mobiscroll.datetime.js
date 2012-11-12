@@ -116,10 +116,12 @@
                         offset++;
                         w[s.monthText] = {};
                         for (i = 0; i < 12; i++) {
-                            w[s.monthText][i] =
+                            /*w[s.monthText][i] =
                                         dord.match(/MM/) ? s.monthNames[i] :
                                             dord.match(/M/) ? s.monthNamesShort[i] :
-                                                dord.match(/mm/) && i < 9 ? '0' + (i + 1) : i + 1;
+                                                dord.match(/mm/) && i < 9 ? '0' + (i + 1) : i + 1;*/
+                            var str = dord.replace(/[dy]/gi, '').replace(/mm/, i < 9 ? '0' + (i + 1) : i + 1).replace(/m/, i);
+                            w[s.monthText][i] = str.match(/MM/) ? str.replace(/MM/, '<span class="dw-mon">' + s.monthNames[i] + '</span>') : str.replace(/M/, '<span class="dw-mon">' + s.monthNamesShort[i]) + '</span>';
                         }
                     } else if (k == o.d) {
                         offset++;
@@ -295,7 +297,7 @@
                                             d = that.data('val'),
                                             w = new Date(y, m, d).getDay(),
                                             str = dord.replace(/[my]/gi, '').replace(/dd/, d < 10 ? '0' + d : d).replace(/d/, d);
-                                        that.html(str.match(/DD/) ? str.replace(/DD/, s.dayNames[w]) : str.replace(/D/, s.dayNamesShort[w]));
+                                        that.html(str.match(/DD/) ? str.replace(/DD/, '<span class="dw-day">' + s.dayNames[w] + '</span>') : str.replace(/D/, '<span class="dw-day">' + s.dayNamesShort[w]) + '</span>');
                                     });
                                 }
                             }

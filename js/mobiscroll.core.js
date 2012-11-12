@@ -80,8 +80,9 @@
                     x = cell.index(),
                     v = scrollToValid(cell, x, i, dir),
                     sc = i == index || index === undefined;
+
                 //if (v != t.data('pos'))
-                that.scroll($(this), v, sc ? time : 0.2, orig, i);
+                that.scroll(t, v, sc ? time : 0.2, orig, i);
             });
 
             // Reformat value if validation changed something
@@ -113,6 +114,8 @@
                 }
                 that.temp[i] = cell.attr('data-val');
             }
+            cell.closest('ul').find('.dw-sel').removeClass('dw-sel');
+            cell.addClass('dw-sel');
             return val;
         }
 
