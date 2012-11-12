@@ -156,7 +156,7 @@
         };
 
         return {
-            width: 200,
+            width: 50,
             wheels: w,
             headerText: false,
             formatResult: function (d) {
