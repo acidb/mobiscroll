@@ -230,7 +230,7 @@
             s.disabled = false;
             if (input)
                 elm.prop('disabled', false);
-        }
+        };
 
         /**
         * Disables the scroller and the associated input.
@@ -239,7 +239,7 @@
             s.disabled = true;
             if (input)
                 elm.prop('disabled', true);
-        }
+        };
 
         /**
         * Scrolls target to the specified position
@@ -270,7 +270,7 @@
             }
             else
                 t.data('pos', val);
-        }
+        };
 
         /**
         * Gets the selected wheel values, formats it, and set the value of the scroller instance.
@@ -287,7 +287,7 @@
                 if (input)
                     elm.val(v).trigger('change');
             }
-        }
+        };
 
         /**
         * Checks if the current selected values are valid together.
@@ -296,7 +296,7 @@
         */
         that.validate = function (time, orig, i, dir) {
             scrollToPos(time, orig, i, true, dir);
-        }
+        };
 
         /**
         *
@@ -309,7 +309,7 @@
                 $('.dwv', dw).html(formatHeader(v));
             if (manual)
                 s.onChange.call(e, v, that);
-        }
+        };
 
         /**
         * Hides the scroller instance.
@@ -339,7 +339,7 @@
                 // Stop positioning on window resize
                 $(window).unbind('.dw');
             }
-        }
+        };
 
         /**
         * Changes the values of a wheel, and scrolls to the correct position
@@ -365,7 +365,7 @@
                     }
                 }
             }
-        }
+        };
 
         /**
         * Shows the scroller instance.
@@ -508,7 +508,7 @@
 
             // Theme init
             theme.init(dw, that);
-        }
+        };
 
         /**
         * Scroller initialization.
@@ -556,7 +556,7 @@
                     elm.bind('focus.dw', function () { that.show(); });
                 }
             }
-        }
+        };
 
         that.values = null;
         that.val = null;
