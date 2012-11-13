@@ -820,7 +820,7 @@
         else {
             $.error('Unknown method');
         }
-    }
+    };
 
     $.scroller = {
         /**
