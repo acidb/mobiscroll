@@ -76,13 +76,48 @@
             // Set scrollers to position
             $('.dww ul', dw).each(function (i) {
                 var t = $(this),
+                    val,
                     cell = $('li[data-val="' + that.temp[i] + '"]', t),
-                    x = cell.index(),
-                    v = scrollToValid(cell, x, i, dir),
+                    v = cell.index(),
                     sc = i == index || index === undefined;
 
-                //if (v != t.data('pos'))
-                that.scroll(t, v, sc ? time : 0.2, orig, i);
+                // Scroll to a valid cell
+                if (!cell.hasClass('dw-v')) {
+                    var cell1 = cell,
+                        cell2 = cell,
+                        dist1 = 0,
+                        dist2 = 0;
+                    while (cell1.prev().length && !cell1.hasClass('dw-v')) {
+                        cell1 = cell1.prev();
+                        dist1++;
+                    }
+                    while (cell2.next().length && !cell2.hasClass('dw-v')) {
+                        cell2 = cell2.next();
+                        dist2++;
+                    }
+                    // If we have direction (+/- or mouse wheel), the distance does not count
+                    if (((dist2 < dist1 && dist2 && dir !== 2) || !dist1 || !(cell1.hasClass('dw-v')) || dir == 1) && cell2.hasClass('dw-v')) {
+                        cell = cell2;
+                        v = v + dist2;
+                    } else {
+                        cell = cell1;
+                        v = v - dist1;
+                    }
+                }
+
+                val = cell.attr('data-val');
+
+                if (val != that.temp[i] || sc) {
+                    // Set valid value
+                    that.temp[i] = val;
+
+                    // Add selected class to cell
+                    $('.dw-sel', t).removeClass('dw-sel');
+                    cell.addClass('dw-sel');
+
+                    // Scroll to position
+                    that.scroll(t, v, sc ? time : 0.2, orig, i);
+                }
             });
 
             // Reformat value if validation changed something
@@ -90,32 +125,7 @@
         }
 
         function scrollToValid(cell, val, i, dir) {
-            // Process invalid cells
-            if (!cell.hasClass('dw-v')) {
-                var cell1 = cell,
-                    cell2 = cell,
-                    dist1 = 0,
-                    dist2 = 0;
-                while (cell1.prev().length && !cell1.hasClass('dw-v')) {
-                    cell1 = cell1.prev();
-                    dist1++;
-                }
-                while (cell2.next().length && !cell2.hasClass('dw-v')) {
-                    cell2 = cell2.next();
-                    dist2++;
-                }
-                // If we have direction (+/- or mouse wheel), the distance does not count
-                if (((dist2 < dist1 && dist2 && dir !== 2) || !dist1 || !(cell1.hasClass('dw-v')) || dir == 1) && cell2.hasClass('dw-v')) {
-                    cell = cell2;
-                    val = val + dist2;
-                } else {
-                    cell = cell1;
-                    val = val - dist1;
-                }
-                that.temp[i] = cell.attr('data-val');
-            }
-            cell.closest('ul').find('.dw-sel').removeClass('dw-sel');
-            cell.addClass('dw-sel');
+
             return val;
         }
 
