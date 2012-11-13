@@ -6,7 +6,7 @@
         rtl: false,
         group: false,
         groupLabel: 'Groups'
-    }
+    };
 
     $.scroller.presets.select = function (inst) {
         var s = $.extend({}, defaults, inst.settings),
