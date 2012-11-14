@@ -47,16 +47,25 @@
     -moz-animation-duration: 350ms;
 }
 
+.dw-flip,
+.dw-swing,
+.dw-slidehorizontal,
+.dw-slidevertical,
+.dw-slidedown,
+.dw-slideup,
+.dw-fade
+{
+    -webkit-backface-visibility:hidden;
+    -webkit-transform: translateX(0); /* Needed to work around an iOS 3.1 bug that causes listview thumbs to disappear when -webkit-visibility:hidden is used. */
+    -moz-backface-visibility:hidden;
+    -moz-transform: translateX(0); /* Needed to work around an iOS 3.1 bug that causes listview thumbs to disappear when -webkit-visibility:hidden is used. */
+}
+
 .dw-flip
 {
     /* from pop*/
     -webkit-transform-origin: 50% 50%;
     -moz-transform-origin: 50% 50%;
-    /* from turn */
-    -webkit-backface-visibility:hidden;
-    -webkit-transform:translateX(0); /* Needed to work around an iOS 3.1 bug that causes listview thumbs to disappear when -webkit-visibility:hidden is used. */
-    -moz-backface-visibility:hidden;
-    -moz-transform:translateX(0); /* Needed to work around an iOS 3.1 bug that causes listview thumbs to disappear when -webkit-visibility:hidden is used. */
 }
 .dw-flip.dw-in {
     -webkit-transform: scale(1);
@@ -78,10 +87,6 @@
 {
     -webkit-transform-origin: 0 0;
     -moz-transform-origin: 0 0;
-    -webkit-backface-visibility:hidden;
-    -webkit-transform:translateX(0); /* Needed to work around an iOS 3.1 bug that causes listview thumbs to disappear when -webkit-visibility:hidden is used. */
-    -moz-backface-visibility:hidden;
-    -moz-transform:translateX(0); /* Needed to work around an iOS 3.1 bug that causes listview thumbs to disappear when -webkit-visibility:hidden is used. */
 }
 .dw-swing.dw-in
 {
@@ -105,10 +110,6 @@
 {
     -webkit-transform-origin: 0 0;
     -moz-transform-origin: 0 0;
-    -webkit-backface-visibility:hidden;
-    -webkit-transform:translateX(0); /* Needed to work around an iOS 3.1 bug that causes listview thumbs to disappear when -webkit-visibility:hidden is used. */
-    -moz-backface-visibility:hidden;
-    -moz-transform:translateX(0); /* Needed to work around an iOS 3.1 bug that causes listview thumbs to disappear when -webkit-visibility:hidden is used. */
 }
 .dw-slidehorizontal.dw-in
 {
@@ -132,10 +133,6 @@
 {
     -webkit-transform-origin: 0 0;
     -moz-transform-origin: 0 0;
-    -webkit-backface-visibility:hidden;
-    -webkit-transform:translateX(0); /* Needed to work around an iOS 3.1 bug that causes listview thumbs to disappear when -webkit-visibility:hidden is used. */
-    -moz-backface-visibility:hidden;
-    -moz-transform:translateX(0); /* Needed to work around an iOS 3.1 bug that causes listview thumbs to disappear when -webkit-visibility:hidden is used. */
 }
 .dw-slidevertical.dw-in
 {
@@ -159,10 +156,6 @@
 {
     -webkit-transform-origin: 0 0;
     -moz-transform-origin: 0 0;
-    -webkit-backface-visibility:hidden;
-    -webkit-transform:translateX(0); /* Needed to work around an iOS 3.1 bug that causes listview thumbs to disappear when -webkit-visibility:hidden is used. */
-    -moz-backface-visibility:hidden;
-    -moz-transform:translateX(0); /* Needed to work around an iOS 3.1 bug that causes listview thumbs to disappear when -webkit-visibility:hidden is used. */
 }
 .dw-slidedown.dw-in
 {
@@ -186,10 +179,6 @@
 {
     -webkit-transform-origin: 0 0;
     -moz-transform-origin: 0 0;
-    -webkit-backface-visibility:hidden;
-    -webkit-transform:translateX(0); /* Needed to work around an iOS 3.1 bug that causes listview thumbs to disappear when -webkit-visibility:hidden is used. */
-    -moz-backface-visibility:hidden;
-    -moz-transform:translateX(0); /* Needed to work around an iOS 3.1 bug that causes listview thumbs to disappear when -webkit-visibility:hidden is used. */
 }
 .dw-slideup.dw-in
 {
@@ -213,10 +202,6 @@
 {
     -webkit-transform-origin: 0 0;
     -moz-transform-origin: 0 0;
-    -webkit-backface-visibility:hidden;
-    -webkit-transform:translateX(0); /* Needed to work around an iOS 3.1 bug that causes listview thumbs to disappear when -webkit-visibility:hidden is used. */
-    -moz-backface-visibility:hidden;
-    -moz-transform:translateX(0); /* Needed to work around an iOS 3.1 bug that causes listview thumbs to disappear when -webkit-visibility:hidden is used. */
 }
 .dw-fade.dw-in
 {
