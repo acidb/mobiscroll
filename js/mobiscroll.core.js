@@ -116,7 +116,7 @@
                     cell.addClass('dw-sel');
 
                     // Scroll to position
-                    that.scroll(t, v, sc ? time : 0.2, orig, i);
+                    that.scroll(t, v, sc ? time : 0.2, sc ? orig : undefined, i);
                 }
             });
 
@@ -266,23 +266,34 @@
         * @param {Number} index - Index of the changed wheel.
         */
         that.scroll = function (t, val, time, orig, index) {
-            var px = (m - val) * hi;
-            t.attr('style', (time ? (prefix + '-transition:all ' + time.toFixed(1) + 's ease-out;') : '') + (has3d ? (prefix + '-transform:translate3d(0,' + px + 'px,0);') : ('top:' + px + 'px;')));
 
             function getVal(t, b, c, d) {
                 return c * Math.sin(t / d * (Math.PI / 2)) + b;
             }
 
-            clearInterval(iv[index]);
+            function ready() {
+                clearInterval(iv[index]);
+                iv[index] = null;
+                t.data('pos', val).closest('.dwwl').removeClass('dwa');
+            }
+
+            var px = (m - val) * hi,
+                i;
+
+            t.attr('style', (time ? (prefix + '-transition:all ' + time.toFixed(1) + 's ease-out;') : '') + (has3d ? (prefix + '-transform:translate3d(0,' + px + 'px,0);') : ('top:' + px + 'px;')));
+
+            if (iv[index]) {
+                ready();
+            }
 
             if (time && orig !== undefined) {
-                var i = 0;
+                i = 0;
+                t.closest('.dwwl').addClass('dwa');
                 iv[index] = setInterval(function () {
                     i += 0.1;
                     t.data('pos', Math.round(getVal(i, orig, val - orig, time)));
                     if (i >= time) {
-                        clearInterval(iv[index]);
-                        t.data('pos', val).closest('.dwwl').removeClass('dwa');
+                        ready();
                     }
                 }, 100);
             } else {
