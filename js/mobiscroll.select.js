@@ -90,12 +90,12 @@
                 if (changed)
                     elm.trigger('change');
             }
-        }
+        };
 
         inst.getSelectVal = function (temp) {
             var val = temp ? inst.temp : inst.values;
             return replace(val[wIndex.options]);
-        }
+        };
 
         return {
             width: 200,
