@@ -40,7 +40,7 @@
                 j;
 
             for (j in warr[wIndex]) {
-                html += '<li class="dw-v" data-val="' + j + '" style="height:' + hi + 'px;line-height:' + hi + 'px;">' + warr[wIndex][j] + '</li>';
+                html += '<li class="dw-v" data-val="' + j + '" style="height:' + hi + 'px;line-height:' + hi + 'px;"><div class="dw-i">' + warr[wIndex][j] + '</div></li>';
             }
             return html;
         }
@@ -76,7 +76,6 @@
             // Set scrollers to position
             $('.dww ul', dw).each(function (i) {
                 var t = $(this),
-                    val,
                     cell = $('li[data-val="' + that.temp[i] + '"]', t),
                     v = cell.index(),
                     sc = i == index || index === undefined;
@@ -105,11 +104,12 @@
                     }
                 }
 
-                val = cell.attr('data-val');
+                //val = cell.attr('data-val');
 
-                if (val != that.temp[i] || sc) {
+                //if (val != that.temp[i] || sc) {
+                if (!(cell.hasClass('dw-sel')) || sc) {
                     // Set valid value
-                    that.temp[i] = val;
+                    that.temp[i] = cell.attr('data-val');
 
                     // Add selected class to cell
                     $('.dw-sel', t).removeClass('dw-sel');
