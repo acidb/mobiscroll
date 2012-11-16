@@ -64,8 +64,13 @@
         }
 
         function read() {
-            that.temp = ((input && that.val !== null && that.val != elm.val()) || that.values === null) ? s.parseValue(elm.val() ? elm.val() : '', that) : that.values.slice(0);
-            that.setValue(true);
+            
+        	if(elm.val().length == 0) {
+        		that.temp = s.parseValue('');
+        	} else {
+        		that.temp = ((input && that.val !== null && that.val != elm.val()) || that.values === null) ? s.parseValue(elm.val() ? elm.val() : '', that) : that.values.slice(0);
+        		that.setValue(true);
+        	}
         }
 
         function scrollToPos(time, orig, index, manual, dir) {
