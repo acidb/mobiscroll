@@ -71,10 +71,7 @@
 
             if (s.group){
                 group = elm.find('option[value="' + option + '"]').parent();
-                if (s.rtl)
-                    inst.temp = ['_' + option, '_' + group.index()];
-                else
-                    inst.temp = ['_' + group.index(), '_' + option];
+                inst.temp = (s.rtl) ? ['_' + option, '_' + group.index()] : ['_' + group.index(), '_' + option];
             }
             else
                 inst.temp = ['_' + option];
