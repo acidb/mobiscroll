@@ -15,6 +15,7 @@
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
+    -ms-touch-action: none;
 }
 .dwi {
     position: static;

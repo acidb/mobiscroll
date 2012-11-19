@@ -701,7 +701,7 @@
         pos,
         moved,
         mod = document.createElement('modernizr').style,
-        has3d = testProps(['perspectiveProperty', 'WebkitPerspective', 'MozPerspective', 'OPerspective', 'msPerspective']) && 'webkitPerspective' in document.documentElement.style,
+        has3d = testProps(['perspectiveProperty', 'WebkitPerspective', 'MozPerspective', 'OPerspective', 'msPerspective']),// && 'webkitPerspective' in document.documentElement.style,
         prefix = testPrefix(),
         START_EVENT = 'touchstart mousedown',
         MOVE_EVENT = 'touchmove mousemove',
