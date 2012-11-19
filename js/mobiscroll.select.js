@@ -122,11 +122,7 @@
             if (s.group) {
                 group = elm.find('option[value="' + option + '"]').parent();
                 gr = group.index();
-                if (s.rtl) {
-                    inst.temp = ['_' + option, '_' + gr];
-                } else {
-                    inst.temp = ['_' + gr, '_' + option];
-                }
+                inst.temp = s.rtl ? ['_' + option, '_' + group.index()] : ['_' + group.index(), '_' + option];
                 if (gr !== prev) { // Need to regenerate wheels, if group changed
                     inst.settings.wheels = genWheels();
                     inst.changeWheel(wIndex.options);
@@ -183,11 +179,7 @@
                         shTime = setTimeout(function () {
                             inst.settings.wheels = genWheels();
                             if (s.group) {
-                                if (s.rtl) {
-                                    inst.temp = ['_' + option, '_' + gr];
-                                } else {
-                                    inst.temp = ['_' + gr, '_' + option];
-                                }
+                                inst.temp = s.rtl ? ['_' + option, '_' + group.index()] : ['_' + group.index(), '_' + option];
                                 inst.changeWheel(wIndex.options);
                                 prev = gr + '';
                             }
