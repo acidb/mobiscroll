@@ -26,9 +26,9 @@
 .sense-ui .dwbc {
     padding: 5px 1px;
     background: #000;
+    background: linear-gradient(#666 50%,#000 50%);
     background: -webkit-gradient(linear,left bottom,left top,color-stop(0.5, #000),color-stop(0.5, #666));
     background: -moz-linear-gradient(#666 50%,#000 50%);
-    background: -ms-linear-gradient(#666 50%,#000 50%);
     background: -o-linear-gradient(#666 50%,#000 50%);
 }
 .sense-ui .dwb {
@@ -36,18 +36,18 @@
     background: #000;
     border: 1px solid #333;
     background: #222;
+    background: linear-gradient(#444,#000);
     background: -webkit-gradient(linear,left bottom,left top,from(#000),to(#444));
     background: -moz-linear-gradient(#444,#000);
-    background: -ms-linear-gradient(#444,#000);
     background: -o-linear-gradient(#444,#000);
     box-shadow: inset 0 0 5px #000;
 }
 .sense-ui .dwb-a {
     background: #3c7500;
-    background:-webkit-gradient(linear,left bottom,left top,from(#3c7500),to(#94c840));
-    background:-moz-linear-gradient(#94c840,#3c7500);
-    background:-ms-linear-gradient(#94c840,#3c7500);
-    background:-o-linear-gradient(#94c840,#3c7500);
+    background: linear-gradient(#94c840,#3c7500);
+    background: -webkit-gradient(linear,left bottom,left top,from(#3c7500),to(#94c840));
+    background: -moz-linear-gradient(#94c840,#3c7500);
+    background: -o-linear-gradient(#94c840,#3c7500);
 }
 /* Docked */
 .sense-ui.dw-top .dw {

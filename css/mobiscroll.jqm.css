@@ -14,7 +14,7 @@
 }
 .jqm .dwwr {
     border: 0;
-    padding:0;
+    padding: 0;
 }
 .jqm .dwpm .dwwo {
     background: none;
@@ -35,33 +35,33 @@
 }
 .jqm .dwwbp .ui-btn-inner {
     font-size: 40px;
+    border-radius: 3px 3px 0 0;
     -webkit-border-radius: 3px 3px 0 0;
     -moz-border-radius: 3px 3px 0 0;
-    border-radius: 3px 3px 0 0;
 }
 .jqm .dwwbm .ui-btn-inner {
     font-size: 32px;
+    border-radius: 0 0 3px 3px;
     -webkit-border-radius: 0 0 3px 3px;
     -moz-border-radius: 0 0 3px 3px;
-    border-radius: 0 0 3px 3px;
 }
 .jqm .dwwbp span {
     font-weight: normal;
 }
 .jqm .dwbc .ui-btn {
-    margin:.5em 5px;
+    margin: .5em 5px;
 }
 .jqm .dwbc .ui-btn-inner {
-    font-size:12px;
+    font-size: 12px;
 }
 /* Bubble positioning */
 .jqm .dw-bubble-bottom .dw-arr
 {
-    border-color:transparent transparent #444 transparent;
+    border-color: transparent transparent #444 transparent;
 }
 .jqm .dw-bubble-top .dw-arr
 {
-    border-color:#222 transparent transparent transparent;
+    border-color: #222 transparent transparent transparent;
 }
 /* Docked */
 .jqm.dw-bottom .dw, .jqm.dw-top .dw {

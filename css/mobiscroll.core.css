@@ -1,6 +1,6 @@
 /* Datewheel overlay */
 .dw {
-    min-width:170px;
+    min-width: 170px;
     position: absolute;
     top: 5%;
     left: 0;
@@ -25,7 +25,7 @@
 .dwwr {
     zoom: 1;
     padding: 0 10px;
-    text-align:center;
+    text-align: center;
 }
 /* Datewheel overlay background */
 .dwo {
@@ -36,68 +36,58 @@
     left: 0;
     z-index: 1000;
     opacity: .7;
-    filter:Alpha(Opacity=70);
+    filter: Alpha(Opacity=70);
 }
 /* Bubble positionings */
-.dw-bubble-bottom
-{
-    margin-top:18px;
+.dw-bubble-bottom {
+    margin-top: 18px;
 }
-.dw-bubble-top
-{
-    margin-top:-18px;
+.dw-bubble-top {
+    margin-top: -18px;
 }
-.dw-bubble .dw-arrw
-{
-    position:absolute;
-    left:0;
-    width:100%;
+.dw-bubble .dw-arrw {
+    position: absolute;
+    left: 0;
+    width: 100%;
 }
-.dw-bubble-top .dw-arrw
-{
-    bottom:-36px;
+.dw-bubble-top .dw-arrw {
+    bottom: -36px;
 }
-.dw-bubble-bottom .dw-arrw
-{
-    top:-36px;
+.dw-bubble-bottom .dw-arrw {
+    top: -36px;
 }
-.dw-bubble .dw-arrw-i
-{
-    margin:0 30px;
-    position:relative;
-    height:36px;
+.dw-bubble .dw-arrw-i {
+    margin: 0 30px;
+    position: relative;
+    height: 36px;
 }
-.dw-bubble .dw-arr
-{
-    display:block;
+.dw-bubble .dw-arr {
+    display: block;
 }
-.dw-arr
-{
-    display:none;
-    position:absolute;
-    left:0;
-    width:0;
-    height:0;
-    border-width:18px 18px;
-    border-style:solid;
-    margin-left:-18px;
+.dw-arr {
+    display: none;
+    position: absolute;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-width: 18px 18px;
+    border-style: solid;
+    margin-left: -18px;
 }
-.dw-bubble-bottom .dw-arr
-{
-    top:0;
-    border-color:transparent transparent #fff transparent;
+.dw-bubble-bottom .dw-arr {
+    top: 0;
+    border-color: transparent transparent #fff transparent;
 }
-.dw-bubble-top .dw-arr
-{
-    bottom:0;
-    border-color:#fff transparent transparent transparent;
+.dw-bubble-top .dw-arr {
+    bottom: 0;
+    border-color: #fff transparent transparent transparent;
 }
 /* Datewheel wheel container wrapper */
 .dwc {
     float: none;
     margin: 0 2px 5px 2px;
     padding-top: 30px;
-    display:inline-block;
+    display: inline-block;
 }
 .dwcc {
     clear: both;
@@ -127,18 +117,18 @@
     padding: 0 2px;
     position: relative;
     background: #000;
-    zoom:1;
+    zoom: 1;
 }
 /* Datewheel wheels */
 .dwwl {
     margin: 4px 2px;
     position: relative;
     background: #888;
+    background: linear-gradient(#000 0%,#333 35%, #888 50%,#333 65%,#000 100%);
     background: -webkit-gradient(linear,left bottom,left top,from(#000),color-stop(0.35, #333),color-stop(0.50, #888),color-stop(0.65, #333),to(#000));
     background: -moz-linear-gradient(#000 0%,#333 35%, #888 50%,#333 65%,#000 100%);
-    background: -ms-linear-gradient(#000 0%,#333 35%, #888 50%,#333 65%,#000 100%);
     background: -o-linear-gradient(#000 0%,#333 35%, #888 50%,#333 65%,#000 100%);
-    z-index:1010;
+    z-index: 1010;
 }
 .dww {
     margin: 0 2px;
@@ -148,9 +138,9 @@
 .dwsc .dww {
     color: #fff;
     background: #444;
+    background: linear-gradient(#000 0%,#444 45%, #444 55%, #000 100%);
     background: -webkit-gradient(linear,left bottom,left top,from(#000),color-stop(0.45, #444),color-stop(0.55, #444),to(#000));
     background: -moz-linear-gradient(#000 0%,#444 45%, #444 55%, #000 100%);
-    background: -ms-linear-gradient(#000 0%,#444 45%, #444 55%, #000 100%);
     background: -o-linear-gradient(#000 0%,#444 45%, #444 55%, #000 100%);
 }
 .dww ul {
@@ -192,7 +182,8 @@
     height: 40px;
     text-align: center;
     opacity: 1;
-    -webkit-transition: opacity 0.2s linear;
+    transition: opacity .2s linear;
+    -webkit-transition: opacity .2s linear;
 }
 .dwa .dwwb {
     opacity: 0;
@@ -230,9 +221,9 @@
     left: 0;
     width: 100%;
     height: 100%;
+    background: linear-gradient(#000 0%,rgba(44,44,44,0) 52%, rgba(44,44,44,0) 48%, #000 100%);
     background: -webkit-gradient(linear,left bottom,left top,from(#000),color-stop(0.52, rgba(44,44,44,0)),color-stop(0.48, rgba(44,44,44,0)),to(#000));
     background: -moz-linear-gradient(#000 0%,rgba(44,44,44,0) 52%, rgba(44,44,44,0) 48%, #000 100%);
-    background: -ms-linear-gradient(#000 0%,rgba(44,44,44,0) 52%, rgba(44,44,44,0) 48%, #000 100%);
     background: -o-linear-gradient(#000 0%,rgba(44,44,44,0) 52%, rgba(44,44,44,0) 48%, #000 100%);
 }
 /* Background line */
@@ -249,6 +240,8 @@
 }
 /* Datewheel button */
 .dwbg .dwb {
+    cursor: pointer;
+    overflow: hidden;
     display: block;
     height: 40px;
     line-height: 40px;
@@ -257,21 +250,19 @@
     font-size: 14px;
     font-weight: bold;
     text-decoration: none;
-    text-shadow:0 -1px 1px #000;
+    text-shadow: 0 -1px 1px #000;
     border-radius: 5px;
-    -webkit-border-radius:5px;
-    box-shadow:0 1px 3px rgba(0,0,0,0.5);
-    -webkit-box-shadow:0 1px 3px rgba(0,0,0,0.5);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.5);
     color: #fff;
-    background:#000;
-    background:-webkit-gradient(linear,left bottom,left top,color-stop(0.5, #000),color-stop(0.5, #6e6e6e));
-    background:-moz-linear-gradient(#6e6e6e 50%,#000 50%);
-    background:-ms-linear-gradient(#6e6e6e 50%,#000 50%);
-    background:-o-linear-gradient(#6e6e6e 50%,#000 50%);
-    cursor:pointer;
-    text-overflow:ellipsis;
-    overflow:hidden;
-    white-space:nowrap;
+    background: #000;
+    background: linear-gradient(#6e6e6e 50%,#000 50%);
+    background: -webkit-gradient(linear,left bottom,left top,color-stop(0.5, #000),color-stop(0.5, #6e6e6e));
+    background: -moz-linear-gradient(#6e6e6e 50%,#000 50%);
+    background: -o-linear-gradient(#6e6e6e 50%,#000 50%);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    -webkit-border-radius: 5px;
 }
 /* Datewheel button container */
 .dwbc {
@@ -289,12 +280,11 @@
     display: inline-block;
     float: left;
     width: 50%;
-    position:relative;
-    z-index:1010;
+    position: relative;
+    z-index: 1010;
 }
-.dwbc-p .dwbw
-{
-    width:33%;
+.dwbc-p .dwbw {
+    width: 33%;
 }
 /* Hidden label */
 .dwhl {
@@ -322,28 +312,28 @@
     -webkit-box-shadow: 0 0 5px #333;
 }
 .dwbg .dwwbp {
+    background: linear-gradient(#f7f7f7,#bdbdbd);
     background: -webkit-gradient(linear,left bottom,left top,from(#bdbdbd),to(#f7f7f7));
     background: -moz-linear-gradient(#f7f7f7,#bdbdbd);
-    background: -ms-linear-gradient(#f7f7f7,#bdbdbd);
     background: -o-linear-gradient(#f7f7f7,#bdbdbd);
 }
 .dwbg .dwwbm {
+    background: linear-gradient(#bdbdbd,#f7f7f7);
     background: -webkit-gradient(linear,left bottom,left top,from(#f7f7f7),to(#bdbdbd));
     background: -moz-linear-gradient(#bdbdbd,#f7f7f7);
-    background: -ms-linear-gradient(#bdbdbd,#f7f7f7);
     background: -o-linear-gradient(#bdbdbd,#f7f7f7);
 }
 .dwbg .dwb-a {
-    background:#3c7500;
-    background:-webkit-gradient(linear,left bottom,left top,color-stop(0.5, #3c7500),color-stop(0.5, #94c840));
-    background:-moz-linear-gradient(#94c840 50%,#3c7500 50%);
-    background:-ms-linear-gradient(#94c840 50%,#3c7500 50%);
-    background:-o-linear-gradient(#94c840 50%,#3c7500 50%);
+    background: #3c7500;
+    background: linear-gradient(#94c840 50%,#3c7500 50%);
+    background: -webkit-gradient(linear,left bottom,left top,color-stop(0.5, #3c7500),color-stop(0.5, #94c840));
+    background: -moz-linear-gradient(#94c840 50%,#3c7500 50%);
+    background: -o-linear-gradient(#94c840 50%,#3c7500 50%);
 }
 .dwbg .dwwl .dwb-a {
-    background:#3c7500;
-    background:-webkit-gradient(linear,left bottom,left top,from(#3c7500),to(#94c840));
-    background:-moz-linear-gradient(#94c840,#3c7500);
-    background:-ms-linear-gradient(#94c840,#3c7500);
-    background:-o-linear-gradient(#94c840,#3c7500);
+    background: #3c7500;
+    background: linear-gradient(#94c840,#3c7500);
+    background: -webkit-gradient(linear,left bottom,left top,from(#3c7500),to(#94c840));
+    background: -moz-linear-gradient(#94c840,#3c7500);
+    background: -o-linear-gradient(#94c840,#3c7500);
 }
