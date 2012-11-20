@@ -589,10 +589,6 @@
 
             that.settings = s;
 
-            // Set private members
-            m = Math.floor(s.rows / 2);
-            hi = s.height;
-
             // Unbind all events (if re-init)
             elm.unbind('.dw');
 
@@ -604,6 +600,10 @@
                 $.extend(s, p, settings); // Load preset settings
                 $.extend(methods, p.methods); // Extend core methods
             }
+
+            // Set private members
+            m = Math.floor(s.rows / 2);
+            hi = s.height;
 
             if (elm.data('dwro') !== undefined) {
                 e.readOnly = bool(elm.data('dwro'));
