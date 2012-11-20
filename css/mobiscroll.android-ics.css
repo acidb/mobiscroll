@@ -55,7 +55,7 @@
 .android-ics .dwwb span {
     display: none;
 }
-.android-ics .dwwb:after {
+.android-ics .dwwb::after {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -76,7 +76,7 @@
     bottom: 0;
     top: auto;
 }
-.android-ics .dwwbm:after {
+.android-ics .dwwbm::after {
     border-color: transparent transparent #7e7e7e transparent;
 }
 .android-ics .dwwbp:after {
@@ -85,10 +85,10 @@
 .android-ics .dwwl .dwb-a {
     background: #292829;
 }
-.android-ics .dwwbm.dwb-a:after {
+.android-ics .dwwbm.dwb-a::after {
     border-color: transparent transparent #319abd transparent;
 }
-.android-ics .dwwbp.dwb-a:after {
+.android-ics .dwwbp.dwb-a::after {
     border-color: #319abd transparent transparent transparent;
 }
 .android-ics .dwwol {
