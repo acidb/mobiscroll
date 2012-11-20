@@ -204,11 +204,7 @@
             onBeforeShow: function () {
                 inst.settings.wheels = genWheels();
                 if (s.group) {
-                    if (s.rtl) {
-                        inst.temp = ['_' + option, '_' + gr];
-                    } else {
-                        inst.temp = ['_' + gr, '_' + option];
-                    }
+                    inst.temp = s.rtl ? ['_' + option, '_' + group.index()] : ['_' + group.index(), '_' + option];
                 }
             },
             onSelect: function (v, inst) {
