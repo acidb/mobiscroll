@@ -1,5 +1,5 @@
 (function ($) {
-    $.scroller.i18n.es = $.extend($.scroller.i18n.es, {
+    $.mobiscroll.i18n.es = $.extend($.mobiscroll.i18n.es, {
         dateFormat: 'dd/mm/yy',
         dateOrder: 'ddmmyy',
         dayNames: ['Domingo','Lunes','Martes','Mi&#xE9;rcoles','Jueves','Viernes','S&#xE1;bado'],

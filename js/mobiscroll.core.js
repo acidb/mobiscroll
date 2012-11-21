@@ -11,6 +11,7 @@
 
     function Scroller(elem, settings) {
         var that = this,
+            ms = $.mobiscroll,
             e = elem,
             elm = $(e),
             theme,
@@ -580,10 +581,10 @@
         */
         that.init = function (ss) {
             // Get theme defaults
-            theme = $.extend({ defaults: {}, init: empty }, $.scroller.themes[ss.theme || s.theme]);
+            theme = $.extend({ defaults: {}, init: empty }, ms.themes[ss.theme || s.theme]);
 
             // Get language defaults
-            lang = $.scroller.i18n[ss.lang || s.lang];
+            lang = ms.i18n[ss.lang || s.lang];
 
             $.extend(s, theme.defaults, lang, settings, ss);
 
@@ -592,7 +593,7 @@
             // Unbind all events (if re-init)
             elm.unbind('.dw');
 
-            var preset = $.scroller.presets[s.preset];
+            var preset = ms.presets[s.preset];
 
             if (preset) {
                 var p = preset.call(e, that);
@@ -911,7 +912,7 @@
         $('.dwb-a').removeClass('dwb-a');
     });
 
-    $.fn.scroller = function (method) {
+    $.fn.mobiscroll = function (method) {
         if (methods[method]) {
             return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
         }
@@ -921,7 +922,7 @@
         $.error('Unknown method');
     };
 
-    $.scroller = {
+    $.mobiscroll = {
         /**
         * Set settings for all instances.
         * @param {Object} o - New default settings.
@@ -933,5 +934,8 @@
         themes: {},
         i18n: {}
     };
+
+    $.scroller = $.scroller || $.mobiscroll;
+    $.fn.scroller = $.fn.scroller || $.fn.mobiscroll;
 
 })(jQuery);

@@ -1,6 +1,6 @@
 (function ($) {
 
-    $.scroller.themes.android = {
+    $.mobiscroll.themes.android = {
         defaults: {
             dateOrder: 'Mddyy',
             mode: 'clickpick',

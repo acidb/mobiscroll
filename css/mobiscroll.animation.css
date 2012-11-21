@@ -542,9 +542,11 @@
 }
 @-webkit-keyframes dw-sd-in {
     from {
+        opacity: 1;
         -webkit-transform: translateY(-100%);
     }
     to {
+        opacity: 1;
         -webkit-transform: translateY(0);
     }
 }
@@ -567,9 +569,11 @@
 }
 @-webkit-keyframes dw-sd-out {
     from {
+        opacity: 1;
         -webkit-transform: translateY(0);
     }
     to {
+        opacity: 1;
         -webkit-transform: translateY(-100%);
     }
 }
@@ -592,9 +596,11 @@
 }
 @-webkit-keyframes dw-su-in {
     from {
+        opacity: 1;
         -webkit-transform: translateY(100%);
     }
     to {
+        opacity: 1;
         -webkit-transform: translateY(0);
     }
 }
@@ -617,9 +623,11 @@
 }
 @-webkit-keyframes dw-su-out {
     from {
+        opacity: 1;
         -webkit-transform: translateY(0);
     }
     to {
+        opacity: 1;
         -webkit-transform: translateY(100%);
     }
 }

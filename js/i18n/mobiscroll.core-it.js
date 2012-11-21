@@ -1,5 +1,5 @@
 (function ($) {
-    $.scroller.i18n.it = $.extend($.scroller.i18n.it, {
+    $.mobiscroll.i18n.it = $.extend($.mobiscroll.i18n.it, {
         setText: 'OK',
         cancelText: 'Annulla'
     });

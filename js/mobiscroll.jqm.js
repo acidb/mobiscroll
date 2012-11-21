@@ -1,6 +1,6 @@
 (function ($) {
 
-    $.scroller.themes.jqm = {
+    $.mobiscroll.themes.jqm = {
         defaults: {
             jqmBody: 'c',
             jqmHeader:'b',

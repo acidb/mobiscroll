@@ -1,5 +1,5 @@
 (function ($) {
-    $.scroller.i18n.hu = $.extend($.scroller.i18n.hu, {
+    $.mobiscroll.i18n.hu = $.extend($.mobiscroll.i18n.hu, {
         dateFormat: 'dd.mm.yy',
         dateOrder: 'ddmmyy',
         dayNames: ['Vasárnap', 'Hétfő', 'Kedd', 'Szerda', 'Csütörtök', 'Péntek', 'Szombat'],

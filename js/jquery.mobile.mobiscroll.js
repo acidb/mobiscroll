@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 (function($, undefined ) {
 
-    $.widget( "mobile.mobiscroll", $.mobile.widget, {
+    $.widget( "mobile.jqmMobiscroll", $.mobile.widget, {
         options: {
             theme: 'jqm',
             preset: 'date',
@@ -27,7 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         _create: function() {
             var input = this.element,
                 o = $.extend(this.options, input.jqmData('options'));
-            input.scroller(o);
+            input.mobiscroll(o);
         }
     });
 
@@ -41,7 +41,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
         $(':jqmData(role="mobiscroll")', c.target).each(function() {
             if (typeof ($(this).data("mobiscroll")) === "undefined") {
-                $(this).mobiscroll();
+                $(this).jqmMobiscroll();
             }
         })
     });

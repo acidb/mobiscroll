@@ -10,8 +10,8 @@
         }
     }
 
-    $.scroller.themes['android-ics'] = theme;
-    $.scroller.themes['android-ics light'] = theme;
+    $.mobiscroll.themes['android-ics'] = theme;
+    $.mobiscroll.themes['android-ics light'] = theme;
 
 })(jQuery);
 

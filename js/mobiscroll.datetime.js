@@ -1,7 +1,8 @@
 /*jslint eqeq: true, plusplus: true, undef: true, sloppy: true, vars: true, forin: true */
 (function ($) {
 
-    var date = new Date(),
+    var ms = $.mobiscroll,
+        date = new Date(),
         defaults = {
             dateFormat: 'mm/dd/yy',
             dateOrder: 'mmddy',
@@ -56,10 +57,10 @@
                 var min = that.attr('min'),
                     max = that.attr('max');
                 if (min) {
-                    html5def.minDate = $.scroller.parseDate(format, min);
+                    html5def.minDate = ms.parseDate(format, min);
                 }
                 if (max) {
-                    html5def.maxDate = $.scroller.parseDate(format, max);
+                    html5def.maxDate = ms.parseDate(format, max);
                 }
             }
 
@@ -116,10 +117,6 @@
                         offset++;
                         w[s.monthText] = {};
                         for (i = 0; i < 12; i++) {
-                            /*w[s.monthText][i] =
-                                        dord.match(/MM/) ? s.monthNames[i] :
-                                            dord.match(/M/) ? s.monthNamesShort[i] :
-                                                dord.match(/mm/) && i < 9 ? '0' + (i + 1) : i + 1;*/
                             var str = dord.replace(/[dy]/gi, '').replace(/mm/, i < 9 ? '0' + (i + 1) : i + 1).replace(/m/, i);
                             w[s.monthText][i] = str.match(/MM/) ? str.replace(/MM/, '<span class="dw-mon">' + s.monthNames[i] + '</span>') : str.replace(/M/, '<span class="dw-mon">' + s.monthNamesShort[i]) + '</span>';
                         }
@@ -237,7 +234,7 @@
                 button3: s.showNow ? function () { inst.setDate(new Date(), false, 0.3, true); } : undefined,
                 wheels: wheels,
                 headerText: function (v) {
-                    return $.scroller.formatDate(hformat, getDate(inst.temp), s);
+                    return ms.formatDate(hformat, getDate(inst.temp), s);
                 },
                 /**
                 * Builds a date object from the wheel selections and formats it to the given date/time format
@@ -245,7 +242,7 @@
                 * @return {String} - The formatted date string
                 */
                 formatResult: function (d) {
-                    return $.scroller.formatDate(format, getDate(d), s);
+                    return ms.formatDate(format, getDate(d), s);
                 },
                 /**
                 * Builds a date object from the input value and returns an array to set wheel values
@@ -256,7 +253,7 @@
                         i,
                         result = [];
                     try {
-                        d = $.scroller.parseDate(format, val, s);
+                        d = ms.parseDate(format, val, s);
                     } catch (e) {
                     }
                     // Set wheels
@@ -379,7 +376,7 @@
                     * @return {Date}
                     */
                     getDate: function (temp) {
-                        var inst = $(this).scroller('getInst');
+                        var inst = $(this).mobiscroll('getInst');
                         if (inst) {
                             return inst.getDate(temp ? inst.temp : inst.values);
                         }
@@ -395,7 +392,7 @@
                             fill = false;
                         }
                         return this.each(function () {
-                            var inst = $(this).scroller('getInst');
+                            var inst = $(this).mobiscroll('getInst');
                             if (inst) {
                                 inst.setDate(d, fill, time, temp);
                             }
@@ -405,9 +402,9 @@
             };
         };
 
-    $.scroller.presets.date = preset;
-    $.scroller.presets.datetime = preset;
-    $.scroller.presets.time = preset;
+    ms.presets.date = preset;
+    ms.presets.datetime = preset;
+    ms.presets.time = preset;
 
     /**
     * Format a date into a string value with a specified format.
@@ -416,7 +413,7 @@
     * @param {Object} settings - Settings.
     * @return {String} - Returns the formatted date string.
     */
-    $.scroller.formatDate = function (format, date, settings) {
+    ms.formatDate = function (format, date, settings) {
         if (!date) {
             return null;
         }
@@ -513,7 +510,7 @@
     * @param {Object} settings - Settings.
     * @return {Date} - Returns the extracted date.
     */
-    $.scroller.parseDate = function (format, value, settings) {
+    ms.parseDate = function (format, value, settings) {
         var def = new Date();
 
         if (!format || !value) {

@@ -1,6 +1,6 @@
 (function ($) {
 
-    $.scroller.themes.ios = {
+    $.mobiscroll.themes.ios = {
         defaults: {
             dateOrder: 'MMdyy',
             rows: 5,

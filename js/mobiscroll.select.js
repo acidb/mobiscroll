@@ -9,7 +9,7 @@
         groupLabel: 'Groups'
     };
 
-    $.scroller.presets.select = function (inst) {
+    $.mobiscroll.presets.select = function (inst) {
         var s = $.extend({}, defaults, inst.settings),
             elm = $(this),
             option = elm.val(),
@@ -233,7 +233,7 @@
             methods: {
                 setValue: function (d, fill, time) {
                     return this.each(function () {
-                        var inst = $(this).scroller('getInst');
+                        var inst = $(this).mobiscroll('getInst');
                         if (inst) {
                             if (inst.setSelectVal) {
                                 inst.setSelectVal(d, fill, time);
@@ -245,7 +245,7 @@
                     });
                 },
                 getValue: function (temp) {
-                    var inst = $(this).scroller('getInst');
+                    var inst = $(this).mobiscroll('getInst');
                     if (inst) {
                         if (inst.getSelectVal) {
                             return inst.getSelectVal(temp);
