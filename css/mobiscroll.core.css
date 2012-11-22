@@ -172,6 +172,10 @@
 .dww li.dw-h {
     visibility: hidden;
 }
+.dw-i {
+    position: relative;
+    height: 100%;
+}
 /* Wheel +/- buttons */
 .dwwb {
     position: absolute;

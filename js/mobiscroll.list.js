@@ -315,7 +315,7 @@
         }
 
         if (!s.wheelArray) {
-            elm.html('').hide().closest('.ui-field-contain').trigger('create');
+            elm.hide().closest('.ui-field-contain').trigger('create');
         }
 
         return {
