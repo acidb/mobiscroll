@@ -74,6 +74,11 @@
             // Call validation event
             s.validate.call(e, dw, index, time);
 
+            // Call init event if exist
+            if (typeof index === "undefined" && typeof s.init === "function") {
+                s.init.call(e, dw);
+            }
+
             // Set scrollers to position
             $('.dww ul', dw).each(function (i) {
                 var t = $(this),
