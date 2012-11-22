@@ -23,6 +23,61 @@ It'd be cool to see how you're using Mobiscroll!
 
 We're looking at showcasing some of the best work on http://mobiscroll.com . Feel free to let us know on twitter @mobiscroll!
 
+Changelog 2.2
+=============
+
+Enhancements
+------------
+
+_Core_
+
+  * Added: move the wheel to the selected value on tap
+
+  * Added: selected values now have a 'dw-sel' css class
+
+  * Added: support for Windows Phone 8
+
+_Datetime preset_
+
+  * Added: month and day names are wrapped in <span class="dw-mon"> and <span class="dw-day"> to allow more styling
+
+_Select preset_
+
+_List preset_
+
+  * Added: a new preset which transforms ul/ol html lists into a scroller
+
+_Animation plugin_
+
+  * Added: Internet Explorer 10 support
+
+_Themes_
+
+  * Added: Windows Phone theme
+
+Bugfixes
+--------
+
+_Core_
+
+  * Fixed: onClose received null as valueText parameter
+
+  * Fixed: button flickering during animation on Chrome
+
+  * Fixed: options were not correctly updated 'on the fly' (by using the 'option' method on an existing instance) - Issue 112 on Google Code
+
+  * Fixed: wheel could not be stopped on the correct place if another wheel was scrolled before the animation finished
+
+  * Fixed: +/- buttons didn't reappear in mixed mode, if a wheel was changed (e.g. with group select preset)
+
+_Datetime preset_
+
+  * Fixed: If input had no value, default date/datetime was the time when the control was initialized, not when it was shown
+
+_Select preset_
+
+  * Fixed: setValue did not set correctly the second wheel, if optgroup was not the original
+
 Changelog 2.1
 =============
 
