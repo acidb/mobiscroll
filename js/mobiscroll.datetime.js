@@ -339,6 +339,7 @@
                                 if (s.invalid.daysOfWeek) {
                                     var first = new Date(y, m, 1).getDay();
                                     $.each(s.invalid.daysOfWeek, function (i, v) {
+                                        var j;
                                         for (j = v - first; j < maxdays; j += 7) {
                                             if (j >= 0) {
                                                 idx.push(j);
