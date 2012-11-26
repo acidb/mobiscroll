@@ -922,7 +922,7 @@
         $.error('Unknown method');
     };
 
-    $.mobiscroll = {
+    $.mobiscroll = $.mobiscroll || {
         /**
         * Set settings for all instances.
         * @param {Object} o - New default settings.

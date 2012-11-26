@@ -60,7 +60,7 @@
     border-radius: 0 3px 3px 0;
     -webkit-border-radius: 0 3px 3px 0;
 }
-.ios .dww {
+.ios .dwsc .dww {
     margin: 0 3px;
     background: #fff;
     background: linear-gradient(#333 0%,#999 10%,#fff 30%,#fff 70%,#999 90%,#333 100%);
@@ -70,16 +70,16 @@
     border-radius: 0;
     -webkit-border-radius: 0;
 }
-.ios .dwpm .dww {
+.ios .dw .dwpm .dww {
     background: linear-gradient(#000 0%,#fff 48%,#fff 52%,#000 100%);
     background: -webkit-gradient(linear,left bottom,left top,from(#333),color-stop(0.48, #fff),color-stop(0.52, #fff),to(#333));
     background: -moz-linear-gradient(#000 0%,#fff 48%,#fff 52%,#000 100%);
     background: -o-linear-gradient(#000 0%,#fff 48%,#fff 52%,#000 100%);
 }
-.ios .dwpm .dwwl {
+.ios .dw .dwpm .dwwl {
     margin: 4px 2px;
 }
-.ios .dwpm .dww {
+.ios .dw .dwpm .dww {
     margin: 0;
     border: 0;
 }
@@ -109,7 +109,7 @@
     -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
     filter: alpha(opacity=50);
 }
-.ios .dwbc {
+.ios .dw .dwbc {
     position: absolute;
     top: -40px;
     left: 0;
@@ -125,7 +125,7 @@
     border-top: 1px solid #888;
     border-top: 1px solid rgba(255,255,255,0.5);
 }
-.ios .dwb {
+.ios .dw .dwb {
     margin: 0 5px;
     padding: 0 10px;
     display: inline-block;
@@ -153,7 +153,7 @@
     opacity: .8;
     filter: alpha(opacity=80);
 }
-.ios .dwwb {
+.ios .dw .dwwb {
     color: #fff;
     border: 0;
     background: #3f4e68;
@@ -162,7 +162,7 @@
     background: -moz-linear-gradient(#c7d1e2 0%,#808ea6 50%,#75859f 50%,#3f4e68 100%);
     background: -o-linear-gradient(#c7d1e2 0%,#808ea6 50%,#75859f 50%,#3f4e68 100%);
 }
-.ios .dwwl .dwb-a {
+.ios .dw .dwwl .dwb-a {
     background: #252c36;
     background: linear-gradient(#6b6e75 0%,#272e38 50%,#171e28 50%,#252c36 100%);
     background: -webkit-gradient(linear,left bottom,left top,from(#252c36),color-stop(0.5, #171e28),color-stop(0.5, #272e38),to(#6b6e75));

@@ -25,13 +25,13 @@
 .wp .dwl {
     display: none;
 }
-.wp .dww, .wp .dwpm .dww {
+.wp .dw .dwwl .dww {
     margin: 0 3px;
     background: none;
     border: 0;
     color: #fff;
 }
-.wp .dww li {
+.wp .dw .dww li {
     position: relative;
     padding: 0;
     font-size: 26px;
@@ -58,11 +58,11 @@
     -moz-box-sizing: border-box;
     filter: inherit;
 }
-.wp .wpa li, .wp .dwa li {
+.wp .dw .wpa li, .wp .dw .dwa li {
     opacity: .3;
     filter: Alpha(Opacity=30);
 }
-.wp .wpa li.dw-v, .wp .dwa li.dw-v {
+.wp .dw .wpa li.dw-v, .wp .dw .dwa li.dw-v {
     opacity: 1;
     filter: Alpha(Opacity=100);
 }
@@ -102,7 +102,7 @@
     float: none;
     width: auto;
 }
-.wp .dwb {
+.wp .dw .dwb {
     position: relative;
     top: 0;
     min-width: 32px;
@@ -153,10 +153,10 @@
     top: -3px;
 }
 /* +/- buttons */
-.wp .dwwl .dwb-a {
+.wp .dw .dwwl .dwb-a {
     background: #1f1f1f;
 }
-.wp .dwwb {
+.wp .dw .dwwb {
     background: #1f1f1f;
     border-radius: 0;
     box-shadow: none;
@@ -225,7 +225,7 @@
 .wp.light .dwb:after {
     background-image: url(wp-icons-light.png);
 }
-.wp.light .dwwb {
+.wp.light .dw .dwwb {
     background: #dedede;
 }
 .wp.light .dwwb span {
