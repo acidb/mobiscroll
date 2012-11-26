@@ -39,9 +39,7 @@ _Core_
 
 _Datetime preset_
 
-  * Added: month and day names are wrapped in <span class="dw-mon"> and <span class="dw-day"> to allow more styling
-
-_Select preset_
+  * Added: month and day names are wrapped in &lt;span class="dw-mon"&gt; and &lt;span class="dw-day"&gt; to allow more styling
 
 _List preset_
 
