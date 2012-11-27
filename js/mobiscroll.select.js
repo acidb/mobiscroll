@@ -191,7 +191,7 @@
                     $('li[data-val="_' + v + '"]', t).removeClass('dw-v');
                 });
             },
-            onAnimStart: function(index, time, inst) {
+            onAnimStart: function(index) {
                 if (index === grIdx) { // If group wheel is scroller, lock the options wheel
                     inst.settings.readonly = [s.rtl, !s.rtl];
                 }

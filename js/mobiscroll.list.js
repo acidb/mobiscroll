@@ -9,7 +9,6 @@
     $.mobiscroll.presets.list = function (inst) {
         var s = $.extend({}, defaults, inst.settings),
             elm = $(this),
-            shTime,
             input,
             id = this.id + '_dummy',
             lvl = 0,
@@ -342,40 +341,30 @@
                     input.blur();
                 }
             },
+            onAnimStart: function(index) {
+                inst.settings.readonly = createROVector(lvl, index);
+            },
             validate: function (dw, index, time) {
                 var t = inst.temp;
                 if (index !== undefined && currWheelVector[index] != t[index]) {
-                    inst.settings.readonly = createROVector(lvl, index);
-
-                    $('.dwwl' + index, dw).bind('mousedown touchstart', function (e) {
-                        clearTimeout(shTime);
-                        inst.settings.readonly = false;
-                        $(this).unbind('mousedown touchstart');
-                    });
-
-                    shTime = setTimeout(function () {
-                        inst.settings.wheels = generateWheelsFromVector(t, null, index);
-                        var args = [],
-                            i = index,
-                            o = calcLevelOfVector2(t, index);
-                        inst.temp = o.nVector.slice(0);
-
-                        while (i < o.lvl) {
-                            args.push(i++);
-                        }
-
-                        hideWheels(dw, o.lvl);
-                        $('.dwwl' + index, dw).unbind('mousedown touchstart');
-                        inst.changeWheel.apply(null, Array.prototype.slice.call(args, 0));
-                        inst.settings.readonly = false;
-                        currWheelVector = inst.temp.slice(0);
-                        setDisabled(dw, o.lvl, wa, inst.temp);
-                    }, time * 1000);
+                    inst.settings.wheels = generateWheelsFromVector(t, null, index);
+                    var args = [],
+                        i = index,
+                        o = calcLevelOfVector2(t, index);
+                    inst.temp = o.nVector.slice(0);
+                    while (i < o.lvl) {
+                        args.push(i++);
+                    }
+                    hideWheels(dw, o.lvl);
+                    inst.changeWheel.apply(null, Array.prototype.slice.call(args, 0));
+                    currWheelVector = inst.temp.slice(0);
+                    setDisabled(dw, o.lvl, wa, inst.temp);
                 } else {
                     var o = calcLevelOfVector2(t, t.length);
                     setDisabled(dw, o.lvl, wa, t);
                     hideWheels(dw, o.lvl);
                 }
+                inst.settings.readonly = false;
             }
         };
     };
