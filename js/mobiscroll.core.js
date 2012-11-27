@@ -556,11 +556,11 @@
                 // Scroll start
                 if (!isReadOnly(this) && !click && s.mode != 'clickpick') {
                     move = true;
-                    moved = false;
                     target = $('ul', this);
                     target.closest('.dwwl').addClass('dwa');
                     pos = +target.data('pos');
                     setGlobals(target);
+                    moved = iv[index] !== null; // Don't allow tap, if still moving
                     start = getY(e);
                     startTime = new Date();
                     stop = start;
