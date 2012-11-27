@@ -70,7 +70,8 @@
             that.setValue(true);
         }
 
-        function scrollToPos(time, orig, index, manual, dir) {
+        function scrollToPos(time, index, manual, dir) {
+
             // Call validation event
             s.validate.call(e, dw, index, time);
 
@@ -105,9 +106,6 @@
                     }
                 }
 
-                //val = cell.attr('data-val');
-
-                //if (val != that.temp[i] || sc) {
                 if (!(cell.hasClass('dw-sel')) || sc) {
                     // Set valid value
                     that.temp[i] = cell.attr('data-val');
@@ -117,17 +115,13 @@
                     cell.addClass('dw-sel');
 
                     // Scroll to position
-                    that.scroll(t, v, sc ? time : 0.2, sc ? orig : undefined, i);
+                    //that.scroll(t, v, sc ? time : 0.2, sc ? orig : undefined, i);
+                    that.scroll(t, v, time);
                 }
             });
 
             // Reformat value if validation changed something
             that.change(manual);
-        }
-
-        function scrollToValid(cell, val, i, dir) {
-
-            return val;
         }
 
         function position() {
@@ -266,7 +260,7 @@
         * @param {Number} orig - Original value.
         * @param {Number} index - Index of the changed wheel.
         */
-        that.scroll = function (t, val, time, orig, index) {
+        that.scroll = function (t, val, time, orig, index, callback) {
 
             function getVal(t, b, c, d) {
                 return c * Math.sin(t / d * (Math.PI / 2)) + b;
@@ -280,6 +274,8 @@
 
             var px = (m - val) * hi,
                 i;
+
+            callback = callback || empty;
 
             t.attr('style', (time ? (prefix + '-transition:all ' + time.toFixed(1) + 's ease-out;') : '') + (has3d ? (prefix + '-transform:translate3d(0,' + px + 'px,0);') : ('top:' + px + 'px;')));
 
@@ -295,10 +291,12 @@
                     t.data('pos', Math.round(getVal(i, orig, val - orig, time)));
                     if (i >= time) {
                         ready();
+                        callback();
                     }
                 }, 100);
             } else {
                 t.data('pos', val);
+                callback();
             }
         };
 
@@ -335,8 +333,8 @@
         * @param {Number} i - Currently changed wheel index, -1 if initial validation.
         * @param {Number} dir - Scroll direction
         */
-        that.validate = function (time, orig, i, dir) {
-            scrollToPos(time, orig, i, true, dir);
+        that.validate = function (i, dir) {
+            scrollToPos(0.2, i, true, dir);
         };
 
         /**
@@ -674,13 +672,16 @@
         val = val > max ? max : val;
         val = val < min ? min : val;
 
-        var cell = $('li', t).eq(val);
+        var cell = $('li', t).eq(val),
+            time = anim ? (val == orig ? 0.1 : Math.abs((val - orig) * 0.1)) : 0;
 
         // Set selected scroller value
         inst.temp[index] = cell.attr('data-val');
 
-        // Validate
-        inst.validate(anim ? (val == orig ? 0.1 : Math.abs((val - orig) * 0.1)) : 0, orig, index, dir);
+        inst.scroll(t, val, time, orig, index, function() {
+            // Validate on animation end
+            inst.validate(index, dir);
+        });
     }
 
     var scrollers = {},
