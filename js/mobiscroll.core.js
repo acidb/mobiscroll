@@ -1,6 +1,6 @@
 /*jslint eqeq: true, plusplus: true, undef: true, sloppy: true, vars: true, forin: true */
 /*!
- * jQuery MobiScroll v2.2
+ * jQuery MobiScroll v2.3
  * http://mobiscroll.com
  *
  * Copyright 2010-2011, Acid Media
@@ -115,8 +115,7 @@
                     cell.addClass('dw-sel');
 
                     // Scroll to position
-                    //that.scroll(t, v, sc ? time : 0.2, sc ? orig : undefined, i);
-                    that.scroll(t, v, time);
+                    that.scroll(t, i, v, time);
                 }
             });
 
@@ -255,12 +254,12 @@
         /**
         * Scrolls target to the specified position
         * @param {Object} t - Target wheel jQuery object.
+        * @param {Number} index - Index of the changed wheel.
         * @param {Number} val - Value.
         * @param {Number} time - Duration of the animation, optional.
         * @param {Number} orig - Original value.
-        * @param {Number} index - Index of the changed wheel.
         */
-        that.scroll = function (t, val, time, orig, index, callback) {
+        that.scroll = function (t, index, val, time, orig, callback) {
 
             function getVal(t, b, c, d) {
                 return c * Math.sin(t / d * (Math.PI / 2)) + b;
@@ -294,6 +293,8 @@
                         callback();
                     }
                 }, 100);
+                // Trigger animation start event
+                s.onAnimStart.call(e, index, time, that);
             } else {
                 t.data('pos', val);
                 callback();
@@ -560,11 +561,10 @@
                     target.closest('.dwwl').addClass('dwa');
                     pos = +target.data('pos');
                     setGlobals(target);
-                    clearInterval(iv[index]);
                     start = getY(e);
                     startTime = new Date();
                     stop = start;
-                    that.scroll(target, pos);
+                    that.scroll(target, index, pos);
                 }
             });
 
@@ -660,7 +660,9 @@
     }
 
     function getY(e) {
-        return e.changedTouches || (e.originalEvent && e.originalEvent.changedTouches) ? (e.originalEvent ? e.originalEvent.changedTouches[0].pageY : e.changedTouches[0].pageY) : e.pageY;
+        var org = e.originalEvent,
+            ct = e.changedTouches;
+        return ct || (org && org.changedTouches) ? (org ? org.changedTouches[0].pageY : ct[0].pageY) : e.pageY;
 
     }
 
@@ -668,19 +670,24 @@
         return (v === true || v == 'true');
     }
 
-    function calc(t, val, dir, anim, orig) {
+    function constrain(val, min, max) {
         val = val > max ? max : val;
         val = val < min ? min : val;
+        return val;
+    }
+
+    function calc(t, val, dir, anim, orig) {
+        val = constrain(val, min, max);
 
         var cell = $('li', t).eq(val),
+            idx = index,
             time = anim ? (val == orig ? 0.1 : Math.abs((val - orig) * 0.1)) : 0;
 
-        // Set selected scroller value
-        inst.temp[index] = cell.attr('data-val');
-
-        inst.scroll(t, val, time, orig, index, function() {
+        inst.scroll(t, idx, val, time, orig, function() {
+            // Set selected scroller value
+            inst.temp[idx] = cell.attr('data-val');
             // Validate on animation end
-            inst.validate(index, dir);
+            inst.validate(idx, dir);
         });
     }
 
@@ -703,7 +710,7 @@
         pos,
         moved,
         mod = document.createElement('modernizr').style,
-        has3d = testProps(['perspectiveProperty', 'WebkitPerspective', 'MozPerspective', 'OPerspective', 'msPerspective']),// && 'webkitPerspective' in document.documentElement.style,
+        has3d = testProps(['perspectiveProperty', 'WebkitPerspective', 'MozPerspective', 'OPerspective', 'msPerspective']),
         prefix = testPrefix(),
         START_EVENT = 'touchstart mousedown',
         MOVE_EVENT = 'touchmove mousemove',
@@ -735,6 +742,7 @@
             onSelect: empty,
             onCancel: empty,
             onChange: empty,
+            onAnimStart: empty,
             formatResult: function (d) {
                 return d.join(' ');
             },
@@ -866,10 +874,7 @@
         if (move) {
             e.preventDefault();
             stop = getY(e);
-            var val = pos + (start - stop) / h;
-            val = val > (max + 1) ? (max + 1) : val;
-            val = val < (min - 1) ? (min - 1) : val;
-            inst.scroll(target, val);
+            inst.scroll(target, index, constrain(pos + (start - stop) / h, min - 1, max + 1));
             moved = true;
         }
     });
@@ -879,14 +884,11 @@
             e.preventDefault();
 
             var time = new Date() - startTime,
-                val = pos + (start - stop) / h,
+                val = constrain(pos + (start - stop) / h, min - 1, max + 1),
                 speed,
                 dist,
                 tindex,
                 ttop = target.offset().top;
-
-            val = val > (max + 1) ? (max + 1) : val;
-            val = val < (min - 1) ? (min - 1) : val;
 
             if (time < 300) {
                 speed = (stop - start) / time;
@@ -897,11 +899,13 @@
             } else {
                 dist = stop - start;
             }
+
             if (!dist && !moved) { // this is a "tap"
                 tindex = Math.floor((stop - ttop) / h);
             } else {
                 tindex = Math.round(pos - dist / h);
             }
+
             calc(target, tindex, 0, true, Math.round(val));
             move = false;
             target = null;

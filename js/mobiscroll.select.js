@@ -23,7 +23,8 @@
             label = s.label !== undefined ? s.label : (l2.length ? l2.text() : elm.attr('name')),
             invalid = [],
             main = {},
-            wIndex = {}, // wheel index container
+            grIdx,
+            optIdx,
             shTime,
             roPre = inst.settings.readonly,
             w;
@@ -83,15 +84,15 @@
 
         if (s.group) {
             if (s.rtl) {
-                wIndex.groups = 1;
-                wIndex.options = 0;
+                grIdx = 1;
+                optIdx = 0;
             } else {
-                wIndex.groups = 0;
-                wIndex.options = 1;
+                grIdx = 0;
+                optIdx = 1;
             }
         } else {
-            wIndex.groups = -1;
-            wIndex.options = 0;
+            grIdx = -1;
+            optIdx = 0;
         }
 
         $('#' + id).remove();
@@ -125,7 +126,7 @@
                 inst.temp = s.rtl ? ['_' + option, '_' + group.index()] : ['_' + group.index(), '_' + option];
                 if (gr !== prev) { // Need to regenerate wheels, if group changed
                     inst.settings.wheels = genWheels();
-                    inst.changeWheel(wIndex.options);
+                    inst.changeWheel(optIdx);
                     prev = gr + '';
                 }
             } else {
@@ -148,7 +149,7 @@
 
         inst.getSelectVal = function (temp) {
             var val = temp ? inst.temp : inst.values;
-            return replace(val[wIndex.options]);
+            return replace(val[optIdx]);
         };
 
         return {
@@ -156,7 +157,7 @@
             wheels: w,
             headerText: false,
             formatResult: function (d) {
-                return main[option];
+                return main[replace(d[optIdx])];
             },
             parseValue: function () {
                 option = elm.val();
@@ -165,41 +166,35 @@
                 return s.group && s.rtl ? ['_' + option, '_' + gr] : s.group ? ['_' + gr, '_' + option] : ['_' + option];
             },
             validate: function (dw, index, time) {
-                if (index === wIndex.groups) {
-                    gr = replace(inst.temp[wIndex.groups]);
+                if (index === grIdx) {
+                    gr = replace(inst.temp[grIdx]);
 
                     if (gr !== prev) {
-                        inst.settings.readonly = [s.rtl, !s.rtl];
                         group = elm.find('optgroup').eq(gr);
                         gr = group.index();
                         option = group.find('option').eq(0).val();
                         option = option || elm.val();
-
-                        clearTimeout(shTime);
-                        shTime = setTimeout(function () {
-                            inst.settings.wheels = genWheels();
-                            if (s.group) {
-                                inst.temp = s.rtl ? ['_' + option, '_' + group.index()] : ['_' + group.index(), '_' + option];
-                                inst.changeWheel(wIndex.options);
-                                prev = gr + '';
-                            }
-                            inst.settings.readonly = roPre;
-                        }, time * 1000);
-                    } else {
-                        inst.settings.readonly = roPre;
+                        inst.settings.wheels = genWheels();
+                        if (s.group) {
+                            inst.temp = s.rtl ? ['_' + option, '_' + group.index()] : ['_' + group.index(), '_' + option];
+                            inst.changeWheel(optIdx);
+                            prev = gr + '';
+                        }
                     }
+                    inst.settings.readonly = roPre;
                 } else {
-                    option = replace(inst.temp[wIndex.options]);
+                    option = replace(inst.temp[optIdx]);
                 }
 
+                var t = $('ul', dw).eq(optIdx);
                 $.each(s.invalid, function (i, v) {
-                    $('li[data-val="_' + v + '"]', dw).removeClass('dw-v');
+                    $('li[data-val="_' + v + '"]', t).removeClass('dw-v');
                 });
             },
-            onShow: function (dw) {
-                $('.dwwl' + wIndex.groups, dw).bind('mousedown touchstart', function (e) {
-                    clearTimeout(shTime);
-                });
+            onAnimStart: function(index, time, inst) {
+                if (index === grIdx) { // If group wheel is scroller, lock the options wheel
+                    inst.settings.readonly = [s.rtl, !s.rtl];
+                }
             },
             onBeforeShow: function () {
                 inst.settings.wheels = genWheels();
@@ -210,7 +205,7 @@
             onSelect: function (v, inst) {
                 input.val(v);
                 prevent = true;
-                elm.val(option).trigger('change');
+                elm.val(replace(inst.values[optIdx])).trigger('change');
                 if (s.group) {
                     inst.values = null;
                 }
@@ -224,7 +219,7 @@
                 if (s.display == 'inline') {
                     input.val(v);
                     prevent = true;
-                    elm.val(replace(inst.temp[wIndex.options])).trigger('change');
+                    elm.val(replace(inst.temp[optIdx])).trigger('change');
                 }
             },
             onClose: function () {
