@@ -21,6 +21,7 @@
             hi,
             v,
             dw,
+            audio,
             warr = [],
             iv = {},
             input = elm.is('input'),
@@ -272,6 +273,8 @@
             }
 
             var px = (m - val) * hi,
+                last,
+                p,
                 i;
 
             callback = callback || empty;
@@ -287,7 +290,12 @@
                 t.closest('.dwwl').addClass('dwa');
                 iv[index] = setInterval(function () {
                     i += 0.1;
-                    t.data('pos', Math.round(getVal(i, orig, val - orig, time)));
+                    p = Math.round(getVal(i, orig, val - orig, time));
+                    if (p != last) { // Play sound if position changed
+                        audio.play();
+                        last = p;
+                    }
+                    t.data('pos', p);
                     if (i >= time) {
                         ready();
                         callback();
@@ -453,6 +461,9 @@
             // Create wheels containers
             var html = '<div class="' + s.theme + ' dw-' + s.display + '">' + (s.display == 'inline' ? '<div class="dw dwbg dwi"><div class="dwwr">' : persPS + '<div class="dwo"></div><div class="dw dwbg ' + mAnim + '"><div class="dw-arrw"><div class="dw-arrw-i"><div class="dw-arr"></div></div></div><div class="dwwr">' + (s.headerText ? '<div class="dwv"></div>' : ''));
 
+            // Add audio
+            html += '<audio preload="auto"><source src="scroll.mp3" controls></source></audio>';
+
             for (i = 0; i < s.wheels.length; i++) {
                 html += '<div class="dwc' + (s.mode != 'scroller' ? ' dwpm' : ' dwsc') + (s.showLabel ? '' : ' dwhl') + '"><div class="dwwc dwrc"><table cellpadding="0" cellspacing="0"><tr>';
                 // Create wheels
@@ -468,6 +479,8 @@
             }
             html += (s.display != 'inline' ? '<div class="dwbc' + (s.button3 ? ' dwbc-p' : '') + '"><span class="dwbw dwb-s"><span class="dwb">' + s.setText + '</span></span>' + (s.button3 ? '<span class="dwbw dwb-n"><span class="dwb">' + s.button3Text + '</span></span>' : '') + '<span class="dwbw dwb-c"><span class="dwb">' + s.cancelText + '</span></span></div>' + persPE : '<div class="dwcc"></div>') + '</div></div></div>';
             dw = $(html);
+
+            audio = $('audio', dw)[0];
 
             scrollToPos();
 
