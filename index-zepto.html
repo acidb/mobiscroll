@@ -6,7 +6,7 @@
 
     <title>Mobiscroll</title>
 
-    <script type="text/javascript" src="http://cdn.jqmobi.com/1.11/jq.mobi.min.js"></script>
+    <script type="text/javascript" src="http://zeptojs.com/zepto.js"></script>
 
     <style type="text/css">
         body {
@@ -41,7 +41,6 @@
             background-image: -o-linear-gradient(#3C3C3C,#111);
             background-image: linear-gradient(#3C3C3C,#111);
         }
-
         .header h1 {
             text-align: center;
             font-size: 16px;
@@ -63,7 +62,7 @@
 
     </style>
 
-    <script src="js/mobiscroll.jqmobi.js" type="text/javascript"></script>
+    <script src="js/mobiscroll.zepto.js" type="text/javascript"></script>
     <script src="js/mobiscroll.core.js" type="text/javascript"></script>
 
     <script src="js/mobiscroll.datetime.js" type="text/javascript"></script>
@@ -73,15 +72,18 @@
     <script src="js/mobiscroll.ios.js" type="text/javascript"></script>
     <script src="js/mobiscroll.android.js" type="text/javascript"></script>
     <script src="js/mobiscroll.android-ics.js" type="text/javascript"></script>
+    <script src="js/mobiscroll.wp.js" type="text/javascript"></script>
 
     <script src="js/i18n/mobiscroll.core-de.js" type="text/javascript"></script>
     <script src="js/i18n/mobiscroll.core-hu.js" type="text/javascript"></script>
     <script src="js/i18n/mobiscroll.core-fr.js" type="text/javascript"></script>
     <script src="js/i18n/mobiscroll.core-es.js" type="text/javascript"></script>
+    <script src="js/i18n/mobiscroll.core-it.js" type="text/javascript"></script>
     <script src="js/i18n/mobiscroll.datetime-de.js" type="text/javascript"></script>
     <script src="js/i18n/mobiscroll.datetime-hu.js" type="text/javascript"></script>
     <script src="js/i18n/mobiscroll.datetime-fr.js" type="text/javascript"></script>
     <script src="js/i18n/mobiscroll.datetime-es.js" type="text/javascript"></script>
+    <script src="js/i18n/mobiscroll.datetime-it.js" type="text/javascript"></script>
 
     <link href="css/mobiscroll.core.css" rel="stylesheet" type="text/css" />
     <link href="css/mobiscroll.jqm.css" rel="stylesheet" type="text/css" />
@@ -89,6 +91,7 @@
     <link href="css/mobiscroll.android-ics.css" rel="stylesheet" type="text/css" />
     <link href="css/mobiscroll.ios.css" rel="stylesheet" type="text/css" />
     <link href="css/mobiscroll.sense-ui.css" rel="stylesheet" type="text/css" />
+    <link href="css/mobiscroll.wp.css" rel="stylesheet" type="text/css" />
 
     <link href="css/mobiscroll.animation.css" rel="stylesheet" type="text/css" />
 
@@ -169,6 +172,8 @@
                         <option value="android">Android</option>
                         <option value="sense-ui">Sense UI</option>
                         <option value="ios">iOS</option>
+                        <option value="wp">Windows Phone</option>
+                        <option value="wp light">Windows Phone Light</option>
                     </select>
                 </div>
                 <div data-role="fieldcontain">
@@ -187,6 +192,7 @@
                         <option value="es">Español</option>
                         <option value="fr">Français</option>
                         <option value="hu">Magyar</option>
+                        <option value="it">Italiano</option>
                     </select>
                 </div>
                 <div data-role="fieldcontain">

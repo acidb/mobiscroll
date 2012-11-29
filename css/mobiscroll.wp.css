@@ -129,7 +129,7 @@
     width: 26px;
     height: 26px;
     margin: 0 -13px;
-    background: url(wp-icons.png) center center no-repeat;
+    background: url(wp_icons.png) center center no-repeat;
 }
 .wp .dwb-s .dwb:after {
     background-position: 0 0;
@@ -175,7 +175,7 @@
     height: 26px;
     margin: -13px;
     display: block;
-    background: url(wp-icons.png) center center no-repeat;
+    background: url(wp_icons.png) center center no-repeat;
     text-indent: -9999px;
 }
 .wp .dwwbp span {
@@ -223,13 +223,13 @@
     color: #000;
 }
 .wp.light .dwb:after {
-    background-image: url(wp-icons-light.png);
+    background-image: url(wp_icons_light.png);
 }
 .wp.light .dw .dwwb {
     background: #dedede;
 }
 .wp.light .dwwb span {
-    background-image: url(wp-icons-light.png);
+    background-image: url(wp_icons_light.png);
 }
 /* Bubble positioning */
 .wp.light .dw-bubble-bottom .dw-arr {
