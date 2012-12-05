@@ -25,7 +25,6 @@
             main = {},
             grIdx,
             optIdx,
-            shTime,
             roPre = inst.settings.readonly,
             w;
 
@@ -165,7 +164,7 @@
                 gr = group.index();
                 return s.group && s.rtl ? ['_' + option, '_' + gr] : s.group ? ['_' + gr, '_' + option] : ['_' + option];
             },
-            validate: function (dw, index, time) {
+            validate: function (dw, index) {
                 if (index === grIdx) {
                     gr = replace(inst.temp[grIdx]);
 

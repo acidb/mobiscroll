@@ -344,7 +344,7 @@
             onAnimStart: function(index) {
                 inst.settings.readonly = createROVector(lvl, index);
             },
-            validate: function (dw, index, time) {
+            validate: function (dw, index) {
                 var t = inst.temp;
                 if (index !== undefined && currWheelVector[index] != t[index]) {
                     inst.settings.wheels = generateWheelsFromVector(t, null, index);

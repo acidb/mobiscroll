@@ -71,9 +71,8 @@
         }
 
         function scrollToPos(time, index, manual, dir) {
-
             // Call validation event
-            s.validate.call(e, dw, index, time);
+            s.validate.call(e, dw, index, that);
 
             // Set scrollers to position
             $('.dww ul', dw).each(function (i) {
@@ -569,7 +568,7 @@
                 }
             });
 
-            s.onShow.call(e, dw, that);
+            s.onShow.call(e, dw, that, v);
 
             // Theme init
             theme.init(dw, that);
