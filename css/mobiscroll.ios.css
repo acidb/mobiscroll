@@ -71,7 +71,7 @@
     -webkit-border-radius: 0;
 }
 .ios .dw .dwpm .dww {
-    background: linear-gradient(#000 0%,#fff 48%,#fff 52%,#000 100%);
+    background: linear-gradient(#000,#fff 48%,#fff 52%,#000);
     background: -webkit-gradient(linear,left bottom,left top,from(#333),color-stop(0.48, #fff),color-stop(0.52, #fff),to(#333));
     background: -moz-linear-gradient(#000 0%,#fff 48%,#fff 52%,#000 100%);
     background: -o-linear-gradient(#000 0%,#fff 48%,#fff 52%,#000 100%);
@@ -89,6 +89,13 @@
     font-weight: bold;
     text-align: right;
     text-shadow: none;
+}
+.ios .dww li.dw-hl {
+    background: linear-gradient(#0288f3,#005de6);
+    background: -webkit-gradient(linear,left bottom,left top,from(#0288f3),to(#005de6));
+    background: -moz-linear-gradient(#0288f3,#005de6);
+    background: -o-linear-gradient(#0288f3,#005de6);
+    color: #fff;
 }
 .ios .dwwo {
     display: none;

@@ -44,6 +44,9 @@
     font-size: 18px;
     text-shadow: none;
 }
+.android-ics .dww li.dw-hl {
+    background: #31b6e7;
+}
 .android-ics .dwwo {
     background: linear-gradient(#282828 0%,rgba(40,40,40,0) 52%, rgba(40,40,40,0) 48%, #282828 100%);
     background: -webkit-gradient(linear,left bottom,left top,from(#282828),color-stop(0.52, rgba(40,40,40,0)),color-stop(0.48, rgba(40,40,40,0)),to(#282828));

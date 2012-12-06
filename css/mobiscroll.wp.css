@@ -81,10 +81,13 @@
     filter: Alpha(Opacity=100);
 }
 .wp .dww li.dw-sel .dw-i {
-    background-color: #4c4c4c;
+    background: #4c4c4c;
     transition: background-color .1s linear;
     -webkit-transition: background-color .1s linear;
     -moz-transition: background-color .1s linear;
+}
+.wp .dww li.dw-hl .dw-i {
+    background: #4c4c4c;
 }
 .wp .dwa li.dw-sel .dw-i {
     background-color: transparent;
@@ -211,6 +214,9 @@
     border-color: #b5b5b5;
 }
 .wp.light li.dw-sel .dw-i {
+    background: #b5b5b5;
+}
+.wp.light li.dw-hl .dw-i {
     background: #b5b5b5;
 }
 .wp.light .dw-day, .wp.light .dw-mon {

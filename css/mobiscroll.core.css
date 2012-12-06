@@ -163,6 +163,11 @@
     opacity: .3;
     filter: Alpha(Opacity=30);
 }
+/* Higlighted */
+.dww li.dw-hl {
+    background #fff;
+    background: rgba(255,255,255,.3);
+}
 /* Valid entry */
 .dww li.dw-v {
     opacity: 1;

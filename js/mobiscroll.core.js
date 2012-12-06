@@ -278,7 +278,7 @@
 
             function ready() {
                 clearInterval(iv[index]);
-                iv[index] = null;
+                iv[index] = undefined;
                 t.data('pos', val).closest('.dwwl').removeClass('dwa');
             }
 
@@ -574,7 +574,7 @@
                     target.closest('.dwwl').addClass('dwa');
                     pos = +target.data('pos');
                     setGlobals(target);
-                    moved = iv[index] !== null; // Don't allow tap, if still moving
+                    moved = iv[index] !== undefined; // Don't allow tap, if still moving
                     start = getY(e);
                     startTime = new Date();
                     stop = start;
@@ -918,6 +918,11 @@
 
             if (!dist && !moved) { // this is a "tap"
                 tindex = Math.floor((stop - ttop) / h);
+                var li = $('li', target).eq(tindex)
+                li.addClass('dw-hl'); // Highlight
+                setTimeout(function() {
+                    li.removeClass('dw-hl');
+                }, 200);
             } else {
                 tindex = Math.round(pos - dist / h);
             }
