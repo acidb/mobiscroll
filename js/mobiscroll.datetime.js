@@ -271,7 +271,6 @@
                     var temp = inst.temp, //.slice(0),
                         mins = { y: mind.getFullYear(), m: 0, d: 1, h: 0, i: 0, s: 0, ap: 0 },
                         maxs = { y: maxd.getFullYear(), m: 11, d: 31, h: step(hampm ? 11 : 23, stepH), i: step(59, stepM), s: step(59, stepS), ap: 1 },
-                    //w = (mind || maxd) ? ['y', 'm', 'd', 'ap', 'h', 'i', 's'] : ((i == o.y || i == o.m || i === undefined) ? ['d'] : []), // Validate day only, if no min/max date set
                         minprop = true,
                         maxprop = true;
                     $.each(['y', 'm', 'd', 'ap', 'h', 'i', 's'], function (x, i) {
@@ -403,9 +402,10 @@
             };
         };
 
-    ms.presets.date = preset;
-    ms.presets.datetime = preset;
-    ms.presets.time = preset;
+    $.each(['date', 'time', 'datetime'], function(i, v) {
+        ms.presets[v] = preset;
+        ms.presetShort(v);
+    });
 
     /**
     * Format a date into a string value with a specified format.

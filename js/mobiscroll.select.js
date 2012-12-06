@@ -9,6 +9,8 @@
         groupLabel: 'Groups'
     };
 
+    $.mobiscroll.presetShort('select');
+
     $.mobiscroll.presets.select = function (inst) {
         var s = $.extend({}, defaults, inst.settings),
             elm = $(this),

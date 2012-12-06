@@ -691,6 +691,16 @@
         });
     }
 
+    function init(that, method, args) {
+        if (methods[method]) {
+            return methods[method].apply(that, Array.prototype.slice.call(args, 1));
+        }
+        if (typeof method === 'object') {
+            return methods.init.call(that, method);
+        }
+        return that;
+    }
+
     var scrollers = {},
         timer,
         empty = function () { },
@@ -918,13 +928,8 @@
     });
 
     $.fn.mobiscroll = function (method) {
-        if (methods[method]) {
-            return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
-        }
-        if (typeof method === 'object' || !method) {
-            return methods.init.apply(this, arguments);
-        }
-        $.error('Unknown method');
+        $.extend(this, $.mobiscroll.short);
+        return init(this, method, arguments);
     };
 
     $.mobiscroll = $.mobiscroll || {
@@ -935,6 +940,12 @@
         setDefaults: function (o) {
             $.extend(defaults, o);
         },
+        presetShort: function(name) {
+            this.short[name] = function(method) {
+                return init(this, $.extend(method, { preset: name }), arguments);
+            };
+        },
+        short: {},
         presets: {},
         themes: {},
         i18n: {}
