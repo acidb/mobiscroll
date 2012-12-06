@@ -16,7 +16,8 @@
             elm = $(e),
             theme,
             lang,
-            s = $.extend({}, defaults),
+            s = extend({}, defaults),
+            pres = {},
             m,
             hi,
             v,
@@ -72,7 +73,7 @@
 
         function scrollToPos(time, index, manual, dir) {
             // Call validation event
-            s.validate.call(e, dw, index, that);
+            event('validate', [dw, index]);
 
             // Set scrollers to position
             $('.dww ul', dw).each(function (i) {
@@ -216,6 +217,17 @@
             }
         }
 
+        function event(name, args) {
+            var ret;
+            args.push(that);
+            $.each([pres, settings], function (i, v) {
+                if (v[name]) { // Call preset event
+                    ret = v[name].apply(e, args)
+                }
+            });
+            return ret;
+        }
+
         function plus(t) {
             var p = +t.data('pos'),
                 val = p + 1;
@@ -293,7 +305,7 @@
                     }
                 }, 100);
                 // Trigger animation start event
-                s.onAnimStart.call(e, index, time, that);
+                event('onAnimStart', [index, time]);
             } else {
                 t.data('pos', val);
                 callback();
@@ -350,7 +362,7 @@
             }
 
             if (manual) {
-                s.onChange.call(e, v, that);
+                event('onChange', [v]);
             }
         };
 
@@ -359,7 +371,7 @@
         */
         that.hide = function (prevAnim) {
             // If onClose handler returns false, prevent hide
-            if (s.onClose.call(e, v, that) === false) {
+            if (event('onClose', [v]) === false) {
                 return false;
             }
 
@@ -435,7 +447,7 @@
             // Parse value from input
             read();
 
-            s.onBeforeShow.call(e, dw, that);
+            event('onBeforeShow', [dw]);
 
             // Create wheels
             var l = 0,
@@ -484,15 +496,17 @@
             if (s.display != 'inline') {
                 // Init buttons
                 $('.dwb-s span', dw).click(function () {
-                    that.hide();
-                    that.setValue(false, true);
-                    s.onSelect.call(e, that.val, that);
+                    if (that.hide() !== false) {
+                        that.setValue(false, true);
+                        event('onSelect', [that.val]);
+                    }
                     return false;
                 });
 
                 $('.dwb-c span', dw).click(function () {
-                    that.hide();
-                    s.onCancel.call(e, that.val, that);
+                    if (that.hide() !== false) {
+                        event('onCancel', [that.val]);
+                    }
                     return false;
                 });
 
@@ -568,7 +582,7 @@
                 }
             });
 
-            s.onShow.call(e, dw, that, v);
+            event('onShow', [dw, v]);
 
             // Theme init
             theme.init(dw, that);
@@ -579,12 +593,13 @@
         */
         that.init = function (ss) {
             // Get theme defaults
-            theme = $.extend({ defaults: {}, init: empty }, ms.themes[ss.theme || s.theme]);
+            theme = extend({ defaults: {}, init: empty }, ms.themes[ss.theme || s.theme]);
 
             // Get language defaults
             lang = ms.i18n[ss.lang || s.lang];
 
-            $.extend(s, theme.defaults, lang, settings, ss);
+            extend(settings, ss); // Update original user settings
+            extend(s, theme.defaults, lang, settings);
 
             that.settings = s;
 
@@ -594,10 +609,9 @@
             var preset = ms.presets[s.preset];
 
             if (preset) {
-                var p = preset.call(e, that);
-                $.extend(settings, ss); // Update original user settings
-                $.extend(s, p, settings); // Load preset settings
-                $.extend(methods, p.methods); // Extend core methods
+                pres = preset.call(e, that);
+                extend(s, pres, settings); // Load preset settings
+                extend(methods, pres.methods); // Extend core methods
             }
 
             // Set private members
@@ -722,6 +736,7 @@
         mod = document.createElement('modernizr').style,
         has3d = testProps(['perspectiveProperty', 'WebkitPerspective', 'MozPerspective', 'OPerspective', 'msPerspective']),
         prefix = testPrefix(),
+        extend = $.extend,
         START_EVENT = 'touchstart mousedown',
         MOVE_EVENT = 'touchmove mousemove',
         END_EVENT = 'touchend mouseup',
@@ -745,14 +760,6 @@
             setText: 'Set',
             cancelText: 'Cancel',
             scrollLock: true,
-            // Events
-            onBeforeShow: empty,
-            onShow: empty,
-            onClose: empty,
-            onSelect: empty,
-            onCancel: empty,
-            onChange: empty,
-            onAnimStart: empty,
             formatResult: function (d) {
                 return d.join(' ');
             },
@@ -779,8 +786,7 @@
                     }
                 }
                 return ret;
-            },
-            validate: empty
+            }
         },
 
         methods = {
@@ -928,7 +934,7 @@
     });
 
     $.fn.mobiscroll = function (method) {
-        $.extend(this, $.mobiscroll.short);
+        extend(this, $.mobiscroll.short);
         return init(this, method, arguments);
     };
 
@@ -938,11 +944,11 @@
         * @param {Object} o - New default settings.
         */
         setDefaults: function (o) {
-            $.extend(defaults, o);
+            extend(defaults, o);
         },
         presetShort: function(name) {
             this.short[name] = function(method) {
-                return init(this, $.extend(method, { preset: name }), arguments);
+                return init(this, extend(method, { preset: name }), arguments);
             };
         },
         short: {},

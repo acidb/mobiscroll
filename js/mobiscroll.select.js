@@ -12,7 +12,8 @@
     $.mobiscroll.presetShort('select');
 
     $.mobiscroll.presets.select = function (inst) {
-        var s = $.extend({}, defaults, inst.settings),
+        var stg = inst.settings,
+            s = $.extend({}, defaults, stg),
             elm = $(this),
             option = elm.val(),
             group = elm.find('option[value="' + elm.val() + '"]').parent(),
@@ -27,7 +28,7 @@
             main = {},
             grIdx,
             optIdx,
-            roPre = inst.settings.readonly,
+            roPre = stg.readonly,
             w;
 
         function replace(str) {
@@ -103,7 +104,6 @@
         });
 
         var input = $('<input type="text" id="' + id + '" value="' + main[elm.val()] + '" class="' + s.inputClass + '" readonly />').insertBefore(elm);
-        inst.settings.anchor = input; // give the core the input element for the bubble positioning
 
         if (s.showOnFocus) {
             input.focus(function () {
@@ -126,7 +126,7 @@
                 gr = group.index();
                 inst.temp = s.rtl ? ['_' + option, '_' + group.index()] : ['_' + group.index(), '_' + option];
                 if (gr !== prev) { // Need to regenerate wheels, if group changed
-                    inst.settings.wheels = genWheels();
+                    stg.wheels = genWheels();
                     inst.changeWheel(optIdx);
                     prev = gr + '';
                 }
@@ -157,6 +157,7 @@
             width: 50,
             wheels: w,
             headerText: false,
+            anchor: input,
             formatResult: function (d) {
                 return main[replace(d[optIdx])];
             },
@@ -166,8 +167,8 @@
                 gr = group.index();
                 return s.group && s.rtl ? ['_' + option, '_' + gr] : s.group ? ['_' + gr, '_' + option] : ['_' + option];
             },
-            validate: function (dw, index) {
-                if (index === grIdx) {
+            validate: function (dw, i) {
+                if (i === grIdx) {
                     gr = replace(inst.temp[grIdx]);
 
                     if (gr !== prev) {
@@ -175,14 +176,14 @@
                         gr = group.index();
                         option = group.find('option').eq(0).val();
                         option = option || elm.val();
-                        inst.settings.wheels = genWheels();
+                        stg.wheels = genWheels();
                         if (s.group) {
-                            inst.temp = s.rtl ? ['_' + option, '_' + group.index()] : ['_' + group.index(), '_' + option];
+                            inst.temp = s.rtl ? ['_' + option, '_' + gr] : ['_' + gr, '_' + option];
                             inst.changeWheel(optIdx);
                             prev = gr + '';
                         }
                     }
-                    inst.settings.readonly = roPre;
+                    stg.readonly = roPre;
                 } else {
                     option = replace(inst.temp[optIdx]);
                 }
@@ -192,18 +193,18 @@
                     $('li[data-val="_' + v + '"]', t).removeClass('dw-v');
                 });
             },
-            onAnimStart: function(index) {
-                if (index === grIdx) { // If group wheel is scroller, lock the options wheel
-                    inst.settings.readonly = [s.rtl, !s.rtl];
+            onAnimStart: function(i) {
+                if (i === grIdx) { // If group wheel is scroller, lock the options wheel
+                    stg.readonly = [s.rtl, !s.rtl];
                 }
             },
             onBeforeShow: function () {
-                inst.settings.wheels = genWheels();
+                stg.wheels = genWheels();
                 if (s.group) {
                     inst.temp = s.rtl ? ['_' + option, '_' + group.index()] : ['_' + group.index(), '_' + option];
                 }
             },
-            onSelect: function (v, inst) {
+            onSelect: function (v) {
                 input.val(v);
                 prevent = true;
                 elm.val(replace(inst.values[optIdx])).trigger('change');
@@ -216,7 +217,7 @@
                     inst.values = null;
                 }
             },
-            onChange: function (v, inst) {
+            onChange: function (v) {
                 if (s.display == 'inline') {
                     input.val(v);
                     prevent = true;
