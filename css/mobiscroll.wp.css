@@ -86,6 +86,9 @@
     -webkit-transition: background-color .1s linear;
     -moz-transition: background-color .1s linear;
 }
+.wp .dww li.dw-hl {
+    background: none;
+}
 .wp .dww li.dw-hl .dw-i {
     background: #4c4c4c;
 }
