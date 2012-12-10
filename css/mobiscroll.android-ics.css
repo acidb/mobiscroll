@@ -46,6 +46,7 @@
 }
 .android-ics .dww li.dw-hl {
     background: #31b6e7;
+    background: rgba(49,182,231,.5);
 }
 .android-ics .dwwo {
     background: linear-gradient(#282828 0%,rgba(40,40,40,0) 52%, rgba(40,40,40,0) 48%, #282828 100%);
