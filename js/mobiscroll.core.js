@@ -939,7 +939,7 @@
     });
 
     $.fn.mobiscroll = function (method) {
-        extend(this, $.mobiscroll.short);
+        extend(this, $.mobiscroll.shorts);
         return init(this, method, arguments);
     };
 
@@ -952,11 +952,11 @@
             extend(defaults, o);
         },
         presetShort: function(name) {
-            this.short[name] = function(method) {
+            this.shorts[name] = function(method) {
                 return init(this, extend(method, { preset: name }), arguments);
             };
         },
-        short: {},
+        shorts: {},
         presets: {},
         themes: {},
         i18n: {}

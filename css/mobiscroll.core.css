@@ -160,6 +160,7 @@
     font-size: 26px;
     white-space: nowrap;
     text-shadow: 0 1px 1px #000;
+    vertical-align: bottom;
     opacity: .3;
     filter: Alpha(Opacity=30);
 }
