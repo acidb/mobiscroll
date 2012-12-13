@@ -417,7 +417,7 @@
                             al--;
                             if (!al) {
                                 position();
-                                scrollToPos();
+                                scrollToPos(0.2);
                                 return;
                             }
                         }
