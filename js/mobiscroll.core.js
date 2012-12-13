@@ -400,24 +400,22 @@
         /**
         * Changes the values of a wheel, and scrolls to the correct position
         */
-        that.changeWheel = function () {
+        that.changeWheel = function (idx, time) {
             if (dw) {
                 var i = 0,
                     j,
                     k,
-                    ul,
-                    al = arguments.length;
+                    nr = idx.length;
 
                 for (j in s.wheels) {
                     for (k in s.wheels[j]) {
-                        if ($.inArray(i, arguments) > -1) {
+                        if ($.inArray(i, idx) > -1) {
                             warr[i] = s.wheels[j][k];
-                            ul = $('ul', dw).eq(i);
-                            ul.html(generateWheelItems(i));
-                            al--;
-                            if (!al) {
+                            $('ul', dw).eq(i).html(generateWheelItems(i));
+                            nr--;
+                            if (!nr) {
                                 position();
-                                scrollToPos();
+                                scrollToPos(time);
                                 return;
                             }
                         }

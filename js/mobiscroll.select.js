@@ -127,7 +127,7 @@
                 inst.temp = s.rtl ? ['_' + option, '_' + group.index()] : ['_' + group.index(), '_' + option];
                 if (gr !== prev) { // Need to regenerate wheels, if group changed
                     stg.wheels = genWheels();
-                    inst.changeWheel(optIdx);
+                    inst.changeWheel([optIdx]);
                     prev = gr + '';
                 }
             } else {
@@ -179,7 +179,7 @@
                         stg.wheels = genWheels();
                         if (s.group) {
                             inst.temp = s.rtl ? ['_' + option, '_' + gr] : ['_' + gr, '_' + option];
-                            inst.changeWheel(optIdx);
+                            inst.changeWheel([optIdx]);
                             prev = gr + '';
                         }
                     }

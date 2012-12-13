@@ -356,7 +356,7 @@
                             args.push(i++);
                         }
                         hideWheels(dw, o.lvl);
-                        inst.changeWheel.apply(null, Array.prototype.slice.call(args, 0));
+                        inst.changeWheel(args);
                         currWheelVector = inst.temp.slice(0);
                         setDisabled(dw, o.lvl, wa, inst.temp);
                     } else {
