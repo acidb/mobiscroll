@@ -566,7 +566,7 @@
                 // Prevent scroll
                 e.preventDefault();
                 // Scroll start
-                if (!isReadOnly(this) && !click && s.mode != 'clickpick') {
+                if (!move && !isReadOnly(this) && !click && s.mode != 'clickpick') {
                     move = true;
                     target = $('ul', this);
                     target.closest('.dwwl').addClass('dwa');
