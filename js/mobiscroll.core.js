@@ -520,7 +520,7 @@
                 }
 
                 // Disable inputs to prevent bleed through (Android bug)
-                $('input,select').each(function () {
+                $('input,select,button').each(function () {
                     if (!$(this).prop('disabled')) {
                         $(this).addClass('dwtd');
                     }
