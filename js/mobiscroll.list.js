@@ -32,7 +32,7 @@
                     var currWh = $('.dwwl' + i, dw),
                         inv = getInvalidKeys(whVector, i, whArray);
                     $.each(inv, function (i, v) {
-                        $('li[data-val="' + v + '"]', currWh).removeClass('dw-v');
+                        $('.dw-li[data-val="' + v + '"]', currWh).removeClass('dw-v');
                     });
                     i++;
                 }

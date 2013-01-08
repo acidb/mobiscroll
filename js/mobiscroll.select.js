@@ -188,9 +188,9 @@
                     option = replace(inst.temp[optIdx]);
                 }
 
-                var t = $('ul', dw).eq(optIdx);
+                var t = $('.dw-ul', dw).eq(optIdx);
                 $.each(s.invalid, function (i, v) {
-                    $('li[data-val="_' + v + '"]', t).removeClass('dw-v');
+                    $('.dw-li[data-val="_' + v + '"]', t).removeClass('dw-v');
                 });
             },
             onAnimStart: function(i) {

@@ -39,12 +39,12 @@
     border: 0;
     background: none;
 }
-.android-ics .dww li {
+.android-ics .dww .dw-li {
     color: #fff;
     font-size: 18px;
     text-shadow: none;
 }
-.android-ics .dww li.dw-hl {
+.android-ics .dww .dw-li.dw-hl {
     background: #31b6e7;
     background: rgba(49,182,231,.5);
 }
@@ -132,7 +132,7 @@
 .android-ics.light .dw {
     background: #f5f5f5;
 }
-.android-ics.light .dww li {
+.android-ics.light .dww .dw-li {
     color: #000;
 }
 .android-ics.light .dwwo {

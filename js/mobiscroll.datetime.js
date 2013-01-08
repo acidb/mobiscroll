@@ -279,7 +279,7 @@
                                 max = maxs[i],
                                 maxdays = 31,
                                 val = get(temp, i),
-                                t = $('ul', dw).eq(o[i]),
+                                t = $('.dw-ul', dw).eq(o[i]),
                                 y,
                                 m;
                             if (i == 'd') {
@@ -288,7 +288,7 @@
                                 maxdays = 32 - new Date(y, m, 32).getDate();
                                 max = maxdays;
                                 if (regen) {
-                                    $('li', t).each(function () {
+                                    $('.dw-li', t).each(function () {
                                         var that = $(this),
                                             d = that.data('val'),
                                             w = new Date(y, m, d).getDay(),
@@ -304,11 +304,11 @@
                                 max = maxd[f[i]] ? maxd[f[i]]() : f[i](maxd);
                             }
                             if (i != 'y') {
-                                var i1 = $('li[data-val="' + min + '"]', t).index(),
-                                    i2 = $('li[data-val="' + max + '"]', t).index();
-                                $('li', t).removeClass('dw-v').slice(i1, i2 + 1).addClass('dw-v');
+                                var i1 = $('.dw-li', t).index($('.dw-li[data-val="' + min + '"]', t)),
+                                    i2 = $('.dw-li', t).index($('.dw-li[data-val="' + max + '"]', t));
+                                $('.dw-li', t).removeClass('dw-v').slice(i1, i2 + 1).addClass('dw-v');
                                 if (i == 'd') { // Hide days not in month
-                                    $('li', t).removeClass('dw-h').slice(maxdays).addClass('dw-h');
+                                    $('.dw-li', t).removeClass('dw-h').slice(maxdays).addClass('dw-h');
                                 }
                             }
                             if (val < min) {
@@ -360,7 +360,7 @@
                                     });
                                 }
                                 $.each(idx, function (i, v) {
-                                    $('li', t).eq(v).removeClass('dw-v');
+                                    $('.dw-li', t).eq(v).removeClass('dw-v');
                                 });
                             }
 

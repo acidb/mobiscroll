@@ -83,14 +83,14 @@
     margin: 0;
     border: 0;
 }
-.ios .dww li {
+.ios .dww .dw-li {
     color: #000;
     font-size: 20px;
     font-weight: bold;
     text-align: right;
     text-shadow: none;
 }
-.ios .dww li.dw-hl {
+.ios .dww .dw-li.dw-hl {
     background: linear-gradient(#0288f3,#005de6);
     background: -webkit-gradient(linear,left bottom,left top,from(#0288f3),to(#005de6));
     background: -moz-linear-gradient(#0288f3,#005de6);

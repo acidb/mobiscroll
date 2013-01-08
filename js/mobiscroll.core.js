@@ -37,13 +37,19 @@
             return s.readonly;
         }
 
-        function generateWheelItems(wIndex) {
-            var html = '',
+        function generateWheelItems(i) {
+            var html = '<div class="dw-bf">',
+                l = 0,
                 j;
 
-            for (j in warr[wIndex]) {
-                html += '<li class="dw-v" data-val="' + j + '" style="height:' + hi + 'px;line-height:' + hi + 'px;"><div class="dw-i">' + warr[wIndex][j] + '</div></li>';
+            for (j in warr[i]) {
+                if (l % 20 == 0) {
+                    html += '</div><div class="dw-bf">';
+                }
+                html += '<div class="dw-li dw-v" data-val="' + j + '" style="height:' + hi + 'px;line-height:' + hi + 'px;"><div class="dw-i">' + warr[i][j] + '</div></div>';
+                l++;
             }
+            html += '</div>';
             return html;
         }
 
@@ -54,9 +60,9 @@
         }
 
         function setGlobals(t) {
-            min = $('li.dw-v', t).eq(0).index();
-            max = $('li.dw-v', t).eq(-1).index();
-            index = $('ul', dw).index(t);
+            min = $('.dw-li', t).index($('.dw-v', t).eq(0)),//$('.dw-v', t).eq(0).index(),
+            max = $('.dw-li', t).index($('.dw-v', t).eq(-1)),//$('.dw-v', t).eq(-1).index(),
+            index = $('.dw-ul', dw).index(t);
             h = hi;
             inst = that;
         }
@@ -76,10 +82,10 @@
             event('validate', [dw, index]);
 
             // Set scrollers to position
-            $('.dww ul', dw).each(function (i) {
+            $('.dw-ul', dw).each(function (i) {
                 var t = $(this),
-                    cell = $('li[data-val="' + that.temp[i] + '"]', t),
-                    v = cell.index(),
+                    cell = $('.dw-li[data-val="' + that.temp[i] + '"]', t),
+                    v = $('.dw-li', t).index(cell),
                     sc = i == index || index === undefined;
 
                 // Scroll to a valid cell
@@ -411,7 +417,7 @@
                     for (k in s.wheels[j]) {
                         if ($.inArray(i, idx) > -1) {
                             warr[i] = s.wheels[j][k];
-                            $('ul', dw).eq(i).html(generateWheelItems(i));
+                            $('.dw-ul', dw).eq(i).html(generateWheelItems(i));
                             nr--;
                             if (!nr) {
                                 position();
@@ -468,10 +474,10 @@
                 // Create wheels
                 for (label in s.wheels[i]) {
                     warr[l] = s.wheels[i][label];
-                    html += '<td><div class="dwwl dwrc dwwl' + l + '">' + (s.mode != 'scroller' ? '<div class="dwwb dwwbp" style="height:' + hi + 'px;line-height:' + hi + 'px;"><span>+</span></div><div class="dwwb dwwbm" style="height:' + hi + 'px;line-height:' + hi + 'px;"><span>&ndash;</span></div>' : '') + '<div class="dwl">' + label + '</div><div class="dww dwrc" style="height:' + (s.rows * hi) + 'px;min-width:' + s.width + 'px;"><ul>';
+                    html += '<td><div class="dwwl dwrc dwwl' + l + '">' + (s.mode != 'scroller' ? '<div class="dwwb dwwbp" style="height:' + hi + 'px;line-height:' + hi + 'px;"><span>+</span></div><div class="dwwb dwwbm" style="height:' + hi + 'px;line-height:' + hi + 'px;"><span>&ndash;</span></div>' : '') + '<div class="dwl">' + label + '</div><div class="dww dwrc" style="height:' + (s.rows * hi) + 'px;min-width:' + s.width + 'px;"><div class="dw-ul">';
                     // Create wheel values
                     html += generateWheelItems(l);
-                    html += '</ul><div class="dwwo"></div></div><div class="dwwol"></div></div></td>';
+                    html += '</div><div class="dwwo"></div></div><div class="dwwol"></div></div></td>';
                     l++;
                 }
                 html += '</tr></table></div></div>';
@@ -539,7 +545,7 @@
                     e.preventDefault();
                     e = e.originalEvent;
                     var delta = e.wheelDelta ? (e.wheelDelta / 120) : (e.detail ? (-e.detail / 3) : 0),
-                        t = $('ul', this),
+                        t = $('.dw-ul', this),
                         p = +t.data('pos'),
                         val = Math.round(p - delta);
                     setGlobals(t);
@@ -554,7 +560,7 @@
                     // + Button
                     e.preventDefault();
                     e.stopPropagation();
-                    var t = w.find('ul'),
+                    var t = w.find('.dw-ul'),
                         func = $(this).hasClass('dwwbp') ? plus : minus;
                     click = true;
                     setGlobals(t);
@@ -568,7 +574,7 @@
                 // Scroll start
                 if (!move && !isReadOnly(this) && !click && s.mode != 'clickpick') {
                     move = true;
-                    target = $('ul', this);
+                    target = $('.dw-ul', this);
                     target.closest('.dwwl').addClass('dwa');
                     pos = +target.data('pos');
                     setGlobals(target);
@@ -691,7 +697,7 @@
     function calc(t, val, dir, anim, orig) {
         val = constrain(val, min, max);
 
-        var cell = $('li', t).eq(val),
+        var cell = $('.dw-li', t).eq(val),
             idx = index,
             time = anim ? (val == orig ? 0.1 : Math.abs((val - orig) * 0.1)) : 0;
 
@@ -916,7 +922,7 @@
 
             if (!dist && !moved) { // this is a "tap"
                 tindex = Math.floor((stop - ttop) / h);
-                var li = $('li', target).eq(tindex)
+                var li = $('.dw-li', target).eq(tindex)
                 li.addClass('dw-hl'); // Highlight
                 setTimeout(function() {
                     li.removeClass('dw-hl');
