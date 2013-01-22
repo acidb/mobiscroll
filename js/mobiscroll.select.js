@@ -32,10 +32,7 @@
             w;
 
         function replace(str) {
-            if (str) {
-                return str.replace(/_/, '');
-            }
-            return '';
+            return str ? str.replace(/_/, '') : '';
         }
 
         function genWheels() {
