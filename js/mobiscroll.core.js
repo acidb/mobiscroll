@@ -398,6 +398,15 @@
         };
 
         /**
+        * Cancel and hide the scroller instance.
+        */
+        that.cancel = function() {
+            if (that.hide() !== false) {
+                event('onCancel', [that.val]);
+            }
+        };
+
+        /**
         * Changes the values of a wheel, and scrolls to the correct position
         */
         that.changeWheel = function (idx, time) {
@@ -502,9 +511,7 @@
                 });
 
                 $('.dwb-c span', dw).click(function () {
-                    if (that.hide() !== false) {
-                        event('onCancel', [that.val]);
-                    }
+                    that.cancel();
                     return false;
                 });
 
