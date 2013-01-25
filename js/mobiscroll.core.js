@@ -376,9 +376,9 @@
         /**
         * Hides the scroller instance.
         */
-        that.hide = function (prevAnim) {
+        that.hide = function (prevAnim, btn) {
             // If onClose handler returns false, prevent hide
-            if (event('onClose', [v]) === false) {
+            if (event('onClose', [v, btn]) === false) {
                 return false;
             }
 
@@ -408,7 +408,7 @@
         * Cancel and hide the scroller instance.
         */
         that.cancel = function() {
-            if (that.hide() !== false) {
+            if (that.hide(false, 'cancel') !== false) {
                 event('onCancel', [that.val]);
             }
         };
@@ -510,16 +510,14 @@
             if (s.display != 'inline') {
                 // Init buttons
                 $('.dwb-s span', dw).click(function () {
-                    if (that.hide() !== false) {
+                    if (that.hide(false, 'set') !== false) {
                         that.setValue(false, true);
                         event('onSelect', [that.val]);
                     }
-                    return false;
                 });
 
                 $('.dwb-c span', dw).click(function () {
                     that.cancel();
-                    return false;
                 });
 
                 if (s.button3) {
