@@ -79,52 +79,53 @@
 
         function scrollToPos(time, index, manual, dir) {
             // Call validation event
-            event('validate', [dw, index]);
+            if (event('validate', [dw, index]) !== false) {
 
-            // Set scrollers to position
-            $('.dw-ul', dw).each(function (i) {
-                var t = $(this),
-                    cell = $('.dw-li[data-val="' + that.temp[i] + '"]', t),
-                    v = $('.dw-li', t).index(cell),
-                    sc = i == index || index === undefined;
+                // Set scrollers to position
+                $('.dw-ul', dw).each(function (i) {
+                    var t = $(this),
+                        cell = $('.dw-li[data-val="' + that.temp[i] + '"]', t),
+                        v = $('.dw-li', t).index(cell),
+                        sc = i == index || index === undefined;
 
-                // Scroll to a valid cell
-                if (!cell.hasClass('dw-v')) {
-                    var cell1 = cell,
-                        cell2 = cell,
-                        dist1 = 0,
-                        dist2 = 0;
-                    while (cell1.prev().length && !cell1.hasClass('dw-v')) {
-                        cell1 = cell1.prev();
-                        dist1++;
+                    // Scroll to a valid cell
+                    if (!cell.hasClass('dw-v')) {
+                        var cell1 = cell,
+                            cell2 = cell,
+                            dist1 = 0,
+                            dist2 = 0;
+                        while (cell1.prev().length && !cell1.hasClass('dw-v')) {
+                            cell1 = cell1.prev();
+                            dist1++;
+                        }
+                        while (cell2.next().length && !cell2.hasClass('dw-v')) {
+                            cell2 = cell2.next();
+                            dist2++;
+                        }
+                        // If we have direction (+/- or mouse wheel), the distance does not count
+                        if (((dist2 < dist1 && dist2 && dir !== 2) || !dist1 || !(cell1.hasClass('dw-v')) || dir == 1) && cell2.hasClass('dw-v')) {
+                            cell = cell2;
+                            v = v + dist2;
+                        } else {
+                            cell = cell1;
+                            v = v - dist1;
+                        }
                     }
-                    while (cell2.next().length && !cell2.hasClass('dw-v')) {
-                        cell2 = cell2.next();
-                        dist2++;
+
+                    if (!(cell.hasClass('dw-sel')) || sc) {
+                        // Set valid value
+                        that.temp[i] = cell.attr('data-val');
+
+                        // Add selected class to cell
+                        $('.dw-sel', t).removeClass('dw-sel');
+                        cell.addClass('dw-sel');
+
+                        // Scroll to position
+                        that.scroll(t, i, v, time);
                     }
-                    // If we have direction (+/- or mouse wheel), the distance does not count
-                    if (((dist2 < dist1 && dist2 && dir !== 2) || !dist1 || !(cell1.hasClass('dw-v')) || dir == 1) && cell2.hasClass('dw-v')) {
-                        cell = cell2;
-                        v = v + dist2;
-                    } else {
-                        cell = cell1;
-                        v = v - dist1;
-                    }
-                }
-
-                if (!(cell.hasClass('dw-sel')) || sc) {
-                    // Set valid value
-                    that.temp[i] = cell.attr('data-val');
-
-                    // Add selected class to cell
-                    $('.dw-sel', t).removeClass('dw-sel');
-                    cell.addClass('dw-sel');
-
-                    // Scroll to position
-                    that.scroll(t, i, v, time);
-                }
-            });
-
+                });
+            }
+            
             // Reformat value if validation changed something
             that.change(manual);
         }
