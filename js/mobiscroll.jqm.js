@@ -2,6 +2,7 @@
 
     $.mobiscroll.themes.jqm = {
         defaults: {
+            jqmBorder: 'a',
             jqmBody: 'c',
             jqmHeader:'b',
             jqmWheel: 'd',
@@ -11,7 +12,7 @@
         },
         init: function(elm, inst) {
             var s = inst.settings;
-            $('.dw', elm).removeClass('dwbg').addClass('ui-overlay-shadow ui-corner-all ui-body-a');
+            $('.dw', elm).removeClass('dwbg').addClass('ui-overlay-shadow ui-corner-all ui-body-' + s.jqmBorder);
             $('.dwb-s span', elm).attr('data-role', 'button').attr('data-theme', s.jqmSet);
             $('.dwb-n span', elm).attr('data-role', 'button').attr('data-theme', s.jqmCancel);
             $('.dwb-c span', elm).attr('data-role', 'button').attr('data-theme', s.jqmCancel);
