@@ -24,7 +24,7 @@
                 $('.dw', elm).addClass('pop in');
             elm.trigger('create');
             // Hide on overlay click
-            $('.dwo', elm).click(function() { inst.hide(); });
+            $('.dwo', elm).click(function() { inst.cancel(); });
         }
     }
 
