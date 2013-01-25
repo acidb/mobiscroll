@@ -39,7 +39,7 @@
 
         function generateWheelItems(i) {
             var html = '<div class="dw-bf">',
-                l = 0,
+                l = 1,
                 j;
 
             for (j in warr[i]) {
