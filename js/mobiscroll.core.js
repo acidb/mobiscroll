@@ -414,6 +414,13 @@
         };
 
         /**
+        * Return true if the scroller is currently visible.
+        */
+        that.isVisible = function () {
+            return visible;
+        };
+
+        /**
         * Changes the values of a wheel, and scrolls to the correct position
         */
         that.changeWheel = function (idx, time) {
@@ -833,6 +840,12 @@
                 var inst = getInst(this[0]);
                 if (inst) {
                     return inst.settings.disabled;
+                }
+            },
+            isVisible: function () {
+                var inst = getInst(this[0]);
+                if (inst) {
+                    return inst.isVisible();
                 }
             },
             option: function (option, value) {
