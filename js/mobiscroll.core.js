@@ -145,7 +145,7 @@
                     //}
                 });
                 w = totalw > ww ? minw : totalw;
-                w = $('.dwwr', dw).width(w + 1).outerWidth();
+                w = $('.dwwr', dw).width(w).outerWidth();
                 h = d.outerHeight();
             }
 
