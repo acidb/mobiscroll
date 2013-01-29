@@ -1,9 +1,9 @@
 /*jslint eqeq: true, plusplus: true, undef: true, sloppy: true, vars: true, forin: true */
 /*!
- * jQuery MobiScroll v2.3
+ * jQuery MobiScroll v2.4.0
  * http://mobiscroll.com
  *
- * Copyright 2010-2011, Acid Media
+ * Copyright 2010-2013, Acid Media
  * Licensed under the MIT license.
  *
  */
@@ -60,8 +60,8 @@
         }
 
         function setGlobals(t) {
-            min = $('.dw-li', t).index($('.dw-v', t).eq(0)),//$('.dw-v', t).eq(0).index(),
-            max = $('.dw-li', t).index($('.dw-v', t).eq(-1)),//$('.dw-v', t).eq(-1).index(),
+            min = $('.dw-li', t).index($('.dw-v', t).eq(0));//$('.dw-v', t).eq(0).index(),
+            max = $('.dw-li', t).index($('.dw-v', t).eq(-1));//$('.dw-v', t).eq(-1).index(),
             index = $('.dw-ul', dw).index(t);
             h = hi;
             inst = that;
@@ -139,9 +139,9 @@
             function countWidth() {
                 $('.dwc', dw).each(function () {
                     //if ($(this).css('display') != 'none') {
-                        w = $(this).outerWidth(true);
-                        totalw += w;
-                        minw = (w > minw) ? w : minw;
+                    w = $(this).outerWidth(true);
+                    totalw += w;
+                    minw = (w > minw) ? w : minw;
                     //}
                 });
                 w = totalw > ww ? minw : totalw;
@@ -229,7 +229,7 @@
             args.push(that);
             $.each([pres, settings], function (i, v) {
                 if (v[name]) { // Call preset event
-                    ret = v[name].apply(e, args)
+                    ret = v[name].apply(e, args);
                 }
             });
             return ret;
@@ -407,7 +407,7 @@
         /**
         * Cancel and hide the scroller instance.
         */
-        that.cancel = function() {
+        that.cancel = function () {
             if (that.hide(false, 'cancel') !== false) {
                 event('onCancel', [that.val]);
             }
@@ -707,7 +707,7 @@
             idx = index,
             time = anim ? (val == orig ? 0.1 : Math.abs((val - orig) * 0.1)) : 0;
 
-        inst.scroll(t, idx, val, time, orig, function() {
+        inst.scroll(t, idx, val, time, orig, function () {
             // Set selected scroller value
             inst.temp[idx] = cell.attr('data-val');
             // Validate on animation end
@@ -928,9 +928,9 @@
 
             if (!dist && !moved) { // this is a "tap"
                 tindex = Math.floor((stop - ttop) / h);
-                var li = $('.dw-li', target).eq(tindex)
+                var li = $('.dw-li', target).eq(tindex);
                 li.addClass('dw-hl'); // Highlight
-                setTimeout(function() {
+                setTimeout(function () {
                     li.removeClass('dw-hl');
                 }, 200);
             } else {
@@ -961,8 +961,8 @@
         setDefaults: function (o) {
             extend(defaults, o);
         },
-        presetShort: function(name) {
-            this.shorts[name] = function(method) {
+        presetShort: function (name) {
+            this.shorts[name] = function (method) {
                 return init(this, extend(method, { preset: name }), arguments);
             };
         },

@@ -88,6 +88,8 @@
                 maxd = s.maxDate || new Date(s.endYear, 11, 31, 23, 59, 59);
 
             format = format || hformat;
+                
+            inst.settings = s;
 
             if (p.match(/date/i)) {
 
@@ -402,7 +404,7 @@
             };
         };
 
-    $.each(['date', 'time', 'datetime'], function(i, v) {
+    $.each(['date', 'time', 'datetime'], function (i, v) {
         ms.presets[v] = preset;
         ms.presetShort(v);
     });
