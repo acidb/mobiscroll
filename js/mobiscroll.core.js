@@ -138,11 +138,11 @@
 
             function countWidth() {
                 $('.dwc', dw).each(function () {
-                    //if ($(this).css('display') != 'none') {
-                    w = $(this).outerWidth(true);
-                    totalw += w;
-                    minw = (w > minw) ? w : minw;
-                    //}
+                    if ($(this).css('display') != 'none') {
+                        w = $(this).outerWidth(true);
+                        totalw += w;
+                        minw = (w > minw) ? w : minw;
+                    }
                 });
                 w = totalw > ww ? minw : totalw;
                 w = $('.dwwr', dw).width(w + 1).outerWidth();
