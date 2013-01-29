@@ -89,8 +89,6 @@
 
             format = format || hformat;
                 
-            inst.settings = s;
-
             if (p.match(/date/i)) {
 
                 // Determine the order of year, month, day wheels
