@@ -21,7 +21,7 @@
 }
 .jqm .dwc {
     margin: 0;
-    padding: 30px 5px 5px 5px;
+    padding: 30px 5px 0 5px;
  }
 .jqm .dwhl {
     padding: 5px;
@@ -47,6 +47,9 @@
 }
 .jqm .dwwbp span {
     font-weight: normal;
+}
+.jqm .dwbc {
+    padding: 0;
 }
 .jqm .dwbc .ui-btn {
     margin: .5em 5px;

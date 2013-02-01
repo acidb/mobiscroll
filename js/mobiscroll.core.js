@@ -10,7 +10,15 @@
 (function ($) {
 
     function Scroller(elem, settings) {
-        var that = this,
+        var m,
+            hi,
+            v,
+            dw,
+            ww, // Window width
+            wh, // Window height
+            mw, // Modal width
+            mh, // Modal height
+            that = this,
             ms = $.mobiscroll,
             e = elem,
             elm = $(e),
@@ -18,10 +26,6 @@
             lang,
             s = extend({}, defaults),
             pres = {},
-            m,
-            hi,
-            v,
-            dw,
             warr = [],
             iv = {},
             input = elm.is('input'),
@@ -136,59 +140,56 @@
                 return;
             }
 
-            function countWidth() {
-                $('.dwc', dw).each(function () {
-                    if ($(this).css('display') != 'none') {
-                        w = $(this).outerWidth(true);
-                        totalw += w;
-                        minw = (w > minw) ? w : minw;
-                    }
-                });
-                w = totalw > ww ? minw : totalw;
-                w = $('.dwwr', dw).width(w + 1).outerWidth();
-                h = d.outerHeight();
-            }
-
-            var totalw = 0,
+            var w,
+                l,
+                t,
+                aw,
+                ah,
+                mhm,
+                totalw = 0,
                 minw = 0,
-                ww = $(window).width(),
-                wh = window.innerHeight,
                 st = $(window).scrollTop(),
                 d = $('.dw', dw),
-                w,
-                t,
-                l,
-                h,
-                ew,
                 css = {},
                 needScroll,
-                elma = s.anchor === undefined ? elm : s.anchor;
-
+                anchor = s.anchor === undefined ? elm : s.anchor;
+            
+            ww = $(window).width();
+            wh = window.innerHeight;
             wh = wh || $(window).height();
+            
+            $('.dwc', dw).each(function () {
+                w = $(this).outerWidth(true);
+                totalw += w;
+                minw = (w > minw) ? w : minw;
+            });
+            w = totalw > ww ? minw : totalw;
+            
+            mw = $('.dwwr', dw).width(w + 1).outerWidth();
+            mh = d.outerHeight();
+            mhm = d.outerHeight(true);
 
             if (s.display == 'modal') {
-                countWidth();
-                l = (ww - w) / 2;
-                t = st + (wh - h) / 2;
+                l = (ww - mw) / 2;
+                t = st + (wh - mh) / 2;
             } else if (s.display == 'bubble') {
-                countWidth();
-                var p = elma.offset(),
+                var p = anchor.offset(),
                     poc = $('.dw-arr', dw),
-                    pocw = $('.dw-arrw-i', dw),
-                    wd = d.outerWidth();
+                    pocw = $('.dw-arrw-i', dw);
 
                 // horizontal positioning
-                ew = elma.outerWidth();
-                l = p.left - (d.outerWidth(true) - ew) / 2;
-                l = l > (ww - wd) ? (ww - (wd + 20)) : l;
+                aw = anchor.outerWidth();
+                ah = anchor.outerHeight();
+                l = p.left - (d.outerWidth(true) - aw) / 2;
+                l = l > (ww - mw) ? (ww - (mw + 20)) : l;
                 l = l >= 0 ? l : 20;
 
                 // vertical positioning
-                t = p.top - (d.outerHeight() + 3); // above the input
+                t = p.top - (mh + 3); // above the input
                 if ((t < st) || (p.top > st + wh)) { // if doesn't fit above or the input is out of the screen
                     d.removeClass('dw-bubble-top').addClass('dw-bubble-bottom');
-                    t = p.top + elma.outerHeight() + 3; // below the input
-                    needScroll = ((t + d.outerHeight(true) > st + wh) || (p.top > st + wh));
+                    t = p.top + ah + 3; // below the input
+                    needScroll = ((t + mhm > st + wh) || (p.top > st + wh));
                 } else {
                     d.removeClass('dw-bubble-bottom').addClass('dw-bubble-top');
                 }
@@ -196,7 +197,7 @@
                 t = t >= st ? t : st;
 
                 // Calculate Arrow position
-                var pl = p.left + ew / 2 - (l + (wd - pocw.outerWidth()) / 2);
+                var pl = p.left + aw / 2 - (l + (mw - pocw.outerWidth()) / 2);
 
                 // Limit Arrow position to [0, pocw.width] intervall
                 if (pl > pocw.outerWidth()) {
@@ -209,18 +210,18 @@
                 if (s.display == 'top') {
                     t = st;
                 } else if (s.display == 'bottom') {
-                    t = st + wh - d.outerHeight();
+                    t = st + wh - dh;
                     t = t >= 0 ? t : 0;
                 }
             }
-            css.top = t;
+            css.top = t < 0 ? 0 : t;
             css.left = l;
             d.css(css);
 
             $('.dwo, .dw-persp', dw).height(0).height(getDocHeight());
 
             if (needScroll) {
-                $(window).scrollTop(t + d.outerHeight(true) - wh);
+                $(window).scrollTop(t + mhm - wh);
             }
         }
 
@@ -374,46 +375,6 @@
         };
 
         /**
-        * Hides the scroller instance.
-        */
-        that.hide = function (prevAnim, btn) {
-            // If onClose handler returns false, prevent hide
-            if (event('onClose', [v, btn]) === false) {
-                return false;
-            }
-
-            // Re-enable temporary disabled fields
-            $('.dwtd').prop('disabled', false).removeClass('dwtd');
-            elm.blur();
-
-            // Hide wheels and overlay
-            if (dw) {
-                if (s.display != 'inline' && s.animate && !prevAnim) {
-                    $('.dw', dw).addClass('dw-' + s.animate + ' dw-out');
-                    setTimeout(function () {
-                        dw.remove();
-                        dw = null;
-                    }, 350);
-                } else {
-                    dw.remove();
-                    dw = null;
-                }
-                visible = false;
-                // Stop positioning on window resize
-                $(window).unbind('.dw');
-            }
-        };
-
-        /**
-        * Cancel and hide the scroller instance.
-        */
-        that.cancel = function () {
-            if (that.hide(false, 'cancel') !== false) {
-                event('onCancel', [that.val]);
-            }
-        };
-
-        /**
         * Changes the values of a wheel, and scrolls to the correct position
         */
         that.changeWheel = function (idx, time) {
@@ -527,17 +488,18 @@
                 // prevent scrolling if not specified otherwise
                 if (s.scrollLock) {
                     dw.bind('touchmove', function (e) {
-                        e.preventDefault();
+                        if (mh <= wh && mw <= ww) {
+                            e.preventDefault();
+                        }
                     });
                 }
 
                 // Disable inputs to prevent bleed through (Android bug)
                 $('input,select,button').each(function () {
                     if (!$(this).prop('disabled')) {
-                        $(this).addClass('dwtd');
+                        $(this).addClass('dwtd').prop('disabled', true);
                     }
                 });
-                $('input,select').prop('disabled', true);
 
                 // Set position
                 position();
@@ -596,6 +558,46 @@
 
             // Theme init
             theme.init(dw, that);
+        };
+        
+        /**
+        * Hides the scroller instance.
+        */
+        that.hide = function (prevAnim, btn) {
+            // If onClose handler returns false, prevent hide
+            if (event('onClose', [v, btn]) === false) {
+                return false;
+            }
+
+            // Re-enable temporary disabled fields
+            $('.dwtd').prop('disabled', false).removeClass('dwtd');
+            elm.blur();
+
+            // Hide wheels and overlay
+            if (dw) {
+                if (s.display != 'inline' && s.animate && !prevAnim) {
+                    $('.dw', dw).addClass('dw-' + s.animate + ' dw-out');
+                    setTimeout(function () {
+                        dw.remove();
+                        dw = null;
+                    }, 350);
+                } else {
+                    dw.remove();
+                    dw = null;
+                }
+                visible = false;
+                // Stop positioning on window resize
+                $(window).unbind('.dw');
+            }
+        };
+
+        /**
+        * Cancel and hide the scroller instance.
+        */
+        that.cancel = function () {
+            if (that.hide(false, 'cancel') !== false) {
+                event('onCancel', [that.val]);
+            }
         };
 
         /**
