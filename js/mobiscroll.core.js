@@ -139,7 +139,7 @@
             if (s.display == 'inline') {
                 return;
             }
-
+            
             var w,
                 l,
                 t,
@@ -149,6 +149,7 @@
                 totalw = 0,
                 minw = 0,
                 st = $(window).scrollTop(),
+                wr = $('.dwwr', dw),
                 d = $('.dw', dw),
                 css = {},
                 needScroll,
@@ -158,17 +159,20 @@
             wh = window.innerHeight;
             wh = wh || $(window).height();
             
-            $('.dwc', dw).each(function () {
-                w = $(this).outerWidth(true);
-                totalw += w;
-                minw = (w > minw) ? w : minw;
-            });
-            w = totalw > ww ? minw : totalw;
+            if (s.display == 'modal' || s.display == 'bubble') {
+                $('.dwc', dw).each(function () {
+                    w = $(this).outerWidth(true);
+                    totalw += w;
+                    minw = (w > minw) ? w : minw;
+                });
+                w = totalw > ww ? minw : totalw;
+                wr.width(w + 1);
+            }
             
-            mw = $('.dwwr', dw).width(w + 1).outerWidth();
+            mw = wr.outerWidth();
             mh = d.outerHeight();
             mhm = d.outerHeight(true);
-
+            
             if (s.display == 'modal') {
                 l = (ww - mw) / 2;
                 t = st + (wh - mh) / 2;
@@ -183,7 +187,7 @@
                 l = p.left - (d.outerWidth(true) - aw) / 2;
                 l = l > (ww - mw) ? (ww - (mw + 20)) : l;
                 l = l >= 0 ? l : 20;
-
+                
                 // vertical positioning
                 t = p.top - (mh + 3); // above the input
                 if ((t < st) || (p.top > st + wh)) { // if doesn't fit above or the input is out of the screen
@@ -210,7 +214,7 @@
                 if (s.display == 'top') {
                     t = st;
                 } else if (s.display == 'bottom') {
-                    t = st + wh - dh;
+                    t = st + wh - mh;
                     t = t >= 0 ? t : 0;
                 }
             }
