@@ -9,7 +9,7 @@
     -webkit-perspective: 1000;
     -moz-perspective: 1000;
 }
-.dw-bottom .dw-persp {
+.dw-trans .dw-persp {
     overflow: hidden;
 }
 .dw-in {

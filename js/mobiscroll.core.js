@@ -16,8 +16,10 @@
             dw,
             ww, // Window width
             wh, // Window height
+            rwh,
             mw, // Modal width
             mh, // Modal height
+            anim,
             that = this,
             ms = $.mobiscroll,
             e = elem,
@@ -64,8 +66,8 @@
         }
 
         function setGlobals(t) {
-            min = $('.dw-li', t).index($('.dw-v', t).eq(0));//$('.dw-v', t).eq(0).index(),
-            max = $('.dw-li', t).index($('.dw-v', t).eq(-1));//$('.dw-v', t).eq(-1).index(),
+            min = $('.dw-li', t).index($('.dw-v', t).eq(0));
+            max = $('.dw-li', t).index($('.dw-v', t).eq(-1));
             index = $('.dw-ul', dw).index(t);
             h = hi;
             inst = that;
@@ -77,7 +79,7 @@
         }
 
         function read() {
-            that.temp = ((input && (that.val !== null && that.val != elm.val() || !elm.val().length)) || that.values === null) ? s.parseValue(elm.val() || '', that) : that.values.slice(0);
+            that.temp = ((input && ((that.val !== null && that.val != elm.val()) || !elm.val().length)) || that.values === null) ? s.parseValue(elm.val() || '', that) : that.values.slice(0);
             that.setValue(true);
         }
 
@@ -136,7 +138,7 @@
 
         function position() {
 
-            if (s.display == 'inline') {
+            if (s.display == 'inline' || (ww === $(window).width() && rwh === $(window).height())) {
                 return;
             }
             
@@ -156,8 +158,9 @@
                 anchor = s.anchor === undefined ? elm : s.anchor;
             
             ww = $(window).width();
-            wh = window.innerHeight;
-            wh = wh || $(window).height();
+            rwh = $(window).height();
+            wh = window.innerHeight; // on iOS we need innerHeight
+            wh = wh || rwh;
             
             if (s.display == 'modal' || s.display == 'bubble') {
                 $('.dwc', dw).each(function () {
@@ -198,8 +201,8 @@
                     d.removeClass('dw-bubble-bottom').addClass('dw-bubble-top');
                 }
 
-                t = t >= st ? t : st;
-
+                //t = t >= st ? t : st;
+                
                 // Calculate Arrow position
                 var pl = p.left + aw / 2 - (l + (mw - pocw.outerWidth()) / 2);
 
@@ -218,6 +221,7 @@
                     t = t >= 0 ? t : 0;
                 }
             }
+            
             css.top = t < 0 ? 0 : t;
             css.left = l;
             d.css(css);
@@ -225,7 +229,9 @@
             $('.dwo, .dw-persp', dw).height(0).height(getDocHeight());
 
             if (needScroll) {
-                $(window).scrollTop(t + mhm - wh);
+                setTimeout(function () {
+                    $(window).scrollTop(t + mhm - wh);
+                }, anim ? 350 : 0);
             }
         }
 
@@ -416,11 +422,11 @@
             }
 
             if (s.display == 'top') {
-                s.animate = 'slidedown';
+                anim = 'slidedown';
             }
 
             if (s.display == 'bottom') {
-                s.animate = 'slideup';
+                anim = 'slideup';
             }
 
             // Parse value from input
@@ -436,13 +442,13 @@
                 persPS = '',
                 persPE = '';
 
-            if (s.animate && !prevAnim) {
+            if (anim && !prevAnim) {
                 persPS = '<div class="dw-persp">';
                 persPE = '</div>';
-                mAnim = 'dw-' + s.animate + ' dw-in';
+                mAnim = 'dw-' + anim + ' dw-in';
             }
             // Create wheels containers
-            var html = '<div class="' + s.theme + ' dw-' + s.display + '">' + (s.display == 'inline' ? '<div class="dw dwbg dwi"><div class="dwwr">' : persPS + '<div class="dwo"></div><div class="dw dwbg ' + mAnim + '"><div class="dw-arrw"><div class="dw-arrw-i"><div class="dw-arr"></div></div></div><div class="dwwr">' + (s.headerText ? '<div class="dwv"></div>' : ''));
+            var html = '<div class="dw-trans ' + s.theme + ' dw-' + s.display + ' dw-' + s.preset + '">' + (s.display == 'inline' ? '<div class="dw dwbg dwi"><div class="dwwr">' : persPS + '<div class="dwo"></div><div class="dw dwbg ' + mAnim + '"><div class="dw-arrw"><div class="dw-arrw-i"><div class="dw-arr"></div></div></div><div class="dwwr">' + (s.headerText ? '<div class="dwv"></div>' : ''));
 
             for (i = 0; i < s.wheels.length; i++) {
                 html += '<div class="dwc' + (s.mode != 'scroller' ? ' dwpm' : ' dwsc') + (s.showLabel ? '' : ' dwhl') + '"><div class="dwwc dwrc"><table cellpadding="0" cellspacing="0"><tr>';
@@ -461,10 +467,16 @@
             dw = $(html);
 
             scrollToPos();
+            
+            event('onMarkupReady', [dw]);
 
             // Show
             if (s.display != 'inline') {
                 dw.appendTo('body');
+                // Remove animation class
+                setTimeout(function () {
+                    dw.removeClass('dw-trans').find('.dw').removeClass(mAnim);
+                }, 350);
             } else if (elm.is('div')) {
                 elm.html(dw);
             } else {
@@ -508,7 +520,6 @@
                 // Set position
                 position();
                 $(window).bind('resize.dw', position);
-
             }
 
             // Events
@@ -579,8 +590,8 @@
 
             // Hide wheels and overlay
             if (dw) {
-                if (s.display != 'inline' && s.animate && !prevAnim) {
-                    $('.dw', dw).addClass('dw-' + s.animate + ' dw-out');
+                if (s.display != 'inline' && anim && !prevAnim) {
+                    $('.dw', dw).addClass('dw-' + anim + ' dw-out');
                     setTimeout(function () {
                         dw.remove();
                         dw = null;
@@ -590,6 +601,8 @@
                     dw = null;
                 }
                 visible = false;
+                ww = 0;
+                rwh = 0;
                 // Stop positioning on window resize
                 $(window).unbind('.dw');
             }
@@ -633,6 +646,7 @@
             // Set private members
             m = Math.floor(s.rows / 2);
             hi = s.height;
+            anim = s.animate;
 
             if (elm.data('dwro') !== undefined) {
                 e.readOnly = bool(elm.data('dwro'));
