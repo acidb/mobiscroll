@@ -23,6 +23,32 @@ It'd be cool to see how you're using Mobiscroll!
 
 We're looking at showcasing some of the best work on http://mobiscroll.com . Feel free to let us know on twitter @mobiscroll!
 
+Changelog 2.4.1
+===============
+
+Enhancements
+------------
+
+_Themes_
+
+  * Sense UI theme: border removed when positioned top or bottom
+
+  * Android ICS theme: border removed when positioned top or bottom
+  
+Bugfixes
+--------
+
+_Core_
+
+  * Positioning fixes
+
+  * Firefox animation bug fixed by removing border-radius from the wheel
+
+_Datetime preset_
+
+  * Expose datetime preset settings to the inst.settings property
+
+
 Changelog 2.4
 =============
 

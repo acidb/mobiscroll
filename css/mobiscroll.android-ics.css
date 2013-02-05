@@ -3,7 +3,6 @@
     padding: 0;
     color: #31b6e7;
     background: #292829;
-    border-top: 1px solid #4a494a;
 }
 .android-ics .dw .dwwc,
 .android-ics .dw .dwwl,
@@ -129,6 +128,12 @@
 .android-ics .dwb-s .dwb, .android-ics .dwb-n .dwb {
     border-right: 1px solid #424542;
 }
+/* Docked */
+.android-ics.dw-bottom .dw, .android-ics.dw-top .dw {
+    border-radius: 0;
+    -webkit-border-radius: 0;
+}
+/* Light version */
 .android-ics.light .dw {
     background: #f5f5f5;
 }
