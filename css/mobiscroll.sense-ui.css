@@ -51,12 +51,13 @@
 }
 /* Docked */
 .sense-ui.dw-top .dw {
-    border-right: 0;
-    border-top: 0;
-    border-left: 0;
+    border: 0;
+    border-radius: 0;
+    -webkit-border-radius: 0;
 }
 .sense-ui.dw-bottom .dw {
-    border-bottom: 0;
-    border-right: 0;
-    border-left: 0;
+    border: 0;
+    border-top: 1px solid #666;
+    border-radius: 0;
+    -webkit-border-radius: 0;
 }
