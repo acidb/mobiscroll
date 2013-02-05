@@ -148,15 +148,10 @@
     -webkit-backface-visibility: hidden;
 }
 .dw-ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
     position: relative;
     z-index: 2;
 }
 .dw-li {
-    list-style: none;
-    margin: 0;
     padding: 0 5px;
     display: block;
     text-align: center;

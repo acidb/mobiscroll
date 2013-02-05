@@ -1,6 +1,6 @@
 /*jslint eqeq: true, plusplus: true, undef: true, sloppy: true, vars: true, forin: true */
 /*!
- * jQuery MobiScroll v2.4.0
+ * jQuery MobiScroll v2.4.1
  * http://mobiscroll.com
  *
  * Copyright 2010-2013, Acid Media
@@ -136,9 +136,9 @@
             that.change(manual);
         }
 
-        function position() {
+        function position(force) {
 
-            if (s.display == 'inline' || (ww === $(window).width() && rwh === $(window).height())) {
+            if (s.display == 'inline' || (ww === $(window).width() && rwh === $(window).height() && force !== true)) {
                 return;
             }
             
@@ -401,7 +401,7 @@
                             $('.dw-ul', dw).eq(i).html(generateWheelItems(i));
                             nr--;
                             if (!nr) {
-                                position();
+                                position(true);
                                 scrollToPos(time);
                                 return;
                             }
@@ -518,7 +518,7 @@
                 });
 
                 // Set position
-                position();
+                position(true);
                 $(window).bind('resize.dw', position);
             }
 
@@ -601,8 +601,6 @@
                     dw = null;
                 }
                 visible = false;
-                ww = 0;
-                rwh = 0;
                 // Stop positioning on window resize
                 $(window).unbind('.dw');
             }
