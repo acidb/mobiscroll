@@ -1,7 +1,7 @@
 {
   "name": "mobiscroll.datetime",
   "title": "Mobiscroll Date & Time Scroller",
-  "description": "Renders a scrollable Date, Time or Date & Time Picker for easy date entry on touch devices. It comes with theming capability, optional jQuery Mobile integration and multiple display modes: Inline, Modal, Docked Top & Bottom.",
+  "description": "Renders a scrollable Date, Time or Date & Time Picker for easy date entry on touch devices. It comes with theming capability, optional jQuery Mobile integration and multiple display modes: Inline, Modal, Bubble, Docked Top & Bottom.",
   "keywords": [
     "ui",
     "input",
@@ -13,7 +13,7 @@
     "scroller",
     "clickpick"
   ],
-  "version": "2.4.0",
+  "version": "2.4.1",
   "author": {
     "name": "Acid Media",
     "url": "http://theacidmedia.net"
@@ -39,6 +39,7 @@
   "bugs": "https://github.com/acidb/mobiscroll/issues",
   "homepage": "http://mobiscroll.com/component/datetime",
   "docs": "http://docs.mobiscroll.com/datetime",
+  "demo": "http://demo.mobiscroll.com/datetime",
   "download": "http://download.mobiscroll.com/datetime",
   "dependencies": {
     "jquery": ">=1.6"

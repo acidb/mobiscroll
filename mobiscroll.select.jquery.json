@@ -1,7 +1,7 @@
 {
   "name": "mobiscroll.select",
   "title": "Mobiscroll Select Scroller",
-  "description": "Renders a scrollable list from HTML selects for easy data picking on touch devices. It comes with theming capability, optional jQuery Mobile integration and multiple display modes: Inline, Modal, Docked Top & Bottom. It works with optgroups as well.",
+  "description": "Renders a scrollable list from HTML selects for easy data picking on touch devices. It comes with theming capability, optional jQuery Mobile integration and multiple display modes: Inline, Modal, Bubble, Docked Top & Bottom. It works with optgroups as well.",
   "keywords": [
     "ui",
     "input",
@@ -13,7 +13,7 @@
     "scroller",
     "clickpick"
   ],
-  "version": "2.4.0",
+  "version": "2.4.1",
   "author": {
     "name": "Acid Media",
     "url": "http://theacidmedia.net"
@@ -39,6 +39,7 @@
   "bugs": "https://github.com/acidb/mobiscroll/issues",
   "homepage": "http://mobiscroll.com",
   "docs": "http://docs.mobiscroll.com/select",
+  "demo": "http://demo.mobiscroll.com/select",
   "download": "http://download.mobiscroll.com/select",
   "dependencies": {
     "jquery": ">=1.6"

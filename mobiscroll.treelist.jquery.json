@@ -1,7 +1,7 @@
 {
   "name": "mobiscroll.treelist",
   "title": "Mobiscroll Treelist Scroller",
-  "description": "Renders a scrollable hierarchical list of dynamic depth for easy data picking on touch devices. It comes with theming capability, optional jQuery Mobile integration and multiple display modes: Inline, Modal, Docked Top & Bottom.",
+  "description": "Renders a scrollable hierarchical list of dynamic depth for easy data picking on touch devices. It comes with theming capability, optional jQuery Mobile integration and multiple display modes: Inline, Modal, Bubble, Docked Top & Bottom.",
   "keywords": [
     "ui",
     "input",
@@ -12,7 +12,7 @@
     "scroller",
     "clickpick"
   ],
-  "version": "2.4.0",
+  "version": "2.4.1",
   "author": {
     "name": "Acid Media",
     "url": "http://theacidmedia.net"
@@ -43,6 +43,7 @@
   "bugs": "https://github.com/acidb/mobiscroll/issues",
   "homepage": "http://mobiscroll.com",
   "docs": "http://docs.mobiscroll.com/list",
+  "demo": "http://demo.mobiscroll.com/list",
   "download": "http://download.mobiscroll.com/list",
   "dependencies": {
     "jquery": ">=1.6"
