@@ -182,7 +182,7 @@
     margin: -13px;
     display: block;
     background: url(wp_icons.png) center center no-repeat;
-    text-indent: -9999px;
+    font-size: 0;
 }
 .wp .dwwbp span {
     background-position: -78px 0;
