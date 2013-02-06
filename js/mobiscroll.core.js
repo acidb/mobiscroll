@@ -59,12 +59,6 @@
             return html;
         }
 
-        function getDocHeight() {
-            var body = document.body,
-                html = document.documentElement;
-            return Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
-        }
-
         function setGlobals(t) {
             min = $('.dw-li', t).index($('.dw-v', t).eq(0));
             max = $('.dw-li', t).index($('.dw-v', t).eq(-1));
@@ -226,7 +220,7 @@
             css.left = l;
             d.css(css);
 
-            $('.dwo, .dw-persp', dw).height(0).height(getDocHeight());
+            $('.dwo, .dw-persp', dw).height(0).height($(document).height());
 
             if (needScroll) {
                 setTimeout(function () {

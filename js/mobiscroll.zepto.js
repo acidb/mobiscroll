@@ -1,37 +1,39 @@
+/*jslint eqeq: true, plusplus: true, undef: true, sloppy: true, vars: true, forin: true */
 var jQuery = Zepto;
 
 (function ($) {
 
-    ['width', 'height'].forEach(function(dimension) {
-        var offset, Dimension = dimension.replace(/./, function(m) { return m[0].toUpperCase() });
-        $.fn['outer' + Dimension] = function(margin) {
+    ['width', 'height'].forEach(function (dimension) {
+        var offset, Dimension = dimension.replace(/./, function (m) { return m[0].toUpperCase(); });
+        $.fn['outer' + Dimension] = function (margin) {
             var elem = this;
             if (elem) {
-                var size = elem[0]['offset' + Dimension];
-                var sides = {'width': ['left', 'right'], 'height': ['top', 'bottom']};
-                sides[dimension].forEach(function(side) {
-                    if (margin) size += parseInt(elem.css('margin-' + side), 10);
+                var size = elem[0]['offset' + Dimension],
+                    sides = {'width': ['left', 'right'], 'height': ['top', 'bottom']};
+                sides[dimension].forEach(function (side) {
+                    if (margin) {
+                        size += parseInt(elem.css('margin-' + side), 10);
+                    }
                 });
                 return size;
-            }
-            else {
+            } else {
                 return null;
             }
         };
     });
 
-    ["Left", "Top"].forEach(function(name, i) {
+    ["Left", "Top"].forEach(function (name, i) {
         var method = "scroll" + name;
 
-        function isWindow( obj ) {
+        function isWindow(obj) {
             return obj && typeof obj === "object" && "setInterval" in obj;
         }
 
-        function getWindow( elem ) {
-            return isWindow( elem ) ? elem : elem.nodeType === 9 ? elem.defaultView || elem.parentWindow : false;
+        function getWindow(elem) {
+            return isWindow(elem) ? elem : elem.nodeType === 9 ? elem.defaultView || elem.parentWindow : false;
         }
 
-        $.fn[method] = function( val ) {
+        $.fn[method] = function (val) {
             var elem, win;
             if (val === undefined) {
                 elem = this[0];
@@ -41,31 +43,40 @@ var jQuery = Zepto;
                 win = getWindow(elem);
                 // Return the scroll offset
                 return win ? ("pageXOffset" in win) ? win[i ? "pageYOffset" : "pageXOffset"] :
-                    win.document.documentElement[method] ||
-                    win.document.body[method] :
-                    elem[method];
+                        win.document.documentElement[method] ||
+                        win.document.body[method] :
+                        elem[method];
             }
 
             // Set the scroll offset
-            this.each(function() {
+            this.each(function () {
                 win = getWindow(this);
                 if (win) {
-                    var xCoord = !i ? val : $(win).scrollLeft();
-                    var yCoord = i ? val : $(win).scrollTop();
+                    var xCoord = !i ? val : $(win).scrollLeft(),
+                        yCoord = i ? val : $(win).scrollTop();
                     win.scrollTo(xCoord, yCoord);
-                }
-                else {
+                } else {
                     this[method] = val;
                 }
             });
-        }
+        };
     });
+    
+    $.fn.__height = $.fn.height;
+    $.fn.height = function () {
+        if (this[0].nodeName == '#document') {
+            var body = document.body,
+                html = document.documentElement;
+            return Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
+        }
+        return $.fn.__height.apply(this, arguments);
+    };
 
     // Fix zepto.js extend to work with undefined parameter
     $.__extend = $.extend;
-    $.extend = function() {
+    $.extend = function () {
         arguments[0] = arguments[0] || {};
         return $.__extend.apply(this, arguments);
-    }
+    };
 
 })(jQuery);

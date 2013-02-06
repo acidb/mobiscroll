@@ -1,3 +1,4 @@
+/*jslint eqeq: true, plusplus: true, undef: true, sloppy: true, vars: true, forin: true */
 var jQuery = jq;
 
 (function ($) {
@@ -8,6 +9,38 @@ var jQuery = jq;
         tempParent = document.createElement('div'),
         emptyArray = [],
         slice = emptyArray.slice;
+    
+    function isNumeric(n) {
+        return !isNaN(parseFloat(n)) && isFinite(n);
+    }
+
+    function matches(element, selector) {
+        if (!element || element.nodeType !== 1) {
+            return false;
+        }
+        
+        var matchesSelector = element.webkitMatchesSelector || element.mozMatchesSelector ||
+                              element.oMatchesSelector || element.matchesSelector;
+        if (matchesSelector) return matchesSelector.call(element, selector)
+        // fall back to performing a selector:
+        var match, parent = element.parentNode, temp = !parent
+        if (temp) (parent = tempParent).appendChild(element)
+        match = ~qsa(parent, selector).indexOf(element)
+        temp && tempParent.removeChild(element)
+        return match
+    }
+
+    function qsa(element, selector){
+        var found
+        return (element === document && idSelectorRE.test(selector)) ?
+        ( (found = element.getElementById(RegExp.$1)) ? [found] : emptyArray ) :
+        (element.nodeType !== 1 && element.nodeType !== 9) ? emptyArray :
+        slice.call(
+            classSelectorRE.test(selector) ? element.getElementsByClassName(RegExp.$1) :
+            tagSelectorRE.test(selector) ? element.getElementsByTagName(selector) :
+            element.querySelectorAll(selector)
+            )
+    }
 
     ['width', 'height'].forEach(function(dimension){
         $.fn[dimension] = function(value){
@@ -123,6 +156,11 @@ var jQuery = jq;
     $.fn.slice = function () {
         return $(slice.apply(this, arguments));
     }
+        
+    $.fn.before = function (elm) {
+        $(elm).insertBefore(this);
+        return this;
+    }
 
     $.fn.appendTo = function (elm) {
         $(elm).append(this);
@@ -174,40 +212,21 @@ var jQuery = jq;
         for (key in value);
         return key === undefined || hasOwnProperty.call(value, key)
     }
+        
+    $.fn.__height = $.fn.height;
+    $.fn.height = function () {
+        if (this[0].nodeName == '#document') {
+            var body = document.body,
+                html = document.documentElement;
+            return Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
+        }
+        return $.fn.__height.apply(this, arguments);
+    };
 
     $._extend = $.extend;
     $.extend = function() {
         arguments[0] = arguments[0] || {};
         return $._extend.apply(this, arguments);
-    }
-
-    function isNumeric(n){
-        return !isNaN(parseFloat(n)) && isFinite(n);
-    }
-
-    function matches(element, selector){
-        if (!element || element.nodeType !== 1) return false
-        var matchesSelector = element.webkitMatchesSelector || element.mozMatchesSelector ||
-                              element.oMatchesSelector || element.matchesSelector
-        if (matchesSelector) return matchesSelector.call(element, selector)
-        // fall back to performing a selector:
-        var match, parent = element.parentNode, temp = !parent
-        if (temp) (parent = tempParent).appendChild(element)
-        match = ~qsa(parent, selector).indexOf(element)
-        temp && tempParent.removeChild(element)
-        return match
-    }
-
-    function qsa(element, selector){
-        var found
-        return (element === document && idSelectorRE.test(selector)) ?
-        ( (found = element.getElementById(RegExp.$1)) ? [found] : emptyArray ) :
-        (element.nodeType !== 1 && element.nodeType !== 9) ? emptyArray :
-        slice.call(
-            classSelectorRE.test(selector) ? element.getElementsByClassName(RegExp.$1) :
-            tagSelectorRE.test(selector) ? element.getElementsByTagName(selector) :
-            element.querySelectorAll(selector)
-            )
     }
 
 })(jQuery);
