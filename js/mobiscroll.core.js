@@ -130,25 +130,30 @@
             that.change(manual);
         }
 
-        function position(force) {
+        function position(check) {
 
-            if (s.display == 'inline' || (ww === $(window).width() && rwh === $(window).height() && force !== true)) {
+            if (s.display == 'inline' || (ww === $(window).width() && rwh === $(window).height() && check)) {
                 return;
             }
             
             var w,
                 l,
                 t,
-                aw,
-                ah,
-                mhm,
+                aw, // anchor width
+                ah, // anchor height
+                ap, // anchor position
+                at, // anchor top
+                al, // anchor left
+                arr, // arrow
+                arrw, // arrow width
+                arrl, // arrow left
+                scroll,
                 totalw = 0,
                 minw = 0,
                 st = $(window).scrollTop(),
                 wr = $('.dwwr', dw),
                 d = $('.dw', dw),
                 css = {},
-                needScroll,
                 anchor = s.anchor === undefined ? elm : s.anchor;
             
             ww = $(window).width();
@@ -167,30 +172,30 @@
             }
             
             mw = wr.outerWidth();
-            mh = d.outerHeight();
-            mhm = d.outerHeight(true);
+            mh = d.outerHeight(true);
             
             if (s.display == 'modal') {
                 l = (ww - mw) / 2;
                 t = st + (wh - mh) / 2;
             } else if (s.display == 'bubble') {
-                var p = anchor.offset(),
-                    poc = $('.dw-arr', dw),
-                    pocw = $('.dw-arrw-i', dw);
+                scroll = true;
+                arr = $('.dw-arrw-i', dw);
+                ap = anchor.offset();
+                at = ap.top;
+                al = ap.left;
 
                 // horizontal positioning
                 aw = anchor.outerWidth();
                 ah = anchor.outerHeight();
-                l = p.left - (d.outerWidth(true) - aw) / 2;
+                l = al - (d.outerWidth(true) - aw) / 2;
                 l = l > (ww - mw) ? (ww - (mw + 20)) : l;
                 l = l >= 0 ? l : 20;
                 
                 // vertical positioning
-                t = p.top - (mh + 3); // above the input
-                if ((t < st) || (p.top > st + wh)) { // if doesn't fit above or the input is out of the screen
+                t = at - mh; //(mh + 3); // above the input
+                if ((t < st) || (at > st + wh)) { // if doesn't fit above or the input is out of the screen
                     d.removeClass('dw-bubble-top').addClass('dw-bubble-bottom');
-                    t = p.top + ah + 3; // below the input
-                    needScroll = ((t + mhm > st + wh) || (p.top > st + wh));
+                    t = at + ah;// + 3; // below the input
                 } else {
                     d.removeClass('dw-bubble-bottom').addClass('dw-bubble-top');
                 }
@@ -198,34 +203,30 @@
                 //t = t >= st ? t : st;
                 
                 // Calculate Arrow position
-                var pl = p.left + aw / 2 - (l + (mw - pocw.outerWidth()) / 2);
+                arrw = arr.outerWidth();
+                arrl = al + aw / 2 - (l + (mw - arrw) / 2);
 
                 // Limit Arrow position to [0, pocw.width] intervall
-                if (pl > pocw.outerWidth()) {
-                    pl = pocw.outerWidth();
-                }
-
-                poc.css({ left: pl });
+                $('.dw-arr', dw).css({ left: arrl > arrw ? arrw : arrl });
             } else {
                 css.width = '100%';
                 if (s.display == 'top') {
                     t = st;
                 } else if (s.display == 'bottom') {
                     t = st + wh - mh;
-                    t = t >= 0 ? t : 0;
                 }
             }
             
             css.top = t < 0 ? 0 : t;
             css.left = l;
             d.css(css);
-
-            $('.dwo, .dw-persp', dw).height(0).height($(document).height());
-
-            if (needScroll) {
-                setTimeout(function () {
-                    $(window).scrollTop(t + mhm - wh);
-                }, anim ? 350 : 0);
+            
+            // If top + modal height > doc height, increase doc height
+            $('.dw-persp', dw).height(0).height(t + mh > $(document).height() ? t + mh : $(document).height());
+            
+            // Scroll needed
+            if (scroll && ((t + mh > st + wh) || (at > st + wh))) {
+                $(window).scrollTop(t + mh - wh);
             }
         }
 
@@ -395,7 +396,7 @@
                             $('.dw-ul', dw).eq(i).html(generateWheelItems(i));
                             nr--;
                             if (!nr) {
-                                position(true);
+                                position();
                                 scrollToPos(time);
                                 return;
                             }
@@ -432,17 +433,13 @@
             var l = 0,
                 i,
                 label,
-                mAnim = '',
-                persPS = '',
-                persPE = '';
+                mAnim = '';
 
             if (anim && !prevAnim) {
-                persPS = '<div class="dw-persp">';
-                persPE = '</div>';
                 mAnim = 'dw-' + anim + ' dw-in';
             }
             // Create wheels containers
-            var html = '<div class="dw-trans ' + s.theme + ' dw-' + s.display + ' dw-' + s.preset + '">' + (s.display == 'inline' ? '<div class="dw dwbg dwi"><div class="dwwr">' : persPS + '<div class="dwo"></div><div class="dw dwbg ' + mAnim + '"><div class="dw-arrw"><div class="dw-arrw-i"><div class="dw-arr"></div></div></div><div class="dwwr">' + (s.headerText ? '<div class="dwv"></div>' : ''));
+            var html = '<div class="dw-trans ' + s.theme + ' dw-' + s.display + ' dw-' + s.preset + '">' + (s.display == 'inline' ? '<div class="dw dwbg dwi"><div class="dwwr">' : '<div class="dw-persp">' + '<div class="dwo"></div><div class="dw dwbg ' + mAnim + '"><div class="dw-arrw"><div class="dw-arrw-i"><div class="dw-arr"></div></div></div><div class="dwwr">' + (s.headerText ? '<div class="dwv"></div>' : ''));
 
             for (i = 0; i < s.wheels.length; i++) {
                 html += '<div class="dwc' + (s.mode != 'scroller' ? ' dwpm' : ' dwsc') + (s.showLabel ? '' : ' dwhl') + '"><div class="dwwc dwrc"><table cellpadding="0" cellspacing="0"><tr>';
@@ -457,7 +454,7 @@
                 }
                 html += '</tr></table></div></div>';
             }
-            html += (s.display != 'inline' ? '<div class="dwbc' + (s.button3 ? ' dwbc-p' : '') + '"><span class="dwbw dwb-s"><span class="dwb">' + s.setText + '</span></span>' + (s.button3 ? '<span class="dwbw dwb-n"><span class="dwb">' + s.button3Text + '</span></span>' : '') + '<span class="dwbw dwb-c"><span class="dwb">' + s.cancelText + '</span></span></div>' + persPE : '<div class="dwcc"></div>') + '</div></div></div>';
+            html += (s.display != 'inline' ? '<div class="dwbc' + (s.button3 ? ' dwbc-p' : '') + '"><span class="dwbw dwb-s"><span class="dwb">' + s.setText + '</span></span>' + (s.button3 ? '<span class="dwbw dwb-n"><span class="dwb">' + s.button3Text + '</span></span>' : '') + '<span class="dwbw dwb-c"><span class="dwb">' + s.cancelText + '</span></span></div></div>' : '<div class="dwcc"></div>') + '</div></div></div>';
             dw = $(html);
 
             scrollToPos();
@@ -512,8 +509,13 @@
                 });
 
                 // Set position
-                position(true);
-                $(window).bind('resize.dw', position);
+                position();
+                $(window).bind('resize.dw', function () {
+                    // Sometimes scrollTop is not correctly set, so we wait a little
+                    setTimeout(function () {
+                        position(true);
+                    }, 100);
+                });
             }
 
             // Events

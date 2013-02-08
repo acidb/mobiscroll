@@ -4,13 +4,13 @@
         defaults: {
             jqmBorder: 'a',
             jqmBody: 'c',
-            jqmHeader:'b',
+            jqmHeader: 'b',
             jqmWheel: 'd',
             jqmClickPick: 'c',
             jqmSet: 'b',
             jqmCancel: 'c'
         },
-        init: function(elm, inst) {
+        init: function (elm, inst) {
             var s = inst.settings;
             $('.dw', elm).removeClass('dwbg').addClass('ui-overlay-shadow ui-corner-all ui-body-' + s.jqmBorder);
             $('.dwb-s span', elm).attr('data-role', 'button').attr('data-theme', s.jqmSet);
@@ -20,12 +20,10 @@
             $('.dwv', elm).addClass('ui-header ui-bar-' + s.jqmHeader);
             $('.dwwr', elm).addClass('ui-body-' + s.jqmBody);
             $('.dwpm .dww', elm).addClass('ui-body-' + s.jqmWheel);
-            if (s.display != 'inline')
-                $('.dw', elm).addClass('pop in');
             elm.trigger('create');
             // Hide on overlay click
-            $('.dwo', elm).click(function() { inst.cancel(); });
+            $('.dwo', elm).click(function () { inst.cancel(); });
         }
-    }
+    };
 
 })(jQuery);

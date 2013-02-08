@@ -28,22 +28,22 @@
     text-align: center;
 }
 /* Datewheel overlay background */
-.dwo {
+.dw-persp, .dwo {
     width: 100%;
-    background: #000;
+    height: 100%;
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 1000;
+    z-index: 1001;
+}
+.dwo {
+    background: #000;
     opacity: .7;
     filter: Alpha(Opacity=70);
 }
 /* Bubble positionings */
-.dw-bubble-bottom {
-    margin-top: 18px;
-}
-.dw-bubble-top {
-    margin-top: -18px;
+.dw-bubble .dw {
+    margin: 20px 0;
 }
 .dw-bubble .dw-arrw {
     position: absolute;
