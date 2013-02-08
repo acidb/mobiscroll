@@ -168,10 +168,10 @@
                     minw = (w > minw) ? w : minw;
                 });
                 w = totalw > ww ? minw : totalw;
-                wr.width(w + 1);
+                wr.width(w);
             }
             
-            mw = wr.outerWidth();
+            mw = d.outerWidth();
             mh = d.outerHeight(true);
             
             if (s.display == 'modal') {
@@ -439,7 +439,7 @@
                 mAnim = 'dw-' + anim + ' dw-in';
             }
             // Create wheels containers
-            var html = '<div class="dw-trans ' + s.theme + ' dw-' + s.display + ' dw-' + s.preset + '">' + (s.display == 'inline' ? '<div class="dw dwbg dwi"><div class="dwwr">' : '<div class="dw-persp">' + '<div class="dwo"></div><div class="dw dwbg ' + mAnim + '"><div class="dw-arrw"><div class="dw-arrw-i"><div class="dw-arr"></div></div></div><div class="dwwr">' + (s.headerText ? '<div class="dwv"></div>' : ''));
+            var html = '<div class="dw-trans ' + s.theme + ' dw-' + s.display + '">' + (s.display == 'inline' ? '<div class="dw dwbg dwi"><div class="dwwr">' : '<div class="dw-persp">' + '<div class="dwo"></div><div class="dw dwbg ' + mAnim + '"><div class="dw-arrw"><div class="dw-arrw-i"><div class="dw-arr"></div></div></div><div class="dwwr">' + (s.headerText ? '<div class="dwv"></div>' : ''));
 
             for (i = 0; i < s.wheels.length; i++) {
                 html += '<div class="dwc' + (s.mode != 'scroller' ? ' dwpm' : ' dwsc') + (s.showLabel ? '' : ' dwhl') + '"><div class="dwwc dwrc"><table cellpadding="0" cellspacing="0"><tr>';
@@ -474,7 +474,7 @@
                 dw.insertAfter(elm);
             }
             visible = true;
-
+            
             if (s.display != 'inline') {
                 // Init buttons
                 $('.dwb-s span', dw).click(function () {
@@ -566,7 +566,7 @@
             });
 
             event('onShow', [dw, v]);
-
+            
             // Theme init
             theme.init(dw, that);
         };
