@@ -178,11 +178,12 @@
     top: 50%;
     left: 50%;
     width: 26px;
-    height: 26px;
+    height: 0;
+    padding-top: 26px;
+    overflow: hidden;
     margin: -13px;
     display: block;
     background: url(wp_icons.png) center center no-repeat;
-    font-size: 0;
 }
 .wp .dwwbp span {
     background-position: -78px 0;
