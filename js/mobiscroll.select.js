@@ -241,10 +241,7 @@
                 getValue: function (temp) {
                     var inst = $(this).mobiscroll('getInst');
                     if (inst) {
-                        if (inst.getSelectVal) {
-                            return inst.getSelectVal(temp);
-                        }
-                        return inst.values;
+                        return inst.getSelectVal ? inst.getSelectVal(temp) : inst.values;
                     }
                 }
             }
