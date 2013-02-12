@@ -20,6 +20,7 @@
             mw, // Modal width
             mh, // Modal height
             anim,
+            debounce,
             that = this,
             ms = $.mobiscroll,
             e = elem,
@@ -131,8 +132,7 @@
         }
 
         function position(check) {
-
-            if (s.display == 'inline' || (ww === $(window).width() && rwh === $(window).height() && check)) {
+            if (ww === $(window).width() && rwh === $(window).height() && check) {
                 return;
             }
             
@@ -161,7 +161,7 @@
             wh = window.innerHeight; // on iOS we need innerHeight
             wh = wh || rwh;
             
-            if (s.display == 'modal' || s.display == 'bubble') {
+            if (/modal|bubble|inline/.test(s.display)) {
                 $('.dwc', dw).each(function () {
                     w = $(this).outerWidth(true);
                     totalw += w;
@@ -169,6 +169,10 @@
                 });
                 w = totalw > ww ? minw : totalw;
                 wr.width(w);
+            }
+            
+            if (s.display == 'inline') {
+                return;
             }
             
             mw = d.outerWidth();
@@ -507,16 +511,17 @@
                         $(this).addClass('dwtd').prop('disabled', true);
                     }
                 });
-
-                // Set position
-                position();
-                $(window).bind('resize.dw', function () {
-                    // Sometimes scrollTop is not correctly set, so we wait a little
-                    setTimeout(function () {
-                        position(true);
-                    }, 100);
-                });
             }
+            
+            // Set position
+            position();
+            $(window).bind('resize.dw', function () {
+                // Sometimes scrollTop is not correctly set, so we wait a little
+                clearTimeout(debounce);
+                debounce = setTimeout(function () {
+                    position(true);
+                }, 100);
+            });
 
             // Events
             dw.delegate('.dwwl', 'DOMMouseScroll mousewheel', function (e) {
