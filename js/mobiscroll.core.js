@@ -557,6 +557,9 @@
                 // Scroll start
                 if (!move && !isReadOnly(this) && !click && s.mode != 'clickpick') {
                     move = true;
+                    $(document).bind(MOVE_EVENT, onMove);
+                    $(document).bind(END_EVENT, onEnd);
+
                     target = $('.dw-ul', this);
                     target.closest('.dwwl').addClass('dwa');
                     pos = +target.data('pos');
@@ -914,16 +917,18 @@
             }
         };
 
-    $(document).bind(MOVE_EVENT, function (e) {
+    var onMove = function (e) {
         if (move) {
             e.preventDefault();
             stop = getY(e);
             inst.scroll(target, index, constrain(pos + (start - stop) / h, min - 1, max + 1));
             moved = true;
         }
-    });
+    };
 
-    $(document).bind(END_EVENT, function (e) {
+    var onEnd = function (e) {
+        $(document).unbind(MOVE_EVENT, onMove);
+        $(document).unbind(END_EVENT, onEnd);
         if (move) {
             e.preventDefault();
 
@@ -964,7 +969,7 @@
             click = false;
         }
         $('.dwb-a').removeClass('dwb-a');
-    });
+    };
 
     $.fn.mobiscroll = function (method) {
         extend(this, $.mobiscroll.shorts);
