@@ -86,23 +86,28 @@
                 $('.dw-ul', dw).each(function (i) {
                     var t = $(this),
                         cell = $('.dw-li[data-val="' + that.temp[i] + '"]', t),
-                        v = $('.dw-li', t).index(cell),
+                        cells = $('.dw-li', t),
+                        v = cells.index(cell),
+                        l = cells.length,
                         sc = i == index || index === undefined;
-
+                    
                     // Scroll to a valid cell
                     if (!cell.hasClass('dw-v')) {
                         var cell1 = cell,
                             cell2 = cell,
                             dist1 = 0,
                             dist2 = 0;
-                        while (cell1.prev().length && !cell1.hasClass('dw-v')) {
-                            cell1 = cell1.prev();
+                        
+                        while (v - dist1 >= 0 && !cell1.hasClass('dw-v')) {
                             dist1++;
+                            cell1 = cells.eq(v - dist1);
                         }
-                        while (cell2.next().length && !cell2.hasClass('dw-v')) {
-                            cell2 = cell2.next();
+
+                        while (v + dist2 < l && !cell2.hasClass('dw-v')) {
                             dist2++;
+                            cell2 = cells.eq(v + dist2);
                         }
+                        
                         // If we have direction (+/- or mouse wheel), the distance does not count
                         if (((dist2 < dist1 && dist2 && dir !== 2) || !dist1 || !(cell1.hasClass('dw-v')) || dir == 1) && cell2.hasClass('dw-v')) {
                             cell = cell2;
@@ -559,8 +564,6 @@
                 if (!move && !isReadOnly(this) && !click && s.mode != 'clickpick') {
                     move = true;
                     $(document).bind(MOVE_EVENT, onMove);
-                    $(document).bind(END_EVENT, onEnd);
-
                     target = $('.dw-ul', this);
                     target.closest('.dwwl').addClass('dwa');
                     pos = +target.data('pos');
@@ -772,6 +775,12 @@
         START_EVENT = 'touchstart mousedown',
         MOVE_EVENT = 'touchmove mousemove',
         END_EVENT = 'touchend mouseup',
+        onMove = function (e) {
+            e.preventDefault();
+            stop = getY(e);
+            inst.scroll(target, index, constrain(pos + (start - stop) / h, min - 1, max + 1));
+            moved = true;
+        },
         defaults = {
             // Options
             width: 70,
@@ -917,29 +926,16 @@
                 });
             }
         };
-
-    var onMove = function (e) {
+    
+    $(document).bind(END_EVENT, function () {
         if (move) {
-            e.preventDefault();
-            stop = getY(e);
-            inst.scroll(target, index, constrain(pos + (start - stop) / h, min - 1, max + 1));
-            moved = true;
-        }
-    };
-
-    var onEnd = function (e) {
-        $(document).unbind(MOVE_EVENT, onMove);
-        $(document).unbind(END_EVENT, onEnd);
-        if (move) {
-            e.preventDefault();
-
             var time = new Date() - startTime,
                 val = constrain(pos + (start - stop) / h, min - 1, max + 1),
                 speed,
                 dist,
                 tindex,
                 ttop = target.offset().top;
-
+        
             if (time < 300) {
                 speed = (stop - start) / time;
                 dist = (speed * speed) / (2 * 0.0006);
@@ -964,13 +960,18 @@
             calc(target, tindex, 0, true, Math.round(val));
             move = false;
             target = null;
+        
+            $(document).unbind(MOVE_EVENT, onMove);
         }
+
         if (click) {
             clearInterval(timer);
             click = false;
         }
+    
         $('.dwb-a').removeClass('dwb-a');
-    };
+                
+    });
 
     $.fn.mobiscroll = function (method) {
         extend(this, $.mobiscroll.shorts);
