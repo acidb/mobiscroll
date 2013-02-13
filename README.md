@@ -23,6 +23,30 @@ It'd be cool to see how you're using Mobiscroll!
 
 We're looking at showcasing some of the best work on http://mobiscroll.com . Feel free to let us know on twitter @mobiscroll!
 
+Changelog 2.4.2
+===============
+
+Enhancements
+------------
+
+_Core_
+
+  * Move event is attached only on demand (#71)
+
+Bugfixes
+--------
+
+_Core_
+
+  * Positioning fixes
+
+  * Validation bugfix
+
+_Themes_
+
+  * Windows Phone theme: font-size fix in clickpick mode
+
+
 Changelog 2.4.1
 ===============
 
