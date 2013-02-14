@@ -62,21 +62,25 @@ var jQuery = Zepto;
         };
     });
     
-    $.fn.__height = $.fn.height;
-    $.fn.height = function () {
-        if (this[0].nodeName == '#document') {
-            var body = document.body,
-                html = document.documentElement;
-            return Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
-        }
-        return $.fn.__height.apply(this, arguments);
-    };
+    if (!$.fn._height) {
+        $.fn._height = $.fn.height;
+        $.fn.height = function () {
+            if (this[0].nodeName == '#document') {
+                var body = document.body,
+                    html = document.documentElement;
+                return Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
+            }
+            return $.fn._height.apply(this, arguments);
+        };
+    }
 
     // Fix zepto.js extend to work with undefined parameter
-    $.__extend = $.extend;
-    $.extend = function () {
-        arguments[0] = arguments[0] || {};
-        return $.__extend.apply(this, arguments);
-    };
+    if (!$.fn._extend) {
+        $._extend = $.extend;
+        $.extend = function () {
+            arguments[0] = arguments[0] || {};
+            return $._extend.apply(this, arguments);
+        };
+    }
 
 })(jQuery);

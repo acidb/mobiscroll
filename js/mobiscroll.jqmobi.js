@@ -21,7 +21,10 @@ var jQuery = jq;
         
         var matchesSelector = element.webkitMatchesSelector || element.mozMatchesSelector ||
                               element.oMatchesSelector || element.matchesSelector;
-        if (matchesSelector) return matchesSelector.call(element, selector)
+        
+        if (matchesSelector) {
+            return matchesSelector.call(element, selector)
+        }
         // fall back to performing a selector:
         var match, parent = element.parentNode, temp = !parent
         if (temp) (parent = tempParent).appendChild(element)
@@ -113,120 +116,120 @@ var jQuery = jq;
     });
 
     $.fn.is = function (selector) {
-        return this.length > 0 && matches(this[0], selector)
-    }
+        return this.length > 0 && matches(this[0], selector);
+    };
 
-    $.fn.prop = function(name, value){
-      return (value === undefined) ?
-        (this[0] ? this[0][name] : undefined) :
-        this.each(function(idx){
-          this[name] = value;
-        })
-    }
+    $.fn.prop = function (name, value) {
+        return (value === undefined) ? (this[0] ? this[0][name] : undefined) : this.each(function (idx) { this[name] = value; });
+    };
 
     $.fn.focus = function (handler) {
-        if (handler === undefined)
+        if (handler === undefined) {
             $(this).trigger('focus');
-        else
+        } else {
             $(this).bind('focus', handler);
-    }
+        }
+    };
 
     $.fn.blur = function (handler) {
-        if (handler === undefined)
+        if (handler === undefined) {
             $(this).trigger('blur');
-        else
+        } else {
             $(this).bind('blur', handler);
-    }
+        }
+    };
 
     $.fn.click = function (handler) {
-        if (handler === undefined)
+        if (handler === undefined) {
             $(this).trigger('click');
-        else
+        } else {
             $(this).bind('click', handler);
-    }
+        }
+    };
 
     $.fn.eq = function (i) {
         return $($(this).get(i));
-    }
+    };
 
     $.fn.index = function (element) {
         return element ? this.indexOf($(element)[0]) : this.length ? this.parent().children().indexOf(this[0]) : -1;
-    }
+    };
 
     $.fn.slice = function () {
         return $(slice.apply(this, arguments));
-    }
+    };
         
     $.fn.before = function (elm) {
         $(elm).insertBefore(this);
         return this;
-    }
+    };
 
     $.fn.appendTo = function (elm) {
         $(elm).append(this);
         return this;
-    }
-
-    $.fn.pluck = function(property){
-      return this.map(function(){return this[property]})
-    }
-
-    $.fn.prev = function() {
-        var p = this.pluck('previousElementSibling');
-        return p[0][0]?$(p[0]):$([]);
-    }
-
-    $.fn.next = function() {
-        var n = this.pluck('nextElementSibling');
-        return n[0][0]?$(n[0]):$([]);
-    }
-
-    $.fn._css = $.fn.css;
-    $.fn.css = function(attr, val, obj){
-
-        if ($.isObject(attr))
-        {
-            for(var i in attr)
-                $(this)._css(i, isNumeric(attr[i]) ? attr[i]+'px' : attr[i], obj);
-            return this;
-        }
-        else
-            return $(this)._css(attr, isNumeric(val) ? val+'px' : val, obj);
-    }
-
-    $.inArray = function(value, array, fromIndex){
-        var i = fromIndex || 0;
-        while(i<array.length)
-            if (array[i++] == value)
-                return --i;
-        return -1;
-    }
-
-    $.isPlainObject = function(value) {
-        var key, ctor
-        if (toString.call(value) !== "[object Object]")
-            return false
-        ctor = (isFunction(value.constructor) && value.constructor.prototype)
-        if (!ctor || !hasOwnProperty.call(ctor, 'isPrototypeOf'))
-            return false
-        for (key in value);
-        return key === undefined || hasOwnProperty.call(value, key)
-    }
-        
-    $.fn.__height = $.fn.height;
-    $.fn.height = function () {
-        if (this[0].nodeName == '#document') {
-            var body = document.body,
-                html = document.documentElement;
-            return Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
-        }
-        return $.fn.__height.apply(this, arguments);
     };
 
-    $._extend = $.extend;
-    $.extend = function() {
-        arguments[0] = arguments[0] || {};
-        return $._extend.apply(this, arguments);
+    $.fn.pluck = function (property) {
+        return this.map(function () { return this[property]; });
+    };
+
+    $.fn.prev = function () {
+        var p = this.pluck('previousElementSibling');
+        return p[0][0] ? $(p[0]) : $([]);
+    };
+
+    $.fn.next = function () {
+        var n = this.pluck('nextElementSibling');
+        return n[0][0] ? $(n[0]) : $([]);
+    };
+    
+    $.inArray = function (value, array, fromIndex) {
+        var i = fromIndex || 0;
+        while (i < array.length) {
+            if (array[i++] == value) {
+                return --i;
+            }
+        }
+        return -1;
+    };
+    
+    $.isPlainObject = function (v) {
+        return $.isObject(v);
+    };
+
+    if (!$.fn._css) {
+        $.fn._css = $.fn.css;
+        $.fn.css = function (attr, val, obj) {
+            if ($.isObject(attr)) {
+                var i;
+                for (i in attr) {
+                    $(this)._css(i, isNumeric(attr[i]) ? attr[i] + 'px' : attr[i], obj);
+                }
+                return this;
+            } else {
+                return $(this)._css(attr, isNumeric(val) ? val + 'px' : val, obj);
+            }
+        };
+    }
+        
+    if (!$.fn._height) {
+        $.fn._height = $.fn.height;
+        $.fn.height = function () {
+            if (this[0].nodeName == '#document') {
+                var body = document.body,
+                    html = document.documentElement;
+                return Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
+            }
+            return $.fn._height.apply(this, arguments);
+        };
+    }
+
+    if (!$.fn._extend) {
+        $._extend = $.extend;
+        $.extend = function () {
+            arguments[0] = arguments[0] || {};
+            return $._extend.apply(this, arguments);
+        };
     }
 
 })(jQuery);
