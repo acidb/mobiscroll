@@ -31,7 +31,7 @@
     border: 0;
     color: #fff;
 }
-.wp .dw .dww .dw-li {
+.wp .dw-li {
     position: relative;
     padding: 0;
     font-size: 26px;
@@ -58,11 +58,11 @@
     -moz-box-sizing: border-box;
     filter: inherit;
 }
-.wp .dw .wpa .dw-li, .wp .dw .dwa .dw-li {
+.wp .wpa .dw-li, .wp .dwa .dw-li {
     opacity: .3;
     filter: Alpha(Opacity=30);
 }
-.wp .dw .wpa .dw-li.dw-v, .wp .dw .dwa .dw-li.dw-v {
+.wp .wpa .dw-v, .wp .dwa .dw-v {
     opacity: 1;
     filter: Alpha(Opacity=100);
 }
@@ -76,24 +76,32 @@
     bottom: 0;
     filter: inherit;
 }
-.wp .dww .dw-li.dw-sel {
+.wp .dw-sel {
     opacity: 1;
     filter: Alpha(Opacity=100);
 }
-.wp .dww .dw-li.dw-sel .dw-i {
+.wp .dw-sel .dw-i {
+    color: #fff;
     background: #4c4c4c;
-    transition: background-color .1s linear;
-    -webkit-transition: background-color .1s linear;
-    -moz-transition: background-color .1s linear;
+    transition: all .1s linear;
+    -webkit-transition: all .1s linear;
+    -moz-transition: all .1s linear;
 }
-.wp .dww .dw-li.dw-hl {
+.wp .dw-sel .dw-day, .wp .dw-sel .dw-mon {
+    color: #fff;
+}
+.wp .dw-hl {
     background: none;
 }
-.wp .dww .dw-li.dw-hl .dw-i {
+.wp .dw-hl .dw-i {
     background: #4c4c4c;
 }
-.wp .dwa .dw-li.dw-sel .dw-i {
+.wp .dwa .dww .dw-sel .dw-i {
+    border: 1px solid #4c4c4c;
     background-color: transparent;
+}
+.wp .dwa .dw-day, .wp .dwa .dw-month {
+    color: #a9a9a9;
 }
 .wp .dwwo {
     display: none;
@@ -211,23 +219,32 @@
 .wp.light .dwv {
     color: #000;
 }
-.wp.light .dww .dw-li {
-    color: #000;
+.wp.light .dw-li {
+    color: #6b6b6b;
 }
-.wp.light .dw-li .dw-i {
+.wp.light .dw-i {
     border-color: #b5b5b5;
 }
-.wp.light .dw-li.dw-sel .dw-i {
+.wp.light .dw-sel .dw-i {
     background: #b5b5b5;
 }
-.wp.light .dw-li.dw-hl .dw-i {
+.wp.light .dw-hl .dw-i {
+    color: #fff;
     background: #b5b5b5;
 }
 .wp.light .dw-day, .wp.light .dw-mon {
     color: #6b6b6b;
 }
-.wp.light .dwa .dw-li.dw-sel .dw-i {
+.wp.light .dw-sel .dw-day, .wp.light .dw-sel .dw-mon {
+    color: #fff;
+}
+.wp.light .dwa .dw-sel .dw-i {
+    color: #6b6b6b;
+    border: 1px solid #b5b5b5;
     background-color: transparent;
+}
+.wp.light .dwa .dw-day, .wp.light .dwa .dw-month {
+    color: #6b6b6b;
 }
 .wp.light .dwb {
     color: #000;
@@ -247,4 +264,85 @@
 }
 .wp.light .dw-bubble-top .dw-arr {
     border-color: #dedede transparent transparent transparent;
+}
+/* Accents */
+.wp .wp-lime .dw-sel .dw-i, .wp .wp-lime .dw-hl .dw-i {
+    background: #a4c400;
+    border-color: #a4c400;
+}
+.wp .wp-green .dw-sel .dw-i, .wp .wp-green .dw-hl .dw-i {
+    background: #60a917;
+    border-color: #60a917;
+}
+.wp .wp-emerald .dw-sel .dw-i, .wp .wp-emerald .dw-hl .dw-i {
+    background: #008a00;
+    border-color: #008a00;
+}
+.wp .wp-teal .dw-sel .dw-i, .wp .wp-teal .dw-hl .dw-i {
+    background: #00aba9;
+    border-color: #00aba9;
+}
+.wp .wp-cyan .dw-sel .dw-i, .wp .wp-cyan .dw-hl .dw-i {
+    background: #1ba1e2;
+    border-color: #1ba1e2;
+}
+.wp .wp-cobalt .dw-sel .dw-i, .wp .wp-cobalt .dw-hl .dw-i {
+    background: #0050ef;
+    border-color: #0050ef;
+}
+.wp .wp-indigo .dw-sel .dw-i, .wp .wp-indigo .dw-hl .dw-i {
+    background: #6a00ff;
+    border-color: #6a00ff;
+}
+.wp .wp-violet .dw-sel .dw-i, .wp .wp-violet .dw-hl .dw-i {
+    background: #aa00ff;
+    border-color: #aa00ff;
+}
+.wp .wp-pink .dw-sel .dw-i, .wp .wp-pink .dw-hl .dw-i {
+    background: #f472d0;
+    border-color: #f472d0;
+}
+.wp .wp-magenta .dw-sel .dw-i, .wp .wp-magenta .dw-hl .dw-i {
+    background: #d80073;
+    border-color: #d80073;
+}
+.wp .wp-crimson .dw-sel .dw-i, .wp .wp-crimson .dw-hl .dw-i {
+    background: #a20025;
+    border-color: #a20025;
+}
+.wp .wp-red .dw-sel .dw-i, .wp .wp-red .dw-hl .dw-i {
+    background: #e51400;
+    border-color: #e51400;
+}
+.wp .wp-orange .dw-sel .dw-i, .wp .wp-orange .dw-hl .dw-i {
+    background: #fa6800;
+    border-color: #fa6800;
+}
+.wp .wp-amber .dw-sel .dw-i, .wp .wp-amber .dw-hl .dw-i {
+    background: #f0a30a;
+    border-color: #f0a30a;
+}
+.wp .wp-yellow .dw-sel .dw-i, .wp .wp-yellow .dw-hl .dw-i {
+    background: #d8c100;
+    border-color: #d8c100;
+}
+.wp .wp-brown .dw-sel .dw-i, .wp .wp-brown .dw-hl .dw-i {
+    background: #825a2c;
+    border-color: #825a2c;
+}
+.wp .wp-olive .dw-sel .dw-i, .wp .wp-olive .dw-hl .dw-i {
+    background: #6d8764;
+    border-color: #6d8764;
+}
+.wp .wp-steel .dw-sel .dw-i, .wp .wp-steel .dw-hl .dw-i {
+    background: #647687;
+    border-color: #647687;
+}
+.wp .wp-mauve .dw-sel .dw-i, .wp .wp-mauve .dw-hl .dw-i {
+    background: #76608a;
+    border-color: #76608a;
+}
+.wp .wp-sienna .dw-sel .dw-i, .wp .wp-sienna .dw-hl .dw-i {
+    background: #7a3b3f;
+    border-color: #7a3b3f;
 }
