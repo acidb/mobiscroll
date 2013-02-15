@@ -425,6 +425,13 @@
                 }
             }
         };
+        
+        /**
+        * Return true if the scroller is currently visible.
+        */
+        that.isVisible = function () {
+            return visible;
+        };
 
         /**
         * Shows the scroller instance.
@@ -876,6 +883,12 @@
                 var inst = getInst(this[0]);
                 if (inst) {
                     return inst.settings.disabled;
+                }
+            },
+            isVisible: function () {
+                var inst = getInst(this[0]);
+                if (inst) {
+                    return inst.isVisible();
                 }
             },
             option: function (option, value) {
