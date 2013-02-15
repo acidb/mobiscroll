@@ -235,6 +235,19 @@
                 $(window).scrollTop(t + mh - wh);
             }
         }
+        
+        function testTouch(e) {
+            if (e.type === 'touchstart') {
+                touch = true;
+                setTimeout(function () {
+                    touch = false; // Reset if mouse event was not fired
+                }, 500);
+            } else if (touch) {
+                touch = false;
+                return false;
+            }
+            return true;
+        }
 
         function event(name, args) {
             var ret;
@@ -541,14 +554,15 @@
                 // Active button
                 $(this).addClass('dwb-a');
             }).delegate('.dwwb', START_EVENT, function (e) {
+                e.stopPropagation();
+                e.preventDefault();
                 var w = $(this).closest('.dwwl');
-                if (!isReadOnly(w) && !w.hasClass('dwa')) {
+                if (testTouch(e) && !isReadOnly(w) && !w.hasClass('dwa')) {
+                    click = true;
                     // + Button
-                    e.preventDefault();
-                    e.stopPropagation();
                     var t = w.find('.dw-ul'),
                         func = $(this).hasClass('dwwbp') ? plus : minus;
-                    click = true;
+                    
                     setGlobals(t);
                     clearInterval(timer);
                     timer = setInterval(function () { func(t); }, s.delay);
@@ -558,7 +572,7 @@
                 // Prevent scroll
                 e.preventDefault();
                 // Scroll start
-                if (!move && !isReadOnly(this) && !click && s.mode != 'clickpick') {
+                if (testTouch(e) && !move && !isReadOnly(this) && !click && s.mode != 'clickpick') {
                     move = true;
                     $(document).bind(MOVE_EVENT, onMove);
                     target = $('.dw-ul', this);
@@ -769,6 +783,7 @@
         has3d = testProps(['perspectiveProperty', 'WebkitPerspective', 'MozPerspective', 'OPerspective', 'msPerspective']),
         prefix = testPrefix(),
         extend = $.extend,
+        touch,
         START_EVENT = 'touchstart mousedown',
         MOVE_EVENT = 'touchmove mousemove',
         END_EVENT = 'touchend mouseup',
@@ -923,8 +938,8 @@
                 });
             }
         };
-    
-    $(document).bind(END_EVENT, function () {
+
+    $(document).bind(END_EVENT, function (e) {
         if (move) {
             var time = new Date() - startTime,
                 val = constrain(pos + (start - stop) / h, min - 1, max + 1),
@@ -942,7 +957,7 @@
             } else {
                 dist = stop - start;
             }
-
+            
             if (!dist && !moved) { // this is a "tap"
                 tindex = Math.floor((stop - ttop) / h);
                 var li = $('.dw-li', target).eq(tindex);
