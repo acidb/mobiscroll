@@ -23,6 +23,28 @@ It'd be cool to see how you're using Mobiscroll!
 
 We're looking at showcasing some of the best work on http://mobiscroll.com . Feel free to let us know on twitter @mobiscroll!
 
+Changelog 2.4.3
+===============
+
+Enhancements
+------------
+
+_Core_
+
+  * Added: isVisible method (#60)
+
+Bugfixes
+--------
+
+_Core_
+
+  * Fixed: Multiple event firing (#45)
+
+_Plugins_
+
+  * Fixed: jqMobi and Zepto error, if loaded multiple times (#72)
+
+
 Changelog 2.4.2
 ===============
 
