@@ -23,6 +23,42 @@ It'd be cool to see how you're using Mobiscroll!
 
 We're looking at showcasing some of the best work on http://mobiscroll.com . Feel free to let us know on twitter @mobiscroll!
 
+Changelog 2.4.4
+===============
+
+Enhancements
+------------
+
+_Core_
+
+  * Changed: Set and cancel events are now fired on tap instead of click (on touchscreen).
+
+_Themes_
+
+  * Added: Windows Phone theme now has an 'accent' option to set the highlight color of the theme. Possible values: 'lime', 'green', 'emerald', 'teal', 'cyan', 'cobalt', 'indigo', 'violet', 'pink', 'magenta', 'crimson', 'red', 'orange', 'amber', 'yellow', 'brown', 'olive', 'steel', 'mauve', 'sienna'.
+
+Bugfixes
+--------
+
+_Core_
+
+  * Fixed: theme initialization moved before positioning, as it may affect the width/height of the popup.
+
+_List Preset_
+
+  * Fixed: Don't regenerate the list on every change, only if needed.
+
+  * Fixed: setValue did not set the value correctly on hierarchical wheels.
+
+_Datetime Preset_
+
+  * Fixed: AM/PM wheel respects timeWheels order as well (#54).
+
+_Calendar Preset_
+
+  * Fixed: set option caused stack overflow (#74).
+  
+
 Changelog 2.4.3
 ===============
 
