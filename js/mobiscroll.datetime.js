@@ -72,7 +72,7 @@
                 o = {},
                 i,
                 k,
-                f = { y: 'getFullYear', m: 'getMonth', d: 'getDate', h: getHour, i: getMinute, s: getSecond, ap: getAmPm },
+                f = { y: 'getFullYear', m: 'getMonth', d: 'getDate', h: getHour, i: getMinute, s: getSecond, a: getAmPm },
                 p = s.preset,
                 dord = s.dateOrder,
                 tord = s.timeWheels,
@@ -137,7 +137,7 @@
 
                 // Determine the order of hours, minutes, seconds wheels
                 ord = [];
-                $.each(['h', 'i', 's'], function (i, v) {
+                $.each(['h', 'i', 's', 'a'], function (i, v) {
                     i = tord.search(new RegExp(v, 'i'));
                     if (i > -1) {
                         ord.push({ o: i, v: v });
@@ -151,7 +151,7 @@
                 });
 
                 w = {};
-                for (k = offset; k < offset + 3; k++) {
+                for (k = offset; k < offset + 4; k++) {
                     if (k == o.h) {
                         offset++;
                         w[s.hourText] = {};
@@ -170,14 +170,14 @@
                         for (i = 0; i < 60; i += stepS) {
                             w[s.secText][i] = tord.match(/ss/) && i < 10 ? '0' + i : i;
                         }
+                    } else if (k == o.a) {
+                        offset++;
+                        var upper = tord.match(/A/);
+                        w[s.ampmText] = { 0: upper ? 'AM' : 'am', 1: upper ? 'PM' : 'pm' };
                     }
+                    
                 }
 
-                if (ampm) {
-                    o.ap = offset++; // ampm wheel order
-                    var upper = tord.match(/A/);
-                    w[s.ampmText] = { 0: upper ? 'AM' : 'am', 1: upper ? 'PM' : 'pm' };
-                }
                 wheels.push(w);
             }
 
@@ -215,7 +215,7 @@
 
             function getDate(d) {
                 var hour = get(d, 'h', 0);
-                return new Date(get(d, 'y'), get(d, 'm'), get(d, 'd', 1), get(d, 'ap') ? hour + 12 : hour, get(d, 'i', 0), get(d, 's', 0));
+                return new Date(get(d, 'y'), get(d, 'm'), get(d, 'd', 1), get(d, 'a') ? hour + 12 : hour, get(d, 'i', 0), get(d, 's', 0));
             }
 
             inst.setDate = function (d, fill, time, temp) {
@@ -271,11 +271,11 @@
                 */
                 validate: function (dw, i) {
                     var temp = inst.temp, //.slice(0),
-                        mins = { y: mind.getFullYear(), m: 0, d: 1, h: 0, i: 0, s: 0, ap: 0 },
-                        maxs = { y: maxd.getFullYear(), m: 11, d: 31, h: step(hampm ? 11 : 23, stepH), i: step(59, stepM), s: step(59, stepS), ap: 1 },
+                        mins = { y: mind.getFullYear(), m: 0, d: 1, h: 0, i: 0, s: 0, a: 0 },
+                        maxs = { y: maxd.getFullYear(), m: 11, d: 31, h: step(hampm ? 11 : 23, stepH), i: step(59, stepM), s: step(59, stepS), a: 1 },
                         minprop = true,
                         maxprop = true;
-                    $.each(['y', 'm', 'd', 'ap', 'h', 'i', 's'], function (x, i) {
+                    $.each(['y', 'm', 'd', 'a', 'h', 'i', 's'], function (x, i) {
                         if (o[i] !== undefined) {
                             var min = mins[i],
                                 max = maxs[i],
