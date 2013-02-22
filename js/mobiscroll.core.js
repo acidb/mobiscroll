@@ -582,7 +582,7 @@
                         p = +t.data('pos'),
                         val = Math.round(p - delta);
                     setGlobals(t);
-                    calc(t, val, delta < 0 ? 1 : 2);
+                    calc(t, val, delta < 0 ? 1 : 2, true, val);
                 }
             }).delegate('.dwb, .dwwb', START_EVENT, function (e) {
                 // Active button
@@ -773,7 +773,7 @@
         var cell = $('.dw-li', t).eq(val),
             idx = index,
             time = anim ? (val == orig ? 0.1 : Math.abs((val - orig) * 0.1)) : 0;
-
+        
         inst.scroll(t, idx, val, time, orig, function () {
             // Set selected scroller value
             inst.temp[idx] = cell.attr('data-val');
