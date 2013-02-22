@@ -10,6 +10,7 @@
             var s = $.extend({}, defaults, inst.settings),
                 elm = $(this),
                 input,
+                prevent,
                 id = this.id + '_dummy',
                 lvl = 0,
                 ilvl = 0,
@@ -47,13 +48,14 @@
              */
             function getInvalidKeys(whVector, index, whArray) {
                 var i = 0,
+                    n,
                     whObjA = whArray,
                     invalids = [];
 
                 while (i < index) {
                     var ii = whVector[i];
                     //whObjA = whObjA[ii].children;
-                    for (var n in whObjA) {
+                    for (n in whObjA) {
                         if (whObjA[n].key == ii) {
                             whObjA = whObjA[n].children;
                             break;
@@ -316,7 +318,7 @@
             if (!s.wheelArray) {
                 elm.hide().closest('.ui-field-contain').trigger('create');
             }
-
+            
             return {
                 width: 50,
                 wheels: w,
@@ -341,25 +343,29 @@
                         input.blur();
                     }
                 },
-                onAnimStart: function(index) {
+                onAnimStart: function (index) {
                     inst.settings.readonly = createROVector(lvl, index);
                 },
                 validate: function (dw, index) {
                     var t = inst.temp;
-                    if (index !== undefined && currWheelVector[index] != t[index]) {
+                    if ((index !== undefined && currWheelVector[index] != t[index]) || (index === undefined && !prevent)) {
                         inst.settings.wheels = generateWheelsFromVector(t, null, index);
                         var args = [],
-                            i = index + 1,
+                            i = (index || 0) + 1,
                             o = calcLevelOfVector2(t, index);
-                        inst.temp = o.nVector.slice(0);
+                        if (index !== undefined) {
+                            inst.temp = o.nVector.slice(0);
+                        }
                         while (i < o.lvl) {
                             args.push(i++);
                         }
                         hideWheels(dw, o.lvl);
-                        if (args.length) {
-                            inst.changeWheel(args);
-                        }
                         currWheelVector = inst.temp.slice(0);
+                        if (args.length) {
+                            prevent = true;
+                            inst.changeWheel(args);
+                            return false;
+                        }
                         setDisabled(dw, o.lvl, wa, inst.temp);
                     } else {
                         var o = calcLevelOfVector2(t, t.length);
@@ -367,11 +373,12 @@
                         hideWheels(dw, o.lvl);
                     }
                     inst.settings.readonly = false;
+                    prevent = false;
                 }
             };
         };
 
-    $.each(['list', 'image', 'treelist'], function(i, v) {
+    $.each(['list', 'image', 'treelist'], function (i, v) {
         ms.presets[v] = preset;
         ms.presetShort(v);
     });
