@@ -4,6 +4,7 @@
         defaults: {
             width: 70,
             height: 76,
+            accent: 'none',
             dateOrder: 'mmMMddDDyy'
         },
         init: function (elm, inst) {

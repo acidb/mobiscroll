@@ -266,6 +266,12 @@
     border-color: #dedede transparent transparent transparent;
 }
 /* Accents */
+.wp.light .wp-none .dw-sel .dw-i, .wp.light .wp-none .dw-hl .dw-i {
+    color: #000;
+}
+.wp.light .wp-none .dw-day, .wp.light .wp-none .dw-mon {
+    color: #6b6b6b;
+}
 .wp .wp-lime .dw-sel .dw-i, .wp .wp-lime .dw-hl .dw-i {
     background: #a4c400;
     border-color: #a4c400;
