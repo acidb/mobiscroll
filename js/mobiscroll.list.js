@@ -349,14 +349,16 @@
                     if (index !== undefined && currWheelVector[index] != t[index]) {
                         inst.settings.wheels = generateWheelsFromVector(t, null, index);
                         var args = [],
-                            i = index,
+                            i = index + 1,
                             o = calcLevelOfVector2(t, index);
                         inst.temp = o.nVector.slice(0);
                         while (i < o.lvl) {
                             args.push(i++);
                         }
                         hideWheels(dw, o.lvl);
-                        inst.changeWheel(args);
+                        if (args.length) {
+                            inst.changeWheel(args);
+                        }
                         currWheelVector = inst.temp.slice(0);
                         setDisabled(dw, o.lvl, wa, inst.temp);
                     } else {
