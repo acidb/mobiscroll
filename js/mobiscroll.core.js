@@ -432,6 +432,30 @@
         that.isVisible = function () {
             return visible;
         };
+        
+        /**
+        *
+        */
+        that.tap = function (el, handler) {
+            var move,
+                touch;
+            
+            el.bind('touchstart', function (e) {
+                e.preventDefault();
+                move = false;
+                touch = true;
+            }).bind('touchmove', function () {
+                move = true;
+            }).bind('touchend', function (e) {
+                if (!move) {
+                    handler.call(this, e);
+                }
+            }).bind('click', function (e) {
+                if (!touch) {
+                    handler.call(this, e);
+                }
+            });
+        };
 
         /**
         * Shows the scroller instance.
@@ -503,19 +527,19 @@
             
             if (s.display != 'inline') {
                 // Init buttons
-                $('.dwb-s span', dw).click(function () {
+                that.tap($('.dwb-s span', dw), function () {
                     if (that.hide(false, 'set') !== false) {
                         that.setValue(false, true);
                         event('onSelect', [that.val]);
                     }
                 });
 
-                $('.dwb-c span', dw).click(function () {
+                that.tap($('.dwb-c span', dw), function () {
                     that.cancel();
                 });
 
                 if (s.button3) {
-                    $('.dwb-n span', dw).click(s.button3);
+                    that.tap($('.dwb-n span', dw), s.button3);
                 }
 
                 // prevent scrolling if not specified otherwise
