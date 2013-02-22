@@ -525,6 +525,9 @@
             }
             visible = true;
             
+            // Theme init
+            theme.init(dw, that);
+            
             if (s.display != 'inline') {
                 // Init buttons
                 that.tap($('.dwb-s span', dw), function () {
@@ -619,9 +622,6 @@
             });
 
             event('onShow', [dw, v]);
-            
-            // Theme init
-            theme.init(dw, that);
         };
         
         /**
