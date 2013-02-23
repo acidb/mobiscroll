@@ -318,8 +318,20 @@
                 i;
 
             callback = callback || empty;
-
-            t.attr('style', (time ? (prefix + '-transition:all ' + time.toFixed(1) + 's ease-out;') : '') + (has3d ? (prefix + '-transform:translate3d(0,' + px + 'px,0);') : ('top:' + px + 'px;')));
+            
+            if (has3d && prefix==='-webkit') {
+	            if (time) {
+	            	t[0].style.webkitTransitionProperty = 'all';
+	            	t[0].style.webkitTransitionDuration = time.toFixed(1) + 's';
+	            	t[0].style.webkitTransitionTimingFunction = 'ease-out';
+		        	t[0].style.webkitTransform = 'translate3d(0,' + px + 'px,0)';
+	            } else {
+	            	t[0].style.webkitTransitionProperty = 'none';
+	            	t[0].style.webkitTransform = 'translate3d(0,' + px + 'px,0)';
+	            }
+            } else {
+	            t.attr('style', (time ? (prefix + '-transition:all ' + time.toFixed(1) + 's ease-out;') : '') + (has3d ? (prefix + '-transform:translate3d(0,' + px + 'px,0);') : ('top:' + px + 'px;')));
+            }
 
             if (iv[index]) {
                 ready();
