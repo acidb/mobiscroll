@@ -78,9 +78,9 @@
             that.setValue(true);
         }
 
-        function scrollToPos(time, index, manual, dir) {
+        function scrollToPos(time, index, manual, dir, orig) {
             // Call validation event
-            if (event('validate', [dw, index]) !== false) {
+            if (event('validate', [dw, index, time]) !== false) {
 
                 // Set scrollers to position
                 $('.dw-ul', dw).each(function (i) {
@@ -109,7 +109,7 @@
                         }
                         
                         // If we have direction (+/- or mouse wheel), the distance does not count
-                        if (((dist2 < dist1 && dist2 && dir !== 2) || !dist1 || !(cell1.hasClass('dw-v')) || dir == 1) && cell2.hasClass('dw-v')) {
+                        if (((dist2 < dist1 && dist2 && dir !== 2) || !dist1 || (v - dist1 < 0) || dir == 1) && cell2.hasClass('dw-v')) {
                             cell = cell2;
                             v = v + dist2;
                         } else {
@@ -117,7 +117,7 @@
                             v = v - dist1;
                         }
                     }
-
+                    
                     if (!(cell.hasClass('dw-sel')) || sc) {
                         // Set valid value
                         that.temp[i] = cell.attr('data-val');
@@ -127,7 +127,8 @@
                         cell.addClass('dw-sel');
 
                         // Scroll to position
-                        that.scroll(t, i, v, time);
+                        //that.scroll(t, i, v, time);
+                        that.scroll(t, i, v, sc ? time : 0.2, sc ? orig : undefined);
                     }
                 });
             }
@@ -302,7 +303,7 @@
         * @param {Number} time - Duration of the animation, optional.
         * @param {Number} orig - Original value.
         */
-        that.scroll = function (t, index, val, time, orig, callback) {
+        that.scroll = function (t, index, val, time, orig) {
 
             function getVal(t, b, c, d) {
                 return c * Math.sin(t / d * (Math.PI / 2)) + b;
@@ -313,14 +314,12 @@
                 iv[index] = undefined;
                 t.data('pos', val).closest('.dwwl').removeClass('dwa');
             }
-
+            
             var px = (m - val) * hi,
                 i;
 
-            callback = callback || empty;
-
-            t.attr('style', (time ? (prefix + '-transition:all ' + time.toFixed(1) + 's ease-out;') : '') + (has3d ? (prefix + '-transform:translate3d(0,' + px + 'px,0);') : ('top:' + px + 'px;')));
-
+            t.attr('style', (time ? (prefix + '-transition:all ' + time.toFixed(1) + 's ease-out;') : prefix + '-transition:none;') + (has3d ? (prefix + '-transform:translate3d(0,' + px + 'px,0);') : ('top:' + px + 'px;')));
+            
             if (iv[index]) {
                 ready();
             }
@@ -333,17 +332,15 @@
                     t.data('pos', Math.round(getVal(i, orig, val - orig, time)));
                     if (i >= time) {
                         ready();
-                        callback();
                     }
                 }, 100);
                 // Trigger animation start event
                 event('onAnimStart', [index, time]);
             } else {
                 t.data('pos', val);
-                callback();
             }
         };
-
+        
         /**
         * Gets the selected wheel values, formats it, and set the value of the scroller instance.
         * If input parameter is true, populates the associated input element.
@@ -353,12 +350,12 @@
         * @param {Boolean} temp - If true, then only set the temporary value.(only scroll there but not set the value)
         */
         that.setValue = function (sc, fill, time, temp) {
-            if (!temp) {
-                that.values = that.temp.slice(0);
-            }
-
             if (visible && sc) {
                 scrollToPos(time);
+            }
+            
+            if (!temp) {
+                that.values = that.temp.slice(0);
             }
 
             if (fill) {
@@ -378,8 +375,8 @@
         * @param {Number} i - Currently changed wheel index, -1 if initial validation.
         * @param {Number} dir - Scroll direction
         */
-        that.validate = function (i, dir) {
-            scrollToPos(0.2, i, true, dir);
+        that.validate = function (i, dir, time, orig) {
+            scrollToPos(time, i, true, dir, orig);
         };
 
         /**
@@ -773,13 +770,19 @@
         var cell = $('.dw-li', t).eq(val),
             idx = index,
             time = anim ? (val == orig ? 0.1 : Math.abs((val - orig) * 0.1)) : 0;
+
+        // Set selected scroller value
+        inst.temp[idx] = cell.attr('data-val');
         
         inst.scroll(t, idx, val, time, orig, function () {
-            // Set selected scroller value
-            inst.temp[idx] = cell.attr('data-val');
-            // Validate on animation end
-            inst.validate(idx, dir);
+            
+            
         });
+        
+        setTimeout(function () {
+            // Validate on animation end
+            inst.validate(idx, dir, time, orig);
+        }, 10);
     }
 
     function init(that, method, args) {
