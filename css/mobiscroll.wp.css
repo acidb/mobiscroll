@@ -80,7 +80,7 @@
     opacity: 1;
     filter: Alpha(Opacity=100);
 }
-.wp .dw-sel .dw-i {
+.wp .dw .dw-sel .dw-i {
     color: #fff;
     background: #4c4c4c;
     transition: all .1s linear;
