@@ -348,6 +348,7 @@
                 },
                 validate: function (dw, index) {
                     var t = inst.temp;
+                    inst.settings.readonly = false;
                     if ((index !== undefined && currWheelVector[index] != t[index]) || (index === undefined && !prevent)) {
                         inst.settings.wheels = generateWheelsFromVector(t, null, index);
                         var args = [],
@@ -372,7 +373,6 @@
                         setDisabled(dw, o.lvl, wa, t);
                         hideWheels(dw, o.lvl);
                     }
-                    inst.settings.readonly = false;
                     prevent = false;
                 }
             };
