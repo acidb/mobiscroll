@@ -186,8 +186,7 @@
                             prev = gr + '';
                             return false;
                         }
-                    }
-                    else {
+                    } else {
                         stg.readonly = roPre;
                     }
                 } else {
