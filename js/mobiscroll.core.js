@@ -31,6 +31,7 @@
             pres = {},
             warr = [],
             iv = {},
+            pixels = {},
             input = elm.is('input'),
             visible = false;
 
@@ -311,12 +312,18 @@
 
             function ready() {
                 clearInterval(iv[index]);
-                iv[index] = undefined;
+                delete iv[index];
                 t.data('pos', val).closest('.dwwl').removeClass('dwa');
             }
             
             var px = (m - val) * hi,
                 i;
+            
+            if (px == pixels[index]) {
+                return;
+            }
+            
+            pixels[index] = px;
 
             t.attr('style', (time ? (prefix + '-transition:all ' + time.toFixed(1) + 's ease-out;') : prefix + '-transition:none;') + (has3d ? (prefix + '-transform:translate3d(0,' + px + 'px,0);') : ('top:' + px + 'px;')));
             
@@ -335,7 +342,7 @@
                     }
                 }, 100);
                 // Trigger animation start event
-                event('onAnimStart', [index, time]);
+                //event('onAnimStart', [index, time]);
             } else {
                 t.data('pos', val);
             }
@@ -385,6 +392,7 @@
         that.change = function (manual) {
             v = s.formatResult(that.temp);
             if (s.display == 'inline') {
+                manual = true;
                 that.setValue(false, manual);
             } else {
                 $('.dwv', dw).html(formatHeader(v));
@@ -520,6 +528,7 @@
             } else {
                 dw.insertAfter(elm);
             }
+            
             visible = true;
             
             // Theme init
@@ -647,6 +656,7 @@
                     dw = null;
                 }
                 visible = false;
+                pixels = {};
                 // Stop positioning on window resize
                 $(window).unbind('.dw');
             }
@@ -763,7 +773,7 @@
         val = val < min ? min : val;
         return val;
     }
-
+    
     function calc(t, val, dir, anim, orig) {
         val = constrain(val, min, max);
 

@@ -28,6 +28,7 @@
             main = {},
             grIdx,
             optIdx,
+            timer,
             roPre = stg.readonly,
             w;
 
@@ -164,7 +165,7 @@
                 gr = group.index();
                 return s.group && s.rtl ? ['_' + option, '_' + gr] : s.group ? ['_' + gr, '_' + option] : ['_' + option];
             },
-            validate: function (dw, i) {
+            validate: function (dw, i, time) {
                 if (i === grIdx) {
                     gr = replace(inst.temp[grIdx]);
 
@@ -176,11 +177,19 @@
                         stg.wheels = genWheels();
                         if (s.group) {
                             inst.temp = s.rtl ? ['_' + option, '_' + gr] : ['_' + gr, '_' + option];
-                            inst.changeWheel([optIdx]);
+                            stg.readonly = [s.rtl, !s.rtl];
+                            clearTimeout(timer);
+                            timer = setTimeout(function () {
+                                inst.changeWheel([optIdx]);
+                                stg.readonly = roPre;
+                            }, time * 1000);
                             prev = gr + '';
+                            return false;
                         }
                     }
-                    stg.readonly = roPre;
+                    else {
+                        stg.readonly = roPre;
+                    }
                 } else {
                     option = replace(inst.temp[optIdx]);
                 }
@@ -190,16 +199,16 @@
                     $('.dw-li[data-val="_' + v + '"]', t).removeClass('dw-v');
                 });
             },
-            onAnimStart: function(i) {
-                if (i === grIdx) { // If group wheel is scroller, lock the options wheel
-                    stg.readonly = [s.rtl, !s.rtl];
-                }
-            },
             onBeforeShow: function () {
                 stg.wheels = genWheels();
                 if (s.group) {
                     inst.temp = s.rtl ? ['_' + option, '_' + group.index()] : ['_' + group.index(), '_' + option];
                 }
+            },
+            onShow: function (dw) {
+                $('.dwwl' + grIdx, dw).bind('mousedown touchstart', function () {
+                    clearTimeout(timer);
+                });
             },
             onSelect: function (v) {
                 input.val(v);
@@ -246,6 +255,6 @@
                 }
             }
         };
-    }
+    };
 
 })(jQuery);

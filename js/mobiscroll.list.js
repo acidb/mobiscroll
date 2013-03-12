@@ -14,6 +14,7 @@
                 id = this.id + '_dummy',
                 lvl = 0,
                 ilvl = 0,
+                timer = {},
                 wa = s.wheelArray || createWheelArray(elm),
                 labels = generateLabels(lvl),
                 currWheelVector = [],
@@ -343,12 +344,13 @@
                         input.blur();
                     }
                 },
-                onAnimStart: function (index) {
-                    inst.settings.readonly = createROVector(lvl, index);
+                onShow: function (dw) {
+                    $('.dwwl', dw).bind('mousedown touchstart', function () {
+                        clearTimeout(timer[$('.dwwl', dw).index(this)]);
+                    });
                 },
-                validate: function (dw, index) {
+                validate: function (dw, index, time) {
                     var t = inst.temp;
-                    inst.settings.readonly = false;
                     if ((index !== undefined && currWheelVector[index] != t[index]) || (index === undefined && !prevent)) {
                         inst.settings.wheels = generateWheelsFromVector(t, null, index);
                         var args = [],
@@ -364,7 +366,12 @@
                         currWheelVector = inst.temp.slice(0);
                         if (args.length) {
                             prevent = true;
-                            inst.changeWheel(args);
+                            inst.settings.readonly = createROVector(lvl, index);
+                            clearTimeout(timer[index]);
+                            timer[index] = setTimeout(function () {
+                                inst.changeWheel(args);
+                                inst.settings.readonly = false;
+                            }, time * 1000);
                             return false;
                         }
                         setDisabled(dw, o.lvl, wa, inst.temp);
