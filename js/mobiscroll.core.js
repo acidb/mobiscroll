@@ -357,6 +357,10 @@
         * @param {Boolean} temp - If true, then only set the temporary value.(only scroll there but not set the value)
         */
         that.setValue = function (sc, fill, time, temp) {
+            if (!$.isArray(that.temp)) {
+                that.temp = s.parseValue(that.temp + '', that);
+            }
+            
             if (visible && sc) {
                 scrollToPos(time);
             }
