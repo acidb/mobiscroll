@@ -32,6 +32,7 @@
             warr = [],
             iv = {},
             pixels = {},
+            old = {},
             input = elm.is('input'),
             visible = false;
 
@@ -80,8 +81,14 @@
         }
 
         function scrollToPos(time, index, manual, dir, orig) {
+            var res = true;
+            
+            if (index === undefined || old[index] != that.temp[index]) {
+                res = event('validate', [dw, index, time]);
+            }
+            
             // Call validation event
-            if (event('validate', [dw, index, time]) !== false) {
+            if (res !== false) {
 
                 // Set scrollers to position
                 $('.dw-ul', dw).each(function (i) {
@@ -121,7 +128,7 @@
                     
                     if (!(cell.hasClass('dw-sel')) || sc) {
                         // Set valid value
-                        that.temp[i] = cell.attr('data-val');
+                        old[i] = that.temp[i] = cell.attr('data-val');
 
                         // Add selected class to cell
                         $('.dw-sel', t).removeClass('dw-sel');
@@ -129,13 +136,14 @@
 
                         // Scroll to position
                         //that.scroll(t, i, v, time);
-                        that.scroll(t, i, v, sc ? time : 0.2, sc ? orig : undefined);
+                        that.scroll(t, i, v, sc ? time : 0.1, sc ? orig : undefined);
                     }
                 });
+                
+                // Reformat value if validation changed something
+                that.change(manual);
             }
-            
-            // Reformat value if validation changed something
-            that.change(manual);
+        
         }
 
         function position(check) {
@@ -396,7 +404,6 @@
         that.change = function (manual) {
             v = s.formatResult(that.temp);
             if (s.display == 'inline') {
-                manual = true;
                 that.setValue(false, manual);
             } else {
                 $('.dwv', dw).html(formatHeader(v));
@@ -425,7 +432,7 @@
                             nr--;
                             if (!nr) {
                                 position();
-                                scrollToPos(time);
+                                scrollToPos(time, undefined, true);
                                 return;
                             }
                         }
@@ -601,7 +608,7 @@
                         p = +t.data('pos'),
                         val = Math.round(p - delta);
                     setGlobals(t);
-                    calc(t, val, delta < 0 ? 1 : 2, true, val);
+                    calc(t, val, delta < 0 ? 1 : 2);
                 }
             }).delegate('.dwb, .dwwb', START_EVENT, function (e) {
                 // Active button
@@ -797,13 +804,10 @@
         // Set selected scroller value
         inst.temp[idx] = cell.attr('data-val');
         
-        inst.scroll(t, idx, val, time, orig, function () {
-            
-            
-        });
+        inst.scroll(t, idx, val, time, orig);
         
         setTimeout(function () {
-            // Validate on animation end
+            // Validate
             inst.validate(idx, dir, time, orig);
         }, 10);
     }

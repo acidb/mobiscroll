@@ -326,8 +326,9 @@
                 headerText: false,
                 onBeforeShow: function (dw) {
                     var t = inst.temp;
-                    currWheelVector = inst.temp.slice(0);
+                    currWheelVector = t.slice(0);
                     inst.settings.wheels = generateWheelsFromVector(t, lvl, lvl);
+                    prevent = true;
                 },
                 onSelect: function (v, inst) {
                     if (input) {
