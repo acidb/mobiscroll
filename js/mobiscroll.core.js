@@ -32,7 +32,6 @@
             warr = [],
             iv = {},
             pixels = {},
-            old = {},
             input = elm.is('input'),
             visible = false;
 
@@ -81,14 +80,9 @@
         }
 
         function scrollToPos(time, index, manual, dir, orig) {
-            var res = true;
-            
-            if (index === undefined || old[index] != that.temp[index]) {
-                res = event('validate', [dw, index, time]);
-            }
             
             // Call validation event
-            if (res !== false) {
+            if (event('validate', [dw, index, time]) !== false) {
 
                 // Set scrollers to position
                 $('.dw-ul', dw).each(function (i) {
@@ -128,7 +122,7 @@
                     
                     if (!(cell.hasClass('dw-sel')) || sc) {
                         // Set valid value
-                        old[i] = that.temp[i] = cell.attr('data-val');
+                        that.temp[i] = cell.attr('data-val');
 
                         // Add selected class to cell
                         $('.dw-sel', t).removeClass('dw-sel');
