@@ -446,26 +446,35 @@
         *
         */
         that.tap = function (el, handler) {
-            var move,
-                touch;
+            var startX,
+                startY;
             
-            el.bind('touchstart', function (e) {
-                e.preventDefault();
-                move = false;
-                touch = true;
-            }).bind('touchmove', function () {
-                move = true;
-            }).bind('touchend', function (e) {
-                if (!move) {
-                    handler.call(this, e);
-                }
-            }).bind('click', function (e) {
-                if (!touch) {
+            if (s.tap) {
+                el.bind('touchstart', function (e) {
+                    e.preventDefault();
+                    startX = getCoord(e, 'X');
+                    startY = getCoord(e, 'Y');
+                }).bind('touchend', function (e) {
+                    // If movement is less than 20px, fire the click event handler
+                    if (Math.abs(getCoord(e, 'X') - startX) < 20 && Math.abs(getCoord(e, 'Y') - startY) < 20) {
+                        handler.call(this, e);
+                    }
+                    tap = true;
+                    setTimeout(function () {
+                        tap = false;
+                    }, 300);
+                });
+            }
+            
+            el.bind('click', function (e) {
+                if (!tap) {
+                    // If handler was not called on touchend, call it on click;
                     handler.call(this, e);
                 }
             });
+            
         };
-
+        
         /**
         * Shows the scroller instance.
         * @param {Boolean} prevAnim - Prevent animation if true
@@ -624,7 +633,7 @@
                     pos = +target.data('pos');
                     setGlobals(target);
                     moved = iv[index] !== undefined; // Don't allow tap, if still moving
-                    start = getY(e);
+                    start = getCoord(e, 'Y');
                     startTime = new Date();
                     stop = start;
                     that.scroll(target, index, pos);
@@ -760,11 +769,11 @@
     function getInst(e) {
         return scrollers[e.id];
     }
-
-    function getY(e) {
+    
+    function getCoord(e, c) {
         var org = e.originalEvent,
             ct = e.changedTouches;
-        return ct || (org && org.changedTouches) ? (org ? org.changedTouches[0].pageY : ct[0].pageY) : e.pageY;
+        return ct || (org && org.changedTouches) ? (org ? org.changedTouches[0]['page' + c] : ct[0]['page' + c]) : e['page' + c];
 
     }
 
@@ -831,13 +840,14 @@
         has3d = testProps(['perspectiveProperty', 'WebkitPerspective', 'MozPerspective', 'OPerspective', 'msPerspective']),
         prefix = testPrefix(),
         extend = $.extend,
+        tap,
         touch,
         START_EVENT = 'touchstart mousedown',
         MOVE_EVENT = 'touchmove mousemove',
         END_EVENT = 'touchend mouseup',
         onMove = function (e) {
             e.preventDefault();
-            stop = getY(e);
+            stop = getCoord(e, 'Y');
             inst.scroll(target, index, constrain(pos + (start - stop) / h, min - 1, max + 1));
             moved = true;
         },
@@ -861,6 +871,7 @@
             setText: 'Set',
             cancelText: 'Cancel',
             scrollLock: true,
+            tap: true,
             formatResult: function (d) {
                 return d.join(' ');
             },
@@ -1037,6 +1048,12 @@
     
         $('.dwb-a').removeClass('dwb-a');
                 
+    }).bind('mouseover mouseup mousedown click', function (e) { // Prevent standard behaviour on body click
+        if (tap) {
+            e.stopPropagation();
+            e.preventDefault();
+            return false;
+        }
     });
 
     $.fn.mobiscroll = function (method) {
