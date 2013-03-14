@@ -23,6 +23,37 @@ It'd be cool to see how you're using Mobiscroll!
 
 We're looking at showcasing some of the best work on http://mobiscroll.com . Feel free to let us know on twitter @mobiscroll!
 
+Changelog 2.4.5
+===============
+
+Enhancements
+------------
+
+_Core_
+
+  * Changed: validation moved back to touchend instead of animation end.
+
+  * Changed: setValue method now also accepts string or number, not array only (#79).
+
+  * Added: tap option to fire button actions on tap instead of click. Default is true (#83).
+
+
+Bugfixes
+--------
+
+_Core_
+
+  * Fixed: tapping on buttons triggered form element focus underneath on Android.
+
+  * Fixed: moving wheels were not stopped correctly on tap on Android > 4 (stock browser).
+
+  * Fixed: initial value can be set now with setValue without filling the input (#77).
+
+_List Preset_
+
+  * Fixed: Wheel remained locked in some cases (#84).
+  
+
 Changelog 2.4.4
 ===============
 
