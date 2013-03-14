@@ -75,7 +75,7 @@
         }
 
         function read() {
-            that.temp = ((input && ((that.val !== null && that.val != elm.val()) || !elm.val().length)) || that.values === null) ? s.parseValue(elm.val() || '', that) : that.values.slice(0);
+            that.temp = ((input && that.val !== null && that.val != elm.val()) || that.values === null) ? s.parseValue(elm.val() || '', that) : that.values.slice(0);
             that.setValue(true);
         }
 
