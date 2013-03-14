@@ -326,8 +326,8 @@
             }
             
             pixels[index] = px;
-
-            t.attr('style', (time ? (prefix + '-transition:all ' + time.toFixed(1) + 's ease-out;') : prefix + '-transition:none;') + (has3d ? (prefix + '-transform:translate3d(0,' + px + 'px,0);') : ('top:' + px + 'px;')));
+            
+            t.attr('style', (prefix + '-transition:all ' + (time ? time.toFixed(1) : 0.001) + 's ease-out;') + (has3d ? (prefix + '-transform:translate3d(0,' + px + 'px,0);') : ('top:' + px + 'px;')));
             
             if (iv[index]) {
                 ready();
