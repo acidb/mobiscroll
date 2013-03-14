@@ -1,6 +1,6 @@
 /*jslint eqeq: true, plusplus: true, undef: true, sloppy: true, vars: true, forin: true */
 /*!
- * jQuery MobiScroll v2.4.5
+ * jQuery MobiScroll v2.4.4
  * http://mobiscroll.com
  *
  * Copyright 2010-2013, Acid Media
@@ -327,7 +327,7 @@
             
             pixels[index] = px;
             
-            t.attr('style', (prefix + '-transition:all ' + (time ? time.toFixed(1) : 0.001) + 's ease-out;') + (has3d ? (prefix + '-transform:translate3d(0,' + px + 'px,0);') : ('top:' + px + 'px;')));
+            t.attr('style', (prefix + '-transition:all ' + (time ? time.toFixed(3) : 0) + 's ease-out;') + (has3d ? (prefix + '-transform:translate3d(0,' + px + 'px,0);') : ('top:' + px + 'px;')));
             
             if (iv[index]) {
                 ready();
@@ -509,7 +509,7 @@
             }
             // Create wheels containers
             var html = '<div class="dw-trans ' + s.theme + ' dw-' + s.display + '">' + (s.display == 'inline' ? '<div class="dw dwbg dwi"><div class="dwwr">' : '<div class="dw-persp">' + '<div class="dwo"></div><div class="dw dwbg ' + mAnim + '"><div class="dw-arrw"><div class="dw-arrw-i"><div class="dw-arr"></div></div></div><div class="dwwr">' + (s.headerText ? '<div class="dwv"></div>' : ''));
-
+            
             for (i = 0; i < s.wheels.length; i++) {
                 html += '<div class="dwc' + (s.mode != 'scroller' ? ' dwpm' : ' dwsc') + (s.showLabel ? '' : ' dwhl') + '"><div class="dwwc dwrc"><table cellpadding="0" cellspacing="0"><tr>';
                 // Create wheels
@@ -637,7 +637,7 @@
                     start = getCoord(e, 'Y');
                     startTime = new Date();
                     stop = start;
-                    that.scroll(target, index, pos);
+                    that.scroll(target, index, pos, 0.001);
                 }
             });
 
