@@ -78,7 +78,7 @@
         }
         
         function setVal(v, fill) {
-            var value;
+            var value = [];
             
             if (multiple) {
                 var sel = [],
@@ -86,9 +86,10 @@
                 //for (i; i < inst.multipleValues.length; i++) {
                 for (i in inst.multipleValues) {
                     sel.push(main[i]);
+                    value.push(i);
                 }
                 input.val(sel.join(', '));
-                value = inst.multipleValues;
+                //value = inst.multipleValues;
             } else {
                 input.val(v);
                 value = fill ? replace(inst.values[optIdx]) : null;
@@ -213,6 +214,7 @@
                 }
                 
                 option = multiple ? (elm.val() ? elm.val()[0] : $('option', elm).attr('value')) : elm.val();
+                
                 group = elm.find('option[value="' + option + '"]').parent();
                 gr = group.index();
                 return s.group && s.rtl ? ['_' + option, '_' + gr] : s.group ? ['_' + gr, '_' + option] : ['_' + option];
