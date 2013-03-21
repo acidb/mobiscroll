@@ -742,7 +742,7 @@
             return event(name, params);
         };
         
-        that.addValue = function (v) {
+        /*that.addValue = function (v) {
             that.multipleValues.push(v);
         };
         
@@ -751,12 +751,12 @@
             if (i !== -1) {
                 that.multipleValues.splice(i, 1);
             }
-        };
+        };*/
 
         that.values = null;
         that.val = null;
         that.temp = null;
-        that.multipleValues = [];
+        that.multipleValues = {}; // [];
 
         that.init(settings);
     }
@@ -990,9 +990,15 @@
                 }
             },
             getValues: function () {
-                var inst = getInst(this[0]);
+                var inst = getInst(this[0]),
+                    ret = [],
+                    i;
                 if (inst) {
-                    return inst.multipleValues;
+                    for (i in inst.multipleValues) {
+                        ret.push(inst.multipleValues[i]);
+                    }
+                    return ret;
+                    //return inst.multipleValues;
                 }
             },
             show: function () {

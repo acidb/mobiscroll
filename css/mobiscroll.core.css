@@ -305,11 +305,20 @@
     display: none;
 }
 /* Multiple selection */
-.dwms .dwwol {
+.dwms .dwwms .dwwol {
     display: none;
 }
-.dwms .dw-msel {
-    background: red;
+.dwms .dwwms .dw-li {
+    padding-left: 30px;
+    position: relative;
+}
+.dwms .dw-msel:after {
+    width: 30px;
+    text-align: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: '✔';
 }
 /* Backgrounds */
 .dwbg {
@@ -318,7 +327,7 @@
     -webkit-border-radius: 3px;
 }
 .dwbg .dwpm .dwwl {
-    border: 1px solid #AAA;
+    border: 1px solid #aaa;
 }
 .dwbg .dwpm .dww {
     color: #000;

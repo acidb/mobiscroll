@@ -214,3 +214,10 @@
 .ios .dw-bubble-top .dw-arr {
     border-color: #1b2530 transparent transparent transparent;
 }
+/* Multiple select */
+.ios .dwwms .dw-li {
+    text-align: left;
+}
+.ios .dww .dw-msel {
+    color: #215085;
+}

@@ -83,19 +83,19 @@
             if (multiple) {
                 var sel = [],
                     i = 0;
-                for (i; i < inst.multipleValues.length; i++) {
-                    sel.push(main[inst.multipleValues[i]]);
+                //for (i; i < inst.multipleValues.length; i++) {
+                for (i in inst.multipleValues) {
+                    sel.push(main[i]);
                 }
                 input.val(sel.join(', '));
-                prevent = true;
                 value = inst.multipleValues;
             } else {
                 input.val(v);
-                prevent = true;
                 value = fill ? replace(inst.values[optIdx]) : null;
             }
             
             if (fill) {
+                prevent = true;
                 elm.val(value).trigger('change');
             }
         }
@@ -134,22 +134,31 @@
             });
         }
         
-        inst.multipleValues = elm.val() || [];
+        //inst.multipleValues = elm.val() || [];
+        var v = elm.val() || [],
+            i = 0;
+        for (i; i < v.length; i++) {
+            inst.multipleValues[v[i]] = v[i];
+        }
         
         setVal(main[option]);
 
         elm.bind('change', function () {
-            if (!prevent/* && option != elm.val()*/) {
+            if (!prevent) {
                 inst.setSelectVal(multiple ? elm.val() || [] : [elm.val()], true);
             }
             prevent = false;
         }).hide().closest('.ui-field-contain').trigger('create');
 
         inst.setSelectVal = function (d, fill, time) {
-            option = d[0];
+            option = d[0] || $('option', elm).attr('value');
             
             if (multiple) {
-                inst.multipleValues = d;
+                //inst.multipleValues = d;
+                var i = 0;
+                for (i; i < d.length; i++) {
+                    inst.multipleValues[d[i]] = d[i];
+                }
             }
 
             if (s.group) {
@@ -196,7 +205,13 @@
                 return main[replace(d[optIdx])];
             },
             parseValue: function () {
-                inst.multipleValues = elm.val() || [];
+                //inst.multipleValues = elm.val() || [];
+                var v = elm.val() || [],
+                    i = 0;
+                for (i; i < v.length; i++) {
+                    inst.multipleValues[v[i]] = v[i];
+                }
+                
                 option = multiple ? (elm.val() ? elm.val()[0] : $('option', elm).attr('value')) : elm.val();
                 group = elm.find('option[value="' + option + '"]').parent();
                 gr = group.index();
@@ -206,7 +221,8 @@
                 if (i === undefined && multiple) {
                     var v = inst.multipleValues,
                         j = 0;
-                    for (j; j < v.length; j++) {
+                    //for (j; j < v.length; j++) {
+                    for (j in v) {
                         $('.dwwl' + optIdx + ' .dw-li[data-val="_' + v[j] + '"]', dw).addClass('dw-msel');
                     }
                 }
@@ -243,19 +259,31 @@
                     $('.dw-li[data-val="_' + v + '"]', t).removeClass('dw-v');
                 });
             },
-            onBeforeShow: function () {
+            onBeforeShow: function (dw) {
                 stg.wheels = genWheels();
                 if (s.group) {
                     inst.temp = s.rtl ? ['_' + option, '_' + group.index()] : ['_' + group.index(), '_' + option];
+                }
+            },
+            onMarkupReady: function (dw) {
+                $('.dwwl' + grIdx, dw).bind('mousedown touchstart', function () {
+                    clearTimeout(timer);
+                });
+                if (multiple) {
+                    dw.addClass('dwms');
+                    $('.dwwl', dw).eq(optIdx).addClass('dwwms');
+                    origValues = inst.multipleValues;
                 }
             },
             onValueTap: function (li) {
                 if (multiple && li.hasClass('dw-v') && li.closest('.dw').find('.dw-ul').index(li.closest('.dw-ul')) == optIdx) {
                     var val = replace(li.attr('data-val'));
                     if (li.hasClass('dw-msel')) {
-                        inst.removeValue(val);
+                        //inst.removeValue(val);
+                        delete inst.multipleValues[val];
                     } else {
-                        inst.addValue(val);
+                        //inst.addValue(val);
+                        inst.multipleValues[val] = val;
                     }
                     li.toggleClass('dw-msel');
                     
@@ -263,15 +291,6 @@
                         setVal(val, true);
                     }
                     return false;
-                }
-            },
-            onShow: function (dw) {
-                $('.dwwl' + grIdx, dw).bind('mousedown touchstart', function () {
-                    clearTimeout(timer);
-                });
-                if (multiple) {
-                    dw.addClass('dwms');
-                    origValues = inst.multipleValues;
                 }
             },
             onSelect: function (v) {
