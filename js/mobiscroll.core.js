@@ -384,8 +384,8 @@
             var ret = [],
                 i;
             
-            for (i in inst._selectedValues) {
-                ret.push(inst._selectedValues[i]);
+            for (i in that._selectedValues) {
+                ret.push(that._selectedValues[i]);
             }
             return ret;
         };

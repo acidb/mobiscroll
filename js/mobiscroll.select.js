@@ -155,7 +155,7 @@
             option = d[0] || $('option', elm).attr('value');
             
             if (multiple) {
-                //inst._selectedValues = d;
+                inst._selectedValues = {};
                 var i = 0;
                 for (i; i < d.length; i++) {
                     inst._selectedValues[d[i]] = d[i];
