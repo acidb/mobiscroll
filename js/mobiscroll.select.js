@@ -15,8 +15,10 @@
         var stg = inst.settings,
             s = $.extend({}, defaults, stg),
             elm = $(this),
-            option = elm.val(),
-            group = elm.find('option[value="' + elm.val() + '"]').parent(),
+            multiple = elm.prop('multiple'),
+            input = $('<input type="text" id="' + id + '" class="' + s.inputClass + '" readonly />').insertBefore(elm),
+            option = multiple ? (elm.val() ? elm.val()[0] : $('option', elm).attr('value')) : elm.val(),
+            group = elm.find('option[value="' + option + '"]').parent(),
             prev = group.index() + '',
             gr = prev,
             prevent,
@@ -25,13 +27,15 @@
             l2 = $('label[for="' + id + '"]'),
             label = s.label !== undefined ? s.label : (l2.length ? l2.text() : elm.attr('name')),
             invalid = [],
+            origValues = [],
+            //values = {},
             main = {},
             grIdx,
             optIdx,
             timer,
             roPre = stg.readonly,
             w;
-
+        
         function replace(str) {
             return str ? str.replace(/_/, '') : '';
         }
@@ -72,6 +76,29 @@
 
             return w;
         }
+        
+        function setVal(v, fill) {
+            var value;
+            
+            if (multiple) {
+                var sel = [],
+                    i = 0;
+                for (i; i < inst.multipleValues.length; i++) {
+                    sel.push(main[inst.multipleValues[i]]);
+                }
+                input.val(sel.join(', '));
+                prevent = true;
+                value = inst.multipleValues;
+            } else {
+                input.val(v);
+                prevent = true;
+                value = fill ? replace(inst.values[optIdx]) : null;
+            }
+            
+            if (fill) {
+                elm.val(value).trigger('change');
+            }
+        }
 
         // if groups is true and there are no groups fall back to no grouping
         if (s.group && !$('optgroup', elm).length) {
@@ -94,30 +121,36 @@
             grIdx = -1;
             optIdx = 0;
         }
-
+        
         $('#' + id).remove();
 
         $('option', elm).each(function () {
             main[$(this).attr('value')] = $(this).text();
         });
 
-        var input = $('<input type="text" id="' + id + '" value="' + main[elm.val()] + '" class="' + s.inputClass + '" readonly />').insertBefore(elm);
-
         if (s.showOnFocus) {
             input.focus(function () {
                 inst.show();
             });
         }
+        
+        inst.multipleValues = elm.val() || [];
+        
+        setVal(main[option]);
 
         elm.bind('change', function () {
-            if (!prevent && option != elm.val()) {
-                inst.setSelectVal([elm.val()], true);
+            if (!prevent/* && option != elm.val()*/) {
+                inst.setSelectVal(multiple ? elm.val() || [] : [elm.val()], true);
             }
             prevent = false;
         }).hide().closest('.ui-field-contain').trigger('create');
 
         inst.setSelectVal = function (d, fill, time) {
             option = d[0];
+            
+            if (multiple) {
+                inst.multipleValues = d;
+            }
 
             if (s.group) {
                 group = elm.find('option[value="' + option + '"]').parent();
@@ -136,13 +169,15 @@
 
             // Set input/select values
             if (fill) {
-                input.val(main[option]);
+                var changed = multiple ? true : option !== elm.val();
+                setVal(main[option], changed);
+                /*input.val(main[option]);
                 var changed = option !== elm.val();
                 elm.val(option);
                 // Trigger change on element
                 if (changed) {
                     elm.trigger('change');
-                }
+                }*/
             }
         };
 
@@ -155,17 +190,27 @@
             width: 50,
             wheels: w,
             headerText: false,
+            multiple: multiple,
             anchor: input,
             formatResult: function (d) {
                 return main[replace(d[optIdx])];
             },
             parseValue: function () {
-                option = elm.val();
+                inst.multipleValues = elm.val() || [];
+                option = multiple ? (elm.val() ? elm.val()[0] : $('option', elm).attr('value')) : elm.val();
                 group = elm.find('option[value="' + option + '"]').parent();
                 gr = group.index();
                 return s.group && s.rtl ? ['_' + option, '_' + gr] : s.group ? ['_' + gr, '_' + option] : ['_' + option];
             },
             validate: function (dw, i, time) {
+                if (i === undefined && multiple) {
+                    var v = inst.multipleValues,
+                        j = 0;
+                    for (j; j < v.length; j++) {
+                        $('.dwwl' + optIdx + ' .dw-li[data-val="_' + v[j] + '"]', dw).addClass('dw-msel');
+                    }
+                }
+                
                 if (i === grIdx) {
                     gr = replace(inst.temp[grIdx]);
 
@@ -204,15 +249,34 @@
                     inst.temp = s.rtl ? ['_' + option, '_' + group.index()] : ['_' + group.index(), '_' + option];
                 }
             },
+            onValueTap: function (li) {
+                if (multiple && li.hasClass('dw-v') && li.closest('.dw').find('.dw-ul').index(li.closest('.dw-ul')) == optIdx) {
+                    var val = replace(li.attr('data-val'));
+                    if (li.hasClass('dw-msel')) {
+                        inst.removeValue(val);
+                    } else {
+                        inst.addValue(val);
+                    }
+                    li.toggleClass('dw-msel');
+                    
+                    if (s.display == 'inline') {
+                        setVal(val, true);
+                    }
+                    return false;
+                }
+            },
             onShow: function (dw) {
                 $('.dwwl' + grIdx, dw).bind('mousedown touchstart', function () {
                     clearTimeout(timer);
                 });
+                if (multiple) {
+                    dw.addClass('dwms');
+                    origValues = inst.multipleValues;
+                }
             },
             onSelect: function (v) {
-                input.val(v);
-                prevent = true;
-                elm.val(replace(inst.values[optIdx])).trigger('change');
+                setVal(v, true);
+                
                 if (s.group) {
                     inst.values = null;
                 }
@@ -221,9 +285,12 @@
                 if (s.group) {
                     inst.values = null;
                 }
+                if (multiple) {
+                    inst.multipleValues = origValues;
+                }
             },
             onChange: function (v) {
-                if (s.display == 'inline') {
+                if (s.display == 'inline' && !multiple) {
                     input.val(v);
                     prevent = true;
                     elm.val(replace(inst.temp[optIdx])).trigger('change');

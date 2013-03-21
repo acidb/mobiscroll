@@ -215,7 +215,8 @@
     background: transparent;
 }
 .dwpm .dww {
-    margin: -1px;
+    /*margin: -1px;*/
+    margin: 0;
 }
 .dwpm .dw-li {
     text-shadow: none;
@@ -303,16 +304,25 @@
 .dwhl .dwl {
     display: none;
 }
+/* Multiple selection */
+.dwms .dwwol {
+    display: none;
+}
+.dwms .dw-msel {
+    background: red;
+}
 /* Backgrounds */
 .dwbg {
     background: #fff;
     border-radius: 3px;
     -webkit-border-radius: 3px;
 }
+.dwbg .dwpm .dwwl {
+    border: 1px solid #AAA;
+}
 .dwbg .dwpm .dww {
     color: #000;
     background: #fff;
-    border: 1px solid #AAA;
 }
 .dwbg .dwwb {
     background: #ccc;

@@ -307,7 +307,7 @@
         * @param {Number} orig - Original value.
         */
         that.scroll = function (t, index, val, time, orig) {
-
+            
             function getVal(t, b, c, d) {
                 return c * Math.sin(t / d * (Math.PI / 2)) + b;
             }
@@ -321,7 +321,7 @@
             var px = (m - val) * hi,
                 i;
             
-            if (px == pixels[index]) {
+            if (px == pixels[index] && iv[index]) {
                 return;
             }
             
@@ -332,7 +332,7 @@
             if (iv[index]) {
                 ready();
             }
-
+            
             if (time && orig !== undefined) {
                 i = 0;
                 t.closest('.dwwl').addClass('dwa');
@@ -737,10 +737,26 @@
                 }
             }
         };
+        
+        that.event = function (name, params) {
+            return event(name, params);
+        };
+        
+        that.addValue = function (v) {
+            that.multipleValues.push(v);
+        };
+        
+        that.removeValue = function (v) {
+            var i = $.inArray(v, that.multipleValues);
+            if (i !== -1) {
+                that.multipleValues.splice(i, 1);
+            }
+        };
 
         that.values = null;
         that.val = null;
         that.temp = null;
+        that.multipleValues = [];
 
         that.init(settings);
     }
@@ -973,6 +989,12 @@
                     return inst.values;
                 }
             },
+            getValues: function () {
+                var inst = getInst(this[0]);
+                if (inst) {
+                    return inst.multipleValues;
+                }
+            },
             show: function () {
                 var inst = getInst(this[0]);
                 if (inst) {
@@ -1021,15 +1043,20 @@
                 dist = stop - start;
             }
             
+            tindex = Math.round(pos - dist / h);
+            
             if (!dist && !moved) { // this is a "tap"
-                tindex = Math.floor((stop - ttop) / h);
-                var li = $('.dw-li', target).eq(tindex);
+                var idx = Math.floor((stop - ttop) / h),
+                    li = $('.dw-li', target).eq(idx);
+                
                 li.addClass('dw-hl'); // Highlight
                 setTimeout(function () {
                     li.removeClass('dw-hl');
                 }, 200);
-            } else {
-                tindex = Math.round(pos - dist / h);
+                
+                if (inst.event('onValueTap', [li]) !== false) {
+                    tindex = idx;
+                }
             }
 
             calc(target, tindex, 0, true, Math.round(val));
