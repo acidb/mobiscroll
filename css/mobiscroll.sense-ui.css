@@ -19,6 +19,9 @@
 .sense-ui .dww {
     margin: 0 2px;
 }
+.sense-ui .dw .dwpm .dwwl {
+    border: 0;
+}
 .sense-ui .dw .dwpm .dww {
     margin: 0;
     border: 0;

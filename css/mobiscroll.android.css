@@ -21,20 +21,15 @@
 .android .dwc {
     padding-top: 8px;
 }
-.android .dw .dwpm .dwwl {
-    margin: 4px 1px;
-    border: 1px solid #9C9C9C;
-}
 .android .dw .dwpm .dww {
     border: 0;
     background: #fff;
 }
+.android .dw .dwpm .dwwl {
+    border: 0;
+}
 .android .dw .dwpm .dww {
     margin: 0;
-}
-.android .dw .dwpm .dwwl {
-    margin: 4px 2px;
-    border: 0;
 }
 .android .dwpm .dww .dw-li {
     color: #000;

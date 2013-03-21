@@ -170,6 +170,9 @@
 .wp .dw .dwwl .dwb-a {
     background: #1f1f1f;
 }
+.wp .dw .dwpm .dwwl {
+    border: 0;
+}
 .wp .dw .dwwb {
     background: #1f1f1f;
     border-radius: 0;
@@ -238,12 +241,12 @@
 .wp.light .dw-sel .dw-day, .wp.light .dw-sel .dw-mon {
     color: #fff;
 }
-.wp.light .dwa .dw-sel .dw-i {
+.wp.light .dw .dwa .dw-sel .dw-i {
     color: #6b6b6b;
     border: 1px solid #b5b5b5;
     background-color: transparent;
 }
-.wp.light .dwa .dw-day, .wp.light .dwa .dw-month {
+.wp.light .dw .dwc .dwa .dw-day, .wp.light .dw .dwc .dwa .dw-mon {
     color: #6b6b6b;
 }
 .wp.light .dwb {

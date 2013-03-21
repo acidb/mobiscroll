@@ -20,11 +20,9 @@
     background: -moz-linear-gradient(#9f9fa6,#484a55 50%,#272836 50%,#282a39);
     background: -o-linear-gradient(#9f9fa6,#484a55 50%,#272836 50%,#282a39);
 }
-.ios .dwi .dwwr
-{
+.ios .dwi .dwwr {
     margin-top: 0;
 }
-
 .ios .dwv {
     display: none;
 }
@@ -48,8 +46,6 @@
     background: -moz-linear-gradient(#2c2c38 0%,#cbcce0 35%, #cbcce0 65%,#2c2c38 100%);
     background: -o-linear-gradient(#2c2c38 0%,#cbcce0 35%, #cbcce0 65%,#2c2c38 100%);
     box-shadow: 0 1px 1px rgba(255,255,255,0.3);
-    border-radius: 0;
-    -webkit-border-radius: 0;
     -webkit-box-shadow: 0 1px 1px rgba(255,255,255,0.3);
 }
 .ios td: first-child .dwwl {
@@ -59,6 +55,10 @@
 .ios td: last-child .dwwl {
     border-radius: 0 3px 3px 0;
     -webkit-border-radius: 0 3px 3px 0;
+}
+.ios .dwsc .dwwl {
+    border-radius: 0;
+    -webkit-border-radius: 0;
 }
 .ios .dwsc .dww {
     margin: 0 3px;
@@ -78,6 +78,7 @@
 }
 .ios .dw .dwpm .dwwl {
     margin: 4px 2px;
+    border: 1px solid #000;
 }
 .ios .dw .dwpm .dww {
     margin: 0;
