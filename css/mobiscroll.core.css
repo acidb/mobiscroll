@@ -305,9 +305,6 @@
     display: none;
 }
 /* Multiple selection */
-.dwms .dwwms .dwwol {
-    display: none;
-}
 .dwms .dwwms .dw-li {
     padding-left: 30px;
     position: relative;

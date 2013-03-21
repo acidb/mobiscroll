@@ -83,13 +83,13 @@
             if (multiple) {
                 var sel = [],
                     i = 0;
-                //for (i; i < inst.multipleValues.length; i++) {
-                for (i in inst.multipleValues) {
+                //for (i; i < inst._selectedValues.length; i++) {
+                for (i in inst._selectedValues) {
                     sel.push(main[i]);
                     value.push(i);
                 }
                 input.val(sel.join(', '));
-                //value = inst.multipleValues;
+                //value = inst._selectedValues;
             } else {
                 input.val(v);
                 value = fill ? replace(inst.values[optIdx]) : null;
@@ -135,11 +135,11 @@
             });
         }
         
-        //inst.multipleValues = elm.val() || [];
+        //inst._selectedValues = elm.val() || [];
         var v = elm.val() || [],
             i = 0;
         for (i; i < v.length; i++) {
-            inst.multipleValues[v[i]] = v[i];
+            inst._selectedValues[v[i]] = v[i];
         }
         
         setVal(main[option]);
@@ -155,10 +155,10 @@
             option = d[0] || $('option', elm).attr('value');
             
             if (multiple) {
-                //inst.multipleValues = d;
+                //inst._selectedValues = d;
                 var i = 0;
                 for (i; i < d.length; i++) {
-                    inst.multipleValues[d[i]] = d[i];
+                    inst._selectedValues[d[i]] = d[i];
                 }
             }
 
@@ -206,22 +206,23 @@
                 return main[replace(d[optIdx])];
             },
             parseValue: function () {
-                //inst.multipleValues = elm.val() || [];
+                //inst._selectedValues = elm.val() || [];
                 var v = elm.val() || [],
                     i = 0;
                 for (i; i < v.length; i++) {
-                    inst.multipleValues[v[i]] = v[i];
+                    inst._selectedValues[v[i]] = v[i];
                 }
                 
                 option = multiple ? (elm.val() ? elm.val()[0] : $('option', elm).attr('value')) : elm.val();
                 
                 group = elm.find('option[value="' + option + '"]').parent();
                 gr = group.index();
+                prev = gr + '';
                 return s.group && s.rtl ? ['_' + option, '_' + gr] : s.group ? ['_' + gr, '_' + option] : ['_' + option];
             },
             validate: function (dw, i, time) {
                 if (i === undefined && multiple) {
-                    var v = inst.multipleValues,
+                    var v = inst._selectedValues,
                         j = 0;
                     //for (j; j < v.length; j++) {
                     for (j in v) {
@@ -274,7 +275,11 @@
                 if (multiple) {
                     dw.addClass('dwms');
                     $('.dwwl', dw).eq(optIdx).addClass('dwwms');
-                    origValues = inst.multipleValues;
+                    //origValues = inst._selectedValues;
+                    origValues = {};
+                    for (var i in inst._selectedValues) {
+                        origValues[i] = inst._selectedValues[i];
+                    }
                 }
             },
             onValueTap: function (li) {
@@ -282,10 +287,10 @@
                     var val = replace(li.attr('data-val'));
                     if (li.hasClass('dw-msel')) {
                         //inst.removeValue(val);
-                        delete inst.multipleValues[val];
+                        delete inst._selectedValues[val];
                     } else {
                         //inst.addValue(val);
-                        inst.multipleValues[val] = val;
+                        inst._selectedValues[val] = val;
                     }
                     li.toggleClass('dw-msel');
                     
@@ -307,7 +312,7 @@
                     inst.values = null;
                 }
                 if (multiple) {
-                    inst.multipleValues = origValues;
+                    inst._selectedValues = origValues;
                 }
             },
             onChange: function (v) {

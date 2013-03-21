@@ -379,6 +379,16 @@
                 }
             }
         };
+        
+        that.getValues = function () {
+            var ret = [],
+                i;
+            
+            for (i in inst._selectedValues) {
+                ret.push(inst._selectedValues[i]);
+            }
+            return ret;
+        };
 
         /**
         * Checks if the current selected values are valid together.
@@ -742,21 +752,10 @@
             return event(name, params);
         };
         
-        /*that.addValue = function (v) {
-            that.multipleValues.push(v);
-        };
-        
-        that.removeValue = function (v) {
-            var i = $.inArray(v, that.multipleValues);
-            if (i !== -1) {
-                that.multipleValues.splice(i, 1);
-            }
-        };*/
-
         that.values = null;
         that.val = null;
         that.temp = null;
-        that.multipleValues = {}; // [];
+        that._selectedValues = {}; // [];
 
         that.init(settings);
     }
@@ -990,15 +989,9 @@
                 }
             },
             getValues: function () {
-                var inst = getInst(this[0]),
-                    ret = [],
-                    i;
+                var inst = getInst(this[0]);
                 if (inst) {
-                    for (i in inst.multipleValues) {
-                        ret.push(inst.multipleValues[i]);
-                    }
-                    return ret;
-                    //return inst.multipleValues;
+                    return inst.getValues();
                 }
             },
             show: function () {

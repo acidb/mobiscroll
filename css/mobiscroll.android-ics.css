@@ -199,7 +199,7 @@
     color: #31b6e7;
     line-height: 14px;
     border: 1px solid #424542;
-    text-shadow: 0 0 2px #fff;
+    text-shadow: 0 0 5px #29799c;
 }
 .android-ics .dwwms .dw-msel:after {
     content: '✔';

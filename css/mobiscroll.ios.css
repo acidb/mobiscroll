@@ -219,6 +219,9 @@
     border-color: #1b2530 transparent transparent transparent;
 }
 /* Multiple select */
+.ios .dwwms .dwwol {
+    display: none;
+}
 .ios .dwwms .dw-li {
     text-align: left;
 }
