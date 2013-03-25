@@ -267,13 +267,13 @@
         function plus(t) {
             var p = +t.data('pos'),
                 val = p + 1;
-            calc(t, val > max ? min : val, 1);
+            calc(t, val > max ? min : val, 1, true);
         }
 
         function minus(t) {
             var p = +t.data('pos'),
                 val = p - 1;
-            calc(t, val < min ? max : val, 2);
+            calc(t, val < min ? max : val, 2, true);
         }
 
         // Public functions
@@ -808,8 +808,9 @@
         val = constrain(val, min, max);
 
         var cell = $('.dw-li', t).eq(val),
+            o = orig === undefined ? val : orig, 
             idx = index,
-            time = anim ? (val == orig ? 0.1 : Math.abs((val - orig) * 0.1)) : 0;
+            time = anim ? (val == o ? 0.1 : Math.abs((val - o) * 0.1)) : 0;
 
         // Set selected scroller value
         inst.temp[idx] = cell.attr('data-val');
