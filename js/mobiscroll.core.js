@@ -748,7 +748,7 @@
             }
         };
         
-        that.event = function (name, params) {
+        that.trigger = function (name, params) {
             return event(name, params);
         };
         
@@ -1053,7 +1053,7 @@
                     li.removeClass('dw-hl');
                 }, 200);
                 
-                if (inst.event('onValueTap', [li]) !== false) {
+                if (inst.trigger('onValueTap', [li]) !== false) {
                     tindex = idx;
                 }
             }
