@@ -367,13 +367,14 @@
                 scrollToPos(time);
             }
             
+            v = s.formatResult(that.temp);
+            
             if (!temp) {
                 that.values = that.temp.slice(0);
+                that.val = v;
             }
 
             if (fill) {
-                v = s.formatResult(that.temp);
-                that.val = v;
                 if (input) {
                     elm.val(v).trigger('change');
                 }
