@@ -124,17 +124,19 @@
 .dwwl {
     margin: 4px 2px;
     position: relative;
-    background: #888;
-    background: linear-gradient(#000 0%,#333 35%, #888 50%,#333 65%,#000 100%);
-    background: -webkit-gradient(linear,left bottom,left top,from(#000),color-stop(0.35, #333),color-stop(0.50, #888),color-stop(0.65, #333),to(#000));
-    background: -moz-linear-gradient(#000 0%,#333 35%, #888 50%,#333 65%,#000 100%);
-    background: -o-linear-gradient(#000 0%,#333 35%, #888 50%,#333 65%,#000 100%);
     z-index: 5;
 }
 .dww {
     margin: 0 2px;
     overflow: hidden;
     position: relative;
+}
+.dwsc .dwwl {
+    background: #888;
+    background: linear-gradient(#000 0%,#333 35%, #888 50%,#333 65%,#000 100%);
+    background: -webkit-gradient(linear,left bottom,left top,from(#000),color-stop(0.35, #333),color-stop(0.50, #888),color-stop(0.65, #333),to(#000));
+    background: -moz-linear-gradient(#000 0%,#333 35%, #888 50%,#333 65%,#000 100%);
+    background: -o-linear-gradient(#000 0%,#333 35%, #888 50%,#333 65%,#000 100%);
 }
 .dwsc .dww {
     color: #fff;
@@ -215,7 +217,6 @@
     background: transparent;
 }
 .dwpm .dww {
-    /*margin: -1px;*/
     margin: 0;
 }
 .dwpm .dw-li {

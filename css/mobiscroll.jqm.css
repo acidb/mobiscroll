@@ -57,6 +57,10 @@
 .jqm .dwbc .ui-btn-inner {
     font-size: 12px;
 }
+.jqm .dwpm .dwl {
+    border: 0;
+    background: none;
+}
 /* Bubble positioning */
 .jqm .dw-bubble-bottom .dw-arr
 {
