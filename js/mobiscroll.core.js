@@ -637,11 +637,11 @@
                 // Prevent scroll
                 e.preventDefault();
                 // Scroll start
-                if (testTouch(e) && !move && !isReadOnly(this) && !click && s.mode != 'clickpick') {
+                if (testTouch(e) && !move && !isReadOnly(this) && !click) {
                     move = true;
                     $(document).bind(MOVE_EVENT, onMove);
                     target = $('.dw-ul', this);
-                    target.closest('.dwwl').addClass('dwa');
+                    scrollable = s.mode != 'clickpick',
                     pos = +target.data('pos');
                     setGlobals(target);
                     moved = iv[index] !== undefined; // Don't allow tap, if still moving
@@ -649,6 +649,9 @@
                     startTime = new Date();
                     stop = start;
                     that.scroll(target, index, pos, 0.001);
+                    if (scrollable) {
+                        target.closest('.dwwl').addClass('dwa');
+                    }
                 }
             });
 
@@ -851,6 +854,7 @@
         startTime,
         pos,
         moved,
+        scrollable,
         mod = document.createElement('modernizr').style,
         has3d = testProps(['perspectiveProperty', 'WebkitPerspective', 'MozPerspective', 'OPerspective', 'msPerspective']),
         prefix = testPrefix(),
@@ -861,9 +865,11 @@
         MOVE_EVENT = 'touchmove mousemove',
         END_EVENT = 'touchend mouseup',
         onMove = function (e) {
-            e.preventDefault();
-            stop = getCoord(e, 'Y');
-            inst.scroll(target, index, constrain(pos + (start - stop) / h, min - 1, max + 1));
+            if (scrollable) {
+                e.preventDefault();
+                stop = getCoord(e, 'Y');
+                inst.scroll(target, index, constrain(pos + (start - stop) / h, min - 1, max + 1));
+            }
             moved = true;
         },
         defaults = {
@@ -1048,19 +1054,28 @@
             
             if (!dist && !moved) { // this is a "tap"
                 var idx = Math.floor((stop - ttop) / h),
-                    li = $('.dw-li', target).eq(idx);
-                
-                li.addClass('dw-hl'); // Highlight
-                setTimeout(function () {
-                    li.removeClass('dw-hl');
-                }, 200);
+                    li = $('.dw-li', target).eq(idx),
+                    hl = scrollable;
                 
                 if (inst.trigger('onValueTap', [li]) !== false) {
                     tindex = idx;
                 }
+                else {
+                    hl = true;
+                }
+                
+                if (hl) {
+                    li.addClass('dw-hl'); // Highlight
+                    setTimeout(function () {
+                        li.removeClass('dw-hl');
+                    }, 200);
+                }
             }
-
-            calc(target, tindex, 0, true, Math.round(val));
+            
+            if (scrollable) {
+                calc(target, tindex, 0, true, Math.round(val));
+            }
+            
             move = false;
             target = null;
         
