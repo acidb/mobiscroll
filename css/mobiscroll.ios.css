@@ -144,12 +144,12 @@
     font-size: 12px;
     height: 26px;
     line-height: 26px;
-    border: 1px solid #254a93;
-    background: #2461e6;
-    background: linear-gradient(#779be9,#376fe0 50%,#2260dd 50%);
-    background: -webkit-gradient(linear,left top,left bottom,from(#779be9),color-stop(0.5, #376fe0),color-stop(0.5, #2260dd));
-    background: -moz-linear-gradient(#779be9,#376fe0 50%,#2260dd 50%);
-    background: -o-linear-gradient(#779be9,#376fe0 50%,#2260dd 50%);
+    border: 1px solid #194aab;
+    background: #194aab;
+    background: linear-gradient(#82aaff,#3162c4 50%,#194aab 50%);
+    background: -webkit-gradient(linear,left top,left bottom,from(#82aaff),color-stop(0.5,#3162c4),color-stop(0.5,#194aab));
+    background: -moz-linear-gradient(#82aaff,#3162c4 50%,#194aab 50%);
+    background: -o-linear-gradient(#82aaff,#3162c4 50%,#194aab 50%);
     box-shadow: 0 1px 0 rgba(255,255,255,0.3);
     -webkit-box-shadow: 0 1px 0 rgba(255,255,255,0.3);
 }
