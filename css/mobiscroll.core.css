@@ -307,11 +307,11 @@
 }
 /* Multiple selection */
 .dwms .dwwms .dw-li {
-    padding-left: 30px;
+    padding: 0 40px;
     position: relative;
 }
 .dwms .dw-msel:after {
-    width: 30px;
+    width: 40px;
     text-align: center;
     position: absolute;
     top: 0;

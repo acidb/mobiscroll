@@ -219,7 +219,7 @@
 .wp .dwwms .dw-li {
     opacity: .3;
     filter: Alpha(Opacity=30);
-    padding-left: 30px;
+    padding: 0 0 0 30px;
 }
 .wp .dwwms .dw-v {
     opacity: 1;

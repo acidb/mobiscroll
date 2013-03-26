@@ -223,7 +223,11 @@
     display: none;
 }
 .ios .dwwms .dw-li {
+    padding: 0 5px 0 30px;
     text-align: left;
+}
+.ios .dw-msel:after {
+    width: 30px;
 }
 .ios .dww .dw-msel {
     color: #215085;

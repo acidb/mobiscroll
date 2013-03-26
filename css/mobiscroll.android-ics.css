@@ -142,14 +142,14 @@
 }
 .android-ics .dwwms .dw-li {
     padding-left: 5px;
-    padding-right: 30px;
+    padding-right: 36px;
 }
 .android-ics .dwwms .dw-li:after {
     content: '';
     position: absolute;
     top: 50%;
     left: auto;
-    right: 4px;
+    right: 10px;
     width: 14px;
     height: 14px;
     margin-top: -9px;
