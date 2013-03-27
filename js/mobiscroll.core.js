@@ -674,7 +674,7 @@
             // Hide wheels and overlay
             if (dw) {
                 if (s.display != 'inline' && anim && !prevAnim) {
-                    $('.dw', dw).addClass('dw-' + anim + ' dw-out');
+                    dw.addClass('dw-trans').find('.dw').addClass('dw-' + anim + ' dw-out');
                     setTimeout(function () {
                         dw.remove();
                         dw = null;

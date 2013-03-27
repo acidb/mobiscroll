@@ -1,10 +1,8 @@
-.dw-persp {
+.dw-trans .dw-persp {
+    overflow: hidden;
     perspective: 1000;
     -webkit-perspective: 1000;
     -moz-perspective: 1000;
-}
-.dw-trans .dw-persp {
-    overflow: hidden;
 }
 .dw-in {
     animation-timing-function: ease-out;
