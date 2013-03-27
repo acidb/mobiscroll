@@ -83,13 +83,12 @@
             if (multiple) {
                 var sel = [],
                     i = 0;
-                //for (i; i < inst._selectedValues.length; i++) {
+
                 for (i in inst._selectedValues) {
                     sel.push(main[i]);
                     value.push(i);
                 }
                 input.val(sel.join(', '));
-                //value = inst._selectedValues;
             } else {
                 input.val(v);
                 value = fill ? replace(inst.values[optIdx]) : null;
@@ -135,9 +134,9 @@
             });
         }
         
-        //inst._selectedValues = elm.val() || [];
         var v = elm.val() || [],
             i = 0;
+        
         for (i; i < v.length; i++) {
             inst._selectedValues[v[i]] = v[i];
         }
@@ -181,13 +180,6 @@
             if (fill) {
                 var changed = multiple ? true : option !== elm.val();
                 setVal(main[option], changed);
-                /*input.val(main[option]);
-                var changed = option !== elm.val();
-                elm.val(option);
-                // Trigger change on element
-                if (changed) {
-                    elm.trigger('change');
-                }*/
             }
         };
 
@@ -206,11 +198,14 @@
                 return main[replace(d[optIdx])];
             },
             parseValue: function () {
-                //inst._selectedValues = elm.val() || [];
                 var v = elm.val() || [],
                     i = 0;
-                for (i; i < v.length; i++) {
-                    inst._selectedValues[v[i]] = v[i];
+
+                if (multiple) {
+                    inst._selectedValues = {};
+                    for (i; i < v.length; i++) {
+                        inst._selectedValues[v[i]] = v[i];
+                    }
                 }
                 
                 option = multiple ? (elm.val() ? elm.val()[0] : $('option', elm).attr('value')) : elm.val();
@@ -224,7 +219,7 @@
                 if (i === undefined && multiple) {
                     var v = inst._selectedValues,
                         j = 0;
-                    //for (j; j < v.length; j++) {
+
                     for (j in v) {
                         $('.dwwl' + optIdx + ' .dw-li[data-val="_' + v[j] + '"]', dw).addClass('dw-msel');
                     }
@@ -232,7 +227,6 @@
                 
                 if (i === grIdx) {
                     gr = replace(inst.temp[grIdx]);
-
                     if (gr !== prev) {
                         group = elm.find('optgroup').eq(gr);
                         gr = group.index();
@@ -246,8 +240,8 @@
                             timer = setTimeout(function () {
                                 inst.changeWheel([optIdx]);
                                 stg.readonly = roPre;
+                                prev = gr + '';
                             }, time * 1000);
-                            prev = gr + '';
                             return false;
                         }
                     } else {
@@ -275,9 +269,9 @@
                 if (multiple) {
                     dw.addClass('dwms');
                     $('.dwwl', dw).eq(optIdx).addClass('dwwms');
-                    //origValues = inst._selectedValues;
                     origValues = {};
-                    for (var i in inst._selectedValues) {
+                    var i;
+                    for (i in inst._selectedValues) {
                         origValues[i] = inst._selectedValues[i];
                     }
                 }
@@ -286,10 +280,8 @@
                 if (multiple && li.hasClass('dw-v') && li.closest('.dw').find('.dw-ul').index(li.closest('.dw-ul')) == optIdx) {
                     var val = replace(li.attr('data-val'));
                     if (li.hasClass('dw-msel')) {
-                        //inst.removeValue(val);
                         delete inst._selectedValues[val];
                     } else {
-                        //inst.addValue(val);
                         inst._selectedValues[val] = val;
                     }
                     li.toggleClass('dw-msel');
@@ -302,7 +294,6 @@
             },
             onSelect: function (v) {
                 setVal(v, true);
-                
                 if (s.group) {
                     inst.values = null;
                 }
@@ -312,7 +303,11 @@
                     inst.values = null;
                 }
                 if (multiple) {
-                    inst._selectedValues = origValues;
+                    inst._selectedValues = {};
+                    var i;
+                    for (i in origValues) {
+                        inst._selectedValues[i] = origValues[i];
+                    }
                 }
             },
             onChange: function (v) {
