@@ -23,6 +23,54 @@ It'd be cool to see how you're using Mobiscroll!
 
 We're looking at showcasing some of the best work on http://mobiscroll.com . Feel free to let us know on twitter @mobiscroll!
 
+Changelog 2.5.0
+===============
+
+Enhancements
+------------
+
+_Core_
+
+  * Added: onValueTap event.
+
+_Select_
+
+  * Added: Multiple selection functionality (#37).
+
+_Calendar_
+
+  * Added: Multiple day selection functionality.
+
+  * Added: Week selection functionality.
+
+  * Added: onMonthChange event.
+
+Bugfixes
+--------
+
+_Core_
+
+  * Fixed: Input value was not parsed if value was set after mobiscroll init (#88).
+
+  * Fixed: Tap or click lock scroller in mixed mode (#89).
+
+  * Fixed: Click on wheel arrows ddid not animate switch (#90).
+  
+_Datetime_
+
+  * Fixed: Month showed 0 - 11 on wheel using dateOrder 'mdyy' (#92).
+
+_Calendar_
+
+  * Fixed: During month change animation a day was incorrectly highlighted.
+
+  * Fixed: Month change animation was laggy on iOS5.
+
+_Measurements_
+
+  * Fixed: Fraction values are now correctly disabled for negative values as well.
+
+
 Changelog 2.4.5
 ===============
 
