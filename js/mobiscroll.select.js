@@ -16,23 +16,22 @@
             s = $.extend({}, defaults, stg),
             elm = $(this),
             multiple = elm.prop('multiple'),
-            input = $('<input type="text" id="' + id + '" class="' + s.inputClass + '" readonly />').insertBefore(elm),
+            id = this.id + '_dummy',
             option = multiple ? (elm.val() ? elm.val()[0] : $('option', elm).attr('value')) : elm.val(),
             group = elm.find('option[value="' + option + '"]').parent(),
             prev = group.index() + '',
             gr = prev,
             prevent,
-            id = this.id + '_dummy',
             l1 = $('label[for="' + this.id + '"]').attr('for', id),
             l2 = $('label[for="' + id + '"]'),
             label = s.label !== undefined ? s.label : (l2.length ? l2.text() : elm.attr('name')),
             invalid = [],
             origValues = [],
-            //values = {},
             main = {},
             grIdx,
             optIdx,
             timer,
+            input,
             roPre = stg.readonly,
             w;
         
@@ -123,6 +122,8 @@
         }
         
         $('#' + id).remove();
+        
+        input = $('<input type="text" id="' + id + '" class="' + s.inputClass + '" readonly />').insertBefore(elm),
 
         $('option', elm).each(function () {
             main[$(this).attr('value')] = $(this).text();
@@ -143,7 +144,7 @@
         
         setVal(main[option]);
 
-        elm.bind('change', function () {
+        elm.unbind('.dwsel').bind('change.dwsel', function () {
             if (!prevent) {
                 inst.setSelectVal(multiple ? elm.val() || [] : [elm.val()], true);
             }

@@ -330,6 +330,7 @@
 .dwbg .dwpm .dww {
     color: #000;
     background: #fff;
+    -webkit-border-radius: 3px;
 }
 .dwbg .dwwb {
     background: #ccc;
