@@ -641,7 +641,7 @@
                     move = true;
                     $(document).bind(MOVE_EVENT, onMove);
                     target = $('.dw-ul', this);
-                    scrollable = s.mode != 'clickpick',
+                    scrollable = s.mode != 'clickpick';
                     pos = +target.data('pos');
                     setGlobals(target);
                     moved = iv[index] !== undefined; // Don't allow tap, if still moving
@@ -811,7 +811,7 @@
         val = constrain(val, min, max);
 
         var cell = $('.dw-li', t).eq(val),
-            o = orig === undefined ? val : orig, 
+            o = orig === undefined ? val : orig,
             idx = index,
             time = anim ? (val == o ? 0.1 : Math.abs((val - o) * 0.1)) : 0;
 
@@ -1059,8 +1059,7 @@
                 
                 if (inst.trigger('onValueTap', [li]) !== false) {
                     tindex = idx;
-                }
-                else {
+                } else {
                     hl = true;
                 }
                 
