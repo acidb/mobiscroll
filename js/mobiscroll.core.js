@@ -554,6 +554,8 @@
                 dw.insertAfter(elm);
             }
             
+            event('onMarkupInserted', [dw]);
+            
             visible = true;
             
             // Theme init
