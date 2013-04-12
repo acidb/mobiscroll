@@ -7,7 +7,8 @@
             height: 30,
             width: 55,
             headerText: false,
-            showLabel: false
+            showLabel: false,
+            useShortLabels: true
         }
     }
 

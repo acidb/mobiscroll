@@ -145,22 +145,22 @@
     font-size: 12px;
     height: 26px;
     line-height: 26px;
-    border: 1px solid #194aab;
-    background: #194aab;
-    background: linear-gradient(#82aaff,#3162c4 50%,#194aab 50%);
-    background: -webkit-gradient(linear,left top,left bottom,from(#82aaff),color-stop(0.5,#3162c4),color-stop(0.5,#194aab));
-    background: -moz-linear-gradient(#82aaff,#3162c4 50%,#194aab 50%);
-    background: -o-linear-gradient(#82aaff,#3162c4 50%,#194aab 50%);
-    box-shadow: 0 1px 0 rgba(255,255,255,0.3);
-    -webkit-box-shadow: 0 1px 0 rgba(255,255,255,0.3);
-}
-.ios .dwb-c .dwb,.ios .dwb-n .dwb {
     border: 1px solid #1f1f1f;
     background: #1a1a1a;
     background: linear-gradient(#7b7b7b,#1a1a1a 50%,#000 50%);
     background: -webkit-gradient(linear,left top,left bottom,from(#7b7b7b),color-stop(0.5, #1a1a1a),color-stop(0.5, #000));
     background: -moz-linear-gradient(#7b7b7b,#1a1a1a 50%,#000 50%);
     background: -o-linear-gradient(#7b7b7b,#1a1a1a 50%,#000 50%);
+    box-shadow: 0 1px 0 rgba(255,255,255,0.3);
+    -webkit-box-shadow: 0 1px 0 rgba(255,255,255,0.3);
+}
+.ios .dwb-s .dwb {
+    border: 1px solid #194aab;
+    background: #194aab;
+    background: linear-gradient(#82aaff,#3162c4 50%,#194aab 50%);
+    background: -webkit-gradient(linear,left top,left bottom,from(#82aaff),color-stop(0.5,#3162c4),color-stop(0.5,#194aab));
+    background: -moz-linear-gradient(#82aaff,#3162c4 50%,#194aab 50%);
+    background: -o-linear-gradient(#82aaff,#3162c4 50%,#194aab 50%);
 }
 .ios .dwb-a {
     opacity: .8;
