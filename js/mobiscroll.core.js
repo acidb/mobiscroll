@@ -665,7 +665,7 @@
         */
         that.hide = function (prevAnim, btn) {
             // If onClose handler returns false, prevent hide
-            if (event('onClose', [v, btn]) === false) {
+            if (!visible || event('onClose', [v, btn]) === false) {
                 return false;
             }
 
