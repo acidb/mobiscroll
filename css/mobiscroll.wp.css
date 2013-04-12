@@ -62,7 +62,7 @@
     opacity: .3;
     filter: Alpha(Opacity=30);
 }
-.wp .wpa .dw-v, .wp .dwa .dw-v {
+.wp .wpa .dw-v, .wp .dwa .dw-v, .wp .wpam .dw-v {
     opacity: 1;
     filter: Alpha(Opacity=100);
 }

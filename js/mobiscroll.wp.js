@@ -1,15 +1,26 @@
 (function ($) {
-
+    
+    var anim;
+    
     $.mobiscroll.themes.wp = {
         defaults: {
             width: 70,
             height: 76,
             accent: 'none',
-            dateOrder: 'mmMMddDDyy'
+            dateOrder: 'mmMMddDDyy',
+            onAnimStart: function (dw, i, time) {
+                $('.dwwl' + i, dw).addClass('wpam');
+                clearTimeout(anim[i]);
+                anim[i] = setTimeout(function () {
+                    $('.dwwl' + i, dw).removeClass('wpam');
+                }, time * 1000 + 100);
+            }
         },
         init: function (elm, inst) {
             var click,
                 active;
+            
+            anim = {};
             
             $('.dw', elm).addClass('wp-' + inst.settings.accent);
 

@@ -256,7 +256,7 @@
         function event(name, args) {
             var ret;
             args.push(that);
-            $.each([pres, settings], function (i, v) {
+            $.each([theme.defaults, pres, settings], function (i, v) {
                 if (v[name]) { // Call preset event
                     ret = v[name].apply(e, args);
                 }
@@ -325,6 +325,11 @@
                 return;
             }
             
+            if (time && px != pixels[index]) {
+                // Trigger animation start event
+                event('onAnimStart', [dw, index, time]);
+            }
+            
             pixels[index] = px;
             
             t.attr('style', (prefix + '-transition:all ' + (time ? time.toFixed(3) : 0) + 's ease-out;') + (has3d ? (prefix + '-transform:translate3d(0,' + px + 'px,0);') : ('top:' + px + 'px;')));
@@ -343,8 +348,6 @@
                         ready();
                     }
                 }, 100);
-                // Trigger animation start event
-                //event('onAnimStart', [index, time]);
             } else {
                 t.data('pos', val);
             }
