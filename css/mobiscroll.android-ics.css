@@ -7,11 +7,11 @@
 .android-ics .dw .dwwc,
 .android-ics .dw .dwwl,
 .android-ics .dw .dww,
-.android-ics .dw .dwb {
+.android-ics .dw .dwb,
+.android-ics .dw .dwpm .dww {
     background: none;
 }
-.android-ics .dwwr
-{
+.android-ics .dwwr {
     padding: 0;
 }
 .android-ics .dwc {
@@ -31,15 +31,10 @@
 .android-ics .dwwl {
     margin: 0 2px;
 }
-.android-ics .dww {
-    border: 0;
-}
-.android-ics .dw .dwpm .dwwl {
-    border: 0;
-}
+.android-ics .dww,
+.android-ics .dw .dwpm .dwwl,
 .android-ics .dw .dwpm .dww {
     border: 0;
-    background: none;
 }
 .android-ics .dww .dw-li {
     color: #fff;
