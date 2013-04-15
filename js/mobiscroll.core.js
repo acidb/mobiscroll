@@ -71,7 +71,7 @@
 
         function formatHeader(v) {
             var t = s.headerText;
-            return t ? (typeof (t) == 'function' ? t.call(e, v) : t.replace(/\{value\}/i, v)) : '';
+            return t ? (typeof t === 'function' ? t.call(e, v) : t.replace(/\{value\}/i, v)) : '';
         }
 
         function read() {
