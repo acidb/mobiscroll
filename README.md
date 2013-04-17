@@ -23,6 +23,30 @@ It'd be cool to see how you're using Mobiscroll!
 
 We're looking at showcasing some of the best work on http://mobiscroll.com . Feel free to let us know on twitter @mobiscroll!
 
+Changelog 2.5.1
+===============
+
+Enhancements
+------------
+
+_Core_
+
+  * Added: onAnimStart event.
+
+  * Added: onMarkupInserted event.
+
+Bugfixes
+--------
+
+_Core_
+
+  * Fixed: Javascript error on cancel with jqm theme (#99).
+
+_Animation_
+
+  * Fixed: In clickpick/mixed mode values were visible above +/- buttons during animation.
+
+
 Changelog 2.5.0
 ===============
 
