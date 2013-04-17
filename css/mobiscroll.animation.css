@@ -3,6 +3,9 @@
     -webkit-perspective: 1000;
     -moz-perspective: 1000;
 }
+.dw-trans .dwwb {
+    -webkit-backface-visibility: hidden;
+}
 .dw-in {
     animation-timing-function: ease-out;
     animation-duration: 350ms;
