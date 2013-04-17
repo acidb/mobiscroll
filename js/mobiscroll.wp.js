@@ -24,16 +24,17 @@
             
             $('.dw', elm).addClass('wp-' + inst.settings.accent);
 
-            $('.dwwl', elm).bind('touchstart mousedown DOMMouseScroll mousewheel', function () {
+            //$('.dwwl', elm).bind('touchstart mousedown DOMMouseScroll mousewheel', function () {
+            $('.dwwl', elm).delegate('.dw-sel', 'touchstart mousedown DOMMouseScroll mousewheel', function () {
                 click = true;
-                active = $(this).hasClass('wpa');
+                active = $(this).closest('.dwwl').hasClass('wpa');
                 $('.dwwl', elm).removeClass('wpa');
-                $(this).addClass('wpa');
+                $(this).closest('.dwwl').addClass('wpa');
             }).bind('touchmove mousemove', function () {
                 click = false;
             }).bind('touchend mouseup', function () {
                 if (click && active) {
-                    $(this).removeClass('wpa');
+                    $(this).closest('.dwwl').removeClass('wpa');
                 }
             });
         }
