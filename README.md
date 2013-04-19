@@ -23,6 +23,17 @@ It'd be cool to see how you're using Mobiscroll!
 
 We're looking at showcasing some of the best work on http://mobiscroll.com . Feel free to let us know on twitter @mobiscroll!
 
+Changelog 2.5.2
+===============
+
+Bugfixes
+--------
+
+_Core_
+
+  * Fixed: Could not scroll if scroller was bigger than viewport.
+
+
 Changelog 2.5.1
 ===============
 

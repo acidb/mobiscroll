@@ -13,7 +13,7 @@
     "scroller",
     "clickpick"
   ],
-  "version": "2.5.1",
+  "version": "2.5.2",
   "author": {
     "name": "Acid Media",
     "url": "http://theacidmedia.net"
@@ -45,7 +45,7 @@
   "homepage": "http://mobiscroll.com/component/list",
   "docs": "http://docs.mobiscroll.com/list",
   "demo": "http://demo.mobiscroll.com/list",
-  "download": "http://download.mobiscroll.com/list",
+  "download": "http://mobiscroll.com/component/list",
   "dependencies": {
     "jquery": ">=1.6"
   }
