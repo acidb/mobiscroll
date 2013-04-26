@@ -146,6 +146,10 @@
                 return;
             }
             
+            if (event('position', [dw]) === false) {
+                return;
+            }
+            
             var w,
                 l,
                 t,
