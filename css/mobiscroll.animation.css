@@ -7,21 +7,21 @@
 .dw-trans .dwwb {
     -webkit-backface-visibility: hidden;
 }
+.dw-in,
+.dw-out {
+     animation-duration: 350ms;
+     -webkit-animation-duration: 350ms;
+     -moz-animation-duration: 350ms;
+}
 .dw-in {
     animation-timing-function: ease-out;
-    animation-duration: 350ms;
     -webkit-animation-timing-function: ease-out;
-    -webkit-animation-duration: 350ms;
     -moz-animation-timing-function: ease-out;
-    -moz-animation-duration: 350ms;
 }
 .dw-out {
     animation-timing-function: ease-in;
-    animation-duration: 350ms;
     -webkit-animation-timing-function: ease-in;
-    -webkit-animation-duration: 350ms;
     -moz-animation-timing-function: ease-in;
-    -moz-animation-duration: 350ms;
 }
 .dw-flip,
 .dw-swing,
