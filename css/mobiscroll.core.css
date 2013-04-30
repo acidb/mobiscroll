@@ -131,6 +131,9 @@
     overflow: hidden;
     position: relative;
 }
+.dw-moz .dww {
+    opacity: .99;    
+}
 .dwsc .dwwl {
     background: #888;
     background: linear-gradient(#000 0%,#333 35%, #888 50%,#333 65%,#000 100%);
