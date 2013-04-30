@@ -142,11 +142,7 @@
 
         function position(check) {
 
-            if (s.display == 'inline' || (ww === $(window).width() && rwh === $(window).height() && check)) {
-                return;
-            }
-            
-            if (event('position', [dw]) === false) {
+            if (s.display == 'inline' || (ww === $(window).width() && rwh === $(window).height() && check) || (event('onPosition', [dw]) === false)) {
                 return;
             }
             
@@ -514,7 +510,7 @@
             // Parse value from input
             read();
 
-            event('onBeforeShow', [dw]);
+            event('onBeforeShow', []);
 
             // Create wheels
             var l = 0,
