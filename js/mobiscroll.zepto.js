@@ -4,6 +4,21 @@ if (!window['jQuery']) {
     var jQuery = Zepto;
     
     (function ($) {
+        
+        ['width', 'height'].forEach(function(dimension){
+            $.fn[dimension] = function(value){
+                var body = document.body,
+                    html = document.documentElement,
+                    offset, Dimension = dimension.replace(/./, function(m){return m[0].toUpperCase()})
+                if (value === undefined) return this[0] == window ? html['client' + Dimension] :
+                    this[0] == document ? Math.max(body['scroll' + Dimension], body['offset' + Dimension], html['client' + Dimension], html['scroll' + Dimension], html['offset' + Dimension]) :
+                    (offset = this.offset()) && offset[dimension]
+                else return this.each(function(idx){
+                    var el = $(this)
+                    el.css(dimension, value)
+                })
+            }
+        });
     
         ['width', 'height'].forEach(function (dimension) {
             var offset, Dimension = dimension.replace(/./, function (m) { return m[0].toUpperCase(); });
@@ -64,16 +79,6 @@ if (!window['jQuery']) {
             };
         });
         
-        $.fn._height = $.fn.height;
-        $.fn.height = function () {
-            if (this[0].nodeName == '#document') {
-                var body = document.body,
-                    html = document.documentElement;
-                return Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
-            }
-            return $.fn._height.apply(this, arguments);
-        };
-    
         // Fix zepto.js extend to work with undefined parameter
         $._extend = $.extend;
         $.extend = function () {

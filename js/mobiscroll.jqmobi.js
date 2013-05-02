@@ -49,9 +49,12 @@ if (!window['jQuery']) {
     
         ['width', 'height'].forEach(function(dimension){
             $.fn[dimension] = function(value){
-                var offset, Dimension = dimension.replace(/./, function(m){return m[0].toUpperCase()})
-                if (value === undefined) return this[0] == window ? window['inner' + Dimension] :
-                    this[0] == document ? document.documentElement['offset' + Dimension] :
+                
+                var body = document.body,
+                    html = document.documentElement,
+                    offset, Dimension = dimension.replace(/./, function(m){return m[0].toUpperCase()})
+                if (value === undefined) return this[0] == window ? document.documentElement['client' + Dimension] :
+                    this[0] == document ? Math.max(body['scroll' + Dimension], body['offset' + Dimension], html['client' + Dimension], html['scroll' + Dimension], html['offset' + Dimension]) : //document.documentElement['offset' + Dimension] :
                     (offset = this.offset()) && offset[dimension]
                 else return this.each(function(idx){
                     var el = $(this)
@@ -210,16 +213,6 @@ if (!window['jQuery']) {
             } else {
                 return $(this)._css(attr, isNumeric(val) ? val + 'px' : val, obj);
             }
-        };
-        
-        $.fn._height = $.fn.height;
-        $.fn.height = function () {
-            if (this[0].nodeName == '#document') {
-                var body = document.body,
-                    html = document.documentElement;
-                return Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
-            }
-            return $.fn._height.apply(this, arguments);
         };
 
         $._extend = $.extend;
