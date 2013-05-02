@@ -599,7 +599,7 @@
                 
                 // Set position
                 position();
-                $(window).bind('resize.dw', function () {
+                $(window).bind('orientationchange.dw resize.dw', function () {
                     // Sometimes scrollTop is not correctly set, so we wait a little
                     clearTimeout(debounce);
                     debounce = setTimeout(function () {
