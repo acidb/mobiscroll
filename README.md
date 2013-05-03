@@ -23,6 +23,58 @@ It'd be cool to see how you're using Mobiscroll!
 
 We're looking at showcasing some of the best work on http://mobiscroll.com . Feel free to let us know on twitter @mobiscroll!
 
+Changelog 2.5.3
+===============
+
+Enhancements
+------------
+
+_Core_
+
+  * Added: onPosition event.
+
+_Languages_
+
+  * Added: zh-cn language pack.
+
+_Calendar_
+
+  * Changed: Month change on swipe is now improved and more fluid.
+
+  * Added: Text can be added to marked days.
+
+  * Added: weekCounter option to display week numbers ('year' or 'month').
+
+  * Added: Liquid layout in inline mode.
+
+  * Added: Fullscreen layout in modal mode.
+
+  * Added: Custom width and height for calendar.
+
+Bugfixes
+--------
+
+_Core_
+
+  * Fixed: Firefox for Android wheel content overflow (#87).
+
+  * Fixed: Remove html parameter from onBeforeShow event (#111).
+
+  * Fixed: Position mobiscroll on orientation change as well (resize is not always fired on iOS).
+
+_Zepto JS_
+
+  * Fixed: Window width and height calculations (exclude scrollbar).
+
+_jqMobi_
+
+  * Fixed: Window width and height calculations (exclude scrollbar).
+
+_Measurement_
+
+  * Fixed: setValue method can be called with animation.
+
+
 Changelog 2.5.2
 ===============
 
