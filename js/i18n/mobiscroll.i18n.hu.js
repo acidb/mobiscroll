@@ -1,5 +1,9 @@
 (function ($) {
     $.mobiscroll.i18n.hu = $.extend($.mobiscroll.i18n.hu, {
+        // Core
+        setText: 'OK',
+        cancelText: 'Mégse',
+        // Datetime component
         dateFormat: 'dd.mm.yy',
         dateOrder: 'ddmmyy',
         dayNames: ['Vasárnap', 'Hétfő', 'Kedd', 'Szerda', 'Csütörtök', 'Péntek', 'Szombat'],
@@ -14,6 +18,19 @@
         timeFormat: 'HH:ii',
         timeWheels: 'HHii',
         yearText: 'Év',
-        nowText: 'Most'
+        nowText: 'Most',
+        // Measurement components
+        wholeText: 'Egész',
+        fractionText: 'Tört',
+        unitText: 'Egység',
+        // Time / Timespan component
+        labels: ['Év', 'Hónap', 'Nap', 'Óra', 'Perc', 'Másodperc', ''],
+        labelsShort: ['Év', 'Hó.', 'Nap', 'Óra', 'Perc', 'Mp.', ''],
+        // Timer component
+        startText: 'Indít',
+        stopText: 'Megállít',
+        resetText: 'Visszaállít',
+        lapText: 'Lap',
+        hideText: 'Elrejt'
     });
 })(jQuery);

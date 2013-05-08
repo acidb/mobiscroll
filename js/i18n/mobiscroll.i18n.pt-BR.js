@@ -4,6 +4,10 @@
  */
 (function ($) {
     $.mobiscroll.i18n['pt-BR'] = $.extend($.mobiscroll.i18n['pt-BR'], {
+        // Core
+        setText: 'Selecionar',
+        cancelText: 'Cancelar',
+        // Datetime component
         dateFormat: 'dd/mm/yy',
         dateOrder: 'ddMMyy',
         dayNames: ['Domingo','Segunda-feira','Terça-feira','Quarta-feira','Quinta-feira','Sexta-feira','Sábado'],
@@ -17,6 +21,19 @@
         secText: 'Segundo',
         timeFormat: 'HH:ii',
         timeWheels: 'HHii',
-        yearText: 'Ano'
+        yearText: 'Ano',
+        // Measurement components
+        wholeText: 'Inteiro',
+        fractionText: 'Fração',
+        unitText: 'Unidade',
+        // Time / Timespan component
+        labels: ['Anos', 'Meses', 'Dias', 'Horas', 'Minutos', 'Segundos', ''],
+        labelsShort: ['Yrs', 'Mths', 'Days', 'Hrs', 'Mins', 'Secs', ''],
+        // Timer component
+        startText: 'Começar',
+        stopText: 'Pare',
+        resetText: 'Reinicializar',
+        lapText: 'Lap',
+        hideText: 'Esconder'
     });
 })(jQuery);

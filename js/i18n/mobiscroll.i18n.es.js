@@ -1,5 +1,9 @@
 (function ($) {
     $.mobiscroll.i18n.es = $.extend($.mobiscroll.i18n.es, {
+        // Core
+        setText: 'Aceptar',
+        cancelText: 'Cancelar',
+        // Datetime component
         dateFormat: 'dd/mm/yy',
         dateOrder: 'ddmmyy',
         dayNames: ['Domingo','Lunes','Martes','Mi&#xE9;rcoles','Jueves','Viernes','S&#xE1;bado'],
@@ -14,6 +18,19 @@
         timeFormat: 'HH:ii',
         timeWheels: 'HHii',
         yearText: 'A&ntilde;o',
-        nowText: 'Ahora'
+        nowText: 'Ahora',
+        // Measurement components
+        wholeText: 'Entero',
+        fractionText: 'Fracción',
+        unitText: 'Unidad',
+        // Time / Timespan component
+        labels: ['Años', 'Meses', 'Días', 'Horas', 'Minutos', 'Segundos', ''],
+        labelsShort: ['Yrs', 'Mths', 'Days', 'Hrs', 'Mins', 'Secs', ''],
+        // Timer component
+        startText: 'Iniciar',
+        stopText: 'Deténgase',
+        resetText: 'Reinicializar',
+        lapText: 'Lap',
+        hideText: 'Esconder'
     });
 })(jQuery);

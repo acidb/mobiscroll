@@ -1,5 +1,9 @@
 (function ($) {
     $.mobiscroll.i18n.fr = $.extend($.mobiscroll.i18n.fr, {
+        // Core
+        setText: 'Terminé',
+        cancelText: 'Annuler',
+        // Datetime component
         dateFormat: 'dd/mm/yy',
         dateOrder: 'ddmmyy',
         dayNames: ['&#68;imanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
@@ -14,6 +18,19 @@
         timeFormat: 'HH:ii',
         timeWheels: 'HHii',
         yearText: 'Année',
-        nowText: 'Maintenant'
+        nowText: 'Maintenant',
+        // Measurement components
+        wholeText: 'Entier',
+        fractionText: 'Fraction',
+        unitText: 'Unité',
+        // Time / Timespan component
+        labels: ['Ans', 'Mois', 'Jours', 'Heures', 'Minutes', 'Secondes', ''],
+        labelsShort: ['Yrs', 'Mths', 'Days', 'Hrs', 'Mins', 'Secs', ''],
+        // Timer component
+        startText: 'Indít',
+        stopText: 'Megállít',
+        resetText: 'Visszaállít',
+        lapText: 'Lap',
+        hideText: 'Elrejt'
     });
 })(jQuery);

@@ -1,5 +1,9 @@
 (function ($) {
     $.mobiscroll.i18n.no = $.extend($.mobiscroll.i18n.no, {
+        // Core
+        setText: 'OK',
+        cancelText: 'Avbryt',
+        // Datetime component
         dateFormat: 'dd.mm.yy',
         dateOrder: 'ddmmyy',
         dayNames: ['Søndag', 'Mandag', 'Tirsdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lørdag'],
@@ -14,6 +18,19 @@
         timeFormat: 'HH:ii',
         timeWheels: 'HHii',
         yearText: 'År',
-        nowText: 'Nå'
+        nowText: 'Nå',
+        // Measurement components
+        wholeText: 'Hele',
+        fractionText: 'Fraksjon',
+        unitText: 'Unit',
+        // Time / Timespan component
+        labels: ['År', 'Måneder', 'Dager', 'Timer', 'Minutter', 'Sekunder', ''],
+        labelsShort: ['Yrs', 'Mths', 'Days', 'Hrs', 'Mins', 'Secs', ''],
+        // Timer component
+        startText: 'Start',
+        stopText: 'Stopp',
+        resetText: 'Tilbakestille',
+        lapText: 'Lap',
+        hideText: 'Skjul'
     });
 })(jQuery);

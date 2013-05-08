@@ -1,5 +1,9 @@
 (function ($) {
     $.mobiscroll.i18n.zh = $.extend($.mobiscroll.i18n.zh, {
+        // Core
+        setText: '确定',
+        cancelText: '取消',
+        // Datetime component
         dateFormat: 'dd/mm/yy',
         dateOrder: 'ddmmyy',
         dayNames: ['周日','周一','周二','周三','周四','周五','周六'],
@@ -14,6 +18,19 @@
         timeFormat: 'HH:ii',
         timeWheels: 'HHii',
         yearText: '年',
-        nowText: '当前'
+        nowText: '当前',
+        // Measurement components
+        wholeText: 'Whole',
+        fractionText: 'Fraction',
+        unitText: 'Unit',
+        // Time / Timespan component
+        labels: ['Years', 'Months', 'Days', 'Hours', 'Minutes', 'Seconds', ''],
+        labelsShort: ['Yrs', 'Mths', 'Days', 'Hrs', 'Mins', 'Secs', ''],
+        // Timer component
+        startText: 'Start',
+        stopText: 'Stop',
+        resetText: 'Reset',
+        lapText: 'Lap',
+        hideText: 'Hide'
     });
 })(jQuery);
