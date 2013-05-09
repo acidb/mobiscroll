@@ -134,6 +134,7 @@
 .dww {
     overflow: hidden;
     position: relative;
+    z-index: 2;
 }
 .dw-moz .dww {
     opacity: .99;    
