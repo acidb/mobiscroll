@@ -16,15 +16,11 @@
 .sense-ui .dwwc {
     background: #333;
 }
-.sense-ui .dww {
-    margin: 0 2px;
-}
-.sense-ui .dw .dwpm .dwwl {
-    border: 0;
-}
+.sense-ui .dw .dwpm .dwwl,
 .sense-ui .dw .dwpm .dww {
-    margin: 0;
+    background: #fff;
     border: 0;
+    padding: 0;
 }
 .sense-ui .dwbc {
     padding: 5px 1px;

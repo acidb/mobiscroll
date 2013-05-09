@@ -123,11 +123,15 @@
 /* Datewheel wheels */
 .dwwl {
     margin: 4px 2px;
+    padding: 0 2px;
     position: relative;
     z-index: 5;
 }
+.dwww {
+    position: relative;
+    padding: 1px;
+}
 .dww {
-    margin: 0 2px;
     overflow: hidden;
     position: relative;
 }
@@ -219,8 +223,8 @@
 .dwpm .dwwc {
     background: transparent;
 }
-.dwpm .dww {
-    margin: 0;
+.dwpm .dwwl {
+    padding: 0;
 }
 .dwpm .dw-li {
     text-shadow: none;

@@ -65,7 +65,6 @@
     -webkit-border-radius: 0;
 }
 .ios .dwsc .dww {
-    margin: 0 3px;
     background: #fff;
     background: linear-gradient(#333 0%,#999 10%,#fff 30%,#fff 70%,#999 90%,#333 100%);
     background: -webkit-gradient(linear,left bottom,left top,from(#333),color-stop(0.10, #999),color-stop(0.30, #fff),color-stop(0.70, #fff),color-stop(0.90, #999),to(#333));
