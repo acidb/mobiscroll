@@ -319,6 +319,8 @@
             }
             
             var px = (m - val) * hi,
+                pr = prefix.replace(/^\-/, '').replace('moz', 'Moz'),
+                style = t[0].style,
                 i;
             
             if (px == pixels[index] && iv[index]) {
@@ -332,7 +334,16 @@
             
             pixels[index] = px;
             
-            t.attr('style', (prefix + '-transition:all ' + (time ? time.toFixed(3) : 0) + 's ease-out;') + (has3d ? (prefix + '-transform:translate3d(0,' + px + 'px,0);') : ('top:' + px + 'px;')));
+            //t.attr('style', (prefix + '-transition:all ' + (time ? time.toFixed(3) : 0) + 's ease-out;') + (has3d ? (prefix + '-transform:translate3d(0,' + px + 'px,0);') : ('top:' + px + 'px;')));
+            //$(['webkit', 'Moz', 'O', 'ms', '']).each(function (i, pr) {
+            style[pr + 'Transition'] = 'all ' + (time ? time.toFixed(3) : 0) + 's ease-out';
+            
+            if (has3d) {
+                style[pr + 'Transform'] = 'translate3d(0,' + px + 'px,0)';
+            } else {
+                style.top = px + 'px';
+            }
+            //});
             
             if (iv[index]) {
                 ready();
