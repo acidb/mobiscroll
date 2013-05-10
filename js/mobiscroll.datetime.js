@@ -390,9 +390,6 @@
                     * @return {Object} - jQuery object to maintain chainability
                     */
                     setDate: function (d, fill, time, temp) {
-                        if (fill == undefined) {
-                            fill = false;
-                        }
                         return this.each(function () {
                             var inst = $(this).mobiscroll('getInst');
                             if (inst) {
