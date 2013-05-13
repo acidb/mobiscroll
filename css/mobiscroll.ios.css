@@ -102,11 +102,10 @@
     color: #fff;
 }
 .ios .dwwo {
-    /*display: none;*/
     background: linear-gradient(#333 0%,rgba(153,153,153,0) 10%, rgba(153,153,153,0) 90%, #333 100%);
     background: -webkit-gradient(linear,left bottom,left top,from(#333),color-stop(0.1, rgba(153,153,153,0)),color-stop(0.9, rgba(153,153,153,0)),to(#333));
-    background: -moz-linear-gradient(#333 0%,rgba(44,44,44,0) 52%, rgba(44,44,44,0) 48%, #333 100%);
-    background: -o-linear-gradient(#333 0%,rgba(44,44,44,0) 52%, rgba(44,44,44,0) 48%, #333 100%);
+    background: -moz-linear-gradient(#333 0%,rgba(153,153,153,0) 10%, rgba(153,153,153,0) 90%, #333 100%);
+    background: -o-linear-gradient(#333 0%,rgba(153,153,153,0) 10%, rgba(153,153,153,0) 90%, #333 100%);
 }
 .ios .dwwol {
     height: 28px;
@@ -123,6 +122,9 @@
     box-shadow: 0 1px 3px rgba(0,0,0,0.5);
     -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
     filter: alpha(opacity=50);
+}
+.ios .dww .dwwol {
+    display: none;
 }
 .ios .dw .dwbc {
     position: absolute;

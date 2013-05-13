@@ -136,6 +136,7 @@
 }
 .dw-moz .dww {
     opacity: .99;
+    z-index: 2;
 }
 .dwsc .dwwl {
     background: #888;
