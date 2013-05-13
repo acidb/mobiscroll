@@ -133,10 +133,9 @@
 .dww {
     overflow: hidden;
     position: relative;
-    z-index: 2;
 }
 .dw-moz .dww {
-    opacity: .99;    
+    opacity: .99;
 }
 .dwsc .dwwl {
     background: #888;

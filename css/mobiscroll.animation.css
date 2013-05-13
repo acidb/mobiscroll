@@ -4,7 +4,8 @@
     -webkit-perspective: 1000;
     -moz-perspective: 1000;
 }
-.dw-trans .dwwb {
+.dw-trans .dwwb,
+.dw-trans .dwwo {
     -webkit-backface-visibility: hidden;
 }
 .dw-in,

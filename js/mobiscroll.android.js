@@ -4,7 +4,8 @@
         defaults: {
             dateOrder: 'Mddyy',
             mode: 'clickpick',
-            height: 50
+            height: 50,
+            showLabel: false
         }
     }
 

@@ -18,9 +18,6 @@
 .android .dwwc {
     background: #000;
 }
-.android .dwc {
-    padding-top: 8px;
-}
 .android .dw .dwpm .dww {
     border: 0;
     background: #fff;
@@ -34,9 +31,6 @@
 .android .dwpm .dww .dw-li {
     color: #000;
     text-shadow: none;
-}
-.android .dwl  {
-    display: none;
 }
 .android .dwbc {
     padding: 5px 1px;

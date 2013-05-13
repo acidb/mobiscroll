@@ -10,9 +10,12 @@
     display: none;
 }
 .wp .dwc {
-    padding: 0;
+    padding: 30px 0 0 0;
     margin: 0;
     vertical-align: middle;
+}
+.wp .dwhl .dwc {
+    padding: 0;
 }
 .wp .dwwc {
     padding: 3px;
@@ -24,7 +27,7 @@
     background: none;
 }
 .wp .dwl {
-    display: none;
+    color: #fff;
 }
 .wp .dw .dwwl .dww {
     background: none;
@@ -252,7 +255,9 @@
 .wp.light .dw {
     background: #dedede;
 }
-.wp.light .dwv {
+.wp.light .dwv,
+.wp.light .dwl,
+.wp.light .dwb {
     color: #000;
 }
 .wp.light .dw-li {
@@ -281,9 +286,6 @@
 }
 .wp.light .dw .dwc .dwa .dw-day, .wp.light .dw .dwc .dwa .dw-mon {
     color: #6b6b6b;
-}
-.wp.light .dwb {
-    color: #000;
 }
 .wp.light .dwb:after {
     background-image: url(wp_icons_light.png);
