@@ -23,6 +23,28 @@ It'd be cool to see how you're using Mobiscroll!
 
 We're looking at showcasing some of the best work on http://mobiscroll.com . Feel free to let us know on twitter @mobiscroll!
 
+Changelog 2.5.4
+===============
+
+Enhancements
+------------
+
+_Core_
+
+  * Changed: Transition is done by directly editing the property instead of the style attribute (#59).
+
+Bugfixes
+--------
+
+_Core_
+
+  * Fixed: wheel overlay was blinking during animation.
+
+  * Fixed: wheel overlay sometimes did not cover the whole wheel (on Google Chrome and Android stock browser).
+
+  * Fixed: showLabel setting now works for all themes.
+  
+
 Changelog 2.5.3
 ===============
 
