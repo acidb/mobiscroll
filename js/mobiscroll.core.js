@@ -67,6 +67,7 @@
             index = $('.dw-ul', dw).index(t);
             h = hi;
             inst = that;
+            speedUnit = s.speedUnit;
         }
 
         function formatHeader(v) {
@@ -829,7 +830,7 @@
         var cell = $('.dw-li', t).eq(val),
             o = orig === undefined ? val : orig,
             idx = index,
-            time = anim ? (val == o ? 0.1 : Math.abs((val - o) * 0.1)) : 0;
+            time = anim ? (val == o ? 0.1 : Math.abs((val - o) * inst.settings.timeUnit)) : 0;
 
         // Set selected scroller value
         inst.temp[idx] = cell.attr('data-val');
@@ -909,6 +910,8 @@
             cancelText: 'Cancel',
             scrollLock: true,
             tap: true,
+            speedUnit: 0.0012,
+            timeUnit: 0.1,
             formatResult: function (d) {
                 return d.join(' ');
             },
@@ -1058,7 +1061,7 @@
         
             if (time < 300) {
                 speed = (stop - start) / time;
-                dist = (speed * speed) / (2 * 0.0006);
+                dist = (speed * speed) / inst.settings.speedUnit; //(2 * 0.0006);
                 if (stop - start < 0) {
                     dist = -dist;
                 }
