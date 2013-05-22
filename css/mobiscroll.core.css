@@ -133,8 +133,6 @@
 .dww {
     overflow: hidden;
     position: relative;
-}
-.dw-moz .dww {
     opacity: .99;
     z-index: 2;
 }
