@@ -1,5 +1,5 @@
 (function ($) {
-    $.mobiscroll.i18n['nl-NL'] = $.extend($.mobiscroll.i18n['nl-NL'], {
+    $.mobiscroll.i18n.nl = $.extend($.mobiscroll.i18n.nl, {
         // Core
         setText: 'Instellen',
         cancelText: 'Annuleer',
