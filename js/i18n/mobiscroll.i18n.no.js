@@ -22,7 +22,7 @@
         // Measurement components
         wholeText: 'Hele',
         fractionText: 'Fraksjon',
-        unitText: 'Unit',
+        unitText: 'Enhet',
         // Time / Timespan component
         labels: ['År', 'Måneder', 'Dager', 'Timer', 'Minutter', 'Sekunder', ''],
         labelsShort: ['Yrs', 'Mths', 'Days', 'Hrs', 'Mins', 'Secs', ''],
@@ -30,7 +30,7 @@
         startText: 'Start',
         stopText: 'Stopp',
         resetText: 'Tilbakestille',
-        lapText: 'Lap',
+        lapText: 'Runde',
         hideText: 'Skjul'
     });
 })(jQuery);
