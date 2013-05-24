@@ -133,8 +133,10 @@
 .dww {
     overflow: hidden;
     position: relative;
-    opacity: .99;
     z-index: 2;
+}
+.dw-moz .dww {
+    opacity: .99; /* Fixes Firefox translate overflow bug */
 }
 .dwsc .dwwl {
     background: #888;
