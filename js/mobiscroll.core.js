@@ -21,19 +21,152 @@
             mh, // Modal height
             anim,
             debounce,
+            theme,
+            lang,
+            
+            activeBtn,
+            click,
+            scrollable,
+            moved,
+            start,
+            startTime,
+            stop,
+            pos,
+            min,
+            max,
+            target,
+            index,
+            timer,
+            
             that = this,
             ms = $.mobiscroll,
             e = elem,
             elm = $(e),
-            theme,
-            lang,
             s = extend({}, defaults),
             pres = {},
             warr = [],
             iv = {},
             pixels = {},
             input = elm.is('input'),
-            visible = false;
+            visible = false,
+            onStart = function (e) {
+                // Scroll start
+                if (testTouch(e) && !move && !isReadOnly(this) && !click) {
+                    // Prevent scroll
+                    e.preventDefault();
+                    
+                    scrollable = s.mode != 'clickpick';
+                    move = true;
+                    $(document).bind(MOVE_EVENT, onMove).bind(END_EVENT, onEnd);
+                    target = $('.dw-ul', this);
+                    pos = +target.data('pos');
+                    setGlobals(target);
+                    moved = iv[index] !== undefined; // Don't allow tap, if still moving
+                    start = getCoord(e, 'Y');
+                    startTime = new Date();
+                    stop = start;
+                    that.scroll(target, index, pos, 0.001);
+                    if (scrollable) {
+                        target.closest('.dwwl').addClass('dwa');
+                    }
+                }
+            },
+            onMove = function (e) {
+                e.preventDefault();
+                stop = getCoord(e, 'Y');
+                that.scroll(target, index, constrain(pos + (start - stop) / hi, min - 1, max + 1));
+                moved = true;
+            },
+            onEnd = function (e) {
+                var time = new Date() - startTime,
+                    val = constrain(pos + (start - stop) / hi, min - 1, max + 1),
+                    speed,
+                    dist,
+                    tindex,
+                    ttop = target.offset().top;
+            
+                if (time < 300) {
+                    speed = (stop - start) / time;
+                    dist = (speed * speed) / s.speedUnit; //(2 * 0.0006);
+                    if (stop - start < 0) {
+                        dist = -dist;
+                    }
+                } else {
+                    dist = stop - start;
+                }
+                
+                tindex = Math.round(pos - dist / hi);
+                
+                if (!dist && !moved) { // this is a "tap"
+                    var idx = Math.floor((stop - ttop) / hi),
+                        li = $('.dw-li', target).eq(idx),
+                        hl = scrollable;
+                    
+                    if (event('onValueTap', [li]) !== false) {
+                        tindex = idx;
+                    } else {
+                        hl = true;
+                    }
+                    
+                    if (hl) {
+                        li.addClass('dw-hl'); // Highlight
+                        setTimeout(function () {
+                            li.removeClass('dw-hl');
+                        }, 200);
+                    }
+                }
+                
+                if (scrollable) {
+                    calc(target, tindex, 0, true, Math.round(val));
+                }
+                
+                move = false;
+                target = null;
+            
+                $(document).unbind(MOVE_EVENT, onMove).unbind(END_EVENT, onEnd);
+            },
+            onBtnStart = function (e) {
+                // Active button
+                activeBtn = $(this).addClass('dwb-a');
+                $(document).bind(END_EVENT, onBtnEnd);
+                // +/- buttons
+                if ($(this).hasClass('dwwb')) {
+                    var w = $(this).closest('.dwwl');
+                    if (testTouch(e) && !isReadOnly(w) && !w.hasClass('dwa')) {
+                        e.stopPropagation();
+                        e.preventDefault();
+                        click = true;
+                        // + Button
+                        var t = w.find('.dw-ul'),
+                            func = $(this).hasClass('dwwbp') ? plus : minus;
+                        
+                        setGlobals(t);
+                        clearInterval(timer);
+                        timer = setInterval(function () { func(t); }, s.delay);
+                        func(t);
+                    }
+                }
+            },
+            onBtnEnd = function (e) {
+                if (click) {
+                    clearInterval(timer);
+                    click = false;
+                }
+                $(document).unbind(END_EVENT, onBtnEnd);
+                activeBtn.removeClass('dwb-a');
+            },
+            onScroll = function (e) {
+                if (!isReadOnly(this)) {
+                    e.preventDefault();
+                    e = e.originalEvent;
+                    var delta = e.wheelDelta ? (e.wheelDelta / 120) : (e.detail ? (-e.detail / 3) : 0),
+                        t = $('.dw-ul', this),
+                        p = +t.data('pos'),
+                        val = Math.round(p - delta);
+                    setGlobals(t);
+                    calc(t, val, delta < 0 ? 1 : 2);
+                }
+            };
 
         // Private functions
 
@@ -65,9 +198,6 @@
             min = $('.dw-li', t).index($('.dw-v', t).eq(0));
             max = $('.dw-li', t).index($('.dw-v', t).eq(-1));
             index = $('.dw-ul', dw).index(t);
-            h = hi;
-            inst = that;
-            speedUnit = s.speedUnit;
         }
 
         function formatHeader(v) {
@@ -211,14 +341,12 @@
                     d.removeClass('dw-bubble-bottom').addClass('dw-bubble-top');
                 }
 
-                //t = t >= st ? t : st;
-                
                 // Calculate Arrow position
                 arrw = arr.outerWidth();
                 arrl = al + aw / 2 - (l + (mw - arrw) / 2);
 
                 // Limit Arrow position to [0, pocw.width] intervall
-                $('.dw-arr', dw).css({ left: Math.min(Math.max(arrl, 0), arrw) });
+                $('.dw-arr', dw).css({ left: constrain(arrl, 0, arrw) });
             } else {
                 css.width = '100%';
                 if (s.display == 'top') {
@@ -241,19 +369,6 @@
             }
         }
         
-        function testTouch(e) {
-            if (e.type === 'touchstart') {
-                touch = true;
-                setTimeout(function () {
-                    touch = false; // Reset if mouse event was not fired
-                }, 500);
-            } else if (touch) {
-                touch = false;
-                return false;
-            }
-            return true;
-        }
-
         function event(name, args) {
             var ret;
             args.push(that);
@@ -263,6 +378,25 @@
                 }
             });
             return ret;
+        }
+        
+        function calc(t, val, dir, anim, orig) {
+            val = constrain(val, min, max);
+    
+            var cell = $('.dw-li', t).eq(val),
+                o = orig === undefined ? val : orig,
+                idx = index,
+                time = anim ? (val == o ? 0.1 : Math.abs((val - o) * s.timeUnit)) : 0;
+    
+            // Set selected scroller value
+            that.temp[idx] = cell.attr('data-val');
+            
+            that.scroll(t, idx, val, time, orig);
+            
+            setTimeout(function () {
+                // Validate
+                scrollToPos(time, idx, true, dir, orig);
+            }, 10);
         }
 
         function plus(t) {
@@ -276,7 +410,7 @@
                 val = p - 1;
             calc(t, val < min ? max : val, 2, true);
         }
-
+        
         // Public functions
 
         /**
@@ -320,7 +454,6 @@
             }
             
             var px = (m - val) * hi,
-                pr = prefix.replace(/^\-/, '').replace('moz', 'Moz'),
                 style = t[0].style,
                 i;
             
@@ -335,8 +468,6 @@
             
             pixels[index] = px;
             
-            //t.attr('style', (prefix + '-transition:all ' + (time ? time.toFixed(3) : 0) + 's ease-out;') + (has3d ? (prefix + '-transform:translate3d(0,' + px + 'px,0);') : ('top:' + px + 'px;')));
-            //$(['webkit', 'Moz', 'O', 'ms', '']).each(function (i, pr) {
             style[pr + 'Transition'] = 'all ' + (time ? time.toFixed(3) : 0) + 's ease-out';
             
             if (has3d) {
@@ -344,7 +475,6 @@
             } else {
                 style.top = px + 'px';
             }
-            //});
             
             if (iv[index]) {
                 ready();
@@ -404,18 +534,6 @@
                 ret.push(that._selectedValues[i]);
             }
             return ret;
-        };
-
-        /**
-        * Checks if the current selected values are valid together.
-        * In case of date presets it checks the number of days in a month.
-        * @param {Number} time - Animation time
-        * @param {Number} orig - Original value
-        * @param {Number} i - Currently changed wheel index, -1 if initial validation.
-        * @param {Number} dir - Scroll direction
-        */
-        that.validate = function (i, dir, time, orig) {
-            scrollToPos(time, i, true, dir, orig);
         };
 
         /**
@@ -621,56 +739,7 @@
             }
 
             // Events
-            dw.delegate('.dwwl', 'DOMMouseScroll mousewheel', function (e) {
-                if (!isReadOnly(this)) {
-                    e.preventDefault();
-                    e = e.originalEvent;
-                    var delta = e.wheelDelta ? (e.wheelDelta / 120) : (e.detail ? (-e.detail / 3) : 0),
-                        t = $('.dw-ul', this),
-                        p = +t.data('pos'),
-                        val = Math.round(p - delta);
-                    setGlobals(t);
-                    calc(t, val, delta < 0 ? 1 : 2);
-                }
-            }).delegate('.dwb, .dwwb', START_EVENT, function (e) {
-                // Active button
-                $(this).addClass('dwb-a');
-            }).delegate('.dwwb', START_EVENT, function (e) {
-                e.stopPropagation();
-                e.preventDefault();
-                var w = $(this).closest('.dwwl');
-                if (testTouch(e) && !isReadOnly(w) && !w.hasClass('dwa')) {
-                    click = true;
-                    // + Button
-                    var t = w.find('.dw-ul'),
-                        func = $(this).hasClass('dwwbp') ? plus : minus;
-                    
-                    setGlobals(t);
-                    clearInterval(timer);
-                    timer = setInterval(function () { func(t); }, s.delay);
-                    func(t);
-                }
-            }).delegate('.dwwl', START_EVENT, function (e) {
-                // Prevent scroll
-                e.preventDefault();
-                // Scroll start
-                if (testTouch(e) && !move && !isReadOnly(this) && !click) {
-                    move = true;
-                    $(document).bind(MOVE_EVENT, onMove);
-                    target = $('.dw-ul', this);
-                    scrollable = s.mode != 'clickpick';
-                    pos = +target.data('pos');
-                    setGlobals(target);
-                    moved = iv[index] !== undefined; // Don't allow tap, if still moving
-                    start = getCoord(e, 'Y');
-                    startTime = new Date();
-                    stop = start;
-                    that.scroll(target, index, pos, 0.001);
-                    if (scrollable) {
-                        target.closest('.dwwl').addClass('dwa');
-                    }
-                }
-            });
+            dw.delegate('.dwwl', 'DOMMouseScroll mousewheel', onScroll).delegate('.dwb, .dwwb', START_EVENT, onBtnStart).delegate('.dwwl', START_EVENT, onStart);
             
             event('onShow', [dw, v]);
         };
@@ -802,6 +871,19 @@
         }
         return '';
     }
+    
+    function testTouch(e) {
+        if (e.type === 'touchstart') {
+            touch = true;
+            setTimeout(function () {
+                touch = false; // Reset if mouse event was not fired
+            }, 500);
+        } else if (touch) {
+            touch = false;
+            return false;
+        }
+        return true;
+    }
 
     function getInst(e) {
         return scrollers[e.id];
@@ -819,30 +901,9 @@
     }
 
     function constrain(val, min, max) {
-        val = val > max ? max : val;
-        val = val < min ? min : val;
-        return val;
+        return Math.max(min, Math.min(val, max));
     }
     
-    function calc(t, val, dir, anim, orig) {
-        val = constrain(val, min, max);
-
-        var cell = $('.dw-li', t).eq(val),
-            o = orig === undefined ? val : orig,
-            idx = index,
-            time = anim ? (val == o ? 0.1 : Math.abs((val - o) * inst.settings.timeUnit)) : 0;
-
-        // Set selected scroller value
-        inst.temp[idx] = cell.attr('data-val');
-        
-        inst.scroll(t, idx, val, time, orig);
-        
-        setTimeout(function () {
-            // Validate
-            inst.validate(idx, dir, time, orig);
-        }, 10);
-    }
-
     function init(that, method, args) {
         if (methods[method]) {
             return methods[method].apply(that, Array.prototype.slice.call(args, 1));
@@ -853,42 +914,21 @@
         return that;
     }
 
-    var scrollers = {},
-        timer,
-        empty = function () { },
-        h,
-        min,
-        max,
-        inst, // Current instance
+    var move,
+        tap,
+        touch,
         date = new Date(),
         uuid = date.getTime(),
-        move,
-        click,
-        target,
-        index,
-        start,
-        stop,
-        startTime,
-        pos,
-        moved,
-        scrollable,
+        scrollers = {},
+        empty = function () {},
         mod = document.createElement('modernizr').style,
         has3d = testProps(['perspectiveProperty', 'WebkitPerspective', 'MozPerspective', 'OPerspective', 'msPerspective']),
         prefix = testPrefix(),
+        pr = prefix.replace(/^\-/, '').replace('moz', 'Moz'),
         extend = $.extend,
-        tap,
-        touch,
         START_EVENT = 'touchstart mousedown',
         MOVE_EVENT = 'touchmove mousemove',
         END_EVENT = 'touchend mouseup',
-        onMove = function (e) {
-            if (scrollable) {
-                e.preventDefault();
-                stop = getCoord(e, 'Y');
-                inst.scroll(target, index, constrain(pos + (start - stop) / h, min - 1, max + 1));
-            }
-            moved = true;
-        },
         defaults = {
             // Options
             width: 70,
@@ -1050,64 +1090,7 @@
             }
         };
 
-    $(document).bind(END_EVENT, function (e) {
-        if (move) {
-            var time = new Date() - startTime,
-                val = constrain(pos + (start - stop) / h, min - 1, max + 1),
-                speed,
-                dist,
-                tindex,
-                ttop = target.offset().top;
-        
-            if (time < 300) {
-                speed = (stop - start) / time;
-                dist = (speed * speed) / inst.settings.speedUnit; //(2 * 0.0006);
-                if (stop - start < 0) {
-                    dist = -dist;
-                }
-            } else {
-                dist = stop - start;
-            }
-            
-            tindex = Math.round(pos - dist / h);
-            
-            if (!dist && !moved) { // this is a "tap"
-                var idx = Math.floor((stop - ttop) / h),
-                    li = $('.dw-li', target).eq(idx),
-                    hl = scrollable;
-                
-                if (inst.trigger('onValueTap', [li]) !== false) {
-                    tindex = idx;
-                } else {
-                    hl = true;
-                }
-                
-                if (hl) {
-                    li.addClass('dw-hl'); // Highlight
-                    setTimeout(function () {
-                        li.removeClass('dw-hl');
-                    }, 200);
-                }
-            }
-            
-            if (scrollable) {
-                calc(target, tindex, 0, true, Math.round(val));
-            }
-            
-            move = false;
-            target = null;
-        
-            $(document).unbind(MOVE_EVENT, onMove);
-        }
-
-        if (click) {
-            clearInterval(timer);
-            click = false;
-        }
-    
-        $('.dwb-a').removeClass('dwb-a');
-                
-    }).bind('mouseover mouseup mousedown click', function (e) { // Prevent standard behaviour on body click
+    $(document).bind('mouseover mouseup mousedown click', function (e) { // Prevent standard behaviour on body click
         if (tap) {
             e.stopPropagation();
             e.preventDefault();
