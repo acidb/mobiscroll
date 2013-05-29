@@ -151,8 +151,18 @@
             prevent = false;
         }).hide().closest('.ui-field-contain').trigger('create');
 
-        inst.setSelectVal = function (d, fill, time) {
-            option = d[0] || $('option', elm).attr('value');
+        // Extended methods
+        // ---
+
+        if (!inst._setValue) {
+            inst._setValue = inst.setValue;
+        }
+
+        inst.setValue = function (d, fill, time, noscroll, temp) {
+            var value,
+                v = $.isArray(d) ? d[0] : d;
+            
+            option = v !== undefined ? v : $('option', elm).attr('value');
             
             if (multiple) {
                 inst._selectedValues = {};
@@ -165,17 +175,17 @@
             if (s.group) {
                 group = elm.find('option[value="' + option + '"]').parent();
                 gr = group.index();
-                inst.temp = s.rtl ? ['_' + option, '_' + group.index()] : ['_' + group.index(), '_' + option];
+                value = s.rtl ? ['_' + option, '_' + group.index()] : ['_' + group.index(), '_' + option];
                 if (gr !== prev) { // Need to regenerate wheels, if group changed
                     stg.wheels = genWheels();
                     inst.changeWheel([optIdx]);
                     prev = gr + '';
                 }
             } else {
-                inst.temp = ['_' + option];
+                value = ['_' + option];
             }
-
-            inst.setValue(true, fill, time);
+            
+            inst._setValue(value, fill, time, noscroll, temp);
 
             // Set input/select values
             if (fill) {
@@ -184,10 +194,12 @@
             }
         };
 
-        inst.getSelectVal = function (temp) {
+        inst.getValue = function (temp) {
             var val = temp ? inst.temp : inst.values;
             return replace(val[optIdx]);
         };
+
+        // ---
 
         return {
             width: 50,
@@ -320,27 +332,6 @@
             },
             onClose: function () {
                 input.blur();
-            },
-            methods: {
-                setValue: function (d, fill, time) {
-                    return this.each(function () {
-                        var inst = $(this).mobiscroll('getInst');
-                        if (inst) {
-                            if (inst.setSelectVal) {
-                                inst.setSelectVal(d, fill, time);
-                            } else {
-                                inst.temp = d;
-                                inst.setValue(true, fill, time);
-                            }
-                        }
-                    });
-                },
-                getValue: function (temp) {
-                    var inst = $(this).mobiscroll('getInst');
-                    if (inst) {
-                        return inst.getSelectVal ? inst.getSelectVal(temp) : inst.values;
-                    }
-                }
             }
         };
     };

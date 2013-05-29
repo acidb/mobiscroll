@@ -31,12 +31,13 @@
             start,
             startTime,
             stop,
-            pos,
+            p,
             min,
             max,
             target,
             index,
             timer,
+            readOnly,
             
             that = this,
             ms = $.mobiscroll,
@@ -44,9 +45,10 @@
             elm = $(e),
             s = extend({}, defaults),
             pres = {},
-            warr = [],
             iv = {},
+            pos = {},
             pixels = {},
+            warr = [],
             input = elm.is('input'),
             visible = false,
             onStart = function (e) {
@@ -59,13 +61,13 @@
                     move = true;
                     $(document).bind(MOVE_EVENT, onMove).bind(END_EVENT, onEnd);
                     target = $('.dw-ul', this);
-                    pos = +target.data('pos');
                     setGlobals(target);
+                    p = pos[index];
                     moved = iv[index] !== undefined; // Don't allow tap, if still moving
                     start = getCoord(e, 'Y');
                     startTime = new Date();
                     stop = start;
-                    that.scroll(target, index, pos, 0.001);
+                    scroll(target, index, p, 0.001);
                     if (scrollable) {
                         target.closest('.dwwl').addClass('dwa');
                     }
@@ -74,12 +76,12 @@
             onMove = function (e) {
                 e.preventDefault();
                 stop = getCoord(e, 'Y');
-                that.scroll(target, index, constrain(pos + (start - stop) / hi, min - 1, max + 1));
+                scroll(target, index, constrain(p + (start - stop) / hi, min - 1, max + 1));
                 moved = true;
             },
             onEnd = function (e) {
                 var time = new Date() - startTime,
-                    val = constrain(pos + (start - stop) / hi, min - 1, max + 1),
+                    val = constrain(p + (start - stop) / hi, min - 1, max + 1),
                     speed,
                     dist,
                     tindex,
@@ -95,7 +97,7 @@
                     dist = stop - start;
                 }
                 
-                tindex = Math.round(pos - dist / hi);
+                tindex = Math.round(p - dist / hi);
                 
                 if (!dist && !moved) { // this is a "tap"
                     var idx = Math.floor((stop - ttop) / hi),
@@ -160,11 +162,10 @@
                     e.preventDefault();
                     e = e.originalEvent;
                     var delta = e.wheelDelta ? (e.wheelDelta / 120) : (e.detail ? (-e.detail / 3) : 0),
-                        t = $('.dw-ul', this),
-                        p = +t.data('pos'),
-                        val = Math.round(p - delta);
+                        t = $('.dw-ul', this);
+                        
                     setGlobals(t);
-                    calc(t, val, delta < 0 ? 1 : 2);
+                    calc(t, Math.round(pos[index] - delta), delta < 0 ? 1 : 2);
                 }
             };
 
@@ -207,8 +208,63 @@
 
         function read() {
             that.temp = ((input && that.val !== null && that.val != elm.val()) || that.values === null) ? s.parseValue(elm.val() || '', that) : that.values.slice(0);
-            that.setValue(true);
+            setVal();
         }
+
+        function scroll(t, index, val, time, orig) {
+            
+            function getVal(t, b, c, d) {
+                return c * Math.sin(t / d * (Math.PI / 2)) + b;
+            }
+
+            function ready() {
+                clearInterval(iv[index]);
+                delete iv[index];
+                pos[index] = val;
+                t.closest('.dwwl').removeClass('dwa');
+            }
+            
+            var px = (m - val) * hi,
+                style = t[0].style,
+                i;
+            
+            if (px == pixels[index] && iv[index]) {
+                return;
+            }
+            
+            if (time && px != pixels[index]) {
+                // Trigger animation start event
+                event('onAnimStart', [dw, index, time]);
+            }
+            
+            pixels[index] = px;
+            
+            style[pr + 'Transition'] = 'all ' + (time ? time.toFixed(3) : 0) + 's ease-out';
+            
+            if (has3d) {
+                style[pr + 'Transform'] = 'translate3d(0,' + px + 'px,0)';
+            } else {
+                style.top = px + 'px';
+            }
+            
+            if (iv[index]) {
+                ready();
+            }
+            
+            if (time && orig !== undefined) {
+                i = 0;
+                t.closest('.dwwl').addClass('dwa');
+                iv[index] = setInterval(function () {
+                    i += 0.1;
+                    pos[index] = Math.round(getVal(i, orig, val - orig, time));
+                    if (i >= time) {
+                        ready();
+                    }
+                }, 100);
+            } else {
+                pos[index] = val;
+            }
+        };
 
         function scrollToPos(time, index, manual, dir, orig) {
             
@@ -260,13 +316,21 @@
                         cell.addClass('dw-sel');
 
                         // Scroll to position
-                        //that.scroll(t, i, v, time);
-                        that.scroll(t, i, v, sc ? time : 0.1, sc ? orig : undefined);
+                        scroll(t, i, v, sc ? time : 0.1, sc ? orig : undefined);
                     }
                 });
                 
                 // Reformat value if validation changed something
-                that.change(manual);
+                v = s.formatResult(that.temp);
+                if (s.display == 'inline') {
+                    setVal(manual, 0, true);
+                } else {
+                    $('.dwv', dw).html(formatHeader(v));
+                }
+
+                if (manual) {
+                    event('onChange', [v]);
+                }
             }
         
         }
@@ -391,7 +455,7 @@
             // Set selected scroller value
             that.temp[idx] = cell.attr('data-val');
             
-            that.scroll(t, idx, val, time, orig);
+            scroll(t, idx, val, time, orig);
             
             setTimeout(function () {
                 // Validate
@@ -400,16 +464,34 @@
         }
 
         function plus(t) {
-            var p = +t.data('pos'),
-                val = p + 1;
+            var val = pos[index] + 1;
             calc(t, val > max ? min : val, 1, true);
         }
 
         function minus(t) {
-            var p = +t.data('pos'),
-                val = p - 1;
+            var val = pos[index] - 1;
             calc(t, val < min ? max : val, 2, true);
         }
+
+        function setVal(fill, time, noscroll, temp) {
+
+            if (visible && !noscroll) {
+                scrollToPos(time);
+            }
+            
+            v = s.formatResult(that.temp);
+            
+            if (!temp) {
+                that.values = that.temp.slice(0);
+                that.val = v;
+            }
+
+            if (fill) {
+                if (input) {
+                    elm.val(v).trigger('change');
+                }
+            }
+        };
         
         // Public functions
 
@@ -434,96 +516,20 @@
         };
 
         /**
-        * Scrolls target to the specified position
-        * @param {Object} t - Target wheel jQuery object.
-        * @param {Number} index - Index of the changed wheel.
-        * @param {Number} val - Value.
-        * @param {Number} time - Duration of the animation, optional.
-        * @param {Number} orig - Original value.
-        */
-        that.scroll = function (t, index, val, time, orig) {
-            
-            function getVal(t, b, c, d) {
-                return c * Math.sin(t / d * (Math.PI / 2)) + b;
-            }
-
-            function ready() {
-                clearInterval(iv[index]);
-                delete iv[index];
-                t.data('pos', val).closest('.dwwl').removeClass('dwa');
-            }
-            
-            var px = (m - val) * hi,
-                style = t[0].style,
-                i;
-            
-            if (px == pixels[index] && iv[index]) {
-                return;
-            }
-            
-            if (time && px != pixels[index]) {
-                // Trigger animation start event
-                event('onAnimStart', [dw, index, time]);
-            }
-            
-            pixels[index] = px;
-            
-            style[pr + 'Transition'] = 'all ' + (time ? time.toFixed(3) : 0) + 's ease-out';
-            
-            if (has3d) {
-                style[pr + 'Transform'] = 'translate3d(0,' + px + 'px,0)';
-            } else {
-                style.top = px + 'px';
-            }
-            
-            if (iv[index]) {
-                ready();
-            }
-            
-            if (time && orig !== undefined) {
-                i = 0;
-                t.closest('.dwwl').addClass('dwa');
-                iv[index] = setInterval(function () {
-                    i += 0.1;
-                    t.data('pos', Math.round(getVal(i, orig, val - orig, time)));
-                    if (i >= time) {
-                        ready();
-                    }
-                }, 100);
-            } else {
-                t.data('pos', val);
-            }
-        };
-        
-        /**
         * Gets the selected wheel values, formats it, and set the value of the scroller instance.
         * If input parameter is true, populates the associated input element.
-        * @param {Boolean} sc - Scroll the wheel in position.
-        * @param {Boolean} fill - Also set the value of the associated input element. Default is true.
-        * @param {Number} time - Animation time
-        * @param {Boolean} temp - If true, then only set the temporary value.(only scroll there but not set the value)
+        * @param {Array} values - Wheel values.
+        * @param {Boolean} [fill=false] - Also set the value of the associated input element.
+        * @param {Number} [time=0] - Animation time
+        * @param {Boolean} [temp=false] - If true, then only set the temporary value.(only scroll there but not set the value)
         */
-        that.setValue = function (sc, fill, time, temp) {
-            if (!$.isArray(that.temp)) {
-                that.temp = s.parseValue(that.temp + '', that);
-            }
-            
-            if (visible && sc) {
-                scrollToPos(time);
-            }
-            
-            v = s.formatResult(that.temp);
-            
-            if (!temp) {
-                that.values = that.temp.slice(0);
-                that.val = v;
-            }
+        that.setValue = function (values, fill, time, temp) {
+            that.temp = $.isArray(values) ? values.slice(0) : s.parseValue.call(e, values + '', that);
+            setVal(fill, time, false, temp);
+        };
 
-            if (fill) {
-                if (input) {
-                    elm.val(v).trigger('change');
-                }
-            }
+        that.getValue = function () {
+            return that.values;
         };
         
         that.getValues = function () {
@@ -534,22 +540,6 @@
                 ret.push(that._selectedValues[i]);
             }
             return ret;
-        };
-
-        /**
-        *
-        */
-        that.change = function (manual) {
-            v = s.formatResult(that.temp);
-            if (s.display == 'inline') {
-                that.setValue(false, manual);
-            } else {
-                $('.dwv', dw).html(formatHeader(v));
-            }
-
-            if (manual) {
-                event('onChange', [v]);
-            }
         };
 
         /**
@@ -698,7 +688,7 @@
                 // Init buttons
                 that.tap($('.dwb-s span', dw), function () {
                     if (that.hide(false, 'set') !== false) {
-                        that.setValue(false, true);
+                        setVal(true, 0, true);
                         event('onSelect', [that.val]);
                     }
                 });
@@ -808,17 +798,12 @@
             if (preset) {
                 pres = preset.call(e, that);
                 extend(s, pres, settings); // Load preset settings
-                extend(methods, pres.methods); // Extend core methods
             }
 
             // Set private members
             m = Math.floor(s.rows / 2);
             hi = s.height;
             anim = s.animate;
-
-            if (elm.data('dwro') !== undefined) {
-                e.readOnly = bool(elm.data('dwro'));
-            }
 
             if (visible) {
                 that.hide();
@@ -830,16 +815,41 @@
                 read();
                 if (input && s.showOnFocus) {
                     // Set element readonly, save original state
-                    elm.data('dwro', e.readOnly);
+                    if (readOnly === undefined) {
+                        readOnly = e.readOnly;
+                    }
                     e.readOnly = true;
                     // Init show datewheel
                     elm.bind('focus.dw', function () { that.show(); });
                 }
             }
         };
-        
+
         that.trigger = function (name, params) {
             return event(name, params);
+        };
+
+        that.option = function (opt, value) {
+            var obj = {};
+            if (typeof opt === 'object') {
+                obj = opt;
+            } else {
+                obj[opt] = value;
+            }
+            that.init(obj);
+        };
+
+        that.destroy = function () {
+            that.hide();
+            elm.unbind('.dw');
+            delete scrollers[e.id];
+            if (input) {
+                e.readOnly = readOnly;
+            }
+        };
+
+        that.getInst = function () {
+            return that;
         };
         
         that.values = null;
@@ -885,10 +895,6 @@
         return true;
     }
 
-    function getInst(e) {
-        return scrollers[e.id];
-    }
-    
     function getCoord(e, c) {
         var org = e.originalEvent,
             ct = e.changedTouches;
@@ -896,22 +902,41 @@
 
     }
 
-    function bool(v) {
-        return (v === true || v == 'true');
-    }
-
     function constrain(val, min, max) {
         return Math.max(min, Math.min(val, max));
     }
     
-    function init(that, method, args) {
-        if (methods[method]) {
-            return methods[method].apply(that, Array.prototype.slice.call(args, 1));
+    function init(that, options, args) {
+        var ret = that;
+
+        // Init
+        if (typeof options === 'object') {
+            return that.each(function () {
+                if (!this.id) {
+                    uuid += 1;
+                    this.id = 'mobiscroll' + uuid;
+                }
+                scrollers[this.id] = new Scroller(this, options);
+            });
         }
-        if (typeof method === 'object') {
-            return methods.init.call(that, method);
+
+        // Method call
+        if (typeof options === 'string') {
+            that.each(function () {
+                var r,
+                    inst = scrollers[this.id];
+
+                if (inst && inst[options]) {
+                    r = inst[options].apply(this, Array.prototype.slice.call(args, 1));
+                    if (r !== undefined) {
+                        ret = r;
+                        return false;
+                    }
+                }
+            });
         }
-        return that;
+        
+        return ret;
     }
 
     var move,
@@ -978,115 +1003,6 @@
                     }
                 }
                 return ret;
-            }
-        },
-
-        methods = {
-            init: function (options) {
-                if (options === undefined) {
-                    options = {};
-                }
-
-                return this.each(function () {
-                    if (!this.id) {
-                        uuid += 1;
-                        this.id = 'scoller' + uuid;
-                    }
-                    scrollers[this.id] = new Scroller(this, options);
-                });
-            },
-            enable: function () {
-                return this.each(function () {
-                    var inst = getInst(this);
-                    if (inst) {
-                        inst.enable();
-                    }
-                });
-            },
-            disable: function () {
-                return this.each(function () {
-                    var inst = getInst(this);
-                    if (inst) {
-                        inst.disable();
-                    }
-                });
-            },
-            isDisabled: function () {
-                var inst = getInst(this[0]);
-                if (inst) {
-                    return inst.settings.disabled;
-                }
-            },
-            isVisible: function () {
-                var inst = getInst(this[0]);
-                if (inst) {
-                    return inst.isVisible();
-                }
-            },
-            option: function (option, value) {
-                return this.each(function () {
-                    var inst = getInst(this);
-                    if (inst) {
-                        var obj = {};
-                        if (typeof option === 'object') {
-                            obj = option;
-                        } else {
-                            obj[option] = value;
-                        }
-                        inst.init(obj);
-                    }
-                });
-            },
-            setValue: function (d, fill, time, temp) {
-                return this.each(function () {
-                    var inst = getInst(this);
-                    if (inst) {
-                        inst.temp = d;
-                        inst.setValue(true, fill, time, temp);
-                    }
-                });
-            },
-            getInst: function () {
-                return getInst(this[0]);
-            },
-            getValue: function () {
-                var inst = getInst(this[0]);
-                if (inst) {
-                    return inst.values;
-                }
-            },
-            getValues: function () {
-                var inst = getInst(this[0]);
-                if (inst) {
-                    return inst.getValues();
-                }
-            },
-            show: function () {
-                var inst = getInst(this[0]);
-                if (inst) {
-                    return inst.show();
-                }
-            },
-            hide: function () {
-                return this.each(function () {
-                    var inst = getInst(this);
-                    if (inst) {
-                        inst.hide();
-                    }
-                });
-            },
-            destroy: function () {
-                return this.each(function () {
-                    var inst = getInst(this);
-                    if (inst) {
-                        inst.hide();
-                        $(this).unbind('.dw');
-                        delete scrollers[this.id];
-                        if ($(this).is('input')) {
-                            this.readOnly = bool($(this).data('dwro'));
-                        }
-                    }
-                });
             }
         };
 

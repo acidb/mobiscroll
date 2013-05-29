@@ -218,18 +218,37 @@
                 return new Date(get(d, 'y'), get(d, 'm'), get(d, 'd', 1), get(d, 'a') ? hour + 12 : hour, get(d, 'i', 0), get(d, 's', 0));
             }
 
+            // Extended methods
+            // ---
+
+            /**
+             * Sets the selected date
+             * 
+             * @param {Date} d Date to select.
+             * @param {Boolean} [fill=false] Also set the value of the associated input element. Default is true.
+             * @return {Object} jQuery object to maintain chainability
+             */
             inst.setDate = function (d, fill, time, temp) {
                 var i;
+                
                 // Set wheels
                 for (i in o) {
-                    this.temp[o[i]] = d[f[i]] ? d[f[i]]() : f[i](d);
+                    inst.temp[o[i]] = d[f[i]] ? d[f[i]]() : f[i](d);
                 }
-                this.setValue(true, fill, time, temp);
+                inst.setValue(inst.temp, fill, time, temp);
             };
 
-            inst.getDate = function (d) {
-                return getDate(d);
+            /**
+             * Returns the currently selected date.
+             * 
+             * @param {Boolean} [temp=false] If true, return the currently shown date on the picker, otherwise the last selected one
+             * @return {Date}
+             */
+            inst.getDate = function (temp) {
+                return getDate(temp ? inst.temp : inst.values);
             };
+
+            // ---
 
             return {
                 button3Text: s.showNow ? s.nowText : undefined,
@@ -370,33 +389,6 @@
                             temp[o[i]] = val;
                         }
                     });
-                },
-                methods: {
-                    /**
-                    * Returns the currently selected date.
-                    * @param {Boolean} temp - If true, return the currently shown date on the picker, otherwise the last selected one
-                    * @return {Date}
-                    */
-                    getDate: function (temp) {
-                        var inst = $(this).mobiscroll('getInst');
-                        if (inst) {
-                            return inst.getDate(temp ? inst.temp : inst.values);
-                        }
-                    },
-                    /**
-                    * Sets the selected date
-                    * @param {Date} d - Date to select.
-                    * @param {Boolean} [fill] - Also set the value of the associated input element. Default is true.
-                    * @return {Object} - jQuery object to maintain chainability
-                    */
-                    setDate: function (d, fill, time, temp) {
-                        return this.each(function () {
-                            var inst = $(this).mobiscroll('getInst');
-                            if (inst) {
-                                inst.setDate(d, fill, time, temp);
-                            }
-                        });
-                    }
                 }
             };
         };
