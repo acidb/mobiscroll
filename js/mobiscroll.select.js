@@ -34,51 +34,61 @@
             input,
             roPre = stg.readonly,
             w;
-        
-        function replace(str) {
-            return str ? str.replace(/_/, '') : '';
-        }
 
         function genWheels() {
             var cont,
                 wg = 0,
-                wheel = {},
-                w = [{}];
+                values = [],
+                keys = [],
+                w = [[]];
 
             if (s.group) {
                 if (s.rtl) {
                     wg = 1;
                 }
 
-                $('optgroup', elm).each(function (index) {
-                    wheel['_' + index] = $(this).attr('label');
+                $('optgroup', elm).each(function (i) {
+                    values.push($(this).attr('label'));
+                    keys.push(i);
                 });
 
-                w[wg] = {};
-                w[wg][s.groupLabel] = wheel;
+                w[wg] = [{
+                    values: values,
+                    keys: keys,
+                    label: label
+                }];
+
                 cont = group;
                 wg += (s.rtl ? -1 : 1);
 
             } else {
                 cont = elm;
             }
-            w[wg] = {};
-            w[wg][label] = {};
+
+            values = [];
+            keys = [];
 
             $('option', cont).each(function () {
                 var v = $(this).attr('value');
-                w[wg][label]['_' + v] = $(this).text();
+                values.push($(this).text());
+                keys.push(v);
                 if ($(this).prop('disabled')) {
                     invalid.push(v);
                 }
             });
 
+            w[wg] = [{
+                values: values,
+                keys: keys,
+                label: label
+            }];
+
             return w;
         }
-        
+
         function setVal(v, fill) {
             var value = [];
-            
+
             if (multiple) {
                 var sel = [],
                     i = 0;
@@ -90,9 +100,9 @@
                 input.val(sel.join(', '));
             } else {
                 input.val(v);
-                value = fill ? replace(inst.values[optIdx]) : null;
+                value = fill ? inst.values[optIdx] : null;
             }
-            
+
             if (fill) {
                 prevent = true;
                 elm.val(value).trigger('change');
@@ -120,9 +130,9 @@
             grIdx = -1;
             optIdx = 0;
         }
-        
+
         $('#' + id).remove();
-        
+
         input = $('<input type="text" id="' + id + '" class="' + s.inputClass + '" readonly />').insertBefore(elm),
 
         $('option', elm).each(function () {
@@ -134,14 +144,14 @@
                 inst.show();
             });
         }
-        
+
         var v = elm.val() || [],
             i = 0;
-        
+
         for (i; i < v.length; i++) {
             inst._selectedValues[v[i]] = v[i];
         }
-        
+
         setVal(main[option]);
 
         elm.unbind('.dwsel').bind('change.dwsel', function () {
@@ -161,9 +171,9 @@
         inst.setValue = function (d, fill, time, noscroll, temp) {
             var value,
                 v = $.isArray(d) ? d[0] : d;
-            
+
             option = v !== undefined ? v : $('option', elm).attr('value');
-            
+
             if (multiple) {
                 inst._selectedValues = {};
                 var i = 0;
@@ -175,16 +185,16 @@
             if (s.group) {
                 group = elm.find('option[value="' + option + '"]').parent();
                 gr = group.index();
-                value = s.rtl ? ['_' + option, '_' + group.index()] : ['_' + group.index(), '_' + option];
+                value = s.rtl ? [option, group.index()] : [group.index(), option];
                 if (gr !== prev) { // Need to regenerate wheels, if group changed
                     stg.wheels = genWheels();
                     inst.changeWheel([optIdx]);
                     prev = gr + '';
                 }
             } else {
-                value = ['_' + option];
+                value = [option];
             }
-            
+
             inst._setValue(value, fill, time, noscroll, temp);
 
             // Set input/select values
@@ -196,7 +206,7 @@
 
         inst.getValue = function (temp) {
             var val = temp ? inst.temp : inst.values;
-            return replace(val[optIdx]);
+            return val[optIdx];
         };
 
         // ---
@@ -208,7 +218,7 @@
             multiple: multiple,
             anchor: input,
             formatResult: function (d) {
-                return main[replace(d[optIdx])];
+                return main[d[optIdx]];
             },
             parseValue: function () {
                 var v = elm.val() || [],
@@ -220,13 +230,13 @@
                         inst._selectedValues[v[i]] = v[i];
                     }
                 }
-                
+
                 option = multiple ? (elm.val() ? elm.val()[0] : $('option', elm).attr('value')) : elm.val();
-                
+
                 group = elm.find('option[value="' + option + '"]').parent();
                 gr = group.index();
                 prev = gr + '';
-                return s.group && s.rtl ? ['_' + option, '_' + gr] : s.group ? ['_' + gr, '_' + option] : ['_' + option];
+                return s.group && s.rtl ? [option, gr] : s.group ? [gr, option] : [option];
             },
             validate: function (dw, i, time) {
                 if (i === undefined && multiple) {
@@ -234,12 +244,12 @@
                         j = 0;
 
                     for (j in v) {
-                        $('.dwwl' + optIdx + ' .dw-li[data-val="_' + v[j] + '"]', dw).addClass('dw-msel');
+                        $('.dwwl' + optIdx + ' .dw-li[data-val="' + v[j] + '"]', dw).addClass('dw-msel');
                     }
                 }
-                
+
                 if (i === grIdx) {
-                    gr = replace(inst.temp[grIdx]);
+                    gr = inst.temp[grIdx];
                     if (gr !== prev) {
                         group = elm.find('optgroup').eq(gr);
                         gr = group.index();
@@ -247,7 +257,7 @@
                         option = option || elm.val();
                         stg.wheels = genWheels();
                         if (s.group) {
-                            inst.temp = s.rtl ? ['_' + option, '_' + gr] : ['_' + gr, '_' + option];
+                            inst.temp = s.rtl ? [option, gr] : [gr, option];
                             stg.readonly = [s.rtl, !s.rtl];
                             clearTimeout(timer);
                             timer = setTimeout(function () {
@@ -261,18 +271,18 @@
                         stg.readonly = roPre;
                     }
                 } else {
-                    option = replace(inst.temp[optIdx]);
+                    option = inst.temp[optIdx];
                 }
 
                 var t = $('.dw-ul', dw).eq(optIdx);
                 $.each(s.invalid, function (i, v) {
-                    $('.dw-li[data-val="_' + v + '"]', t).removeClass('dw-v');
+                    $('.dw-li[data-val="' + v + '"]', t).removeClass('dw-v');
                 });
             },
             onBeforeShow: function (dw) {
                 stg.wheels = genWheels();
                 if (s.group) {
-                    inst.temp = s.rtl ? ['_' + option, '_' + group.index()] : ['_' + group.index(), '_' + option];
+                    inst.temp = s.rtl ? [option, group.index()] : [group.index(), option];
                 }
             },
             onMarkupReady: function (dw) {
@@ -291,14 +301,14 @@
             },
             onValueTap: function (li) {
                 if (multiple && li.hasClass('dw-v') && li.closest('.dw').find('.dw-ul').index(li.closest('.dw-ul')) == optIdx) {
-                    var val = replace(li.attr('data-val'));
+                    var val = li.attr('data-val');
                     if (li.hasClass('dw-msel')) {
                         delete inst._selectedValues[val];
                     } else {
                         inst._selectedValues[val] = val;
                     }
                     li.toggleClass('dw-msel');
-                    
+
                     if (s.display == 'inline') {
                         setVal(val, true);
                     }
@@ -327,7 +337,7 @@
                 if (s.display == 'inline' && !multiple) {
                     input.val(v);
                     prevent = true;
-                    elm.val(replace(inst.temp[optIdx])).trigger('change');
+                    elm.val(inst.temp[optIdx]).trigger('change');
                 }
             },
             onClose: function () {

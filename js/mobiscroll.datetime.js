@@ -65,13 +65,18 @@
             }
 
             // Set year-month-day order
-            var s = $.extend({}, defaults, html5def, inst.settings),
+            var i,
+                k,
+                keys,
+                values,
+                wg,
+                start,
+                end,
+                s = $.extend({}, defaults, html5def, inst.settings),
                 offset = 0,
                 wheels = [],
                 ord = [],
                 o = {},
-                i,
-                k,
                 f = { y: 'getFullYear', m: 'getMonth', d: 'getDate', h: getHour, i: getMinute, s: getSecond, a: getAmPm },
                 p = s.preset,
                 dord = s.dateOrder,
@@ -86,11 +91,11 @@
                 stepS = s.stepSecond,
                 mind = s.minDate || new Date(s.startYear, 0, 1),
                 maxd = s.maxDate || new Date(s.endYear, 11, 31, 23, 59, 59);
-                
+
             inst.settings = s;
 
             format = format || hformat;
-                
+
             if (p.match(/date/i)) {
 
                 // Determine the order of year, month, day wheels
@@ -105,32 +110,41 @@
                     o[v.v] = i;
                 });
 
-                var w = {};
+                wg = [];
                 for (k = 0; k < 3; k++) {
                     if (k == o.y) {
                         offset++;
-                        w[s.yearText] = {};
-                        var start = mind.getFullYear(),
-                            end = maxd.getFullYear();
+                        values = [];
+                        keys = [];
+                        start = mind.getFullYear();
+                        end = maxd.getFullYear();
                         for (i = start; i <= end; i++) {
-                            w[s.yearText][i] = dord.match(/yy/i) ? i : (i + '').substr(2, 2);
+                            keys.push(i);
+                            values.push(dord.match(/yy/i) ? i : (i + '').substr(2, 2));
                         }
+                        addWheel(wg, keys, values, s.yearText);
                     } else if (k == o.m) {
                         offset++;
-                        w[s.monthText] = {};
+                        values = [];
+                        keys = [];
                         for (i = 0; i < 12; i++) {
                             var str = dord.replace(/[dy]/gi, '').replace(/mm/, i < 9 ? '0' + (i + 1) : i + 1).replace(/m/, (i + 1));
-                            w[s.monthText][i] = str.match(/MM/) ? str.replace(/MM/, '<span class="dw-mon">' + s.monthNames[i] + '</span>') : str.replace(/M/, '<span class="dw-mon">' + s.monthNamesShort[i] + '</span>');
+                            keys.push(i);
+                            values.push(str.match(/MM/) ? str.replace(/MM/, '<span class="dw-mon">' + s.monthNames[i] + '</span>') : str.replace(/M/, '<span class="dw-mon">' + s.monthNamesShort[i] + '</span>'));
                         }
+                        addWheel(wg, keys, values, s.monthText);
                     } else if (k == o.d) {
                         offset++;
-                        w[s.dayText] = {};
+                        values = [];
+                        keys = [];
                         for (i = 1; i < 32; i++) {
-                            w[s.dayText][i] = dord.match(/dd/i) && i < 10 ? '0' + i : i;
+                            keys.push(i);
+                            values.push(dord.match(/dd/i) && i < 10 ? '0' + i : i);
                         }
+                        addWheel(wg, keys, values, s.dayText);
                     }
                 }
-                wheels.push(w);
+                wheels.push(wg);
             }
 
             if (p.match(/time/i)) {
@@ -150,35 +164,43 @@
                     o[v.v] = offset + i;
                 });
 
-                w = {};
+                wg = [];
                 for (k = offset; k < offset + 4; k++) {
                     if (k == o.h) {
                         offset++;
-                        w[s.hourText] = {};
+                        values = [];
+                        keys = [];
                         for (i = 0; i < (hampm ? 12 : 24); i += stepH) {
-                            w[s.hourText][i] = hampm && i == 0 ? 12 : tord.match(/hh/i) && i < 10 ? '0' + i : i;
+                            keys.push(i);
+                            values.push(hampm && i == 0 ? 12 : tord.match(/hh/i) && i < 10 ? '0' + i : i);
                         }
+                        addWheel(wg, keys, values, s.hourText);
                     } else if (k == o.i) {
                         offset++;
-                        w[s.minuteText] = {};
+                        values = [];
+                        keys = [];
                         for (i = 0; i < 60; i += stepM) {
-                            w[s.minuteText][i] = tord.match(/ii/) && i < 10 ? '0' + i : i;
+                            keys.push(i);
+                            values.push(tord.match(/ii/) && i < 10 ? '0' + i : i);
                         }
+                        addWheel(wg, keys, values, s.minuteText);
                     } else if (k == o.s) {
                         offset++;
-                        w[s.secText] = {};
+                        values = [];
+                        keys = [];
                         for (i = 0; i < 60; i += stepS) {
-                            w[s.secText][i] = tord.match(/ss/) && i < 10 ? '0' + i : i;
+                            keys.push(i);
+                            values.push(tord.match(/ss/) && i < 10 ? '0' + i : i);
                         }
+                        addWheel(wg, keys, values, s.secText);
                     } else if (k == o.a) {
                         offset++;
                         var upper = tord.match(/A/);
-                        w[s.ampmText] = { 0: upper ? 'AM' : 'am', 1: upper ? 'PM' : 'pm' };
+                        addWheel(wg, [0, 1], upper ? ['AM', 'PM'] : ['am', 'pm'], s.ampmText);
                     }
-                    
                 }
 
-                wheels.push(w);
+                wheels.push(wg);
             }
 
             function get(d, i, def) {
@@ -189,6 +211,14 @@
                     return def;
                 }
                 return defd[f[i]] ? defd[f[i]]() : f[i](defd);
+            }
+
+            function addWheel(wg, k, v, lbl) {
+                wg.push({
+                    values: v,
+                    keys: k,
+                    label: lbl
+                });
             }
 
             function step(v, st) {
@@ -223,14 +253,14 @@
 
             /**
              * Sets the selected date
-             * 
+             *
              * @param {Date} d Date to select.
              * @param {Boolean} [fill=false] Also set the value of the associated input element. Default is true.
              * @return {Object} jQuery object to maintain chainability
              */
             inst.setDate = function (d, fill, time, temp) {
                 var i;
-                
+
                 // Set wheels
                 for (i in o) {
                     inst.temp[o[i]] = d[f[i]] ? d[f[i]]() : f[i](d);
@@ -240,7 +270,7 @@
 
             /**
              * Returns the currently selected date.
-             * 
+             *
              * @param {Boolean} [temp=false] If true, return the currently shown date on the picker, otherwise the last selected one
              * @return {Date}
              */
