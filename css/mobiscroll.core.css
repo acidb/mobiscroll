@@ -84,9 +84,7 @@
 }
 /* Datewheel wheel container wrapper */
 .dwc {
-    float: none;
-    margin: 0 2px 5px 2px;
-    padding-top: 30px;
+    padding: 30px 2px 5px 2px;
     display: inline-block;
 }
 .dwcc {
@@ -142,16 +140,16 @@
     background: #888;
     background: linear-gradient(#000 0%,#333 35%, #888 50%,#333 65%,#000 100%);
     background: -webkit-gradient(linear,left bottom,left top,from(#000),color-stop(0.35, #333),color-stop(0.50, #888),color-stop(0.65, #333),to(#000));
+    background: -webkit-linear-gradient(#000 0%,#333 35%, #888 50%,#333 65%,#000 100%);
     background: -moz-linear-gradient(#000 0%,#333 35%, #888 50%,#333 65%,#000 100%);
-    background: -o-linear-gradient(#000 0%,#333 35%, #888 50%,#333 65%,#000 100%);
 }
 .dwsc .dww {
     color: #fff;
     background: #444;
     background: linear-gradient(#000 0%,#444 45%, #444 55%, #000 100%);
     background: -webkit-gradient(linear,left bottom,left top,from(#000),color-stop(0.45, #444),color-stop(0.55, #444),to(#000));
+    background: -webkit-linear-gradient(#000 0%,#444 45%, #444 55%, #000 100%);
     background: -moz-linear-gradient(#000 0%,#444 45%, #444 55%, #000 100%);
-    background: -o-linear-gradient(#000 0%,#444 45%, #444 55%, #000 100%);
 }
 .dw-bf {
     -webkit-perspective: 1000;
@@ -242,8 +240,8 @@
     height: 100%;
     background: linear-gradient(#000 0%,rgba(44,44,44,0) 52%, rgba(44,44,44,0) 48%, #000 100%);
     background: -webkit-gradient(linear,left bottom,left top,from(#000),color-stop(0.52, rgba(44,44,44,0)),color-stop(0.48, rgba(44,44,44,0)),to(#000));
+    background: -webkit-linear-gradient(#000 0%,rgba(44,44,44,0) 52%, rgba(44,44,44,0) 48%, #000 100%);
     background: -moz-linear-gradient(#000 0%,rgba(44,44,44,0) 52%, rgba(44,44,44,0) 48%, #000 100%);
-    background: -o-linear-gradient(#000 0%,rgba(44,44,44,0) 52%, rgba(44,44,44,0) 48%, #000 100%);
 }
 /* Background line */
 .dwwol {
@@ -276,8 +274,8 @@
     background: #000;
     background: linear-gradient(#6e6e6e 50%,#000 50%);
     background: -webkit-gradient(linear,left bottom,left top,color-stop(0.5, #000),color-stop(0.5, #6e6e6e));
+    background: -webkit-linear-gradient(#6e6e6e 50%,#000 50%);
     background: -moz-linear-gradient(#6e6e6e 50%,#000 50%);
-    background: -o-linear-gradient(#6e6e6e 50%,#000 50%);
     white-space: nowrap;
     text-overflow: ellipsis;
     -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
@@ -349,26 +347,26 @@
 .dwbg .dwwbp {
     background: linear-gradient(#f7f7f7,#bdbdbd);
     background: -webkit-gradient(linear,left bottom,left top,from(#bdbdbd),to(#f7f7f7));
+    background: -webkit-linear-gradient(#f7f7f7,#bdbdbd);
     background: -moz-linear-gradient(#f7f7f7,#bdbdbd);
-    background: -o-linear-gradient(#f7f7f7,#bdbdbd);
 }
 .dwbg .dwwbm {
     background: linear-gradient(#bdbdbd,#f7f7f7);
     background: -webkit-gradient(linear,left bottom,left top,from(#f7f7f7),to(#bdbdbd));
+    background: -webkit-linear-gradient(#bdbdbd,#f7f7f7);
     background: -moz-linear-gradient(#bdbdbd,#f7f7f7);
-    background: -o-linear-gradient(#bdbdbd,#f7f7f7);
 }
 .dwbg .dwb-a {
     background: #3c7500;
     background: linear-gradient(#94c840 50%,#3c7500 50%);
     background: -webkit-gradient(linear,left bottom,left top,color-stop(0.5, #3c7500),color-stop(0.5, #94c840));
+    background: -webkit-linear-gradient(#94c840 50%,#3c7500 50%);
     background: -moz-linear-gradient(#94c840 50%,#3c7500 50%);
-    background: -o-linear-gradient(#94c840 50%,#3c7500 50%);
 }
 .dwbg .dwwl .dwb-a {
     background: #3c7500;
     background: linear-gradient(#94c840,#3c7500);
     background: -webkit-gradient(linear,left bottom,left top,from(#3c7500),to(#94c840));
+    background: -webkit-linear-gradient(#94c840,#3c7500);
     background: -moz-linear-gradient(#94c840,#3c7500);
-    background: -o-linear-gradient(#94c840,#3c7500);
 }

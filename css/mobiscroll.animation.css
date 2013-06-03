@@ -1,8 +1,8 @@
 .dw-trans .dw-persp {
     overflow: hidden;
-    perspective: 1000;
-    -webkit-perspective: 1000;
-    -moz-perspective: 1000;
+    perspective: 1000px;
+    -webkit-perspective: 1000px;
+    -moz-perspective: 1000px;
 }
 .dw-trans .dwwb,
 .dw-trans .dwwo {
