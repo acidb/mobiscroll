@@ -374,6 +374,7 @@
 
             if (/modal|bubble/.test(s.display)) {
                 $('.dwc', dw).each(function () {
+                    $(this).width($(this).width());
                     w = $(this).outerWidth(true);
                     totalw += w;
                     minw = (w > minw) ? w : minw;
