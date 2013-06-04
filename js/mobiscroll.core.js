@@ -189,7 +189,7 @@
                 values = w.values,
                 keys = w.keys || values;
 
-            $.each(values, function(j, v) {
+            $.each(values, function (j, v) {
                 if (l % 20 == 0) {
                     html += '</div><div class="dw-bf">';
                 }
@@ -270,7 +270,7 @@
             } else {
                 pos[index] = val;
             }
-        };
+        }
 
         function scrollToPos(time, index, manual, dir, orig) {
 
@@ -498,7 +498,7 @@
                     elm.val(v).trigger('change');
                 }
             }
-        };
+        }
 
         // Public functions
 
@@ -557,8 +557,8 @@
                 var i = 0,
                     nr = idx.length;
 
-                $.each(s.wheels, function(j, wg) {
-                    $.each(wg, function(k, w) {
+                $.each(s.wheels, function (j, wg) {
+                    $.each(wg, function (k, w) {
                         if ($.inArray(i, idx) > -1) {
                             wheels[i] = w;
                             $('.dw-ul', dw).eq(i).html(generateWheelItems(i));
