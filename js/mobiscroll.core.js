@@ -341,7 +341,69 @@
 
         }
 
-        function position(check) {
+        function event(name, args) {
+            var ret;
+            args.push(that);
+            $.each([theme.defaults, pres, settings], function (i, v) {
+                if (v[name]) { // Call preset event
+                    ret = v[name].apply(e, args);
+                }
+            });
+            return ret;
+        }
+
+        function calc(t, val, dir, anim, orig) {
+            val = constrain(val, min, max);
+
+            var cell = $('.dw-li', t).eq(val),
+                o = orig === undefined ? val : orig,
+                idx = index,
+                time = anim ? (val == o ? 0.1 : Math.abs((val - o) * s.timeUnit)) : 0;
+
+            // Set selected scroller value
+            that.temp[idx] = cell.attr('data-val');
+
+            scroll(t, idx, val, time, orig);
+
+            setTimeout(function () {
+                // Validate
+                scrollToPos(time, idx, true, dir, orig);
+            }, 10);
+        }
+
+        function plus(t) {
+            var val = pos[index] + 1;
+            calc(t, val > max ? min : val, 1, true);
+        }
+
+        function minus(t) {
+            var val = pos[index] - 1;
+            calc(t, val < min ? max : val, 2, true);
+        }
+
+        function setVal(fill, time, noscroll, temp) {
+
+            if (visible && !noscroll) {
+                scrollToPos(time);
+            }
+
+            v = s.formatResult(that.temp);
+
+            if (!temp) {
+                that.values = that.temp.slice(0);
+                that.val = v;
+            }
+
+            if (fill) {
+                if (input) {
+                    elm.val(v).trigger('change');
+                }
+            }
+        }
+
+        // Public functions
+
+        that.position = function (check) {
 
             if (s.display == 'inline' || (ww === $(window).width() && rwh === $(window).height() && check) || (event('onPosition', [dw]) === false)) {
                 return;
@@ -374,7 +436,7 @@
 
             if (/modal|bubble/.test(s.display)) {
                 $('.dwc', dw).each(function () {
-                    $(this).width($(this).width());
+                    $(this).width('').width($(this).width());
                     w = $(this).outerWidth(true);
                     totalw += w;
                     minw = (w > minw) ? w : minw;
@@ -438,69 +500,7 @@
             if (scroll && ((t + mh > st + wh) || (at > st + wh))) {
                 $(window).scrollTop(t + mh - wh);
             }
-        }
-
-        function event(name, args) {
-            var ret;
-            args.push(that);
-            $.each([theme.defaults, pres, settings], function (i, v) {
-                if (v[name]) { // Call preset event
-                    ret = v[name].apply(e, args);
-                }
-            });
-            return ret;
-        }
-
-        function calc(t, val, dir, anim, orig) {
-            val = constrain(val, min, max);
-
-            var cell = $('.dw-li', t).eq(val),
-                o = orig === undefined ? val : orig,
-                idx = index,
-                time = anim ? (val == o ? 0.1 : Math.abs((val - o) * s.timeUnit)) : 0;
-
-            // Set selected scroller value
-            that.temp[idx] = cell.attr('data-val');
-
-            scroll(t, idx, val, time, orig);
-
-            setTimeout(function () {
-                // Validate
-                scrollToPos(time, idx, true, dir, orig);
-            }, 10);
-        }
-
-        function plus(t) {
-            var val = pos[index] + 1;
-            calc(t, val > max ? min : val, 1, true);
-        }
-
-        function minus(t) {
-            var val = pos[index] - 1;
-            calc(t, val < min ? max : val, 2, true);
-        }
-
-        function setVal(fill, time, noscroll, temp) {
-
-            if (visible && !noscroll) {
-                scrollToPos(time);
-            }
-
-            v = s.formatResult(that.temp);
-
-            if (!temp) {
-                that.values = that.temp.slice(0);
-                that.val = v;
-            }
-
-            if (fill) {
-                if (input) {
-                    elm.val(v).trigger('change');
-                }
-            }
-        }
-
-        // Public functions
+        };
 
         /**
         * Enables the scroller and the associated input.
@@ -564,7 +564,7 @@
                             $('.dw-ul', dw).eq(i).html(generateWheelItems(i));
                             nr--;
                             if (!nr) {
-                                position();
+                                that.position();
                                 scrollToPos(time, undefined, true);
                                 return false;
                             }
@@ -722,12 +722,12 @@
                 });
 
                 // Set position
-                position();
+                that.position();
                 $(window).bind('orientationchange.dw resize.dw', function () {
                     // Sometimes scrollTop is not correctly set, so we wait a little
                     clearTimeout(debounce);
                     debounce = setTimeout(function () {
-                        position(true);
+                        that.position(true);
                     }, 100);
                 });
             }

@@ -87,9 +87,6 @@
     padding: 30px 2px 5px 2px;
     display: inline-block;
 }
-.dwcc {
-    clear: both;
-}
 /* Datewheel label */
 .dwl {
     text-align: center;
@@ -285,17 +282,10 @@
 .dwbc {
     padding: 5px 0;
     text-align: center;
-    clear: both;
-}
-.dwbc:after {
-    content: '';
-    display: block;
-    clear: both;
 }
 /* Datewheel button wrapper */
 .dwbw {
     display: inline-block;
-    float: left;
     width: 50%;
     position: relative;
     z-index: 5;
