@@ -713,10 +713,10 @@
                     });
                 }
 
-                // Disable inputs to prevent bleed through (Android bug)
+                // Disable inputs to prevent bleed through (Android bug) and set autocomplete to off (for Firefox)
                 $('input,select,button').each(function () {
-                    if (!$(this).prop('disabled')) {
-                        $(this).addClass('dwtd').prop('disabled', true);
+                    if (!this.disabled) {
+                        $(this).addClass('dwtd').prop('disabled', true).data('autocomplete', $(this).attr('autocomplete')).attr('autocomplete', 'off');
                     }
                 });
 
@@ -747,7 +747,14 @@
             }
 
             // Re-enable temporary disabled fields
-            $('.dwtd').prop('disabled', false).removeClass('dwtd');
+            $('.dwtd').each(function () {
+                $(this).prop('disabled', false).removeClass('dwtd');
+                if ($(this).data('autocomplete')) {
+                    $(this).attr('autocomplete', $(this).data('autocomplete'));
+                } else {
+                    $(this).removeAttr('autocomplete');
+                }
+            });
             elm.blur();
 
             // Hide wheels and overlay
