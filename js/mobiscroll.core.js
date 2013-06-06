@@ -421,7 +421,7 @@
                 arrw, // arrow width
                 arrl, // arrow left
                 scroll,
-                totalw = 0,
+                totalw = 1,
                 minw = 0,
                 st = $(window).scrollTop(),
                 wr = $('.dwwr', dw),
@@ -436,7 +436,6 @@
 
             if (/modal|bubble/.test(s.display)) {
                 $('.dwc', dw).each(function () {
-                    $(this).width('').width($(this).width());
                     w = $(this).outerWidth(true);
                     totalw += w;
                     minw = (w > minw) ? w : minw;
