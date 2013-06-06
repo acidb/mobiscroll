@@ -2,7 +2,7 @@
 if (!window['jQuery']) {
 
     var jQuery = jq;
-    
+
     (function ($) {
         var document = window.document,
             classSelectorRE = /^\.([\w-]+)$/,
@@ -11,19 +11,19 @@ if (!window['jQuery']) {
             tempParent = document.createElement('div'),
             emptyArray = [],
             slice = emptyArray.slice;
-        
+
         function isNumeric(n) {
             return !isNaN(parseFloat(n)) && isFinite(n);
         }
-    
+
         function matches(element, selector) {
             if (!element || element.nodeType !== 1) {
                 return false;
             }
-            
+
             var matchesSelector = element.webkitMatchesSelector || element.mozMatchesSelector ||
                                   element.oMatchesSelector || element.matchesSelector;
-            
+
             if (matchesSelector) {
                 return matchesSelector.call(element, selector)
             }
@@ -34,7 +34,7 @@ if (!window['jQuery']) {
             temp && tempParent.removeChild(element)
             return match
         }
-    
+
         function qsa(element, selector){
             var found
             return (element === document && idSelectorRE.test(selector)) ?
@@ -46,10 +46,14 @@ if (!window['jQuery']) {
                 element.querySelectorAll(selector)
                 )
         }
-    
+
+        function camelize(str) {
+            return str.replace(/-+(.)?/g, function(match, chr){ return chr ? chr.toUpperCase() : '' });
+        }
+
         ['width', 'height'].forEach(function(dimension){
             $.fn[dimension] = function(value){
-                
+
                 var body = document.body,
                     html = document.documentElement,
                     offset, Dimension = dimension.replace(/./, function(m){return m[0].toUpperCase()})
@@ -62,7 +66,7 @@ if (!window['jQuery']) {
                 })
             }
         });
-    
+
         ['width', 'height'].forEach(function(dimension) {
             var offset, Dimension = dimension.replace(/./, function(m) {return m[0].toUpperCase()});
             $.fn['outer' + Dimension] = function(margin) {
@@ -71,7 +75,7 @@ if (!window['jQuery']) {
                     var size = elem[0]['offset' + Dimension];
                     var sides = {'width': ['left', 'right'], 'height': ['top', 'bottom']};
                     sides[dimension].forEach(function(side) {
-                        if (margin) size += parseInt(elem.css('margin-' + side), 10);
+                        if (margin) size += parseInt(elem.css(camelize('margin-' + side)), 10);
                     });
                     return size;
                 }
@@ -80,7 +84,7 @@ if (!window['jQuery']) {
                 }
             };
         });
-    
+
         ["Left", "Top"].forEach(function(name, i) {
             var method = "scroll" + name;
             function isWindow( obj ) {
@@ -89,7 +93,7 @@ if (!window['jQuery']) {
             function getWindow( elem ) {
                 return isWindow( elem ) ? elem : elem.nodeType === 9 ? elem.defaultView || elem.parentWindow : false;
             }
-    
+
             $.fn[method] = function( val ) {
                 var elem, win;
                 if (val === undefined) {
@@ -104,7 +108,7 @@ if (!window['jQuery']) {
                         win.document.body[method] :
                         elem[method];
                 }
-    
+
                 // Set the scroll offset
                 this.each(function() {
                     win = getWindow(this);
@@ -119,15 +123,15 @@ if (!window['jQuery']) {
                 });
             }
         });
-    
+
         $.fn.is = function (selector) {
             return this.length > 0 && matches(this[0], selector);
         };
-    
+
         $.fn.prop = function (name, value) {
             return (value === undefined) ? (this[0] ? this[0][name] : undefined) : this.each(function (idx) { this[name] = value; });
         };
-    
+
         $.fn.focus = function (handler) {
             if (handler === undefined) {
                 $(this).trigger('focus');
@@ -135,7 +139,7 @@ if (!window['jQuery']) {
                 $(this).bind('focus', handler);
             }
         };
-    
+
         $.fn.blur = function (handler) {
             if (handler === undefined) {
                 $(this).trigger('blur');
@@ -143,7 +147,7 @@ if (!window['jQuery']) {
                 $(this).bind('blur', handler);
             }
         };
-    
+
         $.fn.click = function (handler) {
             if (handler === undefined) {
                 $(this).trigger('click');
@@ -151,43 +155,43 @@ if (!window['jQuery']) {
                 $(this).bind('click', handler);
             }
         };
-    
+
         $.fn.eq = function (i) {
             return $($(this).get(i));
         };
-    
+
         $.fn.index = function (element) {
             return element ? this.indexOf($(element)[0]) : this.length ? this.parent().children().indexOf(this[0]) : -1;
         };
-    
+
         $.fn.slice = function () {
             return $(slice.apply(this, arguments));
         };
-            
+
         $.fn.before = function (elm) {
             $(elm).insertBefore(this);
             return this;
         };
-    
+
         $.fn.appendTo = function (elm) {
             $(elm).append(this);
             return this;
         };
-    
+
         $.fn.pluck = function (property) {
             return this.map(function () { return this[property]; });
         };
-    
+
         $.fn.prev = function () {
             var p = this.pluck('previousElementSibling');
             return p[0][0] ? $(p[0]) : $([]);
         };
-    
+
         $.fn.next = function () {
             var n = this.pluck('nextElementSibling');
             return n[0][0] ? $(n[0]) : $([]);
         };
-        
+
         $.inArray = function (value, array, fromIndex) {
             var i = fromIndex || 0;
             while (i < array.length) {
@@ -197,11 +201,11 @@ if (!window['jQuery']) {
             }
             return -1;
         };
-        
+
         $.isPlainObject = function (v) {
             return $.isObject(v);
         };
-    
+
         $.fn._css = $.fn.css;
         $.fn.css = function (attr, val, obj) {
             if ($.isObject(attr)) {
@@ -220,7 +224,7 @@ if (!window['jQuery']) {
             arguments[0] = arguments[0] || {};
             return $._extend.apply(this, arguments);
         };
-    
+
     })(jQuery);
 
 }
