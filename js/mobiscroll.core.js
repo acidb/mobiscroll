@@ -76,6 +76,7 @@
             onMove = function (e) {
                 if (scrollable) {
                     e.preventDefault();
+                    e.stopPropagation();
                     stop = getCoord(e, 'Y');
                     scroll(target, index, constrain(p + (start - stop) / hi, min - 1, max + 1));
                 }
