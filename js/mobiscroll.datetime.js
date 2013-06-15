@@ -14,6 +14,8 @@
             monthNamesShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
             dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
             dayNamesShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+            AMPMName: ['AM', 'PM'],
+            ampmName: ['am', 'pm'],
             shortYearCutoff: '+10',
             monthText: 'Month',
             dayText: 'Day',
@@ -27,7 +29,12 @@
             stepHour: 1,
             stepMinute: 1,
             stepSecond: 1,
-            separator: ' '
+            separator: ' ',
+			getYear: function(date) {return date.getFullYear();},
+			getMonth: function(date) {return date.getMonth();},
+			getDay: function(date) {return date.getDate();},
+			getDate: function(date) {return date},
+			getMaxDayOfMonth: function(date) {return 32 - new Date(date[0], date[1], 32).getDate();}
         },
         preset = function (inst) {
             var that = $(this),
@@ -72,7 +79,7 @@
                 o = {},
                 i,
                 k,
-                f = { y: 'getFullYear', m: 'getMonth', d: 'getDate', h: getHour, i: getMinute, s: getSecond, a: getAmPm },
+                f = { y: getYear, m: getMonth, d: getDay, h: getHour, i: getMinute, s: getSecond, a: getAmPm },
                 p = s.preset,
                 dord = s.dateOrder,
                 tord = s.timeWheels,
@@ -107,22 +114,30 @@
 
                 var w = {};
                 for (k = 0; k < 3; k++) {
+                    // Order of year wheels
                     if (k == o.y) {
                         offset++;
                         w[s.yearText] = {};
                         var start = mind.getFullYear(),
                             end = maxd.getFullYear();
+
                         for (i = start; i <= end; i++) {
-                            w[s.yearText][i] = dord.match(/yy/i) ? i : (i + '').substr(2, 2);
+                            year = i;						
+							year = s.getYear(new Date(year, 0, 0));
+                            w[s.yearText][year] = dord.match(/yy/i) ? year : (year + '').substr(2, 2);
                         }
-                    } else if (k == o.m) {
+                    }
+                    // Order of month wheels
+					else if (k == o.m) {
                         offset++;
                         w[s.monthText] = {};
                         for (i = 0; i < 12; i++) {
                             var str = dord.replace(/[dy]/gi, '').replace(/mm/, i < 9 ? '0' + (i + 1) : i + 1).replace(/m/, (i + 1));
                             w[s.monthText][i] = str.match(/MM/) ? str.replace(/MM/, '<span class="dw-mon">' + s.monthNames[i] + '</span>') : str.replace(/M/, '<span class="dw-mon">' + s.monthNamesShort[i] + '</span>');
                         }
-                    } else if (k == o.d) {
+                    }
+                    // Order of day wheels
+					else if (k == o.d) {
                         offset++;
                         w[s.dayText] = {};
                         for (i = 1; i < 32; i++) {
@@ -173,7 +188,7 @@
                     } else if (k == o.a) {
                         offset++;
                         var upper = tord.match(/A/);
-                        w[s.ampmText] = { 0: upper ? 'AM' : 'am', 1: upper ? 'PM' : 'pm' };
+						w[s.ampmText] = ( upper ? s.AMPMName : s.ampmName );
                     }
                     
                 }
@@ -188,12 +203,24 @@
                 if (def !== undefined) {
                     return def;
                 }
-                return defd[f[i]] ? defd[f[i]]() : f[i](defd);
+                return f[i](defd);
             }
 
             function step(v, st) {
                 return Math.floor(v / st) * st;
             }
+
+			function getYear(d) {
+				return s.getYear(d);
+			}
+			
+			function getMonth(d) {
+				return s.getMonth(d);
+			}
+			
+			function getDay(d) {
+				return s.getDay(d);
+			}
 
             function getHour(d) {
                 var hour = d.getHours();
@@ -215,14 +242,22 @@
 
             function getDate(d) {
                 var hour = get(d, 'h', 0);
-                return new Date(get(d, 'y'), get(d, 'm'), get(d, 'd', 1), get(d, 'a') ? hour + 12 : hour, get(d, 'i', 0), get(d, 's', 0));
+				var dt = [ get(d, 'y'),
+						   get(d, 'm'),
+						   get(d, 'd', 1),
+						  (get(d, 'a') ? hour + 12 : hour),
+						   get(d, 'i', 0),
+						   get(d, 's', 0) ];
+				dt1 = s.getDate(dt);
+				
+                return new Date(dt1[0], dt1[1], dt1[2], dt1[3], dt1[4], dt1[5]);
             }
 
             inst.setDate = function (d, fill, time, temp) {
                 var i;
                 // Set wheels
                 for (i in o) {
-                    this.temp[o[i]] = d[f[i]] ? d[f[i]]() : f[i](d);
+                    this.temp[o[i]] = f[i](d);
                 }
                 this.setValue(true, fill, time, temp);
             };
@@ -260,7 +295,7 @@
                     }
                     // Set wheels
                     for (i in o) {
-                        result[o[i]] = d[f[i]] ? d[f[i]]() : f[i](d);
+                        result[o[i]] = f[i](d);
                     }
                     return result;
                 },
@@ -275,7 +310,7 @@
                         maxs = { y: maxd.getFullYear(), m: 11, d: 31, h: step(hampm ? 11 : 23, stepH), i: step(59, stepM), s: step(59, stepS), a: 1 },
                         minprop = true,
                         maxprop = true;
-                    $.each(['y', 'm', 'd', 'a', 'h', 'i', 's'], function (x, i) {
+                    $.each(['y', 'm', 'd', 'ap', 'h', 'i', 's'], function (x, i) {
                         if (o[i] !== undefined) {
                             var min = mins[i],
                                 max = maxs[i],
@@ -287,23 +322,24 @@
                             if (i == 'd') {
                                 y = get(temp, 'y');
                                 m = get(temp, 'm');
-                                maxdays = 32 - new Date(y, m, 32).getDate();
+								maxdays = s.getMaxDayOfMonth([y,m,maxdays]);
                                 max = maxdays;
                                 if (regen) {
                                     $('.dw-li', t).each(function () {
                                         var that = $(this),
-                                            d = that.data('val'),
-                                            w = new Date(y, m, d).getDay(),
+                                            d = that.data('val');
+										dt = s.getDate([y,m,d]);
+										var w = new Date(dt[0], dt[1], dt[2]).getDay(),
                                             str = dord.replace(/[my]/gi, '').replace(/dd/, d < 10 ? '0' + d : d).replace(/d/, d);
                                         $('.dw-i', that).html(str.match(/DD/) ? str.replace(/DD/, '<span class="dw-day">' + s.dayNames[w] + '</span>') : str.replace(/D/, '<span class="dw-day">' + s.dayNamesShort[w] + '</span>'));
                                     });
                                 }
                             }
                             if (minprop && mind) {
-                                min = mind[f[i]] ? mind[f[i]]() : f[i](mind);
+                                min = f[i](mind);
                             }
                             if (maxprop && maxd) {
-                                max = maxd[f[i]] ? maxd[f[i]]() : f[i](maxd);
+                                max = f[i](maxd);
                             }
                             if (i != 'y') {
                                 var i1 = $('.dw-li', t).index($('.dw-li[data-val="' + min + '"]', t)),
@@ -331,14 +367,15 @@
                                 // Disable exact dates
                                 if (s.invalid.dates) {
                                     $.each(s.invalid.dates, function (i, v) {
-                                        if (v.getFullYear() == y && v.getMonth() == m) {
-                                            idx.push(v.getDate() - 1);
+                                        if (s.getYear(v) == y && s.getMonth(v) == m) {
+                                            idx.push(s.getDay(v) - 1);
                                         }
                                     });
                                 }
                                 // Disable days of week
                                 if (s.invalid.daysOfWeek) {
-                                    var first = new Date(y, m, 1).getDay(),
+									var dt = s.getDate([y,m,1]);
+                                    var first = new Date(dt[0], dt[1], dt[2]).getDay(),
                                         j;
                                     $.each(s.invalid.daysOfWeek, function (i, v) {
                                         for (j = v - first; j < maxdays; j += 7) {
@@ -352,11 +389,14 @@
                                 if (s.invalid.daysOfMonth) {
                                     $.each(s.invalid.daysOfMonth, function (i, v) {
                                         v = (v + '').split('/');
+										// x/y: invaliad y'th day of x'th month
                                         if (v[1]) {
                                             if (v[0] - 1 == m) {
                                                 idx.push(v[1] - 1);
                                             }
-                                        } else {
+                                        }
+										// x: invalid x'th day of each month
+										else {
                                             idx.push(v[0] - 1);
                                         }
                                     });
@@ -452,7 +492,7 @@
             } else {
                 switch (format.charAt(i)) {
                 case 'd':
-                    output += f1('d', date.getDate(), 2);
+                    output += f1('d', settings.getDay(date), 2);
                     break;
                 case 'D':
                     output += f2('D', date.getDay(), s.dayNamesShort, s.dayNames);
@@ -461,13 +501,14 @@
                     output += f1('o', (date.getTime() - new Date(date.getFullYear(), 0, 0).getTime()) / 86400000, 3);
                     break;
                 case 'm':
-                    output += f1('m', date.getMonth() + 1, 2);
+                    output += f1('m', settings.getMonth(date) + 1, 2);
                     break;
                 case 'M':
-                    output += f2('M', date.getMonth(), s.monthNamesShort, s.monthNames);
+                    output += f2('M', settings.getMonth(date), s.monthNamesShort, s.monthNames);
                     break;
                 case 'y':
-                    output += (look('y') ? date.getFullYear() : (date.getYear() % 100 < 10 ? '0' : '') + date.getYear() % 100);
+					year = settings.getYear(date);
+                    output += (look('y') ? year : (year % 100 < 10 ? '0' : '') + year % 100);
                     break;
                 case 'h':
                     var h = date.getHours();
@@ -483,10 +524,10 @@
                     output += f1('s', date.getSeconds(), 2);
                     break;
                 case 'a':
-                    output += date.getHours() > 11 ? 'pm' : 'am';
+                    output += date.getHours() > 11 ? s.ampmName[1] : s.ampmName[0];
                     break;
                 case 'A':
-                    output += date.getHours() > 11 ? 'PM' : 'AM';
+                    output += date.getHours() > 11 ? s.AMPMName[1] : s.AMPMName[0];
                     break;
                 case "'":
                     if (look("'")) {
