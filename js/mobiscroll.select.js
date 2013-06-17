@@ -156,7 +156,7 @@
 
         elm.unbind('.dwsel').bind('change.dwsel', function () {
             if (!prevent) {
-                inst.setSelectVal(multiple ? elm.val() || [] : [elm.val()], true);
+                inst.setValue(multiple ? elm.val() || [] : [elm.val()], true);
             }
             prevent = false;
         }).hide().closest('.ui-field-contain').trigger('create');
@@ -242,6 +242,8 @@
                 if (i === undefined && multiple) {
                     var v = inst._selectedValues,
                         j = 0;
+
+                    $('.dwwl' + optIdx + ' .dw-li', dw).removeClass('dw-msel');
 
                     for (j in v) {
                         $('.dwwl' + optIdx + ' .dw-li[data-val="' + v[j] + '"]', dw).addClass('dw-msel');
