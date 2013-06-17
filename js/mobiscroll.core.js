@@ -240,6 +240,12 @@
             return Math.round(m - (px / hi));
         }
 
+        function ready(t, i) {
+            clearTimeout(iv[i]);
+            delete iv[i];
+            t.closest('.dwwl').removeClass('dwa');
+        }
+
         function scroll(t, index, val, time) {
 
             var px = (m - val) * hi,
@@ -266,15 +272,13 @@
             }
 
             if (iv[index]) {
-                clearTimeout(iv[index]);
-                t.closest('.dwwl').removeClass('dwa');
+                ready(t, index);
             }
 
             if (time) {
                 t.closest('.dwwl').addClass('dwa');
                 iv[index] = setTimeout(function () {
-                    delete iv[i];
-                    t.closest('.dwwl').removeClass('dwa');
+                    ready(t, index);
                 }, time * 1000);
             }
 
