@@ -74,10 +74,10 @@
     -webkit-border-radius: 0;
 }
 .ios .dw .dwpm .dww {
-    background: linear-gradient(#000,#fff 48%,#fff 52%,#000);
+    background: linear-gradient(#333,#fff 48%,#fff 52%,#333);
     background: -webkit-gradient(linear,left bottom,left top,from(#333),color-stop(0.48, #fff),color-stop(0.52, #fff),to(#333));
-    background: -webkit-linear-gradient(#000 0%,#fff 48%,#fff 52%,#000 100%);
-    background: -moz-linear-gradient(#000 0%,#fff 48%,#fff 52%,#000 100%);
+    background: -webkit-linear-gradient(#333 0%,#fff 48%,#fff 52%,#333 100%);
+    background: -moz-linear-gradient(#333 0%,#fff 48%,#fff 52%,#333 100%);
 }
 .ios .dw .dwpm .dwwl {
     margin: 4px 2px;
