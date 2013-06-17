@@ -58,9 +58,8 @@
                     scrollable = s.mode != 'clickpick';
                     target = $('.dw-ul', this);
                     setGlobals(target);
-                    //p = pos[index];
-                    p = getCurrentPosition(target);
                     moved = iv[index] !== undefined; // Don't allow tap, if still moving
+                    p = moved ? getCurrentPosition(target) : pos[index];
                     start = getCoord(e, 'Y');
                     startTime = new Date();
                     stop = start;
@@ -220,24 +219,19 @@
             setVal();
         }
 
-        /*function getVal(t, b, c, d) {
-            return c * Math.sin(t / d * (Math.PI / 2)) + b;
-        }*/
-
         function getCurrentPosition(t) {
             var style = window.getComputedStyle ? getComputedStyle(t[0]) : t[0].style,
                 matrix,
                 px;
 
             if (has3d) {
-                $.each(['transform', 'webkitTransform', 'mozTransform', 'oTransform', 'msTransform'], function (i, v) {
-                    if (style[v] !== undefined) {
-                        matrix = style[v];
+                $.each(['t', 'webkitT', 'MozT', 'OT', 'msT'], function (i, v) {
+                    if (style[v + 'ransform'] !== undefined) {
+                        matrix = style[v + 'ransform'];
                         return false;
                     }
                 });
-
-                matrix = matrix.replace(/[^0-9\-.,]/g, '').split(', ');
+                matrix = matrix.split(')')[0].split(', ');
                 px = matrix[13] || matrix[5];
             } else {
                 px = style.top.replace('px', '');
@@ -246,15 +240,7 @@
             return Math.round(m - (px / hi));
         }
 
-        function ready(t, i, val) {
-            //clearInterval(iv[i]);
-            clearTimeout(iv[i]);
-            delete iv[i];
-            pos[i] = val;
-            t.closest('.dwwl').removeClass('dwa');
-        }
-
-        function scroll(t, index, val, time, orig) {
+        function scroll(t, index, val, time) {
 
             var px = (m - val) * hi,
                 style = t[0].style,
@@ -280,34 +266,22 @@
             }
 
             if (iv[index]) {
-                ready(t, index, val);
+                clearTimeout(iv[index]);
+                t.closest('.dwwl').removeClass('dwa');
             }
-
-            /*if (time && orig !== undefined) {
-                i = 0;
-                t.closest('.dwwl').addClass('dwa');
-                iv[index] = setInterval(function () {
-                    i += 0.1;
-                    pos[index] = Math.round(getVal(i, orig, val - orig, time));
-                    if (i >= time) {
-                        ready(t, index, val);
-                    }
-                }, 100);
-            } else {
-                pos[index] = val;
-            }*/
 
             if (time) {
                 t.closest('.dwwl').addClass('dwa');
                 iv[index] = setTimeout(function () {
-                    ready(t, index, val);
+                    delete iv[i];
+                    t.closest('.dwwl').removeClass('dwa');
                 }, time * 1000);
             }
 
             pos[index] = val;
         }
 
-        function scrollToPos(time, index, manual, dir, orig) {
+        function scrollToPos(time, index, manual, dir) {
 
             // Call validation event
             if (event('validate', [dw, index, time]) !== false) {
@@ -357,7 +331,7 @@
                         cell.addClass('dw-sel');
 
                         // Scroll to position
-                        scroll(t, i, v, sc ? time : 0.1, sc ? orig : undefined);
+                        scroll(t, i, v, sc ? time : 0.1);
                     }
                 });
 
@@ -398,11 +372,11 @@
             // Set selected scroller value
             that.temp[idx] = cell.attr('data-val');
 
-            scroll(t, idx, val, time, orig);
+            scroll(t, idx, val, time);
 
             setTimeout(function () {
                 // Validate
-                scrollToPos(time, idx, true, dir, orig);
+                scrollToPos(time, idx, true, dir);
             }, 10);
         }
 
@@ -500,10 +474,10 @@
                 l = l >= 0 ? l : 20;
 
                 // vertical positioning
-                t = at - mh; //(mh + 3); // above the input
+                t = at - mh; // above the input
                 if ((t < st) || (at > st + wh)) { // if doesn't fit above or the input is out of the screen
                     d.removeClass('dw-bubble-top').addClass('dw-bubble-bottom');
-                    t = at + ah;// + 3; // below the input
+                    t = at + ah; // below the input
                 } else {
                     d.removeClass('dw-bubble-bottom').addClass('dw-bubble-top');
                 }
@@ -512,7 +486,7 @@
                 arrw = arr.outerWidth();
                 arrl = al + aw / 2 - (l + (mw - arrw) / 2);
 
-                // Limit Arrow position to [0, pocw.width] intervall
+                // Limit Arrow position
                 $('.dw-arr', dw).css({ left: constrain(arrl, 0, arrw) });
             } else {
                 css.width = '100%';
