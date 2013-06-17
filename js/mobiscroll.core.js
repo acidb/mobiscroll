@@ -246,7 +246,7 @@
             t.closest('.dwwl').removeClass('dwa');
         }
 
-        function scroll(t, index, val, time) {
+        function scroll(t, index, val, time, active) {
 
             var px = (m - val) * hi,
                 style = t[0].style,
@@ -275,7 +275,7 @@
                 ready(t, index);
             }
 
-            if (time) {
+            if (time && active) {
                 t.closest('.dwwl').addClass('dwa');
                 iv[index] = setTimeout(function () {
                     ready(t, index);
@@ -285,7 +285,7 @@
             pos[index] = val;
         }
 
-        function scrollToPos(time, index, manual, dir) {
+        function scrollToPos(time, index, manual, dir, active) {
 
             // Call validation event
             if (event('validate', [dw, index, time]) !== false) {
@@ -335,7 +335,7 @@
                         cell.addClass('dw-sel');
 
                         // Scroll to position
-                        scroll(t, i, v, sc ? time : 0.1);
+                        scroll(t, i, v, sc ? time : 0.1, sc ? active : false);
                     }
                 });
 
@@ -376,11 +376,11 @@
             // Set selected scroller value
             that.temp[idx] = cell.attr('data-val');
 
-            scroll(t, idx, val, time);
+            scroll(t, idx, val, time, true);
 
             setTimeout(function () {
                 // Validate
-                scrollToPos(time, idx, true, dir);
+                scrollToPos(time, idx, true, dir, true);
             }, 10);
         }
 
