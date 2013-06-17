@@ -58,7 +58,8 @@
                     scrollable = s.mode != 'clickpick';
                     target = $('.dw-ul', this);
                     setGlobals(target);
-                    p = pos[index];
+                    //p = pos[index];
+                    p = getCurrentPosition(target);
                     moved = iv[index] !== undefined; // Don't allow tap, if still moving
                     start = getCoord(e, 'Y');
                     startTime = new Date();
@@ -219,12 +220,35 @@
             setVal();
         }
 
-        function getVal(t, b, c, d) {
+        /*function getVal(t, b, c, d) {
             return c * Math.sin(t / d * (Math.PI / 2)) + b;
+        }*/
+
+        function getCurrentPosition(t) {
+            var style = window.getComputedStyle ? getComputedStyle(t[0]) : t[0].style,
+                matrix,
+                px;
+
+            if (has3d) {
+                $.each(['transform', 'webkitTransform', 'mozTransform', 'oTransform', 'msTransform'], function (i, v) {
+                    if (style[v] !== undefined) {
+                        matrix = style[v];
+                        return false;
+                    }
+                });
+
+                matrix = matrix.replace(/[^0-9\-.,]/g, '').split(', ');
+                px = matrix[13] || matrix[5];
+            } else {
+                px = style.top.replace('px', '');
+            }
+
+            return Math.round(m - (px / hi));
         }
 
         function ready(t, i, val) {
-            clearInterval(iv[i]);
+            //clearInterval(iv[i]);
+            clearTimeout(iv[i]);
             delete iv[i];
             pos[i] = val;
             t.closest('.dwwl').removeClass('dwa');
@@ -259,7 +283,7 @@
                 ready(t, index, val);
             }
 
-            if (time && orig !== undefined) {
+            /*if (time && orig !== undefined) {
                 i = 0;
                 t.closest('.dwwl').addClass('dwa');
                 iv[index] = setInterval(function () {
@@ -271,7 +295,16 @@
                 }, 100);
             } else {
                 pos[index] = val;
+            }*/
+
+            if (time) {
+                t.closest('.dwwl').addClass('dwa');
+                iv[index] = setTimeout(function () {
+                    ready(t, index, val);
+                }, time * 1000);
             }
+
+            pos[index] = val;
         }
 
         function scrollToPos(time, index, manual, dir, orig) {
