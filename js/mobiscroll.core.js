@@ -23,7 +23,6 @@
             debounce,
             theme,
             lang,
-            activeBtn,
             click,
             scrollable,
             moved,
@@ -131,9 +130,11 @@
                 $(document).unbind(MOVE_EVENT, onMove).unbind(END_EVENT, onEnd);
             },
             onBtnStart = function (e) {
-                // Active button
-                activeBtn = $(this).addClass('dwb-a');
                 $(document).bind(END_EVENT, onBtnEnd);
+                // Active button
+                if (!$(this).hasClass('dwb-d')) {
+                    $(this).addClass('dwb-a');
+                }
                 // +/- buttons
                 if ($(this).hasClass('dwwb')) {
                     var w = $(this).closest('.dwwl');
@@ -158,7 +159,7 @@
                     click = false;
                 }
                 $(document).unbind(END_EVENT, onBtnEnd);
-                activeBtn.removeClass('dwb-a');
+                $('.dwb-a', dw).removeClass('dwb-a');
             },
             onScroll = function (e) {
                 if (!isReadOnly(this)) {
@@ -651,7 +652,7 @@
                 html += '<div class="dwc' + (s.mode != 'scroller' ? ' dwpm' : ' dwsc') + (s.showLabel ? '' : ' dwhl') + '"><div class="dwwc dwrc"><table cellpadding="0" cellspacing="0"><tr>';
                 $.each(wg, function (j, w) { // Wheels
                     wheels[l] = w;
-                    html += '<td><div class="dwwl dwrc dwwl' + l + '">' + (s.mode != 'scroller' ? '<div class="dwwb dwwbp" style="height:' + hi + 'px;line-height:' + hi + 'px;"><span>+</span></div><div class="dwwb dwwbm" style="height:' + hi + 'px;line-height:' + hi + 'px;"><span>&ndash;</span></div>' : '') + '<div class="dwl">' + (w.label || j) + '</div><div class="dwww"><div class="dww" style="height:' + (s.rows * hi) + 'px;min-width:' + s.width + 'px;"><div class="dw-ul">';
+                    html += '<td><div class="dwwl dwrc dwwl' + l + '">' + (s.mode != 'scroller' ? '<div class="dwb-e dwwb dwwbp" style="height:' + hi + 'px;line-height:' + hi + 'px;"><span>+</span></div><div class="dwb-e dwwb dwwbm" style="height:' + hi + 'px;line-height:' + hi + 'px;"><span>&ndash;</span></div>' : '') + '<div class="dwl">' + (w.label || j) + '</div><div class="dwww"><div class="dww" style="height:' + (s.rows * hi) + 'px;min-width:' + s.width + 'px;"><div class="dw-ul">';
                     // Create wheel values
                     html += generateWheelItems(l);
                     html += '</div><div class="dwwol"></div></div><div class="dwwo"></div></div><div class="dwwol"></div></div></td>';
@@ -661,7 +662,7 @@
                 html += '</tr></table></div></div>';
             });
 
-            html += '</div>' + (s.display != 'inline' ? '<div class="dwbc' + (s.button3 ? ' dwbc-p' : '') + '"><span class="dwbw dwb-s"><span class="dwb">' + s.setText + '</span></span>' + (s.button3 ? '<span class="dwbw dwb-n"><span class="dwb">' + s.button3Text + '</span></span>' : '') + '<span class="dwbw dwb-c"><span class="dwb">' + s.cancelText + '</span></span></div></div>' : '') + '</div></div></div>';
+            html += '</div>' + (s.display != 'inline' ? '<div class="dwbc' + (s.button3 ? ' dwbc-p' : '') + '"><span class="dwbw dwb-s"><span class="dwb dwb-e">' + s.setText + '</span></span>' + (s.button3 ? '<span class="dwbw dwb-n"><span class="dwb dwb-e">' + s.button3Text + '</span></span>' : '') + '<span class="dwbw dwb-c"><span class="dwb dwb-e">' + s.cancelText + '</span></span></div></div>' : '') + '</div></div></div>';
             dw = $(html);
 
             scrollToPos();
@@ -733,7 +734,7 @@
             }
 
             // Events
-            dw.delegate('.dwwl', 'DOMMouseScroll mousewheel', onScroll).delegate('.dwb, .dwwb', START_EVENT, onBtnStart).delegate('.dwwl', START_EVENT, onStart);
+            dw.delegate('.dwwl', 'DOMMouseScroll mousewheel', onScroll).delegate('.dwb-e', START_EVENT, onBtnStart).delegate('.dwwl', START_EVENT, onStart);
 
             event('onShow', [dw, v]);
         };
