@@ -434,7 +434,7 @@
                 arrw, // arrow width
                 arrl, // arrow left
                 scroll,
-                totalw = 1,
+                totalw = 0,
                 minw = 0,
                 st = $(window).scrollTop(),
                 wr = $('.dwwr', dw),
@@ -454,7 +454,7 @@
                     minw = (w > minw) ? w : minw;
                 });
                 w = totalw > ww ? minw : totalw;
-                wr.width(w);
+                wr.width(w).css('white-space', totalw > ww ? '' : 'nowrap');
             }
 
             mw = d.outerWidth();
