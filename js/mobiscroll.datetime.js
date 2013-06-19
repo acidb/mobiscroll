@@ -72,7 +72,8 @@
                 wg,
                 start,
                 end,
-                s = $.extend({}, defaults, html5def, inst.settings),
+                orig = $.extend({}, inst.settings),
+                s = $.extend(inst.settings, defaults, html5def, orig),
                 offset = 0,
                 wheels = [],
                 ord = [],
@@ -91,8 +92,6 @@
                 stepS = s.stepSecond,
                 mind = s.minDate || new Date(s.startYear, 0, 1),
                 maxd = s.maxDate || new Date(s.endYear, 11, 31, 23, 59, 59);
-
-            inst.settings = s;
 
             format = format || hformat;
 

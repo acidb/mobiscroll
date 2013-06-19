@@ -12,8 +12,8 @@
     $.mobiscroll.presetShort('select');
 
     $.mobiscroll.presets.select = function (inst) {
-        var stg = inst.settings,
-            s = $.extend({}, defaults, stg),
+        var orig = $.extend({}, inst.settings),
+            s = $.extend(inst.settings, defaults, orig),
             elm = $(this),
             multiple = elm.prop('multiple'),
             id = this.id + '_dummy',
@@ -32,7 +32,7 @@
             optIdx,
             timer,
             input,
-            roPre = stg.readonly,
+            roPre = s.readonly,
             w;
 
         function genWheels() {
@@ -187,7 +187,7 @@
                 gr = group.index();
                 value = s.rtl ? [option, group.index()] : [group.index(), option];
                 if (gr !== prev) { // Need to regenerate wheels, if group changed
-                    stg.wheels = genWheels();
+                    s.wheels = genWheels();
                     inst.changeWheel([optIdx]);
                     prev = gr + '';
                 }
@@ -257,20 +257,20 @@
                         gr = group.index();
                         option = group.find('option').eq(0).val();
                         option = option || elm.val();
-                        stg.wheels = genWheels();
+                        s.wheels = genWheels();
                         if (s.group) {
                             inst.temp = s.rtl ? [option, gr] : [gr, option];
-                            stg.readonly = [s.rtl, !s.rtl];
+                            s.readonly = [s.rtl, !s.rtl];
                             clearTimeout(timer);
                             timer = setTimeout(function () {
                                 inst.changeWheel([optIdx]);
-                                stg.readonly = roPre;
+                                s.readonly = roPre;
                                 prev = gr + '';
                             }, time * 1000);
                             return false;
                         }
                     } else {
-                        stg.readonly = roPre;
+                        s.readonly = roPre;
                     }
                 } else {
                     option = inst.temp[optIdx];
@@ -282,7 +282,7 @@
                 });
             },
             onBeforeShow: function (dw) {
-                stg.wheels = genWheels();
+                s.wheels = genWheels();
                 if (s.group) {
                     inst.temp = s.rtl ? [option, group.index()] : [group.index(), option];
                 }

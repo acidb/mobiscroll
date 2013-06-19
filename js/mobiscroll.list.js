@@ -7,7 +7,8 @@
             inputClass: ''
         },
         preset =  function (inst) {
-            var s = $.extend({}, defaults, inst.settings),
+            var orig = $.extend({}, inst.settings),
+                s = $.extend(inst.settings, defaults, orig),
                 elm = $(this),
                 input,
                 prevent,
