@@ -19,6 +19,10 @@
         timeWheels: 'hhiiA',
         yearText: 'Jaar',
         nowText: 'Nu',
+        // Calendar component
+        dateText: 'Datum',
+        timeText: 'Tijd',
+        calendarText: 'Kalender',
         // Measurement components
         wholeText: 'geheel',
         fractionText: 'fractie',

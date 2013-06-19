@@ -19,6 +19,10 @@
         timeWheels: 'hhiiA',
         yearText: 'Yıl',
         nowText: 'Şimdi',
+        // Calendar component
+        dateText: 'Tarih',
+        timeText: 'Zaman',
+        calendarText: 'Takvim',
         // Measurement components
         wholeText: 'Tam',
         fractionText: 'Kesir',

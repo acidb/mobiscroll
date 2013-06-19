@@ -19,6 +19,10 @@
         timeWheels: 'HHii',
         yearText: 'Év',
         nowText: 'Most',
+        // Calendar component
+        dateText: 'Dátum',
+        timeText: 'Idő',
+        calendarText: 'Naptár',
         // Measurement components
         wholeText: 'Egész',
         fractionText: 'Tört',

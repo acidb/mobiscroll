@@ -18,6 +18,10 @@
         timeFormat: 'HH:ii',
         timeWheels: 'HHii',
         yearText: 'Anno',
+        // Calendar component
+        dateText: 'Data',
+        timeText: 'Volta',
+        calendarText: 'Calendario',
         // Measurement components
         wholeText: 'Intero',
         fractionText: 'Frazione',

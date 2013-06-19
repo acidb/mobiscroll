@@ -19,6 +19,10 @@
         timeWheels: 'HHii',
         yearText: '年',
         nowText: '当前',
+        // Calendar component
+        dateText: '日',
+        timeText: '时间',
+        calendarText: '日历',
         // Measurement components
         wholeText: 'Whole',
         fractionText: 'Fraction',

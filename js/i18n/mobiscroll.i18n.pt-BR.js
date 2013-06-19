@@ -22,6 +22,10 @@
         timeFormat: 'HH:ii',
         timeWheels: 'HHii',
         yearText: 'Ano',
+        // Calendar component
+        dateText: 'Data',
+        timeText: 'Tempo',
+        calendarText: 'Calendário',
         // Measurement components
         wholeText: 'Inteiro',
         fractionText: 'Fração',

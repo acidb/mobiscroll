@@ -19,6 +19,10 @@
         timeWheels: 'HHii',
         yearText: 'Jahr',
         nowText: 'Jetzt',
+        // Calendar component
+        dateText: 'Datum',
+        timeText: 'Zeit',
+        calendarText: 'Kalender',
         // Measurement components
         wholeText: 'Ganze Zahl',
         fractionText: 'Bruchzahl',
