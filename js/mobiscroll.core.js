@@ -1,6 +1,6 @@
 /*jslint eqeq: true, plusplus: true, undef: true, sloppy: true, vars: true, forin: true, nomen: true */
 /*!
- * jQuery MobiScroll v2.5.4
+ * jQuery MobiScroll v2.6.0
  * http://mobiscroll.com
  *
  * Copyright 2010-2013, Acid Media
@@ -275,7 +275,7 @@
                 ready(t, index);
             }
 
-            if (time && active) {
+            if (time && active !== undefined) {
                 t.closest('.dwwl').addClass('dwa');
                 iv[index] = setTimeout(function () {
                     ready(t, index);
@@ -376,11 +376,11 @@
             // Set selected scroller value
             that.temp[idx] = cell.attr('data-val');
 
-            scroll(t, idx, val, time, true);
+            scroll(t, idx, val, time, orig);
 
             setTimeout(function () {
                 // Validate
-                scrollToPos(time, idx, true, dir, true);
+                scrollToPos(time, idx, true, dir, orig);
             }, 10);
         }
 
@@ -657,7 +657,7 @@
                 mAnim = 'dw-' + anim + ' dw-in';
             }
             // Create wheels containers
-            var html = '<div class="dw-trans ' + s.theme + ' dw-' + s.display + (prefix ? ' dw' + prefix : '') + '">' + (s.display == 'inline' ? '<div class="dw dwbg dwi"><div class="dwwr">' : '<div class="dw-persp">' + '<div class="dwo"></div><div class="dw dwbg ' + mAnim + '"><div class="dw-arrw"><div class="dw-arrw-i"><div class="dw-arr"></div></div></div><div class="dwwr">' + (s.headerText ? '<div class="dwv"></div>' : '')) + '<div class="dwcc">';
+            var html = '<div class="' + s.theme + ' dw-' + s.display + (prefix ? ' dw' + prefix : '') + '">' + (s.display == 'inline' ? '<div class="dw dwbg dwi"><div class="dwwr">' : '<div class="dw-persp">' + '<div class="dwo"></div><div class="dw dwbg ' + mAnim + '"><div class="dw-arrw"><div class="dw-arrw-i"><div class="dw-arr"></div></div></div><div class="dwwr">' + (s.headerText ? '<div class="dwv"></div>' : '')) + '<div class="dwcc">';
 
             $.each(s.wheels, function (i, wg) { // Wheel groups
                 html += '<div class="dwc' + (s.mode != 'scroller' ? ' dwpm' : ' dwsc') + (s.showLabel ? '' : ' dwhl') + '"><div class="dwwc dwrc"><table cellpadding="0" cellspacing="0"><tr>';
@@ -683,10 +683,13 @@
             // Show
             if (s.display != 'inline') {
                 dw.appendTo('body');
-                // Remove animation class
-                setTimeout(function () {
-                    dw.removeClass('dw-trans').find('.dw').removeClass(mAnim);
-                }, 350);
+                if (anim && !prevAnim) {
+                    dw.addClass('dw-trans');
+                    // Remove animation class
+                    setTimeout(function () {
+                        dw.removeClass('dw-trans').find('.dw').removeClass(mAnim);
+                    }, 350);
+                }
             } else if (elm.is('div')) {
                 elm.html(dw);
             } else {

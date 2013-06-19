@@ -18,12 +18,10 @@
 .android .dwwc {
     background: #000;
 }
-.android .dw .dwpm .dww {
-    border: 0;
-    background: #fff;
-}
+.android .dw .dwpm .dww,
 .android .dw .dwpm .dwwl {
     border: 0;
+    background: #fff;
 }
 .android .dw .dwpm .dww {
     margin: 0;
