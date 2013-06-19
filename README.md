@@ -23,6 +23,82 @@ It'd be cool to see how you're using Mobiscroll!
 
 We're looking at showcasing some of the best work on http://mobiscroll.com . Feel free to let us know on twitter @mobiscroll!
 
+Changelog 2.6.0
+===============
+
+Enhancements
+------------
+
+_Core_
+
+  * Changed: Refactored method calls resulting in smaller file size.
+
+  * Changed: New wheel format using arrays instead of objects to maintain the order of items. Old wheel format is still supported, but deprecated. See documentation for details.
+
+  * Changed: Cleaned up css.
+
+  * Changed: position method is now public.
+
+  * Changed: Remove setInterval which was running to get update the actual position of a moving wheel. Position is now dynamically calculated only when needed.
+
+_Calendar_
+
+  * Changed: Performance improved when calendar is updated when moving the wheels on the scroller.
+
+  * Added: Month and year can be changed sepparately in the header.
+
+  * Added: Month and year order in calendar header is now controlled by the 'dateOrder' setting (#122).
+
+  * Added: Tabs for calendar, date, and time controls. Displaying tabs can be automatical (if there is not enough space for all the controls), always on, or always off.
+
+  * Added: Custom color for marked sign and event background.
+
+  * Added: Different styling for marked days (colored bottom line).
+
+_Languages_
+
+  * Added: Dutch translation (Thanks to Sven-Depondt - https://github.com/Sven-Depondt).
+
+  * Added: Turkish translation (Thanks to Metin Gökhan Ünal).
+
+  * Added: Japanese translation (Thanks to Johnny Shields - https://github.com/johnnyshields).
+
+Bugfixes
+--------
+
+_Core_
+
+  * Fixed: Firefox / IE display bug, wheel groups were shown under each other, even if there was enough space (#104).
+
+  * Fixed: Form fields remained disabled in Firefox if page was reloaded before hiding mobiscroll (#126).
+
+  * Fixed: Call stopPropagation on move event to make it work correctly with iScroll (or similar libraries) (#14).
+
+  * Fixed: settings property is now correctly exposed (object reference is kept).
+
+_Calendar_
+
+  * Fixed: "dayOfWeek: [0]" was not working for marked days.
+
+  * Fixed: Date passed to the onDayChange event was not always correct.
+
+_Select_
+
+  * Fixed: In multiselect mode old checkmarks were not removed when setValue method was called (#129).
+
+_Temperature_
+
+  * Fixed: "°K" changed to "K" on unit wheel (#124).
+
+_Animation_
+
+  * Fixed: Added "-webkit-backface-visibility: hidden;" to some elements to prevent animation glitches in webkit.
+
+_jqMobi_
+
+  * Fixed: css function returned NaN for margin in outerWidth function.
+
+
 Changelog 2.5.4
 ===============
 
@@ -43,7 +119,7 @@ _Core_
   * Fixed: wheel overlay sometimes did not cover the whole wheel (on Google Chrome and Android stock browser).
 
   * Fixed: showLabel setting now works for all themes.
-  
+
 
 Changelog 2.5.3
 ===============
@@ -164,7 +240,7 @@ _Core_
   * Fixed: Tap or click lock scroller in mixed mode (#89).
 
   * Fixed: Click on wheel arrows ddid not animate switch (#90).
-  
+
 _Datetime_
 
   * Fixed: Month showed 0 - 11 on wheel using dateOrder 'mdyy' (#92).
@@ -209,7 +285,7 @@ _Core_
 _List Preset_
 
   * Fixed: Wheel remained locked in some cases (#84).
-  
+
 
 Changelog 2.4.4
 ===============
@@ -245,7 +321,7 @@ _Datetime Preset_
 _Calendar Preset_
 
   * Fixed: set option caused stack overflow (#74).
-  
+
 
 Changelog 2.4.3
 ===============
@@ -304,7 +380,7 @@ _Themes_
   * Sense UI theme: border removed when positioned top or bottom
 
   * Android ICS theme: border removed when positioned top or bottom
-  
+
 Bugfixes
 --------
 
@@ -343,7 +419,7 @@ _Themes_
 
   * Added: 'jqmBorder' option to the jQueryMobile theme to change the swatch of the border
 
-  
+
 Bugfixes
 --------
 
@@ -356,7 +432,7 @@ _Rating preset_
   * Fixed: parseValue returned incorrect value
 
   * Fixed: value was incorrectly set if elements were generated from a select element
-  
+
 _Themes_
 
   * Fixed: onCancel event was not fired if scroller was hidden by clicking on the overlay (#58)
