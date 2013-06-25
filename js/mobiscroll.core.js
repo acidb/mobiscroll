@@ -792,7 +792,7 @@
                 });
 
             // Focus on first wheel
-            $('.dwwl0', dw).focus();
+            //$('.dwwl0', dw).focus();
 
             event('onShow', [dw, v]);
         };
@@ -815,7 +815,6 @@
                     $(this).removeAttr('autocomplete');
                 }
             });
-            elm.blur();
 
             // Hide wheels and overlay
             if (dw) {
@@ -833,11 +832,11 @@
                 pixels = {};
                 // Stop positioning on window resize
                 $(window).unbind('.dw');
+            }
 
-                if (input) {
-                    preventShow = true;
-                    elm.focus();
-                }
+            if (input) {
+                preventShow = true;
+                elm.focus();
             }
         };
 
@@ -895,19 +894,26 @@
                 that.show();
             } else {
                 read();
-                if (input && s.showOnFocus) {
+                if (input) {
                     // Set element readonly, save original state
                     if (readOnly === undefined) {
                         readOnly = e.readOnly;
                     }
                     e.readOnly = true;
                     // Init show datewheel
-                    elm.bind('focus.dw', function () {
-                        if (preventShow) {
-                            preventShow = false;
-                        } else {
-                            that.show();
-                        }
+                    if (s.showOnFocus) {
+                        elm.bind('focus.dw', function () {
+                            if (preventShow) {
+                                preventShow = false;
+                            } else {
+                                that.show();
+                            }
+                        });
+                    }
+                }
+                if (s.showOnTap) {
+                    that.tap(elm, function () {
+                        that.show();
                     });
                 }
             }
@@ -1063,6 +1069,7 @@
             disabled: false,
             readonly: false,
             showOnFocus: true,
+            showOnTap: true,
             showLabel: true,
             wheels: [],
             theme: '',
