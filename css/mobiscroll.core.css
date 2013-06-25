@@ -240,6 +240,7 @@
     background: -webkit-gradient(linear,left bottom,left top,from(#000),color-stop(0.52, rgba(44,44,44,0)),color-stop(0.48, rgba(44,44,44,0)),to(#000));
     background: -webkit-linear-gradient(#000 0%,rgba(44,44,44,0) 52%, rgba(44,44,44,0) 48%, #000 100%);
     background: -moz-linear-gradient(#000 0%,rgba(44,44,44,0) 52%, rgba(44,44,44,0) 48%, #000 100%);
+    pointer-events: none;
 }
 /* Background line */
 .dwwol {
@@ -252,6 +253,7 @@
     margin-top: -1px;
     border-top: 1px solid #333;
     border-bottom: 1px solid #555;
+    pointer-events: none;
 }
 /* Datewheel button */
 .dwbg .dwb {

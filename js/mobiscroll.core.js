@@ -213,7 +213,7 @@
                 if (l % 20 == 0) {
                     html += '</div><div class="dw-bf">';
                 }
-                html += '<div class="dw-li dw-v" data-val="' + keys[j] + '" style="height:' + hi + 'px;line-height:' + hi + 'px;"><div class="dw-i">' + v + '</div></div>';
+                html += '<div role="option" aria-selected="false" class="dw-li dw-v" data-val="' + keys[j] + '" style="height:' + hi + 'px;line-height:' + hi + 'px;"><div class="dw-i">' + v + '</div></div>';
                 l++;
             });
 
@@ -349,13 +349,11 @@
                         that.temp[i] = cell.attr('data-val');
 
                         // Add selected class to cell
-                        $('.dw-sel', t).removeClass('dw-sel');
-                        cell.addClass('dw-sel');
+                        $('.dw-sel', t).removeClass('dw-sel').attr('aria-selected', 'false');
+                        cell.addClass('dw-sel').attr('aria-selected', 'true');
 
                         // Scroll to position
                         scroll(t, i, v, sc ? time : 0.1, sc ? active : false);
-
-                        t.closest('.dwwl').attr('aria-valuetext', cell.text());
                     }
                 });
 
@@ -685,7 +683,7 @@
                 $.each(wg, function (j, w) { // Wheels
                     wheels[l] = w;
                     lbl = w.label || j;
-                    html += '<td><div tabindex="0" aria-label="' + lbl + '" role="slider" class="dwwl dwrc dwwl' + l + '">' + (s.mode != 'scroller' ? '<div class="dwb-e dwwb dwwbp" style="height:' + hi + 'px;line-height:' + hi + 'px;"><span>+</span></div><div class="dwb-e dwwb dwwbm" style="height:' + hi + 'px;line-height:' + hi + 'px;"><span>&ndash;</span></div>' : '') + '<div class="dwl">' + lbl + '</div><div class="dwww"><div class="dww" style="height:' + (s.rows * hi) + 'px;min-width:' + s.width + 'px;"><div class="dw-ul">';
+                    html += '<td><div tabindex="0" aria-label="' + lbl + '" role="listbox" class="dwwl dwrc dwwl' + l + '">' + (s.mode != 'scroller' ? '<div class="dwb-e dwwb dwwbp" style="height:' + hi + 'px;line-height:' + hi + 'px;"><span>+</span></div><div class="dwb-e dwwb dwwbm" style="height:' + hi + 'px;line-height:' + hi + 'px;"><span>&ndash;</span></div>' : '') + '<div class="dwl">' + lbl + '</div><div class="dwww"><div class="dww" style="height:' + (s.rows * hi) + 'px;min-width:' + s.width + 'px;"><div class="dw-ul">';
                     // Create wheel values
                     html += generateWheelItems(l);
                     html += '</div><div class="dwwol"></div></div><div class="dwwo"></div></div><div class="dwwol"></div></div></td>';
@@ -740,7 +738,7 @@
                 }
 
                 // Enter / ESC
-                dw.bind('keydown', function (e) {
+                $(window).bind('keydown.dw', function (e) {
                     if (e.keyCode == 13) {
                         that.select();
                     } else if (e.keyCode == 27) {
@@ -785,7 +783,7 @@
             $('.dwb-e', dw)
                 .bind(START_EVENT, onBtnStart)
                 .bind('keydown', function (e) {
-                    if (e.keyCode == 13) {
+                    if (e.keyCode == 32) { // Space
                         e.stopPropagation();
                         $(this).click();
                     }
