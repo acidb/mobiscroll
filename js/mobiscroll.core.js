@@ -137,19 +137,8 @@
                 }
                 // +/- buttons
                 if ($(this).hasClass('dwwb')) {
-                    var w = $(this).closest('.dwwl');
-                    if (testTouch(e) && !isReadOnly(w) && !w.hasClass('dwa')) {
-                        e.stopPropagation();
-                        e.preventDefault();
-                        click = true;
-                        // + Button
-                        var t = w.find('.dw-ul'),
-                            func = $(this).hasClass('dwwbp') ? plus : minus;
-
-                        setGlobals(t);
-                        clearInterval(timer);
-                        timer = setInterval(function () { func(t); }, s.delay);
-                        func(t);
+                    if (testTouch(e)) {
+                        step(e, $(this).closest('.dwwl'), $(this).hasClass('dwwbp') ? plus : minus);
                     }
                 }
             },
@@ -160,6 +149,19 @@
                 }
                 $(document).unbind(END_EVENT, onBtnEnd);
                 $('.dwb-a', dw).removeClass('dwb-a');
+            },
+            onKeyDown = function (e) {
+                if (e.keyCode == 38) { // up
+                    step(e, $(this), minus);
+                } else if (e.keyCode == 40) { // down
+                    step(e, $(this), plus);
+                }
+            },
+            onKeyUp = function (e) {
+                if (click) {
+                    clearInterval(timer);
+                    click = false;
+                }
             },
             onScroll = function (e) {
                 if (!isReadOnly(this)) {
@@ -174,6 +176,21 @@
             };
 
         // Private functions
+
+        function step(e, w, func) {
+            e.stopPropagation();
+            e.preventDefault();
+            if (!click && !isReadOnly(w) && !w.hasClass('dwa')) {
+                click = true;
+                // + Button
+                var t = w.find('.dw-ul');
+
+                setGlobals(t);
+                clearInterval(timer);
+                timer = setInterval(function () { func(t); }, s.delay);
+                func(t);
+            }
+        }
 
         function isReadOnly(wh) {
             if ($.isArray(s.readonly)) {
@@ -336,6 +353,8 @@
 
                         // Scroll to position
                         scroll(t, i, v, sc ? time : 0.1, sc ? active : false);
+
+                        t.closest('.dwwl').attr('aria-valuetext', cell.text());
                     }
                 });
 
@@ -650,20 +669,22 @@
             event('onBeforeShow', []);
 
             // Create wheels
-            var l = 0,
+            var lbl,
+                l = 0,
                 mAnim = '';
 
             if (anim && !prevAnim) {
                 mAnim = 'dw-' + anim + ' dw-in';
             }
             // Create wheels containers
-            var html = '<div class="' + s.theme + ' dw-' + s.display + (prefix ? ' dw' + prefix : '') + '">' + (s.display == 'inline' ? '<div class="dw dwbg dwi"><div class="dwwr">' : '<div class="dw-persp">' + '<div class="dwo"></div><div class="dw dwbg ' + mAnim + '"><div class="dw-arrw"><div class="dw-arrw-i"><div class="dw-arr"></div></div></div><div class="dwwr">' + (s.headerText ? '<div class="dwv"></div>' : '')) + '<div class="dwcc">';
+            var html = '<div role="alertdialog" class="' + s.theme + ' dw-' + s.display + (prefix ? ' dw' + prefix : '') + '">' + (s.display == 'inline' ? '<div class="dw dwbg dwi"><div class="dwwr">' : '<div class="dw-persp">' + '<div class="dwo"></div><div class="dw dwbg ' + mAnim + '"><div class="dw-arrw"><div class="dw-arrw-i"><div class="dw-arr"></div></div></div><div class="dwwr">' + (s.headerText ? '<div class="dwv"></div>' : '')) + '<div class="dwcc">';
 
             $.each(s.wheels, function (i, wg) { // Wheel groups
                 html += '<div class="dwc' + (s.mode != 'scroller' ? ' dwpm' : ' dwsc') + (s.showLabel ? '' : ' dwhl') + '"><div class="dwwc dwrc"><table cellpadding="0" cellspacing="0"><tr>';
                 $.each(wg, function (j, w) { // Wheels
                     wheels[l] = w;
-                    html += '<td><div class="dwwl dwrc dwwl' + l + '">' + (s.mode != 'scroller' ? '<div class="dwb-e dwwb dwwbp" style="height:' + hi + 'px;line-height:' + hi + 'px;"><span>+</span></div><div class="dwb-e dwwb dwwbm" style="height:' + hi + 'px;line-height:' + hi + 'px;"><span>&ndash;</span></div>' : '') + '<div class="dwl">' + (w.label || j) + '</div><div class="dwww"><div class="dww" style="height:' + (s.rows * hi) + 'px;min-width:' + s.width + 'px;"><div class="dw-ul">';
+                    lbl = w.label || j;
+                    html += '<td><div tabindex="0" aria-label="' + lbl + '" role="slider" class="dwwl dwrc dwwl' + l + '">' + (s.mode != 'scroller' ? '<div class="dwb-e dwwb dwwbp" style="height:' + hi + 'px;line-height:' + hi + 'px;"><span>+</span></div><div class="dwb-e dwwb dwwbm" style="height:' + hi + 'px;line-height:' + hi + 'px;"><span>&ndash;</span></div>' : '') + '<div class="dwl">' + lbl + '</div><div class="dwww"><div class="dww" style="height:' + (s.rows * hi) + 'px;min-width:' + s.width + 'px;"><div class="dw-ul">';
                     // Create wheel values
                     html += generateWheelItems(l);
                     html += '</div><div class="dwwol"></div></div><div class="dwwo"></div></div><div class="dwwol"></div></div></td>';
@@ -673,7 +694,7 @@
                 html += '</tr></table></div></div>';
             });
 
-            html += '</div>' + (s.display != 'inline' ? '<div class="dwbc' + (s.button3 ? ' dwbc-p' : '') + '"><span class="dwbw dwb-s"><span class="dwb dwb-e">' + s.setText + '</span></span>' + (s.button3 ? '<span class="dwbw dwb-n"><span class="dwb dwb-e">' + s.button3Text + '</span></span>' : '') + '<span class="dwbw dwb-c"><span class="dwb dwb-e">' + s.cancelText + '</span></span></div></div>' : '') + '</div></div></div>';
+            html += '</div>' + (s.display != 'inline' ? '<div class="dwbc' + (s.button3 ? ' dwbc-p' : '') + '"><span class="dwbw dwb-s"><span class="dwb dwb-e" role="button" tabindex="0">' + s.setText + '</span></span>' + (s.button3 ? '<span class="dwbw dwb-n"><span class="dwb dwb-e" role="button" tabindex="0">' + s.button3Text + '</span></span>' : '') + '<span class="dwbw dwb-c"><span class="dwb dwb-e" role="button" tabindex="0">' + s.cancelText + '</span></span></div></div>' : '') + '</div></div></div>';
             dw = $(html);
 
             scrollToPos();
@@ -706,10 +727,7 @@
             if (s.display != 'inline') {
                 // Init buttons
                 that.tap($('.dwb-s span', dw), function () {
-                    if (that.hide(false, 'set') !== false) {
-                        setVal(true, 0, true);
-                        event('onSelect', [that.val]);
-                    }
+                    that.select();
                 });
 
                 that.tap($('.dwb-c span', dw), function () {
@@ -719,6 +737,15 @@
                 if (s.button3) {
                     that.tap($('.dwb-n span', dw), s.button3);
                 }
+
+                // Enter / ESC
+                dw.bind('keydown', function (e) {
+                    if (e.keyCode == 13) {
+                        that.select();
+                    } else if (e.keyCode == 27) {
+                        that.cancel();
+                    }
+                });
 
                 // prevent scrolling if not specified otherwise
                 if (s.scrollLock) {
@@ -748,7 +775,22 @@
             }
 
             // Events
-            dw.delegate('.dwwl', 'DOMMouseScroll mousewheel', onScroll).delegate('.dwb-e', START_EVENT, onBtnStart).delegate('.dwwl', START_EVENT, onStart);
+            $('.dwwl', dw)
+                .bind('DOMMouseScroll mousewheel', onScroll)
+                .bind(START_EVENT, onStart)
+                .bind('keydown', onKeyDown)
+                .bind('keyup', onKeyUp);
+
+            $('.dwb-e', dw)
+                .bind(START_EVENT, onBtnStart)
+                .bind('keydown', function (e) {
+                    if (e.keyCode == 13) {
+                        $(this).click();
+                    }
+                });
+
+            // Focus on first wheel
+            $('.dwwl0', dw).focus();
 
             event('onShow', [dw, v]);
         };
@@ -789,6 +831,13 @@
                 pixels = {};
                 // Stop positioning on window resize
                 $(window).unbind('.dw');
+            }
+        };
+
+        that.select = function () {
+            if (that.hide(false, 'set') !== false) {
+                setVal(true, 0, true);
+                event('onSelect', [that.val]);
             }
         };
 
