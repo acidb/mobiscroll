@@ -36,6 +36,7 @@
             index,
             timer,
             readOnly,
+            preventShow,
             that = this,
             ms = $.mobiscroll,
             e = elem,
@@ -785,6 +786,7 @@
                 .bind(START_EVENT, onBtnStart)
                 .bind('keydown', function (e) {
                     if (e.keyCode == 13) {
+                        e.stopPropagation();
                         $(this).click();
                     }
                 });
@@ -831,6 +833,11 @@
                 pixels = {};
                 // Stop positioning on window resize
                 $(window).unbind('.dw');
+
+                if (input) {
+                    preventShow = true;
+                    elm.focus();
+                }
             }
         };
 
@@ -895,7 +902,13 @@
                     }
                     e.readOnly = true;
                     // Init show datewheel
-                    elm.bind('focus.dw', function () { that.show(); });
+                    elm.bind('focus.dw', function () {
+                        if (preventShow) {
+                            preventShow = false;
+                        } else {
+                            that.show();
+                        }
+                    });
                 }
             }
         };
