@@ -70,7 +70,7 @@
                         target.closest('.dwwl').addClass('dwa');
                     }
 
-                    $(document).bind(MOVE_EVENT, onMove).bind(END_EVENT, onEnd);
+                    $(document).on(MOVE_EVENT, onMove).on(END_EVENT, onEnd);
                 }
             },
             onMove = function (e) {
@@ -128,10 +128,10 @@
                 move = false;
                 target = null;
 
-                $(document).unbind(MOVE_EVENT, onMove).unbind(END_EVENT, onEnd);
+                $(document).off(MOVE_EVENT, onMove).off(END_EVENT, onEnd);
             },
             onBtnStart = function (e) {
-                $(document).bind(END_EVENT, onBtnEnd);
+                $(document).on(END_EVENT, onBtnEnd);
                 // Active button
                 if (!$(this).hasClass('dwb-d')) {
                     $(this).addClass('dwb-a');
@@ -148,7 +148,7 @@
                     clearInterval(timer);
                     click = false;
                 }
-                $(document).unbind(END_EVENT, onBtnEnd);
+                $(document).off(END_EVENT, onBtnEnd);
                 $('.dwb-a', dw).removeClass('dwb-a');
             },
             onKeyDown = function (e) {
@@ -620,11 +620,11 @@
                 startY;
 
             if (s.tap) {
-                el.bind('touchstart', function (e) {
+                el.on('touchstart', function (e) {
                     e.preventDefault();
                     startX = getCoord(e, 'X');
                     startY = getCoord(e, 'Y');
-                }).bind('touchend', function (e) {
+                }).on('touchend', function (e) {
                     // If movement is less than 20px, fire the click event handler
                     if (Math.abs(getCoord(e, 'X') - startX) < 20 && Math.abs(getCoord(e, 'Y') - startY) < 20) {
                         handler.call(this, e);
@@ -636,7 +636,7 @@
                 });
             }
 
-            el.bind('click', function (e) {
+            el.on('click.dw', function (e) {
                 if (!tap) {
                     // If handler was not called on touchend, call it on click;
                     handler.call(this, e);
@@ -738,7 +738,7 @@
                 }
 
                 // Enter / ESC
-                $(window).bind('keydown.dw', function (e) {
+                $(window).on('keydown.dw', function (e) {
                     if (e.keyCode == 13) {
                         that.select();
                     } else if (e.keyCode == 27) {
@@ -748,7 +748,7 @@
 
                 // prevent scrolling if not specified otherwise
                 if (s.scrollLock) {
-                    dw.bind('touchmove', function (e) {
+                    dw.on('touchmove', function (e) {
                         if (mh <= wh && mw <= ww) {
                             e.preventDefault();
                         }
@@ -764,7 +764,7 @@
 
                 // Set position
                 that.position();
-                $(window).bind('orientationchange.dw resize.dw', function () {
+                $(window).on('orientationchange.dw resize.dw', function () {
                     // Sometimes scrollTop is not correctly set, so we wait a little
                     clearTimeout(debounce);
                     debounce = setTimeout(function () {
@@ -775,19 +775,17 @@
 
             // Events
             $('.dwwl', dw)
-                .bind('DOMMouseScroll mousewheel', onScroll)
-                .bind(START_EVENT, onStart)
-                .bind('keydown', onKeyDown)
-                .bind('keyup', onKeyUp);
+                .on('DOMMouseScroll mousewheel', onScroll)
+                .on(START_EVENT, onStart)
+                .on('keydown', onKeyDown)
+                .on('keyup', onKeyUp);
 
-            $('.dwb-e', dw)
-                .bind(START_EVENT, onBtnStart)
-                .bind('keydown', function (e) {
-                    if (e.keyCode == 32) { // Space
-                        e.stopPropagation();
-                        $(this).click();
-                    }
-                });
+            dw.on(START_EVENT, '.dwb-e', onBtnStart).on('keydown', '.dwb-e', function (e) {
+                if (e.keyCode == 32) { // Space
+                    e.stopPropagation();
+                    $(this).click();
+                }
+            });
 
             // Focus on first wheel
             //$('.dwwl0', dw).focus();
@@ -829,7 +827,7 @@
                 visible = false;
                 pixels = {};
                 // Stop positioning on window resize
-                $(window).unbind('.dw');
+                $(window).off('.dw');
             }
 
             if (input) {
@@ -870,7 +868,7 @@
             that.settings = s;
 
             // Unbind all events (if re-init)
-            elm.unbind('.dw');
+            elm.off('.dw');
 
             var preset = ms.presets[s.preset];
 
@@ -900,7 +898,7 @@
                     e.readOnly = true;
                     // Init show datewheel
                     if (s.showOnFocus) {
-                        elm.bind('focus.dw', function () {
+                        elm.on('focus.dw', function () {
                             if (preventShow) {
                                 preventShow = false;
                             } else {
@@ -933,7 +931,7 @@
 
         that.destroy = function () {
             that.hide();
-            elm.unbind('.dw');
+            elm.off('.dw');
             delete scrollers[e.id];
             if (input) {
                 e.readOnly = readOnly;
@@ -1107,7 +1105,7 @@
             }
         };
 
-    $(document).bind('mouseover mouseup mousedown click', function (e) { // Prevent standard behaviour on body click
+    $(document).on('mouseover mouseup mousedown click', function (e) { // Prevent standard behaviour on body click
         if (tap) {
             e.stopPropagation();
             e.preventDefault();

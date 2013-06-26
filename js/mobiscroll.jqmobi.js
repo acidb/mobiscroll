@@ -124,14 +124,6 @@ if (!window['jQuery']) {
             }
         });
 
-        $.fn.is = function (selector) {
-            return this.length > 0 && matches(this[0], selector);
-        };
-
-        $.fn.prop = function (name, value) {
-            return (value === undefined) ? (this[0] ? this[0][name] : undefined) : this.each(function (idx) { this[name] = value; });
-        };
-
         $.fn.focus = function (handler) {
             if (handler === undefined) {
                 $(this).trigger('focus');
@@ -156,25 +148,12 @@ if (!window['jQuery']) {
             }
         };
 
-        $.fn.eq = function (i) {
-            return $($(this).get(i));
-        };
-
-        $.fn.index = function (element) {
-            return element ? this.indexOf($(element)[0]) : this.length ? this.parent().children().indexOf(this[0]) : -1;
-        };
-
         $.fn.slice = function () {
             return $(slice.apply(this, arguments));
         };
 
         $.fn.before = function (elm) {
             $(elm).insertBefore(this);
-            return this;
-        };
-
-        $.fn.appendTo = function (elm) {
-            $(elm).append(this);
             return this;
         };
 

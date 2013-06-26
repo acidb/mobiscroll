@@ -154,7 +154,7 @@
 
         setVal(main[option]);
 
-        elm.unbind('.dwsel').bind('change.dwsel', function () {
+        elm.off('.dwsel').on('change.dwsel', function () {
             if (!prevent) {
                 inst.setValue(multiple ? elm.val() || [] : [elm.val()], true);
             }
@@ -288,7 +288,7 @@
                 }
             },
             onMarkupReady: function (dw) {
-                $('.dwwl' + grIdx, dw).bind('mousedown touchstart', function () {
+                $('.dwwl' + grIdx, dw).on('mousedown touchstart', function () {
                     clearTimeout(timer);
                 });
                 if (multiple) {
