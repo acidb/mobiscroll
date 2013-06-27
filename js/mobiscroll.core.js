@@ -746,7 +746,7 @@
                     }
                 });
 
-                // prevent scrolling if not specified otherwise
+                // Prevent scroll if not specified otherwise
                 if (s.scrollLock) {
                     dw.on('touchmove', function (e) {
                         if (mh <= wh && mw <= ww) {
@@ -782,13 +782,11 @@
 
             dw.on(START_EVENT, '.dwb-e', onBtnStart).on('keydown', '.dwb-e', function (e) {
                 if (e.keyCode == 32) { // Space
+                    e.preventDefault();
                     e.stopPropagation();
                     $(this).click();
                 }
             });
-
-            // Focus on first wheel
-            //$('.dwwl0', dw).focus();
 
             event('onShow', [dw, v]);
         };
