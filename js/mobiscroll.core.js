@@ -167,7 +167,7 @@
             onScroll = function (e) {
                 if (!isReadOnly(this)) {
                     e.preventDefault();
-                    e = e.originalEvent;
+                    e = e.originalEvent || e;
                     var delta = e.wheelDelta ? (e.wheelDelta / 120) : (e.detail ? (-e.detail / 3) : 0),
                         t = $('.dw-ul', this);
 
@@ -293,7 +293,7 @@
                 ready(t, index);
             }
 
-            if (time && active !== undefined) {
+            if (time && active) {
                 t.closest('.dwwl').addClass('dwa');
                 iv[index] = setTimeout(function () {
                     ready(t, index);
@@ -398,7 +398,7 @@
 
             setTimeout(function () {
                 // Validate
-                scrollToPos(time, idx, true, dir, orig);
+                scrollToPos(time, idx, true, dir, orig !== undefined);
             }, 10);
         }
 
