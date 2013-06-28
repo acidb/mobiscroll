@@ -132,15 +132,17 @@
                 $(document).off(MOVE_EVENT, onMove).off(END_EVENT, onEnd);
             },
             onBtnStart = function (e) {
+                var btn = $(this);
                 $(document).on(END_EVENT, onBtnEnd);
                 // Active button
-                if (!$(this).hasClass('dwb-d')) {
-                    $(this).addClass('dwb-a');
+                if (!btn.hasClass('dwb-d')) {
+                    btn.addClass('dwb-a');
                 }
+                setTimeout(function () { btn.blur(); }, 10);
                 // +/- buttons
-                if ($(this).hasClass('dwwb')) {
+                if (btn.hasClass('dwwb')) {
                     if (testTouch(e)) {
-                        step(e, $(this).closest('.dwwl'), $(this).hasClass('dwwbp') ? plus : minus);
+                        step(e, btn.closest('.dwwl'), btn.hasClass('dwwbp') ? plus : minus);
                     }
                 }
             },
