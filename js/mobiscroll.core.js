@@ -19,6 +19,7 @@
             rwh,
             mw, // Modal width
             mh, // Modal height
+            lock,
             anim,
             debounce,
             theme,
@@ -478,6 +479,8 @@
             mw = d.outerWidth();
             mh = d.outerHeight(true);
 
+            lock = mh <= wh && mw <= ww;
+
             if (s.display == 'modal') {
                 l = (ww - mw) / 2;
                 t = st + (wh - mh) / 2;
@@ -749,7 +752,7 @@
                 // Prevent scroll if not specified otherwise
                 if (s.scrollLock) {
                     dw.on('touchmove', function (e) {
-                        if (mh <= wh && mw <= ww) {
+                        if (lock) {
                             e.preventDefault();
                         }
                     });
@@ -764,11 +767,14 @@
 
                 // Set position
                 that.position();
-                $(window).on('orientationchange.dw resize.dw', function () {
+                $(window).on('orientationchange.dw resize.dw scroll.dw', function (e) {
                     // Sometimes scrollTop is not correctly set, so we wait a little
                     clearTimeout(debounce);
                     debounce = setTimeout(function () {
-                        that.position(true);
+                        var scroll = e.type == 'scroll';
+                        if ((scroll && lock) || !scroll) {
+                            that.position(!scroll);
+                        }
                     }, 100);
                 });
             }
