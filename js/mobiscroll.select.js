@@ -55,7 +55,7 @@
                 w[wg] = [{
                     values: values,
                     keys: keys,
-                    label: label
+                    label: s.groupLabel
                 }];
 
                 cont = group;
@@ -109,6 +109,26 @@
             }
         }
 
+        function onTap(li) {
+            if (multiple && li.hasClass('dw-v') && li.closest('.dw').find('.dw-ul').index(li.closest('.dw-ul')) == optIdx) {
+                var val = li.attr('data-val'),
+                    selected = li.hasClass('dw-msel');
+
+                if (selected) {
+                    li.removeClass('dw-msel').removeAttr('aria-selected');
+                    delete inst._selectedValues[val];
+                } else {
+                    li.addClass('dw-msel').attr('aria-selected', 'true');
+                    inst._selectedValues[val] = val;
+                }
+
+                if (s.display == 'inline') {
+                    setVal(val, true);
+                }
+                return false;
+            }
+        }
+
         // if groups is true and there are no groups fall back to no grouping
         if (s.group && !$('optgroup', elm).length) {
             s.group = false;
@@ -141,6 +161,12 @@
 
         if (s.showOnFocus) {
             input.focus(function () {
+                inst.show();
+            });
+        }
+
+        if (s.showOnTap) {
+            inst.tap(input, function () {
                 inst.show();
             });
         }
@@ -243,10 +269,10 @@
                     var v = inst._selectedValues,
                         j = 0;
 
-                    $('.dwwl' + optIdx + ' .dw-li', dw).removeClass('dw-msel');
+                    $('.dwwl' + optIdx + ' .dw-li', dw).removeClass('dw-msel').removeAttr('aria-selected');
 
                     for (j in v) {
-                        $('.dwwl' + optIdx + ' .dw-li[data-val="' + v[j] + '"]', dw).addClass('dw-msel');
+                        $('.dwwl' + optIdx + ' .dw-li[data-val="' + v[j] + '"]', dw).addClass('dw-msel').attr('aria-selected', 'true');
                     }
                 }
 
@@ -293,7 +319,14 @@
                 });
                 if (multiple) {
                     dw.addClass('dwms');
-                    $('.dwwl', dw).eq(optIdx).addClass('dwwms');
+                    $('.dwwl', dw).eq(optIdx).addClass('dwwms').attr('aria-multiselectable', 'true');
+                    $('.dwwl', dw).on('keydown', function (e) {
+                        if (e.keyCode == 32) { // Space
+                            e.preventDefault();
+                            e.stopPropagation();
+                            onTap($('.dw-sel', this));
+                        }
+                    });
                     origValues = {};
                     var i;
                     for (i in inst._selectedValues) {
@@ -301,22 +334,7 @@
                     }
                 }
             },
-            onValueTap: function (li) {
-                if (multiple && li.hasClass('dw-v') && li.closest('.dw').find('.dw-ul').index(li.closest('.dw-ul')) == optIdx) {
-                    var val = li.attr('data-val');
-                    if (li.hasClass('dw-msel')) {
-                        delete inst._selectedValues[val];
-                    } else {
-                        inst._selectedValues[val] = val;
-                    }
-                    li.toggleClass('dw-msel');
-
-                    if (s.display == 'inline') {
-                        setVal(val, true);
-                    }
-                    return false;
-                }
-            },
+            onValueTap: onTap,
             onSelect: function (v) {
                 setVal(v, true);
                 if (s.group) {

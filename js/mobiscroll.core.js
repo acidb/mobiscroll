@@ -353,8 +353,14 @@
                         that.temp[i] = cell.attr('data-val');
 
                         // Add selected class to cell
-                        $('.dw-sel', t).removeClass('dw-sel').attr('aria-selected', 'false');
-                        cell.addClass('dw-sel').attr('aria-selected', 'true');
+                        $('.dw-sel', t).removeClass('dw-sel');
+
+                        if (!s.multiple) {
+                            $('.dw-sel', t).removeAttr('aria-selected');
+                            cell.attr('aria-selected', 'true');
+                        }
+
+                        cell.addClass('dw-sel');
 
                         // Scroll to position
                         scroll(t, i, v, sc ? time : 0.1, sc ? active : false);
@@ -682,7 +688,7 @@
                 mAnim = 'dw-' + anim + ' dw-in';
             }
             // Create wheels containers
-            var html = '<div role="alertdialog" aria-live="off" class="' + s.theme + ' dw-' + s.display + (prefix ? ' dw' + prefix : '') + (s.preset ? ' dw-' + s.preset : '') + (has3d ? ' dw-3d' : '') + '">' + (s.display == 'inline' ? '<div class="dw dwbg dwi"><div class="dwwr">' : '<div class="dw-persp">' + '<div class="dwo"></div><div class="dw dwbg ' + mAnim + '"><div class="dw-arrw"><div class="dw-arrw-i"><div class="dw-arr"></div></div></div><div class="dwwr">' + (s.headerText ? '<div role="alert" class="dwv"></div>' : '')) + '<div class="dwcc">';
+            var html = '<div role="alertdialog" aria-live="off" class="' + s.theme + ' dw-' + s.display + (prefix ? ' dw' + prefix : '') + '">' + (s.display == 'inline' ? '<div class="dw dwbg dwi"><div class="dwwr">' : '<div class="dw-persp">' + '<div class="dwo"></div><div class="dw dwbg ' + mAnim + '"><div class="dw-arrw"><div class="dw-arrw-i"><div class="dw-arr"></div></div></div><div class="dwwr">' + (s.headerText ? '<div role="alert" class="dwv"></div>' : '')) + '<div class="dwcc">';
 
             $.each(s.wheels, function (i, wg) { // Wheel groups
                 html += '<div class="dwc' + (s.mode != 'scroller' ? ' dwpm' : ' dwsc') + (s.showLabel ? '' : ' dwhl') + '"><div class="dwwc dwrc"><table cellpadding="0" cellspacing="0"><tr>';
@@ -1155,6 +1161,7 @@
                 return init(this, extend(method, { preset: name }), arguments);
             };
         },
+        has3d: has3d,
         shorts: {},
         presets: {},
         themes: {},
