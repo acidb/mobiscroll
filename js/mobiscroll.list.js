@@ -324,6 +324,12 @@
                         inst.show();
                     });
                 }
+
+                if (s.showOnTap) {
+                    inst.tap(input, function () {
+                        inst.show();
+                    });
+                }
             }
 
             if (!s.wheelArray) {
