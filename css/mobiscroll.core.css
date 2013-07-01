@@ -18,6 +18,11 @@
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     -webkit-backface-visibility: hidden;
 }
+.dw-alert {
+    width: 0;
+    height: 0;
+    overflow: hidden;
+}
 .dwi {
     position: static;
     display: inline-block;

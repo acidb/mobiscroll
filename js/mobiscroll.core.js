@@ -681,7 +681,7 @@
                 mAnim = 'dw-' + anim + ' dw-in';
             }
             // Create wheels containers
-            var html = '<div role="alertdialog" class="' + s.theme + ' dw-' + s.display + (prefix ? ' dw' + prefix : '') + '">' + (s.display == 'inline' ? '<div class="dw dwbg dwi"><div class="dwwr">' : '<div class="dw-persp">' + '<div class="dwo"></div><div class="dw dwbg ' + mAnim + '"><div class="dw-arrw"><div class="dw-arrw-i"><div class="dw-arr"></div></div></div><div class="dwwr">' + (s.headerText ? '<div class="dwv"></div>' : '')) + '<div class="dwcc">';
+            var html = '<div role="alertdialog" aria-live="off" class="' + s.theme + ' dw-' + s.display + (prefix ? ' dw' + prefix : '') + '">' + (s.display == 'inline' ? '<div class="dw dwbg dwi"><div class="dwwr">' : '<div class="dw-persp">' + '<div class="dwo"></div><div class="dw dwbg ' + mAnim + '"><div class="dw-arrw"><div class="dw-arrw-i"><div class="dw-arr"></div></div></div><div class="dwwr">' + (s.headerText ? '<div role="alert" class="dwv"></div>' : '')) + '<div class="dwcc">';
 
             $.each(s.wheels, function (i, wg) { // Wheel groups
                 html += '<div class="dwc' + (s.mode != 'scroller' ? ' dwpm' : ' dwsc') + (s.showLabel ? '' : ' dwhl') + '"><div class="dwwc dwrc"><table cellpadding="0" cellspacing="0"><tr>';
@@ -779,6 +779,8 @@
                         }
                     }, 100);
                 });
+
+                that.alert(s.ariaDesc);
             }
 
             // Events
@@ -847,6 +849,14 @@
                 setVal(true, 0, true);
                 event('onSelect', [that.val]);
             }
+        };
+
+        that.alert = function (txt) {
+            aria.text(txt);
+            clearTimeout(alertTimer);
+            alertTimer = setTimeout(function () {
+                aria.text('');
+            }, 5000);
         };
 
         /**
@@ -1050,6 +1060,8 @@
     var move,
         tap,
         touch,
+        alertTimer,
+        aria,
         date = new Date(),
         uuid = date.getTime(),
         scrollers = {},
@@ -1082,6 +1094,7 @@
             lang: 'en-US',
             setText: 'Set',
             cancelText: 'Cancel',
+            ariaDesc: 'Select a value',
             scrollLock: true,
             tap: true,
             speedUnit: 0.0012,
@@ -1110,6 +1123,10 @@
                 return ret;
             }
         };
+
+    $(function () {
+        aria = $('<div class="dw-alert" role="alert"></div>').appendTo('body');
+    });
 
     $(document).on('mouseover mouseup mousedown click', function (e) { // Prevent standard behaviour on body click
         if (tap) {
