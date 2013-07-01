@@ -99,7 +99,9 @@
     line-height: 30px;
     height: 30px;
     white-space: nowrap;
-    margin-top: -30px;
+    position: absolute;
+    top: -30px;
+    width: 100%;
 }
 /* Datewheel value */
 .dwv {
