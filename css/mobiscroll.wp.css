@@ -7,7 +7,10 @@
     padding: 10px;
 }
 .wp .dwv {
-    display: none;
+    width: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
 }
 .wp .dwc {
     padding: 30px 0 0 0;
