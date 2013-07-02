@@ -1,6 +1,6 @@
 /*jslint eqeq: true, plusplus: true, undef: true, sloppy: true, vars: true, forin: true, nomen: true */
 /*!
- * jQuery MobiScroll v2.6.0
+ * jQuery MobiScroll v2.6.1
  * http://mobiscroll.com
  *
  * Copyright 2010-2013, Acid Media
@@ -769,7 +769,10 @@
                 // Disable inputs to prevent bleed through (Android bug) and set autocomplete to off (for Firefox)
                 $('input,select,button').each(function () {
                     if (!this.disabled) {
-                        $(this).addClass('dwtd').prop('disabled', true).data('autocomplete', $(this).attr('autocomplete')).attr('autocomplete', 'off');
+                        if ($(this).attr('autocomplete')) {
+                            $(this).data('autocomplete', $(this).attr('autocomplete'));
+                        }
+                        $(this).addClass('dwtd').prop('disabled', true).attr('autocomplete', 'off');
                     }
                 });
 

@@ -4,8 +4,8 @@
         setText: 'OK',
         cancelText: 'Mégse',
         // Datetime component
-        dateFormat: 'dd.mm.yy',
-        dateOrder: 'ddmmyy',
+        dateFormat: 'yy.mm.dd',
+        dateOrder: 'yymmdd',
         dayNames: ['Vasárnap', 'Hétfő', 'Kedd', 'Szerda', 'Csütörtök', 'Péntek', 'Szombat'],
         dayNamesShort: ['Va', 'Hé', 'Ke', 'Sze', 'Csü', 'Pé', 'Szo'],
         dayText: 'Nap',
