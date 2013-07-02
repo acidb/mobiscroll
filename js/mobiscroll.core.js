@@ -37,7 +37,6 @@
             index,
             timer,
             readOnly,
-            preventShow,
             that = this,
             ms = $.mobiscroll,
             e = elem,
@@ -839,16 +838,14 @@
                     dw.remove();
                     dw = null;
                 }
-                visible = false;
-                pixels = {};
                 // Stop positioning on window resize
                 $(window).off('.dw');
             }
 
-            if (input) {
-                preventShow = true;
-                elm.focus();
-            }
+            elm.focus();
+
+            pixels = {};
+            visible = false;
         };
 
         that.select = function () {
@@ -922,11 +919,7 @@
                     // Init show datewheel
                     if (s.showOnFocus) {
                         elm.on('focus.dw', function () {
-                            if (preventShow) {
-                                preventShow = false;
-                            } else {
-                                that.show();
-                            }
+                            that.show();
                         });
                     }
                 }
