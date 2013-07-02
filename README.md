@@ -23,6 +23,72 @@ It'd be cool to see how you're using Mobiscroll!
 
 We're looking at showcasing some of the best work on http://mobiscroll.com . Feel free to let us know on twitter @mobiscroll!
 
+Changelog 2.6.1
+===============
+
+Enhancements
+------------
+
+_Core_
+
+  * Added: Accessibility features - keyboard shortcuts and WAI-ARIA attributes (#48).
+
+  * Added: Reposition scroller if scroll occurs (#106).
+
+  * Added: showOnTap option.
+
+  * Changed: Use on/off for attaching and detaching events instead of bind/unbind/delegate.
+
+_Select_
+
+  * Added: Accessibility features - keyboard shortcuts and WAI-ARIA attributes for multiselect mode.
+
+_Calendar_
+
+  * Added: Accessibility features - keyboard shortcuts and WAI-ARIA attributes for calendar.
+
+  * Changed: Improved month change animation.
+
+_Colorpicker_
+
+  * Added: Accessibility features - keyboard shortcuts and WAI-ARIA attributes.
+
+_Rating_
+
+  * Added: Accessibility features - keyboard shortcuts and WAI-ARIA attributes.
+
+_Timer_
+
+  * Added: Accessibility features - keyboard shortcuts and WAI-ARIA attributes.
+
+Bugfixes
+--------
+
+_Core_
+
+  * Fixed: Mouse scroll wheel now works with Zepto and jqMobi.
+
+  * Fixed: +/- buttons were shortly hidden during animation.
+
+  * Fixed: Wheel was incorrectly labeled if empty string was passed.
+
+_Select_
+
+  * Fixed: Group label was incorrect.
+
+_Rating_
+
+  * Fixed: Layout was broken in Firefox / Android with stars + text.
+
+_Timer_
+
+  * Fixed: WP theme top padding removed.
+
+_Languages_
+
+  * Fixed: dateOrder and dateFormat corrected for Hungarian language.
+
+
 Changelog 2.6.0
 ===============
 
