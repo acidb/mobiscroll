@@ -23,6 +23,31 @@ It'd be cool to see how you're using Mobiscroll!
 
 We're looking at showcasing some of the best work on http://mobiscroll.com . Feel free to let us know on twitter @mobiscroll!
 
+Changelog 2.6.2
+===============
+
+Bugfixes
+--------
+
+_Core_
+
+  * Fixed: Tap was not removed from element on destroy.
+
+  * Fixed: Mouse scroll wheel now works with Zepto and jqMobi.
+
+  * Fixed: Whitespace after buttons in Firefox.
+
+  * Fixed: After hide scroller was shown again in IE.
+
+_Calendar_
+
+  * Fixed: Fixed swipe animation in Firefox / Android.
+
+_Animation_
+
+  * Fixed: Flickers on Firefox.
+
+
 Changelog 2.6.1
 ===============
 
