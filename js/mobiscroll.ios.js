@@ -10,6 +10,6 @@
             showLabel: false,
             useShortLabels: true
         }
-    }
+    };
 
 })(jQuery);

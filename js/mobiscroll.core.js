@@ -37,6 +37,7 @@
             index,
             timer,
             readOnly,
+            preventShow,
             that = this,
             ms = $.mobiscroll,
             e = elem,
@@ -631,11 +632,11 @@
                 startY;
 
             if (s.tap) {
-                el.on('touchstart', function (e) {
+                el.on('touchstart.dw', function (e) {
                     e.preventDefault();
                     startX = getCoord(e, 'X');
                     startY = getCoord(e, 'Y');
-                }).on('touchend', function (e) {
+                }).on('touchend.dw', function (e) {
                     // If movement is less than 20px, fire the click event handler
                     if (Math.abs(getCoord(e, 'X') - startX) < 20 && Math.abs(getCoord(e, 'Y') - startY) < 20) {
                         handler.call(this, e);
@@ -759,7 +760,7 @@
 
                 // Prevent scroll if not specified otherwise
                 if (s.scrollLock) {
-                    dw.on('touchmove', function (e) {
+                    dw.on('touchmove touchstart', function (e) {
                         if (lock) {
                             e.preventDefault();
                         }
@@ -841,14 +842,16 @@
                     dw.remove();
                     dw = null;
                 }
+
                 // Stop positioning on window resize
                 $(window).off('.dw');
             }
 
-            elm.focus();
-
             pixels = {};
             visible = false;
+            preventShow = true;
+
+            elm.focus();
         };
 
         that.select = function () {
@@ -922,7 +925,10 @@
                     // Init show datewheel
                     if (s.showOnFocus) {
                         elm.on('focus.dw', function () {
-                            that.show();
+                            if (!preventShow) {
+                                that.show();
+                            }
+                            preventShow = false;
                         });
                     }
                 }

@@ -293,6 +293,7 @@
 /* Datewheel button container */
 .dwbc {
     padding: 5px 0;
+    font-size: 0;
     text-align: center;
 }
 /* Datewheel button wrapper */

@@ -7,7 +7,7 @@
             height: 50,
             showLabel: false
         }
-    }
+    };
 
 })(jQuery);
 

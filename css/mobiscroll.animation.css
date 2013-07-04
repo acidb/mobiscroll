@@ -140,7 +140,9 @@
 .dw-slidedown.dw-out {
     animation-name: dw-sd-out;
     -webkit-animation-name: dw-sd-out;
+    -webkit-transform: translateY(-100%);
     -moz-animation-name: dw-sd-out;
+    -moz-transform: translateY(-100%);
 }
 .dw-slideup.dw-in {
     transform: scale(1);
@@ -153,7 +155,9 @@
 .dw-slideup.dw-out {
     animation-name: dw-su-out;
     -webkit-animation-name: dw-su-out;
+    -webkit-transform: translateY(100%);
     -moz-animation-name: dw-su-out;
+    -moz-transform: translateY(100%);
 }
 .dw-fade.dw-in {
     opacity: 1;
