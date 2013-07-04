@@ -293,7 +293,6 @@
 /* Datewheel button container */
 .dwbc {
     padding: 5px 0;
-    font-size: 0;
     text-align: center;
 }
 /* Datewheel button wrapper */
@@ -359,6 +358,9 @@
     background: -webkit-gradient(linear,left bottom,left top,from(#f7f7f7),to(#bdbdbd));
     background: -webkit-linear-gradient(#bdbdbd,#f7f7f7);
     background: -moz-linear-gradient(#bdbdbd,#f7f7f7);
+}
+.dwbg .dwbc {
+    font-size: 0;
 }
 .dwbg .dwb-a {
     background: #3c7500;
