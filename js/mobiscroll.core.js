@@ -37,6 +37,7 @@
             index,
             timer,
             readOnly,
+            preventChange,
             preventShow,
             that = this,
             ms = $.mobiscroll,
@@ -237,7 +238,7 @@
         }
 
         function read() {
-            that.temp = ((input && that.val !== null && that.val != elm.val()) || that.values === null) ? s.parseValue(elm.val() || '', that) : that.values.slice(0);
+            that.temp = that.values ? that.values.slice(0) : s.parseValue(elm.val() || '', that);
             setVal();
         }
 
@@ -436,7 +437,8 @@
             }
 
             if (fill && input) {
-                elm.val(v).trigger('change');
+                preventChange = true;
+                elm.val(v).change();
             }
         }
 
@@ -936,6 +938,13 @@
                     });
                 }
             }
+
+            elm.on('change.dw', function () {
+                if (!preventChange) {
+                    that.setValue(elm.val(), false, 0.2);
+                }
+                preventChange = false;
+            });
         };
 
         that.trigger = function (name, params) {

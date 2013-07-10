@@ -126,25 +126,17 @@ if (!window['jQuery']) {
 
         $.fn.focus = function (handler) {
             if (handler === undefined) {
-                $(this).trigger('focus');
+                return $(this).trigger('focus');
             } else {
-                $(this).bind('focus', handler);
+                return $(this).bind('focus', handler);
             }
         };
 
         $.fn.blur = function (handler) {
             if (handler === undefined) {
-                $(this).trigger('blur');
+                return $(this).trigger('blur');
             } else {
-                $(this).bind('blur', handler);
-            }
-        };
-
-        $.fn.click = function (handler) {
-            if (handler === undefined) {
-                $(this).trigger('click');
-            } else {
-                $(this).bind('click', handler);
+                return $(this).bind('blur', handler);
             }
         };
 
