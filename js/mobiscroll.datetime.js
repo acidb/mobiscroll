@@ -301,13 +301,10 @@
                 * @return {Array} - An array containing the wheel values to set
                 */
                 parseValue: function (val) {
-                    var d = new Date(),
+                    var d = ms.parseDate(format, val, s),
                         i,
                         result = [];
-                    try {
-                        d = ms.parseDate(format, val, s);
-                    } catch (e) {
-                    }
+
                     // Set wheels
                     for (i in o) {
                         result[o[i]] = d[f[i]] ? d[f[i]]() : f[i](d);
@@ -534,7 +531,8 @@
     * @return {Date} - Returns the extracted date.
     */
     ms.parseDate = function (format, value, settings) {
-        var def = new Date();
+        var s = $.extend({}, defaults, settings),
+            def = s.defaultDate || new Date();
 
         if (!format || !value) {
             return def;
@@ -542,8 +540,7 @@
 
         value = (typeof value == 'object' ? value.toString() : value + '');
 
-        var s = $.extend({}, defaults, settings),
-            shortYearCutoff = s.shortYearCutoff,
+        var shortYearCutoff = s.shortYearCutoff,
             year = def.getFullYear(),
             month = def.getMonth() + 1,
             day = def.getDate(),
@@ -670,7 +667,7 @@
         hours = (ampm == -1) ? hours : ((ampm && hours < 12) ? (hours + 12) : (!ampm && hours == 12 ? 0 : hours));
         var date = new Date(year, month - 1, day, hours, minutes, seconds);
         if (date.getFullYear() != year || date.getMonth() + 1 != month || date.getDate() != day) {
-            throw 'Invalid date';
+            return def; // Invalid date
         }
         return date;
     };
