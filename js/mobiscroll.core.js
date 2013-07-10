@@ -422,10 +422,10 @@
             calc(t, val < min ? max : val, 2, true);
         }
 
-        function setVal(fill, time, noscroll, temp) {
+        function setVal(fill, time, noscroll, temp, manual) {
 
             if (visible && !noscroll) {
-                scrollToPos(time);
+                scrollToPos(time, undefined, manual);
             }
 
             v = s.formatResult(that.temp);
@@ -435,10 +435,8 @@
                 that.val = v;
             }
 
-            if (fill) {
-                if (input) {
-                    elm.val(v).trigger('change');
-                }
+            if (fill && input) {
+                elm.val(v).trigger('change');
             }
         }
 
@@ -572,9 +570,9 @@
         * @param {Number} [time=0] - Animation time
         * @param {Boolean} [temp=false] - If true, then only set the temporary value.(only scroll there but not set the value)
         */
-        that.setValue = function (values, fill, time, temp) {
+        that.setValue = function (values, fill, time, temp, manual) {
             that.temp = $.isArray(values) ? values.slice(0) : s.parseValue.call(e, values + '', that);
-            setVal(fill, time, false, temp);
+            setVal(fill, time, false, temp, manual);
         };
 
         that.getValue = function () {
