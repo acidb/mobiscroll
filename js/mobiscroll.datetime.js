@@ -257,14 +257,14 @@
              * @param {Boolean} [fill=false] Also set the value of the associated input element. Default is true.
              * @return {Object} jQuery object to maintain chainability
              */
-            inst.setDate = function (d, fill, time, temp) {
+            inst.setDate = function (d, fill, time, temp, manual) {
                 var i;
 
                 // Set wheels
                 for (i in o) {
                     inst.temp[o[i]] = d[f[i]] ? d[f[i]]() : f[i](d);
                 }
-                inst.setValue(inst.temp, fill, time, temp);
+                inst.setValue(inst.temp, fill, time, temp, manual);
             };
 
             /**
@@ -276,6 +276,8 @@
             inst.getDate = function (temp) {
                 return getDate(temp ? inst.temp : inst.values);
             };
+
+            inst.format = hformat;
 
             // ---
 
