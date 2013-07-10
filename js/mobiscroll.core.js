@@ -939,12 +939,14 @@
                 }
             }
 
-            elm.on('change.dw', function () {
-                if (!preventChange) {
-                    that.setValue(elm.val(), false, 0.2);
-                }
-                preventChange = false;
-            });
+            if (input) {
+                elm.on('change.dw', function () {
+                    if (!preventChange) {
+                        that.setValue(elm.val(), false, 0.2);
+                    }
+                    preventChange = false;
+                });
+            }
         };
 
         that.trigger = function (name, params) {

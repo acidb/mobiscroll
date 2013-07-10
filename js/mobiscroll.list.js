@@ -317,7 +317,7 @@
 
             if (s.showInput) {
                 input = $('<input type="text" id="' + id + '" value="" class="' + s.inputClass + '" readonly />').insertBefore(elm);
-                inst.settings.anchor = input; // give the core the input element for the bubble positioning
+                s.anchor = input; // give the core the input element for the bubble positioning
 
                 if (s.showOnFocus) {
                     input.focus(function () {
@@ -343,7 +343,7 @@
                 onBeforeShow: function (dw) {
                     var t = inst.temp;
                     currWheelVector = t.slice(0);
-                    inst.settings.wheels = generateWheelsFromVector(t, lvl, lvl);
+                    s.wheels = generateWheelsFromVector(t, lvl, lvl);
                     prevent = true;
                 },
                 onSelect: function (v, inst) {
@@ -369,7 +369,7 @@
                 validate: function (dw, index, time) {
                     var t = inst.temp;
                     if ((index !== undefined && currWheelVector[index] != t[index]) || (index === undefined && !prevent)) {
-                        inst.settings.wheels = generateWheelsFromVector(t, null, index);
+                        s.wheels = generateWheelsFromVector(t, null, index);
                         var args = [],
                             i = (index || 0) + 1,
                             o = calcLevelOfVector2(t, index);
@@ -383,11 +383,11 @@
                         currWheelVector = inst.temp.slice(0);
                         if (args.length) {
                             prevent = true;
-                            inst.settings.readonly = createROVector(lvl, index);
+                            s.readonly = createROVector(lvl, index);
                             clearTimeout(timer[index]);
                             timer[index] = setTimeout(function () {
                                 inst.changeWheel(args);
-                                inst.settings.readonly = false;
+                                s.readonly = false;
                             }, time * 1000);
                             return false;
                         }

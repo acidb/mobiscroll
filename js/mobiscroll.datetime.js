@@ -532,7 +532,7 @@
     */
     ms.parseDate = function (format, value, settings) {
         var s = $.extend({}, defaults, settings),
-            def = s.defaultDate || new Date();
+            def = s.defaultValue || new Date();
 
         if (!format || !value) {
             return def;

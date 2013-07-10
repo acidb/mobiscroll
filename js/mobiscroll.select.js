@@ -105,7 +105,7 @@
 
             if (fill) {
                 prevent = true;
-                elm.val(value).trigger('change');
+                elm.val(value).change();
             }
         }
 
@@ -153,7 +153,7 @@
 
         $('#' + id).remove();
 
-        input = $('<input type="text" id="' + id + '" class="' + s.inputClass + '" readonly />').insertBefore(elm),
+        input = $('<input type="text" id="' + id + '" class="' + s.inputClass + '" readonly />').insertBefore(elm);
 
         $('option', elm).each(function () {
             main[$(this).attr('value')] = $(this).text();
@@ -194,7 +194,7 @@
             inst._setValue = inst.setValue;
         }
 
-        inst.setValue = function (d, fill, time, noscroll, temp) {
+        inst.setValue = function (d, fill, time, noscroll, temp, manual) {
             var value,
                 v = $.isArray(d) ? d[0] : d;
 
@@ -221,7 +221,7 @@
                 value = [option];
             }
 
-            inst._setValue(value, fill, time, noscroll, temp);
+            inst._setValue(value, fill, time, noscroll, temp, manual);
 
             // Set input/select values
             if (fill) {
@@ -357,7 +357,7 @@
                 if (s.display == 'inline' && !multiple) {
                     input.val(v);
                     prevent = true;
-                    elm.val(inst.temp[optIdx]).trigger('change');
+                    elm.val(inst.temp[optIdx]).change();
                 }
             },
             onClose: function () {
