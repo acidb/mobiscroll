@@ -794,19 +794,18 @@
             }
 
             // Events
-            $('.dwwl', dw)
-                .on('DOMMouseScroll mousewheel', onScroll)
-                .on(START_EVENT, onStart)
-                .on('keydown', onKeyDown)
-                .on('keyup', onKeyUp);
-
-            dw.on(START_EVENT, '.dwb-e', onBtnStart).on('keydown', '.dwb-e', function (e) {
-                if (e.keyCode == 32) { // Space
-                    e.preventDefault();
-                    e.stopPropagation();
-                    $(this).click();
-                }
-            });
+            dw.on('DOMMouseScroll mousewheel', '.dwwl', onScroll)
+                .on(START_EVENT, '.dwwl', onStart)
+                .on('keydown', '.dwwl', onKeyDown)
+                .on('keyup', '.dwwl', onKeyUp)
+                .on(START_EVENT, '.dwb-e', onBtnStart)
+                .on('keydown', '.dwb-e', function (e) {
+                    if (e.keyCode == 32) { // Space
+                        e.preventDefault();
+                        e.stopPropagation();
+                        $(this).click();
+                    }
+                });
 
             event('onShow', [dw, v]);
         };
