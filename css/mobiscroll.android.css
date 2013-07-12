@@ -9,6 +9,10 @@
     padding: 10px;
     border-bottom: 1px solid #333;
 }
+.android .dw-hidden {
+    padding: 0;
+    border: 0;
+}
 .android .dwwr {
     padding: 0;
 }

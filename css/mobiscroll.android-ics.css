@@ -21,11 +21,14 @@
     padding: 1px 10px;
 }
 .android-ics .dwv {
-    height: 36px;
     line-height: 36px;
     padding: 0;
     border-bottom: 2px solid #31b6e7;
     font-size: 18px;
+}
+.android-ics .dw-hidden {
+    height: 0;
+    border: 0;
 }
 .android-ics .dwwl {
     margin: 0 2px;

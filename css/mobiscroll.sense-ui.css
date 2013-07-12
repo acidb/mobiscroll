@@ -13,6 +13,10 @@
     border-bottom: 1px solid #666;
     text-align: left;
 }
+.sense-ui .dw-hidden {
+    padding: 0;
+    border: 0;
+}
 .sense-ui .dwwc {
     background: #333;
 }
