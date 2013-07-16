@@ -1171,7 +1171,10 @@
                 return init(this, extend(method, { preset: name }), arguments);
             };
         },
-        has3d: has3d,
+        util: {
+            prefix: prefix,
+            has3d: has3d
+        },
         shorts: {},
         presets: {},
         themes: {},
