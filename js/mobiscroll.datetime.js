@@ -277,6 +277,28 @@
                 return getDate(temp ? inst.temp : inst.values);
             };
 
+            inst.convert = function (obj) {
+                var x = obj;
+
+                if (!$.isArray(obj)) { // Convert from old format
+                    x = [];
+                    $.each(obj, function (i, o) {
+                        $.each(o, function (j, o) {
+                            if (i === 'daysOfWeek') {
+                                if (o.d) {
+                                    o.d = 'w' + o.d;
+                                } else {
+                                    o = 'w' + o;
+                                }
+                            }
+                            x.push(o);
+                        });
+                    });
+                }
+
+                return x;
+            };
+
             inst.format = hformat;
 
             // ---
@@ -374,31 +396,18 @@
                             }
                             // Disable some days
                             if (s.invalid && i == 'd') {
-                                var idx = [];
-                                // Disable exact dates
-                                if (s.invalid.dates) {
-                                    $.each(s.invalid.dates, function (i, v) {
-                                        if (v.getFullYear() == y && v.getMonth() == m) {
-                                            idx.push(v.getDate() - 1);
-                                        }
-                                    });
-                                }
-                                // Disable days of week
-                                if (s.invalid.daysOfWeek) {
-                                    var first = new Date(y, m, 1).getDay(),
-                                        j;
-                                    $.each(s.invalid.daysOfWeek, function (i, v) {
-                                        for (j = v - first; j < maxdays; j += 7) {
-                                            if (j >= 0) {
-                                                idx.push(j);
-                                            }
-                                        }
-                                    });
-                                }
-                                // Disable days of month
-                                if (s.invalid.daysOfMonth) {
-                                    $.each(s.invalid.daysOfMonth, function (i, v) {
-                                        v = (v + '').split('/');
+                                var d, j, k, v,
+                                    first = new Date(y, m, 1).getDay(),
+                                    idx = [],
+                                    invalid = inst.convert(s.invalid);
+
+                                for (j = 0; j < invalid.length; j++) {
+                                    d = invalid[j];
+                                    v = d + '';
+                                    if (d.getTime && d.getFullYear() == y && d.getMonth() == m) { // Exact date
+                                        idx.push(d.getDate() - 1);
+                                    } else if (!v.match(/w/i)) { // Day of month
+                                        v = v.split('/');
                                         if (v[1]) {
                                             if (v[0] - 1 == m) {
                                                 idx.push(v[1] - 1);
@@ -406,7 +415,14 @@
                                         } else {
                                             idx.push(v[0] - 1);
                                         }
-                                    });
+                                    } else { // Day of week
+                                        v = +v.replace('w', '');
+                                        for (k = v - first; k < maxdays; k += 7) {
+                                            if (k >= 0) {
+                                                idx.push(k);
+                                            }
+                                        }
+                                    }
                                 }
                                 $.each(idx, function (i, v) {
                                     $('.dw-li', t).eq(v).removeClass('dw-v');
