@@ -932,7 +932,7 @@
                     }
                 }
                 if (s.showOnTap) {
-                    that.tap(elm, function () {
+                    elm.on('click.dw', function () {
                         that.show();
                     });
                 }
