@@ -269,8 +269,7 @@
             t.closest('.dwwl').removeClass('dwa');
         }
 
-        function scroll(t, index, val, time, active) {
-
+        function scroll(t, index, val, time, active, end) {
             var px = (m - val) * hi,
                 style = t[0].style,
                 i;
@@ -298,10 +297,15 @@
                 ready(t, index);
             }
 
-            if (time && active) {
-                t.closest('.dwwl').addClass('dwa');
+            if (time !== undefined) {
+                if (active) {
+                    t.closest('.dwwl').addClass('dwa');
+                }
                 iv[index] = setTimeout(function () {
                     ready(t, index);
+                    if (end) {
+                        event('onAnimEnd', [dw, index]);
+                    }
                 }, time * 1000);
             }
 
@@ -364,7 +368,7 @@
                         cell.addClass('dw-sel');
 
                         // Scroll to position
-                        scroll(t, i, v, sc ? time : 0.1, sc ? active : false);
+                        scroll(t, i, v, sc ? time : 0.1, sc ? active : false, i == index);
                     }
                 });
 
@@ -399,17 +403,18 @@
 
             var cell = $('.dw-li', t).eq(val),
                 o = orig === undefined ? val : orig,
+                active = orig !== undefined,
                 idx = index,
                 time = anim ? (val == o ? 0.1 : Math.abs((val - o) * s.timeUnit)) : 0;
 
             // Set selected scroller value
             that.temp[idx] = cell.attr('data-val');
 
-            scroll(t, idx, val, time, orig);
+            scroll(t, idx, val, time, active, true);
 
             setTimeout(function () {
                 // Validate
-                scrollToPos(time, idx, true, dir, orig !== undefined);
+                scrollToPos(time, idx, true, dir, active);
             }, 10);
         }
 
@@ -607,7 +612,7 @@
                             nr--;
                             if (!nr) {
                                 that.position();
-                                scrollToPos(time, undefined, true);
+                                scrollToPos(time);
                                 return false;
                             }
                         }
@@ -1022,7 +1027,6 @@
         var org = e.originalEvent,
             ct = e.changedTouches;
         return ct || (org && org.changedTouches) ? (org ? org.changedTouches[0]['page' + c] : ct[0]['page' + c]) : e['page' + c];
-
     }
 
     function constrain(val, min, max) {
