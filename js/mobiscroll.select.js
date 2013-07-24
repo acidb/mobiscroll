@@ -214,7 +214,7 @@
                 value = s.rtl ? [option, group.index()] : [group.index(), option];
                 if (gr !== prev) { // Need to regenerate wheels, if group changed
                     s.wheels = genWheels();
-                    inst.changeWheel([optIdx]);
+                    inst.changeWheel([optIdx], undefined, manual);
                     prev = gr + '';
                 }
             } else {
@@ -289,7 +289,7 @@
                             s.readonly = [s.rtl, !s.rtl];
                             clearTimeout(timer);
                             timer = setTimeout(function () {
-                                inst.changeWheel([optIdx]);
+                                inst.changeWheel([optIdx], undefined, true);
                                 s.readonly = roPre;
                                 prev = gr + '';
                             }, time * 1000);

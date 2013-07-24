@@ -599,7 +599,7 @@
         /**
         * Changes the values of a wheel, and scrolls to the correct position
         */
-        that.changeWheel = function (idx, time) {
+        that.changeWheel = function (idx, time, manual) {
             if (dw) {
                 var i = 0,
                     nr = idx.length;
@@ -612,7 +612,7 @@
                             nr--;
                             if (!nr) {
                                 that.position();
-                                scrollToPos(time);
+                                scrollToPos(time, undefined, manual);
                                 return false;
                             }
                         }

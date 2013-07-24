@@ -386,7 +386,7 @@
                             s.readonly = createROVector(lvl, index);
                             clearTimeout(timer[index]);
                             timer[index] = setTimeout(function () {
-                                inst.changeWheel(args);
+                                inst.changeWheel(args, undefined, index !== undefined);
                                 s.readonly = false;
                             }, time * 1000);
                             return false;
