@@ -12,6 +12,9 @@
     padding: .7em 15px .7em 15px;
     border: 0;
 }
+.jqm .dw-hidden {
+    padding: 0;
+}
 .jqm .dwwr {
     border: 0;
     padding: 0;
