@@ -6,7 +6,7 @@
             showInput: true,
             inputClass: ''
         },
-        preset =  function (inst) {
+        preset = function (inst) {
             var orig = $.extend({}, inst.settings),
                 s = $.extend(inst.settings, defaults, orig),
                 elm = $(this),
@@ -207,8 +207,9 @@
                 while (ok) {
                     obj = getFirstValidItemObjOrInd(ndObjA);
                     t[i++] = obj.key;
-                    if (ok = obj.children) {
-                        ndObjA = obj.children;
+                    ok = obj.children;
+                    if (ok) {
+                        ndObjA = ok;
                     }
                 }
                 return t;
@@ -340,6 +341,9 @@
                 width: 50,
                 wheels: w,
                 headerText: false,
+                parseValue: function (value, inst) {
+                    return s.defaultValue || fwv;
+                },
                 onBeforeShow: function (dw) {
                     var t = inst.temp;
                     currWheelVector = t.slice(0);
@@ -367,20 +371,26 @@
                     });
                 },
                 validate: function (dw, index, time) {
-                    var t = inst.temp;
+                    var args = [],
+                        t = inst.temp,
+                        i = (index || 0) + 1,
+                        o;
+
                     if ((index !== undefined && currWheelVector[index] != t[index]) || (index === undefined && !prevent)) {
                         s.wheels = generateWheelsFromVector(t, null, index);
-                        var args = [],
-                            i = (index || 0) + 1,
-                            o = calcLevelOfVector2(t, index);
+                        o = calcLevelOfVector2(t, index);
+
                         if (index !== undefined) {
                             inst.temp = o.nVector.slice(0);
                         }
+
                         while (i < o.lvl) {
                             args.push(i++);
                         }
+
                         hideWheels(dw, o.lvl);
                         currWheelVector = inst.temp.slice(0);
+
                         if (args.length) {
                             prevent = true;
                             s.readonly = createROVector(lvl, index);
@@ -391,12 +401,14 @@
                             }, time * 1000);
                             return false;
                         }
+
                         setDisabled(dw, o.lvl, wa, inst.temp);
                     } else {
-                        var o = calcLevelOfVector2(t, t.length);
+                        o = calcLevelOfVector2(t, t.length);
                         setDisabled(dw, o.lvl, wa, t);
                         hideWheels(dw, o.lvl);
                     }
+
                     prevent = false;
                 }
             };
