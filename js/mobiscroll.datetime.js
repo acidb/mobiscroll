@@ -305,7 +305,7 @@
 
             return {
                 button3Text: s.showNow ? s.nowText : undefined,
-                button3: s.showNow ? function () { inst.setDate(new Date(), false, 0.3, true); } : undefined,
+                button3: s.showNow ? function () { inst.setDate(new Date(), false, 0.3, true, true); } : undefined,
                 wheels: wheels,
                 headerText: function (v) {
                     return ms.formatDate(hformat, getDate(inst.temp), s);
