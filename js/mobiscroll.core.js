@@ -746,7 +746,9 @@
                 });
 
                 if (s.button3) {
-                    that.tap($('.dwb-n span', dw), s.button3);
+                    that.tap($('.dwb-n span', dw), function (e) {
+                        s.button3.call(this, e, that);
+                    });
                 }
 
                 // Enter / ESC
