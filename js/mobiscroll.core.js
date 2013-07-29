@@ -969,6 +969,7 @@
             if (input) {
                 e.readOnly = readOnly;
             }
+            event('onDestroy', []);
         };
 
         that.getInst = function () {
