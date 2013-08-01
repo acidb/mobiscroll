@@ -632,7 +632,7 @@
                 startY;
 
             if (s.tap) {
-                el.on('touchstart.dw', function (e) {
+                el.on('touchstart.dw mousedown.dw', function (e) {
                     e.preventDefault();
                     startX = getCoord(e, 'X');
                     startY = getCoord(e, 'Y');
