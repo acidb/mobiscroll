@@ -23,6 +23,10 @@
         dateText: 'Dátum',
         timeText: 'Idő',
         calendarText: 'Naptár',
+        closeText: 'Bezár',
+        // Daterange component
+        fromText: 'Start',
+        toText: 'End',
         // Measurement components
         wholeText: 'Egész',
         fractionText: 'Tört',

@@ -23,6 +23,10 @@
         dateText: 'Fecha',
         timeText: 'Tiempo',
         calendarText: 'Calendario',
+        closeText: 'Cerrar',
+        // Daterange component
+        fromText: 'Start',
+        toText: 'End',
         // Measurement components
         wholeText: 'Entero',
         fractionText: 'Fracción',

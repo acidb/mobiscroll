@@ -23,6 +23,10 @@
         dateText: 'Datum',
         timeText: 'Tijd',
         calendarText: 'Kalender',
+        closeText: 'Sluiten',
+        // Daterange component
+        fromText: 'Start',
+        toText: 'End',
         // Measurement components
         wholeText: 'geheel',
         fractionText: 'fractie',

@@ -23,6 +23,10 @@
         dateText: 'Tarih',
         timeText: 'Zaman',
         calendarText: 'Takvim',
+        closeText: 'Kapatmak',
+        // Daterange component
+        fromText: 'Start',
+        toText: 'End',
         // Measurement components
         wholeText: 'Tam',
         fractionText: 'Kesir',

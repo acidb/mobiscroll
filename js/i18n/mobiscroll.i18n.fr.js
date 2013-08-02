@@ -23,6 +23,10 @@
         dateText: 'Date',
         timeText: 'Heure',
         calendarText: 'Calendrier',
+        closeText: 'Fermer',
+        // Daterange component
+        fromText: 'Start',
+        toText: 'End',
         // Measurement components
         wholeText: 'Entier',
         fractionText: 'Fraction',
@@ -31,10 +35,10 @@
         labels: ['Ans', 'Mois', 'Jours', 'Heures', 'Minutes', 'Secondes', ''],
         labelsShort: ['Yrs', 'Mths', 'Days', 'Hrs', 'Mins', 'Secs', ''],
         // Timer component
-        startText: 'Indít',
-        stopText: 'Megállít',
-        resetText: 'Visszaállít',
+        startText: 'Start',
+        stopText: 'Stop',
+        resetText: 'Reset',
         lapText: 'Lap',
-        hideText: 'Elrejt'
+        hideText: 'Hide'
     });
 })(jQuery);

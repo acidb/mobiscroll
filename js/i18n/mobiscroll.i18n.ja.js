@@ -23,6 +23,10 @@
         dateText: '日付',
         timeText: '時間',
         calendarText: 'カレンダー',
+        closeText: 'クローズ',
+        // Daterange component
+        fromText: 'Start',
+        toText: 'End',
         // Measurement components
         wholeText: '全数',
         fractionText: '分数',

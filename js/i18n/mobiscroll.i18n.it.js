@@ -18,10 +18,15 @@
         timeFormat: 'HH:ii',
         timeWheels: 'HHii',
         yearText: 'Anno',
+        nowText: 'Ora',
         // Calendar component
         dateText: 'Data',
         timeText: 'Volta',
         calendarText: 'Calendario',
+        closeText: 'Chiudere',
+        // Daterange component
+        fromText: 'Start',
+        toText: 'End',
         // Measurement components
         wholeText: 'Intero',
         fractionText: 'Frazione',

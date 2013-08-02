@@ -1,6 +1,5 @@
 /*
  * Translation by: Ivan Gomes <contato@ivangomes.com.br>
- *
  */
 (function ($) {
     $.mobiscroll.i18n['pt-BR'] = $.extend($.mobiscroll.i18n['pt-BR'], {
@@ -22,10 +21,15 @@
         timeFormat: 'HH:ii',
         timeWheels: 'HHii',
         yearText: 'Ano',
+        nowText: 'Agora',
         // Calendar component
         dateText: 'Data',
         timeText: 'Tempo',
         calendarText: 'Calendário',
+        closeText: 'Fechar',
+        // Daterange component
+        fromText: 'Start',
+        toText: 'End',
         // Measurement components
         wholeText: 'Inteiro',
         fractionText: 'Fração',

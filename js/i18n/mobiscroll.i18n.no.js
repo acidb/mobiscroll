@@ -23,6 +23,10 @@
         dateText: 'Dato',
         timeText: 'Tid',
         calendarText: 'Kalender',
+        closeText: 'Lukk',
+        // Daterange component
+        fromText: 'Start',
+        toText: 'End',
         // Measurement components
         wholeText: 'Hele',
         fractionText: 'Fraksjon',
