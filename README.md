@@ -23,6 +23,88 @@ It'd be cool to see how you're using Mobiscroll!
 
 We're looking at showcasing some of the best work on http://mobiscroll.com . Feel free to let us know on twitter @mobiscroll!
 
+Changelog 2.7.0
+===============
+
+Enhancements
+------------
+
+_Core_
+
+  * Changed: Mobiscroll value is automatically updated on input change, this way setValue method is working properly (#79).
+
+  * Added: Utility object exposing some useful variables, currently vendor prefix and 3d support ($.mobiscroll.util.prefix and $.mobiscroll.util.has3d).
+
+  * Added: onDestroy event.
+
+_Calendar_
+
+  * Changed: Invalid and marked settings have now a different format. Old format is still working but it is considered deprecated and will be removed in the next major release. See documentation for details.
+
+  * Added: events setting to pass any number of events. Events are shown in a context bubble. See documentation for details.
+
+_Colorpicker_
+
+  * Added: defaultValue setting to specify default color.
+
+_Daterange_
+
+  * Added: This is new component for daterange selection.
+
+_Datetime_
+
+  * Changed: Invalid values have now a different format. Old format is still working but it is considered deprecated and will be removed in the next major release. See documentation for details.
+
+  * Added: defaultValue setting to specify default date.
+
+_List_
+
+  * Added: defaultValue setting.
+
+_Measurements_
+
+  * Added: defaultValue setting.
+
+_Rating_
+
+  * Added: defaultValue setting.
+
+_Themes_
+
+  * Added: Support for jQuery Mobile 1.4.0-alpha1.
+
+_Timespan_
+
+  * Added: defaultValue setting.
+
+Bugfixes
+--------
+
+_Core_
+
+  * Fixed: Mixed mode was not working (#141).
+
+_Calendar_
+
+  * Fixed: Calendar header buttons were not disabled on show, only after first month change.
+
+_Datetime_
+
+  * Fixed: 'Now' button did not trigger the onChange event (#145).
+
+_Timer_
+
+  * Fixed: On destroy timer interval wasn't stopped.
+
+_Timespan_
+
+  * Fixed: setValue was not working, if value was out of wheel range.
+
+_Themes_
+
+  * Fixed: Header was not hidden correctly in android-ics, android, jqm and sense-ui themes.
+
+
 Changelog 2.6.2
 ===============
 
