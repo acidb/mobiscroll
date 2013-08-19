@@ -29,6 +29,11 @@
             stepSecond: 1,
             separator: ' '
         },
+        /**
+         * @class Mobiscroll.datetime
+         * @extends Mobiscroll
+         * Mobiscroll Datetime component
+         */
         preset = function (inst) {
             var that = $(this),
                 html5def = {},
@@ -255,7 +260,9 @@
              *
              * @param {Date} d Date to select.
              * @param {Boolean} [fill=false] Also set the value of the associated input element. Default is true.
-             * @return {Object} jQuery object to maintain chainability
+             * @param {Number} [time=0] Animation time to scroll to the selected date.
+             * @param {Boolean} [temp=false] Set temporary value only.
+             * @param {Boolean} [manual=false] Indicates that the action was triggered by the user or from code.
              */
             inst.setDate = function (d, fill, time, temp, manual) {
                 var i;
@@ -270,7 +277,7 @@
             /**
              * Returns the currently selected date.
              *
-             * @param {Boolean} [temp=false] If true, return the currently shown date on the picker, otherwise the last selected one
+             * @param {Boolean} [temp=false] If true, return the currently shown date on the picker, otherwise the last selected one.
              * @return {Date}
              */
             inst.getDate = function (temp) {
@@ -310,18 +317,9 @@
                 headerText: function (v) {
                     return ms.formatDate(hformat, getDate(inst.temp), s);
                 },
-                /**
-                * Builds a date object from the wheel selections and formats it to the given date/time format
-                * @param {Array} d - An array containing the selected wheel values
-                * @return {String} - The formatted date string
-                */
                 formatResult: function (d) {
                     return ms.formatDate(format, getDate(d), s);
                 },
-                /**
-                * Builds a date object from the input value and returns an array to set wheel values
-                * @return {Array} - An array containing the wheel values to set
-                */
                 parseValue: function (val) {
                     var d = ms.parseDate(format, val, s),
                         i,
@@ -333,11 +331,6 @@
                     }
                     return result;
                 },
-                /**
-                * Validates the selected date to be in the minDate / maxDate range and sets unselectable values to disabled
-                * @param {Object} dw - jQuery object containing the generated html
-                * @param {Integer} [i] - Index of the changed wheel, not set for initial validation
-                */
                 validate: function (dw, i) {
                     var temp = inst.temp, //.slice(0),
                         mins = { y: mind.getFullYear(), m: 0, d: 1, h: 0, i: 0, s: 0, a: 0 },
@@ -444,10 +437,10 @@
 
     /**
     * Format a date into a string value with a specified format.
-    * @param {String} format - Output format.
-    * @param {Date} date - Date to format.
-    * @param {Object} settings - Settings.
-    * @return {String} - Returns the formatted date string.
+    * @param {String} format Output format.
+    * @param {Date} date Date to format.
+    * @param {Object} [settings={}] Settings.
+    * @return {String} Returns the formatted date string.
     */
     ms.formatDate = function (format, date, settings) {
         if (!date) {
@@ -541,10 +534,10 @@
 
     /**
     * Extract a date from a string value with a specified format.
-    * @param {String} format - Input format.
-    * @param {String} value - String to parse.
-    * @param {Object} settings - Settings.
-    * @return {Date} - Returns the extracted date.
+    * @param {String} format Input format.
+    * @param {String} value String to parse.
+    * @param {Object} [settings={}] Settings.
+    * @return {Date} Returns the extracted date.
     */
     ms.parseDate = function (format, value, settings) {
         var s = $.extend({}, defaults, settings),

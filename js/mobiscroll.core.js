@@ -1,6 +1,6 @@
 /*jslint eqeq: true, plusplus: true, undef: true, sloppy: true, vars: true, forin: true, nomen: true */
 /*!
- * jQuery MobiScroll v2.7.0
+ * Mobiscroll v2.7.0
  * http://mobiscroll.com
  *
  * Copyright 2010-2013, Acid Media
@@ -9,6 +9,10 @@
  */
 (function ($) {
 
+    /**
+     * @class Mobiscroll
+     * Mobiscroll class
+     */
     function Scroller(elem, settings) {
         var m,
             hi,
@@ -567,10 +571,10 @@
         /**
         * Gets the selected wheel values, formats it, and set the value of the scroller instance.
         * If input parameter is true, populates the associated input element.
-        * @param {Array} values - Wheel values.
-        * @param {Boolean} [fill=false] - Also set the value of the associated input element.
-        * @param {Number} [time=0] - Animation time
-        * @param {Boolean} [temp=false] - If true, then only set the temporary value.(only scroll there but not set the value)
+        * @param {Array} values Wheel values.
+        * @param {Boolean} [fill=false] Also set the value of the associated input element.
+        * @param {Number} [time=0] Animation time
+        * @param {Boolean} [temp=false] If true, then only set the temporary value.(only scroll there but not set the value)
         */
         that.setValue = function (values, fill, time, temp, manual) {
             that.temp = $.isArray(values) ? values.slice(0) : s.parseValue.call(e, values + '', that);
@@ -593,6 +597,9 @@
 
         /**
         * Changes the values of a wheel, and scrolls to the correct position
+        * @param {Array} idx Indexes of the wheels to change.
+        * @param {Number} [time=0] Animation time when scrolling to the selected value on the new wheel.
+        * @param {Boolean} [manual=false] Indicates that the change was triggered by the user or from code.
         */
         that.changeWheel = function (idx, time, manual) {
             if (dw) {
@@ -931,7 +938,9 @@
                             if (!preventShow) {
                                 that.show();
                             }
-                            preventShow = false;
+                            setTimeout(function () {
+                                preventShow = false;
+                            }, 10); // With jQuery < 1.9 focus is fired twice in IE
                         });
                     }
                 }
