@@ -824,9 +824,9 @@
         /**
         * Hides the scroller instance.
         */
-        that.hide = function (prevAnim, btn) {
+        that.hide = function (prevAnim, btn, force) {
             // If onClose handler returns false, prevent hide
-            if (!visible || event('onClose', [v, btn]) === false) {
+            if (!visible || (!force && event('onClose', [v, btn]) === false)) {
                 return false;
             }
 
@@ -976,7 +976,7 @@
         };
 
         that.destroy = function () {
-            that.hide();
+            that.hide(true, false, true);
             elm.off('.dw');
             delete scrollers[e.id];
             if (input) {
@@ -988,6 +988,8 @@
         that.getInst = function () {
             return that;
         };
+
+        scrollers[e.id] = that;
 
         that.values = null;
         that.val = null;
@@ -1064,7 +1066,10 @@
                     uuid += 1;
                     this.id = 'mobiscroll' + uuid;
                 }
-                scrollers[this.id] = new Scroller(this, options);
+                if (scrollers[this.id]) {
+                    scrollers[this.id].destroy();
+                }
+                new Scroller(this, options);
             });
         }
 
