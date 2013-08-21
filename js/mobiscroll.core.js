@@ -25,7 +25,6 @@
             mh, // Modal height
             lock,
             anim,
-            debounce,
             theme,
             lang,
             click,
@@ -446,6 +445,18 @@
             }
         }
 
+        function attachPosition(ev, checkLock) {
+            var debounce;
+            $(window).on(ev, function (e) {
+                clearTimeout(debounce);
+                debounce = setTimeout(function () {
+                    if ((lock && checkLock) || !checkLock) {
+                        that.position(!checkLock);
+                    }
+                }, 100);
+            });
+        }
+
         // Public functions
 
         that.position = function (check) {
@@ -789,16 +800,8 @@
 
                 // Set position
                 that.position();
-                $(window).on('orientationchange.dw resize.dw scroll.dw', function (e) {
-                    // Sometimes scrollTop is not correctly set, so we wait a little
-                    clearTimeout(debounce);
-                    debounce = setTimeout(function () {
-                        var scroll = e.type == 'scroll';
-                        if ((scroll && lock) || !scroll) {
-                            that.position(!scroll);
-                        }
-                    }, 100);
-                });
+                attachPosition('orientationchange.dw resize.dw', false);
+                attachPosition('scroll.dw', true);
 
                 that.alert(s.ariaDesc);
             }
