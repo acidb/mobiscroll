@@ -17,8 +17,8 @@
         monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
         monthText: 'M&ecirc;s',
         secText: 'Segundo',
-        timeFormat: 'HH:ii',
-        timeWheels: 'HHii',
+        timeFormat: 'HH:ii:ss',
+        timeWheels: 'HHiiss',
         yearText: 'Ano',
         nowText: 'Actualizar',
         // Calendar component
