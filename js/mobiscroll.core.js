@@ -394,6 +394,10 @@
         }
 
         function calc(t, val, dir, anim, orig) {
+
+            var direction = val;
+
+
             val = constrain(val, min, max);
 
             var cell = $('.dw-li', t).eq(val),
@@ -405,12 +409,95 @@
             // Set selected scroller value
             that.temp[idx] = cell.attr('data-val');
 
-            scroll(t, idx, val, time, active);
+            if (index === 0) {
+                if (cell.prevObject.length === 24) {
+                    if (val === 0 && direction < 0) {
+                        val === 23;
+                        scroll(t, idx, 23, time, active);
+                        that.temp[idx] = 23;
+                    } else if (val === 23 && direction > 23) {
+                        val === 0;
+                        that.temp[idx] = 0;
+                        scroll(t, idx, 0, time, active);
+                    } else {
+                        scroll(t, idx, val, time, active);
+                    }
+                } else if (cell.prevObject.length === 27) {
+                    scroll(t, idx, val, time, active);
+                } else {
+                    if (val === 0 && direction < 0) {
+                        val === 31;
+                        scroll(t, idx, 30, time, active);
+                        that.temp[idx] = 31;
+                    } else if (val === 30 && direction > 30) {
+                        val === 0;
+                        that.temp[idx] = 1;
+                        scroll(t, idx, 0, time, active);
+                    } else {
+                        scroll(t, idx, val, time, active);
+                    }
+                }
 
+            } else if (index === 1) {
+                if (cell.prevObject.length === 60) {
+                    if (val === 0 && direction < 0) {
+                        val === 59;
+                        scroll(t, idx, 59, time, active);
+                        that.temp[idx] = 59;
+                    } else if (val === 59 && direction > 59) {
+                        val === 0;
+                        that.temp[idx] = 0;
+                        scroll(t, idx, 0, time, active);
+                    } else {
+                        scroll(t, idx, val, time, active);
+                    }
+
+                } else if (cell.prevObject.length === 12) {
+                    if (val === 0 && direction < 0) {
+                        val === 12;
+                        scroll(t, idx, 11, time, active);
+                        that.temp[idx] = 11;
+                    } else if (val === 11 && direction > 11) {
+                        val === 0;
+                        that.temp[idx] = 0;
+                        scroll(t, idx, 0, time, active);
+                    } else {
+                        scroll(t, idx, val, time, active);
+                    }
+
+                }  else {
+                    scroll(t, idx, val, time, active);
+                }
+
+            } else if (index === 3) {
+                if (val === 0 && direction < 0) {
+                    val === 23;
+                    scroll(t, idx, 23, time, active);
+                    that.temp[idx] = 23;
+                } else if (val === 23 && direction > 23) {
+                    val === 0;
+                    that.temp[idx] = 0;
+                    scroll(t, idx, 0, time, active);
+                } else {
+                    scroll(t, idx, val, time, active);
+                }
+            } else if (index === 4) {
+                if (val === 0 && direction < 0) {
+                    scroll(t, idx, 59, time, active);
+                    that.temp[idx] = 59
+                } else if (val === 59 && direction > 59) {
+                    scroll(t, idx, 0, time, active);
+                    that.temp[idx] = 0;
+                } else {
+                    scroll(t, idx, val, time, active);
+                }
+            } else {
+                scroll(t, idx, val, time, active);
+            }
             setTimeout(function () {
                 // Validate
                 scrollToPos(time, idx, true, dir, active);
-            }, 10);
+            }, 1);
         }
 
         function plus(t) {
