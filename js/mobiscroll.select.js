@@ -159,17 +159,7 @@
             main[$(this).attr('value')] = $(this).text();
         });
 
-        if (s.showOnFocus) {
-            input.focus(function () {
-                inst.show();
-            });
-        }
-
-        if (s.showOnTap) {
-            inst.tap(input, function () {
-                inst.show();
-            });
-        }
+        inst.attachShow(input);
 
         var v = elm.val() || [],
             i = 0;

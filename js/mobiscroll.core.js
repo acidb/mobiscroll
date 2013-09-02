@@ -52,6 +52,8 @@
             pos = {},
             pixels = {},
             wheels = [],
+            elmList = [],
+            currElm,
             input = elm.is('input'),
             visible = false,
             onStart = function (e) {
@@ -864,7 +866,7 @@
             visible = false;
             preventShow = true;
 
-            elm.focus();
+            currElm.focus();
         };
 
         that.select = function () {
@@ -881,6 +883,34 @@
                 aria.text('');
             }, 5000);
         };
+        
+        
+        that.attachShow = function (elm) {
+            elmList.push(elm);
+            currElm = elm;
+            if (s.display != 'inline') {
+                if (s.showOnFocus) {
+                    elm.on('focus.dw', function () {
+                        if (!preventShow) {
+                            that.show();
+                        }
+                        setTimeout(function () {
+                            preventShow = false;
+                        }, 10); // With jQuery < 1.9 focus is fired twice in IE
+                    });
+                }
+                if (s.showOnTap) {
+                    elm.on('click.dw', function () {
+                        if (!preventShow) {
+                            that.show();
+                        }
+                        setTimeout(function () {
+                            preventShow = false;
+                        }, 10); // With jQuery < 1.9 focus is fired twice in IE
+                    });
+                }
+            }
+        }
 
         /**
         * Cancel and hide the scroller instance.
@@ -935,22 +965,11 @@
                         readOnly = e.readOnly;
                     }
                     e.readOnly = true;
-                    // Init show datewheel
-                    if (s.showOnFocus) {
-                        elm.on('focus.dw', function () {
-                            if (!preventShow) {
-                                that.show();
-                            }
-                            setTimeout(function () {
-                                preventShow = false;
-                            }, 10); // With jQuery < 1.9 focus is fired twice in IE
-                        });
-                    }
+
+                    that.attachShow(elm);
                 }
                 if (s.showOnTap) {
-                    elm.on('click.dw', function () {
-                        that.show();
-                    });
+                    that.attachShow(elm);
                 }
             }
 
@@ -980,7 +999,9 @@
 
         that.destroy = function () {
             that.hide(true, false, true);
-            elm.off('.dw');
+            $.each(elmList, function (i, v){
+                v.off('.dw');
+            });
             delete scrollers[e.id];
             if (input) {
                 e.readOnly = readOnly;
