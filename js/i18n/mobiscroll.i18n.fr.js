@@ -25,8 +25,8 @@
         calendarText: 'Calendrier',
         closeText: 'Fermer',
         // Daterange component
-        fromText: 'Start',
-        toText: 'End',
+        fromText: 'Démarrer',
+        toText: 'Fin',
         // Measurement components
         wholeText: 'Entier',
         fractionText: 'Fraction',
@@ -35,10 +35,10 @@
         labels: ['Ans', 'Mois', 'Jours', 'Heures', 'Minutes', 'Secondes', ''],
         labelsShort: ['Yrs', 'Mths', 'Days', 'Hrs', 'Mins', 'Secs', ''],
         // Timer component
-        startText: 'Start',
-        stopText: 'Stop',
-        resetText: 'Reset',
+        startText: 'Démarrer',
+        stopText: 'Arrêter',
+        resetText: 'Réinitialiser',
         lapText: 'Lap',
-        hideText: 'Hide'
+        hideText: 'Cachez'
     });
 })(jQuery);

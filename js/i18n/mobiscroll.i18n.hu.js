@@ -25,8 +25,8 @@
         calendarText: 'Naptár',
         closeText: 'Bezár',
         // Daterange component
-        fromText: 'Start',
-        toText: 'End',
+        fromText: 'Eleje',
+        toText: 'Vége',
         // Measurement components
         wholeText: 'Egész',
         fractionText: 'Tört',

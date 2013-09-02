@@ -25,8 +25,8 @@
         calendarText: 'Takvim',
         closeText: 'Kapatmak',
         // Daterange component
-        fromText: 'Start',
-        toText: 'End',
+        fromText: 'Başla',
+        toText: 'Son',
         // Measurement components
         wholeText: 'Tam',
         fractionText: 'Kesir',

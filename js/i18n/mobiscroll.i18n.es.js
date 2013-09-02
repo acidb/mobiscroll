@@ -25,8 +25,8 @@
         calendarText: 'Calendario',
         closeText: 'Cerrar',
         // Daterange component
-        fromText: 'Start',
-        toText: 'End',
+        fromText: 'Iniciar',
+        toText: 'Final',
         // Measurement components
         wholeText: 'Entero',
         fractionText: 'Fracción',

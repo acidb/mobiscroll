@@ -1,5 +1,6 @@
-// Translation to pt-EU by: Jorge Simoes <http://jorge.simoes.com>
-
+/*
+ * Translation to pt-EU by: Jorge Simoes <http://jorge.simoes.com>
+ */
 (function ($) {
     $.mobiscroll.i18n['pt-EU'] = $.extend($.mobiscroll.i18n['pt-EU'], {
         // Core
