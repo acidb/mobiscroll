@@ -353,6 +353,11 @@
                     }
                 }
             },
+			onDestroy: function () {
+				$('#'+id).remove();
+				elm.off('.dw');
+				elm.show();		
+			},
             onChange: function (v) {
                 if (s.display == 'inline' && !multiple) {
                     input.val(v);

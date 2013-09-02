@@ -370,6 +370,10 @@
                         clearTimeout(timer[$('.dwwl', dw).index(this)]);
                     });
                 },
+				onDestroy: function () {
+					$('#'+id).remove();
+					elm.show();
+				},
                 validate: function (dw, index, time) {
                     var args = [],
                         t = inst.temp,
