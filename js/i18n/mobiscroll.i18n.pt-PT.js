@@ -2,7 +2,7 @@
  * Translation to pt-EU by: Jorge Simoes <http://jorge.simoes.com>
  */
 (function ($) {
-    $.mobiscroll.i18n['pt-EU'] = $.extend($.mobiscroll.i18n['pt-EU'], {
+    $.mobiscroll.i18n['pt-PT'] = $.extend($.mobiscroll.i18n['pt-PT'], {
         // Core
         setText: 'Seleccionar',
         cancelText: 'Cancelar',
