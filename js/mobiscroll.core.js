@@ -85,7 +85,9 @@
                     stop = getCoord(e, 'Y');
                     scroll(target, index, constrain(p + (start - stop) / hi, min - 1, max + 1));
                 }
-                moved = true;
+                if (start !== stop) {
+                    moved = true;
+                }
             },
             onEnd = function (e) {
                 var time = new Date() - startTime,
