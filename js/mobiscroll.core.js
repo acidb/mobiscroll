@@ -36,6 +36,7 @@
             p,
             min,
             max,
+            modal,
             target,
             index,
             timer,
@@ -376,7 +377,7 @@
 
                 // Reformat value if validation changed something
                 v = s.formatResult(that.temp);
-                if (s.display == 'inline') {
+                if (!modal) {
                     setVal(manual, 0, true);
                 } else {
                     $('.dwv', dw).html(formatHeader(v));
@@ -468,7 +469,7 @@
         */
         that.position = function (check) {
 
-            if (s.display == 'inline' || (ww === $(window).width() && rwh === $(window).height() && check) || (event('onPosition', [dw]) === false)) {
+            if (!modal || (ww === $(window).width() && rwh === $(window).height() && check) || (event('onPosition', [dw]) === false)) {
                 return;
             }
 
@@ -723,7 +724,7 @@
                 mAnim = 'dw-' + anim + ' dw-in';
             }
             // Create wheels containers
-            var html = '<div role="dialog" class="' + s.theme + ' dw-' + s.display + (prefix ? ' dw' + prefix : '') + '">' + (s.display == 'inline' ? '<div class="dw dwbg dwi"><div class="dwwr">' : '<div class="dw-persp"><div class="dwo"></div><div class="dw dwbg ' + mAnim + '"><div class="dw-arrw"><div class="dw-arrw-i"><div class="dw-arr"></div></div></div><div class="dwwr"><div aria-live="assertive" class="dwv' + (s.headerText ? '' : ' dw-hidden') + '"></div>') + '<div class="dwcc">';
+            var html = '<div role="dialog" class="' + s.theme + ' dw-' + s.display + (prefix ? ' dw' + prefix : '') + '">' + (!modal ? '<div class="dw dwbg dwi"><div class="dwwr">' : '<div class="dw-persp"><div class="dwo"></div><div class="dw dwbg ' + mAnim + '"><div class="dw-arrw"><div class="dw-arrw-i"><div class="dw-arr"></div></div></div><div class="dwwr"><div aria-live="assertive" class="dwv' + (s.headerText ? '' : ' dw-hidden') + '"></div>') + '<div class="dwcc">';
 
             $.each(s.wheels, function (i, wg) { // Wheel groups
                 html += '<div class="dwc' + (s.mode != 'scroller' ? ' dwpm' : ' dwsc') + (s.showLabel ? '' : ' dwhl') + '"><div class="dwwc dwrc"><table cellpadding="0" cellspacing="0"><tr>';
@@ -740,7 +741,7 @@
                 html += '</tr></table></div></div>';
             });
 
-            html += '</div>' + (s.display != 'inline' ? '<div class="dwbc' + (s.button3 ? ' dwbc-p' : '') + '"><span class="dwbw dwb-s"><a href="#" class="dwb dwb-e" role="button">' + s.setText + '</a></span>' + (s.button3 ? '<span class="dwbw dwb-n"><a href="#" class="dwb dwb-e" role="button">' + s.button3Text + '</a></span>' : '') + '<span class="dwbw dwb-c"><a href="#" class="dwb dwb-e" role="button">' + s.cancelText + '</a></span></div></div>' : '') + '</div></div></div>';
+            html += '</div>' + (modal ? '<div class="dwbc' + (s.button3 ? ' dwbc-p' : '') + '"><span class="dwbw dwb-s"><a href="#" class="dwb dwb-e" role="button">' + s.setText + '</a></span>' + (s.button3 ? '<span class="dwbw dwb-n"><a href="#" class="dwb dwb-e" role="button">' + s.button3Text + '</a></span>' : '') + '<span class="dwbw dwb-c"><a href="#" class="dwb dwb-e" role="button">' + s.cancelText + '</a></span></div></div>' : '') + '</div></div></div>';
             dw = $(html);
 
             scrollToPos();
@@ -748,7 +749,7 @@
             event('onMarkupReady', [dw]);
 
             // Show
-            if (s.display != 'inline') {
+            if (modal) {
                 dw.appendTo('body');
                 if (anim && !prevAnim) {
                     dw.addClass('dw-trans');
@@ -770,7 +771,7 @@
             // Theme init
             theme.init(dw, that);
 
-            if (s.display != 'inline') {
+            if (modal) {
                 // Init buttons
                 that.tap($('.dwb-s .dwb', dw), function () {
                     that.select();
@@ -861,16 +862,14 @@
 
             // Hide wheels and overlay
             if (dw) {
-                if (s.display != 'inline' && anim && !prevAnim) {
+                var doAnim = modal && anim && !prevAnim;
+                if (doAnim) {
                     dw.addClass('dw-trans').find('.dw').addClass('dw-' + anim + ' dw-out');
-                    setTimeout(function () {
-                        dw.remove();
-                        dw = null;
-                    }, 350);
-                } else {
+                }
+                setTimeout(function () {
                     dw.remove();
                     dw = null;
-                }
+                }, doAnim ? 350 : 1);
 
                 // Stop positioning on window resize
                 $(window).off('.dw');
@@ -969,12 +968,13 @@
             m = Math.floor(s.rows / 2);
             hi = s.height;
             anim = s.animate;
+            modal = s.display !== 'inline';
 
             if (visible) {
                 that.hide();
             }
 
-            if (s.display == 'inline') {
+            if (!modal) {
                 that.show();
             } else {
                 read();
