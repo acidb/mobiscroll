@@ -25,8 +25,8 @@
         calendarText: 'カレンダー',
         closeText: 'クローズ',
         // Daterange component
-        fromText: 'Start',
-        toText: 'End',
+        fromText: '開始',
+        toText: '終わり',
         // Measurement components
         wholeText: '全数',
         fractionText: '分数',

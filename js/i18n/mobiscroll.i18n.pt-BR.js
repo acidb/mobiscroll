@@ -28,8 +28,8 @@
         calendarText: 'Calendário',
         closeText: 'Fechar',
         // Daterange component
-        fromText: 'Start',
-        toText: 'End',
+        fromText: 'In&iacute;cio',
+        toText: 'Fim',
         // Measurement components
         wholeText: 'Inteiro',
         fractionText: 'Fração',

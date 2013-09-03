@@ -25,8 +25,8 @@
         calendarText: 'Kalender',
         closeText: 'Schließen',
         // Daterange component
-        fromText: 'Start',
-        toText: 'End',
+        fromText: 'Von',
+        toText: 'Um',
         // Measurement components
         wholeText: 'Ganze Zahl',
         fractionText: 'Bruchzahl',
@@ -35,10 +35,10 @@
         labels: ['Jahre', 'Monate', 'Tage', 'Stunden', 'Minuten', 'Sekunden', ''],
         labelsShort: ['Yrs', 'Mths', 'Days', 'Hrs', 'Mins', 'Secs', ''],
         // Timer component
-        startText: 'Start',
-        stopText: 'Stop',
-        resetText: 'Reset',
+        startText: 'Starten',
+        stopText: 'Stoppen',
+        resetText: 'Zurücksetzen',
         lapText: 'Lap',
-        hideText: 'Hide'
+        hideText: 'Ausblenden'
     });
 })(jQuery);
