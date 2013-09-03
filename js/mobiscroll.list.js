@@ -319,7 +319,6 @@
             if (s.showInput) {
                 input = $('<input type="text" id="' + id + '" value="" class="' + s.inputClass + '" readonly />').insertBefore(elm);
                 s.anchor = input; // give the core the input element for the bubble positioning
-
                 inst.attachShow(input);
             }
 
@@ -360,10 +359,12 @@
                         clearTimeout(timer[$('.dwwl', dw).index(this)]);
                     });
                 },
-				onDestroy: function () {
-					$('#'+id).remove();
-					elm.show();
-				},
+                onDestroy: function () {
+                    if (input) {
+                        input.remove();
+                    }
+                    elm.show();
+                },
                 validate: function (dw, index, time) {
                     var args = [],
                         t = inst.temp,

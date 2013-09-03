@@ -463,6 +463,9 @@
 
         // Public functions
 
+        /**
+        * Positions the scroller on the screen.
+        */
         that.position = function (check) {
 
             if (s.display == 'inline' || (ww === $(window).width() && rwh === $(window).height() && check) || (event('onPosition', [dw]) === false)) {
@@ -596,10 +599,16 @@
             setVal(fill, time, false, temp, manual);
         };
 
+        /**
+        * Return the selected wheel values.
+        */
         that.getValue = function () {
             return that.values;
         };
 
+        /**
+        * Return selected values, if in multiselect mode.
+        */
         that.getValues = function () {
             var ret = [],
                 i;
@@ -649,6 +658,9 @@
             return visible;
         };
 
+        /**
+        * Attach tap event to the given element.
+        */
         that.tap = function (el, handler) {
             var startX,
                 startY;
@@ -871,6 +883,9 @@
             currElm.focus();
         };
 
+        /**
+        * Set button handler.
+        */
         that.select = function () {
             if (that.hide(false, 'set') !== false) {
                 setVal(true, 0, true);
@@ -878,6 +893,9 @@
             }
         };
 
+        /**
+        * Alert an accessibility message.
+        */
         that.alert = function (txt) {
             aria.text(txt);
             clearTimeout(alertTimer);
@@ -885,10 +903,10 @@
                 aria.text('');
             }, 5000);
         };
-        
+
         /**
-        * Attaches the focus and the click event to the parameter, and show it
-        * @param {JQuery} elm - element which will attached, and shown 
+        * Show mobiscroll on focus and the click event of the parameter
+        * @param {JQuery} elm - Events will be attached to this element
         */
         that.attachShow = function (elm) {
             elmList.push(elm);
@@ -911,7 +929,7 @@
                     });
                 }
             }
-        }
+        };
 
         /**
         * Cancel and hide the scroller instance.
@@ -980,10 +998,16 @@
             }
         };
 
+        /**
+        * Triggers a mobiscroll event.
+        */
         that.trigger = function (name, params) {
             return event(name, params);
         };
 
+        /**
+        * Sets one ore more options.
+        */
         that.option = function (opt, value) {
             var obj = {};
             if (typeof opt === 'object') {
@@ -994,9 +1018,12 @@
             that.init(obj);
         };
 
+        /**
+        * Destroys the mobiscroll instance.
+        */
         that.destroy = function () {
             that.hide(true, false, true);
-            $.each(elmList, function (i, v){
+            $.each(elmList, function (i, v) {
                 v.off('.dw');
             });
             delete scrollers[e.id];
@@ -1006,6 +1033,9 @@
             event('onDestroy', []);
         };
 
+        /**
+        * Returns the mobiscroll instance.
+        */
         that.getInst = function () {
             return that;
         };

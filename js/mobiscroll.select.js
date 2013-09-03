@@ -343,11 +343,6 @@
                     }
                 }
             },
-			onDestroy: function () {
-				$('#'+id).remove();
-				elm.off('.dw');
-				elm.show();		
-			},
             onChange: function (v) {
                 if (s.display == 'inline' && !multiple) {
                     input.val(v);
@@ -355,8 +350,9 @@
                     elm.val(inst.temp[optIdx]).change();
                 }
             },
-            onClose: function () {
-                input.blur();
+            onDestroy: function () {
+                input.remove();
+                elm.show();
             }
         };
     };
