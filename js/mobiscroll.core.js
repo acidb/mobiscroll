@@ -905,29 +905,25 @@
         };
 
         /**
-        * Show mobiscroll on focus and the click event of the parameter
+        * Show mobiscroll, attaches focus and click event to the parameter
         * @param {JQuery} elm - Events will be attached to this element
+        * @param {function} onshow - set a preset setting
         */
-        that.attachShow = function (elm) {
+        that.attachShow = function (elm, onshow) {
             elmList.push(elm);
             if (s.display != 'inline') {
-                if (s.showOnFocus) {
-                    elm.on('focus.dw', function () {
-                        if (!preventShow) {
-                            currElm = elm;
-                            that.show();
+                elm.on((s.showOnFocus ? 'focus.dw' : '') + (s.showOnTap ? ' click.dw' : ''), function () {
+                    if (!preventShow) {
+                        if (onshow) {
+                            onshow();
                         }
-                        setTimeout(function () {
-                            preventShow = false;
-                        }, 10); // With jQuery < 1.9 focus is fired twice in IE
-                    });
-                }
-                if (s.showOnTap) {
-                    elm.on('click.dw', function () {
                         currElm = elm;
                         that.show();
-                    });
-                }
+                    }
+                    setTimeout(function () {
+                        preventShow = false;
+                    }, 10); // With jQuery < 1.9 focus is fired twice in IE
+                });
             }
         };
 
