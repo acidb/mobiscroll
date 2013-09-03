@@ -886,14 +886,17 @@
             }, 5000);
         };
         
-        
+        /**
+        * Attaches the focus and the click event to the parameter, and show it
+        * @param {JQuery} elm - element which will attached, and shown 
+        */
         that.attachShow = function (elm) {
             elmList.push(elm);
-            currElm = elm;
             if (s.display != 'inline') {
                 if (s.showOnFocus) {
                     elm.on('focus.dw', function () {
                         if (!preventShow) {
+                            currElm = elm;
                             that.show();
                         }
                         setTimeout(function () {
@@ -903,12 +906,8 @@
                 }
                 if (s.showOnTap) {
                     elm.on('click.dw', function () {
-                        if (!preventShow) {
-                            that.show();
-                        }
-                        setTimeout(function () {
-                            preventShow = false;
-                        }, 10); // With jQuery < 1.9 focus is fired twice in IE
+                        currElm = elm;
+                        that.show();
                     });
                 }
             }
@@ -967,12 +966,8 @@
                         readOnly = e.readOnly;
                     }
                     e.readOnly = true;
-
-                    that.attachShow(elm);
                 }
-                if (s.showOnTap) {
-                    that.attachShow(elm);
-                }
+                that.attachShow(elm);
             }
 
             if (input) {
