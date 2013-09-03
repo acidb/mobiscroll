@@ -904,17 +904,17 @@
         };
 
         /**
-        * Show mobiscroll, attaches focus and click event to the parameter
-        * @param {JQuery} elm - Events will be attached to this element
-        * @param {function} onshow - set a preset setting
+        * Show mobiscroll on focus and click event of the parameter.
+        * @param {jQuery} elm - Events will be attached to this element.
+        * @param {Function} [beforeShow=undefined] - Optional function to execute before showing mobiscroll.
         */
-        that.attachShow = function (elm, onshow) {
+        that.attachShow = function (elm, beforeShow) {
             elmList.push(elm);
-            if (s.display != 'inline') {
+            if (modal) {
                 elm.on((s.showOnFocus ? 'focus.dw' : '') + (s.showOnTap ? ' click.dw' : ''), function () {
                     if (!preventShow) {
-                        if (onshow) {
-                            onshow();
+                        if (beforeShow) {
+                            beforeShow();
                         }
                         currElm = elm;
                         that.show();
