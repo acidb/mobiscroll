@@ -982,9 +982,9 @@
                 that.attachShow(elm);
 
                 // Blur element on window blur (e.g. tabchange) to prevent re-show on window focus
-                $(window).off('.dwa').on('blur.dwa', function () {
-                    if (currElm) {
-                        currElm.blur();
+                $(window).off('.dwa').on('focus.dwa', function () {
+                    if (currElm && document.activeElement == currElm[0]) {
+                        preventShow = true;
                     }
                 });
             } else {
