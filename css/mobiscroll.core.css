@@ -292,13 +292,15 @@
 }
 /* Datewheel button container */
 .dwbc {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
     padding: 5px 0;
     text-align: center;
 }
 /* Datewheel button wrapper */
 .dwbw {
-    display: inline-block;
-    width: 50%;
+    display: table-cell;
     position: relative;
     z-index: 5;
 }
