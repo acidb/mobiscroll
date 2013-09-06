@@ -25,7 +25,7 @@
 .dwwr {
     min-width: 170px;
     zoom: 1;
-    padding: 0 10px;
+    padding: 0 5px;
     text-align: center;
 }
 /* Datewheel overlay background */
@@ -85,7 +85,7 @@
 }
 /* Datewheel wheel container wrapper */
 .dwc {
-    padding: 30px 2px 5px 2px;
+    padding: 30px 2px 0 2px;
     display: inline-block;
 }
 /* Datewheel label */
@@ -303,9 +303,6 @@
     display: table-cell;
     position: relative;
     z-index: 5;
-}
-.dwbc-p .dwbw {
-    width: 33.33%;
 }
 /* Hidden label */
 .dwhl {

@@ -27,7 +27,7 @@
     padding: 0;
 }
 .sense-ui .dwbc {
-    padding: 5px 1px;
+    padding: 5px 0;
     background: #000;
     background: linear-gradient(#666 50%,#000 50%);
     background: -webkit-gradient(linear,left bottom,left top,color-stop(0.5, #000),color-stop(0.5, #666));
