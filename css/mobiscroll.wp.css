@@ -118,10 +118,10 @@
 }
 .wp .dwbc {
     padding: 0;
+    display: block;
 }
 .wp .dwbw {
-    float: none;
-    width: auto;
+    display: inline-block;
 }
 .wp .dw .dwb {
     position: relative;
