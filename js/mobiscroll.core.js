@@ -54,7 +54,7 @@
             pixels = {},
             wheels = [],
             elmList = [],
-            currElm,
+            currElm = elm,
             input = elm.is('input'),
             visible = false,
             onStart = function (e) {
