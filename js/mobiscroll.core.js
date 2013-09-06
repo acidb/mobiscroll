@@ -740,7 +740,7 @@
                 html += '</tr></table></div></div>';
             });
 
-            html += '</div>' + (modal ? '<div class="dwbc' + (s.button3 ? ' dwbc-p' : '') + '">' + (s.setText ? '<span class="dwbw dwb-s"><a href="#" class="dwb dwb-e" role="button">' + s.setText + '</a></span>' : '') + (s.button3 ? '<span class="dwbw dwb-n"><a href="#" class="dwb dwb-e" role="button">' + s.button3Text + '</a></span>' : '') + (s.cancelText ? '<span class="dwbw dwb-c"><a href="#" class="dwb dwb-e" role="button">' + s.cancelText + '</a></span> ' : '') + '</div></div>' : '') + '</div></div></div>';
+            html += '</div>' + (modal ? '<div class="dwbc">' + (s.setText ? '<span class="dwbw dwb-s"><a href="#" class="dwb dwb-e" role="button">' + s.setText + '</a></span>' : '') + (s.button3 ? '<span class="dwbw dwb-n"><a href="#" class="dwb dwb-e" role="button">' + s.button3Text + '</a></span>' : '') + (s.cancelText ? '<span class="dwbw dwb-c"><a href="#" class="dwb dwb-e" role="button">' + s.cancelText + '</a></span> ' : '') + '</div></div>' : '') + '</div></div></div>';
             dw = $(html);
 
             scrollToPos();
