@@ -20,7 +20,8 @@
     background: -webkit-linear-gradient(#9f9fa6,#484a55 50%,#272836 50%,#282a39);
     background: -moz-linear-gradient(#9f9fa6,#484a55 50%,#272836 50%,#282a39);
 }
-.ios .dwi .dwwr {
+.ios.dw-nobtn .dwwr,
+.ios.dw-inline .dwwr {
     margin-top: 0;
 }
 .ios .dwv {

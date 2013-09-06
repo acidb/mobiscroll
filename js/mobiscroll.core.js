@@ -28,6 +28,7 @@
             theme,
             lang,
             click,
+            hasButtons,
             scrollable,
             moved,
             start,
@@ -723,7 +724,7 @@
                 mAnim = 'dw-' + anim + ' dw-in';
             }
             // Create wheels containers
-            var html = '<div role="dialog" class="' + s.theme + ' dw-' + s.display + (prefix ? ' dw' + prefix : '') + '">' + (!modal ? '<div class="dw dwbg dwi"><div class="dwwr">' : '<div class="dw-persp"><div class="dwo"></div><div class="dw dwbg ' + mAnim + '"><div class="dw-arrw"><div class="dw-arrw-i"><div class="dw-arr"></div></div></div><div class="dwwr"><div aria-live="assertive" class="dwv' + (s.headerText ? '' : ' dw-hidden') + '"></div>') + '<div class="dwcc">';
+            var html = '<div role="dialog" class="' + s.theme + ' dw-' + s.display + (prefix ? ' dw' + prefix : '') + (hasButtons ? '' : ' dw-nobtn') + '">' + (!modal ? '<div class="dw dwbg dwi"><div class="dwwr">' : '<div class="dw-persp"><div class="dwo"></div><div class="dw dwbg ' + mAnim + '"><div class="dw-arrw"><div class="dw-arrw-i"><div class="dw-arr"></div></div></div><div class="dwwr"><div aria-live="assertive" class="dwv' + (s.headerText ? '' : ' dw-hidden') + '"></div>') + '<div class="dwcc">';
 
             $.each(s.wheels, function (i, wg) { // Wheel groups
                 html += '<div class="dwc' + (s.mode != 'scroller' ? ' dwpm' : ' dwsc') + (s.showLabel ? '' : ' dwhl') + '"><div class="dwwc dwrc"><table cellpadding="0" cellspacing="0"><tr>';
@@ -740,7 +741,7 @@
                 html += '</tr></table></div></div>';
             });
 
-            html += '</div>' + (modal ? '<div class="dwbc">' + (s.setText ? '<span class="dwbw dwb-s"><a href="#" class="dwb dwb-e" role="button">' + s.setText + '</a></span>' : '') + (s.button3 ? '<span class="dwbw dwb-n"><a href="#" class="dwb dwb-e" role="button">' + s.button3Text + '</a></span>' : '') + (s.cancelText ? '<span class="dwbw dwb-c"><a href="#" class="dwb dwb-e" role="button">' + s.cancelText + '</a></span> ' : '') + '</div></div>' : '') + '</div></div></div>';
+            html += '</div>' + (modal && hasButtons ? '<div class="dwbc">' + (s.setText ? '<span class="dwbw dwb-s"><a href="#" class="dwb dwb-e" role="button">' + s.setText + '</a></span>' : '') + (s.button3 ? '<span class="dwbw dwb-n"><a href="#" class="dwb dwb-e" role="button">' + s.button3Text + '</a></span>' : '') + (s.cancelText ? '<span class="dwbw dwb-c"><a href="#" class="dwb dwb-e" role="button">' + s.cancelText + '</a></span> ' : '') + '</div></div>' : '') + '</div></div></div>';
             dw = $(html);
 
             scrollToPos();
@@ -964,6 +965,7 @@
             hi = s.height;
             anim = s.animate;
             modal = s.display !== 'inline';
+            hasButtons = s.setText || s.cancelText || s.button3;
 
             if (visible) {
                 that.hide();
