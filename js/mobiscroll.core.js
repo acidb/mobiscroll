@@ -922,7 +922,7 @@
                     }
                     setTimeout(function () {
                         preventShow = false;
-                    }, 10); // With jQuery < 1.9 focus is fired twice in IE
+                    }, 300); // With jQuery < 1.9 focus is fired twice in IE
                 });
             }
         };
@@ -971,9 +971,7 @@
                 that.hide();
             }
 
-            if (!modal) {
-                that.show();
-            } else {
+            if (modal) {
                 read();
                 if (input) {
                     // Set element readonly, save original state
@@ -983,6 +981,15 @@
                     e.readOnly = true;
                 }
                 that.attachShow(elm);
+
+                // Blur element on window blur (e.g. tabchange) to prevent re-show on window focus
+                $(window).off('.dwa').on('focus.dwa', function () {
+                    if (currElm && document.activeElement == currElm[0]) {
+                        preventShow = true;
+                    }
+                });
+            } else {
+                that.show();
             }
 
             if (input) {
@@ -1020,13 +1027,18 @@
         */
         that.destroy = function () {
             that.hide(true, false, true);
+            // Remove all events from elements
             $.each(elmList, function (i, v) {
                 v.off('.dw');
             });
-            delete scrollers[e.id];
+            // Remove events from window
+            $(window).off('.dwa');
+            // Reset original readonly state
             if (input) {
                 e.readOnly = readOnly;
             }
+            // Delete scroller instance
+            delete scrollers[e.id];
             event('onDestroy', []);
         };
 

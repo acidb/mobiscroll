@@ -349,11 +349,6 @@
                         input.val(v);
                     }
                 },
-                onClose: function () {
-                    if (input) {
-                        input.blur();
-                    }
-                },
                 onShow: function (dw) {
                     $('.dwwl', dw).on('mousedown touchstart', function () {
                         clearTimeout(timer[$('.dwwl', dw).index(this)]);
