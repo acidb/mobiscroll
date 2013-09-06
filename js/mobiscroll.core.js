@@ -486,15 +486,15 @@
                 scroll,
                 totalw = 0,
                 minw = 0,
-                st = $(window).scrollTop(),
+                st = (s.context == 'body') ? $(window).scrollTop() : $(s.context).scrollTop();
                 wr = $('.dwwr', dw),
                 d = $('.dw', dw),
                 css = {},
                 anchor = s.anchor === undefined ? elm : s.anchor;
 
-            ww = $(window).width();
-            rwh = $(window).height();
-            wh = window.innerHeight; // on iOS we need innerHeight
+            ww = (s.context == 'body') ? $(window).width() : $(s.context).width();
+            rwh = (s.context == 'body') ? $(window).height() : $(s.context).height();
+            wh = (s.context == 'body') ? window.innerHeight :  $(s.context).innerHeight() ; // on iOS we need innerHeight
             wh = wh || rwh;
 
             if (/modal|bubble/.test(s.display)) {
@@ -558,7 +558,8 @@
             d.css(css);
 
             // If top + modal height > doc height, increase doc height
-            $('.dw-persp', dw).height(0).height(t + mh > $(document).height() ? t + mh : $(document).height());
+           
+            $('.dw-persp', dw).height(0).height(t + mh >  ((s.context == 'body') ?  $(document).height() : $(s.context).height()) ? t + mh : ((s.context == 'body') ?  $(document).height() : $(s.context).height()));
 
             // Scroll needed
             if (scroll && ((t + mh > st + wh) || (at > st + wh))) {
@@ -749,7 +750,7 @@
 
             // Show
             if (modal) {
-                dw.appendTo('body');
+                dw.appendTo(s.context);
                 if (anim && !prevAnim) {
                     dw.addClass('dw-trans');
                     // Remove animation class
@@ -1187,6 +1188,7 @@
             lang: 'en-US',
             setText: 'Set',
             cancelText: 'Cancel',
+            context: 'body',
             ariaDesc: 'Select a value',
             scrollLock: true,
             tap: true,
