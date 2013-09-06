@@ -114,9 +114,8 @@
 
                 if (!dist && !moved) { // this is a "tap"
                     var idx = Math.floor((stop - ttop) / hi),
-                        li = $('.dw-li', target).eq(idx),
+                        li = $($('.dw-li', target)[idx]),
                         hl = scrollable;
-
                     if (event('onValueTap', [li]) !== false) {
                         tindex = idx;
                     } else {
@@ -741,7 +740,6 @@
                 html += '</tr></table></div></div>';
             });
 
-            //html += '</div>' + (modal ? '<div class="dwbc' + (s.button3 ? ' dwbc-p' : '') + '"><span class="dwbw dwb-s"><a href="#" class="dwb dwb-e" role="button">' + s.setText + '</a></span>' + (s.button3 ? '<span class="dwbw dwb-n"><a href="#" class="dwb dwb-e" role="button">' + s.button3Text + '</a></span>' : '') + '<span class="dwbw dwb-c"><a href="#" class="dwb dwb-e" role="button">' + s.cancelText + '</a></span></div></div>' : '') + '</div></div></div>'; 
             html += '</div>' + (modal ? '<div class="dwbc' + (s.button3 ? ' dwbc-p' : '') + '">' + (s.setText ? '<span class="dwbw dwb-s"><a href="#" class="dwb dwb-e" role="button">' + s.setText + '</a></span>' : '') + (s.button3 ? '<span class="dwbw dwb-n"><a href="#" class="dwb dwb-e" role="button">' + s.button3Text + '</a></span>' : '') + (s.cancelText ? '<span class="dwbw dwb-c"><a href="#" class="dwb dwb-e" role="button">' + s.cancelText + '</a></span> ' : '') + '</div></div>' : '') + '</div></div></div>';
             dw = $(html);
 
