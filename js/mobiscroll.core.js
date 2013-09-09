@@ -787,6 +787,12 @@
                     });
                 }
 
+                if (s.closeOnOverlay) {
+                    that.tap($('.dwo', dw), function () {
+                        that.cancel();
+                    });
+                }
+
                 // Enter / ESC
                 $(window).on('keydown.dw', function (e) {
                     if (e.keyCode == 13) {
@@ -1177,6 +1183,7 @@
             delay: 300,
             disabled: false,
             readonly: false,
+            closeOnOverlay: true,
             showOnFocus: true,
             showOnTap: true,
             showLabel: true,
