@@ -8,6 +8,7 @@
             width: 55,
             headerText: false,
             showLabel: false,
+            btnWidth: false,
             useShortLabels: true
         }
     };

@@ -9,6 +9,7 @@
             accent: 'none',
             dateOrder: 'mmMMddDDyy',
             showLabel: false,
+            btnWidth: false,
             onAnimStart: function (dw, i, time) {
                 $('.dwwl' + i, dw).addClass('wpam');
                 clearTimeout(anim[i]);

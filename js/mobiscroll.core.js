@@ -41,6 +41,7 @@
             target,
             index,
             timer,
+            buttons,
             readOnly,
             preventChange,
             preventShow,
@@ -458,7 +459,7 @@
                     if ((lock && checkLock) || !checkLock) {
                         that.position(!checkLock);
                     }
-                }, 100);
+                }, 200);
             });
         }
 
@@ -741,7 +742,17 @@
                 html += '</tr></table></div></div>';
             });
 
-            html += '</div>' + (modal && hasButtons ? '<div class="dwbc">' + (s.setText ? '<span class="dwbw dwb-s"><a href="#" class="dwb dwb-e" role="button">' + s.setText + '</a></span>' : '') + (s.button3 ? '<span class="dwbw dwb-n"><a href="#" class="dwb dwb-e" role="button">' + s.button3Text + '</a></span>' : '') + (s.cancelText ? '<span class="dwbw dwb-c"><a href="#" class="dwb dwb-e" role="button">' + s.cancelText + '</a></span> ' : '') + '</div></div>' : '') + '</div></div></div>';
+            html += '</div>';
+
+            if (modal && hasButtons) {
+                html += '<div class="dwbc">';
+                $.each(buttons, function (i, b) {
+                    html += '<span' + (s.btnWidth ? ' style="width:' + (100 / buttons.length) + '%"' : '') + ' class="dwbw ' + b.css + '"><a href="#" class="dwb dwb' + i + ' dwb-e" role="button">' + b.text + '</a></span>';
+                });
+                html += '</div>';
+            }
+            html += (modal ? '</div>' : '') + '</div></div></div>';
+
             dw = $(html);
 
             scrollToPos();
@@ -773,19 +784,11 @@
 
             if (modal) {
                 // Init buttons
-                that.tap($('.dwb-s .dwb', dw), function () {
-                    that.select();
-                });
-
-                that.tap($('.dwb-c .dwb', dw), function () {
-                    that.cancel();
-                });
-
-                if (s.button3) {
-                    that.tap($('.dwb-n .dwb', dw), function (e) {
-                        s.button3.call(this, e, that);
+                $.each(buttons, function (i, b) {
+                    that.tap($('.dwb' + i, dw), function (e) {
+                        b.handler.call(this, e, that);
                     });
-                }
+                });
 
                 if (s.closeOnOverlay) {
                     that.tap($('.dwo', dw), function () {
@@ -971,7 +974,22 @@
             hi = s.height;
             anim = s.animate;
             modal = s.display !== 'inline';
-            hasButtons = s.setText || s.cancelText || s.button3;
+            buttons = [];
+
+            if (s.setText) {
+                buttons.push({ text: s.setText, css: 'dwb-s', handler: function () { that.select(); } });
+            }
+
+            if (s.button3) {
+                buttons.push({ text: s.button3Text, css: 'dwb-n', handler: s.button3 });
+            }
+
+            if (s.cancelText) {
+                buttons.push({ text: s.cancelText, css: 'dwb-c', handler: function () { that.cancel(); } });
+            }
+
+            hasButtons = buttons.length > 0;
+            //hasButtons = s.setText || s.cancelText || s.button3;
 
             if (visible) {
                 that.hide();
@@ -1199,6 +1217,7 @@
             ariaDesc: 'Select a value',
             scrollLock: true,
             tap: true,
+            btnWidth: true,
             speedUnit: 0.0012,
             timeUnit: 0.1,
             formatResult: function (d) {
