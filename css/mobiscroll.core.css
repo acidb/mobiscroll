@@ -204,7 +204,7 @@
     width: 100%;
     height: 40px;
     text-align: center;
-    /*opacity: 1;*/
+    opacity: 1;
     transition: opacity .2s linear;
     -webkit-transition: opacity .2s linear;
 }
@@ -293,7 +293,6 @@
 /* Datewheel button container */
 .dwbc {
     display: table;
-    /*table-layout: fixed;*/
     width: 100%;
     padding-top: 5px;
     text-align: center;
