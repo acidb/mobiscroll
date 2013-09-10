@@ -701,7 +701,7 @@
         */
         that.show = function (prevAnim) {
             if (s.disabled || visible) {
-                return false;
+                return;
             }
 
             if (s.display == 'top') {
@@ -859,7 +859,7 @@
         that.hide = function (prevAnim, btn, force) {
             // If onClose handler returns false, prevent hide
             if (!visible || (!force && event('onClose', [v, btn]) === false)) {
-                return false;
+                return;
             }
 
             // Re-enable temporary disabled fields
