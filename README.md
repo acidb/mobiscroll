@@ -49,6 +49,10 @@ _Calendar_
 
   * Added: closeOnSelect setting to hide the calendar when a day is selected.
 
+_Rangepicker_
+
+  * Added: Show/hide on focus and tap is automatically bind to start and end inputs (if any).
+
 _Languages_
 
   * Added: Swedish translation, thanks to Johan Jönsson (https://github.com/jonixj)
