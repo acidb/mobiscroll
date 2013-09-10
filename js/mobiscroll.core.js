@@ -45,6 +45,7 @@
             readOnly,
             preventChange,
             preventShow,
+            currElm,
             that = this,
             ms = $.mobiscroll,
             e = elem,
@@ -56,7 +57,6 @@
             pixels = {},
             wheels = [],
             elmList = [],
-            currElm = elm,
             input = elm.is('input'),
             visible = false,
             onStart = function (e) {
@@ -887,9 +887,12 @@
 
             pixels = {};
             visible = false;
-            preventShow = true;
 
-            currElm.focus();
+            if (currElm) {
+                preventShow = true;
+                currElm.focus();
+                currElm = null;
+            }
         };
 
         /**
