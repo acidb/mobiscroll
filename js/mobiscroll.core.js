@@ -767,7 +767,9 @@
                     dw.addClass('dw-trans');
                     // Remove animation class
                     setTimeout(function () {
-                        dw.removeClass('dw-trans').find('.dw').removeClass(mAnim);
+                        if (dw) {
+                            dw.removeClass('dw-trans').find('.dw').removeClass(mAnim);
+                        }
                     }, 350);
                 }
             } else if (elm.is('div')) {
@@ -877,8 +879,10 @@
                     dw.addClass('dw-trans').find('.dw').addClass('dw-' + anim + ' dw-out');
                 }
                 setTimeout(function () {
-                    dw.remove();
-                    dw = null;
+                    if (dw) {
+                        dw.remove();
+                        dw = null;
+                    }
                 }, doAnim ? 350 : 1);
 
                 // Stop positioning on window resize
