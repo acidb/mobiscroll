@@ -304,6 +304,7 @@
                 }
             },
             onMarkupReady: function (dw) {
+                dw.addClass('dw-select');
                 $('.dwwl' + grIdx, dw).on('mousedown touchstart', function () {
                     clearTimeout(timer);
                 });
@@ -317,11 +318,7 @@
                             onTap($('.dw-sel', this));
                         }
                     });
-                    origValues = {};
-                    var i;
-                    for (i in inst._selectedValues) {
-                        origValues[i] = inst._selectedValues[i];
-                    }
+                    origValues = $.extend({}, inst._selectedValues);
                 }
             },
             onValueTap: onTap,
@@ -336,11 +333,7 @@
                     inst.values = null;
                 }
                 if (!inst.live && multiple) {
-                    inst._selectedValues = {};
-                    var i;
-                    for (i in origValues) {
-                        inst._selectedValues[i] = origValues[i];
-                    }
+                    inst._selectedValues = $.extend({}, origValues);
                 }
             },
             onChange: function (v) {
