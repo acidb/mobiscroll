@@ -895,7 +895,6 @@
             if (currElm) {
                 preventShow = true;
                 currElm.focus();
-                currElm = null;
             }
         };
 
