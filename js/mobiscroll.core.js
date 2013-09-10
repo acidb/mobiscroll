@@ -378,9 +378,10 @@
 
                 // Reformat value if validation changed something
                 v = s.formatResult(that.temp);
-                if (!modal) {
+                if (that.live) {
                     setVal(manual, 0, true);
-                } else {
+                }
+                if (modal) {
                     $('.dwv', dw).html(formatHeader(v));
                 }
 
@@ -976,6 +977,8 @@
             modal = s.display !== 'inline';
             buttons = [];
 
+            that.live = !modal || !s.setText;
+
             if (s.setText) {
                 buttons.push({ text: s.setText, css: 'dwb-s', handler: function () { that.select(); } });
             }
@@ -989,7 +992,6 @@
             }
 
             hasButtons = buttons.length > 0;
-            //hasButtons = s.setText || s.cancelText || s.button3;
 
             if (visible) {
                 that.hide();

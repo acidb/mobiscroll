@@ -122,7 +122,7 @@
                     inst._selectedValues[val] = val;
                 }
 
-                if (s.display == 'inline') {
+                if (inst.live) {
                     setVal(val, true);
                 }
                 return false;
@@ -335,7 +335,7 @@
                 if (s.group) {
                     inst.values = null;
                 }
-                if (multiple) {
+                if (!inst.live && multiple) {
                     inst._selectedValues = {};
                     var i;
                     for (i in origValues) {
@@ -344,7 +344,7 @@
                 }
             },
             onChange: function (v) {
-                if (s.display == 'inline' && !multiple) {
+                if (inst.live && !multiple) {
                     input.val(v);
                     prevent = true;
                     elm.val(inst.temp[optIdx]).change();
