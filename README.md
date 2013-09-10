@@ -11,7 +11,7 @@ See demo here: http://demo.mobiscroll.com
 
 More features and details to follow...
 
-Tested on iOS4, Android 2.2, Android 2.3, Chrome, Safari, Firefox, IE9. Please submit issues, and compatibility problems with other devices.
+Tested on iOS 4-7, Android 2.2 - 4.2, Chrome, Safari, Firefox, IE9-10. Please submit issues, and compatibility problems with other devices.
 
 If you like it, spread the word!
 
@@ -22,6 +22,74 @@ It'd be cool to see how you're using Mobiscroll!
 ================================================
 
 We're looking at showcasing some of the best work on http://mobiscroll.com . Feel free to let us know on twitter @mobiscroll!
+
+Changelog 2.7.2
+===============
+
+Enhancements
+------------
+
+_Core_
+
+  * Added: Hide set and cancel buttons if their value is false (#134).
+
+  * Added: closeOnOverlay setting.
+
+  * Added: Live mode. If 'Set' button is not present, the value and input is updated on every change.
+
+_Timespan_
+
+  * Added: minTime and maxTime settings.
+
+_Calendar_
+
+  * Changed: Improved performance on month change.
+
+  * Changed: Refresh calls are postponed until the end of month change animation.
+
+  * Added: closeOnSelect setting to hide the calendar when a day is selected.
+
+_Languages_
+
+  * Added: Swedish translation, thanks to Johan Jönsson (https://github.com/jonixj)
+
+  * Added: European Portuguese translation, thanks to Jorge Simões (https://github.com/jorgefsimoes)
+
+_Themes_
+
+  * Added: iOS7 theme.
+
+Bugfixes
+--------
+
+_Core_
+
+  * Fixed: Mobiscroll was shown again after close in IE with jQuery < 1.9.
+
+  * Fixed: Destroy hides scroller without animation.
+
+  * Fixed: Destroy is called on the element before init preventing re-initialization bugs.
+
+  * Fixed: .mobiscroll('getInst') correctly returns the instance during initialization.
+
+  * Fixed: Positioning fixes on resize/orientationchange/scroll.
+
+  * Fixed: Was not working correctly with fastclick.js.
+
+  * Fixed: Tap was not working in IE10 with touch events (#118).
+
+  * Fixed: Clicking blank space selects last item (#159).
+
+_Calendar_
+
+  * Fixed: Incorrect width calculation when tabs set to 'auto'.
+
+  * Fixed: Event list was not clipped in Firefox Mobile when scrolled.
+
+_Rating_
+
+  * Fixed: If created from select, anchor was not correct for bubble positioning.
+
 
 Changelog 2.7.0
 ===============
