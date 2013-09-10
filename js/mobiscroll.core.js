@@ -953,12 +953,13 @@
         */
         that.init = function (ss) {
             // Get theme defaults
-            theme = extend({ defaults: {}, init: empty }, ms.themes[ss.theme || s.theme]);
+            theme = extend({ defaults: {}, load: empty, init: empty }, ms.themes[ss.theme || s.theme]);
 
             // Get language defaults
             lang = ms.i18n[ss.lang || s.lang];
 
             extend(settings, ss); // Update original user settings
+            theme.load(lang, settings);
             extend(s, theme.defaults, lang, settings);
 
             that.settings = s;
