@@ -509,7 +509,6 @@
 
             mw = d.outerWidth();
             mh = d.outerHeight(true);
-
             lock = mh <= wh && mw <= ww;
 
             if (s.display == 'modal') {
@@ -519,12 +518,12 @@
                 scroll = true;
                 arr = $('.dw-arrw-i', dw);
                 ap = anchor.offset();
-                at = ap.top;
-                al = ap.left;
+                at = (s.context == 'body') ? ap.top : Math.abs($(s.context).offset().top - ap.top);
+                al = (s.context == 'body') ? ap.left : Math.abs($(s.context).offset().left - ap.left);
 
                 // horizontal positioning
-                aw = anchor.outerWidth();
-                ah = anchor.outerHeight();
+                aw =  anchor.outerWidth();
+                ah =  anchor.outerHeight(); 
                 l = al - (d.outerWidth(true) - aw) / 2;
                 l = l > (ww - mw) ? (ww - (mw + 20)) : l;
                 l = l >= 0 ? l : 20;
