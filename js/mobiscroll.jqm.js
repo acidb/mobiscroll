@@ -22,8 +22,6 @@
             $('.dwpm .dwwl', elm).addClass('ui-body-' + s.jqmWheel);
             $('.dwpm .dwl', elm).addClass('ui-body-' + s.jqmBody);
             elm.trigger('create');
-            // Hide on overlay click
-            $('.dwo', elm).click(function () { inst.cancel(); });
         }
     };
 

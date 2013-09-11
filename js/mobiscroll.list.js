@@ -345,7 +345,7 @@
                     }
                 },
                 onChange: function (v, inst) {
-                    if (input && s.display == 'inline') {
+                    if (input && inst.live) {
                         input.val(v);
                     }
                 },

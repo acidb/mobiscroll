@@ -2,7 +2,9 @@
 .android-ics .dw {
     padding: 0;
     color: #31b6e7;
-    background: #292829;
+    background: none;
+    border-radius: 0;
+    -webkit-border-radius: 0;
 }
 .android-ics .dw .dwwc,
 .android-ics .dw .dwwl,
@@ -13,6 +15,10 @@
 }
 .android-ics .dwwr {
     padding: 0;
+    background: #292829;
+    overflow: hidden;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
 }
 .android-ics .dwc {
     padding: 30px 10px 1px 10px;
@@ -129,7 +135,7 @@
     border-right: 1px solid #424542;
 }
 /* Docked */
-.android-ics.dw-bottom .dw, .android-ics.dw-top .dw {
+.android-ics.dw-bottom .dwwr, .android-ics.dw-top .dwwr {
     border-radius: 0;
     -webkit-border-radius: 0;
 }
@@ -159,7 +165,7 @@
     content: '✔';
 }
 /* Light version */
-.android-ics.light .dw {
+.android-ics.light .dwwr {
     background: #f5f5f5;
 }
 .android-ics.light .dww .dw-li {

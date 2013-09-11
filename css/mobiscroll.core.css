@@ -25,7 +25,7 @@
 .dwwr {
     min-width: 170px;
     zoom: 1;
-    padding: 0 5px;
+    padding: 5px;
     text-align: center;
 }
 /* Datewheel overlay background */
@@ -100,7 +100,7 @@
 }
 /* Datewheel value */
 .dwv {
-    padding: 10px 0;
+    padding-bottom: 5px;
     border-bottom: 1px solid #000;
 }
 .dw-hidden {
@@ -293,9 +293,8 @@
 /* Datewheel button container */
 .dwbc {
     display: table;
-    table-layout: fixed;
     width: 100%;
-    padding: 5px 0;
+    padding-top: 5px;
     text-align: center;
 }
 /* Datewheel button wrapper */

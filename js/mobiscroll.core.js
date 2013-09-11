@@ -1,6 +1,6 @@
 /*jslint eqeq: true, plusplus: true, undef: true, sloppy: true, vars: true, forin: true, nomen: true */
 /*!
- * Mobiscroll v2.7.0
+ * Mobiscroll v2.7.2
  * http://mobiscroll.com
  *
  * Copyright 2010-2013, Acid Media
@@ -28,6 +28,7 @@
             theme,
             lang,
             click,
+            hasButtons,
             scrollable,
             moved,
             start,
@@ -40,9 +41,11 @@
             target,
             index,
             timer,
+            buttons,
             readOnly,
             preventChange,
             preventShow,
+            currElm,
             that = this,
             ms = $.mobiscroll,
             e = elem,
@@ -54,7 +57,6 @@
             pixels = {},
             wheels = [],
             elmList = [],
-            currElm = elm,
             input = elm.is('input'),
             visible = false,
             onStart = function (e) {
@@ -376,9 +378,10 @@
 
                 // Reformat value if validation changed something
                 v = s.formatResult(that.temp);
-                if (!modal) {
+                if (that.live) {
                     setVal(manual, 0, true);
-                } else {
+                }
+                if (modal) {
                     $('.dwv', dw).html(formatHeader(v));
                 }
 
@@ -457,7 +460,7 @@
                     if ((lock && checkLock) || !checkLock) {
                         that.position(!checkLock);
                     }
-                }, 100);
+                }, 200);
             });
         }
 
@@ -698,7 +701,7 @@
         */
         that.show = function (prevAnim) {
             if (s.disabled || visible) {
-                return false;
+                return;
             }
 
             if (s.display == 'top') {
@@ -723,7 +726,7 @@
                 mAnim = 'dw-' + anim + ' dw-in';
             }
             // Create wheels containers
-            var html = '<div role="dialog" class="' + s.theme + ' dw-' + s.display + (prefix ? ' dw' + prefix : '') + '">' + (!modal ? '<div class="dw dwbg dwi"><div class="dwwr">' : '<div class="dw-persp"><div class="dwo"></div><div class="dw dwbg ' + mAnim + '"><div class="dw-arrw"><div class="dw-arrw-i"><div class="dw-arr"></div></div></div><div class="dwwr"><div aria-live="assertive" class="dwv' + (s.headerText ? '' : ' dw-hidden') + '"></div>') + '<div class="dwcc">';
+            var html = '<div role="dialog" class="' + s.theme + ' dw-' + s.display + (prefix ? ' dw' + prefix : '') + (hasButtons ? '' : ' dw-nobtn') + '">' + (!modal ? '<div class="dw dwbg dwi"><div class="dwwr">' : '<div class="dw-persp"><div class="dwo"></div><div class="dw dwbg ' + mAnim + '"><div class="dw-arrw"><div class="dw-arrw-i"><div class="dw-arr"></div></div></div><div class="dwwr"><div aria-live="assertive" class="dwv' + (s.headerText ? '' : ' dw-hidden') + '"></div>') + '<div class="dwcc">';
 
             $.each(s.wheels, function (i, wg) { // Wheel groups
                 html += '<div class="dwc' + (s.mode != 'scroller' ? ' dwpm' : ' dwsc') + (s.showLabel ? '' : ' dwhl') + '"><div class="dwwc dwrc"><table cellpadding="0" cellspacing="0"><tr>';
@@ -740,7 +743,17 @@
                 html += '</tr></table></div></div>';
             });
 
-            html += '</div>' + (modal ? '<div class="dwbc">' + (s.setText ? '<span class="dwbw dwb-s"><a href="#" class="dwb dwb-e" role="button">' + s.setText + '</a></span>' : '') + (s.button3 ? '<span class="dwbw dwb-n"><a href="#" class="dwb dwb-e" role="button">' + s.button3Text + '</a></span>' : '') + (s.cancelText ? '<span class="dwbw dwb-c"><a href="#" class="dwb dwb-e" role="button">' + s.cancelText + '</a></span> ' : '') + '</div></div>' : '') + '</div></div></div>';
+            html += '</div>';
+
+            if (modal && hasButtons) {
+                html += '<div class="dwbc">';
+                $.each(buttons, function (i, b) {
+                    html += '<span' + (s.btnWidth ? ' style="width:' + (100 / buttons.length) + '%"' : '') + ' class="dwbw ' + b.css + '"><a href="#" class="dwb dwb' + i + ' dwb-e" role="button">' + b.text + '</a></span>';
+                });
+                html += '</div>';
+            }
+            html += (modal ? '</div>' : '') + '</div></div></div>';
+
             dw = $(html);
 
             scrollToPos();
@@ -754,7 +767,9 @@
                     dw.addClass('dw-trans');
                     // Remove animation class
                     setTimeout(function () {
-                        dw.removeClass('dw-trans').find('.dw').removeClass(mAnim);
+                        if (dw) {
+                            dw.removeClass('dw-trans').find('.dw').removeClass(mAnim);
+                        }
                     }, 350);
                 }
             } else if (elm.is('div')) {
@@ -772,17 +787,15 @@
 
             if (modal) {
                 // Init buttons
-                that.tap($('.dwb-s .dwb', dw), function () {
-                    that.select();
+                $.each(buttons, function (i, b) {
+                    that.tap($('.dwb' + i, dw), function (e) {
+                        b.handler.call(this, e, that);
+                    });
                 });
 
-                that.tap($('.dwb-c .dwb', dw), function () {
-                    that.cancel();
-                });
-
-                if (s.button3) {
-                    that.tap($('.dwb-n .dwb', dw), function (e) {
-                        s.button3.call(this, e, that);
+                if (s.closeOnOverlay) {
+                    that.tap($('.dwo', dw), function () {
+                        that.cancel();
                     });
                 }
 
@@ -846,7 +859,7 @@
         that.hide = function (prevAnim, btn, force) {
             // If onClose handler returns false, prevent hide
             if (!visible || (!force && event('onClose', [v, btn]) === false)) {
-                return false;
+                return;
             }
 
             // Re-enable temporary disabled fields
@@ -866,8 +879,10 @@
                     dw.addClass('dw-trans').find('.dw').addClass('dw-' + anim + ' dw-out');
                 }
                 setTimeout(function () {
-                    dw.remove();
-                    dw = null;
+                    if (dw) {
+                        dw.remove();
+                        dw = null;
+                    }
                 }, doAnim ? 350 : 1);
 
                 // Stop positioning on window resize
@@ -876,9 +891,11 @@
 
             pixels = {};
             visible = false;
-            preventShow = true;
 
-            currElm.focus();
+            if (currElm) {
+                preventShow = true;
+                currElm.focus();
+            }
         };
 
         /**
@@ -939,12 +956,13 @@
         */
         that.init = function (ss) {
             // Get theme defaults
-            theme = extend({ defaults: {}, init: empty }, ms.themes[ss.theme || s.theme]);
+            theme = extend({ defaults: {}, load: empty, init: empty }, ms.themes[ss.theme || s.theme]);
 
             // Get language defaults
             lang = ms.i18n[ss.lang || s.lang];
 
             extend(settings, ss); // Update original user settings
+            theme.load(lang, settings);
             extend(s, theme.defaults, lang, settings);
 
             that.settings = s;
@@ -964,6 +982,23 @@
             hi = s.height;
             anim = s.animate;
             modal = s.display !== 'inline';
+            buttons = [];
+
+            that.live = !modal || !s.setText;
+
+            if (s.setText) {
+                buttons.push({ text: s.setText, css: 'dwb-s', handler: function () { that.select(); } });
+            }
+
+            if (s.button3) {
+                buttons.push({ text: s.button3Text, css: 'dwb-n', handler: s.button3 });
+            }
+
+            if (s.cancelText) {
+                buttons.push({ text: s.cancelText, css: 'dwb-c', handler: function () { that.cancel(); } });
+            }
+
+            hasButtons = buttons.length > 0;
 
             if (visible) {
                 that.hide();
@@ -1175,6 +1210,7 @@
             delay: 300,
             disabled: false,
             readonly: false,
+            closeOnOverlay: true,
             showOnFocus: true,
             showOnTap: true,
             showLabel: true,
@@ -1191,6 +1227,7 @@
             ariaDesc: 'Select a value',
             scrollLock: true,
             tap: true,
+            btnWidth: true,
             speedUnit: 0.0012,
             timeUnit: 0.1,
             formatResult: function (d) {
