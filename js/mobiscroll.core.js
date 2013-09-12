@@ -523,8 +523,8 @@
                 scroll = true;
                 arr = $('.dw-arrw-i', dw);
                 ap = anchor.offset();
-                at =  Math.abs($(s.context).offset().top - ap.top);
-                al =  Math.abs($(s.context).offset().left - ap.left);
+                at = Math.abs($(s.context).offset().top - ap.top);
+                al = Math.abs($(s.context).offset().left - ap.left);
 
                 // horizontal positioning
                 aw =  anchor.outerWidth();
@@ -985,8 +985,8 @@
             anim = s.animate;
             modal = s.display !== 'inline';
             buttons = [];
-            wndw = (s.context == 'body') ? $(window) : $(s.context);
-            doc = ((s.context == 'body') ?  $(document) : wndw);
+            wndw = $(s.context == 'body' ? window : s.context);
+            doc = $(s.context == 'body' ? document : wndw);
 
             that.live = !modal || !s.setText;
 
