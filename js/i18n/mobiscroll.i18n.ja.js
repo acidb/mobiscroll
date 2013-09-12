@@ -3,6 +3,7 @@
         // Core
         setText: 'セット',
         cancelText: 'キャンセル',
+        clearText: 'クリア',
         // Datetime component
         dateFormat: 'yy年mm月dd日',
         dateOrder: 'yymmdd',

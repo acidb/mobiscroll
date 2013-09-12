@@ -3,6 +3,7 @@
         // Core
         setText: 'Seç',
         cancelText: 'İptal',
+        clearText: 'Temizleyin',
         // Datetime component
         dateFormat: 'dd.mm.yy',
         dateOrder: 'ddmmyy',

@@ -6,6 +6,7 @@
         // Core
         setText: 'Seleccionar',
         cancelText: 'Cancelar',
+        clearText: 'Claro',
         // Datetime component
         dateFormat: 'dd-mm-yy',
         dateOrder: 'ddMMyy',
