@@ -997,6 +997,15 @@
             if (s.button3) {
                 buttons.push({ text: s.button3Text, css: 'dwb-n', handler: s.button3 });
             }
+            
+            if (s.showClear) {
+                buttons.push({ text: s.clearText, css: 'dwb-cl', handler: function () { 
+                    elm.val("");
+                    if (!that.live) {
+                        that.hide();
+                    }
+                } });
+            }
 
             if (s.cancelText) {
                 buttons.push({ text: s.cancelText, css: 'dwb-c', handler: function () { that.cancel(); } });
@@ -1218,6 +1227,7 @@
             showOnFocus: true,
             showOnTap: true,
             showLabel: true,
+            showClear: false,
             wheels: [],
             theme: '',
             headerText: '{value}',
@@ -1227,6 +1237,7 @@
             lang: 'en-US',
             setText: 'Set',
             cancelText: 'Cancel',
+            clearText: 'Clear',
             context: 'body',
             ariaDesc: 'Select a value',
             scrollLock: true,
