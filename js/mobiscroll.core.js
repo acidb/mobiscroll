@@ -499,7 +499,7 @@
 
             ww = wndw.width();
             rwh = wndw.height();
-            wh = wndw.innerHeight(); // on iOS we need innerHeight
+            wh = wndw[0].innerHeight; // on iOS we need innerHeight
             wh = wh || rwh;
 
             if (/modal|bubble/.test(s.display)) {
@@ -820,7 +820,7 @@
                 }
 
                 // Disable inputs to prevent bleed through (Android bug) and set autocomplete to off (for Firefox)
-                $('input,select,button').each(function () {
+                $('input,select,button', doc).each(function () {
                     if (!this.disabled) {
                         if ($(this).attr('autocomplete')) {
                             $(this).data('autocomplete', $(this).attr('autocomplete'));
@@ -865,7 +865,7 @@
             }
 
             // Re-enable temporary disabled fields
-            $('.dwtd').each(function () {
+            $('.dwtd', doc).each(function () {
                 $(this).prop('disabled', false).removeClass('dwtd');
                 if ($(this).data('autocomplete')) {
                     $(this).attr('autocomplete', $(this).data('autocomplete'));
