@@ -3,6 +3,7 @@
         // Core
         setText: 'OK',
         cancelText: 'Avbryt',
+        clearText: 'klara',
         // Datetime component
         dateFormat: 'yy-mm-dd',
         dateOrder: 'yymmdd',

@@ -3,6 +3,7 @@
         // Core
         setText: 'Terminé',
         cancelText: 'Annuler',
+        clearText: 'Effacer',
         // Datetime component
         dateFormat: 'dd/mm/yy',
         dateOrder: 'ddmmyy',
