@@ -46,6 +46,8 @@
             preventChange,
             preventShow,
             currElm,
+            wndw,
+            doc,
             that = this,
             ms = $.mobiscroll,
             e = elem,
@@ -471,7 +473,7 @@
         */
         that.position = function (check) {
 
-            if (!modal || (ww === $(window).width() && rwh === $(window).height() && check) || (event('onPosition', [dw]) === false)) {
+            if (!modal || (ww === wndw.width() && rwh === wndw.height() && check) || (event('onPosition', [dw]) === false)) {
                 return;
             }
 
@@ -489,15 +491,15 @@
                 scroll,
                 totalw = 0,
                 minw = 0,
-                st = (s.context == 'body') ? $(window).scrollTop() : $(s.context).scrollTop();
+                st = wndw.scrollTop(),
                 wr = $('.dwwr', dw),
                 d = $('.dw', dw),
                 css = {},
                 anchor = s.anchor === undefined ? elm : s.anchor;
 
-            ww = (s.context == 'body') ? $(window).width() : $(s.context).width();
-            rwh = (s.context == 'body') ? $(window).height() : $(s.context).height();
-            wh = (s.context == 'body') ? window.innerHeight :  $(s.context).innerHeight() ; // on iOS we need innerHeight
+            ww = wndw.width();
+            rwh = wndw.height();
+            wh = wndw.innerHeight(); // on iOS we need innerHeight
             wh = wh || rwh;
 
             if (/modal|bubble/.test(s.display)) {
@@ -521,12 +523,12 @@
                 scroll = true;
                 arr = $('.dw-arrw-i', dw);
                 ap = anchor.offset();
-                at = (s.context == 'body') ? ap.top : Math.abs($(s.context).offset().top - ap.top);
-                al = (s.context == 'body') ? ap.left : Math.abs($(s.context).offset().left - ap.left);
+                at =  Math.abs($(s.context).offset().top - ap.top);
+                al =  Math.abs($(s.context).offset().left - ap.left);
 
                 // horizontal positioning
                 aw =  anchor.outerWidth();
-                ah =  anchor.outerHeight(); 
+                ah =  anchor.outerHeight();
                 l = al - (d.outerWidth(true) - aw) / 2;
                 l = l > (ww - mw) ? (ww - (mw + 20)) : l;
                 l = l >= 0 ? l : 20;
@@ -560,12 +562,12 @@
             d.css(css);
 
             // If top + modal height > doc height, increase doc height
-           
-            $('.dw-persp', dw).height(0).height(t + mh >  ((s.context == 'body') ?  $(document).height() : $(s.context).height()) ? t + mh : ((s.context == 'body') ?  $(document).height() : $(s.context).height()));
+
+            $('.dw-persp', dw).height(0).height(t + mh >  doc.height() ? t + mh : doc.height());
 
             // Scroll needed
             if (scroll && ((t + mh > st + wh) || (at > st + wh))) {
-                $(window).scrollTop(t + mh - wh);
+                wndw.scrollTop(t/* + mh - wh*/);
             }
         };
 
@@ -983,6 +985,8 @@
             anim = s.animate;
             modal = s.display !== 'inline';
             buttons = [];
+            wndw = (s.context == 'body') ? $(window) : $(s.context);
+            doc = ((s.context == 'body') ?  $(document) : wndw);
 
             that.live = !modal || !s.setText;
 
