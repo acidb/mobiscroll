@@ -997,14 +997,18 @@
             if (s.button3) {
                 buttons.push({ text: s.button3Text, css: 'dwb-n', handler: s.button3 });
             }
-            
+
             if (s.showClear) {
-                buttons.push({ text: s.clearText, css: 'dwb-cl', handler: function () { 
-                    elm.val("");
-                    if (!that.live) {
-                        that.hide();
+                buttons.push({
+                    text: s.clearText,
+                    css: 'dwb-cl',
+                    handler: function () {
+                        elm.val('');
+                        if (!that.live) {
+                            that.hide();
+                        }
                     }
-                } });
+                });
             }
 
             if (s.cancelText) {
