@@ -93,18 +93,15 @@
 .ios7 .dwb-a {
     opacity: .5;
 }
-.ios7 .dwb-s, .ios7 .dwb-n {
-    width: auto;
+.ios7 .dwbw {
+    display: block;
     float: right;
-    text-align: right;
+}
+.ios7 .dwb-c {
+    float: left;
 }
 .ios7 .dwb-s .dwb {
     font-weight: bold;
-}
-.ios7 .dwb-c {
-    width: auto;
-    float: left;
-    text-align: left;
 }
 /* Clickpick mode */
 .ios7 .dwpm .dwwl {
