@@ -4,6 +4,7 @@
         setText: 'Terminé',
         cancelText: 'Annuler',
         clearText: 'Effacer',
+        selectedText: ' Sélectionné',
         // Datetime component
         dateFormat: 'dd/mm/yy',
         dateOrder: 'ddmmyy',

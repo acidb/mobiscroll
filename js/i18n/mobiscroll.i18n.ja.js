@@ -4,6 +4,7 @@
         setText: 'セット',
         cancelText: 'キャンセル',
         clearText: 'クリア',
+        selectedText: ' 選択',
         // Datetime component
         dateFormat: 'yy年mm月dd日',
         dateOrder: 'yymmdd',

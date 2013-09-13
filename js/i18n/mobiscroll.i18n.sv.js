@@ -4,6 +4,7 @@
         setText: 'OK',
         cancelText: 'Avbryt',
         clearText: 'klara',
+        selectedText: ' Vald',
         // Datetime component
         dateFormat: 'yy-mm-dd',
         dateOrder: 'yymmdd',

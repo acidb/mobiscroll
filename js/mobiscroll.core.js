@@ -987,7 +987,8 @@
             buttons = [];
             wndw = $(s.context == 'body' ? window : s.context);
             doc = $(s.context == 'body' ? document : wndw);
-
+            
+            that.context = wndw;
             that.live = !modal || !s.setText;
 
             if (s.setText) {
@@ -1227,9 +1228,9 @@
             showOnFocus: true,
             showOnTap: true,
             showLabel: true,
-            showClear: false,
             wheels: [],
             theme: '',
+            selectedText: ' Selected',
             headerText: '{value}',
             display: 'modal',
             mode: 'scroller',

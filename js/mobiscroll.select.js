@@ -6,7 +6,7 @@
         invalid: [],
         rtl: false,
         group: false,
-        groupLabel: 'Groups'
+        groupLabel: 'Groups',
     };
 
     $.mobiscroll.presetShort('select');
@@ -291,13 +291,17 @@
                 } else {
                     option = inst.temp[optIdx];
                 }
-
                 var t = $('.dw-ul', dw).eq(optIdx);
                 $.each(s.invalid, function (i, v) {
                     $('.dw-li[data-val="' + v + '"]', t).removeClass('dw-v');
                 });
             },
             onBeforeShow: function (dw) {
+                if (multiple && s.counter) {
+                    s.headerText = function () {
+                        return ((Object.keys(inst._selectedValues).length)).toString() + s.selectedText;
+                    };
+                }
                 s.wheels = genWheels();
                 if (s.group) {
                     inst.temp = s.rtl ? [option, group.index()] : [group.index(), option];
