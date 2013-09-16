@@ -3,8 +3,8 @@
         // Core
         setText: 'OK',
         cancelText: 'Avbryt',
-        clearText: 'klara',
-        selectedText: ' Vald',
+        clearText: 'Klara',
+        selectedText: 'Vald',
         // Datetime component
         dateFormat: 'yy-mm-dd',
         dateOrder: 'yymmdd',

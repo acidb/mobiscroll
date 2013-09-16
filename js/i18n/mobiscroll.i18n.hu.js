@@ -4,7 +4,7 @@
         setText: 'OK',
         cancelText: 'Mégse',
         clearText: 'Törlés',
-        selectedText: ' Kiválasztva',
+        selectedText: 'Kiválasztva',
         // Datetime component
         dateFormat: 'yy.mm.dd',
         dateOrder: 'yymmdd',
