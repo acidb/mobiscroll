@@ -6,7 +6,7 @@
         invalid: [],
         rtl: false,
         group: false,
-        groupLabel: 'Groups',
+        groupLabel: 'Groups'
     };
 
     $.mobiscroll.presetShort('select');
@@ -299,7 +299,7 @@
             onBeforeShow: function (dw) {
                 if (multiple && s.counter) {
                     s.headerText = function () {
-                        return ((Object.keys(inst._selectedValues).length)).toString() + s.selectedText;
+                        return Object.keys(inst._selectedValues).length + s.selectedText;
                     };
                 }
                 s.wheels = genWheels();
