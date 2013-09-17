@@ -457,7 +457,7 @@
 
         function attachPosition(ev, checkLock) {
             var debounce;
-            $(window).on(ev, function (e) {
+            wndw.on(ev, function (e) {
                 clearTimeout(debounce);
                 debounce = setTimeout(function () {
                     if ((lock && checkLock) || !checkLock) {
@@ -768,6 +768,7 @@
 
             // Show
             if (modal) {
+
                 dw.appendTo(s.context);
                 if (anim && !prevAnim) {
                     dw.addClass('dw-trans');
@@ -813,6 +814,13 @@
                         that.cancel();
                     }
                 });
+
+                /*window.addEventListener('deviceorientation', function (e) {
+                    var lr = e.gamma,
+                        style = $('.dw', dw)[0].style;
+                    style[pr + 'Transition'] = 'all 0.1s ease-out';
+                    style[pr + 'Transform'] = (lr > -13 && lr < 13 ) ?  'translate3d(0,0,0)' : ((lr > 13) ? 'translate3d(5px,0,0)' : 'translate3d(-5px,0,0)');
+                });*/
 
                 // Prevent scroll if not specified otherwise
                 if (s.scrollLock) {
@@ -894,7 +902,7 @@
                 }, doAnim ? 350 : 1);
 
                 // Stop positioning on window resize
-                $(window).off('.dw');
+                wndw.off('.dw');
             }
 
             pixels = {};
