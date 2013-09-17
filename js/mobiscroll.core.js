@@ -764,6 +764,7 @@
 
             // Show
             if (modal) {
+
                 dw.appendTo(s.context);
                 if (anim && !prevAnim) {
                     dw.addClass('dw-trans');
@@ -809,6 +810,13 @@
                         that.cancel();
                     }
                 });
+
+                /*window.addEventListener('deviceorientation', function (e) {
+                    var lr = e.gamma,
+                        style = $('.dw', dw)[0].style;
+                    style[pr + 'Transition'] = 'all 0.1s ease-out';
+                    style[pr + 'Transform'] = (lr > -13 && lr < 13 ) ?  'translate3d(0,0,0)' : ((lr > 13) ? 'translate3d(5px,0,0)' : 'translate3d(-5px,0,0)');
+                });*/
 
                 // Prevent scroll if not specified otherwise
                 if (s.scrollLock) {
@@ -987,7 +995,7 @@
             buttons = [];
             wndw = $(s.context == 'body' ? window : s.context);
             doc = $(s.context == 'body' ? document : wndw);
-            
+
             that.context = wndw;
             that.live = !modal || !s.setText;
 
