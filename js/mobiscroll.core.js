@@ -456,7 +456,7 @@
 
         function attachPosition(ev, checkLock) {
             var debounce;
-            $(window).on(ev, function (e) {
+            wndw.on(ev, function (e) {
                 clearTimeout(debounce);
                 debounce = setTimeout(function () {
                     if ((lock && checkLock) || !checkLock) {
@@ -895,7 +895,7 @@
                 }, doAnim ? 350 : 1);
 
                 // Stop positioning on window resize
-                $(window).off('.dw');
+                wndw.off('.dw');
             }
 
             pixels = {};
