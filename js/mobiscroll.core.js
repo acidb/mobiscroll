@@ -680,10 +680,7 @@
                     if (Math.abs(getCoord(e, 'X') - startX) < 20 && Math.abs(getCoord(e, 'Y') - startY) < 20) {
                         handler.call(this, e);
                     }
-                    tap = true;
-                    setTimeout(function () {
-                        tap = false;
-                    }, 300);
+                    setTap();
                 });
             }
 
@@ -851,7 +848,9 @@
                 .on('keydown', '.dwwl', onKeyDown)
                 .on('keyup', '.dwwl', onKeyUp)
                 .on(START_EVENT, '.dwb-e', onBtnStart)
+                .on('mousedown', function (e) { e.preventDefault(); }) // Prevents blue highlight on Android
                 .on('click', '.dwb-e', function (e) { e.preventDefault(); })
+                .on('touchend', setTap)
                 .on('keydown', '.dwb-e', function (e) {
                     if (e.keyCode == 32) { // Space
                         e.preventDefault();
@@ -938,7 +937,7 @@
             elmList.push(elm);
             if (s.display !== 'inline') {
                 elm.on((s.showOnFocus ? 'focus.dw' : '') + (s.showOnTap ? ' click.dw' : ''), function () {
-                    if (!preventShow) {
+                    if (!preventShow && !tap) {
                         if (beforeShow) {
                             beforeShow();
                         }
@@ -1151,6 +1150,13 @@
             return false;
         }
         return true;
+    }
+
+    function setTap() {
+        tap = true;
+        setTimeout(function () {
+            tap = false;
+        }, 300);
     }
 
     function getCoord(e, c) {
