@@ -1015,10 +1015,10 @@
                 s.buttons.splice(0, 1);
             }
             if (s.showClear) {
-                s.buttons.splice(1, 0, s.clearText);
+                s.buttons.splice(s.buttons.indexOf(s.setText)+1, 0, s.clearText);
             }
             if (s.button3) {
-                s.buttons.splice(1, 0, s.button3);
+                s.buttons.splice(s.buttons.indexOf(s.setText)+1, 0, s.button3);
             }
             if (!s.cancelText) {
                 s.buttons.splice(s.buttons.indexOf(s.cancelText), 1);
