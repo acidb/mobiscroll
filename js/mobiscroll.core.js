@@ -560,9 +560,6 @@
                 }
             }
 
-            preventPos = true;
-            setTimeout(function () { preventPos = false; }, 300);
-
             css.top = t < 0 ? 0 : t;
             css.left = l;
             d.css(css);
@@ -574,6 +571,8 @@
 
             // Scroll needed
             if (scroll && ((t + mh > st + wh) || (at > st + wh))) {
+                preventPos = true;
+                setTimeout(function () { preventPos = false; }, 300);
                 wndw.scrollTop(Math.min(t + mh - wh, dh - wh));
             }
         };
@@ -819,7 +818,7 @@
                     var lr = e.gamma,
                         style = $('.dw', dw)[0].style;
                     style[pr + 'Transition'] = 'all 0.1s ease-out';
-                    style[pr + 'Transform'] = (lr > -13 && lr < 13 ) ?  'translate3d(0,0,0)' : ((lr > 13) ? 'translate3d(5px,0,0)' : 'translate3d(-5px,0,0)');
+                    style[pr + 'Transform'] = (lr > -13 && lr < 13) ?  'translate3d(0,0,0)' : ((lr > 13) ? 'translate3d(5px,0,0)' : 'translate3d(-5px,0,0)');
                 });*/
 
                 // Prevent scroll if not specified otherwise
