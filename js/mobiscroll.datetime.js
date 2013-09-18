@@ -307,9 +307,10 @@
             };
 
             inst.format = hformat;
+            inst.buttons.Now = { text: s.nowText, css: 'dwb-n', handler: function () { inst.setDate(new Date(), false, 0.3, true, true); } };
+
             if (s.showNow) {
-                inst.buttons.button3 = { text: s.nowText, css: '', handler: function () { inst.setDate(new Date(), false, 0.3, true, true); } };
-                s.buttons.push('button3');
+                s.buttons.splice(s.buttons.indexOf(s.selectText), 0, 'Now');
             }
             // ---
 
