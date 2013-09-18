@@ -175,7 +175,7 @@
                 inst.setValue(multiple ? elm.val() || [] : [elm.val()], true);
             }
             prevent = false;
-        }).addClass('dw-hsel').attr('tabIndex', -1).closest('.ui-field-contain').trigger('create');
+        }).addClass('dw-hsel').attr('tabindex', -1).closest('.ui-field-contain').trigger('create');
 
         // Extended methods
         // ---
@@ -349,7 +349,7 @@
             },
             onDestroy: function () {
                 input.remove();
-                elm.show();
+                elm.removeClass('dw-hsel');
             }
         };
     };
