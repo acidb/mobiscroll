@@ -41,7 +41,6 @@
             target,
             index,
             timer,
-            buttons,
             readOnly,
             preventChange,
             preventShow,
@@ -745,6 +744,7 @@
                     l++;
                 });
 
+
                 html += '</tr></table></div></div>';
             });
 
@@ -752,8 +752,9 @@
 
             if (modal && hasButtons) {
                 html += '<div class="dwbc">';
-                $.each(buttons, function (i, b) {
-                    html += '<span' + (s.btnWidth ? ' style="width:' + (100 / buttons.length) + '%"' : '') + ' class="dwbw ' + b.css + '"><a href="#" class="dwb dwb' + i + ' dwb-e" role="button">' + b.text + '</a></span>';
+                $.each(s.buttons, function (i, b) {
+                    b = (typeof b === 'string') ? that.buttons[b] : b;
+                    html += '<span' + (s.btnWidth ? ' style="width:' + (100 / s.buttons.length) + '%"' : '') + ' class="dwbw ' + b.css + '"><a href="#" class="dwb dwb' + i + ' dwb-e" role="button">' + b.text + '</a></span>';
                 });
                 html += '</div>';
             }
@@ -793,8 +794,9 @@
 
             if (modal) {
                 // Init buttons
-                $.each(buttons, function (i, b) {
+                $.each(s.buttons, function (i, b) {
                     that.tap($('.dwb' + i, dw), function (e) {
+                        b = (typeof b === 'string') ? that.buttons[b] : b;
                         b.handler.call(this, e, that);
                     });
                 });
@@ -997,39 +999,27 @@
             hi = s.height;
             anim = s.animate;
             modal = s.display !== 'inline';
-            buttons = [];
             wndw = $(s.context == 'body' ? window : s.context);
             doc = $(s.context)[0];
+
+            that.buttons.set = { text: s.setText, css: 'dwb-s', handler: function () { that.select(); } };
+            that.buttons.cancel = { text: s.cancelText, css: 'dwb-c', handler: function () { that.cancel(); } };
+            that.buttons.clear = { text: s.clearText, css: 'dwb-cl', handler: function () {
+                elm.val('');
+                if (!that.live) {
+                    that.hide();
+                }
+            }
+                };
+
+            if (s.showClear) {
+                s.buttons.push('clear');
+            }
 
             that.context = wndw;
             that.live = !modal || !s.setText;
 
-            if (s.setText) {
-                buttons.push({ text: s.setText, css: 'dwb-s', handler: function () { that.select(); } });
-            }
-
-            if (s.button3) {
-                buttons.push({ text: s.button3Text, css: 'dwb-n', handler: s.button3 });
-            }
-
-            if (s.showClear) {
-                buttons.push({
-                    text: s.clearText,
-                    css: 'dwb-cl',
-                    handler: function () {
-                        elm.val('');
-                        if (!that.live) {
-                            that.hide();
-                        }
-                    }
-                });
-            }
-
-            if (s.cancelText) {
-                buttons.push({ text: s.cancelText, css: 'dwb-c', handler: function () { that.cancel(); } });
-            }
-
-            hasButtons = buttons.length > 0;
+            hasButtons = s.buttons.length > 0;
 
             if (visible) {
                 that.hide();
@@ -1118,6 +1108,7 @@
         that.values = null;
         that.val = null;
         that.temp = null;
+        that.buttons = {};
         that._selectedValues = {};
 
         that.init(settings);
@@ -1252,6 +1243,7 @@
             showOnFocus: true,
             showOnTap: true,
             showLabel: true,
+            buttons: ['set', 'cancel'],
             wheels: [],
             theme: '',
             selectedText: ' Selected',
