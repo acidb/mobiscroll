@@ -349,6 +349,7 @@
             },
             onDestroy: function () {
                 input.remove();
+                elm.removeAttr('tabindex');
                 elm.removeClass('dw-hsel');
             }
         };
