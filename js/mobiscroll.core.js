@@ -45,6 +45,7 @@
             readOnly,
             preventChange,
             preventShow,
+            preventPos,
             currElm,
             wndw,
             doc,
@@ -473,7 +474,7 @@
         */
         that.position = function (check) {
 
-            if (!modal || (ww === wndw.width() && rwh === wndw.height() && check) || (event('onPosition', [dw]) === false)) {
+            if (!modal || preventPos || (ww === wndw.width() && rwh === wndw.height() && check) || (event('onPosition', [dw]) === false)) {
                 return;
             }
 
@@ -488,12 +489,14 @@
                 arr, // arrow
                 arrw, // arrow width
                 arrl, // arrow left
+                dh,
                 scroll,
                 totalw = 0,
                 minw = 0,
                 st = wndw.scrollTop(),
                 wr = $('.dwwr', dw),
                 d = $('.dw', dw),
+                persp = $('.dw-persp', dw),
                 css = {},
                 anchor = s.anchor === undefined ? elm : s.anchor;
 
@@ -557,17 +560,21 @@
                 }
             }
 
+            preventPos = true;
+            setTimeout(function () { preventPos = false; }, 300);
+
             css.top = t < 0 ? 0 : t;
             css.left = l;
             d.css(css);
 
             // If top + modal height > doc height, increase doc height
-
-            $('.dw-persp', dw).height(0).height(t + mh >  doc.height() ? t + mh : doc.height());
+            persp.height(0);
+            dh = Math.max(t + mh, s.context == 'body' ? $(document).height() : doc.scrollHeight);
+            persp.height(dh);
 
             // Scroll needed
             if (scroll && ((t + mh > st + wh) || (at > st + wh))) {
-                wndw.scrollTop(t/* + mh - wh*/);
+                wndw.scrollTop(Math.min(t + mh - wh, dh - wh));
             }
         };
 
@@ -817,7 +824,7 @@
 
                 // Prevent scroll if not specified otherwise
                 if (s.scrollLock) {
-                    dw.on('touchmove touchstart', function (e) {
+                    dw.on('touchmove', function (e) {
                         if (lock) {
                             e.preventDefault();
                         }
@@ -850,7 +857,7 @@
                 .on(START_EVENT, '.dwb-e', onBtnStart)
                 .on('mousedown', function (e) { e.preventDefault(); }) // Prevents blue highlight on Android
                 .on('click', '.dwb-e', function (e) { e.preventDefault(); })
-                .on('touchend', setTap)
+                .on('touchend', function () { if (s.tap) { setTap(); } })
                 .on('keydown', '.dwb-e', function (e) {
                     if (e.keyCode == 32) { // Space
                         e.preventDefault();
@@ -993,7 +1000,7 @@
             modal = s.display !== 'inline';
             buttons = [];
             wndw = $(s.context == 'body' ? window : s.context);
-            doc = $(s.context == 'body' ? document : wndw);
+            doc = $(s.context)[0];
 
             that.context = wndw;
             that.live = !modal || !s.setText;
