@@ -175,7 +175,7 @@
                 inst.setValue(multiple ? elm.val() || [] : [elm.val()], true);
             }
             prevent = false;
-        }).hide().closest('.ui-field-contain').trigger('create');
+        }).addClass('dw-hsel').attr('tabIndex', -1).closest('.ui-field-contain').trigger('create');
 
         // Extended methods
         // ---

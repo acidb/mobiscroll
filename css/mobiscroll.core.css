@@ -316,6 +316,15 @@
     padding: 0 40px;
     position: relative;
 }
+
+.dw-hsel {
+    position: absolute;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+    clip: rect(1px,1px,1px,1px);
+}
+
 .dwms .dw-msel:after {
     width: 40px;
     text-align: center;
