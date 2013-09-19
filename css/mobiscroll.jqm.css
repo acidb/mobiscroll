@@ -9,6 +9,7 @@
 .jqm .dwv {
     position: static;
     width: auto;
+    margin: 0;
     padding: .7em 15px .7em 15px;
     border: 0;
 }

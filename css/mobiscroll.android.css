@@ -7,6 +7,7 @@
 }
 .android .dwv {
     padding: 10px;
+    margin: 0;
     border-bottom: 1px solid #333;
 }
 .android .dw-hidden {
