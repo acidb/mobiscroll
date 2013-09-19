@@ -1002,8 +1002,11 @@
             wndw = $(s.context == 'body' ? window : s.context);
             doc = $(s.context)[0];
 
+            that.context = wndw;
+            that.live = !modal || ($.inArray('set', s.buttons) == -1);
+
             that.buttons.set = { text: s.setText, css: 'dwb-s', handler: that.select };
-            that.buttons.cancel = { text: s.cancelText, css: 'dwb-c', handler: that.cancel };
+            that.buttons.cancel = { text: (that.live) ? s.closeText : s.cancelText, css: 'dwb-c', handler: that.cancel };
             that.buttons.clear = { text: s.clearText, css: 'dwb-cl', handler: function () {
                 elm.val('');
                 if (!that.live) {
@@ -1023,9 +1026,6 @@
             if (s.button3) {
                 s.buttons.splice($.inArray('set', s.buttons) + 1, 0, { text: s.button3Text, handler: s.button3 });
             }
-
-            that.context = wndw;
-            that.live = !modal || !s.setText;
 
             hasButtons = s.buttons.length > 0;
 
@@ -1255,6 +1255,7 @@
             wheels: [],
             theme: '',
             selectedText: ' Selected',
+            closeText: 'Close',
             headerText: '{value}',
             display: 'modal',
             mode: 'scroller',

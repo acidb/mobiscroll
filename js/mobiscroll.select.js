@@ -300,11 +300,9 @@
                 if (multiple && s.counter) {
                     s.headerText = function () {
                         var length = 0;
-                        for (prop in inst._selectedValues) {
-                            if (inst._selectedValues.hasOwnProperty(prop)) {
-                                length++;
-                            }
-                        }
+                        $.each(inst._selectedValues, function () {
+                            length++;
+                        });
                         return length + " " + s.selectedText;
                     };
                 }
