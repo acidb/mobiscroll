@@ -1002,9 +1002,9 @@
             wndw = $(s.context == 'body' ? window : s.context);
             doc = $(s.context)[0];
 
-            that.buttons.Set = { text: s.setText, css: 'dwb-s', handler: that.select };
-            that.buttons.Cancel = { text: s.cancelText, css: 'dwb-c', handler: that.cancel };
-            that.buttons.Clear = { text: s.clearText, css: 'dwb-cl', handler: function () {
+            that.buttons.set = { text: s.setText, css: 'dwb-s', handler: that.select };
+            that.buttons.cancel = { text: s.cancelText, css: 'dwb-c', handler: that.cancel };
+            that.buttons.clear = { text: s.clearText, css: 'dwb-cl', handler: function () {
                 elm.val('');
                 if (!that.live) {
                     that.hide();
@@ -1012,16 +1012,16 @@
             }};
 
             if (!s.setText) {
-                s.buttons.splice(0, 1);
-            }
-            if (s.showClear) {
-                s.buttons.splice(s.buttons.indexOf(s.setText)+1, 0, s.clearText);
-            }
-            if (s.button3) {
-                s.buttons.splice(s.buttons.indexOf(s.setText)+1, 0, s.button3);
+                s.buttons.splice($.inArray('set', s.buttons), 1);
             }
             if (!s.cancelText) {
-                s.buttons.splice(s.buttons.indexOf(s.cancelText), 1);
+                s.buttons.splice($.inArray('cancel', s.buttons), 1);
+            }
+            if (s.showClear) {
+                s.buttons.splice($.inArray('set', s.buttons) + 1, 0, 'clear');
+            }
+            if (s.button3) {
+                s.buttons.splice($.inArray('set', s.buttons) + 1, 0, { text: s.button3Text, handler: s.button3 });
             }
 
             that.context = wndw;
@@ -1251,7 +1251,7 @@
             showOnFocus: true,
             showOnTap: true,
             showLabel: true,
-            buttons: ['Set', 'Cancel'],
+            buttons: ['set', 'cancel'],
             wheels: [],
             theme: '',
             selectedText: ' Selected',

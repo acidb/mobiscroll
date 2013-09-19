@@ -299,7 +299,13 @@
             onBeforeShow: function (dw) {
                 if (multiple && s.counter) {
                     s.headerText = function () {
-                        return Object.keys(inst._selectedValues).length + " " + s.selectedText;
+                        var length = 0;
+                        for (prop in inst._selectedValues) {
+                            if (inst._selectedValues.hasOwnProperty(prop)) {
+                                length++;
+                            }
+                        }
+                        return length + " " + s.selectedText;
                     };
                 }
                 s.wheels = genWheels();
@@ -349,8 +355,7 @@
             },
             onDestroy: function () {
                 input.remove();
-                elm.removeAttr('tabindex');
-                elm.removeClass('dw-hsel');
+                elm.removeClass('dw-hsel').removeAttr('tabindex');
             }
         };
     };

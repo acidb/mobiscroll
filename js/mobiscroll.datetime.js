@@ -307,10 +307,10 @@
             };
 
             inst.format = hformat;
-            inst.buttons.Now = { text: s.nowText, css: 'dwb-n', handler: function () { inst.setDate(new Date(), false, 0.3, true, true); } };
+            inst.buttons.now = { text: s.nowText, css: 'dwb-n', handler: function () { inst.setDate(new Date(), false, 0.3, true, true); } };
 
             if (s.showNow) {
-                s.buttons.splice(s.buttons.indexOf(s.selectText), 0, 'Now');
+                s.buttons.splice($.inArray('set', s.buttons) + 1, 0, 'now');
             }
             // ---
 
