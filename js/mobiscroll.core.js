@@ -48,6 +48,7 @@
             currElm,
             wndw,
             doc,
+            buttons,
             that = this,
             ms = $.mobiscroll,
             e = elem,
@@ -752,9 +753,9 @@
 
             if (modal && hasButtons) {
                 html += '<div class="dwbc">';
-                $.each(s.buttons, function (i, b) {
+                $.each(buttons, function (i, b) {
                     b = (typeof b === 'string') ? that.buttons[b] : b;
-                    html += '<span' + (s.btnWidth ? ' style="width:' + (100 / s.buttons.length) + '%"' : '') + ' class="dwbw ' + b.css + '"><a href="#" class="dwb dwb' + i + ' dwb-e" role="button">' + b.text + '</a></span>';
+                    html += '<span' + (s.btnWidth ? ' style="width:' + (100 / buttons.length) + '%"' : '') + ' class="dwbw ' + b.css + '"><a href="#" class="dwb dwb' + i + ' dwb-e" role="button">' + b.text + '</a></span>';
                 });
                 html += '</div>';
             }
@@ -794,7 +795,7 @@
 
             if (modal) {
                 // Init buttons
-                $.each(s.buttons, function (i, b) {
+                $.each(buttons, function (i, b) {
                     that.tap($('.dwb' + i, dw), function (e) {
                         b = (typeof b === 'string') ? that.buttons[b] : b;
                         b.handler.call(this, e, that);
@@ -1002,24 +1003,25 @@
             hi = s.height;
             anim = s.animate;
             modal = s.display !== 'inline';
+            buttons = s.buttons;
             wndw = $(s.context == 'body' ? window : s.context);
             doc = $(s.context)[0];
 
             if (!s.setText) {
-                s.buttons.splice($.inArray('set', s.buttons), 1);
+                buttons.splice($.inArray('set', buttons), 1);
             }
             if (!s.cancelText) {
-                s.buttons.splice($.inArray('cancel', s.buttons), 1);
+                buttons.splice($.inArray('cancel', buttons), 1);
             }
             if (s.showClear) {
-                s.buttons.splice($.inArray('set', s.buttons) + 1, 0, 'clear');
+                buttons.splice($.inArray('set', buttons) + 1, 0, 'clear');
             }
             if (s.button3) {
-                s.buttons.splice($.inArray('set', s.buttons) + 1, 0, { text: s.button3Text, handler: s.button3 });
+                buttons.splice($.inArray('set', buttons) + 1, 0, { text: s.button3Text, handler: s.button3 });
             }
 
             that.context = wndw;
-            that.live = !modal || ($.inArray('set', s.buttons) == -1);
+            that.live = !modal || ($.inArray('set', buttons) == -1);
             that.buttons.set = { text: s.setText, css: 'dwb-s', handler: that.select };
             that.buttons.cancel = { text: (that.live) ? s.closeText : s.cancelText, css: 'dwb-c', handler: that.cancel };
             that.buttons.clear = { text: s.clearText, css: 'dwb-cl', handler: function () {
@@ -1030,7 +1032,7 @@
                 }
             }};
 
-            hasButtons = s.buttons.length > 0;
+            hasButtons = buttons.length > 0;
 
             if (visible) {
                 that.hide();
