@@ -53,7 +53,6 @@ if (!window['jQuery']) {
 
         ['width', 'height'].forEach(function(dimension){
             $.fn[dimension] = function(value){
-
                 var body = document.body,
                     html = document.documentElement,
                     offset, Dimension = dimension.replace(/./, function(m){return m[0].toUpperCase()})

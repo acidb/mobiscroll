@@ -46,7 +46,6 @@ if (!window['jQuery']) {
                 if (elem) {
                     var size = elem[0]['offset' + Dimension],
                         sides = {'width': ['left', 'right'], 'height': ['top', 'bottom']};
-                        console.log(elem);
                     sides[dimension].forEach(function (side) {
                             size -= elem[0]['clientTop'];
                     });
@@ -96,7 +95,7 @@ if (!window['jQuery']) {
                 });
             };
         });
-        
+
         // Fix zepto.js extend to work with undefined parameter
         $._extend = $.extend;
         $.extend = function () {
