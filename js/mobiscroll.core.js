@@ -982,9 +982,9 @@
             theme.load(lang, settings);
             extend(s, theme.defaults, lang, settings);
 
-            if (s.buttons === undefined) {
-                s.buttons = ['set', 'cancel'];
-            }
+            // Add default buttons
+            s.buttons = s.buttons || ['set', 'cancel'];
+
             that.settings = s;
 
             // Unbind all events (if re-init)
