@@ -74,7 +74,9 @@ if (!window['jQuery']) {
                     var size = elem[0]['offset' + Dimension];
                     var sides = {'width': ['left', 'right'], 'height': ['top', 'bottom']};
                     sides[dimension].forEach(function(side) {
-                        size += elem[0]['clientTop'];
+                         if (margin) {
+                            size += parseInt(elem.css(camelize('margin-' + side)), 10);
+                        }
                     });
                     return size;
                 }
@@ -88,16 +90,15 @@ if (!window['jQuery']) {
             var offset, Dimension = dimension.replace(/./, function (m) { return m[0].toUpperCase(); });
             $.fn['inner' + Dimension] = function () {
                 var elem = this;
-                if (elem) {
+                if (elem[0]['inner' + Dimension]) {
+                    return elem[0]['inner' + Dimension];
+                } else {
                     var size = elem[0]['offset' + Dimension],
                         sides = {'width': ['left', 'right'], 'height': ['top', 'bottom']};
-                        console.log(elem);
                     sides[dimension].forEach(function (side) {
-                            size -= elem[0]['clientTop'];
+                            size -= parseInt(elem.css(camelize('border-' + side)), 10);
                     });
                     return size;
-                } else {
-                    return null;
                 }
             };
         });

@@ -29,7 +29,7 @@ if (!window['jQuery']) {
                         sides = {'width': ['left', 'right'], 'height': ['top', 'bottom']};
                     sides[dimension].forEach(function (side) {
                         if (margin) {
-                            size += elem[0]['clientTop'];
+                            size += parseInt(elem.css('margin-' + side), 10);
                         }
                     });
                     return size;
@@ -43,15 +43,15 @@ if (!window['jQuery']) {
             var offset, Dimension = dimension.replace(/./, function (m) { return m[0].toUpperCase(); });
             $.fn['inner' + Dimension] = function () {
                 var elem = this;
-                if (elem) {
+                if (elem[0]['inner' + Dimension]) {
+                    return elem[0]['inner' + Dimension];
+                } else {
                     var size = elem[0]['offset' + Dimension],
                         sides = {'width': ['left', 'right'], 'height': ['top', 'bottom']};
-                    sides[dimension].forEach(function (side) {
-                            size -= elem[0]['clientTop'];
+                    sides[dimension].forEach(function (side) {   
+                            size -= parseInt(elem.css('border-' + side), 10);
                     });
                     return size;
-                } else {
-                    return null;
                 }
             };
         });
@@ -95,7 +95,7 @@ if (!window['jQuery']) {
                 });
             };
         });
-
+        
         // Fix zepto.js extend to work with undefined parameter
         $._extend = $.extend;
         $.extend = function () {
