@@ -18,9 +18,9 @@
             hi,
             v,
             dw,
+            persp,
             ww, // Window width
             wh, // Window height
-            rwh,
             mw, // Modal width
             mh, // Modal height
             lock,
@@ -472,7 +472,7 @@
         */
         that.position = function (check) {
 
-            if (!modal || preventPos || (ww === wndw.width() && rwh === wndw.height() && check) || (event('onPosition', [dw]) === false)) {
+            if (!modal || preventPos || (ww === persp.width() && wh === wndw.innerHeight() && check) || (event('onPosition', [dw]) === false)) {
                 return;
             }
 
@@ -494,14 +494,11 @@
                 st = wndw.scrollTop(),
                 wr = $('.dwwr', dw),
                 d = $('.dw', dw),
-                persp = $('.dw-persp', dw),
                 css = {},
                 anchor = s.anchor === undefined ? elm : s.anchor;
 
-            ww = wndw.width();
-            rwh = wndw.height();
-            wh = wndw[0].innerHeight; // on iOS we need innerHeight
-            wh = wh || rwh;
+            ww = persp.width(); // To get the width without scrollbar
+            wh = wndw.innerHeight();
 
             if (/modal|bubble/.test(s.display)) {
                 $('.dwc', dw).each(function () {
@@ -760,6 +757,7 @@
             html += (modal ? '</div>' : '') + '</div></div></div>';
 
             dw = $(html);
+            persp = $('.dw-persp', dw);
 
             scrollToPos();
 
