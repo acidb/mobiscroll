@@ -320,10 +320,8 @@
         }
 
         function scrollToPos(time, index, manual, dir, active) {
-
             // Call validation event
             if (event('validate', [dw, index, time]) !== false) {
-
                 // Set scrollers to position
                 $('.dw-ul', dw).each(function (i) {
                     var t = $(this),
@@ -775,9 +773,7 @@
                     dw.addClass('dw-trans');
                     // Remove animation class
                     setTimeout(function () {
-                        if (dw) {
-                            dw.removeClass('dw-trans').find('.dw').removeClass(mAnim);
-                        }
+                        dw.removeClass('dw-trans').find('.dw').removeClass(mAnim);
                     }, 350);
                 }
             } else if (elm.is('div')) {
@@ -897,10 +893,7 @@
                     dw.addClass('dw-trans').find('.dw').addClass('dw-' + anim + ' dw-out');
                 }
                 setTimeout(function () {
-                    if (dw) {
-                        dw.remove();
-                        dw = null;
-                    }
+                    dw.remove();
                 }, doAnim ? 350 : 1);
 
                 // Stop positioning on window resize
