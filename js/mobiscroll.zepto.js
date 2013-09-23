@@ -49,8 +49,9 @@ if (!window['jQuery']) {
                     var size = elem[0]['offset' + Dimension],
                         sides = {'width': ['left', 'right'], 'height': ['top', 'bottom']};
                     sides[dimension].forEach(function (side) {   
-                            size -= parseInt(elem.css('border-' + side), 10);
+                            size -= parseInt(elem.css('border-'+side+'-width'), 10);
                     });
+
                     return size;
                 }
             };
