@@ -29,8 +29,26 @@ if (!window['jQuery']) {
                         sides = {'width': ['left', 'right'], 'height': ['top', 'bottom']};
                     sides[dimension].forEach(function (side) {
                         if (margin) {
-                            size += parseInt(elem.css('margin-' + side), 10);
+                            size += elem[0]['clientTop'];
                         }
+                    });
+                    return size;
+                } else {
+                    return null;
+                }
+            };
+        });
+        
+        ['width', 'height'].forEach(function (dimension) {
+            var offset, Dimension = dimension.replace(/./, function (m) { return m[0].toUpperCase(); });
+            $.fn['inner' + Dimension] = function () {
+                var elem = this;
+                if (elem) {
+                    var size = elem[0]['offset' + Dimension],
+                        sides = {'width': ['left', 'right'], 'height': ['top', 'bottom']};
+                        console.log(elem);
+                    sides[dimension].forEach(function (side) {
+                            size -= elem[0]['clientTop'];
                     });
                     return size;
                 } else {
