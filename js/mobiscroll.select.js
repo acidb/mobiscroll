@@ -296,6 +296,7 @@
                     $('.dw-li[data-val="' + v + '"]', t).removeClass('dw-v');
                 });
             },
+            
             onBeforeShow: function (dw) {
                 if (multiple && s.counter) {
                     s.headerText = function () {
@@ -310,6 +311,11 @@
                 if (s.group) {
                     inst.temp = s.rtl ? [option, group.index()] : [group.index(), option];
                 }
+            },
+            onClear: function (dw) {
+                inst._selectedValues = {};
+                input.val('');
+                $('.dwwl' + optIdx + ' .dw-li', dw).removeClass('dw-msel').removeAttr('aria-selected');
             },
             onMarkupReady: function (dw) {
                 dw.addClass('dw-select');

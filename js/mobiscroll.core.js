@@ -819,8 +819,8 @@
                 /*window.addEventListener('deviceorientation', function (e) {
                     var lr = e.gamma,
                         style = $('.dw', dw)[0].style;
-                    style[pr + 'Transition'] = 'all 0.1s ease-out';
-                    style[pr + 'Transform'] = (lr > -13 && lr < 13) ?  'translate3d(0,0,0)' : ((lr > 13) ? 'translate3d(5px,0,0)' : 'translate3d(-5px,0,0)');
+                    //style[pr + 'Transition'] = 'all 0.1s ease-out';
+                    style[pr + 'Transform'] = (lr > -15 && lr < 15) ?  'translate3d(0,0,0)' : ((lr > 15) ? 'translate3d('+lr/9+'px,0,0)' : 'translate3d('+lr/9+'px,0,0)');
                 });*/
 
                 // Prevent scroll if not specified otherwise
@@ -982,6 +982,9 @@
             theme.load(lang, settings);
             extend(s, theme.defaults, lang, settings);
 
+            if (s.buttons === undefined) {
+                s.buttons = ['set', 'cancel'];
+            }
             that.settings = s;
 
             // Unbind all events (if re-init)
@@ -1002,18 +1005,6 @@
             wndw = $(s.context == 'body' ? window : s.context);
             doc = $(s.context)[0];
 
-            that.context = wndw;
-            that.live = !modal || ($.inArray('set', s.buttons) == -1);
-
-            that.buttons.set = { text: s.setText, css: 'dwb-s', handler: that.select };
-            that.buttons.cancel = { text: (that.live) ? s.closeText : s.cancelText, css: 'dwb-c', handler: that.cancel };
-            that.buttons.clear = { text: s.clearText, css: 'dwb-cl', handler: function () {
-                elm.val('');
-                if (!that.live) {
-                    that.hide();
-                }
-            }};
-
             if (!s.setText) {
                 s.buttons.splice($.inArray('set', s.buttons), 1);
             }
@@ -1026,6 +1017,18 @@
             if (s.button3) {
                 s.buttons.splice($.inArray('set', s.buttons) + 1, 0, { text: s.button3Text, handler: s.button3 });
             }
+
+            that.context = wndw;
+            that.live = !modal || ($.inArray('set', s.buttons) == -1);
+            that.buttons.set = { text: s.setText, css: 'dwb-s', handler: that.select };
+            that.buttons.cancel = { text: (that.live) ? s.closeText : s.cancelText, css: 'dwb-c', handler: that.cancel };
+            that.buttons.clear = { text: s.clearText, css: 'dwb-cl', handler: function () {
+                that.trigger('onClear', [dw]);
+                elm.val('');
+                if (!that.live) {
+                    that.hide();
+                }
+            }};
 
             hasButtons = s.buttons.length > 0;
 
@@ -1251,7 +1254,6 @@
             showOnFocus: true,
             showOnTap: true,
             showLabel: true,
-            buttons: ['set', 'cancel'],
             wheels: [],
             theme: '',
             selectedText: ' Selected',
