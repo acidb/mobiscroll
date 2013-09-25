@@ -3,22 +3,9 @@
     padding: 0;
     color: #31b6e7;
     background: none;
-    border-radius: 0;
     -webkit-border-radius: 0;
+    border-radius: 0;
 }
-
-.android-ics .dwbw .dwb {
-    border-left: 1px solid #424542;
-}
-
-.android-ics.light .dwbw .dwb {
-    border-left: 1px solid #dbdbdb;
-}
-
-.android-ics .dwbw:first-child .dwb {
-    border-left: 0;
-}
-
 .android-ics .dw .dwwc,
 .android-ics .dw .dwwl,
 .android-ics .dw .dww,
@@ -30,8 +17,6 @@
     padding: 0;
     background: #292829;
     overflow: hidden;
-    border-radius: 3px;
-    -webkit-border-radius: 3px;
 }
 .android-ics .dwc {
     padding: 30px 10px 1px 10px;
@@ -69,15 +54,15 @@
     background: rgba(49,182,231,.5);
 }
 .android-ics .dwwo {
-    background: linear-gradient(#282828 0%,rgba(40,40,40,0) 52%, rgba(40,40,40,0) 48%, #282828 100%);
     background: -webkit-gradient(linear,left bottom,left top,from(#282828),color-stop(0.52, rgba(40,40,40,0)),color-stop(0.48, rgba(40,40,40,0)),to(#282828));
+    background: -webkit-linear-gradient(#282828 0%,rgba(40,40,40,0) 52%, rgba(40,40,40,0) 48%, #282828 100%);
     background: -moz-linear-gradient(#282828 0%,rgba(40,40,40,0) 52%, rgba(40,40,40,0) 48%, #282828 100%);
-    background: -o-linear-gradient(#282828 0%,rgba(40,40,40,0) 52%, rgba(40,40,40,0) 48%, #282828 100%);
+    background: linear-gradient(#282828 0%,rgba(40,40,40,0) 52%, rgba(40,40,40,0) 48%, #282828 100%);
 }
 .android-ics .dw .dwwb {
     background: #292829;
-    box-shadow: none;
     -webkit-box-shadow: none;
+    box-shadow: none;
 }
 .android-ics .dwwb span {
     display: none;
@@ -127,6 +112,12 @@
     margin-top: -20px;
     display: block;
 }
+.android-ics .dwbw .dwb {
+    border-left: 1px solid #424542;
+}
+.android-ics .dwbw:first-child .dwb {
+    border-left: 0;
+}
 .android-ics .dwbc {
     border-top: 1px solid #424542;
     padding: 0;
@@ -138,22 +129,15 @@
     margin: 0;
     font-weight: normal;
     text-shadow: none;
-    box-shadow: none;
-    border-radius: 0;
     -webkit-border-radius: 0;
     -webkit-box-shadow: none;
+    box-shadow: none;
+    border-radius: 0;
 }
 .android-ics .dw .dwb-a {
     background: #29799c;
 }
-.android-ics .dwb-s .dwb, .android-ics .dwb-n .dwb {
-    border-right: 1px solid #424542;
-}
 /* Docked */
-.android-ics.dw-bottom .dwwr, .android-ics.dw-top .dwwr {
-    border-radius: 0;
-    -webkit-border-radius: 0;
-}
 /* Multiple select */
 .android-ics .dwwms .dwwol {
     display: none;
@@ -186,11 +170,14 @@
 .android-ics.light .dww .dw-li {
     color: #000;
 }
+.android-ics.light .dwbw .dwb {
+    border-left: 1px solid #dbdbdb;
+}
 .android-ics.light .dwwo {
-    background: linear-gradient(#f5f5f5 0%,rgba(245,245,245,0) 52%, rgba(245,245,245,0) 48%, #f5f5f5 100%);
     background: -webkit-gradient(linear,left bottom,left top,from(#f5f5f5),color-stop(0.52, rgba(245,245,245,0)),color-stop(0.48, rgba(245,245,245,0)),to(#f5f5f5));
+    background: -webkit-linear-gradient(#f5f5f5 0%,rgba(245,245,245,0) 52%, rgba(245,245,245,0) 48%, #f5f5f5 100%);
     background: -moz-linear-gradient(#f5f5f5 0%,rgba(245,245,245,0) 52%, rgba(245,245,245,0) 48%, #f5f5f5 100%);
-    background: -o-linear-gradient(#f5f5f5 0%,rgba(245,245,245,0) 52%, rgba(245,245,245,0) 48%, #f5f5f5 100%);
+    background: linear-gradient(#f5f5f5 0%,rgba(245,245,245,0) 52%, rgba(245,245,245,0) 48%, #f5f5f5 100%);
 }
 .android-ics.light .dw .dwwb {
     background: #f5f5f5;

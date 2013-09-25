@@ -47,13 +47,13 @@
     text-align: left;
     text-shadow: none;
     opacity: 0;
-    box-sizing: border-box;
-    filter: Alpha(Opacity=0);
     /*transition: opacity .3s linear;*/
     -webkit-box-sizing: border-box;
     /*-webkit-transition: opacity .3s linear;*/
     -moz-box-sizing: border-box;
     /*-moz-transition: opacity .3s linear;*/
+    box-sizing: border-box;
+    filter: Alpha(Opacity=0);
 }
 .wp .dw-i {
     position: relative;
@@ -61,9 +61,9 @@
     height: 92%;
     padding: 0 5px;
     border: 1px solid #4c4c4c;
-    box-sizing: border-box;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
+    box-sizing: border-box;
     filter: inherit;
 }
 .wp .wpa .dw-li, .wp .dwa .dw-li {
@@ -138,10 +138,10 @@
     font-weight: normal;
     text-transform: lowercase;
     text-shadow: none;
-    transition: top .1s linear;
     -webkit-box-shadow: none;
     -webkit-transition: top .1s linear;
     -moz-transition: top .1s linear;
+    transition: top .1s linear;
 }
 .wp .dwb:after {
     content: '';
@@ -184,13 +184,13 @@
 .wp .dw .dwwb {
     background: #1f1f1f;
     border-radius: 0;
-    box-shadow: none;
-    box-sizing: border-box;
     color: #a9a9a9;
     -webkit-box-shadow: none;
     -webkit-border-radius: 0;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
+    box-shadow: none;
+    box-sizing: border-box;
 }
 .wp .dwwb span {
     position: absolute;
