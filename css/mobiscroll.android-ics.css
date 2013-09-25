@@ -6,6 +6,19 @@
     border-radius: 0;
     -webkit-border-radius: 0;
 }
+
+.android-ics .dwbw .dwb {
+    border-left: 1px solid #424542;
+}
+
+.android-ics.light .dwbw .dwb {
+    border-left: 1px solid #dbdbdb;
+}
+
+.android-ics .dwbw:first-child .dwb {
+    border-left: 0;
+}
+
 .android-ics .dw .dwwc,
 .android-ics .dw .dwwl,
 .android-ics .dw .dww,
@@ -27,6 +40,7 @@
     padding: 1px 10px;
 }
 .android-ics .dwv {
+    background: none;
     line-height: 36px;
     padding: 0;
     margin: 0;

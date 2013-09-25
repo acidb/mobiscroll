@@ -34,6 +34,9 @@
 .ios7 .dwwr {
     position: relative;
     padding-top: 40px;
+    border-radius: 0;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
 }
 .ios7 .dwwo {
     background: linear-gradient(#f7f7f7 0%,rgba(245,245,245,0) 52%, rgba(245,245,245,0) 48%, #f7f7f7 100%);
@@ -185,7 +188,7 @@
     -webkit-border-radius: 8px;
 }
 /* Top, bottom, inline display */
-.ios7.dw-top .dw, .ios7.dw-bottom .dw, .ios7.dw-inline .dw {
+.ios7.dw-inline .dw {
     border-radius: 0;
     -webkit-border-radius: 0;
 }

@@ -19,6 +19,10 @@
     background: -webkit-gradient(linear,left top,left bottom,from(#9f9fa6),color-stop(0.5, #484a55),color-stop(0.5, #272836),to(#282a39));
     background: -webkit-linear-gradient(#9f9fa6,#484a55 50%,#272836 50%,#282a39);
     background: -moz-linear-gradient(#9f9fa6,#484a55 50%,#272836 50%,#282a39);
+    overflow: visible;
+    border-radius: 0;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
 }
 .ios.dw-nobtn .dwwr,
 .ios.dw-inline .dwwr {

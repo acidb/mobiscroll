@@ -8,18 +8,29 @@
 .android .dwv {
     padding: 10px;
     margin: 0;
+    background-color: #000;
     border-bottom: 1px solid #333;
 }
 .android .dw-hidden {
     padding: 0;
     border: 0;
-}
+} 
 .android .dwwr {
-    padding: 0;
+    background: #000;
+    border-radius: 0;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
 }
-.android .dww {
-    top: 0;
+
+.android .dwc {
+    padding-left: 2px;
+    padding-right: 2px;
+    display: inline-block;
 }
+.android .dwbw {
+    padding: 0px;
+}
+
 .android .dwwc {
     background: #000;
 }
@@ -49,9 +60,6 @@
     color: #000;
     font-weight: normal;
     text-shadow: none;
-    border-radius: 0;
-    -moz-border-radius: 0;
-    -webkit-border-radius: 0;
 }
 .android .dw .dwb-a, .android .dw .dwwl .dwb-a {
     background: #ffb25a;

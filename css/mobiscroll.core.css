@@ -23,11 +23,22 @@
     display: inline-block;
 }
 .dwwr {
+    background: #fff;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
     min-width: 170px;
     zoom: 1;
-    padding: 5px;
+    /*padding: 5px;*/
+    overflow: hidden;
     text-align: center;
 }
+
+.dw-top .dwwr, .dw-bottom .dwwr {
+    border-radius: 0;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+}
+
 /* Datewheel overlay background */
 .dw-persp, .dwo {
     width: 100%;
@@ -85,7 +96,7 @@
 }
 /* Datewheel wheel container wrapper */
 .dwc {
-    padding: 30px 2px 0 2px;
+    padding: 30px 5px 0 5px;
     display: inline-block;
 }
 /* Datewheel label */
@@ -100,8 +111,7 @@
 }
 /* Datewheel value */
 .dwv {
-    padding-bottom: 5px;
-    border-bottom: 1px solid #000;
+    padding: 5px 0;
 }
 .dw-hidden {
     width: 0;
@@ -142,6 +152,7 @@
 .dw-moz .dww {
     opacity: .99; /* Fixes Firefox translate overflow bug */
 }
+
 .dwsc .dwwl {
     background: #888;
     background: linear-gradient(#000 0%,#333 35%, #888 50%,#333 65%,#000 100%);
@@ -294,14 +305,20 @@
 .dwbc {
     display: table;
     width: 100%;
-    padding-top: 5px;
+    padding: 5px 0;
     text-align: center;
 }
 /* Datewheel button wrapper */
-.dwbw {
+.dwbw  {
     display: table-cell;
     position: relative;
     z-index: 5;
+}
+.dwbw:first-child  .dwb{
+    margin-left: 5px;
+}
+.dwbw:last-child  .dwb{
+    margin-right: 5px;
 }
 /* Hidden label */
 .dwhl {
@@ -335,9 +352,12 @@
 }
 /* Backgrounds */
 .dwbg {
-    background: #fff;
+    /*background: #fff;
     border-radius: 3px;
-    -webkit-border-radius: 3px;
+    -webkit-border-radius: 3px;*/
+}
+.dwbg .dwv {
+    background-color: #dfdfdf;
 }
 .dwbg .dwpm .dwwl {
     border: 1px solid #aaa;

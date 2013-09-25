@@ -5,6 +5,17 @@
     border: 2px solid #fff;
     color: #fff;
 }
+.sense-ui .dwbg {
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+}
+.sense-ui .dwcc {
+    background-color: #333333;
+}
+.sense-ui .dwc {
+    padding: 30px 2px 0 2px;
+}
 .sense-ui .dwwr {
     padding: 0;
 }
@@ -13,6 +24,7 @@
     padding: 5px 10px;
     border-bottom: 1px solid #666;
     text-align: left;
+    background-color: #333333;
 }
 .sense-ui .dw-hidden {
     padding: 0;
@@ -55,12 +67,8 @@
 /* Docked */
 .sense-ui.dw-top .dw {
     border: 0;
-    border-radius: 0;
-    -webkit-border-radius: 0;
 }
 .sense-ui.dw-bottom .dw {
     border: 0;
     border-top: 1px solid #666;
-    border-radius: 0;
-    -webkit-border-radius: 0;
 }
