@@ -1,5 +1,5 @@
 /*jslint eqeq: true, plusplus: true, undef: true, sloppy: true, vars: true, forin: true */
-if (!window['jQuery']) {
+if (!window.jQuery) {
 
     var jQuery = jq;
 
@@ -85,7 +85,7 @@ if (!window['jQuery']) {
                 }
             };
         });
-        
+
         ['width', 'height'].forEach(function (dimension) {
             var offset, Dimension = dimension.replace(/./, function (m) { return m[0].toUpperCase(); });
             $.fn['inner' + Dimension] = function () {
@@ -96,7 +96,7 @@ if (!window['jQuery']) {
                     var size = elem[0]['offset' + Dimension],
                         sides = {'width': ['left', 'right'], 'height': ['top', 'bottom']};
                     sides[dimension].forEach(function (side) {
-                            size -= parseInt(elem.css(camelize('border-'+side+'-width')), 10);
+                            size -= parseInt(elem.css(camelize('border-' + side + '-width')), 10);
                     });
                     return size;
                 }
