@@ -1,7 +1,7 @@
 /* Datewheel overlay */
 .dw {
     position: absolute;
-    top: 5%;
+    top: 0;
     left: 0;
     z-index: 1001;
     color: #000;
