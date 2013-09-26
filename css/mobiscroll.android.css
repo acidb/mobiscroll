@@ -37,6 +37,10 @@
     border: 0;
     background: #fff;
 }
+.android .dwwl {
+    margin: 0 2px;
+
+}
 .android .dw .dwpm .dww {
     margin: 0;
 }
@@ -47,6 +51,10 @@
 .android .dwbc {
     padding: 5px 0;
     background: #9c9c9c;
+}
+.android .dwbg .dwb {
+    -webkit-border-radius: 0;
+    border-radius: 0;
 }
 .android .dw .dwb {
     background: #ccc;

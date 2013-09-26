@@ -99,6 +99,7 @@
 }
 /* Datewheel label */
 .dwl {
+    left: 0;
     text-align: center;
     line-height: 30px;
     height: 30px;

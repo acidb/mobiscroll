@@ -73,6 +73,10 @@
 .jqm .dw-bubble-top .dw-arr {
     border-color: #222 transparent transparent transparent;
 }
+.jqm .dw.dw-bubble-top, .dw.dw-bubble-bottom{
+       background: #222;
+       border: 0;
+}
 /* Docked */
 .jqm.dw-bottom .dw, .jqm.dw-top .dw {
     padding: 0;

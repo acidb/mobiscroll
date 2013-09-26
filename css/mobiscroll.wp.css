@@ -6,6 +6,8 @@
 .wp .dwwr {
     padding: 10px;
     background: none;
+    border-radius: 0;
+    -webkit-border-radius: 0;
 }
 .wp .dwv {
     width: 0;
