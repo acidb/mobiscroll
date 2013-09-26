@@ -48,7 +48,6 @@
     background: linear-gradient(#666 50%,#000 50%);
 }
 .sense-ui .dw .dwb {
-    margin: 0 5px;
     border: 1px solid #333;
     background: #222;
     background: -webkit-gradient(linear,left bottom,left top,from(#000),to(#444));

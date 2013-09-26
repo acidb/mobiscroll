@@ -173,6 +173,9 @@
 .android-ics.light .dwbw .dwb {
     border-left: 1px solid #dbdbdb;
 }
+.android-ics.light .dwbw:first-child .dwb {
+    border-left: 0;
+}
 .android-ics.light .dwwo {
     background: -webkit-gradient(linear,left bottom,left top,from(#f5f5f5),color-stop(0.52, rgba(245,245,245,0)),color-stop(0.48, rgba(245,245,245,0)),to(#f5f5f5));
     background: -webkit-linear-gradient(#f5f5f5 0%,rgba(245,245,245,0) 52%, rgba(245,245,245,0) 48%, #f5f5f5 100%);
@@ -191,9 +194,6 @@
 }
 .android-ics.light .dwb-a {
     color: #fff;
-}
-.android-ics.light .dwb-s .dwb, .android-ics.light .dwb-n .dwb {
-    border-right: 1px solid #dbdbdb;
 }
 /* Bubble positioning */
 .android-ics .dw-bubble-bottom .dw-arr {
