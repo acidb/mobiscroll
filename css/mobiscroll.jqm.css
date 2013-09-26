@@ -41,13 +41,11 @@
 .jqm .dwwbp .ui-btn-inner {
     font-size: 40px;
     -webkit-border-radius: 3px 3px 0 0;
-    -moz-border-radius: 3px 3px 0 0;
     border-radius: 3px 3px 0 0;
 }
 .jqm .dwwbm .ui-btn-inner {
     font-size: 32px;
     -webkit-border-radius: 0 0 3px 3px;
-    -moz-border-radius: 0 0 3px 3px;
     border-radius: 0 0 3px 3px;
 }
 .jqm .dwwbp span {
@@ -68,20 +66,19 @@
 }
 /* Bubble positioning */
 .jqm .dw-bubble-bottom .dw-arr {
-    border-color: transparent transparent #444 transparent;
+    border-color: transparent transparent #222 transparent;
 }
 .jqm .dw-bubble-top .dw-arr {
     border-color: #222 transparent transparent transparent;
 }
-.jqm .dw.dw-bubble-top, .dw.dw-bubble-bottom{
-       background: #222;
-       border: 0;
+.jqm.dw-bubble .dw {
+    background: #222;
+    border: 0;
 }
 /* Docked */
 .jqm.dw-bottom .dw, .jqm.dw-top .dw {
     padding: 0;
     -webkit-border-radius: 0;
-    -moz-border-radius: 0;
     border-radius: 0;
 }
 .jqm.dw-top .dw {
