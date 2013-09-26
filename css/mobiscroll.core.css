@@ -93,6 +93,7 @@
 }
 /* Datewheel wheel container wrapper */
 .dwc {
+    vertical-align: middle;
     padding: 30px 5px 5px 5px;
     display: inline-block;
 }

@@ -49,7 +49,6 @@
     background: #9c9c9c;
 }
 .android .dw .dwb {
-    margin: 0 5px;
     background: #ccc;
     background: -webkit-gradient(linear,left bottom,left top,from(#ccc),to(#eee));
     background: -webkit-linear-gradient(#eee,#ccc);
