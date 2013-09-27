@@ -264,14 +264,14 @@
              * @param {Boolean} [temp=false] Set temporary value only.
              * @param {Boolean} [manual=false] Indicates that the action was triggered by the user or from code.
              */
-            inst.setDate = function (d, fill, time, temp, manual) {
+            inst.setDate = function (d, fill, time, temp) {
                 var i;
 
                 // Set wheels
                 for (i in o) {
                     inst.temp[o[i]] = d[f[i]] ? d[f[i]]() : f[i](d);
                 }
-                inst.setValue(inst.temp, fill, time, temp, manual);
+                inst.setValue(inst.temp, fill, time, temp);
             };
 
             /**

@@ -360,7 +360,7 @@
                     }
                     elm.show();
                 },
-                validate: function (dw, index, time) {
+                validate: function (dw, index, time, manual) {
                     var args = [],
                         t = inst.temp,
                         i = (index || 0) + 1,
@@ -386,9 +386,9 @@
                             s.readonly = createROVector(lvl, index);
                             clearTimeout(timer[index]);
                             timer[index] = setTimeout(function () {
-                                inst.changeWheel(args, undefined, index !== undefined);
+                                inst.changeWheel(args, index === undefined ? time : 0, manual);
                                 s.readonly = false;
-                            }, time * 1000);
+                            }, index === undefined ? 0 : time * 1000);
                             return false;
                         }
 

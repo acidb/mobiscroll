@@ -184,7 +184,7 @@
             inst._setValue = inst.setValue;
         }
 
-        inst.setValue = function (d, fill, time, noscroll, temp, manual) {
+        inst.setValue = function (d, fill, time, noscroll, temp) {
             var value,
                 v = $.isArray(d) ? d[0] : d;
 
@@ -204,14 +204,14 @@
                 value = s.rtl ? [option, group.index()] : [group.index(), option];
                 if (gr !== prev) { // Need to regenerate wheels, if group changed
                     s.wheels = genWheels();
-                    inst.changeWheel([optIdx], undefined, manual);
+                    inst.changeWheel([optIdx]);
                     prev = gr + '';
                 }
             } else {
                 value = [option];
             }
 
-            inst._setValue(value, fill, time, noscroll, temp, manual);
+            inst._setValue(value, fill, time, noscroll, temp);
 
             // Set input/select values
             if (fill) {
@@ -296,7 +296,7 @@
                     $('.dw-li[data-val="' + v + '"]', t).removeClass('dw-v');
                 });
             },
-            
+
             onBeforeShow: function (dw) {
                 if (multiple && s.counter) {
                     s.headerText = function () {

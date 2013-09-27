@@ -435,7 +435,6 @@
         }
 
         function setVal(fill, time, noscroll, temp, manual) {
-
             if (visible && !noscroll) {
                 scrollToPos(time, undefined, manual);
             }
@@ -600,9 +599,9 @@
         * @param {Number} [time=0] Animation time
         * @param {Boolean} [temp=false] If true, then only set the temporary value.(only scroll there but not set the value)
         */
-        that.setValue = function (values, fill, time, temp, manual) {
+        that.setValue = function (values, fill, time, temp) {
             that.temp = $.isArray(values) ? values.slice(0) : s.parseValue.call(e, values + '', that);
-            setVal(fill, time, false, temp, manual);
+            setVal(fill, time, false, temp, fill);
         };
 
         /**
