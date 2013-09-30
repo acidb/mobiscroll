@@ -513,6 +513,8 @@
             mh = d.outerHeight(true);
             lock = mh <= wh && mw <= ww;
 
+            that.scrollLock = lock;
+
             if (s.display == 'modal') {
                 l = (ww - mw) / 2;
                 t = st + (wh - mh) / 2;
