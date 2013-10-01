@@ -813,10 +813,7 @@
                 });
 
                 /*window.addEventListener('deviceorientation', function (e) {
-                    var lr = e.gamma,
-                        style = $('.dw', dw)[0].style;
-                    //style[pr + 'Transition'] = 'all 0.1s ease-out';
-                    style[pr + 'Transform'] = (lr > -15 && lr < 15) ?  'translate3d(0,0,0)' : ((lr > 15) ? 'translate3d('+lr/9+'px,0,0)' : 'translate3d('+lr/9+'px,0,0)');
+                    $('.dw', dw)[0].style[pr + 'Transform'] = 'translate3d(' + Math.max(-5, Math.min(e.gamma / 9, 5)) + 'px,0,0)';
                 });*/
 
                 // Prevent scroll if not specified otherwise
