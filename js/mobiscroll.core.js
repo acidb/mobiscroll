@@ -471,7 +471,7 @@
         */
         that.position = function (check) {
 
-            if (!modal || preventPos || (ww === persp.width() && wh === wndw.innerHeight() && check) || (event('onPosition', [dw]) === false)) {
+            if (!modal || preventPos || (ww === persp.width() && wh === (wndw[0].innerHeight || wndw.innerHeight()) && check) || (event('onPosition', [dw]) === false)) {
                 return;
             }
 
@@ -497,7 +497,7 @@
                 anchor = s.anchor === undefined ? elm : s.anchor;
 
             ww = persp.width(); // To get the width without scrollbar
-            wh = wndw.innerHeight();
+            wh = wndw[0].innerHeight || wndw.innerHeight();
 
             if (/modal|bubble/.test(s.display)) {
                 $('.dwc', dw).each(function () {
@@ -852,8 +852,8 @@
                 .on('keydown', '.dwwl', onKeyDown)
                 .on('keyup', '.dwwl', onKeyUp)
                 .on(START_EVENT, '.dwb-e', onBtnStart)
-                .on('mousedown', function (e) { e.preventDefault(); }) // Prevents blue highlight on Android
-                .on('click', '.dwb-e', function (e) { e.preventDefault(); })
+                .on('selectstart mousedown', prevdef) // Prevents blue highlight on Android and text selection in IE
+                .on('click', '.dwb-e', prevdef)
                 .on('touchend', function () { if (s.tap) { setTap(); } })
                 .on('keydown', '.dwb-e', function (e) {
                     if (e.keyCode == 32) { // Space
@@ -1228,6 +1228,7 @@
         uuid = date.getTime(),
         scrollers = {},
         empty = function () {},
+        prevdef = function (e) { e.preventDefault(); },
         mod = document.createElement('modernizr').style,
         has3d = testProps(['perspectiveProperty', 'WebkitPerspective', 'MozPerspective', 'OPerspective', 'msPerspective']),
         prefix = testPrefix(),

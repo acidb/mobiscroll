@@ -49,11 +49,8 @@
     text-align: left;
     text-shadow: none;
     opacity: 0;
-    /*transition: opacity .3s linear;*/
     -webkit-box-sizing: border-box;
-    /*-webkit-transition: opacity .3s linear;*/
     -moz-box-sizing: border-box;
-    /*-moz-transition: opacity .3s linear;*/
     box-sizing: border-box;
     filter: Alpha(Opacity=0);
 }
@@ -93,9 +90,6 @@
 .wp .dw .dw-sel .dw-i {
     color: #fff;
     background: #4c4c4c;
-    /*transition: all .1s linear;
-    -webkit-transition: all .1s linear;
-    -moz-transition: all .1s linear;*/
 }
 .wp .dw-sel .dw-day, .wp .dw-sel .dw-mon {
     color: #fff;
@@ -164,6 +158,9 @@
 .wp .dwb-n .dwb:after {
     background-position: -52px 0;
 }
+.wp .dwb-cl .dwb:after {
+    background-position: -26px 0;
+}
 .wp .dwb-s .dwb-a:after {
     background-position: 0 -26px;
 }
@@ -172,6 +169,9 @@
 }
 .wp .dwb-n .dwb-a:after {
     background-position: -52px -26px;
+}
+.wp .dwb-cl .dwb-a:after {
+    background-position: -26px -26px;
 }
 .wp .dwb.dwb-a {
     top: -3px;

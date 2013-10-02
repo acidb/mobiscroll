@@ -203,6 +203,8 @@
 .dw-i {
     position: relative;
     height: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 /* Wheel +/- buttons */
 .dwwb {
