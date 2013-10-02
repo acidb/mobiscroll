@@ -378,14 +378,13 @@
                             args.push(i++);
                         }
 
-                        hideWheels(dw, o.lvl);
-                        currWheelVector = inst.temp.slice(0);
-
                         if (args.length) {
-                            prevent = true;
                             s.readonly = createROVector(lvl, index);
                             clearTimeout(timer[index]);
                             timer[index] = setTimeout(function () {
+                                prevent = true;
+                                hideWheels(dw, o.lvl);
+                                currWheelVector = inst.temp.slice(0);
                                 inst.changeWheel(args, index === undefined ? time : 0, manual);
                                 s.readonly = false;
                             }, index === undefined ? 0 : time * 1000);
