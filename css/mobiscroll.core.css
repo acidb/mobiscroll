@@ -23,6 +23,7 @@
     display: inline-block;
 }
 .dwwr {
+    padding: 0 2px;
     background: #fff;
     border-radius: 3px;
     -webkit-border-radius: 3px;
@@ -94,7 +95,7 @@
 /* Datewheel wheel container wrapper */
 .dwc {
     vertical-align: middle;
-    padding: 30px 5px 5px 5px;
+    padding: 26px 2px 4px 2px;
     display: inline-block;
 }
 /* Datewheel label */
@@ -111,6 +112,7 @@
 /* Datewheel value */
 .dwv {
     padding: 5px 0;
+    margin: 0 -2px;
 }
 .dw-hidden {
     width: 0;
@@ -305,8 +307,11 @@
 .dwbc {
     display: table;
     width: 100%;
-    padding-bottom: 5px;
+    padding-bottom: 4px;
     text-align: center;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
 }
 /* Datewheel button wrapper */
 .dwbw  {
@@ -314,15 +319,9 @@
     position: relative;
     z-index: 5;
 }
-.dwbw:first-child  .dwb{
-    margin-left: 5px;
-}
-.dwbw:last-child  .dwb{
-    margin-right: 5px;
-}
 /* Hidden label */
 .dwhl {
-    padding-top: 10px;
+    padding-top: 4px;
 }
 .dwhl .dwl {
     display: none;

@@ -1,11 +1,4 @@
 /* Android ICS skin */
-.android-ics .dw {
-    padding: 0;
-    color: #31b6e7;
-    background: none;
-    -webkit-border-radius: 0;
-    border-radius: 0;
-}
 .android-ics .dw .dwwc,
 .android-ics .dw .dwwl,
 .android-ics .dw .dww,
@@ -16,10 +9,13 @@
 .android-ics .dwwr {
     padding: 0;
     background: #292829;
-    overflow: hidden;
+    color: #31b6e7;
 }
 .android-ics .dwc {
     padding: 30px 10px 1px 10px;
+}
+.android-ics .dwwc {
+    padding: 0;
 }
 .android-ics .dwhl {
     padding: 1px 10px;

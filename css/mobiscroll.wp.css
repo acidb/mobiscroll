@@ -1,11 +1,6 @@
-.wp .dw {
-    background: #1f1f1f;
-    border-radius: 0;
-    -webkit-border-radius: 0;
-}
 .wp .dwwr {
     padding: 10px;
-    background: none;
+    background: #1f1f1f;
     border-radius: 0;
     -webkit-border-radius: 0;
 }
@@ -19,7 +14,6 @@
 }
 .wp .dwc {
     padding: 30px 0 0 0;
-    vertical-align: middle;
 }
 .wp .dwhl {
     padding: 0;
@@ -259,7 +253,7 @@
     content: '✔';
 }
 /* Light version */
-.wp.light .dw {
+.wp.light .dwwr {
     background: #dedede;
 }
 .wp.light .dwv,
