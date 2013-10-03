@@ -382,9 +382,8 @@
                 if (that.live) {
                     setVal(manual, 0, true);
                 }
-                if (modal) {
-                    $('.dwv', dw).html(formatHeader(v));
-                }
+
+                $('.dwv', dw).html(formatHeader(v));
 
                 if (manual) {
                     event('onChange', [v]);
@@ -727,7 +726,7 @@
                 mAnim = 'dw-' + anim + ' dw-in';
             }
             // Create wheels containers
-            var html = '<div role="dialog" class="' + s.theme + ' dw-' + s.display + (prefix ? ' dw' + prefix : '') + (hasButtons ? '' : ' dw-nobtn') + '">' + (!modal ? '<div class="dw dwbg dwi"><div class="dwwr">' : '<div class="dw-persp"><div class="dwo"></div><div class="dw dwbg ' + mAnim + '"><div class="dw-arrw"><div class="dw-arrw-i"><div class="dw-arr"></div></div></div><div class="dwwr"><div aria-live="assertive" class="dwv' + (s.headerText ? '' : ' dw-hidden') + '"></div>') + '<div class="dwcc">',
+            var html = '<div role="dialog" class="' + s.theme + ' dw-' + s.display + (prefix ? ' dw' + prefix : '') + (hasButtons ? '' : ' dw-nobtn') + '">' + (!modal ? '<div class="dw dwbg dwi"><div class="dwwr"><div aria-live="assertive" class="dwv' + (s.headerText ? '' : ' dw-hidden') + '"></div>' : '<div class="dw-persp"><div class="dwo"></div><div class="dw dwbg ' + mAnim + '"><div class="dw-arrw"><div class="dw-arrw-i"><div class="dw-arr"></div></div></div><div class="dwwr"><div aria-live="assertive" class="dwv' + (s.headerText ? '' : ' dw-hidden') + '"></div>') + '<div class="dwcc">',
                 isMinw = $.isArray(s.minWidth),
                 isMaxw = $.isArray(s.maxWidth),
                 isFixw = $.isArray(s.fixedWidth);
@@ -978,6 +977,8 @@
             // Add default buttons
             s.buttons = s.buttons || ['set', 'cancel'];
 
+            s.headerText = s.headerText || (s.display !== 'inline') ? '{value}' : false;
+
             that.settings = s;
 
             // Unbind all events (if re-init)
@@ -1004,9 +1005,6 @@
             }
             if (!s.cancelText) {
                 buttons.splice($.inArray('cancel', buttons), 1);
-            }
-            if (s.showClear) {
-                buttons.splice($.inArray('set', buttons) + 1, 0, 'clear');
             }
             if (s.button3) {
                 buttons.splice($.inArray('set', buttons) + 1, 0, { text: s.button3Text, handler: s.button3 });
@@ -1253,7 +1251,6 @@
             theme: '',
             selectedText: ' Selected',
             closeText: 'Close',
-            headerText: '{value}',
             display: 'modal',
             mode: 'scroller',
             preset: '',
