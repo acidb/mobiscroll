@@ -18,19 +18,16 @@
     margin: 0;
     padding: 0;
 }
-.ios7 .dwc {
-    padding-top: 30px;
-}
-.ios7 .dwhl {
-    padding-top: 0;
-}
 .ios7 .dwl {
     text-align: left;
     text-indent: 5px;
     color: #ababab;
 }
 .ios7 .dwwc {
-    padding: 10px;
+    padding: 30px 10px 10px 10px;
+}
+.ios7 .dwhl .dwwc {
+    padding-top: 10px;
 }
 .ios7 .dwwr {
     position: relative;

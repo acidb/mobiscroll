@@ -1,14 +1,11 @@
 /* Android Skin */
 .android .dw {
-    padding: 0;
-    background: #000;
     border: 2px solid #555;
-    color: #fff;
 }
 .android .dwv {
     padding: 10px;
     margin: 0;
-    background-color: #000;
+    background: none;
     border-bottom: 1px solid #333;
 }
 .android .dw-hidden {
@@ -16,18 +13,19 @@
     border: 0;
 }
 .android .dwwr {
+    padding: 0;
+    color: #fff;
     background: #000;
     border-radius: 0;
     -moz-border-radius: 0;
     -webkit-border-radius: 0;
 }
 .android .dwc {
-    padding-left: 2px;
-    padding-right: 2px;
+    padding: 32px 2px 6px 2px;
     display: inline-block;
 }
-.android .dwbw {
-    padding: 0px;
+.android .dwhl {
+    padding-top: 6px;
 }
 .android .dwwc {
     background: #000;
@@ -48,12 +46,8 @@
     text-shadow: none;
 }
 .android .dwbc {
-    padding: 5px 0;
+    padding: 4px 2px;
     background: #9c9c9c;
-}
-.android .dwbg .dwb {
-    -webkit-border-radius: 0;
-    border-radius: 0;
 }
 .android .dw .dwb {
     background: #ccc;
@@ -64,6 +58,8 @@
     color: #000;
     font-weight: normal;
     text-shadow: none;
+    -webkit-border-radius: 0;
+    border-radius: 0;
 }
 .android .dw .dwb-a, .android .dw .dwwl .dwb-a {
     background: #ffb25a;

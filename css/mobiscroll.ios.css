@@ -1,26 +1,23 @@
 /* iOS Skin */
 .ios .dw {
     min-width: 134px;
-    padding: 0;
     border: 1px solid #2d3034;
-    background: none;
-    color: #fff;
-    -webkit-border-radius: 0;
-    border-radius: 0;
 }
 .ios .dwo {
     background: none;
 }
 .ios .dwwr {
     position: relative;
+    padding: 0 6px;
     margin-top: 40px;
-    background: #50515d;
     background: -webkit-gradient(linear,left top,left bottom,from(#9f9fa6),color-stop(0.5, #484a55),color-stop(0.5, #272836),to(#282a39));
     background: -webkit-linear-gradient(#9f9fa6,#484a55 50%,#272836 50%,#282a39);
     background: -moz-linear-gradient(#9f9fa6,#484a55 50%,#272836 50%,#282a39);
     background: linear-gradient(#9f9fa6,#484a55 50%,#272836 50%,#282a39);
+    background-color: #9f9fa6;
+    background-repeat: no-repeat;
+    color: #fff;
     overflow: visible;
-    -moz-border-radius: 0;
     -webkit-border-radius: 0;
     border-radius: 0;
 }
@@ -37,7 +34,7 @@
     overflow: hidden;
 }
 .ios .dwc {
-    padding: 30px 2px;
+    padding: 30px 2px 10px 2px;
     margin: 0;
 }
 .ios .dwhl {
@@ -153,6 +150,9 @@
     border-bottom: 1px solid rgba(255,255,255,0.5);
     border-top: 1px solid #888;
     border-top: 1px solid rgba(255,255,255,0.5);
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
 }
 .ios .dw .dwb {
     margin: 0 5px;
