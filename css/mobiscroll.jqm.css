@@ -3,13 +3,14 @@
     background: none;
 }
 .jqm .dw {
-    padding: 6px;
     z-index: 1003;
 }
 .jqm .dwv {
     position: static;
     width: auto;
     border: 0;
+    margin: 0 -2px;
+    padding: 5px 0;
 }
 .jqm .dw-hidden {
     padding: 0;
@@ -62,6 +63,7 @@
 .jqm.dw-bubble .dw {
     background: #222;
     border: 0;
+    padding: 6px;
 }
 .jqm.dw-bubble .dwwr {
     background-color: #fff;
