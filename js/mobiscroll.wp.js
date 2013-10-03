@@ -4,7 +4,7 @@
 
     $.mobiscroll.themes.wp = {
         defaults: {
-            width: 70,
+            minWidth: 70,
             height: 76,
             accent: 'none',
             dateOrder: 'mmMMddDDyy',

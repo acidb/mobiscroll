@@ -5,7 +5,7 @@
             dateOrder: 'MMdyy',
             rows: 5,
             height: 30,
-            width: 55,
+            minWidth: 55,
             headerText: false,
             showLabel: false,
             btnWidth: false,

@@ -4,7 +4,7 @@
             dateOrder: 'Mddyy',
             mode: 'mixed',
             rows: 5,
-            width: 70,
+            minWidth: 70,
             height: 36,
             showLabel: false,
             useShortLabels: true
