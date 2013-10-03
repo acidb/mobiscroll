@@ -24,7 +24,6 @@
 }
 .dwwr {
     padding: 0 2px;
-    background: #fff;
     border-radius: 3px;
     -webkit-border-radius: 3px;
     min-width: 170px;
@@ -350,6 +349,9 @@
     content: '✔';
 }
 /* Backgrounds */
+.dwbg .dwwr {
+    background: #fff;
+}
 .dwbg .dwv {
     background-color: #dfdfdf;
 }

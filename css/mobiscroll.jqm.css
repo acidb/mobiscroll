@@ -9,8 +9,6 @@
 .jqm .dwv {
     position: static;
     width: auto;
-    margin: 0;
-    padding: .7em 15px .7em 15px;
     border: 0;
 }
 .jqm .dw-hidden {
@@ -19,16 +17,9 @@
 }
 .jqm .dwwr {
     border: 0;
-    padding: 0;
 }
 .jqm .dwpm .dwwo {
     background: none;
-}
-.jqm .dwc {
-    padding: 30px 5px 5px 5px;
- }
-.jqm .dwhl {
-    padding: 5px;
 }
 .jqm .dwwb {
     margin: 0;
@@ -51,11 +42,8 @@
 .jqm .dwwbp span {
     font-weight: normal;
 }
-.jqm .dwbc {
-    padding: 0;
-}
 .jqm .dwbc .ui-btn {
-    margin: .5em 5px;
+    margin: 0 2px;
 }
 .jqm .dwbc .ui-btn-inner {
     font-size: 12px;
@@ -74,6 +62,9 @@
 .jqm.dw-bubble .dw {
     background: #222;
     border: 0;
+}
+.jqm.dw-bubble .dwwr {
+    background-color: #fff;
 }
 /* Docked */
 .jqm.dw-bottom .dw, .jqm.dw-top .dw {
