@@ -19,7 +19,8 @@
 .jqm .dwwr {
     border: 0;
 }
-.jqm .dwpm .dwwo {
+.jqm .dwpm .dwwo,
+.jqm .dwpm .dwwc {
     background: none;
 }
 .jqm .dwwb {

@@ -77,6 +77,7 @@
                 wg,
                 start,
                 end,
+                invalid,
                 orig = $.extend({}, inst.settings),
                 s = $.extend(inst.settings, defaults, html5def, orig),
                 offset = 0,
@@ -312,11 +313,14 @@
             if (s.showNow) {
                 s.buttons.splice($.inArray('set', s.buttons) + 1, 0, 'now');
             }
+
+            invalid = s.invalid ? inst.convert(s.invalid) : false;
+
             // ---
 
             return {
                 wheels: wheels,
-                headerText: function (v) {
+                headerText: s.display === 'inline' ? false : function (v) {
                     return ms.formatDate(hformat, getDate(inst.temp), s);
                 },
                 formatResult: function (d) {
@@ -390,31 +394,34 @@
                                 maxprop = val == max;
                             }
                             // Disable some days
-                            if (s.invalid && i == 'd') {
+                            if (invalid && i == 'd') {
                                 var d, j, k, v,
                                     first = new Date(y, m, 1).getDay(),
-                                    idx = [],
-                                    invalid = inst.convert(s.invalid);
+                                    idx = [];
 
                                 for (j = 0; j < invalid.length; j++) {
                                     d = invalid[j];
                                     v = d + '';
-                                    if (d.getTime && d.getFullYear() == y && d.getMonth() == m) { // Exact date
-                                        idx.push(d.getDate() - 1);
-                                    } else if (!v.match(/w/i)) { // Day of month
-                                        v = v.split('/');
-                                        if (v[1]) {
-                                            if (v[0] - 1 == m) {
-                                                idx.push(v[1] - 1);
+                                    if (!d.start) {
+                                        if (d.getTime) { // Exact date
+                                            if (d.getFullYear() == y && d.getMonth() == m) {
+                                                idx.push(d.getDate() - 1);
                                             }
-                                        } else {
-                                            idx.push(v[0] - 1);
-                                        }
-                                    } else { // Day of week
-                                        v = +v.replace('w', '');
-                                        for (k = v - first; k < maxdays; k += 7) {
-                                            if (k >= 0) {
-                                                idx.push(k);
+                                        } else if (!v.match(/w/i)) { // Day of month
+                                            v = v.split('/');
+                                            if (v[1]) {
+                                                if (v[0] - 1 == m) {
+                                                    idx.push(v[1] - 1);
+                                                }
+                                            } else {
+                                                idx.push(v[0] - 1);
+                                            }
+                                        } else { // Day of week
+                                            v = +v.replace('w', '');
+                                            for (k = v - first; k < maxdays; k += 7) {
+                                                if (k >= 0) {
+                                                    idx.push(k);
+                                                }
                                             }
                                         }
                                     }
@@ -428,6 +435,38 @@
                             temp[o[i]] = val;
                         }
                     });
+
+                    // Invalid times
+                    if (invalid) {
+                        var d, v, parts1, parts2,
+                            hw = $('.dw-ul', dw).eq(o.h),
+                            mw = $('.dw-ul', dw).eq(o.i),
+                            sw = $('.dw-ul', dw).eq(o.s),
+                            curr = inst.getDate(true);
+                        $.each(invalid, function (i, obj) {
+                            if (obj.start) {
+                                d = obj.d;
+                                v = d + '';
+                                if (d) {
+                                    if (d.getTime) { // Exact date
+                                        if (curr.getFullYear() == d.getFullYear() && curr.getMonth() == d.getMonth() && curr.getDate() == d.getDate()) {
+                                            parts1 = obj.start.split(':');
+                                            parts2 = obj.end.split(':');
+                                            // Disable hours
+                                            // TODO: handle AM/PM
+                                            var i1 = $('.dw-li', hw).index($('.dw-li[data-val="' + (+parts1[0]) + '"]', hw)),
+                                                i2 = $('.dw-li', hw).index($('.dw-li[data-val="' + (+parts2[0]) + '"]', hw));
+                                            $('.dw-li', hw).slice(i1, i2 + 1).removeClass('dw-v');
+                                            // Disable minutes
+                                            // Disable seconds
+                                        }
+                                    } else if (!v.match(/w/i)) { // Day of month
+                                    } else { // Day of week
+                                    }
+                                }
+                            }
+                        });
+                    }
                 }
             };
         };

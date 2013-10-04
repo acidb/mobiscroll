@@ -236,9 +236,6 @@
     font-size: 32px;
     font-weight: bold;
 }
-.dwpm .dwwc {
-    background: transparent;
-}
 .dwpm .dwwl {
     padding: 0;
 }
@@ -356,14 +353,14 @@
     background-color: #dfdfdf;
 }
 .dwbg .dwpm .dwwl {
-    border: 1px solid #aaa;
+    background: #fff;
 }
 .dwbg .dwpm .dww {
     color: #000;
     background: #fff;
     -webkit-border-radius: 3px;
 }
-.dwbg .dwwb, .dwbg .dwwb:hover {
+.dwbg .dwwb {
     background: #ccc;
     color: #888;
     font-weight: normal;
