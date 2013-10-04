@@ -49,6 +49,7 @@
             wndw,
             doc,
             buttons,
+            btn,
             that = this,
             ms = $.mobiscroll,
             e = elem,
@@ -64,8 +65,8 @@
             visible = false,
             onStart = function (e) {
                 // Scroll start
-                if (testTouch(e) && !move && !isReadOnly(this) && !click) {
-                    // Prevent scroll
+                if (testTouch(e) && !move && !click && !btn && !isReadOnly(this)) {
+                    // Prevent touch highlight
                     e.preventDefault();
 
                     move = true;
@@ -88,6 +89,7 @@
             },
             onMove = function (e) {
                 if (scrollable) {
+                    // Prevent scroll
                     e.preventDefault();
                     e.stopPropagation();
                     stop = getCoord(e, 'Y');
@@ -145,13 +147,15 @@
                 $(document).off(MOVE_EVENT, onMove).off(END_EVENT, onEnd);
             },
             onBtnStart = function (e) {
-                var btn = $(this);
+                if (btn) {
+                    btn.removeClass('dwb-a');
+                }
+                btn = $(this);
                 $(document).on(END_EVENT, onBtnEnd);
                 // Active button
                 if (!btn.hasClass('dwb-d')) {
                     btn.addClass('dwb-a');
                 }
-                setTimeout(function () { btn.blur(); }, 10);
                 // +/- buttons
                 if (btn.hasClass('dwwb')) {
                     if (testTouch(e)) {
@@ -165,7 +169,8 @@
                     click = false;
                 }
                 $(document).off(END_EVENT, onBtnEnd);
-                $('.dwb-a', dw).removeClass('dwb-a');
+                btn.removeClass('dwb-a');
+                btn = null;
             },
             onKeyDown = function (e) {
                 if (e.keyCode == 38) { // up
@@ -1142,9 +1147,6 @@
     function testTouch(e) {
         if (e.type === 'touchstart') {
             touch = true;
-            /*setTimeout(function () {
-                touch = false; // Reset if mouse event was not fired
-            }, 500);*/
         } else if (touch) {
             touch = false;
             return false;
