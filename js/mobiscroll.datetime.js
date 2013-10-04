@@ -435,38 +435,6 @@
                             temp[o[i]] = val;
                         }
                     });
-
-                    // Invalid times
-                    if (invalid) {
-                        var d, v, parts1, parts2,
-                            hw = $('.dw-ul', dw).eq(o.h),
-                            mw = $('.dw-ul', dw).eq(o.i),
-                            sw = $('.dw-ul', dw).eq(o.s),
-                            curr = inst.getDate(true);
-                        $.each(invalid, function (i, obj) {
-                            if (obj.start) {
-                                d = obj.d;
-                                v = d + '';
-                                if (d) {
-                                    if (d.getTime) { // Exact date
-                                        if (curr.getFullYear() == d.getFullYear() && curr.getMonth() == d.getMonth() && curr.getDate() == d.getDate()) {
-                                            parts1 = obj.start.split(':');
-                                            parts2 = obj.end.split(':');
-                                            // Disable hours
-                                            // TODO: handle AM/PM
-                                            var i1 = $('.dw-li', hw).index($('.dw-li[data-val="' + (+parts1[0]) + '"]', hw)),
-                                                i2 = $('.dw-li', hw).index($('.dw-li[data-val="' + (+parts2[0]) + '"]', hw));
-                                            $('.dw-li', hw).slice(i1, i2 + 1).removeClass('dw-v');
-                                            // Disable minutes
-                                            // Disable seconds
-                                        }
-                                    } else if (!v.match(/w/i)) { // Day of month
-                                    } else { // Day of week
-                                    }
-                                }
-                            }
-                        });
-                    }
                 }
             };
         };
