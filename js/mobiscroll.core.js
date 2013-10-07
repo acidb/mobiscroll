@@ -168,9 +168,11 @@
                     clearInterval(timer);
                     click = false;
                 }
+                if (btn) {
+                    btn.removeClass('dwb-a');
+                    btn = null;
+                }
                 $(document).off(END_EVENT, onBtnEnd);
-                btn.removeClass('dwb-a');
-                btn = null;
             },
             onKeyDown = function (e) {
                 if (e.keyCode == 38) { // up
