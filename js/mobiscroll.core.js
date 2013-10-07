@@ -153,7 +153,7 @@
                 btn = $(this);
                 $(document).on(END_EVENT, onBtnEnd);
                 // Active button
-                if (!btn.hasClass('dwb-d')) {
+                if (!btn.hasClass('dwb-d') && !btn.hasClass('dwb-nhl')) {
                     btn.addClass('dwb-a');
                 }
                 // +/- buttons
