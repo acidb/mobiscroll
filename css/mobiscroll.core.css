@@ -110,8 +110,11 @@
 }
 /* Datewheel value */
 .dwv {
-    padding: 5px 0;
+    padding: 7px 0;
     margin: 0 -2px;
+}
+.dw .dwv {
+    font-size: 14px;
 }
 .dw-hidden {
     width: 0;
