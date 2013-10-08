@@ -153,7 +153,7 @@
                 btn = $(this);
                 $(document).on(END_EVENT, onBtnEnd);
                 // Active button
-                if (!btn.hasClass('dwb-d')) {
+                if (!btn.hasClass('dwb-d') && !btn.hasClass('dwb-nhl')) {
                     btn.addClass('dwb-a');
                 }
                 // +/- buttons
@@ -168,9 +168,11 @@
                     clearInterval(timer);
                     click = false;
                 }
+                if (btn) {
+                    btn.removeClass('dwb-a');
+                    btn = null;
+                }
                 $(document).off(END_EVENT, onBtnEnd);
-                btn.removeClass('dwb-a');
-                btn = null;
             },
             onKeyDown = function (e) {
                 if (e.keyCode == 38) { // up
