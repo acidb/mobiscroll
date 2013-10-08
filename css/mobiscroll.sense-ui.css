@@ -11,6 +11,8 @@
     border-bottom: 1px solid #666;
     text-align: left;
     background: none;
+    -webkit-border-radius: 0;
+    border-radius: 0;
 }
 .sense-ui .dw-hidden {
     padding: 0;
