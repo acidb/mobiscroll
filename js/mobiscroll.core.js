@@ -326,48 +326,59 @@
             pos[index] = val;
         }
 
+        function getValid(val, t, dir) {
+            var cell = $('.dw-li[data-val="' + val + '"]', t),
+                cells = $('.dw-li', t),
+                v = cells.index(cell),
+                l = cells.length;
+
+            // Scroll to a valid cell
+            if (!cell.hasClass('dw-v')) {
+                var cell1 = cell,
+                    cell2 = cell,
+                    dist1 = 0,
+                    dist2 = 0;
+
+                while (v - dist1 >= 0 && !cell1.hasClass('dw-v')) {
+                    dist1++;
+                    cell1 = cells.eq(v - dist1);
+                }
+
+                while (v + dist2 < l && !cell2.hasClass('dw-v')) {
+                    dist2++;
+                    cell2 = cells.eq(v + dist2);
+                }
+
+                // If we have direction (+/- or mouse wheel), the distance does not count
+                if (((dist2 < dist1 && dist2 && dir !== 2) || !dist1 || (v - dist1 < 0) || dir == 1) && cell2.hasClass('dw-v')) {
+                    cell = cell2;
+                    v = v + dist2;
+                } else {
+                    cell = cell1;
+                    v = v - dist1;
+                }
+            }
+
+            return {
+                cell: cell,
+                v: v,
+                val: cell.attr('data-val')
+            };
+        }
+
         function scrollToPos(time, index, manual, dir, active) {
             // Call validation event
-            if (event('validate', [dw, index, time]) !== false) {
+            if (event('validate', [dw, index, time, dir]) !== false) {
                 // Set scrollers to position
                 $('.dw-ul', dw).each(function (i) {
                     var t = $(this),
-                        cell = $('.dw-li[data-val="' + that.temp[i] + '"]', t),
-                        cells = $('.dw-li', t),
-                        v = cells.index(cell),
-                        l = cells.length,
-                        sc = i == index || index === undefined;
-
-                    // Scroll to a valid cell
-                    if (!cell.hasClass('dw-v')) {
-                        var cell1 = cell,
-                            cell2 = cell,
-                            dist1 = 0,
-                            dist2 = 0;
-
-                        while (v - dist1 >= 0 && !cell1.hasClass('dw-v')) {
-                            dist1++;
-                            cell1 = cells.eq(v - dist1);
-                        }
-
-                        while (v + dist2 < l && !cell2.hasClass('dw-v')) {
-                            dist2++;
-                            cell2 = cells.eq(v + dist2);
-                        }
-
-                        // If we have direction (+/- or mouse wheel), the distance does not count
-                        if (((dist2 < dist1 && dist2 && dir !== 2) || !dist1 || (v - dist1 < 0) || dir == 1) && cell2.hasClass('dw-v')) {
-                            cell = cell2;
-                            v = v + dist2;
-                        } else {
-                            cell = cell1;
-                            v = v - dist1;
-                        }
-                    }
+                        sc = i == index || index === undefined,
+                        res = getValid(that.temp[i], t, dir),
+                        cell = res.cell;
 
                     if (!(cell.hasClass('dw-sel')) || sc) {
                         // Set valid value
-                        that.temp[i] = cell.attr('data-val');
+                        that.temp[i] = res.val;
 
                         // Add selected class to cell
                         $('.dw-sel', t).removeClass('dw-sel');
@@ -380,7 +391,7 @@
                         cell.addClass('dw-sel');
 
                         // Scroll to position
-                        scroll(t, i, v, sc ? time : 0.1, sc ? active : false);
+                        scroll(t, i, res.v, sc ? time : 0.1, sc ? active : false);
                     }
                 });
 
@@ -1067,13 +1078,6 @@
         };
 
         /**
-        * Triggers a mobiscroll event.
-        */
-        that.trigger = function (name, params) {
-            return event(name, params);
-        };
-
-        /**
         * Sets one ore more options.
         */
         that.option = function (opt, value) {
@@ -1112,6 +1116,16 @@
         that.getInst = function () {
             return that;
         };
+
+        /**
+        * Returns the closest valid cell.
+        */
+        that.getValidCell = getValid;
+
+        /**
+        * Triggers a mobiscroll event.
+        */
+        that.trigger = event;
 
         scrollers[e.id] = that;
 
