@@ -23,6 +23,72 @@ It'd be cool to see how you're using Mobiscroll!
 
 We're looking at showcasing some of the best work on http://mobiscroll.com . Feel free to let us know on twitter @mobiscroll!
 
+Changelog 2.8.0
+===============
+
+Enhancements
+------------
+
+_Core_
+
+  * Added: 'context' setting (#143).
+
+  * Added: generic buttons.
+
+  * Added: 'minWidh', 'maxWidth' and 'fixedWidth' settings (#112).
+
+  * Changed: default theme was updated.
+
+_Calendar_
+
+  * Added: start/end times for multi day events.
+
+  * Added: when a day clicked from another month changes the month and show the event bubble.
+
+  * Added: 'counter' option to show number of selected items in header (if in multi-select mode).
+
+  * Added: live swipe ('liveSwipe' setting).
+
+  * Added: 'showDivergentDays' setting to show/hide days from previous and next months.
+
+  * Added: 'divergentDayChange' setting to enable/disable month change on divergent day selection.
+
+  * Changed: week numbers are not sliding.
+
+_Datetime_
+
+  * Added: invalid time ranges (#94, #147).
+
+_Rangepicker_
+
+  * Added: 'counter' setting to show number of selected items in header.
+
+_Select_
+
+  * Added: 'counter' setting to show number of selected items in header.
+
+Bugfixes
+--------
+
+_Core_
+
+  * Fixed: In bubble mode positioning sometimes ended up in endless scrolling.
+
+  * Fixed: If another mobiscroll element was under the overlay, it opened on tap.
+
+  * Fixed: No more blue highlight on wheel tap in Android 4.x.
+
+  * Fixed: Context got lost in some cases (#163).
+
+_Select_
+
+  * Fixed: hiding the original select is not good for validation (#161).
+
+_Treelist_
+
+  * Fixed: animation was not working with setValue method.
+
+
 Changelog 2.7.2
 ===============
 
