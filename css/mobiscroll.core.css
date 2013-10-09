@@ -119,7 +119,7 @@
     -webkit-border-radius: 3px;
     border-radius: 3px;
 }
-.dw-hidden {
+.dw-hidden, .dw .dwwr .dw-hidden {
     width: 0;
     height: 0;
     margin: 0;

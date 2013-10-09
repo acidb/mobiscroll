@@ -8,6 +8,7 @@
             height: 76,
             accent: 'none',
             dateOrder: 'mmMMddDDyy',
+            headerText: false,
             showLabel: false,
             btnWidth: false,
             onAnimStart: function (dw, i, time) {

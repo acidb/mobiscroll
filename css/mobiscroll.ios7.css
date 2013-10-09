@@ -62,12 +62,19 @@
     color: #000;
 }
 .ios7 .dwv {
-    width: 0;
-    height: 0;
+    /*position: absolute;
+    top: 0;
+    left: 0;*/
     margin: 0;
     padding: 0;
-    border: 0;
-    overflow: hidden;
+    /*width: 100%;*/
+    background: none;
+    color: #9d9d9d;
+    line-height: 30px;
+    font-size: 12px;
+    border-bottom: 1px solid #acacac;
+    -webkit-border-radius: 0;
+    border-radius: 0;
 }
 .ios7 .dwbc {
     position: absolute;

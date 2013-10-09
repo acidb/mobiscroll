@@ -10,10 +10,6 @@
     -webkit-border-radius: 0;
     border-radius: 0;
 }
-.android .dw-hidden {
-    padding: 0;
-    border: 0;
-}
 .android .dwwr {
     padding: 0;
     color: #fff;

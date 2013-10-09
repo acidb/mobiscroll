@@ -743,6 +743,7 @@
             if (anim && !prevAnim) {
                 mAnim = 'dw-' + anim + ' dw-in';
             }
+
             // Create wheels containers
             var html = '<div role="dialog" class="' + s.theme + ' dw-' + s.display + (prefix ? ' dw' + prefix : '') + (hasButtons ? '' : ' dw-nobtn') + '">' + (!modal ? '<div class="dw dwbg dwi">' : '<div class="dw-persp"><div class="dwo"></div><div class="dw dwbg ' + mAnim + '"><div class="dw-arrw"><div class="dw-arrw-i"><div class="dw-arr"></div></div></div>') + '<div class="dwwr"><div aria-live="assertive" class="dwv' + (s.headerText ? '' : ' dw-hidden') + '"></div><div class="dwcc">',
                 isMinw = $.isArray(s.minWidth),
@@ -831,10 +832,6 @@
                         that.cancel();
                     }
                 });
-
-                /*window.addEventListener('deviceorientation', function (e) {
-                    $('.dw', dw)[0].style[pr + 'Transform'] = 'translate3d(' + Math.max(-5, Math.min(e.gamma / 9, 5)) + 'px,0,0)';
-                });*/
 
                 // Prevent scroll if not specified otherwise
                 if (s.scrollLock) {
@@ -989,13 +986,15 @@
             lang = ms.i18n[ss.lang || s.lang];
 
             extend(settings, ss); // Update original user settings
+
             theme.load(lang, settings);
             extend(s, theme.defaults, lang, settings);
 
             // Add default buttons
             s.buttons = s.buttons || ['set', 'cancel'];
+
             // Hide header text in inline mode by default
-            s.headerText = s.headerText || (s.display !== 'inline' ? '{value}' : false);
+            s.headerText = s.headerText === undefined ? (s.display !== 'inline' ? '{value}' : false) : s.headerText;
 
             that.settings = s;
 

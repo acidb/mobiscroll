@@ -5,12 +5,11 @@
     -webkit-border-radius: 0;
 }
 .wp .dwv {
-    width: 0;
-    height: 0;
+    background: none;
     margin: 0;
-    padding: 0;
-    border: 0;
-    overflow: hidden;
+    padding: 10px;
+    padding-top: 0;
+    color: #fff;
 }
 .wp .dwc {
     padding: 30px 0 0 0;

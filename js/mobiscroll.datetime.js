@@ -336,9 +336,9 @@
 
             return {
                 wheels: wheels,
-                headerText: s.display === 'inline' ? false : function (v) {
+                headerText: s.headerText ? function (v) {
                     return ms.formatDate(hformat, getDate(inst.temp), s);
-                },
+                } : false,
                 formatResult: function (d) {
                     return ms.formatDate(format, getDate(d), s);
                 },

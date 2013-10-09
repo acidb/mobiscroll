@@ -30,10 +30,6 @@
     -webkit-border-radius: 0;
     border-radius: 0;
 }
-.android-ics .dw-hidden {
-    height: 0;
-    border: 0;
-}
 .android-ics .dwwl {
     margin: 0 2px;
 }
