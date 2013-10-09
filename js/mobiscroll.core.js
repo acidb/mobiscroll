@@ -547,7 +547,7 @@
                 ah =  anchor.outerHeight();
                 l = al - (d.outerWidth(true) - aw) / 2;
                 l = l > (ww - mw) ? (ww - (mw + 20)) : l;
-                l = l >= 0 ? l : 20;
+                l = l < 5 ? 5 : l;
 
                 // vertical positioning
                 t = at - mh; // above the input
