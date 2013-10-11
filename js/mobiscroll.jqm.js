@@ -8,7 +8,13 @@
             jqmWheel: 'd',
             jqmClickPick: 'c',
             jqmSet: 'b',
-            jqmCancel: 'c'
+            jqmCancel: 'c',
+            dayClass: ' ui-body-c',
+            validDayClass: ' ui-btn-up-c ui-state-default ui-btn',
+            disabledClass: ' ui-disabled',
+            calendarClass: ' ui-body-c',
+            weekNrClass: ' ui-body-a ui-body-c',
+            activeDayClass: ' ui-btn-active'
         },
         init: function (elm, inst) {
             var s = inst.settings;
@@ -20,6 +26,9 @@
             $('.dwwr', elm).addClass('ui-body-' + s.jqmBody);
             $('.dwpm .dwwl', elm).addClass('ui-body-' + s.jqmWheel);
             $('.dwpm .dwl', elm).addClass('ui-body-' + s.jqmBody);
+            $('.dw-cal-tabs', elm).attr('data-role', 'navbar');
+            $('.dw-cal-prev .dw-cal-btn-txt', elm).attr('data-role', 'button').attr('data-icon', 'arrow-l').attr('data-iconpos','notext');
+            $('.dw-cal-next .dw-cal-btn-txt', elm).attr('data-role', 'button').attr('data-icon', 'arrow-r').attr('data-iconpos','notext');
             elm.trigger('create');
         }
     };
