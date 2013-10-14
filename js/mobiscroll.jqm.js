@@ -9,16 +9,17 @@
             jqmClickPick: 'c',
             jqmSet: 'b',
             jqmCancel: 'c',
-            dayClass: ' ui-body-c',
-            validDayClass: ' ui-btn-up-c ui-state-default ui-btn',
-            disabledClass: ' ui-disabled',
-            calendarClass: ' ui-body-c',
-            weekNrClass: ' ui-body-a ui-body-c',
-            activeDayClass: ' ui-btn-active',
-            eventTextClass: ' ui-btn-up-b',
-            eventBubbleClass: ' ui-body-a',
+            dayClass: 'ui-body-c',
+            validDayClass: 'ui-btn-up-c ui-state-default ui-btn',
+            disabledClass: 'ui-disabled',
+            calendarClass: 'ui-body-c',
+            weekNrClass: 'ui-body-a ui-body-c',
+            activeDayClass: 'ui-btn-active',
+            eventTextClass: 'ui-btn-up-b',
+            eventBubbleClass: 'ui-body-a',
             onEventBubbleShow: function (evd, evc) {
                 $('.dw-i', evd).addClass('ui-btn-active');
+                $('.dw-cal-event-list', evc).attr('data-role', 'listview');
                 evc.page().trigger('create');
             },
             onEventBubbleHide: function (evd) {
@@ -39,7 +40,6 @@
             $('.dw-cal-prev .dw-cal-btn-txt', elm).attr('data-role', 'button').attr('data-icon', 'arrow-l').attr('data-iconpos', 'notext');
             $('.dw-cal-next .dw-cal-btn-txt', elm).attr('data-role', 'button').attr('data-icon', 'arrow-r').attr('data-iconpos', 'notext');
             $('.dw-cal-events', elm).attr('data-role', 'page');
-            $('.dw-cal-event-list', elm).attr('data-role', 'listview');
             elm.trigger('create');
         }
     };
