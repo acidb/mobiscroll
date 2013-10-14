@@ -904,10 +904,12 @@
                 var doAnim = modal && anim && !prevAnim;
                 if (doAnim) {
                     dw.addClass('dw-trans').find('.dw').addClass('dw-' + anim + ' dw-out');
-                }
-                setTimeout(function () {
+                    setTimeout(function () {
+                        dw.remove();
+                    }, 350);
+                } else {
                     dw.remove();
-                }, doAnim ? 350 : 1);
+                }
 
                 // Stop positioning on window resize
                 wndw.off('.dw');
