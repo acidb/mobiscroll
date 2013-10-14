@@ -1,32 +1,30 @@
 (function ($) {
 
     $.mobiscroll.themes.jqm = {
-        defaults: {
-            jqmBorder: 'a',
-            jqmBody: 'c',
-            jqmHeader: 'b',
-            jqmWheel: 'd',
-            jqmClickPick: 'c',
-            jqmSet: 'b',
-            jqmCancel: 'c',
-            dayClass: 'ui-body-c',
-            validDayClass: 'ui-btn-up-c ui-state-default ui-btn',
-            disabledClass: 'ui-disabled',
-            calendarClass: 'ui-body-c',
-            weekNrClass: 'ui-body-a ui-body-c',
-            activeDayClass: 'ui-btn-active',
-            eventTextClass: 'ui-btn-up-b',
-            eventBubbleClass: 'ui-body-a',
-            onEventBubbleShow: function (evd, evc) {
-                $('.dw-i', evd).addClass('ui-btn-active');
-                $('.dw-cal-event-list', evc).attr('data-role', 'listview');
-                evc.page().trigger('create');
-            },
-            onEventBubbleHide: function (evd) {
-                $('.dw-i', evd).removeClass('ui-btn-active');
-            }
+        jqmBorder: 'a',
+        jqmBody: 'c',
+        jqmHeader: 'b',
+        jqmWheel: 'd',
+        jqmClickPick: 'c',
+        jqmSet: 'b',
+        jqmCancel: 'c',
+        dayClass: 'ui-body-c',
+        validDayClass: 'ui-btn-up-c ui-state-default ui-btn',
+        disabledClass: 'ui-disabled',
+        calendarClass: 'ui-body-c',
+        weekNrClass: 'ui-body-a ui-body-c',
+        activeDayClass: 'ui-btn-active',
+        eventTextClass: 'ui-btn-up-b',
+        eventBubbleClass: 'ui-body-a',
+        onEventBubbleShow: function (evd, evc) {
+            $('.dw-i', evd).addClass('ui-btn-active');
+            $('.dw-cal-event-list', evc).attr('data-role', 'listview');
+            evc.page().trigger('create');
         },
-        init: function (elm, inst) {
+        onEventBubbleHide: function (evd) {
+            $('.dw-i', evd).removeClass('ui-btn-active');
+        },
+        onMarkupInserted: function (elm, inst) {
             var s = inst.settings;
             $('.dw', elm).removeClass('dwbg').addClass('ui-selectmenu ui-overlay-shadow ui-corner-all ui-body-' + s.jqmBorder);
             $('.dwbc .dwb', elm).attr('data-role', 'button').attr('data-mini', 'true').attr('data-theme', s.jqmCancel);
