@@ -979,7 +979,7 @@
         */
         that.init = function (ss) {
             // Get theme defaults
-            theme =  ms.themes[ss.theme || s.theme];
+            theme = ms.themes[ss.theme || s.theme];
 
             // Get language defaults
             lang = ms.i18n[ss.lang || s.lang];

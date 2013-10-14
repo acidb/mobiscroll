@@ -8,14 +8,20 @@
         jqmClickPick: 'c',
         jqmSet: 'b',
         jqmCancel: 'c',
-        dayClass: 'ui-body-c',
-        validDayClass: 'ui-btn-up-c ui-state-default ui-btn',
         disabledClass: 'ui-disabled',
-        calendarClass: 'ui-body-c',
-        weekNrClass: 'ui-body-a ui-body-c',
         activeDayClass: 'ui-btn-active',
-        eventTextClass: 'ui-btn-up-b',
-        eventBubbleClass: 'ui-body-a',
+        onThemeLoad: function (lang, s) {
+            var cal = s.jqmBody || 'c',
+                txt = s.jqmEventText || 'b',
+                bubble = s.jqmEventBubble || 'a';
+
+            s.dayClass = 'ui-body-a ui-body-' + cal;
+            s.validDayClass = 'ui-state-default ui-btn ui-btn-up-' + cal;
+            s.calendarClass = 'ui-body-a ui-body-' + cal;
+            s.weekNrClass = 'ui-body-a ui-body-' + cal;
+            s.eventTextClass = 'ui-btn-up-' + txt;
+            s.eventBubbleClass = 'ui-body-' + bubble;
+        },
         onEventBubbleShow: function (evd, evc) {
             $('.dw-i', evd).addClass('ui-btn-active');
             $('.dw-cal-event-list', evc).attr('data-role', 'listview');
