@@ -413,8 +413,8 @@
         function event(name, args) {
             var ret;
             args.push(that);
-            $.each([theme.defaults, pres, settings], function (i, v) {
-                if (v[name]) { // Call preset event
+            $.each([theme, pres, settings], function (i, v) {
+                if (v && v[name]) { // Call preset event
                     ret = v[name].apply(e, args);
                 }
             });
@@ -806,9 +806,6 @@
 
             visible = true;
 
-            // Theme init
-            theme.init(dw, that);
-
             if (modal) {
                 // Init buttons
                 $.each(buttons, function (i, b) {
@@ -980,15 +977,16 @@
         */
         that.init = function (ss) {
             // Get theme defaults
-            theme = extend({ defaults: {}, load: empty, init: empty }, ms.themes[ss.theme || s.theme]);
+            theme =  ms.themes[ss.theme || s.theme];
 
             // Get language defaults
             lang = ms.i18n[ss.lang || s.lang];
 
             extend(settings, ss); // Update original user settings
 
-            theme.load(lang, settings);
-            extend(s, theme.defaults, lang, settings);
+            event('onThemeLoad', [lang, settings]);
+
+            extend(s, theme, lang, settings);
 
             // Add default buttons
             s.buttons = s.buttons || ['set', 'cancel'];
