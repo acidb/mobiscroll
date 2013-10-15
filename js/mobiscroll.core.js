@@ -700,6 +700,7 @@
                         handler.call(this, e);
                     }
                     setTap();
+                    return false;
                 });
             }
 
@@ -1042,7 +1043,7 @@
             hasButtons = buttons.length > 0;
 
             if (visible) {
-                that.hide();
+                that.hide(true, false, true);
             }
 
             if (modal) {
