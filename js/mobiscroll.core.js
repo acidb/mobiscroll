@@ -700,7 +700,6 @@
                         handler.call(this, e);
                     }
                     setTap();
-                    return false;
                 });
             }
 
@@ -808,20 +807,6 @@
             visible = true;
 
             if (modal) {
-                // Init buttons
-                $.each(buttons, function (i, b) {
-                    that.tap($('.dwb' + i, dw), function (e) {
-                        b = (typeof b === 'string') ? that.buttons[b] : b;
-                        b.handler.call(this, e, that);
-                    });
-                });
-
-                if (s.closeOnOverlay) {
-                    that.tap($('.dwo', dw), function () {
-                        that.cancel();
-                    });
-                }
-
                 // Enter / ESC
                 $(window).on('keydown.dw', function (e) {
                     if (e.keyCode == 13) {
@@ -860,10 +845,10 @@
 
             // Events
             dw.on('DOMMouseScroll mousewheel', '.dwwl', onScroll)
-                .on(START_EVENT, '.dwwl', onStart)
+                //.on(START_EVENT, '.dwwl', onStart)
                 .on('keydown', '.dwwl', onKeyDown)
                 .on('keyup', '.dwwl', onKeyUp)
-                .on(START_EVENT, '.dwb-e', onBtnStart)
+                //.on(START_EVENT, '.dwb-e', onBtnStart)
                 .on('selectstart mousedown', prevdef) // Prevents blue highlight on Android and text selection in IE
                 .on('click', '.dwb-e', prevdef)
                 .on('touchend', function () { if (s.tap) { setTap(); } })
@@ -874,6 +859,25 @@
                         $(this).click();
                     }
                 });
+
+            setTimeout(function () {
+                // Init buttons
+                $.each(buttons, function (i, b) {
+                    that.tap($('.dwb' + i, dw), function (e) {
+                        b = (typeof b === 'string') ? that.buttons[b] : b;
+                        b.handler.call(this, e, that);
+                    });
+                });
+
+                if (s.closeOnOverlay) {
+                    that.tap($('.dwo', dw), function () {
+                        that.cancel();
+                    });
+                }
+
+                dw.on(START_EVENT, '.dwwl', onStart).on(START_EVENT, '.dwb-e', onBtnStart);
+
+            }, 300);
 
             event('onShow', [dw, v]);
         };
@@ -902,11 +906,13 @@
                 var doAnim = modal && anim && !prevAnim;
                 if (doAnim) {
                     dw.addClass('dw-trans').find('.dw').addClass('dw-' + anim + ' dw-out');
+                }
+                if (prevAnim) {
+                    dw.remove();
+                } else {
                     setTimeout(function () {
                         dw.remove();
-                    }, 350);
-                } else {
-                    dw.remove();
+                    }, doAnim ? 350 : 1);
                 }
 
                 // Stop positioning on window resize
