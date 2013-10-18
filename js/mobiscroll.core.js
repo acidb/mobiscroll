@@ -13,7 +13,7 @@
      * @class Mobiscroll
      * Mobiscroll class
      */
-    function Scroller(elem, settings) {
+    $.mobiscroll.classes.Scroller = function (elem, settings) {
         var m,
             hi,
             v,
@@ -51,7 +51,6 @@
             buttons,
             btn,
             that = this,
-            ms = $.mobiscroll,
             e = elem,
             elm = $(e),
             s = extend({}, defaults),
@@ -745,7 +744,7 @@
             }
 
             // Create wheels containers
-            var html = '<div role="dialog" class="' + s.theme + ' dw-' + s.display + (prefix ? ' dw' + prefix : '') + (hasButtons ? '' : ' dw-nobtn') + '">' + (!modal ? '<div class="dw dwbg dwi">' : '<div class="dw-persp"><div class="dwo"></div><div class="dw dwbg ' + mAnim + '"><div class="dw-arrw"><div class="dw-arrw-i"><div class="dw-arr"></div></div></div>') + '<div class="dwwr"><div aria-live="assertive" class="dwv' + (s.headerText ? '' : ' dw-hidden') + '"></div><div class="dwcc">',
+            var html = '<div role="dialog" class="' + s.theme + ' dw-' + s.display + (prefix ? ' dw' + prefix.replace(/\-$/, '') : '') + (hasButtons ? '' : ' dw-nobtn') + '">' + (!modal ? '<div class="dw dwbg dwi">' : '<div class="dw-persp"><div class="dwo"></div><div class="dw dwbg ' + mAnim + '"><div class="dw-arrw"><div class="dw-arrw-i"><div class="dw-arr"></div></div></div>') + '<div class="dwwr"><div aria-live="assertive" class="dwv' + (s.headerText ? '' : ' dw-hidden') + '"></div><div class="dwcc">',
                 isMinw = $.isArray(s.minWidth),
                 isMaxw = $.isArray(s.maxWidth),
                 isFixw = $.isArray(s.fixedWidth);
@@ -1112,7 +1111,7 @@
                 e.readOnly = readOnly;
             }
             // Delete scroller instance
-            delete scrollers[e.id];
+            delete instances[e.id];
             event('onDestroy', []);
         };
 
@@ -1133,7 +1132,7 @@
         */
         that.trigger = event;
 
-        scrollers[e.id] = that;
+        instances[e.id] = that;
 
         that.values = null;
         that.val = null;
@@ -1142,28 +1141,6 @@
         that._selectedValues = {};
 
         that.init(settings);
-    }
-
-    function testProps(props) {
-        var i;
-        for (i in props) {
-            if (mod[props[i]] !== undefined) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    function testPrefix() {
-        var prefixes = ['Webkit', 'Moz', 'O', 'ms'],
-            p;
-
-        for (p in prefixes) {
-            if (testProps([prefixes[p] + 'Transform'])) {
-                return '-' + prefixes[p].toLowerCase();
-            }
-        }
-        return '';
     }
 
     function testTouch(e) {
@@ -1183,12 +1160,6 @@
         }, 300);
     }
 
-    function getCoord(e, c) {
-        var org = e.originalEvent,
-            ct = e.changedTouches;
-        return ct || (org && org.changedTouches) ? (org ? org.changedTouches[0]['page' + c] : ct[0]['page' + c]) : e['page' + c];
-    }
-
     function constrain(val, min, max) {
         return Math.max(min, Math.min(val, max));
     }
@@ -1205,56 +1176,20 @@
         return ret;
     }
 
-    function init(that, options, args) {
-        var ret = that;
-
-        // Init
-        if (typeof options === 'object') {
-            return that.each(function () {
-                if (!this.id) {
-                    uuid += 1;
-                    this.id = 'mobiscroll' + uuid;
-                }
-                if (scrollers[this.id]) {
-                    scrollers[this.id].destroy();
-                }
-                new Scroller(this, options);
-            });
-        }
-
-        // Method call
-        if (typeof options === 'string') {
-            that.each(function () {
-                var r,
-                    inst = scrollers[this.id];
-
-                if (inst && inst[options]) {
-                    r = inst[options].apply(this, Array.prototype.slice.call(args, 1));
-                    if (r !== undefined) {
-                        ret = r;
-                        return false;
-                    }
-                }
-            });
-        }
-
-        return ret;
-    }
-
     var move,
         tap,
         touch,
         alertTimer,
         aria,
-        date = new Date(),
-        uuid = date.getTime(),
-        scrollers = {},
+        ms = $.mobiscroll,
+        instances = ms.instances,
+        util = ms.util,
+        prefix = util.prefix,
+        pr = util.jsPrefix,
+        has3d = util.has3d,
+        getCoord = util.getCoord,
         empty = function () {},
         prevdef = function (e) { e.preventDefault(); },
-        mod = document.createElement('modernizr').style,
-        has3d = testProps(['perspectiveProperty', 'WebkitPerspective', 'MozPerspective', 'OPerspective', 'msPerspective']),
-        prefix = testPrefix(),
-        pr = prefix.replace(/^\-/, '').replace('moz', 'Moz'),
         extend = $.extend,
         START_EVENT = 'touchstart mousedown',
         MOVE_EVENT = 'touchmove mousemove',
@@ -1325,36 +1260,5 @@
             return false;
         }
     });
-
-    $.fn.mobiscroll = function (method) {
-        extend(this, $.mobiscroll.shorts);
-        return init(this, method, arguments);
-    };
-
-    $.mobiscroll = $.mobiscroll || {
-        /**
-        * Set settings for all instances.
-        * @param {Object} o - New default settings.
-        */
-        setDefaults: function (o) {
-            extend(defaults, o);
-        },
-        presetShort: function (name) {
-            this.shorts[name] = function (method) {
-                return init(this, extend(method, { preset: name }), arguments);
-            };
-        },
-        util: {
-            prefix: prefix,
-            has3d: has3d
-        },
-        shorts: {},
-        presets: {},
-        themes: {},
-        i18n: {}
-    };
-
-    $.scroller = $.scroller || $.mobiscroll;
-    $.fn.scroller = $.fn.scroller || $.fn.mobiscroll;
 
 })(jQuery);
