@@ -343,10 +343,14 @@
                     if (input) {
                         input.val(v);
                     }
+                    elm.change();
                 },
                 onChange: function (v, inst) {
-                    if (input && inst.live) {
-                        input.val(v);
+                    if (inst.live) {
+                        if (input) {
+                            input.val(v);
+                        }
+                        elm.change();
                     }
                 },
                 onShow: function (dw) {
