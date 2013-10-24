@@ -23,12 +23,8 @@
             s.eventBubbleClass = 'ui-body-' + bubble;
         },
         onEventBubbleShow: function (evd, evc) {
-            $('.dw-i', evd).addClass('ui-btn-active');
             $('.dw-cal-event-list', evc).attr('data-role', 'listview');
             evc.page().trigger('create');
-        },
-        onEventBubbleHide: function (evd) {
-            $('.dw-i', evd).removeClass('ui-btn-active');
         },
         onMarkupInserted: function (elm, inst) {
             var s = inst.settings;
