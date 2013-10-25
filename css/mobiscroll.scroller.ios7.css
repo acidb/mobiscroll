@@ -29,7 +29,7 @@
 .ios7 .dwhl .dwwc {
     padding-top: 10px;
 }
-.ios7 .dwwr {
+.ios7 .dw .dwwr {
     position: relative;
     padding-top: 40px;
     -moz-border-radius: 0;
@@ -72,7 +72,7 @@
     -webkit-border-radius: 0;
     border-radius: 0;
 }
-.ios7 .dwbc {
+.ios7 .dw .dwbc {
     position: absolute;
     top: 0;
     left: 0;

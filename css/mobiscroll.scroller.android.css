@@ -47,7 +47,7 @@
     padding: 4px 2px;
     background: #9c9c9c;
 }
-.android .dw .dwb {
+.android .dw .dwwr .dwb {
     background: #ccc;
     background: -webkit-gradient(linear,left bottom,left top,from(#ccc),to(#eee));
     background: -webkit-linear-gradient(#eee,#ccc);
@@ -59,7 +59,7 @@
     -webkit-border-radius: 0;
     border-radius: 0;
 }
-.android .dw .dwb-a, .android .dw .dwwl .dwb-a {
+.android .dw .dwwr .dwb-a, .android .dw .dwwl .dwb-a {
     background: #ffb25a;
     background: -webkit-gradient(linear,left bottom,left top,from(#ef6100),to(#ffb25a));
     background: -webkit-linear-gradient(#ffb25a,#ef6100);

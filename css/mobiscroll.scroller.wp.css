@@ -47,7 +47,7 @@
     box-sizing: border-box;
     filter: Alpha(Opacity=0);
 }
-.wp .dw-i {
+.wp .dwwr .dw-i {
     position: relative;
     top: 4%;
     height: 92%;
@@ -80,7 +80,7 @@
     opacity: 1;
     filter: Alpha(Opacity=100);
 }
-.wp .dw .dw-sel .dw-i {
+.wp .dw .dwwr .dw-sel .dw-i {
     color: #fff;
     background: #4c4c4c;
 }
