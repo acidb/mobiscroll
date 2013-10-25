@@ -23,6 +23,55 @@ It'd be cool to see how you're using Mobiscroll!
 
 We're looking at showcasing some of the best work on http://mobiscroll.com . Feel free to let us know on twitter @mobiscroll!
 
+Changelog 2.8.1
+===============
+
+Enhancements
+------------
+
+_Listview_
+
+  * Added: New listview component.
+
+_Core_
+
+  * Changed: Attach event handlers with latency to improve compatibility with libraries like fastclick.js.
+
+_Calendar_
+
+  * Changed: Removed jqm specific behavior.
+
+  * Changed: Divergent day change is disabled by default.
+
+_Rangepicker_
+
+  * Changed: Remove jqm specific behavior.
+
+_Themes_
+
+  * Changed: Calendar respects the swatch set by the jqmBody setting.
+
+Bugfixes
+--------
+
+_Core_
+
+  * Fixed: Remove mobiscroll markup without timeout if no animation.
+
+_Calendar_
+
+  * Fixed: Tab key focus works is enabled on visible month only.
+
+  * Fixed: Swipe was broken in Android stock browser after opening a native select or virtual keyboard.
+
+_Rangepicker_
+
+  * Fixed: Date and time was incorrectly set on scrollers when invoked from start or end input.
+
+_Themes_
+
+  * Fixed: Background fix for WP, iOS, iOS7 themes in clickpick/mixed mode.
+
 Changelog 2.8.0
 ===============
 
