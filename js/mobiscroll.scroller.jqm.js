@@ -9,7 +9,8 @@
         jqmSet: 'b',
         jqmCancel: 'c',
         disabledClass: 'ui-disabled',
-        activeDayClass: 'ui-btn-active',
+        activeClass: 'ui-btn-active',
+        activeTabInnerClass: 'ui-btn-active',
         onThemeLoad: function (lang, s) {
             var cal = s.jqmBody || 'c',
                 txt = s.jqmEventText || 'b',
@@ -36,10 +37,14 @@
             $('.dwwr', elm).addClass('ui-body-' + s.jqmBody);
             $('.dwpm .dwwl', elm).addClass('ui-body-' + s.jqmWheel);
             $('.dwpm .dwl', elm).addClass('ui-body-' + s.jqmBody);
+            // Calendar base
             $('.dw-cal-tabs', elm).attr('data-role', 'navbar');
             $('.dw-cal-prev .dw-cal-btn-txt', elm).attr('data-role', 'button').attr('data-icon', 'arrow-l').attr('data-iconpos', 'notext');
             $('.dw-cal-next .dw-cal-btn-txt', elm).attr('data-role', 'button').attr('data-icon', 'arrow-r').attr('data-iconpos', 'notext');
+            // Calendar events
             $('.dw-cal-events', elm).attr('data-role', 'page');
+            // Rangepicker
+            $('.dw-dr', elm).attr('data-role', 'button').attr('data-mini', 'true');
             elm.trigger('create');
         }
     };

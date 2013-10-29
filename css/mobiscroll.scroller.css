@@ -7,7 +7,6 @@
     top: 0;
     left: 0;
     z-index: 1001;
-    color: #000;
     font-size: 12px;
     text-shadow: none;
     -webkit-box-sizing: border-box;
@@ -355,6 +354,7 @@
 /* Backgrounds */
 .dwbg .dwwr {
     background: #fff;
+    color: #000;
     font-family: arial, verdana, sans-serif;
 }
 .dwbg .dwv {

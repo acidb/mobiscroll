@@ -1,0 +1,46 @@
+.bootstrap .dw {
+    display: block;
+    max-width: none;
+    padding: 0;
+}
+.bootstrap .dwi {
+    display: inline-block;
+}
+.bootstrap .dw-persp {
+    z-index: 1050;
+}
+.bootstrap .dwo {
+    background: rgba(0,0,0,.5);
+}
+.bootstrap .dwv {
+    margin: 0 -2px;
+}
+.bootstrap .dwcc {
+    margin: 0 auto;
+}
+.bootstrap .dwb {
+    display: block;
+    margin: 0 2px;
+}
+.bootstrap .dwwb {
+    padding: 0;
+}
+.bootstrap .dwpm .dwwc {
+    background: none;
+}
+.bootstrap .dwpm .dwwo {
+    display: none;
+}
+.bootstrap .dw-arr {
+    z-index: 1;
+}
+.bootstrap.dw-top .dw, .bootstrap.dw-bottom .dw {
+    -webkit-border-radius: 0;
+    border-radius: 0;
+}
+.bootstrap .dw-bubble-top .dw-arr {
+    bottom: 1px;
+}
+.bootstrap .dw-bubble-bottom .dw-arr {
+    top: 1px;
+}
