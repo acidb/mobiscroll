@@ -18,6 +18,9 @@
 .bootstrap .dwcc {
     margin: 0 auto;
 }
+.bootstrap .dwwc table {
+    background: none;
+}
 .bootstrap .dwb {
     display: block;
     margin: 0 2px;
@@ -38,9 +41,15 @@
     -webkit-border-radius: 0;
     border-radius: 0;
 }
-.bootstrap .dw-bubble-top .dw-arr {
-    bottom: 1px;
+.bootstrap.dw-bubble .dw {
+    margin: 11px 0;
 }
-.bootstrap .dw-bubble-bottom .dw-arr {
-    top: 1px;
+.bootstrap .dw-arrw-i {
+    height: 0;
+}
+.bootstrap .dw-bubble-top .dw-arrw {
+    bottom: 0;
+}
+.bootstrap .dw-bubble-bottom .dw-arrw {
+    top: 0;
 }

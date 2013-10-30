@@ -8,6 +8,7 @@
             $('.dw', dw).removeClass('dwbg').addClass('popover');
             $('.dwwr', dw).addClass('popover-content');
             $('.dwv', dw).addClass('popover-title');
+            $('.dw-arr', dw).addClass('arrow');
             $('.dwb, .dwwb', dw).addClass('btn btn-default');
             $('.dwb-s .dwb', dw).removeClass('btn-default').addClass('btn btn-primary');
 
@@ -25,13 +26,22 @@
             // Rangepicker start/end buttons
             $('.dw-dr', dw).addClass('btn btn-sm btn-small btn-default');
         },
+        onPosition: function (dw) {
+            setTimeout(function () {
+                $('.dw-bubble-top', dw).removeClass('bottom').addClass('top');
+                $('.dw-bubble-bottom', dw).removeClass('top').addClass('bottom');
+            }, 10);
+        },
         onEventBubbleShow: function (evd, evc) {
             $('.dw-cal-event-list', evc).addClass('list-group');
             $('.dw-cal-event', evc).addClass('list-group-item');
 
             setTimeout(function () {
-                $('.dw-cal-events').removeClass('bottom').addClass('top');
-                $('.dw-cal-events-b').removeClass('top').addClass('bottom');
+                if (evc.hasClass('dw-cal-events-b')) {
+                    evc.removeClass('top').addClass('bottom');
+                } else {
+                    evc.removeClass('bottom').addClass('top');
+                }
             }, 10);
         }
     };
