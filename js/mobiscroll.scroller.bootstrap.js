@@ -19,6 +19,9 @@
             // Calendar tabs
             $('.dw-cal-tabs ul', dw).addClass('nav nav-tabs');
 
+            // Calendar week numbers
+            $('.dw-week-nrs-c', dw).addClass('popover');
+
             // Calendar events
             $('.dw-cal-events', dw).addClass('popover');
             $('.dw-cal-events-arr', dw).addClass('arrow');

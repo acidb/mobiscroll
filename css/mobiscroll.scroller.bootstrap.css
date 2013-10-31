@@ -3,6 +3,11 @@
     max-width: none;
     padding: 0;
 }
+.bootstrap .dwwr {
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+}
 .bootstrap .dwi {
     display: inline-block;
 }
