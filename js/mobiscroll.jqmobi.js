@@ -8,6 +8,8 @@ if (!window.jQuery) {
             classSelectorRE = /^\.([\w-]+)$/,
             idSelectorRE = /^#([\w-]+)$/,
             tagSelectorRE = /^[\w-]+$/,
+            rtable = /^t(?:able|d|h)$/i,
+            rroot = /^(?:body|html)$/i,
             tempParent = document.createElement('div'),
             emptyArray = [],
             slice = emptyArray.slice;
@@ -141,12 +143,10 @@ if (!window.jQuery) {
                 });
             }
         });
-        
-        var rtable = /^t(?:able|d|h)$/i,
-        rroot = /^(?:body|html)$/i;
+
         $.fn.position = function() {
-            if ( !this[0] ) {
-              return null;
+            if (!this[0]) {
+                return null;
             }
 
             var elem = this[0],
@@ -160,12 +160,12 @@ if (!window.jQuery) {
             // Subtract element margins
             // note: when an element has margin: auto the offsetLeft and marginLeft
             // are the same in Safari causing offset.left to incorrectly be 0
-            offset.top  -= parseFloat( $(elem).css("margin-top") ) || 0;
-            offset.left -= parseFloat( $(elem).css("margin-left") ) || 0;
+            offset.top  -= parseFloat($(elem).css("margin-top")) || 0;
+            offset.left -= parseFloat($(elem).css("margin-left")) || 0;
 
             // Add offsetParent borders
-            parentOffset.top  += parseFloat( $(offsetParent[0]).css("border-top-width") ) || 0;
-            parentOffset.left += parseFloat( $(offsetParent[0]).css("border-left-width") ) || 0;
+            parentOffset.top  += parseFloat($(offsetParent[0]).css("border-top-width")) || 0;
+            parentOffset.left += parseFloat($(offsetParent[0]).css("border-left-width")) || 0;
 
             // Subtract the two offsets
             return {
@@ -212,17 +212,17 @@ if (!window.jQuery) {
         };
 
         $.fn.pluck = function (property) {
-            return this.map(function () { return this[property]; });
+            return this.map(function (i, e) { return e[property]; });
         };
 
-        $.fn.prev = function () {
+        $.fn.prev = function (selector) {
             var p = this.pluck('previousElementSibling');
-            return p[0][0] ? $(p[0]) : $([]);
+            return p[0][0] ? $(p[0]).filter(selector || '*') : $([]);
         };
 
-        $.fn.next = function () {
+        $.fn.next = function (selector) {
             var n = this.pluck('nextElementSibling');
-            return n[0][0] ? $(n[0]) : $([]);
+            return n[0][0] ? $(n[0]).filter(selector || '*') : $([]);
         };
 
         $.inArray = function (value, array, fromIndex) {

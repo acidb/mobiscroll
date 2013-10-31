@@ -45,6 +45,11 @@
     left: 0;
     z-index: 1001;
 }
+.dwo {
+    background: #000;
+    background: rgba(0,0,0,.7);
+    filter: Alpha(Opacity=70);
+}
 /* Bubble positionings */
 .dw-bubble .dw {
     margin: 20px 0;
@@ -347,11 +352,6 @@
     content: '✔';
 }
 /* Backgrounds */
-.dwbg .dwo {
-    background: #000;
-    background: rgba(0,0,0,.7);
-    filter: Alpha(Opacity=70);
-}
 .dwbg .dwwr {
     background: #fff;
     color: #000;
