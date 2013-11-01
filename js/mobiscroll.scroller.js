@@ -826,8 +826,6 @@
                 that.position();
                 attachPosition('orientationchange.dw resize.dw', false);
                 attachPosition('scroll.dw', true);
-
-                that.alert(s.ariaDesc);
             }
 
             // Events
@@ -923,17 +921,6 @@
                 setVal(true, 0, true);
                 event('onSelect', [that.val]);
             }
-        };
-
-        /**
-        * Alert an accessibility message.
-        */
-        that.alert = function (txt) {
-            aria.text(txt);
-            clearTimeout(alertTimer);
-            alertTimer = setTimeout(function () {
-                aria.text('');
-            }, 5000);
         };
 
         /**
@@ -1167,8 +1154,6 @@
     var move,
         tap,
         touch,
-        alertTimer,
-        aria,
         ms = $.mobiscroll,
         instances = ms.instances,
         util = ms.util,
@@ -1206,7 +1191,6 @@
             cancelText: 'Cancel',
             clearText: 'Clear',
             context: 'body',
-            ariaDesc: 'Select a value',
             scrollLock: true,
             tap: true,
             btnWidth: true,
@@ -1236,10 +1220,6 @@
                 return ret;
             }
         };
-
-    $(function () {
-        aria = $('<div class="dw-hidden" role="alert"></div>').appendTo('body');
-    });
 
     $(document).on('mouseover mouseup mousedown click', function (e) { // Prevent standard behaviour on body click
         if (tap) {
