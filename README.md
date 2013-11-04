@@ -23,6 +23,38 @@ It'd be cool to see how you're using Mobiscroll!
 
 We're looking at showcasing some of the best work on http://mobiscroll.com . Feel free to let us know on twitter @mobiscroll!
 
+Changelog 2.8.2
+===============
+
+Enhancements
+------------
+
+_Listview_
+
+  * Added: sort setting for reordering lists with onSortStart, onSortStop, onSort, onChange, onUpdate events.
+
+  * Improved: add and remove animations.
+
+_Themes_
+
+  * Added: Bootstrap integration.
+
+Bugfixes
+--------
+
+_Calendar_
+
+  * Fixed: Use deep copy when setting events.
+
+_Timer_
+
+  * Fixed: Button icons were of with WP theme.
+
+_Timespan_
+
+  * Fixed: Labels were incorrectly shown with the iOS theme.
+
+
 Changelog 2.8.1
 ===============
 
