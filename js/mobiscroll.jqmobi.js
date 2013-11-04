@@ -12,7 +12,27 @@ if (!window.jQuery) {
             rroot = /^(?:body|html)$/i,
             tempParent = document.createElement('div'),
             emptyArray = [],
-            slice = emptyArray.slice;
+            slice = emptyArray.slice,
+            class2type = {},
+            toString = class2type.toString;
+
+        function type(obj)          { return obj == null ? String(obj) : class2type[toString.call(obj)] || "object" }
+        function isWindow(obj)      { return obj != null && obj == obj.window }
+        function isObject(obj)      { return type(obj) == "object" }
+        function isPlainObject(obj) { return isObject(obj) && !isWindow(obj) && obj.__proto__ == Object.prototype }
+        function isArray(value)     { return value instanceof Array }
+
+        function extend(target, source, deep) {
+            for (key in source)
+                if (deep && (isPlainObject(source[key]) || isArray(source[key]))) {
+                    if (isPlainObject(source[key]) && !isPlainObject(target[key]))
+                        target[key] = {}
+                    if (isArray(source[key]) && !isArray(target[key]))
+                        target[key] = []
+                    extend(target[key], source[key], deep)
+                } else if (source[key] !== undefined)
+                    target[key] = source[key]
+        }
 
         function isNumeric(n) {
             return !isNaN(parseFloat(n)) && isFinite(n);
@@ -52,6 +72,10 @@ if (!window.jQuery) {
         function camelize(str) {
             return str.replace(/-+(.)?/g, function(match, chr){ return chr ? chr.toUpperCase() : '' });
         }
+
+        $.each("Boolean Number String Function Array Date RegExp Object Error".split(" "), function(i, name) {
+            class2type[ "[object " + name + "]" ] = name.toLowerCase()
+        });
 
         ['width', 'height'].forEach(function(dimension){
             $.fn[dimension] = function(value){
@@ -252,11 +276,20 @@ if (!window.jQuery) {
             }
         };
 
-        $._extend = $.extend;
-        $.extend = function () {
+        // Copy all but undefined properties from one or more
+        // objects to the `target` object.
+        $.extend = function (target) {
             arguments[0] = arguments[0] || {};
-            return $._extend.apply(this, arguments);
-        };
+            var deep, args = slice.call(arguments, 1)
+            if (typeof target == 'boolean') {
+                deep = target
+                target = args.shift()
+            }
+            args.forEach(function (arg) {
+                extend(target, arg, deep)
+            })
+            return target
+        }
 
     })(jQuery);
 
