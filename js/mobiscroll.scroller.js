@@ -367,14 +367,13 @@
                         // Set valid value
                         that.temp[i] = res.val;
 
-                        // Add selected class to cell
-                        $('.dw-sel', t).removeClass('dw-sel');
-
                         if (!s.multiple) {
                             $('.dw-sel', t).removeAttr('aria-selected');
                             cell.attr('aria-selected', 'true');
                         }
 
+                        // Add selected class to cell
+                        $('.dw-sel', t).removeClass('dw-sel');
                         cell.addClass('dw-sel');
 
                         // Scroll to position
