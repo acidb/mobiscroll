@@ -930,8 +930,8 @@
         that.attachShow = function (elm, beforeShow) {
             elmList.push(elm);
             if (s.display !== 'inline') {
-                elm.on((s.showOnFocus ? 'focus.dw' : '') + (s.showOnTap ? ' click.dw' : ''), function () {
-                    if (!preventShow && !tap) {
+                elm.on((s.showOnFocus ? 'focus.dw' : '') + (s.showOnTap ? ' click.dw' : ''), function (ev) {
+                    if ((ev.type !== 'focus' || (ev.type === 'focus' && !preventShow)) && !tap) {
                         if (beforeShow) {
                             beforeShow();
                         }
