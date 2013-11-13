@@ -31,9 +31,7 @@
             timer,
             readOnly,
             preventChange,
-            preventShow,
             preventPos,
-            currElm,
             wndw,
             doc,
             buttons,
@@ -906,9 +904,9 @@
             pixels = {};
             visible = false;
 
-            if (currElm) {
+            if (activeElm) {
                 preventShow = true;
-                currElm.focus();
+                activeElm.focus();
             }
         };
 
@@ -935,7 +933,7 @@
                         if (beforeShow) {
                             beforeShow();
                         }
-                        currElm = elm;
+                        activeElm = elm;
                         that.show();
                     }
                     setTimeout(function () {
@@ -1035,13 +1033,6 @@
                     e.readOnly = true;
                 }
                 that.attachShow(elm);
-
-                // Blur element on window blur (e.g. tabchange) to prevent re-show on window focus
-                $(window).off('.dwa').on('focus.dwa', function () {
-                    if (currElm && document.activeElement == currElm[0]) {
-                        preventShow = true;
-                    }
-                });
             } else {
                 that.show();
             }
@@ -1150,9 +1141,11 @@
         return ret;
     }
 
-    var move,
+    var activeElm,
+        move,
         tap,
         touch,
+        preventShow,
         ms = $.mobiscroll,
         instances = ms.instances,
         util = ms.util,
@@ -1220,6 +1213,13 @@
             }
         };
 
+    // Prevent re-show on window focus
+    $(window).on('focus', function () {
+        if (activeElm && document.activeElement == activeElm[0]) {
+            preventShow = true;
+        }
+    });
+
     $(document).on('mouseover mouseup mousedown click', function (e) { // Prevent standard behaviour on body click
         if (tap) {
             e.stopPropagation();
@@ -1227,5 +1227,9 @@
             return false;
         }
     });
+
+    $.mobiscroll.setDefaults = function (o) {
+        extend(defaults, o);
+    };
 
 })(jQuery);
