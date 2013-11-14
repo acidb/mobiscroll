@@ -1215,7 +1215,7 @@
 
     // Prevent re-show on window focus
     $(window).on('focus', function () {
-        if (activeElm && document.activeElement == activeElm[0]) {
+        if (activeElm) {
             preventShow = true;
         }
     });
