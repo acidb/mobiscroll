@@ -7,6 +7,7 @@
             v,
             dw,
             persp,
+            overlay,
             ww, // Window width
             wh, // Window height
             mw, // Modal width
@@ -491,6 +492,7 @@
                 scroll,
                 totalw = 0,
                 minw = 0,
+                sl = wndw.scrollLeft(),
                 st = wndw.scrollTop(),
                 wr = $('.dwwr', dw),
                 d = $('.dw', dw),
@@ -527,11 +529,9 @@
                 al = Math.abs($(s.context).offset().left - ap.left);
 
                 // horizontal positioning
-                aw =  anchor.outerWidth();
-                ah =  anchor.outerHeight();
-                l = al - (d.outerWidth(true) - aw) / 2;
-                l = l > (ww - mw) ? (ww - (mw + 20)) : l;
-                l = l < 0 ? 0 : l;
+                aw = anchor.outerWidth();
+                ah = anchor.outerHeight();
+                l = constrain(al - (d.outerWidth(true) - aw) / 2 - sl, 0, ww - mw);
 
                 // vertical positioning
                 t = at - mh; // above the input
@@ -544,10 +544,10 @@
 
                 // Calculate Arrow position
                 arrw = arr.outerWidth();
-                arrl = al + aw / 2 - (l + (mw - arrw) / 2);
+                arrl = constrain(al + aw / 2 - (l + (mw - arrw) / 2) - sl, 0, arrw);
 
                 // Limit Arrow position
-                $('.dw-arr', dw).css({ left: constrain(arrl, 0, arrw) });
+                $('.dw-arr', dw).css({ left: arrl });
             } else {
                 css.width = '100%';
                 if (s.display == 'top') {
@@ -563,8 +563,12 @@
 
             // If top + modal height > doc height, increase doc height
             persp.height(0);
+
             dh = Math.max(t + mh, s.context == 'body' ? $(document).height() : doc.scrollHeight);
-            persp.height(dh);
+            dv = Math.max(sl + l + mw, s.context == 'body' ? $(document).width() : doc.scrollWidth);
+
+            persp.css({ height: dh, left: sl });
+            overlay.css({ width: dv, left: -sl });
 
             // Scroll needed
             if (scroll && ((t + mh > st + wh) || (at > st + wh))) {
@@ -764,6 +768,7 @@
 
             dw = $(html);
             persp = $('.dw-persp', dw);
+            overlay = $('.dwo', dw);
 
             scrollToPos();
 
@@ -852,7 +857,7 @@
                 });
 
                 if (s.closeOnOverlay) {
-                    that.tap($('.dwo', dw), function () {
+                    that.tap(overlay, function () {
                         that.cancel();
                     });
                 }
@@ -894,6 +899,10 @@
                 } else {
                     setTimeout(function () {
                         dw.remove();
+                        if (activeElm) {
+                            preventShow = true;
+                            activeElm.focus();
+                        }
                     }, doAnim ? 350 : 1);
                 }
 
@@ -903,11 +912,6 @@
 
             pixels = {};
             visible = false;
-
-            if (activeElm) {
-                preventShow = true;
-                activeElm.focus();
-            }
         };
 
         /**
