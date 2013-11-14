@@ -1,4 +1,4 @@
-.wp .dwwr {
+.wp .dw .dwwr {
     padding: 10px;
     background: #1f1f1f;
     border-radius: 0;
@@ -166,7 +166,7 @@
 .wp .dwb-cl .dwb-a:after {
     background-position: -26px -26px;
 }
-.wp .dwb.dwb-a {
+.wp .dw .dwwr .dwb-a {
     top: -3px;
 }
 /* +/- buttons */
