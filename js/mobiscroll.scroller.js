@@ -368,14 +368,13 @@
                         // Set valid value
                         that.temp[i] = res.val;
 
-                        // Add selected class to cell
-                        $('.dw-sel', t).removeClass('dw-sel');
-
                         if (!s.multiple) {
                             $('.dw-sel', t).removeAttr('aria-selected');
                             cell.attr('aria-selected', 'true');
                         }
 
+                        // Add selected class to cell
+                        $('.dw-sel', t).removeClass('dw-sel');
                         cell.addClass('dw-sel');
 
                         // Scroll to position
@@ -936,8 +935,8 @@
         that.attachShow = function (elm, beforeShow) {
             elmList.push(elm);
             if (s.display !== 'inline') {
-                elm.on((s.showOnFocus ? 'focus.dw' : '') + (s.showOnTap ? ' click.dw' : ''), function () {
-                    if (!preventShow && !tap) {
+                elm.on((s.showOnFocus ? 'focus.dw' : '') + (s.showOnTap ? ' click.dw' : ''), function (ev) {
+                    if ((ev.type !== 'focus' || (ev.type === 'focus' && !preventShow)) && !tap) {
                         if (beforeShow) {
                             beforeShow();
                         }
