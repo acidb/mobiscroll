@@ -23,6 +23,48 @@ It'd be cool to see how you're using Mobiscroll!
 
 We're looking at showcasing some of the best work on http://mobiscroll.com . Feel free to let us know on twitter @mobiscroll!
 
+Changelog 2.8.3
+===============
+
+Enhancements
+------------
+
+_Calendar_
+
+  * Added: data-day attribute for calendar days to allow styling of weekdays (#173).
+
+_Listview_
+
+  * Added: scroll window if element is dragged out of viewport.
+
+  * Added: Callback functions to add and remove methods.
+
+Bugfixes
+--------
+
+_Core_
+
+  * Fixed: setDefaults method now works.
+
+  * Fixed: Positioning works now correctly with horizontal scroll.
+
+_Listview_
+
+  * Fixed: Placeholder was not placed in some cases.
+
+_Measurements_
+
+  * Fixed: Incorrect conversion with setValue method.
+
+_Rating_
+
+  * Fixed: parseValue fixed.
+
+_Themes_
+
+  * Fixed: WP theme calendar tab padding issues fixed.
+
+
 Changelog 2.8.2
 ===============
 
