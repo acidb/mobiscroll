@@ -531,7 +531,7 @@
                 // horizontal positioning
                 aw = anchor.outerWidth();
                 ah = anchor.outerHeight();
-                l = constrain(al - (d.outerWidth(true) - aw) / 2 - sl, 0, ww - mw);
+                l = constrain(al - (d.outerWidth(true) - aw) / 2 - sl, 3, ww - mw - 3);
 
                 // vertical positioning
                 t = at - mh; // above the input
@@ -563,12 +563,8 @@
 
             // If top + modal height > doc height, increase doc height
             persp.height(0);
-
             dh = Math.max(t + mh, s.context == 'body' ? $(document).height() : doc.scrollHeight);
-            dv = Math.max(sl + l + mw, s.context == 'body' ? $(document).width() : doc.scrollWidth);
-
             persp.css({ height: dh, left: sl });
-            overlay.css({ width: dv, left: -sl });
 
             // Scroll needed
             if (scroll && ((t + mh > st + wh) || (at > st + wh))) {
@@ -832,10 +828,8 @@
 
             // Events
             dw.on('DOMMouseScroll mousewheel', '.dwwl', onScroll)
-                //.on(START_EVENT, '.dwwl', onStart)
                 .on('keydown', '.dwwl', onKeyDown)
                 .on('keyup', '.dwwl', onKeyUp)
-                //.on(START_EVENT, '.dwb-e', onBtnStart)
                 .on('selectstart mousedown', prevdef) // Prevents blue highlight on Android and text selection in IE
                 .on('click', '.dwb-e', prevdef)
                 .on('touchend', function () { if (s.tap) { setTap(); } })
