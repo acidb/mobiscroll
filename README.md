@@ -11,7 +11,7 @@ See demo here: http://demo.mobiscroll.com
 
 More features and details to follow...
 
-Tested on iOS 4-7, Android 2.2 - 4.2, Chrome, Safari, Firefox, IE9-10. Please submit issues, and compatibility problems with other devices.
+Tested on iOS 4-7, Android 2.2 - 4.4, Windows Phone 8, BlackBerry,  Chrome, Safari, Firefox, IE9-11. Please submit issues, and compatibility problems with other devices.
 
 If you like it, spread the word!
 
