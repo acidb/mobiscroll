@@ -98,6 +98,10 @@
         instances: instances,
         classes: {},
         components: {},
+        defaults: {},
+        setDefaults = function (o) {
+            extend(defaults, o);
+        },
         presetShort: function (name, c) {
             this.components[name] = function (s) {
                 return init(this, extend(s, { component: c, preset: name }), arguments);

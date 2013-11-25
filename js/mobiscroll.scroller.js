@@ -1157,7 +1157,7 @@
         START_EVENT = 'touchstart mousedown',
         MOVE_EVENT = 'touchmove mousemove',
         END_EVENT = 'touchend mouseup',
-        defaults = {
+        defaults = extend(ms.defaults, {
             // Options
             width: 70,
             height: 40,
@@ -1209,7 +1209,7 @@
                 });
                 return ret;
             }
-        };
+        });
 
     // Prevent re-show on window focus
     $(window).on('focus', function () {
@@ -1225,9 +1225,5 @@
             return false;
         }
     });
-
-    $.mobiscroll.setDefaults = function (o) {
-        extend(defaults, o);
-    };
 
 })(jQuery);
