@@ -99,7 +99,7 @@
         classes: {},
         components: {},
         defaults: {},
-        setDefaults = function (o) {
+        setDefaults: function (o) {
             extend(defaults, o);
         },
         presetShort: function (name, c) {
