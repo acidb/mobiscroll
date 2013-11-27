@@ -72,6 +72,16 @@
         return ret;
     }
 
+    function testTouch(e) {
+        if (e.type == 'touchstart') {
+            $(e.target).data('click', true);
+        } else if ($(e.target).data('click')) {
+            $(e.target).data('click', null);
+            return false;
+        }
+        return true;
+    }
+
     var id = +new Date,
         instances = {},
         extend = $.extend,
@@ -90,7 +100,8 @@
             prefix: prefix,
             jsPrefix: pr,
             has3d: has3d,
-            getCoord: getCoord
+            getCoord: getCoord,
+            testTouch: testTouch
         },
         presets: {},
         themes: {},

@@ -1106,16 +1106,6 @@
         that.init(settings);
     }
 
-    function testTouch(e) {
-        if (e.type === 'touchstart') {
-            touch = true;
-        } else if (touch) {
-            touch = false;
-            return false;
-        }
-        return true;
-    }
-
     function setTap() {
         tap = true;
         setTimeout(function () {
@@ -1151,6 +1141,7 @@
         pr = util.jsPrefix,
         has3d = util.has3d,
         getCoord = util.getCoord,
+        testTouch = util.testTouch,
         empty = function () {},
         prevdef = function (e) { e.preventDefault(); },
         extend = $.extend,
