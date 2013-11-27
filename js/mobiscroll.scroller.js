@@ -1132,7 +1132,6 @@
     var activeElm,
         move,
         tap,
-        touch,
         preventShow,
         ms = $.mobiscroll,
         instances = ms.instances,
