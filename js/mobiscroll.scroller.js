@@ -552,7 +552,6 @@
                 // Limit Arrow position
                 $('.dw-arr', dw).css({ left: arrl });
             } else {
-                css.width = '100%';
                 if (s.display == 'top') {
                     t = st;
                 } else if (s.display == 'bottom') {

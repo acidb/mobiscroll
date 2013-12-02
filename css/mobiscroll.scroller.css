@@ -33,6 +33,9 @@
     overflow: hidden;
     text-align: center;
 }
+.dw-top .dw, .dw-bottom .dw {
+    width: 100%;
+}
 .dw-top .dwwr, .dw-bottom .dwwr {
     -moz-border-radius: 0;
     -webkit-border-radius: 0;
