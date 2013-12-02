@@ -473,7 +473,10 @@
         */
         that.position = function (check) {
 
-            if (!modal || preventPos || (ww === persp.width() && wh === (wndw[0].innerHeight || wndw.innerHeight()) && check) || (event('onPosition', [dw]) === false)) {
+            var nw = persp.width(),  // To get the width without scrollbar
+                nh = wndw[0].innerHeight || wndw.innerHeight();
+
+            if ((ww === nw && wh === nh && check) || preventPos || (event('onPosition', [dw, nw, nh]) === false) || !modal) {
                 return;
             }
 
@@ -499,8 +502,8 @@
                 css = {},
                 anchor = s.anchor === undefined ? elm : s.anchor;
 
-            ww = persp.width(); // To get the width without scrollbar
-            wh = wndw[0].innerHeight || wndw.innerHeight();
+            ww = nw;
+            wh = nh;
 
             if (/modal|bubble/.test(s.display)) {
                 $('.dwc', dw).each(function () {
@@ -820,11 +823,12 @@
                     }
                 });
 
-                // Set position
-                that.position();
-                attachPosition('orientationchange.dw resize.dw', false);
                 attachPosition('scroll.dw', true);
             }
+
+            // Set position
+            that.position();
+            attachPosition('orientationchange.dw resize.dw', false);
 
             // Events
             dw.on('DOMMouseScroll mousewheel', '.dwwl', onScroll)
