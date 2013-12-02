@@ -473,107 +473,105 @@
         */
         that.position = function (check) {
 
-            var nw = persp.width(),  // To get the width without scrollbar
+            var nw = persp.width(), // To get the width without scrollbar
                 nh = wndw[0].innerHeight || wndw.innerHeight();
 
-            if ((ww === nw && wh === nh && check) || preventPos || (event('onPosition', [dw, nw, nh]) === false) || !modal) {
-                return;
-            }
+            if (!(ww === nw && wh === nh && check) && !preventPos && (event('onPosition', [dw, nw, nh, ww, wh]) !== false) && modal) {
+                var w,
+                    l,
+                    t,
+                    aw, // anchor width
+                    ah, // anchor height
+                    ap, // anchor position
+                    at, // anchor top
+                    al, // anchor left
+                    arr, // arrow
+                    arrw, // arrow width
+                    arrl, // arrow left
+                    dh,
+                    scroll,
+                    totalw = 0,
+                    minw = 0,
+                    sl = wndw.scrollLeft(),
+                    st = wndw.scrollTop(),
+                    wr = $('.dwwr', dw),
+                    d = $('.dw', dw),
+                    css = {},
+                    anchor = s.anchor === undefined ? elm : s.anchor;
 
-            var w,
-                l,
-                t,
-                aw, // anchor width
-                ah, // anchor height
-                ap, // anchor position
-                at, // anchor top
-                al, // anchor left
-                arr, // arrow
-                arrw, // arrow width
-                arrl, // arrow left
-                dh,
-                scroll,
-                totalw = 0,
-                minw = 0,
-                sl = wndw.scrollLeft(),
-                st = wndw.scrollTop(),
-                wr = $('.dwwr', dw),
-                d = $('.dw', dw),
-                css = {},
-                anchor = s.anchor === undefined ? elm : s.anchor;
+                if (/modal|bubble/.test(s.display)) {
+                    $('.dwc', dw).each(function () {
+                        w = $(this).outerWidth(true);
+                        totalw += w;
+                        minw = (w > minw) ? w : minw;
+                    });
+                    w = totalw > nw ? minw : totalw;
+                    wr.width(w).css('white-space', totalw > nw ? '' : 'nowrap');
+                }
+
+                mw = d.outerWidth();
+                mh = d.outerHeight(true);
+                lock = mh <= nh && mw <= nw;
+
+                that.scrollLock = lock;
+
+                if (s.display == 'modal') {
+                    l = (nw - mw) / 2;
+                    t = st + (nh - mh) / 2;
+                } else if (s.display == 'bubble') {
+                    scroll = true;
+                    arr = $('.dw-arrw-i', dw);
+                    ap = anchor.offset();
+                    at = Math.abs($(s.context).offset().top - ap.top);
+                    al = Math.abs($(s.context).offset().left - ap.left);
+
+                    // horizontal positioning
+                    aw = anchor.outerWidth();
+                    ah = anchor.outerHeight();
+                    l = constrain(al - (d.outerWidth(true) - aw) / 2 - sl, 3, nw - mw - 3);
+
+                    // vertical positioning
+                    t = at - mh; // above the input
+                    if ((t < st) || (at > st + nh)) { // if doesn't fit above or the input is out of the screen
+                        d.removeClass('dw-bubble-top').addClass('dw-bubble-bottom');
+                        t = at + ah; // below the input
+                    } else {
+                        d.removeClass('dw-bubble-bottom').addClass('dw-bubble-top');
+                    }
+
+                    // Calculate Arrow position
+                    arrw = arr.outerWidth();
+                    arrl = constrain(al + aw / 2 - (l + (mw - arrw) / 2) - sl, 0, arrw);
+
+                    // Limit Arrow position
+                    $('.dw-arr', dw).css({ left: arrl });
+                } else {
+                    if (s.display == 'top') {
+                        t = st;
+                    } else if (s.display == 'bottom') {
+                        t = st + nh - mh;
+                    }
+                }
+
+                css.top = t < 0 ? 0 : t;
+                css.left = l;
+                d.css(css);
+
+                // If top + modal height > doc height, increase doc height
+                persp.height(0);
+                dh = Math.max(t + mh, s.context == 'body' ? $(document).height() : doc.scrollHeight);
+                persp.css({ height: dh, left: sl });
+
+                // Scroll needed
+                if (scroll && ((t + mh > st + nh) || (at > st + nh))) {
+                    preventPos = true;
+                    setTimeout(function () { preventPos = false; }, 300);
+                    wndw.scrollTop(Math.min(t + mh - nh, dh - nh));
+                }
+            }
 
             ww = nw;
             wh = nh;
-
-            if (/modal|bubble/.test(s.display)) {
-                $('.dwc', dw).each(function () {
-                    w = $(this).outerWidth(true);
-                    totalw += w;
-                    minw = (w > minw) ? w : minw;
-                });
-                w = totalw > ww ? minw : totalw;
-                wr.width(w).css('white-space', totalw > ww ? '' : 'nowrap');
-            }
-
-            mw = d.outerWidth();
-            mh = d.outerHeight(true);
-            lock = mh <= wh && mw <= ww;
-
-            that.scrollLock = lock;
-
-            if (s.display == 'modal') {
-                l = (ww - mw) / 2;
-                t = st + (wh - mh) / 2;
-            } else if (s.display == 'bubble') {
-                scroll = true;
-                arr = $('.dw-arrw-i', dw);
-                ap = anchor.offset();
-                at = Math.abs($(s.context).offset().top - ap.top);
-                al = Math.abs($(s.context).offset().left - ap.left);
-
-                // horizontal positioning
-                aw = anchor.outerWidth();
-                ah = anchor.outerHeight();
-                l = constrain(al - (d.outerWidth(true) - aw) / 2 - sl, 3, ww - mw - 3);
-
-                // vertical positioning
-                t = at - mh; // above the input
-                if ((t < st) || (at > st + wh)) { // if doesn't fit above or the input is out of the screen
-                    d.removeClass('dw-bubble-top').addClass('dw-bubble-bottom');
-                    t = at + ah; // below the input
-                } else {
-                    d.removeClass('dw-bubble-bottom').addClass('dw-bubble-top');
-                }
-
-                // Calculate Arrow position
-                arrw = arr.outerWidth();
-                arrl = constrain(al + aw / 2 - (l + (mw - arrw) / 2) - sl, 0, arrw);
-
-                // Limit Arrow position
-                $('.dw-arr', dw).css({ left: arrl });
-            } else {
-                if (s.display == 'top') {
-                    t = st;
-                } else if (s.display == 'bottom') {
-                    t = st + wh - mh;
-                }
-            }
-
-            css.top = t < 0 ? 0 : t;
-            css.left = l;
-            d.css(css);
-
-            // If top + modal height > doc height, increase doc height
-            persp.height(0);
-            dh = Math.max(t + mh, s.context == 'body' ? $(document).height() : doc.scrollHeight);
-            persp.css({ height: dh, left: sl });
-
-            // Scroll needed
-            if (scroll && ((t + mh > st + wh) || (at > st + wh))) {
-                preventPos = true;
-                setTimeout(function () { preventPos = false; }, 300);
-                wndw.scrollTop(Math.min(t + mh - wh, dh - wh));
-            }
         };
 
         /**
@@ -731,7 +729,7 @@
             }
 
             // Create wheels containers
-            var html = '<div role="dialog" class="' + s.theme + ' dw-' + s.display + (prefix ? ' dw' + prefix.replace(/\-$/, '') : '') + (hasButtons ? '' : ' dw-nobtn') + '">' + (!modal ? '<div class="dw dwbg dwi">' : '<div class="dw-persp"><div class="dwo"></div><div class="dw dwbg ' + mAnim + '"><div class="dw-arrw"><div class="dw-arrw-i"><div class="dw-arr"></div></div></div>') + '<div class="dwwr"><div aria-live="assertive" class="dwv' + (s.headerText ? '' : ' dw-hidden') + '"></div><div class="dwcc">',
+            var html = '<div role="dialog" class="' + s.theme + ' dw-' + s.display + (prefix ? ' dw' + prefix.replace(/\-$/, '') : '') + (hasButtons ? '' : ' dw-nobtn') + '"><div class="dw-persp">' + (!modal ? '<div class="dw dwbg dwi">' : '<div class="dwo"></div><div class="dw dwbg ' + mAnim + '"><div class="dw-arrw"><div class="dw-arrw-i"><div class="dw-arr"></div></div></div>') + '<div class="dwwr"><div aria-live="assertive" class="dwv' + (s.headerText ? '' : ' dw-hidden') + '"></div><div class="dwcc">',
                 isMinw = $.isArray(s.minWidth),
                 isMaxw = $.isArray(s.maxWidth),
                 isFixw = $.isArray(s.fixedWidth);
@@ -762,7 +760,7 @@
                 });
                 html += '</div>';
             }
-            html += (modal ? '</div>' : '') + '</div></div></div>';
+            html += '</div></div></div></div>';
 
             dw = $(html);
             persp = $('.dw-persp', dw);

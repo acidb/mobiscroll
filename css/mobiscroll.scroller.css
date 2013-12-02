@@ -55,6 +55,9 @@
     background: rgba(0,0,0,.7);
     filter: Alpha(Opacity=70);
 }
+.dw-inline .dw-persp {
+    position: static;
+}
 /* Bubble positionings */
 .dw-bubble .dw {
     margin: 20px 0;
