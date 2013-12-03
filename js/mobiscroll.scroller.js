@@ -476,7 +476,7 @@
             var nw = persp.width(), // To get the width without scrollbar
                 nh = wndw[0].innerHeight || wndw.innerHeight();
 
-            if (!(ww === nw && wh === nh && check) && !preventPos && (event('onPosition', [dw, nw, nh, ww, wh]) !== false) && modal) {
+            if (!(ww === nw && wh === nh && check) && !preventPos && (event('onPosition', [dw, nw, nh]) !== false) && modal) {
                 var w,
                     l,
                     t,
