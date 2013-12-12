@@ -611,7 +611,7 @@
         */
         that.setValue = function (values, fill, time, temp, change) {
             that.temp = $.isArray(values) ? values.slice(0) : s.parseValue.call(e, values + '', that);
-            setVal(fill, change || fill, time, false, temp, fill);
+            setVal(fill, change === undefined ? fill : change, time, false, temp, fill);
         };
 
         /**
