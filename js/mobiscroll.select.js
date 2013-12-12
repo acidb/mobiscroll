@@ -87,7 +87,7 @@
             return w;
         }
 
-        function setVal(v, fill) {
+        function setVal(v, fill, change) {
             var value = [];
 
             if (multiple) {
@@ -106,8 +106,11 @@
             }
 
             if (fill) {
-                prevent = true;
-                elm.val(value).change();
+                elm.val(value);
+                if (change) {
+                    prevent = true;
+                    elm.change();
+                }
             }
         }
 
@@ -125,7 +128,7 @@
                 }
 
                 if (inst.live) {
-                    setVal(val, true);
+                    setVal(val, true, true);
                 }
                 return false;
             }
@@ -167,7 +170,6 @@
 
         inst.attachShow(input);
 
-
         var v = elm.val() || [],
             i = 0;
 
@@ -191,7 +193,7 @@
             inst._setValue = inst.setValue;
         }
 
-        inst.setValue = function (d, fill, time, noscroll, temp) {
+        inst.setValue = function (d, fill, time, noscroll, temp, change) {
             var value,
                 v = $.isArray(d) ? d[0] : d;
 
@@ -223,7 +225,7 @@
             // Set input/select values
             if (fill) {
                 var changed = multiple ? true : option !== elm.val();
-                setVal(main[option], changed);
+                setVal(main[option], changed, change);
             }
         };
 
@@ -344,7 +346,7 @@
             },
             onValueTap: onTap,
             onSelect: function (v) {
-                setVal(v, true);
+                setVal(v, true, true);
                 if (s.group) {
                     inst.values = null;
                 }
