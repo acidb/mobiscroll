@@ -451,10 +451,10 @@
             if (fill) {
                 if (input) {
                     elm.val(v);
-                }
-                if (change) {
-                    preventChange = true;
-                    elm.change();
+                    if (change) {
+                        preventChange = true;
+                        elm.change();
+                    }
                 }
 
                 event('onValueFill', [v, change]);
@@ -611,7 +611,7 @@
         */
         that.setValue = function (values, fill, time, temp, change) {
             that.temp = $.isArray(values) ? values.slice(0) : s.parseValue.call(e, values + '', that);
-            setVal(fill, change, time, false, temp, fill);
+            setVal(fill, change || fill, time, false, temp, fill);
         };
 
         /**
@@ -1046,7 +1046,7 @@
             if (input) {
                 elm.on('change.dw', function () {
                     if (!preventChange) {
-                        that.setValue(elm.val(), false, 0.2, [], true);
+                        that.setValue(elm.val(), false, 0.2);
                     }
                     preventChange = false;
                 });
