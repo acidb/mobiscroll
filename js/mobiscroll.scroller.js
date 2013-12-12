@@ -383,7 +383,7 @@
                 // Reformat value if validation changed something
                 v = s.formatResult(that.temp);
                 if (that.live) {
-                    setVal(manual, 0, true);
+                    setVal(manual, manual, 0, true);
                 }
 
                 $('.dwv', dw).html(formatHeader(v));
@@ -436,7 +436,7 @@
             calc(t, val < min ? max : val, 2, true);
         }
 
-        function setVal(fill, time, noscroll, temp, manual) {
+        function setVal(fill, change, time, noscroll, temp, manual) {
             if (visible && !noscroll) {
                 scrollToPos(time, undefined, manual);
             }
@@ -448,9 +448,16 @@
                 that.val = v;
             }
 
-            if (fill && input) {
-                preventChange = true;
-                elm.val(v).change();
+            if (fill) {
+                if (input) {
+                    elm.val(v);
+                }
+                if (change) {
+                    preventChange = true;
+                    elm.change();
+                }
+
+                event('onValueFill', [v, change]);
             }
         }
 
@@ -602,9 +609,9 @@
         * @param {Number} [time=0] Animation time
         * @param {Boolean} [temp=false] If true, then only set the temporary value.(only scroll there but not set the value)
         */
-        that.setValue = function (values, fill, time, temp) {
+        that.setValue = function (values, fill, time, temp, change) {
             that.temp = $.isArray(values) ? values.slice(0) : s.parseValue.call(e, values + '', that);
-            setVal(fill, time, false, temp, fill);
+            setVal(fill, change, time, false, temp, fill);
         };
 
         /**
@@ -914,7 +921,7 @@
         */
         that.select = function () {
             if (that.hide(false, 'set') !== false) {
-                setVal(true, 0, true);
+                setVal(true, true, 0, true);
                 event('onSelect', [that.val]);
             }
         };
@@ -1039,7 +1046,7 @@
             if (input) {
                 elm.on('change.dw', function () {
                     if (!preventChange) {
-                        that.setValue(elm.val(), false, 0.2);
+                        that.setValue(elm.val(), false, 0.2, [], true);
                     }
                     preventChange = false;
                 });

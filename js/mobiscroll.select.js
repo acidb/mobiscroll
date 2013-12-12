@@ -5,6 +5,7 @@
         inputClass: '',
         invalid: [],
         rtl: false,
+        showInput: true,
         group: false,
         groupLabel: 'Groups'
     };
@@ -97,6 +98,7 @@
                     sel.push(main[i]);
                     value.push(i);
                 }
+
                 input.val(sel.join(', '));
             } else {
                 input.val(v);
@@ -153,13 +155,18 @@
 
         $('#' + id).remove();
 
-        input = $('<input type="text" id="' + id + '" class="' + s.inputClass + '" readonly />').insertBefore(elm);
+        input = $('<input type="text" id="' + id + '" class="' + s.inputClass + '" readonly />');
+
+        if (s.showInput) {
+            input.insertBefore(elm);
+        }
 
         $('option', elm).each(function () {
             main[$(this).attr('value')] = $(this).text();
         });
 
         inst.attachShow(input);
+
 
         var v = elm.val() || [],
             i = 0;
