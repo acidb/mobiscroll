@@ -279,16 +279,16 @@
              * @param {Boolean} [fill=false] Also set the value of the associated input element. Default is true.
              * @param {Number} [time=0] Animation time to scroll to the selected date.
              * @param {Boolean} [temp=false] Set temporary value only.
-             * @param {Boolean} [manual=false] Indicates that the action was triggered by the user or from code.
+             * @param {Boolean} [change=fill] Trigger change on input element.
              */
-            inst.setDate = function (d, fill, time, temp) {
+            inst.setDate = function (d, fill, time, temp, change) {
                 var i;
 
                 // Set wheels
                 for (i in o) {
                     inst.temp[o[i]] = d[f[i]] ? d[f[i]]() : f[i](d);
                 }
-                inst.setValue(inst.temp, fill, time, temp);
+                inst.setValue(inst.temp, fill, time, temp, change);
             };
 
             /**
