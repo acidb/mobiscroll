@@ -74,15 +74,16 @@
 
     function testTouch(e) {
         if (e.type == 'touchstart') {
-            $(e.target).data('click', true);
-        } else if ($(e.target).data('click')) {
-            $(e.target).data('click', null);
+            touches[e.target] = true;
+        } else if (touches[e.target]) {
+            delete touches[e.target];
             return false;
         }
         return true;
     }
 
     var id = +new Date,
+        touches = {},
         instances = {},
         extend = $.extend,
         mod = document.createElement('modernizr').style,
