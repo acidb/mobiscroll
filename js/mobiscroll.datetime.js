@@ -4,25 +4,9 @@
     var ms = $.mobiscroll,
         date = new Date(),
         defaults = {
-            dateFormat: 'mm/dd/yy',
-            dateOrder: 'mmddy',
-            timeWheels: 'hhiiA',
-            timeFormat: 'hh:ii A',
             startYear: date.getFullYear() - 100,
             endYear: date.getFullYear() + 1,
-            monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-            monthNamesShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-            dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-            dayNamesShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
             shortYearCutoff: '+10',
-            monthText: 'Month',
-            dayText: 'Day',
-            yearText: 'Year',
-            hourText: 'Hours',
-            minuteText: 'Minutes',
-            secText: 'Seconds',
-            ampmText: '&nbsp;',
-            nowText: 'Now',
             showNow: false,
             stepHour: 1,
             stepMinute: 1,
@@ -564,6 +548,25 @@
                 }
             };
         };
+
+    ms.i18n.en = $.extend(ms.i18n.en, {
+        dateFormat: 'mm/dd/yy',
+        dateOrder: 'mmddy',
+        timeWheels: 'hhiiA',
+        timeFormat: 'hh:ii A',
+        monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        monthNamesShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+        dayNamesShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+        monthText: 'Month',
+        dayText: 'Day',
+        yearText: 'Year',
+        hourText: 'Hours',
+        minuteText: 'Minutes',
+        secText: 'Seconds',
+        ampmText: '&nbsp;',
+        nowText: 'Now'
+    });
 
     $.each(['date', 'time', 'datetime'], function (i, v) {
         ms.presets[v] = preset;

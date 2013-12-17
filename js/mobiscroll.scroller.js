@@ -1169,15 +1169,10 @@
             showLabel: true,
             wheels: [],
             theme: '',
-            selectedText: ' Selected',
-            closeText: 'Close',
             display: 'modal',
             mode: 'scroller',
             preset: '',
             lang: 'en-US',
-            setText: 'Set',
-            cancelText: 'Cancel',
-            clearText: 'Clear',
             context: 'body',
             scrollLock: true,
             tap: true,
@@ -1208,6 +1203,15 @@
                 return ret;
             }
         });
+
+    // English language module
+    ms.i18n.en = ms.i18n['en-US'] = {
+        setText: 'Set',
+        selectedText: 'Selected',
+        closeText: 'Close',
+        cancelText: 'Cancel',
+        clearText: 'Clear'
+    };
 
     // Prevent re-show on window focus
     $(window).on('focus', function () {
