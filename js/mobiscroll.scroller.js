@@ -709,6 +709,11 @@
         * @param {Boolean} prevAnim - Prevent animation if true
         */
         that.show = function (prevAnim) {
+            // Create wheels
+            var lbl,
+                l = 0,
+                mAnim = '';
+
             if (s.disabled || visible) {
                 return;
             }
@@ -725,11 +730,6 @@
             read();
 
             event('onBeforeShow', []);
-
-            // Create wheels
-            var lbl,
-                l = 0,
-                mAnim = '';
 
             if (anim && !prevAnim) {
                 mAnim = 'dw-' + anim + ' dw-in';
@@ -773,6 +773,8 @@
             persp = $('.dw-persp', dw);
             overlay = $('.dwo', dw);
 
+            visible = true;
+
             scrollToPos();
 
             event('onMarkupReady', [dw]);
@@ -795,8 +797,6 @@
             }
 
             event('onMarkupInserted', [dw]);
-
-            visible = true;
 
             if (modal) {
                 // Enter / ESC
