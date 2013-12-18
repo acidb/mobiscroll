@@ -6,7 +6,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 1001;
+    z-index: 9999;
     font-size: 12px;
     text-shadow: none;
     -webkit-backface-visibility: hidden;
@@ -33,6 +33,9 @@
     overflow: hidden;
     text-align: center;
 }
+.dw-top .dw, .dw-bottom .dw {
+    width: 100%;
+}
 .dw-top .dwwr, .dw-bottom .dwwr {
     -moz-border-radius: 0;
     -webkit-border-radius: 0;
@@ -45,12 +48,15 @@
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 1001;
+    z-index: 9998;
 }
 .dwo {
     background: #000;
     background: rgba(0,0,0,.7);
     filter: Alpha(Opacity=70);
+}
+.dw-inline .dw-persp {
+    position: static;
 }
 /* Bubble positionings */
 .dw-bubble .dw {

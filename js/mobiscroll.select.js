@@ -5,6 +5,7 @@
         inputClass: '',
         invalid: [],
         rtl: false,
+        showInput: true,
         group: false,
         groupLabel: 'Groups'
     };
@@ -86,7 +87,7 @@
             return w;
         }
 
-        function setVal(v, fill) {
+        function setVal(v, fill, change) {
             var value = [];
 
             if (multiple) {
@@ -97,6 +98,7 @@
                     sel.push(main[i]);
                     value.push(i);
                 }
+
                 input.val(sel.join(', '));
             } else {
                 input.val(v);
@@ -104,8 +106,11 @@
             }
 
             if (fill) {
-                prevent = true;
-                elm.val(value).change();
+                elm.val(value);
+                if (change) {
+                    prevent = true;
+                    elm.change();
+                }
             }
         }
 
@@ -123,7 +128,7 @@
                 }
 
                 if (inst.live) {
-                    setVal(val, true);
+                    setVal(val, true, true);
                 }
                 return false;
             }
@@ -153,7 +158,11 @@
 
         $('#' + id).remove();
 
-        input = $('<input type="text" id="' + id + '" class="' + s.inputClass + '" readonly />').insertBefore(elm);
+        input = $('<input type="text" id="' + id + '" class="' + s.inputClass + '" readonly />');
+
+        if (s.showInput) {
+            input.insertBefore(elm);
+        }
 
         $('option', elm).each(function () {
             main[$(this).attr('value')] = $(this).text();
@@ -184,7 +193,7 @@
             inst._setValue = inst.setValue;
         }
 
-        inst.setValue = function (d, fill, time, noscroll, temp) {
+        inst.setValue = function (d, fill, time, noscroll, temp, change) {
             var value,
                 v = $.isArray(d) ? d[0] : d;
 
@@ -216,7 +225,7 @@
             // Set input/select values
             if (fill) {
                 var changed = multiple ? true : option !== elm.val();
-                setVal(main[option], changed);
+                setVal(main[option], changed, change);
             }
         };
 
@@ -337,7 +346,7 @@
             },
             onValueTap: onTap,
             onSelect: function (v) {
-                setVal(v, true);
+                setVal(v, true, true);
                 if (s.group) {
                     inst.values = null;
                 }

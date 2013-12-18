@@ -23,6 +23,69 @@ It'd be cool to see how you're using Mobiscroll!
 
 We're looking at showcasing some of the best work on http://mobiscroll.com . Feel free to let us know on twitter @mobiscroll!
 
+Changelog 2.9.0
+===============
+
+Enhancements
+------------
+
+_Calendar_
+
+  * Added: Holding month and year buttons changes month/year until released.
+
+  * Added: months setting to display multiple months.
+
+_Listview_
+
+  * Added: onStageChange event.
+
+  * Added: onItemTap event.
+
+  * Added: onSlideEnd event.
+
+  * Added: slideIcon setting - icon and text can be positioned to move with the slided element.
+
+  * Added: quickSwipe setting - on quick swipe (less than 300ms and 50px of movement) the first stage's action is executed.
+
+  * Added: confirm option for stage actions.
+
+  * Added: move method.
+
+_Rangepicker_
+
+  * Added: rangeTap setting for faster range selection.
+
+_Select_
+
+  * Added: showInput setting, if false hide the input
+
+_Themes_
+
+  * Added: Plugin which decides the theme based on User Agent.
+
+Bugfixes
+--------
+
+_Core_
+
+  * Fixed: Higher z-index to show over jQuery Mobile popups.
+
+_Calendar_
+
+  * Fixed: Changing tabs sometimes messed up the month slider.
+
+_List_
+
+  * Fixed: In live mode values were not always filled in the input.
+
+_Listview_
+
+  * Fixed: adding item didn't work correctly on empty list.
+
+  * Fixed: don't remove list item inline styles on sort end.
+
+
+
 Changelog 2.8.3
 ===============
 
