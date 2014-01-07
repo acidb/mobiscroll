@@ -6,7 +6,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 9999;
+    z-index: 99999;
     font-size: 12px;
     text-shadow: none;
     -webkit-backface-visibility: hidden;
@@ -48,7 +48,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 9998;
+    z-index: 99998;
 }
 .dwo {
     background: #000;
