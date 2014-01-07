@@ -1019,7 +1019,7 @@
                 that.trigger('onClear', [dw]);
                 elm.val('');
                 if (!that.live) {
-                    that.hide();
+                    that.hide(false, 'clear');
                 }
             }};
 
