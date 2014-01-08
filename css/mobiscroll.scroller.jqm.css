@@ -2,9 +2,6 @@
 .jqm .dwo {
     background: none;
 }
-.jqm .dw {
-    z-index: 1003;
-}
 .jqm .dwv {
     position: static;
     width: auto;
