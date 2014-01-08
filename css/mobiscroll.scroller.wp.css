@@ -249,7 +249,7 @@
     color: #fff;
 }
 .wp .dwwms .dw-msel:after {
-    content: '✔';
+    content: '\2714';
 }
 /* Light version */
 .wp.light .dwwr {

@@ -155,7 +155,7 @@
     text-shadow: 0 0 5px #29799c;
 }
 .android-ics .dwwms .dw-msel:after {
-    content: '✔';
+    content: '\2714';
 }
 /* Light version */
 .android-ics.light .dwwr {
