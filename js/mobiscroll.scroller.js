@@ -436,9 +436,9 @@
             calc(t, val < min ? max : val, 2, true);
         }
 
-        function setVal(fill, change, time, noscroll, temp, manual) {
+        function setVal(fill, change, time, noscroll, temp) {
             if (visible && !noscroll) {
-                scrollToPos(time, undefined, manual);
+                scrollToPos(time);
             }
 
             v = s.formatResult(that.temp);
@@ -611,7 +611,7 @@
         */
         that.setValue = function (values, fill, time, temp, change) {
             that.temp = $.isArray(values) ? values.slice(0) : s.parseValue.call(e, values + '', that);
-            setVal(fill, change === undefined ? fill : change, time, false, temp, fill);
+            setVal(fill, change === undefined ? fill : change, time, false, temp);
         };
 
         /**
