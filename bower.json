@@ -2,7 +2,7 @@
   "name": "mobiscroll",
   "version": "2.9.1",
   "main": [
-    "js/core.js", 
+    "js/core.js",
     "js/scroller.js",
     "css/scroller.css"
   ],
@@ -24,8 +24,7 @@
   ],
   "ignore": [
     ".git",
-    ".gitignore",
-    "**/*.txt"
+    ".gitignore"
   ],
   "dependencies": {
     "jquery": ">=1.7"
