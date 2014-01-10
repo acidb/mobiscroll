@@ -43,6 +43,6 @@
   "demo": "http://demo.mobiscroll.com/select",
   "download": "http://mobiscroll.com/component/select",
   "dependencies": {
-    "jquery": ">=1.6"
+    "jquery": ">=1.7"
   }
 }
