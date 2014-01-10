@@ -193,7 +193,7 @@
             inst._setValue = inst.setValue;
         }
 
-        inst.setValue = function (d, fill, time, noscroll, temp, change) {
+        inst.setValue = function (d, fill, time, temp, change) {
             var value,
                 v = $.isArray(d) ? d[0] : d;
 
@@ -220,7 +220,7 @@
                 value = [option];
             }
 
-            inst._setValue(value, fill, time, noscroll, temp);
+            inst._setValue(value, fill, time, temp, change);
 
             // Set input/select values
             if (fill) {

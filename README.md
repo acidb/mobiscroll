@@ -23,6 +23,48 @@ It'd be cool to see how you're using Mobiscroll!
 
 We're looking at showcasing some of the best work on http://mobiscroll.com . Feel free to let us know on twitter @mobiscroll!
 
+Changelog 2.9.1
+===============
+
+Enhancements
+------------
+
+_Listview_
+
+  * Added: handle setting - allows sort if touch started on the handle.
+
+Bugfixes
+--------
+
+_Core_
+
+  * Fixed: btn parameter was undefined in onClose if clear button was pressed (#181).
+
+_Angular JS Integration_
+
+  * Fixed: Directive for select preset now works for dynamically generated options.
+
+_Listview_
+
+  * Fixed: Slide was not working in Android 4.0.x.
+
+  * Fixed: Confirm tap incorrectly fired onItemTap as well.
+
+_Rangepicker_
+
+  * Fixed: Range picker incorrect bubble positioning with start and end inputs present (#183).
+
+  * Fixed: setValue method was not working correctly (#189).
+
+_Themes_
+
+  * Fixed: z-index issue with jqm theme (#187).
+
+_Timespan_
+
+  * Fixed: minTime / maxTime worked incorrectly (#184).
+
+
 Changelog 2.9.0
 ===============
 
