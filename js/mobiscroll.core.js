@@ -1,9 +1,9 @@
 /*jslint eqeq: true, plusplus: true, undef: true, sloppy: true, vars: true, forin: true, nomen: true */
 /*!
- * Mobiscroll v2.9.0
+ * Mobiscroll v2.9.1
  * http://mobiscroll.com
  *
- * Copyright 2010-2013, Acid Media
+ * Copyright 2010-2014, Acid Media
  * Licensed under the MIT license.
  *
  */
