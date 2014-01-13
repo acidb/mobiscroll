@@ -47,6 +47,6 @@
   "demo": "http://demo.mobiscroll.com/imageandtext",
   "download": "http://mobiscroll.com/component/imageandtext",
   "dependencies": {
-    "jquery": ">=1.6"
+    "jquery": ">=1.7"
   }
 }

@@ -187,7 +187,7 @@
                     } else if (k == o.a) {
                         offset++;
                         var upper = tord.match(/A/);
-                        addWheel(wg, [0, 1], upper ? ['AM', 'PM'] : ['am', 'pm'], s.ampmText);
+                        addWheel(wg, [0, 1], upper ? [s.amText.toUpperCase(), s.pmText.toUpperCase()] : [s.amText, s.pmText], s.ampmText);
                     }
                 }
 
@@ -565,6 +565,8 @@
         minuteText: 'Minutes',
         secText: 'Seconds',
         ampmText: '&nbsp;',
+        amText: 'am',
+        pmText: 'pm',
         nowText: 'Now'
     });
 
@@ -650,10 +652,10 @@
                     output += f1('s', date.getSeconds(), 2);
                     break;
                 case 'a':
-                    output += date.getHours() > 11 ? 'pm' : 'am';
+                    output += date.getHours() > 11 ? s.pmText : s.amText;
                     break;
                 case 'A':
-                    output += date.getHours() > 11 ? 'PM' : 'AM';
+                    output += date.getHours() > 11 ? s.pmText.toUpperCase() : s.amText.toUpperCase();
                     break;
                 case "'":
                     if (look("'")) {
@@ -774,10 +776,10 @@
                     seconds = getNumber('s');
                     break;
                 case 'a':
-                    ampm = getName('a', ['am', 'pm'], ['am', 'pm']) - 1;
+                    ampm = getName('a', [s.amText, s.pmText], [s.amText, s.pmText]) - 1;
                     break;
                 case 'A':
-                    ampm = getName('A', ['am', 'pm'], ['am', 'pm']) - 1;
+                    ampm = getName('A', [s.amText, s.pmText], [s.amText, s.pmText]) - 1;
                     break;
                 case "'":
                     if (lookAhead("'")) {

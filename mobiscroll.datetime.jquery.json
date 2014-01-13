@@ -43,6 +43,6 @@
   "demo": "http://demo.mobiscroll.com/datetime",
   "download": "http://mobiscroll.com/component/datetime",
   "dependencies": {
-    "jquery": ">=1.6"
+    "jquery": ">=1.7"
   }
 }

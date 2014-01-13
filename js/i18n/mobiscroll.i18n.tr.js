@@ -21,6 +21,8 @@
         timeWheels: 'hhiiA',
         yearText: 'Yıl',
         nowText: 'Şimdi',
+        pmText: 'akşam',
+        amText: 'sabah',
         // Calendar component
         dateText: 'Tarih',
         timeText: 'Zaman',

@@ -21,6 +21,8 @@
         timeWheels: 'HHii',
         yearText: 'Év',
         nowText: 'Most',
+        pmText: 'de',
+        amText: 'du',
         // Calendar component
         dateText: 'Dátum',
         timeText: 'Idő',
