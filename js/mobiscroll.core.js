@@ -112,7 +112,7 @@
         components: {},
         defaults: {},
         setDefaults: function (o) {
-            extend(defaults, o);
+            extend(this.defaults, o);
         },
         presetShort: function (name, c) {
             this.components[name] = function (s) {

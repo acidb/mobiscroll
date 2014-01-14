@@ -877,7 +877,7 @@
         that.hide = function (prevAnim, btn, force) {
             // If onClose handler returns false, prevent hide
             if (!visible || (!force && event('onClose', [v, btn]) === false)) {
-                return;
+                return false;
             }
 
             // Re-enable temporary disabled fields
@@ -972,7 +972,7 @@
 
             event('onThemeLoad', [lang, settings]);
 
-            extend(s, theme, lang, settings);
+            s = extend({}, lang, s, theme, settings);
 
             // Add default buttons
             s.buttons = s.buttons || ['set', 'cancel'];
