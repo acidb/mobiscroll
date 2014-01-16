@@ -972,7 +972,7 @@
 
             event('onThemeLoad', [lang, settings]);
 
-            s = extend({}, lang, s, theme, settings);
+            extend(s, lang, theme, userdef, settings);
 
             // Add default buttons
             s.buttons = s.buttons || ['set', 'cancel'];
@@ -1155,6 +1155,7 @@
         START_EVENT = 'touchstart mousedown',
         MOVE_EVENT = 'touchmove mousemove',
         END_EVENT = 'touchend mouseup',
+        userdef = ms.userdef,
         defaults = extend(ms.defaults, {
             // Options
             width: 70,

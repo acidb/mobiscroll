@@ -111,8 +111,9 @@
         classes: {},
         components: {},
         defaults: {},
+        userdef: {},
         setDefaults: function (o) {
-            extend(this.defaults, o);
+            extend(this.userdef, o);
         },
         presetShort: function (name, c) {
             this.components[name] = function (s) {
