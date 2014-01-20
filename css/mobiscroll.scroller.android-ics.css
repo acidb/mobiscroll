@@ -106,12 +106,7 @@
     margin-top: -20px;
     display: block;
 }
-.android-ics .dwbw .dwb {
-    border-left: 1px solid #424542;
-}
-.android-ics .dwbw:first-child .dwb {
-    border-left: 0;
-}
+/* Buttons */
 .android-ics .dw .dwbc {
     border-top: 1px solid #424542;
     padding: 0;
@@ -128,10 +123,27 @@
     box-shadow: none;
     border-radius: 0;
 }
+.android-ics .dwbw .dwb {
+    border-left: 1px solid #424542;
+}
+.android-ics .dwbw:first-child .dwb {
+    border-left: 0;
+    -webkit-border-bottom-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+.android-ics .dwbw:last-child .dwb {
+    -webkit-border-right-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
 .android-ics .dw .dwb-a {
     background: #29799c;
 }
-/* Docked */
+/* Top/bottom mode */
+.android-ics.dw-top .dwbw .dwb,
+.android-ics.dw-bottom .dwbw .dwb {
+    -webkit-border-radius: 0;
+    border-radius: 0;
+}
 /* Multiple select */
 .android-ics .dwwms .dwwol {
     display: none;
