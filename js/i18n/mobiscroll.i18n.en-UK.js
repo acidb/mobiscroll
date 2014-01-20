@@ -7,7 +7,7 @@
         selectedText: 'Selected',
         // Datetime component
         dateFormat: 'dd/mm/yy',
-        dateOrder: 'ddmmyy',
+        dateOrder: 'ddmmy',
         dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
         dayNamesShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
         dayText: 'Day',
