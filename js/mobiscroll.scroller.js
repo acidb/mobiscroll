@@ -398,7 +398,7 @@
         function event(name, args) {
             var ret;
             args.push(that);
-            $.each([theme, pres, settings], function (i, v) {
+            $.each([userdef, theme, pres, settings], function (i, v) {
                 if (v && v[name]) { // Call preset event
                     ret = v[name].apply(e, args);
                 }
