@@ -348,7 +348,7 @@
             return {
                 cell: cell,
                 v: v,
-                val: cell.attr('data-val')
+                val: cell.hasClass('dw-v') ? cell.attr('data-val') : null
             };
         }
 
