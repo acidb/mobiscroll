@@ -118,6 +118,9 @@
 .ios7 .dwpm .dww {
     background: none;
 }
+.ios7 .dwpm .dw-li {
+    text-align: center;
+}
 .ios7 .dwpm .dwwol {
     display: block;
 }
