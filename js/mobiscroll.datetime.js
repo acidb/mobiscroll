@@ -11,7 +11,8 @@
             stepHour: 1,
             stepMinute: 1,
             stepSecond: 1,
-            separator: ' '
+            separator: ' ',
+            ampmText: '&nbsp;'
         },
         /**
          * @class Mobiscroll.datetime
@@ -187,7 +188,7 @@
                     } else if (k == o.a) {
                         offset++;
                         var upper = tord.match(/A/);
-                        addWheel(wg, [0, 1], upper ? ['AM', 'PM'] : ['am', 'pm'], s.ampmText);
+                        addWheel(wg, [0, 1], upper ? [s.amText.toUpperCase(), s.pmText.toUpperCase()] : [s.amText, s.pmText], s.ampmText);
                     }
                 }
 
@@ -236,7 +237,7 @@
 
             function getDate(d) {
                 var hour = get(d, 'h', 0);
-                return new Date(get(d, 'y'), get(d, 'm'), get(d, 'd', 1), get(d, 'a') ? hour + 12 : hour, get(d, 'i', 0), get(d, 's', 0));
+                return new Date(get(d, 'y'), get(d, 'm'), get(d, 'd', 1), get(d, 'a', 0) ? hour + 12 : hour, get(d, 'i', 0), get(d, 's', 0));
             }
 
             function getIndex(t, v) {
@@ -564,7 +565,8 @@
         hourText: 'Hours',
         minuteText: 'Minutes',
         secText: 'Seconds',
-        ampmText: '&nbsp;',
+        amText: 'am',
+        pmText: 'pm',
         nowText: 'Now'
     });
 
@@ -650,10 +652,10 @@
                     output += f1('s', date.getSeconds(), 2);
                     break;
                 case 'a':
-                    output += date.getHours() > 11 ? 'pm' : 'am';
+                    output += date.getHours() > 11 ? s.pmText : s.amText;
                     break;
                 case 'A':
-                    output += date.getHours() > 11 ? 'PM' : 'AM';
+                    output += date.getHours() > 11 ? s.pmText.toUpperCase() : s.amText.toUpperCase();
                     break;
                 case "'":
                     if (look("'")) {
@@ -774,10 +776,10 @@
                     seconds = getNumber('s');
                     break;
                 case 'a':
-                    ampm = getName('a', ['am', 'pm'], ['am', 'pm']) - 1;
+                    ampm = getName('a', [s.amText, s.pmText], [s.amText, s.pmText]) - 1;
                     break;
                 case 'A':
-                    ampm = getName('A', ['am', 'pm'], ['am', 'pm']) - 1;
+                    ampm = getName('A', [s.amText, s.pmText], [s.amText, s.pmText]) - 1;
                     break;
                 case "'":
                     if (lookAhead("'")) {

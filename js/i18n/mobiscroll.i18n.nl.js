@@ -21,6 +21,8 @@
         timeWheels: 'hhii',
         yearText: 'Jaar',
         nowText: 'Nu',
+        pmText: 'pm',
+        amText: 'am',
         // Calendar component
         dateText: 'Datum',
         timeText: 'Tijd',

@@ -348,7 +348,7 @@
             return {
                 cell: cell,
                 v: v,
-                val: cell.attr('data-val')
+                val: cell.hasClass('dw-v') ? cell.attr('data-val') : null
             };
         }
 
@@ -398,7 +398,7 @@
         function event(name, args) {
             var ret;
             args.push(that);
-            $.each([theme, pres, settings], function (i, v) {
+            $.each([userdef, theme, pres, settings], function (i, v) {
                 if (v && v[name]) { // Call preset event
                     ret = v[name].apply(e, args);
                 }
@@ -877,7 +877,7 @@
         that.hide = function (prevAnim, btn, force) {
             // If onClose handler returns false, prevent hide
             if (!visible || (!force && event('onClose', [v, btn]) === false)) {
-                return;
+                return false;
             }
 
             // Re-enable temporary disabled fields
@@ -972,7 +972,7 @@
 
             event('onThemeLoad', [lang, settings]);
 
-            extend(s, theme, lang, settings);
+            extend(s, lang, theme, userdef, settings);
 
             // Add default buttons
             s.buttons = s.buttons || ['set', 'cancel'];
@@ -1155,6 +1155,7 @@
         START_EVENT = 'touchstart mousedown',
         MOVE_EVENT = 'touchmove mousemove',
         END_EVENT = 'touchend mouseup',
+        userdef = ms.userdef,
         defaults = extend(ms.defaults, {
             // Options
             width: 70,

@@ -24,6 +24,8 @@
         timeWheels: 'HHii',
         yearText: 'Ano',
         nowText: 'Agora',
+        pmText: 'da tarde',
+        amText: 'da manhã',
         // Calendar component
         dateText: 'Data',
         timeText: 'Tempo',

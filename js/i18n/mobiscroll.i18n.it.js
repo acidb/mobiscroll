@@ -21,6 +21,8 @@
         timeWheels: 'HHii',
         yearText: 'Anno',
         nowText: 'Ora',
+        pmText: 'pm',
+        amText: 'am',
         // Calendar component
         dateText: 'Data',
         timeText: 'Volta',

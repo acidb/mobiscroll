@@ -1,6 +1,6 @@
 /*jslint eqeq: true, plusplus: true, undef: true, sloppy: true, vars: true, forin: true, nomen: true */
 /*!
- * Mobiscroll v2.9.1
+ * Mobiscroll v2.9.2
  * http://mobiscroll.com
  *
  * Copyright 2010-2014, Acid Media
@@ -111,8 +111,9 @@
         classes: {},
         components: {},
         defaults: {},
+        userdef: {},
         setDefaults: function (o) {
-            extend(defaults, o);
+            extend(this.userdef, o);
         },
         presetShort: function (name, c) {
             this.components[name] = function (s) {

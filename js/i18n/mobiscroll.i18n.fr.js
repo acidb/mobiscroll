@@ -21,6 +21,8 @@
         timeWheels: 'HHii',
         yearText: 'Année',
         nowText: 'Maintenant',
+        pmText: 'après-midi',
+        amText: 'avant-midi',
         // Calendar component
         dateText: 'Date',
         timeText: 'Heure',

@@ -24,6 +24,8 @@
         timeWheels: 'HHiiss',
         yearText: 'Ano',
         nowText: 'Actualizar',
+        pmText: 'da tarde',
+        amText: 'da manhã',
         // Calendar component
         dateText: 'Data',
         timeText: 'Tempo',

@@ -23,6 +23,49 @@ It'd be cool to see how you're using Mobiscroll!
 
 We're looking at showcasing some of the best work on http://mobiscroll.com . Feel free to let us know on twitter @mobiscroll!
 
+Changelog 2.9.2
+===============
+
+Enhancements
+------------
+
+_Datetime_
+
+  * Added: amText and pmText localization settings.
+
+_Rangepicker_
+
+  * Added: getValue method can now return temporary start and end dates (if set button is not yet clicked).
+
+_Localization_
+
+  * Added: en-UK locale settings.
+
+Bugfixes
+--------
+
+_Core_
+
+  * Fixed: setDefaults method didn't work.
+
+  * Fixed: null value is set if all options are disabled on a wheel (#196).
+
+_Calendar_
+
+  * Fixed: closeOnSelect setting didn't work correctly.
+
+  * Fixed: Orientationchange from landscape to portrait didn't work correctly if tabs were present.
+
+_Listview_
+
+  * Fixed: Icon and text was not visible with iconSlide setting if used with jQuery Mobile listview.
+
+_Themes_
+
+  * Fixed: Incorrect border radius for active buttons in Android ICS theme (#195).
+
+
+
 Changelog 2.9.1
 ===============
 

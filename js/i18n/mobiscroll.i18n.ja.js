@@ -21,6 +21,8 @@
         timeWheels: 'HHii',
         yearText: '年',
         nowText: '今',
+        pmText: '午後',
+        amText: '午前',
         // Calendar component
         dateText: '日付',
         timeText: '時間',
