@@ -11,7 +11,8 @@
             stepHour: 1,
             stepMinute: 1,
             stepSecond: 1,
-            separator: ' '
+            separator: ' ',
+            ampmText: '&nbsp;'
         },
         /**
          * @class Mobiscroll.datetime
@@ -564,7 +565,6 @@
         hourText: 'Hours',
         minuteText: 'Minutes',
         secText: 'Seconds',
-        ampmText: '&nbsp;',
         amText: 'am',
         pmText: 'pm',
         nowText: 'Now'
