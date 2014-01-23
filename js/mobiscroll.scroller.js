@@ -40,7 +40,7 @@
             that = this,
             e = elem,
             elm = $(e),
-            s = extend({}, defaults),
+            s = extend({}, defaults, userdef),
             pres = {},
             iv = {},
             pos = {},
