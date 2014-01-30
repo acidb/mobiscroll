@@ -781,7 +781,7 @@
 
             // Show
             if (modal) {
-
+                ms.activeInstance = that;
                 dw.appendTo(s.context);
                 if (anim && !prevAnim) {
                     dw.addClass('dw-trans');
@@ -912,6 +912,7 @@
                 wndw.off('.dw');
             }
 
+            delete ms.activeInstance;
             pixels = {};
             visible = false;
         };
