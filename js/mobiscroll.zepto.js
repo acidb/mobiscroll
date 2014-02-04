@@ -25,6 +25,7 @@ if (!window.jQuery) {
             };
         });
 
+
         ['width', 'height'].forEach(function (dimension) {
             var offset, Dimension = dimension.replace(/./, function (m) { return m[0].toUpperCase(); });
             $.fn['outer' + Dimension] = function (margin) {
@@ -101,6 +102,30 @@ if (!window.jQuery) {
                 });
             };
         });
+        
+        $.fn.prevUntil = function (selector) {
+            var n = this,
+                array = [];
+
+            while (n.length && !$(n).filter(selector).length) {
+                array.push(n[0]);
+                n = n.prev();
+            }
+
+            return $(array)
+        };
+
+        $.fn.nextUntil = function (selector) {
+            var n = this,
+                array = [];
+
+            while (n.length && !n.filter(selector).length) {
+                array.push(n[0]);
+                n = n.next();
+            }
+
+            return $(array);
+        };
 
         // Fix zepto.js extend to work with undefined parameter
         $._extend = $.extend;

@@ -249,6 +249,30 @@ if (!window.jQuery) {
             return n[0][0] ? $(n[0]).filter(selector || '*') : $([]);
         };
 
+        $.fn.prevUntil = function (selector) {
+            var n = this,
+                array = [];
+
+            while (n.length && !$(n).filter(selector).length) {
+                array.push(n[0]);
+                n = n.prev();
+            }
+
+            return $(array)
+        };
+
+        $.fn.nextUntil = function (selector) {
+            var n = this,
+                array = [];
+
+            while (n.length && !n.filter(selector).length) {
+                array.push(n[0]);
+                n = n.next();
+            }
+
+            return $(array);
+        };
+
         $.inArray = function (value, array, fromIndex) {
             var i = fromIndex || 0;
             while (i < array.length) {
