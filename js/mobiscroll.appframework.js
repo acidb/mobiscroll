@@ -258,7 +258,7 @@ if (!window.jQuery) {
                 n = n.prev();
             }
 
-            return $(array)
+            return $(array);
         };
 
         $.fn.nextUntil = function (selector) {
