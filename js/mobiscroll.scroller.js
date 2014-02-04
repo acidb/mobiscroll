@@ -840,7 +840,6 @@
                 .on('keyup', '.dwwl', onKeyUp)
                 .on('selectstart mousedown', prevdef) // Prevents blue highlight on Android and text selection in IE
                 .on('click', '.dwb-e', prevdef)
-                .on('touchend', function () { if (s.tap) { setTap(); } })
                 .on('keydown', '.dwb-e', function (e) {
                     if (e.keyCode == 32) { // Space
                         e.preventDefault();

@@ -202,11 +202,17 @@
 .wp .dwwbp span {
     background-position: -78px 0;
 }
+.wp .dw .dwwr .dwwbp.dwb-a {
+    top: 0;
+}
 .wp .dwwbp.dwb-a span {
     background-position: -78px -26px;
 }
 .wp .dwwbm span {
     background-position: -104px 0;
+}
+.wp .dw .dwwr .dwwbm.dwb-a {
+    top: auto;
 }
 .wp .dwwbm.dwb-a span {
     background-position: -104px -26px;
