@@ -16,6 +16,7 @@
     -moz-user-select: none;
     -ms-user-select: none;
     -ms-touch-action: none;
+    backface-visibility: hidden;
     box-sizing: border-box;
     user-select: none;
     touch-action: none;
@@ -187,6 +188,8 @@
 .dw-bf {
     -webkit-perspective: 1000;
     -webkit-backface-visibility: hidden;
+    perspective: 1000;
+    backface-visibility: hidden;
 }
 .dw-ul {
     position: relative;
@@ -315,6 +318,7 @@
     -webkit-backface-visibility: hidden;
     border-radius: 5px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    backface-visibility: hidden;
 }
 /* Datewheel button container */
 .dwbc {
