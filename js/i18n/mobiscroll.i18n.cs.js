@@ -1,5 +1,5 @@
 (function ($) {
-    $.mobiscroll.i18n['cs-CZ'] = $.extend($.mobiscroll.i18n['cs-CZ'], {
+    $.mobiscroll.i18n.cs = $.extend($.mobiscroll.i18n.cs, {
         // Core
         setText: 'Zadej',
         cancelText: 'Storno',
