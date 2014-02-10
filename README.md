@@ -11,7 +11,7 @@ See demo here: http://demo.mobiscroll.com
 
 More features and details to follow...
 
-Tested on iOS 4-7, Android 2.2 - 4.2, Chrome, Safari, Firefox, IE9-10. Please submit issues, and compatibility problems with other devices.
+Tested on iOS 4-7, Android 2.2 - 4.4, Windows Phone 8, BlackBerry,  Chrome, Safari, Firefox, IE9-11. Please submit issues, and compatibility problems with other devices.
 
 If you like it, spread the word!
 
@@ -22,6 +22,57 @@ It'd be cool to see how you're using Mobiscroll!
 ================================================
 
 We're looking at showcasing some of the best work on http://mobiscroll.com . Feel free to let us know on twitter @mobiscroll!
+
+Changelog 2.9.3
+===============
+
+Enhancements
+------------
+_Core_
+
+  * Added: activeInstance variable.
+
+_Calendar_
+
+  * Added: months setting now accepts 'auto' to automatically determine the number of months to display.
+
+_Datetime_
+
+_Rangepicker_
+
+  * Added: setActiveDate method.
+
+_Listview_
+
+  * Added: pixel units changed to em. 
+
+  * Added: swipe setting accepts multiple values: true, false, 'left', 'right', or a function.
+
+  * Added: onSlideStart event.
+
+Bugfixes
+--------
+
+_Core_
+
+  * Fixed: If a default theme or language was set using setDefaults, theme and language settings were not loaded.
+
+_Calendar_
+
+  * Fixed: closeOnSelect setting caused event bleedthrough on some iOS versions.
+
+  * Fixed: closeOnSelect now always disables divergentDayChange setting.
+
+_Listview_
+
+  * Fixed: Incorrect this reference in action function if called after confirmation.
+
+  * Fixed: Icon slide issue when more than one listview was present on the page (#198).
+
+_Themes_
+
+  * Fixed: WP theme fix for clickpick buttons active style.
+
 
 Changelog 2.9.2
 ===============
