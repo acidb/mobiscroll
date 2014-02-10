@@ -1,6 +1,6 @@
 {
   "name": "mobiscroll",
-  "version": "2.9.2",
+  "version": "2.9.3",
   "main": [
     "js/core.js",
     "js/scroller.js",
