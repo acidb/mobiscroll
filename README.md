@@ -50,6 +50,12 @@ _Listview_
 
   * Added: onSlideStart event.
 
+  * Added: List dividers are now supported by adding data-role="list-divider" attribute to one ore more list elements.
+
+  * Added: sortable setting can be true, false, or 'group'. If 'group', sort is allowed only inside the group defined by the list dividers.
+
+  * Added: actions setting to display a list of icons under the slided list item. If an icon is tapped, the corresponding action will be executed, otherwise the list item slides back.
+  
 Bugfixes
 --------
 
