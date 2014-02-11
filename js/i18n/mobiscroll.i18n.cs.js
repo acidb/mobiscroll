@@ -9,7 +9,7 @@
         dateFormat: 'dd/mm/yy',
         dateOrder: 'ddmmy',
         dayNames: ['Neděle', 'Pondělí', 'Úterý', 'Středa', 'Čtvrtek', 'Pátek', 'Sobota'],
-        dayNamesShort: ['Ne', 'Po', 'Ut', 'St', 'Čt', 'Pá', 'So'],
+        dayNamesShort: ['Ne', 'Po', 'Út', 'St', 'Čt', 'Pá', 'So'],
         dayText: 'Den',
         hourText: 'Hodiny',
         minuteText: 'Minuty',
