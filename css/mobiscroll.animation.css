@@ -10,8 +10,11 @@
 }
 .dw-in,
 .dw-out {
+    -webkit-animation-fill-mode: forwards;
     -webkit-animation-duration: 350ms;
+    -moz-animation-fill-mode: forwards;
     -moz-animation-duration: 350ms;
+    animation-fill-mode: forwards;
     animation-duration: 350ms;
 }
 .dw-in {

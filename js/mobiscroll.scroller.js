@@ -93,7 +93,7 @@
                     tindex,
                     ttop = target.offset().top;
 
-                if (time < 300) {
+                if (has3d && time < 300) {
                     speed = (stop - start) / time;
                     dist = (speed * speed) / s.speedUnit;
                     if (stop - start < 0) {
@@ -736,7 +736,7 @@
             }
 
             // Create wheels containers
-            var html = '<div role="dialog" class="' + s.theme + ' dw-' + s.display + (prefix ? ' dw' + prefix.replace(/\-$/, '') : '') + (hasButtons ? '' : ' dw-nobtn') + '"><div class="dw-persp">' + (!modal ? '<div class="dw dwbg dwi">' : '<div class="dwo"></div><div class="dw dwbg ' + mAnim + '"><div class="dw-arrw"><div class="dw-arrw-i"><div class="dw-arr"></div></div></div>') + '<div class="dwwr"><div aria-live="assertive" class="dwv' + (s.headerText ? '' : ' dw-hidden') + '"></div><div class="dwcc">',
+            var html = '<div' + (modal ? ' tabindex="0"' : '') + ' role="dialog" class="' + s.theme + ' dw-' + s.display + (prefix ? ' dw' + prefix.replace(/\-$/, '') : '') + (hasButtons ? '' : ' dw-nobtn') + '"><div class="dw-persp">' + (!modal ? '<div class="dw dwbg dwi">' : '<div class="dwo"></div><div class="dw dwbg ' + mAnim + '"><div class="dw-arrw"><div class="dw-arrw-i"><div class="dw-arr"></div></div></div>') + '<div class="dwwr"><div aria-live="assertive" class="dwv' + (s.headerText ? '' : ' dw-hidden') + '"></div><div class="dwcc">',
                 isMinw = $.isArray(s.minWidth),
                 isMaxw = $.isArray(s.maxWidth),
                 isFixw = $.isArray(s.fixedWidth);
@@ -783,12 +783,10 @@
             if (modal) {
                 ms.activeInstance = that;
                 dw.appendTo(s.context);
-                if (anim && !prevAnim) {
-                    dw.addClass('dw-trans');
-                    // Remove animation class
-                    setTimeout(function () {
+                if (has3d && anim && !prevAnim) {
+                    dw.addClass('dw-trans').on(animEnd, function () {
                         dw.removeClass('dw-trans').find('.dw').removeClass(mAnim);
-                    }, 350);
+                    });
                 }
             } else if (elm.is('div')) {
                 elm.html(dw);
@@ -826,6 +824,8 @@
                         $(this).addClass('dwtd').prop('disabled', true).attr('autocomplete', 'off');
                     }
                 });
+
+                dw.focus();
 
                 attachPosition('scroll.dw', true);
             }
@@ -874,6 +874,8 @@
         * Hides the scroller instance.
         */
         that.hide = function (prevAnim, btn, force) {
+            var doAnim = has3d && modal && anim && !prevAnim;
+
             // If onClose handler returns false, prevent hide
             if (!visible || (!force && event('onClose', [v, btn]) === false)) {
                 return false;
@@ -891,20 +893,18 @@
 
             // Hide wheels and overlay
             if (dw) {
-                var doAnim = modal && anim && !prevAnim;
                 if (doAnim) {
-                    dw.addClass('dw-trans').find('.dw').addClass('dw-' + anim + ' dw-out');
-                }
-                if (prevAnim) {
-                    dw.remove();
-                } else {
-                    setTimeout(function () {
+                    dw.addClass('dw-trans').find('.dw').addClass('dw-' + anim + ' dw-out').on(animEnd, function () {
                         dw.remove();
                         if (activeElm) {
                             preventShow = true;
                             activeElm.focus();
                         }
-                    }, doAnim ? 350 : 1);
+                        visible = false;
+                    });
+                } else {
+                    dw.remove();
+                    visible = false;
                 }
 
                 // Stop positioning on window resize
@@ -913,7 +913,6 @@
 
             delete ms.activeInstance;
             pixels = {};
-            visible = false;
         };
 
         /**
@@ -1155,6 +1154,7 @@
         START_EVENT = 'touchstart mousedown',
         MOVE_EVENT = 'touchmove mousemove',
         END_EVENT = 'touchend mouseup',
+        animEnd = 'webkitAnimationEnd animationend',
         userdef = ms.userdef,
         defaults = extend(ms.defaults, {
             // Options
