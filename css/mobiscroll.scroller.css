@@ -3,6 +3,7 @@
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 .dw {
+    max-width: 100%;
     position: absolute;
     top: 0;
     left: 0;
@@ -10,20 +11,21 @@
     font-size: 12px;
     text-shadow: none;
     -webkit-backface-visibility: hidden;
-    -webkit-box-sizing: border-box;
     -webkit-user-select: none;
-    -moz-box-sizing: border-box;
     -moz-user-select: none;
     -ms-user-select: none;
     -ms-touch-action: none;
     backface-visibility: hidden;
-    box-sizing: border-box;
     user-select: none;
     touch-action: none;
 }
-.dwi {
-    position: static;
-    display: inline-block;
+/* Box sizing */
+.dw,
+.dwc,
+.dwbc {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
 }
 .dwwr {
     padding: 0 2px;
@@ -59,10 +61,30 @@
     background: rgba(0,0,0,.7);
     filter: Alpha(Opacity=70);
 }
+/* Liquid mode */
+.dw-liq .dw .dwc {
+    display: block;
+}
+.dw-liq .dw-tbl {
+    table-layout: fixed;
+}
+/* Inline mode */
+.dw-inline .dw {
+    position: static;
+    display: inline-block;
+}
+.dw-inline.dw-liq .dw {
+    display: block;
+}
 .dw-inline .dw-persp {
     position: static;
 }
-/* Bubble positionings */
+.dw-inline .dwv {
+    margin: 0 2px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+}
+/* Bubble mode */
 .dw-bubble .dw {
     margin: 20px 0;
 }
@@ -105,6 +127,7 @@
 }
 /* Datewheel wheel container wrapper */
 .dwc {
+    max-width: 100%;
     vertical-align: middle;
     padding: 26px 2px 4px 2px;
     display: inline-block;
@@ -126,12 +149,8 @@
     margin: 0 -2px;
     font-size: 14px;
 }
-.dwi .dwv {
-    margin: 0 2px;
-    -webkit-border-radius: 3px;
-    border-radius: 3px;
-}
-.dw-hidden, .dw .dwwr .dw-hidden {
+.dw-hidden, 
+.dw .dwwr .dw-hidden {
     width: 0;
     height: 0;
     margin: 0;
@@ -150,6 +169,16 @@
     position: relative;
     background: #000;
     zoom: 1;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+	display: flex;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+}
+.dw-tbl {
+    width: 100%;
 }
 /* Datewheel wheels */
 .dwwl {
@@ -157,10 +186,15 @@
     padding: 0 2px;
     position: relative;
     z-index: 5;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1 auto;
+    -ms-flex: 1 auto;
+	flex: 1 auto;
 }
 .dwww {
     position: relative;
     padding: 1px;
+    overflow: hidden;
 }
 .dww {
     overflow: hidden;
@@ -186,9 +220,9 @@
     background: linear-gradient(#000 0%,#444 45%, #444 55%, #000 100%);
 }
 .dw-bf {
-    -webkit-perspective: 1000;
+    -webkit-perspective: 1000px;
     -webkit-backface-visibility: hidden;
-    perspective: 1000;
+    perspective: 1000px;
     backface-visibility: hidden;
 }
 .dw-ul {
@@ -326,9 +360,6 @@
     width: 100%;
     padding-bottom: 4px;
     text-align: center;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
 }
 /* Datewheel button wrapper */
 .dwbw  {
@@ -343,7 +374,6 @@
 .dwhl .dwl {
     display: none;
 }
-
 /* Multiple selection */
 .dwms .dwwms .dw-li {
     padding: 0 40px;

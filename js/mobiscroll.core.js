@@ -88,6 +88,7 @@
         extend = $.extend,
         mod = document.createElement('modernizr').style,
         has3d = testProps(['perspectiveProperty', 'WebkitPerspective', 'MozPerspective', 'OPerspective', 'msPerspective']),
+        hasFlex = testProps(['flex', 'msFlex', 'WebkitBoxDirection']),
         prefix = testPrefix(),
         pr = prefix.replace(/^\-/, '').replace(/\-$/, '').replace('moz', 'Moz');
 
@@ -101,6 +102,7 @@
             prefix: prefix,
             jsPrefix: pr,
             has3d: has3d,
+            hasFlex: hasFlex,
             getCoord: getCoord,
             testTouch: testTouch
         },
