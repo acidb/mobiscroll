@@ -4,17 +4,21 @@
 }
 .ios7 .dw {
     background: none;
-    -moz-border-radius: 0;
     -webkit-border-radius: 0;
     border-radius: 0;
 }
-.ios7 .dwwr, .ios7 .dww {
+.ios7 .dwwr, 
+.ios7 .dww {
     background: #f7f7f7;
 }
-.ios7 .dwwc, .ios7 .dw .dwwl {
+.ios7 .dwfl, 
+.ios7 .dw .dwwl {
     background: none;
 }
-.ios7 .dwwr, .ios7 .dwc, .ios7 .dwwc, .ios7 .dwwl {
+.ios7 .dwwr, 
+.ios7 .dwc, 
+.ios7 .dwwc, 
+.ios7 .dwwl {
     margin: 0;
     padding: 0;
 }
@@ -32,7 +36,6 @@
 .ios7 .dw .dwwr {
     position: relative;
     padding-top: 40px;
-    -moz-border-radius: 0;
     -webkit-border-radius: 0;
     border-radius: 0;
 }
@@ -89,10 +92,10 @@
     font-size: 17px;
     font-weight: normal;
     background: none;
-    -webkit-box-shadow: none;
-    box-shadow: none;
     -webkit-border-radius: 0;
+    -webkit-box-shadow: none;
     border-radius: 0;
+    box-shadow: none;
 }
 .ios7 .dwb-a {
     opacity: .5;
@@ -124,7 +127,8 @@
 .ios7 .dwpm .dwwol {
     display: block;
 }
-.ios7 .dwwb, .ios7 .dwwb:hover {
+.ios7 .dwwb, 
+.ios7 .dwwb:hover {
     background: #f7f7f7;
     text-shadow: none;
     -webkit-border-radius: 0;

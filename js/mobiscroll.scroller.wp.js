@@ -3,7 +3,7 @@
     var anim;
 
     $.mobiscroll.themes.wp = {
-        minWidth: 70,
+        minWidth: 76,
         height: 76,
         accent: 'none',
         dateOrder: 'mmMMddDDyy',

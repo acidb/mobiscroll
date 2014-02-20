@@ -12,7 +12,6 @@
             wh, // Window height
             mw, // Modal width
             mh, // Modal height
-            layout,
             lock,
             anim,
             theme,
@@ -27,10 +26,10 @@
             p,
             min,
             max,
-            modal,
             target,
             index,
             isLiquid,
+            isModal,
             timer,
             readOnly,
             preventChange,
@@ -506,7 +505,7 @@
             var nw = persp.width(), // To get the width without scrollbar
                 nh = wndw[0].innerHeight || wndw.innerHeight();
 
-            if (!(ww === nw && wh === nh && check) && !preventPos && (event('onPosition', [dw, nw, nh]) !== false) && modal) {
+            if (!(ww === nw && wh === nh && check) && !preventPos && (event('onPosition', [dw, nw, nh]) !== false) && isModal) {
                 var w,
                     l,
                     t,
@@ -735,6 +734,7 @@
         that.show = function (prevAnim) {
             // Create wheels
             var lbl,
+                html,
                 l = 0,
                 mAnim = '';
 
@@ -755,17 +755,17 @@
 
             event('onBeforeShow', []);
 
-            if (modal && anim && !prevAnim) {
+            if (isModal && anim && !prevAnim) {
                 mAnim = 'dw-' + anim + ' dw-in';
             }
 
             // Create wheels containers
-            var html = '<div' + (modal ? ' tabindex="0"' : '') + ' role="dialog" class="' + s.theme + ' dw-' + s.display +
+            html = '<div' + (isModal ? ' tabindex="0"' : '') + ' role="dialog" class="' + s.theme + ' dw-' + s.display +
                 (prefix ? ' dw' + prefix.replace(/\-$/, '') : '') +
                 (isLiquid ? ' dw-liq' : '') +
                 (hasButtons ? '' : ' dw-nobtn') + '">' +
                     '<div class="dw-persp">' +
-                        (modal ? '<div class="dwo"></div>' : '') + // Overlay
+                        (isModal ? '<div class="dwo"></div>' : '') + // Overlay
                         '<div class="dw dwbg ' + mAnim + '">' + // Popup
                             (s.display === 'bubble' ? '<div class="dw-arrw"><div class="dw-arrw-i"><div class="dw-arr"></div></div></div>' : '') + // Bubble arrow
                             '<div class="dwwr">' + // Popup content
@@ -773,17 +773,18 @@
                                 '<div class="dwcc">'; // Wheel group container
 
             $.each(s.wheels, function (i, wg) { // Wheel groups
-                html += '<div class="dwc' + (s.mode != 'scroller' ? ' dwpm' : ' dwsc') + (s.showLabel ? '' : ' dwhl') + '"><div class="dwwc dwrc">' +
-                    (hasFlex ? '' : '<table class="dw-tbl" cellpadding="0" cellspacing="0"><tr>');
+                html += '<div class="dwc' + (s.mode != 'scroller' ? ' dwpm' : ' dwsc') + (s.showLabel ? '' : ' dwhl') + '">' +
+                            '<div class="dwwc"' + (s.maxWidth ? '' : ' style="max-width:600px;"') + '>' +
+                                (hasFlex ? '' : '<table class="dw-tbl" cellpadding="0" cellspacing="0"><tr>');
 
                 $.each(wg, function (j, w) { // Wheels
                     wheels[l] = w;
                     lbl = w.label !== undefined ? w.label : j;
-                    html += (hasFlex ? '' : '<td>') + '<div class="dwwl dwrc dwwl' + l + '" style="' +
+                    html += '<' + (hasFlex ? 'div' : 'td') + ' class="dwfl"' + ' style="' + 
                                     (s.fixedWidth ? ('width:' + (s.fixedWidth[l] || s.fixedWidth) + 'px;') :
                                     (s.minWidth ? ('min-width:' + (s.minWidth[l] || s.minWidth) + 'px;') : 'min-width:' + s.width + 'px;') +
-                                    (s.maxWidth ? ('max-width:' + (s.maxWidth[l] || s.maxWidth) + 'px;') : '')) + 
-                                '">' +
+                                    (s.maxWidth ? ('max-width:' + (s.maxWidth[l] || s.maxWidth) + 'px;') : '')) + '">' +
+                                '<div class="dwwl dwwl' + l + '">' +
                                 (s.mode != 'scroller' ?
                                     '<a href="#" tabindex="-1" class="dwb-e dwwb dwwbp" style="height:' + hi + 'px;line-height:' + hi + 'px;"><span>+</span></a>' + // + button
                                     '<a href="#" tabindex="-1" class="dwb-e dwwb dwwbm" style="height:' + hi + 'px;line-height:' + hi + 'px;"><span>&ndash;</span></a>' : '') + // - button
@@ -795,7 +796,7 @@
                     // Create wheel values
                     html += generateWheelItems(l) +
                         '</div><div class="dwwol"></div></div><div class="dwwo"></div></div><div class="dwwol"></div></div>' +
-                        (hasFlex ? '' : '</td>');
+                        (hasFlex ? '</div>' : '</td>');
 
                     l++;
                 });
@@ -805,7 +806,7 @@
 
             html += '</div>';
 
-            if (modal && hasButtons) {
+            if (isModal && hasButtons) {
                 html += '<div class="dwbc">';
                 $.each(buttons, function (i, b) {
                     b = (typeof b === 'string') ? that.buttons[b] : b;
@@ -826,7 +827,7 @@
             event('onMarkupReady', [dw]);
 
             // Show
-            if (modal) {
+            if (isModal) {
                 ms.activeInstance = that;
                 dw.appendTo(s.context);
                 if (has3d && anim && !prevAnim) {
@@ -842,7 +843,7 @@
 
             event('onMarkupInserted', [dw]);
 
-            if (modal) {
+            if (isModal) {
                 // Enter / ESC
                 $(window).on('keydown.dw', function (e) {
                     if (e.keyCode == 13) {
@@ -920,7 +921,6 @@
         * Hides the scroller instance.
         */
         that.hide = function (prevAnim, btn, force) {
-            var doAnim = has3d && modal && anim && !prevAnim;
 
             // If onClose handler returns false, prevent hide
             if (!visible || (!force && event('onClose', [v, btn]) === false)) {
@@ -939,7 +939,7 @@
 
             // Hide wheels and overlay
             if (dw) {
-                if (doAnim) {
+                if (has3d && isModal && anim && !prevAnim && !dw.hasClass('dw-trans')) { // If dw-trans class was not removed, means that there was no animation
                     dw.addClass('dw-trans').find('.dw').addClass('dw-' + anim + ' dw-out').on(animEnd, function () {
                         hide(prevAnim);
                     });
@@ -1035,9 +1035,8 @@
             m = Math.floor(s.rows / 2);
             hi = s.height;
             anim = s.animate;
-            modal = s.display !== 'inline';
-            layout = s.layout || (/top|bottom/.test(s.display) && s.wheels.length === 1 ? 'liquid' : '');
-            isLiquid = layout == 'liquid' && s.display !== 'bubble';
+            isLiquid = (s.layout || (/top|bottom/.test(s.display) && s.wheels.length === 1 ? 'liquid' : '')) === 'liquid';
+            isModal = s.display !== 'inline';
             buttons = s.buttons;
             wndw = $(s.context == 'body' ? window : s.context);
             doc = $(s.context)[0];
@@ -1053,7 +1052,7 @@
             }
 
             that.context = wndw;
-            that.live = !modal || ($.inArray('set', buttons) == -1);
+            that.live = !isModal || ($.inArray('set', buttons) == -1);
             that.buttons.set = { text: s.setText, css: 'dwb-s', handler: that.select };
             that.buttons.cancel = { text: (that.live) ? s.closeText : s.cancelText, css: 'dwb-c', handler: that.cancel };
             that.buttons.clear = { text: s.clearText, css: 'dwb-cl', handler: function () {
@@ -1070,7 +1069,7 @@
                 that.hide(true, false, true);
             }
 
-            if (modal) {
+            if (isModal) {
                 read();
                 if (input) {
                     // Set element readonly, save original state
@@ -1201,7 +1200,7 @@
         userdef = ms.userdef,
         defaults = extend(ms.defaults, {
             // Options
-            width: 70,
+            minWidth: 80,
             height: 40,
             rows: 3,
             delay: 300,

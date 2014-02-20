@@ -35,13 +35,12 @@
 }
 .ios .dwc {
     padding: 30px 2px 10px 2px;
-    margin: 0;
 }
 .ios .dwhl {
     padding: 10px 2px;
 }
-.ios .dwwc {
-    background: transparent;
+.ios .dwfl {
+    background: none;
 }
 .ios .dw .dwwl {
     margin: 0;
@@ -55,13 +54,13 @@
     -webkit-box-shadow: 0 1px 1px rgba(255,255,255,0.3);
     box-shadow: 0 1px 1px rgba(255,255,255,0.3);
 }
-.ios td:first-child .dwwl {
+.ios .dwfl:first-child .dwwl {
     -webkit-border-top-left-radius: 3px;
     -webkit-border-bottom-left-radius: 3px;
     border-top-left-radius: 3px;
     border-bottom-left-radius: 3px;
 }
-.ios td:last-child .dwwl {
+.ios .dwfl:last-child .dwwl {
     -webkit-border-top-right-radius: 3px;
     -webkit-border-bottom-right-radius: 3px;
     border-top-right-radius: 3px;

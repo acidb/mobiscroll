@@ -66,6 +66,7 @@
     display: block;
 }
 .dw-liq .dw-tbl {
+    width: 100%;
     table-layout: fixed;
 }
 /* Inline mode */
@@ -73,7 +74,7 @@
     position: static;
     display: inline-block;
 }
-.dw-inline.dw-liq .dw {
+.dw-inline.dw-liq .dw-persp .dw {
     display: block;
 }
 .dw-inline .dw-persp {
@@ -159,15 +160,9 @@
     overflow: hidden;
 }
 /* Datewheel wheel container */
-.dwrc {
-    -webkit-border-radius: 3px;
-    border-radius: 3px;
-}
 .dwwc {
-    margin: 0;
-    padding: 0 2px;
+    margin: 0 auto;
     position: relative;
-    background: #000;
     zoom: 1;
     display: -webkit-box;
     display: -webkit-flex;
@@ -177,8 +172,22 @@
     -webkit-justify-content: center;
     justify-content: center;
 }
-.dw-tbl {
-    width: 100%;
+.dwfl {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1 auto;
+    -ms-flex: 1 auto;
+	flex: 1 auto;
+    background: #000;
+}
+.dwfl:first-child {
+    padding-left: 2px;
+    -webkit-border-radius: 3px 0 0 3px;
+    border-radius: 3px 0 0 3px;
+}
+.dwfl:last-child {
+    padding-right: 2px;
+    -webkit-border-radius: 0 3px 3px 0;
+    border-radius: 0 3px 3px 0;
 }
 /* Datewheel wheels */
 .dwwl {
@@ -186,10 +195,6 @@
     padding: 0 2px;
     position: relative;
     z-index: 5;
-    -webkit-box-flex: 1;
-    -webkit-flex: 1 auto;
-    -ms-flex: 1 auto;
-	flex: 1 auto;
 }
 .dwww {
     position: relative;
