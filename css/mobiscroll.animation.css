@@ -18,13 +18,11 @@
     animation-duration: 350ms;
 }
 .dw-in {
-    opacity: 1;
     -webkit-animation-timing-function: ease-out;
     -moz-animation-timing-function: ease-out;
     animation-timing-function: ease-out;
 }
 .dw-out {
-    opacity: 0;
     -webkit-animation-timing-function: ease-in;
     -moz-animation-timing-function: ease-in;
     animation-timing-function: ease-in;
@@ -60,6 +58,7 @@
     transform-origin: 50% 50%;
 }
 .dw-pop.dw-in {
+    opacity: 1;
     -webkit-animation-name: dw-p-in;
     -webkit-transform: scale(1);
     -moz-animation-name: dw-p-in;
@@ -68,11 +67,13 @@
     animation-name: dw-p-in;
 }
 .dw-pop.dw-out {
+    opacity: 0;
     -webkit-animation-name: dw-p-out;
     -moz-animation-name: dw-p-out;
     animation-name: dw-p-out;
 }
 .dw-flip.dw-in {
+    opacity: 1;
     -webkit-animation-name: dw-fl-in;
     -webkit-transform: scale(1);
     -moz-animation-name: dw-fl-in;
@@ -81,11 +82,13 @@
     transform: scale(1);
 }
 .dw-flip.dw-out {
+    opacity: 0;
     animation-name: dw-fl-out;
     -webkit-animation-name: dw-fl-out;
     -moz-animation-name: dw-fl-out;
 }
 .dw-swing.dw-in {
+    opacity: 1;
     -webkit-animation-name: dw-sw-in;
     -webkit-transform: scale(1);
     -moz-animation-name: dw-sw-in;
@@ -94,11 +97,13 @@
     animation-name: dw-sw-in;
 }
 .dw-swing.dw-out {
+    opacity: 0;
     -webkit-animation-name: dw-sw-out;
     -moz-animation-name: dw-sw-out;
     animation-name: dw-sw-out;
 }
 .dw-slidehorizontal.dw-in {
+    opacity: 1;
     -webkit-animation-name: dw-sh-in;
     -webkit-transform: scale(1);
     -moz-animation-name: dw-sh-in;
@@ -107,11 +112,13 @@
     animation-name: dw-sh-in;
 }
 .dw-slidehorizontal.dw-out {
+    opacity: 0;
     -webkit-animation-name: dw-sh-out;
     -moz-animation-name: dw-sh-out;
     animation-name: dw-sh-out;
 }
 .dw-slidevertical.dw-in {
+    opacity: 1;
     -webkit-animation-name: dw-dw-sv-in;
     -webkit-transform: scale(1);
     -moz-animation-name: dw-dw-sv-in;
@@ -120,6 +127,7 @@
     transform: scale(1);
 }
 .dw-slidevertical.dw-out {
+    opacity: 0;
     -webkit-animation-name: dw-sv-out;
     -moz-animation-name: dw-sv-out;
     animation-name: dw-sv-out;
@@ -155,11 +163,13 @@
     -moz-transform: translateY(100%);
 }
 .dw-fade.dw-in {
+    opacity: 1;
     -webkit-animation-name: dw-f-in;
     -moz-animation-name: dw-f-in;
     animation-name: dw-f-in;
 }
 .dw-fade.dw-out {
+    opacity: 0;
     -webkit-animation-name: dw-f-out;
     -moz-animation-name: dw-f-out;
     animation-name: dw-f-out;

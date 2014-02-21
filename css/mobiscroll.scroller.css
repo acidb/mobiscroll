@@ -173,6 +173,8 @@
     justify-content: center;
 }
 .dwfl {
+    padding: 0 1px;
+    margin: 0 -1px;
     -webkit-box-flex: 1;
     -webkit-flex: 1 auto;
     -ms-flex: 1 auto;
@@ -180,11 +182,13 @@
     background: #000;
 }
 .dwfl:first-child {
+    margin-left: 0;
     padding-left: 2px;
     -webkit-border-radius: 3px 0 0 3px;
     border-radius: 3px 0 0 3px;
 }
 .dwfl:last-child {
+    margin-right: 0;
     padding-right: 2px;
     -webkit-border-radius: 0 3px 3px 0;
     border-radius: 0 3px 3px 0;
@@ -204,10 +208,6 @@
 .dww {
     overflow: hidden;
     position: relative;
-    z-index: 2;
-}
-.dw-moz .dww {
-    opacity: .99; /* Fixes Firefox translate overflow bug */
 }
 .dwsc .dwwl {
     background: #888;
@@ -232,7 +232,7 @@
 }
 .dw-ul {
     position: relative;
-    z-index: 2;
+    z-index: 3;
 }
 .dw-li {
     padding: 0 5px;

@@ -761,7 +761,6 @@
 
             // Create wheels containers
             html = '<div' + (isModal ? ' tabindex="0"' : '') + ' role="dialog" class="' + s.theme + ' dw-' + s.display +
-                (prefix ? ' dw' + prefix.replace(/\-$/, '') : '') +
                 (isLiquid ? ' dw-liq' : '') +
                 (hasButtons ? '' : ' dw-nobtn') + '">' +
                     '<div class="dw-persp">' +
@@ -795,7 +794,7 @@
 
                     // Create wheel values
                     html += generateWheelItems(l) +
-                        '</div><div class="dwwol"></div></div><div class="dwwo"></div></div><div class="dwwol"></div></div>' +
+                        '</div></div><div class="dwwo"></div></div><div class="dwwol"></div></div>' +
                         (hasFlex ? '</div>' : '</td>');
 
                     l++;
@@ -862,13 +861,10 @@
                     });
                 }
 
-                // Disable inputs to prevent bleed through (Android bug) and set autocomplete to off (for Firefox)
+                // Disable inputs to prevent bleed through (Android bug)
                 $('input,select,button', doc).each(function () {
-                    if (!this.disabled) {
-                        if ($(this).attr('autocomplete')) {
-                            $(this).data('autocomplete', $(this).attr('autocomplete'));
-                        }
-                        $(this).addClass('dwtd').prop('disabled', true).attr('autocomplete', 'off');
+                    if (!this.disabled && pr !== 'Moz') { // Don't do it in Firefox
+                        $(this).addClass('dwtd').prop('disabled', true);
                     }
                 });
 
@@ -928,14 +924,11 @@
             }
 
             // Re-enable temporary disabled fields
-            $('.dwtd', doc).each(function () {
-                $(this).prop('disabled', false).removeClass('dwtd');
-                if ($(this).data('autocomplete')) {
-                    $(this).attr('autocomplete', $(this).data('autocomplete'));
-                } else {
-                    $(this).removeAttr('autocomplete');
-                }
-            });
+            if (pr !== 'Moz') {
+                $('.dwtd', doc).each(function () {
+                    $(this).prop('disabled', false).removeClass('dwtd');
+                });
+            }
 
             // Hide wheels and overlay
             if (dw) {
