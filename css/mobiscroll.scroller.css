@@ -163,6 +163,7 @@
 .dwwc {
     margin: 0 auto;
     position: relative;
+    overflow: hidden;
     zoom: 1;
     display: -webkit-box;
     display: -webkit-flex;

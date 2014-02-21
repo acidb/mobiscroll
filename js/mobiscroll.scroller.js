@@ -704,14 +704,17 @@
                 startY;
 
             if (s.tap) {
-                el.on('touchstart.dw mousedown.dw', function (e) {
-                    e.preventDefault();
+                el.on('touchstart.dw', function (e) {
                     startX = getCoord(e, 'X');
                     startY = getCoord(e, 'Y');
                 }).on('touchend.dw', function (e) {
                     // If movement is less than 20px, fire the click event handler
                     if (Math.abs(getCoord(e, 'X') - startX) < 20 && Math.abs(getCoord(e, 'Y') - startY) < 20) {
-                        handler.call(this, e);
+                        // preventDefault and setTimeout are needed by iOS
+                        e.preventDefault();
+                        setTimeout(function () {
+                            handler.call(this, e);
+                        }, 10);
                     }
                     setTap();
                 });
@@ -868,8 +871,6 @@
                     }
                 });
 
-                dw.focus();
-
                 attachPosition('scroll.dw', true);
             }
 
@@ -906,7 +907,7 @@
                     });
                 }
 
-                dw.on(START_EVENT, '.dwwl', onStart).on(START_EVENT, '.dwb-e', onBtnStart);
+                dw.on(START_EVENT, '.dwwl', onStart).on(START_EVENT, '.dwb-e', onBtnStart).focus();
 
             }, 300);
 
@@ -1028,7 +1029,7 @@
             m = Math.floor(s.rows / 2);
             hi = s.height;
             anim = s.animate;
-            isLiquid = (s.layout || (/top|bottom/.test(s.display) && s.wheels.length === 1 ? 'liquid' : '')) === 'liquid';
+            isLiquid = (s.layout || (/top|bottom/.test(s.display) && s.wheels.length <= 1 ? 'liquid' : '')) === 'liquid';
             isModal = s.display !== 'inline';
             buttons = s.buttons;
             wndw = $(s.context == 'body' ? window : s.context);
