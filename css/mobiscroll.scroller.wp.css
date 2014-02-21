@@ -60,11 +60,13 @@
     box-sizing: border-box;
     filter: inherit;
 }
-.wp .wpa .dw-li, .wp .dwa .dw-li {
+.wp .wpa .dw-li, 
+.wp .dwa .dw-li {
     opacity: .3;
     filter: Alpha(Opacity=30);
 }
-.wp .wpa .dw-v, .wp .dwa .dw-v, .wp .wpam .dw-v {
+.wp .wpa .dw-v, 
+.wp .dwa .dw-v { 
     opacity: 1;
     filter: Alpha(Opacity=100);
 }

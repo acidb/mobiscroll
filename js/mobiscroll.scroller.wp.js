@@ -1,7 +1,5 @@
 (function ($) {
 
-    var anim;
-
     $.mobiscroll.themes.wp = {
         minWidth: 76,
         height: 76,
@@ -10,33 +8,32 @@
         headerText: false,
         showLabel: false,
         btnWidth: false,
-        onAnimStart: function (dw, i, time) {
-            $('.dwwl' + i, dw).addClass('wpam');
-            clearTimeout(anim[i]);
-            anim[i] = setTimeout(function () {
-                $('.dwwl' + i, dw).removeClass('wpam');
-            }, time * 1000 + 100);
-        },
         onMarkupInserted: function (elm, inst) {
             var click,
+                touch,
                 active;
-
-            anim = {};
 
             $('.dw', elm).addClass('wp-' + inst.settings.accent);
 
-            //$('.dwwl', elm).on('touchstart mousedown DOMMouseScroll mousewheel', function () {
-            $('.dwwl', elm).on('touchstart mousedown DOMMouseScroll mousewheel', '.dw-sel', function () {
-                click = true;
-                active = $(this).closest('.dwwl').hasClass('wpa');
-                $('.dwwl', elm).removeClass('wpa');
-                $(this).closest('.dwwl').addClass('wpa');
-            }).on('touchmove mousemove', function () {
-                click = false;
-            }).on('touchend mouseup', function () {
-                if (click && active) {
-                    $(this).closest('.dwwl').removeClass('wpa');
+            $('.dwwl', elm).on('touchstart mousedown DOMMouseScroll mousewheel', function (e) {
+                if (e.type === 'mousedown' && touch) {
+                    return;
                 }
+                touch = e.type === 'touchstart';
+                click = true;
+                active = $(this).hasClass('wpa');
+                $('.dwwl', elm).removeClass('wpa');
+                $(this).addClass('wpa');
+             }).on('touchmove mousemove', function () {
+                click = false;
+            }).on('touchend mouseup', function (e) {
+                if (click && active && $(e.target).parent().hasClass('dw-sel')) {
+                    $(this).removeClass('wpa');
+                }
+                if (e.type === 'mouseup') {
+                    touch = false;
+                }
+                click = false;
             });
         },
         onThemeLoad: function (lang, s) {
