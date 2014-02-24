@@ -8,6 +8,8 @@
         headerText: false,
         showLabel: false,
         btnWidth: false,
+        selectedLineHeight: true,
+        selectedLineBorder: 1,
         useShortLabels: true
     };
 

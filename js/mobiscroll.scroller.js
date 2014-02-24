@@ -3,7 +3,6 @@
 
     $.mobiscroll.classes.Scroller = function (elem, settings) {
         var m,
-            hi,
             v,
             dw,
             persp,
@@ -30,6 +29,8 @@
             index,
             isLiquid,
             isModal,
+            itemHeight,
+            lines,
             timer,
             readOnly,
             preventChange,
@@ -84,7 +85,7 @@
                 e.preventDefault();
                 e.stopPropagation();
                 stop = getCoord(e, 'Y');
-                scroll(target, index, constrain(p + (start - stop) / hi, min - 1, max + 1));
+                scroll(target, index, constrain(p + (start - stop) / itemHeight, min - 1, max + 1));
             }
             if (start !== stop) {
                 moved = true;
@@ -93,7 +94,7 @@
 
         function onEnd(e) {
             var time = new Date() - startTime,
-                val = constrain(p + (start - stop) / hi, min - 1, max + 1),
+                val = constrain(p + (start - stop) / itemHeight, min - 1, max + 1),
                 speed,
                 dist,
                 tindex,
@@ -109,10 +110,10 @@
                 dist = stop - start;
             }
 
-            tindex = Math.round(p - dist / hi);
+            tindex = Math.round(p - dist / itemHeight);
 
             if (!dist && !moved) { // this is a "tap"
-                var idx = Math.floor((stop - ttop) / hi),
+                var idx = Math.floor((stop - ttop) / itemHeight),
                     li = $($('.dw-li', target)[idx]),
                     hl = scrollable;
                 if (event('onValueTap', [li]) !== false) {
@@ -234,7 +235,8 @@
                 if (l % 20 == 0) {
                     html += '</div><div class="dw-bf">';
                 }
-                html += '<div role="option" aria-selected="false" class="dw-li dw-v" data-val="' + keys[j] + '"' + (labels[j] ? ' aria-label="' + labels[j] + '"' : '') + ' style="height:' + hi + 'px;line-height:' + hi + 'px;"><div class="dw-i">' + v + '</div></div>';
+                html += '<div role="option" aria-selected="false" class="dw-li dw-v" data-val="' + keys[j] + '"' + (labels[j] ? ' aria-label="' + labels[j] + '"' : '') + ' style="height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;">' +
+                    '<div class="dw-i"' + (lines > 1 ? ' style="line-height:' + Math.round(itemHeight / lines) + 'px;font-size:' + Math.round(itemHeight / lines * 0.8) + 'px;' : '') + '">' + v + '</div></div>';
                 l++;
             });
 
@@ -276,7 +278,7 @@
                 px = style.top.replace('px', '');
             }
 
-            return Math.round(m - (px / hi));
+            return Math.round(m - (px / itemHeight));
         }
 
         function ready(t, i) {
@@ -286,7 +288,7 @@
         }
 
         function scroll(t, index, val, time, active) {
-            var px = (m - val) * hi,
+            var px = (m - val) * itemHeight,
                 style = t[0].style,
                 i;
 
@@ -765,6 +767,7 @@
             // Create wheels containers
             html = '<div' + (isModal ? ' tabindex="0"' : '') + ' role="dialog" class="' + s.theme + ' dw-' + s.display +
                 (isLiquid ? ' dw-liq' : '') +
+                (lines > 1 ? ' dw-ml' : '') +
                 (hasButtons ? '' : ' dw-nobtn') + '">' +
                     '<div class="dw-persp">' +
                         (isModal ? '<div class="dwo"></div>' : '') + // Overlay
@@ -788,16 +791,17 @@
                                     (s.maxWidth ? ('max-width:' + (s.maxWidth[l] || s.maxWidth) + 'px;') : '')) + '">' +
                                 '<div class="dwwl dwwl' + l + '">' +
                                 (s.mode != 'scroller' ?
-                                    '<a href="#" tabindex="-1" class="dwb-e dwwb dwwbp" style="height:' + hi + 'px;line-height:' + hi + 'px;"><span>+</span></a>' + // + button
-                                    '<a href="#" tabindex="-1" class="dwb-e dwwb dwwbm" style="height:' + hi + 'px;line-height:' + hi + 'px;"><span>&ndash;</span></a>' : '') + // - button
+                                    '<a href="#" tabindex="-1" class="dwb-e dwwb dwwbp" style="height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;"><span>+</span></a>' + // + button
+                                    '<a href="#" tabindex="-1" class="dwb-e dwwb dwwbm" style="height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;"><span>&ndash;</span></a>' : '') + // - button
                                 '<div class="dwl">' + lbl + '</div>' + // Wheel label
                                 '<div tabindex="0" aria-live="off" aria-label="' + lbl + '" role="listbox" class="dwww">' +
-                                    '<div class="dww" style="height:' + (s.rows * hi) + 'px;">' +
+                                    '<div class="dww" style="height:' + (s.rows * itemHeight) + 'px;">' +
                                         '<div class="dw-ul">';
 
                     // Create wheel values
                     html += generateWheelItems(l) +
-                        '</div></div><div class="dwwo"></div></div><div class="dwwol"></div></div>' +
+                        '</div></div><div class="dwwo"></div></div><div class="dwwol"' + 
+                        (s.selectedLineHeight ? ' style="height:' + itemHeight + 'px;margin-top:-' + (itemHeight / 2 + (s.selectedLineBorder || 0)) + 'px;"' : '') + '></div></div>' +
                         (hasFlex ? '</div>' : '</td>');
 
                     l++;
@@ -1027,8 +1031,9 @@
 
             // Set private members
             m = Math.floor(s.rows / 2);
-            hi = s.height;
+            itemHeight = s.height;
             anim = s.animate;
+            lines = s.lines;
             isLiquid = (s.layout || (/top|bottom/.test(s.display) && s.wheels.length <= 1 ? 'liquid' : '')) === 'liquid';
             isModal = s.display !== 'inline';
             buttons = s.buttons;
@@ -1197,6 +1202,7 @@
             minWidth: 80,
             height: 40,
             rows: 3,
+            lines: 1,
             delay: 300,
             disabled: false,
             readonly: false,
