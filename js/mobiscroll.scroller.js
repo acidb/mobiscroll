@@ -1033,7 +1033,7 @@
             m = Math.floor(s.rows / 2);
             itemHeight = s.height;
             anim = s.animate;
-            lines = s.lines;
+            lines = s.multiline;
             isLiquid = (s.layout || (/top|bottom/.test(s.display) && s.wheels.length <= 1 ? 'liquid' : '')) === 'liquid';
             isModal = s.display !== 'inline';
             buttons = s.buttons;
@@ -1202,7 +1202,7 @@
             minWidth: 80,
             height: 40,
             rows: 3,
-            lines: 1,
+            multiline: 1,
             delay: 300,
             disabled: false,
             readonly: false,
