@@ -240,6 +240,100 @@
                 return new Date(get(d, 'y'), get(d, 'm'), get(d, 'd', 1), get(d, 'a', 0) ? hour + 12 : hour, get(d, 'i', 0), get(d, 's', 0));
             }
 
+            function getClosestValidDate(d, dir) {
+                var valid,
+                    nextValid = false,
+                    prevValid = false,
+                    next = d,
+                    prev = d,
+                    up = 0,
+                    down = 0;
+
+                if (isValid(d)) {
+                    return d;
+                }
+
+                if (dir !== 2) {
+                    nextValid = false;
+
+                    if (prev < mind) {
+                        prev = mind;
+                    }
+
+                    while (!nextValid && prev < maxd) {
+                        next = new Date(next.getTime() + 1000 * 60 * 60 * 24);
+                        nextValid = isValid(next);
+                        up++;
+                    }
+                }
+
+                if (dir !== 1) {
+                    prevValid = false;
+
+                    if (next > maxd) {
+                        next = maxd;
+                    }
+
+                    while (!prevValid && prev > mind) {
+                        prev = new Date(prev.getTime() - 1000 * 60 * 60 * 24);
+                        prevValid = isValid(prev);
+                        down++;
+                    }
+                }
+
+                if (dir === 1 && nextValid) {
+                    return next;
+                }
+
+                if (dir === 2 && prevValid) {
+                    return prev;
+                }
+
+                return down < up && prevValid ? prev : next;
+            }
+
+            function isValid(d) {
+                var curr,
+                    j,
+                    v;
+
+                if (d < mind) {
+                    return false;
+                }
+
+                if (d > maxd) {
+                    return false;
+                }
+
+                for (j = 0; j < invalid.length; j++) {
+                    curr = invalid[j];
+                    v = curr + '';
+                    if (!curr.start) {
+                        if (curr.getTime) { // Exact date
+                            if (d.getFullYear() == curr.getFullYear() && d.getMonth() == curr.getMonth() && d.getDate() == curr.getDate()) {
+                                return false;
+                            }
+                        } else if (!v.match(/w/i)) { // Day of month
+                            v = v.split('/');
+                            if (v[1]) {
+                                if ((v[0] - 1) == d.getMonth() && v[1] == d.getDate()) {
+                                    return false;
+                                }
+                            } else if (v[0] == d.getDate()) {
+                                return false;
+                            }
+                        } else { // Day of week
+                            v = +v.replace('w', '');
+                            if (v == d.getDay()) {
+                                return false;
+                            }
+                        }
+                    }
+                }
+
+                return true;
+            }
+
             function getIndex(t, v) {
                 return $('.dw-li', t).index($('.dw-li[data-val="' + v + '"]', t));
             }
@@ -252,6 +346,17 @@
                     return $('.dw-li', t).length;
                 }
                 return getIndex(t, v) + add;
+            }
+
+            function getArray(d) {
+                var i,
+                    ret = [];
+
+                for (i in o) {
+                    ret[o[i]] = d[f[i]] ? d[f[i]]() : f[i](d);
+                }
+
+                return ret;
             }
 
             // Extended methods
@@ -267,12 +372,7 @@
              * @param {Boolean} [change=fill] Trigger change on input element.
              */
             inst.setDate = function (d, fill, time, temp, change) {
-                var i;
-
-                // Set wheels
-                for (i in o) {
-                    inst.temp[o[i]] = d[f[i]] ? d[f[i]]() : f[i](d);
-                }
+                inst.temp = getArray(d);
                 inst.setValue(inst.temp, fill, time, temp, change);
             };
 
@@ -328,18 +428,11 @@
                     return ms.formatDate(format, getDate(d), s);
                 },
                 parseValue: function (val) {
-                    var d = ms.parseDate(format, val, s),
-                        i,
-                        result = [];
-
-                    // Set wheels
-                    for (i in o) {
-                        result[o[i]] = d[f[i]] ? d[f[i]]() : f[i](d);
-                    }
-                    return result;
+                    return getArray(ms.parseDate(format, val, s));
                 },
                 validate: function (dw, i, time, dir) {
-                    var temp = inst.temp, //.slice(0),
+                    var valid = getClosestValidDate(getDate(inst.temp), dir),
+                        temp = getArray(valid),//inst.temp, //.slice(0),
                         mins = { y: mind.getFullYear(), m: 0, d: 1, h: 0, i: 0, s: 0, a: 0 },
                         maxs = { y: maxd.getFullYear(), m: 11, d: 31, h: step(hampm ? 11 : 23, stepH), i: step(59, stepM), s: step(59, stepS), a: 1 },
                         steps = { h: stepH, i: stepM, s: stepS, a: 1 },
@@ -432,11 +525,11 @@
                                     $('.dw-li', t).eq(v).removeClass('dw-v');
                                 });
 
-                                val = inst.getValidCell(val, t, dir).val;
+                                //val = inst.getValidCell(val, t, dir).val;
                             }
 
                             // Set modified value
-                            temp[o[i]] = val;
+                            //temp[o[i]] = val;
                         }
                     });
 
@@ -546,6 +639,8 @@
                             }
                         });
                     }
+
+                    inst.temp = temp;
                 }
             };
         };
