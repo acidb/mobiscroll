@@ -88,6 +88,16 @@
             return w;
         }
 
+        function getOption() {
+            option = multiple ? (elm.val() ? elm.val()[0] : $('option', elm).attr('value')) : elm.val();
+
+            if (s.group) {
+                group = elm.find('option[value="' + option + '"]').parent();
+                gr = group.index();
+                prev = gr;
+            }
+        }
+
         function setVal(v, fill, change) {
             var value = [];
 
@@ -136,7 +146,7 @@
             }
         }
 
-        // if groups is true and there are no groups fall back to no grouping
+        // If groups is true and there are no groups fall back to no grouping
         if (s.group && !$('optgroup', elm).length) {
             s.group = false;
         }
@@ -157,6 +167,8 @@
             grIdx = -1;
             optIdx = 0;
         }
+
+        getOption();
 
         $('#' + id).remove();
 
@@ -253,10 +265,7 @@
                     }
                 }
 
-                option = multiple ? (elm.val() ? elm.val()[0] : $('option', elm).attr('value')) : elm.val();
-                group = elm.find('option[value="' + option + '"]').parent();
-                gr = group.index();
-                prev = gr;
+                getOption();
 
                 return s.group && s.rtl ? [option, gr] : s.group ? [gr, option] : [option];
             },
@@ -271,11 +280,11 @@
                     };
                 }
 
-                option = multiple ? (elm.val() ? elm.val()[0] : $('option', elm).attr('value')) : elm.val();
+                if (option === undefined) {
+                    getOption();
+                }
 
                 if (s.group) {
-                    group = elm.find('option[value="' + option + '"]').parent();
-                    gr = group.index();
                     prev = gr;
                     inst.temp = s.rtl ? [option, gr] : [gr, option];
                 }
