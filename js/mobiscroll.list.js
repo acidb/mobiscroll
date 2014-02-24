@@ -355,7 +355,8 @@
                     elm.show();
                 },
                 validate: function (dw, index, time) {
-                    var args = [],
+                    var origReadOnly,
+                        args = [],
                         t = inst.temp,
                         i = (index || 0) + 1,
                         o;
@@ -373,6 +374,7 @@
                         }
 
                         if (args.length) {
+                            origReadOnly = s.readonly;
                             s.readonly = createROVector(lvl, index);
                             clearTimeout(timer[index]);
                             timer[index] = setTimeout(function () {
@@ -380,7 +382,7 @@
                                 hideWheels(dw, o.lvl);
                                 currWheelVector = inst.temp.slice(0);
                                 inst.changeWheel(args, index === undefined ? time : 0, index !== undefined);
-                                s.readonly = false;
+                                s.readonly = origReadOnly;
                             }, index === undefined ? 0 : time * 1000);
                             return false;
                         }
