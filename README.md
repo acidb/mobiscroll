@@ -23,6 +23,68 @@ It'd be cool to see how you're using Mobiscroll!
 
 We're looking at showcasing some of the best work on http://mobiscroll.com . Feel free to let us know on twitter @mobiscroll!
 
+
+Changelog 2.9.4
+===============
+
+Enhancements
+------------
+
+_Core_
+
+  * Changed: Mobiscroll is focused on popup to make keyboard navigation easier (#150).
+
+  * Changed: Using css flexible box model for wheel distribution. Falls back to table layout on devices without flex support (IE8 and IE9).
+
+  * Changed: Improved Firefox compatibility.
+
+  * Added: layout setting, can be 'fixed' or 'liquid'.
+
+  * Added: multiline setting to wrap the wheel item content into multiple lines.
+
+_Rangepicker_
+
+  * Changed: Initial range is now today + 7 days.
+
+_Listview_
+
+  * Added: animation setting, if set to false no animation will occur. Default is true.
+
+_Localization_
+
+  * Added: Romanian, Polish, Russian (UA) translations.
+  
+
+Bugfixes
+--------
+
+_Core_
+
+
+_Calendar_
+
+  * Fixed: Keyboard navigation issues.
+
+_Measurements_
+
+  * Fixed: Value is constrained between min and max if set from input or with setValue method.
+
+  * Fixed: setValue did not work correctly if value was passed as an array (#188).
+
+_Select_
+
+  * Fixed: getValue method was not working correctly in group mode (#202).
+
+_Themes_
+
+  * Fixed: Auto theme chooser did not detect iOS7 correctly (#207).
+
+_Treelist_
+
+  * Fixed: Readonly setting was not working correctly (#203).
+
+
+
 Changelog 2.9.3
 ===============
 
