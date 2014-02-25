@@ -9,6 +9,8 @@
         preset = function (inst) {
             var orig = $.extend({}, inst.settings),
                 s = $.extend(inst.settings, defaults, orig),
+                layout = s.layout || (/top|bottom/.test(s.display) ? 'liquid' : ''),
+                isLiquid = layout == 'liquid',
                 elm = $(this),
                 input,
                 prevent,
@@ -109,16 +111,24 @@
              */
             function generateWheelsFromVector(wv, l, index) {
                 var i = 0, j, obj, chInd,
-                    w = [],
+                    w = [[]],
                     wtObjA = wa;
 
                 if (l) { // if length is defined we need to generate that many wheels (even if they are empty)
                     for (j = 0; j < l; j++) {
-                        w[j] = [{}];
+                        if (isLiquid) {
+                            w[0][j] = {};
+                        } else {
+                            w[j] = [{}];
+                        }
                     }
                 }
                 while (i < wv.length) { // we generate the wheels until the length of the wheel vector
-                    w[i] = [getWheelFromObjA(wtObjA, labels[i])];
+                    if (isLiquid) {
+                        w[0][i] = getWheelFromObjA(wtObjA, labels[i]);
+                    } else {
+                        w[i] = [getWheelFromObjA(wtObjA, labels[i])];
+                    }
 
                     j = 0;
                     chInd = undefined;
@@ -324,6 +334,7 @@
             return {
                 width: 50,
                 wheels: w,
+                layout: layout,
                 headerText: false,
                 parseValue: function (value, inst) {
                     return value ? value.split(" ") : (s.defaultValue || fwv);

@@ -26,6 +26,8 @@
             w,
             orig = $.extend({}, inst.settings),
             s = $.extend(inst.settings, defaults, orig),
+            layout = s.layout || (/top|bottom/.test(s.display) ? 'liquid' : ''),
+            isLiquid = layout == 'liquid',
             elm = $(this),
             multiple = elm.prop('multiple'),
             id = this.id + '_dummy',
@@ -39,6 +41,7 @@
 
         function genWheels() {
             var cont,
+                wheel,
                 wg = 0,
                 values = [],
                 keys = [],
@@ -54,11 +57,17 @@
                     keys.push(i);
                 });
 
-                w[wg] = [{
+                wheel = {
                     values: values,
                     keys: keys,
                     label: s.groupLabel
-                }];
+                };
+
+                if (isLiquid) {
+                    w[0][wg] = wheel;
+                } else {
+                    w[wg] = [wheel];
+                }
 
                 cont = group;
                 wg += (s.rtl ? -1 : 1);
@@ -79,11 +88,17 @@
                 }
             });
 
-            w[wg] = [{
+            wheel = {
                 values: values,
                 keys: keys,
                 label: label
-            }];
+            };
+
+            if (isLiquid) {
+                w[0][wg] = wheel;
+            } else {
+                w[wg] = [wheel];
+            }
 
             return w;
         }
@@ -248,6 +263,7 @@
         return {
             width: 50,
             wheels: w,
+            layout: layout,
             headerText: false,
             multiple: multiple,
             anchor: input,

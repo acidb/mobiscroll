@@ -1035,7 +1035,7 @@
             itemHeight = s.height;
             anim = s.animate;
             lines = s.multiline;
-            isLiquid = (s.layout || (/top|bottom/.test(s.display) && s.wheels.length <= 1 ? 'liquid' : '')) === 'liquid';
+            isLiquid = (s.layout || (/top|bottom/.test(s.display) && s.wheels.length == 1 ? 'liquid' : '')) === 'liquid';
             isModal = s.display !== 'inline';
             buttons = s.buttons;
             wndw = $(s.context == 'body' ? window : s.context);
