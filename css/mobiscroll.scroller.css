@@ -131,6 +131,7 @@
     vertical-align: middle;
     padding: 26px 2px 4px 2px;
     display: inline-block;
+    overflow: hidden;
 }
 /* Wheel label */
 .dwl {
@@ -162,7 +163,6 @@
 .dwwc {
     margin: 0 auto;
     position: relative;
-    overflow: hidden;
     zoom: 1;
     display: -webkit-box;
     display: -webkit-flex;
