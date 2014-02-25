@@ -2,11 +2,11 @@
     $.mobiscroll.i18n.ro = $.extend($.mobiscroll.i18n.ro, {
         // Core
         setText: 'Setare',
-        cancelText: ' Anulare ',
-        clearText: ' Ştergere ',
-        selectedText: ' Selectat ',
+        cancelText: 'Anulare',
+        clearText: 'Ştergere',
+        selectedText: 'Selectat',
         // Datetime component
-        dateFormat: zz/ll/aa,
+        dateFormat: 'dd.mm.yy',
         dateOrder: 'ddmmy',
         dayNames: ['Duminică', 'Luni', 'Marți', 'Miercuri', 'Joi', 'Vineri', 'Sâmbătă'],
         dayNamesShort: ['Du', 'Lu', 'Ma', 'Mi', 'Jo', 'Vi', 'Sâ'],
@@ -17,8 +17,8 @@
         monthNamesShort: ['Ian.', 'Feb.', 'Mar.', 'Apr.', 'Mai', 'Iun.', 'Iul.', 'Aug.', 'Sept.', 'Oct.', 'Nov.', 'Dec.'],
         monthText: 'Luna',
         secText: 'Secunde',
-        timeFormat: 'hh:ii A',
-        timeWheels: 'hhiiA',
+        timeFormat: 'HH:ii',
+        timeWheels: 'HHii',
         yearText: 'Anul',
         nowText: 'Acum',
         amText: 'am',
@@ -41,8 +41,8 @@
         // Timer component
         startText: 'Start',
         stopText: 'Stop',
-        resetText: 'Tură',
-        lapText: 'Lap',
+        resetText: 'Resetare',
+        lapText: 'Tură',
         hideText: 'Ascundere'
     });
 })(jQuery);
