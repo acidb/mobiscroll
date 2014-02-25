@@ -173,7 +173,7 @@
     justify-content: center;
 }
 .dwfl {
-    padding: 0 1px;
+    padding: 4px 3px;
     margin: 0 -1px;
     -webkit-box-flex: 1;
     -webkit-flex: 1 auto;
@@ -183,19 +183,19 @@
 }
 .dwfl:first-child {
     margin-left: 0;
-    padding-left: 2px;
+    padding-left: 4px;
     -webkit-border-radius: 3px 0 0 3px;
     border-radius: 3px 0 0 3px;
 }
 .dwfl:last-child {
     margin-right: 0;
-    padding-right: 2px;
+    padding-right: 4px;
     -webkit-border-radius: 0 3px 3px 0;
     border-radius: 0 3px 3px 0;
 }
 /* Wheels */
 .dwwl {
-    margin: 4px 2px;
+    margin: 0;
     padding: 0 2px;
     position: relative;
     z-index: 5;

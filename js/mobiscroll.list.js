@@ -11,6 +11,7 @@
                 s = $.extend(inst.settings, defaults, orig),
                 layout = s.layout || (/top|bottom/.test(s.display) ? 'liquid' : ''),
                 isLiquid = layout == 'liquid',
+                origReadOnly = s.readonly,
                 elm = $(this),
                 input,
                 prevent,
@@ -366,8 +367,7 @@
                     elm.show();
                 },
                 validate: function (dw, index, time) {
-                    var origReadOnly,
-                        args = [],
+                    var args = [],
                         t = inst.temp,
                         i = (index || 0) + 1,
                         o;
@@ -385,7 +385,6 @@
                         }
 
                         if (args.length) {
-                            origReadOnly = s.readonly;
                             s.readonly = createROVector(lvl, index);
                             clearTimeout(timer[index]);
                             timer[index] = setTimeout(function () {

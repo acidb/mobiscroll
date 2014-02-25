@@ -141,6 +141,7 @@
         }
 
         function onBtnStart(e) {
+            e.preventDefault();
             if (btn) {
                 btn.removeClass('dwb-a');
             }

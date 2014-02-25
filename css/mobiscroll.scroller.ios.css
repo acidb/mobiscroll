@@ -40,6 +40,8 @@
     padding: 10px 2px;
 }
 .ios .dwfl {
+    padding: 0;
+    margin: 0;
     background: none;
 }
 .ios .dw .dwwl {
