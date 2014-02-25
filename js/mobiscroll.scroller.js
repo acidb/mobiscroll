@@ -462,6 +462,9 @@
             }
 
             if (fill) {
+
+                event('onValueFill', [v, change]);
+
                 if (input) {
                     elm.val(v);
                     if (change) {
@@ -469,8 +472,6 @@
                         elm.change();
                     }
                 }
-
-                event('onValueFill', [v, change]);
             }
         }
 
