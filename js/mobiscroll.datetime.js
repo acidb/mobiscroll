@@ -305,27 +305,29 @@
                     return false;
                 }
 
-                for (j = 0; j < invalid.length; j++) {
-                    curr = invalid[j];
-                    v = curr + '';
-                    if (!curr.start) {
-                        if (curr.getTime) { // Exact date
-                            if (d.getFullYear() == curr.getFullYear() && d.getMonth() == curr.getMonth() && d.getDate() == curr.getDate()) {
-                                return false;
-                            }
-                        } else if (!v.match(/w/i)) { // Day of month
-                            v = v.split('/');
-                            if (v[1]) {
-                                if ((v[0] - 1) == d.getMonth() && v[1] == d.getDate()) {
+                if (invalid) {
+                    for (j = 0; j < invalid.length; j++) {
+                        curr = invalid[j];
+                        v = curr + '';
+                        if (!curr.start) {
+                            if (curr.getTime) { // Exact date
+                                if (d.getFullYear() == curr.getFullYear() && d.getMonth() == curr.getMonth() && d.getDate() == curr.getDate()) {
                                     return false;
                                 }
-                            } else if (v[0] == d.getDate()) {
-                                return false;
-                            }
-                        } else { // Day of week
-                            v = +v.replace('w', '');
-                            if (v == d.getDay()) {
-                                return false;
+                            } else if (!v.match(/w/i)) { // Day of month
+                                v = v.split('/');
+                                if (v[1]) {
+                                    if ((v[0] - 1) == d.getMonth() && v[1] == d.getDate()) {
+                                        return false;
+                                    }
+                                } else if (v[0] == d.getDate()) {
+                                    return false;
+                                }
+                            } else { // Day of week
+                                v = +v.replace('w', '');
+                                if (v == d.getDay()) {
+                                    return false;
+                                }
                             }
                         }
                     }
