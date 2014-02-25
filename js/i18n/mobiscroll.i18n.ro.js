@@ -1,48 +1,48 @@
 (function ($) {
     $.mobiscroll.i18n.ro = $.extend($.mobiscroll.i18n.ro, {
         // Core
-        setText: 'Set',
-        cancelText: 'Cancel',
-        clearText: 'Clear',
-        selectedText: 'Selected',
+        setText: 'Setare',
+        cancelText: ' Anulare ',
+        clearText: ' Ştergere ',
+        selectedText: ' Selectat ',
         // Datetime component
-        dateFormat: 'dd/mm/yy',
+        dateFormat: zz/ll/aa,
         dateOrder: 'ddmmy',
         dayNames: ['Duminică', 'Luni', 'Marți', 'Miercuri', 'Joi', 'Vineri', 'Sâmbătă'],
         dayNamesShort: ['Du', 'Lu', 'Ma', 'Mi', 'Jo', 'Vi', 'Sâ'],
-        dayText: 'Day',
-        hourText: 'Hours',
-        minuteText: 'Minutes',
+        dayText: ' Ziua',
+        hourText: ' Ore ',
+        minuteText: 'Minute',
         monthNames: ['Ianuarie', 'Februarie', 'Martie', 'Aprilie', 'Mai', 'Iunie', 'Iulie', 'August', 'Septembrie', 'Octombrie', 'Noiembrie', 'Decembrie'],
         monthNamesShort: ['Ian.', 'Feb.', 'Mar.', 'Apr.', 'Mai', 'Iun.', 'Iul.', 'Aug.', 'Sept.', 'Oct.', 'Nov.', 'Dec.'],
-        monthText: 'Month',
-        secText: 'Seconds',
+        monthText: 'Luna',
+        secText: 'Secunde',
         timeFormat: 'hh:ii A',
         timeWheels: 'hhiiA',
-        yearText: 'Year',
-        nowText: 'Now',
+        yearText: 'Anul',
+        nowText: 'Acum',
         amText: 'am',
         pmText: 'pm',
         // Calendar component
-        dateText: 'Date',
-        timeText: 'Time',
+        dateText: 'Data',
+        timeText: 'Ora',
         calendarText: 'Calendar',
-        closeText: 'Close',
+        closeText: 'Închidere',
         // Daterange component
         fromText: 'Start',
-        toText: 'End',
+        toText: 'Final',
         // Measurement components
-        wholeText: 'Whole',
-        fractionText: 'Fraction',
-        unitText: 'Unit',
+        wholeText: 'Complet',
+        fractionText: 'Parţial',
+        unitText: 'Unitate',
         // Time / Timespan component
-        labels: ['Years', 'Months', 'Days', 'Hours', 'Minutes', 'Seconds', ''],
-        labelsShort: ['Yrs', 'Mths', 'Days', 'Hrs', 'Mins', 'Secs', ''],
+        labels: ['Ani', 'Luni', 'Zile', 'Ore', 'Minute', 'Secunde', ''],
+        labelsShort: ['Ani', 'Luni', 'Zile', 'Ore', 'Min.', 'Sec.', ''],
         // Timer component
         startText: 'Start',
         stopText: 'Stop',
-        resetText: 'Reset',
+        resetText: 'Tură',
         lapText: 'Lap',
-        hideText: 'Hide'
+        hideText: 'Ascundere'
     });
 })(jQuery);
