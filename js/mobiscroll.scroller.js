@@ -75,7 +75,9 @@
                     target.closest('.dwwl').addClass('dwa');
                 }
 
-                $(document).on(MOVE_EVENT, onMove).on(END_EVENT, onEnd);
+                if (e.type === 'mousedown') {
+                    $(document).on('mousemove', onMove).on('mouseup', onEnd);
+                }
             }
         }
 
@@ -134,19 +136,20 @@
                 calc(target, tindex, 0, true, Math.round(val));
             }
 
+            if (e.type === 'mouseup') {
+                $(document).off('mousemove', onMove).off('mouseup', onEnd);
+            }
+
             move = false;
             target = null;
-
-            $(document).off(MOVE_EVENT, onMove).off(END_EVENT, onEnd);
         }
 
         function onBtnStart(e) {
-            e.preventDefault();
+            // Can't call preventDefault here, it kills page scroll
             if (btn) {
                 btn.removeClass('dwb-a');
             }
             btn = $(this);
-            $(document).on(END_EVENT, onBtnEnd);
             // Active button
             if (!btn.hasClass('dwb-d') && !btn.hasClass('dwb-nhl')) {
                 btn.addClass('dwb-a');
@@ -156,6 +159,9 @@
                 if (testTouch(e)) {
                     step(e, btn.closest('.dwwl'), btn.hasClass('dwwbp') ? plus : minus);
                 }
+            }
+            if (e.type === 'mousedown') {
+                $(document).on('mouseup', onBtnEnd);
             }
         }
 
@@ -168,7 +174,9 @@
                 btn.removeClass('dwb-a');
                 btn = null;
             }
-            $(document).off(END_EVENT, onBtnEnd);
+            if (e.type === 'mouseup') {
+                $(document).off('mousedown', onBtnEnd);
+            }
         }
 
         function onKeyDown(e) {
@@ -237,7 +245,7 @@
                     html += '</div><div class="dw-bf">';
                 }
                 html += '<div role="option" aria-selected="false" class="dw-li dw-v" data-val="' + keys[j] + '"' + (labels[j] ? ' aria-label="' + labels[j] + '"' : '') + ' style="height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;">' +
-                    '<div class="dw-i"' + (lines > 1 ? ' style="line-height:' + Math.round(itemHeight / lines) + 'px;font-size:' + Math.round(itemHeight / lines * 0.8) + 'px;' : '') + '">' + v + '</div></div>';
+                    '<div class="dw-i"' + (lines > 1 ? ' style="line-height:' + Math.round(itemHeight / lines) + 'px;font-size:' + Math.round(itemHeight / lines * 0.8) + 'px;"' : '') + '>' + v + '</div></div>';
                 l++;
             });
 
@@ -703,12 +711,16 @@
         /**
         * Attach tap event to the given element.
         */
-        that.tap = function (el, handler) {
+        that.tap = function (el, handler, prevent) {
             var startX,
                 startY;
 
             if (s.tap) {
                 el.on('touchstart.dw', function (e) {
+                    // Can't always call preventDefault here, it kills page scroll
+                    if (prevent) {
+                        e.preventDefault();
+                    }
                     startX = getCoord(e, 'X');
                     startY = getCoord(e, 'Y');
                 }).on('touchend.dw', function (e) {
@@ -718,7 +730,7 @@
                         e.preventDefault();
                         setTimeout(function () {
                             handler.call(this, e);
-                        }, 10);
+                        }, isOldAndroid ? 400 : 10);
                     }
                     setTap();
                 });
@@ -762,7 +774,7 @@
 
             event('onBeforeShow', []);
 
-            if (isModal && anim && !prevAnim) {
+            if (isModal && anim && !prevAnim && !isOldAndroid) {
                 mAnim = 'dw-' + anim + ' dw-in';
             }
 
@@ -838,7 +850,7 @@
             if (isModal) {
                 ms.activeInstance = that;
                 dw.appendTo(s.context);
-                if (has3d && anim && !prevAnim) {
+                if (has3d && anim && !prevAnim && !isOldAndroid) {
                     dw.addClass('dw-trans').on(animEnd, function () {
                         dw.removeClass('dw-trans').find('.dw').removeClass(mAnim);
                     });
@@ -871,11 +883,13 @@
                 }
 
                 // Disable inputs to prevent bleed through (Android bug)
-                $('input,select,button', doc).each(function () {
-                    if (!this.disabled && pr !== 'Moz') { // Don't do it in Firefox
-                        $(this).addClass('dwtd').prop('disabled', true);
-                    }
-                });
+                if (isOldAndroid) {
+                    $('input,select,button', doc).each(function () {
+                        if (!this.disabled) {
+                            $(this).addClass('dwtd').prop('disabled', true);
+                        }
+                    });
+                }
 
                 attachPosition('scroll.dw', true);
             }
@@ -904,7 +918,7 @@
                     that.tap($('.dwb' + i, dw), function (e) {
                         b = (typeof b === 'string') ? that.buttons[b] : b;
                         b.handler.call(this, e, that);
-                    });
+                    }, true);
                 });
 
                 if (s.closeOnOverlay) {
@@ -913,7 +927,12 @@
                     });
                 }
 
-                dw.on(START_EVENT, '.dwwl', onStart).on(START_EVENT, '.dwb-e', onBtnStart).focus();
+                dw.focus()
+                    .on('touchstart mousedown', '.dwwl', onStart)
+                    .on('touchmove', '.dwwl', onMove)
+                    .on('touchend', '.dwwl', onEnd)
+                    .on('touchstart mousedown', '.dwb-e', onBtnStart)
+                    .on('touchend', '.dwb-e', onBtnEnd);
 
             }, 300);
 
@@ -931,7 +950,7 @@
             }
 
             // Re-enable temporary disabled fields
-            if (pr !== 'Moz') {
+            if (isOldAndroid) {
                 $('.dwtd', doc).each(function () {
                     $(this).prop('disabled', false).removeClass('dwtd');
                 });
@@ -939,7 +958,7 @@
 
             // Hide wheels and overlay
             if (dw) {
-                if (has3d && isModal && anim && !prevAnim && !dw.hasClass('dw-trans')) { // If dw-trans class was not removed, means that there was no animation
+                if (has3d && isModal && anim && !prevAnim && !isOldAndroid && !dw.hasClass('dw-trans')) { // If dw-trans class was not removed, means that there was no animation
                     dw.addClass('dw-trans').find('.dw').addClass('dw-' + anim + ' dw-out').on(animEnd, function () {
                         hide(prevAnim);
                     });
@@ -1194,11 +1213,9 @@
         empty = function () {},
         prevdef = function (e) { e.preventDefault(); },
         extend = $.extend,
-        START_EVENT = 'touchstart mousedown',
-        MOVE_EVENT = 'touchmove mousemove',
-        END_EVENT = 'touchend mouseup',
         animEnd = 'webkitAnimationEnd animationend',
         userdef = ms.userdef,
+        isOldAndroid = /android [1-3]/i.test(navigator.userAgent),
         defaults = extend(ms.defaults, {
             // Options
             minWidth: 80,

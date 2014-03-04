@@ -24,10 +24,10 @@
                 active = $(this).hasClass('wpa');
                 $('.dwwl', elm).removeClass('wpa');
                 $(this).addClass('wpa');
-             }).on('touchmove mousemove', function () {
+            }).on('touchmove mousemove', function () {
                 click = false;
             }).on('touchend mouseup', function (e) {
-                if (click && active && $(e.target).parent().hasClass('dw-sel')) {
+                if (click && active && $(e.target).closest('.dw-li').hasClass('dw-sel')) {
                     $(this).removeClass('wpa');
                 }
                 if (e.type === 'mouseup') {

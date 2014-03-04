@@ -32,9 +32,7 @@
     }
 
     function getCoord(e, c) {
-        var org = e.originalEvent,
-            ct = e.changedTouches;
-        return ct || (org && org.changedTouches) ? (org ? org.changedTouches[0]['page' + c] : ct[0]['page' + c]) : e['page' + c];
+        return /touch/.test(e.type) ? (e.originalEvent || e).changedTouches[0]['page' + c] : e['page' + c];
     }
 
     function init(that, options, args) {
