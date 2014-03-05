@@ -1,25 +1,34 @@
 Mobiscroll
 ==========
 
-A wheel scroller user control optimized for touchscreens to easily enter date and/or time. The control can easily be customized to support any custom values and can even be used as an intuitive alternative to the native select control (dropdown list). It is designed to be used on touch devices as an alternative to the jQuery UI date picker.
+What is mobiscroll?
+-----------------
+Mobiscroll is a library of Touch UI Components created with a lot of attention to usability and performance. The Components are based on the powerful and highly customizable Mobiscroll Core.
 
-The control is themable. You can easily change the appearance of if in CSS. It also comes with pre-defined, nice looking skins (Default, Android, Sense UI and iOS).
+Where and how can I use mobiscroll?
+-----------------
+You can use mobiscroll components in your web and mobile apps for making data picking and navigation easy. It works with jQuery, jQuery Mobile, Zepto.JS and Intel App Framework (formerly known as jQMobi). You can also use it to develop hybrid apps with PhoneGap. You can use it in Windows 8 and Windows Phone 8 apps as well.
+Mobiscroll at its core is a javascript library so it runs everywhere where javascript can be executed. It is a great companion to all frameworks and libraries like Kendo UI, Backbone JS, Bootstrap, Angular JS, Knockout JS ....
 
-By default the control renders for intuitive and easy usage, but you can also customize it's parameters (width, height,...). For more info see the wiki.
+See demos
+-----------------
+http://demo.mobiscroll.com
 
-See demo here: http://demo.mobiscroll.com
 
-More features and details to follow...
 
-Tested on iOS 4-7, Android 2.2 - 4.4, Windows Phone 8, BlackBerry,  Chrome, Safari, Firefox, IE9-11. Please submit issues, and compatibility problems with other devices.
+Supported on iOS 4-7, Android 2.2 - 4.4, Windows Phone 8, BlackBerry,  Amazon Kindle, Chrome, Safari, Firefox, IE9-11. Please submit issues, and compatibility problems with other devices.
 
-If you like it, spread the word!
+_If you like it, spread the word!_
 
-For the latest info follow us on Twitter http://twitter.com/#!/mobiscroll !
-Like us on Facebook http://www.facebook.com/pages/Mobiscroll/226962304011802 !
+Twitter http://twitter.com/mobiscroll
+
+Facebook https://www.facebook.com/mobiscroll
+
+Google+ https://plus.google.com/+MobiscrollUI
+
 
 It'd be cool to see how you're using Mobiscroll!
-================================================
+-----------------
 
 We're looking at showcasing some of the best work on http://mobiscroll.com . Feel free to let us know on twitter @mobiscroll!
 
