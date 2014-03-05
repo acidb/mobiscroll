@@ -1026,7 +1026,7 @@
             theme = ms.themes[ss.theme || s.theme];
 
             // Get language defaults
-            lang = ms.i18n[ss.lang || s.lang];
+            lang = ms.i18n[ss.lang || s.lang] || ms.i18n.en;
 
             extend(settings, ss); // Update original user settings
 
