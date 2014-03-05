@@ -18,6 +18,9 @@
     user-select: none;
     touch-action: none;
 }
+.dw-w:focus {
+    outline: none;
+}
 /* Box sizing */
 .dw,
 .dwc,

@@ -761,12 +761,13 @@
                 return;
             }
 
-            if (s.display == 'top') {
-                anim = 'slidedown';
-            }
-
-            if (s.display == 'bottom') {
-                anim = 'slideup';
+            if (anim !== false) {
+                if (s.display == 'top') {
+                    anim = 'slidedown';
+                }
+                if (s.display == 'bottom') {
+                    anim = 'slideup';
+                }
             }
 
             // Parse value from input
@@ -774,12 +775,12 @@
 
             event('onBeforeShow', []);
 
-            if (isModal && anim && !prevAnim && !isOldAndroid) {
+            if (isModal && anim && !prevAnim) {
                 mAnim = 'dw-' + anim + ' dw-in';
             }
 
             // Create wheels containers
-            html = '<div' + (isModal ? ' tabindex="0"' : '') + ' role="dialog" class="' + s.theme + ' dw-' + s.display +
+            html = '<div' + (isModal ? ' tabindex="0"' : '') + ' role="dialog" class="dw-w ' + s.theme + ' dw-' + s.display +
                 (isLiquid ? ' dw-liq' : '') +
                 (lines > 1 ? ' dw-ml' : '') +
                 (hasButtons ? '' : ' dw-nobtn') + '">' +
@@ -849,8 +850,8 @@
             // Show
             if (isModal) {
                 ms.activeInstance = that;
-                dw.appendTo(s.context);
-                if (has3d && anim && !prevAnim && !isOldAndroid) {
+                dw.appendTo($(s.context).addClass('dw-ctx'));
+                if (has3d && anim && !prevAnim) {
                     dw.addClass('dw-trans').on(animEnd, function () {
                         dw.removeClass('dw-trans').find('.dw').removeClass(mAnim);
                     });
@@ -958,7 +959,7 @@
 
             // Hide wheels and overlay
             if (dw) {
-                if (has3d && isModal && anim && !prevAnim && !isOldAndroid && !dw.hasClass('dw-trans')) { // If dw-trans class was not removed, means that there was no animation
+                if (has3d && isModal && anim && !prevAnim && !dw.hasClass('dw-trans')) { // If dw-trans class was not removed, means that there was no animation
                     dw.addClass('dw-trans').find('.dw').addClass('dw-' + anim + ' dw-out').on(animEnd, function () {
                         hide(prevAnim);
                     });
@@ -994,6 +995,7 @@
             if (s.display !== 'inline') {
                 elm.on((s.showOnFocus ? 'focus.dw' : '') + (s.showOnTap ? ' click.dw' : ''), function (ev) {
                     if ((ev.type !== 'focus' || (ev.type === 'focus' && !preventShow)) && !tap) {
+                        ev.preventDefault();
                         if (beforeShow) {
                             beforeShow();
                         }
@@ -1053,7 +1055,7 @@
             // Set private members
             m = Math.floor(s.rows / 2);
             itemHeight = s.height;
-            anim = s.animate;
+            anim = isOldAndroid ? false : s.animate;
             lines = s.multiline;
             isLiquid = (s.layout || (/top|bottom/.test(s.display) && s.wheels.length == 1 ? 'liquid' : '')) === 'liquid';
             isModal = s.display !== 'inline';
