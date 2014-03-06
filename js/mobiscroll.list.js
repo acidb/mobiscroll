@@ -196,7 +196,7 @@
              * i - the last number of wheels that has to be hidden
              */
             function hideWheels(dw, i) {
-                $('.dwc', dw).css('display', '').slice(i).hide();
+                $('.dwfl', dw).css('display', '').slice(i).hide();
             }
 
             /**
