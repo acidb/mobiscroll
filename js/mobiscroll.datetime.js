@@ -261,10 +261,10 @@
 
             function getClosestValidDate(d, dir) {
                 var valid,
+                    next,
+                    prev,
                     nextValid = false,
                     prevValid = false,
-                    next = d,
-                    prev = d,
                     up = 0,
                     down = 0;
 
@@ -272,14 +272,21 @@
                     return d;
                 }
 
+                if (d < mind) {
+                    d = mind;
+                }
+
+                if (d > maxd) {
+                    d = maxd;
+                }
+
+                next = d;
+                prev = d;
+
                 if (dir !== 2) {
-                    nextValid = false;
+                    nextValid = isValid(next);
 
-                    if (prev < mind) {
-                        prev = mind;
-                    }
-
-                    while (!nextValid && prev < maxd) {
+                    while (!nextValid && next < maxd) {
                         next = new Date(next.getTime() + 1000 * 60 * 60 * 24);
                         nextValid = isValid(next);
                         up++;
@@ -287,11 +294,7 @@
                 }
 
                 if (dir !== 1) {
-                    prevValid = false;
-
-                    if (next > maxd) {
-                        next = maxd;
-                    }
+                    prevValid = isValid(prev);
 
                     while (!prevValid && prev > mind) {
                         prev = new Date(prev.getTime() - 1000 * 60 * 60 * 24);
