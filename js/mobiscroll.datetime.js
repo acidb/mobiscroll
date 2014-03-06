@@ -31,7 +31,7 @@
             stepHour: 1,
             stepMinute: 1,
             stepSecond: 1,
-            separator: ' ',
+            separator: ' '
         }, locales),
         /**
          * @class Mobiscroll.datetime
