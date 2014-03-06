@@ -21,6 +21,7 @@
                 timer = {},
                 wa = s.wheelArray || createWheelArray(elm),
                 labels = generateLabels(lvl),
+                currLevel = 0,
                 currWheelVector = [],
                 fwv = firstWheelVector(wa),
                 w = generateWheelsFromVector(fwv, lvl);
@@ -337,6 +338,9 @@
                 wheels: w,
                 layout: layout,
                 headerText: false,
+                formatResult: function (d) {
+                    return d.slice(0, currLevel).join(' ');
+                },
                 parseValue: function (value, inst) {
                     return value ? value.split(" ") : (s.defaultValue || fwv);
                 },
@@ -370,15 +374,12 @@
                     var args = [],
                         t = inst.temp,
                         i = (index || 0) + 1,
+                        j,
                         o;
 
                     if ((index !== undefined && currWheelVector[index] != t[index]) || (index === undefined && !prevent)) {
                         s.wheels = generateWheelsFromVector(t, null, index);
                         o = calcLevelOfVector2(t, index);
-
-                        if (index !== undefined) {
-                            inst.temp = o.nVector.slice(0);
-                        }
 
                         while (i < o.lvl) {
                             args.push(i++);
@@ -390,22 +391,27 @@
                             timer[index] = setTimeout(function () {
                                 prevent = true;
                                 hideWheels(dw, o.lvl);
-                                currWheelVector = inst.temp.slice(0);
+                                currWheelVector = t.slice(0);
                                 inst.changeWheel(args, index === undefined ? time : 0, index !== undefined);
                                 s.readonly = origReadOnly;
                             }, index === undefined ? 0 : time * 1000);
                             return false;
                         }
-
-                        setDisabled(dw, o.lvl, wa, inst.temp);
                     } else {
                         o = calcLevelOfVector2(t, t.length);
-                        setDisabled(dw, o.lvl, wa, t);
-                        hideWheels(dw, o.lvl);
                     }
 
+                    setDisabled(dw, o.lvl, wa, t);
+                    hideWheels(dw, o.lvl);
+
+                    for (j = 0; j < t.length; j++) {
+                        t[j] = o.nVector[j] || 0;
+                    }
+
+                    currLevel = o.lvl;
+
                     prevent = false;
-                }
+               }
             };
         };
 
