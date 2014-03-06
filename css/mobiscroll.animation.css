@@ -1,6 +1,3 @@
-.dw-ctx {
-    -webkit-transform: translateZ(0);
-}
 .dw-trans .dw-persp {
     overflow: hidden;
     -webkit-perspective: 1000px;

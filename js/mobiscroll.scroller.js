@@ -850,7 +850,7 @@
             // Show
             if (isModal) {
                 ms.activeInstance = that;
-                dw.appendTo($(s.context).addClass('dw-ctx'));
+                dw.appendTo(s.context);
                 if (has3d && anim && !prevAnim) {
                     dw.addClass('dw-trans').on(animEnd, function () {
                         dw.removeClass('dw-trans').find('.dw').removeClass(mAnim);
@@ -994,8 +994,8 @@
             elmList.push(elm);
             if (s.display !== 'inline') {
                 elm.on((s.showOnFocus ? 'focus.dw' : '') + (s.showOnTap ? ' click.dw' : ''), function (ev) {
+                    ev.preventDefault();
                     if ((ev.type !== 'focus' || (ev.type === 'focus' && !preventShow)) && !tap) {
-                        ev.preventDefault();
                         if (beforeShow) {
                             beforeShow();
                         }

@@ -21,6 +21,9 @@
 .dw-w:focus {
     outline: none;
 }
+.dw-inp {
+    -webkit-user-modify: read-only;
+}
 /* Box sizing */
 .dw,
 .dwc,
