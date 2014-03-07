@@ -379,7 +379,12 @@
 
                     if ((index !== undefined && currWheelVector[index] != t[index]) || (index === undefined && !prevent)) {
                         s.wheels = generateWheelsFromVector(t, null, index);
-                        o = calcLevelOfVector2(t, index);
+                        o = calcLevelOfVector2(t, index === undefined ? t.length : index);
+                        currLevel = o.lvl;
+
+                        for (j = 0; j < t.length; j++) {
+                            inst.temp[j] = o.nVector[j] || 0;
+                        }
 
                         while (i < o.lvl) {
                             args.push(i++);
@@ -391,7 +396,7 @@
                             timer[index] = setTimeout(function () {
                                 prevent = true;
                                 hideWheels(dw, o.lvl);
-                                currWheelVector = t.slice(0);
+                                currWheelVector = inst.temp.slice(0);
                                 inst.changeWheel(args, index === undefined ? time : 0, index !== undefined);
                                 s.readonly = origReadOnly;
                             }, index === undefined ? 0 : time * 1000);
@@ -399,16 +404,12 @@
                         }
                     } else {
                         o = calcLevelOfVector2(t, t.length);
+                        currLevel = o.lvl;
                     }
 
+                    currWheelVector = t.slice(0);
                     setDisabled(dw, o.lvl, wa, t);
                     hideWheels(dw, o.lvl);
-
-                    for (j = 0; j < t.length; j++) {
-                        t[j] = o.nVector[j] || 0;
-                    }
-
-                    currLevel = o.lvl;
 
                     prevent = false;
                }
