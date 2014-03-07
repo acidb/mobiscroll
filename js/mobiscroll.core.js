@@ -1,6 +1,6 @@
 /*jslint eqeq: true, plusplus: true, undef: true, sloppy: true, vars: true, forin: true, nomen: true */
 /*!
- * Mobiscroll v2.9.4
+ * Mobiscroll v2.9.5
  * http://mobiscroll.com
  *
  * Copyright 2010-2014, Acid Media
@@ -32,9 +32,7 @@
     }
 
     function getCoord(e, c) {
-        var org = e.originalEvent,
-            ct = e.changedTouches;
-        return ct || (org && org.changedTouches) ? (org ? org.changedTouches[0]['page' + c] : ct[0]['page' + c]) : e['page' + c];
+        return /touch/.test(e.type) ? (e.originalEvent || e).changedTouches[0]['page' + c] : e['page' + c];
     }
 
     function init(that, options, args) {

@@ -18,6 +18,9 @@
     user-select: none;
     touch-action: none;
 }
+.dw-w:focus {
+    outline: none;
+}
 /* Box sizing */
 .dw,
 .dwc,
@@ -384,6 +387,7 @@
     position: absolute;
     height: 1px;
     width: 1px;
+    left: 0;
     overflow: hidden;
     clip: rect(1px,1px,1px,1px);
 }

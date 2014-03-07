@@ -3,7 +3,27 @@
 
     var ms = $.mobiscroll,
         date = new Date(),
-        defaults = {
+        locales = {
+            dateFormat: 'mm/dd/yy',
+            dateOrder: 'mmddy',
+            timeWheels: 'hhiiA',
+            timeFormat: 'hh:ii A',
+            monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+            monthNamesShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+            dayNamesShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+            monthText: 'Month',
+            dayText: 'Day',
+            yearText: 'Year',
+            hourText: 'Hours',
+            minuteText: 'Minutes',
+            ampmText: '&nbsp;',
+            secText: 'Seconds',
+            amText: 'am',
+            pmText: 'pm',
+            nowText: 'Now'
+        },
+        defaults = $.extend({
             startYear: date.getFullYear() - 100,
             endYear: date.getFullYear() + 1,
             shortYearCutoff: '+10',
@@ -11,9 +31,8 @@
             stepHour: 1,
             stepMinute: 1,
             stepSecond: 1,
-            separator: ' ',
-            ampmText: '&nbsp;'
-        },
+            separator: ' '
+        }, locales),
         /**
          * @class Mobiscroll.datetime
          * @extends Mobiscroll
@@ -242,10 +261,10 @@
 
             function getClosestValidDate(d, dir) {
                 var valid,
+                    next,
+                    prev,
                     nextValid = false,
                     prevValid = false,
-                    next = d,
-                    prev = d,
                     up = 0,
                     down = 0;
 
@@ -253,14 +272,21 @@
                     return d;
                 }
 
+                if (d < mind) {
+                    d = mind;
+                }
+
+                if (d > maxd) {
+                    d = maxd;
+                }
+
+                next = d;
+                prev = d;
+
                 if (dir !== 2) {
-                    nextValid = false;
+                    nextValid = isValid(next);
 
-                    if (prev < mind) {
-                        prev = mind;
-                    }
-
-                    while (!nextValid && prev < maxd) {
+                    while (!nextValid && next < maxd) {
                         next = new Date(next.getTime() + 1000 * 60 * 60 * 24);
                         nextValid = isValid(next);
                         up++;
@@ -268,11 +294,7 @@
                 }
 
                 if (dir !== 1) {
-                    prevValid = false;
-
-                    if (next > maxd) {
-                        next = maxd;
-                    }
+                    prevValid = isValid(prev);
 
                     while (!prevValid && prev > mind) {
                         prev = new Date(prev.getTime() - 1000 * 60 * 60 * 24);
@@ -647,30 +669,15 @@
             };
         };
 
-    ms.i18n.en = $.extend(ms.i18n.en, {
-        dateFormat: 'mm/dd/yy',
-        dateOrder: 'mmddy',
-        timeWheels: 'hhiiA',
-        timeFormat: 'hh:ii A',
-        monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-        monthNamesShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-        dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-        dayNamesShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-        monthText: 'Month',
-        dayText: 'Day',
-        yearText: 'Year',
-        hourText: 'Hours',
-        minuteText: 'Minutes',
-        secText: 'Seconds',
-        amText: 'am',
-        pmText: 'pm',
-        nowText: 'Now'
-    });
+    ms.i18n.en = $.extend(ms.i18n.en, locales);
 
     $.each(['date', 'time', 'datetime'], function (i, v) {
         ms.presets[v] = preset;
         ms.presetShort(v);
     });
+
+    // Utility functions
+    ms.datetime = {};
 
     /**
     * Format a date into a string value with a specified format.
@@ -679,7 +686,7 @@
     * @param {Object} [settings={}] Settings.
     * @return {String} Returns the formatted date string.
     */
-    ms.formatDate = function (format, date, settings) {
+    ms.formatDate = ms.datetime.formatDate = function (format, date, settings) {
         if (!date) {
             return null;
         }
@@ -776,7 +783,7 @@
     * @param {Object} [settings={}] Settings.
     * @return {Date} Returns the extracted date.
     */
-    ms.parseDate = function (format, value, settings) {
+    ms.parseDate = ms.datetime.parseDate = function (format, value, settings) {
         var s = $.extend({}, defaults, settings),
             def = s.defaultValue || new Date();
 
