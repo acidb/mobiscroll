@@ -33,6 +33,46 @@ It'd be cool to see how you're using Mobiscroll!
 We're looking at showcasing some of the best work on http://mobiscroll.com . Feel free to let us know on twitter @mobiscroll!
 
 
+Changelog 2.9.5
+===============
+
+Bugfixes
+--------
+
+_Core_
+
+  * Fixed: Tap on items did not work correctly on Android 2.3
+
+  * Fixed: Tap on overlay caused bleed-through on Android 2.3
+
+  * Fixed: Fallback to english locales if a language is not found (#210).
+
+  * Fixed: Animations are disabled now on Android 2.3
+
+_Calendar_
+
+  * Fixed: Page was not scrollable from the calendar if in inline mode or calendar was larger than the screen.
+
+  * Fixed: If in inline mode, months swipe was broken if used with page transitions on some devices.
+
+  * Fixed: Month swipe worked incorrectly with min/max date set.
+
+_Datetime_
+
+  * Fixed: fix for parseDate and formatDate utility functions (#209).
+
+  * Fixed: minDate and maxDate did not work correctly (#212).
+
+_Timer_
+
+  * Fixed: Display fixes for ios, ios7 and android-ics themes.
+
+_Treelist_
+
+  * Fixed: Wheels were not always hidden if tree had different levels (#211).
+
+
+
 Changelog 2.9.4
 ===============
 
