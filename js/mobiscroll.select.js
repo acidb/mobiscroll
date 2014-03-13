@@ -1,4 +1,3 @@
-/*jslint eqeq: true, plusplus: true, undef: true, sloppy: true, vars: true, forin: true */
 (function ($) {
 
     var defaults = {
@@ -31,9 +30,8 @@
             elm = $(this),
             multiple = elm.prop('multiple'),
             id = this.id + '_dummy',
-            l1 = $('label[for="' + this.id + '"]').attr('for', id),
-            l2 = $('label[for="' + id + '"]'),
-            label = s.label !== undefined ? s.label : (l2.length ? l2.text() : elm.attr('name')),
+            lbl = $('label[for="' + this.id + '"]').attr('for', id),
+            label = s.label !== undefined ? s.label : (lbl.length ? lbl.text() : elm.attr('name')),
             invalid = [],
             origValues = [],
             main = {},
@@ -285,7 +283,7 @@
 
                 return s.group && s.rtl ? [option, gr] : s.group ? [gr, option] : [option];
             },
-            onBeforeShow: function (dw) {
+            onBeforeShow: function () {
                 if (multiple && s.counter) {
                     s.headerText = function () {
                         var length = 0;

@@ -39,11 +39,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     $(document).bind("pagecreate create", function(c) {
         $(document).trigger("mobiscrollbeforecreate");
 
-        $(':jqmData(role="mobiscroll")', c.target).each(function() {
+        $(':jqmData(role="mobiscroll")', c.target).each(function () {
             if (typeof ($(this).data("mobiscroll")) === "undefined") {
                 $(this).jqmMobiscroll();
             }
-        })
+        });
     });
 
 })( jQuery );

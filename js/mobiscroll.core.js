@@ -1,4 +1,3 @@
-/*jslint eqeq: true, plusplus: true, undef: true, sloppy: true, vars: true, forin: true, nomen: true */
 /*!
  * Mobiscroll v2.9.5
  * http://mobiscroll.com
@@ -80,7 +79,7 @@
         return true;
     }
 
-    var id = +new Date,
+    var id = +new Date(),
         touches = {},
         instances = {},
         extend = $.extend,

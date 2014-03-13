@@ -1,4 +1,3 @@
-/*jslint eqeq: true, plusplus: true, undef: true, sloppy: true, vars: true, forin: true */
 (function ($) {
 
     var ms = $.mobiscroll,
@@ -183,7 +182,7 @@
                         keys = [];
                         for (i = 0; i < (hampm ? 12 : 24); i += stepH) {
                             keys.push(i);
-                            values.push(hampm && i == 0 ? 12 : tord.match(/hh/i) && i < 10 ? '0' + i : i);
+                            values.push(hampm && i === 0 ? 12 : tord.match(/hh/i) && i < 10 ? '0' + i : i);
                         }
                         addWheel(wg, keys, values, s.hourText);
                     } else if (k == o.i) {
@@ -260,8 +259,7 @@
             }
 
             function getClosestValidDate(d, dir) {
-                var valid,
-                    next,
+                var next,
                     prev,
                     nextValid = false,
                     prevValid = false,
@@ -445,7 +443,7 @@
 
             return {
                 wheels: wheels,
-                headerText: s.headerText ? function (v) {
+                headerText: s.headerText ? function () {
                     return ms.formatDate(hformat, getDate(inst.temp), s);
                 } : false,
                 formatResult: function (d) {
@@ -744,7 +742,7 @@
                     break;
                 case 'h':
                     var h = date.getHours();
-                    output += f1('h', (h > 12 ? (h - 12) : (h == 0 ? 12 : h)), 2);
+                    output += f1('h', (h > 12 ? (h - 12) : (h === 0 ? 12 : h)), 2);
                     break;
                 case 'H':
                     output += f1('H', date.getHours(), 2);

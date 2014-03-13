@@ -1,4 +1,3 @@
-/*jslint eqeq: true, plusplus: true, undef: true, sloppy: true, vars: true, forin: true */
 (function ($) {
     var ms = $.mobiscroll,
         defaults = {
@@ -34,13 +33,16 @@
              * @param {Array} whVector - the wheel vector containing the current keys
              */
             function setDisabled(dw, nrWheels, whArray, whVector) {
-                var i = 0;
+                var j,
+                    i = 0;
+
                 while (i < nrWheels) {
                     var currWh = $('.dwwl' + i, dw),
                         inv = getInvalidKeys(whVector, i, whArray);
-                    $.each(inv, function (i, v) {
-                        $('.dw-li[data-val="' + v + '"]', currWh).removeClass('dw-v');
-                    });
+
+                    for (j = 0; j < inv.length; j++) {
+                        $('.dw-li[data-val="' + inv[j] + '"]', currWh).removeClass('dw-v');
+                    }
                     i++;
                 }
             }
@@ -341,10 +343,10 @@
                 formatResult: function (d) {
                     return d.slice(0, currLevel).join(' ');
                 },
-                parseValue: function (value, inst) {
+                parseValue: function (value) {
                     return value ? value.split(" ") : (s.defaultValue || fwv);
                 },
-                onBeforeShow: function (dw) {
+                onBeforeShow: function () {
                     var t = inst.temp;
                     currWheelVector = t.slice(0);
                     s.wheels = generateWheelsFromVector(t, lvl, lvl);
@@ -412,7 +414,7 @@
                     hideWheels(dw, o.lvl);
 
                     prevent = false;
-               }
+                }
             };
         };
 
