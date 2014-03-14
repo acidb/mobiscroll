@@ -78,7 +78,7 @@
             keys = [];
 
             $('option', cont).each(function () {
-                var v = $(this).attr('value');
+                var v = $(this).attr('value') || $(this).text();
                 values.push($(this).text());
                 keys.push(v);
                 if ($(this).prop('disabled')) {
@@ -181,6 +181,13 @@
             optIdx = 0;
         }
 
+        $('option', elm).each(function () {
+            if (!$(this).attr('value')) {
+                $(this).attr('value', $(this).text());
+            }
+            main[$(this).attr('value')] = $(this).text();
+        });
+
         getOption();
 
         $('#' + id).remove();
@@ -190,10 +197,6 @@
         if (s.showInput) {
             input.insertBefore(elm);
         }
-
-        $('option', elm).each(function () {
-            main[$(this).attr('value')] = $(this).text();
-        });
 
         inst.attachShow(input);
 
