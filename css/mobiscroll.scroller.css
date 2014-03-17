@@ -1,4 +1,5 @@
-.dw, .dwo {
+.dw, 
+.dwo {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 .dw {
@@ -18,9 +19,6 @@
     user-select: none;
     touch-action: none;
 }
-.dw-w:focus {
-    outline: none;
-}
 /* Box sizing */
 .dw,
 .dwc,
@@ -31,20 +29,10 @@
 }
 .dwwr {
     padding: 0 2px;
-    border-radius: 3px;
-    -webkit-border-radius: 3px;
     min-width: 170px;
     zoom: 1;
     overflow: hidden;
     text-align: center;
-}
-.dw-top .dw, .dw-bottom .dw {
-    width: 100%;
-}
-.dw-top .dwwr, .dw-bottom .dwwr {
-    -moz-border-radius: 0;
-    -webkit-border-radius: 0;
-    border-radius: 0;
 }
 /* Modal overlay */
 .dw-persp, .dwo {
@@ -70,6 +58,15 @@
 .dw-liq .dw-tbl {
     width: 100%;
     table-layout: fixed;
+}
+/* Top/Bottom mode */
+.dw-top .dw, .dw-bottom .dw {
+    width: 100%;
+}
+.dw-top .dw .dwwr, .dw-bottom .dw .dwwr {
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    border-radius: 0;
 }
 /* Inline mode */
 .dw-inline .dw {
@@ -152,6 +149,9 @@
     padding: 7px 0;
     margin: 0 -2px;
     font-size: 14px;
+}
+.dwv:focus {
+    outline: none;
 }
 .dw-hidden, 
 .dw .dwwr .dw-hidden {
@@ -420,6 +420,8 @@
     background: #fff;
     color: #000;
     font-family: arial, verdana, sans-serif;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
 }
 .dwbg .dwv {
     background-color: #dfdfdf;
