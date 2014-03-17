@@ -2,6 +2,7 @@
 
     $.mobiscroll.classes.Scroller = function (el, settings) {
         var $doc,
+            $header,
             $markup,
             $overlay,
             $persp,
@@ -417,7 +418,7 @@
                     setValue(manual, manual, 0, true);
                 }
 
-                $('.dwv', $markup).html(formatHeader(valueText));
+                $header.html(formatHeader(valueText));
 
                 if (manual) {
                     event('onChange', [valueText]);
@@ -778,16 +779,16 @@
             }
 
             // Create wheels containers
-            html = '<div' + (isModal ? ' tabindex="0"' : '') + ' role="dialog" class="dw-w ' + s.theme + ' dw-' + s.display +
+            html = '<div class="' + s.theme + ' dw-' + s.display +
                 (isLiquid ? ' dw-liq' : '') +
                 (lines > 1 ? ' dw-ml' : '') +
                 (hasButtons ? '' : ' dw-nobtn') + '">' +
                     '<div class="dw-persp">' +
                         (isModal ? '<div class="dwo"></div>' : '') + // Overlay
-                        '<div class="dw dwbg ' + mAnim + '">' + // Popup
+                        '<div' + (isModal ? ' role="dialog"' : '') + ' class="dw dwbg ' + mAnim + '">' + // Popup
                             (s.display === 'bubble' ? '<div class="dw-arrw"><div class="dw-arrw-i"><div class="dw-arr"></div></div></div>' : '') + // Bubble arrow
                             '<div class="dwwr">' + // Popup content
-                                '<div aria-live="assertive" class="dwv' + (s.headerText ? '' : ' dw-hidden') + '"></div>' + // Header
+                                '<div aria-live="assertive" tabindex="-1" class="dwv' + (s.headerText ? '' : ' dw-hidden') + '"></div>' + // Header
                                 '<div class="dwcc">'; // Wheel group container
 
             $.each(s.wheels, function (i, wg) { // Wheel groups
@@ -838,6 +839,7 @@
             $markup = $(html);
             $persp = $('.dw-persp', $markup);
             $overlay = $('.dwo', $markup);
+            $header = $('.dwv', $markup);
 
             isVisible = true;
 
@@ -926,7 +928,11 @@
                     });
                 }
 
-                $markup.focus()
+                if (isModal) {
+                    $header.focus();
+                }
+
+                $markup
                     .on('touchstart mousedown', '.dwwl', onStart)
                     .on('touchmove', '.dwwl', onMove)
                     .on('touchend', '.dwwl', onEnd)
