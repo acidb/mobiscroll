@@ -207,11 +207,21 @@
         }
 
         function onHide(prevAnim) {
+            var activeEl,
+                value,
+                type;
+
             $markup.remove();
             if ($activeElm && !prevAnim) {
                 setTimeout(function () {
                     preventShow = true;
+                    activeEl = $activeElm[0];
+                    type = activeEl.type;
+                    value = activeEl.value;
+                    activeEl.type = 'button';
                     $activeElm.focus();
+                    activeEl.type = type;
+                    activeEl.value = value;
                 }, 200);
             }
             isVisible = false;
@@ -997,19 +1007,21 @@
         that.attachShow = function ($elm, beforeShow) {
             elmList.push($elm);
             if (s.display !== 'inline') {
-                $elm.on((s.showOnFocus ? 'focus.dw' : '') + (s.showOnTap ? ' click.dw' : ''), function (ev) {
-                    ev.preventDefault();
-                    if ((ev.type !== 'focus' || (ev.type === 'focus' && !preventShow)) && !tap) {
-                        if (beforeShow) {
-                            beforeShow();
+                $elm
+                    .on('mousedown.dw', prevdef) // Prevent input to get focus on tap (virtual keyboard pops up on some devices)
+                    .on((s.showOnFocus ? 'focus.dw' : '') + (s.showOnTap ? ' click.dw' : ''), function (ev) {
+                        if ((ev.type !== 'focus' || (ev.type === 'focus' && !preventShow)) && !tap) {
+                            if (beforeShow) {
+                                beforeShow();
+                            }
+                            $activeElm = $elm;
+                            $(document.activeElement).blur();
+                            that.show();
                         }
-                        $activeElm = $elm;
-                        that.show();
-                    }
-                    setTimeout(function () {
-                        preventShow = false;
-                    }, 300); // With jQuery < 1.9 focus is fired twice in IE
-                });
+                        setTimeout(function () {
+                            preventShow = false;
+                        }, 300); // With jQuery < 1.9 focus is fired twice in IE
+                    });
             }
         };
 
@@ -1193,7 +1205,7 @@
         tap = true;
         setTimeout(function () {
             tap = false;
-        }, 300);
+        }, 500);
     }
 
     function constrain(val, min, max) {
