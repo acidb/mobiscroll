@@ -1014,8 +1014,11 @@
                             if (beforeShow) {
                                 beforeShow();
                             }
+                            // Hide virtual keyboard
+                            if ($(document.activeElement).is('input,textarea')) {
+                                $(document.activeElement).blur();
+                            }
                             $activeElm = $elm;
-                            $(document.activeElement).blur();
                             that.show();
                         }
                         setTimeout(function () {
