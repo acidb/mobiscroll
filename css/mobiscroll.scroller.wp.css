@@ -185,11 +185,6 @@
     line-height: 22px;
     font-size: 10px;
 }
-.wp .dwb-a:before {
-    background: #fff;
-    color: #1f1f1f;
-}
-
 
 
 .wp .dw .dwwr .dwb-a {
@@ -267,6 +262,11 @@
 }
 .wp .dwwb span {
     display: none;
+}
+
+.wp .dwb-a:before {
+    background: #fff;
+    color: #1f1f1f;
 }
 
 /* Bubble positioning */
