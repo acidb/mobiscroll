@@ -133,12 +133,13 @@
     font-weight: normal;
     text-transform: lowercase;
     text-shadow: none;
+    -webkit-backface-visibility: hidden;
     -webkit-box-shadow: none;
-    -webkit-transition: top .1s linear;
-    -moz-transition: top .1s linear;
-    transition: top .1s linear;
+    -webkit-transition: all .1s linear;
+    -moz-transition: all .1s linear;
+    transition: all .1s linear;
 }
-.wp .dwb:after {
+/*.wp .dwb:after {
     content: '';
     position: absolute;
     top: 3px;
@@ -171,7 +172,26 @@
 }
 .wp .dwb-cl .dwb-a:after {
     background-position: -26px -26px;
+}*/
+.wp .dwb:before {
+    position: absolute;
+    top: 3px;
+    left: 50%;
+    width: 22px;
+    height: 22px;
+    margin: 0 -13px;
+    border: 2px solid #fff;
+    border-radius: 13px;
+    line-height: 22px;
+    font-size: 10px;
 }
+.wp .dwb-a:before {
+    background: #fff;
+    color: #1f1f1f;
+}
+
+
+
 .wp .dw .dwwr .dwb-a {
     top: -3px;
 }
@@ -193,7 +213,8 @@
     box-shadow: none;
     box-sizing: border-box;
 }
-.wp .dwwb span {
+
+/*.wp .dwwb span {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -222,7 +243,32 @@
 }
 .wp .dwwbm.dwb-a span {
     background-position: -104px -26px;
+}*/
+
+.wp .dwwb:before {
+    position: absolute;
+    top: 3px;
+    left: 50%;
+    width: 22px;
+    height: 22px;
+    margin: 0 -13px;
+    border: 2px solid #fff;
+    border-radius: 13px;
+    line-height: 22px;
+    font-size: 10px;
+
+    top: 50%;
+    margin-top: -13px;
+    color: #fff;
+    text-shadow: none;
 }
+.wp .dw .dwwr .dwwb.dwb-a {
+    top: auto;
+}
+.wp .dwwb span {
+    display: none;
+}
+
 /* Bubble positioning */
 .wp .dw-bubble-bottom .dw-arr {
     border-color: transparent transparent #1f1f1f transparent;
@@ -299,15 +345,24 @@
 .wp.light .dw .dwc .dwa .dw-day, .wp.light .dw .dwc .dwa .dw-mon {
     color: #6b6b6b;
 }
-.wp.light .dwb:after {
+/*.wp.light .dwb:after {
     background-image: url(wp_icons_light.png);
+}*/
+.wp.light .dwb:before,
+.wp.light .dwwb:before {
+    border: 2px solid #000;
+    color: #000;
+}
+.wp.light .dwb-a:before {
+    background: #000;
+    color: #dedede;
 }
 .wp.light .dw .dwwb {
     background: #dedede;
 }
-.wp.light .dwwb span {
+/*.wp.light .dwwb span {
     background-image: url(wp_icons_light.png);
-}
+}*/
 /* Bubble positioning */
 .wp.light .dw-bubble-bottom .dw-arr {
     border-color: transparent transparent #dedede transparent;
