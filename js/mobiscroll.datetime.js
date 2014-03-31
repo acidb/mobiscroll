@@ -2,7 +2,16 @@
 
     var ms = $.mobiscroll,
         date = new Date(),
-        locales = {
+        defaults = {
+            startYear: date.getFullYear() - 100,
+            endYear: date.getFullYear() + 1,
+            shortYearCutoff: '+10',
+            showNow: false,
+            stepHour: 1,
+            stepMinute: 1,
+            stepSecond: 1,
+            separator: ' ',
+            // Localization
             dateFormat: 'mm/dd/yy',
             dateOrder: 'mmddy',
             timeWheels: 'hhiiA',
@@ -22,16 +31,6 @@
             pmText: 'pm',
             nowText: 'Now'
         },
-        defaults = $.extend({
-            startYear: date.getFullYear() - 100,
-            endYear: date.getFullYear() + 1,
-            shortYearCutoff: '+10',
-            showNow: false,
-            stepHour: 1,
-            stepMinute: 1,
-            stepSecond: 1,
-            separator: ' '
-        }, locales),
         /**
          * @class Mobiscroll.datetime
          * @extends Mobiscroll
@@ -666,8 +665,6 @@
                 }
             };
         };
-
-    ms.i18n.en = $.extend(ms.i18n.en, locales);
 
     $.each(['date', 'time', 'datetime'], function (i, v) {
         ms.presets[v] = preset;
