@@ -1060,7 +1060,7 @@
 
             event('onThemeLoad', [lang, settings]);
 
-            extend(s, lang, theme, userdef, settings);
+            extend(s, theme, lang, userdef, settings);
 
             // Add default buttons
             s.buttons = s.buttons || ['set', 'cancel'];

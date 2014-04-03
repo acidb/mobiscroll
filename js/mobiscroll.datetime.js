@@ -128,7 +128,7 @@
                         end = maxd.getFullYear();
                         for (i = start; i <= end; i++) {
                             keys.push(i);
-                            values.push(dord.match(/yy/i) ? i : (i + '').substr(2, 2));
+                            values.push((dord.match(/yy/i) ? i : (i + '').substr(2, 2)) + (s.yearSuffix || ''));
                         }
                         addWheel(wg, keys, values, s.yearText);
                     } else if (k == o.m) {
@@ -136,7 +136,7 @@
                         values = [];
                         keys = [];
                         for (i = 0; i < 12; i++) {
-                            var str = dord.replace(/[dy]/gi, '').replace(/mm/, i < 9 ? '0' + (i + 1) : i + 1).replace(/m/, (i + 1));
+                            var str = dord.replace(/[dy]/gi, '').replace(/mm/, (i < 9 ? '0' + (i + 1) : i + 1) + (s.monthSuffix || '')).replace(/m/, i + 1 + (s.monthSuffix || ''));
                             keys.push(i);
                             values.push(str.match(/MM/) ? str.replace(/MM/, '<span class="dw-mon">' + s.monthNames[i] + '</span>') : str.replace(/M/, '<span class="dw-mon">' + s.monthNamesShort[i] + '</span>'));
                         }
@@ -147,7 +147,7 @@
                         keys = [];
                         for (i = 1; i < 32; i++) {
                             keys.push(i);
-                            values.push(dord.match(/dd/i) && i < 10 ? '0' + i : i);
+                            values.push((dord.match(/dd/i) && i < 10 ? '0' + i : i) + (s.daySuffix || ''));
                         }
                         addWheel(wg, keys, values, s.dayText);
                     }
@@ -478,7 +478,7 @@
                                         var that = $(this),
                                             d = that.data('val'),
                                             w = new Date(y, m, d).getDay(),
-                                            str = dord.replace(/[my]/gi, '').replace(/dd/, d < 10 ? '0' + d : d).replace(/d/, d);
+                                            str = dord.replace(/[my]/gi, '').replace(/dd/, (d < 10 ? '0' + d : d) + (s.daySuffix || '')).replace(/d/, d + (s.daySuffix || ''));
                                         $('.dw-i', that).html(str.match(/DD/) ? str.replace(/DD/, '<span class="dw-day">' + s.dayNames[w] + '</span>') : str.replace(/D/, '<span class="dw-day">' + s.dayNamesShort[w] + '</span>'));
                                     });
                                 }
