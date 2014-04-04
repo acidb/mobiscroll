@@ -23,6 +23,9 @@
         nowText: '今',
         pmText: '午後',
         amText: '午前',
+        yearSuffix: '年',
+        monthSuffix: '月',
+        daySuffix: '日',
         // Calendar component
         dateText: '日付',
         timeText: '時間',

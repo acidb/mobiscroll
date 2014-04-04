@@ -44,7 +44,7 @@
             btn,
             that = this,
             $elm = $(el),
-            s = extend({}, defaults, userdef),
+            s,
             iv = {},
             pos = {},
             pixels = {},
@@ -82,66 +82,69 @@
         }
 
         function onMove(ev) {
-            if (isScrollable) {
-                // Prevent scroll
-                ev.preventDefault();
-                ev.stopPropagation();
-                stop = getCoord(ev, 'Y');
-                scroll(target, index, constrain(p + (start - stop) / itemHeight, min - 1, max + 1));
-            }
-            if (start !== stop) {
-                moved = true;
+            if (move) {
+                if (isScrollable) {
+                    // Prevent scroll
+                    ev.preventDefault();
+                    ev.stopPropagation();
+                    stop = getCoord(ev, 'Y');
+                    scroll(target, index, constrain(p + (start - stop) / itemHeight, min - 1, max + 1));
+                }
+                if (start !== stop) {
+                    moved = true;
+                }
             }
         }
 
         function onEnd(ev) {
-            var time = new Date() - startTime,
-                val = constrain(p + (start - stop) / itemHeight, min - 1, max + 1),
-                speed,
-                dist,
-                tindex,
-                ttop = target.offset().top;
+            if (move) {
+                var time = new Date() - startTime,
+                    val = constrain(p + (start - stop) / itemHeight, min - 1, max + 1),
+                    speed,
+                    dist,
+                    tindex,
+                    ttop = target.offset().top;
 
-            if (has3d && time < 300) {
-                speed = (stop - start) / time;
-                dist = (speed * speed) / s.speedUnit;
-                if (stop - start < 0) {
-                    dist = -dist;
-                }
-            } else {
-                dist = stop - start;
-            }
-
-            tindex = Math.round(p - dist / itemHeight);
-
-            if (!dist && !moved) { // this is a "tap"
-                var idx = Math.floor((stop - ttop) / itemHeight),
-                    li = $($('.dw-li', target)[idx]),
-                    hl = isScrollable;
-                if (event('onValueTap', [li]) !== false) {
-                    tindex = idx;
+                if (has3d && time < 300) {
+                    speed = (stop - start) / time;
+                    dist = (speed * speed) / s.speedUnit;
+                    if (stop - start < 0) {
+                        dist = -dist;
+                    }
                 } else {
-                    hl = true;
+                    dist = stop - start;
                 }
 
-                if (hl) {
-                    li.addClass('dw-hl'); // Highlight
-                    setTimeout(function () {
-                        li.removeClass('dw-hl');
-                    }, 200);
+                tindex = Math.round(p - dist / itemHeight);
+
+                if (!dist && !moved) { // this is a "tap"
+                    var idx = Math.floor((stop - ttop) / itemHeight),
+                        li = $($('.dw-li', target)[idx]),
+                        hl = isScrollable;
+                    if (event('onValueTap', [li]) !== false) {
+                        tindex = idx;
+                    } else {
+                        hl = true;
+                    }
+
+                    if (hl) {
+                        li.addClass('dw-hl'); // Highlight
+                        setTimeout(function () {
+                            li.removeClass('dw-hl');
+                        }, 200);
+                    }
                 }
-            }
 
-            if (isScrollable) {
-                calc(target, tindex, 0, true, Math.round(val));
-            }
+                if (isScrollable) {
+                    calc(target, tindex, 0, true, Math.round(val));
+                }
 
-            if (ev.type === 'mouseup') {
-                $(document).off('mousemove', onMove).off('mouseup', onEnd);
-            }
+                if (ev.type === 'mouseup') {
+                    $(document).off('mousemove', onMove).off('mouseup', onEnd);
+                }
 
-            move = false;
-            target = null;
+                move = false;
+            }
         }
 
         function onBtnStart(ev) {
@@ -851,6 +854,8 @@
             $overlay = $('.dwo', $markup);
             $header = $('.dwv', $markup);
 
+            pixels = {};
+
             isVisible = true;
 
             scrollToPos();
@@ -986,7 +991,6 @@
             }
 
             delete ms.activeInstance;
-            pixels = {};
         };
 
         /**
@@ -996,6 +1000,15 @@
             if (that.hide(false, 'set') !== false) {
                 setValue(true, true, 0, true);
                 event('onSelect', [that.val]);
+            }
+        };
+
+        /**
+        * Cancel and hide the scroller instance.
+        */
+        that.cancel = function () {
+            if (that.hide(false, 'cancel') !== false) {
+                event('onCancel', [that.val]);
             }
         };
 
@@ -1029,31 +1042,25 @@
         };
 
         /**
-        * Cancel and hide the scroller instance.
-        */
-        that.cancel = function () {
-            if (that.hide(false, 'cancel') !== false) {
-                event('onCancel', [that.val]);
-            }
-        };
-
-        /**
         * Scroller initialization.
         */
         that.init = function (ss) {
             var pres;
 
+            // Update original user settings
+            extend(settings, ss); 
+
+            s = extend({}, defaults, userdef, settings);
+
             // Get theme defaults
-            theme = ms.themes[ss.theme || s.theme];
+            theme = ms.themes[s.theme];
 
             // Get language defaults
-            lang = ms.i18n[ss.lang || s.lang] || ms.i18n.en;
-
-            extend(settings, ss); // Update original user settings
+            lang = ms.i18n[s.lang];
 
             event('onThemeLoad', [lang, settings]);
 
-            extend(s, lang, theme, userdef, settings);
+            extend(s, theme, lang, userdef, settings);
 
             // Add default buttons
             s.buttons = s.buttons || ['set', 'cancel'];
@@ -1245,6 +1252,12 @@
         userdef = ms.userdef,
         isOldAndroid = /android [1-3]/i.test(navigator.userAgent),
         defaults = extend(ms.defaults, {
+            // Localization
+            setText: 'Set',
+            selectedText: 'Selected',
+            closeText: 'Close',
+            cancelText: 'Cancel',
+            clearText: 'Clear',
             // Options
             minWidth: 80,
             height: 40,
@@ -1262,7 +1275,7 @@
             display: 'modal',
             mode: 'scroller',
             preset: '',
-            lang: 'en-US',
+            //lang: 'en-US',
             context: 'body',
             scrollLock: true,
             tap: true,
@@ -1293,15 +1306,6 @@
                 return ret;
             }
         });
-
-    // English language module
-    ms.i18n.en = ms.i18n['en-US'] = {
-        setText: 'Set',
-        selectedText: 'Selected',
-        closeText: 'Close',
-        cancelText: 'Cancel',
-        clearText: 'Clear'
-    };
 
     // Prevent re-show on window focus
     $(window).on('focus', function () {

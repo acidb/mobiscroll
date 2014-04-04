@@ -78,7 +78,7 @@
             keys = [];
 
             $('option', cont).each(function () {
-                var v = $(this).attr('value') || $(this).text();
+                var v = $(this).attr('value');
                 values.push($(this).text());
                 keys.push(v);
                 if ($(this).prop('disabled')) {
