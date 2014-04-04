@@ -100,7 +100,13 @@
                 stepM = s.stepMinute,
                 stepS = s.stepSecond,
                 mind = s.minDate || new Date(s.startYear, 0, 1),
-                maxd = s.maxDate || new Date(s.endYear, 11, 31, 23, 59, 59);
+                maxd = s.maxDate || new Date(s.endYear, 11, 31, 23, 59, 59),
+                minH = mind.getHours() % stepH,
+                minM = mind.getMinutes() % stepM,
+                minS = mind.getSeconds() % stepS,
+                maxH = getMax(stepH, minH, (hampm ? 11 : 23)),
+                maxM = getMax(stepM, minM, 59),
+                maxS = getMax(stepM, minM, 59);
 
             format = format || hformat;
 
@@ -179,7 +185,7 @@
                         offset++;
                         values = [];
                         keys = [];
-                        for (i = 0; i < (hampm ? 12 : 24); i += stepH) {
+                        for (i = minH; i < (hampm ? 12 : 24); i += stepH) {
                             keys.push(i);
                             values.push(hampm && i === 0 ? 12 : tord.match(/hh/i) && i < 10 ? '0' + i : i);
                         }
@@ -188,7 +194,7 @@
                         offset++;
                         values = [];
                         keys = [];
-                        for (i = 0; i < 60; i += stepM) {
+                        for (i = minM; i < 60; i += stepM) {
                             keys.push(i);
                             values.push(tord.match(/ii/) && i < 10 ? '0' + i : i);
                         }
@@ -197,7 +203,7 @@
                         offset++;
                         values = [];
                         keys = [];
-                        for (i = 0; i < 60; i += stepS) {
+                        for (i = minS; i < 60; i += stepS) {
                             keys.push(i);
                             values.push(tord.match(/ss/) && i < 10 ? '0' + i : i);
                         }
@@ -230,22 +236,22 @@
                 });
             }
 
-            function step(v, st) {
-                return Math.floor(v / st) * st;
+            function step(v, st, min, max) {
+                return Math.min(max, Math.floor(v / st) * st + min);
             }
 
             function getHour(d) {
                 var hour = d.getHours();
                 hour = hampm && hour >= 12 ? hour - 12 : hour;
-                return step(hour, stepH);
+                return step(hour, stepH, minH, maxH);
             }
 
             function getMinute(d) {
-                return step(d.getMinutes(), stepM);
+                return step(d.getMinutes(), stepM, minM, maxM);
             }
 
             function getSecond(d) {
-                return step(d.getSeconds(), stepS);
+                return step(d.getSeconds(), stepS, minS, maxS);
             }
 
             function getAmPm(d) {
@@ -254,7 +260,11 @@
 
             function getDate(d) {
                 var hour = get(d, 'h', 0);
-                return new Date(get(d, 'y'), get(d, 'm'), get(d, 'd', 1), get(d, 'a', 0) ? hour + 12 : hour, get(d, 'i', 0), get(d, 's', 0));
+                return new Date(get(d, 'y'), get(d, 'm'), get(d, 'd'), get(d, 'a', 0) ? hour + 12 : hour, get(d, 'i', 0), get(d, 's', 0));
+            }
+
+            function getMax(step, min, max) {
+                return Math.floor((max - min) / step) * step + min;
             }
 
             function getClosestValidDate(d, dir) {
@@ -429,6 +439,12 @@
                 return x;
             };
 
+            // ---
+
+
+            // Initializations
+            // --- 
+
             inst.format = hformat;
             inst.buttons.now = { text: s.nowText, css: 'dwb-n', handler: function () { inst.setDate(new Date(), false, 0.3, true, true); } };
 
@@ -437,6 +453,10 @@
             }
 
             invalid = s.invalid ? inst.convert(s.invalid) : false;
+
+            // Normalize min and max dates for comparing later (set default values where there are no values from wheels)
+            mind = getDate(getArray(mind));
+            maxd = getDate(getArray(maxd));
 
             // ---
 
@@ -453,9 +473,9 @@
                 },
                 validate: function (dw, i, time, dir) {
                     var valid = getClosestValidDate(getDate(inst.temp), dir),
-                        temp = getArray(valid),//inst.temp, //.slice(0),
-                        mins = { y: mind.getFullYear(), m: 0, d: 1, h: 0, i: 0, s: 0, a: 0 },
-                        maxs = { y: maxd.getFullYear(), m: 11, d: 31, h: step(hampm ? 11 : 23, stepH), i: step(59, stepM), s: step(59, stepS), a: 1 },
+                        temp = getArray(valid),//inst.temp,//.slice(0),
+                        mins = { y: mind.getFullYear(), m: 0, d: 1, h: minH, i: minM, s: minS, a: 0 },
+                        maxs = { y: maxd.getFullYear(), m: 11, d: 31, h: maxH, i: maxM, s: maxS, a: 1 },
                         steps = { h: stepH, i: stepM, s: stepS, a: 1 },
                         y = get(temp, 'y'),
                         m = get(temp, 'm'),
@@ -631,8 +651,8 @@
                                         }
 
                                         // Calculate min and max values
-                                        v1 = step(parts1[i] + add, steps[v]);
-                                        v2 = step(parts2[i] - remove, steps[v]);
+                                        v1 = step(parts1[i], steps[v], mins[v], maxs[v]) + add;
+                                        v2 = step(parts2[i], steps[v], mins[v], maxs[v]) - remove;
 
                                         if (prop1) {
                                             i1 = getValidIndex(target, v1, maxs[v], 0);
@@ -650,8 +670,8 @@
                                         // Get valid value
                                         val = inst.getValidCell(val, target, dir).val;
 
-                                        prop1 = prop1 && val == step(parts1[i], steps[v]);
-                                        prop2 = prop2 && val == step(parts2[i], steps[v]);
+                                        prop1 = prop1 && val == step(parts1[i], steps[v], mins[v], maxs[v]);
+                                        prop2 = prop2 && val == step(parts2[i], steps[v], mins[v], maxs[v]);
 
                                         // Set modified value
                                         temp[o[v]] = val;
