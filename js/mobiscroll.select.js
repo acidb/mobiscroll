@@ -192,7 +192,7 @@
 
         $('#' + id).remove();
 
-        input = $('<input type="text" id="' + id + '" class="' + s.inputClass + '" readonly />');
+        input = $('<input type="text" id="' + id + '" class="' + s.inputClass + '" placeholder="' + (s.placeholder || '') + '" readonly />');
 
         if (s.showInput) {
             input.insertBefore(elm);
