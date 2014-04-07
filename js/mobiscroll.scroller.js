@@ -869,6 +869,7 @@
                 if (has3d && anim && !prevAnim) {
                     $markup.addClass('dw-trans').on(animEnd, function () {
                         $markup.removeClass('dw-trans').find('.dw').removeClass(mAnim);
+                        $header.focus();
                     });
                 }
             } else if ($elm.is('div')) {
@@ -899,7 +900,8 @@
                 }
 
                 // Disable inputs to prevent bleed through (Android bug)
-                if (isOldAndroid) {
+                //if (isOldAndroid) {
+                if (pr !== 'Moz') {
                     $('input,select,button', $doc).each(function () {
                         if (!this.disabled) {
                             $(this).addClass('dwtd').prop('disabled', true);
@@ -943,7 +945,7 @@
                     });
                 }
 
-                if (isModal) {
+                if (isModal && !anim) {
                     $header.focus();
                 }
 
@@ -970,7 +972,8 @@
             }
 
             // Re-enable temporary disabled fields
-            if (isOldAndroid) {
+            //if (isOldAndroid) {
+            if (pr !== 'Moz') {
                 $('.dwtd', $doc).each(function () {
                     $(this).prop('disabled', false).removeClass('dwtd');
                 });
