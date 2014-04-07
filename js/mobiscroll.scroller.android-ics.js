@@ -8,7 +8,8 @@
         showLabel: false,
         selectedLineHeight: true,
         selectedLineBorder: 2,
-        useShortLabels: true
+        useShortLabels: true,
+        emptyIcon: 'star'
     };
 
     $.mobiscroll.themes['android-ics'] = theme;
