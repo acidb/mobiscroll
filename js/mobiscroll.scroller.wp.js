@@ -7,7 +7,7 @@
         dateOrder: 'mmMMddDDyy',
         headerText: false,
         showLabel: false,
-        emptyIcon: 'star',
+        iconEmpty: 'star',
         btnWidth: false,
         onMarkupInserted: function (elm, inst) {
             var click,
