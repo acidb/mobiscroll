@@ -19,6 +19,9 @@
     user-select: none;
     touch-action: none;
 }
+.dw:focus {
+    outline: none;
+}
 /* Box sizing */
 .dw,
 .dwc,
@@ -149,9 +152,6 @@
     padding: 7px 0;
     margin: 0 -2px;
     font-size: 14px;
-}
-.dwv:focus {
-    outline: none;
 }
 .dw-hidden, 
 .dw .dwwr .dw-hidden {
