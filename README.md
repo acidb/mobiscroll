@@ -33,6 +33,66 @@ It'd be cool to see how you're using Mobiscroll!
 We're looking at showcasing some of the best work on http://mobiscroll.com . Feel free to let us know on twitter @mobiscroll!
 
 
+Changelog 2.10.0
+================
+
+Enhancements
+------------
+
+_Calendar_
+
+  * Added: Support right to left languages with the `rtl` setting.
+
+  * Added: Support for displaying icons on marked days.
+
+_Datetime_
+
+  * Added: `yearSuffix`, `monthSuffix`, `daySuffix` settings for improved localization (#142).
+
+_List_
+
+  * Added: `placeholder` setting for the generated input field.
+
+_Listview_
+
+  * Added: `disabled` property for `stage` or `action` setting.
+
+  * Added: support for hierarchical lists.
+
+_Rating_
+
+  * Added: Font icons are now used instead of images, icons can be changed with the `iconFilled` and `iconEmpty` settings.
+
+  * Added: `placeholder` setting for the generated input field.
+
+_Rangepicker_
+
+  * Added: `autoCorrect` setting to disable automatic date adjustment if end is earlier than start.
+
+_Select_
+
+  * Added: `placeholder` setting for the generated input field.
+
+
+Bugfixes
+--------
+
+_Core_
+  
+  * Fixed: Prevent virtual keyboard popup on some devices (#216).
+
+  * Fixed: Page scrolled to bottom in IE and FF on show (#214).
+
+_Datetime_
+
+  * Fixed: Hour, minute and second steps are now calculated from minimum time, if specified (#204).
+
+_Select_
+    
+  * Fixed: Select scroller whithout value attributes now can be selected (#215).
+
+
+
 Changelog 2.9.5
 ===============
 
