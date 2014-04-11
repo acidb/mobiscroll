@@ -9,7 +9,7 @@
         showLabel: false,
         btnWidth: false,
         selectedLineHeight: true,
-        selectedLineBorder: 1,
+        selectedLineBorder: 2,
         useShortLabels: true
     };
 
