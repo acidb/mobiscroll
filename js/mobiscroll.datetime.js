@@ -29,7 +29,12 @@
             secText: 'Seconds',
             amText: 'am',
             pmText: 'pm',
-            nowText: 'Now'
+            nowText: 'Now',
+            getYear: function (d) { return d.getFullYear(); },
+            getMonth: function (d) { return d.getMonth(); },
+            getDay: function (d) { return d.getDate(); },
+            getDate: function (y, m, d, h, i, s) { return new Date(y, m, d, h, i, s); },
+            getMaxDayOfMonth: function (y, m) { return 32 - new Date(y, m, 32).getDate(); }
         },
         /**
          * @class Mobiscroll.datetime
@@ -87,7 +92,7 @@
                 wheels = [],
                 ord = [],
                 o = {},
-                f = { y: 'getFullYear', m: 'getMonth', d: 'getDate', h: getHour, i: getMinute, s: getSecond, a: getAmPm },
+                f = { y: getYear, m: getMonth, d: getDay, h: getHour, i: getMinute, s: getSecond, a: getAmPm },
                 p = s.preset,
                 dord = s.dateOrder,
                 tord = s.timeWheels,
@@ -130,8 +135,8 @@
                         offset++;
                         values = [];
                         keys = [];
-                        start = mind.getFullYear();
-                        end = maxd.getFullYear();
+                        start = s.getYear(mind);
+                        end = s.getYear(maxd);
                         for (i = start; i <= end; i++) {
                             keys.push(i);
                             values.push((dord.match(/yy/i) ? i : (i + '').substr(2, 2)) + (s.yearSuffix || ''));
@@ -225,7 +230,7 @@
                 if (def !== undefined) {
                     return def;
                 }
-                return defd[f[i]] ? defd[f[i]]() : f[i](defd);
+                return f[i](defd);
             }
 
             function addWheel(wg, k, v, lbl) {
@@ -238,6 +243,18 @@
 
             function step(v, st, min, max) {
                 return Math.min(max, Math.floor(v / st) * st + min);
+            }
+
+            function getYear(d) {
+                return s.getYear(d);
+            }
+			
+            function getMonth(d) {
+                return s.getMonth(d);
+            }
+
+            function getDay(d) {
+                return s.getDay(d);
             }
 
             function getHour(d) {
@@ -260,7 +277,7 @@
 
             function getDate(d) {
                 var hour = get(d, 'h', 0);
-                return new Date(get(d, 'y'), get(d, 'm'), get(d, 'd'), get(d, 'a', 0) ? hour + 12 : hour, get(d, 'i', 0), get(d, 's', 0));
+                return s.getDate(get(d, 'y'), get(d, 'm'), get(d, 'd'), get(d, 'a', 0) ? hour + 12 : hour, get(d, 'i', 0), get(d, 's', 0));
             }
 
             function getMax(step, min, max) {
@@ -384,7 +401,7 @@
                     ret = [];
 
                 for (i in o) {
-                    ret[o[i]] = d[f[i]] ? d[f[i]]() : f[i](d);
+                    ret[o[i]] = f[i](d);
                 }
 
                 return ret;
@@ -491,23 +508,23 @@
                                 t = $('.dw-ul', dw).eq(o[i]);
 
                             if (i == 'd') {
-                                maxdays = 32 - new Date(y, m, 32).getDate();
+                                maxdays = s.getMaxDayOfMonth(y, m);
                                 max = maxdays;
                                 if (regen) {
                                     $('.dw-li', t).each(function () {
                                         var that = $(this),
                                             d = that.data('val'),
-                                            w = new Date(y, m, d).getDay(),
+                                            w = s.getDate(y, m, d).getDay(),
                                             str = dord.replace(/[my]/gi, '').replace(/dd/, (d < 10 ? '0' + d : d) + (s.daySuffix || '')).replace(/d/, d + (s.daySuffix || ''));
                                         $('.dw-i', that).html(str.match(/DD/) ? str.replace(/DD/, '<span class="dw-day">' + s.dayNames[w] + '</span>') : str.replace(/D/, '<span class="dw-day">' + s.dayNamesShort[w] + '</span>'));
                                     });
                                 }
                             }
                             if (minprop && mind) {
-                                min = mind[f[i]] ? mind[f[i]]() : f[i](mind);
+                                min = f[i](mind);
                             }
                             if (maxprop && maxd) {
-                                max = maxd[f[i]] ? maxd[f[i]]() : f[i](maxd);
+                                max = f[i](maxd);
                             }
                             if (i != 'y') {
                                 var i1 = getIndex(t, min),
@@ -532,7 +549,7 @@
                             // Disable some days
                             if (invalid && i == 'd') {
                                 var d, j, k, v,
-                                    first = new Date(y, m, 1).getDay(),
+                                    first = s.getDate(y, m, 1).getDay(),
                                     idx = [];
 
                                 for (j = 0; j < invalid.length; j++) {
@@ -540,8 +557,8 @@
                                     v = d + '';
                                     if (!d.start) {
                                         if (d.getTime) { // Exact date
-                                            if (d.getFullYear() == y && d.getMonth() == m) {
-                                                idx.push(d.getDate() - 1);
+                                            if (s.getYear(d) == y && s.getMonth(d) == m) {
+                                                idx.push(s.getDay(d) - 1);
                                             }
                                         } else if (!v.match(/w/i)) { // Day of month
                                             v = v.split('/');
@@ -565,12 +582,7 @@
                                 $.each(idx, function (i, v) {
                                     $('.dw-li', t).eq(v).removeClass('dw-v');
                                 });
-
-                                //val = inst.getValidCell(val, t, dir).val;
                             }
-
-                            // Set modified value
-                            //temp[o[i]] = val;
                         }
                     });
 
@@ -580,7 +592,7 @@
                         var dd, v, val, str, parts1, parts2, j, v1, v2, i1, i2, prop1, prop2, target, add, remove,
                             spec = {},
                             d = get(temp, 'd'),
-                            day = new Date(y, m, d),
+                            day = s.getDate(y, m, d),
                             w = ['a', 'h', 'i', 's'];
 
                         $.each(invalid, function (i, obj) {
@@ -589,7 +601,7 @@
                                 dd = obj.d;
                                 v = dd + '';
                                 str = v.split('/');
-                                if (dd && ((dd.getTime && y == dd.getFullYear() && m == dd.getMonth() && d == dd.getDate()) || // Exact date
+                                if (dd && ((dd.getTime && y == s.getYear(dd) && m == s.getMonth(dd) && d == s.getDay(dd)) || // Exact date
                                     (!v.match(/w/i) && ((str[1] && d == str[1] && m == str[0] - 1) || (!str[1] && d == str[0]))) || // Day of month
                                     (v.match(/w/i) && day.getDay() == +v.replace('w', '')) // Day of week
                                     )) {
@@ -727,6 +739,7 @@
                 return (look(m) ? l[val] : s[val]);
             },
             i,
+            year,
             output = '',
             literal = false;
 
@@ -740,7 +753,7 @@
             } else {
                 switch (format.charAt(i)) {
                 case 'd':
-                    output += f1('d', date.getDate(), 2);
+                    output += f1('d', s.getDay(date), 2);
                     break;
                 case 'D':
                     output += f2('D', date.getDay(), s.dayNamesShort, s.dayNames);
@@ -749,13 +762,15 @@
                     output += f1('o', (date.getTime() - new Date(date.getFullYear(), 0, 0).getTime()) / 86400000, 3);
                     break;
                 case 'm':
-                    output += f1('m', date.getMonth() + 1, 2);
+                    output += f1('m', s.getMonth(date) + 1, 2);
                     break;
                 case 'M':
-                    output += f2('M', date.getMonth(), s.monthNamesShort, s.monthNames);
+                    output += f2('M', s.getMonth(date), s.monthNamesShort, s.monthNames);
                     break;
                 case 'y':
-                    output += (look('y') ? date.getFullYear() : (date.getYear() % 100 < 10 ? '0' : '') + date.getYear() % 100);
+                    year = s.getYear(date);
+                    output += (look('y') ? year : (year % 100 < 10 ? '0' : '') + year % 100);
+                    //output += (look('y') ? date.getFullYear() : (date.getYear() % 100 < 10 ? '0' : '') + date.getYear() % 100);
                     break;
                 case 'h':
                     var h = date.getHours();
@@ -809,9 +824,9 @@
         value = (typeof value == 'object' ? value.toString() : value + '');
 
         var shortYearCutoff = s.shortYearCutoff,
-            year = def.getFullYear(),
-            month = def.getMonth() + 1,
-            day = def.getDate(),
+            year = s.getYear(def),
+            month = s.getMonth(def) + 1,
+            day = s.getDay(def),
             doy = -1,
             hours = def.getHours(),
             minutes = def.getMinutes(),
@@ -929,10 +944,13 @@
             } while (true);
         }
         hours = (ampm == -1) ? hours : ((ampm && hours < 12) ? (hours + 12) : (!ampm && hours == 12 ? 0 : hours));
-        var date = new Date(year, month - 1, day, hours, minutes, seconds);
-        if (date.getFullYear() != year || date.getMonth() + 1 != month || date.getDate() != day) {
+
+        var date = s.getDate(year, month - 1, day, hours, minutes, seconds);
+
+        if (s.getYear(date) != year || s.getMonth(date) + 1 != month || s.getDay(date) != day) {
             return def; // Invalid date
         }
+
         return date;
     };
 
