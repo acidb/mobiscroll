@@ -124,7 +124,8 @@
         dayText: "روز",
         monthText: "ماه",
         monthNames: ['فروردين', 'ارديبهشت', 'خرداد', 'تير', 'مرداد', 'شهريور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'],
-        monthNamesShort: ['1','2','3','4','5','6','7','8','9','10','11','12'],
+        monthNamesShort: ['فروردين', 'ارديبهشت', 'خرداد', 'تير', 'مرداد', 'شهريور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'],
+        //monthNamesShort: ['1','2','3','4','5','6','7','8','9','10','11','12'],
         //monthNamesShort: ['Farvardin', 'Ordibehesht', 'Khordad', 'Tir', 'Mordad', 'Shahrivar', 'Mehr', 'Aban', 'Azar', 'Dey', 'Bahman', 'Esfand'],
         hourText: "ساعت",
         minuteText: "دقيقه",
@@ -148,9 +149,17 @@
             return JalaliDate.gregorianToJalali(date.getFullYear(), (date.getMonth() + 1), date.getDate())[2];
         },
         getDate: function (y, m, d, h, i, s) {
-            var gregorianDate = JalaliDate.jalaliToGregorian(+y, +m + 1, d);
+            if (m < 0) {
+                y += Math.floor(m / 12);
+                m = 12 + m % 12;
+            }
+            if (m > 11) {
+                y += Math.floor(m / 12);
+                m = m % 12;
+            }
+            var gregorianDate = JalaliDate.jalaliToGregorian(y, +m + 1, d);
 
-            return new Date(gregorianDate[0], gregorianDate[1] - 1, gregorianDate[2], h, i, s);
+            return new Date(gregorianDate[0], gregorianDate[1] - 1, gregorianDate[2], h || 0, i || 0, s || 0);
         },
         getMaxDayOfMonth: function (y, m) {
             var maxdays = 31;
