@@ -114,31 +114,29 @@
 
     $.mobiscroll.i18n.fa = $.extend($.mobiscroll.i18n.fa, {
         // Core
-        setText: "تاييد",
-        cancelText: "انصراف",
+        setText: 'تاييد',
+        cancelText: 'انصراف',
+        clearText: 'واضح ',
+        selectedText: 'منتخب',
         // Datetime component
-        dateFormat: "yy/mm/dd",
-        dateOrder: "yymmdd",
+        dateFormat: 'yy/mm/dd',
+        dateOrder: 'yymmdd',
         dayNames: ['يکشنبه', 'دوشنبه', 'سه‌شنبه', 'چهارشنبه', 'پنج‌شنبه', 'جمعه', 'شنبه'],
         dayNamesShort: ['ی', 'د', 'س', 'چ', 'پ', 'ج', 'ش'],
-        dayText: "روز",
-        monthText: "ماه",
+        dayText: 'روز',
+        hourText: 'ساعت',
+        minuteText: 'دقيقه',
         monthNames: ['فروردين', 'ارديبهشت', 'خرداد', 'تير', 'مرداد', 'شهريور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'],
         monthNamesShort: ['فروردين', 'ارديبهشت', 'خرداد', 'تير', 'مرداد', 'شهريور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'],
-        //monthNamesShort: ['1','2','3','4','5','6','7','8','9','10','11','12'],
         //monthNamesShort: ['Farvardin', 'Ordibehesht', 'Khordad', 'Tir', 'Mordad', 'Shahrivar', 'Mehr', 'Aban', 'Azar', 'Dey', 'Bahman', 'Esfand'],
-        hourText: "ساعت",
-        minuteText: "دقيقه",
-        secText: "ثانيه",
-        timeFormat: "HH:ii",
-        timeWheels: "HHii",
-        //AMPMName: ['صبح', 'بعد از ظهر'],
-        //ampmName: ['ص', 'ب'],
-        yearText: "سال",
+        monthText: 'ماه',
+        secText: 'ثانيه',
+        timeFormat: 'HH:ii',
+        timeWheels: 'HHii',
+        yearText: 'سال',
+        nowText: 'اکنون',
         amText: 'ب',
         pmText: 'ص',
-        firstDay: 6,
-        rtl: true,
         getYear: function (date) {
             return JalaliDate.gregorianToJalali(date.getFullYear(), (date.getMonth() + 1), date.getDate())[0];
         },
@@ -168,6 +166,27 @@
             }
             return maxdays;
         },
+        //getNumber: function (n) {
+        //    var i,
+        //        nums = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"],
+        //        res = '';
+
+        //    n = n + '';
+        //    for (i = 0; i < n.length; i++) {
+        //        res += nums[+n[i]];
+        //    }
+        //    return res;
+        //},
+        // Calendar component
+        firstDay: 6,
+        rtl: true,
+        dateText: 'تاریخ ',
+        timeText: 'زمان ',
+        calendarText: 'تقویم',
+        closeText: 'نزدیک',
+        // Daterange component
+        fromText: 'شروع ',
+        toText: 'پایان',
         // Measurement components
         wholeText: 'تمام',
         fractionText: 'کسر',
