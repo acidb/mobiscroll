@@ -762,8 +762,9 @@
         /**
         * Shows the scroller instance.
         * @param {Boolean} prevAnim - Prevent animation if true
+        * @param {Boolean} prevFocus - Prevent focusing if true
         */
-        that.show = function (prevAnim) {
+        that.show = function (prevAnim, prevFocus) {
             // Create wheels
             var lbl,
                 html,
@@ -871,7 +872,9 @@
                 if (has3d && anim && !prevAnim) {
                     $markup.addClass('dw-trans').on(animEnd, function () {
                         $markup.removeClass('dw-trans').find('.dw').removeClass(mAnim);
-                        $popup.focus();
+                        if (!prevFocus) {
+                            $popup.focus();
+                        }
                     });
                 }
             } else if ($elm.is('div')) {
@@ -947,7 +950,7 @@
                     });
                 }
 
-                if (isModal && !anim) {
+                if (isModal && !anim && !prevFocus) {
                     $popup.focus();
                 }
 
