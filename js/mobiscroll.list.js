@@ -326,7 +326,7 @@
             $('#' + id).remove(); // Remove input if exists
 
             if (s.showInput) {
-                input = $('<input type="text" id="' + id + '" value="" class="' + s.inputClass + '" readonly />').insertBefore(elm);
+                input = $('<input type="text" id="' + id + '" value="" class="' + s.inputClass + '" placeholder="' + (s.placeholder || '') + '" readonly />').insertBefore(elm);
                 s.anchor = input; // give the core the input element for the bubble positioning
                 inst.attachShow(input);
             }

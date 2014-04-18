@@ -6,6 +6,7 @@
             $markup,
             $overlay,
             $persp,
+            $popup,
             $wnd,
             hasButtons,
             isLiquid,
@@ -798,10 +799,10 @@
                 (hasButtons ? '' : ' dw-nobtn') + '">' +
                     '<div class="dw-persp">' +
                         (isModal ? '<div class="dwo"></div>' : '') + // Overlay
-                        '<div' + (isModal ? ' role="dialog"' : '') + ' class="dw dwbg ' + mAnim + '">' + // Popup
+                        '<div' + (isModal ? ' role="dialog" tabindex="-1"' : '') + ' class="dw dwbg ' + mAnim + '">' + // Popup
                             (s.display === 'bubble' ? '<div class="dw-arrw"><div class="dw-arrw-i"><div class="dw-arr"></div></div></div>' : '') + // Bubble arrow
                             '<div class="dwwr">' + // Popup content
-                                '<div aria-live="assertive" tabindex="-1" class="dwv' + (s.headerText ? '' : ' dw-hidden') + '"></div>' + // Header
+                                '<div aria-live="assertive" class="dwv' + (s.headerText ? '' : ' dw-hidden') + '"></div>' + // Header
                                 '<div class="dwcc">'; // Wheel group container
 
             $.each(s.wheels, function (i, wg) { // Wheel groups
@@ -853,6 +854,7 @@
             $persp = $('.dw-persp', $markup);
             $overlay = $('.dwo', $markup);
             $header = $('.dwv', $markup);
+            $popup = $('.dw', $markup);
 
             pixels = {};
 
@@ -869,7 +871,7 @@
                 if (has3d && anim && !prevAnim) {
                     $markup.addClass('dw-trans').on(animEnd, function () {
                         $markup.removeClass('dw-trans').find('.dw').removeClass(mAnim);
-                        $header.focus();
+                        $popup.focus();
                     });
                 }
             } else if ($elm.is('div')) {
@@ -946,7 +948,7 @@
                 }
 
                 if (isModal && !anim) {
-                    $header.focus();
+                    $popup.focus();
                 }
 
                 $markup

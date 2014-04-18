@@ -7,7 +7,7 @@
         dateOrder: 'mmMMddDDyy',
         headerText: false,
         showLabel: false,
-        emptyIcon: 'star',
+        iconEmpty: 'star',
         btnWidth: false,
         btnStartClass: 'mbsc-ic mbsc-ic-play2',
         btnStopClass: 'mbsc-ic mbsc-ic-pause',
