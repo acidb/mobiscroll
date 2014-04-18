@@ -31,7 +31,8 @@
     }
 
     function getCoord(e, c) {
-        return /touch/.test(e.type) ? (e.originalEvent || e).changedTouches[0]['page' + c] : e['page' + c];
+        e = e.originalEvent || e;
+        return e.changedTouches ? e.changedTouches[0]['page' + c] : e['page' + c];
     }
 
     function init(that, options, args) {
