@@ -33,6 +33,30 @@ It'd be cool to see how you're using Mobiscroll!
 We're looking at showcasing some of the best work on http://mobiscroll.com . Feel free to let us know on twitter @mobiscroll!
 
 
+Changelog 2.10.1
+================
+
+Enhancements
+------------
+
+_Core_
+
+  * Added: `preventFocus` parameter for the `show` method.
+
+  * Added: automatic liquid layout based on screen size.
+
+_Integration_
+
+  * Added: support for hiearchical listview in Knockout, Angular and Backbone integration plugins.
+
+Bugfixes
+--------
+
+_Rating_
+
+  * Fixed: Vertical alignment was incorrect with Windows Phone theme.
+
+
 Changelog 2.10.0
 ================
 
