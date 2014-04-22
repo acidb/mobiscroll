@@ -554,10 +554,12 @@
                     anchor = s.anchor === undefined ? $elm : s.anchor;
 
                 // Set / unset liquid layout based on screen width, but only if not set explicitly by the user
-                if (isLiquid && s.layout !== 'liquid' && nw < 400) {
-                    $markup.addClass('dw-liq');
-                } else {
-                    $markup.removeClass('dw-liq');
+                if (isLiquid && s.layout !== 'liquid') {
+                    if (nw < 400) {
+                        $markup.addClass('dw-liq');
+                    } else {
+                        $markup.removeClass('dw-liq');
+                    }
                 }
 
                 if (/modal|bubble/.test(s.display)) {
