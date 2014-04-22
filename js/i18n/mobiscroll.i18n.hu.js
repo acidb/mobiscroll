@@ -6,7 +6,7 @@
         clearText: 'Törlés',
         selectedText: 'Kiválasztva',
         // Datetime component
-        dateFormat: 'yy.mm.dd',
+        dateFormat: 'yy.mm.dd.',
         dateOrder: 'yymmdd',
         dayNames: ['Vasárnap', 'Hétfő', 'Kedd', 'Szerda', 'Csütörtök', 'Péntek', 'Szombat'],
         dayNamesShort: ['Va', 'Hé', 'Ke', 'Sze', 'Csü', 'Pé', 'Szo'],
@@ -24,6 +24,7 @@
         pmText: 'de',
         amText: 'du',
         // Calendar component
+        firstDay: 1,
         dateText: 'Dátum',
         timeText: 'Idő',
         calendarText: 'Naptár',

@@ -26,6 +26,9 @@
 .dw:focus {
     outline: none;
 }
+.dw-rtl {
+    direction: rtl;
+}
 /* Box sizing */
 .dw,
 .dwc,
