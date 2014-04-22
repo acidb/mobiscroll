@@ -2,6 +2,12 @@
 .dwo {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
+.dw,
+.dwb,
+.dw-bf {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
 .dw {
     max-width: 100%;
     position: absolute;
@@ -10,12 +16,10 @@
     z-index: 2;
     font-size: 12px;
     text-shadow: none;
-    -webkit-backface-visibility: hidden;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     -ms-touch-action: none;
-    backface-visibility: hidden;
     user-select: none;
     touch-action: none;
 }
@@ -229,9 +233,7 @@
 }
 .dw-bf {
     -webkit-perspective: 1000px;
-    -webkit-backface-visibility: hidden;
     perspective: 1000px;
-    backface-visibility: hidden;
 }
 .dw-ul {
     position: relative;
@@ -357,10 +359,8 @@
     text-overflow: ellipsis;
     -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
     -webkit-border-radius: 5px;
-    -webkit-backface-visibility: hidden;
     border-radius: 5px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.5);
-    backface-visibility: hidden;
 }
 /* Button container */
 .dwbc {
