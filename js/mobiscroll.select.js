@@ -46,9 +46,6 @@
                 w = [[]];
 
             if (s.group) {
-                if (s.rtl) {
-                    wg = 1;
-                }
 
                 $('optgroup', elm).each(function (i) {
                     values.push($(this).attr('label'));
@@ -68,7 +65,7 @@
                 }
 
                 cont = group;
-                wg += (s.rtl ? -1 : 1);
+                wg++;
 
             } else {
                 cont = elm;
@@ -169,13 +166,8 @@
         }
 
         if (s.group) {
-            if (s.rtl) {
-                grIdx = 1;
-                optIdx = 0;
-            } else {
-                grIdx = 0;
-                optIdx = 1;
-            }
+            grIdx = 0;
+            optIdx = 1;
         } else {
             grIdx = -1;
             optIdx = 0;
@@ -240,7 +232,7 @@
             if (s.group) {
                 group = elm.find('option[value="' + option + '"]').parent();
                 gr = group.index();
-                value = s.rtl ? [option, gr] : [gr, option];
+                value = [gr, option];
             } else {
                 value = [option];
             }
@@ -284,7 +276,7 @@
 
                 getOption();
 
-                return s.group && s.rtl ? [option, gr] : s.group ? [gr, option] : [option];
+                return s.group ? [gr, option] : [option];
             },
             onBeforeShow: function () {
                 if (multiple && s.counter) {
@@ -303,7 +295,7 @@
 
                 if (s.group) {
                     prev = gr;
-                    inst.temp = s.rtl ? [option, gr] : [gr, option];
+                    inst.temp = [gr, option];
                 }
 
                 s.wheels = genWheels();
@@ -353,8 +345,8 @@
                         option = option || elm.val();
                         s.wheels = genWheels();
                         if (s.group && !change) {
-                            inst.temp = s.rtl ? [option, gr] : [gr, option];
-                            s.readonly = [s.rtl, !s.rtl];
+                            inst.temp = [gr, option];
+                            s.readonly = [false, true];
                             clearTimeout(timer);
                             timer = setTimeout(function () {
                                 change = true;
