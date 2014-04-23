@@ -14,8 +14,8 @@
         btnResetClass: 'mbsc-ic mbsc-ic-stop2',
         btnLapClass: 'mbsc-ic mbsc-ic-loop2',
         btnHideClass: 'mbsc-ic mbsc-ic-close',
-        calPrevIcon: 'mbsc-ic mbsc-ic-arrow-left5',
-        calNextIcon: 'mbsc-ic mbsc-ic-arrow-right5',
+        calPrevIcon: 'mbsc-ic mbsc-ic-arrow-left2',
+        calNextIcon: 'mbsc-ic mbsc-ic-arrow-right2',
         onMarkupInserted: function (elm, inst) {
             var click,
                 touch,

@@ -9,9 +9,7 @@
         selectedLineHeight: true,
         selectedLineBorder: 2,
         useShortLabels: true,
-        iconEmpty: 'star',
-        calPrevIcon: 'mbsc-ic mbsc-ic-arrow-left4',
-        calNextIcon: 'mbsc-ic mbsc-ic-arrow-right4'
+        iconEmpty: 'star'
     };
 
     $.mobiscroll.themes['android-ics'] = theme;
