@@ -9,7 +9,7 @@
         selectedLineHeight: true,
         selectedLineBorder: 2,
         useShortLabels: true,
-        iconEmpty: 'star'
+        icon: { filled: 'star3', empty: 'star' }
     };
 
     $.mobiscroll.themes['android-ics'] = theme;

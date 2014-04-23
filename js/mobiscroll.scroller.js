@@ -553,6 +553,15 @@
                     css = {},
                     anchor = s.anchor === undefined ? $elm : s.anchor;
 
+                // Set / unset liquid layout based on screen width, but only if not set explicitly by the user
+                if (isLiquid && s.layout !== 'liquid') {
+                    if (nw < 400) {
+                        $markup.addClass('dw-liq');
+                    } else {
+                        $markup.removeClass('dw-liq');
+                    }
+                }
+
                 if (/modal|bubble/.test(s.display)) {
                     wr.width('');
                     $('.dwc', $markup).each(function () {
@@ -762,8 +771,9 @@
         /**
         * Shows the scroller instance.
         * @param {Boolean} prevAnim - Prevent animation if true
+        * @param {Boolean} prevFocus - Prevent focusing if true
         */
-        that.show = function (prevAnim) {
+        that.show = function (prevAnim, prevFocus) {
             // Create wheels
             var lbl,
                 html,
@@ -871,7 +881,9 @@
                 if (has3d && anim && !prevAnim) {
                     $markup.addClass('dw-trans').on(animEnd, function () {
                         $markup.removeClass('dw-trans').find('.dw').removeClass(mAnim);
-                        $popup.focus();
+                        if (!prevFocus) {
+                            $popup.focus();
+                        }
                     });
                 }
             } else if ($elm.is('div')) {
@@ -947,7 +959,7 @@
                     });
                 }
 
-                if (isModal && !anim) {
+                if (isModal && !anim && !prevFocus) {
                     $popup.focus();
                 }
 
