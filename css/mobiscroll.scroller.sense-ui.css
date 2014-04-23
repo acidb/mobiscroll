@@ -29,6 +29,11 @@
     border: 0;
     padding: 0;
 }
+.sense-ui .dw .dwpm .dwwl,
+.sense-ui .dw .dwpm .dwwo {
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+}
 .sense-ui .dwbc {
     padding: 4px 2px;
     background: #000;
