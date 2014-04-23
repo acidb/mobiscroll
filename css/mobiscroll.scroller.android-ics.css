@@ -127,13 +127,26 @@
     border-left: 1px solid #424542;
 }
 .android-ics .dwbw:first-child .dwb {
-    border-left: 0;
-    -webkit-border-bottom-left-radius: 3px;
-    border-bottom-left-radius: 3px;
+    border: 0;
+    -webkit-border-radius: 0 0 0 3px;
+    border-radius: 0 0 0 3px;
 }
 .android-ics .dwbw:last-child .dwb {
-    -webkit-border-right-left-radius: 3px;
-    border-bottom-right-radius: 3px;
+    -webkit-border-radius: 0 0 3px 0;
+    border-radius: 0 0 3px 0;
+}
+.android-ics .dw-rtl .dwbw .dwb {
+    border: 0;
+    border-right: 1px solid #424542;
+}
+.android-ics .dw-rtl .dwbw:last-child .dwb {
+    -webkit-border-radius: 0 0 0 3px;
+    border-radius: 0 0 0 3px;
+}
+.android-ics .dw-rtl .dwbw:first-child .dwb {
+    border: 0;
+    -webkit-border-radius: 0 0 3px 0;
+    border-radius: 0 0 3px 0;
 }
 .android-ics .dw .dwb-a {
     background: #29799c;
@@ -180,7 +193,14 @@
     border-left: 1px solid #dbdbdb;
 }
 .android-ics.light .dwbw:first-child .dwb {
-    border-left: 0;
+    border: 0;
+}
+.android-ics.light .dw-rtl .dwbw .dwb {
+    border: 0;
+    border-right: 1px solid #dbdbdb;
+}
+.android-ics.light .dw-rtl .dwbw:first-child .dwb {
+    border: 0;
 }
 .android-ics.light .dwwo {
     background: -webkit-gradient(linear,left bottom,left top,from(#f5f5f5),color-stop(0.52, rgba(245,245,245,0)),color-stop(0.48, rgba(245,245,245,0)),to(#f5f5f5));

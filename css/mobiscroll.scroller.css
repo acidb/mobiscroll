@@ -191,13 +191,15 @@
 	flex: 1 auto;
     background: #000;
 }
-.dwfl:first-child {
+.dw-ltr .dwfl:first-child,
+.dw-rtl .dwfl:last-child {
     margin-left: 0;
     padding-left: 4px;
     -webkit-border-radius: 3px 0 0 3px;
     border-radius: 3px 0 0 3px;
 }
-.dwfl:last-child {
+.dw-ltr .dwfl:last-child,
+.dw-rtl .dwfl:first-child {
     margin-right: 0;
     padding-right: 4px;
     -webkit-border-radius: 0 3px 3px 0;
