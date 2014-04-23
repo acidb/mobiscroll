@@ -9,11 +9,13 @@
         showLabel: false,
         icon: { filled: 'star3', empty: 'star' },
         btnWidth: false,
-        btnStartClass: 'mbsc-ic mbsc-ic-play2',
-        btnStopClass: 'mbsc-ic mbsc-ic-pause',
-        btnResetClass: 'mbsc-ic mbsc-ic-stop',
+        btnStartClass: 'mbsc-ic mbsc-ic-play3',
+        btnStopClass: 'mbsc-ic mbsc-ic-pause2',
+        btnResetClass: 'mbsc-ic mbsc-ic-stop2',
         btnLapClass: 'mbsc-ic mbsc-ic-loop2',
         btnHideClass: 'mbsc-ic mbsc-ic-close',
+        calPrevIcon: 'mbsc-ic mbsc-ic-arrow-left2',
+        calNextIcon: 'mbsc-ic mbsc-ic-arrow-right2',
         onMarkupInserted: function (elm, inst) {
             var click,
                 touch,
@@ -27,11 +29,6 @@
             $('.dwb-n .dwb', elm).addClass('mbsc-ic mbsc-ic-loop2');
             $('.dwwbp', elm).addClass('mbsc-ic mbsc-ic-plus');
             $('.dwwbm', elm).addClass('mbsc-ic mbsc-ic-minus');
-
-            $('.dw-cal-prev-m .dw-cal-btn-txt', elm).addClass('mbsc-ic mbsc-ic-arrow-left');
-            $('.dw-cal-next-m .dw-cal-btn-txt', elm).addClass('mbsc-ic mbsc-ic-arrow-right');
-            $('.dw-cal-prev-y .dw-cal-btn-txt', elm).addClass('mbsc-ic mbsc-ic-arrow-left');
-            $('.dw-cal-next-y .dw-cal-btn-txt', elm).addClass('mbsc-ic mbsc-ic-arrow-right');     
             
             $('.dwwl', elm).on('touchstart mousedown DOMMouseScroll mousewheel', function (e) {
                 if (e.type === 'mousedown' && touch) {

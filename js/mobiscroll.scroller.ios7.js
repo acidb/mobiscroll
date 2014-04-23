@@ -10,7 +10,9 @@
         btnWidth: false,
         selectedLineHeight: true,
         selectedLineBorder: 1,
-        useShortLabels: true
+        useShortLabels: true,
+        calPrevIcon: 'mbsc-ic mbsc-ic-arrow-left5',
+        calNextIcon: 'mbsc-ic mbsc-ic-arrow-right5'
     };
 
 })(jQuery);

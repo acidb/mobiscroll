@@ -11,6 +11,8 @@
         disabledClass: 'ui-disabled',
         activeClass: 'ui-btn-active',
         activeTabInnerClass: 'ui-btn-active',
+        calPrevIcon: '',
+        calNextIcon: '',
         onThemeLoad: function (lang, s) {
             var cal = s.jqmBody || 'c',
                 txt = s.jqmEventText || 'b',
