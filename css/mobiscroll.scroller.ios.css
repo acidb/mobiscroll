@@ -56,21 +56,19 @@
     -webkit-box-shadow: 0 1px 1px rgba(255,255,255,0.3);
     box-shadow: 0 1px 1px rgba(255,255,255,0.3);
 }
-.ios .dwfl:first-child .dwwl {
-    -webkit-border-top-left-radius: 3px;
-    -webkit-border-bottom-left-radius: 3px;
-    border-top-left-radius: 3px;
-    border-bottom-left-radius: 3px;
+.ios .dw-ltr .dwsc .dwfl:first-child .dwwl,
+.ios .dw-rtl .dwsc .dwfl:last-child .dwwl {
+    -webkit-border-radius: 3px 0 0 3px;
+    border-radius: 3px 0 0 3px;
 }
-.ios .dwfl:last-child .dwwl {
-    -webkit-border-top-right-radius: 3px;
-    -webkit-border-bottom-right-radius: 3px;
-    border-top-right-radius: 3px;
-    border-bottom-right-radius: 3px;
+.ios .dw-ltr .dwsc .dwfl:last-child .dwwl,
+.ios .dw-rtl .dwsc .dwfl:first-child .dwwl {
+    -webkit-border-radius: 0 3px 3px 0;
+    border-radius: 0 3px 3px 0;
 }
-.ios .dwsc .dwwl {
-    -webkit-border-radius: 0;
-    border-radius: 0;
+.ios .dwpm .dwwl {
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
 }
 .ios .dwsc .dww {
     background: #fff;
