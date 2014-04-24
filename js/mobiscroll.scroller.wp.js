@@ -14,8 +14,10 @@
         btnResetClass: 'mbsc-ic mbsc-ic-stop2',
         btnLapClass: 'mbsc-ic mbsc-ic-loop2',
         btnHideClass: 'mbsc-ic mbsc-ic-close',
-        calPrevIcon: 'mbsc-ic mbsc-ic-arrow-left2',
-        calNextIcon: 'mbsc-ic mbsc-ic-arrow-right2',
+        btnCalPrevClass: 'mbsc-ic mbsc-ic-arrow-left2',
+        btnCalNextClass: 'mbsc-ic mbsc-ic-arrow-right2',
+        btnPlusClass: 'mbsc-ic mbsc-ic-plus',
+        btnMinusClass: 'mbsc-ic mbsc-ic-minus',
         onMarkupInserted: function (elm, inst) {
             var click,
                 touch,
@@ -27,8 +29,6 @@
             $('.dwb-c .dwb', elm).addClass('mbsc-ic mbsc-ic-close');
             $('.dwb-cl .dwb', elm).addClass('mbsc-ic mbsc-ic-close');
             $('.dwb-n .dwb', elm).addClass('mbsc-ic mbsc-ic-loop2');
-            $('.dwwbp', elm).addClass('mbsc-ic mbsc-ic-plus');
-            $('.dwwbm', elm).addClass('mbsc-ic mbsc-ic-minus');
             
             $('.dwwl', elm).on('touchstart mousedown DOMMouseScroll mousewheel', function (e) {
                 if (e.type === 'mousedown' && touch) {

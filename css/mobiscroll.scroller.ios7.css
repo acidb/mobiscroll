@@ -127,7 +127,8 @@
 .ios7 .dwpm .dwwol {
     display: block;
 }
-.ios7 .dwwb, 
+.ios7 .dwwb,
+.ios7 .dwwb.dwb-a,
 .ios7 .dwwb:hover {
     background: #f7f7f7;
     text-shadow: none;
@@ -136,7 +137,7 @@
     -webkit-box-shadow: none;
     box-shadow: none;
 }
-.ios7 .dwwb.dwb-a {
+.ios7 .dwwb.dwb-a:before {
     background: #f7f7f7;
 }
 .ios7 .dwwbp {
@@ -150,35 +151,13 @@
 .ios7 .dwwb span {
     display: none;
 }
-.ios7 .dwwb:after {
-    content: '';
-    display: block;
+.ios7 .dwwb:before {
+    color: #007aff;
+    font-size: 24px;
+    line-height: 34px;
     position: absolute;
-    top: 50%;
-    width: 13px;
-    height: 13px;
     left: 50%;
-    margin-top: -7px;
-}
-.ios7 .dwwbp:after {
-    border-left: 2px solid #007aff;
-    border-bottom: 2px solid #007aff;
-    -webkit-transform: rotate(-45deg);
-    -webkit-transform-origin: bottom left;
-    -moz-transform-origin: bottom left;
-    -moz-transform: rotate(-45deg);
-    transform-origin: bottom left;
-    transform: rotate(-45deg);
-}
-.ios7 .dwwbm:after {
-    border-left: 2px solid #007aff;
-    border-top: 2px solid #007aff;
-    -webkit-transform: rotate(45deg);
-    -webkit-transform-origin: top left;
-    -moz-transform: rotate(45deg);
-    -moz-transform-origin: top left;
-    transform: rotate(45deg);
-    transform-origin: top left;
+    margin-left: -12px;
 }
 /* Bubble arrow */
 .ios7 .dw-bubble-bottom .dw-arr {

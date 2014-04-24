@@ -11,8 +11,10 @@
         selectedLineHeight: true,
         selectedLineBorder: 1,
         useShortLabels: true,
-        calPrevIcon: 'mbsc-ic mbsc-ic-arrow-left5',
-        calNextIcon: 'mbsc-ic mbsc-ic-arrow-right5'
+        btnCalPrevClass: 'mbsc-ic mbsc-ic-arrow-left5',
+        btnCalNextClass: 'mbsc-ic mbsc-ic-arrow-right5',
+        btnPlusClass: 'mbsc-ic mbsc-ic-arrow-down5',
+        btnMinusClass: 'mbsc-ic mbsc-ic-arrow-up5',
     };
 
 })(jQuery);
