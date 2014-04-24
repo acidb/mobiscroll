@@ -49,11 +49,12 @@
 }
 .android-ics .dwwo {
     background: -webkit-gradient(linear,left bottom,left top,from(#282828),color-stop(0.52, rgba(40,40,40,0)),color-stop(0.48, rgba(40,40,40,0)),to(#282828));
-    background: -webkit-linear-gradient(#282828 0%,rgba(40,40,40,0) 52%, rgba(40,40,40,0) 48%, #282828 100%);
-    background: -moz-linear-gradient(#282828 0%,rgba(40,40,40,0) 52%, rgba(40,40,40,0) 48%, #282828 100%);
-    background: linear-gradient(#282828 0%,rgba(40,40,40,0) 52%, rgba(40,40,40,0) 48%, #282828 100%);
+    background: -webkit-linear-gradient(#282828,rgba(40,40,40,0) 52%, rgba(40,40,40,0) 48%, #282828);
+    background: -moz-linear-gradient(#282828,rgba(40,40,40,0) 52%, rgba(40,40,40,0) 48%, #282828);
+    background: linear-gradient(#282828,rgba(40,40,40,0) 52%, rgba(40,40,40,0) 48%, #282828);
 }
 .android-ics .dw .dwwb {
+    color: #7e7e7e;
     background: #292829;
     -webkit-box-shadow: none;
     box-shadow: none;
@@ -62,13 +63,12 @@
     display: none;
 }
 .android-ics .dwwb:before {
-    font-size: 26px;
-    line-height: 36px;
     position: absolute;
-    margin-left: -13px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    font-size: 26px;
     text-shadow: none;
-    color: #7e7e7e;
-
 }
 .android-ics .dwwbm {
     top: 0;
@@ -81,7 +81,7 @@
 .android-ics .dw .dwwl .dwb-a {
     background: #292829;
 }
-.android-ics .dwwb.dwb-a:before {
+.android-ics .dwwb.dwb-a {
     color: #319abd;
 }
 .android-ics .dw .dwwol {
@@ -191,9 +191,9 @@
 }
 .android-ics.light .dwwo {
     background: -webkit-gradient(linear,left bottom,left top,from(#f5f5f5),color-stop(0.52, rgba(245,245,245,0)),color-stop(0.48, rgba(245,245,245,0)),to(#f5f5f5));
-    background: -webkit-linear-gradient(#f5f5f5 0%,rgba(245,245,245,0) 52%, rgba(245,245,245,0) 48%, #f5f5f5 100%);
-    background: -moz-linear-gradient(#f5f5f5 0%,rgba(245,245,245,0) 52%, rgba(245,245,245,0) 48%, #f5f5f5 100%);
-    background: linear-gradient(#f5f5f5 0%,rgba(245,245,245,0) 52%, rgba(245,245,245,0) 48%, #f5f5f5 100%);
+    background: -webkit-linear-gradient(#f5f5f5,rgba(245,245,245,0) 52%, rgba(245,245,245,0) 48%, #f5f5f5);
+    background: -moz-linear-gradient(#f5f5f5,rgba(245,245,245,0) 52%, rgba(245,245,245,0) 48%, #f5f5f5);
+    background: linear-gradient(#f5f5f5,rgba(245,245,245,0) 52%, rgba(245,245,245,0) 48%, #f5f5f5);
 }
 .android-ics.light .dw .dwwb {
     background: #f5f5f5;
