@@ -105,6 +105,7 @@
                 ord = [],
                 o = {},
                 f = { y: getYear, m: getMonth, d: getDay, h: getHour, i: getMinute, s: getSecond, a: getAmPm },
+                valid = s.valid,
                 p = s.preset,
                 dord = s.dateOrder,
                 tord = s.timeWheels,
@@ -351,10 +352,6 @@
             }
 
             function isValid(d) {
-                var curr,
-                    j,
-                    v;
-
                 if (d < mind) {
                     return false;
                 }
@@ -363,35 +360,193 @@
                     return false;
                 }
 
-                if (invalid) {
-                    for (j = 0; j < invalid.length; j++) {
-                        curr = invalid[j];
+                if (isInObj(d, valid)) {
+                    return true;
+                }
+
+                if (isInObj(d, invalid)) {
+                    return false;
+                }
+
+                return true;
+            }
+
+            function isInObj(d, obj) {
+                var curr,
+                    j,
+                    v;
+
+                if (obj) {
+                    for (j = 0; j < obj.length; j++) {
+                        curr = obj[j];
                         v = curr + '';
                         if (!curr.start) {
                             if (curr.getTime) { // Exact date
                                 if (d.getFullYear() == curr.getFullYear() && d.getMonth() == curr.getMonth() && d.getDate() == curr.getDate()) {
-                                    return false;
+                                    return true;
                                 }
                             } else if (!v.match(/w/i)) { // Day of month
                                 v = v.split('/');
                                 if (v[1]) {
                                     if ((v[0] - 1) == d.getMonth() && v[1] == d.getDate()) {
-                                        return false;
+                                        return true;
                                     }
                                 } else if (v[0] == d.getDate()) {
-                                    return false;
+                                    return true;
                                 }
                             } else { // Day of week
                                 v = +v.replace('w', '');
                                 if (v == d.getDay()) {
-                                    return false;
+                                    return true;
                                 }
                             }
                         }
                     }
                 }
+                return false;
+            }
 
-                return true;
+            function validateDates(obj, y, m, first, maxdays, idx, val) {
+                var j, d, v;
+
+                if (obj) {
+                    for (j = 0; j < obj.length; j++) {
+                        d = obj[j];
+                        v = d + '';
+                        if (!d.start) {
+                            if (d.getTime) { // Exact date
+                                if (s.getYear(d) == y && s.getMonth(d) == m) {
+                                    idx[s.getDay(d) - 1] = val;
+                                }
+                            } else if (!v.match(/w/i)) { // Day of month
+                                v = v.split('/');
+                                if (v[1]) {
+                                    if (v[0] - 1 == m) {
+                                        idx[v[1] - 1] = val;
+                                    }
+                                } else {
+                                    idx[v[0] - 1] = val;
+                                }
+                            } else { // Day of week
+                                v = +v.replace('w', '');
+                                for (k = v - first; k < maxdays; k += 7) {
+                                    if (k >= 0) {
+                                        idx[k] = val;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            function validateTimes(vobj, temp, y, m, mins, maxs, dir, dw, valid) {
+                var dd, v, val, str, parts1, parts2, j, v1, v2, i1, i2, prop1, prop2, target, add, remove,
+                    spec = {},
+                    steps = { h: stepH, i: stepM, s: stepS, a: 1 },
+                    d = get(temp, 'd'),
+                    day = s.getDate(y, m, d),
+                    w = ['a', 'h', 'i', 's'];
+
+                if (vobj) {
+                    $.each(vobj, function (i, obj) {
+                        if (obj.start) {
+                            obj.apply = false;
+                            dd = obj.d;
+                            v = dd + '';
+                            str = v.split('/');
+                            if (dd && ((dd.getTime && y == s.getYear(dd) && m == s.getMonth(dd) && d == s.getDay(dd)) || // Exact date
+                                (!v.match(/w/i) && ((str[1] && d == str[1] && m == str[0] - 1) || (!str[1] && d == str[0]))) || // Day of month
+                                (v.match(/w/i) && day.getDay() == +v.replace('w', '')) // Day of week
+                                )) {
+                                obj.apply = true;
+                                spec[day] = true; // Prevent applying generic rule on day, if specific exists
+                            }
+                        }
+                    });
+
+                    $.each(vobj, function (i, obj) {
+                        if (obj.start && (obj.apply || (!obj.d && !spec[day]))) {
+
+                            parts1 = obj.start.split(':');
+                            parts2 = obj.end.split(':');
+
+                            for (j = 0; j < 3; j++) {
+                                if (parts1[j] === undefined) {
+                                    parts1[j] = 0;
+                                }
+                                if (parts2[j] === undefined) {
+                                    parts2[j] = 59;
+                                }
+                                parts1[j] = +parts1[j];
+                                parts2[j] = +parts2[j];
+                            }
+
+                            parts1.unshift(parts1[0] > 11 ? 1 : 0);
+                            parts2.unshift(parts2[0] > 11 ? 1 : 0);
+
+                            if (hampm) {
+                                if (parts1[1] >= 12) {
+                                    parts1[1] = parts1[1] - 12;
+                                }
+
+                                if (parts2[1] >= 12) {
+                                    parts2[1] = parts2[1] - 12;
+                                }
+                            }
+
+                            prop1 = true;
+                            prop2 = true;
+                            $.each(w, function (i, v) {
+                                if (o[v] !== undefined) {
+                                    val = get(temp, v);
+                                    add = 0;
+                                    remove = 0;
+                                    i1 = 0;
+                                    i2 = undefined;
+                                    target = $('.dw-ul', dw).eq(o[v]);
+
+                                    // Look ahead if next wheels should be disabled completely
+                                    for (j = i + 1; j < 4; j++) {
+                                        if (parts1[j] > 0) {
+                                            add = steps[v];
+                                        }
+                                        if (parts2[j] < maxs[w[j]]) {
+                                            remove = steps[v];
+                                        }
+                                    }
+
+                                    // Calculate min and max values
+                                    v1 = step(parts1[i], steps[v], mins[v], maxs[v]) + add;
+                                    v2 = step(parts2[i], steps[v], mins[v], maxs[v]) - remove;
+
+                                    if (prop1) {
+                                        i1 = getValidIndex(target, v1, maxs[v], 0);
+                                    }
+
+                                    if (prop2) {
+                                        i2 = getValidIndex(target, v2, maxs[v], 1);
+                                    }
+
+                                    // Disable values
+                                    if (prop1 || prop2) {
+                                        if (valid) {
+                                            $('.dw-li', target).slice(i1, i2).addClass('dw-v');
+                                        } else {
+                                            $('.dw-li', target).slice(i1, i2).removeClass('dw-v');
+                                        }
+                                    }
+
+                                    // Get valid value
+                                    val = inst.getValidCell(val, target, dir).val;
+
+                                    prop1 = prop1 && val == step(parts1[i], steps[v], mins[v], maxs[v]);
+                                    prop2 = prop2 && val == step(parts2[i], steps[v], mins[v], maxs[v]);
+                                }
+                            });
+                        }
+                    });
+                }
             }
 
             function getIndex(t, v) {
@@ -501,11 +656,10 @@
                     return getArray(ms.parseDate(format, val, s));
                 },
                 validate: function (dw, i, time, dir) {
-                    var valid = getClosestValidDate(getDate(inst.temp), dir),
-                        temp = getArray(valid),//inst.temp,//.slice(0),
+                    var validated = getClosestValidDate(getDate(inst.temp), dir),
+                        temp = getArray(validated),//inst.temp,//.slice(0),
                         mins = { y: mind.getFullYear(), m: 0, d: 1, h: minH, i: minM, s: minS, a: 0 },
                         maxs = { y: maxd.getFullYear(), m: 11, d: 31, h: maxH, i: maxM, s: maxS, a: 1 },
-                        steps = { h: stepH, i: stepM, s: stepS, a: 1 },
                         y = get(temp, 'y'),
                         m = get(temp, 'm'),
                         minprop = true,
@@ -559,150 +713,28 @@
                                 maxprop = val == max;
                             }
                             // Disable some days
-                            if (invalid && i == 'd') {
-                                var d, j, k, v,
-                                    first = s.getDate(y, m, 1).getDay(),
-                                    idx = [];
+                            if (i == 'd') {
+                                var first = s.getDate(y, m, 1).getDay(),
+                                    idx = {};
 
-                                for (j = 0; j < invalid.length; j++) {
-                                    d = invalid[j];
-                                    v = d + '';
-                                    if (!d.start) {
-                                        if (d.getTime) { // Exact date
-                                            if (s.getYear(d) == y && s.getMonth(d) == m) {
-                                                idx.push(s.getDay(d) - 1);
-                                            }
-                                        } else if (!v.match(/w/i)) { // Day of month
-                                            v = v.split('/');
-                                            if (v[1]) {
-                                                if (v[0] - 1 == m) {
-                                                    idx.push(v[1] - 1);
-                                                }
-                                            } else {
-                                                idx.push(v[0] - 1);
-                                            }
-                                        } else { // Day of week
-                                            v = +v.replace('w', '');
-                                            for (k = v - first; k < maxdays; k += 7) {
-                                                if (k >= 0) {
-                                                    idx.push(k);
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
+                                // Set invalid indexes
+                                validateDates(invalid, y, m, first, maxdays, idx, 1);
+                                // Delete indexes which are valid 
+                                validateDates(valid, y, m, first, maxdays, idx, 0);
+
                                 $.each(idx, function (i, v) {
-                                    $('.dw-li', t).eq(v).removeClass('dw-v');
+                                    if (v) {
+                                        $('.dw-li', t).eq(i).removeClass('dw-v');
+                                    }
                                 });
                             }
                         }
                     });
 
                     // Invalid times
-                    if (hasTime && invalid) {
-
-                        var dd, v, val, str, parts1, parts2, j, v1, v2, i1, i2, prop1, prop2, target, add, remove,
-                            spec = {},
-                            d = get(temp, 'd'),
-                            day = s.getDate(y, m, d),
-                            w = ['a', 'h', 'i', 's'];
-
-                        $.each(invalid, function (i, obj) {
-                            if (obj.start) {
-                                obj.apply = false;
-                                dd = obj.d;
-                                v = dd + '';
-                                str = v.split('/');
-                                if (dd && ((dd.getTime && y == s.getYear(dd) && m == s.getMonth(dd) && d == s.getDay(dd)) || // Exact date
-                                    (!v.match(/w/i) && ((str[1] && d == str[1] && m == str[0] - 1) || (!str[1] && d == str[0]))) || // Day of month
-                                    (v.match(/w/i) && day.getDay() == +v.replace('w', '')) // Day of week
-                                    )) {
-                                    obj.apply = true;
-                                    spec[day] = true; // Prevent applying generic rule on day, if specific exists
-                                }
-                            }
-                        });
-
-                        $.each(invalid, function (i, obj) {
-                            if (obj.start && (obj.apply || (!obj.d && !spec[day]))) {
-
-                                parts1 = obj.start.split(':');
-                                parts2 = obj.end.split(':');
-
-                                for (j = 0; j < 3; j++) {
-                                    if (parts1[j] === undefined) {
-                                        parts1[j] = 0;
-                                    }
-                                    if (parts2[j] === undefined) {
-                                        parts2[j] = 59;
-                                    }
-                                    parts1[j] = +parts1[j];
-                                    parts2[j] = +parts2[j];
-                                }
-
-                                parts1.unshift(parts1[0] > 11 ? 1 : 0);
-                                parts2.unshift(parts2[0] > 11 ? 1 : 0);
-
-                                if (hampm) {
-                                    if (parts1[1] >= 12) {
-                                        parts1[1] = parts1[1] - 12;
-                                    }
-
-                                    if (parts2[1] >= 12) {
-                                        parts2[1] = parts2[1] - 12;
-                                    }
-                                }
-
-                                prop1 = true;
-                                prop2 = true;
-                                $.each(w, function (i, v) {
-                                    if (o[v] !== undefined) {
-                                        val = get(temp, v);
-                                        add = 0;
-                                        remove = 0;
-                                        i1 = 0;
-                                        i2 = undefined;
-                                        target = $('.dw-ul', dw).eq(o[v]);
-
-                                        // Look ahead if next wheels should be disabled completely
-                                        for (j = i + 1; j < 4; j++) {
-                                            if (parts1[j] > 0) {
-                                                add = steps[v];
-                                            }
-                                            if (parts2[j] < maxs[w[j]]) {
-                                                remove = steps[v];
-                                            }
-                                        }
-
-                                        // Calculate min and max values
-                                        v1 = step(parts1[i], steps[v], mins[v], maxs[v]) + add;
-                                        v2 = step(parts2[i], steps[v], mins[v], maxs[v]) - remove;
-
-                                        if (prop1) {
-                                            i1 = getValidIndex(target, v1, maxs[v], 0);
-                                        }
-
-                                        if (prop2) {
-                                            i2 = getValidIndex(target, v2, maxs[v], 1);
-                                        }
-
-                                        // Disable values
-                                        if (prop1 || prop2) {
-                                            $('.dw-li', target).slice(i1, i2).removeClass('dw-v');
-                                        }
-
-                                        // Get valid value
-                                        val = inst.getValidCell(val, target, dir).val;
-
-                                        prop1 = prop1 && val == step(parts1[i], steps[v], mins[v], maxs[v]);
-                                        prop2 = prop2 && val == step(parts2[i], steps[v], mins[v], maxs[v]);
-
-                                        // Set modified value
-                                        temp[o[v]] = val;
-                                    }
-                                });
-                            }
-                        });
+                    if (hasTime) {
+                        validateTimes(invalid, temp, y, m, mins, maxs, dir, dw, 0);
+                        validateTimes(valid, temp, y, m, mins, maxs, dir, dw, 1);
                     }
 
                     inst.temp = temp;
