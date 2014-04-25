@@ -49,11 +49,12 @@
 }
 .android-ics .dwwo {
     background: -webkit-gradient(linear,left bottom,left top,from(#282828),color-stop(0.52, rgba(40,40,40,0)),color-stop(0.48, rgba(40,40,40,0)),to(#282828));
-    background: -webkit-linear-gradient(#282828 0%,rgba(40,40,40,0) 52%, rgba(40,40,40,0) 48%, #282828 100%);
-    background: -moz-linear-gradient(#282828 0%,rgba(40,40,40,0) 52%, rgba(40,40,40,0) 48%, #282828 100%);
-    background: linear-gradient(#282828 0%,rgba(40,40,40,0) 52%, rgba(40,40,40,0) 48%, #282828 100%);
+    background: -webkit-linear-gradient(#282828,rgba(40,40,40,0) 52%, rgba(40,40,40,0) 48%, #282828);
+    background: -moz-linear-gradient(#282828,rgba(40,40,40,0) 52%, rgba(40,40,40,0) 48%, #282828);
+    background: linear-gradient(#282828,rgba(40,40,40,0) 52%, rgba(40,40,40,0) 48%, #282828);
 }
 .android-ics .dw .dwwb {
+    color: #7e7e7e;
     background: #292829;
     -webkit-box-shadow: none;
     box-shadow: none;
@@ -61,18 +62,13 @@
 .android-ics .dwwb span {
     display: none;
 }
-.android-ics .dwwb:after {
+.android-ics .dwwb:before {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-top: -8px;
-    margin-left: -8px;
-    color: #7e7e7e;
-    width: 0;
-    height: 0;
-    border-width: 8px;
-    border-style: solid;
-    content: '';
+    top: 0;
+    left: 0;
+    width: 100%;
+    font-size: 26px;
+    text-shadow: none;
 }
 .android-ics .dwwbm {
     top: 0;
@@ -82,20 +78,11 @@
     bottom: 0;
     top: auto;
 }
-.android-ics .dwwbm:after {
-    border-color: transparent transparent #7e7e7e transparent;
-}
-.android-ics .dwwbp:after {
-    border-color: #7e7e7e transparent transparent transparent;
-}
 .android-ics .dw .dwwl .dwb-a {
     background: #292829;
 }
-.android-ics .dwwbm.dwb-a:after {
-    border-color: transparent transparent #319abd transparent;
-}
-.android-ics .dwwbp.dwb-a:after {
-    border-color: #319abd transparent transparent transparent;
+.android-ics .dwwb.dwb-a {
+    color: #319abd;
 }
 .android-ics .dw .dwwol {
     width: 60%;
@@ -204,9 +191,9 @@
 }
 .android-ics.light .dwwo {
     background: -webkit-gradient(linear,left bottom,left top,from(#f5f5f5),color-stop(0.52, rgba(245,245,245,0)),color-stop(0.48, rgba(245,245,245,0)),to(#f5f5f5));
-    background: -webkit-linear-gradient(#f5f5f5 0%,rgba(245,245,245,0) 52%, rgba(245,245,245,0) 48%, #f5f5f5 100%);
-    background: -moz-linear-gradient(#f5f5f5 0%,rgba(245,245,245,0) 52%, rgba(245,245,245,0) 48%, #f5f5f5 100%);
-    background: linear-gradient(#f5f5f5 0%,rgba(245,245,245,0) 52%, rgba(245,245,245,0) 48%, #f5f5f5 100%);
+    background: -webkit-linear-gradient(#f5f5f5,rgba(245,245,245,0) 52%, rgba(245,245,245,0) 48%, #f5f5f5);
+    background: -moz-linear-gradient(#f5f5f5,rgba(245,245,245,0) 52%, rgba(245,245,245,0) 48%, #f5f5f5);
+    background: linear-gradient(#f5f5f5,rgba(245,245,245,0) 52%, rgba(245,245,245,0) 48%, #f5f5f5);
 }
 .android-ics.light .dw .dwwb {
     background: #f5f5f5;

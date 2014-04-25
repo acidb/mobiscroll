@@ -9,7 +9,9 @@
         selectedLineHeight: true,
         selectedLineBorder: 2,
         useShortLabels: true,
-        icon: { filled: 'star3', empty: 'star' }
+        icon: { filled: 'star3', empty: 'star' },
+        btnPlusClass: 'mbsc-ic mbsc-ic-arrow-down6',
+        btnMinusClass: 'mbsc-ic mbsc-ic-arrow-up6'
     };
 
     $.mobiscroll.themes['android-ics'] = theme;

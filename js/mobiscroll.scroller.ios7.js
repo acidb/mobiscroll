@@ -10,7 +10,11 @@
         btnWidth: false,
         selectedLineHeight: true,
         selectedLineBorder: 1,
-        useShortLabels: true
+        useShortLabels: true,
+        btnCalPrevClass: 'mbsc-ic mbsc-ic-arrow-left5',
+        btnCalNextClass: 'mbsc-ic mbsc-ic-arrow-right5',
+        btnPlusClass: 'mbsc-ic mbsc-ic-arrow-down5',
+        btnMinusClass: 'mbsc-ic mbsc-ic-arrow-up5',
     };
 
 })(jQuery);

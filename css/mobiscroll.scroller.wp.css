@@ -1,8 +1,8 @@
 .wp .dw .dwwr {
     padding: 10px;
     background: #1f1f1f;
-    border-radius: 0;
     -webkit-border-radius: 0;
+    border-radius: 0;
 }
 .wp .dwv {
     background: none;
@@ -132,7 +132,6 @@
     height: 20px;
     padding: 29px 5px 0 5px;
     background: none;
-    box-shadow: none;
     line-height: 20px;
     font-size: 11px;
     font-weight: normal;
@@ -143,6 +142,7 @@
     -webkit-transition: all .1s linear;
     -moz-transition: all .1s linear;
     transition: all .1s linear;
+    box-shadow: none;
 }
 .wp .dwb:before {
     position: absolute;
@@ -168,31 +168,28 @@
 }
 .wp .dw .dwwb {
     background: #1f1f1f;
-    border-radius: 0;
-    color: #a9a9a9;
     -webkit-box-shadow: none;
     -webkit-border-radius: 0;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-shadow: none;
+    border-radius: 0;
     box-sizing: border-box;
 }
 .wp .dwwb:before {
     position: absolute;
-    top: 3px;
+    top: 50%;
     left: 50%;
     width: 22px;
     height: 22px;
-    margin: 0 -13px;
-    border: 2px solid #fff;
-    border-radius: 13px;
+    margin: -13px 0 0 -13px;
+    color: #fff;
     line-height: 22px;
     font-size: 10px;
-
-    top: 50%;
-    margin-top: -13px;
-    color: #fff;
     text-shadow: none;
+    border: 2px solid #fff;
+    -webkit-border-radius: 13px;
+    border-radius: 13px;
 }
 .wp .dw .dwwr .dwwb.dwb-a {
     top: auto;
@@ -200,7 +197,6 @@
 .wp .dwwb span {
     display: none;
 }
-
 .wp .dwb-a:before {
     background: #fff;
     color: #1f1f1f;
