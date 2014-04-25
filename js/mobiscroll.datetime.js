@@ -96,7 +96,6 @@
                 wg,
                 start,
                 end,
-                invalid,
                 hasTime,
                 orig = $.extend({}, inst.settings),
                 s = $.extend(inst.settings, defaults, html5def, orig),
@@ -105,6 +104,7 @@
                 ord = [],
                 o = {},
                 f = { y: getYear, m: getMonth, d: getDay, h: getHour, i: getMinute, s: getSecond, a: getAmPm },
+                invalid = s.invalid,
                 valid = s.valid,
                 p = s.preset,
                 dord = s.dateOrder,
@@ -574,6 +574,28 @@
                 return ret;
             }
 
+            function convertRanges(arr) {
+                var i, v, start,
+                    ret = [];
+
+                if (arr) {
+                    for (i = 0; i < arr.length; i++) {
+                        v = arr[i];
+                        if (v.start && v.start.getTime) {
+                            start = new Date(v.start);
+                            while (start <= v.end) {
+                                ret.push(new Date(start.getFullYear(), start.getMonth(), start.getDate()));
+                                start.setDate(start.getDate() + 1);
+                            }
+                        } else {
+                            ret.push(v);
+                        }
+                    }
+                    return ret;
+                }
+                return arr;
+            }
+
             // Extended methods
             // ---
 
@@ -601,6 +623,9 @@
                 return getDate(temp ? inst.temp : inst.values);
             };
 
+            /**
+             * @deprecated since 2.7.0, backward compatibility code
+             */
             inst.convert = function (obj) {
                 var x = obj;
 
@@ -632,11 +657,16 @@
             inst.format = hformat;
             inst.buttons.now = { text: s.nowText, css: 'dwb-n', handler: function () { inst.setDate(new Date(), false, 0.3, true, true); } };
 
+            // @deprecated since 2.8.0, backward compatibility code
+            // ---
             if (s.showNow) {
                 s.buttons.splice($.inArray('set', s.buttons) + 1, 0, 'now');
             }
+            invalid = invalid ? inst.convert(invalid) : false;
+            // ---
 
-            invalid = s.invalid ? inst.convert(s.invalid) : false;
+            invalid = convertRanges(invalid);
+            valid = convertRanges(valid);
 
             // Normalize min and max dates for comparing later (set default values where there are no values from wheels)
             mind = getDate(getArray(mind));

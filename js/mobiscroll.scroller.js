@@ -259,7 +259,10 @@
         function generateWheelItems(i) {
             var html = '<div class="dw-bf">',
                 ww = wheels[i],
+                // @deprecated since 2.6.0, backward compatibility code
+                // ---
                 w = ww.values ? ww : convert(ww),
+                // ---
                 l = 1,
                 labels = w.labels || [],
                 values = w.values,
@@ -1108,6 +1111,8 @@
             $wnd = $(s.context == 'body' ? window : s.context);
             $doc = $(s.context)[0];
 
+            // @deprecated since 2.8.0, backward compatibility code
+            // ---
             if (!s.setText) {
                 buttons.splice($.inArray('set', buttons), 1);
             }
@@ -1117,6 +1122,7 @@
             if (s.button3) {
                 buttons.splice($.inArray('set', buttons) + 1, 0, { text: s.button3Text, handler: s.button3 });
             }
+            // ---
 
             that.context = $wnd;
             that.live = !isModal || ($.inArray('set', buttons) == -1);
@@ -1239,6 +1245,9 @@
         return Math.max(min, Math.min(val, max));
     }
 
+    /**
+     * @deprecated since 2.6.0, backward compatibility code
+     */
     function convert(w) {
         var ret = {
             values: [],
@@ -1310,7 +1319,10 @@
 
                 $.each(inst.settings.wheels, function (j, wg) {
                     $.each(wg, function (k, w) {
+                        // @deprecated since 2.6.0, backward compatibility code
+                        // ---
                         w = w.values ? w : convert(w);
+                        // ---
                         keys = w.keys || w.values;
                         if ($.inArray(val[i], keys) !== -1) {
                             ret.push(val[i]);
