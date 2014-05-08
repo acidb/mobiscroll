@@ -749,12 +749,13 @@
                     startX = getCoord(ev, 'X');
                     startY = getCoord(ev, 'Y');
                 }).on('touchend.dw', function (ev) {
+                    var that = this;
                     // If movement is less than 20px, fire the click event handler
                     if (Math.abs(getCoord(ev, 'X') - startX) < 20 && Math.abs(getCoord(ev, 'Y') - startY) < 20) {
                         // preventDefault and setTimeout are needed by iOS
                         ev.preventDefault();
                         setTimeout(function () {
-                            handler.call(this, ev);
+                            handler.call(that, ev);
                         }, isOldAndroid ? 400 : 10);
                     }
                     setTap();
