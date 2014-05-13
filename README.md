@@ -32,6 +32,31 @@ It'd be cool to see how you're using Mobiscroll!
 
 We're looking at showcasing some of the best work on http://mobiscroll.com . Feel free to let us know on twitter @mobiscroll!
 
+Changelog 2.11.0
+================
+
+_Core_
+
+  * Added: `rtl` setting for right to left support.
+
+_Datetime_
+
+  * Added: Support for invalid ranges.
+
+  * Added: `valid` setting to override invalid dates.
+
+_Languages_
+
+  * Added: Persian translation and support for jalali dates.
+
+_Listview_
+
+  * Added: Undo functionality.
+
+_Windows Phone Theme_
+
+  * Changed: PNG images are replaced with font icons.
+
 
 Changelog 2.10.1
 ================
