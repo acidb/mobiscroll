@@ -13,11 +13,7 @@
         btnPlusClass: 'mbsc-ic mbsc-ic-arrow-down6',
         btnMinusClass: 'mbsc-ic mbsc-ic-arrow-up6',
         onThemeLoad: function (lang, s) {
-            if (s.theme == 'android-ics') {
-                s.theme = 'android-holo';
-            } else if (s.theme == 'android-ics light') {
-                s.theme = 'android-holo light';
-            }
+            s.theme = s.theme.replace('android-ics', 'android-holo');
         }
     };
 
