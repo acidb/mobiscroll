@@ -80,8 +80,6 @@
 }
 .android-holo .dw .dwwl .dwb-a {
     background: #292829;
-}
-.android-holo .dwwb.dwb-a {
     color: #319abd;
 }
 .android-holo .dw .dwwol {
@@ -197,7 +195,6 @@
 }
 .android-holo.light .dw .dwwb {
     background: #f5f5f5;
-    color: #f5f5f5;
 }
 .android-holo.light .dwbc {
     border-top: 1px solid #dbdbdb;
