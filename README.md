@@ -49,6 +49,10 @@ _Languages_
 
   * Added: Persian translation and support for jalali dates.
 
+_List_
+
+  * Fixed: Support for `data-val="0"` (#223).
+
 _Listview_
 
   * Added: Undo functionality.

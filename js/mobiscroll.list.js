@@ -305,7 +305,7 @@
                     var v = c.html().replace(/^\s\s*/, '').replace(/\s\s*$/, ''),
                         inv = that.data('invalid') ? true : false,
                         wheelObj = {
-                            key: that.data('val') || index,
+                            key: that.attr('data-val') === undefined ? index : that.attr('data-val'),
                             value: v,
                             invalid: inv,
                             children: null
