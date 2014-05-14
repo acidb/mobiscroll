@@ -53,6 +53,12 @@ _Listview_
 
   * Added: Undo functionality.
 
+  * Added: `altRow` setting for alternate line colors.
+
+_Themes_
+
+  * Changed: `android-ics` renamed to `android-holo`.
+
 _Windows Phone Theme_
 
   * Changed: PNG images are replaced with font icons.

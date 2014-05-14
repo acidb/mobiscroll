@@ -1,5 +1,5 @@
 /*!
- * Mobiscroll v2.10.1
+ * Mobiscroll v2.11.0
  * http://mobiscroll.com
  *
  * Copyright 2010-2014, Acid Media
