@@ -57,7 +57,11 @@ _Listview_
 
   * Added: Undo functionality.
 
+  * Added: `itemGroups` setting for defining different settings (actions, stages, tap) for different list items.
+
   * Added: `altRow` setting for alternate line colors.
+
+  * Added: `fixedHeader` setting for fixed group headers.
 
 _Themes_
 
