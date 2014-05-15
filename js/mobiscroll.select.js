@@ -242,7 +242,7 @@
             // Set input/select values
             if (fill) {
                 var changed = multiple ? true : option !== elm.val();
-                setVal(main[option], changed, change);
+                setVal(main[option], changed, change === undefined ? fill : change);
             }
         };
 
