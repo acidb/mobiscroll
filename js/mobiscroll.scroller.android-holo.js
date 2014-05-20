@@ -1,7 +1,7 @@
 (function ($) {
     var theme = {
         dateOrder: 'Mddyy',
-        mode: 'mixed',
+        //mode: 'mixed',
         rows: 5,
         minWidth: 76,
         height: 36,
@@ -13,7 +13,9 @@
         btnPlusClass: 'mbsc-ic mbsc-ic-arrow-down6',
         btnMinusClass: 'mbsc-ic mbsc-ic-arrow-up6',
         onThemeLoad: function (lang, s) {
-            s.theme = s.theme.replace('android-ics', 'android-holo');
+            if (s.theme) {
+                s.theme = s.theme.replace('android-ics', 'android-holo');
+            }
         }
     };
 
