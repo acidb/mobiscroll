@@ -153,20 +153,29 @@
 .android-holo .dwwms .dw-li:after {
     content: '';
     position: absolute;
+    z-index: 1;
     top: 50%;
     left: auto;
     right: 10px;
     width: 14px;
     height: 14px;
     margin-top: -9px;
-    color: #31b6e7;
-    line-height: 14px;
     border: 1px solid #424542;
+}
+.android-holo .dwwms .dw-msel:before {
+    z-index: 2;
+    top: 50%;
+    left: auto;
+    right: 10px;
+    width: 14px;
+    color: #31b6e7;
+    margin-top: -10px;
+    line-height: 14px;
     text-shadow: 0 0 5px #29799c;
 }
-.android-holo .dwwms .dw-msel:after {
+/*.android-holo .dwwms .dw-msel:after {
     content: '\2714';
-}
+}*/
 /* Light version */
 .android-holo.light .dwwr {
     background: #f5f5f5;
@@ -220,6 +229,7 @@
     border-color: #f5f5f5 transparent transparent transparent;
 }
 /* Multiple select */
-.android-holo.light .dwwms .dw-li:after {
+.android-holo.light .dwwms .dw-li:before {
+    color: #29799c;
     text-shadow: 0 0 5px #31b6e7;
 }
