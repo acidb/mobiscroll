@@ -229,18 +229,23 @@
 .wp .dwwms .dw-li:after {
     content: '';
     position: absolute;
+    z-index: 1;
     top: 50%;
     left: 5px;
     width: 20px;
     height: 20px;
     margin-top: -10px;
-    font-size: 18px;
-    line-height: 20px;
-    background: #4c4c4c;
-    color: #fff;
+    border: 2px solid #fff;
 }
-.wp .dwwms .dw-msel:after {
-    content: '\2714';
+.wp .dwwms .dw-msel:before {
+    z-index: 2;
+    top: 50%;
+    left: 5px;
+    width: 22px;
+    margin-top: -8px;
+    font-size: 16px;
+    line-height: 20px;
+    color: #fff;
 }
 /* Light version */
 .wp.light .dwwr {
@@ -305,9 +310,9 @@
     color: #000;
 }
 .wp.light .dwwms .dw-li:after {
-    background: #b5b5b5;
+    border-color: #000;
 }
-.wp.light .wp-none .dwwms .dw-li:after {
+.wp.light .wp-none .dwwms .dw-li:before {
     color: #000;
 }
 /* Accents */

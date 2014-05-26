@@ -32,6 +32,7 @@
             id = this.id + '_dummy',
             lbl = $('label[for="' + this.id + '"]').attr('for', id),
             label = s.label !== undefined ? s.label : (lbl.length ? lbl.text() : elm.attr('name')),
+            selectedClass = 'dw-msel mbsc-ic mbsc-ic-checkmark',
             invalid = [],
             origValues = [],
             main = {},
@@ -141,10 +142,10 @@
                     selected = li.hasClass('dw-msel');
 
                 if (selected) {
-                    li.removeClass('dw-msel').removeAttr('aria-selected');
+                    li.removeClass(selectedClass).removeAttr('aria-selected');
                     delete inst._selectedValues[val];
                 } else {
-                    li.addClass('dw-msel').attr('aria-selected', 'true');
+                    li.addClass(selectedClass).attr('aria-selected', 'true');
                     inst._selectedValues[val] = val;
                 }
 
@@ -330,10 +331,10 @@
                     v = inst._selectedValues;
                     j = 0;
 
-                    $('.dwwl' + optIdx + ' .dw-li', dw).removeClass('dw-msel').removeAttr('aria-selected');
+                    $('.dwwl' + optIdx + ' .dw-li', dw).removeClass(selectedClass).removeAttr('aria-selected');
 
                     for (j in v) {
-                        $('.dwwl' + optIdx + ' .dw-li[data-val="' + v[j] + '"]', dw).addClass('dw-msel').attr('aria-selected', 'true');
+                        $('.dwwl' + optIdx + ' .dw-li[data-val="' + v[j] + '"]', dw).addClass(selectedClass).attr('aria-selected', 'true');
                     }
                 }
 
@@ -372,7 +373,7 @@
             onClear: function (dw) {
                 inst._selectedValues = {};
                 input.val('');
-                $('.dwwl' + optIdx + ' .dw-li', dw).removeClass('dw-msel').removeAttr('aria-selected');
+                $('.dwwl' + optIdx + ' .dw-li', dw).removeClass(selectedClass).removeAttr('aria-selected');
             },
             onValueTap: onTap,
             onSelect: function (v) {
