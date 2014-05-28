@@ -104,6 +104,7 @@
             getCoord: getCoord,
             testTouch: testTouch
         },
+        tapped: false,
         presets: {},
         themes: {},
         i18n: {},
