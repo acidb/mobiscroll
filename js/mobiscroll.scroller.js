@@ -666,6 +666,9 @@
 
             that._isLiquid = (s.layout || (/top|bottom/.test(s.display) && s.wheels.length == 1 ? 'liquid' : '')) === 'liquid';
 
+            that.values = null;
+            that.temp = null;
+
             if (lines > 1) {
                 s.cssClass = (s.cssClass || '') + ' dw-ml';
             }
@@ -673,8 +676,6 @@
 
         // Properties
 
-        that.values = null;
-        that.temp = null;
         that._selectedValues = {};
 
         // Constructor

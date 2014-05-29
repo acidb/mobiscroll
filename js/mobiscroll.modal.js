@@ -599,7 +599,7 @@
         */
         that.init = function (ss) {
 
-            s = that.settings;
+            that.settings = s = {};
 
             // Update original user settings
             extend(settings, ss);
@@ -694,7 +694,6 @@
 
         that.val = null;
         that.buttons = {};
-        that.settings = {};
 
         // Constructor
         if (!inherit) {
