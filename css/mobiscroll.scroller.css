@@ -85,6 +85,7 @@
 .dw-inline .dw {
     position: static;
     display: inline-block;
+    max-width: none;
 }
 .dw-inline.dw-liq .dw-persp .dw {
     display: block;

@@ -35,6 +35,10 @@
         return e.changedTouches ? e.changedTouches[0]['page' + c] : e['page' + c];
     }
 
+    function constrain(val, min, max) {
+        return Math.max(min, Math.min(val, max));
+    }
+
     function init(that, options, args) {
         var ret = that;
 
@@ -102,7 +106,8 @@
             has3d: has3d,
             hasFlex: hasFlex,
             getCoord: getCoord,
-            testTouch: testTouch
+            testTouch: testTouch,
+            constrain: constrain
         },
         tapped: false,
         presets: {},

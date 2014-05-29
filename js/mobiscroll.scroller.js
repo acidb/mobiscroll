@@ -9,53 +9,8 @@
         has3d = util.has3d,
         hasFlex = util.hasFlex,
         getCoord = util.getCoord,
-        testTouch = util.testTouch,
-        extend = $.extend,
-        defaults = extend(ms.defaults, {
-            // Options
-            minWidth: 80,
-            height: 40,
-            rows: 3,
-            multiline: 1,
-            delay: 300,
-            readonly: false,
-            showLabel: true,
-            wheels: [],
-            mode: 'scroller',
-            preset: '',
-            speedUnit: 0.0012,
-            timeUnit: 0.1,
-            formatResult: function (d) {
-                return d.join(' ');
-            },
-            parseValue: function (value, inst) {
-                var val = value.split(' '),
-                    ret = [],
-                    i = 0,
-                    keys;
-
-                $.each(inst.settings.wheels, function (j, wg) {
-                    $.each(wg, function (k, w) {
-                        // @deprecated since 2.6.0, backward compatibility code
-                        // ---
-                        w = w.values ? w : convert(w);
-                        // ---
-                        keys = w.keys || w.values;
-                        if ($.inArray(val[i], keys) !== -1) {
-                            ret.push(val[i]);
-                        } else {
-                            ret.push(keys[0]);
-                        }
-                        i++;
-                    });
-                });
-                return ret;
-            }
-        });
-
-    function constrain(val, min, max) {
-        return Math.max(min, Math.min(val, max));
-    }
+        constrain = util.constrain,
+        testTouch = util.testTouch;
 
     /**
      * @deprecated since 2.6.0, backward compatibility code
@@ -72,14 +27,60 @@
         return ret;
     }
 
+    // Extend defaults
+    $.extend(ms.defaults, {
+        // Options
+        minWidth: 80,
+        height: 40,
+        rows: 3,
+        multiline: 1,
+        delay: 300,
+        readonly: false,
+        showLabel: true,
+        wheels: [],
+        mode: 'scroller',
+        preset: '',
+        speedUnit: 0.0012,
+        timeUnit: 0.1,
+        formatResult: function (d) {
+            return d.join(' ');
+        },
+        parseValue: function (value, inst) {
+            var val = value.split(' '),
+                ret = [],
+                i = 0,
+                keys;
+
+            $.each(inst.settings.wheels, function (j, wg) {
+                $.each(wg, function (k, w) {
+                    // @deprecated since 2.6.0, backward compatibility code
+                    // ---
+                    w = w.values ? w : convert(w);
+                    // ---
+                    keys = w.keys || w.values;
+                    if ($.inArray(val[i], keys) !== -1) {
+                        ret.push(val[i]);
+                    } else {
+                        ret.push(keys[0]);
+                    }
+                    i++;
+                });
+            });
+            return ret;
+        }
+    });
+
     classes.Scroller = function (el, settings, inherit) {
         var $markup,
+            btn,
             isScrollable,
             itemHeight,
+            middle,
             preventChange,
+            s,
+            trigger,
             valueText,
 
-            m,
             click,
             moved,
             start,
@@ -92,11 +93,8 @@
             index,
             lines,
             timer,
-            trigger,
-            btn,
             that = this,
             $elm = $(el),
-            s,
             iv = {},
             pos = {},
             pixels = {},
@@ -198,15 +196,7 @@
         }
 
         function onBtnStart(ev) {
-            // Can't call preventDefault here, it kills page scroll
-            if (btn) {
-                btn.removeClass('dwb-a');
-            }
             btn = $(this);
-            // Active button
-            if (!btn.hasClass('dwb-d') && !btn.hasClass('dwb-nhl')) {
-                btn.addClass('dwb-a');
-            }
             // +/- buttons
             if (btn.hasClass('dwwb')) {
                 if (testTouch(ev)) {
@@ -219,16 +209,13 @@
         }
 
         function onBtnEnd(ev) {
+            btn = null;
             if (click) {
                 clearInterval(timer);
                 click = false;
             }
-            if (btn) {
-                btn.removeClass('dwb-a');
-                btn = null;
-            }
             if (ev.type === 'mouseup') {
-                $(document).off('mousedown', onBtnEnd);
+                $(document).off('mouseup', onBtnEnd);
             }
         }
 
@@ -343,7 +330,7 @@
                 px = style.top.replace('px', '');
             }
 
-            return Math.round(m - (px / itemHeight));
+            return Math.round(middle - (px / itemHeight));
         }
 
         function ready(t, i) {
@@ -353,7 +340,7 @@
         }
 
         function scroll(t, index, val, time, active) {
-            var px = (m - val) * itemHeight,
+            var px = (middle - val) * itemHeight,
                 style = t[0].style;
 
             if (px == pixels[index] && iv[index]) {
@@ -458,7 +445,8 @@
                 });
 
                 // Reformat value if validation changed something
-                valueText = s.formatResult(that.temp);
+                that._valueText = valueText = s.formatResult(that.temp);
+
                 if (that.live) {
                     setValue(manual, manual, 0, true);
                 }
@@ -507,7 +495,7 @@
                 scrollToPos(time);
             }
 
-            valueText = s.formatResult(that.temp);
+            that._valueText = valueText = s.formatResult(that.temp);
 
             if (!temp) {
                 that.values = that.temp.slice(0);
@@ -603,11 +591,9 @@
         */
         that.getValidCell = getValid;
 
-        // Overrides
+        // Protected overrides
 
-        that._baseInit = that.init;
-
-        that.generateContent = function () {
+        that._generateContent = function () {
             var lbl,
                 html = '',
                 l = 0;
@@ -648,7 +634,7 @@
             return html;
         };
 
-        that.attachEvents = function ($markup) {
+        that._attachEvents = function ($markup) {
             $markup
                 .on('DOMMouseScroll mousewheel', '.dwwl', onScroll)
                 .on('keydown', '.dwwl', onKeyDown)
@@ -660,25 +646,32 @@
                 .on('touchend', '.dwb-e', onBtnEnd);
         };
 
-        that.markupReady = function () {
+        that._markupReady = function () {
             $markup = that._markup;
             scrollToPos();
         };
 
-        that.readValue = readValue;
+        that._fillValue = function () {
+            setValue(true, true, 0, true);
+        };
 
-        that.fillValue = setValue;
+        that._readValue = readValue;
 
-        that.init = function () {
+        that._processSettings = function () {
             s = that.settings;
             trigger = that.trigger;
-
-            that._baseInit();
-
-            // Additional initializations
-            m = Math.floor(s.rows / 2);
+            middle = Math.floor(s.rows / 2);
             itemHeight = s.height;
+            lines = s.multiline;
+
+            that._isLiquid = (s.layout || (/top|bottom/.test(s.display) && s.wheels.length == 1 ? 'liquid' : '')) === 'liquid';
+
+            if (lines > 1) {
+                s.cssClass = (s.cssClass || '') + ' dw-ml';
+            }
         };
+
+        // Properties
 
         that.values = null;
         that.temp = null;

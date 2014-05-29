@@ -1,21 +1,5 @@
 ﻿(function ($) {
 
-    // TO REMOVE:
-    // ---
-    function constrain(val, min, max) {
-        return Math.max(min, Math.min(val, max));
-    }
-
-    function setTap() {
-        ms.tapped = true;
-        setTimeout(function () {
-            ms.tapped = false;
-        }, 500);
-    }
-
-    // ---
-
-
     $.mobiscroll.classes.Modal = function (el, settings, inherit) {
         var $doc,
             $header,
@@ -25,11 +9,13 @@
             $popup,
             $wnd,
             buttons,
+            btn,
+            doAnim,
             hasButtons,
             isModal,
-            isLiquid,
-            //isVisible,
             lang,
+            modalWidth,
+            modalHeight,
             preset,
             preventChange,
             preventPos,
@@ -40,15 +26,34 @@
             wndWidth,
             wndHeight,
 
-            valueText,
-
-            mw, // Modal width
-            mh, // Modal height
-            anim,
             that = this,
             $elm = $(el),
             elmList = [];
-            //isInput = $elm.is('input');
+
+        function onBtnStart(ev) {
+            // Can't call preventDefault here, it kills page scroll
+            if (btn) {
+                btn.removeClass('dwb-a');
+            }
+            btn = $(this);
+            // Active button
+            if (!btn.hasClass('dwb-d') && !btn.hasClass('dwb-nhl')) {
+                btn.addClass('dwb-a');
+            }
+            if (ev.type === 'mousedown') {
+                $(document).on('mouseup', onBtnEnd);
+            }
+        }
+
+        function onBtnEnd(ev) {
+            if (btn) {
+                btn.removeClass('dwb-a');
+                btn = null;
+            }
+            if (ev.type === 'mouseup') {
+                $(document).off('mousedown', onBtnEnd);
+            }
+        }
 
         function onHide(prevAnim) {
             var activeEl,
@@ -126,7 +131,7 @@
                     anchor = s.anchor === undefined ? $elm : s.anchor;
 
                 // Set / unset liquid layout based on screen width, but only if not set explicitly by the user
-                if (isLiquid && s.layout !== 'liquid') {
+                if (that._isLiquid && s.layout !== 'liquid') {
                     if (nw < 400) {
                         $markup.addClass('dw-liq');
                     } else {
@@ -145,15 +150,15 @@
                     wr.width(w).css('white-space', totalw > nw ? '' : 'nowrap');
                 }
 
-                mw = d.outerWidth();
-                mh = d.outerHeight(true);
-                scrollLock = mh <= nh && mw <= nw;
+                modalWidth = d.outerWidth();
+                modalHeight = d.outerHeight(true);
+                scrollLock = modalHeight <= nh && modalWidth <= nw;
 
                 that.scrollLock = scrollLock;
 
                 if (s.display == 'modal') {
-                    l = Math.max(0, (nw - mw) / 2);
-                    t = st + (nh - mh) / 2;
+                    l = Math.max(0, (nw - modalWidth) / 2);
+                    t = st + (nh - modalHeight) / 2;
                 } else if (s.display == 'bubble') {
                     scroll = true;
                     arr = $('.dw-arrw-i', $markup);
@@ -164,10 +169,10 @@
                     // horizontal positioning
                     aw = anchor.outerWidth();
                     ah = anchor.outerHeight();
-                    l = constrain(al - (d.outerWidth(true) - aw) / 2 - sl, 3, nw - mw - 3);
+                    l = constrain(al - (d.outerWidth(true) - aw) / 2 - sl, 3, nw - modalWidth - 3);
 
                     // vertical positioning
-                    t = at - mh; // above the input
+                    t = at - modalHeight; // above the input
                     if ((t < st) || (at > st + nh)) { // if doesn't fit above or the input is out of the screen
                         d.removeClass('dw-bubble-top').addClass('dw-bubble-bottom');
                         t = at + ah; // below the input
@@ -177,7 +182,7 @@
 
                     // Calculate Arrow position
                     arrw = arr.outerWidth();
-                    arrl = constrain(al + aw / 2 - (l + (mw - arrw) / 2) - sl, 0, arrw);
+                    arrl = constrain(al + aw / 2 - (l + (modalWidth - arrw) / 2) - sl, 0, arrw);
 
                     // Limit Arrow position
                     $('.dw-arr', $markup).css({ left: arrl });
@@ -185,7 +190,7 @@
                     if (s.display == 'top') {
                         t = st;
                     } else if (s.display == 'bottom') {
-                        t = st + nh - mh;
+                        t = st + nh - modalHeight;
                     }
                 }
 
@@ -195,14 +200,14 @@
 
                 // If top + modal height > doc height, increase doc height
                 $persp.height(0);
-                dh = Math.max(t + mh, s.context == 'body' ? $(document).height() : $doc.scrollHeight);
+                dh = Math.max(t + modalHeight, s.context == 'body' ? $(document).height() : $doc.scrollHeight);
                 $persp.css({ height: dh, left: sl });
 
                 // Scroll needed
-                if (scroll && ((t + mh > st + nh) || (at > st + nh))) {
+                if (scroll && ((t + modalHeight > st + nh) || (at > st + nh))) {
                     preventPos = true;
                     setTimeout(function () { preventPos = false; }, 300);
-                    $wnd.scrollTop(Math.min(t + mh - nh, dh - nh));
+                    $wnd.scrollTop(Math.min(t + modalHeight - nh, dh - nh));
                 }
             }
 
@@ -244,7 +249,7 @@
         */
         that.select = function () {
             if (that.hide(false, 'set') !== false) {
-                that.fillValue(true, true, 0, true);
+                that._fillValue();
                 event('onSelect', [that.val]);
             }
         };
@@ -283,37 +288,40 @@
                 return;
             }
 
-            if (anim !== false) {
+            if (doAnim !== false) {
                 if (s.display == 'top') {
-                    anim = 'slidedown';
+                    doAnim = 'slidedown';
                 }
                 if (s.display == 'bottom') {
-                    anim = 'slideup';
+                    doAnim = 'slideup';
                 }
             }
 
             // Parse value from input
-            that.readValue();
+            that._readValue();
 
             event('onBeforeShow', []);
 
-            if (isModal && anim && !prevAnim) {
-                mAnim = 'dw-' + anim + ' dw-in';
+            if (isModal && doAnim && !prevAnim) {
+                mAnim = 'dw-' + doAnim + ' dw-in';
             }
 
             // Create wheels containers
-            html = '<div class="' + s.theme + ' dw-' + s.display +
-                (isLiquid ? ' dw-liq' : '') +
-                //(lines > 1 ? ' dw-ml' : '') +
+            html = '<div class="' + s.theme + ' dw-' + s.display + ' ' +
+                (s.cssClass || '') +
+                (that._isLiquid ? ' dw-liq' : '') +
                 (hasButtons ? '' : ' dw-nobtn') + '">' +
                     '<div class="dw-persp">' +
                         (isModal ? '<div class="dwo"></div>' : '') + // Overlay
                         '<div' + (isModal ? ' role="dialog" tabindex="-1"' : '') + ' class="dw dwbg ' + mAnim + (s.rtl ? ' dw-rtl' : ' dw-ltr') + '">' + // Popup
                             (s.display === 'bubble' ? '<div class="dw-arrw"><div class="dw-arrw-i"><div class="dw-arr"></div></div></div>' : '') + // Bubble arrow
                             '<div class="dwwr">' + // Popup content
-                                '<div aria-live="assertive" class="dwv' + (s.headerText ? '' : ' dw-hidden') + '"></div>'; // Header
+                                '<div aria-live="assertive" class="dwv' + (s.headerText ? '' : ' dw-hidden') + '"></div>' + // Header
+                                '<div class="dwcc">'; // Wheel group container
 
-            html += that.generateContent();
+            html += that._generateContent();
+
+            html += '</div>';
 
             if (isModal && hasButtons) {
                 html += '<div class="dwbc">';
@@ -334,8 +342,8 @@
             that._markup = $markup;
             that._header = $header;
             that._isVisible = true;
-
-            that.markupReady();
+            
+            that._markupReady();
 
             event('onMarkupReady', [$markup]);
 
@@ -343,7 +351,7 @@
             if (isModal) {
                 ms.activeInstance = that;
                 $markup.appendTo(s.context);
-                if (has3d && anim && !prevAnim) {
+                if (has3d && doAnim && !prevAnim) {
                     $markup.addClass('dw-trans').on(animEnd, function () {
                         $markup.removeClass('dw-trans').find('.dw').removeClass(mAnim);
                         if (!prevFocus) {
@@ -421,15 +429,19 @@
                     });
                 }
 
-                if (isModal && !anim && !prevFocus) {
+                if (isModal && !doAnim && !prevFocus) {
                     $popup.focus();
                 }
 
-                that.attachEvents($markup);
+                $markup
+                    .on('touchstart mousedown', '.dwb-e', onBtnStart)
+                    .on('touchend', '.dwb-e', onBtnEnd);
+
+                that._attachEvents($markup);
 
             }, 300);
 
-            event('onShow', [$markup, valueText]);
+            event('onShow', [$markup, that._valueText]);
         };
 
         /**
@@ -438,7 +450,7 @@
         that.hide = function (prevAnim, btn, force) {
 
             // If onClose handler returns false, prevent hide
-            if (!that._isVisible || (!force && event('onClose', [valueText, btn]) === false)) {
+            if (!that._isVisible || (!force && event('onClose', [that._valueText, btn]) === false)) {
                 return false;
             }
 
@@ -451,8 +463,8 @@
 
             // Hide wheels and overlay
             if ($markup) {
-                if (has3d && isModal && anim && !prevAnim && !$markup.hasClass('dw-trans')) { // If dw-trans class was not removed, means that there was no animation
-                    $markup.addClass('dw-trans').find('.dw').addClass('dw-' + anim + ' dw-out').on(animEnd, function () {
+                if (has3d && isModal && doAnim && !prevAnim && !$markup.hasClass('dw-trans')) { // If dw-trans class was not removed, means that there was no animation
+                    $markup.addClass('dw-trans').find('.dw').addClass('dw-' + doAnim + ' dw-out').on(animEnd, function () {
                         onHide(prevAnim);
                     });
                 } else {
@@ -473,19 +485,21 @@
             return that._isVisible;
         };
 
-        // Functions to override
+        // Protected functions to override
 
-        that.generateContent = empty;
+        that._generateContent = empty;
 
-        that.attachEvents = empty;
+        that._attachEvents = empty;
 
-        that.readValue = empty;
+        that._readValue = empty;
 
-        that.setValue = empty;
+        that._setValue = empty;
 
-        that.fillValue = empty;
+        that._fillValue = empty;
 
-        that.markupReady = empty;
+        that._markupReady = empty;
+
+        that._processSettings = empty;
 
         // Generic widget functions
 
@@ -514,7 +528,11 @@
                             handler.call(that, ev);
                         }, isOldAndroid ? 400 : 10);
                     }
-                    setTap();
+                    // Prevent click events to happen
+                    ms.tapped = true;
+                    setTimeout(function () {
+                        ms.tapped = false;
+                    }, 500);
                 });
             }
 
@@ -599,24 +617,27 @@
 
             preset = ms.presets[s.preset];
 
-            if (preset) {
-                preset = preset.call(el, that);
-                extend(s, preset, settings); // Load preset settings
-            }
-
             // Add default buttons
             s.buttons = s.buttons || ['set', 'cancel'];
 
             // Hide header text in inline mode by default
             s.headerText = s.headerText === undefined ? (s.display !== 'inline' ? '{value}' : false) : s.headerText;
 
+            if (preset) {
+                preset = preset.call(el, that);
+                extend(s, preset, settings); // Load preset settings
+            }
+
+            that._isLiquid = (s.layout || (/top|bottom/.test(s.display) ? 'liquid' : '')) === 'liquid';
+
+            that._processSettings();
+
             // Unbind all events (if re-init)
             $elm.off('.dw');
 
-            anim = isOldAndroid ? false : s.animate;
-            isLiquid = (s.layout || (/top|bottom/.test(s.display) && s.wheels.length == 1 ? 'liquid' : '')) === 'liquid';
-            isModal = s.display !== 'inline';
+            doAnim = isOldAndroid ? false : s.animate;
             buttons = s.buttons;
+            isModal = s.display !== 'inline';
             $wnd = $(s.context == 'body' ? window : s.context);
             $doc = $(s.context)[0];
 
@@ -648,7 +669,7 @@
             }
 
             if (isModal) {
-                that.readValue();
+                that._readValue();
                 if (that._isInput) {
                     // Set element readonly, save original state
                     if (wasReadOnly === undefined) {
@@ -664,7 +685,7 @@
             if (that._isInput) {
                 $elm.on('change.dw', function () {
                     if (!preventChange) {
-                        that.setValue($elm.val(), false, 0.2);
+                        that._setValue($elm.val(), false, 0.2);
                     }
                     preventChange = false;
                 });
@@ -692,6 +713,7 @@
         pr = util.jsPrefix,
         has3d = util.has3d,
         getCoord = util.getCoord,
+        constrain = util.constrain,
         isOldAndroid = util.isOldAndroid,
         animEnd = 'webkitAnimationEnd animationend',
         empty = function () { },
