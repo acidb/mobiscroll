@@ -307,13 +307,13 @@
             }
 
             // Create wheels containers
-            html = '<div class="' + s.theme + ' dw-' + s.display + ' ' +
+            html = '<div class="mbsc-' + s.theme + ' dw-' + s.display + ' ' +
                 (s.cssClass || '') +
                 (that._isLiquid ? ' dw-liq' : '') +
                 (hasButtons ? '' : ' dw-nobtn') + '">' +
                     '<div class="dw-persp">' +
                         (isModal ? '<div class="dwo"></div>' : '') + // Overlay
-                        '<div' + (isModal ? ' role="dialog" tabindex="-1"' : '') + ' class="dw dwbg ' + mAnim + (s.rtl ? ' dw-rtl' : ' dw-ltr') + '">' + // Popup
+                        '<div' + (isModal ? ' role="dialog" tabindex="-1"' : '') + ' class="dw ' + mAnim + (s.rtl ? ' dw-rtl' : ' dw-ltr') + '">' + // Popup
                             (s.display === 'bubble' ? '<div class="dw-arrw"><div class="dw-arrw-i"><div class="dw-arr"></div></div></div>' : '') + // Bubble arrow
                             '<div class="dwwr">' + // Popup content
                                 '<div aria-live="assertive" class="dwv' + (s.headerText ? '' : ' dw-hidden') + '"></div>' + // Header
@@ -487,13 +487,13 @@
 
         // Protected functions to override
 
+        that.setValue = empty;
+
         that._generateContent = empty;
 
         that._attachEvents = empty;
 
         that._readValue = empty;
-
-        that._setValue = empty;
 
         that._fillValue = empty;
 
@@ -685,7 +685,7 @@
             if (that._isInput) {
                 $elm.on('change.dw', function () {
                     if (!preventChange) {
-                        that._setValue($elm.val(), false, 0.2);
+                        that.setValue($elm.val(), false, 0.2);
                     }
                     preventChange = false;
                 });
@@ -729,15 +729,13 @@
             closeOnOverlay: true,
             showOnFocus: true,
             showOnTap: true,
-            theme: '',
+            theme: 'default',
             display: 'modal',
             context: 'body',
             scrollLock: true,
             tap: true,
             btnWidth: true
         });
-
-    ms.presetShort('modal', 'Modal');
 
     // Prevent re-show on window focus
     $(window).on('focus', function () {

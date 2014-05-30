@@ -1,68 +1,98 @@
-/* Sense UI Skin */
-.sense-ui .dwwr {
-    padding: 0;
-    color: #fff;
-    background: #333;
-    border: 2px solid #fff;
+.mbsc-sense-ui .dwc {
+    padding: 30px 2px 4px 2px;
 }
-.sense-ui .dwv {
-    margin: 0;
-    padding: 5px 10px;
-    border-bottom: 1px solid #666;
-    text-align: left;
-    background: none;
-    -webkit-border-radius: 0;
-    border-radius: 0;
-}
-.sense-ui .dwc {
-    padding: 26px 2px 0 2px;
-}
-.sense-ui .dwhl {
+.mbsc-sense-ui .dwhl {
     padding-top: 0;
 }
-.sense-ui .dwfl {
-    background: none;
+.mbsc-sense-ui .dwfl {
+    padding: 0 2px;
 }
-.sense-ui .dw .dwpm .dwwl,
-.sense-ui .dw .dwpm .dww {
-    background: #fff;
-    border: 0;
-    padding: 0;
+/* Wheel items */
+.mbsc-sense-ui .dw-li {
+    padding: 0 5px;
+    line-height: 40px;
+    font-size: 26px;
+    text-shadow: 0 1px 1px #000;
 }
-.sense-ui .dw .dwpm .dwwl,
-.sense-ui .dw .dwpm .dwwo {
+/* Higlighted */
+.mbsc-sense-ui .dw-hl {
+    background: rgba(255,255,255,.3);
+}
+/* Scroller mode */
+.mbsc-sense-ui .dwwl {
+    padding: 0 2px;
+    background: #888;
+    background: -webkit-gradient(linear,left bottom,left top,from(#000),color-stop(0.35, #333),color-stop(0.50, #888),color-stop(0.65, #333),to(#000));
+    background: -webkit-linear-gradient(#000,#333 35%, #888 50%,#333 65%,#000);
+    background: -moz-linear-gradient(#000,#333 35%, #888 50%,#333 65%,#000);
+    background: linear-gradient(#000,#333 35%, #888 50%,#333 65%,#000);
     -webkit-border-radius: 3px;
     border-radius: 3px;
 }
-.sense-ui .dwbc {
-    padding: 4px 2px;
-    background: #000;
-    background: -webkit-gradient(linear,left bottom,left top,color-stop(0.5, #000),color-stop(0.5, #666));
-    background: -webkit-linear-gradient(#666 50%,#000 50%);
-    background: -moz-linear-gradient(#666 50%,#000 50%);
-    background: linear-gradient(#666 50%,#000 50%);
+.mbsc-sense-ui .dww {
+    color: #fff;
+    background: #444;
+    background: -webkit-gradient(linear,left bottom,left top,from(#000),color-stop(0.45, #444),color-stop(0.55, #444),to(#000));
+    background: -webkit-linear-gradient(#000,#444 45%, #444 55%, #000);
+    background: -moz-linear-gradient(#000,#444 45%, #444 55%, #000);
+    background: linear-gradient(#000,#444 45%, #444 55%, #000);
 }
-.sense-ui .dw .dwwr .dwb {
-    border: 1px solid #333;
-    background: #222;
-    background: -webkit-gradient(linear,left bottom,left top,from(#000),to(#444));
-    background: -webkit-linear-gradient(#444,#000);
-    background: -moz-linear-gradient(#444,#000);
-    background: linear-gradient(#444,#000);
-    box-shadow: inset 0 0 5px #000;
+.mbsc-sense-ui .dwwo {
+    background: -webkit-gradient(linear,left bottom,left top,from(#000),color-stop(0.52, rgba(44,44,44,0)),color-stop(0.48, rgba(44,44,44,0)),to(#000));
+    background: -webkit-linear-gradient(#000,rgba(44,44,44,0) 52%, rgba(44,44,44,0) 48%, #000);
+    background: -moz-linear-gradient(#000,rgba(44,44,44,0) 52%, rgba(44,44,44,0) 48%, #000);
+    background: linear-gradient(#000,rgba(44,44,44,0) 52%, rgba(44,44,44,0) 48%, #000);
 }
-.sense-ui .dw .dwwr .dwb-a {
-    background: #3c7500;
-    background: -webkit-gradient(linear,left bottom,left top,from(#3c7500),to(#94c840));
-    background: -webkit-linear-gradient(#94c840,#3c7500);
-    background: -moz-linear-gradient(#94c840,#3c7500);
-    background: linear-gradient(#94c840,#3c7500);
+.mbsc-sense-ui .dwwol {
+    height: 0;
+    margin-top: -1px;
+    border-top: 1px solid #333;
+    border-bottom: 1px solid #555;
 }
-/* Docked */
-.sense-ui.dw-top .dwwr {
-    border: 0;
+/* Clickpick mode */
+.mbsc-sense-ui .dwpm .dwwl {
+    padding: 0;
+    background: #fff;
 }
-.sense-ui.dw-bottom .dwwr {
-    border: 0;
-    border-top: 1px solid #666;
+.mbsc-sense-ui .dwpm .dww {
+    color: #000;
+    background: #fff;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+}
+.mbsc-sense-ui .dwpm .dw-li {
+    text-shadow: none;
+}
+.mbsc-sense-ui .dwwb {
+    background: #ccc;
+    color: #888;
+    text-shadow: 0 -1px 1px #333;
+    -webkit-box-shadow: 0 0 5px #333;
+    box-shadow: 0 0 5px #333;
+}
+.mbsc-sense-ui .dwwbp {
+    background: -webkit-gradient(linear,left bottom,left top,from(#bdbdbd),to(#f7f7f7));
+    background: -webkit-linear-gradient(#f7f7f7,#bdbdbd);
+    background: -moz-linear-gradient(#f7f7f7,#bdbdbd);
+    background: linear-gradient(#f7f7f7,#bdbdbd);
+    -webkit-border-radius: 3px 3px 0 0;
+    border-radius: 3px 3px 0 0;
+    font-size: 40px;
+}
+.mbsc-sense-ui .dwwbm {
+    background: -webkit-gradient(linear,left bottom,left top,from(#f7f7f7),to(#bdbdbd));
+    background: -webkit-linear-gradient(#bdbdbd,#f7f7f7);
+    background: -moz-linear-gradient(#bdbdbd,#f7f7f7);
+    background: linear-gradient(#bdbdbd,#f7f7f7);
+    -webkit-border-radius: 0 0 3px 3px;
+    border-radius: 0 0 3px 3px;
+    font-size: 32px;
+    font-weight: bold;
+}
+/* Multiple select */
+.mbsc-sense-ui .dwwms .dw-li {
+    padding: 0 40px;
+}
+.mbsc-sense-ui .dw-msel:before {
+    width: 40px;
 }
