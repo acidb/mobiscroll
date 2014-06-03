@@ -1,4 +1,3 @@
-/* iOS Skin */
 .mbsc-ios .dwc {
     padding: 30px 2px 10px 2px;
 }
@@ -6,6 +5,7 @@
     padding: 10px 2px;
 }
 .mbsc-ios .dwwl {
+    padding: 0 2px;
     border-left: 1px solid #000;
     border-right: 1px solid #000;
     background: #cbcce0;
@@ -52,7 +52,6 @@
     background: linear-gradient(#333,#fff 48%,#fff 52%,#333);
 }
 .mbsc-ios .dw-li {
-    padding: 0 5px;
     color: #000;
     font-size: 20px;
     font-weight: bold;
@@ -120,12 +119,10 @@
     display: none;
 }
 .mbsc-ios .dwwms .dw-li {
-    padding-left: 40px;
+    padding: 0 5px 0 40px;
     text-align: left;
 }
 .mbsc-ios .dw-msel {
     color: #215085;
 }
-.mbsc-ios .dw-msel:before {
-    width: 40px;
-}
+

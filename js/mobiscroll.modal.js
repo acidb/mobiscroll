@@ -17,7 +17,6 @@
             modalWidth,
             modalHeight,
             preset,
-            preventChange,
             preventPos,
             s,
             scrollLock,
@@ -684,10 +683,10 @@
 
             if (that._isInput) {
                 $elm.on('change.dw', function () {
-                    if (!preventChange) {
+                    if (!that._preventChange) {
                         that.setValue($elm.val(), false, 0.2);
                     }
-                    preventChange = false;
+                    that._preventChange = false;
                 });
             }
         };

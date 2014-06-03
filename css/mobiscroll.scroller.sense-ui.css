@@ -9,8 +9,6 @@
 }
 /* Wheel items */
 .mbsc-sense-ui .dw-li {
-    padding: 0 5px;
-    line-height: 40px;
     font-size: 26px;
     text-shadow: 0 1px 1px #000;
 }
@@ -88,11 +86,4 @@
     border-radius: 0 0 3px 3px;
     font-size: 32px;
     font-weight: bold;
-}
-/* Multiple select */
-.mbsc-sense-ui .dwwms .dw-li {
-    padding: 0 40px;
-}
-.mbsc-sense-ui .dw-msel:before {
-    width: 40px;
 }

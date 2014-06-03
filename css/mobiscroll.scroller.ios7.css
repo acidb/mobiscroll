@@ -23,7 +23,6 @@
     border-bottom: 1px solid #dbdbdb;
 }
 .mbsc-ios7 .dw-li {
-    padding: 0 5px;
     color: #9d9d9d;
     font-size: 22px;
     text-align: left;
@@ -72,12 +71,10 @@
     display: none;
 }
 .mbsc-ios7 .dwwms .dw-li {
-    padding-left: 40px;
+    padding: 0 5px 0 40px;
     color: #000;
 }
 .mbsc-ios7 .dwwms .dw-msel {
     color: #007aff;
 }
-.mbsc-ios7 .dw-msel:before {
-    width: 40px;
-}
+

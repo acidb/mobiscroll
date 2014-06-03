@@ -63,6 +63,7 @@
     z-index: 3;
 }
 .dw-li {
+    padding: 0 5px;
     position: relative;
     text-align: center;
     white-space: nowrap;
@@ -162,7 +163,11 @@
     white-space: normal;
 }
 /* Multiple selection */
+.dwwms .dw-li {
+    padding: 0 40px;
+}
 .dw-msel:before {
+    width: 40px;
     text-align: center;
     position: absolute;
     top: 0;
@@ -198,8 +203,6 @@
 }
 /* Wheel items */
 .mbsc-default .dw-li {
-    padding: 0 5px;
-    line-height: 40px;
     font-size: 26px;
     text-shadow: 0 1px 1px #000;
 }
@@ -283,11 +286,4 @@
     background: -webkit-linear-gradient(#94c840,#3c7500);
     background: -moz-linear-gradient(#94c840,#3c7500);
     background: linear-gradient(#94c840,#3c7500);
-}
-/* Multiple selection */
-.mbsc-default .dwwms .dw-li {
-    padding: 0 40px;
-}
-.mbsc-default .dw-msel:before {
-    width: 40px;
 }

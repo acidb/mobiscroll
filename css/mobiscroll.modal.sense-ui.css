@@ -38,12 +38,19 @@
     -webkit-border-radius: 5px;
     border-radius: 5px;
 }
-.mbsc-sense-ui .dwb-a {
+.mbsc-sense-ui .dw .dwb-a {
     background: #3c7500;
     background: -webkit-gradient(linear,left bottom,left top,from(#3c7500),to(#94c840));
     background: -webkit-linear-gradient(#94c840,#3c7500);
     background: -moz-linear-gradient(#94c840,#3c7500);
     background: linear-gradient(#94c840,#3c7500);
+}
+/* Bubble mode */
+.mbsc-sense-ui .dw-bubble-bottom .dw-arr {
+    border-color: transparent transparent #fff transparent;
+}
+.mbsc-sense-ui .dw-bubble-top .dw-arr {
+    border-color: #fff transparent transparent transparent;
 }
 /* Docked */
 .mbsc-sense-ui.dw-top .dwwr {

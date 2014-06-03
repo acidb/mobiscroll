@@ -210,8 +210,9 @@
     border-color: #fff transparent transparent transparent;
 }
 /* Top, bottom mode */
-.mbsc-default.dw-top .dw .dwwr, 
-.mbsc-default.dw-bottom .dw .dwwr {
+.mbsc-default.dw-liq .dwwr, 
+.mbsc-default.dw-top .dwwr, 
+.mbsc-default.dw-bottom .dwwr {
     -webkit-border-radius: 0;
     border-radius: 0;
 }

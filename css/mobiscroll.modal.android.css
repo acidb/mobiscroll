@@ -22,12 +22,14 @@
     padding: 0 15px;
     margin: 0 2px;
     font-size: 14px;
+    color: #000;
     background: #ccc;
     background: -webkit-gradient(linear,left bottom,left top,from(#ccc),to(#eee));
     background: -webkit-linear-gradient(#eee,#ccc);
     background: -moz-linear-gradient(#eee,#ccc);
     background: linear-gradient(#eee,#ccc);
-    color: #000;
+    -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.5);
 }
 .mbsc-android .dw .dwb-a {
     background: #ffb25a;

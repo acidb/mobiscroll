@@ -76,7 +76,6 @@
             isScrollable,
             itemHeight,
             middle,
-            preventChange,
             s,
             trigger,
             valueText,
@@ -347,10 +346,10 @@
                 return;
             }
 
-            if (time && px != pixels[index]) {
+            //if (time && px != pixels[index]) {
                 // Trigger animation start event
-                trigger('onAnimStart', [$markup, index, time]);
-            }
+                //trigger('onAnimStart', [$markup, index, time]);
+            //}
 
             pixels[index] = px;
 
@@ -509,7 +508,7 @@
                 if (that._isInput) {
                     $elm.val(valueText);
                     if (change) {
-                        preventChange = true;
+                        that._preventChange = true;
                         $elm.change();
                     }
                 }
