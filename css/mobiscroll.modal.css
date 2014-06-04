@@ -66,13 +66,13 @@
 .dw-top .dw, 
 .dw-bottom .dw {
     width: 100%;
-    max-width: none;
+    max-width: 100%;
 }
 /* Inline mode */
 .dw-inline .dw {
     position: static;
     display: inline-block;
-    max-width: none;
+    max-width: 100%;
 }
 .dw-inline.dw-liq .dw-persp .dw {
     display: block;
