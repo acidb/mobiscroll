@@ -91,10 +91,10 @@
                     ev.preventDefault();
                     ev.stopPropagation();
                     stop = getCoord(ev, 'Y');
-                    scroll(target, index, constrain(p + (start - stop) / itemHeight, min - 1, max + 1));
-                }
-                if (start !== stop) {
-                    moved = true;
+                    if (Math.abs(stop - start) > 3) {
+                        scroll(target, index, constrain(p + (start - stop) / itemHeight, min - 1, max + 1));
+                        moved = true;
+                    }
                 }
             }
         }
@@ -120,7 +120,7 @@
 
                 tindex = Math.round(p - dist / itemHeight);
 
-                if (!dist && !moved) { // this is a "tap"
+                if (!moved) { // this is a "tap"
                     var idx = Math.floor((stop - ttop) / itemHeight),
                         li = $($('.dw-li', target)[idx]),
                         hl = isScrollable;
