@@ -16,6 +16,8 @@
             lang,
             modalWidth,
             modalHeight,
+            posEvents,
+            posDebounce,
             preset,
             preventPos,
             s,
@@ -75,16 +77,15 @@
             that._isVisible = false;
         }
 
-        function attachPosition(ev, checkLock) {
-            var debounce;
-            $wnd.on(ev, function () {
-                clearTimeout(debounce);
-                debounce = setTimeout(function () {
-                    if ((scrollLock && checkLock) || !checkLock) {
-                        that.position(!checkLock);
-                    }
-                }, 200);
-            });
+        function onPosition(ev) {
+            clearTimeout(posDebounce);
+            posDebounce = setTimeout(function () {
+                var isScroll = ev.type == 'scroll';
+                if (isScroll && !scrollLock) {
+                    return;
+                }
+                that.position(!isScroll);
+            }, 200);
         }
 
         function event(name, args) {
@@ -341,6 +342,8 @@
             that._markup = $markup;
             that._header = $header;
             that._isVisible = true;
+
+            posEvents = 'orientationchange resize';
             
             that._markupReady();
 
@@ -394,12 +397,13 @@
                     });
                 }
 
-                attachPosition('scroll.dw', true);
+                posEvents += ' scroll';
             }
 
             // Set position
             that.position();
-            attachPosition('orientationchange.dw resize.dw', false);
+
+            $wnd.on(posEvents, onPosition);
 
             // Events
             $markup
@@ -471,7 +475,7 @@
                 }
 
                 // Stop positioning on window resize
-                $wnd.off('.dw');
+                $wnd.off(posEvents, onPosition);
             }
 
             delete ms.activeInstance;
