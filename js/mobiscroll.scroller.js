@@ -14,6 +14,8 @@
             isScrollable,
             isVisible,
             itemHeight,
+            posEvents,
+            posDebounce,
             preset,
             preventChange,
             preventPos,
@@ -208,6 +210,17 @@
                 setGlobals(t);
                 calc(t, Math.round(pos[index] - delta), delta < 0 ? 1 : 2);
             }
+        }
+
+        function onPosition(ev) {
+            clearTimeout(posDebounce);
+            posDebounce = setTimeout(function () {
+                var isScroll = ev.type == 'scroll';
+                if (isScroll && !scrollLock) {
+                    return;
+                }
+                that.position(!isScroll);
+            }, 200);
         }
 
         function onHide(prevAnim) {
@@ -511,17 +524,6 @@
             }
         }
 
-        function attachPosition(ev, checkLock) {
-            var debounce;
-            $wnd.on(ev, function () {
-                clearTimeout(debounce);
-                debounce = setTimeout(function () {
-                    if ((scrollLock && checkLock) || !checkLock) {
-                        that.position(!checkLock);
-                    }
-                }, 200);
-            });
-        }
 
         // Public functions
 
@@ -874,6 +876,8 @@
 
             isVisible = true;
 
+            posEvents = 'orientationchange resize';
+
             scrollToPos();
 
             event('onMarkupReady', [$markup]);
@@ -927,12 +931,12 @@
                     });
                 }
 
-                attachPosition('scroll.dw', true);
+                posEvents += ' scroll';
             }
 
             // Set position
             that.position();
-            attachPosition('orientationchange.dw resize.dw', false);
+            $wnd.on(posEvents, onPosition);
 
             // Events
             $markup.on('DOMMouseScroll mousewheel', '.dwwl', onScroll)
@@ -1008,7 +1012,7 @@
                 }
 
                 // Stop positioning on window resize
-                $wnd.off('.dw');
+                $wnd.off(posEvents, onPosition);
             }
 
             delete ms.activeInstance;
