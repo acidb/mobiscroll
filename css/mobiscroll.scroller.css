@@ -9,7 +9,7 @@
     backface-visibility: hidden;
 }
 .dw {
-    max-width: 100%;
+    max-width: 98%;
     position: absolute;
     top: 0;
     left: 0;
@@ -73,7 +73,7 @@
 .dw-top .dw, 
 .dw-bottom .dw {
     width: 100%;
-    max-width: none;
+    max-width: 100%;
 }
 .dw-top .dw .dwwr, 
 .dw-bottom .dw .dwwr {
@@ -85,6 +85,7 @@
 .dw-inline .dw {
     position: static;
     display: inline-block;
+    max-width: 100%;
 }
 .dw-inline.dw-liq .dw-persp .dw {
     display: block;
@@ -186,6 +187,7 @@
     justify-content: center;
 }
 .dwfl {
+    max-width: 100%;
     padding: 4px 3px;
     margin: 0 -1px;
     -webkit-box-flex: 1;
