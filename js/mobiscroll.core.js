@@ -1,5 +1,5 @@
 /*!
- * Mobiscroll v2.11.0
+ * Mobiscroll v2.11.1
  * http://mobiscroll.com
  *
  * Copyright 2010-2014, Acid Media
@@ -31,8 +31,8 @@
     }
 
     function getCoord(e, c) {
-        e = e.originalEvent || e;
-        return e.changedTouches ? e.changedTouches[0]['page' + c] : e['page' + c];
+        var ev = e.originalEvent || e;
+        return ev.changedTouches ? ev.changedTouches[0]['page' + c] : e['page' + c];
     }
 
     function init(that, options, args) {
@@ -105,7 +105,9 @@
             testTouch: testTouch
         },
         presets: {},
-        themes: {},
+        themes: {
+            listview: {}
+        },
         i18n: {},
         instances: instances,
         classes: {},

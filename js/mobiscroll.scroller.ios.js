@@ -1,6 +1,7 @@
 (function ($) {
 
     $.mobiscroll.themes.ios = {
+        display: 'bottom',
         dateOrder: 'MMdyy',
         rows: 5,
         height: 30,

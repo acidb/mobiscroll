@@ -9,7 +9,7 @@
     backface-visibility: hidden;
 }
 .dw {
-    max-width: 100%;
+    max-width: 98%;
     position: absolute;
     top: 0;
     left: 0;
@@ -70,10 +70,13 @@
     table-layout: fixed;
 }
 /* Top/Bottom mode */
-.dw-top .dw, .dw-bottom .dw {
+.dw-top .dw, 
+.dw-bottom .dw {
     width: 100%;
+    max-width: 100%;
 }
-.dw-top .dw .dwwr, .dw-bottom .dw .dwwr {
+.dw-top .dw .dwwr, 
+.dw-bottom .dw .dwwr {
     -moz-border-radius: 0;
     -webkit-border-radius: 0;
     border-radius: 0;
@@ -82,6 +85,7 @@
 .dw-inline .dw {
     position: static;
     display: inline-block;
+    max-width: 100%;
 }
 .dw-inline.dw-liq .dw-persp .dw {
     display: block;
@@ -183,6 +187,7 @@
     justify-content: center;
 }
 .dwfl {
+    max-width: 100%;
     padding: 4px 3px;
     margin: 0 -1px;
     -webkit-box-flex: 1;
@@ -412,13 +417,12 @@
     padding: 0 40px;
     position: relative;
 }
-.dwms .dw-msel:after {
+.dwms .dw-msel:before {
     width: 40px;
     text-align: center;
     position: absolute;
     top: 0;
     left: 0;
-    content: '\2714';
 }
 /* Backgrounds */
 .dwbg .dwwr {

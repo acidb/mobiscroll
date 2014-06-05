@@ -188,12 +188,9 @@
     display: none;
 }
 .ios7 .dwwms .dw-li {
-    padding-left: 5px;
-    padding-right: 40px;
+    padding-right: 5px;
     color: #000;
 }
-.ios7 .dwwms .dw-msel:after {
-    left: auto;
-    right: 0;
+.ios7 .dwwms .dw-msel {
     color: #007aff;
 }
