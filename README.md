@@ -32,6 +32,49 @@ It'd be cool to see how you're using Mobiscroll!
 
 We're looking at showcasing some of the best work on http://mobiscroll.com . Feel free to let us know on twitter @mobiscroll!
 
+
+Changelog 2.11.1
+================
+
+_Scroller_
+
+  * Fixed: Handle resize / orientationchange events per instance.
+
+_Listview_
+
+  * Added: Tap highlight occurs only if tap action is defined.
+
+  * Added: Improved styling for jQuery Mobile listviews.
+
+  * Added: Support for adding a list item containing sub list.
+
+_Measurements_
+
+  * Added: Support for greater precision.
+
+_Number_
+
+  * Added: Support for greater precision.
+
+  * Fixed: Negative wheel values were incorrectly generated.
+
+_Rangepicker_
+
+  * Fixed: When `rangeTap` is true, set end date the same as start date on selection start.
+
+_Select_
+
+  * Added: Use font for displaying the multiselect checked icon.
+
+_Angular Integration_
+
+  * Fixed: Support for `itemGroups` setting.
+
+  * Fixed: Initial value was not set correctly for calendar and select components.
+
+  * Fixed: Script errors when timer was running.
+
+
 Changelog 2.11.0
 ================
 

@@ -219,10 +219,7 @@
     opacity: 1;
     filter: Alpha(Opacity=100);
 }
-.wp .dwc .dwwms .dw-i,
-.wp .dwc .dwwms .dw-sel .dw-i,
-.wp .dwc .dwwms .dw-hl .dw-i,
-.wp .dwc .dwwms.dwa .dw-sel .dw-i {
+.wp .dwc .dwwms .dw-ul .dw-li .dw-i {
     border: 0;
     background: none;
 }
