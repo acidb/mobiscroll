@@ -105,7 +105,9 @@
             testTouch: testTouch
         },
         presets: {},
-        themes: {},
+        themes: {
+            listview: {}
+        },
         i18n: {},
         instances: instances,
         classes: {},
