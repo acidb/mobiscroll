@@ -111,7 +111,9 @@
         },
         tapped: false,
         presets: {},
-        themes: {},
+        themes: {
+            listview: {}
+        },
         i18n: {},
         instances: instances,
         classes: {},

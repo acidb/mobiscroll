@@ -141,7 +141,7 @@
 
                 if (/modal|bubble/.test(s.display)) {
                     wr.width('');
-                    $('.dwc', $markup).each(function () {
+                    $('.mbsc-w-p', $markup).each(function () {
                         w = $(this).outerWidth(true);
                         totalw += w;
                         minw = (w > minw) ? w : minw;
