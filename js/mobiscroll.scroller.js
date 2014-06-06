@@ -27,49 +27,6 @@
         return ret;
     }
 
-    // Extend defaults
-    $.extend(ms.defaults, {
-        // Options
-        minWidth: 80,
-        height: 40,
-        rows: 3,
-        multiline: 1,
-        delay: 300,
-        readonly: false,
-        showLabel: true,
-        wheels: [],
-        mode: 'scroller',
-        preset: '',
-        speedUnit: 0.0012,
-        timeUnit: 0.1,
-        formatResult: function (d) {
-            return d.join(' ');
-        },
-        parseValue: function (value, inst) {
-            var val = value.split(' '),
-                ret = [],
-                i = 0,
-                keys;
-
-            $.each(inst.settings.wheels, function (j, wg) {
-                $.each(wg, function (k, w) {
-                    // @deprecated since 2.6.0, backward compatibility code
-                    // ---
-                    w = w.values ? w : convert(w);
-                    // ---
-                    keys = w.keys || w.values;
-                    if ($.inArray(val[i], keys) !== -1) {
-                        ret.push(val[i]);
-                    } else {
-                        ret.push(keys[0]);
-                    }
-                    i++;
-                });
-            });
-            return ret;
-        }
-    });
-
     classes.Scroller = function (el, settings, inherit) {
         var $markup,
             btn,
@@ -683,5 +640,48 @@
             that.init(settings);
         }
     };
+
+    // Extend defaults
+    classes.Scroller.prototype._defaults = $.extend({}, classes.Modal.prototype._defaults, {
+        // Options
+        minWidth: 80,
+        height: 40,
+        rows: 3,
+        multiline: 1,
+        delay: 300,
+        readonly: false,
+        showLabel: true,
+        wheels: [],
+        mode: 'scroller',
+        preset: '',
+        speedUnit: 0.0012,
+        timeUnit: 0.1,
+        formatResult: function (d) {
+            return d.join(' ');
+        },
+        parseValue: function (value, inst) {
+            var val = value.split(' '),
+                ret = [],
+                i = 0,
+                keys;
+
+            $.each(inst.settings.wheels, function (j, wg) {
+                $.each(wg, function (k, w) {
+                    // @deprecated since 2.6.0, backward compatibility code
+                    // ---
+                    w = w.values ? w : convert(w);
+                    // ---
+                    keys = w.keys || w.values;
+                    if ($.inArray(val[i], keys) !== -1) {
+                        ret.push(val[i]);
+                    } else {
+                        ret.push(keys[0]);
+                    }
+                    i++;
+                });
+            });
+            return ret;
+        }
+    });
 
 })(jQuery);

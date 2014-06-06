@@ -1,6 +1,22 @@
 ﻿(function ($) {
 
-    $.mobiscroll.classes.Modal = function (el, settings, inherit) {
+    var $activeElm,
+        preventShow,
+        extend = $.extend,
+        ms = $.mobiscroll,
+        instances = ms.instances,
+        userdef = ms.userdef,
+        util = ms.util,
+        pr = util.jsPrefix,
+        has3d = util.has3d,
+        getCoord = util.getCoord,
+        constrain = util.constrain,
+        isOldAndroid = util.isOldAndroid,
+        animEnd = 'webkitAnimationEnd animationend',
+        empty = function () { },
+        prevdef = function (ev) { ev.preventDefault(); };
+
+    ms.classes.Modal = function (el, settings, inherit) {
         var $doc,
             $header,
             $markup,
@@ -302,9 +318,9 @@
 
             event('onBeforeShow', []);
 
-            if (isModal && doAnim && !prevAnim) {
-                mAnim = 'dw-' + doAnim + ' dw-in';
-            }
+            //if (isModal && doAnim && !prevAnim) {
+            //    mAnim = 'dw-' + doAnim + ' dw-in';
+            //}
 
             // Create wheels containers
             html = '<div class="mbsc-' + s.theme + ' dw-' + s.display + ' ' +
@@ -313,7 +329,7 @@
                 (hasButtons ? '' : ' dw-nobtn') + '">' +
                     '<div class="dw-persp">' +
                         (isModal ? '<div class="dwo"></div>' : '') + // Overlay
-                        '<div' + (isModal ? ' role="dialog" tabindex="-1"' : '') + ' class="dw ' + mAnim + (s.rtl ? ' dw-rtl' : ' dw-ltr') + '">' + // Popup
+                        '<div' + (isModal ? ' role="dialog" tabindex="-1"' : '') + ' class="dw' + (s.rtl ? ' dw-rtl' : ' dw-ltr') + '">' + // Popup
                             (s.display === 'bubble' ? '<div class="dw-arrw"><div class="dw-arrw-i"><div class="dw-arr"></div></div></div>' : '') + // Bubble arrow
                             '<div class="dwwr">' + // Popup content
                                 '<div aria-live="assertive" class="dwv' + (s.headerText ? '' : ' dw-hidden') + '"></div>' + // Header
@@ -327,7 +343,7 @@
                 html += '<div class="dwbc">';
                 $.each(buttons, function (i, b) {
                     b = (typeof b === 'string') ? that.buttons[b] : b;
-                    html += '<span' + (s.btnWidth ? ' style="width:' + (100 / buttons.length) + '%"' : '') + ' class="dwbw ' + b.css + '"><a href="#" class="dwb dwb' + i + ' dwb-e" role="button">' + b.text + '</a></span>';
+                    html += '<div' + (s.btnWidth ? ' style="width:' + (100 / buttons.length) + '%"' : '') + ' class="dwbw ' + b.css + '"><div tabindex="0" role="button" class="dwb dwb' + i + ' dwb-e">' + b.text + '</div></div>';
                 });
                 html += '</div>';
             }
@@ -350,25 +366,6 @@
             event('onMarkupReady', [$markup]);
 
             // Show
-            if (isModal) {
-                ms.activeInstance = that;
-                $markup.appendTo(s.context);
-                if (has3d && doAnim && !prevAnim) {
-                    $markup.addClass('dw-trans').on(animEnd, function () {
-                        $markup.removeClass('dw-trans').find('.dw').removeClass(mAnim);
-                        if (!prevFocus) {
-                            $popup.focus();
-                        }
-                    });
-                }
-            } else if ($elm.is('div')) {
-                $elm.html($markup);
-            } else {
-                $markup.insertAfter($elm);
-            }
-
-            event('onMarkupInserted', [$markup]);
-
             if (isModal) {
                 // Enter / ESC
                 $(window).on('keydown.dw', function (ev) {
@@ -398,7 +395,26 @@
                 }
 
                 posEvents += ' scroll';
+
+                ms.activeInstance = that;
+
+                $markup.appendTo(s.context);
+
+                if (has3d && doAnim && !prevAnim) {
+                    $markup.addClass('dw-in dw-trans').on(animEnd, function () {
+                        $markup.removeClass('dw-in dw-trans').find('.dw').removeClass(mAnim);
+                        if (!prevFocus) {
+                            $popup.focus();
+                        }
+                    }).find('.dw').addClass('dw-' + doAnim);
+                }
+            } else if ($elm.is('div')) {
+                $elm.html($markup);
+            } else {
+                $markup.insertAfter($elm);
             }
+
+            event('onMarkupInserted', [$markup]);
 
             // Set position
             that.position();
@@ -467,7 +483,7 @@
             // Hide wheels and overlay
             if ($markup) {
                 if (has3d && isModal && doAnim && !prevAnim && !$markup.hasClass('dw-trans')) { // If dw-trans class was not removed, means that there was no animation
-                    $markup.addClass('dw-trans').find('.dw').addClass('dw-' + doAnim + ' dw-out').on(animEnd, function () {
+                    $markup.addClass('dw-out dw-trans').find('.dw').addClass('dw-' + doAnim).on(animEnd, function () {
                         onHide(prevAnim);
                     });
                 } else {
@@ -601,12 +617,11 @@
         * Scroller initialization.
         */
         that.init = function (ss) {
-
             that.settings = s = {};
 
             // Update original user settings
             extend(settings, ss);
-            extend(s, defaults, userdef, settings);
+            extend(s, ms.defaults, that._defaults, userdef, settings);
 
             // Get theme defaults
             theme = ms.themes[s.theme];
@@ -705,40 +720,23 @@
         }
     };
 
-    var $activeElm,
-        preventShow,
-        extend = $.extend,
-        ms = $.mobiscroll,
-        instances = ms.instances,
-        userdef = ms.userdef,
-        util = ms.util,
-        pr = util.jsPrefix,
-        has3d = util.has3d,
-        getCoord = util.getCoord,
-        constrain = util.constrain,
-        isOldAndroid = util.isOldAndroid,
-        animEnd = 'webkitAnimationEnd animationend',
-        empty = function () { },
-        prevdef = function (ev) { ev.preventDefault(); },
-        defaults = extend(ms.defaults, {
-            // Localization
-            setText: 'Set',
-            selectedText: 'Selected',
-            closeText: 'Close',
-            cancelText: 'Cancel',
-            clearText: 'Clear',
-            // Options
-            disabled: false,
-            closeOnOverlay: true,
-            showOnFocus: true,
-            showOnTap: true,
-            theme: 'default',
-            display: 'modal',
-            context: 'body',
-            scrollLock: true,
-            tap: true,
-            btnWidth: true
-        });
+    ms.classes.Modal.prototype._defaults = {
+        // Localization
+        setText: 'Set',
+        selectedText: 'Selected',
+        closeText: 'Close',
+        cancelText: 'Cancel',
+        clearText: 'Clear',
+        // Options
+        disabled: false,
+        closeOnOverlay: true,
+        showOnFocus: true,
+        showOnTap: true,
+        display: 'modal',
+        scrollLock: true,
+        tap: true,
+        btnWidth: true
+    };
 
     // Prevent re-show on window focus
     $(window).on('focus', function () {

@@ -1,5 +1,5 @@
 /*!
- * Mobiscroll v2.11.0
+ * Mobiscroll v2.12.0
  * http://mobiscroll.com
  *
  * Copyright 2010-2014, Acid Media
@@ -118,7 +118,10 @@
         instances: instances,
         classes: {},
         components: {},
-        defaults: {},
+        defaults: {
+            theme: 'default',
+            context: 'body'
+        },
         userdef: {},
         setDefaults: function (o) {
             extend(this.userdef, o);
