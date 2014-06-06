@@ -1,5 +1,5 @@
 (function ($) {
-    $.mobiscroll.i18n['ru-RU'] = $.extend($.mobiscroll.i18n['ru-RU'], {
+    $.mobiscroll.i18n['ru-RU'] = $.mobiscroll.i18n.ru = $.extend($.mobiscroll.i18n.ru, {
         // Core
         setText:        'Установить',
         cancelText:     'Отмена',
