@@ -263,11 +263,6 @@
             return t ? (typeof t === 'function' ? t.call(el, v) : t.replace(/\{value\}/i, v)) : '';
         }
 
-        function readValue() {
-            that.temp = that.values ? that.values.slice(0) : s.parseValue($elm.val() || '', that);
-            setValue();
-        }
-
         function getCurrentPosition(t) {
             var style = window.getComputedStyle ? getComputedStyle(t[0]) : t[0].style,
                 matrix,
@@ -611,7 +606,10 @@
             setValue(true, true, 0, true);
         };
 
-        that._readValue = readValue;
+        that._readValue = function () {
+            that.temp = that.values ? that.values.slice(0) : s.parseValue($elm.val() || '', that);
+            setValue();
+        };
 
         that._processSettings = function () {
             s = that.settings;
