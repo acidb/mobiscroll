@@ -1,196 +1,80 @@
-.ios7 .dwo {
-    background: rgba(0,0,0,.2);
-    filter: Alpha(Opacity=20);
-}
-.ios7 .dw {
-    background: none;
-    -webkit-border-radius: 0;
-    border-radius: 0;
-}
-.ios7 .dwwr, 
-.ios7 .dww {
-    background: #f7f7f7;
-}
-.ios7 .dwfl, 
-.ios7 .dw .dwwl {
-    background: none;
-}
-.ios7 .dwwr, 
-.ios7 .dwc, 
-.ios7 .dwfl, 
-.ios7 .dwwl {
-    margin: 0;
-    padding: 0;
-}
-.ios7 .dwl {
+.mbsc-ios7 .dwl {
     text-align: left;
     text-indent: 5px;
     color: #ababab;
 }
-.ios7 .dwwc {
+.mbsc-ios7 .dwwc {
     padding: 30px 10px 10px 10px;
 }
-.ios7 .dwhl .dwwc {
+.mbsc-ios7 .dwhl .dwwc {
     padding-top: 10px;
 }
-.ios7 .dw .dwwr {
-    position: relative;
-    padding-top: 40px;
-    -webkit-border-radius: 0;
-    border-radius: 0;
-}
-.ios7 .dwwo {
+.mbsc-ios7 .dwwo {
     background: -webkit-gradient(linear,left bottom,left top,from(#f7f7f7),color-stop(0.52, rgba(245,245,245,0)),color-stop(0.48, rgba(245,245,245,0)),to(#f7f7f7));
     background: -webkit-linear-gradient(#f7f7f7,rgba(245,245,245,0) 52%, rgba(245,245,245,0) 48%, #f7f7f7);
     background: -moz-linear-gradient(#f7f7f7,rgba(245,245,245,0) 52%, rgba(245,245,245,0) 48%, #f7f7f7);
     background: linear-gradient(#f7f7f7,rgba(245,245,245,0) 52%, rgba(245,245,245,0) 48%, #f7f7f7);
 }
-.ios7 .dwwol {
+.mbsc-ios7 .dwwol {
     padding: 0 10px;
     height: 34px;
     margin: -18px 0 0 -10px;
     border-top: 1px solid #dbdbdb;
     border-bottom: 1px solid #dbdbdb;
 }
-.ios7 .dw-li {
+.mbsc-ios7 .dw-li {
     color: #9d9d9d;
     font-size: 22px;
     text-align: left;
-    text-shadow: none;
 }
-.ios7 .dw-hl {
+.mbsc-ios7 .dw-hl {
     background: rgba(0,122,255,.2);
 }
-.ios7 .dw-sel {
+.mbsc-ios7 .dw-sel {
     color: #000;
 }
-.ios7 .dwv {
-    margin: 0;
-    padding: 0;
-    background: none;
-    color: #9d9d9d;
-    line-height: 30px;
-    font-size: 12px;
-    border-bottom: 1px solid #acacac;
-    -webkit-border-radius: 0;
-    border-radius: 0;
-}
-.ios7 .dw .dwbc {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    padding: 0;
-    border-bottom: 1px solid #acacac;
-}
-.ios7 .dwb {
-    margin: 0;
-    padding: 0 10px;
-    display: inline-block;
-    color: #007aff;
-    text-shadow: none;
-    font-size: 17px;
-    font-weight: normal;
-    background: none;
-    -webkit-border-radius: 0;
-    -webkit-box-shadow: none;
-    border-radius: 0;
-    box-shadow: none;
-}
-.ios7 .dwb-a {
-    opacity: .5;
-}
-.ios7 .dwbw {
-    display: block;
-    float: right;
-}
-.ios7 .dwb-c {
-    float: left;
-}
-.ios7 .dwb-s .dwb {
-    font-weight: bold;
-}
 /* Clickpick mode */
-.ios7 .dwpm .dwwl {
-    border: 0;
-    -webkit-border-radius: 0;
-    border-radius: 0;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-}
-.ios7 .dwpm .dww {
-    background: none;
-}
-.ios7 .dwpm .dw-li {
+.mbsc-ios7 .dwpm .dw-li {
     text-align: center;
 }
-.ios7 .dwpm .dwwol {
+.mbsc-ios7 .dwpm .dwwol {
     display: block;
 }
-.ios7 .dwwb,
-.ios7 .dwwb.dwb-a,
-.ios7 .dwwb:hover {
+.mbsc-ios7 .dwwb {
     color: #007aff;
     background: #f7f7f7;
-    text-shadow: none;
-    -webkit-border-radius: 0;
-    -webkit-box-shadow: none;
-    border-radius: 0;
-    box-shadow: none;
 }
-.ios7 .dwwbp {
+.mbsc-ios7 .dwwbp {
     bottom: 0;
     top: auto;
 }
-.ios7 .dwwbm {
+.mbsc-ios7 .dwwbm {
     top: 0;
     bottom: auto;
 }
-.ios7 .dwwb span {
+.mbsc-ios7 .dwwb span {
     display: none;
 }
-.ios7 .dwwb:before {
+.mbsc-ios7 .dwwb:before {
     position: absolute;
     left: 0;
     top: 0;
     width: 100%;
     font-size: 24px;
 }
-/* Bubble arrow */
-.ios7 .dw-bubble-bottom .dw-arr {
-    top: 0;
-    border-color: transparent transparent #f7f7f7 transparent;
-}
-.ios7 .dw-bubble-top .dw-arr {
-    bottom: 0;
-    border-color: #f7f7f7 transparent transparent transparent;
-}
-.ios7.dw-bubble .dwwr {
-    overflow: hidden;
-    -webkit-border-radius: 8px;
-    border-radius: 8px;
-}
-/* Inline display */
-.ios7.dw-inline .dw {
-    -webkit-border-radius: 0;
-    border-radius: 0;
-}
-.ios7.dw-nobtn .dwwr,
-.ios7.dw-inline .dwwr {
-    padding-top: 0;
-}
 /* Select */
-.ios7.dw-select .dwwo {
+.mbsc-ios7.dw-select .dwwo {
     display: none;
 }
 /* Multiple select */
-.ios7 .dwwms .dwwol {
+.mbsc-ios7 .dwwms .dwwol {
     display: none;
 }
-.ios7 .dwwms .dw-li {
-    padding-right: 5px;
+.mbsc-ios7 .dwwms .dw-li {
+    padding: 0 5px 0 40px;
     color: #000;
 }
-.ios7 .dwwms .dw-msel {
+.mbsc-ios7 .dwwms .dw-msel {
     color: #007aff;
 }
+

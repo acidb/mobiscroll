@@ -1,0 +1,218 @@
+﻿.dw, 
+.dwo {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+.dw,
+.dwb {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+.dw {
+    max-width: 98%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    font-size: 12px;
+    text-shadow: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -ms-touch-action: none;
+    user-select: none;
+    touch-action: none;
+}
+.dw:focus {
+    outline: none;
+}
+.dw-rtl {
+    direction: rtl;
+}
+/* Box sizing */
+.dw,
+.dwbc {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.dwwr {
+    min-width: 170px;
+    zoom: 1;
+    overflow: hidden;
+    text-align: center;
+}
+/* Modal overlay */
+.dw-persp, .dwo {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.dw-persp {
+    z-index: 99998;
+}
+.dwo {
+    z-index: 1;
+    background: #000;
+    background: rgba(0,0,0,.7);
+    filter: Alpha(Opacity=70);
+}
+/* Liquid mode */
+.dw-liq .dw {
+    max-width: 100%;
+}
+/* Top/Bottom mode */
+.dw-top .dw, 
+.dw-bottom .dw {
+    width: 100%;
+    max-width: 100%;
+}
+/* Inline mode */
+.dw-inline .dw {
+    position: static;
+    display: inline-block;
+    max-width: 100%;
+}
+.dw-inline.dw-liq .dw-persp .dw {
+    display: block;
+}
+.dw-inline .dw-persp {
+    position: static;
+}
+/* Bubble mode */
+.dw-bubble .dw {
+    margin: 20px 0;
+}
+.dw-bubble .dw-arrw {
+    position: absolute;
+    left: 0;
+    width: 100%;
+}
+.dw-bubble-top .dw-arrw {
+    bottom: -36px;
+}
+.dw-bubble-bottom .dw-arrw {
+    top: -36px;
+}
+.dw-bubble .dw-arrw-i {
+    margin: 0 30px;
+    position: relative;
+    height: 36px;
+}
+.dw-bubble .dw-arr {
+    display: block;
+}
+.dw-arr {
+    display: none;
+    position: absolute;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-width: 18px 18px;
+    border-style: solid;
+    margin-left: -18px;
+}
+.dw-bubble-bottom .dw-arr {
+    top: 0;
+}
+.dw-bubble-top .dw-arr {
+    bottom: 0;
+}
+.dw-hidden, 
+.dw .dwwr .dw-hidden {
+    width: 0;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    overflow: hidden;
+}
+/* Buttons */
+.dwb {
+    cursor: pointer;
+    overflow: hidden;
+    display: block;
+    text-decoration: none;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+/* Button container */
+.dwbc {
+    display: table;
+    width: 100%;
+    text-align: center;
+    font-size: 0;
+}
+/* Button wrapper */
+.dwbw  {
+    display: table-cell;
+    position: relative;
+    z-index: 5;
+}
+
+
+/* Default theme */
+.mbsc-default .dwwr {
+    padding: 0 2px;
+    background: #fff;
+    color: #000;
+    font-family: arial, verdana, sans-serif;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+}
+.mbsc-default .dwv {
+    padding: 7px 0;
+    margin: 0 -2px;
+    font-size: 14px;
+    background-color: #dfdfdf;
+}
+.mbsc-default .dwbc {
+    padding-bottom: 4px;
+}
+.mbsc-default .dwb {
+    height: 40px;
+    line-height: 40px;
+    padding: 0 15px;
+    margin: 0 2px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 0 -1px 1px #000;
+    background: #000;
+    background: -webkit-gradient(linear,left bottom,left top,color-stop(0.5, #000),color-stop(0.5, #6e6e6e));
+    background: -webkit-linear-gradient(#6e6e6e 50%,#000 50%);
+    background: -moz-linear-gradient(#6e6e6e 50%,#000 50%);
+    background: linear-gradient(#6e6e6e 50%,#000 50%);
+    -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    -webkit-border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    border-radius: 5px;
+}
+.mbsc-default .dwb-a {
+    background: #3c7500;
+    background: -webkit-gradient(linear,left bottom,left top,color-stop(0.5, #3c7500),color-stop(0.5, #94c840));
+    background: -webkit-linear-gradient(#94c840 50%,#3c7500 50%);
+    background: -moz-linear-gradient(#94c840 50%,#3c7500 50%);
+    background: linear-gradient(#94c840 50%,#3c7500 50%);
+}
+/* Inline mode */
+.mbsc-default.dw-inline .dwv {
+    margin: 0 2px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+}
+/* Bubble mode */
+.mbsc-default .dw-bubble-bottom .dw-arr {
+    border-color: transparent transparent #fff transparent;
+}
+.mbsc-default .dw-bubble-top .dw-arr {
+    border-color: #fff transparent transparent transparent;
+}
+/* Top, bottom mode */
+.mbsc-default.dw-liq .dwwr, 
+.mbsc-default.dw-top .dwwr, 
+.mbsc-default.dw-bottom .dwwr {
+    -webkit-border-radius: 0;
+    border-radius: 0;
+}

@@ -137,7 +137,7 @@
         }
 
         function onTap(li) {
-            if (multiple && li.hasClass('dw-v') && li.closest('.dw').find('.dw-ul').index(li.closest('.dw-ul')) == optIdx) {
+            if (multiple && li.hasClass('dw-v') && li.closest('.dwwl').hasClass('dwwms')) {
                 var val = li.attr('data-val'),
                     selected = li.hasClass('dw-msel');
 

@@ -1,177 +1,23 @@
-.dw, 
-.dwo {
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-}
-.dw,
-.dwb,
-.dw-bf {
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-}
-.dw {
-    max-width: 98%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 2;
-    font-size: 12px;
-    text-shadow: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    -ms-touch-action: none;
-    user-select: none;
-    touch-action: none;
-}
-.dw:focus {
-    outline: none;
-}
-.dw-rtl {
-    direction: rtl;
-}
-/* Box sizing */
-.dw,
-.dwc,
-.dwbc {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
-.dwwr {
-    padding: 0 2px;
-    min-width: 170px;
-    zoom: 1;
-    overflow: hidden;
-    text-align: center;
-}
-/* Modal overlay */
-.dw-persp, .dwo {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-.dw-persp {
-    z-index: 99998;
-}
-.dwo {
-    z-index: 1;
-    background: #000;
-    background: rgba(0,0,0,.7);
-    filter: Alpha(Opacity=70);
-}
-/* Liquid mode */
-.dw-liq .dw .dwc {
-    display: block;
-}
-.dw-liq .dw-tbl {
-    width: 100%;
-    table-layout: fixed;
-}
-/* Top/Bottom mode */
-.dw-top .dw, 
-.dw-bottom .dw {
-    width: 100%;
-    max-width: 100%;
-}
-.dw-top .dw .dwwr, 
-.dw-bottom .dw .dwwr {
-    -moz-border-radius: 0;
-    -webkit-border-radius: 0;
-    border-radius: 0;
-}
-/* Inline mode */
-.dw-inline .dw {
-    position: static;
-    display: inline-block;
-    max-width: 100%;
-}
-.dw-inline.dw-liq .dw-persp .dw {
-    display: block;
-}
-.dw-inline .dw-persp {
-    position: static;
-}
-.dw-inline .dwv {
-    margin: 0 2px;
-    -webkit-border-radius: 3px;
-    border-radius: 3px;
-}
-/* Bubble mode */
-.dw-bubble .dw {
-    margin: 20px 0;
-}
-.dw-bubble .dw-arrw {
-    position: absolute;
-    left: 0;
-    width: 100%;
-}
-.dw-bubble-top .dw-arrw {
-    bottom: -36px;
-}
-.dw-bubble-bottom .dw-arrw {
-    top: -36px;
-}
-.dw-bubble .dw-arrw-i {
-    margin: 0 30px;
-    position: relative;
-    height: 36px;
-}
-.dw-bubble .dw-arr {
-    display: block;
-}
-.dw-arr {
-    display: none;
-    position: absolute;
-    left: 0;
-    width: 0;
-    height: 0;
-    border-width: 18px 18px;
-    border-style: solid;
-    margin-left: -18px;
-}
-.dw-bubble-bottom .dw-arr {
-    top: 0;
-    border-color: transparent transparent #fff transparent;
-}
-.dw-bubble-top .dw-arr {
-    bottom: 0;
-    border-color: #fff transparent transparent transparent;
-}
 /* Wheel container wrapper */
 .dwc {
     max-width: 100%;
     vertical-align: middle;
-    padding: 26px 2px 4px 2px;
     display: inline-block;
     overflow: hidden;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
 }
 /* Wheel label */
 .dwl {
-    left: 0;
-    text-align: center;
     line-height: 30px;
     height: 30px;
+    top: -30px;
+    left: 0;
+    text-align: center;
     white-space: nowrap;
     position: absolute;
-    top: -30px;
     width: 100%;
-}
-/* Wheel value */
-.dwv {
-    padding: 7px 0;
-    margin: 0 -2px;
-    font-size: 14px;
-}
-.dw-hidden, 
-.dw .dwwr .dw-hidden {
-    width: 0;
-    height: 0;
-    margin: 0;
-    padding: 0;
-    border: 0;
-    overflow: hidden;
 }
 /* Wheel container */
 .dwwc {
@@ -188,61 +34,29 @@
 }
 .dwfl {
     max-width: 100%;
-    padding: 4px 3px;
-    margin: 0 -1px;
     -webkit-box-flex: 1;
     -webkit-flex: 1 auto;
     -ms-flex: 1 auto;
 	flex: 1 auto;
-    background: #000;
-}
-.dw-ltr .dwfl:first-child,
-.dw-rtl .dwfl:last-child {
-    margin-left: 0;
-    padding-left: 4px;
-    -webkit-border-radius: 3px 0 0 3px;
-    border-radius: 3px 0 0 3px;
-}
-.dw-ltr .dwfl:last-child,
-.dw-rtl .dwfl:first-child {
-    margin-right: 0;
-    padding-right: 4px;
-    -webkit-border-radius: 0 3px 3px 0;
-    border-radius: 0 3px 3px 0;
 }
 /* Wheels */
 .dwwl {
-    margin: 0;
-    padding: 0 2px;
     position: relative;
     z-index: 5;
 }
 .dwww {
     position: relative;
     padding: 1px;
-    overflow: hidden;
+    /*overflow: hidden;*/
 }
 .dww {
     overflow: hidden;
     position: relative;
 }
-.dwsc .dwwl {
-    background: #888;
-    background: -webkit-gradient(linear,left bottom,left top,from(#000),color-stop(0.35, #333),color-stop(0.50, #888),color-stop(0.65, #333),to(#000));
-    background: -webkit-linear-gradient(#000,#333 35%, #888 50%,#333 65%,#000);
-    background: -moz-linear-gradient(#000,#333 35%, #888 50%,#333 65%,#000);
-    background: linear-gradient(#000,#333 35%, #888 50%,#333 65%,#000);
-}
-.dwsc .dww {
-    color: #fff;
-    background: #444;
-    background: -webkit-gradient(linear,left bottom,left top,from(#000),color-stop(0.45, #444),color-stop(0.55, #444),to(#000));
-    background: -webkit-linear-gradient(#000,#444 45%, #444 55%, #000);
-    background: -moz-linear-gradient(#000,#444 45%, #444 55%, #000);
-    background: linear-gradient(#000,#444 45%, #444 55%, #000);
-}
 .dw-bf {
+    -webkit-backface-visibility: hidden;
     -webkit-perspective: 1000px;
+    backface-visibility: hidden;
     perspective: 1000px;
 }
 .dw-ul {
@@ -251,20 +65,12 @@
 }
 .dw-li {
     padding: 0 5px;
-    display: block;
+    position: relative;
     text-align: center;
-    line-height: 40px;
-    font-size: 26px;
     white-space: nowrap;
-    text-shadow: 0 1px 1px #000;
     vertical-align: bottom;
     opacity: .3;
     filter: Alpha(Opacity=30);
-}
-/* Higlighted */
-.dw-li.dw-hl {
-    background: #fff;
-    background: rgba(255,255,255,.3);
 }
 /* Valid entry */
 .dw-li.dw-v {
@@ -281,14 +87,14 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
-/* Wheel +/- buttons */
+/* Clickpick mode */
 .dwwb {
     position: absolute;
     z-index: 4;
     left: 0;
     cursor: pointer;
     width: 100%;
-    height: 40px;
+    text-decoration: none;
     text-align: center;
     opacity: 1;
     -webkit-transition: opacity .2s linear;
@@ -299,22 +105,9 @@
 }
 .dwpm .dwwbp {
     top: 0;
-    -webkit-border-radius: 3px 3px 0 0;
-    border-radius: 3px 3px 0 0;
-    font-size: 40px;
 }
 .dwpm .dwwbm {
     bottom: 0;
-    -webkit-border-radius: 0 0 3px 3px;
-    border-radius: 0 0 3px 3px;
-    font-size: 32px;
-    font-weight: bold;
-}
-.dwpm .dwwl {
-    padding: 0;
-}
-.dwpm .dw-li {
-    text-shadow: none;
 }
 .dwpm .dwwol {
     display: none;
@@ -327,10 +120,6 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: -webkit-gradient(linear,left bottom,left top,from(#000),color-stop(0.52, rgba(44,44,44,0)),color-stop(0.48, rgba(44,44,44,0)),to(#000));
-    background: -webkit-linear-gradient(#000,rgba(44,44,44,0) 52%, rgba(44,44,44,0) 48%, #000);
-    background: -moz-linear-gradient(#000,rgba(44,44,44,0) 52%, rgba(44,44,44,0) 48%, #000);
-    background: linear-gradient(#000,rgba(44,44,44,0) 52%, rgba(44,44,44,0) 48%, #000);
     pointer-events: none;
 }
 /* Background line */
@@ -340,55 +129,17 @@
     top: 50%;
     left: 0;
     width: 100%;
-    height: 0;
-    margin-top: -1px;
-    border-top: 1px solid #333;
-    border-bottom: 1px solid #555;
     pointer-events: none;
 }
-/* Buttons */
-.dwbg .dwb {
-    cursor: pointer;
-    overflow: hidden;
+/* Liquid mode */
+.dw-liq .dwc {
     display: block;
-    height: 40px;
-    line-height: 40px;
-    padding: 0 15px;
-    margin: 0 2px;
-    font-size: 14px;
-    font-weight: bold;
-    text-decoration: none;
-    text-shadow: 0 -1px 1px #000;
-    color: #fff;
-    background: #000;
-    background: -webkit-gradient(linear,left bottom,left top,color-stop(0.5, #000),color-stop(0.5, #6e6e6e));
-    background: -webkit-linear-gradient(#6e6e6e 50%,#000 50%);
-    background: -moz-linear-gradient(#6e6e6e 50%,#000 50%);
-    background: linear-gradient(#6e6e6e 50%,#000 50%);
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.5);
 }
-/* Button container */
-.dwbc {
-    display: table;
+.dw-liq .dw-tbl {
     width: 100%;
-    padding-bottom: 4px;
-    text-align: center;
-}
-/* Button wrapper */
-.dwbw  {
-    display: table-cell;
-    position: relative;
-    z-index: 5;
+    table-layout: fixed;
 }
 /* Hidden label */
-.dwhl {
-    padding-top: 4px;
-}
 .dwhl .dwl {
     display: none;
 }
@@ -405,7 +156,7 @@
 .dw-ml .dw-li {
     overflow: hidden;
 }
-.dw-ml .dw-ul .dw-li .dw-i {
+.dw-ml .dw-li .dw-i {
     width: 100%;
     height: auto;
     display: inline-block;
@@ -413,68 +164,124 @@
     white-space: normal;
 }
 /* Multiple selection */
-.dwms .dwwms .dw-li {
+.dwwms .dw-li {
     padding: 0 40px;
-    position: relative;
 }
-.dwms .dw-msel:before {
+.dw-msel:before {
     width: 40px;
     text-align: center;
     position: absolute;
     top: 0;
     left: 0;
 }
-/* Backgrounds */
-.dwbg .dwwr {
+
+
+/* Default theme */
+.mbsc-default .dwc {
+    padding: 26px 2px 4px 2px;
+}
+.mbsc-default .dwhl {
+    padding-top: 4px;
+}
+.mbsc-default .dwfl {
+    padding: 4px 3px;
+    margin: 0 -1px;
+    background: #000;
+}
+.mbsc-default .dw-ltr .dwfl:first-child,
+.mbsc-default .dw-rtl .dwfl:last-child {
+    margin-left: 0;
+    padding-left: 4px;
+    -webkit-border-radius: 3px 0 0 3px;
+    border-radius: 3px 0 0 3px;
+}
+.mbsc-default .dw-ltr .dwfl:last-child,
+.mbsc-default .dw-rtl .dwfl:first-child {
+    margin-right: 0;
+    padding-right: 4px;
+    -webkit-border-radius: 0 3px 3px 0;
+    border-radius: 0 3px 3px 0;
+}
+/* Wheel items */
+.mbsc-default .dw-li {
+    font-size: 26px;
+    text-shadow: 0 1px 1px #000;
+}
+/* Higlighted */
+.mbsc-default .dw-hl {
+    background: rgba(255,255,255,.3);
+}
+.mbsc-default .dwwl {
+    padding: 0 2px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    background: #888;
+    background: -webkit-gradient(linear,left bottom,left top,from(#000),color-stop(0.35, #333),color-stop(0.50, #888),color-stop(0.65, #333),to(#000));
+    background: -webkit-linear-gradient(#000,#333 35%, #888 50%,#333 65%,#000);
+    background: -moz-linear-gradient(#000,#333 35%, #888 50%,#333 65%,#000);
+    background: linear-gradient(#000,#333 35%, #888 50%,#333 65%,#000);
+}
+.mbsc-default .dww {
+    color: #fff;
+    background: #444;
+    background: -webkit-gradient(linear,left bottom,left top,from(#000),color-stop(0.45, #444),color-stop(0.55, #444),to(#000));
+    background: -webkit-linear-gradient(#000,#444 45%, #444 55%, #000);
+    background: -moz-linear-gradient(#000,#444 45%, #444 55%, #000);
+    background: linear-gradient(#000,#444 45%, #444 55%, #000);
+}
+.mbsc-default .dwwo {
+    background: -webkit-gradient(linear,left bottom,left top,from(#000),color-stop(0.52, rgba(44,44,44,0)),color-stop(0.48, rgba(44,44,44,0)),to(#000));
+    background: -webkit-linear-gradient(#000,rgba(44,44,44,0) 52%, rgba(44,44,44,0) 48%, #000);
+    background: -moz-linear-gradient(#000,rgba(44,44,44,0) 52%, rgba(44,44,44,0) 48%, #000);
+    background: linear-gradient(#000,rgba(44,44,44,0) 52%, rgba(44,44,44,0) 48%, #000);
+}
+.mbsc-default .dwwol {
+    height: 0;
+    margin-top: -1px;
+    border-top: 1px solid #333;
+    border-bottom: 1px solid #555;
+}
+/* Clickpick mode */
+.mbsc-default .dwpm .dwwl {
+    padding: 0;
     background: #fff;
+}
+.mbsc-default .dwpm .dww {
     color: #000;
-    font-family: arial, verdana, sans-serif;
+    background: #fff;
     -webkit-border-radius: 3px;
     border-radius: 3px;
 }
-.dwbg .dwv {
-    background-color: #dfdfdf;
+.mbsc-default .dwpm .dw-li {
+    text-shadow: none;
 }
-.dwbg .dwpm .dwwl {
-    background: #fff;
-}
-.dwbg .dwpm .dww {
-    color: #000;
-    background: #fff;
-    -webkit-border-radius: 3px;
-}
-.dwbg .dwwb {
+.mbsc-default .dwwb {
     background: #ccc;
     color: #888;
-    font-weight: normal;
-    text-decoration: none;
     text-shadow: 0 -1px 1px #333;
-    box-shadow: 0 0 5px #333;
     -webkit-box-shadow: 0 0 5px #333;
+    box-shadow: 0 0 5px #333;
 }
-.dwbg .dwwbp {
+.mbsc-default .dwwbp {
     background: -webkit-gradient(linear,left bottom,left top,from(#bdbdbd),to(#f7f7f7));
     background: -webkit-linear-gradient(#f7f7f7,#bdbdbd);
     background: -moz-linear-gradient(#f7f7f7,#bdbdbd);
     background: linear-gradient(#f7f7f7,#bdbdbd);
+    -webkit-border-radius: 3px 3px 0 0;
+    border-radius: 3px 3px 0 0;
+    font-size: 40px;
 }
-.dwbg .dwwbm {
+.mbsc-default .dwwbm {
     background: -webkit-gradient(linear,left bottom,left top,from(#f7f7f7),to(#bdbdbd));
     background: -webkit-linear-gradient(#bdbdbd,#f7f7f7);
     background: -moz-linear-gradient(#bdbdbd,#f7f7f7);
     background: linear-gradient(#bdbdbd,#f7f7f7);
+    -webkit-border-radius: 0 0 3px 3px;
+    border-radius: 0 0 3px 3px;
+    font-size: 32px;
+    font-weight: bold;
 }
-.dwbg .dwbc {
-    font-size: 0;
-}
-.dwbg .dwb-a {
-    background: #3c7500;
-    background: -webkit-gradient(linear,left bottom,left top,color-stop(0.5, #3c7500),color-stop(0.5, #94c840));
-    background: -webkit-linear-gradient(#94c840 50%,#3c7500 50%);
-    background: -moz-linear-gradient(#94c840 50%,#3c7500 50%);
-    background: linear-gradient(#94c840 50%,#3c7500 50%);
-}
-.dwbg .dwwl .dwb-a {
+.mbsc-default .dwwl .dwb-a {
     background: #3c7500;
     background: -webkit-gradient(linear,left bottom,left top,from(#3c7500),to(#94c840));
     background: -webkit-linear-gradient(#94c840,#3c7500);

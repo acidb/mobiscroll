@@ -1,156 +1,66 @@
 /* Android Holo skin */
-.android-holo .dw .dwfl,
-.android-holo .dw .dwwl,
-.android-holo .dw .dww,
-.android-holo .dw .dwb,
-.android-holo .dw .dwpm .dww {
-    background: none;
-}
-.android-holo .dwwr {
-    padding: 0;
-    background: #292829;
-    color: #31b6e7;
-}
-.android-holo .dwc {
+.mbsc-android-holo .dwc {
     padding: 30px 10px 1px 10px;
 }
-.android-holo .dwfl {
-    padding: 0;
-}
-.android-holo .dwhl {
+.mbsc-android-holo .dwhl {
     padding: 1px 10px;
 }
-.android-holo .dwv {
-    background: none;
-    line-height: 36px;
-    padding: 0;
-    margin: 0;
-    border-bottom: 2px solid #31b6e7;
-    font-size: 18px;
-    -webkit-border-radius: 0;
-    border-radius: 0;
-}
-.android-holo .dwwl {
-    margin: 0 2px;
-}
-.android-holo .dww,
-.android-holo .dw .dwpm .dwwl,
-.android-holo .dw .dwpm .dww {
-    border: 0;
-}
-.android-holo .dww .dw-li {
+.mbsc-android-holo .dw-li {
     color: #fff;
     font-size: 18px;
-    text-shadow: none;
 }
-.android-holo .dww .dw-li.dw-hl {
-    background: #31b6e7;
+.mbsc-android-holo .dw-hl {
     background: rgba(49,182,231,.5);
 }
-.android-holo .dwwo {
+.mbsc-android-holo .dwwo {
     background: -webkit-gradient(linear,left bottom,left top,from(#282828),color-stop(0.52, rgba(40,40,40,0)),color-stop(0.48, rgba(40,40,40,0)),to(#282828));
     background: -webkit-linear-gradient(#282828,rgba(40,40,40,0) 52%, rgba(40,40,40,0) 48%, #282828);
     background: -moz-linear-gradient(#282828,rgba(40,40,40,0) 52%, rgba(40,40,40,0) 48%, #282828);
     background: linear-gradient(#282828,rgba(40,40,40,0) 52%, rgba(40,40,40,0) 48%, #282828);
 }
-.android-holo .dw .dwwb {
+.mbsc-android-holo .dwwb {
     color: #7e7e7e;
     background: #292829;
-    -webkit-box-shadow: none;
-    box-shadow: none;
 }
-.android-holo .dwwb span {
+.mbsc-android-holo .dwwb span {
     display: none;
 }
-.android-holo .dwwb:before {
+.mbsc-android-holo .dwwb:before {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     font-size: 26px;
-    text-shadow: none;
 }
-.android-holo .dwwbm {
+.mbsc-android-holo .dwwbm {
     top: 0;
     bottom: auto;
 }
-.android-holo .dwwbp {
+.mbsc-android-holo .dwwbp {
     bottom: 0;
     top: auto;
 }
-.android-holo .dw .dwwl .dwb-a {
+.mbsc-android-holo .dwwl .dwb-a {
     background: #292829;
     color: #319abd;
 }
-.android-holo .dw .dwwol {
+.mbsc-android-holo .dwwol {
+    display: block;
     width: 60%;
     left: 20%;
     height: 36px;
     border-top: 2px solid #31b6e7;
     border-bottom: 2px solid #31b6e7;
     margin-top: -20px;
-    display: block;
-}
-/* Buttons */
-.android-holo .dw .dwbc {
-    border-top: 1px solid #424542;
-    padding: 0;
-}
-.android-holo .dw .dwb {
-    height: 36px;
-    line-height: 36px;
-    padding: 0;
-    margin: 0;
-    font-weight: normal;
-    text-shadow: none;
-    -webkit-border-radius: 0;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-    border-radius: 0;
-}
-.android-holo .dwbw .dwb {
-    border-left: 1px solid #424542;
-}
-.android-holo .dwbw:first-child .dwb {
-    border: 0;
-    -webkit-border-radius: 0 0 0 3px;
-    border-radius: 0 0 0 3px;
-}
-.android-holo .dwbw:last-child .dwb {
-    -webkit-border-radius: 0 0 3px 0;
-    border-radius: 0 0 3px 0;
-}
-.android-holo .dw-rtl .dwbw .dwb {
-    border: 0;
-    border-right: 1px solid #424542;
-}
-.android-holo .dw-rtl .dwbw:last-child .dwb {
-    -webkit-border-radius: 0 0 0 3px;
-    border-radius: 0 0 0 3px;
-}
-.android-holo .dw-rtl .dwbw:first-child .dwb {
-    border: 0;
-    -webkit-border-radius: 0 0 3px 0;
-    border-radius: 0 0 3px 0;
-}
-.android-holo .dw .dwb-a {
-    background: #29799c;
-}
-/* Top/bottom mode */
-.android-holo.dw-top .dwbw .dwb,
-.android-holo.dw-bottom .dwbw .dwb {
-    -webkit-border-radius: 0;
-    border-radius: 0;
 }
 /* Multiple select */
-.android-holo .dwwms .dwwol {
+.mbsc-android-holo .dwwms .dwwol {
     display: none;
 }
-.android-holo .dwwms .dw-li {
-    padding-left: 5px;
-    padding-right: 36px;
+.mbsc-android-holo .dwwms .dw-li {
+    padding: 0 36px;
 }
-.android-holo .dwwms .dw-li:after {
+.mbsc-android-holo .dwwms .dw-li:after {
     content: '';
     position: absolute;
     z-index: 1;
@@ -162,7 +72,7 @@
     margin-top: -9px;
     border: 1px solid #424542;
 }
-.android-holo .dwwms .dw-msel:before {
+.mbsc-android-holo .dw-msel:before {
     z-index: 2;
     top: 50%;
     left: auto;
@@ -173,63 +83,22 @@
     line-height: 14px;
     text-shadow: 0 0 5px #29799c;
 }
-/*.android-holo .dwwms .dw-msel:after {
-    content: '\2714';
-}*/
+
 /* Light version */
-.android-holo.light .dwwr {
-    background: #f5f5f5;
-}
-.android-holo.light .dww .dw-li {
+.mbsc-android-holo-light .dw-li {
     color: #000;
 }
-.android-holo.light .dwbw .dwb {
-    border-left: 1px solid #dbdbdb;
-}
-.android-holo.light .dwbw:first-child .dwb {
-    border: 0;
-}
-.android-holo.light .dw-rtl .dwbw .dwb {
-    border: 0;
-    border-right: 1px solid #dbdbdb;
-}
-.android-holo.light .dw-rtl .dwbw:first-child .dwb {
-    border: 0;
-}
-.android-holo.light .dwwo {
+.mbsc-android-holo-light .dwwo {
     background: -webkit-gradient(linear,left bottom,left top,from(#f5f5f5),color-stop(0.52, rgba(245,245,245,0)),color-stop(0.48, rgba(245,245,245,0)),to(#f5f5f5));
     background: -webkit-linear-gradient(#f5f5f5,rgba(245,245,245,0) 52%, rgba(245,245,245,0) 48%, #f5f5f5);
     background: -moz-linear-gradient(#f5f5f5,rgba(245,245,245,0) 52%, rgba(245,245,245,0) 48%, #f5f5f5);
     background: linear-gradient(#f5f5f5,rgba(245,245,245,0) 52%, rgba(245,245,245,0) 48%, #f5f5f5);
 }
-.android-holo.light .dw .dwwb {
+.mbsc-android-holo-light .dwwl .dwwb {
     background: #f5f5f5;
 }
-.android-holo.light .dwbc {
-    border-top: 1px solid #dbdbdb;
-}
-.android-holo.light .dwb {
-    color: #000;
-}
-.android-holo.light .dwb-a {
-    color: #fff;
-}
-/* Bubble positioning */
-.android-holo .dw-bubble-bottom .dw-arr {
-    border-color: transparent transparent #292829 transparent;
-}
-.android-holo .dw-bubble-top .dw-arr {
-    border-color: #292829 transparent transparent transparent;
-}
-/* Bubble positioning */
-.android-holo.light .dw-bubble-bottom .dw-arr {
-    border-color: transparent transparent #f5f5f5 transparent;
-}
-.android-holo.light .dw-bubble-top .dw-arr {
-    border-color: #f5f5f5 transparent transparent transparent;
-}
 /* Multiple select */
-.android-holo.light .dwwms .dw-li:before {
+.mbsc-android-holo-light .dw-msel:before {
     color: #29799c;
     text-shadow: 0 0 5px #31b6e7;
 }
