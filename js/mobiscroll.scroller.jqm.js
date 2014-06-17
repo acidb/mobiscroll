@@ -37,10 +37,11 @@
 
             if ($.mobile.version.match(/1\.4/)) {
                 elm.addClass('mbsc-jqm14');
+                $('.dwbc .dwb', elm).addClass('ui-btn ui-mini ui-corner-all');
             }
 
             $('.dw', elm).removeClass('dwbg').addClass('ui-selectmenu ui-overlay-shadow ui-corner-all ui-body-' + s.jqmBorder);
-            $('.dwbc .dwb', elm).addClass('ui-btn ui-mini ui-corner-all').attr('data-role', 'button').attr('data-mini', 'true').attr('data-theme', s.jqmCancel);
+            $('.dwbc .dwb', elm).attr('data-role', 'button').attr('data-mini', 'true').attr('data-theme', s.jqmCancel);
             $('.dwb-s .dwb', elm).addClass('ui-btn-' + s.jqmSet).attr('data-theme', s.jqmSet);
             $('.dwwb', elm).attr('data-role', 'button').attr('data-theme', s.jqmClickPick);
             $('.dwv', elm).addClass('ui-header ui-bar-' + s.jqmHeader);

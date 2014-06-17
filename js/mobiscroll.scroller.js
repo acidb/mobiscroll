@@ -63,6 +63,8 @@
             if (testTouch(ev) && !move && !click && !btn && !isReadOnly(this)) {
                 // Prevent touch highlight
                 ev.preventDefault();
+                // Better performance if there are tap events on document
+                ev.stopPropagation();
 
                 move = true;
                 isScrollable = s.mode != 'clickpick';
@@ -108,6 +110,9 @@
                     dist,
                     tindex,
                     ttop = target.offset().top;
+
+                // Better performance if there are tap events on document
+                ev.stopPropagation();
 
                 if (has3d && time < 300) {
                     speed = (stop - start) / time;
