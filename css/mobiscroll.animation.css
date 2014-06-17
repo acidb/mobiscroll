@@ -8,8 +8,8 @@
 .dw-trans .dwwo {
     -webkit-backface-visibility: hidden;
 }
-.dw-trans .dw,
-.dw-trans .dwo {
+.dw-trans .dw/*,
+.dw-trans .dwo*/ {
     -webkit-animation-fill-mode: forwards;
     -webkit-animation-duration: 350ms;
     -moz-animation-fill-mode: forwards;
@@ -27,7 +27,7 @@
     -moz-animation-timing-function: ease-in;
     animation-timing-function: ease-in;
 }
-.dw-in .dwo {
+/*.dw-in .dwo {
     -webkit-animation-name: dw-f-in;
     -moz-animation-name: dw-f-in;
     animation-name: dw-f-in;
@@ -36,7 +36,7 @@
     -webkit-animation-name: dw-f-out;
     -moz-animation-name: dw-f-out;
     animation-name: dw-f-out;
-}
+}*/
 .dw-flip,
 .dw-swing,
 .dw-slidehorizontal,

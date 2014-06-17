@@ -6,7 +6,8 @@
         rtl: false,
         showInput: true,
         group: false,
-        groupLabel: 'Groups'
+        groupLabel: 'Groups',
+        checkIcon: 'checkmark'
     };
 
     $.mobiscroll.presetShort('select');
@@ -32,7 +33,7 @@
             id = this.id + '_dummy',
             lbl = $('label[for="' + this.id + '"]').attr('for', id),
             label = s.label !== undefined ? s.label : (lbl.length ? lbl.text() : elm.attr('name')),
-            selectedClass = 'dw-msel mbsc-ic mbsc-ic-checkmark',
+            selectedClass = 'dw-msel mbsc-ic mbsc-ic-' + s.checkIcon,
             invalid = [],
             origValues = [],
             main = {},

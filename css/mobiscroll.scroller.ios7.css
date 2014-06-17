@@ -77,4 +77,7 @@
 .mbsc-ios7 .dwwms .dw-msel {
     color: #007aff;
 }
+.mbsc-ios7 .dw-msel:before {
+    font-size: 40px;
+}
 
