@@ -361,9 +361,9 @@
 
             posEvents = 'orientationchange resize';
             
-            that._markupReady();
-
             event('onMarkupReady', [$markup]);
+
+            that._markupReady();
 
             // Show
             if (isModal) {
