@@ -655,6 +655,7 @@
             // --- 
 
             inst.format = hformat;
+            inst.order = o;
             inst.buttons.now = { text: s.nowText, css: 'dwb-n', handler: function () { inst.setDate(new Date(), false, 0.3, true, true); } };
 
             // @deprecated since 2.8.0, backward compatibility code
