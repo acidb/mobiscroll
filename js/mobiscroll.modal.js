@@ -360,10 +360,10 @@
             that._isVisible = true;
 
             posEvents = 'orientationchange resize';
-            
-            event('onMarkupReady', [$markup]);
 
             that._markupReady();
+            
+            event('onMarkupReady', [$markup]);
 
             // Show
             if (isModal) {
