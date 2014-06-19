@@ -22,7 +22,7 @@
                 bubble = s.jqmEventBubble || 'a';
 
             s.dayClass = 'ui-body-a ui-body-' + cal;
-            s.validDayClass = 'ui-state-default ui-btn ui-btn-up-' + cal;
+            s.innerDayClass = 'ui-state-default ui-btn ui-btn-up-' + cal;
             s.calendarClass = 'ui-body-a ui-body-' + cal;
             s.weekNrClass = 'ui-body-a ui-body-' + cal;
             s.eventTextClass = 'ui-btn-up-' + txt;

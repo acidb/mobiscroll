@@ -78,7 +78,7 @@
                 type;
 
             $markup.remove();
-            if ($activeElm && !prevAnim) {
+            if ($activeElm && !prevAnim && s.focusOnClose) {
                 setTimeout(function () {
                     preventShow = true;
                     activeEl = $activeElm[0];
@@ -300,7 +300,7 @@
             var html,
                 mAnim = '';
 
-            if (s.disabled || ms.tapped || that._isVisible) {
+            if (s.disabled || that._isVisible) {
                 return;
             }
 
@@ -734,6 +734,7 @@
         showOnTap: true,
         display: 'modal',
         scrollLock: true,
+        focusOnClose: true,
         tap: true,
         btnWidth: true
     };
