@@ -75,19 +75,30 @@
         function onHide(prevAnim) {
             var activeEl,
                 value,
-                type;
+                type,
+                focus = s.focusOnClose;
 
             $markup.remove();
-            if ($activeElm && !prevAnim && s.focusOnClose) {
+            if ($activeElm && !prevAnim) {
                 setTimeout(function () {
-                    preventShow = true;
-                    activeEl = $activeElm[0];
-                    type = activeEl.type;
-                    value = activeEl.value;
-                    activeEl.type = 'button';
-                    $activeElm.focus();
-                    activeEl.type = type;
-                    activeEl.value = value;
+                    if (focus === undefined) {
+                        preventShow = true;
+                        activeEl = $activeElm[0];
+                        type = activeEl.type;
+                        value = activeEl.value;
+                        try {
+                            activeEl.type = 'button';
+                        } catch (ex) { }
+                        $activeElm.focus();
+                        activeEl.type = type;
+                        activeEl.value = value;
+                    } else if (focus) {
+                        // If a mobiscroll field is focused, allow show
+                        if (instances[$(focus).attr('id')]) {
+                            ms.tapped = false;
+                        }
+                        $(focus).focus();
+                    }
                 }, 200);
             }
             that._isVisible = false;
@@ -297,8 +308,7 @@
         */
         that.show = function (prevAnim, prevFocus) {
             // Create wheels
-            var html,
-                mAnim = '';
+            var html;
 
             if (s.disabled || that._isVisible) {
                 return;
@@ -317,10 +327,6 @@
             that._readValue();
 
             event('onBeforeShow', []);
-
-            //if (isModal && doAnim && !prevAnim) {
-            //    mAnim = 'dw-' + doAnim + ' dw-in';
-            //}
 
             // Create wheels containers
             html = '<div class="mbsc-' + s.theme + ' dw-' + s.display + ' ' +
@@ -402,7 +408,7 @@
 
                 if (has3d && doAnim && !prevAnim) {
                     $markup.addClass('dw-in dw-trans').on(animEnd, function () {
-                        $markup.removeClass('dw-in dw-trans').find('.dw').removeClass(mAnim);
+                        $markup.removeClass('dw-in dw-trans').find('.dw').removeClass('dw-' + doAnim);
                         if (!prevFocus) {
                             $popup.focus();
                         }
@@ -734,7 +740,6 @@
         showOnTap: true,
         display: 'modal',
         scrollLock: true,
-        focusOnClose: true,
         tap: true,
         btnWidth: true
     };

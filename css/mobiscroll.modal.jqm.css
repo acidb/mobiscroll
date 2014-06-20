@@ -14,6 +14,7 @@
 .mbsc-jqm .dwwr {
     border: 0;
     overflow: visible;
+    font-family: inherit;
 }
 /* Buttons */
 .mbsc-jqm .dwbc {

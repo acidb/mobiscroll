@@ -40,6 +40,7 @@
     zoom: 1;
     overflow: hidden;
     text-align: center;
+    font-family: arial, verdana, sans-serif;
 }
 /* Modal overlay */
 .dw-persp, .dwo {
@@ -157,7 +158,6 @@
     padding: 0 2px;
     background: #fff;
     color: #000;
-    font-family: arial, verdana, sans-serif;
     -webkit-border-radius: 3px;
     border-radius: 3px;
 }
