@@ -645,6 +645,7 @@
     };
 
     // Extend defaults
+    classes.Scroller.prototype._class = 'scroller';
     classes.Scroller.prototype._defaults = $.extend({}, classes.Modal.prototype._defaults, {
         // Options
         minWidth: 80,

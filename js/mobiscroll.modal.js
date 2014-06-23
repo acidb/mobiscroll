@@ -475,7 +475,7 @@
         that.hide = function (prevAnim, btn, force) {
 
             // If onClose handler returns false, prevent hide
-            if (!that._isVisible || (!force && event('onClose', [that._valueText, btn]) === false)) {
+            if (!that._isVisible || (!force && !that._isValid && btn == 'set') || (!force && event('onClose', [that._valueText, btn]) === false)) {
                 return false;
             }
 
@@ -639,7 +639,7 @@
 
             extend(s, theme, lang, userdef, settings);
 
-            preset = ms.presets[s.preset];
+            preset = ms.presets[that._class][s.preset];
 
             // Add default buttons
             s.buttons = s.buttons || ['set', 'cancel'];
@@ -718,6 +718,8 @@
 
         that.val = null;
         that.buttons = {};
+
+        that._isValid = true;
 
         // Constructor
         if (!inherit) {

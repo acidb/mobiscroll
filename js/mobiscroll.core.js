@@ -110,7 +110,10 @@
             constrain: constrain
         },
         tapped: false,
-        presets: {},
+        presets: {
+            scroller: {},
+            numpad: {}
+        },
         themes: {
             listview: {}
         },

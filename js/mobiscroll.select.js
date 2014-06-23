@@ -12,7 +12,7 @@
 
     $.mobiscroll.presetShort('select');
 
-    $.mobiscroll.presets.select = function (inst) {
+    $.mobiscroll.presets.scroller.select = function (inst) {
         var change,
             grIdx,
             gr,

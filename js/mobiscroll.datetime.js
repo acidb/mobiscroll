@@ -774,7 +774,7 @@
         };
 
     $.each(['date', 'time', 'datetime'], function (i, v) {
-        ms.presets[v] = preset;
+        ms.presets.scroller[v] = preset;
         ms.presetShort(v);
     });
 

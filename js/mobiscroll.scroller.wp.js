@@ -67,9 +67,9 @@
             }
         };
 
-    $.mobiscroll.themes.wp = theme;
-    $.mobiscroll.themes['wp light'] = theme;
-    $.mobiscroll.themes['wp-light'] = theme;
+    themes.wp = theme;
+    themes['wp light'] = theme;
+    themes['wp-light'] = theme;
 
 })(jQuery);
 
