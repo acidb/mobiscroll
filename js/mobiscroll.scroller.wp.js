@@ -8,6 +8,7 @@
             dateOrder: 'mmMMddDDyy',
             headerText: false,
             showLabel: false,
+            deleteIcon: 'backspace2',
             icon: { filled: 'star3', empty: 'star' },
             btnWidth: false,
             btnStartClass: 'mbsc-ic mbsc-ic-play3',

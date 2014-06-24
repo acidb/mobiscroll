@@ -131,12 +131,17 @@
 }
 /* Buttons */
 .dwb {
-    cursor: pointer;
     overflow: hidden;
     display: block;
     text-decoration: none;
     white-space: nowrap;
     text-overflow: ellipsis;
+}
+.dwb-e {
+    cursor: pointer;
+}
+.dwb-d {
+    cursor: default;
 }
 /* Button container */
 .dwbc {
