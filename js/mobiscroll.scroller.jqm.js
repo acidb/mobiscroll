@@ -1,8 +1,10 @@
 (function ($) {
 
+    var ver = $.mobile && $.mobile.version.match(/1\.4/);
+
     $.mobiscroll.themes.jqm = {
         jqmBorder: 'a',
-        jqmBody: 'c',
+        jqmBody: ver ? 'a' : 'c',
         jqmHeader: 'b',
         jqmWheel: 'd',
         jqmLine: 'b',
@@ -35,7 +37,7 @@
         onMarkupInserted: function (elm, inst) {
             var s = inst.settings;
 
-            if ($.mobile.version.match(/1\.4/)) {
+            if (ver) {
                 elm.addClass('mbsc-jqm14');
                 $('.dwbc .dwb', elm).addClass('ui-btn ui-mini ui-corner-all');
                 $('.mbsc-np-btn', elm).addClass('ui-btn');
@@ -46,7 +48,7 @@
             $('.dwb-s .dwb', elm).addClass('ui-btn-' + s.jqmSet).attr('data-theme', s.jqmSet);
             $('.dwwb', elm).attr('data-role', 'button').attr('data-theme', s.jqmClickPick);
             $('.dwv', elm).addClass('ui-header ui-bar-' + s.jqmHeader);
-            $('.dwwr', elm).addClass('ui-corner-all ui-body-a ui-body-' + s.jqmBody);
+            $('.dwwr', elm).addClass('ui-corner-all ui-body-' + s.jqmBody);
             $('.dwwl', elm).addClass('ui-body-' + s.jqmWheel);
             $('.dwwol', elm).addClass('ui-body-' + s.jqmLine);
             $('.dwl', elm).addClass('ui-body-' + s.jqmBody);
