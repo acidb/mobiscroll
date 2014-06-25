@@ -11,7 +11,7 @@
         has3d = util.has3d,
         getCoord = util.getCoord,
         constrain = util.constrain,
-        isOldAndroid = util.isOldAndroid,
+        isOldAndroid = /android [1-3]/i.test(navigator.userAgent),
         animEnd = 'webkitAnimationEnd animationend',
         empty = function () { },
         prevdef = function (ev) { ev.preventDefault(); };
@@ -384,7 +384,7 @@
 
                 // Prevent scroll if not specified otherwise
                 if (s.scrollLock) {
-                    $markup.on('touchmove', function (ev) {
+                    $markup.on('touchstart touchmove', function (ev) {
                         if (scrollLock) {
                             ev.preventDefault();
                         }
