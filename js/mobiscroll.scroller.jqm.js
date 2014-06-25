@@ -38,6 +38,7 @@
             if ($.mobile.version.match(/1\.4/)) {
                 elm.addClass('mbsc-jqm14');
                 $('.dwbc .dwb', elm).addClass('ui-btn ui-mini ui-corner-all');
+                $('.mbsc-np-btn', elm).addClass('ui-btn');
             }
 
             $('.dw', elm).removeClass('dwbg').addClass('ui-selectmenu ui-overlay-shadow ui-corner-all ui-body-' + s.jqmBorder);
@@ -45,7 +46,7 @@
             $('.dwb-s .dwb', elm).addClass('ui-btn-' + s.jqmSet).attr('data-theme', s.jqmSet);
             $('.dwwb', elm).attr('data-role', 'button').attr('data-theme', s.jqmClickPick);
             $('.dwv', elm).addClass('ui-header ui-bar-' + s.jqmHeader);
-            $('.dwwr', elm).addClass('ui-corner-all ui-body-' + s.jqmBody);
+            $('.dwwr', elm).addClass('ui-corner-all ui-body-a ui-body-' + s.jqmBody);
             $('.dwwl', elm).addClass('ui-body-' + s.jqmWheel);
             $('.dwwol', elm).addClass('ui-body-' + s.jqmLine);
             $('.dwl', elm).addClass('ui-body-' + s.jqmBody);
@@ -57,6 +58,8 @@
             $('.dw-cal-events', elm).attr('data-role', 'page');
             // Rangepicker
             $('.dw-dr', elm).attr('data-role', 'button').attr('data-mini', 'true');
+            // Numpad
+            $('.mbsc-np-btn', elm).attr('data-role', 'button').attr('data-corners', 'false');
             elm.trigger('create');
         }
     };
