@@ -473,7 +473,7 @@
         }
 
         // Call the parent constructor
-        classes.Modal.call(this, el, settings, true);
+        classes.Widget.call(this, el, settings, true);
 
         // Public functions
 
@@ -646,7 +646,7 @@
 
     // Extend defaults
     classes.Scroller.prototype._class = 'scroller';
-    classes.Scroller.prototype._defaults = $.extend({}, classes.Modal.prototype._defaults, {
+    classes.Scroller.prototype._defaults = $.extend({}, classes.Widget.prototype._defaults, {
         // Options
         minWidth: 80,
         height: 40,

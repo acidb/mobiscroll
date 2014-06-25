@@ -16,7 +16,7 @@
         empty = function () { },
         prevdef = function (ev) { ev.preventDefault(); };
 
-    ms.classes.Modal = function (el, settings, inherit) {
+    ms.classes.Widget = function (el, settings, inherit) {
         var $doc,
             $header,
             $markup,
@@ -728,7 +728,7 @@
         }
     };
 
-    ms.classes.Modal.prototype._defaults = {
+    ms.classes.Widget.prototype._defaults = {
         // Localization
         setText: 'Set',
         selectedText: 'Selected',
