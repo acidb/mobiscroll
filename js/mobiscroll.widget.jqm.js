@@ -3,6 +3,7 @@
     var ver = $.mobile && $.mobile.version.match(/1\.4/);
 
     $.mobiscroll.themes.jqm = {
+        rows: 3,
         jqmBorder: 'a',
         jqmBody: ver ? 'a' : 'c',
         jqmHeader: 'b',
@@ -16,6 +17,8 @@
         activeTabInnerClass: 'ui-btn-active',
         btnCalPrevClass: '',
         btnCalNextClass: '',
+        btnWidth: true,
+        showLabel: true,
         selectedLineHeight: true,
         selectedLineBorder: 1,
         onThemeLoad: function (lang, s) {
@@ -41,6 +44,8 @@
                 elm.addClass('mbsc-jqm14');
                 $('.dwbc .dwb', elm).addClass('ui-btn ui-mini ui-corner-all');
                 $('.mbsc-np-btn', elm).addClass('ui-btn');
+                $('.dw-cal-prev .dw-cal-btn-txt', elm).addClass('ui-btn ui-icon-arrow-l ui-btn-icon-notext ui-shadow ui-corner-all');
+                $('.dw-cal-next .dw-cal-btn-txt', elm).addClass('ui-btn ui-icon-arrow-r ui-btn-icon-notext ui-shadow ui-corner-all');
             }
 
             $('.dw', elm).removeClass('dwbg').addClass('ui-selectmenu ui-overlay-shadow ui-corner-all ui-body-' + s.jqmBorder);
