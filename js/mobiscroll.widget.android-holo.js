@@ -6,7 +6,6 @@
             rows: 5,
             minWidth: 76,
             height: 36,
-            btnWidth: true,
             showLabel: false,
             selectedLineHeight: true,
             selectedLineBorder: 2,

@@ -743,7 +743,17 @@
         display: 'modal',
         scrollLock: true,
         tap: true,
-        btnWidth: false
+        btnWidth: true
+    };
+
+    ms.themes.default = {
+        rows: 5,
+        showLabel: false,
+        headerText: false,
+        btnWidth: false,
+        selectedLineHeight: true,
+        selectedLineBorder: 2,
+        dateOrder: 'MMddyy'
     };
 
     // Prevent re-show on window focus
