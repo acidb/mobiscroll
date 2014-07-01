@@ -1,4 +1,4 @@
-﻿.dw, 
+.dw, 
 .dwo {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
@@ -153,10 +153,10 @@
     display: table;
     width: 100%;
     text-align: center;
-    font-size: 0;
 }
 /* Button wrapper */
 .dwbw  {
+    vertical-align: top;
     display: table-cell;
     position: relative;
     z-index: 5;
@@ -165,6 +165,34 @@
 
 /* Default theme */
 .mbsc-default .dwwr {
+    background: #f7f7f7;
+    color: #000;
+    font-size: 16px;
+}
+.mbsc-default .dwv {
+    line-height: 2em;
+}
+.mbsc-default .dwbc {
+    display: block;
+    overflow: hidden;
+    text-align: right;
+    padding: 0 .5em .5em .5em;
+}
+.mbsc-default .dwbw {
+    display: block;
+    float: right;
+}
+.mbsc-default .dwb {
+    height: 2.5em;
+    line-height: 2.5em;
+    padding: 0 1em;
+    text-transform: uppercase;
+}
+.mbsc-default .dwb-a {
+    background: rgba(229,28,36,.3);
+}
+
+/*.mbsc-default .dwwr {
     padding: 0 2px;
     background: #fff;
     color: #000;
@@ -206,23 +234,23 @@
     background: -moz-linear-gradient(#94c840 50%,#3c7500 50%);
     background: linear-gradient(#94c840 50%,#3c7500 50%);
 }
-/* Inline mode */
+
 .mbsc-default.dw-inline .dwv {
     margin: 0 2px;
     -webkit-border-radius: 3px;
     border-radius: 3px;
 }
-/* Bubble mode */
+
 .mbsc-default .dw-bubble-bottom .dw-arr {
     border-color: transparent transparent #fff transparent;
 }
 .mbsc-default .dw-bubble-top .dw-arr {
     border-color: #fff transparent transparent transparent;
 }
-/* Top, bottom mode */
+
 .mbsc-default.dw-liq .dwwr, 
 .mbsc-default.dw-top .dwwr, 
 .mbsc-default.dw-bottom .dwwr {
     -webkit-border-radius: 0;
     border-radius: 0;
-}
+}*/

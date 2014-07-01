@@ -94,7 +94,7 @@
                     ev.preventDefault();
                     ev.stopPropagation();
                     stop = getCoord(ev, 'Y');
-                    if (Math.abs(stop - start) > 3) {
+                    if (Math.abs(stop - start) > 3 || moved) {
                         scroll(target, index, constrain(p + (start - stop) / itemHeight, min - 1, max + 1));
                         moved = true;
                     }
@@ -650,11 +650,14 @@
         // Options
         minWidth: 80,
         height: 40,
-        rows: 3,
+        rows: 5,
         multiline: 1,
         delay: 300,
         readonly: false,
-        showLabel: true,
+        showLabel: false,
+        //headerText: false,
+        selectedLineHeight: true,
+        selectedLineBorder: 1,
         wheels: [],
         mode: 'scroller',
         preset: '',

@@ -1,4 +1,3 @@
-/*jslint eqeq: true, plusplus: true, undef: true, sloppy: true, vars: true, forin: true */
 if (!window.jQuery) {
 
     var jQuery = Zepto;

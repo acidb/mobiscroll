@@ -178,6 +178,28 @@
 
 /* Default theme */
 .mbsc-default .dwc {
+    padding: 2em .25em 0 .25em;
+}
+.mbsc-default .dwl {
+    font-size: .75em;
+}
+.mbsc-default .dwhl {
+    padding-top: 0;
+}
+.mbsc-default .dwfl {
+    padding: .5em .25em;
+}
+.mbsc-default .dw-li {
+    font-size: 1.375em;
+}
+.mbsc-default .dw-hl {
+    background: rgba(229,28,36,.3);
+}
+.mbsc-default .dwwol {
+    border-top: .0625em solid #e51c24;
+    border-bottom: .0625em solid #e51c24;
+}
+/*.mbsc-default .dwc {
     padding: 26px 2px 4px 2px;
 }
 .mbsc-default .dwhl {
@@ -202,12 +224,12 @@
     -webkit-border-radius: 0 3px 3px 0;
     border-radius: 0 3px 3px 0;
 }
-/* Wheel items */
+
 .mbsc-default .dw-li {
     font-size: 26px;
     text-shadow: 0 1px 1px #000;
 }
-/* Higlighted */
+
 .mbsc-default .dw-hl {
     background: rgba(255,255,255,.3);
 }
@@ -241,7 +263,7 @@
     border-top: 1px solid #333;
     border-bottom: 1px solid #555;
 }
-/* Clickpick mode */
+
 .mbsc-default .dwpm .dwwl {
     padding: 0;
     background: #fff;
@@ -287,4 +309,4 @@
     background: -webkit-linear-gradient(#94c840,#3c7500);
     background: -moz-linear-gradient(#94c840,#3c7500);
     background: linear-gradient(#94c840,#3c7500);
-}
+}*/

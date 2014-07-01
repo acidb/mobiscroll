@@ -743,7 +743,7 @@
         display: 'modal',
         scrollLock: true,
         tap: true,
-        btnWidth: true
+        btnWidth: false
     };
 
     // Prevent re-show on window focus
