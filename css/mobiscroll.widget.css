@@ -186,10 +186,17 @@
     height: 2.5em;
     line-height: 2.5em;
     padding: 0 1em;
+    color: #e51c24;
     text-transform: uppercase;
 }
 .mbsc-default .dwb-a {
     background: rgba(229,28,36,.3);
+}
+.mbsc-default .dw-bubble-bottom .dw-arr {
+    border-color: transparent transparent #f7f7f7 transparent;
+}
+.mbsc-default .dw-bubble-top .dw-arr {
+    border-color: #f7f7f7 transparent transparent transparent;
 }
 
 /*.mbsc-default .dwwr {

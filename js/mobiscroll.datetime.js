@@ -13,7 +13,7 @@
             separator: ' ',
             // Localization
             dateFormat: 'mm/dd/yy',
-            dateOrder: 'MMddyy',
+            dateOrder: 'mmddy',
             timeWheels: 'hhiiA',
             timeFormat: 'hh:ii A',
             monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],

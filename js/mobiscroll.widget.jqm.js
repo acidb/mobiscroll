@@ -3,7 +3,6 @@
     var ver = $.mobile && $.mobile.version.match(/1\.4/);
 
     $.mobiscroll.themes.jqm = {
-        rows: 3,
         jqmBorder: 'a',
         jqmBody: ver ? 'a' : 'c',
         jqmHeader: 'b',
@@ -17,8 +16,6 @@
         activeTabInnerClass: 'ui-btn-active',
         btnCalPrevClass: '',
         btnCalNextClass: '',
-        btnWidth: true,
-        showLabel: true,
         selectedLineHeight: true,
         selectedLineBorder: 1,
         onThemeLoad: function (lang, s) {

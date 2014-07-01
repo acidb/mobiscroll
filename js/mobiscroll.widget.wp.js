@@ -4,7 +4,6 @@
         theme = {
             minWidth: 76,
             height: 76,
-            rows: 3,
             accent: 'none',
             dateOrder: 'mmMMddDDyy',
             headerText: false,
