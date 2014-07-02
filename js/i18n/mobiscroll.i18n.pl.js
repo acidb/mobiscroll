@@ -10,6 +10,7 @@
         dateOrder: 'ddmmy',
         dayNames: ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'],
         dayNamesShort: ['Niedz.', 'Pon.', 'Wt.', 'Śr.', 'Czw.', 'Pt.', 'Sob.'],
+        dayNamesMin: ['N', 'P', 'W', 'Ś', 'C', 'P', 'S'],
         dayText: 'Dzień',
         hourText: 'Godziny',
         minuteText: 'Minuty',

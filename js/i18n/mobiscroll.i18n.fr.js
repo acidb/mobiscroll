@@ -10,6 +10,7 @@
         dateOrder: 'ddmmyy',
         dayNames: ['&#68;imanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
         dayNamesShort: ['&#68;im.', 'Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.'],
+        dayNamesMin: ['&#68;', 'L', 'M', 'M', 'J', 'V', 'S'],
         dayText: 'Jour',
         monthText: 'Mois',
         monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],

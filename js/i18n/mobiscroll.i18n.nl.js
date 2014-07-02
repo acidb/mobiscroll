@@ -10,6 +10,7 @@
         dateOrder: 'ddmmyy',
         dayNames: ['zondag', 'maandag', 'Dinsdag', 'Woensdag', 'Donderdag', 'Vrijdag', 'Zaterdag'],
         dayNamesShort: ['zo', 'ma', 'di', 'wo', 'do', 'vr', 'za'],
+        dayNamesMin: ['z', 'm', 'd', 'w', 'd', 'v', 'z'],
         dayText: 'Dag',
         hourText: 'Uur',
         minuteText: 'Minuten',

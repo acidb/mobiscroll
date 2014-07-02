@@ -13,6 +13,7 @@
         dateOrder: 'ddMMyy',
         dayNames: ['Domingo','Segunda-feira','Terça-feira','Quarta-feira','Quinta-feira','Sexta-feira','S&aacute;bado'],
         dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','S&aacute;b'],
+        dayNamesMin: ['D','S','T','Q','Q','S','S'],
         dayText: 'Dia',
         hourText: 'Horas',
         minuteText: 'Minutos',

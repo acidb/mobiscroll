@@ -10,6 +10,7 @@
         dateOrder: 'ddmmy',
         dayNames: ['Neděle', 'Pondělí', 'Úterý', 'Středa', 'Čtvrtek', 'Pátek', 'Sobota'],
         dayNamesShort: ['Ne', 'Po', 'Út', 'St', 'Čt', 'Pá', 'So'],
+        dayNamesMin: ['N', 'P', 'Ú', 'S', 'Č', 'P', 'S'],
         dayText: 'Den',
         hourText: 'Hodiny',
         minuteText: 'Minuty',

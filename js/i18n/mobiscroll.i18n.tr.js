@@ -10,6 +10,7 @@
         dateOrder: 'ddmmyy',
         dayNames: ['Pazar', 'Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma', 'Cumartesi'],
         dayNamesShort: ['Paz', 'Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt'],
+        dayNamesMin: ['P', 'P', 'S', 'Ç', 'P', 'C', 'C'],
         dayText: 'Gün',
         hourText: 'Saat',
         minuteText: 'Dakika',
