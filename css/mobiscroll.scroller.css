@@ -199,114 +199,33 @@
     border-top: .0625em solid #e51c24;
     border-bottom: .0625em solid #e51c24;
 }
-/*.mbsc-default .dwc {
-    padding: 26px 2px 4px 2px;
-}
-.mbsc-default .dwhl {
-    padding-top: 4px;
-}
-.mbsc-default .dwfl {
-    padding: 4px 3px;
-    margin: 0 -1px;
-    background: #000;
-}
-.mbsc-default .dw-ltr .dwfl:first-child,
-.mbsc-default .dw-rtl .dwfl:last-child {
-    margin-left: 0;
-    padding-left: 4px;
-    -webkit-border-radius: 3px 0 0 3px;
-    border-radius: 3px 0 0 3px;
-}
-.mbsc-default .dw-ltr .dwfl:last-child,
-.mbsc-default .dw-rtl .dwfl:first-child {
-    margin-right: 0;
-    padding-right: 4px;
-    -webkit-border-radius: 0 3px 3px 0;
-    border-radius: 0 3px 3px 0;
-}
-
-.mbsc-default .dw-li {
-    font-size: 26px;
-    text-shadow: 0 1px 1px #000;
-}
-
-.mbsc-default .dw-hl {
-    background: rgba(255,255,255,.3);
-}
-.mbsc-default .dwwl {
-    padding: 0 2px;
-    -webkit-border-radius: 3px;
-    border-radius: 3px;
-    background: #888;
-    background: -webkit-gradient(linear,left bottom,left top,from(#000),color-stop(0.35, #333),color-stop(0.50, #888),color-stop(0.65, #333),to(#000));
-    background: -webkit-linear-gradient(#000,#333 35%, #888 50%,#333 65%,#000);
-    background: -moz-linear-gradient(#000,#333 35%, #888 50%,#333 65%,#000);
-    background: linear-gradient(#000,#333 35%, #888 50%,#333 65%,#000);
-}
-.mbsc-default .dww {
-    color: #fff;
-    background: #444;
-    background: -webkit-gradient(linear,left bottom,left top,from(#000),color-stop(0.45, #444),color-stop(0.55, #444),to(#000));
-    background: -webkit-linear-gradient(#000,#444 45%, #444 55%, #000);
-    background: -moz-linear-gradient(#000,#444 45%, #444 55%, #000);
-    background: linear-gradient(#000,#444 45%, #444 55%, #000);
-}
-.mbsc-default .dwwo {
-    background: -webkit-gradient(linear,left bottom,left top,from(#000),color-stop(0.52, rgba(44,44,44,0)),color-stop(0.48, rgba(44,44,44,0)),to(#000));
-    background: -webkit-linear-gradient(#000,rgba(44,44,44,0) 52%, rgba(44,44,44,0) 48%, #000);
-    background: -moz-linear-gradient(#000,rgba(44,44,44,0) 52%, rgba(44,44,44,0) 48%, #000);
-    background: linear-gradient(#000,rgba(44,44,44,0) 52%, rgba(44,44,44,0) 48%, #000);
-}
-.mbsc-default .dwwol {
-    height: 0;
-    margin-top: -1px;
-    border-top: 1px solid #333;
-    border-bottom: 1px solid #555;
-}
-
-.mbsc-default .dwpm .dwwl {
-    padding: 0;
-    background: #fff;
-}
-.mbsc-default .dwpm .dww {
-    color: #000;
-    background: #fff;
-    -webkit-border-radius: 3px;
-    border-radius: 3px;
-}
-.mbsc-default .dwpm .dw-li {
-    text-shadow: none;
+/* Clickpick mode */
+.mbsc-default .dwpm .dwwol {
+    display: block;
 }
 .mbsc-default .dwwb {
-    background: #ccc;
-    color: #888;
-    text-shadow: 0 -1px 1px #333;
-    -webkit-box-shadow: 0 0 5px #333;
-    box-shadow: 0 0 5px #333;
+    color: #e51c24;
+    background: #f7f7f7;
 }
 .mbsc-default .dwwbp {
-    background: -webkit-gradient(linear,left bottom,left top,from(#bdbdbd),to(#f7f7f7));
-    background: -webkit-linear-gradient(#f7f7f7,#bdbdbd);
-    background: -moz-linear-gradient(#f7f7f7,#bdbdbd);
-    background: linear-gradient(#f7f7f7,#bdbdbd);
-    -webkit-border-radius: 3px 3px 0 0;
-    border-radius: 3px 3px 0 0;
-    font-size: 40px;
+    bottom: 0;
+    top: auto;
 }
 .mbsc-default .dwwbm {
-    background: -webkit-gradient(linear,left bottom,left top,from(#f7f7f7),to(#bdbdbd));
-    background: -webkit-linear-gradient(#bdbdbd,#f7f7f7);
-    background: -moz-linear-gradient(#bdbdbd,#f7f7f7);
-    background: linear-gradient(#bdbdbd,#f7f7f7);
-    -webkit-border-radius: 0 0 3px 3px;
-    border-radius: 0 0 3px 3px;
-    font-size: 32px;
-    font-weight: bold;
+    top: 0;
+    bottom: auto;
 }
-.mbsc-default .dwwl .dwb-a {
-    background: #3c7500;
-    background: -webkit-gradient(linear,left bottom,left top,from(#3c7500),to(#94c840));
-    background: -webkit-linear-gradient(#94c840,#3c7500);
-    background: -moz-linear-gradient(#94c840,#3c7500);
-    background: linear-gradient(#94c840,#3c7500);
-}*/
+.mbsc-default .dwwb span {
+    display: none;
+}
+.mbsc-default .dwwb:before {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    font-size: 24px;
+    text-align: center;
+}
+.mbsc-default .dwwb.dwb-a:before {
+    background: rgba(229,28,36,.3);
+}

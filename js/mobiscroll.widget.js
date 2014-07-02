@@ -746,14 +746,19 @@
         btnWidth: true
     };
 
-    ms.themes.default = {
+    ms.themes['default'] = {
         rows: 5,
         showLabel: false,
         headerText: false,
         btnWidth: false,
         selectedLineHeight: true,
-        selectedLineBorder: 2,
-        dateOrder: 'MMddyy'
+        selectedLineBorder: 1,
+        dateOrder: 'MMddyy',
+        weekDays: 'min',
+        btnPlusClass: 'mbsc-ic mbsc-ic-arrow-down5',
+        btnMinusClass: 'mbsc-ic mbsc-ic-arrow-up5',
+        btnCalPrevClass: 'mbsc-ic mbsc-ic-arrow-left5',
+        btnCalNextClass: 'mbsc-ic mbsc-ic-arrow-right5'
     };
 
     // Prevent re-show on window focus

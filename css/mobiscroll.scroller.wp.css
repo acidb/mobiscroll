@@ -200,10 +200,6 @@
     display: none;
 }
 /* +/- buttons */
-.mbsc-wp .dwwl .dwb-a {
-    top: auto;
-    background: #1f1f1f;
-}
 .mbsc-wp .dwwb {
     background: #1f1f1f;
 }
@@ -217,10 +213,17 @@
     color: #fff;
     line-height: 22px;
     font-size: 10px;
-    text-shadow: none;
+    text-align: center;
     border: 2px solid #fff;
     -webkit-border-radius: 13px;
     border-radius: 13px;
+}
+.mbsc-wp .dwwl .dwb-a {
+    top: auto;
+    background: #1f1f1f;
+}
+.mbsc-wp .dwwl .dwb-a:before {
+    color: #000;
 }
 .mbsc-wp .dwwb span {
     display: none;
@@ -298,6 +301,12 @@
 }
 .mbsc-wp-light .dwwb {
     background: #dedede;
+}
+.mbsc-wp-light .dwwl .dwb-a {
+    background: #dedede;
+}
+.mbsc-wp-light .dwwl .dwb-a:before {
+    color: #dedede;
 }
 /* Multiple select */
 .mbsc-wp-light .dwwms .dw-li .dw-i {
