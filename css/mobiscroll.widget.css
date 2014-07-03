@@ -141,6 +141,7 @@
     text-decoration: none;
     white-space: nowrap;
     text-overflow: ellipsis;
+    vertical-align: top;
 }
 .dwb-e {
     cursor: pointer;
@@ -198,66 +199,3 @@
 .mbsc-default .dw-bubble-top .dw-arr {
     border-color: #f7f7f7 transparent transparent transparent;
 }
-
-/*.mbsc-default .dwwr {
-    padding: 0 2px;
-    background: #fff;
-    color: #000;
-    -webkit-border-radius: 3px;
-    border-radius: 3px;
-}
-.mbsc-default .dwv {
-    padding: 7px 0;
-    margin: 0 -2px;
-    font-size: 14px;
-    background-color: #dfdfdf;
-}
-.mbsc-default .dwbc {
-    padding-bottom: 4px;
-}
-.mbsc-default .dwb {
-    height: 40px;
-    line-height: 40px;
-    padding: 0 15px;
-    margin: 0 2px;
-    font-size: 14px;
-    font-weight: bold;
-    color: #fff;
-    text-shadow: 0 -1px 1px #000;
-    background: #000;
-    background: -webkit-gradient(linear,left bottom,left top,color-stop(0.5, #000),color-stop(0.5, #6e6e6e));
-    background: -webkit-linear-gradient(#6e6e6e 50%,#000 50%);
-    background: -moz-linear-gradient(#6e6e6e 50%,#000 50%);
-    background: linear-gradient(#6e6e6e 50%,#000 50%);
-    -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
-    -webkit-border-radius: 5px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.5);
-    border-radius: 5px;
-}
-.mbsc-default .dwb-a {
-    background: #3c7500;
-    background: -webkit-gradient(linear,left bottom,left top,color-stop(0.5, #3c7500),color-stop(0.5, #94c840));
-    background: -webkit-linear-gradient(#94c840 50%,#3c7500 50%);
-    background: -moz-linear-gradient(#94c840 50%,#3c7500 50%);
-    background: linear-gradient(#94c840 50%,#3c7500 50%);
-}
-
-.mbsc-default.dw-inline .dwv {
-    margin: 0 2px;
-    -webkit-border-radius: 3px;
-    border-radius: 3px;
-}
-
-.mbsc-default .dw-bubble-bottom .dw-arr {
-    border-color: transparent transparent #fff transparent;
-}
-.mbsc-default .dw-bubble-top .dw-arr {
-    border-color: #fff transparent transparent transparent;
-}
-
-.mbsc-default.dw-liq .dwwr, 
-.mbsc-default.dw-top .dwwr, 
-.mbsc-default.dw-bottom .dwwr {
-    -webkit-border-radius: 0;
-    border-radius: 0;
-}*/
