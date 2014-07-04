@@ -123,7 +123,7 @@
         classes: {},
         components: {},
         defaults: {
-            theme: 'default',
+            theme: 'mobiscroll',
             context: 'body'
         },
         userdef: {},

@@ -630,7 +630,7 @@
             extend(s, ms.defaults, that._defaults, userdef, settings);
 
             // Get theme defaults
-            theme = ms.themes[s.theme];
+            theme = ms.themes[s.theme] || ms.themes.mobiscroll;
 
             // Get language defaults
             lang = ms.i18n[s.lang];
@@ -638,7 +638,7 @@
             event('onThemeLoad', [lang, settings]);
 
             extend(s, theme, lang, userdef, settings);
-
+            
             preset = ms.presets[that._class][s.preset];
 
             // Add default buttons
@@ -650,6 +650,10 @@
             if (preset) {
                 preset = preset.call(el, that);
                 extend(s, preset, settings); // Load preset settings
+            }
+
+            if (!ms.themes[s.theme]) {
+                s.theme = 'mobiscroll';
             }
 
             that._isLiquid = (s.layout || (/top|bottom/.test(s.display) ? 'liquid' : '')) === 'liquid';
@@ -746,7 +750,7 @@
         btnWidth: true
     };
 
-    ms.themes['default'] = {
+    ms.themes.mobiscroll = {
         rows: 5,
         showLabel: false,
         headerText: false,

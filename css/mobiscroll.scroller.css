@@ -177,48 +177,48 @@
 
 
 /* Default theme */
-.mbsc-default .dwc {
+.mbsc-mobiscroll .dwc {
     padding: 2em .25em 0 .25em;
 }
-.mbsc-default .dwl {
+.mbsc-mobiscroll .dwl {
     font-size: .75em;
 }
-.mbsc-default .dwhl {
+.mbsc-mobiscroll .dwhl {
     padding-top: 0;
 }
-.mbsc-default .dwfl {
+.mbsc-mobiscroll .dwfl {
     padding: .5em .25em;
 }
-.mbsc-default .dw-li {
+.mbsc-mobiscroll .dw-li {
     font-size: 1.375em;
 }
-.mbsc-default .dw-hl {
+.mbsc-mobiscroll .dw-hl {
     background: rgba(229,28,36,.3);
 }
-.mbsc-default .dwwol {
+.mbsc-mobiscroll .dwwol {
     border-top: .0625em solid #e51c24;
     border-bottom: .0625em solid #e51c24;
 }
 /* Clickpick mode */
-.mbsc-default .dwpm .dwwol {
+.mbsc-mobiscroll .dwpm .dwwol {
     display: block;
 }
-.mbsc-default .dwwb {
+.mbsc-mobiscroll .dwwb {
     color: #e51c24;
     background: #f7f7f7;
 }
-.mbsc-default .dwwbp {
+.mbsc-mobiscroll .dwwbp {
     bottom: 0;
     top: auto;
 }
-.mbsc-default .dwwbm {
+.mbsc-mobiscroll .dwwbm {
     top: 0;
     bottom: auto;
 }
-.mbsc-default .dwwb span {
+.mbsc-mobiscroll .dwwb span {
     display: none;
 }
-.mbsc-default .dwwb:before {
+.mbsc-mobiscroll .dwwb:before {
     position: absolute;
     left: 0;
     top: 0;
@@ -226,11 +226,11 @@
     font-size: 24px;
     text-align: center;
 }
-.mbsc-default .dwwb.dwb-a:before {
+.mbsc-mobiscroll .dwwb.dwb-a:before {
     background: rgba(229,28,36,.3);
 }
 /* Multiple select */
-.mbsc-default .dw-msel:before {
+.mbsc-mobiscroll .dw-msel:before {
     font-size: 40px;
     color: #e51c24;
 }

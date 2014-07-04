@@ -165,37 +165,37 @@
 
 
 /* Default theme */
-.mbsc-default .dwwr {
+.mbsc-mobiscroll .dwwr {
     background: #f7f7f7;
     color: #000;
     font-size: 16px;
 }
-.mbsc-default .dwv {
+.mbsc-mobiscroll .dwv {
     line-height: 2em;
 }
-.mbsc-default .dwbc {
+.mbsc-mobiscroll .dwbc {
     display: block;
     overflow: hidden;
     text-align: right;
     padding: 0 .5em .5em .5em;
 }
-.mbsc-default .dwbw {
+.mbsc-mobiscroll .dwbw {
     display: block;
     float: right;
 }
-.mbsc-default .dwb {
+.mbsc-mobiscroll .dwb {
     height: 2.5em;
     line-height: 2.5em;
     padding: 0 1em;
     color: #e51c24;
     text-transform: uppercase;
 }
-.mbsc-default .dwb-a {
+.mbsc-mobiscroll .dwb-a {
     background: rgba(229,28,36,.3);
 }
-.mbsc-default .dw-bubble-bottom .dw-arr {
+.mbsc-mobiscroll .dw-bubble-bottom .dw-arr {
     border-color: transparent transparent #f7f7f7 transparent;
 }
-.mbsc-default .dw-bubble-top .dw-arr {
+.mbsc-mobiscroll .dw-bubble-top .dw-arr {
     border-color: #f7f7f7 transparent transparent transparent;
 }
