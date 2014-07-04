@@ -102,6 +102,7 @@
                 }, 200);
             }
             that._isVisible = false;
+            event('onHide', []);
         }
 
         function onPosition(ev) {

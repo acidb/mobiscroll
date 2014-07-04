@@ -166,18 +166,23 @@
 
 /* Default theme */
 .mbsc-mobiscroll .dwwr {
+    min-width: 220px;
+    padding: .5em 0;
     background: #f7f7f7;
     color: #000;
     font-size: 16px;
 }
 .mbsc-mobiscroll .dwv {
+    color: #e51c24;
+    font-size: .75em;
+    text-transform: uppercase;
     line-height: 2em;
 }
 .mbsc-mobiscroll .dwbc {
     display: block;
     overflow: hidden;
     text-align: right;
-    padding: 0 .5em .5em .5em;
+    padding: 0 .5em;
 }
 .mbsc-mobiscroll .dwbw {
     display: block;

@@ -181,7 +181,9 @@
     padding: 2em .25em 0 .25em;
 }
 .mbsc-mobiscroll .dwl {
+    color: #e51c24;
     font-size: .75em;
+    text-transform: uppercase;
 }
 .mbsc-mobiscroll .dwhl {
     padding-top: 0;
