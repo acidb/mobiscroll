@@ -229,3 +229,8 @@
 .mbsc-default .dwwb.dwb-a:before {
     background: rgba(229,28,36,.3);
 }
+/* Multiple select */
+.mbsc-default .dw-msel:before {
+    font-size: 40px;
+    color: #e51c24;
+}
