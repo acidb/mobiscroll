@@ -201,9 +201,6 @@
     border-top: .0625em solid #4eccc4;
     border-bottom: .0625em solid #4eccc4;
 }
-.mbsc-mobiscroll .dwwms .dwwol {
-    display: none;
-}
 /* Clickpick mode */
 .mbsc-mobiscroll .dwpm .dwwol {
     display: block;
@@ -238,4 +235,7 @@
 .mbsc-mobiscroll .dw-msel:before {
     font-size: 40px;
     color: #4eccc4;
+}
+.mbsc-mobiscroll .dwwms .dwwol {
+    display: none;
 }
