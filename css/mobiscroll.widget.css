@@ -169,11 +169,11 @@
     min-width: 220px;
     padding: .5em 0;
     background: #f7f7f7;
-    color: #000;
+    color: #454545;
     font-size: 16px;
 }
 .mbsc-mobiscroll .dwv {
-    color: #e51c24;
+    color: #4eccc4;
     font-size: .75em;
     text-transform: uppercase;
     line-height: 2em;
@@ -192,11 +192,11 @@
     height: 2.5em;
     line-height: 2.5em;
     padding: 0 1em;
-    color: #e51c24;
+    color: #4eccc4;
     text-transform: uppercase;
 }
 .mbsc-mobiscroll .dwb-a {
-    background: rgba(229,28,36,.3);
+    background: rgba(78,204,196,.3);
 }
 .mbsc-mobiscroll .dw-bubble-bottom .dw-arr {
     border-color: transparent transparent #f7f7f7 transparent;

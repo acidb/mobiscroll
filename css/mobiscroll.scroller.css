@@ -181,7 +181,7 @@
     padding: 2em .25em 0 .25em;
 }
 .mbsc-mobiscroll .dwl {
-    color: #e51c24;
+    color: #4eccc4;
     font-size: .75em;
     text-transform: uppercase;
 }
@@ -195,18 +195,18 @@
     font-size: 1.375em;
 }
 .mbsc-mobiscroll .dw-hl {
-    background: rgba(229,28,36,.3);
+    background: rgba(78,204,196,.3);
 }
 .mbsc-mobiscroll .dwwol {
-    border-top: .0625em solid #e51c24;
-    border-bottom: .0625em solid #e51c24;
+    border-top: .0625em solid #4eccc4;
+    border-bottom: .0625em solid #4eccc4;
 }
 /* Clickpick mode */
 .mbsc-mobiscroll .dwpm .dwwol {
     display: block;
 }
 .mbsc-mobiscroll .dwwb {
-    color: #e51c24;
+    color: #4eccc4;
     background: #f7f7f7;
 }
 .mbsc-mobiscroll .dwwbp {
@@ -229,10 +229,10 @@
     text-align: center;
 }
 .mbsc-mobiscroll .dwwb.dwb-a:before {
-    background: rgba(229,28,36,.3);
+    background: rgba(78,204,196,.3);
 }
 /* Multiple select */
 .mbsc-mobiscroll .dw-msel:before {
     font-size: 40px;
-    color: #e51c24;
+    color: #4eccc4;
 }
