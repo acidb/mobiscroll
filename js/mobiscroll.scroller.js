@@ -140,7 +140,7 @@
                         li.addClass('dw-hl'); // Highlight
                         setTimeout(function () {
                             li.removeClass('dw-hl');
-                        }, 200);
+                        }, 100);
                     }
                 }
 
