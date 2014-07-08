@@ -12,6 +12,8 @@
         selectedLineHeight: true,
         selectedLineBorder: 1,
         useShortLabels: true,
+        deleteIcon: 'backspace3',
+        checkIcon: 'ion-ios7-checkmark-empty',
         btnCalPrevClass: 'mbsc-ic mbsc-ic-arrow-left5',
         btnCalNextClass: 'mbsc-ic mbsc-ic-arrow-right5',
         btnPlusClass: 'mbsc-ic mbsc-ic-arrow-down5',

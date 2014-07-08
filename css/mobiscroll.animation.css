@@ -4,12 +4,12 @@
     -moz-perspective: 1000px;
     perspective: 1000px;
 }
-.dw-trans .dwwb,
+/*.dw-trans .dwwb,
 .dw-trans .dwwo {
     -webkit-backface-visibility: hidden;
-}
-.dw-in,
-.dw-out {
+}*/
+.dw-trans .dw/*,
+.dw-trans .dwo*/ {
     -webkit-animation-fill-mode: forwards;
     -webkit-animation-duration: 350ms;
     -moz-animation-fill-mode: forwards;
@@ -17,16 +17,26 @@
     animation-fill-mode: forwards;
     animation-duration: 350ms;
 }
-.dw-in {
+.dw-in .dw {
     -webkit-animation-timing-function: ease-out;
     -moz-animation-timing-function: ease-out;
     animation-timing-function: ease-out;
 }
-.dw-out {
+.dw-out .dw {
     -webkit-animation-timing-function: ease-in;
     -moz-animation-timing-function: ease-in;
     animation-timing-function: ease-in;
 }
+/*.dw-in .dwo {
+    -webkit-animation-name: dw-f-in;
+    -moz-animation-name: dw-f-in;
+    animation-name: dw-f-in;
+}
+.dw-out .dwo {
+    -webkit-animation-name: dw-f-out;
+    -moz-animation-name: dw-f-out;
+    animation-name: dw-f-out;
+}*/
 .dw-flip,
 .dw-swing,
 .dw-slidehorizontal,
@@ -57,7 +67,7 @@
     -moz-transform-origin: 50% 50%;
     transform-origin: 50% 50%;
 }
-.dw-pop.dw-in {
+.dw-in .dw-pop {
     opacity: 1;
     -webkit-animation-name: dw-p-in;
     -webkit-transform: scale(1);
@@ -66,13 +76,13 @@
     transform: scale(1);
     animation-name: dw-p-in;
 }
-.dw-pop.dw-out {
+.dw-out .dw-pop {
     opacity: 0;
     -webkit-animation-name: dw-p-out;
     -moz-animation-name: dw-p-out;
     animation-name: dw-p-out;
 }
-.dw-flip.dw-in {
+.dw-in .dw-flip {
     opacity: 1;
     -webkit-animation-name: dw-fl-in;
     -webkit-transform: scale(1);
@@ -81,13 +91,13 @@
     animation-name: dw-fl-in;
     transform: scale(1);
 }
-.dw-flip.dw-out {
+.dw-out .dw-flip {
     opacity: 0;
     animation-name: dw-fl-out;
     -webkit-animation-name: dw-fl-out;
     -moz-animation-name: dw-fl-out;
 }
-.dw-swing.dw-in {
+.dw-in .dw-swing {
     opacity: 1;
     -webkit-animation-name: dw-sw-in;
     -webkit-transform: scale(1);
@@ -96,13 +106,13 @@
     transform: scale(1);
     animation-name: dw-sw-in;
 }
-.dw-swing.dw-out {
+.dw-out .dw-swing {
     opacity: 0;
     -webkit-animation-name: dw-sw-out;
     -moz-animation-name: dw-sw-out;
     animation-name: dw-sw-out;
 }
-.dw-slidehorizontal.dw-in {
+.dw-in .dw-slidehorizontal {
     opacity: 1;
     -webkit-animation-name: dw-sh-in;
     -webkit-transform: scale(1);
@@ -111,13 +121,13 @@
     transform: scale(1);
     animation-name: dw-sh-in;
 }
-.dw-slidehorizontal.dw-out {
+.dw-out .dw-slidehorizontal {
     opacity: 0;
     -webkit-animation-name: dw-sh-out;
     -moz-animation-name: dw-sh-out;
     animation-name: dw-sh-out;
 }
-.dw-slidevertical.dw-in {
+.dw-in .dw-slidevertical {
     opacity: 1;
     -webkit-animation-name: dw-dw-sv-in;
     -webkit-transform: scale(1);
@@ -126,13 +136,13 @@
     animation-name: dw-dw-sv-in;
     transform: scale(1);
 }
-.dw-slidevertical.dw-out {
+.dw-out .dw-slidevertical {
     opacity: 0;
     -webkit-animation-name: dw-sv-out;
     -moz-animation-name: dw-sv-out;
     animation-name: dw-sv-out;
 }
-.dw-slidedown.dw-in {
+.dw-in .dw-slidedown {
     -webkit-animation-name: dw-sd-in;
     -webkit-transform: scale(1);
     -moz-animation-name: dw-sd-in;
@@ -140,14 +150,14 @@
     animation-name: dw-sd-in;
     transform: scale(1);
 }
-.dw-slidedown.dw-out {
+.dw-out .dw-slidedown {
     animation-name: dw-sd-out;
     -webkit-animation-name: dw-sd-out;
     -webkit-transform: translateY(-100%);
     -moz-animation-name: dw-sd-out;
     -moz-transform: translateY(-100%);
 }
-.dw-slideup.dw-in {
+.dw-in .dw-slideup {
     -webkit-animation-name: dw-su-in;
     -webkit-transform: scale(1);
     -moz-animation-name: dw-su-in;
@@ -155,20 +165,20 @@
     transform: scale(1);
     animation-name: dw-su-in;
 }
-.dw-slideup.dw-out {
+.dw-out .dw-slideup {
     animation-name: dw-su-out;
     -webkit-animation-name: dw-su-out;
     -webkit-transform: translateY(100%);
     -moz-animation-name: dw-su-out;
     -moz-transform: translateY(100%);
 }
-.dw-fade.dw-in {
+.dw-in .dw-fade {
     opacity: 1;
     -webkit-animation-name: dw-f-in;
     -moz-animation-name: dw-f-in;
     animation-name: dw-f-in;
 }
-.dw-fade.dw-out {
+.dw-out .dw-fade {
     opacity: 0;
     -webkit-animation-name: dw-f-out;
     -moz-animation-name: dw-f-out;

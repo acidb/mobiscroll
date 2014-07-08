@@ -1,0 +1,59 @@
+/* Android Skin */
+.mbsc-android .dw {
+    border: 2px solid #555;
+}
+.mbsc-android .dwv {
+    padding: 10px;
+    border-bottom: 1px solid #333;
+    font-size: 14px;
+}
+.mbsc-android .dwwr {
+    color: #fff;
+    background: #000;
+}
+/* Buttons */
+.mbsc-android .dwbc {
+    padding: 4px 2px;
+    background: #9c9c9c;
+}
+.mbsc-android .dwb {
+    height: 40px;
+    line-height: 40px;
+    padding: 0 15px;
+    margin: 0 2px;
+    font-size: 14px;
+    color: #000;
+    background: #ccc;
+    background: -webkit-gradient(linear,left bottom,left top,from(#ccc),to(#eee));
+    background: -webkit-linear-gradient(#eee,#ccc);
+    background: -moz-linear-gradient(#eee,#ccc);
+    background: linear-gradient(#eee,#ccc);
+    -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+}
+.mbsc-android .dw .dwb-a {
+    background: #ffb25a;
+    background: -webkit-gradient(linear,left bottom,left top,from(#ef6100),to(#ffb25a));
+    background: -webkit-linear-gradient(#ffb25a,#ef6100);
+    background: -moz-linear-gradient(#ffb25a,#ef6100);
+    background: linear-gradient(#ffb25a,#ef6100);
+}
+/* Bubble positioning */
+.mbsc-android .dw-bubble-bottom .dw-arr {
+    border-color: transparent transparent #000 transparent;
+}
+.mbsc-android .dw-bubble-top .dw-arr {
+    border-color: #9c9c9c transparent transparent transparent;
+}
+/* Docked */
+.mbsc-android.dw-top .dw,
+.mbsc-android.dw-bottom .dw {
+    border-right: 0;
+    border-left: 0;
+}
+.mbsc-android.dw-top .dw {
+    border-top: 0;
+}
+.mbsc-android.dw-bottom .dw {
+    border-bottom: 0;
+}

@@ -1,0 +1,60 @@
+.mbsc-ios7 .dwo {
+    background: rgba(0,0,0,.2);
+    filter: Alpha(Opacity=20);
+}
+.mbsc-ios7 .dwwr {
+    position: relative;
+    background: #f7f7f7;
+    color: #000;
+    padding-top: 40px;
+}
+.mbsc-ios7 .dwv {
+    color: #9d9d9d;
+    line-height: 30px;
+    font-size: 12px;
+    border-bottom: 1px solid #acacac;
+}
+.mbsc-ios7 .dwbc {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    border-bottom: 1px solid #acacac;
+}
+.mbsc-ios7 .dwb {
+    height: 40px;
+    line-height: 40px;
+    padding: 0 10px;
+    display: inline-block;
+    color: #007aff;
+    font-size: 17px;
+}
+.mbsc-ios7 .dwb-a {
+    opacity: .5;
+}
+.mbsc-ios7 .dwbw {
+    display: block;
+    float: right;
+}
+.mbsc-ios7 .dwb-c {
+    float: left;
+}
+.mbsc-ios7 .dwb-s .dwb {
+    font-weight: bold;
+}
+/* Bubble arrow */
+.mbsc-ios7 .dw-bubble-bottom .dw-arr {
+    border-color: transparent transparent #f7f7f7 transparent;
+}
+.mbsc-ios7 .dw-bubble-top .dw-arr {
+    border-color: #f7f7f7 transparent transparent transparent;
+}
+.mbsc-ios7.dw-bubble .dwwr {
+    -webkit-border-radius: 8px;
+    border-radius: 8px;
+}
+/* Inline display */
+.mbsc-ios7.dw-nobtn .dwwr,
+.mbsc-ios7.dw-inline .dwwr {
+    padding-top: 0;
+}

@@ -1,5 +1,5 @@
 /*!
- * Mobiscroll v2.11.1
+ * Mobiscroll v2.12.0-beta
  * http://mobiscroll.com
  *
  * Copyright 2010-2014, Acid Media
@@ -33,6 +33,10 @@
     function getCoord(e, c) {
         var ev = e.originalEvent || e;
         return ev.changedTouches ? ev.changedTouches[0]['page' + c] : e['page' + c];
+    }
+
+    function constrain(val, min, max) {
+        return Math.max(min, Math.min(val, max));
     }
 
     function init(that, options, args) {
@@ -96,15 +100,21 @@
     };
 
     $.mobiscroll = $.mobiscroll || {
+        version: '2.12.0-beta',
         util: {
             prefix: prefix,
             jsPrefix: pr,
             has3d: has3d,
             hasFlex: hasFlex,
             getCoord: getCoord,
-            testTouch: testTouch
+            testTouch: testTouch,
+            constrain: constrain
         },
-        presets: {},
+        tapped: false,
+        presets: {
+            scroller: {},
+            numpad: {}
+        },
         themes: {
             listview: {}
         },
@@ -112,7 +122,10 @@
         instances: instances,
         classes: {},
         components: {},
-        defaults: {},
+        defaults: {
+            theme: 'mobiscroll',
+            context: 'body'
+        },
         userdef: {},
         setDefaults: function (o) {
             extend(this.userdef, o);

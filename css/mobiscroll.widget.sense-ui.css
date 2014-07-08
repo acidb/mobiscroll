@@ -1,0 +1,62 @@
+.mbsc-sense-ui .dwwr {
+    color: #fff;
+    background: #333;
+    border: 2px solid #fff;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+}
+.mbsc-sense-ui .dwv {
+    padding: 5px 10px;
+    border-bottom: 1px solid #666;
+    font-size: 14px;
+    text-align: left;
+}
+/* Buttons */
+.mbsc-sense-ui .dwbc {
+    padding: 4px 2px;
+    background: #000;
+    background: -webkit-gradient(linear,left bottom,left top,color-stop(0.5, #000),color-stop(0.5, #666));
+    background: -webkit-linear-gradient(#666 50%,#000 50%);
+    background: -moz-linear-gradient(#666 50%,#000 50%);
+    background: linear-gradient(#666 50%,#000 50%);
+}
+.mbsc-sense-ui .dwb {
+    height: 40px;
+    line-height: 40px;
+    padding: 0 15px;
+    margin: 0 2px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    border: 1px solid #333;
+    background: #222;
+    background: -webkit-gradient(linear,left bottom,left top,from(#000),to(#444));
+    background: -webkit-linear-gradient(#444,#000);
+    background: -moz-linear-gradient(#444,#000);
+    background: linear-gradient(#444,#000);
+    box-shadow: inset 0 0 5px #000;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+.mbsc-sense-ui .dw .dwb-a {
+    background: #3c7500;
+    background: -webkit-gradient(linear,left bottom,left top,from(#3c7500),to(#94c840));
+    background: -webkit-linear-gradient(#94c840,#3c7500);
+    background: -moz-linear-gradient(#94c840,#3c7500);
+    background: linear-gradient(#94c840,#3c7500);
+}
+/* Bubble mode */
+.mbsc-sense-ui .dw-bubble-bottom .dw-arr {
+    border-color: transparent transparent #fff transparent;
+}
+.mbsc-sense-ui .dw-bubble-top .dw-arr {
+    border-color: #fff transparent transparent transparent;
+}
+/* Docked */
+.mbsc-sense-ui.dw-top .dwwr {
+    border: 0;
+}
+.mbsc-sense-ui.dw-bottom .dwwr {
+    border: 0;
+    border-top: 1px solid #666;
+}

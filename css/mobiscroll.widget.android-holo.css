@@ -1,0 +1,102 @@
+.mbsc-android-holo .dwwr {
+    background: #292829;
+    color: #fff;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+}
+.mbsc-android-holo .dwv {
+    color: #31b6e7;
+    line-height: 36px;
+    border-bottom: 2px solid #31b6e7;
+    font-size: 18px;
+}
+/* Buttons */
+.mbsc-android-holo .dwbc {
+    border-top: 1px solid #424542;
+}
+.mbsc-android-holo .dwb {
+    height: 36px;
+    line-height: 36px;
+    color: #fff;
+    font-size: 14px;
+}
+.mbsc-android-holo .dwb-a {
+    background: #29799c;
+}
+.mbsc-android-holo .dwbw .dwb {
+    border-left: 1px solid #424542;
+}
+.mbsc-android-holo .dwbw:first-child .dwb {
+    border: 0;
+    -webkit-border-radius: 0 0 0 3px;
+    border-radius: 0 0 0 3px;
+}
+.mbsc-android-holo .dwbw:last-child .dwb {
+    -webkit-border-radius: 0 0 3px 0;
+    border-radius: 0 0 3px 0;
+}
+.mbsc-android-holo .dw-rtl .dwbw .dwb {
+    border: 0;
+    border-right: 1px solid #424542;
+}
+.mbsc-android-holo .dw-rtl .dwbw:last-child .dwb {
+    -webkit-border-radius: 0 0 0 3px;
+    border-radius: 0 0 0 3px;
+}
+.mbsc-android-holo .dw-rtl .dwbw:first-child .dwb {
+    border: 0;
+    -webkit-border-radius: 0 0 3px 0;
+    border-radius: 0 0 3px 0;
+}
+/* Top, bottom mode */
+.mbsc-android-holo.dw-liq .dwwr, 
+.mbsc-android-holo.dw-top .dwwr, 
+.mbsc-android-holo.dw-bottom .dwwr,
+.mbsc-android-holo.dw-liq .dwbw .dwb,
+.mbsc-android-holo.dw-top .dwbw .dwb,
+.mbsc-android-holo.dw-bottom .dwbw .dwb {
+    -webkit-border-radius: 0;
+    border-radius: 0;
+}
+/* Bubble positioning */
+.mbsc-android-holo .dw-bubble-bottom .dw-arr {
+    border-color: transparent transparent #292829 transparent;
+}
+.mbsc-android-holo .dw-bubble-top .dw-arr {
+    border-color: #292829 transparent transparent transparent;
+}
+
+/* Light version */
+.mbsc-android-holo-light .dwwr {
+    background: #f5f5f5;
+    color: #000;
+}
+.mbsc-android-holo-light .dwbc {
+    border-top: 1px solid #dbdbdb;
+}
+.mbsc-android-holo-light .dwb {
+    color: #000;
+}
+.mbsc-android-holo-light .dwb-a {
+    color: #fff;
+}
+.mbsc-android-holo-light .dwbw .dwb {
+    border-left: 1px solid #dbdbdb;
+}
+.mbsc-android-holo-light .dwbw:first-child .dwb {
+    border: 0;
+}
+.mbsc-android-holo-light .dw-rtl .dwbw .dwb {
+    border: 0;
+    border-right: 1px solid #dbdbdb;
+}
+.mbsc-android-holo-light .dw-rtl .dwbw:first-child .dwb {
+    border: 0;
+}
+/* Bubble positioning */
+.mbsc-android-holo-light .dw-bubble-bottom .dw-arr {
+    border-color: transparent transparent #f5f5f5 transparent;
+}
+.mbsc-android-holo-light .dw-bubble-top .dw-arr {
+    border-color: #f5f5f5 transparent transparent transparent;
+}

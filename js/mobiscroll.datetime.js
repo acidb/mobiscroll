@@ -20,6 +20,7 @@
             monthNamesShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
             dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
             dayNamesShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+            dayNamesMin: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
             monthText: 'Month',
             dayText: 'Day',
             yearText: 'Year',
@@ -655,6 +656,7 @@
             // --- 
 
             inst.format = hformat;
+            inst.order = o;
             inst.buttons.now = { text: s.nowText, css: 'dwb-n', handler: function () { inst.setDate(new Date(), false, 0.3, true, true); } };
 
             // @deprecated since 2.8.0, backward compatibility code
@@ -773,7 +775,7 @@
         };
 
     $.each(['date', 'time', 'datetime'], function (i, v) {
-        ms.presets[v] = preset;
+        ms.presets.scroller[v] = preset;
         ms.presetShort(v);
     });
 

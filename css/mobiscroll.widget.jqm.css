@@ -1,0 +1,62 @@
+.mbsc-jqm .dwo {
+    background: none;
+}
+.mbsc-jqm .dwv {
+    position: static;
+    width: auto;
+    border: 0;
+    padding: 5px 0;
+    font-size: 14px;
+}
+.mbsc-jqm .dw-hidden {
+    min-height: 0;
+}
+.mbsc-jqm .dwwr {
+    border: 0;
+    overflow: visible;
+    font-family: inherit;
+}
+/* Buttons */
+.mbsc-jqm .dwbc {
+    font-size: 12px;
+    padding: 0 2px 4px 2px;
+}
+.mbsc-jqm .dwbc .ui-btn {
+    margin: 0 2px;
+}
+.mbsc-jqm .dwbc .ui-btn-inner {
+    font-size: 12px;
+}
+/* Bubble positioning */
+.mbsc-jqm .dw-bubble-bottom .dw-arr {
+    border-color: transparent transparent #222 transparent;
+}
+.mbsc-jqm .dw-bubble-top .dw-arr {
+    border-color: #222 transparent transparent transparent;
+}
+.mbsc-jqm.dw-bubble .dw {
+    background: #222;
+    border: 0;
+    padding: 6px;
+}
+/* Top / bottom mode */
+.mbsc-jqm.dw-liq .dw,
+.mbsc-jqm.dw-top .dw,
+.mbsc-jqm.dw-bottom .dw, 
+.mbsc-jqm.dw-liq .dwwr,
+.mbsc-jqm.dw-top .dwwr,
+.mbsc-jqm.dw-bottom .dwwr {
+    padding: 0;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+}
+.mbsc-jqm.dw-top .dw {
+    border-right: 0;
+    border-top: 0;
+    border-left: 0;
+}
+.mbsc-jqm.dw-bottom .dw {
+    border-bottom: 0;
+    border-right: 0;
+    border-left: 0;
+}

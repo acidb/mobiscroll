@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -64,16 +64,19 @@
 
     <script src="js/mobiscroll.zepto.js" type="text/javascript"></script>
     <script src="js/mobiscroll.core.js"></script>
+    <script src="js/mobiscroll.widget.js" type="text/javascript"></script>
     <script src="js/mobiscroll.scroller.js" type="text/javascript"></script>
 
     <script src="js/mobiscroll.datetime.js" type="text/javascript"></script>
     <script src="js/mobiscroll.select.js" type="text/javascript"></script>
 
-    <script src="js/mobiscroll.scroller.jqm.js" type="text/javascript"></script>
-    <script src="js/mobiscroll.scroller.ios.js" type="text/javascript"></script>
-    <script src="js/mobiscroll.scroller.android.js" type="text/javascript"></script>
-    <script src="js/mobiscroll.scroller.android-holo.js" type="text/javascript"></script>
-    <script src="js/mobiscroll.scroller.wp.js" type="text/javascript"></script>
+    <script src="js/mobiscroll.widget.android.js" type="text/javascript"></script>
+    <script src="js/mobiscroll.widget.android-holo.js" type="text/javascript"></script>
+    <script src="js/mobiscroll.widget.ios.js" type="text/javascript"></script>
+    <script src="js/mobiscroll.widget.ios7.js" type="text/javascript"></script>
+    <script src="js/mobiscroll.widget.jqm.js" type="text/javascript"></script>
+    <script src="js/mobiscroll.widget.sense-ui.js" type="text/javascript"></script>
+    <script src="js/mobiscroll.widget.wp.js" type="text/javascript"></script>
 
     <script src="js/i18n/mobiscroll.i18n.de.js" type="text/javascript"></script>
     <script src="js/i18n/mobiscroll.i18n.es.js" type="text/javascript"></script>
@@ -85,11 +88,20 @@
     <script src="js/i18n/mobiscroll.i18n.zh.js" type="text/javascript"></script>
 
     <link href="css/mobiscroll.icons.css" rel="stylesheet" type="text/css" />
+    <link href="css/mobiscroll.widget.css" rel="stylesheet" type="text/css" />
+    <link href="css/mobiscroll.widget.android.css" rel="stylesheet" type="text/css" />
+    <link href="css/mobiscroll.widget.android-holo.css" rel="stylesheet" type="text/css" />
+    <link href="css/mobiscroll.widget.ios.css" rel="stylesheet" type="text/css" />
+    <link href="css/mobiscroll.widget.ios7.css" rel="stylesheet" type="text/css" />
+    <link href="css/mobiscroll.widget.jqm.css" rel="stylesheet" type="text/css" />
+    <link href="css/mobiscroll.widget.sense-ui.css" rel="stylesheet" type="text/css" />
+    <link href="css/mobiscroll.widget.wp.css" rel="stylesheet" type="text/css" />
     <link href="css/mobiscroll.scroller.css" rel="stylesheet" type="text/css" />
-    <link href="css/mobiscroll.scroller.jqm.css" rel="stylesheet" type="text/css" />
     <link href="css/mobiscroll.scroller.android.css" rel="stylesheet" type="text/css" />
     <link href="css/mobiscroll.scroller.android-holo.css" rel="stylesheet" type="text/css" />
     <link href="css/mobiscroll.scroller.ios.css" rel="stylesheet" type="text/css" />
+    <link href="css/mobiscroll.scroller.ios7.css" rel="stylesheet" type="text/css" />
+    <link href="css/mobiscroll.scroller.jqm.css" rel="stylesheet" type="text/css" />
     <link href="css/mobiscroll.scroller.sense-ui.css" rel="stylesheet" type="text/css" />
     <link href="css/mobiscroll.scroller.wp.css" rel="stylesheet" type="text/css" />
 
@@ -166,11 +178,13 @@
                     <label for="theme">Theme</label>
                     <select name="theme" id="theme">
                         <option value="default">Default</option>
+                        <option value="android">Android</option>
                         <option value="android-holo">Android Holo</option>
                         <option value="android-holo light">Android Holo Light</option>
-                        <option value="android">Android</option>
-                        <option value="sense-ui">Sense UI</option>
                         <option value="ios">iOS</option>
+                        <option value="ios7">iOS7</option>
+                        <option value="jqm">jQuery Mobile</option>
+                        <option value="sense-ui">Sense UI</option>
                         <option value="wp">Windows Phone</option>
                         <option value="wp light">Windows Phone Light</option>
                     </select>
@@ -186,12 +200,23 @@
                 <div data-role="fieldcontain">
                     <label for="language">Language</label>
                     <select name="language" id="language">
-                        <option value="">English</option>
+                        <option value="cs">Czech</option>
+                        <option value="zh">Chinese</option>
                         <option value="de">Deutsch</option>
+                        <option value="" selected>English (US)</option>
+                        <option value="en-UK">English (UK)</option>
                         <option value="es">Español</option>
+                        <option value="fa">فارسی</option>
                         <option value="fr">Français</option>
-                        <option value="hu">Magyar</option>
                         <option value="it">Italiano</option>
+                        <option value="ja">Japanese</option>
+                        <option value="hu">Magyar</option>
+                        <option value="nl">Netherlands</option>
+                        <option value="no">Norsk</option>
+                        <option value="pt-BR">Português Brasileiro</option>
+                        <option value="pt-PT">Português Europeu</option>
+                        <option value="sv">Svenska</option>
+                        <option value="tr">Türkçe</option>
                     </select>
                 </div>
                 <div data-role="fieldcontain">

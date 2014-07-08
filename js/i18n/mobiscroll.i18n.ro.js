@@ -10,6 +10,7 @@
         dateOrder: 'ddmmy',
         dayNames: ['Duminică', 'Luni', 'Marți', 'Miercuri', 'Joi', 'Vineri', 'Sâmbătă'],
         dayNamesShort: ['Du', 'Lu', 'Ma', 'Mi', 'Jo', 'Vi', 'Sâ'],
+        dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
         dayText: ' Ziua',
         hourText: ' Ore ',
         minuteText: 'Minute',

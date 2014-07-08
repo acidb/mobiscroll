@@ -6,12 +6,13 @@
         rtl: false,
         showInput: true,
         group: false,
-        groupLabel: 'Groups'
+        groupLabel: 'Groups',
+        checkIcon: 'checkmark'
     };
 
     $.mobiscroll.presetShort('select');
 
-    $.mobiscroll.presets.select = function (inst) {
+    $.mobiscroll.presets.scroller.select = function (inst) {
         var change,
             grIdx,
             gr,
@@ -32,7 +33,7 @@
             id = this.id + '_dummy',
             lbl = $('label[for="' + this.id + '"]').attr('for', id),
             label = s.label !== undefined ? s.label : (lbl.length ? lbl.text() : elm.attr('name')),
-            selectedClass = 'dw-msel mbsc-ic mbsc-ic-checkmark',
+            selectedClass = 'dw-msel mbsc-ic mbsc-ic-' + s.checkIcon,
             invalid = [],
             origValues = [],
             main = {},
@@ -137,7 +138,7 @@
         }
 
         function onTap(li) {
-            if (multiple && li.hasClass('dw-v') && li.closest('.dw').find('.dw-ul').index(li.closest('.dw-ul')) == optIdx) {
+            if (multiple && li.hasClass('dw-v') && li.closest('.dwwl').hasClass('dwwms')) {
                 var val = li.attr('data-val'),
                     selected = li.hasClass('dw-msel');
 

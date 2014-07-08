@@ -1,0 +1,121 @@
+/* iOS Skin */
+.mbsc-ios .dw {
+    min-width: 134px;
+    border: 1px solid #2d3034;
+}
+.mbsc-ios .dwo {
+    background: none;
+}
+.mbsc-ios .dwwr {
+    position: relative;
+    padding: 0 6px;
+    margin-top: 40px;
+    background: -webkit-gradient(linear,left top,left bottom,from(#9f9fa6),color-stop(0.5, #484a55),color-stop(0.5, #272836),to(#282a39));
+    background: -webkit-linear-gradient(#9f9fa6,#484a55 50%,#272836 50%,#282a39);
+    background: -moz-linear-gradient(#9f9fa6,#484a55 50%,#272836 50%,#282a39);
+    background: linear-gradient(#9f9fa6,#484a55 50%,#272836 50%,#282a39);
+    background-color: #9f9fa6;
+    background-repeat: no-repeat;
+    color: #fff;
+    overflow: visible;
+}
+.mbsc-ios.dw-nobtn .dwwr,
+.mbsc-ios.dw-inline .dwwr {
+    margin-top: 0;
+}
+.mbsc-ios .dwv {
+    width: 0;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    overflow: hidden;
+}
+/* Buttons */
+.mbsc-ios .dwbc {
+    display: block;
+    position: absolute;
+    top: -40px;
+    left: 0;
+    width: 100%;
+    height: 28px;
+    padding: 5px 0;
+    background: #454545;
+    background: -webkit-gradient(linear,left top,left bottom,from(rgba(69,69,69,0.7)),color-stop(0.5, rgba(37,37,37,0.7)),color-stop(0.5, rgba(16,16,16,0.7)),to(rgba(0,0,0,0.7)));
+    background: -webkit-linear-gradient(rgba(69,69,69,0.7),rgba(37,37,37,0.7) 50%,rgba(16,16,16,0.7) 50%,rgba(0,0,0,0.7));
+    background: -moz-linear-gradient(rgba(69,69,69,0.7),rgba(37,37,37,0.7) 50%,rgba(16,16,16,0.7) 50%,rgba(0,0,0,0.7));
+    background: linear-gradient(rgba(69,69,69,0.7),rgba(37,37,37,0.7) 50%,rgba(16,16,16,0.7) 50%,rgba(0,0,0,0.7));
+    border-bottom: 1px solid #888;
+    border-bottom: 1px solid rgba(255,255,255,0.5);
+    border-top: 1px solid #888;
+    border-top: 1px solid rgba(255,255,255,0.5);
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+}
+.mbsc-ios .dwb {
+    margin: 0 5px;
+    padding: 0 10px;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: bold;
+    height: 26px;
+    line-height: 26px;
+    color: #fff;
+    border: 1px solid #1f1f1f;
+    background: #1a1a1a;
+    background: -webkit-gradient(linear,left top,left bottom,from(#7b7b7b),color-stop(0.5, #1a1a1a),color-stop(0.5, #000));
+    background: -webkit-linear-gradient(#7b7b7b,#1a1a1a 50%,#000 50%);
+    background: -moz-linear-gradient(#7b7b7b,#1a1a1a 50%,#000 50%);
+    background: linear-gradient(#7b7b7b,#1a1a1a 50%,#000 50%);
+    -webkit-border-radius: 5px;
+    -webkit-box-shadow: 0 1px 0 rgba(255,255,255,0.3);
+    border-radius: 5px;
+    box-shadow: 0 1px 0 rgba(255,255,255,0.3);
+}
+.mbsc-ios .dwb-s .dwb {
+    border: 1px solid #194aab;
+    background: #194aab;
+    background: -webkit-gradient(linear,left top,left bottom,from(#82aaff),color-stop(0.5,#3162c4),color-stop(0.5,#194aab));
+    background: -webkit-linear-gradient(#82aaff,#3162c4 50%,#194aab 50%);
+    background: -moz-linear-gradient(#82aaff,#3162c4 50%,#194aab 50%);
+    background: linear-gradient(#82aaff,#3162c4 50%,#194aab 50%);
+}
+.mbsc-ios .dwb-a {
+    opacity: .8;
+    filter: alpha(opacity=80);
+}
+.mbsc-ios .dwbw {
+    display: block;
+    float: right;
+}
+.mbsc-ios .dwb-c {
+    float: left;
+}
+/* Bubble positioning */
+.mbsc-ios.dw-bubble .dw {
+    padding: 6px;
+    background: #afafaf;
+    background: -webkit-gradient(linear,left top,left bottom,from(#afafaf),color-stop(0.3, #1b2530));
+    background: -webkit-linear-gradient(#afafaf, #1b2530 30%);
+    background: -moz-linear-gradient(#afafaf, #1b2530 30%);
+    background: linear-gradient(#afafaf, #1b2530 30%);
+    -webkit-border-radius: 5px;
+    -webkit-box-shadow: 0 0 25px rgba(0,0,0,0.7);
+    border-radius: 5px;
+    box-shadow: 0 0 25px rgba(0,0,0,0.7);
+}
+.mbsc-ios .dw-bubble-bottom .dw-arr {
+    border-color: transparent transparent #2d3034 transparent;
+}
+.mbsc-ios .dw-bubble-bottom .dw-arr:after {
+    content: '';
+    position: absolute;
+    top: -16px;
+    left: -17px;
+    border: 17px solid #afafaf;
+    border-color: transparent transparent #afafaf transparent;
+}
+.mbsc-ios .dw-bubble-top .dw-arr {
+    border-color: #1b2530 transparent transparent transparent;
+}

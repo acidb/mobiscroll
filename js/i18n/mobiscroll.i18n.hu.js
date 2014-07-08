@@ -10,6 +10,7 @@
         dateOrder: 'yymmdd',
         dayNames: ['Vasárnap', 'Hétfő', 'Kedd', 'Szerda', 'Csütörtök', 'Péntek', 'Szombat'],
         dayNamesShort: ['Va', 'Hé', 'Ke', 'Sze', 'Csü', 'Pé', 'Szo'],
+        dayNamesMin: ['V', 'H', 'K', 'Sz', 'Cs', 'P', 'Sz'],
         dayText: 'Nap',
         hourText: 'Óra',
         minuteText: 'Perc',

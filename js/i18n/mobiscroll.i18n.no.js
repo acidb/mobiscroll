@@ -10,6 +10,7 @@
         dateOrder: 'ddmmyy',
         dayNames: ['Søndag', 'Mandag', 'Tirsdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lørdag'],
         dayNamesShort: ['Sø', 'Ma', 'Ti', 'On', 'To', 'Fr', 'Lø'],
+        dayNamesMin: ['S', 'M', 'T', 'O', 'T', 'F', 'L'],
         dayText: 'Dag',
         hourText: 'Time',
         minuteText: 'Minutt',

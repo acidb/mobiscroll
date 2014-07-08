@@ -10,6 +10,7 @@
         dateOrder: 'yymmdd',
         dayNames: ['日','月','火','水','木','金','土'],
         dayNamesShort: ['日','月','火','水','木','金','土'],
+        dayNamesMin: ['日','月','火','水','木','金','土'],
         dayText: '日',
         hourText: '時',
         minuteText: '分',
