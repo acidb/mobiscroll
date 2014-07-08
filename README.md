@@ -32,6 +32,59 @@ It'd be cool to see how you're using Mobiscroll!
 
 We're looking at showcasing some of the best work on http://mobiscroll.com . Feel free to let us know on twitter @mobiscroll!
 
+Changelog 2.12.0-beta
+=====================
+
+_Scroller_
+
+  * New: `focusOnClose` setting.
+
+_Calendar_
+
+  * Fixed: Time was not set correctly if `closeOnSelect` was true.
+
+  * Fixed: In fullscreen mode calendar was not full width.
+
+  * New: `onSetDate` receives a day object with `date` and `control` (where the selection occured: 'calendar', 'date', 'time' or undefined) properties.
+
+  * New: `navigate` method to display a specific month on the calendar without setting the date.
+
+  * New: `weekDays` option to control the format of week days in the calendar header. Can be `full`, `short` or `min`.
+
+_Listview_
+
+  * Fixed: Native input and select elements inside list items were not working (#231).
+
+  * Fixed: Be able to display multiple rows in group headers.
+
+  * Fixed: 'ng-if' directive can be used inside li's with 'mbsc-' prefix
+
+  * New: `onNavStart` and `onNavEnd` events on hierarchical navigation.
+
+  * New: `onItemTap` event receives the event object as parameter.
+
+_Numpad_
+
+  * New: A new control with numeric keys for filling numeric values.
+
+_Rangepicker_
+
+  * New: `minRange` and `maxRange` settings for minimum and maximum selectable range.
+
+  * New: `onSetDate` receives a day object with `date`, `control` (where the selection occured: 'calendar', 'date', 'time' or undefined), and `active` ('start' or 'end') properties (#222).
+
+  * New: `showSelector` setting.
+
+_Themes_
+
+  * New: Brand new default theme.
+
+  * New: Theme classes are prefixed with `.mbsc-` to make the classes less generic and avoid conflicts with other libraries.
+
+  * New: iOS7 like checkmark icon for the iOS7 theme multiselection. 
+
+  * New: New wheel styles for jQuery Mobile and Bootstrap themes.
+
 
 Changelog 2.11.1
 ================
