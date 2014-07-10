@@ -33,7 +33,6 @@
             modalWidth,
             modalHeight,
             posEvents,
-            posDebounce,
             preset,
             preventPos,
             s,
@@ -45,7 +44,8 @@
 
             that = this,
             $elm = $(el),
-            elmList = [];
+            elmList = [],
+            posDebounce = {};
 
         function onBtnStart(ev) {
             // Can't call preventDefault here, it kills page scroll
@@ -106,8 +106,8 @@
         }
 
         function onPosition(ev) {
-            clearTimeout(posDebounce);
-            posDebounce = setTimeout(function () {
+            clearTimeout(posDebounce[ev.type]);
+            posDebounce[ev.type] = setTimeout(function () {
                 var isScroll = ev.type == 'scroll';
                 if (isScroll && !scrollLock) {
                     return;
@@ -534,7 +534,8 @@
         */
         that.tap = function (el, handler, prevent) {
             var startX,
-                startY;
+                startY,
+                moved;
 
             if (s.tap) {
                 el.on('touchstart.dw', function (ev) {
@@ -544,10 +545,16 @@
                     }
                     startX = getCoord(ev, 'X');
                     startY = getCoord(ev, 'Y');
+                    moved = false;
+                }).on('touchmove.dw', function (ev) {
+                    // If movement is more than 20px, don't fire the click event handler
+                    if (Math.abs(getCoord(ev, 'X') - startX) < 20 && Math.abs(getCoord(ev, 'Y') - startY) < 20) {
+                        moved = true;
+                    }
                 }).on('touchend.dw', function (ev) {
                     var that = this;
-                    // If movement is less than 20px, fire the click event handler
-                    if (Math.abs(getCoord(ev, 'X') - startX) < 20 && Math.abs(getCoord(ev, 'Y') - startY) < 20) {
+                    
+                    if (!moved) {
                         // preventDefault and setTimeout are needed by iOS
                         ev.preventDefault();
                         setTimeout(function () {
