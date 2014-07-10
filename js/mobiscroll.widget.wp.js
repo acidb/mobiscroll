@@ -69,8 +69,10 @@
         };
 
     themes.wp = theme;
-    themes['wp light'] = theme;
     themes['wp-light'] = theme;
+
+    // @deprecated since 2.12.0, backward compatibility code
+    themes['wp light'] = theme;
 
 })(jQuery);
 

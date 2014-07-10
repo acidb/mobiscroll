@@ -1,4 +1,4 @@
-﻿(function ($) {
+﻿(function ($, window, document, undefined) {
 
     var $activeElm,
         preventShow,
@@ -790,4 +790,4 @@
         }
     });
 
-})(jQuery);
+})(jQuery, window, document);

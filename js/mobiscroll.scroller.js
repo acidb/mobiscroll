@@ -1,4 +1,4 @@
-(function ($) {
+(function ($, window, document, undefined) {
 
     var move,
         ms = $.mobiscroll,
@@ -688,4 +688,4 @@
         }
     });
 
-})(jQuery);
+})(jQuery, window, document);

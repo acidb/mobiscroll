@@ -6,7 +6,7 @@
  * Licensed under the MIT license.
  *
  */
-(function ($) {
+(function ($, undefined) {
 
     function testProps(props) {
         var i;
