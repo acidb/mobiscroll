@@ -62,9 +62,12 @@
                     ord = ord.match(/dd/i) ? ord.replace(/ddDD|dd|DD/,  'ddDD') : ord.replace(/dD|d|D/,  'dD');
                     s.dateOrder = ord;
                 }
+                // @deprecated since 2.12.0, backward compatibility code
+                // ---
                 if (s.theme) {
                     s.theme = s.theme.replace(' light', '-light');
                 }
+                // ---
             }
         };
 
