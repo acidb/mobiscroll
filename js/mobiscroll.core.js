@@ -130,9 +130,9 @@
         setDefaults: function (o) {
             extend(this.userdef, o);
         },
-        presetShort: function (name, c) {
+        presetShort: function (name, c, p) {
             this.components[name] = function (s) {
-                return init(this, extend(s, { component: c, preset: name }), arguments);
+                return init(this, extend(s, { component: c, preset: p === false ? undefined : name }), arguments);
             };
         }
     };
