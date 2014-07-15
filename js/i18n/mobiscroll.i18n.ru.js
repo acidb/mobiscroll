@@ -24,9 +24,6 @@
         timeWheels:     'HHii',
         yearText:       'Год',
         nowText:        'Сейчас',
-        dateText:       'Дата',
-        timeText:       'Время',
-        calendarText:   'Календарь',
         amText:         'До полудня',
         pmText:         'После полудня',
         // Calendar component
