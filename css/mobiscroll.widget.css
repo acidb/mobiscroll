@@ -188,6 +188,9 @@
     display: block;
     float: right;
 }
+.mbsc-mobiscroll .dw-rtl .dwbw {
+    float: left;
+}
 .mbsc-mobiscroll .dwb {
     height: 2.5em;
     line-height: 2.5em;

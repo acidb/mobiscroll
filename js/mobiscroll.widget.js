@@ -548,7 +548,7 @@
                     moved = false;
                 }).on('touchmove.dw', function (ev) {
                     // If movement is more than 20px, don't fire the click event handler
-                    if (Math.abs(getCoord(ev, 'X') - startX) < 20 && Math.abs(getCoord(ev, 'Y') - startY) < 20) {
+                    if (Math.abs(getCoord(ev, 'X') - startX) > 20 || Math.abs(getCoord(ev, 'Y') - startY) > 20) {
                         moved = true;
                     }
                 }).on('touchend.dw', function (ev) {
