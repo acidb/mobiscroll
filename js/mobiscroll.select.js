@@ -339,14 +339,14 @@
                     }
                 }
 
-                if (i === undefined || i === grIdx) {
+                if (s.group && (i === undefined || i === grIdx)) {
                     gr = +inst.temp[grIdx];
                     if (gr !== prev) {
                         group = elm.find('optgroup').eq(gr);
                         option = group.find('option').eq(0).val();
                         option = option || elm.val();
                         s.wheels = genWheels();
-                        if (s.group && !change) {
+                        if (!change) {
                             inst.temp = [gr, option];
                             s.readonly = [false, true];
                             clearTimeout(timer);
