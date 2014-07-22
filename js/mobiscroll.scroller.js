@@ -423,7 +423,8 @@
                 o = orig === undefined ? val : orig,
                 active = orig !== undefined,
                 idx = index,
-                time = anim ? (val == o ? 0.1 : Math.abs((val - o) * s.timeUnit)) : 0;
+                dist = Math.abs(val - o),
+                time = anim ? (val == o ? 0.1 : dist * s.timeUnit * Math.max(0.5, (100 - dist) / 100)) : 0;
 
             // Set selected scroller value
             that.temp[idx] = cell.attr('data-val');
@@ -659,7 +660,7 @@
         mode: 'scroller',
         preset: '',
         speedUnit: 0.0012,
-        timeUnit: 0.1,
+        timeUnit: 0.08,
         formatResult: function (d) {
             return d.join(' ');
         },
