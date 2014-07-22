@@ -39,9 +39,8 @@
 
             if (ver) {
                 elm.addClass('mbsc-jqm14');
-                $('.dwwb', elm).addClass('ui-btn');
-                $('.mbsc-np-btn', elm).addClass('ui-btn');
-                $('.dwbc div.dwb', elm).addClass('ui-btn ui-mini ui-corner-all');
+                $('.mbsc-np-btn, .dwwb', elm).addClass('ui-btn');
+                $('.dwbc div.dwb, .dw-dr', elm).addClass('ui-btn ui-mini ui-corner-all');
                 $('.dw-cal-prev .dw-cal-btn-txt', elm).addClass('ui-btn ui-icon-arrow-l ui-btn-icon-notext ui-shadow ui-corner-all');
                 $('.dw-cal-next .dw-cal-btn-txt', elm).addClass('ui-btn ui-icon-arrow-r ui-btn-icon-notext ui-shadow ui-corner-all');
             }
