@@ -13,6 +13,12 @@
 .mbsc-wp .dwbw {
     display: inline-block;
 }
+.mbsc-wp .dwb,
+.mbsc-wp .mbsc-ic:before {
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+}
 .mbsc-wp .dwb {
     position: relative;
     top: 0;
