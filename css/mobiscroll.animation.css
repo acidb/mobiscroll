@@ -4,10 +4,6 @@
     -moz-perspective: 1000px;
     perspective: 1000px;
 }
-/*.dw-trans .dwwb,
-.dw-trans .dwwo {
-    -webkit-backface-visibility: hidden;
-}*/
 .dw-trans .dw/*,
 .dw-trans .dwo*/ {
     -webkit-animation-fill-mode: forwards;

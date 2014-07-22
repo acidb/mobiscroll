@@ -1,3 +1,8 @@
+.dwwb,
+.dwwo,
+.dwwol {
+    -webkit-backface-visibility: hidden;
+}
 /* Wheel container wrapper */
 .dwc {
     max-width: 100%;
@@ -198,8 +203,8 @@
     background: rgba(78,204,196,.3);
 }
 .mbsc-mobiscroll .dwwol {
-    border-top: .0625em solid #4eccc4;
-    border-bottom: .0625em solid #4eccc4;
+    border-top: 1px solid #4eccc4;
+    border-bottom: 1px solid #4eccc4;
 }
 /* Clickpick mode */
 .mbsc-mobiscroll .dwpm .dwwol {

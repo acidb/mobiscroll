@@ -2,16 +2,6 @@
 .dwo {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
-/*.dw,
-.dwb {
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-}*/
-.dwwr,
-.dwwb,
-.dwwo {
-    -webkit-backface-visibility: hidden;
-}
 .dw {
     max-width: 98%;
     position: absolute;
@@ -28,7 +18,7 @@
     touch-action: none;
 }
 .dw:focus {
-    outline: none;
+    outline-color: transparent;
 }
 .dw-rtl {
     direction: rtl;

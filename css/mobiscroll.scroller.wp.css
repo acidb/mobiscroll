@@ -150,8 +150,6 @@
 }
 .mbsc-wp .dw-li .dw-i {
     width: 99.5%;
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
 }
 .mbsc-wp .wpa .dw-li, 
 .mbsc-wp .dwa .dw-li {
