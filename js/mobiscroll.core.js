@@ -32,7 +32,7 @@
 
     function getCoord(e, c) {
         var ev = e.originalEvent || e;
-        return ev.changedTouches ? ev.changedTouches[0]['page' + c] : e['page' + c];
+        return ev.changedTouches ? ev.changedTouches[0]['page' + c] : ev['page' + c] ? ev['page' + c] : ev['client' + c];
     }
 
     function constrain(val, min, max) {
