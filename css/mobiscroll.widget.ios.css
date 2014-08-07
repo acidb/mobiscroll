@@ -19,8 +19,7 @@
     color: #fff;
     overflow: visible;
 }
-.mbsc-ios.dw-nobtn .dwwr,
-.mbsc-ios.dw-inline .dwwr {
+.mbsc-ios.dw-nobtn .dwwr {
     margin-top: 0;
 }
 .mbsc-ios .dwv {

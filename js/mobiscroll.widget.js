@@ -276,7 +276,7 @@
         * Set button handler.
         */
         that.select = function () {
-            if (that.hide(false, 'set') !== false) {
+            if (!isModal || that.hide(false, 'set') !== false) {
                 that._fillValue();
                 event('onSelect', [that.val]);
             }
@@ -286,7 +286,7 @@
         * Cancel and hide the scroller instance.
         */
         that.cancel = function () {
-            if (that.hide(false, 'cancel') !== false) {
+            if (!isModal || that.hide(false, 'cancel') !== false) {
                 event('onCancel', [that.val]);
             }
         };
@@ -297,7 +297,7 @@
         that.clear = function () {
             event('onClear', [$markup]);
             $elm.val('');
-            if (!that.live) {
+            if (isModal && !that.live) {
                 that.hide(false, 'clear');
             }
         };
@@ -339,14 +339,14 @@
                         '<div' + (isModal ? ' role="dialog" tabindex="-1"' : '') + ' class="dw' + (s.rtl ? ' dw-rtl' : ' dw-ltr') + '">' + // Popup
                             (s.display === 'bubble' ? '<div class="dw-arrw"><div class="dw-arrw-i"><div class="dw-arr"></div></div></div>' : '') + // Bubble arrow
                             '<div class="dwwr">' + // Popup content
-                                '<div aria-live="assertive" class="dwv' + (s.headerText ? '' : ' dw-hidden') + '"></div>' + // Header
+                                '<div aria-live="polite" class="dwv' + (s.headerText ? '' : ' dw-hidden') + '"></div>' + // Header
                                 '<div class="dwcc">'; // Wheel group container
 
             html += that._generateContent();
 
             html += '</div>';
 
-            if (isModal && hasButtons) {
+            if (hasButtons) {
                 html += '<div class="dwbc">';
                 $.each(buttons, function (i, b) {
                     b = (typeof b === 'string') ? that.buttons[b] : b;
@@ -650,7 +650,7 @@
             preset = ms.presets[that._class][s.preset];
 
             // Add default buttons
-            s.buttons = s.buttons || ['set', 'cancel'];
+            s.buttons = s.buttons || (s.display !== 'inline' ? ['set', 'cancel'] : []);
 
             // Hide header text in inline mode by default
             s.headerText = s.headerText === undefined ? (s.display !== 'inline' ? '{value}' : false) : s.headerText;
@@ -691,7 +691,7 @@
             // ---
 
             that.context = $wnd;
-            that.live = !isModal || ($.inArray('set', buttons) == -1);
+            that.live = $.inArray('set', buttons) == -1;
             that.buttons.set = { text: s.setText, css: 'dwb-s', handler: that.select };
             that.buttons.cancel = { text: (that.live) ? s.closeText : s.cancelText, css: 'dwb-c', handler: that.cancel };
             that.buttons.clear = { text: s.clearText, css: 'dwb-cl', handler: that.clear };
