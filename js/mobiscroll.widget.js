@@ -719,7 +719,7 @@
             }
 
             if (that._isInput) {
-                $elm.on('change.dw', function () {
+                $('body').off('change.dw').on('change.dw', $elm.attr('class'), function () {
                     if (!that._preventChange) {
                         that.setValue($elm.val(), false, 0.2);
                     }

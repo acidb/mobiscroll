@@ -62,7 +62,7 @@
                     ord = ord.match(/dd/i) ? ord.replace(/ddDD|dd|DD/,  'ddDD') : ord.replace(/dD|d|D/,  'dD');
                     s.dateOrder = ord;
                 }
-                // @deprecated since 2.12.0, backward compatibility code
+                // @deprecated since 2.12.1, backward compatibility code
                 // ---
                 if (s.theme) {
                     s.theme = s.theme.replace(' light', '-light');
@@ -74,7 +74,7 @@
     themes.wp = theme;
     themes['wp-light'] = theme;
 
-    // @deprecated since 2.12.0, backward compatibility code
+    // @deprecated since 2.12.1, backward compatibility code
     themes['wp light'] = theme;
 
 })(jQuery);

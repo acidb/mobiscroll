@@ -1,5 +1,5 @@
 /*!
- * Mobiscroll v2.12.0
+ * Mobiscroll v2.12.1
  * http://mobiscroll.com
  *
  * Copyright 2010-2014, Acid Media
@@ -32,7 +32,7 @@
 
     function getCoord(e, c) {
         var ev = e.originalEvent || e;
-        return ev.changedTouches ? ev.changedTouches[0]['page' + c] : e['page' + c];
+        return ev.changedTouches ? ev.changedTouches[0]['page' + c] : ev['page' + c] ? ev['page' + c] : ev['client' + c];
     }
 
     function constrain(val, min, max) {
@@ -100,7 +100,7 @@
     };
 
     $.mobiscroll = $.mobiscroll || {
-        version: '2.12.0',
+        version: '2.12.1',
         util: {
             prefix: prefix,
             jsPrefix: pr,

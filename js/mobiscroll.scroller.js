@@ -195,12 +195,16 @@
             }
         }
 
-        function onScroll(ev) {
+        function onScroll(ev, delta, deltaX, deltaY) {
             if (!isReadOnly(this)) {
                 ev.preventDefault();
                 ev = ev.originalEvent || ev;
-                var delta = ev.wheelDelta ? (ev.wheelDelta / 120) : (ev.detail ? (-ev.detail / 3) : 0),
-                    t = $('.dw-ul', this);
+
+                if ( !delta ){
+                    delta = ev.wheelDelta ? (ev.wheelDelta / 120) : (ev.detail ? (-ev.detail / 3) : 0);
+                }
+
+                var t = $('.dw-ul', this);
 
                 setGlobals(t);
                 calc(t, Math.round(pos[index] - delta), delta < 0 ? 1 : 2);

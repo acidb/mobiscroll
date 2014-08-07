@@ -32,7 +32,7 @@ It'd be cool to see how you're using Mobiscroll!
 
 We're looking at showcasing some of the best work on http://mobiscroll.com . Feel free to let us know on twitter @mobiscroll!
 
-Changelog 2.12.0-beta
+Changelog 2.12.1-beta
 =====================
 
 _Scroller_
