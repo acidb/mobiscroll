@@ -30,15 +30,6 @@
         return '';
     }
 
-    function getCoord(e, c) {
-        var ev = e.originalEvent || e;
-        return ev.changedTouches ? ev.changedTouches[0]['page' + c] : e['page' + c];
-    }
-
-    function constrain(val, min, max) {
-        return Math.max(min, Math.min(val, max));
-    }
-
     function init(that, options, args) {
         var ret = that;
 
@@ -74,16 +65,6 @@
         return ret;
     }
 
-    function testTouch(e) {
-        if (e.type == 'touchstart') {
-            touches[e.target] = true;
-        } else if (touches[e.target]) {
-            delete touches[e.target];
-            return false;
-        }
-        return true;
-    }
-
     var id = +new Date(),
         touches = {},
         instances = {},
@@ -92,7 +73,12 @@
         has3d = testProps(['perspectiveProperty', 'WebkitPerspective', 'MozPerspective', 'OPerspective', 'msPerspective']),
         hasFlex = testProps(['flex', 'msFlex', 'WebkitBoxDirection']),
         prefix = testPrefix(),
-        pr = prefix.replace(/^\-/, '').replace(/\-$/, '').replace('moz', 'Moz');
+        pr = prefix.replace(/^\-/, '').replace(/\-$/, '').replace('moz', 'Moz'),
+        ariaDiv = $('<div aria-live="assertive" class="dw-hidden"></div>');
+
+    $(function () {
+        ariaDiv.appendTo('body');
+    });
 
     $.fn.mobiscroll = function (method) {
         extend(this, $.mobiscroll.components);
@@ -106,9 +92,28 @@
             jsPrefix: pr,
             has3d: has3d,
             hasFlex: hasFlex,
-            getCoord: getCoord,
-            testTouch: testTouch,
-            constrain: constrain
+            testTouch: function (e) {
+                if (e.type == 'touchstart') {
+                    touches[e.target] = true;
+                } else if (touches[e.target]) {
+                    delete touches[e.target];
+                    return false;
+                }
+                return true;
+            },
+            getCoord: function (e, c) {
+                var ev = e.originalEvent || e;
+                return ev.changedTouches ? ev.changedTouches[0]['page' + c] : e['page' + c];
+            },
+            constrain: function (val, min, max) {
+                return Math.max(min, Math.min(val, max));
+            },
+            ariaMessage: function (txt) {
+                ariaDiv.html('');
+                setTimeout(function () {
+                    ariaDiv.html(txt);
+                }, 100);
+            }
         },
         tapped: false,
         presets: {
