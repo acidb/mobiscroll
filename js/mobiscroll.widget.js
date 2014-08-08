@@ -79,6 +79,14 @@
                 focus = s.focusOnClose;
 
             $markup.remove();
+
+            // Re-enable temporary disabled fields
+            if (pr !== 'Moz') {
+                $('.dwtd', $doc).each(function () {
+                    $(this).prop('disabled', false).removeClass('dwtd');
+                });
+            }
+
             if ($activeElm && !prevAnim) {
                 setTimeout(function () {
                     if (focus === undefined) {
@@ -101,7 +109,9 @@
                     }
                 }, 200);
             }
+
             that._isVisible = false;
+
             event('onHide', []);
         }
 
@@ -330,7 +340,7 @@
             event('onBeforeShow', []);
 
             // Create wheels containers
-            html = '<div class="mbsc-' + s.theme + ' dw-' + s.display + ' ' +
+            html = '<div lang="' + s.lang + '" class="mbsc-' + s.theme + ' dw-' + s.display + ' ' +
                 (s.cssClass || '') +
                 (that._isLiquid ? ' dw-liq' : '') +
                 (hasButtons ? '' : ' dw-nobtn') + '">' +
@@ -339,7 +349,7 @@
                         '<div' + (isModal ? ' role="dialog" tabindex="-1"' : '') + ' class="dw' + (s.rtl ? ' dw-rtl' : ' dw-ltr') + '">' + // Popup
                             (s.display === 'bubble' ? '<div class="dw-arrw"><div class="dw-arrw-i"><div class="dw-arr"></div></div></div>' : '') + // Bubble arrow
                             '<div class="dwwr">' + // Popup content
-                                '<div aria-live="polite" class="dwv' + (s.headerText ? '' : ' dw-hidden') + '"></div>' + // Header
+                                '<div class="dwv' + (s.headerText ? '' : ' dw-hidden') + '"></div>' + // Header
                                 '<div class="dwcc">'; // Wheel group container
 
             html += that._generateContent();
@@ -478,13 +488,6 @@
             // If onClose handler returns false, prevent hide
             if (!that._isVisible || (!force && !that._isValid && btn == 'set') || (!force && event('onClose', [that._valueText, btn]) === false)) {
                 return false;
-            }
-
-            // Re-enable temporary disabled fields
-            if (pr !== 'Moz') {
-                $('.dwtd', $doc).each(function () {
-                    $(this).prop('disabled', false).removeClass('dwtd');
-                });
             }
 
             // Hide wheels and overlay
@@ -742,6 +745,7 @@
 
     ms.classes.Widget.prototype._defaults = {
         // Localization
+        lang: 'en',
         setText: 'Set',
         selectedText: 'Selected',
         closeText: 'Close',
