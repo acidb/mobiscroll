@@ -4,8 +4,7 @@
         date = new Date(),
         defaults = {
             startYear: date.getFullYear() - 100,
-            endYear: date.getFullYear() + 1,
-            shortYearCutoff: '+10',
+            endYear: date.getFullYear() + 1, 
             showNow: false,
             stepHour: 1,
             stepMinute: 1,
@@ -16,38 +15,13 @@
             dateOrder: 'mmddy',
             timeWheels: 'hhiiA',
             timeFormat: 'hh:ii A',
-            monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-            monthNamesShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-            dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-            dayNamesShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-            dayNamesMin: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
-            monthText: 'Month',
             dayText: 'Day',
             yearText: 'Year',
             hourText: 'Hours',
             minuteText: 'Minutes',
             ampmText: '&nbsp;',
             secText: 'Seconds',
-            amText: 'am',
-            pmText: 'pm',
-            nowText: 'Now',
-            getYear: function (d) { return d.getFullYear(); },
-            getMonth: function (d) { return d.getMonth(); },
-            getDay: function (d) { return d.getDate(); },
-            getDate: function (y, m, d, h, i, s) { return new Date(y, m, d, h || 0, i || 0, s || 0); },
-            getMaxDayOfMonth: function (y, m) { return 32 - new Date(y, m, 32).getDate(); },
-            getWeekNumber: function (d) {
-                // Copy date so don't modify original
-                d = new Date(d);
-                d.setHours(0, 0, 0);
-                // Set to nearest Thursday: current date + 4 - current day number
-                // Make Sunday's day number 7
-                d.setDate(d.getDate() + 4 - (d.getDay() || 7));
-                // Get first day of year
-                var yearStart = new Date(d.getFullYear(), 0, 1);
-                // Calculate full weeks to nearest Thursday
-                return Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
-            }
+            nowText: 'Now'
         },
         /**
          * @class Mobiscroll.datetime
@@ -99,7 +73,7 @@
                 end,
                 hasTime,
                 orig = $.extend({}, inst.settings),
-                s = $.extend(inst.settings, defaults, html5def, orig),
+                s = $.extend(inst.settings, ms.datetime.defaults, defaults, html5def, orig),
                 offset = 0,
                 wheels = [],
                 ord = [],
