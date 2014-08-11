@@ -73,6 +73,13 @@
             }
         }
 
+        function onShow(prevFocus) {
+            if (!prevFocus) {
+                $popup.focus();
+            }
+            that.ariaMessage(s.ariaMessage);
+        }
+
         function onHide(prevAnim) {
             var activeEl,
                 value,
@@ -423,9 +430,7 @@
                 if (has3d && doAnim && !prevAnim) {
                     $markup.addClass('dw-in dw-trans').on(animEnd, function () {
                         $markup.removeClass('dw-in dw-trans').find('.dw').removeClass('dw-' + doAnim);
-                        if (!prevFocus) {
-                            $popup.focus();
-                        }
+                        onShow(prevFocus);
                     }).find('.dw').addClass('dw-' + doAnim);
                 }
             } else if ($elm.is('div')) {
@@ -468,8 +473,8 @@
                     });
                 }
 
-                if (isModal && !doAnim && !prevFocus) {
-                    $popup.focus();
+                if (isModal && !doAnim) {
+                    onShow(prevFocus);
                 }
 
                 $markup
@@ -477,8 +482,6 @@
                     .on('touchend', '.dwb-e', onBtnEnd);
 
                 that._attachEvents($markup);
-
-                that.ariaMessage(s.ariaMessage);
 
             }, 300);
 
