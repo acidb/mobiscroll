@@ -73,12 +73,7 @@
         has3d = testProps(['perspectiveProperty', 'WebkitPerspective', 'MozPerspective', 'OPerspective', 'msPerspective']),
         hasFlex = testProps(['flex', 'msFlex', 'WebkitBoxDirection']),
         prefix = testPrefix(),
-        pr = prefix.replace(/^\-/, '').replace(/\-$/, '').replace('moz', 'Moz'),
-        ariaDiv = $('<div aria-live="assertive" class="dw-hidden"></div>');
-
-    $(function () {
-        ariaDiv.appendTo('body');
-    });
+        pr = prefix.replace(/^\-/, '').replace(/\-$/, '').replace('moz', 'Moz');
 
     $.fn.mobiscroll = function (method) {
         extend(this, $.mobiscroll.components);
@@ -107,12 +102,6 @@
             },
             constrain: function (val, min, max) {
                 return Math.max(min, Math.min(val, max));
-            },
-            ariaMessage: function (txt) {
-                ariaDiv.html('');
-                setTimeout(function () {
-                    ariaDiv.html(txt);
-                }, 100);
             }
         },
         tapped: false,

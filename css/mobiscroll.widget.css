@@ -119,8 +119,7 @@
 .dw-bubble-top .dw-arr {
     bottom: 0;
 }
-.dw-hidden, 
-.dw .dwwr .dw-hidden {
+.dw-hidden {
     width: 0;
     height: 0;
     margin: 0;
