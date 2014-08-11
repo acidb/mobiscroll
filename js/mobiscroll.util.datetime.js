@@ -7,8 +7,7 @@
  *
  */
 (function ($, undefined) {
-    var ms = $.mobiscroll,
-        date = new Date();
+    var ms = $.mobiscroll;
 
     ms.datetime = {
         defaults: {
