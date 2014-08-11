@@ -12,6 +12,7 @@
         dayNamesShort: ['Sø', 'Ma', 'Ti', 'On', 'To', 'Fr', 'Lø'],
         dayNamesMin: ['S', 'M', 'T', 'O', 'T', 'F', 'L'],
         dayText: 'Dag',
+        delimiter: '.',
         hourText: 'Time',
         minuteText: 'Minutt',
         monthNames: ['Januar', 'Februar', 'Mars', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Desember'],

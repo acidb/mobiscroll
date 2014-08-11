@@ -12,6 +12,7 @@
         dayNamesShort: ['Du', 'Lu', 'Ma', 'Mi', 'Jo', 'Vi', 'Sâ'],
         dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
         dayText: ' Ziua',
+        delimiter: '.',
         hourText: ' Ore ',
         minuteText: 'Minute',
         monthNames: ['Ianuarie', 'Februarie', 'Martie', 'Aprilie', 'Mai', 'Iunie', 'Iulie', 'August', 'Septembrie', 'Octombrie', 'Noiembrie', 'Decembrie'],

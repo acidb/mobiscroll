@@ -12,6 +12,7 @@
         dayNamesShort: ['Va', 'Hé', 'Ke', 'Sze', 'Csü', 'Pé', 'Szo'],
         dayNamesMin: ['V', 'H', 'K', 'Sz', 'Cs', 'P', 'Sz'],
         dayText: 'Nap',
+        delimiter: '.',
         hourText: 'Óra',
         minuteText: 'Perc',
         monthNames: ['Január', 'Február', 'Március', 'Április', 'Május', 'Június', 'Július', 'Augusztus', 'Szeptember', 'Október', 'November', 'December'],
