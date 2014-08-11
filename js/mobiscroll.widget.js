@@ -17,7 +17,8 @@
         prevdef = function (ev) { ev.preventDefault(); };
 
     ms.classes.Widget = function (el, settings, inherit) {
-        var $doc,
+        var $ariaDiv,
+            $doc,
             $header,
             $markup,
             $overlay,
@@ -349,7 +350,8 @@
                         '<div' + (isModal ? ' role="dialog" tabindex="-1"' : '') + ' class="dw' + (s.rtl ? ' dw-rtl' : ' dw-ltr') + '">' + // Popup
                             (s.display === 'bubble' ? '<div class="dw-arrw"><div class="dw-arrw-i"><div class="dw-arr"></div></div></div>' : '') + // Bubble arrow
                             '<div class="dwwr">' + // Popup content
-                                '<div class="dwv' + (s.headerText ? '' : ' dw-hidden') + '"></div>' + // Header
+                                '<div aria-live="assertive" class="dw-aria dw-hidden"></div>' +
+                                (s.headerText ? '<div class="dwv"></div>' : '') + // Header
                                 '<div class="dwcc">'; // Wheel group container
 
             html += that._generateContent();
@@ -371,6 +373,7 @@
             $overlay = $('.dwo', $markup);
             $header = $('.dwv', $markup);
             $popup = $('.dw', $markup);
+            $ariaDiv = $('.dw-aria', $markup);
 
             that._markup = $markup;
             that._header = $header;
@@ -475,6 +478,8 @@
 
                 that._attachEvents($markup);
 
+                that.ariaMessage(s.ariaMessage);
+
             }, 300);
 
             event('onShow', [$markup, that._valueText]);
@@ -505,6 +510,13 @@
             }
 
             delete ms.activeInstance;
+        };
+
+        that.ariaMessage = function (txt) {
+            $ariaDiv.html('');
+            setTimeout(function () {
+                $ariaDiv.html(txt);
+            }, 100);
         };
 
         /**

@@ -7,39 +7,41 @@
  *
  */
 (function ($, undefined) {
-    var ms = $.mobiscroll,
-        date = new Date(),
-        defaults = 
-   // Utility functions
-    ms.datetime = {};
-    ms.datetime.defaults = {
-        shortYearCutoff: '+10',
-        monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-        monthNamesShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-        dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-        dayNamesShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-        dayNamesMin: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
-        monthText: 'Month',
-        amText: 'am',
-        pmText: 'pm',
-        getYear: function (d) { return d.getFullYear(); },
-        getMonth: function (d) { return d.getMonth(); },
-        getDay: function (d) { return d.getDate(); },
-        getDate: function (y, m, d, h, i, s) { return new Date(y, m, d, h || 0, i || 0, s || 0); },
-        getMaxDayOfMonth: function (y, m) { return 32 - new Date(y, m, 32).getDate(); },
-        getWeekNumber: function (d) {
-            // Copy date so don't modify original
-            d = new Date(d);
-            d.setHours(0, 0, 0);
-            // Set to nearest Thursday: current date + 4 - current day number
-            // Make Sunday's day number 7
-            d.setDate(d.getDate() + 4 - (d.getDay() || 7));
-            // Get first day of year
-            var yearStart = new Date(d.getFullYear(), 0, 1);
-            // Calculate full weeks to nearest Thursday
-            return Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+    var ms = $.mobiscroll;
+
+    ms.datetime = {
+        defaults: {
+            shortYearCutoff: '+10',
+            monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+            monthNamesShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+            dayNamesShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+            dayNamesMin: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
+            monthText: 'Month',
+            amText: 'am',
+            pmText: 'pm',
+            getYear: function (d) { return d.getFullYear(); },
+            getMonth: function (d) { return d.getMonth(); },
+            getDay: function (d) { return d.getDate(); },
+            getDate: function (y, m, d, h, i, s) { return new Date(y, m, d, h || 0, i || 0, s || 0); },
+            getMaxDayOfMonth: function (y, m) { return 32 - new Date(y, m, 32).getDate(); },
+            getWeekNumber: function (d) {
+                // Copy date so don't modify original
+                d = new Date(d);
+                d.setHours(0, 0, 0);
+                // Set to nearest Thursday: current date + 4 - current day number
+                // Make Sunday's day number 7
+                d.setDate(d.getDate() + 4 - (d.getDay() || 7));
+                // Get first day of year
+                var yearStart = new Date(d.getFullYear(), 0, 1);
+                // Calculate full weeks to nearest Thursday
+                return Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+            }
         }
     };
+
+    // Utility functions
+
     /**
     * Format a date into a string value with a specified format.
     * @param {String} format Output format.
@@ -148,7 +150,7 @@
     * @return {Date} Returns the extracted date.
     */
     ms.parseDate = ms.datetime.parseDate = function (format, value, settings) {
-        var s = $.extend({}, defaults, settings),
+        var s = $.extend({}, ms.datetime.defaults, settings),
             def = s.defaultValue || new Date();
 
         if (!format || !value) {
