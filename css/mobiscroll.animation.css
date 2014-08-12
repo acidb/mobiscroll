@@ -13,6 +13,9 @@
     animation-fill-mode: forwards;
     animation-duration: 350ms;
 }
+.dw-trans .dwo { 
+    -webkit-backface-visibility: hidden; 
+}
 .dw-in .dw {
     -webkit-animation-timing-function: ease-out;
     -moz-animation-timing-function: ease-out;
@@ -125,11 +128,11 @@
 }
 .dw-in .dw-slidevertical {
     opacity: 1;
-    -webkit-animation-name: dw-dw-sv-in;
+    -webkit-animation-name: dw-sv-in;
     -webkit-transform: scale(1);
-    -moz-animation-name: dw-dw-sv-in;
+    -moz-animation-name: dw-sv-in;
     -moz-transform: scale(1);
-    animation-name: dw-dw-sv-in;
+    animation-name: dw-sv-in;
     transform: scale(1);
 }
 .dw-out .dw-slidevertical {
@@ -479,7 +482,7 @@
     }
 }
 /* Slide vertical in */
-@keyframes dw-dw-sv-in {
+@keyframes dw-sv-in {
     from {
         opacity: 0;
         transform: translateY(-100%);
@@ -489,7 +492,7 @@
         transform: translateY(0);
     }
 }
-@-webkit-keyframes dw-dw-sv-in {
+@-webkit-keyframes dw-sv-in {
     from {
         opacity: 0;
         -webkit-transform: translateY(-100%);
@@ -499,7 +502,7 @@
         -webkit-transform: translateY(0);
     }
 }
-@-moz-keyframes dw-dw-sv-in {
+@-moz-keyframes dw-sv-in {
     from {
         opacity: 0;
         -moz-transform: translateY(-100%);
