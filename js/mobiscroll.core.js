@@ -96,6 +96,9 @@
                 }
                 return true;
             },
+            isNumeric: function (a) {
+                return a - parseFloat(a) >= 0;
+            },
             getCoord: function (e, c) {
                 var ev = e.originalEvent || e;
                 return ev.changedTouches ? ev.changedTouches[0]['page' + c] : e['page' + c];
