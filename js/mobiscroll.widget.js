@@ -69,7 +69,7 @@
                 btn = null;
             }
             if (ev.type === 'mouseup') {
-                $(document).off('mousedown', onBtnEnd);
+                $(document).off('mouseup', onBtnEnd);
             }
         }
 
