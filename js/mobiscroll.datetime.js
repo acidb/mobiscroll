@@ -264,6 +264,9 @@
             }
 
             function getDate(d) {
+                if (d === null) {
+                    return d;
+                }
                 var hour = get(d, 'h', 0);
                 return s.getDate(get(d, 'y'), get(d, 'm'), get(d, 'd'), get(d, 'a', 0) ? hour + 12 : hour, get(d, 'i', 0), get(d, 's', 0));
             }
@@ -542,6 +545,10 @@
                 var i,
                     ret = [];
 
+                if (d === null) {
+                    return d;
+                }
+
                 for (i in o) {
                     ret[o[i]] = f[i](d);
                 }
@@ -659,7 +666,7 @@
                     return ms.formatDate(format, getDate(d), s);
                 },
                 parseValue: function (val) {
-                    return getArray(ms.parseDate(format, val, s));
+                    return getArray(val ? ms.parseDate(format, val, s) : (s.defaultValue || new Date()));
                 },
                 validate: function (dw, i, time, dir) {
                     var validated = getClosestValidDate(getDate(inst.temp), dir),

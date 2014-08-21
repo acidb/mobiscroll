@@ -30,6 +30,7 @@
     classes.Scroller = function (el, settings, inherit) {
         var $markup,
             btn,
+            hasValue,
             isScrollable,
             itemHeight,
             middle,
@@ -404,6 +405,7 @@
                 that._valueText = valueText = s.formatResult(that.temp);
 
                 if (that.live) {
+                    hasValue = manual || hasValue;
                     setValue(manual, manual, 0, true);
                 }
 
@@ -455,7 +457,7 @@
             that._valueText = valueText = s.formatResult(that.temp);
 
             if (!temp) {
-                that.values = that.temp.slice(0);
+                that.values = hasValue ? that.temp.slice(0) : null;
                 that.val = valueText;
             }
 
@@ -464,7 +466,7 @@
                 trigger('onValueFill', [valueText, change]);
 
                 if (that._isInput) {
-                    $elm.val(valueText);
+                    $elm.val(hasValue ? valueText : '');
                     if (change) {
                         that._preventChange = true;
                         $elm.change();
@@ -487,7 +489,8 @@
         * @param {Boolean} [temp=false] If true, then only set the temporary value.(only scroll there but not set the value)
         */
         that.setValue = function (values, fill, time, temp, change) {
-            that.temp = $.isArray(values) ? values.slice(0) : s.parseValue.call(el, values + '', that);
+            hasValue = values !== null;
+            that.temp = $.isArray(values) ? values.slice(0) : s.parseValue.call(el, values, that);
             setValue(fill, change === undefined ? fill : change, time, false, temp);
         };
 
@@ -609,11 +612,14 @@
         };
 
         that._fillValue = function () {
+            hasValue = true;
             setValue(true, true, 0, true);
         };
 
         that._readValue = function () {
-            that.temp = that.values ? that.values.slice(0) : s.parseValue($elm.val() || '', that);
+            var v = $elm.val() || '';
+            hasValue = v !== '';
+            that.temp = that.values ? that.values.slice(0) : s.parseValue(v, that);
             setValue();
         };
 

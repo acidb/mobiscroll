@@ -77,10 +77,10 @@
             keys = [];
 
             $('option', cont).each(function () {
-                var v = $(this).attr('value');
-                values.push($(this).text());
+                var v = this.value;
+                values.push(this.text);
                 keys.push(v);
-                if ($(this).prop('disabled')) {
+                if (this.disabled) {
                     invalid.push(v);
                 }
             });
@@ -100,13 +100,15 @@
             return w;
         }
 
-        function getOption() {
-            option = multiple ? (elm.val() ? elm.val()[0] : $('option', elm).attr('value')) : elm.val();
+        function getOption(v) {
+            var def = $('option', elm).attr('value');
 
+            option = multiple ? (v ? v[0] : def) : (v === undefined || v === null ? def : v);
+            
             if (s.group) {
                 group = elm.find('option[value="' + option + '"]').parent();
                 gr = group.index();
-                prev = gr;
+                //prev = gr;
             }
         }
 
@@ -125,7 +127,7 @@
                 input.val(sel.join(', '));
             } else {
                 input.val(v);
-                value = fill ? inst.values[optIdx] : null;
+                value = fill ? inst.temp[optIdx] : null;
             }
 
             if (fill) {
@@ -176,13 +178,10 @@
         }
 
         $('option', elm).each(function () {
-            if (!$(this).attr('value')) {
-                $(this).attr('value', $(this).text());
-            }
-            main[$(this).attr('value')] = $(this).text();
+            main[this.value] = this.text;
         });
-
-        getOption();
+        
+        getOption(elm.val());
 
         $('#' + id).remove();
 
@@ -222,7 +221,7 @@
                 value,
                 v = $.isArray(d) ? d[0] : d;
 
-            option = v !== undefined ? v : $('option', elm).attr('value');
+            option = v !== undefined && v !== null ? v : $('option', elm).attr('value');
 
             if (multiple) {
                 inst._selectedValues = {};
@@ -231,14 +230,16 @@
                 }
             }
 
-            if (s.group) {
+            if (v === null) {
+                value = null;
+            } else if (s.group) {
                 group = elm.find('option[value="' + option + '"]').parent();
                 gr = group.index();
                 value = [gr, option];
             } else {
                 value = [option];
             }
-
+            
             inst._setValue(value, fill, time, temp, change);
 
             // Set input/select values
@@ -250,7 +251,7 @@
 
         inst.getValue = function (temp, group) {
             var val = temp ? inst.temp : inst.values;
-            return s.group && group ? val : val[optIdx];
+            return val ? (s.group && group ? val : val[optIdx]) : null;
         };
 
         // ---
@@ -265,7 +266,7 @@
             formatResult: function (d) {
                 return main[d[optIdx]];
             },
-            parseValue: function () {
+            parseValue: function (val) {
                 var v = elm.val() || [],
                     i = 0;
 
@@ -276,7 +277,7 @@
                     }
                 }
 
-                getOption();
+                getOption(val === undefined ? elm.val() : val);
 
                 return s.group ? [gr, option] : [option];
             },
@@ -292,7 +293,7 @@
                 }
 
                 if (option === undefined) {
-                    getOption();
+                    getOption(elm.val());
                 }
 
                 if (s.group) {
