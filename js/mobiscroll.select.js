@@ -225,8 +225,10 @@
 
             if (multiple) {
                 inst._selectedValues = {};
-                for (i = 0; i < d.length; i++) {
-                    inst._selectedValues[d[i]] = d[i];
+                if (d) { // Can be null
+                    for (i = 0; i < d.length; i++) {
+                        inst._selectedValues[d[i]] = d[i];
+                    }
                 }
             }
 
@@ -250,7 +252,7 @@
         };
 
         inst.getValue = function (temp, group) {
-            var val = temp ? inst.temp : inst.values;
+            var val = temp ? inst.temp : (inst._hasValue ? inst.values : null);
             return val ? (s.group && group ? val : val[optIdx]) : null;
         };
 

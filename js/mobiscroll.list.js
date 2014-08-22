@@ -344,7 +344,7 @@
                     return d.slice(0, currLevel).join(' ');
                 },
                 parseValue: function (value) {
-                    return value ? value.split(" ") : (s.defaultValue || fwv);
+                    return value ? value.split(" ") : (s.defaultValue || fwv).slice(0);
                 },
                 onBeforeShow: function () {
                     var t = inst.temp;

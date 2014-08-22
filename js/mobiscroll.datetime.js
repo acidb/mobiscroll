@@ -1,6 +1,7 @@
 (function ($, undefined) {
 
     var ms = $.mobiscroll,
+        datetime = ms.datetime,
         date = new Date(),
         defaults = {
             startYear: date.getFullYear() - 100,
@@ -56,10 +57,10 @@
                 var min = that.attr('min'),
                     max = that.attr('max');
                 if (min) {
-                    html5def.minDate = ms.parseDate(format, min);
+                    html5def.minDate = datetime.parseDate(format, min);
                 }
                 if (max) {
-                    html5def.maxDate = ms.parseDate(format, max);
+                    html5def.maxDate = datetime.parseDate(format, max);
                 }
             }
 
@@ -545,7 +546,7 @@
                 var i,
                     ret = [];
 
-                if (d === null) {
+                if (d === null || d === undefined) {
                     return d;
                 }
 
@@ -660,13 +661,13 @@
             return {
                 wheels: wheels,
                 headerText: s.headerText ? function () {
-                    return ms.formatDate(hformat, getDate(inst.temp), s);
+                    return datetime.formatDate(hformat, getDate(inst.temp), s);
                 } : false,
                 formatResult: function (d) {
-                    return ms.formatDate(format, getDate(d), s);
+                    return datetime.formatDate(format, getDate(d), s);
                 },
                 parseValue: function (val) {
-                    return getArray(val ? ms.parseDate(format, val, s) : (s.defaultValue || new Date()));
+                    return getArray(val ? datetime.parseDate(format, val, s) : (s.defaultValue || new Date()));
                 },
                 validate: function (dw, i, time, dir) {
                     var validated = getClosestValidDate(getDate(inst.temp), dir),
