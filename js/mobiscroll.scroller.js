@@ -457,7 +457,7 @@
 
             if (!temp) {
                 that.values = that.temp.slice(0);
-                that.val = valueText;
+                that.val = that._hasValue ? valueText : null;
             }
 
             if (fill) {
