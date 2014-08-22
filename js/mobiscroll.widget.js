@@ -321,6 +321,26 @@
         };
 
         /**
+        * Enables the scroller and the associated input.
+        */
+        that.enable = function () {
+            s.disabled = false;
+            if (isInput) {
+                $elm.prop('disabled', false);
+            }
+        };
+
+        /**
+        * Disables the scroller and the associated input.
+        */
+        that.disable = function () {
+            s.disabled = true;
+            if (isInput) {
+                $elm.prop('disabled', true);
+            }
+        };
+
+        /**
         * Shows the scroller instance.
         * @param {Boolean} prevAnim - Prevent animation if true
         * @param {Boolean} prevFocus - Prevent focusing if true
