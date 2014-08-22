@@ -314,10 +314,10 @@
         */
         that.clear = function () {
             event('onClear', [$markup]);
-            $elm.val('');
             if (isModal && !that.live) {
                 that.hide(false, 'clear');
             }
+            that.setValue(null, true);
         };
 
         /**
@@ -739,7 +739,7 @@
             if (that._isInput) {
                 $elm.on('change.dw', function () {
                     if (!that._preventChange) {
-                        that.setValue($elm.val(), false, 0.2);
+                        that.setValue($elm.val(), false);
                     }
                     that._preventChange = false;
                 });

@@ -404,6 +404,7 @@
                 that._valueText = valueText = s.formatResult(that.temp);
 
                 if (that.live) {
+                    that._hasValue = manual || that._hasValue;
                     setValue(manual, manual, 0, true);
                 }
 
@@ -461,10 +462,10 @@
 
             if (fill) {
 
-                trigger('onValueFill', [valueText, change]);
+                trigger('onValueFill', [that._hasValue ? valueText : '', change]);
 
                 if (that._isInput) {
-                    $elm.val(valueText);
+                    $elm.val(that._hasValue ? valueText : '');
                     if (change) {
                         that._preventChange = true;
                         $elm.change();
@@ -487,7 +488,8 @@
         * @param {Boolean} [temp=false] If true, then only set the temporary value.(only scroll there but not set the value)
         */
         that.setValue = function (values, fill, time, temp, change) {
-            that.temp = $.isArray(values) ? values.slice(0) : s.parseValue.call(el, values + '', that);
+            that._hasValue = values !== null && values !== undefined;
+            that.temp = $.isArray(values) ? values.slice(0) : s.parseValue.call(el, values, that);
             setValue(fill, change === undefined ? fill : change, time, false, temp);
         };
 
@@ -495,7 +497,7 @@
         * Return the selected wheel values.
         */
         that.getValue = function () {
-            return that.values;
+            return that._hasValue ? that.values : null;
         };
 
         /**
@@ -609,11 +611,14 @@
         };
 
         that._fillValue = function () {
+            that._hasValue = true;
             setValue(true, true, 0, true);
         };
 
         that._readValue = function () {
-            that.temp = that.values ? that.values.slice(0) : s.parseValue($elm.val() || '', that);
+            var v = $elm.val() || '';
+            that._hasValue = v !== '';
+            that.temp = that.values ? that.values.slice(0) : s.parseValue(v, that);
             setValue();
         };
 
