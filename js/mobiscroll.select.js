@@ -86,6 +86,7 @@
             });
 
             wheel = {
+                multiple: multiple,
                 values: values,
                 keys: keys,
                 label: label
@@ -140,22 +141,23 @@
         }
 
         function onTap(li) {
-            if (multiple && li.hasClass('dw-v') && li.closest('.dwwl').hasClass('dwwms')) {
-                var val = li.attr('data-val'),
-                    selected = li.hasClass('dw-msel');
+            var val = li.attr('data-val'),
+                selected = li.hasClass('dw-msel');
 
-                if (selected) {
-                    li.removeClass(selectedClass).removeAttr('aria-selected');
-                    delete inst._selectedValues[val];
-                } else {
-                    li.addClass(selectedClass).attr('aria-selected', 'true');
-                    inst._selectedValues[val] = val;
+            if (multiple && li.closest('.dwwl').hasClass('dwwms')) {
+                if (li.hasClass('dw-v')) {
+                    if (selected) {
+                        li.removeClass(selectedClass).removeAttr('aria-selected');
+                        delete inst._selectedValues[val];
+                    } else {
+                        li.addClass(selectedClass).attr('aria-selected', 'true');
+                        inst._selectedValues[val] = val;
+                    }
+
+                    if (inst.live) {
+                        setVal(val, true, true);
+                    }
                 }
-
-                if (inst.live) {
-                    setVal(val, true, true);
-                }
-
                 return false;
             }
         }
@@ -263,7 +265,6 @@
             wheels: w,
             layout: layout,
             headerText: false,
-            multiple: multiple,
             anchor: input,
             formatResult: function (d) {
                 return main[d[optIdx]];

@@ -32,7 +32,6 @@
             btn,
             isScrollable,
             itemHeight,
-            middle,
             s,
             trigger,
             valueText,
@@ -130,6 +129,7 @@
                     var idx = Math.floor((stop - ttop) / itemHeight),
                         li = $($('.dw-li', target)[idx]),
                         hl = isScrollable;
+
                     if (trigger('onValueTap', [li]) !== false) {
                         tindex = idx;
                     } else {
@@ -258,8 +258,9 @@
         }
 
         function setGlobals(t) {
-            min = $('.dw-li', t).index($('.dw-v', t).eq(0));
-            max = $('.dw-li', t).index($('.dw-v', t).eq(-1));
+            var multiple = t.closest('.dwwl').hasClass('dwwms');
+            min = $('.dw-li', t).index($(multiple ? '.dw-li' : '.dw-v', t).eq(0));
+            max = Math.max(min, $('.dw-li', t).index($(multiple ? '.dw-li' : '.dw-v', t).eq(-1)) - (multiple ? s.rows - 1 : 0));
             index = $('.dw-ul', $markup).index(t);
         }
 
@@ -286,7 +287,7 @@
                 px = style.top.replace('px', '');
             }
 
-            return Math.round(middle - (px / itemHeight));
+            return Math.round(-px / itemHeight);
         }
 
         function ready(t, i) {
@@ -296,7 +297,7 @@
         }
 
         function scroll(t, index, val, time, active) {
-            var px = (middle - val) * itemHeight,
+            var px = -val * itemHeight,
                 style = t[0].style;
 
             if (px == pixels[index] && iv[index]) {
@@ -332,14 +333,14 @@
             pos[index] = val;
         }
 
-        function getValid(val, t, dir) {
+        function getValid(val, t, dir, multiple) {
             var cell = $('.dw-li[data-val="' + val + '"]', t),
                 cells = $('.dw-li', t),
                 v = cells.index(cell),
                 l = cells.length;
 
             // Scroll to a valid cell
-            if (!cell.hasClass('dw-v')) {
+            if (!cell.hasClass('dw-v') && !multiple) {
                 var cell1 = cell,
                     cell2 = cell,
                     dist1 = 0,
@@ -378,15 +379,16 @@
                 // Set scrollers to position
                 $('.dw-ul', $markup).each(function (i) {
                     var t = $(this),
+                        multiple = t.closest('.dwwl').hasClass('dwwms'),
                         sc = i == index || index === undefined,
-                        res = getValid(that.temp[i], t, dir),
+                        res = getValid(that.temp[i], t, dir, multiple),
                         cell = res.cell;
 
                     if (!(cell.hasClass('dw-sel')) || sc) {
                         // Set valid value
                         that.temp[i] = res.val;
 
-                        if (!s.multiple) {
+                        if (!multiple) {
                             $('.dw-sel', t).removeAttr('aria-selected');
                             cell.attr('aria-selected', 'true');
                         }
@@ -569,14 +571,14 @@
                                     (s.fixedWidth ? ('width:' + (s.fixedWidth[l] || s.fixedWidth) + 'px;') :
                                     (s.minWidth ? ('min-width:' + (s.minWidth[l] || s.minWidth) + 'px;') : 'min-width:' + s.width + 'px;') +
                                     (s.maxWidth ? ('max-width:' + (s.maxWidth[l] || s.maxWidth) + 'px;') : '')) + '">' +
-                                '<div class="dwwl dwwl' + l + '">' +
+                                '<div class="dwwl dwwl' + l + (w.multiple ? ' dwwms' : '') + '">' +
                                 (s.mode != 'scroller' ?
                                     '<div class="dwb-e dwwb dwwbp ' + (s.btnPlusClass || '') + '" style="height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;"><span>+</span></div>' + // + button
                                     '<div class="dwb-e dwwb dwwbm ' + (s.btnMinusClass || '') + '" style="height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;"><span>&ndash;</span></div>' : '') + // - button
                                 '<div class="dwl">' + lbl + '</div>' + // Wheel label
                                 '<div tabindex="0" aria-live="off" aria-label="' + lbl + '" role="listbox" class="dwww">' +
                                     '<div class="dww" style="height:' + (s.rows * itemHeight) + 'px;">' +
-                                        '<div class="dw-ul">';
+                                        '<div class="dw-ul" style="margin-top:' + (w.multiple ? 0 : s.rows / 2 * itemHeight - itemHeight / 2) + 'px;">';
 
                     // Create wheel values
                     html += generateWheelItems(l) +
@@ -625,7 +627,6 @@
         that._processSettings = function () {
             s = that.settings;
             trigger = that.trigger;
-            middle = Math.floor(s.rows / 2);
             itemHeight = s.height;
             lines = s.multiline;
 

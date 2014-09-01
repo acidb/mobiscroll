@@ -115,8 +115,8 @@
     background: linear-gradient(#6b6e75,#272e38 50%,#171e28 50%,#252c36);
 }
 /* Multiple select */
-.mbsc-ios .dwwms .dwwol {
-    display: none;
+.mbsc-ios.dwms .dww {
+    padding: 10px 0;
 }
 .mbsc-ios .dwwms .dw-li {
     padding: 0 5px 0 40px;

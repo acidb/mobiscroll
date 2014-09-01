@@ -172,6 +172,9 @@
 .dwwms .dw-li {
     padding: 0 40px;
 }
+.dwwms .dwwol {
+    display: none;
+}
 .dw-msel:before {
     width: 40px;
     text-align: center;
