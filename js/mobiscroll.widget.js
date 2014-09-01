@@ -325,7 +325,7 @@
         */
         that.enable = function () {
             s.disabled = false;
-            if (isInput) {
+            if (that._isInput) {
                 $elm.prop('disabled', false);
             }
         };
@@ -335,7 +335,7 @@
         */
         that.disable = function () {
             s.disabled = true;
-            if (isInput) {
+            if (that._isInput) {
                 $elm.prop('disabled', true);
             }
         };

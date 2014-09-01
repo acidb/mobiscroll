@@ -1,11 +1,3 @@
-   /*!
- * Mobiscroll v2.12.0
- * http://mobiscroll.com
- *
- * Copyright 2010-2014, Acid Media
- * Licensed under the MIT license.
- *
- */
 (function ($, undefined) {
     var ms = $.mobiscroll;
 
