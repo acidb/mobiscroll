@@ -295,9 +295,9 @@
                     };
                 }
 
-                if (option === undefined) {
-                    getOption(elm.val());
-                }
+                //if (option === undefined) {
+                getOption(elm.val());
+                //}
 
                 if (s.group) {
                     prev = gr;
@@ -347,7 +347,7 @@
                     gr = +inst.temp[grIdx];
                     if (gr !== prev) {
                         group = elm.find('optgroup').eq(gr);
-                        option = group.find('option').eq(0).val();
+                        option = group.find('option').not('[disabled]').eq(0).val();
                         option = option || elm.val();
                         s.wheels = genWheels();
                         if (!change) {

@@ -339,8 +339,9 @@
                 v = cells.index(cell),
                 l = cells.length;
 
-            // Scroll to a valid cell
-            if (!cell.hasClass('dw-v') && !multiple) {
+            if (multiple) {
+                setGlobals(t);
+            } else if (!cell.hasClass('dw-v')) { // Scroll to a valid cell
                 var cell1 = cell,
                     cell2 = cell,
                     dist1 = 0,
@@ -368,7 +369,7 @@
 
             return {
                 cell: cell,
-                v: v,
+                v: multiple ? constrain(v, min, max) : v,
                 val: cell.hasClass('dw-v') ? cell.attr('data-val') : null
             };
         }
