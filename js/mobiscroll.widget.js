@@ -371,6 +371,7 @@
             html = '<div lang="' + s.lang + '" class="mbsc-' + s.theme + ' dw-' + s.display + ' ' +
                 (s.cssClass || '') +
                 (that._isLiquid ? ' dw-liq' : '') +
+                (isOldAndroid ? ' mbsc-old' : '') +
                 (hasButtons ? '' : ' dw-nobtn') + '">' +
                     '<div class="dw-persp">' +
                         (isModal ? '<div class="dwo"></div>' : '') + // Overlay

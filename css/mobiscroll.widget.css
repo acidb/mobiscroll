@@ -15,7 +15,7 @@
     -ms-user-select: none;
     -ms-touch-action: none;
     user-select: none;
-    touch-action: none;
+    /*touch-action: none;*/ /* Kills native scroll in Chrome >=35 */
 }
 .dw:focus {
     outline-color: transparent;
