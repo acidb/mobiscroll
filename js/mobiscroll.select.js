@@ -34,10 +34,21 @@
             lbl = $('label[for="' + this.id + '"]').attr('for', id),
             label = s.label !== undefined ? s.label : (lbl.length ? lbl.text() : elm.attr('name')),
             selectedClass = 'dw-msel mbsc-ic mbsc-ic-' + s.checkIcon,
+            groupHdr = $('optgroup', elm).length && !s.group,
             invalid = [],
             origValues = [],
             main = {},
             roPre = s.readonly;
+
+        function genValues(cont, keys, values) {
+            $('option', cont).each(function () {
+                values.push(this.text);
+                keys.push(this.value);
+                if (this.disabled) {
+                    invalid.push(this.value);
+                }
+            });
+        }
 
         function genWheels() {
             var cont,
@@ -48,9 +59,8 @@
                 w = [[]];
 
             if (s.group) {
-
                 $('optgroup', elm).each(function (i) {
-                    values.push($(this).attr('label'));
+                    values.push(this.label);
                     keys.push(i);
                 });
 
@@ -68,7 +78,6 @@
 
                 cont = group;
                 wg++;
-
             } else {
                 cont = elm;
             }
@@ -76,14 +85,16 @@
             values = [];
             keys = [];
 
-            $('option', cont).each(function () {
-                var v = this.value;
-                values.push(this.text);
-                keys.push(v);
-                if (this.disabled) {
-                    invalid.push(v);
-                }
-            });
+            if (groupHdr) {
+                $('optgroup', elm).each(function (i) {
+                    values.push(this.label);
+                    keys.push('__group' + i);
+                    invalid.push('__group' + i);
+                    genValues(this, keys, values);
+                });
+            } else {
+                genValues(cont, keys, values);
+            }
 
             wheel = {
                 multiple: multiple,
@@ -312,6 +323,10 @@
                 $('.dwwl' + grIdx, dw).on('mousedown touchstart', function () {
                     clearTimeout(timer);
                 });
+
+                if (groupHdr) {
+                    $('.dw-li[data-val^="__group"]', dw).addClass('dw-w-gr');
+                }
 
                 if (multiple) {
                     dw.addClass('dwms');

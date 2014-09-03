@@ -168,6 +168,12 @@
     vertical-align: middle;
     white-space: normal;
 }
+/* Select groups */
+.dw-w-gr {
+    opacity: 1;
+    font-weight: bold;
+    text-align: left;
+}
 /* Multiple selection */
 .dwwms .dw-li {
     padding: 0 40px;
