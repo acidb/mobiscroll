@@ -420,7 +420,7 @@
             }
 
             function validateTimes(vobj, temp, y, m, mins, maxs, dir, dw, valid) {
-                var dd, v, val, str, parts1, parts2, j, v1, v2, i1, i2, prop1, prop2, target, add, remove,
+                var dd, v, val, str, parts1, parts2, j, v1, v2, i1, i2, prop1, prop2, target, add, remove, orig,
                     spec = {},
                     steps = { h: stepH, i: stepM, s: stepS, a: 1 },
                     d = get(temp, 'd'),
@@ -478,7 +478,7 @@
                             prop2 = true;
                             $.each(w, function (i, v) {
                                 if (o[v] !== undefined) {
-                                    val = get(temp, v);
+                                    orig = get(temp, v);
                                     add = 0;
                                     remove = 0;
                                     i1 = 0;
@@ -486,12 +486,14 @@
                                     target = $('.dw-ul', dw).eq(o[v]);
 
                                     // Look ahead if next wheels should be disabled completely
-                                    for (j = i + 1; j < 4; j++) {
-                                        if (parts1[j] > 0) {
-                                            add = steps[v];
-                                        }
-                                        if (parts2[j] < maxs[w[j]]) {
-                                            remove = steps[v];
+                                    if (!valid) {
+                                        for (j = i + 1; j < 4; j++) {
+                                            if (parts1[j] > 0) {
+                                                add = steps[v];
+                                            }
+                                            if (parts2[j] < maxs[w[j]]) {
+                                                remove = steps[v];
+                                            }
                                         }
                                     }
 
@@ -517,7 +519,11 @@
                                     }
 
                                     // Get valid value
-                                    val = inst.getValidCell(val, target, dir).val;
+                                    val = inst.getValidCell(orig, target, dir).val;
+
+                                    if (val === null) {
+                                        val = orig;
+                                    }
 
                                     prop1 = prop1 && val == step(parts1[i], steps[v], mins[v], maxs[v]);
                                     prop2 = prop2 && val == step(parts2[i], steps[v], mins[v], maxs[v]);
