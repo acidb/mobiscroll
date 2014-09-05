@@ -38,6 +38,7 @@
             preventPos,
             s,
             scrollLock,
+            setReadOnly,
             theme,
             wasReadOnly,
             wndWidth,
@@ -174,7 +175,7 @@
                     wr = $('.dwwr', $markup),
                     d = $('.dw', $markup),
                     css = {},
-                    anchor = s.anchor === undefined ? $elm : s.anchor;
+                    anchor = s.anchor === undefined ? $elm : $(s.anchor);
 
                 // Set / unset liquid layout based on screen width, but only if not set explicitly by the user
                 if (that._isLiquid && s.layout !== 'liquid') {
@@ -270,7 +271,12 @@
             elmList.push($elm);
             if (s.display !== 'inline') {
                 $elm
-                    .on('mousedown.dw', prevdef) // Prevent input to get focus on tap (virtual keyboard pops up on some devices)
+                    .on('mousedown.dw', function (ev) {
+                        if (setReadOnly) {
+                            // Prevent input to get focus on tap (virtual keyboard pops up on some devices)
+                            ev.preventDefault();
+                        }
+                    })
                     .on((s.showOnFocus ? 'focus.dw' : '') + (s.showOnTap ? ' click.dw' : ''), function (ev) {
                         if ((ev.type !== 'focus' || (ev.type === 'focus' && !preventShow)) && !ms.tapped) {
                             if (beforeShow) {
@@ -379,9 +385,9 @@
                             (s.display === 'bubble' ? '<div class="dw-arrw"><div class="dw-arrw-i"><div class="dw-arr"></div></div></div>' : '') + // Bubble arrow
                             '<div class="dwwr">' + // Popup content
                                 '<div aria-live="assertive" class="dw-aria dw-hidden"></div>' +
-                                (s.headerText ? '<div class="dwv"></div>' : '') + // Header
+                                (s.headerText ? '<div class="dwv">' + s.headerText + '</div>' : '') + // Header
                                 '<div class="dwcc">'; // Wheel group container
-
+            
             html += that._generateContent();
 
             html += '</div>';
@@ -644,14 +650,14 @@
             });
 
             // Reset original readonly state
-            if (that._isInput) {
+            if (that._isInput && setReadOnly) {
                 el.readOnly = wasReadOnly;
             }
 
+            event('onDestroy', []);
+
             // Delete scroller instance
             delete instances[el.id];
-
-            event('onDestroy', []);
         };
 
         /**
@@ -713,6 +719,7 @@
             doAnim = isOldAndroid ? false : s.animate;
             buttons = s.buttons;
             isModal = s.display !== 'inline';
+            setReadOnly = s.showOnFocus || s.showOnTap;
             $wnd = $(s.context == 'body' ? window : s.context);
             $doc = $(s.context)[0];
 
@@ -745,7 +752,7 @@
 
             if (isModal) {
                 that._readValue();
-                if (that._isInput) {
+                if (that._isInput && setReadOnly) {
                     // Set element readonly, save original state
                     if (wasReadOnly === undefined) {
                         wasReadOnly = el.readOnly;
