@@ -447,6 +447,8 @@
                     });
 
                     $.each(vobj, function (x, obj) {
+                        add = 0;
+                        remove = 0;
                         i1 = 0;
                         i2 = undefined;
                         prop1 = true;
@@ -491,18 +493,6 @@
                                     hours1 = 0;
                                     hours2 = 0;
                                     hours3 = 0;
-                                    add = 0;
-                                    remove = 0;
-                                    if (!valid) {
-                                        for (k = j + 1; k < 4; k++) {
-                                            if (parts1[k] > 0) {
-                                                add = steps[w[j]];
-                                            }
-                                            if (parts2[k] < maxs[w[k]]) {
-                                                remove = steps[w[j]];
-                                            }
-                                        }
-                                    }
                                     if (hampm && j == 1) {
                                         hours1 = parts1[0] ? 12 : 0;
                                         hours2 = parts2[0] ? 12 : 0;
@@ -514,7 +504,7 @@
                                     if (!prop2) {
                                         v2 = maxs[w[j]];
                                     }
-                                    if ((prop1 || prop2) && (v1 + add + hours1 < validValues[j] + hours3 && validValues[j] + hours3 < v2 - remove + hours2)) {
+                                    if ((prop1 || prop2) && (v1 + hours1 < validValues[j] + hours3 && validValues[j] + hours3 < v2 + hours2)) {
                                         all = true;
                                     }
                                     if (validValues[j] != v1) {
@@ -527,8 +517,6 @@
                             }
 
                             // Look ahead
-                            add = 0;
-                            remove = 0;
                             if (!valid) {
                                 for (j = i + 1; j < 4; j++) {
                                     if (parts1[j] > 0) {
