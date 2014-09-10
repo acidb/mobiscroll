@@ -75,3 +75,7 @@
     border: 0;
     background: none;
 }
+/* Group select */
+.mbsc-jqm .dw-w-gr {
+    font-size: 20px;
+}

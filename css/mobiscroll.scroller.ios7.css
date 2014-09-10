@@ -78,4 +78,12 @@
 .mbsc-ios7 .dw-msel:before {
     font-size: 40px;
 }
-
+/* Group select */
+.mbsc-ios7 .dw-select-gr .dw-li {
+    padding-left: 40px;
+}
+.mbsc-ios7 .dw-select-gr .dw-w-gr {
+    padding-left: 5px;
+    font-weight: normal;
+    font-size: 18px;
+}

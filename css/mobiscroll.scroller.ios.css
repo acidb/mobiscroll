@@ -125,4 +125,9 @@
 .mbsc-ios .dw-msel {
     color: #215085;
 }
-
+/* Group select */
+.mbsc-ios .dww .dw-w-gr {
+    padding: 0 5px;
+    color: #777;
+    text-align: left;
+}

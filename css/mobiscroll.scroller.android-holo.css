@@ -46,13 +46,10 @@
     color: #319abd;
 }
 .mbsc-android-holo .dwwol {
-    display: block;
     width: 60%;
     left: 20%;
-    height: 36px;
     border-top: 2px solid #31b6e7;
     border-bottom: 2px solid #31b6e7;
-    margin-top: -20px;
 }
 /* Multiple select */
 .mbsc-android-holo .dwwms .dwwo {
@@ -84,7 +81,15 @@
     line-height: 14px;
     text-shadow: 0 0 5px #29799c;
 }
-
+/* Group select */
+.mbsc-android-holo .dww .dw-w-gr {
+    padding: 0 5px;
+    font-size: 16px;
+    font-weight: normal;
+}
+.mbsc-android-holo .dww .dw-w-gr:after {
+    display: none;
+}
 /* Light version */
 .mbsc-android-holo-light .dw-li {
     color: #000;

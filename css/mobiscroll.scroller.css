@@ -168,12 +168,6 @@
     vertical-align: middle;
     white-space: normal;
 }
-/* Select groups */
-.dw-w-gr {
-    opacity: 1;
-    font-weight: bold;
-    text-align: left;
-}
 /* Multiple selection */
 .dwwms .dw-li {
     padding: 0 40px;
@@ -187,6 +181,13 @@
     position: absolute;
     top: 0;
     left: 0;
+}
+/* Select groups */
+.dww .dw-w-gr {
+    padding: 0 5px;
+    opacity: 1;
+    font-weight: bold;
+    text-align: left;
 }
 
 
@@ -245,7 +246,11 @@
 .mbsc-mobiscroll .dwwb.dwb-a:before {
     background: rgba(78,204,196,.3);
 }
+/* Group select */
 /* Multiple select */
+.mbsc-mobiscroll .dw-w-gr {
+    font-size: 1.125em;
+}
 .mbsc-mobiscroll .dw-msel:before {
     font-size: 40px;
     color: #4eccc4;

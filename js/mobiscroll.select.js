@@ -325,6 +325,7 @@
                 });
 
                 if (groupHdr) {
+                    $('.dw', dw).addClass('dw-select-gr');
                     $('.dw-li[data-val^="__group"]', dw).addClass('dw-w-gr');
                 }
 
