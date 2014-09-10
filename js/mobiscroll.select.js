@@ -34,10 +34,21 @@
             lbl = $('label[for="' + this.id + '"]').attr('for', id),
             label = s.label !== undefined ? s.label : (lbl.length ? lbl.text() : elm.attr('name')),
             selectedClass = 'dw-msel mbsc-ic mbsc-ic-' + s.checkIcon,
+            groupHdr = $('optgroup', elm).length && !s.group,
             invalid = [],
             origValues = [],
             main = {},
             roPre = s.readonly;
+
+        function genValues(cont, keys, values) {
+            $('option', cont).each(function () {
+                values.push(this.text);
+                keys.push(this.value);
+                if (this.disabled) {
+                    invalid.push(this.value);
+                }
+            });
+        }
 
         function genWheels() {
             var cont,
@@ -48,9 +59,8 @@
                 w = [[]];
 
             if (s.group) {
-
                 $('optgroup', elm).each(function (i) {
-                    values.push($(this).attr('label'));
+                    values.push(this.label);
                     keys.push(i);
                 });
 
@@ -68,7 +78,6 @@
 
                 cont = group;
                 wg++;
-
             } else {
                 cont = elm;
             }
@@ -76,16 +85,19 @@
             values = [];
             keys = [];
 
-            $('option', cont).each(function () {
-                var v = $(this).attr('value');
-                values.push($(this).text());
-                keys.push(v);
-                if ($(this).prop('disabled')) {
-                    invalid.push(v);
-                }
-            });
+            if (groupHdr) {
+                $('optgroup', elm).each(function (i) {
+                    values.push(this.label);
+                    keys.push('__group' + i);
+                    invalid.push('__group' + i);
+                    genValues(this, keys, values);
+                });
+            } else {
+                genValues(cont, keys, values);
+            }
 
             wheel = {
+                multiple: multiple,
                 values: values,
                 keys: keys,
                 label: label
@@ -100,13 +112,15 @@
             return w;
         }
 
-        function getOption() {
-            option = multiple ? (elm.val() ? elm.val()[0] : $('option', elm).attr('value')) : elm.val();
+        function getOption(v) {
+            var def = $('option', elm).attr('value');
 
+            option = multiple ? (v ? v[0] : def) : (v === undefined || v === null ? def : v);
+            
             if (s.group) {
                 group = elm.find('option[value="' + option + '"]').parent();
                 gr = group.index();
-                prev = gr;
+                //prev = gr;
             }
         }
 
@@ -125,7 +139,7 @@
                 input.val(sel.join(', '));
             } else {
                 input.val(v);
-                value = fill ? inst.values[optIdx] : null;
+                value = fill ? inst.temp[optIdx] : null;
             }
 
             if (fill) {
@@ -138,22 +152,23 @@
         }
 
         function onTap(li) {
-            if (multiple && li.hasClass('dw-v') && li.closest('.dwwl').hasClass('dwwms')) {
-                var val = li.attr('data-val'),
-                    selected = li.hasClass('dw-msel');
+            var val = li.attr('data-val'),
+                selected = li.hasClass('dw-msel');
 
-                if (selected) {
-                    li.removeClass(selectedClass).removeAttr('aria-selected');
-                    delete inst._selectedValues[val];
-                } else {
-                    li.addClass(selectedClass).attr('aria-selected', 'true');
-                    inst._selectedValues[val] = val;
+            if (multiple && li.closest('.dwwl').hasClass('dwwms')) {
+                if (li.hasClass('dw-v')) {
+                    if (selected) {
+                        li.removeClass(selectedClass).removeAttr('aria-selected');
+                        delete inst._selectedValues[val];
+                    } else {
+                        li.addClass(selectedClass).attr('aria-selected', 'true');
+                        inst._selectedValues[val] = val;
+                    }
+
+                    if (inst.live) {
+                        setVal(val, true, true);
+                    }
                 }
-
-                if (inst.live) {
-                    setVal(val, true, true);
-                }
-
                 return false;
             }
         }
@@ -176,13 +191,10 @@
         }
 
         $('option', elm).each(function () {
-            if (!$(this).attr('value')) {
-                $(this).attr('value', $(this).text());
-            }
-            main[$(this).attr('value')] = $(this).text();
+            main[this.value] = this.text;
         });
-
-        getOption();
+        
+        getOption(elm.val());
 
         $('#' + id).remove();
 
@@ -222,23 +234,27 @@
                 value,
                 v = $.isArray(d) ? d[0] : d;
 
-            option = v !== undefined ? v : $('option', elm).attr('value');
+            option = v !== undefined && v !== null ? v : $('option', elm).attr('value');
 
             if (multiple) {
                 inst._selectedValues = {};
-                for (i = 0; i < d.length; i++) {
-                    inst._selectedValues[d[i]] = d[i];
+                if (d) { // Can be null
+                    for (i = 0; i < d.length; i++) {
+                        inst._selectedValues[d[i]] = d[i];
+                    }
                 }
             }
 
-            if (s.group) {
+            if (v === null) {
+                value = null;
+            } else if (s.group) {
                 group = elm.find('option[value="' + option + '"]').parent();
                 gr = group.index();
                 value = [gr, option];
             } else {
                 value = [option];
             }
-
+            
             inst._setValue(value, fill, time, temp, change);
 
             // Set input/select values
@@ -249,8 +265,8 @@
         };
 
         inst.getValue = function (temp, group) {
-            var val = temp ? inst.temp : inst.values;
-            return s.group && group ? val : val[optIdx];
+            var val = temp ? inst.temp : (inst._hasValue ? inst.values : null);
+            return val ? (s.group && group ? val : val[optIdx]) : null;
         };
 
         // ---
@@ -260,12 +276,11 @@
             wheels: w,
             layout: layout,
             headerText: false,
-            multiple: multiple,
             anchor: input,
             formatResult: function (d) {
                 return main[d[optIdx]];
             },
-            parseValue: function () {
+            parseValue: function (val) {
                 var v = elm.val() || [],
                     i = 0;
 
@@ -276,7 +291,7 @@
                     }
                 }
 
-                getOption();
+                getOption(val === undefined ? elm.val() : val);
 
                 return s.group ? [gr, option] : [option];
             },
@@ -291,9 +306,9 @@
                     };
                 }
 
-                if (option === undefined) {
-                    getOption();
-                }
+                //if (option === undefined) {
+                getOption(elm.val());
+                //}
 
                 if (s.group) {
                     prev = gr;
@@ -308,6 +323,11 @@
                 $('.dwwl' + grIdx, dw).on('mousedown touchstart', function () {
                     clearTimeout(timer);
                 });
+
+                if (groupHdr) {
+                    $('.dw', dw).addClass('dw-select-gr');
+                    $('.dw-li[data-val^="__group"]', dw).addClass('dw-w-gr');
+                }
 
                 if (multiple) {
                     dw.addClass('dwms');
@@ -343,7 +363,7 @@
                     gr = +inst.temp[grIdx];
                     if (gr !== prev) {
                         group = elm.find('optgroup').eq(gr);
-                        option = group.find('option').eq(0).val();
+                        option = group.find('option').not('[disabled]').eq(0).val();
                         option = option || elm.val();
                         s.wheels = genWheels();
                         if (!change) {

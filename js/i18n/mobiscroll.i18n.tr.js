@@ -12,6 +12,7 @@
         dayNamesShort: ['Paz', 'Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt'],
         dayNamesMin: ['P', 'P', 'S', 'Ç', 'P', 'C', 'C'],
         dayText: 'Gün',
+        delimiter: '.',
         hourText: 'Saat',
         minuteText: 'Dakika',
         monthNames: ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'],

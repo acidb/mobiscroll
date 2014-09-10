@@ -1,5 +1,5 @@
 /*!
- * Mobiscroll v2.12.0
+ * Mobiscroll v2.13.0
  * http://mobiscroll.com
  *
  * Copyright 2010-2014, Acid Media
@@ -28,15 +28,6 @@
             }
         }
         return '';
-    }
-
-    function getCoord(e, c) {
-        var ev = e.originalEvent || e;
-        return ev.changedTouches ? ev.changedTouches[0]['page' + c] : e['page' + c];
-    }
-
-    function constrain(val, min, max) {
-        return Math.max(min, Math.min(val, max));
     }
 
     function init(that, options, args) {
@@ -74,16 +65,6 @@
         return ret;
     }
 
-    function testTouch(e) {
-        if (e.type == 'touchstart') {
-            touches[e.target] = true;
-        } else if (touches[e.target]) {
-            delete touches[e.target];
-            return false;
-        }
-        return true;
-    }
-
     var id = +new Date(),
         touches = {},
         instances = {},
@@ -100,15 +81,31 @@
     };
 
     $.mobiscroll = $.mobiscroll || {
-        version: '2.12.0',
+        version: '2.13.0',
         util: {
             prefix: prefix,
             jsPrefix: pr,
             has3d: has3d,
             hasFlex: hasFlex,
-            getCoord: getCoord,
-            testTouch: testTouch,
-            constrain: constrain
+            testTouch: function (e) {
+                if (e.type == 'touchstart') {
+                    touches[e.target] = true;
+                } else if (touches[e.target]) {
+                    delete touches[e.target];
+                    return false;
+                }
+                return true;
+            },
+            isNumeric: function (a) {
+                return a - parseFloat(a) >= 0;
+            },
+            getCoord: function (e, c) {
+                var ev = e.originalEvent || e;
+                return ev.changedTouches ? ev.changedTouches[0]['page' + c] : e['page' + c];
+            },
+            constrain: function (val, min, max) {
+                return Math.max(min, Math.min(val, max));
+            }
         },
         tapped: false,
         presets: {

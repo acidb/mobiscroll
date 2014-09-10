@@ -17,7 +17,8 @@
         prevdef = function (ev) { ev.preventDefault(); };
 
     ms.classes.Widget = function (el, settings, inherit) {
-        var $doc,
+        var $ariaDiv,
+            $doc,
             $header,
             $markup,
             $overlay,
@@ -37,6 +38,7 @@
             preventPos,
             s,
             scrollLock,
+            setReadOnly,
             theme,
             wasReadOnly,
             wndWidth,
@@ -68,8 +70,15 @@
                 btn = null;
             }
             if (ev.type === 'mouseup') {
-                $(document).off('mousedown', onBtnEnd);
+                $(document).off('mouseup', onBtnEnd);
             }
+        }
+
+        function onShow(prevFocus) {
+            if (!prevFocus) {
+                $popup.focus();
+            }
+            that.ariaMessage(s.ariaMessage);
         }
 
         function onHide(prevAnim) {
@@ -79,6 +88,14 @@
                 focus = s.focusOnClose;
 
             $markup.remove();
+
+            // Re-enable temporary disabled fields
+            if (pr !== 'Moz') {
+                $('.dwtd', $doc).each(function () {
+                    $(this).prop('disabled', false).removeClass('dwtd');
+                });
+            }
+
             if ($activeElm && !prevAnim) {
                 setTimeout(function () {
                     if (focus === undefined) {
@@ -101,7 +118,9 @@
                     }
                 }, 200);
             }
+
             that._isVisible = false;
+
             event('onHide', []);
         }
 
@@ -156,7 +175,7 @@
                     wr = $('.dwwr', $markup),
                     d = $('.dw', $markup),
                     css = {},
-                    anchor = s.anchor === undefined ? $elm : s.anchor;
+                    anchor = s.anchor === undefined ? $elm : $(s.anchor);
 
                 // Set / unset liquid layout based on screen width, but only if not set explicitly by the user
                 if (that._isLiquid && s.layout !== 'liquid') {
@@ -252,7 +271,12 @@
             elmList.push($elm);
             if (s.display !== 'inline') {
                 $elm
-                    .on('mousedown.dw', prevdef) // Prevent input to get focus on tap (virtual keyboard pops up on some devices)
+                    .on('mousedown.dw', function (ev) {
+                        if (setReadOnly) {
+                            // Prevent input to get focus on tap (virtual keyboard pops up on some devices)
+                            ev.preventDefault();
+                        }
+                    })
                     .on((s.showOnFocus ? 'focus.dw' : '') + (s.showOnTap ? ' click.dw' : ''), function (ev) {
                         if ((ev.type !== 'focus' || (ev.type === 'focus' && !preventShow)) && !ms.tapped) {
                             if (beforeShow) {
@@ -276,7 +300,7 @@
         * Set button handler.
         */
         that.select = function () {
-            if (that.hide(false, 'set') !== false) {
+            if (!isModal || that.hide(false, 'set') !== false) {
                 that._fillValue();
                 event('onSelect', [that.val]);
             }
@@ -286,7 +310,7 @@
         * Cancel and hide the scroller instance.
         */
         that.cancel = function () {
-            if (that.hide(false, 'cancel') !== false) {
+            if (!isModal || that.hide(false, 'cancel') !== false) {
                 event('onCancel', [that.val]);
             }
         };
@@ -296,9 +320,29 @@
         */
         that.clear = function () {
             event('onClear', [$markup]);
-            $elm.val('');
-            if (!that.live) {
+            if (isModal && !that.live) {
                 that.hide(false, 'clear');
+            }
+            that.setValue(null, true);
+        };
+
+        /**
+        * Enables the scroller and the associated input.
+        */
+        that.enable = function () {
+            s.disabled = false;
+            if (that._isInput) {
+                $elm.prop('disabled', false);
+            }
+        };
+
+        /**
+        * Disables the scroller and the associated input.
+        */
+        that.disable = function () {
+            s.disabled = true;
+            if (that._isInput) {
+                $elm.prop('disabled', true);
             }
         };
 
@@ -330,23 +374,25 @@
             event('onBeforeShow', []);
 
             // Create wheels containers
-            html = '<div class="mbsc-' + s.theme + ' dw-' + s.display + ' ' +
+            html = '<div lang="' + s.lang + '" class="mbsc-' + s.theme + ' dw-' + s.display + ' ' +
                 (s.cssClass || '') +
                 (that._isLiquid ? ' dw-liq' : '') +
+                (isOldAndroid ? ' mbsc-old' : '') +
                 (hasButtons ? '' : ' dw-nobtn') + '">' +
                     '<div class="dw-persp">' +
                         (isModal ? '<div class="dwo"></div>' : '') + // Overlay
                         '<div' + (isModal ? ' role="dialog" tabindex="-1"' : '') + ' class="dw' + (s.rtl ? ' dw-rtl' : ' dw-ltr') + '">' + // Popup
                             (s.display === 'bubble' ? '<div class="dw-arrw"><div class="dw-arrw-i"><div class="dw-arr"></div></div></div>' : '') + // Bubble arrow
                             '<div class="dwwr">' + // Popup content
-                                '<div aria-live="assertive" class="dwv' + (s.headerText ? '' : ' dw-hidden') + '"></div>' + // Header
+                                '<div aria-live="assertive" class="dw-aria dw-hidden"></div>' +
+                                (s.headerText ? '<div class="dwv">' + s.headerText + '</div>' : '') + // Header
                                 '<div class="dwcc">'; // Wheel group container
-
+            
             html += that._generateContent();
 
             html += '</div>';
 
-            if (isModal && hasButtons) {
+            if (hasButtons) {
                 html += '<div class="dwbc">';
                 $.each(buttons, function (i, b) {
                     b = (typeof b === 'string') ? that.buttons[b] : b;
@@ -361,6 +407,7 @@
             $overlay = $('.dwo', $markup);
             $header = $('.dwv', $markup);
             $popup = $('.dw', $markup);
+            $ariaDiv = $('.dw-aria', $markup);
 
             that._markup = $markup;
             that._header = $header;
@@ -410,9 +457,7 @@
                 if (has3d && doAnim && !prevAnim) {
                     $markup.addClass('dw-in dw-trans').on(animEnd, function () {
                         $markup.removeClass('dw-in dw-trans').find('.dw').removeClass('dw-' + doAnim);
-                        if (!prevFocus) {
-                            $popup.focus();
-                        }
+                        onShow(prevFocus);
                     }).find('.dw').addClass('dw-' + doAnim);
                 }
             } else if ($elm.is('div')) {
@@ -455,8 +500,8 @@
                     });
                 }
 
-                if (isModal && !doAnim && !prevFocus) {
-                    $popup.focus();
+                if (isModal && !doAnim) {
+                    onShow(prevFocus);
                 }
 
                 $markup
@@ -480,13 +525,6 @@
                 return false;
             }
 
-            // Re-enable temporary disabled fields
-            if (pr !== 'Moz') {
-                $('.dwtd', $doc).each(function () {
-                    $(this).prop('disabled', false).removeClass('dwtd');
-                });
-            }
-
             // Hide wheels and overlay
             if ($markup) {
                 if (has3d && isModal && doAnim && !prevAnim && !$markup.hasClass('dw-trans')) { // If dw-trans class was not removed, means that there was no animation
@@ -502,6 +540,13 @@
             }
 
             delete ms.activeInstance;
+        };
+
+        that.ariaMessage = function (txt) {
+            $ariaDiv.html('');
+            setTimeout(function () {
+                $ariaDiv.html(txt);
+            }, 100);
         };
 
         /**
@@ -605,14 +650,14 @@
             });
 
             // Reset original readonly state
-            if (that._isInput) {
+            if (that._isInput && setReadOnly) {
                 el.readOnly = wasReadOnly;
             }
 
+            event('onDestroy', []);
+
             // Delete scroller instance
             delete instances[el.id];
-
-            event('onDestroy', []);
         };
 
         /**
@@ -650,7 +695,7 @@
             preset = ms.presets[that._class][s.preset];
 
             // Add default buttons
-            s.buttons = s.buttons || ['set', 'cancel'];
+            s.buttons = s.buttons || (s.display !== 'inline' ? ['set', 'cancel'] : []);
 
             // Hide header text in inline mode by default
             s.headerText = s.headerText === undefined ? (s.display !== 'inline' ? '{value}' : false) : s.headerText;
@@ -674,6 +719,7 @@
             doAnim = isOldAndroid ? false : s.animate;
             buttons = s.buttons;
             isModal = s.display !== 'inline';
+            setReadOnly = s.showOnFocus || s.showOnTap;
             $wnd = $(s.context == 'body' ? window : s.context);
             $doc = $(s.context)[0];
 
@@ -691,7 +737,7 @@
             // ---
 
             that.context = $wnd;
-            that.live = !isModal || ($.inArray('set', buttons) == -1);
+            that.live = $.inArray('set', buttons) == -1;
             that.buttons.set = { text: s.setText, css: 'dwb-s', handler: that.select };
             that.buttons.cancel = { text: (that.live) ? s.closeText : s.cancelText, css: 'dwb-c', handler: that.cancel };
             that.buttons.clear = { text: s.clearText, css: 'dwb-cl', handler: that.clear };
@@ -706,7 +752,7 @@
 
             if (isModal) {
                 that._readValue();
-                if (that._isInput) {
+                if (that._isInput && setReadOnly) {
                     // Set element readonly, save original state
                     if (wasReadOnly === undefined) {
                         wasReadOnly = el.readOnly;
@@ -721,7 +767,7 @@
             if (that._isInput) {
                 $elm.on('change.dw', function () {
                     if (!that._preventChange) {
-                        that.setValue($elm.val(), false, 0.2);
+                        that.setValue($elm.val(), false);
                     }
                     that._preventChange = false;
                 });
@@ -742,6 +788,7 @@
 
     ms.classes.Widget.prototype._defaults = {
         // Localization
+        lang: 'en',
         setText: 'Set',
         selectedText: 'Selected',
         closeText: 'Close',

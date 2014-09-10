@@ -15,7 +15,7 @@
     -ms-user-select: none;
     -ms-touch-action: none;
     user-select: none;
-    touch-action: none;
+    /*touch-action: none;*/ /* Kills native scroll in Chrome >=35 */
 }
 .dw:focus {
     outline-color: transparent;
@@ -38,7 +38,8 @@
     font-family: arial, verdana, sans-serif;
 }
 /* Modal overlay */
-.dw-persp, .dwo {
+.dw-persp, 
+.dwo {
     width: 100%;
     height: 100%;
     position: absolute;
@@ -115,8 +116,7 @@
 .dw-bubble-top .dw-arr {
     bottom: 0;
 }
-.dw-hidden, 
-.dw .dwwr .dw-hidden {
+.dw-hidden {
     width: 0;
     height: 0;
     margin: 0;

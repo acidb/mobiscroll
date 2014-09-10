@@ -54,7 +54,6 @@
     border-radius: 8px;
 }
 /* Inline display */
-.mbsc-ios7.dw-nobtn .dwwr,
-.mbsc-ios7.dw-inline .dwwr {
+.mbsc-ios7.dw-nobtn .dwwr {
     padding-top: 0;
 }

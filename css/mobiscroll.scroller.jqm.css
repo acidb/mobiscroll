@@ -75,7 +75,7 @@
     border: 0;
     background: none;
 }
-/* Multiple select */
-.mbsc-jqm .dwwms .dwwol {
-    display: none;
+/* Group select */
+.mbsc-jqm .dw-w-gr {
+    font-size: 20px;
 }

@@ -264,6 +264,23 @@
     line-height: 20px;
     color: #fff;
 }
+/* Group select */
+.mbsc-wp .dw-select-gr .dw-li .dw-i {
+    padding-left: 40px;
+}
+.mbsc-wp .dw-select-gr .dw-w-gr {
+    font-size: 22px;
+    font-weight: normal;
+    opacity: 1;
+    filter: Alpha(Opacity=100);
+}
+.mbsc-wp .dw-select-gr .dw-w-gr .dw-i {
+    border: 0;
+    padding-left: 5px;
+}
+.mbsc-wp .dw-select-gr .dw-w-gr:after {
+    display: none;
+}
 
 /* Light version */
 .mbsc-wp-light .dw-li {
