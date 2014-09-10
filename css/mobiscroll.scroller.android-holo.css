@@ -46,13 +46,15 @@
     color: #319abd;
 }
 .mbsc-android-holo .dwwol {
+    display: block;
     width: 60%;
     left: 20%;
     border-top: 2px solid #31b6e7;
     border-bottom: 2px solid #31b6e7;
 }
 /* Multiple select */
-.mbsc-android-holo .dwwms .dwwo {
+.mbsc-android-holo .dwwms .dwwo,
+.mbsc-android-holo .dwwms .dwwol {
     display: none;
 }
 .mbsc-android-holo .dwwms .dw-li {
