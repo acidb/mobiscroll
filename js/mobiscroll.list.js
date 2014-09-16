@@ -20,7 +20,7 @@
                 timer = {},
                 wa = s.wheelArray || createWheelArray(elm),
                 labels = generateLabels(lvl),
-                currLevel = 0,
+                currLevel = 1,
                 currWheelVector = [],
                 fwv = firstWheelVector(wa),
                 w = generateWheelsFromVector(fwv, lvl);
@@ -344,7 +344,7 @@
                     return d.slice(0, currLevel).join(' ');
                 },
                 parseValue: function (value) {
-                    return value ? value.split(" ") : (s.defaultValue || fwv).slice(0);
+                    return value ? (value + '').split(' ') : (s.defaultValue || fwv).slice(0);
                 },
                 onBeforeShow: function () {
                     var t = inst.temp;
