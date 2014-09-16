@@ -247,7 +247,7 @@
 
                 // If top + modal height > doc height, increase doc height
                 $persp.height(0);
-                dh = Math.max(t + modalHeight, s.context == 'body' ? $(document).height() : $doc.scrollHeight);
+                dh = Math.max((t > 0 ? t : 0) + modalHeight, s.context == 'body' ? $(document).height() : $doc.scrollHeight);
                 $persp.css({ height: dh, left: sl });
 
                 // Scroll needed
