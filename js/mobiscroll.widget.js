@@ -89,13 +89,6 @@
 
             $markup.remove();
 
-            // Re-enable temporary disabled fields
-            if (pr !== 'Moz') {
-                $('.dwtd', $doc).each(function () {
-                    $(this).prop('disabled', false).removeClass('dwtd');
-                });
-            }
-
             if ($activeElm && !prevAnim) {
                 setTimeout(function () {
                     if (focus === undefined) {
@@ -527,6 +520,14 @@
 
             // Hide wheels and overlay
             if ($markup) {
+
+                // Re-enable temporary disabled fields
+                if (pr !== 'Moz') {
+                    $('.dwtd', $doc).each(function () {
+                        $(this).prop('disabled', false).removeClass('dwtd');
+                    });
+                }
+
                 if (has3d && isModal && doAnim && !prevAnim && !$markup.hasClass('dw-trans')) { // If dw-trans class was not removed, means that there was no animation
                     $markup.addClass('dw-out dw-trans').find('.dw').addClass('dw-' + doAnim).on(animEnd, function () {
                         onHide(prevAnim);
