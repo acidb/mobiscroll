@@ -41,7 +41,7 @@
             if (!date) {
                 return null;
             }
-            var s = $.extend({}, this.defaults, settings),
+            var s = $.extend({}, ms.datetime.defaults, settings),
                 look = function (m) { // Check whether a format character is doubled
                     var n = 0;
                     while (i + 1 < format.length && format.charAt(i + 1) == m) {
@@ -137,7 +137,7 @@
         * @return {Date} Returns the extracted date.
         */
         parseDate: function (format, value, settings) {
-            var s = $.extend({}, this.defaults, settings),
+            var s = $.extend({}, ms.datetime.defaults, settings),
                 def = s.defaultValue || new Date();
 
             if (!format || !value) {
