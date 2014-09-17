@@ -234,7 +234,7 @@
                     }
                 }
 
-                t = t < 0 ? 0 : t
+                t = t < 0 ? 0 : t;
 
                 css.top = t;
                 css.left = l;
