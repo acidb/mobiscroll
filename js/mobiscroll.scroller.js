@@ -128,15 +128,16 @@
                 if (!moved) { // this is a "tap"
                     var idx = Math.floor((stop - ttop) / itemHeight),
                         li = $($('.dw-li', target)[idx]),
+                        valid = li.hasClass('dw-v'),
                         hl = isScrollable;
 
-                    if (trigger('onValueTap', [li]) !== false) {
+                    if (trigger('onValueTap', [li]) !== false && valid) {
                         tindex = idx;
                     } else {
                         hl = true;
                     }
 
-                    if (hl) {
+                    if (hl && valid) {
                         li.addClass('dw-hl'); // Highlight
                         setTimeout(function () {
                             li.removeClass('dw-hl');
