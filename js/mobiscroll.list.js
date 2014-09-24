@@ -20,7 +20,7 @@
                 timer = {},
                 wa = s.wheelArray || createWheelArray(elm),
                 labels = generateLabels(lvl),
-                currLevel = 0,
+                currLevel = 1,
                 currWheelVector = [],
                 fwv = firstWheelVector(wa),
                 w = generateWheelsFromVector(fwv, lvl);
@@ -303,9 +303,9 @@
                     c.children('ul,ol').remove();
 
                     var v = c.html().replace(/^\s\s*/, '').replace(/\s\s*$/, ''),
-                        inv = that.data('invalid') ? true : false,
+                        inv = that.attr('data-invalid') ? true : false,
                         wheelObj = {
-                            key: that.attr('data-val') === undefined ? index : that.attr('data-val'),
+                            key: that.attr('data-val') === undefined || that.attr('data-val') === null ? index : that.attr('data-val'),
                             value: v,
                             invalid: inv,
                             children: null
@@ -344,7 +344,7 @@
                     return d.slice(0, currLevel).join(' ');
                 },
                 parseValue: function (value) {
-                    return value ? value.split(" ") : (s.defaultValue || fwv).slice(0);
+                    return value ? (value + '').split(' ') : (s.defaultValue || fwv).slice(0);
                 },
                 onBeforeShow: function () {
                     var t = inst.temp;

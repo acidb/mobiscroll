@@ -18,13 +18,14 @@
 
     ms.classes.Widget = function (el, settings, inherit) {
         var $ariaDiv,
-            $doc,
+            $ctx,
             $header,
             $markup,
             $overlay,
             $persp,
             $popup,
             $wnd,
+            $wrapper,
             buttons,
             btn,
             doAnim,
@@ -89,13 +90,6 @@
 
             $markup.remove();
 
-            // Re-enable temporary disabled fields
-            if (pr !== 'Moz') {
-                $('.dwtd', $doc).each(function () {
-                    $(this).prop('disabled', false).removeClass('dwtd');
-                });
-            }
-
             if ($activeElm && !prevAnim) {
                 setTimeout(function () {
                     if (focus === undefined) {
@@ -150,112 +144,126 @@
         * Positions the scroller on the screen.
         */
         that.position = function (check) {
-
-            var nw = $persp.width(), // To get the width without scrollbar
+            var w,
+                l,
+                t,
+                anchor,
+                aw, // anchor width
+                ah, // anchor height
+                ap, // anchor position
+                at, // anchor top
+                al, // anchor left
+                arr, // arrow
+                arrw, // arrow width
+                arrl, // arrow left
+                dh,
+                scroll,
+                sl, // scroll left
+                st, // scroll top
+                totalw = 0,
+                minw = 0,
+                css = {},
+                nw = Math.min($wnd[0].innerWidth || $wnd.innerWidth(), $persp.width()), //$persp.width(), // To get the width without scrollbar
                 nh = $wnd[0].innerHeight || $wnd.innerHeight();
 
-            if (!(wndWidth === nw && wndHeight === nh && check) && !preventPos && (event('onPosition', [$markup, nw, nh]) !== false) && isModal) {
-                var w,
-                    l,
-                    t,
-                    aw, // anchor width
-                    ah, // anchor height
-                    ap, // anchor position
-                    at, // anchor top
-                    al, // anchor left
-                    arr, // arrow
-                    arrw, // arrow width
-                    arrl, // arrow left
-                    dh,
-                    scroll,
-                    totalw = 0,
-                    minw = 0,
-                    sl = $wnd.scrollLeft(),
-                    st = $wnd.scrollTop(),
-                    wr = $('.dwwr', $markup),
-                    d = $('.dw', $markup),
-                    css = {},
-                    anchor = s.anchor === undefined ? $elm : $(s.anchor);
+            if ((wndWidth === nw && wndHeight === nh && check) || preventPos) {
+                return;
+            }
 
-                // Set / unset liquid layout based on screen width, but only if not set explicitly by the user
-                if (that._isLiquid && s.layout !== 'liquid') {
-                    if (nw < 400) {
-                        $markup.addClass('dw-liq');
-                    } else {
-                        $markup.removeClass('dw-liq');
-                    }
-                }
+            if (isModal && that._isLiquid && s.display!== 'bubble') {
+                // Set width, if document is larger than viewport, needs to be set before onPosition (for calendar)
+                $popup.width(nw);
+            }
 
-                if (/modal|bubble/.test(s.display)) {
-                    wr.width('');
-                    $('.mbsc-w-p', $markup).each(function () {
-                        w = $(this).outerWidth(true);
-                        totalw += w;
-                        minw = (w > minw) ? w : minw;
-                    });
-                    w = totalw > nw ? minw : totalw;
-                    wr.width(w).css('white-space', totalw > nw ? '' : 'nowrap');
-                }
+            if (event('onPosition', [$markup, nw, nh]) === false || !isModal) {
+                return;
+            }
 
-                modalWidth = d.outerWidth();
-                modalHeight = d.outerHeight(true);
-                scrollLock = modalHeight <= nh && modalWidth <= nw;
+            sl = $wnd.scrollLeft();
+            st = $wnd.scrollTop();
+            anchor = s.anchor === undefined ? $elm : $(s.anchor);
 
-                that.scrollLock = scrollLock;
-
-                if (s.display == 'modal') {
-                    l = Math.max(0, (nw - modalWidth) / 2);
-                    t = st + (nh - modalHeight) / 2;
-                } else if (s.display == 'bubble') {
-                    scroll = true;
-                    arr = $('.dw-arrw-i', $markup);
-                    ap = anchor.offset();
-                    at = Math.abs($(s.context).offset().top - ap.top);
-                    al = Math.abs($(s.context).offset().left - ap.left);
-
-                    // horizontal positioning
-                    aw = anchor.outerWidth();
-                    ah = anchor.outerHeight();
-                    l = constrain(al - (d.outerWidth(true) - aw) / 2 - sl, 3, nw - modalWidth - 3);
-
-                    // vertical positioning
-                    t = at - modalHeight; // above the input
-                    if ((t < st) || (at > st + nh)) { // if doesn't fit above or the input is out of the screen
-                        d.removeClass('dw-bubble-top').addClass('dw-bubble-bottom');
-                        t = at + ah; // below the input
-                    } else {
-                        d.removeClass('dw-bubble-bottom').addClass('dw-bubble-top');
-                    }
-
-                    // Calculate Arrow position
-                    arrw = arr.outerWidth();
-                    arrl = constrain(al + aw / 2 - (l + (modalWidth - arrw) / 2) - sl, 0, arrw);
-
-                    // Limit Arrow position
-                    $('.dw-arr', $markup).css({ left: arrl });
+            // Set / unset liquid layout based on screen width, but only if not set explicitly by the user
+            if (that._isLiquid && s.layout !== 'liquid') {
+                if (nw < 400) {
+                    $markup.addClass('dw-liq');
                 } else {
-                    if (s.display == 'top') {
-                        t = st;
-                    } else if (s.display == 'bottom') {
-                        t = st + nh - modalHeight;
-                    }
+                    $markup.removeClass('dw-liq');
+                }
+            }
+
+            if (/modal|bubble/.test(s.display)) {
+                $wrapper.width('');
+                $('.mbsc-w-p', $markup).each(function () {
+                    w = $(this).outerWidth(true);
+                    totalw += w;
+                    minw = (w > minw) ? w : minw;
+                });
+                w = totalw > nw ? minw : totalw;
+                $wrapper.width(w).css('white-space', totalw > nw ? '' : 'nowrap');
+            }
+
+            modalWidth = $popup.outerWidth();
+            modalHeight = $popup.outerHeight(true);
+            scrollLock = modalHeight <= nh && modalWidth <= nw;
+
+            that.scrollLock = scrollLock;
+
+            if (s.display == 'modal') {
+                l = Math.max(0, sl + (nw - modalWidth) / 2);
+                t = st + (nh - modalHeight) / 2;
+            } else if (s.display == 'bubble') {
+                scroll = true;
+                arr = $('.dw-arrw-i', $markup);
+                ap = anchor.offset();
+                at = Math.abs($ctx.offset().top - ap.top);
+                al = Math.abs($ctx.offset().left - ap.left);
+
+                // horizontal positioning
+                aw = anchor.outerWidth();
+                ah = anchor.outerHeight();
+                l = constrain(al - ($popup.outerWidth(true) - aw) / 2, sl + 3, sl + nw - modalWidth - 3);
+
+                // vertical positioning
+                t = at - modalHeight; // above the input
+                if ((t < st) || (at > st + nh)) { // if doesn't fit above or the input is out of the screen
+                    $popup.removeClass('dw-bubble-top').addClass('dw-bubble-bottom');
+                    t = at + ah; // below the input
+                } else {
+                    $popup.removeClass('dw-bubble-bottom').addClass('dw-bubble-top');
                 }
 
-                css.top = t < 0 ? 0 : t;
-                css.left = l;
-                d.css(css);
+                // Calculate Arrow position
+                arrw = arr.outerWidth();
+                arrl = constrain(al + aw / 2 - (l + (modalWidth - arrw) / 2), 0, arrw);
 
-                // If top + modal height > doc height, increase doc height
-                $persp.height(0);
-                dh = Math.max(t + modalHeight, s.context == 'body' ? $(document).height() : $doc.scrollHeight);
-                $persp.css({ height: dh, left: sl });
-
-                // Scroll needed
-                if (scroll && ((t + modalHeight > st + nh) || (at > st + nh))) {
-                    preventPos = true;
-                    setTimeout(function () { preventPos = false; }, 300);
-                    $wnd.scrollTop(Math.min(t + modalHeight - nh, dh - nh));
+                // Limit Arrow position
+                $('.dw-arr', $markup).css({ left: arrl });
+            } else {
+                l = sl;
+                if (s.display == 'top') {
+                    t = st;
+                } else if (s.display == 'bottom') {
+                    t = st + nh - modalHeight;
                 }
+            }
+
+            t = t < 0 ? 0 : t;
+
+            css.top = t;
+            css.left = l;
+            $popup.css(css);
+
+            // If top + modal height > doc height, increase doc height
+            $persp.height(0);
+            dh = Math.max(t + modalHeight, s.context == 'body' ? $(document).height() : $ctx[0].scrollHeight);
+            $persp.css({ height: dh });
+
+            // Scroll needed
+            if (scroll && ((t + modalHeight > st + nh) || (at > st + nh))) {
+                preventPos = true;
+                setTimeout(function () { preventPos = false; }, 300);
+                $wnd.scrollTop(Math.min(t + modalHeight - nh, dh - nh));
             }
 
             wndWidth = nw;
@@ -405,6 +413,7 @@
             $markup = $(html);
             $persp = $('.dw-persp', $markup);
             $overlay = $('.dwo', $markup);
+            $wrapper = $('.dwwr', $markup);
             $header = $('.dwv', $markup);
             $popup = $('.dw', $markup);
             $ariaDiv = $('.dw-aria', $markup);
@@ -421,6 +430,7 @@
 
             // Show
             if (isModal) {
+
                 // Enter / ESC
                 $(window).on('keydown.dw', function (ev) {
                     if (ev.keyCode == 13) {
@@ -441,7 +451,7 @@
 
                 // Disable inputs to prevent bleed through (Android bug)
                 if (pr !== 'Moz') {
-                    $('input,select,button', $doc).each(function () {
+                    $('input,select,button', $ctx).each(function () {
                         if (!this.disabled) {
                             $(this).addClass('dwtd').prop('disabled', true);
                         }
@@ -452,7 +462,7 @@
 
                 ms.activeInstance = that;
 
-                $markup.appendTo(s.context);
+                $markup.appendTo($ctx);
 
                 if (has3d && doAnim && !prevAnim) {
                     $markup.addClass('dw-in dw-trans').on(animEnd, function () {
@@ -527,6 +537,14 @@
 
             // Hide wheels and overlay
             if ($markup) {
+
+                // Re-enable temporary disabled fields
+                if (pr !== 'Moz') {
+                    $('.dwtd', $ctx).each(function () {
+                        $(this).prop('disabled', false).removeClass('dwtd');
+                    });
+                }
+
                 if (has3d && isModal && doAnim && !prevAnim && !$markup.hasClass('dw-trans')) { // If dw-trans class was not removed, means that there was no animation
                     $markup.addClass('dw-out dw-trans').find('.dw').addClass('dw-' + doAnim).on(animEnd, function () {
                         onHide(prevAnim);
@@ -721,7 +739,7 @@
             isModal = s.display !== 'inline';
             setReadOnly = s.showOnFocus || s.showOnTap;
             $wnd = $(s.context == 'body' ? window : s.context);
-            $doc = $(s.context)[0];
+            $ctx = $(s.context);
 
             // @deprecated since 2.8.0, backward compatibility code
             // ---
@@ -802,7 +820,8 @@
         display: 'modal',
         scrollLock: true,
         tap: true,
-        btnWidth: true
+        btnWidth: true,
+        focusOnClose: false // Temporary for iOS8
     };
 
     ms.themes.mobiscroll = {
