@@ -32,6 +32,111 @@ It'd be cool to see how you're using Mobiscroll!
 
 We're looking at showcasing some of the best work on http://mobiscroll.com . Feel free to let us know on twitter @mobiscroll!
 
+
+Changelog 2.13.1
+================
+
+_Calendar_
+
+  * Fixed: If tab was changed during wheel animation, wheel was visible while animated.
+
+  * Fixed: Show year suffix in calendar header as well.
+
+  * Fixed: Javascript error if `quickNav` setting was set to `false`.
+
+_Core_
+
+  * Fixed: Re-focusing on the input field after closing the widget caused problems in iOS8. Re-focusing is disabled until the problem is fixed.
+  
+  * Fixed: Width/height calculations were incorrect during animation with Zepto and App Framework.
+
+  * Fixed: Positioning was incorrect if website was zoomed on mobile devices (#248).
+
+  * Fixed: Re-enable form fields when widget animation starts.
+
+  * Fixed: Don't add tap highlight to invalid wheel items.
+
+_List_
+
+  * Fixed: Fix for parse and format, if number was passed to the `setValue` method.
+
+  * Fixed: Incorrect wheel values if there was no `data-val` attribute present with Zepto and App Framework.
+
+_Angular integration_
+
+  * Fixed: ng-repeat support for Treelist and Image & Text component directives.
+
+
+Changelog 2.13.0
+================
+
+_Calendar_
+
+  * New: Accessibility enhancements (#242): read full date for every day, announce month and year on month navigation, read events and event duration.
+
+  * New: Month and year selector.
+
+_Core_
+  
+  * Fixed: enable/disable functions (#240).
+
+  * New: Allow null value for each component.
+
+  * New: Show /hide animation improvements: background overlay will fade in and out, faster and smoother animations.
+
+_Datetime_
+
+  * Fixed: Time validation fix (#244).
+
+_Measurements_
+
+  * New: `scale` setting which controls the decimal precision (#80).
+
+_Numpad_
+
+  * New: Datepicker preset.
+
+  * New: `min` and `max` settings.
+
+  * New: `invalid` setting.
+
+  * New: `headerText` setting.
+
+_Select_
+
+  * New: If the select is grouped and `group` setting is false, group labels will appear as list dividers.
+
+  * New: If multiple selection is enabled, there is no empty space on the top and bottom of the wheel anymore, and value on the middle is not highlighted.
+
+
+Changelog 2.12.0
+================
+
+_Calendar_
+
+  * Fixed: Event bubble is repositioned on orientationchange or resize.
+
+  * New: In multiselect mode input will be filled with all the selected dates.
+
+_Numpad_
+
+  * New: Keyboard support.
+
+  * New: Custom button support.
+
+  * New: Time picker preset.
+
+  * New: `returnAffix` setting for decimal numpad.
+
+  * New: `mask` setting for hiding the entered numbers (e.g. PIN code).
+
+  * New: `defaultValue` setting for decimal, time and timespan presets.
+
+_Timespan_
+
+  * New: Allow `clickpick` and `mixed` modes.
+
+
 Changelog 2.12.0-beta
 =====================
 
