@@ -170,7 +170,7 @@
                 return;
             }
 
-            if (isModal && that._isLiquid) {
+            if (isModal && that._isLiquid && s.display!== 'bubble') {
                 // Set width, if document is larger than viewport, needs to be set before onPosition (for calendar)
                 $popup.width(nw);
             }
