@@ -820,7 +820,8 @@
         display: 'modal',
         scrollLock: true,
         tap: true,
-        btnWidth: true
+        btnWidth: true,
+        focusOnClose: false // Temporary for iOS8
     };
 
     ms.themes.mobiscroll = {
