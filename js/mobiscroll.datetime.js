@@ -610,7 +610,12 @@
             // Extended methods
             // ---
 
+            inst.getVal = function (temp) {
+                return getDate(inst.getArrayVal(temp));
+            };
+
             /**
+             * @deprecated since 2.14.0, backward compatibility code
              * Sets the selected date
              *
              * @param {Date} d Date to select.
@@ -619,20 +624,16 @@
              * @param {Boolean} [temp=false] Set temporary value only.
              * @param {Boolean} [change=fill] Trigger change on input element.
              */
-            inst.setDate = function (d, fill, time, temp, change) {
-                inst.temp = getArray(d);
-                inst.setValue(inst.temp, fill, time, temp, change);
-            };
+            inst.setDate = inst.setVal;
 
             /**
-             * Returns the currently selected date.
+             * @deprecated since 2.14.0, backward compatibility code
+             * Returns the selected date.
              *
              * @param {Boolean} [temp=false] If true, return the currently shown date on the picker, otherwise the last selected one.
              * @return {Date}
              */
-            inst.getDate = function (temp) {
-                return getDate(temp ? inst.temp : inst.values);
-            };
+            inst.getDate = inst.getVal;
 
             /**
              * @deprecated since 2.7.0, backward compatibility code
@@ -692,7 +693,7 @@
             return {
                 wheels: wheels,
                 headerText: s.headerText ? function () {
-                    return datetime.formatDate(hformat, getDate(inst.temp), s);
+                    return datetime.formatDate(hformat, getDate(inst.getArrayVal(true)), s);
                 } : false,
                 formatResult: function (d) {
                     return datetime.formatDate(format, getDate(d), s);
@@ -701,8 +702,8 @@
                     return getArray(val ? datetime.parseDate(format, val, s) : (s.defaultValue || new Date()));
                 },
                 validate: function (dw, i, time, dir) {
-                    var validated = getClosestValidDate(getDate(inst.temp), dir),
-                        temp = getArray(validated),//inst.temp,//.slice(0),
+                    var validated = getClosestValidDate(getDate(inst.getArrayVal(true)), dir),
+                        temp = getArray(validated),
                         y = get(temp, 'y'),
                         m = get(temp, 'm'),
                         minprop = true,
@@ -791,7 +792,7 @@
                         });
                     }
 
-                    inst.temp = temp;
+                    inst.setArrayVal(temp, false, 0, true, false, true);
                 }
             };
         };

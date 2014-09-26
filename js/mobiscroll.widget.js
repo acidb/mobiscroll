@@ -760,7 +760,7 @@
             that.buttons.cancel = { text: (that.live) ? s.closeText : s.cancelText, css: 'dwb-c', handler: that.cancel };
             that.buttons.clear = { text: s.clearText, css: 'dwb-cl', handler: that.clear };
 
-            that._isInput = $elm.is('input');
+            that._isInput = $elm.is('input,select');
 
             hasButtons = buttons.length > 0;
 
@@ -785,7 +785,8 @@
             if (that._isInput) {
                 $elm.on('change.dw', function () {
                     if (!that._preventChange) {
-                        that.setValue($elm.val(), false);
+                        //that.setValue($elm.val(), false);
+                        that.setVal($elm.val(), true, 0, false, false);
                     }
                     that._preventChange = false;
                 });

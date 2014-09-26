@@ -21,7 +21,7 @@
             optIdx,
             option,
             prev,
-            prevent,
+            //prevent,
             timer,
             w,
             orig = $.extend({}, inst.settings),
@@ -124,32 +124,32 @@
             }
         }
 
-        function setVal(v, fill, change) {
-            var value = [];
+        //function setVal(v, fill, change) {
+        //    var value = [];
 
-            if (multiple) {
-                var sel = [],
-                    i = 0;
+        //    if (multiple) {
+        //        var sel = [],
+        //            i = 0;
 
-                for (i in inst._selectedValues) {
-                    sel.push(main[i]);
-                    value.push(i);
-                }
+        //        for (i in inst._selectedValues) {
+        //            sel.push(main[i]);
+        //            value.push(i);
+        //        }
 
-                input.val(sel.join(', '));
-            } else {
-                input.val(v);
-                value = fill ? inst.temp[optIdx] : null;
-            }
+        //        input.val(sel.join(', '));
+        //    } else {
+        //        input.val(v);
+        //        value = fill ? inst.temp[optIdx] : null;
+        //    }
 
-            if (fill) {
-                elm.val(value);
-                if (change) {
-                    prevent = true;
-                    elm.change();
-                }
-            }
-        }
+        //    if (fill) {
+        //        elm.val(value);
+        //        if (change) {
+        //            prevent = true;
+        //            elm.change();
+        //        }
+        //    }
+        //}
 
         function onTap(li) {
             var val = li.attr('data-val'),
@@ -165,9 +165,9 @@
                         inst._selectedValues[val] = val;
                     }
 
-                    if (inst.live) {
-                        setVal(val, true, true);
-                    }
+                    //if (inst.live) {
+                    //    setVal(val, true, true);
+                    //}
                 }
                 return false;
             }
@@ -213,61 +213,63 @@
             inst._selectedValues[v[i]] = v[i];
         }
 
-        setVal(main[option]);
+        //elm.addClass('dw-hsel').attr('tabindex', -1).closest('.ui-field-contain').trigger('create');
 
-        elm.off('.dwsel').on('change.dwsel', function () {
-            if (!prevent) {
-                inst.setValue(multiple ? elm.val() || [] : [elm.val()], true);
-            }
-            prevent = false;
-        }).addClass('dw-hsel').attr('tabindex', -1).closest('.ui-field-contain').trigger('create');
+        //setVal(main[option]);
+
+        //elm.off('.dwsel').on('change.dwsel', function () {
+        //    if (!prevent) {
+        //        inst.setValue(multiple ? elm.val() || [] : [elm.val()], true);
+        //    }
+        //    prevent = false;
+        //}).addClass('dw-hsel').attr('tabindex', -1).closest('.ui-field-contain').trigger('create');
 
         // Extended methods
         // ---
 
-        if (!inst._setValue) {
-            inst._setValue = inst.setValue;
-        }
+        //if (!inst._setValue) {
+        //    inst._setValue = inst.setValue;
+        //}
 
-        inst.setValue = function (d, fill, time, temp, change) {
-            var i,
-                value,
-                v = $.isArray(d) ? d[0] : d;
+        //inst.setValue = function (d, fill, time, temp, change) {
+        //    var i,
+        //        value,
+        //        v = $.isArray(d) ? d[0] : d;
 
-            option = v !== undefined && v !== null ? v : $('option', elm).attr('value');
+        //    option = v !== undefined && v !== null ? v : $('option', elm).attr('value');
 
-            if (multiple) {
-                inst._selectedValues = {};
-                if (d) { // Can be null
-                    for (i = 0; i < d.length; i++) {
-                        inst._selectedValues[d[i]] = d[i];
-                    }
-                }
-            }
+        //    if (multiple) {
+        //        inst._selectedValues = {};
+        //        if (d) { // Can be null
+        //            for (i = 0; i < d.length; i++) {
+        //                inst._selectedValues[d[i]] = d[i];
+        //            }
+        //        }
+        //    }
 
-            if (v === null) {
-                value = null;
-            } else if (s.group) {
-                group = elm.find('option[value="' + option + '"]').parent();
-                gr = group.index();
-                value = [gr, option];
-            } else {
-                value = [option];
-            }
+        //    if (v === null) {
+        //        value = null;
+        //    } else if (s.group) {
+        //        group = elm.find('option[value="' + option + '"]').parent();
+        //        gr = group.index();
+        //        value = [gr, option];
+        //    } else {
+        //        value = [option];
+        //    }
             
-            inst._setValue(value, fill, time, temp, change);
+        //    inst._setValue(value, fill, time, temp, change);
 
-            // Set input/select values
-            if (fill) {
-                var changed = multiple ? true : option !== elm.val();
-                setVal(main[option], changed, change === undefined ? fill : change);
-            }
-        };
+        //    // Set input/select values
+        //    if (fill) {
+        //        var changed = multiple ? true : option !== elm.val();
+        //        setVal(main[option], changed, change === undefined ? fill : change);
+        //    }
+        //};
 
-        inst.getValue = function (temp, group) {
-            var val = temp ? inst.temp : (inst._hasValue ? inst.values : null);
-            return val ? (s.group && group ? val : val[optIdx]) : null;
-        };
+        //inst.getValue = function (temp, group) {
+        //    var val = temp ? inst.temp : (inst._hasValue ? inst.values : null);
+        //    return val ? (s.group && group ? val : val[optIdx]) : null;
+        //};
 
         // ---
 
@@ -278,7 +280,8 @@
             headerText: false,
             anchor: input,
             formatResult: function (d) {
-                return main[d[optIdx]];
+                //return main[d[optIdx]];
+                return d[optIdx];
             },
             parseValue: function (val) {
                 var v = elm.val() || [],
@@ -312,7 +315,8 @@
 
                 if (s.group) {
                     prev = gr;
-                    inst.temp = [gr, option];
+                    //inst.temp = [gr, option];
+                    inst.setArrayVal([gr, option], false, 0, true, false, true);
                 }
 
                 s.wheels = genWheels();
@@ -346,6 +350,7 @@
             validate: function (dw, i, time) {
                 var j,
                     v,
+                    temp = inst.getArrayVal(true),
                     t = $('.dw-ul', dw).eq(optIdx);
 
                 if (i === undefined && multiple) {
@@ -360,14 +365,16 @@
                 }
 
                 if (s.group && (i === undefined || i === grIdx)) {
-                    gr = +inst.temp[grIdx];
+                    gr = +temp[grIdx];
                     if (gr !== prev) {
                         group = elm.find('optgroup').eq(gr);
                         option = group.find('option').not('[disabled]').eq(0).val();
                         option = option || elm.val();
                         s.wheels = genWheels();
                         if (!change) {
-                            inst.temp = [gr, option];
+                            //inst.temp = [gr, option];
+                            inst.setArrayVal([gr, option], false, 0, true, false, true);
+
                             s.readonly = [false, true];
                             clearTimeout(timer);
                             timer = setTimeout(function () {
@@ -382,7 +389,7 @@
                         s.readonly = roPre;
                     }
                 } else {
-                    option = inst.temp[optIdx];
+                    option = temp[optIdx];
                 }
 
                 $.each(s.invalid, function (i, v) {
@@ -397,21 +404,24 @@
                 $('.dwwl' + optIdx + ' .dw-li', dw).removeClass(selectedClass).removeAttr('aria-selected');
             },
             onValueTap: onTap,
-            onSelect: function (v) {
-                setVal(v, true, true);
+            onValueFill: function (val) {
+                input.val(main[val]);
             },
+            //onSelect: function (v) {
+            //    setVal(v, true, true);
+            //},
             onCancel: function () {
                 if (!inst.live && multiple) {
                     inst._selectedValues = $.extend({}, origValues);
                 }
             },
-            onChange: function (v) {
-                if (inst.live && !multiple) {
-                    input.val(v);
-                    prevent = true;
-                    elm.val(inst.temp[optIdx]).change();
-                }
-            },
+            //onChange: function (v) {
+            //    if (inst.live && !multiple) {
+            //        input.val(v);
+            //        prevent = true;
+            //        elm.val(inst.temp[optIdx]).change();
+            //    }
+            //},
             onDestroy: function () {
                 input.remove();
                 elm.removeClass('dw-hsel').removeAttr('tabindex');
