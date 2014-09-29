@@ -34,7 +34,6 @@
             itemHeight,
             s,
             trigger,
-            valueText,
 
             click,
             moved,
@@ -383,12 +382,12 @@
                     var t = $(this),
                         multiple = t.closest('.dwwl').hasClass('dwwms'),
                         sc = i == index || index === undefined,
-                        res = getValid(tempValueArray[i], t, dir, multiple),
+                        res = getValid(that._tempWheelArray[i], t, dir, multiple),
                         cell = res.cell;
 
                     if (!(cell.hasClass('dw-sel')) || sc) {
                         // Set valid value
-                        tempValueArray[i] = res.val;
+                        that._tempWheelArray[i] = res.val;
 
                         if (!multiple) {
                             $('.dw-sel', t).removeAttr('aria-selected');
@@ -405,17 +404,17 @@
                 });
 
                 // Reformat value if validation changed something
-                that._valueText = valueText = s.formatResult(tempValueArray);
+                that._tempValue = s.formatResult(that._tempWheelArray);
 
                 if (that.live) {
                     that._hasValue = manual || that._hasValue;
                     setValue(manual, manual, 0, true);
                 }
 
-                that._header.html(formatHeader(valueText));
+                that._header.html(formatHeader(that._tempValue));
 
                 if (manual) {
-                    trigger('onChange', [valueText]);
+                    trigger('onChange', [that._tempValue]);
                 }
             }
 
@@ -432,7 +431,7 @@
                 time = anim ? (val == o ? 0.1 : dist * s.timeUnit * Math.max(0.5, (100 - dist) / 100)) : 0;
 
             // Set selected scroller value
-            tempValueArray[idx] = cell.attr('data-val');
+            that._tempWheelArray[idx] = cell.attr('data-val');
 
             scroll(t, idx, val, time, active);
 
@@ -457,19 +456,23 @@
                 scrollToPos(time);
             }
 
-            that._valueText = valueText = s.formatResult(tempValueArray);
+            that._tempValue = s.formatResult(that._tempWheelArray);
+
+            if (util.isNumeric(that._tempValue)) {
+                that._tempValue = +that._tempValue;
+            }
 
             if (!temp) {
-                that.values = tempValueArray.slice(0);
-                that.val = that._hasValue ? valueText : null;
+                that._wheelArray = that._tempWheelArray.slice(0);
+                that._value = that._hasValue ? that._tempValue : null;
             }
 
             if (fill) {
 
-                trigger('onValueFill', [that._hasValue ? valueText : '', change]);
+                trigger('onValueFill', [that._hasValue ? that._tempValue : '', change]);
 
                 if (that._isInput) {
-                    $elm.val(that._hasValue ? valueText : '');
+                    $elm.val(that._hasValue ? that._tempValue : '');
                     if (change) {
                         that._preventChange = true;
                         $elm.change();
@@ -492,56 +495,42 @@
         * @param {Boolean} [temp=false] If true, then only set the temporary value.(only scroll there but not set the value)
         * @param {Boolean} [change=false] Trigger change on the input element
         */
-        that.setVal = function (val, fill, time, temp, change) {
+        that.setVal = that._setVal = function (val, fill, change, temp, time) {
             that._hasValue = val !== null && val !== undefined;
-            tempValueArray = s.parseValue.call(el, val, that);
+            that._tempWheelArray = $.isArray(val) ? val.slice(0) : s.parseValue.call(el, val, that);
             setValue(fill, change === undefined ? fill : change, time, false, temp);
         };
 
-        that.getVal = function (temp) {
-            return that._hasValue ? that[temp ? '_valueText' : 'val'] : null;
+        /**
+         * Returns the selected value
+         */
+        that.getVal = that._getVal = function (temp) {
+            return that._hasValue ? that[temp ? '_tempValue' : '_value'] : null;
         };
 
-        that.setArrayVal = function (val, fill, time, temp, change, noscroll) {
-            tempValueArray = val.slice(0);
-            if (!noscroll) {
-                setValue(fill, change === undefined ? fill : change, time, false, temp);
-            }
-        };
+        /*
+         * Sets the wheel values (passed as an array)
+         */
+        that.setArrayVal = that.setVal;
 
+        /*
+         * Returns the selected wheel values as an array
+         */
         that.getArrayVal = function (temp) {
-            return temp ? tempValueArray : that.values;
+            return temp ? that._tempWheelArray : that._wheelArray;
         };
-
 
         // @deprecated since 2.14.0, backward compatibility code
         // ---
 
-        that.setValue = function (values, fill, time, temp, change) {
-            that._hasValue = values !== null && values !== undefined;
-            tempValueArray = $.isArray(values) ? values.slice(0) : s.parseValue.call(el, values, that);
-            setValue(fill, change === undefined ? fill : change, time, false, temp);
+        that.setValue = function (val, fill, time, temp, change) {
+            that.setVal(val, fill, change, temp, time);
         };
 
         /**
         * Return the selected wheel values.
         */
-        that.getValue = function () {
-            return that._hasValue ? that.values : null;
-        };
-
-        /**
-        * Return selected values, if in multiselect mode.
-        */
-        that.getValues = function () {
-            var ret = [],
-                i;
-
-            for (i in that._selectedValues) {
-                ret.push(that._selectedValues[i]);
-            }
-            return ret;
-        };
+        that.getValue = that.getArrayVal;
 
         // ---
 
@@ -650,7 +639,7 @@
         that._readValue = function () {
             var v = $elm.val() || '';
             that._hasValue = v !== '';
-            tempValueArray = that.values ? that.values.slice(0) : s.parseValue(v, that);
+            that._tempWheelArray = that._wheelArray ? that._wheelArray.slice(0) : s.parseValue(v, that);
             setValue();
         };
 
@@ -662,8 +651,8 @@
 
             that._isLiquid = (s.layout || (/top|bottom/.test(s.display) && s.wheels.length == 1 ? 'liquid' : '')) === 'liquid';
 
-            that.values = null;
-            //that.temp = null;
+            //that._wheelArray = null;
+            //that._tempWheelArray = null;
 
             if (lines > 1) {
                 s.cssClass = (s.cssClass || '') + ' dw-ml';

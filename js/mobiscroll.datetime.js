@@ -615,7 +615,6 @@
             };
 
             /**
-             * @deprecated since 2.14.0, backward compatibility code
              * Sets the selected date
              *
              * @param {Date} d Date to select.
@@ -624,10 +623,11 @@
              * @param {Boolean} [temp=false] Set temporary value only.
              * @param {Boolean} [change=fill] Trigger change on input element.
              */
-            inst.setDate = inst.setVal;
+            inst.setDate = function (d, fill, time, temp, change) {
+                inst.setArrayVal(getArray(d), fill, change, temp, time);
+            };
 
             /**
-             * @deprecated since 2.14.0, backward compatibility code
              * Returns the selected date.
              *
              * @param {Boolean} [temp=false] If true, return the currently shown date on the picker, otherwise the last selected one.
@@ -792,7 +792,7 @@
                         });
                     }
 
-                    inst.setArrayVal(temp, false, 0, true, false, true);
+                    inst._tempWheelArray = temp;
                 }
             };
         };

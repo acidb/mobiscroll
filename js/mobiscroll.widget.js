@@ -310,7 +310,7 @@
         that.select = function () {
             if (!isModal || that.hide(false, 'set') !== false) {
                 that._fillValue();
-                event('onSelect', [that.val]);
+                event('onSelect', [that._value]);
             }
         };
 
@@ -319,7 +319,7 @@
         */
         that.cancel = function () {
             if (!isModal || that.hide(false, 'cancel') !== false) {
-                event('onCancel', [that.val]);
+                event('onCancel', [that._value]);
             }
         };
 
@@ -522,7 +522,7 @@
 
             }, 300);
 
-            event('onShow', [$markup, that._valueText]);
+            event('onShow', [$markup, that._tempValue]);
         };
 
         /**
@@ -531,7 +531,7 @@
         that.hide = function (prevAnim, btn, force) {
 
             // If onClose handler returns false, prevent hide
-            if (!that._isVisible || (!force && !that._isValid && btn == 'set') || (!force && event('onClose', [that._valueText, btn]) === false)) {
+            if (!that._isVisible || (!force && !that._isValid && btn == 'set') || (!force && event('onClose', [that._tempValue, btn]) === false)) {
                 return false;
             }
 
@@ -760,7 +760,7 @@
             that.buttons.cancel = { text: (that.live) ? s.closeText : s.cancelText, css: 'dwb-c', handler: that.cancel };
             that.buttons.clear = { text: s.clearText, css: 'dwb-cl', handler: that.clear };
 
-            that._isInput = $elm.is('input,select');
+            that._isInput = $elm.is('input');
 
             hasButtons = buttons.length > 0;
 
@@ -782,19 +782,19 @@
                 that.show();
             }
 
-            if (that._isInput) {
-                $elm.on('change.dw', function () {
-                    if (!that._preventChange) {
-                        //that.setValue($elm.val(), false);
-                        that.setVal($elm.val(), true, 0, false, false);
-                    }
-                    that._preventChange = false;
-                });
-            }
+            //if (that._isInput) {
+            $elm.on('change.dw', function () {
+                if (!that._preventChange) {
+                    that.setVal($elm.val(), true, false);
+                }
+                that._preventChange = false;
+            });
+            //}
         };
 
-        that.val = null;
         that.buttons = {};
+
+        that._value = null;
 
         that._isValid = true;
 
