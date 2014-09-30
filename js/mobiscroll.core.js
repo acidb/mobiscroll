@@ -96,6 +96,28 @@
                 }
                 return true;
             },
+            objectToArray: function (obj) {
+                var arr = [],
+                    i;
+
+                for (i in obj) {
+                    arr.push(obj[i]);
+                }
+
+                return arr;
+            },
+            arrayToObject: function (arr) {
+                var obj = {},
+                    i;
+
+                if (arr) {
+                    for (i = 0; i < arr.length; i++) {
+                        obj[arr[i]] = arr[i];
+                    }
+                }
+
+                return obj;
+            },
             isNumeric: function (a) {
                 return a - parseFloat(a) >= 0;
             },
