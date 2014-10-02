@@ -147,6 +147,7 @@
             elm.val(val);
 
             if (change) {
+                inst._preventChange = true;
                 elm.change();
             }
         }
@@ -209,7 +210,7 @@
             selectedValues[v[i]] = v[i];
         }
 
-        //elm.addClass('dw-hsel').attr('tabindex', -1).closest('.ui-field-contain').trigger('create');
+        elm.addClass('dw-hsel').attr('tabindex', -1).closest('.ui-field-contain').trigger('create');
 
         onFill(option);
         

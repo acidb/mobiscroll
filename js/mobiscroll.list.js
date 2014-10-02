@@ -357,6 +357,7 @@
                         input.val(v);
                     }
                     if (change) {
+                        inst._preventChange = true;
                         elm.change();
                     }
 
