@@ -1,13 +1,13 @@
 /* Android Holo skin */
 .mbsc-android-holo .dwc {
-    padding: 30px 10px 1px 10px;
+    padding: 1.875em .625em .063em .625em;
 }
 .mbsc-android-holo .dwhl {
-    padding: 1px 10px;
+    padding: .0625em .625em;
 }
 .mbsc-android-holo .dw-li {
     color: #fff;
-    font-size: 18px;
+    font-size: 1.125em;
 }
 .mbsc-android-holo .dw-hl {
     background: rgba(49,182,231,.5);
@@ -30,7 +30,7 @@
     top: 0;
     left: 0;
     width: 100%;
-    font-size: 26px;
+    font-size: 1.625em;
     text-align: center;
 }
 .mbsc-android-holo .dwwbm {
@@ -58,7 +58,7 @@
     display: none;
 }
 .mbsc-android-holo .dwwms .dw-li {
-    padding: 0 36px;
+    padding: 0 2.25em;
 }
 .mbsc-android-holo .dwwms .dw-li:after {
     content: '';
@@ -66,27 +66,27 @@
     z-index: 1;
     top: 50%;
     left: auto;
-    right: 10px;
-    width: 14px;
-    height: 14px;
-    margin-top: -9px;
+    right: .625em;
+    width: .875em;
+    height: .875em;
+    margin-top: -.5625em;
     border: 1px solid #424542;
 }
 .mbsc-android-holo .dw-msel:before {
     z-index: 2;
     top: 50%;
     left: auto;
-    right: 10px;
-    width: 14px;
+    right: .625em;
+    width: .875em;
     color: #31b6e7;
-    margin-top: -10px;
-    line-height: 14px;
-    text-shadow: 0 0 5px #29799c;
+    margin-top: -.625em;
+    line-height: .875em;
+    text-shadow: 0 0 .375em #29799c;
 }
 /* Group select */
 .mbsc-android-holo .dww .dw-w-gr {
-    padding: 0 5px;
-    font-size: 16px;
+    padding: 0 .375em;
+    font-size: 1em;
     font-weight: normal;
 }
 .mbsc-android-holo .dww .dw-w-gr:after {
@@ -108,5 +108,5 @@
 /* Multiple select */
 .mbsc-android-holo-light .dw-msel:before {
     color: #29799c;
-    text-shadow: 0 0 5px #31b6e7;
+    text-shadow: 0 0 .375em #31b6e7;
 }
