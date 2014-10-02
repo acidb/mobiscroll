@@ -1,8 +1,8 @@
 .mbsc-android-holo .dwwr {
     background: #292829;
     color: #fff;
-    -webkit-border-radius: 0.188em;
-    border-radius: 0.188em;
+    -webkit-border-radius: .1875em;
+    border-radius: .1875em;
     font-size: 16px;
 }
 .mbsc-android-holo .dwv {
@@ -19,7 +19,7 @@
     height: 2.6em;
     line-height: 2.6em;
     color: #fff;
-    font-size: 0.875em;
+    font-size: .875em;
 }
 .mbsc-android-holo .dwb-a {
     background: #29799c;
@@ -29,25 +29,25 @@
 }
 .mbsc-android-holo .dwbw:first-child .dwb {
     border: 0;
-    -webkit-border-radius: 0 0 0 0.188em;
-    border-radius: 0 0 0 0.188em;
+    -webkit-border-radius: 0 0 0 .1875em;
+    border-radius: 0 0 0 .1875em;
 }
 .mbsc-android-holo .dwbw:last-child .dwb {
-    -webkit-border-radius: 0 0 0.188em 0;
-    border-radius: 0 0 0.188em 0;
+    -webkit-border-radius: 0 0 .1875em 0;
+    border-radius: 0 0 .1875em 0;
 }
 .mbsc-android-holo .dw-rtl .dwbw .dwb {
     border: 0;
     border-right: 1px solid #424542;
 }
 .mbsc-android-holo .dw-rtl .dwbw:last-child .dwb {
-    -webkit-border-radius: 0 0 0 0.188em;
-    border-radius: 0 0 0 0.188em;
+    -webkit-border-radius: 0 0 0 .1875em;
+    border-radius: 0 0 0 .1875em;
 }
 .mbsc-android-holo .dw-rtl .dwbw:first-child .dwb {
     border: 0;
-    -webkit-border-radius: 0 0 0.188em 0;
-    border-radius: 0 0 0.188em 0;
+    -webkit-border-radius: 0 0 .1875em 0;
+    border-radius: 0 0 .1875em 0;
 }
 /* Top, bottom mode */
 .mbsc-android-holo.dw-liq .dwwr, 
