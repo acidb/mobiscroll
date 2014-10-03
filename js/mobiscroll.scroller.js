@@ -416,6 +416,8 @@
                 if (manual) {
                     trigger('onChange', [that._tempValue]);
                 }
+
+                trigger('onValidated', []);
             }
 
         }
