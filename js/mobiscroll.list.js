@@ -347,7 +347,7 @@
                     return value ? (value + '').split(' ') : (s.defaultValue || fwv).slice(0);
                 },
                 onBeforeShow: function () {
-                    var t = inst.temp;
+                    var t = inst.getArrayVal(true);
                     currWheelVector = t.slice(0);
                     s.wheels = generateWheelsFromVector(t, lvl, lvl);
                     prevent = true;
@@ -357,6 +357,7 @@
                         input.val(v);
                     }
                     if (change) {
+                        inst._preventChange = true;
                         elm.change();
                     }
 
@@ -374,7 +375,7 @@
                 },
                 validate: function (dw, index, time) {
                     var args = [],
-                        t = inst.temp,
+                        t = inst.getArrayVal(true),
                         i = (index || 0) + 1,
                         j,
                         o;
@@ -385,7 +386,7 @@
                         currLevel = o.lvl;
 
                         for (j = 0; j < t.length; j++) {
-                            inst.temp[j] = o.nVector[j] || 0;
+                            t[j] = o.nVector[j] || 0;
                         }
 
                         while (i < o.lvl) {
@@ -398,7 +399,7 @@
                             timer[index] = setTimeout(function () {
                                 prevent = true;
                                 hideWheels(dw, o.lvl);
-                                currWheelVector = inst.temp.slice(0);
+                                currWheelVector = t.slice(0);
                                 inst.changeWheel(args, index === undefined ? time : 0, index !== undefined);
                                 s.readonly = origReadOnly;
                             }, index === undefined ? 0 : time * 1000);

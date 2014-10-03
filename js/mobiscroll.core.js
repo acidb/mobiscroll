@@ -1,5 +1,5 @@
 /*!
- * Mobiscroll v2.13.0
+ * Mobiscroll v2.13.1
  * http://mobiscroll.com
  *
  * Copyright 2010-2014, Acid Media
@@ -81,7 +81,7 @@
     };
 
     $.mobiscroll = $.mobiscroll || {
-        version: '2.13.0',
+        version: '2.13.1',
         util: {
             prefix: prefix,
             jsPrefix: pr,
@@ -95,6 +95,28 @@
                     return false;
                 }
                 return true;
+            },
+            objectToArray: function (obj) {
+                var arr = [],
+                    i;
+
+                for (i in obj) {
+                    arr.push(obj[i]);
+                }
+
+                return arr;
+            },
+            arrayToObject: function (arr) {
+                var obj = {},
+                    i;
+
+                if (arr) {
+                    for (i = 0; i < arr.length; i++) {
+                        obj[arr[i]] = arr[i];
+                    }
+                }
+
+                return obj;
             },
             isNumeric: function (a) {
                 return a - parseFloat(a) >= 0;
