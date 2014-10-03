@@ -417,6 +417,8 @@
                 if (manual) {
                     trigger('onChange', [valueText]);
                 }
+
+                trigger('onValidated', []);
             }
 
         }
