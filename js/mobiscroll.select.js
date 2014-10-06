@@ -16,6 +16,7 @@
 
     ms.presets.scroller.select = function (inst) {
         var change,
+            currGroup,
             grIdx,
             gr,
             group,
@@ -37,48 +38,72 @@
             lbl = $('label[for="' + this.id + '"]').attr('for', id),
             label = s.label !== undefined ? s.label : (lbl.length ? lbl.text() : elm.attr('name')),
             selectedClass = 'dw-msel mbsc-ic mbsc-ic-' + s.checkIcon,
-            groupHdr = $('optgroup', elm).length && !s.group,
+            isData = s.data,
+            groupHdr = (isData ? isData[0][s.dataGroup] : $('optgroup', elm).length) && !s.group,
             invalid = [],
             selectedValues = {},
             main = {},
             roPre = s.readonly;
 
         function genValues(cont, keys, values) {
-            $('option', cont).each(function () {
-                values.push(this.text);
-                keys.push(this.value);
-                if (this.disabled) {
-                    invalid.push(this.value);
-                }
-            });
+            if (isData) {
+                $.each(isData, function (i, v) {
+                    if (s.group ? (v[s.dataGroup] == currGroup) : true) {
+                        values.push(v[s.dataText]);
+                        keys.push(v[s.dataValue]);
+                        if (v.invalid) {
+                            invalid.push(v[s.dataValue]);
+                        }
+                    }
+                });
+            } else {
+                $('option', cont).each(function () {
+                    values.push(this.text);
+                    keys.push(this.value);
+                    if (this.disabled) {
+                        invalid.push(this.value);
+                    }
+                });
+            }
         }
 
         function genWheels() {
             var cont,
                 wheel,
                 wg = 0,
+                c = 0,
                 values = [],
                 keys = [],
                 w = [[]];
 
             if (s.group) {
-                $('optgroup', elm).each(function (i) {
-                    values.push(this.label);
-                    keys.push(i);
-                });
+                if (isData) {
+                    $.each(isData, function (i, v) {
+                        if (values.indexOf(v[s.dataGroup]) == -1) {
+                            values.push(v[s.dataGroup]);
+                            keys.push(c++);
+                        }
+                    });
+                } else {
+                    $('optgroup', elm).each(function (i) {
+                        values.push(this.label);
+                        keys.push(i);
+                    });
+                }
 
                 wheel = {
                     values: values,
                     keys: keys,
                     label: s.groupLabel
                 };
-
+                            
                 if (isLiquid) {
                     w[0][wg] = wheel;
                 } else {
                     w[wg] = [wheel];
                 }
 
+                currGroup =  values[gr];
                 cont = group;
                 wg++;
             } else {
@@ -89,12 +114,25 @@
             keys = [];
 
             if (groupHdr) {
-                $('optgroup', elm).each(function (i) {
-                    values.push(this.label);
-                    keys.push('__group' + i);
-                    invalid.push('__group' + i);
-                    genValues(this, keys, values);
-                });
+                c = 0;
+                if (isData) {
+                    $.each(isData, function (i, v) {
+                        if (values.indexOf(v[s.dataGroup]) == -1) {
+                            values.push(v[s.dataGroup]);
+                            keys.push('__group' + c);
+                            invalid.push('__group' + c++);
+                        }
+                        values.push(v[s.dataText]);
+                        keys.push(v[s.dataValue]);
+                    });
+                } else {
+                    $('optgroup', elm).each(function (i) {
+                        values.push(this.label);
+                        keys.push('__group' + i);
+                        invalid.push('__group' + i);
+                        genValues(this, keys, values);
+                    });
+                }
             } else {
                 genValues(cont, keys, values);
             }
@@ -114,15 +152,30 @@
 
             return w;
         }
-
+        
         function getOption(v) {
-            var def = $('option', elm).attr('value');
+            var def = isData ? isData[0][s.dataValue] : $('option', elm).attr('value'), 
+                grName = isData ? isData[0][s.dataGroup] : '';
 
             option = multiple ? (v ? v[0] : def) : (v === undefined || v === null ? def : v);
-            
+
             if (s.group) {
-                group = elm.find('option[value="' + option + '"]').parent();
-                gr = group.index();
+                if (isData) {
+                    gr = 0;
+                    $.each(isData, function (i, val) {
+                        if (grName != val[s.dataGroup]) {
+                            gr++;
+                            grName = val[s.dataGroup];
+                        }
+                        if (val[s.dataValue] == v) {
+                            currGroup = val[s.dataGroup];
+                            return false;
+                        }
+                    });
+                } else {
+                    group = elm.find('option[value="' + option + '"]').parent();
+                     gr = group.index();
+                }
             }
         }
 
@@ -170,7 +223,7 @@
         }
 
         // If groups is true and there are no groups fall back to no grouping
-        if (s.group && !$('optgroup', elm).length) {
+        if (s.group && (isData ? !isData[0][s.dataGroup]  : !$('optgroup', elm).length)) {
             s.group = false;
         }
 
@@ -186,12 +239,18 @@
             optIdx = 0;
         }
 
-        $('option', elm).each(function () {
-            main[this.value] = this.text;
-        });
+        if (isData) {
+            $.each(isData, function (i, v) {
+                main[v[s.dataValue]] =  v[s.dataText];
+            });
+        } else {
+            $('option', elm).each(function () {
+                main[this.value] = this.text;
+            });
+        }
         
         getOption(elm.val());
-
+        
         $('#' + id).remove();
 
         input = $('<input type="text" id="' + id + '" class="' + s.inputClass + '" placeholder="' + (s.placeholder || '') + '" readonly />');
