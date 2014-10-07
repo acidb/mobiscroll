@@ -9,7 +9,10 @@
             showInput: true,
             group: false,
             groupLabel: 'Groups',
-            checkIcon: 'checkmark'
+            checkIcon: 'checkmark',
+            dataText: 'text',
+            dataValue: 'value',
+            dataGroup: 'group'
         };
 
     ms.presetShort('select');
@@ -38,20 +41,22 @@
             lbl = $('label[for="' + this.id + '"]').attr('for', id),
             label = s.label !== undefined ? s.label : (lbl.length ? lbl.text() : elm.attr('name')),
             selectedClass = 'dw-msel mbsc-ic mbsc-ic-' + s.checkIcon,
-            isData = s.data,
-            groupHdr = (isData ? isData[0][s.dataGroup] : $('optgroup', elm).length) && !s.group,
+            data = s.data,
+            hasData = !!data,
+            hasGroups = hasData ? data[0][s.dataGroup] : $('optgroup', elm).length,
+            groupHdr = hasGroups && !s.group,
             invalid = [],
             selectedValues = {},
             main = {},
             roPre = s.readonly;
 
         function genValues(cont, keys, values) {
-            if (isData) {
-                $.each(isData, function (i, v) {
+            if (hasData) {
+                $.each(data, function (i, v) {
                     if (s.group ? (v[s.dataGroup] == currGroup) : true) {
                         values.push(v[s.dataText]);
                         keys.push(v[s.dataValue]);
-                        if (v.invalid) {
+                        if (v.disabled) {
                             invalid.push(v[s.dataValue]);
                         }
                     }
@@ -77,8 +82,8 @@
                 w = [[]];
 
             if (s.group) {
-                if (isData) {
-                    $.each(isData, function (i, v) {
+                if (hasData) {
+                    $.each(data, function (i, v) {
                         if (values.indexOf(v[s.dataGroup]) == -1) {
                             values.push(v[s.dataGroup]);
                             keys.push(c++);
@@ -96,14 +101,14 @@
                     keys: keys,
                     label: s.groupLabel
                 };
-                            
+
                 if (isLiquid) {
                     w[0][wg] = wheel;
                 } else {
                     w[wg] = [wheel];
                 }
 
-                currGroup =  values[gr];
+                currGroup = values[gr];
                 cont = group;
                 wg++;
             } else {
@@ -115,8 +120,8 @@
 
             if (groupHdr) {
                 c = 0;
-                if (isData) {
-                    $.each(isData, function (i, v) {
+                if (hasData) {
+                    $.each(data, function (i, v) {
                         if (values.indexOf(v[s.dataGroup]) == -1) {
                             values.push(v[s.dataGroup]);
                             keys.push('__group' + c);
@@ -152,29 +157,29 @@
 
             return w;
         }
-        
+
         function getOption(v) {
-            var def = isData ? isData[0][s.dataValue] : $('option', elm).attr('value'), 
-                grName = isData ? isData[0][s.dataGroup] : '';
+            var def = hasData ? data[0][s.dataValue] : $('option', elm).attr('value'),
+                grName = hasData ? data[0][s.dataGroup] : '';
 
             option = multiple ? (v ? v[0] : def) : (v === undefined || v === null ? def : v);
 
             if (s.group) {
-                if (isData) {
+                if (hasData) {
                     gr = 0;
-                    $.each(isData, function (i, val) {
+                    $.each(data, function (i, val) {
                         if (grName != val[s.dataGroup]) {
                             gr++;
                             grName = val[s.dataGroup];
                         }
-                        if (val[s.dataValue] == v) {
+                        if (val[s.dataValue] == option) {
                             currGroup = val[s.dataGroup];
                             return false;
                         }
                     });
                 } else {
                     group = elm.find('option[value="' + option + '"]').parent();
-                     gr = group.index();
+                    gr = group.index();
                 }
             }
         }
@@ -223,7 +228,7 @@
         }
 
         // If groups is true and there are no groups fall back to no grouping
-        if (s.group && (isData ? !isData[0][s.dataGroup]  : !$('optgroup', elm).length)) {
+        if (s.group && !hasGroups) {
             s.group = false;
         }
 
@@ -239,18 +244,18 @@
             optIdx = 0;
         }
 
-        if (isData) {
-            $.each(isData, function (i, v) {
-                main[v[s.dataValue]] =  v[s.dataText];
+        if (hasData) {
+            $.each(data, function (i, v) {
+                main[v[s.dataValue]] = v[s.dataText];
             });
         } else {
             $('option', elm).each(function () {
                 main[this.value] = this.text;
             });
         }
-        
+
         getOption(elm.val());
-        
+
         $('#' + id).remove();
 
         input = $('<input type="text" id="' + id + '" class="' + s.inputClass + '" placeholder="' + (s.placeholder || '') + '" readonly />');
@@ -271,7 +276,7 @@
         //elm.addClass('dw-hsel').attr('tabindex', -1).closest('.ui-field-contain').trigger('create');
 
         onFill(option);
-        
+
         // Extended methods
         // ---
 
@@ -299,7 +304,7 @@
         // ---
         inst.getValues = inst.getValue = inst.getVal;
         // ---
-        
+
         // ---
 
         return {
@@ -339,7 +344,7 @@
                 }
 
                 getOption(elm.val());
- 
+
                 if (s.group) {
                     prev = gr;
                     inst._tempWheelArray = [gr, option];
