@@ -18,7 +18,8 @@
     /*touch-action: none;*/ /* Kills native scroll in Chrome >=35 */
 }
 .dw:focus {
-    outline-color: transparent;
+    /*outline-color: transparent;*/
+    outline: none;
 }
 .dw-rtl {
     direction: rtl;
