@@ -126,6 +126,11 @@
             }
         }
 
+        function getVal(temp) {
+            var val = temp ? inst._tempWheelArray : (inst._hasValue ? inst._wheelArray : null);
+            return val ? (s.group && group ? val : val[optIdx]) : null;
+        }
+
         function onFill(v, change) {
             var val = v,
                 txt = main[v],
@@ -217,29 +222,26 @@
         // Extended methods
         // ---
 
-        inst.setVal = function (val, fill, time, temp, change) {
+        inst.setVal = function (val, fill, change, temp, time) {
             if (multiple) {
                 selectedValues = util.arrayToObject(val);
                 val = val ? val[0] : null;
             }
-            inst._setVal(val, fill, time, temp, change);
+            inst._setVal(val, fill, change, temp, time);
         };
 
         inst.getVal = function (temp, group) {
-            var val;
-
             if (multiple) {
                 return util.objectToArray(selectedValues);
             }
-
-            val = temp ? inst._tempWheelArray : (inst._hasValue ? inst._wheelArray : null);
-
-            return val ? (s.group && group ? val : val[optIdx]) : null;
+            return getVal(temp);
         };
 
         // @deprecated since 2.14.0, backward compatibility code
         // ---
-        inst.getValues = inst.getValue = inst.getVal;
+        inst.getValues = inst.getVal;
+
+        inst.getValue = getVal;
         // ---
         
         // ---
