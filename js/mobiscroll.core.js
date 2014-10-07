@@ -121,10 +121,12 @@
             isNumeric: function (a) {
                 return a - parseFloat(a) >= 0;
             },
+            /* Coord Start */
             getCoord: function (e, c) {
                 var ev = e.originalEvent || e;
                 return ev.changedTouches ? ev.changedTouches[0]['page' + c] : e['page' + c];
             },
+            /* Coord End */
             constrain: function (val, min, max) {
                 return Math.max(min, Math.min(val, max));
             }
