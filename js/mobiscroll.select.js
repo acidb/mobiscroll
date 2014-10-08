@@ -194,9 +194,9 @@
             }
         }
 
-        function getVal(temp) {
+        function getVal(temp, group) {
             var val = temp ? inst._tempWheelArray : (inst._hasValue ? inst._wheelArray : null);
-            return val ? (s.group && group ? val : val[optIdx]) : null;
+            return val ? (s.group && group ? val : val[optionWheelIdx]) : null;
         }
 
         function onFill(v, change) {
@@ -303,7 +303,7 @@
             if (multiple) {
                 return util.objectToArray(selectedValues);
             }
-            return getVal(temp);
+            return getVal(temp, group);
         };
 
         // @deprecated since 2.14.0, backward compatibility code
