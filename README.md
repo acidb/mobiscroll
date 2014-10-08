@@ -33,6 +33,30 @@ It'd be cool to see how you're using Mobiscroll!
 We're looking at showcasing some of the best work on http://mobiscroll.com . Feel free to let us know on twitter @mobiscroll!
 
 
+Changelog 2.13.2
+================
+
+_Calendar_
+
+  * Fixed: `mousemove` and `mouseup` events were incorrectly detached on swipe end.
+
+_Core_
+
+  * Fixed: Popup was outlined on Chrome / OSX.
+
+_Listview_
+
+  * Fixed: Sort handle was generated for group headers.
+
+_Range_
+
+  * Fixed: Times were displayed before validation.
+  
+_Angular integration_
+
+  * Fixed: Incorrect null value support.
+
+
 Changelog 2.13.1
 ================
 
