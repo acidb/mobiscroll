@@ -58,6 +58,7 @@
         // Event handlers
 
         function onStart(ev) {
+            /* TRIALCOND */
             // Scroll start
             if (testTouch(ev) && !move && !click && !btn && !isReadOnly(this)) {
                 // Prevent touch highlight
