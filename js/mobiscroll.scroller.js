@@ -472,8 +472,6 @@
 
             if (fill) {
 
-                trigger('onValueFill', [that._hasValue ? that._tempValue : '', change]);
-
                 if (that._isInput) {
                     $elm.val(that._hasValue ? that._tempValue : '');
                     if (change) {
@@ -481,6 +479,8 @@
                         $elm.change();
                     }
                 }
+
+                trigger('onValueFill', [that._hasValue ? that._tempValue : '', change]);
             }
         }
 

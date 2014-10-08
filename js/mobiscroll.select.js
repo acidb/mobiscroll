@@ -9,61 +9,135 @@
             showInput: true,
             group: false,
             groupLabel: 'Groups',
-            checkIcon: 'checkmark'
+            checkIcon: 'checkmark',
+            dataText: 'text',
+            dataValue: 'value',
+            dataGroup: 'group',
+            dataDisabled: 'disabled'
         };
 
     ms.presetShort('select');
 
     ms.presets.scroller.select = function (inst) {
         var change,
-            grIdx,
-            gr,
             group,
+            groupWheelIdx,
             headerText,
+            i,
             input,
-            optIdx,
+            optionWheelIdx,
             option,
             origValues,
-            prev,
+            prevGroup,
             timer,
-            w,
             orig = $.extend({}, inst.settings),
             s = $.extend(inst.settings, defaults, orig),
             layout = s.layout || (/top|bottom/.test(s.display) ? 'liquid' : ''),
             isLiquid = layout == 'liquid',
             elm = $(this),
-            multiple = elm.prop('multiple'),
+            multiple = s.multiple || elm.prop('multiple'),
             id = this.id + '_dummy',
             lbl = $('label[for="' + this.id + '"]').attr('for', id),
             label = s.label !== undefined ? s.label : (lbl.length ? lbl.text() : elm.attr('name')),
             selectedClass = 'dw-msel mbsc-ic mbsc-ic-' + s.checkIcon,
-            groupHdr = $('optgroup', elm).length && !s.group,
+            origReadOnly = s.readonly,
+            data = s.data,
+            hasData = !!data,
+            hasGroups = hasData ? data[0][s.dataGroup] : $('optgroup', elm).length,
+            defaultValue = hasData ? data[0][s.dataValue] : $('option', elm).attr('value'),
+            groupWheel = hasGroups && s.group,
+            groupHdr = hasGroups && !groupWheel,
+            values = elm.val(),
             invalid = [],
             selectedValues = {},
-            main = {},
-            roPre = s.readonly;
+            options = {},
+            groups = {};
 
-        function genValues(cont, keys, values) {
-            $('option', cont).each(function () {
-                values.push(this.text);
-                keys.push(this.value);
-                if (this.disabled) {
-                    invalid.push(this.value);
+        function prepareData() {
+            var gr,
+                lbl,
+                opt,
+                txt,
+                val,
+                c = 0,
+                groupIndexes = {};
+
+            if (hasData) {
+                $.each(data, function (i, v) {
+                    txt = v[s.dataText];
+                    val = v[s.dataValue];
+                    lbl = v[s.dataGroup];
+                    opt = {
+                        value: val,
+                        text: txt
+                    };
+                    options[val] = opt;
+
+                    if (hasGroups) {
+                        if (groupIndexes[lbl] === undefined) {
+                            gr = { label: lbl, options: [] };
+                            groups[c] = gr;
+                            groupIndexes[lbl] = c;
+                            c++;
+                        } else {
+                            gr = groups[groupIndexes[lbl]];
+                        }
+                        opt.group = groupIndexes[lbl];
+                        gr.options.push(opt);
+                    }
+                    if (v[s.dataDisabled]) {
+                        invalid.push(val);
+                    }
+                });
+            } else {
+                if (hasGroups) {
+                    $('optgroup', elm).each(function (i) {
+                        groups[i] = { label: this.label, options: [] };
+                        $('option', this).each(function () {
+                            opt = {
+                                value: this.value,
+                                text: this.text,
+                                group: i
+                            };
+                            options[this.value] = opt;
+                            groups[i].options.push(opt);
+                            if (this.disabled) {
+                                invalid.push(this.value);
+                            }
+                        });
+                    });
+                } else {
+                    $('option', elm).each(function () {
+                        options[this.value] = {
+                            value: this.value,
+                            text: this.text
+                        };
+                        if (this.disabled) {
+                            invalid.push(this.value);
+                        }
+                    });
                 }
+            }
+        }
+
+        function genValues(data, keys, values) {
+            $.each(data, function (i, v) {
+                values.push(v.text);
+                keys.push(v.value);
             });
         }
 
         function genWheels() {
-            var cont,
-                wheel,
+            var wheel,
                 wg = 0,
                 values = [],
                 keys = [],
                 w = [[]];
 
-            if (s.group) {
-                $('optgroup', elm).each(function (i) {
-                    values.push(this.label);
+            // Generate group wheel
+            if (groupWheel) {
+                $.each(groups, function (i, v) {
+                    values.push(v.label);
                     keys.push(i);
                 });
 
@@ -79,24 +153,21 @@
                     w[wg] = [wheel];
                 }
 
-                cont = group;
                 wg++;
-            } else {
-                cont = elm;
             }
 
             values = [];
             keys = [];
 
-            if (groupHdr) {
-                $('optgroup', elm).each(function (i) {
-                    values.push(this.label);
+            if (groupHdr) { // Generate options wheel with group headers
+                $.each(groups, function (i, gr) {
+                    values.push(gr.label);
                     keys.push('__group' + i);
                     invalid.push('__group' + i);
-                    genValues(this, keys, values);
+                    genValues(gr.options, keys, values);
                 });
-            } else {
-                genValues(cont, keys, values);
+            } else { // Generate options wheel (for selected group or all, if not grouped)
+                genValues(groupWheel ? groups[group].options : options, keys, values);
             }
 
             wheel = {
@@ -116,13 +187,10 @@
         }
 
         function getOption(v) {
-            var def = $('option', elm).attr('value');
+            option = multiple ? (v ? v[0] : defaultValue) : (v === undefined || v === null || v === '' ? defaultValue : v);
 
-            option = multiple ? (v ? v[0] : def) : (v === undefined || v === null ? def : v);
-            
-            if (s.group) {
-                group = elm.find('option[value="' + option + '"]').parent();
-                gr = group.index();
+            if (groupWheel) {
+                group = options[option].group;
             }
         }
 
@@ -132,8 +200,8 @@
         }
 
         function onFill(v, change) {
-            var val = v,
-                txt = main[v],
+            var txt,
+                val,
                 sel = [],
                 i = 0;
 
@@ -141,11 +209,14 @@
                 val = [];
 
                 for (i in selectedValues) {
-                    sel.push(main[i]);
+                    sel.push(options[i].text);
                     val.push(i);
                 }
 
                 txt = sel.join(', ');
+            } else {
+                val = v;
+                txt = options[v].text;
             }
 
             input.val(txt);
@@ -175,27 +246,29 @@
             }
         }
 
-        // If groups is true and there are no groups fall back to no grouping
-        if (s.group && !$('optgroup', elm).length) {
-            s.group = false;
-        }
-
         if (!s.invalid.length) {
             s.invalid = invalid;
         }
 
-        if (s.group) {
-            grIdx = 0;
-            optIdx = 1;
+        if (groupWheel) {
+            groupWheelIdx = 0;
+            optionWheelIdx = 1;
         } else {
-            grIdx = -1;
-            optIdx = 0;
+            groupWheelIdx = -1;
+            optionWheelIdx = 0;
         }
 
-        $('option', elm).each(function () {
-            main[this.value] = this.text;
-        });
-        
+        if (multiple) {
+            if (values && !$.isArray(values)) {
+                values = values.split(',');
+            }
+            for (i = 0; i < values.length; i++) {
+                selectedValues[values[i]] = values[i];
+            }
+        }
+
+        prepareData();
+
         getOption(elm.val());
 
         $('#' + id).remove();
@@ -208,22 +281,18 @@
 
         inst.attachShow(input);
 
-        var v = elm.val() || [],
-            i = 0;
-
-        for (i; i < v.length; i++) {
-            selectedValues[v[i]] = v[i];
-        }
-
         elm.addClass('dw-hsel').attr('tabindex', -1).closest('.ui-field-contain').trigger('create');
 
         onFill(option);
-        
+
         // Extended methods
         // ---
 
         inst.setVal = function (val, fill, change, temp, time) {
             if (multiple) {
+                if (val && !$.isArray(val)) {
+                    val = val.split(',');
+                }
                 selectedValues = util.arrayToObject(val);
                 val = val ? val[0] : null;
             }
@@ -243,23 +312,21 @@
 
         inst.getValue = getVal;
         // ---
-        
+
         // ---
 
         return {
             width: 50,
-            wheels: w,
             layout: layout,
             headerText: false,
             anchor: input,
             formatResult: function (d) {
-                //return main[d[optIdx]];
-                return d[optIdx];
+                return d[optionWheelIdx];
             },
             parseValue: function (val) {
                 getOption(val === undefined ? elm.val() : val);
 
-                return s.group ? [gr, option] : [option];
+                return groupWheel ? [group, option] : [option];
             },
             onValueTap: onTap,
             onValueFill: onFill,
@@ -278,23 +345,25 @@
                 headerText = s.headerText + '';
                 if (/{value}/.test(headerText)) {
                     s.headerText = function (v) {
-                        return headerText.replace(/\{value\}/i, main[v]);
+                        return headerText.replace(/\{value\}/i, options[v].text);
                     };
                 }
 
                 getOption(elm.val());
- 
-                if (s.group) {
-                    prev = gr;
-                    inst._tempWheelArray = [gr, option];
+
+                if (groupWheel) {
+                    prevGroup = group;
+                    inst._tempWheelArray = [group, option];
                 }
+
+                prepareData();
 
                 s.wheels = genWheels();
             },
             onMarkupReady: function (dw) {
                 dw.addClass('dw-select');
 
-                $('.dwwl' + grIdx, dw).on('mousedown touchstart', function () {
+                $('.dwwl' + groupWheelIdx, dw).on('mousedown touchstart', function () {
                     clearTimeout(timer);
                 });
 
@@ -312,7 +381,7 @@
                             e.stopPropagation();
                             onTap($('.dw-sel', this));
                         }
-                    }).eq(optIdx).addClass('dwwms').attr('aria-multiselectable', 'true');
+                    }).eq(optionWheelIdx).addClass('dwwms').attr('aria-multiselectable', 'true');
 
                     origValues = $.extend({}, selectedValues);
                 }
@@ -321,43 +390,41 @@
                 var j,
                     v,
                     temp = inst.getArrayVal(true),
-                    t = $('.dw-ul', dw).eq(optIdx);
+                    t = $('.dw-ul', dw).eq(optionWheelIdx);
 
                 if (i === undefined && multiple) {
                     v = selectedValues;
                     j = 0;
 
-                    $('.dwwl' + optIdx + ' .dw-li', dw).removeClass(selectedClass).removeAttr('aria-selected');
+                    $('.dwwl' + optionWheelIdx + ' .dw-li', dw).removeClass(selectedClass).removeAttr('aria-selected');
 
                     for (j in v) {
-                        $('.dwwl' + optIdx + ' .dw-li[data-val="' + v[j] + '"]', dw).addClass(selectedClass).attr('aria-selected', 'true');
+                        $('.dwwl' + optionWheelIdx + ' .dw-li[data-val="' + v[j] + '"]', dw).addClass(selectedClass).attr('aria-selected', 'true');
                     }
                 }
 
-                if (s.group && (i === undefined || i === grIdx)) {
-                    gr = +temp[grIdx];
-                    if (gr !== prev) {
-                        group = elm.find('optgroup').eq(gr);
-                        option = group.find('option').not('[disabled]').eq(0).val();
-                        option = option || elm.val();
+                if (groupWheel && (i === undefined || i === groupWheelIdx)) {
+                    group = +temp[groupWheelIdx];
+                    if (group !== prevGroup) {
+                        option = groups[group].options[0].value;
                         s.wheels = genWheels();
                         if (!change) {
-                            inst._tempWheelArray = [gr, option];
+                            inst._tempWheelArray = [group, option];
                             s.readonly = [false, true];
                             clearTimeout(timer);
                             timer = setTimeout(function () {
                                 change = true;
-                                prev = gr;
-                                inst.changeWheel([optIdx], undefined, true);
-                                s.readonly = roPre;
+                                prevGroup = group;
+                                inst.changeWheel([optionWheelIdx], undefined, true);
+                                s.readonly = origReadOnly;
                             }, time * 1000);
                             return false;
                         }
                     } else {
-                        s.readonly = roPre;
+                        s.readonly = origReadOnly;
                     }
                 } else {
-                    option = temp[optIdx];
+                    option = temp[optionWheelIdx];
                 }
 
                 $.each(s.invalid, function (i, v) {
@@ -369,7 +436,7 @@
             onClear: function (dw) {
                 selectedValues = {};
                 input.val('');
-                $('.dwwl' + optIdx + ' .dw-li', dw).removeClass(selectedClass).removeAttr('aria-selected');
+                $('.dwwl' + optionWheelIdx + ' .dw-li', dw).removeClass(selectedClass).removeAttr('aria-selected');
             },
             onCancel: function () {
                 if (!inst.live && multiple) {
