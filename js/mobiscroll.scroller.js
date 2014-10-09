@@ -271,24 +271,7 @@
         }
 
         function getCurrentPosition(t) {
-            var style = window.getComputedStyle ? getComputedStyle(t[0]) : t[0].style,
-                matrix,
-                px;
-
-            if (has3d) {
-                $.each(['t', 'webkitT', 'MozT', 'OT', 'msT'], function (i, v) {
-                    if (style[v + 'ransform'] !== undefined) {
-                        matrix = style[v + 'ransform'];
-                        return false;
-                    }
-                });
-                matrix = matrix.split(')')[0].split(', ');
-                px = matrix[13] || matrix[5];
-            } else {
-                px = style.top.replace('px', '');
-            }
-
-            return Math.round(-px / itemHeight);
+            return Math.round(-util.getPosition(t, true) / itemHeight);
         }
 
         function ready(t, i) {
@@ -312,9 +295,8 @@
 
             pixels[index] = px;
 
-            style[pr + 'Transition'] = 'all ' + (time ? time.toFixed(3) : 0) + 's ease-out';
-
             if (has3d) {
+                style[pr + 'Transition'] = util.prefix + 'transform ' + (time ? time.toFixed(3) : 0) + 's ease-out';
                 style[pr + 'Transform'] = 'translate3d(0,' + px + 'px,0)';
             } else {
                 style.top = px + 'px';

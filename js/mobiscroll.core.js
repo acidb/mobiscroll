@@ -126,6 +126,26 @@
                 var ev = e.originalEvent || e;
                 return ev.changedTouches ? ev.changedTouches[0]['page' + c] : e['page' + c];
             },
+            getPosition: function (t, vertical) { //to ppp
+                var style = window.getComputedStyle ? getComputedStyle(t[0]) : t[0].style,
+                    matrix,
+                    px;
+
+                if (has3d) {
+                    $.each(['t', 'webkitT', 'MozT', 'OT', 'msT'], function (i, v) {
+                        if (style[v + 'ransform'] !== undefined) {
+                            matrix = style[v + 'ransform'];
+                            return false;
+                        }
+                    });
+                    matrix = matrix.split(')')[0].split(', ');
+                    px = vertical ? (matrix[13] || matrix[5]) : (matrix[12] || matrix[4]);
+                } else {
+                    px = vertical ? style.top.replace('px', '') : style.left.replace('px', '');
+                }
+
+                return px;
+            },
             /* Coord End */
             constrain: function (val, min, max) {
                 return Math.max(min, Math.min(val, max));
