@@ -600,7 +600,7 @@
                 startY,
                 moved;
 
-            if (s.tap) {
+            if (s.tap && !isOldAndroid) {
                 el.on('touchstart.dw', function (ev) {
                     // Can't always call preventDefault here, it kills page scroll
                     if (prevent) {
@@ -620,9 +620,9 @@
                     if (!moved) {
                         // preventDefault and setTimeout are needed by iOS
                         ev.preventDefault();
-                        setTimeout(function () {
-                            handler.call(that, ev);
-                        }, isOldAndroid ? 400 : 10);
+                        //setTimeout(function () {
+                        handler.call(that, ev);
+                        //}, isOldAndroid ? 400 : 10);
                     }
                     // Prevent click events to happen
                     ms.tapped = true;

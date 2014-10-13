@@ -160,10 +160,8 @@
         function onBtnStart(ev) {
             btn = $(this);
             // +/- buttons
-            if (btn.hasClass('dwwb')) {
-                if (testTouch(ev)) {
-                    step(ev, btn.closest('.dwwl'), btn.hasClass('dwwbp') ? plus : minus);
-                }
+            if (testTouch(ev)) {
+                step(ev, btn.closest('.dwwl'), btn.hasClass('dwwbp') ? plus : minus);
             }
             if (ev.type === 'mousedown') {
                 $(document).on('mouseup', onBtnEnd);
@@ -607,8 +605,8 @@
                 .on('touchstart mousedown', '.dwwl', onStart)
                 .on('touchmove', '.dwwl', onMove)
                 .on('touchend', '.dwwl', onEnd)
-                .on('touchstart mousedown', '.dwb-e', onBtnStart)
-                .on('touchend', '.dwb-e', onBtnEnd);
+                .on('touchstart mousedown', '.dwwb', onBtnStart)
+                .on('touchend', '.dwwb', onBtnEnd);
         };
 
         that._markupReady = function () {
