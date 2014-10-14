@@ -99,6 +99,7 @@
                 wg,
                 start,
                 end,
+                pushYear,
                 hasTime,
                 orig = $.extend({}, inst.settings),
                 s = $.extend(inst.settings, defaults, html5def, orig),
@@ -145,30 +146,39 @@
                     o[v.v] = i;
                 });
 
+                pushYear = function(y) {
+                    if (defd.getFullYear() == y && s.emptyValues) {
+                       keys.push('-1');
+                       values.push('-');
+                    }
+
+                    keys.push(y);
+                    values.push(dord.match(/yy/i) ? y : (y + '').substr(2, 2));
+                };
+
                 wg = [];
                 for (k = 0; k < 3; k++) {
                     if (k == o.y) {
                         offset++;
-                        if (s.emptyValues) {
-                            values = ['-'];
-                            keys = ['-1'];
-                        } else {
-                            values = [];
-                            keys = [];
-                        }
+                        values = [];
+                        keys = [];
+                        
                         start = s.getYear(mind);
                         end = s.getYear(maxd);
 
-                        if (!s.reverceYears){
-                           for (i = start; i <= end; i++) {
-                               keys.push(i);
-                               values.push((dord.match(/yy/i) ? i : (i + '').substr(2, 2)) + (s.yearSuffix || ''));
-                           }
+                        if (defd.getFullYear() < start || defd.getFullYear() > end) {
+                            keys.push('-1');
+                            values.push('-');
+                        }
+
+                        if (s.reverceYears) {
+                            for (i = end; i >= start; i--) {
+                               pushYear(i);
+                            }
                         } else {
-                           for (i = end; i >= start; i--) {
-                               keys.push(i);
-                               values.push((dord.match(/yy/i) ? i : (i + '').substr(2, 2)) + (s.yearSuffix || ''));
-                           }
+                            for (i = start; i <= end; i++) {
+                               pushYear(i);
+                            }
                         }
 
                         addWheel(wg, keys, values, s.yearText);
