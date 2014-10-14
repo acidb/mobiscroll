@@ -38,7 +38,7 @@
 }
 .mbsc-wp .dw-li .dw-i {
     /*width: 99.5%;*/
-    color: #4c4c4c;
+    color: #fff;
 }
 .mbsc-wp .wpa .dw-li, 
 .mbsc-wp .dwa .dw-li {
@@ -223,7 +223,7 @@
 
 /* Override accents */
 .mbsc-wp .dwa .dw-i {
-    color: #4c4c4c;
+    color: #fff;
     border-color: #4c4c4c;
     background: none;
 }

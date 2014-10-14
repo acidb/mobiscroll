@@ -44,10 +44,11 @@
     height: 2.2em;
     margin: 0 -1.3em;
     border: 2px solid #fff;
-    border-radius: 1.3em;
     line-height: 2.2em;
     font-size: .909em;
     text-align: center;
+    -webkit-border-radius: 1000px;
+    border-radius: 1000px;
 }
 .mbsc-wp .dwb-a {
     top: -.3em;
