@@ -466,7 +466,7 @@
 
                 if (has3d && doAnim && !prevAnim) {
                     $markup.addClass('dw-in dw-trans').on(animEnd, function () {
-                        $markup.removeClass('dw-in dw-trans').find('.dw').removeClass('dw-' + doAnim);
+                        $markup.off(animEnd).removeClass('dw-in dw-trans').find('.dw').removeClass('dw-' + doAnim);
                         onShow(prevFocus);
                     }).find('.dw').addClass('dw-' + doAnim);
                 }
