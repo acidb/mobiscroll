@@ -1,10 +1,12 @@
 .mbsc-wp .dwwr {
-    padding: 10px;
+    padding: .625em;
     background: #1f1f1f;
     color: #fff;
+    font-size: 16px;
 }
 .mbsc-wp .dwv {
-    padding: 10px;
+    font-size: .75em;
+    padding: .833em;
     padding-top: 0;
 }
 .mbsc-wp .dwbc {
@@ -22,13 +24,13 @@
 .mbsc-wp .dwb {
     position: relative;
     top: 0;
-    min-width: 32px;
+    min-width: 2.9em;
     display: inline-block;
-    height: 20px;
-    padding: 29px 5px 0 5px;
+    height: 1.818em;
+    padding: 2.636em .455em 0 .455em;
     color: #fff;
-    line-height: 20px;
-    font-size: 11px;
+    line-height: 1.818em;
+    font-size: 0.688em;
     text-transform: lowercase;
     -webkit-transition: all .1s linear;
     -moz-transition: all .1s linear;
@@ -36,19 +38,19 @@
 }
 .mbsc-wp .dwb:before {
     position: absolute;
-    top: 3px;
+    top: .3em;
     left: 50%;
-    width: 22px;
-    height: 22px;
-    margin: 0 -13px;
+    width: 2.2em;
+    height: 2.2em;
+    margin: 0 -1.3em;
     border: 2px solid #fff;
-    border-radius: 13px;
-    line-height: 22px;
-    font-size: 10px;
+    border-radius: 1.3em;
+    line-height: 2.2em;
+    font-size: .909em;
     text-align: center;
 }
 .mbsc-wp .dwb-a {
-    top: -3px;
+    top: -.3em;
 }
 .mbsc-wp .dwb-a:before {
     background: #fff;
