@@ -1,133 +1,89 @@
-.mbsc-ios .dwc {
-    padding: 30px 2px 10px 2px;
+.mbsc-ios .dwl {
+    text-align: left;
+    text-indent: 5px;
+    color: #ababab;
 }
-.mbsc-ios .dwhl {
-    padding: 10px 2px;
+.mbsc-ios .dwwc {
+    padding: 30px 10px 10px 10px;
 }
-.mbsc-ios .dwwl {
-    padding: 0 2px;
-    border-left: 1px solid #000;
-    border-right: 1px solid #000;
-    background: #cbcce0;
-    background: -webkit-gradient(linear,left bottom,left top,from(#2c2c38),color-stop(0.35, #cbcce0),color-stop(0.65, #cbcce0),to(#2c2c38));
-    background: -webkit-linear-gradient(#2c2c38,#cbcce0 35%, #cbcce0 65%,#2c2c38);
-    background: -moz-linear-gradient(#2c2c38,#cbcce0 35%, #cbcce0 65%,#2c2c38);
-    background: linear-gradient(#2c2c38,#cbcce0 35%, #cbcce0 65%,#2c2c38);
-    -webkit-box-shadow: 0 1px 1px rgba(255,255,255,0.3);
-    box-shadow: 0 1px 1px rgba(255,255,255,0.3);
-}
-.mbsc-ios .dw-ltr .dwsc .dwfl:first-child .dwwl,
-.mbsc-ios .dw-rtl .dwsc .dwfl:last-child .dwwl {
-    -webkit-border-top-left-radius: 3px;
-    -webkit-border-bottom-left-radius: 3px;
-    border-top-left-radius: 3px;
-    border-bottom-left-radius: 3px;
-}
-.mbsc-ios .dw-ltr .dwsc .dwfl:last-child .dwwl,
-.mbsc-ios .dw-rtl .dwsc .dwfl:first-child .dwwl {
-    -webkit-border-top-right-radius: 3px;
-    -webkit-border-bottom-right-radius: 3px;
-    border-top-right-radius: 3px;
-    border-bottom-right-radius: 3px;
-}
-.mbsc-ios .dwsc .dww {
-    background: #fff;
-    background: -webkit-gradient(linear,left bottom,left top,from(#333),color-stop(0.10, #999),color-stop(0.30, #fff),color-stop(0.70, #fff),color-stop(0.90, #999),to(#333));
-    background: -webkit-linear-gradient(#333,#999 10%,#fff 30%,#fff 70%,#999 90%,#333);
-    background: -moz-linear-gradient(#333,#999 10%,#fff 30%,#fff 70%,#999 90%,#333);
-    background: linear-gradient(#333,#999 10%,#fff 30%,#fff 70%,#999 90%,#333);
-    -webkit-border-radius: 0;
-    border-radius: 0;
-}
-.mbsc-ios .dwpm .dwwl {
-    margin: 4px 2px;
-    border: 1px solid #000;
-    -webkit-border-radius: 3px;
-    border-radius: 3px;
-}
-.mbsc-ios .dwpm .dww {
-    background: -webkit-gradient(linear,left bottom,left top,from(#333),color-stop(0.48, #fff),color-stop(0.52, #fff),to(#333));
-    background: -webkit-linear-gradient(#333,#fff 48%,#fff 52%,#333);
-    background: -moz-linear-gradient(#333,#fff 48%,#fff 52%,#333);
-    background: linear-gradient(#333,#fff 48%,#fff 52%,#333);
-}
-.mbsc-ios .dw-li {
-    color: #000;
-    font-size: 20px;
-    font-weight: bold;
-    text-align: right;
-    text-shadow: none;
-}
-.mbsc-ios .dw-li.dw-hl {
-    background: -webkit-gradient(linear,left bottom,left top,from(#0288f3),to(#005de6));
-    background: -webkit-linear-gradient(#0288f3,#005de6);
-    background: -moz-linear-gradient(#0288f3,#005de6);
-    background: linear-gradient(#0288f3,#005de6);
-    color: #fff;
+.mbsc-ios .dwhl .dwwc {
+    padding-top: 10px;
 }
 .mbsc-ios .dwwo {
-    background: -webkit-gradient(linear,left bottom,left top,from(#333),color-stop(0.1, rgba(153,153,153,0)),color-stop(0.9, rgba(153,153,153,0)),to(#333));
-    background: -webkit-linear-gradient(#333,rgba(153,153,153,0) 10%, rgba(153,153,153,0) 90%, #333);
-    background: -moz-linear-gradient(#333,rgba(153,153,153,0) 10%, rgba(153,153,153,0) 90%, #333);
-    background: linear-gradient(#333,rgba(153,153,153,0) 10%, rgba(153,153,153,0) 90%, #333);
+    background: -webkit-gradient(linear,left bottom,left top,from(#f7f7f7),color-stop(0.52, rgba(245,245,245,0)),color-stop(0.48, rgba(245,245,245,0)),to(#f7f7f7));
+    background: -webkit-linear-gradient(#f7f7f7,rgba(245,245,245,0) 52%, rgba(245,245,245,0) 48%, #f7f7f7);
+    background: -moz-linear-gradient(#f7f7f7,rgba(245,245,245,0) 52%, rgba(245,245,245,0) 48%, #f7f7f7);
+    background: linear-gradient(#f7f7f7,rgba(245,245,245,0) 52%, rgba(245,245,245,0) 48%, #f7f7f7);
 }
 .mbsc-ios .dwwol {
-    height: 28px;
-    padding: 1px;
-    margin-top: -16px;
-    border-top: 1px solid #7b8699;
-    border-bottom: 1px solid #7b8699;
-    background: #6f75b0;
-    background: -webkit-gradient(linear,left bottom,left top,color-stop(0.5, rgba(111, 117, 176, 0.5)),color-stop(0.5, rgba(151, 157, 197, 0.5)));
-    background: -webkit-linear-gradient(rgba(151, 157, 197, 0.5) 50%,rgba(111, 117, 176, 0.5) 50%);
-    background: -moz-linear-gradient(rgba(151, 157, 197, 0.5) 50%,rgba(111, 117, 176, 0.5) 50%);
-    background: linear-gradient(rgba(151, 157, 197, 0.5) 50%,rgba(111, 117, 176, 0.5) 50%);
-    z-index: 10;
-    left: -1px;
-    -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
-    box-shadow: 0 1px 3px rgba(0,0,0,0.5);
-    filter: alpha(opacity=50);
+    padding: 0 10px;
+    height: 34px;
+    margin: -18px 0 0 -10px;
+    border-top: 1px solid #dbdbdb;
+    border-bottom: 1px solid #dbdbdb;
+}
+.mbsc-ios .dw-li {
+    color: #9d9d9d;
+    font-size: 22px;
+    text-align: left;
+}
+.mbsc-ios .dw-hl {
+    background: rgba(0,122,255,.2);
+}
+.mbsc-ios .dw-sel {
+    color: #000;
+}
+/* Clickpick mode */
+.mbsc-ios .dwpm .dw-li {
+    text-align: center;
+}
+.mbsc-ios .dwpm .dwwol {
+    display: block;
 }
 .mbsc-ios .dwwb {
-    color: #fff;
-    background: #3f4e68;
-    background: -webkit-gradient(linear,left bottom,left top,from(#3f4e68),color-stop(0.5, #75859f),color-stop(0.5, #808ea6),to(#c7d1e2));
-    background: -webkit-linear-gradient(#c7d1e2,#808ea6 50%,#75859f 50%,#3f4e68);
-    background: -moz-linear-gradient(#c7d1e2,#808ea6 50%,#75859f 50%,#3f4e68);
-    background: linear-gradient(#c7d1e2,#808ea6 50%,#75859f 50%,#3f4e68);
+    color: #007aff;
+    background: #f7f7f7;
 }
 .mbsc-ios .dwwbp {
-    -webkit-border-radius: 3px 3px 0 0;
-    border-radius: 3px 3px 0 0;
-    font-size: 40px;
+    bottom: 0;
+    top: auto;
 }
 .mbsc-ios .dwwbm {
-    -webkit-border-radius: 0 0 3px 3px;
-    border-radius: 0 0 3px 3px;
-    font-size: 32px;
-    font-weight: bold;
+    top: 0;
+    bottom: auto;
 }
-.mbsc-ios .dwwl .dwb-a {
-    background: #252c36;
-    background: -webkit-gradient(linear,left bottom,left top,from(#252c36),color-stop(0.5, #171e28),color-stop(0.5, #272e38),to(#6b6e75));
-    background: -webkit-linear-gradient(#6b6e75,#272e38 50%,#171e28 50%,#252c36);
-    background: -moz-linear-gradient(#6b6e75,#272e38 50%,#171e28 50%,#252c36);
-    background: linear-gradient(#6b6e75,#272e38 50%,#171e28 50%,#252c36);
+.mbsc-ios .dwwb span {
+    display: none;
+}
+.mbsc-ios .dwwb:before {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    font-size: 24px;
+    text-align: center;
+}
+/* Select */
+.mbsc-ios.dw-select .dwwo {
+    display: none;
 }
 /* Multiple select */
-.mbsc-ios.dwms .dww {
-    padding: 10px 0;
-}
 .mbsc-ios .dwwms .dw-li {
     padding: 0 5px 0 40px;
-    text-align: left;
+    color: #000;
 }
-.mbsc-ios .dw-msel {
-    color: #215085;
+.mbsc-ios .dwwms .dw-msel {
+    color: #007aff;
+}
+.mbsc-ios .dw-msel:before {
+    font-size: 40px;
 }
 /* Group select */
-.mbsc-ios .dww .dw-w-gr {
-    padding: 0 5px;
-    color: #777;
-    text-align: left;
+.mbsc-ios .dw-select-gr .dw-li {
+    padding-left: 40px;
+}
+.mbsc-ios .dw-select-gr .dw-w-gr {
+    padding-left: 5px;
+    font-weight: normal;
+    font-size: 18px;
 }
