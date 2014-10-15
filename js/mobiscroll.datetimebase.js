@@ -799,7 +799,6 @@
 
     $.each(['date', 'time', 'datetime'], function (i, v) {
         ms.presets.scroller[v] = preset;
-        ms.presetShort(v);
     });
 
 })(jQuery);
