@@ -611,7 +611,7 @@
             // ---
 
             inst.getVal = function (temp) {
-                return getDate(inst.getArrayVal(temp));
+                return inst._hasValue || temp ? getDate(inst.getArrayVal(temp)) : null;
             };
 
             /**

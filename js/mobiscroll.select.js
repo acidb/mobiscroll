@@ -219,6 +219,8 @@
                 txt = options[v].text;
             }
 
+            inst._tempValue = val;
+
             input.val(txt);
             elm.val(val);
 
@@ -259,7 +261,7 @@
         }
 
         if (multiple) {
-            if (values && !$.isArray(values)) {
+            if (values && typeof values === 'string') {
                 values = values.split(',');
             }
             for (i = 0; i < values.length; i++) {
@@ -290,7 +292,7 @@
 
         inst.setVal = function (val, fill, change, temp, time) {
             if (multiple) {
-                if (val && !$.isArray(val)) {
+                if (val && typeof val === 'string') {
                     val = val.split(',');
                 }
                 selectedValues = util.arrayToObject(val);
@@ -342,8 +344,8 @@
                 }
 
                 // In header text replace {value} with the option text instead of the value
-                headerText = s.headerText + '';
-                if (/{value}/.test(headerText)) {
+                if (typeof s.headerText === 'string' && /{value}/.test(s.headerText)) {
+                    headerText = s.headerText;
                     s.headerText = function (v) {
                         return headerText.replace(/\{value\}/i, options[v].text);
                     };
