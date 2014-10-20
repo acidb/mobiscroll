@@ -216,7 +216,7 @@
                 txt = sel.join(', ');
             } else {
                 val = v;
-                txt = options[v].text;
+                txt = options[v] ? options[v].text : '';
             }
 
             inst._tempValue = val;
