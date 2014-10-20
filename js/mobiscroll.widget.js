@@ -415,7 +415,7 @@
 
                     b.handler = (typeof b.handler === 'string') ? that.handlers[b.handler] : b.handler;
 
-                    html += '<div' + (s.btnWidth ? ' style="width:' + (100 / buttons.length) + '%"' : '') + ' class="dwbw ' + (b.parentClass || '') + '"><div tabindex="0" role="button" class="dwb' + i + ' dwb-e ' + (b.cssClass === undefined ? 'dwb' : b.cssClass) + (b.icon ? ' mbsc-ic mbsc-ic-' + b.icon : '') + '">' + b.text + '</div></div>';
+                    html += '<div' + (s.btnWidth ? ' style="width:' + (100 / buttons.length) + '%"' : '') + ' class="dwbw ' + (b.parentClass || '') + '"><div tabindex="0" role="button" class="dwb' + i + ' dwb-e ' + (b.cssClass === undefined ? s.btnClass : b.cssClass) + (b.icon ? ' mbsc-ic mbsc-ic-' + b.icon : '') + '">' + (b.text || '') + '</div></div>';
                 });
                 html += '</div>';
             }
@@ -836,6 +836,7 @@
         display: 'modal',
         scrollLock: true,
         tap: true,
+        btnClass: 'dwb',
         btnWidth: true,
         focusOnClose: false // Temporary for iOS8
     };
