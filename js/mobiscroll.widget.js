@@ -404,7 +404,18 @@
                 html += '<div class="dwbc">';
                 $.each(buttons, function (i, b) {
                     b = (typeof b === 'string') ? that.buttons[b] : b;
-                    html += '<div' + (s.btnWidth ? ' style="width:' + (100 / buttons.length) + '%"' : '') + ' class="dwbw ' + b.css + '"><div tabindex="0" role="button" class="dwb dwb' + i + ' dwb-e">' + b.text + '</div></div>';
+
+                    if (b.handler === 'set') {
+                        b.parentClass = 'dwb-s';
+                    }
+
+                    if (b.handler === 'cancel') {
+                        b.parentClass = 'dwb-c';
+                    }
+
+                    b.handler = (typeof b.handler === 'string') ? that.handlers[b.handler] : b.handler;
+
+                    html += '<div' + (s.btnWidth ? ' style="width:' + (100 / buttons.length) + '%"' : '') + ' class="dwbw ' + (b.parentClass || '') + '"><div tabindex="0" role="button" class="dwb' + i + ' dwb-e ' + (b.cssClass === undefined ? 'dwb' : b.cssClass) + (b.icon ? ' mbsc-ic mbsc-ic-' + b.icon : '') + '">' + b.text + '</div></div>';
                 });
                 html += '</div>';
             }
@@ -742,10 +753,20 @@
             $ctx = $(s.context);
 
             that.context = $wnd;
-            that.live = $.inArray('set', buttons) == -1;
-            that.buttons.set = { text: s.setText, css: 'dwb-s', handler: that.select };
-            that.buttons.cancel = { text: (that.live) ? s.closeText : s.cancelText, css: 'dwb-c', handler: that.cancel };
-            that.buttons.clear = { text: s.clearText, css: 'dwb-cl', handler: that.clear };
+
+            that.live = true;
+
+            // If no set button is found, live mode is activated
+            $.each(buttons, function (i, b) {
+                if (b === 'set' || b.handler === 'set') {
+                    that.live = false;
+                    return false;
+                }
+            });
+
+            that.buttons.set = { text: s.setText, handler: 'set' };
+            that.buttons.cancel = { text: (that.live) ? s.closeText : s.cancelText, handler: 'cancel' };
+            that.buttons.clear = { text: s.clearText, handler: 'clear' };
 
             that._isInput = $elm.is('input');
 
@@ -777,9 +798,16 @@
                 that._preventChange = false;
             });
             //}
+
+            event('onInit', []);
         };
 
         that.buttons = {};
+        that.handlers = {
+            set: that.select,
+            cancel: that.cancel,
+            clear: that.clear
+        };
 
         that._value = null;
 

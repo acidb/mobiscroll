@@ -153,7 +153,9 @@
     position: relative;
     z-index: 5;
 }
-
+.dwbw .dwb:before {
+    padding: .375em;
+}
 
 /* Default theme */
 .mbsc-mobiscroll .dwwr {

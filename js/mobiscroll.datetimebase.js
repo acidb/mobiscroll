@@ -6,7 +6,6 @@
         defaults = {
             startYear: date.getFullYear() - 100,
             endYear: date.getFullYear() + 1, 
-            showNow: false,
             stepHour: 1,
             stepMinute: 1,
             stepSecond: 1,
@@ -643,7 +642,9 @@
 
             inst.format = hformat;
             inst.order = o;
-            inst.buttons.now = { text: s.nowText, css: 'dwb-n', handler: function () { inst.setDate(new Date(), false, 0.3, true, true); } };
+
+            inst.handlers.now = function () { inst.setDate(new Date(), false, 0.3, true, true); };
+            inst.buttons.now = { text: s.nowText, handler: 'now' };
 
             invalid = convertRanges(invalid);
             valid = convertRanges(valid);
