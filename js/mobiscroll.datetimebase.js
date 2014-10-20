@@ -635,31 +635,6 @@
              */
             inst.getDate = inst.getVal;
 
-            /**
-             * @deprecated since 2.7.0, backward compatibility code
-             */
-            inst.convert = function (obj) {
-                var x = obj;
-
-                if (!$.isArray(obj)) { // Convert from old format
-                    x = [];
-                    $.each(obj, function (i, o) {
-                        $.each(o, function (j, o) {
-                            if (i === 'daysOfWeek') {
-                                if (o.d) {
-                                    o.d = 'w' + o.d;
-                                } else {
-                                    o = 'w' + o;
-                                }
-                            }
-                            x.push(o);
-                        });
-                    });
-                }
-
-                return x;
-            };
-
             // ---
 
 
@@ -669,14 +644,6 @@
             inst.format = hformat;
             inst.order = o;
             inst.buttons.now = { text: s.nowText, css: 'dwb-n', handler: function () { inst.setDate(new Date(), false, 0.3, true, true); } };
-
-            // @deprecated since 2.8.0, backward compatibility code
-            // ---
-            if (s.showNow) {
-                s.buttons.splice($.inArray('set', s.buttons) + 1, 0, 'now');
-            }
-            invalid = invalid ? inst.convert(invalid) : false;
-            // ---
 
             invalid = convertRanges(invalid);
             valid = convertRanges(valid);

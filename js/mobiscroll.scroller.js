@@ -12,21 +12,6 @@
         constrain = util.constrain,
         testTouch = util.testTouch;
 
-    /**
-     * @deprecated since 2.6.0, backward compatibility code
-     */
-    function convert(w) {
-        var ret = {
-            values: [],
-            keys: []
-        };
-        $.each(w, function (k, v) {
-            ret.keys.push(k);
-            ret.values.push(v);
-        });
-        return ret;
-    }
-
     classes.Scroller = function (el, settings, inherit) {
         var $markup,
             btn,
@@ -233,11 +218,7 @@
 
         function generateWheelItems(i) {
             var html = '<div class="dw-bf">',
-                ww = wheels[i],
-                // @deprecated since 2.6.0, backward compatibility code
-                // ---
-                w = ww.values ? ww : convert(ww),
-                // ---
+                w = wheels[i],
                 l = 1,
                 labels = w.labels || [],
                 values = w.values,
@@ -680,10 +661,6 @@
 
             $.each(inst.settings.wheels, function (j, wg) {
                 $.each(wg, function (k, w) {
-                    // @deprecated since 2.6.0, backward compatibility code
-                    // ---
-                    w = w.values ? w : convert(w);
-                    // ---
                     keys = w.keys || w.values;
                     if ($.inArray(val[i], keys) !== -1) {
                         ret.push(val[i]);

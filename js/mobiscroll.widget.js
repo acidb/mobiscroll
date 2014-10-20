@@ -741,19 +741,6 @@
             $wnd = $(s.context == 'body' ? window : s.context);
             $ctx = $(s.context);
 
-            // @deprecated since 2.8.0, backward compatibility code
-            // ---
-            if (!s.setText) {
-                buttons.splice($.inArray('set', buttons), 1);
-            }
-            if (!s.cancelText) {
-                buttons.splice($.inArray('cancel', buttons), 1);
-            }
-            if (s.button3) {
-                buttons.splice($.inArray('set', buttons) + 1, 0, { text: s.button3Text, handler: s.button3 });
-            }
-            // ---
-
             that.context = $wnd;
             that.live = $.inArray('set', buttons) == -1;
             that.buttons.set = { text: s.setText, css: 'dwb-s', handler: that.select };
