@@ -25,6 +25,7 @@
             headerText,
             i,
             input,
+            optionArray,
             optionWheelIdx,
             option,
             origValues,
@@ -107,11 +108,14 @@
                         });
                     });
                 } else {
+                    optionArray = [];
                     $('option', elm).each(function () {
-                        options[this.value] = {
+                        opt = {
                             value: this.value,
                             text: this.text
                         };
+                        options[this.value] = opt;
+                        optionArray.push(opt);
                         if (this.disabled) {
                             invalid.push(this.value);
                         }
@@ -167,7 +171,7 @@
                     genValues(gr.options, keys, values);
                 });
             } else { // Generate options wheel (for selected group or all, if not grouped)
-                genValues(groupWheel ? groups[group].options : options, keys, values);
+                genValues(groupWheel ? groups[group].options : optionArray, keys, values);
             }
 
             wheel = {
