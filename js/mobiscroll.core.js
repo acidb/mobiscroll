@@ -178,7 +178,4 @@
         }
     };
 
-    $.scroller = $.scroller || $.mobiscroll;
-    $.fn.scroller = $.fn.scroller || $.fn.mobiscroll;
-
 })(jQuery);
