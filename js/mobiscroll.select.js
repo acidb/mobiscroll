@@ -2,6 +2,7 @@
 
     var ms = $.mobiscroll,
         util = ms.util,
+        isString = util.isString,
         defaults = {
             inputClass: '',
             invalid: [],
@@ -265,7 +266,7 @@
         }
 
         if (multiple) {
-            if (values && typeof values === 'string') {
+            if (values && isString(values)) {
                 values = values.split(',');
             }
             for (i = 0; i < values.length; i++) {
@@ -296,7 +297,7 @@
 
         inst.setVal = function (val, fill, change, temp, time) {
             if (multiple) {
-                if (val && typeof val === 'string') {
+                if (val && isString(val)) {
                     val = val.split(',');
                 }
                 selectedValues = util.arrayToObject(val);
@@ -348,7 +349,7 @@
                 }
 
                 // In header text replace {value} with the option text instead of the value
-                if (typeof s.headerText === 'string' && /{value}/.test(s.headerText)) {
+                if (isString(s.headerText) && /{value}/.test(s.headerText)) {
                     headerText = s.headerText;
                     s.headerText = function (v) {
                         return headerText.replace(/\{value\}/i, options[v].text);

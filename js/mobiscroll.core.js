@@ -121,12 +121,14 @@
             isNumeric: function (a) {
                 return a - parseFloat(a) >= 0;
             },
-            /* Coord Start */
+            isString: function (s) {
+                return typeof s === 'string';
+            },
             getCoord: function (e, c) {
                 var ev = e.originalEvent || e;
                 return ev.changedTouches ? ev.changedTouches[0]['page' + c] : e['page' + c];
             },
-            getPosition: function (t, vertical) { //to ppp
+            getPosition: function (t, vertical) {
                 var style = window.getComputedStyle ? getComputedStyle(t[0]) : t[0].style,
                     matrix,
                     px;
@@ -146,7 +148,6 @@
 
                 return px;
             },
-            /* Coord End */
             constrain: function (val, min, max) {
                 return Math.max(min, Math.min(val, max));
             }

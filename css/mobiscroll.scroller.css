@@ -1,7 +1,8 @@
 .dwwb,
 .dwwo,
 .dwwol {
-    -webkit-backface-visibility: hidden;
+    /*-webkit-backface-visibility: hidden;*/
+    -webkit-transform: translateZ(0);
 }
 /* Wheel container wrapper */
 .dwc {

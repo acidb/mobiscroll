@@ -11,6 +11,7 @@
         has3d = util.has3d,
         getCoord = util.getCoord,
         constrain = util.constrain,
+        isString = util.isString,
         isOldAndroid = /android [1-3]/i.test(navigator.userAgent),
         animEnd = 'webkitAnimationEnd animationend',
         empty = function () { },
@@ -127,6 +128,27 @@
                 }
                 that.position(!isScroll);
             }, 200);
+        }
+
+        function show(beforeShow) {
+            if (!ms.tapped) {
+
+                if (beforeShow) {
+                    beforeShow();
+                }
+
+                // Hide virtual keyboard
+                if ($(document.activeElement).is('input,textarea')) {
+                    $(document.activeElement).blur();
+                }
+
+                $activeElm = $elm;
+                that.show();
+            }
+
+            setTimeout(function () {
+                preventShow = false;
+            }, 300); // With jQuery < 1.9 focus is fired twice in IE
         }
 
         function event(name, args) {
@@ -278,29 +300,26 @@
         that.attachShow = function ($elm, beforeShow) {
             elmList.push($elm);
             if (s.display !== 'inline') {
-                $elm
-                    .on('mousedown.dw', function (ev) {
-                        if (setReadOnly) {
-                            // Prevent input to get focus on tap (virtual keyboard pops up on some devices)
-                            ev.preventDefault();
-                        }
-                    })
-                    .on((s.showOnFocus ? 'focus.dw' : '') + (s.showOnTap ? ' click.dw' : ''), function (ev) {
-                        if ((ev.type !== 'focus' || (ev.type === 'focus' && !preventShow)) && !ms.tapped) {
-                            if (beforeShow) {
-                                beforeShow();
-                            }
-                            // Hide virtual keyboard
-                            if ($(document.activeElement).is('input,textarea')) {
-                                $(document.activeElement).blur();
-                            }
-                            $activeElm = $elm;
-                            that.show();
-                        }
-                        setTimeout(function () {
-                            preventShow = false;
-                        }, 300); // With jQuery < 1.9 focus is fired twice in IE
+                if (setReadOnly) {
+                    $elm.on('mousedown.dw', function (ev) {
+                        // Prevent input to get focus on tap (virtual keyboard pops up on some devices)
+                        ev.preventDefault();
                     });
+                }
+
+                if (s.showOnFocus) {
+                    $elm.on('focus.dw', function () {
+                        if (!preventShow) {
+                            show(beforeShow);
+                        }
+                    });
+                }
+
+                if (s.showOnTap) {
+                    that.tap($elm, function () {
+                        show(beforeShow);
+                    });
+                }
             }
         };
 
@@ -393,7 +412,7 @@
                             (s.display === 'bubble' ? '<div class="dw-arrw"><div class="dw-arrw-i"><div class="dw-arr"></div></div></div>' : '') + // Bubble arrow
                             '<div class="dwwr">' + // Popup content
                                 '<div aria-live="assertive" class="dw-aria dw-hidden"></div>' +
-                                (s.headerText ? '<div class="dwv">' + s.headerText + '</div>' : '') + // Header
+                                (s.headerText ? '<div class="dwv">' + (isString(s.headerText) ? s.headerText : '') + '</div>' : '') + // Header
                                 '<div class="dwcc">'; // Wheel group container
             
             html += that._generateContent();
@@ -403,7 +422,7 @@
             if (hasButtons) {
                 html += '<div class="dwbc">';
                 $.each(buttons, function (i, b) {
-                    b = (typeof b === 'string') ? that.buttons[b] : b;
+                    b = isString(b) ? that.buttons[b] : b;
 
                     if (b.handler === 'set') {
                         b.parentClass = 'dwb-s';
@@ -413,7 +432,7 @@
                         b.parentClass = 'dwb-c';
                     }
 
-                    b.handler = (typeof b.handler === 'string') ? that.handlers[b.handler] : b.handler;
+                    b.handler = isString(b.handler) ? that.handlers[b.handler] : b.handler;
 
                     html += '<div' + (s.btnWidth ? ' style="width:' + (100 / buttons.length) + '%"' : '') + ' class="dwbw ' + (b.parentClass || '') + '"><div tabindex="0" role="button" class="dwb' + i + ' dwb-e ' + (b.cssClass === undefined ? s.btnClass : b.cssClass) + (b.icon ? ' mbsc-ic mbsc-ic-' + b.icon : '') + '">' + (b.text || '') + '</div></div>';
                 });
@@ -510,7 +529,7 @@
                 // Init buttons
                 $.each(buttons, function (i, b) {
                     that.tap($('.dwb' + i, $markup), function (ev) {
-                        b = (typeof b === 'string') ? that.buttons[b] : b;
+                        b = isString(b) ? that.buttons[b] : b;
                         b.handler.call(this, ev, that);
                     }, true);
                 });
