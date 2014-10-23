@@ -214,7 +214,7 @@
                 }
             }
 
-            if (/modal|bubble/.test(s.display)) {
+            if (!that._isFullScreen && /modal|bubble/.test(s.display)) {
                 $wrapper.width('');
                 $('.mbsc-w-p', $markup).each(function () {
                     w = $(this).outerWidth(true);
@@ -225,8 +225,8 @@
                 $wrapper.width(w).css('white-space', totalw > nw ? '' : 'nowrap');
             }
 
-            modalWidth = $popup.outerWidth();
-            modalHeight = $popup.outerHeight(true);
+            modalWidth = that._isFullScreen ? nw : $popup.outerWidth();
+            modalHeight = that._isFullScreen ? nh : $popup.outerHeight(true);
             scrollLock = modalHeight <= nh && modalWidth <= nw;
 
             that.scrollLock = scrollLock;
