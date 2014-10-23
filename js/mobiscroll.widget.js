@@ -93,7 +93,7 @@
 
             if ($activeElm && !prevAnim) {
                 setTimeout(function () {
-                    if (focus === undefined) {
+                    if (focus === undefined || focus === true) {
                         preventShow = true;
                         activeEl = $activeElm[0];
                         type = activeEl.type;
