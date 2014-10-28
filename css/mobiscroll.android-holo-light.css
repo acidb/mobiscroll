@@ -131,35 +131,35 @@
     border-color: rgb(217,217,217);
 }
 /* Listview */
-.mbsc-lv-mbsc-android-holo-light {
+.mbsc-lv-android-holo-light {
     background: rgb(219,219,219);
 }
-.mbsc-lv-mbsc-android-holo-light .mbsc-lv .mbsc-lv-item.mbsc-lv-item-dragging  {
+.mbsc-lv-android-holo-light .mbsc-lv .mbsc-lv-item.mbsc-lv-item-dragging  {
     background: rgb(49,183,232);
     background: rgba(49,183,232,.5);
     border-color: rgba(49,183,232,.5);
 }
-.mbsc-lv-mbsc-android-holo-light .mbsc-lv-item,
-.mbsc-lv-mbsc-android-holo-light .mbsc-lv-gr-title {
+.mbsc-lv-android-holo-light .mbsc-lv-item,
+.mbsc-lv-android-holo-light .mbsc-lv-gr-title {
     background: rgb(245,245,245);
     color: rgb(0,0,0);
 }
-.mbsc-lv-mbsc-android-holo-light.mbsc-lv-alt-row .mbsc-lv-item:nth-child(even) {
+.mbsc-lv-android-holo-light.mbsc-lv-alt-row .mbsc-lv-item:nth-child(even) {
     background: rgb(237,237,237);
 }
-.mbsc-lv-mbsc-android-holo-light .mbsc-lv-item {
+.mbsc-lv-android-holo-light .mbsc-lv-item {
     border-color: rgb(219,219,219);
 }
-.mbsc-lv-mbsc-android-holo-light .mbsc-lv-gr-title {
+.mbsc-lv-android-holo-light .mbsc-lv-gr-title {
     border-color: rgb(219,219,219);
 }
-.mbsc-lv-mbsc-android-holo-light .mbsc-lv .mbsc-lv-item.mbsc-lv-item-active {
+.mbsc-lv-android-holo-light .mbsc-lv .mbsc-lv-item.mbsc-lv-item-active {
     background: rgb(219,219,219);
 }
-.mbsc-lv-mbsc-android-holo-light .mbsc-lv-handle-bar-c,
-.mbsc-lv-mbsc-android-holo-light.mbsc-lv-handle-left .mbsc-lv-handle-bar-c {
+.mbsc-lv-android-holo-light .mbsc-lv-handle-bar-c,
+.mbsc-lv-android-holo-light.mbsc-lv-handle-left .mbsc-lv-handle-bar-c {
     border-color: rgb(178,178,178);
 }
-.mbsc-lv-mbsc-android-holo-light .mbsc-lv-handle-bar {
+.mbsc-lv-android-holo-light .mbsc-lv-handle-bar {
     background: rgb(178,178,178);
 }

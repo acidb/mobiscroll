@@ -115,11 +115,11 @@
     background: none;
 }
 /* Listview */
-.mbsc-lv-mbsc-wp-light .mbsc-lv-item,
-.mbsc-lv-mbsc-wp-light .mbsc-lv-gr-title {
+.mbsc-lv-wp-light .mbsc-lv-item,
+.mbsc-lv-wp-light .mbsc-lv-gr-title {
     background: rgb(222,222,222);
     color: rgb(0,0,0);
 }
-.mbsc-lv-mbsc-wp-light.mbsc-lv-alt-row .mbsc-lv-item:nth-child(even) {
+.mbsc-lv-wp-light.mbsc-lv-alt-row .mbsc-lv-item:nth-child(even) {
     background: rgb(240,240,240);
 }
