@@ -66,38 +66,3 @@
 .mbsc-android-holo .dw-bubble-top .dw-arr {
     border-color: #292829 transparent transparent transparent;
 }
-
-/* Light version */
-.mbsc-android-holo-light .dwwr {
-    background: #f5f5f5;
-    color: #000;
-}
-.mbsc-android-holo-light .dwbc {
-    border-top: 1px solid #dbdbdb;
-}
-.mbsc-android-holo-light .dwb {
-    color: #000;
-}
-.mbsc-android-holo-light .dwb-a {
-    color: #fff;
-}
-.mbsc-android-holo-light .dwbw .dwb {
-    border-left: 1px solid #dbdbdb;
-}
-.mbsc-android-holo-light .dwbw:first-child .dwb {
-    border: 0;
-}
-.mbsc-android-holo-light .dw-rtl .dwbw .dwb {
-    border: 0;
-    border-right: 1px solid #dbdbdb;
-}
-.mbsc-android-holo-light .dw-rtl .dwbw:first-child .dwb {
-    border: 0;
-}
-/* Bubble positioning */
-.mbsc-android-holo-light .dw-bubble-bottom .dw-arr {
-    border-color: transparent transparent #f5f5f5 transparent;
-}
-.mbsc-android-holo-light .dw-bubble-top .dw-arr {
-    border-color: #f5f5f5 transparent transparent transparent;
-}
