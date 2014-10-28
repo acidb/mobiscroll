@@ -1,0 +1,165 @@
+/* Android Holo skin */
+.mbsc-android-holo-light .dwwr,
+.mbsc-android-holo-light .dw-cal-sc-c {
+    background: rgb(245,245,245);
+}
+.mbsc-android-holo-light .dwwr,
+.mbsc-android-holo-light .dwb,
+.mbsc-android-holo-light .dw-li,
+.mbsc-android-holo-light .dw-dr,
+.mbsc-android-holo-light .dw-cal-tabs .dw-i {
+    color: rgb(0,0,0);
+}
+.mbsc-android-holo-light .dwv {
+    color: rgb(49,183,232);
+    border-bottom: 2px solid rgb(49,183,232);
+}
+.mbsc-android-holo-light .dw-hl {
+    background: rgb(49,183,232);
+    background: rgba(49,183,232,.5);
+}
+.mbsc-android-holo-light .dwwb {
+    color: rgb(125,125,125);
+    background: rgb(245,245,245);
+}
+.mbsc-android-holo-light .dwwl .dwb-a {
+    color: rgb(49,154,189);
+    background: rgb(245,245,245);
+}
+.mbsc-android-holo-light .dwwol {
+    border-top: 2px solid rgb(49,183,232);
+    border-bottom: 2px solid rgb(49,183,232);
+}
+.mbsc-android-holo-light .dwb-a {
+    background: rgb(40,121,156);
+    color: #fff;
+}
+.mbsc-android-holo-light .dwwms .dw-li:after {
+    border-color: rgb(217,213,217);
+}
+.mbsc-android-holo-light .dw-msel:before {
+    color: rgb(49,183,232);
+    text-shadow: 0 0 5px rgb(40,121,156);
+}
+.mbsc-android-holo-light .dwwo {    
+    background: -webkit-gradient(linear,left bottom,left top,from(rgb(245,245,245)),color-stop(0.52,rgba(245,245,245,0)),color-stop(0.48,rgba(245,245,245,0)),to(rgb(245,245,245)));
+    background: -webkit-linear-gradient(rgb(245,245,245),rgba(245,245,245,0)52%,rgba(245,245,245,0)48%,rgb(245,245,245));
+    background: -moz-linear-gradient(rgb(245,245,245),rgba(245,245,245,0)52%,rgba(245,245,245,0)48%,rgb(245,245,245));
+    background: linear-gradient(rgb(245,245,245),rgba(245,245,245,0)52%,rgba(245,245,245,0)48%,rgb(245,245,245));
+}
+.mbsc-android-holo-light .dwbc,
+.mbsc-android-holo-light .dwbw .dwb  { 
+    border-color: rgb(217,213,217);
+}
+/* Calendar */
+.mbsc-android-holo-light .dw-cal-day-m {
+    border-color: rgb(49,183,232) rgb(49,183,232) transparent transparent;
+}
+.mbsc-android-holo-light .dw-cal-m-bottom .dw-cal-day-m {
+    background: rgb(49,183,232);
+}
+.mbsc-android-holo-light .dw-cal .dw-sel .dw-i {
+    background: rgb(49,183,232);
+    background: rgba(49,183,232,.5);
+}
+.mbsc-android-holo-light .dwb-a .dw-cal-btn-txt:before {
+    color: rgb(49,154,189);
+}
+.mbsc-android-holo-light .dw-cal-tabs .dw-sel {
+    border-bottom: 5px solid rgb(49,183,232);
+}
+.mbsc-android-holo-light .dw-cal-event-color {
+    background: rgb(49,183,232);
+}
+.mbsc-android-holo-light .dw-cal .dw-cal-day-hl .dw-i {
+    background: rgb(49,183,232);
+    color: #fff;
+}
+.mbsc-android-holo-light .dw-cal-tabs {
+    background: rgb(230,230,230);
+}
+.mbsc-android-holo-light .dw-cal-tab {
+    border-color: rgb(230,230,230);
+}
+.mbsc-android-holo-light .dw-cal-tabs .dw-i,
+.mbsc-android-holo-light .dw-cal-day,
+.mbsc-android-holo-light .dw-cal-sc-m-cell {
+    border-color: rgb(217,217,217);
+}
+.mbsc-android-holo-light .dw-cal-btn-txt:before {
+    color: rgb(125,125,125);
+}
+.mbsc-android-holo-light .dw-cal th {
+    color: rgb(125,125,125);
+}
+.mbsc-android-holo-light .dw-cal-events {
+    background: rgb(0,0,0);
+    background: rgba(0,0,0,0.8);
+}
+.mbsc-android-holo-light .dw-cal-events-arr {
+    border-color: rgba(0,0,0,0.8) transparent transparent;
+}
+.mbsc-android-holo-light .dw-cal-events-b .dw-cal-events-arr {
+    border-color: transparent transparent rgba(0,0,0,0.8);
+}
+.mbsc-android-holo-light .dw-cal-event {
+    background: rgb(125,125,125);
+    color: #fff;
+}
+/* Rangepicker */
+.mbsc-android-holo-light .dw-dr {
+    background: rgb(217,217,217);
+}
+.mbsc-android-holo-light .dw-sel .dw-dr {
+    background: rgb(49,183,232);
+    color: #fff;
+}
+/* Colorpicker */
+.mbsc-android-holo-light .dw-color-preview {
+    border-bottom: 2px solid rgb(49,183,232);
+}
+/* Timer */
+.mbsc-android-holo-light.dw-timer .dwl {
+    color: rgb(49,183,232);
+}
+/* Rating */
+.mbsc-android-holo-light .mbsc-rating-icon {
+    color: rgb(49,183,232);
+}
+/* Numpad */
+.mbsc-android-holo-light .mbsc-np-hdr {
+    border-color: rgb(217,217,217);
+}
+/* Listview */
+.mbsc-lv-mbsc-android-holo-light {
+    background: rgb(219,219,219);
+}
+.mbsc-lv-mbsc-android-holo-light .mbsc-lv .mbsc-lv-item.mbsc-lv-item-dragging  {
+    background: rgb(49,183,232);
+    background: rgba(49,183,232,.5);
+    border-color: rgba(49,183,232,.5);
+}
+.mbsc-lv-mbsc-android-holo-light .mbsc-lv-item,
+.mbsc-lv-mbsc-android-holo-light .mbsc-lv-gr-title {
+    background: rgb(245,245,245);
+    color: rgb(0,0,0);
+}
+.mbsc-lv-mbsc-android-holo-light.mbsc-lv-alt-row .mbsc-lv-item:nth-child(even) {
+    background: rgb(237,237,237);
+}
+.mbsc-lv-mbsc-android-holo-light .mbsc-lv-item {
+    border-color: rgb(219,219,219);
+}
+.mbsc-lv-mbsc-android-holo-light .mbsc-lv-gr-title {
+    border-color: rgb(219,219,219);
+}
+.mbsc-lv-mbsc-android-holo-light .mbsc-lv .mbsc-lv-item.mbsc-lv-item-active {
+    background: rgb(219,219,219);
+}
+.mbsc-lv-mbsc-android-holo-light .mbsc-lv-handle-bar-c,
+.mbsc-lv-mbsc-android-holo-light.mbsc-lv-handle-left .mbsc-lv-handle-bar-c {
+    border-color: rgb(178,178,178);
+}
+.mbsc-lv-mbsc-android-holo-light .mbsc-lv-handle-bar {
+    background: rgb(178,178,178);
+}
