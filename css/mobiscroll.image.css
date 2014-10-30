@@ -7,7 +7,7 @@
     vertical-align: middle; 
 }
 .mbsc-img-c { 
-    width: 70px; 
+    min-width: 70px; 
     height: 28px; 
     margin-top: -2px; 
     display: inline-block; 
