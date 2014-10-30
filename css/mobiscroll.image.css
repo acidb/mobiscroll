@@ -1,0 +1,20 @@
+.mbsc-img-w { 
+    text-align: left; 
+}
+.mbsc-img-txt { 
+    display: inline-block; 
+    margin: 0 10px; 
+    vertical-align: middle; 
+}
+.mbsc-img-c { 
+    width: 70px; 
+    height: 28px; 
+    margin-top: -2px; 
+    display: inline-block; 
+    text-align: center; 
+    vertical-align: middle; 
+    line-height: normal; 
+}
+.mbsc-img { 
+    height: 28px; 
+}
