@@ -18,3 +18,7 @@
 .mbsc-img { 
     height: 28px; 
 }
+.img-ic {
+    display: inline-block;
+    padding-right: 10px;
+}

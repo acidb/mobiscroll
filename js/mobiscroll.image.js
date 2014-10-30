@@ -9,16 +9,33 @@
             s = inst.settings;
 
         if (s.enhance) {
-            inst._processMarkup =  function (markup) {
-                markup = markup.replace(/<img(.|\n)*?(?=<p)|<img(.|\n)*>/, function (match) {
-                    return '<div class="mbsc-img-c">' + match + '</div>';
+            inst._processMarkup =  function (li) {
+                var  liContent = li.children(),
+                    cont, imgCont,
+                    isIcon = li.attr('data-icon');
+               
+                imgCont = $('<div class="mbsc-img-c"></div>');
+               
+                liContent.each(function (i, v) {
+                    v = $(v);
+                    if (v.is('img')) {
+                        v.addClass('mbsc-img');
+                        imgCont.append(v);
+                    } else if (v.is('p')) {
+                        v.addClass('mbsc-img-txt');
+                    }
                 });
+                
+                li.prepend(imgCont);
 
-                markup = markup.replace(/<p>/g, '<p class="mbsc-img-txt">');
-                markup = markup.replace(/<img/g, ' <img class="mbsc-img" ');
-                markup = '<div class="mbsc-img-w">' + markup + '</div>';
+                if (isIcon) {
+                    li.prepend('<div class="img-ic mbsc-ic mbsc-ic-' + isIcon + '"></div');
+                }
+                
+                cont = ' <div class="mbsc-img-w">' + li.html() + '</div>';
+                li.html(cont);
 
-                return markup;
+                return li.html();
             };
         }
         

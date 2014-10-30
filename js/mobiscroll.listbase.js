@@ -26,16 +26,6 @@
             currLevel = 1,
             currWheelVector = [];
         
-        if (!inst._processMarkup){
-            inst._processMarkup = function (markup) {
-                return markup.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
-            };
-        }
-
-        wa = s.wheelArray || createWheelArray(elm);
-        fwv = firstWheelVector(wa);
-        w = generateWheelsFromVector(fwv, lvl);
-
         /**
             * Disables the invalid items on the wheels
             * @param {Object} dw - the jQuery mobiscroll object
@@ -313,7 +303,7 @@
 
                 c.children('ul,ol').remove();
 
-                var v = inst._processMarkup(c.html()),
+                var v = inst._processMarkup(c),
                     inv = that.attr('data-invalid') ? true : false,
                     wheelObj = {
                         key: that.attr('data-val') === undefined || that.attr('data-val') === null ? index : that.attr('data-val'),
@@ -333,6 +323,16 @@
             ilvl--;
             return wheelArray;
         }
+        
+       // if (!inst._processMarkup){
+            inst._processMarkup = function (markup) {
+                return markup.html().replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+            };
+      //  }
+
+        wa = s.wheelArray || createWheelArray(elm);
+        fwv = firstWheelVector(wa);
+        w = generateWheelsFromVector(fwv, lvl);
 
         $('#' + id).remove(); // Remove input if exists
 
