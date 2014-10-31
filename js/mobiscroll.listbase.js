@@ -7,10 +7,7 @@
         };
 
     ms.presets.scroller.list = function (inst) {            
-        var w,
-            wa,
-            fwv,
-            orig = $.extend({}, inst.settings),
+        var orig = $.extend({}, inst.settings),
             s = $.extend(inst.settings, defaults, orig),
             layout = s.layout || (/top|bottom/.test(s.display) ? 'liquid' : ''),
             isLiquid = layout == 'liquid',
@@ -24,7 +21,10 @@
             timer = {},
             labels = generateLabels(lvl),
             currLevel = 1,
-            currWheelVector = [];
+            currWheelVector = [],
+            wa = s.wheelArray || createWheelArray(elm),
+            fwv = firstWheelVector(wa),
+            w = generateWheelsFromVector(fwv, lvl);
         
         /**
             * Disables the invalid items on the wheels
@@ -303,7 +303,7 @@
 
                 c.children('ul,ol').remove();
 
-                var v = inst._processMarkup(c),
+                var v = inst._processMarkup ? inst._processMarkup(c) : c.html().replace(/^\s\s*/, '').replace(/\s\s*$/, ''),
                     inv = that.attr('data-invalid') ? true : false,
                     wheelObj = {
                         key: that.attr('data-val') === undefined || that.attr('data-val') === null ? index : that.attr('data-val'),
@@ -323,16 +323,6 @@
             ilvl--;
             return wheelArray;
         }
-
-        if (!inst._processMarkup){
-            inst._processMarkup = function (li) {
-                return li.html().replace(/^\s\s*/, '').replace(/\s\s*$/, '');
-            };
-        }
-
-        wa = s.wheelArray || createWheelArray(elm);
-        fwv = firstWheelVector(wa);
-        w = generateWheelsFromVector(fwv, lvl);
 
         $('#' + id).remove(); // Remove input if exists
 
