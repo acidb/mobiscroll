@@ -92,21 +92,4 @@
 .mbsc-android-holo .dww .dw-w-gr:after {
     display: none;
 }
-/* Light version */
-.mbsc-android-holo-light .dw-li {
-    color: #000;
-}
-.mbsc-android-holo-light .dwwo {
-    background: -webkit-gradient(linear,left bottom,left top,from(#f5f5f5),color-stop(0.52, rgba(245,245,245,0)),color-stop(0.48, rgba(245,245,245,0)),to(#f5f5f5));
-    background: -webkit-linear-gradient(#f5f5f5,rgba(245,245,245,0) 52%, rgba(245,245,245,0) 48%, #f5f5f5);
-    background: -moz-linear-gradient(#f5f5f5,rgba(245,245,245,0) 52%, rgba(245,245,245,0) 48%, #f5f5f5);
-    background: linear-gradient(#f5f5f5,rgba(245,245,245,0) 52%, rgba(245,245,245,0) 48%, #f5f5f5);
-}
-.mbsc-android-holo-light .dwwl .dwwb {
-    background: #f5f5f5;
-}
-/* Multiple select */
-.mbsc-android-holo-light .dw-msel:before {
-    color: #29799c;
-    text-shadow: 0 0 .375em #31b6e7;
-}
+

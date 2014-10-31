@@ -23,10 +23,16 @@
             onMarkupInserted: function (elm, inst) {
                 var click,
                     touch,
-                    active;
+                    active,
+                    s = inst.settings;
 
-                elm.addClass('mbsc-wp mbsc-wp-' + inst.settings.accent);
-            
+                elm.addClass('mbsc-wp');
+
+                $('.dwb-s .dwb', elm).addClass('mbsc-ic mbsc-ic-checkmark');
+                $('.dwb-c .dwb', elm).addClass('mbsc-ic mbsc-ic-close');
+                $('.dwb-cl .dwb', elm).addClass('mbsc-ic mbsc-ic-close');
+                $('.dwb-n .dwb', elm).addClass('mbsc-ic mbsc-ic-loop2');
+
                 $('.dwwl', elm).on('touchstart mousedown DOMMouseScroll mousewheel', function (e) {
                     if (e.type === 'mousedown' && touch) {
                         return;
@@ -55,26 +61,20 @@
                     ord = ord.match(/dd/i) ? ord.replace(/ddDD|dd|DD/,  'ddDD') : ord.replace(/dD|d|D/,  'dD');
                     s.dateOrder = ord;
                 }
-            },
-            onInit: function (inst) {
-                var buttons = inst.buttons;
-
-                buttons.set.icon = 'checkmark';
-                buttons.cancel.icon = 'close';
-                buttons.clear.icon = 'close';
-
-                if (buttons.now) {
-                    buttons.now.icon = 'loop2';
-                }
             }
         };
 
-    themes.wp = theme;
-    themes['wp-light'] = theme;
+    themes['mbsc-wp-light'] = theme;
+})(jQuery);
 
-    // @deprecated since 2.12.0, backward compatibility code
-    themes['wp light'] = theme;
-
+(function ($) {
+    var theme = {
+        onInit: function () {
+             $(this).closest('.mbsc-lv-cont').addClass('mbsc-lv-wp');
+        }
+    };
+    
+    $.mobiscroll.themes.listview['mbsc-wp-light'] = theme;
 })(jQuery);
 
 

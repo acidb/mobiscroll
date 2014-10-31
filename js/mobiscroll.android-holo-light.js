@@ -13,26 +13,21 @@
             icon: { filled: 'star3', empty: 'star' },
             btnPlusClass: 'mbsc-ic mbsc-ic-arrow-down6',
             btnMinusClass: 'mbsc-ic mbsc-ic-arrow-up6',
-            // @deprecated since 2.12.0, backward compatibility code
-            // ---
-            onThemeLoad: function (lang, s) {
-                if (s.theme) {
-                    s.theme = s.theme.replace('android-ics', 'android-holo');
-                }
-            },
-            // ---
-            onMarkupReady: function (markup) {
+            onMarkupReady: function (markup, inst) {
                 markup.addClass('mbsc-android-holo');
             }
         };
 
-    themes['android-holo'] = theme;
-    themes['android-holo-light'] = theme;
-
-    // @deprecated since 2.12.0, backward compatibility code
-    themes['android-ics'] = theme;
-    themes['android-ics light'] = theme;
-    themes['android-holo light'] = theme;
-
+    themes['mbsc-android-holo-light'] = theme;
 })(jQuery);
 
+(function ($) {
+    var themes = $.mobiscroll.themes.listview,
+        theme = {
+        onInit: function () {
+            $(this).closest('.mbsc-lv-cont').addClass('mbsc-lv-android-holo');
+        }
+    };
+    
+    themes['mbsc-android-holo-light'] = theme;
+})(jQuery);

@@ -1,0 +1,125 @@
+.mbsc-wp-light .dwwr, 
+.mbsc-wp-light .dw-dr,
+.mbsc-wp-light .dwb,
+.mbsc-wp-light .dw-cal-tabs .dw-i {
+    color: rgb(0,0,0);
+}
+.mbsc-wp-light .dwwr {
+    background: rgb(222,222,222);
+}
+.mbsc-wp-light .dw-i {
+    border-color: rgb(166,166,166);
+}
+.mbsc-wp-light .dw-li .dw-i {
+    color: rgb(0,0,0);
+}
+.mbsc-wp-light .dw-sel .dw-i,
+.mbsc-wp-light .dw-hl .dw-i {
+    color: #000;
+    background: rgb(181,181,181);
+    border-color: rgb(181,181,181);
+}
+/* Multiple select */
+.mbsc-wp-light .dwwms .dw-li .dw-i {
+    color: rgb(0,0,0);
+}
+.mbsc-wp-light .dwwms .dw-li:after {
+    border-color: rgb(0,0,0);
+}
+.mbsc-wp-light .dwwms .dw-msel:before {
+    color: rgb(0,0,0);
+}
+
+/* Override accents */
+.mbsc-wp-light .dwa .dw-i {
+    color: rgb(0,0,0);
+    border-color: rgb(166,166,166);
+    background: none;
+}
+.mbsc-wp-light .dwwms .dw-i {
+    background: none;
+}
+
+/* Calendar */
+.mbsc-wp-light .dw-cal-sc-m-cell {
+    background: rgb(222,222,222);
+}
+.mbsc-wp-light .dw-cal-event {
+    background: rgb(166,166,166);
+    color: #000;
+}
+.mbsc-wp-light .dw-cal-events {
+    background: rgb(0,0,0);
+    background: rgba(0,0,0, .8);
+}
+.mbsc-wp-light .dw-cal-events-arr {
+    border-color: rgba(0,0,0, .8) transparent transparent;
+}
+.mbsc-wp-light .dw-cal-events-b .dw-cal-events-arr {
+    border-color: transparent transparent rgba(0,0,0, .8);
+}
+.mbsc-wp-light .dw-cal-day-m {
+    border-color: rgb(0,0,0) rgb(0,0,0) transparent transparent;
+}
+.mbsc-wp-light .dw-cal-day-hl .dw-i {
+    background: rgb(0,0,0);
+    border-color: rgb(0,0,0);
+    color: rgb(222,222,222);
+}
+.mbsc-wp-light .dwb-a:before,
+.mbsc-wp-light .dwb-a .dw-cal-btn-txt:before  {
+    background: rgb(0,0,0);
+}
+.mbsc-wp-light .dwb.dwb-a:before ,
+.mbsc-wp-light .dwb-a .dw-cal-btn-txt:before {
+    color: rgb(222,222,222);
+}
+.mbsc-wp-light .dwb:before,
+.mbsc-wp-light .dw-cal-btn-txt:before {
+    color: rgb(0,0,0);
+    border-color:  rgb(0,0,0);
+}
+/* Rating */
+.mbsc-wp-light .mbsc-rating-icon {
+    color: inherit;
+}
+.mbsc-wp-light .mbsc-rating-circle {
+    background: rgb(0,0,0);
+    color: rgb(222,222,222);
+}
+.mbsc-wp-light .mbsc-rating-circle-unf {
+    background: #646464;
+}
+/* Timer */
+.mbsc-wp-light.dw-timespan .dwl,
+.mbsc-wp-light.dw-timer .dwl {
+    color: #000;
+}
+/* Numpad */
+.mbsc-wp-light .mbsc-np-btn {
+    background: rgb(204,204,204);
+    border: 2px solid rgb(222,222,222);
+}
+.mbsc-wp-light .mbsc-np-btn.dwb-a {
+    background: rgb(181,181,181);
+    color: #000;
+}
+.mbsc-wp-light .mbsc-np-btn.dwb-d {
+    color: rgb(0,0,0);
+    opacity: .5;
+}
+.mbsc-wp-light .mbsc-np-del.dwb-a:before {
+    color: rgb(0,0,0);
+}
+.mbsc-wp-light .mbsc-np-btn-empty {
+    background: none;
+}
+/* Listview */
+.mbsc-lv-wp-light .mbsc-lv-item,
+.mbsc-lv-wp-light .mbsc-lv-gr-title {
+    background: rgb(222,222,222);
+    color: rgb(0,0,0);
+}
+.mbsc-lv-wp-light.mbsc-lv-alt-row .mbsc-lv-item:nth-child(even) {
+    background: rgb(240,240,240);
+}
