@@ -6,7 +6,7 @@
             inputClass: ''
         };
 
-    ms.presets.scroller.list = function (inst) {
+    ms.presets.scroller.list = function (inst) {            
         var orig = $.extend({}, inst.settings),
             s = $.extend(inst.settings, defaults, orig),
             layout = s.layout || (/top|bottom/.test(s.display) ? 'liquid' : ''),
@@ -19,13 +19,13 @@
             lvl = 0,
             ilvl = 0,
             timer = {},
-            wa = s.wheelArray || createWheelArray(elm),
             labels = generateLabels(lvl),
             currLevel = 1,
             currWheelVector = [],
+            wa = s.wheelArray || createWheelArray(elm),
             fwv = firstWheelVector(wa),
             w = generateWheelsFromVector(fwv, lvl);
-
+        
         /**
             * Disables the invalid items on the wheels
             * @param {Object} dw - the jQuery mobiscroll object
@@ -303,7 +303,7 @@
 
                 c.children('ul,ol').remove();
 
-                var v = c.html().replace(/^\s\s*/, '').replace(/\s\s*$/, ''),
+                var v = inst._processMarkup ? inst._processMarkup(c) : c.html().replace(/^\s\s*/, '').replace(/\s\s*$/, ''),
                     inv = that.attr('data-invalid') ? true : false,
                     wheelObj = {
                         key: that.attr('data-val') === undefined || that.attr('data-val') === null ? index : that.attr('data-val'),
