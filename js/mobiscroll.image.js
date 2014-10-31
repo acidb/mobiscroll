@@ -10,8 +10,8 @@
 
         if (s.enhance) {
             inst._processMarkup =  function (li) {
-                var  liContent = li.children(),
-                    cont, imgCont,
+                var imgCont,
+                    liContent = li.children(),
                     isIcon = li.attr('data-icon');
                
                 imgCont = $('<div class="mbsc-img-c"></div>');
@@ -32,8 +32,7 @@
                     li.prepend('<div class="img-ic mbsc-ic mbsc-ic-' + isIcon + '"></div');
                 }
                 
-                cont = ' <div class="mbsc-img-w">' + li.html() + '</div>';
-                li.html(cont);
+                li.html(' <div class="mbsc-img-w">' + li.html() + '</div>');
 
                 return li.html();
             };

@@ -323,12 +323,12 @@
             ilvl--;
             return wheelArray;
         }
-        
-       // if (!inst._processMarkup){
-            inst._processMarkup = function (markup) {
-                return markup.html().replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+
+        if (!inst._processMarkup){
+            inst._processMarkup = function (li) {
+                return li.html().replace(/^\s\s*/, '').replace(/\s\s*$/, '');
             };
-      //  }
+        }
 
         wa = s.wheelArray || createWheelArray(elm);
         fwv = firstWheelVector(wa);
