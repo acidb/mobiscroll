@@ -42,9 +42,8 @@
         // Event handlers
 
         function onStart(ev) {
-            /* TRIALCOND */
             // Scroll start
-            if (testTouch(ev) && !move && !click && !btn && !isReadOnly(this)) {
+            if (testTouch(ev, this) && !move && !click && !btn && !isReadOnly(this)) {
                 // Prevent touch highlight
                 ev.preventDefault();
                 // Better performance if there are tap events on document
@@ -145,7 +144,7 @@
         function onBtnStart(ev) {
             btn = $(this);
             // +/- buttons
-            if (testTouch(ev)) {
+            if (testTouch(ev, this)) {
                 step(ev, btn.closest('.dwwl'), btn.hasClass('dwwbp') ? plus : minus);
             }
             if (ev.type === 'mousedown') {
@@ -229,7 +228,7 @@
                     html += '</div><div class="dw-bf">';
                 }
                 html += '<div role="option" aria-selected="false" class="dw-li dw-v" data-val="' + keys[j] + '"' + (labels[j] ? ' aria-label="' + labels[j] + '"' : '') + ' style="height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;">' +
-                    '<div class="dw-i"' + (lines > 1 ? ' style="line-height:' + Math.round(itemHeight / lines) + 'px;font-size:' + Math.round(itemHeight / lines * 0.8) + 'px;"' : '') + '>' + v /* TRIAL */ + '</div></div>';
+                    '<div class="dw-i"' + (lines > 1 ? ' style="line-height:' + Math.round(itemHeight / lines) + 'px;font-size:' + Math.round(itemHeight / lines * 0.8) + 'px;"' : '') + '>' + v + '</div></div>';
                 l++;
             });
 

@@ -1,6 +1,6 @@
 (function ($) {
 
-    var ver = $.mobile && $.mobile.version.match(/1\.4/);
+    var ver = $.mobile && $.mobile.version && $.mobile.version.match(/1\.4/);
 
     $.mobiscroll.themes.jqm = {
         jqmBorder: 'a',

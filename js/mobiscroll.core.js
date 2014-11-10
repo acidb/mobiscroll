@@ -66,7 +66,6 @@
     }
 
     var id = +new Date(),
-        touches = {},
         instances = {},
         extend = $.extend,
         mod = document.createElement('modernizr').style,
@@ -87,11 +86,11 @@
             jsPrefix: pr,
             has3d: has3d,
             hasFlex: hasFlex,
-            testTouch: function (e) {
+            testTouch: function (e, elm) {
                 if (e.type == 'touchstart') {
-                    touches[e.target] = true;
-                } else if (touches[e.target]) {
-                    delete touches[e.target];
+                    $(elm).attr('data-touch', '1');
+                } else if ($(elm).attr('data-touch')) {
+                    $(elm).removeAttr('data-touch');
                     return false;
                 }
                 return true;
