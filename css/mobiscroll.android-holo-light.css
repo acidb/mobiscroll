@@ -1,4 +1,5 @@
-/* Android Holo skin */
+/* Mobiscroll License Key:75b37c4f-6d57-4757-aa3a-868ed8906ddf */
+/* Android ICS skin */
 .mbsc-android-holo-light .dwwr,
 .mbsc-android-holo-light .dw-cal-sc-c {
     background: rgb(245,245,245);
@@ -62,7 +63,7 @@
     background: rgb(49,183,232);
     background: rgba(49,183,232,.5);
 }
-.mbsc-android-holo-light .dwb-a .dw-cal-btn-txt:before {
+.mbsc-android-holo-light .dwb-a .dw-cal-btn-txt {
     color: rgb(49,154,189);
 }
 .mbsc-android-holo-light .dw-cal-tabs .dw-sel {
@@ -86,7 +87,7 @@
 .mbsc-android-holo-light .dw-cal-sc-m-cell {
     border-color: rgb(217,217,217);
 }
-.mbsc-android-holo-light .dw-cal-btn-txt:before {
+.mbsc-android-holo-light .dw-cal-btn-txt {
     color: rgb(125,125,125);
 }
 .mbsc-android-holo-light .dw-cal th {
@@ -162,4 +163,30 @@
 }
 .mbsc-lv-android-holo-light .mbsc-lv-handle-bar {
     background: rgb(178,178,178);
+}
+/* Menustrip */
+.mbsc-android-holo-light.mbsc-ms-c {
+    color: rgb(0,0,0);
+    background: rgb(245,245,245);
+}
+.mbsc-android-holo-light.mbsc-ms-a .mbsc-ms-item-sel .mbsc-ms-item-i{
+    color: rgb(49,183,232);
+}
+.mbsc-android-holo-light.mbsc-ms-b.mbsc-ms-top {
+    border-color: rgb(49,183,232);
+}
+.mbsc-android-holo-light.mbsc-ms-b.mbsc-ms-bottom {
+    border-color: rgb(49,183,232);
+}
+.mbsc-android-holo-light.mbsc-ms-b .mbsc-ms-item-sel .mbsc-ms-item-i {
+    border-bottom-color: rgb(49,183,232);
+}
+.mbsc-android-holo-light.mbsc-ms-b.mbsc-ms-bottom .mbsc-ms-item-sel .mbsc-ms-item-i {
+    border-top-color: rgb(49,183,232);
+}
+.mbsc-android-holo-light.mbsc-ms-b .mbsc-ms-item-i-c {
+    border-color: rgb(217,217,217);
+}
+.mbsc-android-holo-light .mbsc-btn-a .mbsc-ms-item-i {
+    background: rgb(40,121,156);
 }

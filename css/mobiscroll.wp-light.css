@@ -1,3 +1,4 @@
+/* Mobiscroll License Key:75b37c4f-6d57-4757-aa3a-868ed8906ddf */
 .mbsc-wp-light .dwwr, 
 .mbsc-wp-light .dw-dr,
 .mbsc-wp-light .dwb,
@@ -122,4 +123,26 @@
 }
 .mbsc-lv-wp-light.mbsc-lv-alt-row .mbsc-lv-item:nth-child(even) {
     background: rgb(240,240,240);
+}
+/* Menustrip */
+.mbsc-wp-light.mbsc-ms-c {
+    background: rgb(222,222,222);
+    color: rgb(0,0,0);
+}
+.mbsc-wp-light .mbsc-ms-item {
+    color: rgb(166,166,166);
+}
+.mbsc-wp-light .mbsc-ms-ic:before {
+    border-color: rgb(0,0,0);
+}
+.mbsc-wp-light .mbsc-ms-item-sel .mbsc-ms-ic:before,
+.mbsc-wp-light .mbsc-btn-a .mbsc-ms-ic:before {
+    background: rgb(0,0,0);
+    color: rgb(222,222,222);
+}
+.mbsc-wp-light.mbsc-ms-icons .mbsc-ms-item {
+    color: rgb(0,0,0);
+}
+.mbsc-wp-light .mbsc-ms-item-sel {
+    color: rgb(0,0,0);
 }
