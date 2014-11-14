@@ -157,7 +157,8 @@
             numpad: {}
         },
         themes: {
-            listview: {}
+            listview: {},
+            menustrip: {}
         },
         i18n: {},
         instances: instances,
