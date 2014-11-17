@@ -1,4 +1,3 @@
-/* Mobiscroll License Key:75b37c4f-6d57-4757-aa3a-868ed8906ddf */
 .mbsc-wp-light .dwwr, 
 .mbsc-wp-light .dw-dr,
 .mbsc-wp-light .dwb,
@@ -79,6 +78,9 @@
 .mbsc-wp-light .dw-cal-btn-txt:before {
     color: rgb(0,0,0);
     border-color:  rgb(0,0,0);
+}
+.mbsc-wp-light .dw-week-nrs-c {
+    background: rgb(222,222,222);
 }
 /* Rating */
 .mbsc-wp-light .mbsc-rating-icon {

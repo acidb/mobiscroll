@@ -1,5 +1,3 @@
-/* Mobiscroll License Key:75b37c4f-6d57-4757-aa3a-868ed8906ddf */
-/* Android ICS skin */
 .mbsc-android-holo-light .dwwr,
 .mbsc-android-holo-light .dw-cal-sc-c {
     background: rgb(245,245,245);
@@ -88,6 +86,13 @@
     border-color: rgb(217,217,217);
 }
 .mbsc-android-holo-light .dw-cal-btn-txt {
+    color: rgb(125,125,125);
+}
+.mbsc-android-holo-light .dw-week-nrs-c {
+    background: rgb(245,245,245);
+}
+.mbsc-android-holo-light .dw-week-nr-i {
+    border-color: rgb(217,217,217);
     color: rgb(125,125,125);
 }
 .mbsc-android-holo-light .dw-cal th {
