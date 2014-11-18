@@ -585,6 +585,8 @@
 
                 // Stop positioning on window resize
                 $wnd.off(posEvents, onPosition);
+
+                event('onHide', []);
             }
 
             delete ms.activeInstance;
