@@ -1,4 +1,3 @@
-/* Mobiscroll License Key:75b37c4f-6d57-4757-aa3a-868ed8906ddf */
 (function ($) {
     
     $.mobiscroll.themes['wp-light'] = {
