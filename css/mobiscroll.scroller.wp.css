@@ -1,115 +1,3 @@
-/* Accents */
-.mbsc-wp .dw-sel .dw-i,
-.mbsc-wp .dw-ul .dw-hl .dw-i {
-    background: #4c4c4c;
-}
-.mbsc-wp-light .dw-sel .dw-i, 
-.mbsc-wp-light .dw-ul .dw-hl .dw-i {
-    color: #fff;
-    background: #b5b5b5;
-}
-
-.mbsc-wp-lime .dw-sel .dw-i, 
-.mbsc-wp-lime .dw-ul .dw-hl .dw-i {
-    background: #a4c400;
-    border-color: #a4c400;
-}
-.mbsc-wp-green .dw-sel .dw-i, 
-.mbsc-wp-green .dw-ul .dw-hl .dw-i {
-    background: #60a917;
-    border-color: #60a917;
-}
-.mbsc-wp-emerald .dw-sel .dw-i, 
-.mbsc-wp-emerald .dw-ul .dw-hl .dw-i {
-    background: #008a00;
-    border-color: #008a00;
-}
-.mbsc-wp-teal .dw-sel .dw-i,
-.mbsc-wp-teal .dw-ul .dw-hl .dw-i {
-    background: #00aba9;
-    border-color: #00aba9;
-}
-.mbsc-wp-cyan .dw-sel .dw-i,
-.mbsc-wp-cyan .dw-ul .dw-hl .dw-i {
-    background: #1ba1e2;
-    border-color: #1ba1e2;
-}
-.mbsc-wp-cobalt .dw-sel .dw-i,
-.mbsc-wp-cobalt .dw-ul .dw-hl .dw-i {
-    background: #0050ef;
-    border-color: #0050ef;
-}
-.mbsc-wp-indigo .dw-sel .dw-i,
-.mbsc-wp-indigo .dw-ul .dw-hl .dw-i {
-    background: #6a00ff;
-    border-color: #6a00ff;
-}
-.mbsc-wp-violet .dw-sel .dw-i,
-.mbsc-wp-violet .dw-ul .dw-hl .dw-i {
-    background: #aa00ff;
-    border-color: #aa00ff;
-}
-.mbsc-wp-pink .dw-sel .dw-i,
-.mbsc-wp-pink .dw-ul .dw-hl .dw-i {
-    background: #f472d0;
-    border-color: #f472d0;
-}
-.mbsc-wp-magenta .dw-sel .dw-i,
-.mbsc-wp-magenta .dw-ul .dw-hl .dw-i {
-    background: #d80073;
-    border-color: #d80073;
-}
-.mbsc-wp-crimson .dw-sel .dw-i,
-.mbsc-wp-crimson .dw-ul .dw-hl .dw-i {
-    background: #a20025;
-    border-color: #a20025;
-}
-.mbsc-wp-red .dw-sel .dw-i,
-.mbsc-wp-red .dw-ul .dw-hl .dw-i {
-    background: #e51400;
-    border-color: #e51400;
-}
-.mbsc-wp-orange .dw-sel .dw-i,
-.mbsc-wp-orange .dw-ul .dw-hl .dw-i {
-    background: #fa6800;
-    border-color: #fa6800;
-}
-.mbsc-wp-amber .dw-sel .dw-i,
-.mbsc-wp-amber .dw-ul .dw-hl .dw-i {
-    background: #f0a30a;
-    border-color: #f0a30a;
-}
-.mbsc-wp-yellow .dw-sel .dw-i,
-.mbsc-wp-yellow .dw-ul .dw-hl .dw-i {
-    background: #d8c100;
-    border-color: #d8c100;
-}
-.mbsc-wp-brown .dw-sel .dw-i,
-.mbsc-wp-brown .dw-ul .dw-hl .dw-i {
-    background: #825a2c;
-    border-color: #825a2c;
-}
-.mbsc-wp-olive .dw-sel .dw-i,
-.mbsc-wp-olive .dw-ul .dw-hl .dw-i {
-    background: #6d8764;
-    border-color: #6d8764;
-}
-.mbsc-wp-steel .dw-sel .dw-i,
-.mbsc-wp-steel .dw-ul .dw-hl .dw-i {
-    background: #647687;
-    border-color: #647687;
-}
-.mbsc-wp-mauve .dw-sel .dw-i,
-.mbsc-wp-mauve .dw-ul .dw-hl .dw-i {
-    background: #76608a;
-    border-color: #76608a;
-}
-.mbsc-wp-sienna .dw-sel .dw-i,
-.mbsc-wp-sienna .dw-ul .dw-hl .dw-i {
-    background: #7a3b3f;
-    border-color: #7a3b3f;
-}
-
 /* Box sizing */
 .mbsc-wp .dw-li,
 .mbsc-wp .dwwb {
@@ -118,21 +6,21 @@
     box-sizing: border-box;
 }
 .mbsc-wp .dwc {
-    padding: 30px 0 0 0;
+    padding: 1.875em 0 0 0;
 }
 .mbsc-wp .dwhl {
     padding: 0;
 }
 .mbsc-wp .dwwc {
-    padding: 3px;
+    padding: .188em;
 }
 .mbsc-wp .dwwl {
-    padding: 0 2px;
+    padding: 0 .125em;
 }
 .mbsc-wp .dw-li {
     padding: 0;
-    font-size: 26px;
-    letter-spacing: -1px;
+    font-size: 1.625em;
+    letter-spacing: -.038em;
     text-align: left;
     opacity: 0;
     filter: Alpha(Opacity=0);
@@ -141,15 +29,16 @@
     position: relative;
     top: 4%;
     height: 92%;
-    padding: 0 5px;
-    border: 1px solid #4c4c4c;
+    padding: 0 .192em;
+    border: 2px solid #4c4c4c;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     filter: inherit;
 }
 .mbsc-wp .dw-li .dw-i {
-    width: 99.5%;
+    /*width: 99.5%;*/
+    color: #fff;
 }
 .mbsc-wp .wpa .dw-li, 
 .mbsc-wp .dwa .dw-li {
@@ -164,9 +53,8 @@
 .mbsc-wp .dw-day, 
 .mbsc-wp .dw-mon {
     display: block;
-    color: #a9a9a9;
-    line-height: 18px;
-    font-size: 11px;
+    line-height: 1.636em;
+    font-size: .423em;
     letter-spacing: normal;
     position: absolute;
     bottom: 0;
@@ -176,20 +64,10 @@
     opacity: 1;
     filter: Alpha(Opacity=100);
 }
-.mbsc-wp .dw-sel .dw-i {
+.mbsc-wp .dw-sel .dw-i,
+.mbsc-wp .dw-hl .dw-i {
     color: #fff;
-}
-.mbsc-wp .dw-sel .dw-day, 
-.mbsc-wp .dw-sel .dw-mon {
-    color: #fff;
-}
-.mbsc-wp .dwa .dw-sel .dw-i {
-    border: 1px solid #4c4c4c;
-    background: none;
-}
-.mbsc-wp .dwa .dw-day, 
-.mbsc-wp .dwa .dw-month {
-    color: #a9a9a9;
+    background: #4c4c4c;
 }
 .mbsc-wp .dwwo {
     display: none;
@@ -205,16 +83,16 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 22px;
-    height: 22px;
-    margin: -13px 0 0 -13px;
+    width: 2em;
+    height: 2em;
+    margin: -1.182em 0 0 -1.182em;
     color: #fff;
-    line-height: 22px;
-    font-size: 10px;
+    line-height: 2em;
+    font-size: .688em;
     text-align: center;
     border: 2px solid #fff;
-    -webkit-border-radius: 13px;
-    border-radius: 13px;
+    -webkit-border-radius: 1.182em;
+    border-radius: 1.182em;
 }
 .mbsc-wp .dwwl .dwb-a {
     top: auto;
@@ -236,32 +114,30 @@
     opacity: 1;
     filter: Alpha(Opacity=100);
 }
-.mbsc-wp .dwwms .dw-i {
-    background: none;
-    padding-left: 40px;
-}
 .mbsc-wp .dwwms .dw-li .dw-i {
+    color: #fff;
     border: 0;
+    padding-left: 1.538em;
 }
 .mbsc-wp .dwwms .dw-li:after {
     content: '';
     position: absolute;
     z-index: 1;
     top: 50%;
-    left: 5px;
-    width: 20px;
-    height: 20px;
-    margin-top: -10px;
+    left: .192em;
+    width: .769em;
+    height: .769em;
+    margin-top: -.385em;
     border: 2px solid #fff;
 }
 .mbsc-wp .dwwms .dw-msel:before {
     z-index: 2;
     top: 50%;
-    left: 5px;
-    width: 22px;
-    margin-top: -8px;
-    font-size: 16px;
-    line-height: 20px;
+    left: .313em;
+    width: 1.375em;
+    margin-top: -.5em;
+    font-size: .615em;
+    line-height: 1.25em;
     color: #fff;
 }
 /* Group select */
@@ -282,64 +158,37 @@
     display: none;
 }
 
-/* Light version */
-.mbsc-wp-light .dw-li {
-    color: #6b6b6b;
-}
-.mbsc-wp-light .dw-i {
-    border-color: #b5b5b5;
-}
-.mbsc-wp-light .dw-day, 
-.mbsc-wp-light .dw-mon {
-    color: #6b6b6b;
-}
-.mbsc-wp-light .dw-sel .dw-day, 
-.mbsc-wp-light .dw-sel .dw-mon {
+/* Accents */
+.mbsc-wp-lime .dw-sel .dw-i, .mbsc-wp-lime .dw-ul .dw-hl .dw-i { background: #a4c400; border-color: #a4c400; }
+.mbsc-wp-green .dw-sel .dw-i, .mbsc-wp-green .dw-ul .dw-hl .dw-i { background: #60a917; border-color: #60a917; }
+.mbsc-wp-emerald .dw-sel .dw-i, .mbsc-wp-emerald .dw-ul .dw-hl .dw-i { background: #008a00; border-color: #008a00; }
+.mbsc-wp-teal .dw-sel .dw-i, .mbsc-wp-teal .dw-ul .dw-hl .dw-i { background: #00aba9; border-color: #00aba9; }
+.mbsc-wp-cyan .dw-sel .dw-i, .mbsc-wp-cyan .dw-ul .dw-hl .dw-i { background: #1ba1e2; border-color: #1ba1e2; }
+.mbsc-wp-cobalt .dw-sel .dw-i, .mbsc-wp-cobalt .dw-ul .dw-hl .dw-i { background: #0050ef; border-color: #0050ef; }
+.mbsc-wp-indigo .dw-sel .dw-i, .mbsc-wp-indigo .dw-ul .dw-hl .dw-i { background: #6a00ff; border-color: #6a00ff; }
+.mbsc-wp-violet .dw-sel .dw-i, .mbsc-wp-violet .dw-ul .dw-hl .dw-i { background: #aa00ff; border-color: #aa00ff; }
+.mbsc-wp-pink .dw-sel .dw-i, .mbsc-wp-pink .dw-ul .dw-hl .dw-i { background: #f472d0; border-color: #f472d0; }
+.mbsc-wp-magenta .dw-sel .dw-i, .mbsc-wp-magenta .dw-ul .dw-hl .dw-i { background: #d80073; border-color: #d80073; }
+.mbsc-wp-crimson .dw-sel .dw-i, .mbsc-wp-crimson .dw-ul .dw-hl .dw-i { background: #a20025; border-color: #a20025; }
+.mbsc-wp-red .dw-sel .dw-i, .mbsc-wp-red .dw-ul .dw-hl .dw-i { background: #e51400; border-color: #e51400; }
+.mbsc-wp-orange .dw-sel .dw-i, .mbsc-wp-orange .dw-ul .dw-hl .dw-i { background: #fa6800; border-color: #fa6800; }
+.mbsc-wp-amber .dw-sel .dw-i, .mbsc-wp-amber .dw-ul .dw-hl .dw-i { background: #f0a30a; border-color: #f0a30a; }
+.mbsc-wp-yellow .dw-sel .dw-i, .mbsc-wp-yellow .dw-ul .dw-hl .dw-i { background: #d8c100; border-color: #d8c100; }
+.mbsc-wp-brown .dw-sel .dw-i, .mbsc-wp-brown .dw-ul .dw-hl .dw-i { background: #825a2c; border-color: #825a2c; }
+.mbsc-wp-olive .dw-sel .dw-i, .mbsc-wp-olive .dw-ul .dw-hl .dw-i { background: #6d8764; border-color: #6d8764; }
+.mbsc-wp-steel .dw-sel .dw-i, .mbsc-wp-steel .dw-ul .dw-hl .dw-i { background: #647687; border-color: #647687; }
+.mbsc-wp-mauve .dw-sel .dw-i, .mbsc-wp-mauve .dw-ul .dw-hl .dw-i { background: #76608a; border-color: #76608a; }
+.mbsc-wp-sienna .dw-sel .dw-i, .mbsc-wp-sienna .dw-ul .dw-hl .dw-i { background: #7a3b3f; border-color: #7a3b3f; }
+
+/* Override accents */
+.mbsc-wp .dwa .dw-i {
     color: #fff;
-}
-.mbsc-wp-light .mbsc-wp-none .dw-day, 
-.mbsc-wp-light .mbsc-wp-none .dw-mon {
-    color: #6b6b6b;
-}
-.mbsc-wp-light .dwa .dw-sel .dw-i {
-    color: #6b6b6b;
-    border: 1px solid #b5b5b5;
+    border-color: #4c4c4c;
     background: none;
 }
-.mbsc-wp-light .dwa .dw-day, 
-.mbsc-wp-light .dwa .dw-mon {
-    color: #6b6b6b;
-}
-.mbsc-wp-light .dwwb:before {
-    border: 2px solid #000;
-    color: #000;
-}
-.mbsc-wp-light .dwwb {
-    background: #dedede;
-}
-.mbsc-wp-light .dwwl .dwb-a {
-    background: #dedede;
-}
-.mbsc-wp-light .dwwl .dwb-a:before {
-    color: #dedede;
-}
-/* Multiple select */
-.mbsc-wp-light .dwwms .dw-li .dw-i {
-    color: #000;
-    border: 0;
-}
-.mbsc-wp-light .dwwms .dw-hl .dw-i {
-    color: #fff;
-}
-.mbsc-wp-light .dwwms .dw-li:after {
-    border-color: #000;
-}
-.mbsc-wp-light .dwwms .dw-msel:before {
-    color: #000;
-}
-.mbsc-wp-light .mbsc-wp-none .dw-sel .dw-i, 
-.mbsc-wp-light .mbsc-wp-none .dw-hl .dw-i {
-    color: #000;
+
+.mbsc-wp .dwwms .dw-i {
+    background: none;
 }
 
 

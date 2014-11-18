@@ -12,21 +12,6 @@
         constrain = util.constrain,
         testTouch = util.testTouch;
 
-    /**
-     * @deprecated since 2.6.0, backward compatibility code
-     */
-    function convert(w) {
-        var ret = {
-            values: [],
-            keys: []
-        };
-        $.each(w, function (k, v) {
-            ret.keys.push(k);
-            ret.values.push(v);
-        });
-        return ret;
-    }
-
     classes.Scroller = function (el, settings, inherit) {
         var $markup,
             btn,
@@ -34,7 +19,6 @@
             itemHeight,
             s,
             trigger,
-            valueText,
 
             click,
             moved,
@@ -58,9 +42,8 @@
         // Event handlers
 
         function onStart(ev) {
-            /* TRIALCOND */
             // Scroll start
-            if (testTouch(ev) && !move && !click && !btn && !isReadOnly(this)) {
+            if (testTouch(ev, this) && !move && !click && !btn && !isReadOnly(this)) {
                 // Prevent touch highlight
                 ev.preventDefault();
                 // Better performance if there are tap events on document
@@ -161,10 +144,8 @@
         function onBtnStart(ev) {
             btn = $(this);
             // +/- buttons
-            if (btn.hasClass('dwwb')) {
-                if (testTouch(ev)) {
-                    step(ev, btn.closest('.dwwl'), btn.hasClass('dwwbp') ? plus : minus);
-                }
+            if (testTouch(ev, this)) {
+                step(ev, btn.closest('.dwwl'), btn.hasClass('dwwbp') ? plus : minus);
             }
             if (ev.type === 'mousedown') {
                 $(document).on('mouseup', onBtnEnd);
@@ -236,11 +217,7 @@
 
         function generateWheelItems(i) {
             var html = '<div class="dw-bf">',
-                ww = wheels[i],
-                // @deprecated since 2.6.0, backward compatibility code
-                // ---
-                w = ww.values ? ww : convert(ww),
-                // ---
+                w = wheels[i],
                 l = 1,
                 labels = w.labels || [],
                 values = w.values,
@@ -251,7 +228,7 @@
                     html += '</div><div class="dw-bf">';
                 }
                 html += '<div role="option" aria-selected="false" class="dw-li dw-v" data-val="' + keys[j] + '"' + (labels[j] ? ' aria-label="' + labels[j] + '"' : '') + ' style="height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;">' +
-                    '<div class="dw-i"' + (lines > 1 ? ' style="line-height:' + Math.round(itemHeight / lines) + 'px;font-size:' + Math.round(itemHeight / lines * 0.8) + 'px;"' : '') + '>' + v /* TRIAL */ + '</div></div>';
+                    '<div class="dw-i"' + (lines > 1 ? ' style="line-height:' + Math.round(itemHeight / lines) + 'px;font-size:' + Math.round(itemHeight / lines * 0.8) + 'px;"' : '') + '>' + v + '</div></div>';
                 l++;
             });
 
@@ -272,24 +249,7 @@
         }
 
         function getCurrentPosition(t) {
-            var style = window.getComputedStyle ? getComputedStyle(t[0]) : t[0].style,
-                matrix,
-                px;
-
-            if (has3d) {
-                $.each(['t', 'webkitT', 'MozT', 'OT', 'msT'], function (i, v) {
-                    if (style[v + 'ransform'] !== undefined) {
-                        matrix = style[v + 'ransform'];
-                        return false;
-                    }
-                });
-                matrix = matrix.split(')')[0].split(', ');
-                px = matrix[13] || matrix[5];
-            } else {
-                px = style.top.replace('px', '');
-            }
-
-            return Math.round(-px / itemHeight);
+            return Math.round(-util.getPosition(t, true) / itemHeight);
         }
 
         function ready(t, i) {
@@ -313,9 +273,8 @@
 
             pixels[index] = px;
 
-            style[pr + 'Transition'] = 'all ' + (time ? time.toFixed(3) : 0) + 's ease-out';
-
             if (has3d) {
+                style[pr + 'Transition'] = util.prefix + 'transform ' + (time ? time.toFixed(3) : 0) + 's ease-out';
                 style[pr + 'Transform'] = 'translate3d(0,' + px + 'px,0)';
             } else {
                 style.top = px + 'px';
@@ -384,12 +343,12 @@
                     var t = $(this),
                         multiple = t.closest('.dwwl').hasClass('dwwms'),
                         sc = i == index || index === undefined,
-                        res = getValid(that.temp[i], t, dir, multiple),
+                        res = getValid(that._tempWheelArray[i], t, dir, multiple),
                         cell = res.cell;
 
                     if (!(cell.hasClass('dw-sel')) || sc) {
                         // Set valid value
-                        that.temp[i] = res.val;
+                        that._tempWheelArray[i] = res.val;
 
                         if (!multiple) {
                             $('.dw-sel', t).removeAttr('aria-selected');
@@ -406,17 +365,17 @@
                 });
 
                 // Reformat value if validation changed something
-                that._valueText = valueText = s.formatResult(that.temp);
+                that._tempValue = s.formatResult(that._tempWheelArray);
 
                 if (that.live) {
                     that._hasValue = manual || that._hasValue;
                     setValue(manual, manual, 0, true);
                 }
 
-                that._header.html(formatHeader(valueText));
+                that._header.html(formatHeader(that._tempValue));
 
                 if (manual) {
-                    trigger('onChange', [valueText]);
+                    trigger('onChange', [that._tempValue]);
                 }
 
                 trigger('onValidated', []);
@@ -435,7 +394,7 @@
                 time = anim ? (val == o ? 0.1 : dist * s.timeUnit * Math.max(0.5, (100 - dist) / 100)) : 0;
 
             // Set selected scroller value
-            that.temp[idx] = cell.attr('data-val');
+            that._tempWheelArray[idx] = cell.attr('data-val');
 
             scroll(t, idx, val, time, active);
 
@@ -460,19 +419,23 @@
                 scrollToPos(time);
             }
 
-            that._valueText = valueText = s.formatResult(that.temp);
+            that._tempValue = s.formatResult(that._tempWheelArray);
+
+            if (util.isNumeric(that._tempValue)) {
+                that._tempValue = +that._tempValue;
+            }
 
             if (!temp) {
-                that.values = that.temp.slice(0);
-                that.val = that._hasValue ? valueText : null;
+                that._wheelArray = that._tempWheelArray.slice(0);
+                that._value = that._hasValue ? that._tempValue : null;
             }
 
             if (fill) {
 
-                trigger('onValueFill', [that._hasValue ? valueText : '', change]);
+                trigger('onValueFill', [that._hasValue ? that._tempValue : '', change]);
 
                 if (that._isInput) {
-                    $elm.val(that._hasValue ? valueText : '');
+                    $elm.val(that._hasValue ? that._tempValue : '');
                     if (change) {
                         that._preventChange = true;
                         $elm.change();
@@ -493,32 +456,46 @@
         * @param {Boolean} [fill=false] Also set the value of the associated input element.
         * @param {Number} [time=0] Animation time
         * @param {Boolean} [temp=false] If true, then only set the temporary value.(only scroll there but not set the value)
+        * @param {Boolean} [change=false] Trigger change on the input element
         */
-        that.setValue = function (values, fill, time, temp, change) {
-            that._hasValue = values !== null && values !== undefined;
-            that.temp = $.isArray(values) ? values.slice(0) : s.parseValue.call(el, values, that);
+        that.setVal = that._setVal = function (val, fill, change, temp, time) {
+            that._hasValue = val !== null && val !== undefined;
+            that._tempWheelArray = $.isArray(val) ? val.slice(0) : s.parseValue.call(el, val, that);
             setValue(fill, change === undefined ? fill : change, time, false, temp);
+        };
+
+        /**
+         * Returns the selected value
+         */
+        that.getVal = that._getVal = function (temp) {
+            return that._hasValue ? that[temp ? '_tempValue' : '_value'] : null;
+        };
+
+        /*
+         * Sets the wheel values (passed as an array)
+         */
+        that.setArrayVal = that.setVal;
+
+        /*
+         * Returns the selected wheel values as an array
+         */
+        that.getArrayVal = function (temp) {
+            return temp ? that._tempWheelArray : that._wheelArray;
+        };
+
+        // @deprecated since 2.14.0, backward compatibility code
+        // ---
+
+        that.setValue = function (val, fill, time, temp, change) {
+            that.setVal(val, fill, change, temp, time);
         };
 
         /**
         * Return the selected wheel values.
         */
-        that.getValue = function () {
-            return that._hasValue ? that.values : null;
-        };
+        that.getValue = that.getArrayVal;
 
-        /**
-        * Return selected values, if in multiselect mode.
-        */
-        that.getValues = function () {
-            var ret = [],
-                i;
-
-            for (i in that._selectedValues) {
-                ret.push(that._selectedValues[i]);
-            }
-            return ret;
-        };
+        // ---
 
         /**
         * Changes the values of a wheel, and scrolls to the correct position
@@ -608,8 +585,8 @@
                 .on('touchstart mousedown', '.dwwl', onStart)
                 .on('touchmove', '.dwwl', onMove)
                 .on('touchend', '.dwwl', onEnd)
-                .on('touchstart mousedown', '.dwb-e', onBtnStart)
-                .on('touchend', '.dwb-e', onBtnEnd);
+                .on('touchstart mousedown', '.dwwb', onBtnStart)
+                .on('touchend', '.dwwb', onBtnEnd);
         };
 
         that._markupReady = function () {
@@ -625,7 +602,7 @@
         that._readValue = function () {
             var v = $elm.val() || '';
             that._hasValue = v !== '';
-            that.temp = that.values ? that.values.slice(0) : s.parseValue(v, that);
+            that._tempWheelArray = that._wheelArray ? that._wheelArray.slice(0) : s.parseValue(v, that);
             setValue();
         };
 
@@ -637,8 +614,8 @@
 
             that._isLiquid = (s.layout || (/top|bottom/.test(s.display) && s.wheels.length == 1 ? 'liquid' : '')) === 'liquid';
 
-            that.values = null;
-            that.temp = null;
+            //that._wheelArray = null;
+            //that._tempWheelArray = null;
 
             if (lines > 1) {
                 s.cssClass = (s.cssClass || '') + ' dw-ml';
@@ -683,10 +660,6 @@
 
             $.each(inst.settings.wheels, function (j, wg) {
                 $.each(wg, function (k, w) {
-                    // @deprecated since 2.6.0, backward compatibility code
-                    // ---
-                    w = w.values ? w : convert(w);
-                    // ---
                     keys = w.keys || w.values;
                     if ($.inArray(val[i], keys) !== -1) {
                         ret.push(val[i]);

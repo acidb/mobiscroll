@@ -17,7 +17,7 @@
             // ---
             onThemeLoad: function (lang, s) {
                 if (s.theme) {
-                    s.theme = s.theme.replace('android-ics', 'android-holo').replace(' light', '-light');
+                    s.theme = s.theme.replace('android-ics', 'android-holo');
                 }
             },
             // ---

@@ -25,14 +25,7 @@
                     touch,
                     active;
 
-                elm.addClass('mbsc-wp');
-
-                $('.dw', elm).addClass('mbsc-wp-' + inst.settings.accent);
-
-                $('.dwb-s .dwb', elm).addClass('mbsc-ic mbsc-ic-checkmark');
-                $('.dwb-c .dwb', elm).addClass('mbsc-ic mbsc-ic-close');
-                $('.dwb-cl .dwb', elm).addClass('mbsc-ic mbsc-ic-close');
-                $('.dwb-n .dwb', elm).addClass('mbsc-ic mbsc-ic-loop2');
+                elm.addClass('mbsc-wp mbsc-wp-' + inst.settings.accent);
             
                 $('.dwwl', elm).on('touchstart mousedown DOMMouseScroll mousewheel', function (e) {
                     if (e.type === 'mousedown' && touch) {
@@ -62,12 +55,17 @@
                     ord = ord.match(/dd/i) ? ord.replace(/ddDD|dd|DD/,  'ddDD') : ord.replace(/dD|d|D/,  'dD');
                     s.dateOrder = ord;
                 }
-                // @deprecated since 2.12.0, backward compatibility code
-                // ---
-                if (s.theme) {
-                    s.theme = s.theme.replace(' light', '-light');
+            },
+            onInit: function (inst) {
+                var buttons = inst.buttons;
+
+                buttons.set.icon = 'checkmark';
+                buttons.cancel.icon = 'close';
+                buttons.clear.icon = 'close';
+
+                if (buttons.now) {
+                    buttons.now.icon = 'loop2';
                 }
-                // ---
             }
         };
 

@@ -11,6 +11,7 @@
         has3d = util.has3d,
         getCoord = util.getCoord,
         constrain = util.constrain,
+        isString = util.isString,
         isOldAndroid = /android [1-3]/i.test(navigator.userAgent),
         animEnd = 'webkitAnimationEnd animationend',
         empty = function () { },
@@ -92,7 +93,7 @@
 
             if ($activeElm && !prevAnim) {
                 setTimeout(function () {
-                    if (focus === undefined) {
+                    if (focus === undefined || focus === true) {
                         preventShow = true;
                         activeEl = $activeElm[0];
                         type = activeEl.type;
@@ -127,6 +128,27 @@
                 }
                 that.position(!isScroll);
             }, 200);
+        }
+
+        function show(beforeShow) {
+            if (!ms.tapped) {
+
+                if (beforeShow) {
+                    beforeShow();
+                }
+
+                // Hide virtual keyboard
+                if ($(document.activeElement).is('input,textarea')) {
+                    $(document.activeElement).blur();
+                }
+
+                $activeElm = $elm;
+                that.show();
+            }
+
+            setTimeout(function () {
+                preventShow = false;
+            }, 300); // With jQuery < 1.9 focus is fired twice in IE
         }
 
         function event(name, args) {
@@ -170,7 +192,7 @@
                 return;
             }
 
-            if (isModal && that._isLiquid && s.display!== 'bubble') {
+            if (that._isFullScreen || /top|bottom/.test(s.display)) {
                 // Set width, if document is larger than viewport, needs to be set before onPosition (for calendar)
                 $popup.width(nw);
             }
@@ -192,7 +214,7 @@
                 }
             }
 
-            if (/modal|bubble/.test(s.display)) {
+            if (!that._isFullScreen && /modal|bubble/.test(s.display)) {
                 $wrapper.width('');
                 $('.mbsc-w-p', $markup).each(function () {
                     w = $(this).outerWidth(true);
@@ -203,8 +225,8 @@
                 $wrapper.width(w).css('white-space', totalw > nw ? '' : 'nowrap');
             }
 
-            modalWidth = $popup.outerWidth();
-            modalHeight = $popup.outerHeight(true);
+            modalWidth = that._isFullScreen ? nw : $popup.outerWidth();
+            modalHeight = that._isFullScreen ? nh : $popup.outerHeight(true);
             scrollLock = modalHeight <= nh && modalWidth <= nw;
 
             that.scrollLock = scrollLock;
@@ -278,29 +300,26 @@
         that.attachShow = function ($elm, beforeShow) {
             elmList.push($elm);
             if (s.display !== 'inline') {
-                $elm
-                    .on('mousedown.dw', function (ev) {
-                        if (setReadOnly) {
-                            // Prevent input to get focus on tap (virtual keyboard pops up on some devices)
-                            ev.preventDefault();
-                        }
-                    })
-                    .on((s.showOnFocus ? 'focus.dw' : '') + (s.showOnTap ? ' click.dw' : ''), function (ev) {
-                        if ((ev.type !== 'focus' || (ev.type === 'focus' && !preventShow)) && !ms.tapped) {
-                            if (beforeShow) {
-                                beforeShow();
-                            }
-                            // Hide virtual keyboard
-                            if ($(document.activeElement).is('input,textarea')) {
-                                $(document.activeElement).blur();
-                            }
-                            $activeElm = $elm;
-                            that.show();
-                        }
-                        setTimeout(function () {
-                            preventShow = false;
-                        }, 300); // With jQuery < 1.9 focus is fired twice in IE
+                if (setReadOnly) {
+                    $elm.on('mousedown.dw', function (ev) {
+                        // Prevent input to get focus on tap (virtual keyboard pops up on some devices)
+                        ev.preventDefault();
                     });
+                }
+
+                if (s.showOnFocus) {
+                    $elm.on('focus.dw', function () {
+                        if (!preventShow) {
+                            show(beforeShow);
+                        }
+                    });
+                }
+
+                if (s.showOnTap) {
+                    that.tap($elm, function () {
+                        show(beforeShow);
+                    });
+                }
             }
         };
 
@@ -310,7 +329,7 @@
         that.select = function () {
             if (!isModal || that.hide(false, 'set') !== false) {
                 that._fillValue();
-                event('onSelect', [that.val]);
+                event('onSelect', [that._value]);
             }
         };
 
@@ -319,7 +338,7 @@
         */
         that.cancel = function () {
             if (!isModal || that.hide(false, 'cancel') !== false) {
-                event('onCancel', [that.val]);
+                event('onCancel', [that._value]);
             }
         };
 
@@ -393,7 +412,7 @@
                             (s.display === 'bubble' ? '<div class="dw-arrw"><div class="dw-arrw-i"><div class="dw-arr"></div></div></div>' : '') + // Bubble arrow
                             '<div class="dwwr">' + // Popup content
                                 '<div aria-live="assertive" class="dw-aria dw-hidden"></div>' +
-                                (s.headerText ? '<div class="dwv">' + s.headerText + '</div>' : '') + // Header
+                                (s.headerText ? '<div class="dwv">' + (isString(s.headerText) ? s.headerText : '') + '</div>' : '') + // Header
                                 '<div class="dwcc">'; // Wheel group container
             
             html += that._generateContent();
@@ -403,8 +422,19 @@
             if (hasButtons) {
                 html += '<div class="dwbc">';
                 $.each(buttons, function (i, b) {
-                    b = (typeof b === 'string') ? that.buttons[b] : b;
-                    html += '<div' + (s.btnWidth ? ' style="width:' + (100 / buttons.length) + '%"' : '') + ' class="dwbw ' + b.css + '"><div tabindex="0" role="button" class="dwb dwb' + i + ' dwb-e">' + b.text + '</div></div>';
+                    b = isString(b) ? that.buttons[b] : b;
+
+                    if (b.handler === 'set') {
+                        b.parentClass = 'dwb-s';
+                    }
+
+                    if (b.handler === 'cancel') {
+                        b.parentClass = 'dwb-c';
+                    }
+
+                    b.handler = isString(b.handler) ? that.handlers[b.handler] : b.handler;
+
+                    html += '<div' + (s.btnWidth ? ' style="width:' + (100 / buttons.length) + '%"' : '') + ' class="dwbw ' + (b.parentClass || '') + '"><div tabindex="0" role="button" class="dwb' + i + ' dwb-e ' + (b.cssClass === undefined ? s.btnClass : b.cssClass) + (b.icon ? ' mbsc-ic mbsc-ic-' + b.icon : '') + '">' + (b.text || '') + '</div></div>';
                 });
                 html += '</div>';
             }
@@ -442,7 +472,7 @@
 
                 // Prevent scroll if not specified otherwise
                 if (s.scrollLock) {
-                    $markup.on('touchstart touchmove', function (ev) {
+                    $markup.on('touchstart touchmove mousewheel DOMMouseScroll', function (ev) {
                         if (scrollLock) {
                             ev.preventDefault();
                         }
@@ -466,7 +496,7 @@
 
                 if (has3d && doAnim && !prevAnim) {
                     $markup.addClass('dw-in dw-trans').on(animEnd, function () {
-                        $markup.removeClass('dw-in dw-trans').find('.dw').removeClass('dw-' + doAnim);
+                        $markup.off(animEnd).removeClass('dw-in dw-trans').find('.dw').removeClass('dw-' + doAnim);
                         onShow(prevFocus);
                     }).find('.dw').addClass('dw-' + doAnim);
                 }
@@ -499,7 +529,7 @@
                 // Init buttons
                 $.each(buttons, function (i, b) {
                     that.tap($('.dwb' + i, $markup), function (ev) {
-                        b = (typeof b === 'string') ? that.buttons[b] : b;
+                        b = isString(b) ? that.buttons[b] : b;
                         b.handler.call(this, ev, that);
                     }, true);
                 });
@@ -522,7 +552,7 @@
 
             }, 300);
 
-            event('onShow', [$markup, that._valueText]);
+            event('onShow', [$markup, that._tempValue]);
         };
 
         /**
@@ -531,7 +561,7 @@
         that.hide = function (prevAnim, btn, force) {
 
             // If onClose handler returns false, prevent hide
-            if (!that._isVisible || (!force && !that._isValid && btn == 'set') || (!force && event('onClose', [that._valueText, btn]) === false)) {
+            if (!that._isVisible || (!force && !that._isValid && btn == 'set') || (!force && event('onClose', [that._tempValue, btn]) === false)) {
                 return false;
             }
 
@@ -600,7 +630,7 @@
                 startY,
                 moved;
 
-            if (s.tap) {
+            if (s.tap && !isOldAndroid) {
                 el.on('touchstart.dw', function (ev) {
                     // Can't always call preventDefault here, it kills page scroll
                     if (prevent) {
@@ -620,9 +650,9 @@
                     if (!moved) {
                         // preventDefault and setTimeout are needed by iOS
                         ev.preventDefault();
-                        setTimeout(function () {
-                            handler.call(that, ev);
-                        }, isOldAndroid ? 400 : 10);
+                        //setTimeout(function () {
+                        handler.call(that, ev);
+                        //}, isOldAndroid ? 400 : 10);
                     }
                     // Prevent click events to happen
                     ms.tapped = true;
@@ -741,24 +771,21 @@
             $wnd = $(s.context == 'body' ? window : s.context);
             $ctx = $(s.context);
 
-            // @deprecated since 2.8.0, backward compatibility code
-            // ---
-            if (!s.setText) {
-                buttons.splice($.inArray('set', buttons), 1);
-            }
-            if (!s.cancelText) {
-                buttons.splice($.inArray('cancel', buttons), 1);
-            }
-            if (s.button3) {
-                buttons.splice($.inArray('set', buttons) + 1, 0, { text: s.button3Text, handler: s.button3 });
-            }
-            // ---
-
             that.context = $wnd;
-            that.live = $.inArray('set', buttons) == -1;
-            that.buttons.set = { text: s.setText, css: 'dwb-s', handler: that.select };
-            that.buttons.cancel = { text: (that.live) ? s.closeText : s.cancelText, css: 'dwb-c', handler: that.cancel };
-            that.buttons.clear = { text: s.clearText, css: 'dwb-cl', handler: that.clear };
+
+            that.live = true;
+
+            // If no set button is found, live mode is activated
+            $.each(buttons, function (i, b) {
+                if (b === 'set' || b.handler === 'set') {
+                    that.live = false;
+                    return false;
+                }
+            });
+
+            that.buttons.set = { text: s.setText, handler: 'set' };
+            that.buttons.cancel = { text: (that.live) ? s.closeText : s.cancelText, handler: 'cancel' };
+            that.buttons.clear = { text: s.clearText, handler: 'clear' };
 
             that._isInput = $elm.is('input');
 
@@ -782,18 +809,26 @@
                 that.show();
             }
 
-            if (that._isInput) {
-                $elm.on('change.dw', function () {
-                    if (!that._preventChange) {
-                        that.setValue($elm.val(), false);
-                    }
-                    that._preventChange = false;
-                });
-            }
+            //if (that._isInput) {
+            $elm.on('change.dw', function () {
+                if (!that._preventChange) {
+                    that.setVal($elm.val(), true, false);
+                }
+                that._preventChange = false;
+            });
+            //}
+
+            event('onInit', []);
         };
 
-        that.val = null;
         that.buttons = {};
+        that.handlers = {
+            set: that.select,
+            cancel: that.cancel,
+            clear: that.clear
+        };
+
+        that._value = null;
 
         that._isValid = true;
 
@@ -820,6 +855,7 @@
         display: 'modal',
         scrollLock: true,
         tap: true,
+        btnClass: 'dwb',
         btnWidth: true,
         focusOnClose: false // Temporary for iOS8
     };

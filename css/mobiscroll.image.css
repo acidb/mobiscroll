@@ -1,0 +1,31 @@
+.dw-ltr .mbsc-img-w { 
+    text-align: left; 
+}
+.dw-ltr .mbsc-img-txt {
+    margin: 0 0 0 .5em; 
+}
+.dw-rtl .mbsc-img-w { 
+    text-align: right; 
+}
+.dw-rtl .mbsc-img-txt {
+    margin: 0 .5em 0 0; 
+}
+.mbsc-img-w .mbsc-ic {
+    display: inline-block;
+    margin: 0 .5em;
+}
+.mbsc-img-txt { 
+    display: inline-block; 
+}
+.mbsc-img-c { 
+    min-width: 50px; 
+    height: 28px; 
+    margin-top: -2px; 
+    display: inline-block; 
+    text-align: center; 
+    vertical-align: middle; 
+    line-height: normal; 
+}
+.mbsc-img { 
+    max-height: 28px; 
+}
