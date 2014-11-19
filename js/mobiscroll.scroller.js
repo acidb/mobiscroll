@@ -364,6 +364,8 @@
                     }
                 });
 
+                trigger('onValidated', []);
+
                 // Reformat value if validation changed something
                 that._tempValue = s.formatResult(that._tempWheelArray);
 
@@ -377,8 +379,6 @@
                 if (manual) {
                     trigger('onChange', [that._tempValue]);
                 }
-
-                trigger('onValidated', []);
             }
 
         }
