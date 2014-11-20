@@ -1,40 +1,43 @@
 {
-  "name": "mobiscroll",
-  "version": "2.14.0",
-  "main": [
-    "js/mobiscroll.core.js",
-	"js/mobiscroll.widget.js",
-    "js/mobiscroll.scroller.js",
-	"js/mobiscroll.util.datetime.js",
-	"js/mobiscroll.datetime.js",
-	"js/mobiscroll.select.js",
-	"js/mobiscroll.list.js",
-	"css/mobiscroll.animation.css",
-	"css/mobiscroll.widget.css",
-    "css/mobiscroll.scroller.css"
-  ],
-  "description": "A wheel scroller control optimized for touchscreens to easily enter date/time. It can easily be customized to support any custom values.",
-  "keywords": [
-    "ui",
-    "input",
-    "form",
-    "html5",
-    "mobile",
-    "list",
-    "hierarchy",
-    "scroller",
-    "clickpick"
-  ],
-  "authors": [
-    { "name": "Acid Media" },
-    { "homepage": "http://theacidmedia.net"}
-  ],
-  "ignore": [
-    ".git",
-    ".gitignore"
-  ],
-  "dependencies": {
-    "jquery": ">=1.7"
-  },
-  "homepage": "http://mobiscroll.com/"
+    "name": "mobiscroll",
+    "version": "2.14.0",
+    "main": [
+        "js/mobiscroll.core.js",
+        "js/mobiscroll.widget.js",
+        "js/mobiscroll.scroller.js",
+        "js/mobiscroll.util.datetime.js",
+        "js/mobiscroll.datetimebase.js",
+        "js/mobiscroll.datetime.js",
+        "js/mobiscroll.select.js",
+        "js/mobiscroll.listbase.js",
+        "js/mobiscroll.treelist.js",
+        "js/mobiscroll.image.js",
+        "css/mobiscroll.animation.css",
+        "css/mobiscroll.widget.css",
+        "css/mobiscroll.scroller.css"
+    ],
+    "description": "A wheel scroller control optimized for touchscreens to easily enter date/time. It can easily be customized to support any custom values.",
+    "keywords": [
+        "ui",
+        "input",
+        "form",
+        "html5",
+        "mobile",
+        "list",
+        "hierarchy",
+        "scroller",
+        "clickpick"
+    ],
+    "authors": [
+        { "name": "Acid Media" },
+        { "homepage": "http://theacidmedia.net"}
+    ],
+    "ignore": [
+        ".git",
+        ".gitignore"
+    ],
+    "dependencies": {
+        "jquery": ">=1.7"
+    },
+    "homepage": "http://mobiscroll.com/"
 }
