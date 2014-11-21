@@ -19,10 +19,10 @@
             lvl = 0,
             ilvl = 0,
             timer = {},
-            labels = generateLabels(lvl),
             currLevel = 1,
             currWheelVector = [],
             wa = s.wheelArray || createWheelArray(elm),
+            labels = generateLabels(lvl),
             fwv = firstWheelVector(wa),
             w = generateWheelsFromVector(fwv, lvl);
         
