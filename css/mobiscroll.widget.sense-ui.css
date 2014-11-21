@@ -53,10 +53,12 @@
     border-color: #fff transparent transparent transparent;
 }
 /* Docked */
-.mbsc-sense-ui.dw-top .dwwr {
-    border: 0;
-}
+.mbsc-sense-ui.dw-top .dwwr,
 .mbsc-sense-ui.dw-bottom .dwwr {
     border: 0;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+}
+.mbsc-sense-ui.dw-bottom .dwwr {
     border-top: 1px solid #666;
 }
