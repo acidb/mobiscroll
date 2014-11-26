@@ -19,6 +19,13 @@
     background: rgb(181,181,181);
     border-color: rgb(181,181,181);
 }
+/* Bubble positioning */
+.mbsc-wp-light .dw-bubble-bottom .dw-arr {
+    border-color: transparent transparent rgb(222,222,222) transparent;
+}
+.mbsc-wp-light .dw-bubble-top .dw-arr {
+    border-color: rgb(222,222,222) transparent transparent transparent;
+}
 /* Multiple select */
 .mbsc-wp-light .dwwms .dw-li .dw-i {
     color: rgb(0,0,0);

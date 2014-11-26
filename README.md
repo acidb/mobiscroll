@@ -33,6 +33,42 @@ It'd be cool to see how you're using Mobiscroll!
 We're looking at showcasing some of the best work on http://mobiscroll.com . Feel free to let us know on twitter @mobiscroll!
 
 
+Changelog 2.14.1
+================
+
+_Auto Theme_
+
+  * Fixed: Did not load iOS Classic theme on iOS < 7.
+
+_Calendar_
+
+  * Fixed: setVal was not working correctly with multiple select if date objects had time (other than 00:00) (#258).
+
+_Image_
+
+  * Fixed: `enhance` setting did not work with App Framework.
+
+  * Fixed: `labels` setting did not work properly.
+
+_Range_
+
+  * Fixed: Stopped working if `onClose` returned false.
+
+  * Fixed: `defaultValue` did not work correctly with empty array.
+
+_Themes_
+
+  * Fixed: Bubble arrow was dark for Android Holo Light.
+
+  * Fixed: Bubble arrow was dark for Windows Phone Light.
+
+_Treelist_
+
+  * Fixed: `enhance` setting did not work with App Framework.
+
+  * Fixed: `labels` setting did not work properly.
+
+
 Changelog 2.14.0
 ================
 

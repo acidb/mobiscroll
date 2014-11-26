@@ -235,6 +235,11 @@ if (!window.jQuery) {
             return this;
         };
 
+        $.fn.insertAfter = function (elm) {
+            this.insertBefore(elm, true);
+            return this;
+        };
+
         $.fn.pluck = function (property) {
             return this.map(function (i, e) { return e[property]; });
         };

@@ -50,6 +50,13 @@
 .mbsc-android-holo-light .dwbw .dwb  { 
     border-color: rgb(217,213,217);
 }
+/* Bubble positioning */
+.mbsc-android-holo-light .dw-bubble-bottom .dw-arr {
+    border-color: transparent transparent rgb(245,245,245) transparent;
+}
+.mbsc-android-holo-light .dw-bubble-top .dw-arr {
+    border-color: rgb(245,245,245) transparent transparent transparent;
+}
 /* Calendar */
 .mbsc-android-holo-light .dw-cal-day-m {
     border-color: rgb(49,183,232) rgb(49,183,232) transparent transparent;
