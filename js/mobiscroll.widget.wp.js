@@ -35,6 +35,7 @@
                     click = true;
                     active = $(this).hasClass('wpa');
                     $('.dwwl', elm).removeClass('wpa');
+                    $('.dw-sel', this).removeClass('dw-sel');
                     $(this).addClass('wpa');
                 }).on('touchmove mousemove', function () {
                     click = false;
