@@ -632,7 +632,7 @@
                 startY,
                 moved;
 
-            if (s.tap && !isOldAndroid) {
+            if (s.tap) {
                 el.on('touchstart.dw', function (ev) {
                     // Can't always call preventDefault here, it kills page scroll
                     if (prevent) {
