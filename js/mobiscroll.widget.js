@@ -833,6 +833,7 @@
         that._value = null;
 
         that._isValid = true;
+        that._isVisible = false;
 
         // Constructor
         if (!inherit) {
