@@ -587,7 +587,9 @@
                 $wnd.off(posEvents, onPosition);
             }
 
-            delete ms.activeInstance;
+            if (isModal) {
+                delete ms.activeInstance;
+            }
         };
 
         that.ariaMessage = function (txt) {
