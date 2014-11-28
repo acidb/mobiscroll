@@ -460,7 +460,7 @@
         */
         that.setVal = that._setVal = function (val, fill, change, temp, time) {
             that._hasValue = val !== null && val !== undefined;
-            that._tempWheelArray = $.isArray(val) ? val.slice(0) : s.parseValue.call(el, val, that);
+            that._tempWheelArray = $.isArray(val) ? val.slice(0) : s.parseValue.call(el, val, that) || [];
             setValue(fill, change === undefined ? fill : change, time, false, temp);
         };
 
@@ -602,7 +602,7 @@
         that._readValue = function () {
             var v = $elm.val() || '';
             that._hasValue = v !== '';
-            that._tempWheelArray = that._wheelArray ? that._wheelArray.slice(0) : s.parseValue(v, that);
+            that._tempWheelArray = that._wheelArray ? that._wheelArray.slice(0) : s.parseValue(v, that) || [];
             setValue();
         };
 
@@ -653,10 +653,14 @@
             return d.join(' ');
         },
         parseValue: function (value, inst) {
-            var val = value.split(' '),
+            var val = [],
                 ret = [],
                 i = 0,
                 keys;
+
+            if (value !== null && value !== undefined) {
+                val = (value + '').split(' ');
+            }
 
             $.each(inst.settings.wheels, function (j, wg) {
                 $.each(wg, function (k, w) {

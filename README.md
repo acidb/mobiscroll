@@ -33,6 +33,50 @@ It'd be cool to see how you're using Mobiscroll!
 We're looking at showcasing some of the best work on http://mobiscroll.com . Feel free to let us know on twitter @mobiscroll!
 
 
+Changelog 2.14.2
+================
+
+_Calendar_
+
+  * Fixed: Initially selected days were not highlighted with multiple selection enabled.
+
+_Core_
+
+  * Fixed: `isVisible` method returned the DOM element before the first show.
+
+  * Fixed: Tap was not working on Android 2.3
+
+  * Fixed: `$.mobiscroll.activeInstance` is tracked only for modal widgets (other than inline).
+
+_Integrations_
+
+  * Fixed: Inline calendar jumping between dates with Angular, Ember, Knockout and Kendo integration (#257).
+
+  * Fixed: Listview rendering changed using backbone.js and underscore.js. Underscore.js v1.7.0 required.
+
+_Menustrip_
+
+  * New: `refresh` method to recalculate dimensions needed for scrolling and enhance markup for new elements. (#261).
+
+  * New: Accessibility improvements by adding aria attributes.
+
+  * Fixed: App Framework compatibility fixes.
+
+_Numpad_
+
+  * Fixed: Decimal preset did not allow entering leading zeroes even if `allowLeadingZero` setting was true (#259).
+
+_Timespan_
+
+  * New: Don't display 0 values in the input (#260).
+
+_Themes_
+
+  * Fixed: Inconsistent wheel item highlight on tap with Windows Phone theme.
+
+  * New: Mobiscroll Dark theme.
+
+
 Changelog 2.14.1
 ================
 

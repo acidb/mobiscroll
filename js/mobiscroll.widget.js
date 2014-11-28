@@ -472,7 +472,7 @@
 
                 // Prevent scroll if not specified otherwise
                 if (s.scrollLock) {
-                    $markup.on('touchstart touchmove mousewheel DOMMouseScroll', function (ev) {
+                    $markup.on('touchmove mousewheel DOMMouseScroll', function (ev) {
                         if (scrollLock) {
                             ev.preventDefault();
                         }
@@ -587,7 +587,9 @@
                 $wnd.off(posEvents, onPosition);
             }
 
-            delete ms.activeInstance;
+            if (isModal) {
+                delete ms.activeInstance;
+            }
         };
 
         that.ariaMessage = function (txt) {
@@ -630,7 +632,7 @@
                 startY,
                 moved;
 
-            if (s.tap && !isOldAndroid) {
+            if (s.tap) {
                 el.on('touchstart.dw', function (ev) {
                     // Can't always call preventDefault here, it kills page scroll
                     if (prevent) {
@@ -831,6 +833,7 @@
         that._value = null;
 
         that._isValid = true;
+        that._isVisible = false;
 
         // Constructor
         if (!inherit) {
