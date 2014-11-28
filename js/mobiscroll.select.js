@@ -64,6 +64,8 @@
                 c = 0,
                 groupIndexes = {};
 
+            optionArray = [];
+
             if (hasData) {
                 $.each(data, function (i, v) {
                     txt = v[s.dataText];
@@ -74,6 +76,7 @@
                         text: txt
                     };
                     options[val] = opt;
+                    optionArray.push(opt);
 
                     if (hasGroups) {
                         if (groupIndexes[lbl] === undefined) {
@@ -109,7 +112,6 @@
                         });
                     });
                 } else {
-                    optionArray = [];
                     $('option', elm).each(function () {
                         opt = {
                             value: this.value,
