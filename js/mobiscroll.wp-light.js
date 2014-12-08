@@ -3,6 +3,7 @@
     $.mobiscroll.themes['wp-light'] = {
         minWidth: 76,
         height: 76,
+        baseTheme: 'wp',
         accent: 'none',
         dateOrder: 'mmMMddDDyy',
         headerText: false,
@@ -69,12 +70,14 @@
     };
     
     $.mobiscroll.themes.listview['wp-light'] = {
+        baseTheme: 'wp',
         onInit: function () {
             $(this).closest('.mbsc-lv-cont').addClass('mbsc-lv-wp');
         }
     };
     
     $.mobiscroll.themes.menustrip['wp-light'] = {
+        baseTheme: 'wp',
         onMarkupReady: function (markup) {
             markup.addClass('mbsc-wp');
         }
