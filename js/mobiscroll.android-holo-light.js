@@ -1,9 +1,9 @@
 (function ($) {
     
     $.mobiscroll.themes['android-holo-light'] = {
+        baseTheme: 'android-holo',
         dateOrder: 'Mddyy',
         //mode: 'mixed',
-        baseTheme: 'android-holo',
         rows: 5,
         minWidth: 76,
         height: 36,
@@ -14,23 +14,14 @@
         icon: { filled: 'star3', empty: 'star' },
         btnPlusClass: 'mbsc-ic mbsc-ic-arrow-down6',
         btnMinusClass: 'mbsc-ic mbsc-ic-arrow-up6',
-        onMarkupReady: function (markup) {
-            markup.addClass('mbsc-android-holo');
-        }
     };
 
     $.mobiscroll.themes.listview['android-holo-light'] = {
-        baseTheme: 'android-holo',
-        onInit: function () {
-            $(this).closest('.mbsc-lv-cont').addClass('mbsc-lv-android-holo');
-        }
-    };;
+        baseTheme: 'android-holo'
+    };
 
     $.mobiscroll.themes.menustrip['android-holo-light'] = {
-        baseTheme: 'android-holo',
-        onMarkupReady: function (markup) {
-            markup.addClass('mbsc-android-holo');
-        }
+        baseTheme: 'android-holo'
     };
     
 })(jQuery);

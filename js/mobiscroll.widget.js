@@ -401,7 +401,7 @@
             event('onBeforeShow', []);
 
             // Create wheels containers
-            html = '<div lang="' + s.lang + '" class="mbsc-' + s.theme + ' dw-' + s.display + ' ' +
+            html = '<div lang="' + s.lang + '" class="mbsc-' + s.theme +  (s.baseTheme ? ' mbsc-' + s.baseTheme : '') + ' dw-' + s.display + ' ' +
                 (s.cssClass || '') +
                 (that._isLiquid ? ' dw-liq' : '') +
                 (isOldAndroid ? ' mbsc-old' : '') +
