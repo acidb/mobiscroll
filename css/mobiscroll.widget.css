@@ -169,6 +169,7 @@
     color: #4eccc4;
     font-size: .75em;
     text-transform: uppercase;
+    min-height: 2em;
     line-height: 2em;
 }
 .mbsc-mobiscroll .dwbc {
