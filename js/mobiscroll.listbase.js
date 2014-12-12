@@ -353,15 +353,10 @@
                 s.wheels = generateWheelsFromVector(t, lvl, lvl);
                 prevent = true;
             },
-            onValueFill: function (v, change) {
+            onValueFill: function (v) {
                 if (input) {
                     input.val(v);
                 }
-                if (change) {
-                    inst._preventChange = true;
-                    elm.change();
-                }
-
             },
             onShow: function (dw) {
                 $('.dwwl', dw).on('mousedown touchstart', function () {

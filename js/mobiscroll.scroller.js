@@ -436,10 +436,11 @@
 
                 if (that._isInput) {
                     $elm.val(that._hasValue ? that._tempValue : '');
-                    if (change) {
-                        that._preventChange = true;
-                        $elm.change();
-                    }
+                }
+
+                if (change) {
+                    that._preventChange = true;
+                    $elm.change();
                 }
             }
         }
