@@ -5,6 +5,9 @@
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
+.mbsc-wp .dwl {
+    font-size: .75em;
+}
 .mbsc-wp .dwc {
     padding: 1.875em 0 0 0;
 }
