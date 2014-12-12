@@ -206,7 +206,7 @@
             return val ? (s.group && group ? val : val[optionWheelIdx]) : null;
         }
 
-        function onFill(v, change) {
+        function onFill(v) {
             var txt,
                 val,
                 sel = [],
@@ -230,11 +230,6 @@
 
             input.val(txt);
             elm.val(val);
-
-            if (change) {
-                inst._preventChange = true;
-                elm.change();
-            }
         }
 
         function onTap(li) {
