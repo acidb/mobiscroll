@@ -711,6 +711,8 @@
 
             // Delete scroller instance
             delete instances[el.id];
+
+            that = null;
         };
 
         /**
