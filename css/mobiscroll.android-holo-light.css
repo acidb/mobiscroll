@@ -127,6 +127,10 @@
     background: rgb(49,183,232);
     color: #fff;
 }
+/* Colorpicker */
+.mbsc-android-holo-light .dw-color-preview {
+    border-bottom: 2px solid rgb(49,183,232);
+}
 /* Timer */
 .mbsc-android-holo-light.dw-timer .dwl {
     color: rgb(49,183,232);
