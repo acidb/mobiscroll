@@ -13,7 +13,7 @@
         useShortLabels: true,
         icon: { filled: 'star3', empty: 'star' },
         btnPlusClass: 'mbsc-ic mbsc-ic-arrow-down6',
-        btnMinusClass: 'mbsc-ic mbsc-ic-arrow-up6',
+        btnMinusClass: 'mbsc-ic mbsc-ic-arrow-up6'
     };
 
     $.mobiscroll.themes.listview['android-holo-light'] = {
