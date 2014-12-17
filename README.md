@@ -33,6 +33,58 @@ It'd be cool to see how you're using Mobiscroll!
 We're looking at showcasing some of the best work on http://mobiscroll.com . Feel free to let us know on twitter @mobiscroll!
 
 
+Changelog 2.14.3
+================
+
+_Integrations_
+
+  * New: `mobiscroll-data` attribute added to Angular listview integration for filter support (#264).
+
+  * New: `mobiscroll-instance` attribute added to Angular directives for better accessibility (#266).
+
+  * New: Added menustrip helper to ASP.NET MVC integration.
+
+  * Fixed: Kendo `mobiscroll-color` and `mobiscroll-range` bindings were not working (#268).
+
+  * Fixed: Group select was not working with Angular, if generated with `ng-repeat`.
+
+_Datetime_
+
+  * New: `steps` setting instead of `stepHour`, `stepMinute`, `stepSecond`, also allows starting steps from 0 (#263).
+
+_Calendar_
+
+  * Fixed: Marked icon was not visible, if had color and text specified.
+
+_Listview_
+
+  * New: `enhance` setting to automatically add styling to list items.
+
+  * New: `rtl` setting for right to left support.
+
+  * Fixed: Listview fixed header was not removed on destroy, if context was specified.
+
+_Measurements_
+
+  * Fixed: Disable whole value, if all fractions are disabled.
+
+_Menustrip_
+
+  * New: `navigate`, `prev` and `next` methods for programatic navigation.
+
+_Number_
+
+  * Fixed: Disable whole value, if all fractions are disabled.
+
+_Scroller_
+
+  * Fixed: Detach keydown event handler from window on hide.
+
+_Themes_
+
+  * Fixed: Widget header disappeared if header text was empty. 
+
+
 Changelog 2.14.2
 ================
 
