@@ -7,6 +7,7 @@
 .mbsc-wp .dwv {
     font-size: .75em;
     padding: .833em;
+    min-height: 14px;
     padding-top: 0;
 }
 .mbsc-wp .dwbc {

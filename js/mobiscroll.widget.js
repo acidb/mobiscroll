@@ -76,6 +76,14 @@
             }
         }
 
+        function onWndKeyDown(ev) {
+            if (ev.keyCode == 13) {
+                that.select();
+            } else if (ev.keyCode == 27) {
+                that.cancel();
+            }
+        }
+
         function onShow(prevFocus) {
             if (!prevFocus) {
                 $popup.focus();
@@ -401,7 +409,7 @@
             event('onBeforeShow', []);
 
             // Create wheels containers
-            html = '<div lang="' + s.lang + '" class="mbsc-' + s.theme + ' dw-' + s.display + ' ' +
+            html = '<div lang="' + s.lang + '" class="mbsc-' + s.theme +  (s.baseTheme ? ' mbsc-' + s.baseTheme : '') + ' dw-' + s.display + ' ' +
                 (s.cssClass || '') +
                 (that._isLiquid ? ' dw-liq' : '') +
                 (isOldAndroid ? ' mbsc-old' : '') +
@@ -462,13 +470,7 @@
             if (isModal) {
 
                 // Enter / ESC
-                $(window).on('keydown.dw', function (ev) {
-                    if (ev.keyCode == 13) {
-                        that.select();
-                    } else if (ev.keyCode == 27) {
-                        that.cancel();
-                    }
-                });
+                $(window).on('keydown', onWndKeyDown);
 
                 // Prevent scroll if not specified otherwise
                 if (s.scrollLock) {
@@ -588,6 +590,7 @@
             }
 
             if (isModal) {
+                $(window).off('keydown', onWndKeyDown);
                 delete ms.activeInstance;
             }
         };
@@ -708,6 +711,8 @@
 
             // Delete scroller instance
             delete instances[el.id];
+
+            that = null;
         };
 
         /**

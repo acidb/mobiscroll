@@ -6,6 +6,7 @@
     padding: 10px;
     border-bottom: 1px solid #333;
     font-size: 14px;
+    min-height: 17px;
 }
 .mbsc-android .dwwr {
     color: #fff;

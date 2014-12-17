@@ -1,6 +1,7 @@
 (function ($) {
     
     $.mobiscroll.themes['wp-light'] = {
+        baseTheme: 'wp',
         minWidth: 76,
         height: 76,
         accent: 'none',
@@ -23,8 +24,6 @@
             var click,
                 touch,
                 active;
-
-            elm.addClass('mbsc-wp');
 
             $('.dwwl', elm).on('touchstart mousedown DOMMouseScroll mousewheel', function (e) {
                 if (e.type === 'mousedown' && touch) {
@@ -69,15 +68,11 @@
     };
     
     $.mobiscroll.themes.listview['wp-light'] = {
-        onInit: function () {
-            $(this).closest('.mbsc-lv-cont').addClass('mbsc-lv-wp');
-        }
+        baseTheme: 'wp'
     };
     
     $.mobiscroll.themes.menustrip['wp-light'] = {
-        onMarkupReady: function (markup) {
-            markup.addClass('mbsc-wp');
-        }
+        baseTheme: 'wp'
     };
     
 })(jQuery);

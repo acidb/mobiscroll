@@ -2,6 +2,9 @@
 .mbsc-android-holo .dwc {
     padding: 1.875em .625em .063em .625em;
 }
+.mbsc-android-holo .dwl {
+    font-size: .75em;
+}
 .mbsc-android-holo .dwhl {
     padding: .0625em .625em;
 }

@@ -1,0 +1,200 @@
+/* Higlighted */
+.mbsc-mobiscroll-dark .dwwr {
+    background: rgb(38,50,56); /*background*/
+    color: rgb(247,247,247);  /*text*/
+}
+.mbsc-mobiscroll-dark .dwv,
+.mbsc-mobiscroll-dark .dwl {
+    color: rgb(79,204,196);
+}
+.mbsc-mobiscroll-dark .dwwol {
+    border-color: rgb(79,204,196); /*accent*/
+}
+.mbsc-mobiscroll-dark .dwb-a {
+    background: rgba(79,204,196, 0.3);
+}
+.mbsc-mobiscroll-dark .dw-hl {
+    background: rgba(79,204,196, 0.3);
+}
+.mbsc-mobiscroll-dark .dwb {
+    color: rgb(79,204,196);
+}
+.mbsc-mobiscroll-dark .dwwb {
+    color: rgb(79,204,196);
+    background: rgb(38,50,56);
+}
+.mbsc-mobiscroll-dark .dwwb.dwb-a:before {
+    background: rgba(79,204,196,0.3);
+}
+.mbsc-mobiscroll-dark .dw-bubble-bottom .dw-arr {
+    border-color: transparent transparent rgb(38,50,56) transparent;
+}
+.mbsc-mobiscroll-dark .dw-bubble-top .dw-arr {
+    border-color: rgb(38,50,56) transparent transparent transparent;
+}
+.mbsc-mobiscroll-dark .dw-msel:before {
+    color: rgb(79,204,196);
+}
+/* Calendar */
+.mbsc-mobiscroll-dark  .dw-cal .dw-sel .dw-i {
+    background: rgb(79,204,196);
+    color: rgb(38,50,56);
+}
+.mbsc-mobiscroll-dark  .dw-cal-days {
+    color: rgb(79,204,196);
+    border-color: rgb(79,204,196);
+}
+.mbsc-mobiscroll-dark  .dw-cal-btn-txt {
+    color: rgb(79,204,196);
+}
+.mbsc-mobiscroll-dark .dw-cal-event-color {
+    background: rgb(79,204,196);
+}
+.mbsc-mobiscroll-dark .dw-cal-events {
+    color: rgb(38,50,56);
+    background: rgb(255,255,255);
+}
+.mbsc-mobiscroll-dark .dw-cal-events-arr {
+    border-color: rgb(255,255,255) transparent transparent transparent;
+}
+.mbsc-mobiscroll-dark .dw-cal-events-b .dw-cal-events-arr {
+    border-color: transparent transparent rgb(255,255,255) transparent;
+}
+.mbsc-mobiscroll-dark .dw-cal-event-time {
+    color: rgb(38,50,56);
+}
+.mbsc-mobiscroll-dark .dw-cal-event-dur {
+    color: rgb(38,50,56);
+}
+.mbsc-mobiscroll-dark .dw-cal-day-hl .dw-i {
+    border-color: rgb(79,204,196); 
+}
+.mbsc-mobiscroll-dark .dw-week-nrs-c {
+    color: rgb(79,204,196);
+    background: rgb(38,50,56);
+}
+.mbsc-mobiscroll-dark .dw-cal-day-m {
+    background: rgb(247,247,247); 
+}
+.mbsc-mobiscroll-dark .dw-sel .dw-cal-day-m {
+    background: rgb(38,50,56); 
+}
+.mbsc-mobiscroll-dark .dw-cal-day-m-c {
+    background: rgb(79,204,196);
+}
+.mbsc-mobiscroll-dark .dw-sel .dw-cal-day-m-c {
+    background: rgb(38,50,56);
+}
+.mbsc-mobiscroll-dark .dw-cal-day-txt {
+    color: rgb(38,50,56);
+    background: rgb(247,247,247);
+}
+.mbsc-mobiscroll-dark .dw-cal-tab {
+    border-color: rgb(79,204,196);
+}
+.mbsc-mobiscroll-dark .dw-cal-tab .dw-i {
+    color: rgb(247,247,247);
+}
+.mbsc-mobiscroll-dark .dw-cal-tabs .dw-sel {
+    background: rgb(79,204,196);
+}
+.mbsc-mobiscroll-dark .dw-cal-tabs .dw-sel .dw-i {
+    color: rgb(38,50,56);
+}
+.mbsc-mobiscroll-dark .dw-cal-sc-c {
+    background: rgb(38,50,56);
+}
+/* Rangepicker */
+.mbsc-mobiscroll-dark .dw-dr {
+    border-color: rgb(79,204,196);
+}
+.mbsc-mobiscroll-dark .dw-sel .dw-dr {
+    background: rgb(79,204,196);
+    color: rgb(38,50,56);
+}
+.mbsc-mobiscroll-dark.dw-range .dw-cal-table .dw-sel .dw-i {
+    color: rgb(247,247,247);
+    background: rgba(79,204,196, 0.3);
+}
+.mbsc-mobiscroll-dark.dw-range .dw-cal-table .dw-cal-day-hl .dw-i {
+    background: rgb(79,204,196);
+    color: rgb(38,50,56);
+}
+
+/* Rating */
+.mbsc-mobiscroll-dark .mbsc-rating-icon {
+    color: rgb(79,204,196);
+}
+.mbsc-mobiscroll-dark .mbsc-rating-icon-unf {
+    color: rgba(79,204,196, 0.3);
+}
+.mbsc-mobiscroll-dark .mbsc-rating-circle {
+    background: rgb(79,204,196);
+    color: rgb(38,50,56);
+}
+.mbsc-mobiscroll-dark .mbsc-rating-circle-unf {
+    background: none;
+    border-color: rgb(79,204,196);
+}
+/* Numpad */
+.mbsc-mobiscroll-dark .mbsc-np-del {
+    color: rgb(79,204,196);
+}
+/* Colorpicker */
+.mbsc-mobiscroll-dark .dw-color {
+    border-color: rgb(38,50,56);
+}
+/* Listview */
+.mbsc-lv-mobiscroll-dark .mbsc-lv-item {
+    background: rgb(38,50,56);
+    color: rgb(247,247,247);
+}
+.mbsc-lv-mobiscroll-dark .mbsc-lv-gr-title {
+    background: rgb(79,204,196);
+    color: rgb(38,50,56);
+}
+.mbsc-lv-mobiscroll-dark .mbsc-lv-arr {
+    color: rgb(79,204,196);
+}
+.mbsc-lv-mobiscroll-dark .mbsc-lv-handle-bar {
+    background: rgb(79,204,196);
+}
+.mbsc-lv-mobiscroll-dark .mbsc-lv-item-active::after {
+    background: rgba(79,204,196, 0.3);
+}
+.mbsc-lv-mobiscroll-dark.mbsc-lv-alt-row .mbsc-lv-item:nth-child(even) {
+    background: rgb(29,38,43);
+}
+.mbsc-lv-mobiscroll-dark .mbsc-lv-item.mbsc-lv-item-dragging {
+    background: rgb(79,204,196);
+    color: rgb(38,50,56);
+}
+.mbsc-lv-mobiscroll-dark .mbsc-lv-item-dragging .mbsc-lv-handle-bar {
+    background: rgb(38,50,56);
+}
+.mbsc-lv-mobiscroll-dark .mbsc-lv-item-dragging .mbsc-lv-arr {
+    color: rgb(38,50,56);
+}
+/* Menustrip */
+.mbsc-mobiscroll-dark.mbsc-ms-c {
+    color: rgb(247,247,247);
+    background: rgb(38,50,56);
+}
+.mbsc-mobiscroll-dark .mbsc-btn-a .mbsc-ms-item-i {
+    background: rgba(79,204,196,.3);
+}
+.mbsc-mobiscroll-dark.mbsc-ms-a .mbsc-ms-item-sel .mbsc-ms-item-i {
+    color: rgb(79,204,196);
+}
+.mbsc-mobiscroll-dark.mbsc-ms-b.mbsc-ms-top {
+    border-color: rgb(79,204,196);
+}
+.mbsc-mobiscroll-dark.mbsc-ms-b.mbsc-ms-bottom {
+    border-color: rgb(79,204,196);
+}
+.mbsc-mobiscroll-dark.mbsc-ms-b .mbsc-ms-item-sel .mbsc-ms-item-i {
+    border-bottom-color: rgb(79,204,196);
+}
+.mbsc-mobiscroll-dark.mbsc-ms-b.mbsc-ms-bottom .mbsc-ms-item-sel .mbsc-ms-item-i {
+    border-top-color: rgb(79,204,196);
+}

@@ -11,6 +11,7 @@
 .mbsc-ios .dwv {
     color: #9d9d9d;
     line-height: 30px;
+    min-height: 30px;
     font-size: 12px;
     border-bottom: 1px solid #acacac;
 }
