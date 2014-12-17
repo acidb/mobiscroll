@@ -421,10 +421,6 @@
 
             that._tempValue = s.formatResult(that._tempWheelArray);
 
-            if (util.isNumeric(that._tempValue)) {
-                that._tempValue = +that._tempValue;
-            }
-
             if (!temp) {
                 that._wheelArray = that._tempWheelArray.slice(0);
                 that._value = that._hasValue ? that._tempValue : null;
@@ -469,7 +465,8 @@
          * Returns the selected value
          */
         that.getVal = that._getVal = function (temp) {
-            return that._hasValue ? that[temp ? '_tempValue' : '_value'] : null;
+            var val = that._hasValue ? that[temp ? '_tempValue' : '_value'] : null;
+            return util.isNumeric(val) ? +val : val;
         };
 
         /*
