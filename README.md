@@ -16,7 +16,7 @@ http://demo.mobiscroll.com
 
 
 
-Supported on iOS 4-7, Android 2.2 - 4.4, Windows Phone 8, BlackBerry,  Amazon Kindle, Chrome, Safari, Firefox, IE9-11. Please submit issues, and compatibility problems with other devices.
+Supported on iOS 4 +, Android 2.2 +, Windows Phone 8, BlackBerry,  Amazon Kindle, Chrome, Safari, Firefox, IE9 +. Please submit issues, and compatibility problems with other devices.
 
 _If you like it, spread the word!_
 
