@@ -240,18 +240,24 @@ if (!window.jQuery) {
             return this;
         };
 
+        $.fn.detach = $.fn.remove;
+
         $.fn.pluck = function (property) {
-            return this.map(function (i, e) { return e[property]; });
+            var ret = [];
+            this.each(function () {
+                if (this[property] !== undefined && this[property] !== null) {
+                    ret.push(this[property]);
+                }
+            });
+            return $(ret);
         };
 
         $.fn.prev = function (selector) {
-            var p = this.pluck('previousElementSibling');
-            return p[0][0] ? $(p[0]).filter(selector || '*') : $([]);
+            return this.pluck('previousElementSibling').filter(selector || '*');
         };
 
         $.fn.next = function (selector) {
-            var n = this.pluck('nextElementSibling');
-            return n[0][0] ? $(n[0]).filter(selector || '*') : $([]);
+            return this.pluck('nextElementSibling').filter(selector || '*');
         };
 
         $.fn.prevUntil = function (selector) {
