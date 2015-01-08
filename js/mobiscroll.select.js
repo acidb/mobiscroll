@@ -23,7 +23,6 @@
         var change,
             group,
             groupWheelIdx,
-            headerText,
             i,
             input,
             optionArray,
@@ -194,7 +193,11 @@
         }
 
         function getOption(v) {
-            option = multiple ? (v ? v[0] : defaultValue) : (v === undefined || v === null || v === '' ? defaultValue : v);
+            if (multiple && $.isArray(v)) {
+                v = v[0];
+            }
+
+            option = v === undefined || v === null || v === '' ? defaultValue : v;
 
             if (groupWheel) {
                 group = options[option].group;
@@ -206,7 +209,7 @@
             return val ? (s.group && group ? val : val[optionWheelIdx]) : null;
         }
 
-        function onFill(v) {
+        function onFill() {
             var txt,
                 val,
                 sel = [],
@@ -216,17 +219,15 @@
                 val = [];
 
                 for (i in selectedValues) {
-                    sel.push(options[i].text);
+                    sel.push(options[i] ? options[i].text : '');
                     val.push(i);
                 }
 
                 txt = sel.join(', ');
             } else {
-                val = v;
-                txt = options[v] ? options[v].text : '';
+                val = option;
+                txt = options[option] ? options[option].text : '';
             }
-
-            inst._tempValue = val;
 
             input.val(txt);
             elm.val(val);
@@ -287,7 +288,7 @@
 
         elm.addClass('dw-hsel').attr('tabindex', -1).closest('.ui-field-contain').trigger('create');
 
-        onFill(option);
+        onFill();
 
         // Extended methods
         // ---
@@ -325,11 +326,21 @@
             headerText: false,
             anchor: input,
             formatResult: function (d) {
-                return d[optionWheelIdx];
+                var i,
+                    sel = [];
+
+                if (multiple) {
+                    for (i in selectedValues) {
+                        sel.push(options[i] ? options[i].text : '');
+                    }
+                    return sel.join(', ');
+                }
+
+                option = d[optionWheelIdx];
+                return options[option] ? options[option].text : '';
             },
             parseValue: function (val) {
                 getOption(val === undefined ? elm.val() : val);
-
                 return groupWheel ? [group, option] : [option];
             },
             onValueTap: onTap,
@@ -342,14 +353,6 @@
                             length++;
                         });
                         return length + ' ' + s.selectedText;
-                    };
-                }
-
-                // In header text replace {value} with the option text instead of the value
-                if (isString(s.headerText) && /{value}/.test(s.headerText)) {
-                    headerText = s.headerText;
-                    s.headerText = function (v) {
-                        return headerText.replace(/\{value\}/i, options[v].text);
                     };
                 }
 

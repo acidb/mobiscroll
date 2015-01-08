@@ -125,6 +125,11 @@
     border: 0;
     overflow: hidden;
 }
+/* Header */
+.dwv {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 /* Buttons */
 .dwb {
     overflow: hidden;
@@ -165,6 +170,7 @@
     font-size: 16px;
 }
 .mbsc-mobiscroll .dwv {
+    padding: 0 .6666em;
     padding-top: .6666em;
     color: #4eccc4;
     font-size: .75em;
