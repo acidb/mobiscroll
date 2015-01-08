@@ -168,48 +168,6 @@ if (!window.jQuery) {
             }
         });
 
-        $.fn.position = function() {
-            if (!this[0]) {
-                return null;
-            }
-
-            var elem = this[0],
-
-            // Get *real* offsetParent
-            offsetParent = this.offsetParent(),
-            // Get correct offsets
-            offset       = this.offset(),
-            parentOffset = rroot.test(offsetParent[0].nodeName) ? { top: 0, left: 0 } : offsetParent.offset();
-
-            // Subtract element margins
-            // note: when an element has margin: auto the offsetLeft and marginLeft
-            // are the same in Safari causing offset.left to incorrectly be 0
-            offset.top  -= parseFloat($(elem).css("margin-top")) || 0;
-            offset.left -= parseFloat($(elem).css("margin-left")) || 0;
-
-            // Add offsetParent borders
-            parentOffset.top  += parseFloat($(offsetParent[0]).css("border-top-width")) || 0;
-            parentOffset.left += parseFloat($(offsetParent[0]).css("border-left-width")) || 0;
-
-            // Subtract the two offsets
-            return {
-                top:  offset.top  - parentOffset.top,
-                left: offset.left - parentOffset.left
-            };
-        };
-
-        $.fn.offsetParent = function() {
-            var ret = $();
-            this.each(function(){
-                var offsetParent = this.offsetParent || document.body;
-                while ( offsetParent && (!rroot.test(offsetParent.nodeName) && $(offsetParent).css("position") === "static") ) {
-                    offsetParent = offsetParent.offsetParent;
-                }
-                ret.push(offsetParent);
-            });
-            return ret;
-        };
-
         $.fn.focus = function (handler) {
             if (handler === undefined) {
                 return $(this).trigger('focus');
