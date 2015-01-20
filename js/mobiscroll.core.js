@@ -293,6 +293,9 @@
         if (!el.id) {
             el.id = 'mobiscroll' + (++id);
         }
+
+        // Save instance
+        instances[el.id] = that;
     };
 
 })(jQuery);

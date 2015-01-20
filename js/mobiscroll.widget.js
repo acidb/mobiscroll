@@ -780,7 +780,6 @@
         event = that.trigger;
 
         if (!inherit) {
-            instances[el.id] = that;
             that.init(settings);
         }
     };
