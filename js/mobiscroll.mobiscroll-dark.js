@@ -1,6 +1,6 @@
 (function ($) {
     
-    $.mobiscroll.themes['mobiscroll-dark'] = {
+    $.mobiscroll.themes.widget['mobiscroll-dark'] = {
         baseTheme: 'mobiscroll',
         rows: 5,
         showLabel: false,

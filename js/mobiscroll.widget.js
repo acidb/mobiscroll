@@ -346,7 +346,7 @@
             if (isModal && !that.live) {
                 that.hide(false, 'clear');
             }
-            that.setValue(null, true);
+            that.setVal(null, true);
         };
 
         /**
@@ -599,7 +599,7 @@
 
         // Protected functions to override
 
-        that.setValue = empty;
+        that.setVal = empty;
 
         that._generateContent = empty;
 

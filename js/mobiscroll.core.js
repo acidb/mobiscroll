@@ -36,9 +36,6 @@
         // Init
         if (typeof options === 'object') {
             return that.each(function () {
-                if (!this.id) {
-                    this.id = 'mobiscroll' + (++id);
-                }
                 if (instances[this.id]) {
                     instances[this.id].destroy();
                 }
