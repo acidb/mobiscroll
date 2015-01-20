@@ -1,6 +1,6 @@
 (function ($) {
     
-    $.mobiscroll.themes['wp-light'] = {
+    $.mobiscroll.themes.widget['wp-light'] = {
         baseTheme: 'wp',
         minWidth: 76,
         height: 76,

@@ -1,5 +1,5 @@
 (function ($) {
-    $.mobiscroll.themes['ios-classic'] = {
+    $.mobiscroll.themes.widget['ios-classic'] = {
         display: 'bottom',
         dateOrder: 'MMdyy',
         rows: 5,

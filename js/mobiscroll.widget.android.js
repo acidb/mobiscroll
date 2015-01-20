@@ -1,6 +1,6 @@
 (function ($) {
 
-    $.mobiscroll.themes.android = {
+    $.mobiscroll.themes.widget.android = {
         dateOrder: 'Mddyy',
         mode: 'clickpick',
         height: 50,

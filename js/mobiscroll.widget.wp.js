@@ -1,6 +1,6 @@
 (function ($) {
 
-    var themes = $.mobiscroll.themes,
+    var themes = $.mobiscroll.themes.widget,
         theme = {
             minWidth: 76,
             height: 76,

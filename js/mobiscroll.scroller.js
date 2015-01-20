@@ -675,4 +675,6 @@
         }
     });
 
+    ms.themes.scroller = ms.themes.widget;
+
 })(jQuery, window, document);

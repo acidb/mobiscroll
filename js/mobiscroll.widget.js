@@ -2,10 +2,8 @@
 
     var $activeElm,
         preventShow,
-        extend = $.extend,
         ms = $.mobiscroll,
         instances = ms.instances,
-        userdef = ms.userdef,
         util = ms.util,
         pr = util.jsPrefix,
         has3d = util.has3d,
@@ -30,18 +28,16 @@
             buttons,
             btn,
             doAnim,
+            event,
             hasButtons,
             isModal,
-            lang,
             modalWidth,
             modalHeight,
             posEvents,
-            preset,
             preventPos,
             s,
             scrollLock,
             setReadOnly,
-            theme,
             wasReadOnly,
             wndWidth,
             wndHeight,
@@ -159,16 +155,8 @@
             }, 300); // With jQuery < 1.9 focus is fired twice in IE
         }
 
-        function event(name, args) {
-            var ret;
-            args.push(that);
-            $.each([userdef, theme, preset, settings], function (i, v) {
-                if (v && v[name]) { // Call preset event
-                    ret = v[name].apply(el, args);
-                }
-            });
-            return ret;
-        }
+        // Call the parent constructor
+        ms.classes.Base.call(this, el, settings, true);
 
         /**
         * Positions the scroller on the screen.
@@ -625,6 +613,14 @@
 
         that._processSettings = empty;
 
+        that._presetLoad = function (s) {
+            // Add default buttons
+            s.buttons = s.buttons || (s.display !== 'inline' ? ['set', 'cancel'] : []);
+
+            // Hide header text in inline mode by default
+            s.headerText = s.headerText === undefined ? (s.display !== 'inline' ? '{value}' : false) : s.headerText;
+        };
+
         // Generic widget functions
 
         /**
@@ -678,19 +674,6 @@
         };
 
         /**
-        * Sets one ore more options.
-        */
-        that.option = function (opt, value) {
-            var obj = {};
-            if (typeof opt === 'object') {
-                obj = opt;
-            } else {
-                obj[opt] = value;
-            }
-            that.init(obj);
-        };
-
-        /**
         * Destroys the mobiscroll instance.
         */
         that.destroy = function () {
@@ -707,62 +690,15 @@
                 el.readOnly = wasReadOnly;
             }
 
-            event('onDestroy', []);
-
-            // Delete scroller instance
-            delete instances[el.id];
-
-            that = null;
+            that._destroy();
         };
-
-        /**
-        * Returns the mobiscroll instance.
-        */
-        that.getInst = function () {
-            return that;
-        };
-
-        /**
-        * Triggers a mobiscroll event.
-        */
-        that.trigger = event;
 
         /**
         * Scroller initialization.
         */
         that.init = function (ss) {
-            that.settings = s = {};
 
-            // Update original user settings
-            extend(settings, ss);
-            extend(s, ms.defaults, that._defaults, userdef, settings);
-
-            // Get theme defaults
-            theme = ms.themes[s.theme] || ms.themes.mobiscroll;
-
-            // Get language defaults
-            lang = ms.i18n[s.lang];
-
-            event('onThemeLoad', [lang, settings]);
-
-            extend(s, theme, lang, userdef, settings);
-            
-            preset = ms.presets[that._class][s.preset];
-
-            // Add default buttons
-            s.buttons = s.buttons || (s.display !== 'inline' ? ['set', 'cancel'] : []);
-
-            // Hide header text in inline mode by default
-            s.headerText = s.headerText === undefined ? (s.display !== 'inline' ? '{value}' : false) : s.headerText;
-
-            if (preset) {
-                preset = preset.call(el, that);
-                extend(s, preset, settings); // Load preset settings
-            }
-
-            if (!ms.themes[s.theme]) {
-                s.theme = 'mobiscroll';
-            }
+            that._init(ss);
 
             that._isLiquid = (s.layout || (/top|bottom/.test(s.display) ? 'liquid' : '')) === 'liquid';
 
@@ -816,14 +752,12 @@
                 that.show();
             }
 
-            //if (that._isInput) {
             $elm.on('change.dw', function () {
                 if (!that._preventChange) {
                     that.setVal($elm.val(), true, false);
                 }
                 that._preventChange = false;
             });
-            //}
 
             event('onInit', []);
         };
@@ -841,6 +775,10 @@
         that._isVisible = false;
 
         // Constructor
+
+        s = that.settings;
+        event = that.trigger;
+
         if (!inherit) {
             instances[el.id] = that;
             that.init(settings);
@@ -868,7 +806,7 @@
         focusOnClose: false // Temporary for iOS8
     };
 
-    ms.themes.mobiscroll = {
+    ms.themes.widget.mobiscroll = {
         rows: 5,
         showLabel: false,
         headerText: false,

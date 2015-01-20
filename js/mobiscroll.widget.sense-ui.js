@@ -1,6 +1,6 @@
 (function ($) {
 
-    $.mobiscroll.themes['sense-ui'] = {
+    $.mobiscroll.themes.widget['sense-ui'] = {
         btnStartClass: 'mbsc-ic mbsc-ic-play3',
         btnStopClass: 'mbsc-ic mbsc-ic-pause2',
         btnResetClass: 'mbsc-ic mbsc-ic-stop2',
