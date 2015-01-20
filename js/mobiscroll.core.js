@@ -188,8 +188,8 @@
             preset,
             s,
             theme,
+            userdef,
             ms = $.mobiscroll,
-            userdef = ms.userdef,
             that = this;
 
         that.settings = {};
@@ -210,26 +210,42 @@
                 settings.theme = 'mobiscroll';
             }
 
+            // Load user defaults
+            if (that._hasDef) {
+                userdef = ms.userdef;
+            }
+
             // Create settings object
             extend(s, ms.defaults, that._defaults, userdef, settings);
 
             // Get theme defaults
-            theme = ms.themes[that._class][s.theme];
+            if (that._hasTheme) {
+                theme = ms.themes[that._class][s.theme];
+            }
 
             // Get language defaults
-            lang = ms.i18n[s.lang];
+            if (that._hasLang) {
+                lang = ms.i18n[s.lang];
+            }
 
-            that.trigger('onThemeLoad', [lang, settings]);
+            if (that._hasTheme) {
+                that.trigger('onThemeLoad', [lang, settings]);
+            }
 
+            // Update settings object
             extend(s, theme, lang, userdef, settings);
 
-            that._presetLoad(s);
+            // Load preset settings
+            if (that._hasPreset) {
 
-            preset = ms.presets[that._class][s.preset];
+                that._presetLoad(s);
 
-            if (preset) {
-                preset = preset.call(el, that);
-                extend(s, preset, settings); // Load preset settings
+                preset = ms.presets[that._class][s.preset];
+
+                if (preset) {
+                    preset = preset.call(el, that);
+                    extend(s, preset, settings);
+                }
             }
         };
 

@@ -267,8 +267,8 @@
             }
 
             //if (time && px != pixels[index]) {
-                // Trigger animation start event
-                //trigger('onAnimStart', [$markup, index, time]);
+            // Trigger animation start event
+            //trigger('onAnimStart', [$markup, index, time]);
             //}
 
             pixels[index] = px;
@@ -632,48 +632,54 @@
     };
 
     // Extend defaults
-    classes.Scroller.prototype._class = 'scroller';
-    classes.Scroller.prototype._defaults = $.extend({}, classes.Widget.prototype._defaults, {
-        // Options
-        minWidth: 80,
-        height: 40,
-        rows: 3,
-        multiline: 1,
-        delay: 300,
-        readonly: false,
-        showLabel: true,
-        wheels: [],
-        mode: 'scroller',
-        preset: '',
-        speedUnit: 0.0012,
-        timeUnit: 0.08,
-        formatResult: function (d) {
-            return d.join(' ');
-        },
-        parseValue: function (value, inst) {
-            var val = [],
-                ret = [],
-                i = 0,
-                keys;
+    classes.Scroller.prototype = {
+        _hasDef: true,
+        _hasTheme: true,
+        _hasLang: true,
+        _hasPreset: true,
+        _class: 'scroller',
+        _defaults: $.extend({}, classes.Widget.prototype._defaults, {
+            // Options
+            minWidth: 80,
+            height: 40,
+            rows: 3,
+            multiline: 1,
+            delay: 300,
+            readonly: false,
+            showLabel: true,
+            wheels: [],
+            mode: 'scroller',
+            preset: '',
+            speedUnit: 0.0012,
+            timeUnit: 0.08,
+            formatResult: function (d) {
+                return d.join(' ');
+            },
+            parseValue: function (value, inst) {
+                var val = [],
+                    ret = [],
+                    i = 0,
+                    keys;
 
-            if (value !== null && value !== undefined) {
-                val = (value + '').split(' ');
-            }
+                if (value !== null && value !== undefined) {
+                    val = (value + '').split(' ');
+                }
 
-            $.each(inst.settings.wheels, function (j, wg) {
-                $.each(wg, function (k, w) {
-                    keys = w.keys || w.values;
-                    if ($.inArray(val[i], keys) !== -1) {
-                        ret.push(val[i]);
-                    } else {
-                        ret.push(keys[0]);
-                    }
-                    i++;
+                $.each(inst.settings.wheels, function (j, wg) {
+                    $.each(wg, function (k, w) {
+                        keys = w.keys || w.values;
+                        if ($.inArray(val[i], keys) !== -1) {
+                            ret.push(val[i]);
+                        } else {
+                            ret.push(keys[0]);
+                        }
+                        i++;
+                    });
                 });
-            });
-            return ret;
-        }
-    });
+                return ret;
+            }
+        })
+    };
 
     ms.themes.scroller = ms.themes.widget;
 
