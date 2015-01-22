@@ -199,12 +199,14 @@
             // Update original user settings
             extend(settings, ss);
 
-            if (settings.theme === 'auto') {
-                delete settings.theme;
-            }
+            if (that._hasTheme) {
+                if (settings.theme === 'auto') {
+                    delete settings.theme;
+                }
 
-            if (settings.theme === 'default') {
-                settings.theme = 'mobiscroll';
+                if (settings.theme === 'default') {
+                    settings.theme = 'mobiscroll';
+                }
             }
 
             // Load user defaults
@@ -288,6 +290,8 @@
         that.getInst = function () {
             return that;
         };
+
+        settings = settings || {};
 
         // Autogenerate id
         if (!el.id) {
