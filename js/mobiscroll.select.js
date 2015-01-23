@@ -4,6 +4,7 @@
         util = ms.util,
         isString = util.isString,
         defaults = {
+            batch: 20,
             inputClass: '',
             invalid: [],
             rtl: false,
@@ -20,7 +21,10 @@
     ms.presetShort('select');
 
     ms.presets.scroller.select = function (inst) {
-        var change,
+        var batchChanged,
+            batchStart,
+            batchEnd,
+            change,
             group,
             groupWheelIdx,
             i,
@@ -30,9 +34,13 @@
             option,
             origValues,
             prevGroup,
-            timer,
+            tempBatchStart,
+            tempBatchEnd,
+            timerGroup,
+            timerOpt,
             orig = $.extend({}, inst.settings),
             s = $.extend(inst.settings, defaults, orig),
+            batch = s.batch,
             layout = s.layout || (/top|bottom/.test(s.display) ? 'liquid' : ''),
             isLiquid = layout == 'liquid',
             elm = $(this),
@@ -60,6 +68,7 @@
                 opt,
                 txt,
                 val,
+                l = 0,
                 c = 0,
                 groupIndexes = {};
 
@@ -72,7 +81,8 @@
                     lbl = v[s.dataGroup];
                     opt = {
                         value: val,
-                        text: txt
+                        text: txt,
+                        index: i
                     };
                     options[val] = opt;
                     optionArray.push(opt);
@@ -86,6 +96,7 @@
                         } else {
                             gr = groups[groupIndexes[lbl]];
                         }
+                        opt.index = gr.options.length;
                         opt.group = groupIndexes[lbl];
                         gr.options.push(opt);
                     }
@@ -97,13 +108,15 @@
                 if (hasGroups) {
                     $('optgroup', elm).each(function (i) {
                         groups[i] = { label: this.label, options: [] };
-                        $('option', this).each(function () {
+                        $('option', this).each(function (j) {
                             opt = {
                                 value: this.value,
                                 text: this.text,
+                                index: j,
                                 group: i
                             };
                             options[this.value] = opt;
+                            optionArray.push(opt);
                             groups[i].options.push(opt);
                             if (this.disabled) {
                                 invalid.push(this.value);
@@ -111,10 +124,11 @@
                         });
                     });
                 } else {
-                    $('option', elm).each(function () {
+                    $('option', elm).each(function (i) {
                         opt = {
                             value: this.value,
-                            text: this.text
+                            text: this.text,
+                            index: i
                         };
                         options[this.value] = opt;
                         optionArray.push(opt);
@@ -124,13 +138,83 @@
                     });
                 }
             }
+
+            if (groupHdr) {
+                optionArray = [];
+                $.each(groups, function (i, gr) {
+                    val = '__group' + i;
+                    opt = {
+                        text: gr.label,
+                        value: val,
+                        index: l++
+                    };
+                    options[val] = opt;
+                    optionArray.push(opt);
+                    invalid.push(opt.value);
+                    $.each(gr.options, function (j, opt) {
+                        opt.index = l++;
+                        optionArray.push(opt);
+                    });
+                });
+            }
         }
 
         function genValues(data, keys, values) {
-            $.each(data, function (i, v) {
-                values.push(v.text);
-                keys.push(v.value);
-            });
+            var i,
+                selectedIndex = options[option].index,
+                start = Math.max(0, selectedIndex - batch),
+                end = Math.min(data.length - 1, start + batch * 2);
+
+            //console.log(start, end);
+
+            if (batchStart !== start || batchEnd !== end) {
+                for (i = start; i <= end; i++) {
+                    values.push(data[i].text);
+                    keys.push(data[i].value);
+                }
+                batchChanged = true;
+                tempBatchStart = start;
+                tempBatchEnd = end;
+            } else {
+                batchChanged = false;
+            }
+
+            //$.each(data, function (i, v) {
+            //    values.push(v.text);
+            //    keys.push(v.value);
+            //});
+        }
+
+        function genOptWheel(w) {
+            var values = [],
+                keys = [],
+                wheel;
+
+            //if (groupHdr) { // Generate options wheel with group headers
+            //    $.each(groups, function (i, gr) {
+            //        values.push(gr.label);
+            //        keys.push('__group' + i);
+            //        invalid.push('__group' + i);
+            //        genValues(gr.options, keys, values);
+            //    });
+            //} else { // Generate options wheel (for selected group or all, if not grouped)
+            genValues(groupWheel ? groups[group].options : optionArray, keys, values);
+            //}
+
+            if (batchChanged) {
+                wheel = {
+                    multiple: multiple,
+                    values: values,
+                    keys: keys,
+                    label: label
+                };
+
+                if (isLiquid) {
+                    w[0][optionWheelIdx] = wheel;
+                } else {
+                    w[optionWheelIdx] = [wheel];
+                }
+            }
         }
 
         function genWheels() {
@@ -162,32 +246,7 @@
                 wg++;
             }
 
-            values = [];
-            keys = [];
-
-            if (groupHdr) { // Generate options wheel with group headers
-                $.each(groups, function (i, gr) {
-                    values.push(gr.label);
-                    keys.push('__group' + i);
-                    invalid.push('__group' + i);
-                    genValues(gr.options, keys, values);
-                });
-            } else { // Generate options wheel (for selected group or all, if not grouped)
-                genValues(groupWheel ? groups[group].options : optionArray, keys, values);
-            }
-
-            wheel = {
-                multiple: multiple,
-                values: values,
-                keys: keys,
-                label: label
-            };
-
-            if (isLiquid) {
-                w[0][wg] = wheel;
-            } else {
-                w[wg] = [wheel];
-            }
+            genOptWheel(w);
 
             return w;
         }
@@ -228,6 +287,8 @@
                 val = option;
                 txt = options[option] ? options[option].text : '';
             }
+            
+            inst._tempValue = val;
 
             input.val(txt);
             elm.val(val);
@@ -365,18 +426,30 @@
 
                 prepareData();
 
+                batchStart = null;
+                batchEnd = null;
+
                 s.wheels = genWheels();
+
+                batchStart = tempBatchStart;
+                batchEnd = tempBatchEnd;
+
+                // Prevent wheel generation on initial validation
+                change = true;
             },
             onMarkupReady: function (dw) {
                 dw.addClass('dw-select');
 
                 $('.dwwl' + groupWheelIdx, dw).on('mousedown touchstart', function () {
-                    clearTimeout(timer);
+                    clearTimeout(timerGroup);
+                });
+
+                $('.dwwl' + optionWheelIdx, dw).on('mousedown touchstart', function () {
+                    clearTimeout(timerOpt);
                 });
 
                 if (groupHdr) {
                     $('.dw', dw).addClass('dw-select-gr');
-                    $('.dw-li[data-val^="__group"]', dw).addClass('dw-w-gr');
                 }
 
                 if (multiple) {
@@ -414,13 +487,17 @@
                     group = +temp[groupWheelIdx];
                     if (group !== prevGroup) {
                         option = groups[group].options[0].value;
-                        s.wheels = genWheels();
+                        batchStart = null;
+                        batchEnd = null;
+                        genOptWheel(s.wheels);
                         if (!change) {
                             inst._tempWheelArray = [group, option];
                             s.readonly = [false, true];
-                            clearTimeout(timer);
-                            timer = setTimeout(function () {
+                            clearTimeout(timerGroup);
+                            timerGroup = setTimeout(function () {
                                 change = true;
+                                batchStart = tempBatchStart;
+                                batchEnd = tempBatchEnd;
                                 prevGroup = group;
                                 inst.changeWheel([optionWheelIdx], undefined, true);
                                 s.readonly = origReadOnly;
@@ -432,6 +509,25 @@
                     }
                 } else {
                     option = temp[optionWheelIdx];
+                }
+
+                if (!change && (i === undefined || i === optionWheelIdx)) {
+                    genOptWheel(s.wheels);
+                    if (batchChanged) {
+                        clearTimeout(timerOpt);
+                        timerOpt = setTimeout(function () {
+                            console.log('change');
+                            change = true;
+                            batchStart = tempBatchStart;
+                            batchEnd = tempBatchEnd;
+                            inst.changeWheel([optionWheelIdx], undefined, true);
+                        }, time ? time * 1000 : 100);
+                        return false;
+                    }
+                }
+
+                if (groupHdr) {
+                    $('.dw-li[data-val^="__group"]', dw).addClass('dw-w-gr');
                 }
 
                 $.each(s.invalid, function (i, v) {
