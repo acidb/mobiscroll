@@ -33,8 +33,7 @@
             option,
             origValues,
             prevGroup,
-            timerGroup,
-            timerOpt,
+            timer,
             batchChanged = {},
             batchStart = {},
             batchEnd = {},
@@ -57,7 +56,8 @@
             hasGroups = hasData ? data[0][s.dataGroup] : $('optgroup', elm).length,
             defaultValue = hasData ? data[0][s.dataValue] : $('option', elm).attr('value'),
             groupWheel = hasGroups && s.group,
-            groupHdr = hasGroups && !groupWheel,
+            groupSep = hasGroups && s.groupSep,
+            groupHdr = hasGroups && (!groupWheel || !groupSep),
             values = elm.val() || [],
             invalid = [],
             selectedValues = {},
@@ -100,7 +100,9 @@
                         } else {
                             gr = groups[groupIndexes[lbl]];
                         }
-                        opt.index = gr.options.length;
+                        if (groupSep) {
+                            opt.index = gr.options.length;
+                        }
                         opt.group = groupIndexes[lbl];
                         gr.options.push(opt);
                     }
@@ -117,7 +119,7 @@
                             opt = {
                                 value: this.value,
                                 text: this.text,
-                                index: j,
+                                index: groupSep ? j : l++,
                                 group: i
                             };
                             options[this.value] = opt;
@@ -146,11 +148,13 @@
 
             if (groupHdr) {
                 optionArray = [];
+                l = 0;
                 $.each(groups, function (i, gr) {
                     val = '__group' + i;
                     opt = {
                         text: gr.text,
                         value: val,
+                        group: i,
                         index: l++
                     };
                     options[val] = opt;
@@ -204,7 +208,7 @@
         }
 
         function genOptWheel(w) {
-            genValues(w, groupWheel ? groups[group].options : optionArray, options, option, optionWheelIdx, multiple, label);
+            genValues(w, groupWheel && groupSep ? groups[group].options : optionArray, options, option, optionWheelIdx, multiple, label);
         }
 
         function genWheels() {
@@ -411,15 +415,12 @@
                 dw.addClass('dw-select');
 
                 $('.dwwl' + groupWheelIdx, dw).on('mousedown touchstart', function () {
-                    clearTimeout(timerGroup);
-                    if (groupChanged) {
-                        clearTimeout(timerOpt);
-                    }
+                    clearTimeout(timer);
                 });
 
                 $('.dwwl' + optionWheelIdx, dw).on('mousedown touchstart', function () {
                     if (!groupChanged) {
-                        clearTimeout(timerOpt);
+                        clearTimeout(timer);
                     }
                 });
 
@@ -444,7 +445,7 @@
             validate: function (dw, i, time) {
                 var j,
                     v,
-                    ret,
+                    changes = [],
                     temp = inst.getArrayVal(true),
                     t = $('.dw-ul', dw).eq(optionWheelIdx);
 
@@ -459,57 +460,59 @@
                     }
                 }
 
-                if (groupWheel && (i === undefined || i === groupWheelIdx)) {
-                    group = +temp[groupWheelIdx];
-                    groupChanged = false;
-                    if (group !== prevGroup) {
-                        option = groups[group].options[0].value;
-                        batchStart[optionWheelIdx] = null;
-                        batchEnd[optionWheelIdx] = null;
-                        if (!change) {
+                if (!change) {
+                    // If group changed, load group options
+                    if (groupWheel && (i === undefined || i === groupWheelIdx)) {
+                        group = +temp[groupWheelIdx];
+                        groupChanged = false;
+                        if (group !== prevGroup) {
+                            option = groups[group].options[0].value;
+                            batchStart[optionWheelIdx] = null;
+                            batchEnd[optionWheelIdx] = null;
                             groupChanged = true;
-                            inst._tempWheelArray = [group, option];
                             s.readonly = [false, true];
                         }
                     } else {
-                        s.readonly = origReadOnly;
+                        option = temp[optionWheelIdx];
+                        group = options[option].group;
                     }
-                } else {
-                    option = temp[optionWheelIdx];
-                }
 
-                if (!change && (i === undefined || i === groupWheelIdx)) {
-                    genGroupWheel(s.wheels);
-                    if (batchChanged[groupWheelIdx]) {
-                        clearTimeout(timerGroup);
-                        timerGroup = setTimeout(function () {
+
+                    // Update values if changed
+                    inst._tempWheelArray = groupWheel ? [group, option] : [option];
+
+                    // Generate new wheel batches
+                    if (groupWheel) {
+                        genGroupWheel(s.wheels);
+
+                        if (batchChanged[groupWheelIdx]) {
+                            changes.push(groupWheelIdx);
+                        }
+                    }
+
+                    genOptWheel(s.wheels);
+
+                    if (batchChanged[optionWheelIdx]) {
+                        changes.push(optionWheelIdx);
+                    }
+
+                    if (changes.length) {
+                        clearTimeout(timer);
+                        timer = setTimeout(function () {
                             change = true;
+                            groupChanged = false;
+                            prevGroup = group;
+
                             batchStart[groupWheelIdx] = tempBatchStart[groupWheelIdx];
                             batchEnd[groupWheelIdx] = tempBatchEnd[groupWheelIdx];
-                            inst.changeWheel([groupWheelIdx], undefined, true);
-                        }, time ? time * 1000 : 100);
-                        ret = true;
-                    }
-                }
-
-                if (!change && (i === undefined || i === optionWheelIdx || groupChanged)) {
-                    genOptWheel(s.wheels);
-                    if (batchChanged[optionWheelIdx]) {
-                        clearTimeout(timerOpt);
-                        timerOpt = setTimeout(function () {
-                            change = true;
                             batchStart[optionWheelIdx] = tempBatchStart[optionWheelIdx];
                             batchEnd[optionWheelIdx] = tempBatchEnd[optionWheelIdx];
-                            inst.changeWheel([optionWheelIdx], undefined, true);
-                            s.readonly = origReadOnly;
-                            prevGroup = group;
-                        }, time ? time * 1000 : 100);
-                        ret = true;
-                    }
-                }
 
-                if (ret) {
-                    return false;
+                            inst.changeWheel(changes, i === undefined ? time : 0, i !== undefined);
+                            
+                        }, i === undefined ? 100 : time * 1000);
+                        return false;
+                    }
                 }
 
                 if (groupHdr) {
@@ -521,6 +524,8 @@
                 });
 
                 change = false;
+
+                s.readonly = origReadOnly;
             },
             onClear: function (dw) {
                 selectedValues = {};
