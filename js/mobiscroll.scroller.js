@@ -130,7 +130,7 @@
                 }
 
                 if (isScrollable) {
-                    calc(target, tindex, 0, true, Math.round(val));
+                    calc(target, tindex, 0, true, Math.round(val), speed);
                 }
 
                 if (ev.type === 'mouseup') {
@@ -383,7 +383,7 @@
 
         }
 
-        function calc(t, val, dir, anim, orig) {
+        function calc(t, val, dir, anim, orig, speed) {
             val = constrain(val, min, max);
 
             var cell = $('.dw-li', t).eq(val),
@@ -391,7 +391,8 @@
                 active = orig !== undefined,
                 idx = index,
                 dist = Math.abs(val - o),
-                time = anim ? (val == o ? 0.1 : dist * s.timeUnit * Math.max(0.5, (100 - dist) / 100)) : 0;
+                time = anim ? (val == o ? 0.1 : Math.max(0.1, speed ? Math.abs(dist / speed) * s.timeUnit : 0.1)) : 0;
+            //time = anim ? (val == o ? 0.1 : dist * s.timeUnit * Math.max(0.5, (100 - dist) / 100)) : 0;
 
             // Set selected scroller value
             that._tempWheelArray[idx] = cell.attr('data-val');
