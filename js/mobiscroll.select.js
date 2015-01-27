@@ -452,7 +452,24 @@
                     changes = [],
                     temp = inst.getArrayVal(true),
                     tempOpt = temp[optionWheelIdx],
-                    t = $('.dw-ul', dw).eq(optionWheelIdx);
+                    t1 = $('.dw-ul', dw).eq(groupWheelIdx),
+                    t2 = $('.dw-ul', dw).eq(optionWheelIdx);
+
+                if (batchStart[groupWheelIdx] > 1) {
+                    $('.dw-li', t1).slice(0, 2).removeClass('dw-v').addClass('dw-fv');
+                }
+
+                if (batchEnd[groupWheelIdx] < groupArray.length - 2) {
+                    $('.dw-li', t1).slice(-2).removeClass('dw-v').addClass('dw-fv');
+                }
+
+                if (batchStart[optionWheelIdx] > 1) {
+                    $('.dw-li', t2).slice(0, 2).removeClass('dw-v').addClass('dw-fv');
+                }
+
+                if (batchEnd[optionWheelIdx] < optionArray.length - 2) {
+                    $('.dw-li', t2).slice(-2).removeClass('dw-v').addClass('dw-fv');
+                }
 
                 if (!change) {
 
@@ -543,7 +560,7 @@
 
                 // Disable invalid options
                 $.each(s.invalid, function (i, v) {
-                    $('.dw-li[data-val="' + v + '"]', t).removeClass('dw-v');
+                    $('.dw-li[data-val="' + v + '"]', t2).removeClass('dw-v dw-fv');
                 });
 
                 change = false;

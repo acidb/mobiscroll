@@ -79,7 +79,8 @@
     filter: Alpha(Opacity=30);
 }
 /* Valid entry */
-.dw-li.dw-v {
+.dw-li.dw-v,
+.dw-li.dw-fv {
     opacity: 1;
     filter: Alpha(Opacity=100);
 }
