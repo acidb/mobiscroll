@@ -4,7 +4,7 @@
         util = ms.util,
         isString = util.isString,
         defaults = {
-            batch: 20,
+            batch: 40,
             inputClass: '',
             invalid: [],
             rtl: false,
@@ -232,6 +232,7 @@
 
             if (groupWheel) {
                 group = options[option].group;
+                prevGroup = group;
             }
         }
 
@@ -360,6 +361,7 @@
             anchor: input,
             formatResult: function (d) {
                 var i,
+                    opt,
                     sel = [];
 
                 if (multiple) {
@@ -369,8 +371,11 @@
                     return sel.join(', ');
                 }
 
-                option = d[optionWheelIdx];
-                return options[option] ? options[option].text : '';
+                //option = d[optionWheelIdx];
+                opt = d[optionWheelIdx];
+
+                //return options[option] ? options[option].text : '';
+                return options[opt] ? options[opt].text : '';
             },
             parseValue: function (val) {
                 getOption(val === undefined ? elm.val() : val);
@@ -392,7 +397,6 @@
                 getOption(elm.val());
 
                 if (groupWheel) {
-                    prevGroup = group;
                     inst._tempWheelArray = [group, option];
                 }
 
@@ -447,20 +451,14 @@
                     v,
                     changes = [],
                     temp = inst.getArrayVal(true),
+                    tempOpt = temp[optionWheelIdx],
                     t = $('.dw-ul', dw).eq(optionWheelIdx);
 
-                if (i === undefined && multiple) {
-                    v = selectedValues;
-                    j = 0;
-
-                    $('.dwwl' + optionWheelIdx + ' .dw-li', dw).removeClass(selectedClass).removeAttr('aria-selected');
-
-                    for (j in v) {
-                        $('.dwwl' + optionWheelIdx + ' .dw-li[data-val="' + v[j] + '"]', dw).addClass(selectedClass).attr('aria-selected', 'true');
-                    }
-                }
-
                 if (!change) {
+
+                    option = tempOpt;
+                    group = options[option].group;
+
                     // If group changed, load group options
                     if (groupWheel && (i === undefined || i === groupWheelIdx)) {
                         group = +temp[groupWheelIdx];
@@ -472,14 +470,17 @@
                             groupChanged = true;
                             s.readonly = [false, true];
                         }
-                    } else {
-                        option = temp[optionWheelIdx];
-                        group = options[option].group;
                     }
 
+                    // Adjust value to the first group option if group header was selected
+                    if (hasGroups && /__group/.test(option)) {
+                        option = groups[options[option].group].options[0].value;
+                        tempOpt = option;
+                    }
 
                     // Update values if changed
-                    inst._tempWheelArray = groupWheel ? [group, option] : [option];
+                    // Don't set the new option yet (if group changed), because it's not on the wheel yet 
+                    inst._tempWheelArray = groupWheel ? [group, tempOpt] : [tempOpt];
 
                     // Generate new wheel batches
                     if (groupWheel) {
@@ -503,29 +504,49 @@
                             groupChanged = false;
                             prevGroup = group;
 
+                            // Save current batch boundaries
                             batchStart[groupWheelIdx] = tempBatchStart[groupWheelIdx];
                             batchEnd[groupWheelIdx] = tempBatchEnd[groupWheelIdx];
                             batchStart[optionWheelIdx] = tempBatchStart[optionWheelIdx];
                             batchEnd[optionWheelIdx] = tempBatchEnd[optionWheelIdx];
 
-                            inst.changeWheel(changes, i === undefined ? time : 0, i !== undefined);
+                            // Set the updated values
+                            inst._tempWheelArray = groupWheel ? [group, option] : [option];
+
+                            // Change the wheels
+                            inst.changeWheel(changes, 0, i !== undefined);
+
+                            // Restore readonly status
+                            s.readonly = origReadOnly;
                             
                         }, i === undefined ? 100 : time * 1000);
-                        return false;
+                        return true;
                     }
                 }
 
+                // Add selected styling to selected elements in case of multiselect
+                if (i === undefined && multiple) {
+                    v = selectedValues;
+                    j = 0;
+
+                    $('.dwwl' + optionWheelIdx + ' .dw-li', dw).removeClass(selectedClass).removeAttr('aria-selected');
+
+                    for (j in v) {
+                        $('.dwwl' + optionWheelIdx + ' .dw-li[data-val="' + v[j] + '"]', dw).addClass(selectedClass).attr('aria-selected', 'true');
+                    }
+                }
+
+                // Add styling to group headers
                 if (groupHdr) {
                     $('.dw-li[data-val^="__group"]', dw).addClass('dw-w-gr');
                 }
 
+                // Disable invalid options
                 $.each(s.invalid, function (i, v) {
                     $('.dw-li[data-val="' + v + '"]', t).removeClass('dw-v');
                 });
 
                 change = false;
-
-                s.readonly = origReadOnly;
             },
             onClear: function (dw) {
                 selectedValues = {};
