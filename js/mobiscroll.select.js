@@ -475,18 +475,24 @@
                 if (!change) {
 
                     option = tempOpt;
-                    group = options[option].group;
 
-                    // If group changed, load group options
-                    if (groupWheel && (i === undefined || i === groupWheelIdx)) {
-                        group = +temp[groupWheelIdx];
-                        groupChanged = false;
-                        if (group !== prevGroup) {
-                            option = groups[group].options[0].value;
-                            batchStart[optionWheelIdx] = null;
-                            batchEnd[optionWheelIdx] = null;
-                            groupChanged = true;
-                            s.readonly = [false, true];
+                    if (groupWheel) {
+
+                        group = options[option].group;
+
+                        // If group changed, load group options
+                        if (i === undefined || i === groupWheelIdx) {
+                            group = +temp[groupWheelIdx];
+                            groupChanged = false;
+                            if (group !== prevGroup) {
+                                option = groups[group].options[0].value;
+                                batchStart[optionWheelIdx] = null;
+                                batchEnd[optionWheelIdx] = null;
+                                groupChanged = true;
+                                s.readonly = [false, true];
+                            } else {
+                                s.readonly = origReadOnly;
+                            }
                         }
                     }
 

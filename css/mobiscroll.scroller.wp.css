@@ -144,10 +144,7 @@
     color: #fff;
 }
 /* Group select */
-.mbsc-wp .dw-select-gr .dw-li .dw-i {
-    padding-left: 40px;
-}
-.mbsc-wp .dw-select-gr .dw-w-gr {
+.mbsc-wp .dw-select-gr .wpa .dw-w-gr {
     font-size: 22px;
     font-weight: normal;
     opacity: 1;
