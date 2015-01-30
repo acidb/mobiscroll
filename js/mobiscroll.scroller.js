@@ -88,7 +88,7 @@
         function onEnd(ev) {
             if (move) {
                 var time = new Date() - startTime,
-                    curr = constrain(p + (start - stop) / itemHeight, min - 1, max + 1),
+                    curr = constrain(Math.round(p + (start - stop) / itemHeight), min - 1, max + 1),
                     val = curr,
                     speed,
                     dist,
@@ -297,8 +297,9 @@
             pos[index] = val;
         }
 
-        function getValid(val, t, dir, multiple) {
-            var cell = $('.dw-li[data-val="' + val + '"]', t),
+        function getValid(val, t, dir, multiple, select) {
+            var selected,
+                cell = $('.dw-li[data-val="' + val + '"]', t),
                 cells = $('.dw-li', t),
                 v = cells.index(cell),
                 l = cells.length;
@@ -331,8 +332,21 @@
                 }
             }
 
+            selected = cell.hasClass('dw-sel');
+
+            if (select) {
+                if (!multiple) {
+                    $('.dw-sel', t).removeAttr('aria-selected');
+                    cell.attr('aria-selected', 'true');
+                }
+
+                // Add selected class to cell
+                $('.dw-sel', t).removeClass('dw-sel');
+                cell.addClass('dw-sel');
+            }
+
             return {
-                cell: cell,
+                selected: selected,
                 v: multiple ? constrain(v, min, max) : v,
                 val: cell.hasClass('dw-v') ? cell.attr('data-val') : null
             };
@@ -346,21 +360,12 @@
                     var t = $(this),
                         multiple = t.closest('.dwwl').hasClass('dwwms'),
                         sc = i == index || index === undefined,
-                        res = getValid(that._tempWheelArray[i], t, dir, multiple),
-                        cell = res.cell;
+                        res = getValid(that._tempWheelArray[i], t, dir, multiple, true),
+                        selected = res.selected;
 
-                    if (!(cell.hasClass('dw-sel')) || sc) {
+                    if (!selected || sc) {
                         // Set valid value
                         that._tempWheelArray[i] = res.val;
-
-                        if (!multiple) {
-                            $('.dw-sel', t).removeAttr('aria-selected');
-                            cell.attr('aria-selected', 'true');
-                        }
-
-                        // Add selected class to cell
-                        $('.dw-sel', t).removeClass('dw-sel');
-                        cell.addClass('dw-sel');
 
                         // Scroll to position
                         scroll(t, i, res.v, sc ? time : 0.1, sc ? active : false);
@@ -527,6 +532,8 @@
         * Returns the closest valid cell.
         */
         that.getValidCell = getValid;
+
+        that.scroll = scroll;
 
         // Protected overrides
 

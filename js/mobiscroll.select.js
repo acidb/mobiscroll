@@ -9,8 +9,6 @@
             invalid: [],
             rtl: false,
             showInput: true,
-            group: false,
-            groupHdr: true,
             groupLabel: 'Groups',
             checkIcon: 'checkmark',
             dataText: 'text',
@@ -26,6 +24,7 @@
             group,
             groupArray,
             groupChanged,
+            groupTap,
             groupWheelIdx,
             i,
             input,
@@ -56,9 +55,10 @@
             hasData = !!data,
             hasGroups = hasData ? data[0][s.dataGroup] : $('optgroup', elm).length,
             defaultValue = hasData ? data[0][s.dataValue] : $('option', elm).attr('value'),
-            groupWheel = hasGroups && s.group,
-            groupSep = hasGroups && s.groupSep,
-            groupHdr = hasGroups && s.groupHdr && (!groupWheel || !groupSep),
+            groupSetup = s.group,
+            groupWheel = hasGroups && groupSetup && groupSetup.groupWheel !== false,
+            groupSep = hasGroups && groupSetup && groupWheel && groupSetup.continous === false,
+            groupHdr = hasGroups && (!groupSetup || (groupSetup.header !== false && !groupSep)),
             values = elm.val() || [],
             invalid = [],
             selectedValues = {},
@@ -209,7 +209,7 @@
         }
 
         function genOptWheel(w) {
-            genValues(w, groupWheel && groupSep ? groups[group].options : optionArray, options, option, optionWheelIdx, multiple, label);
+            genValues(w, groupSep ? groups[group].options : optionArray, options, option, optionWheelIdx, multiple, label);
         }
 
         function genWheels() {
@@ -283,6 +283,8 @@
                     }
                 }
                 return false;
+            } else if (li.hasClass('dw-w-gr')) {
+                groupTap = li.attr('data-val');
             }
         }
 
@@ -430,7 +432,7 @@
                 });
 
                 if (groupHdr) {
-                    $('.dw', dw).addClass('dw-select-gr');
+                    $('.dwwl' + optionWheelIdx, dw).addClass('dw-select-gr');
                 }
 
                 if (multiple) {
@@ -447,11 +449,12 @@
                     origValues = $.extend({}, selectedValues);
                 }
             },
-            validate: function (dw, i, time) {
+            validate: function (dw, i, time, dir) {
                 var j,
                     v,
                     changes = [],
                     temp = inst.getArrayVal(true),
+                    tempGr = temp[groupWheelIdx],
                     tempOpt = temp[optionWheelIdx],
                     t1 = $('.dw-ul', dw).eq(groupWheelIdx),
                     t2 = $('.dw-ul', dw).eq(optionWheelIdx);
@@ -468,7 +471,7 @@
                     $('.dw-li', t2).slice(0, 2).removeClass('dw-v').addClass('dw-fv');
                 }
 
-                if (batchEnd[optionWheelIdx] < optionArray.length - 2) {
+                if (batchEnd[optionWheelIdx] < (groupSep ? groups[tempGr].options : optionArray).length - 2) {
                     $('.dw-li', t2).slice(-2).removeClass('dw-v').addClass('dw-fv');
                 }
 
@@ -497,14 +500,15 @@
                     }
 
                     // Adjust value to the first group option if group header was selected
-                    if (hasGroups && /__group/.test(option)) {
-                        option = groups[options[option].group].options[0].value;
+                    if (hasGroups && (/__group/.test(option) || groupTap)) {
+                        option = groups[options[groupTap || option].group].options[0].value;
                         tempOpt = option;
+                        groupTap = false;
                     }
 
                     // Update values if changed
                     // Don't set the new option yet (if group changed), because it's not on the wheel yet 
-                    inst._tempWheelArray = groupWheel ? [group, tempOpt] : [tempOpt];
+                    inst._tempWheelArray = groupWheel ? [tempGr, tempOpt] : [tempOpt];
 
                     // Generate new wheel batches
                     if (groupWheel) {
@@ -521,9 +525,9 @@
                         changes.push(optionWheelIdx);
                     }
 
-                    if (changes.length) {
-                        clearTimeout(timer);
-                        timer = setTimeout(function () {
+                    clearTimeout(timer);
+                    timer = setTimeout(function () {
+                        if (changes.length) {
                             change = true;
                             groupChanged = false;
                             prevGroup = group;
@@ -535,16 +539,26 @@
                             batchEnd[optionWheelIdx] = tempBatchEnd[optionWheelIdx];
 
                             // Set the updated values
-                            inst._tempWheelArray = groupWheel ? [group, option] : [option];
+                            inst._tempWheelArray = groupWheel ? [tempGr, option] : [option];
 
                             // Change the wheels
                             inst.changeWheel(changes, 0, i !== undefined);
+                        }
 
-                            // Restore readonly status
-                            s.readonly = origReadOnly;
+                        if (groupWheel) {
+                            if (i === optionWheelIdx) {
+                                inst.scroll(t1, groupWheelIdx, inst.getValidCell(group, t1, dir, false, true).v, 0.1);
+                            }
+                            inst._tempWheelArray[groupWheelIdx] = group;
+                        }
+
+                        // Restore readonly status
+                        s.readonly = origReadOnly;
                             
-                        }, i === undefined ? 100 : time * 1000);
-                        return true;
+                    }, i === undefined ? 100 : time * 1000);
+
+                    if (changes.length) {
+                        return groupChanged ? false : true;
                     }
                 }
 

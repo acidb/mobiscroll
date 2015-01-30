@@ -49,7 +49,9 @@
     filter: Alpha(Opacity=30);
 }
 .mbsc-wp .wpa .dw-v, 
-.mbsc-wp .dwa .dw-v { 
+.mbsc-wp .wpa .dw-fv,
+.mbsc-wp .dwa .dw-v,
+.mbsc-wp .dwa .dw-fv { 
     opacity: 1;
     filter: Alpha(Opacity=100);
 }
@@ -144,7 +146,7 @@
     color: #fff;
 }
 /* Group select */
-.mbsc-wp .dw-select-gr .wpa .dw-w-gr {
+.mbsc-wp .dw-select-gr.wpa .dw-w-gr {
     font-size: 22px;
     font-weight: normal;
     opacity: 1;
