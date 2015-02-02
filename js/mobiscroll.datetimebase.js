@@ -662,7 +662,7 @@
                 headerText: s.headerText ? function () {
                     return datetime.formatDate(hformat, getDate(inst.getArrayVal(true)), s);
                 } : false,
-                formatResult: function (d) {
+                formatValue: function (d) {
                     return datetime.formatDate(format, getDate(d), s);
                 },
                 parseValue: function (val) {

@@ -362,7 +362,7 @@
             layout: layout,
             headerText: false,
             anchor: input,
-            formatResult: function (d) {
+            formatValue: function (d) {
                 var i,
                     opt,
                     sel = [];

@@ -341,7 +341,7 @@
             wheels: w,
             layout: layout,
             headerText: false,
-            formatResult: function (d) {
+            formatValue: function (d) {
                 return d.slice(0, currLevel).join(' ');
             },
             parseValue: function (value) {

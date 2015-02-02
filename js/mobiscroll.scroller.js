@@ -375,7 +375,7 @@
                 trigger('onValidated', []);
 
                 // Reformat value if validation changed something
-                that._tempValue = s.formatResult(that._tempWheelArray);
+                that._tempValue = s.formatValue(that._tempWheelArray);
 
                 if (that.live) {
                     that._hasValue = manual || that._hasValue;
@@ -420,7 +420,7 @@
                 scrollToPos(time);
             }
 
-            that._tempValue = s.formatResult(that._tempWheelArray);
+            that._tempValue = s.formatValue(that._tempWheelArray);
 
             if (!temp) {
                 that._wheelArray = that._tempWheelArray.slice(0);
@@ -618,6 +618,13 @@
             //that._wheelArray = null;
             //that._tempWheelArray = null;
 
+            // @deprecated since 2.15.0, backward compatibility code
+            // ---
+            if (s.formatResult) {
+                s.formatValue = s.formatResult;
+            }
+            // ---
+
             if (lines > 1) {
                 s.cssClass = (s.cssClass || '') + ' dw-ml';
             }
@@ -655,7 +662,7 @@
             preset: '',
             speedUnit: 0.0012,
             timeUnit: 0.08,
-            formatResult: function (d) {
+            formatValue: function (d) {
                 return d.join(' ');
             },
             parseValue: function (value, inst) {
