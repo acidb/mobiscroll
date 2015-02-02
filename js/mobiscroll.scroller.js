@@ -88,10 +88,10 @@
         function onEnd(ev) {
             if (move) {
                 var time = new Date() - startTime,
-                    val = constrain(p + (start - stop) / itemHeight, min - 1, max + 1),
+                    curr = constrain(Math.round(p + (start - stop) / itemHeight), min - 1, max + 1),
+                    val = curr,
                     speed,
                     dist,
-                    tindex,
                     ttop = target.offset().top;
 
                 // Better performance if there are tap events on document
@@ -107,16 +107,16 @@
                     dist = stop - start;
                 }
 
-                tindex = Math.round(p - dist / itemHeight);
-
                 if (!moved) { // this is a "tap"
                     var idx = Math.floor((stop - ttop) / itemHeight),
                         li = $($('.dw-li', target)[idx]),
                         valid = li.hasClass('dw-v'),
                         hl = isScrollable;
 
+                    time = 0.1;
+
                     if (trigger('onValueTap', [li]) !== false && valid) {
-                        tindex = idx;
+                        val = idx;
                     } else {
                         hl = true;
                     }
@@ -127,10 +127,13 @@
                             li.removeClass('dw-hl');
                         }, 100);
                     }
+                } else {
+                    val = constrain(Math.round(p - dist / itemHeight), min, max);
+                    time = speed ? Math.max(0.1, Math.abs((val - curr) / speed) * s.timeUnit) : 0.1;
                 }
 
                 if (isScrollable) {
-                    calc(target, tindex, 0, true, Math.round(val));
+                    calc(target, index, val, 0, time, true);
                 }
 
                 if (ev.type === 'mouseup') {
@@ -186,7 +189,7 @@
                     t = $('.dw-ul', this);
 
                 setGlobals(t);
-                calc(t, Math.round(pos[index] - delta), delta < 0 ? 1 : 2);
+                calc(t, index, Math.round(pos[index] - delta), delta < 0 ? 1 : 2);
             }
         }
 
@@ -294,8 +297,9 @@
             pos[index] = val;
         }
 
-        function getValid(val, t, dir, multiple) {
-            var cell = $('.dw-li[data-val="' + val + '"]', t),
+        function getValid(val, t, dir, multiple, select) {
+            var selected,
+                cell = $('.dw-li[data-val="' + val + '"]', t),
                 cells = $('.dw-li', t),
                 v = cells.index(cell),
                 l = cells.length;
@@ -328,8 +332,21 @@
                 }
             }
 
+            selected = cell.hasClass('dw-sel');
+
+            if (select) {
+                if (!multiple) {
+                    $('.dw-sel', t).removeAttr('aria-selected');
+                    cell.attr('aria-selected', 'true');
+                }
+
+                // Add selected class to cell
+                $('.dw-sel', t).removeClass('dw-sel');
+                cell.addClass('dw-sel');
+            }
+
             return {
-                cell: cell,
+                selected: selected,
                 v: multiple ? constrain(v, min, max) : v,
                 val: cell.hasClass('dw-v') ? cell.attr('data-val') : null
             };
@@ -343,21 +360,12 @@
                     var t = $(this),
                         multiple = t.closest('.dwwl').hasClass('dwwms'),
                         sc = i == index || index === undefined,
-                        res = getValid(that._tempWheelArray[i], t, dir, multiple),
-                        cell = res.cell;
+                        res = getValid(that._tempWheelArray[i], t, dir, multiple, true),
+                        selected = res.selected;
 
-                    if (!(cell.hasClass('dw-sel')) || sc) {
+                    if (!selected || sc) {
                         // Set valid value
                         that._tempWheelArray[i] = res.val;
-
-                        if (!multiple) {
-                            $('.dw-sel', t).removeAttr('aria-selected');
-                            cell.attr('aria-selected', 'true');
-                        }
-
-                        // Add selected class to cell
-                        $('.dw-sel', t).removeClass('dw-sel');
-                        cell.addClass('dw-sel');
 
                         // Scroll to position
                         scroll(t, i, res.v, sc ? time : 0.1, sc ? active : false);
@@ -383,18 +391,11 @@
 
         }
 
-        function calc(t, val, dir, anim, orig) {
-            val = constrain(val, min, max);
-
-            var cell = $('.dw-li', t).eq(val),
-                o = orig === undefined ? val : orig,
-                active = orig !== undefined,
-                idx = index,
-                dist = Math.abs(val - o),
-                time = anim ? (val == o ? 0.1 : dist * s.timeUnit * Math.max(0.5, (100 - dist) / 100)) : 0;
+        function calc(t, idx, val, dir, time, active) {
+            constrain(val, min, max);
 
             // Set selected scroller value
-            that._tempWheelArray[idx] = cell.attr('data-val');
+            that._tempWheelArray[idx] = $('.dw-li', t).eq(val).attr('data-val');
 
             scroll(t, idx, val, time, active);
 
@@ -406,12 +407,12 @@
 
         function plus(t) {
             var val = pos[index] + 1;
-            calc(t, val > max ? min : val, 1, true);
+            calc(t, index, val > max ? min : val, 1, 0.1);
         }
 
         function minus(t) {
             var val = pos[index] - 1;
-            calc(t, val < min ? max : val, 2, true);
+            calc(t, index, val < min ? max : val, 2, 0.1);
         }
 
         function setValue(fill, change, time, noscroll, temp) {
@@ -531,6 +532,8 @@
         * Returns the closest valid cell.
         */
         that.getValidCell = getValid;
+
+        that.scroll = scroll;
 
         // Protected overrides
 
