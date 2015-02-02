@@ -79,7 +79,7 @@
             groupArray = [];
 
             if (hasData) {
-                $.each(data, function (i, v) {
+                $.each(s.data, function (i, v) {
                     txt = v[s.dataText];
                     val = v[s.dataValue];
                     lbl = v[s.dataGroup];
@@ -348,6 +348,28 @@
             return getVal(temp, group);
         };
 
+        inst.refresh = function () {
+
+            prepareData();
+
+            batchStart = {};
+            batchEnd = {};
+
+            s.wheels = genWheels();
+
+            batchStart[groupWheelIdx] = tempBatchStart[groupWheelIdx];
+            batchEnd[groupWheelIdx] = tempBatchEnd[groupWheelIdx];
+            batchStart[optionWheelIdx] = tempBatchStart[optionWheelIdx];
+            batchEnd[optionWheelIdx] = tempBatchEnd[optionWheelIdx];
+
+            // Prevent wheel generation on initial validation
+            change = true;
+
+            if (inst._isVisible) {
+                inst.changeWheel(groupWheel ? [groupWheelIdx, optionWheelIdx] : [optionWheelIdx]);
+            }
+        };
+
         // @deprecated since 2.14.0, backward compatibility code
         // ---
         inst.getValues = inst.getVal;
@@ -403,20 +425,7 @@
                     inst._tempWheelArray = [group, option];
                 }
 
-                prepareData();
-
-                batchStart = {};
-                batchEnd = {};
-
-                s.wheels = genWheels();
-
-                batchStart[groupWheelIdx] = tempBatchStart[groupWheelIdx];
-                batchEnd[groupWheelIdx] = tempBatchEnd[groupWheelIdx];
-                batchStart[optionWheelIdx] = tempBatchStart[optionWheelIdx];
-                batchEnd[optionWheelIdx] = tempBatchEnd[optionWheelIdx];
-
-                // Prevent wheel generation on initial validation
-                change = true;
+                inst.refresh();
             },
             onMarkupReady: function (dw) {
                 dw.addClass('dw-select');
