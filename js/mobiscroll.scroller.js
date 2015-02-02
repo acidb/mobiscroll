@@ -242,7 +242,7 @@
         function setGlobals(t) {
             var multiple = t.closest('.dwwl').hasClass('dwwms');
             min = $('.dw-li', t).index($(multiple ? '.dw-li' : '.dw-v', t).eq(0));
-            max = Math.max(min, $('.dw-li', t).index($(multiple ? '.dw-li' : '.dw-v', t).eq(-1)) - (multiple ? s.rows - 1 : 0));
+            max = Math.max(min, $('.dw-li', t).index($(multiple ? '.dw-li' : '.dw-v', t).eq(-1)) - (multiple ? s.rows - (s.mode == 'scroller' ? 1 : 3) : 0));
             index = $('.dw-ul', $markup).index(t);
         }
 
@@ -561,7 +561,7 @@
                                 '<div class="dwl">' + lbl + '</div>' + // Wheel label
                                 '<div tabindex="0" aria-live="off" aria-label="' + lbl + '" role="listbox" class="dwww">' +
                                     '<div class="dww" style="height:' + (s.rows * itemHeight) + 'px;">' +
-                                        '<div class="dw-ul" style="margin-top:' + (w.multiple ? 0 : s.rows / 2 * itemHeight - itemHeight / 2) + 'px;">';
+                                        '<div class="dw-ul" style="margin-top:' + (w.multiple ? (s.mode == 'scroller' ? 0 : itemHeight) : s.rows / 2 * itemHeight - itemHeight / 2) + 'px;">';
 
                     // Create wheel values
                     html += generateWheelItems(l) +
@@ -614,9 +614,6 @@
             lines = s.multiline;
 
             that._isLiquid = (s.layout || (/top|bottom/.test(s.display) && s.wheels.length == 1 ? 'liquid' : '')) === 'liquid';
-
-            //that._wheelArray = null;
-            //that._tempWheelArray = null;
 
             // @deprecated since 2.15.0, backward compatibility code
             // ---
