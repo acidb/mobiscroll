@@ -57,7 +57,7 @@
             defaultValue = hasData ? data[0][s.dataValue] : $('option', elm).attr('value'),
             groupSetup = s.group,
             groupWheel = hasGroups && groupSetup && groupSetup.groupWheel !== false,
-            groupSep = hasGroups && groupSetup && groupWheel && groupSetup.continous === false,
+            groupSep = hasGroups && groupSetup && groupWheel && groupSetup.clustered === true,
             groupHdr = hasGroups && (!groupSetup || (groupSetup.header !== false && !groupSep)),
             values = elm.val() || [],
             invalid = [],
