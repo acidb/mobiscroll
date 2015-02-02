@@ -4,7 +4,6 @@
         theme = {
             minWidth: 76,
             height: 76,
-            accent: 'none',
             dateOrder: 'mmMMddDDyy',
             headerText: false,
             showLabel: false,
@@ -24,8 +23,6 @@
                 var click,
                     touch,
                     active;
-
-                elm.addClass('mbsc-wp mbsc-wp-' + inst.settings.accent);
             
                 $('.dwwl', elm).on('touchstart mousedown DOMMouseScroll mousewheel', function (e) {
                     if (e.type === 'mousedown' && touch) {
