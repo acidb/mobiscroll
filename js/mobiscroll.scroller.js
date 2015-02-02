@@ -662,6 +662,7 @@
                 var val = [],
                     ret = [],
                     i = 0,
+                    found,
                     keys;
 
                 if (value !== null && value !== undefined) {
@@ -671,11 +672,14 @@
                 $.each(inst.settings.wheels, function (j, wg) {
                     $.each(wg, function (k, w) {
                         keys = w.keys || w.values;
-                        if ($.inArray(val[i], keys) !== -1) {
-                            ret.push(val[i]);
-                        } else {
-                            ret.push(keys[0]);
-                        }
+                        found = keys[0]; // Default to first wheel value if not found
+                        $.each(keys, function (l, key) {
+                            if (val[i] == key) { // Don't do strict comparison
+                                found = key;
+                                return false;
+                            }
+                        });
+                        ret.push(found);
                         i++;
                     });
                 });
