@@ -627,6 +627,11 @@
             if (lines > 1) {
                 s.cssClass = (s.cssClass || '') + ' dw-ml';
             }
+
+            // Ensure a minimum number of 3 items if clickpick buttons present
+            if (s.mode != 'scroller') {
+                s.rows = Math.max(3, s.rows);
+            }
         };
 
         // Properties
