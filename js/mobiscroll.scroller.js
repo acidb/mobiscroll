@@ -225,7 +225,7 @@
                 w = wheels[i],
                 l = 1,
                 labels = w.labels || [],
-                values = w.values,
+                values = w.values || [],
                 keys = w.keys || values;
 
             $.each(values, function (j, v) {
