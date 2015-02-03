@@ -12,6 +12,8 @@
         constrain = util.constrain,
         testTouch = util.testTouch;
 
+    ms.presetShort('scroller', 'Scroller', false);
+
     classes.Scroller = function (el, settings, inherit) {
         var $markup,
             btn,
