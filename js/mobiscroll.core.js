@@ -170,7 +170,9 @@
         instances: instances,
         classes: {},
         components: {},
-        defaults: {},
+        defaults: {
+            context: 'body'
+        },
         setDefaults: function (o) {
             extend(this.defaults, o);
         },
