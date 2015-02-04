@@ -269,8 +269,13 @@
                 if (d === null) {
                     return d;
                 }
-                var hour = get(d, 'h', 0);
-                return s.getDate(get(d, 'y'), get(d, 'm'), get(d, 'd', 1), get(d, 'a', 0) ? hour + 12 : hour, get(d, 'i', 0), get(d, 's', 0));
+
+                var year = get(d, 'y'),
+                    month = get(d, 'm'),
+                    day = Math.min(get(d, 'd', 1), s.getMaxDayOfMonth(year, month)),
+                    hour = get(d, 'h', 0);
+
+                return s.getDate(year, month, day, get(d, 'a', 0) ? hour + 12 : hour, get(d, 'i', 0), get(d, 's', 0));
             }
 
             function getMax(step, min, max) {
@@ -328,7 +333,7 @@
                     return prev;
                 }
 
-                return down < up && prevValid ? prev : next;
+                return down <= up && prevValid ? prev : next;
             }
 
             function isValid(d) {
