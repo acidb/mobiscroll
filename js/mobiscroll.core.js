@@ -149,6 +149,7 @@
             }
         },
         tapped: false,
+        autoTheme: 'mobiscroll',
         presets: {
             scroller: {},
             numpad: {},
@@ -164,13 +165,9 @@
         instances: instances,
         classes: {},
         components: {},
-        defaults: {
-            theme: 'mobiscroll',
-            context: 'body'
-        },
-        userdef: {},
+        defaults: {},
         setDefaults: function (o) {
-            extend(this.userdef, o);
+            extend(this.defaults, o);
         },
         presetShort: function (name, c, p) {
             this.components[name] = function (s) {
@@ -185,7 +182,8 @@
             preset,
             s,
             theme,
-            userdef,
+            themeName,
+            defaults,
             ms = $.mobiscroll,
             that = this;
 
@@ -199,27 +197,30 @@
             // Update original user settings
             extend(settings, ss);
 
-            if (that._hasTheme) {
-                if (settings.theme === 'auto') {
-                    delete settings.theme;
-                }
-
-                if (settings.theme === 'default') {
-                    settings.theme = 'mobiscroll';
-                }
-            }
-
             // Load user defaults
             if (that._hasDef) {
-                userdef = ms.userdef;
+                defaults = ms.defaults;
             }
 
             // Create settings object
-            extend(s, ms.defaults, that._defaults, userdef, settings);
+            extend(s, that._defaults, defaults, settings);
 
             // Get theme defaults
             if (that._hasTheme) {
-                theme = ms.themes[that._class][s.theme];
+
+                themeName = s.theme;
+
+                if (themeName == 'auto' || !themeName) {
+                    themeName = ms.autoTheme;
+                }
+
+                if (themeName == 'default') {
+                    themeName = 'mobiscroll';
+                }
+
+                settings.theme = themeName;
+
+                theme = ms.themes[that._class][themeName];
             }
 
             // Get language defaults
@@ -232,7 +233,7 @@
             }
 
             // Update settings object
-            extend(s, theme, lang, userdef, settings);
+            extend(s, theme, lang, defaults, settings);
 
             // Load preset settings
             if (that._hasPreset) {
@@ -263,7 +264,7 @@
         that.trigger = function (name, args) {
             var ret;
             args.push(that);
-            $.each([userdef, theme, preset, settings], function (i, v) {
+            $.each([defaults, theme, preset, settings], function (i, v) {
                 if (v && v[name]) { // Call preset event
                     ret = v[name].apply(el, args);
                 }

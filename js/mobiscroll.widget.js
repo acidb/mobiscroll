@@ -793,6 +793,7 @@
         cancelText: 'Cancel',
         clearText: 'Clear',
         // Options
+        context: 'body',
         disabled: false,
         closeOnOverlay: true,
         showOnFocus: true,
