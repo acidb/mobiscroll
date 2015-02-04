@@ -394,7 +394,7 @@
         }
 
         function calc(t, idx, val, dir, time, active) {
-            constrain(val, min, max);
+            val = constrain(val, min, max);
 
             // Set selected scroller value
             that._tempWheelArray[idx] = $('.dw-li', t).eq(val).attr('data-val');
