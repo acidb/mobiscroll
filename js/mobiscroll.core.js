@@ -146,6 +146,11 @@
             },
             constrain: function (val, min, max) {
                 return Math.max(min, Math.min(val, max));
+            },
+            vibrate: function (time) {
+                if ('vibrate' in navigator) {
+                    navigator.vibrate(time);
+                }
             }
         },
         tapped: false,
