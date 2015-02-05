@@ -15,7 +15,7 @@
             getYear: function (d) { return d.getFullYear(); },
             getMonth: function (d) { return d.getMonth(); },
             getDay: function (d) { return d.getDate(); },
-            getDate: function (y, m, d, h, i, s) { return new Date(y, m, d, h || 0, i || 0, s || 0); },
+            getDate: function (y, m, d, h, i, s, u) { return new Date(y, m, d, h || 0, i || 0, s || 0, u || 0); },
             getMaxDayOfMonth: function (y, m) { return 32 - new Date(y, m, 32).getDate(); },
             getWeekNumber: function (d) {
                 // Copy date so don't modify original
