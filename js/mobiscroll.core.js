@@ -148,8 +148,6 @@
                 return Math.max(min, Math.min(val, max));
             },
             vibrate: function (time) {
-                navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
-                
                 if ('vibrate' in navigator) {
                     navigator.vibrate(time || 100);
                 }
