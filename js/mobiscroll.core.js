@@ -147,9 +147,11 @@
             constrain: function (val, min, max) {
                 return Math.max(min, Math.min(val, max));
             },
-            vibrate: function () {
+            vibrate: function (time) {
+                navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
+                
                 if ('vibrate' in navigator) {
-                    navigator.vibrate(60);
+                    navigator.vibrate(time || 100);
                 }
             }
         },
