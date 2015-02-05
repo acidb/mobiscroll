@@ -306,6 +306,8 @@
         }
 
         if (multiple) {
+            elm.prop('multiple', true);
+
             if (values && isString(values)) {
                 values = values.split(',');
             }
