@@ -147,9 +147,9 @@
             constrain: function (val, min, max) {
                 return Math.max(min, Math.min(val, max));
             },
-            vibrate: function (time) {
+            vibrate: function () {
                 if ('vibrate' in navigator) {
-                    navigator.vibrate(time);
+                    navigator.vibrate(60);
                 }
             }
         },
@@ -171,7 +171,8 @@
         classes: {},
         components: {},
         defaults: {
-            context: 'body'
+            context: 'body',
+            vibrate: true
         },
         setDefaults: function (o) {
             extend(this.defaults, o);
