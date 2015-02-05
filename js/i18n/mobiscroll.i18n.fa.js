@@ -147,7 +147,7 @@
         getDay: function (date) {
             return JalaliDate.gregorianToJalali(date.getFullYear(), (date.getMonth() + 1), date.getDate())[2];
         },
-        getDate: function (y, m, d, h, i, s) {
+        getDate: function (y, m, d, h, i, s, u) {
             if (m < 0) {
                 y += Math.floor(m / 12);
                 m = 12 + m % 12;
@@ -158,7 +158,7 @@
             }
             var gregorianDate = JalaliDate.jalaliToGregorian(y, +m + 1, d);
 
-            return new Date(gregorianDate[0], gregorianDate[1] - 1, gregorianDate[2], h || 0, i || 0, s || 0);
+            return new Date(gregorianDate[0], gregorianDate[1] - 1, gregorianDate[2], h || 0, i || 0, s || 0, u || 0);
         },
         getMaxDayOfMonth: function (y, m) {
             var maxdays = 31;
