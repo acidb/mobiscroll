@@ -53,8 +53,8 @@
             origReadOnly = s.readonly,
             data = s.data,
             hasData = !!data,
-            hasGroups = hasData ? data[0][s.dataGroup] : $('optgroup', elm).length,
-            defaultValue = hasData ? data[0][s.dataValue] : $('option', elm).attr('value'),
+            hasGroups = hasData ? !!s.group : $('optgroup', elm).length,
+            defaultValue = hasData ? (data[0] ? data[0][s.dataValue] : null) : $('option', elm).attr('value'),
             groupSetup = s.group,
             groupWheel = hasGroups && groupSetup && groupSetup.groupWheel !== false,
             groupSep = hasGroups && groupSetup && groupWheel && groupSetup.clustered === true,
@@ -174,7 +174,7 @@
                 wheel,
                 keys = [],
                 values = [],
-                selectedIndex = dataMap[value].index,
+                selectedIndex = dataMap[value] !== undefined ? dataMap[value].index : 0,
                 start = Math.max(0, selectedIndex - batch),
                 end = Math.min(data.length - 1, start + batch * 2);
 
@@ -225,8 +225,13 @@
         }
 
         function getOption(v) {
-            if (multiple && $.isArray(v)) {
-                v = v[0];
+            if (multiple) {
+                if (v && isString(v)) {
+                    v = v.split(',');
+                }
+                if ($.isArray(v)) {
+                    v = v[0];
+                }
             }
 
             option = v === undefined || v === null || v === '' ? defaultValue : v;
@@ -396,10 +401,8 @@
                     return sel.join(', ');
                 }
 
-                //option = d[optionWheelIdx];
                 opt = d[optionWheelIdx];
 
-                //return options[option] ? options[option].text : '';
                 return options[opt] ? options[opt].text : '';
             },
             parseValue: function (val) {
