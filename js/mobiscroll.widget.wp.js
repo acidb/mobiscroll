@@ -19,7 +19,7 @@
             btnCalNextClass: 'mbsc-ic mbsc-ic-arrow-right2',
             btnPlusClass: 'mbsc-ic mbsc-ic-plus',
             btnMinusClass: 'mbsc-ic mbsc-ic-minus',
-            onMarkupInserted: function (elm, inst) {
+            onMarkupInserted: function (elm) {
                 var click,
                     touch,
                     active;
