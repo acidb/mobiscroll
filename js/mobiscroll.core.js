@@ -149,7 +149,7 @@
             },
             vibrate: function (time) {
                 if ('vibrate' in navigator) {
-                    navigator.vibrate(time || 100);
+                    navigator.vibrate(time || 50);
                 }
             }
         },
