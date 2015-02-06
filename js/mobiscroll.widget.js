@@ -11,6 +11,7 @@
         constrain = util.constrain,
         isString = util.isString,
         isOldAndroid = /android [1-3]/i.test(navigator.userAgent),
+        isIOS8 = /(iphone|ipod|ipad).* os 8_/i.test(navigator.userAgent),
         animEnd = 'webkitAnimationEnd animationend',
         empty = function () { },
         prevdef = function (ev) { ev.preventDefault(); };
@@ -38,7 +39,6 @@
             s,
             scrollLock,
             setReadOnly,
-            wasReadOnly,
             wndWidth,
             wndHeight,
 
@@ -134,7 +134,7 @@
             }, 200);
         }
 
-        function show(beforeShow) {
+        function show(beforeShow, $elm) {
             if (!ms.tapped) {
 
                 if (beforeShow) {
@@ -294,10 +294,10 @@
         * @param {Function} [beforeShow=undefined] - Optional function to execute before showing mobiscroll.
         */
         that.attachShow = function ($elm, beforeShow) {
-            elmList.push($elm);
+            elmList.push({ readOnly: $elm.prop('readonly'), el: $elm });
             if (s.display !== 'inline') {
-                if (setReadOnly) {
-                    $elm.on('mousedown.dw', function (ev) {
+                if (setReadOnly && $elm.is('input')) {
+                    $elm.prop('readonly', true).on('mousedown.dw', function (ev) {
                         // Prevent input to get focus on tap (virtual keyboard pops up on some devices)
                         ev.preventDefault();
                     });
@@ -306,14 +306,23 @@
                 if (s.showOnFocus) {
                     $elm.on('focus.dw', function () {
                         if (!preventShow) {
-                            show(beforeShow);
+                            show(beforeShow, $elm);
                         }
                     });
                 }
 
                 if (s.showOnTap) {
+
+                    $elm.on('keydown.dw', function (ev) {
+                        if (ev.keyCode == 32 || ev.keyCode == 13) { // Space or Enter
+                            ev.preventDefault();
+                            ev.stopPropagation();
+                            show(beforeShow, $elm);
+                        }
+                    });
+
                     that.tap($elm, function () {
-                        show(beforeShow);
+                        show(beforeShow, $elm);
                     });
                 }
             }
@@ -682,13 +691,8 @@
 
             // Remove all events from elements
             $.each(elmList, function (i, v) {
-                v.off('.dw');
+                v.el.off('.dw').prop('readonly', v.readOnly);
             });
-
-            // Reset original readonly state
-            if (that._isInput && setReadOnly) {
-                el.readOnly = wasReadOnly;
-            }
 
             that._destroy();
         };
@@ -740,13 +744,6 @@
 
             if (isModal) {
                 that._readValue();
-                if (that._isInput && setReadOnly) {
-                    // Set element readonly, save original state
-                    if (wasReadOnly === undefined) {
-                        wasReadOnly = el.readOnly;
-                    }
-                    el.readOnly = true;
-                }
                 that.attachShow($elm);
             } else {
                 that.show();
@@ -795,14 +792,14 @@
         // Options
         disabled: false,
         closeOnOverlay: true,
-        showOnFocus: true,
+        showOnFocus: false,
         showOnTap: true,
         display: 'modal',
         scrollLock: true,
         tap: true,
         btnClass: 'dwb',
         btnWidth: true,
-        focusOnClose: false // Temporary for iOS8
+        focusOnClose: !isIOS8 // Temporary for iOS8
     };
 
     ms.themes.widget.mobiscroll = {
