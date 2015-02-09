@@ -17,8 +17,10 @@
     classes.Scroller = function (el, settings, inherit) {
         var $markup,
             btn,
+            closeOnTap,
             isScrollable,
             itemHeight,
+            multiple,
             s,
             trigger,
 
@@ -121,6 +123,11 @@
                         val = idx;
                     } else {
                         hl = true;
+                    }
+
+                    if (!multiple && (closeOnTap === true || closeOnTap[index]) && li.hasClass('dw-sel')) {
+                        that.select();
+                        return;
                     }
 
                     if (hl && valid) {
@@ -242,7 +249,7 @@
         }
 
         function setGlobals(t) {
-            var multiple = t.closest('.dwwl').hasClass('dwwms');
+            multiple = t.closest('.dwwl').hasClass('dwwms');
             min = $('.dw-li', t).index($(multiple ? '.dw-li' : '.dw-v', t).eq(0));
             max = Math.max(min, $('.dw-li', t).index($(multiple ? '.dw-li' : '.dw-v', t).eq(-1)) - (multiple ? s.rows - (s.mode == 'scroller' ? 1 : 3) : 0));
             index = $('.dw-ul', $markup).index(t);
@@ -543,6 +550,8 @@
             var lbl,
                 html = '',
                 l = 0;
+
+            closeOnTap = s.closeOnTap || (s.wheels.length == 1 && s.wheels[0].length == 1);
 
             $.each(s.wheels, function (i, wg) { // Wheel groups
                 html += '<div class="mbsc-w-p dwc' + (s.mode != 'scroller' ? ' dwpm' : ' dwsc') + (s.showLabel ? '' : ' dwhl') + '">' +
