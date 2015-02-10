@@ -588,7 +588,6 @@
 
         that._attachEvents = function ($markup) {
             $markup
-                .on('DOMMouseScroll mousewheel', '.dwwl', onScroll)
                 .on('keydown', '.dwwl', onKeyDown)
                 .on('keyup', '.dwwl', onKeyUp)
                 .on('touchstart mousedown', '.dwwl', onStart)
@@ -596,6 +595,10 @@
                 .on('touchend', '.dwwl', onEnd)
                 .on('touchstart mousedown', '.dwwb', onBtnStart)
                 .on('touchend', '.dwwb', onBtnEnd);
+
+            if (s.mousewheel) {
+                $markup.on('DOMMouseScroll mousewheel', '.dwwl', onScroll)
+            }
         };
 
         that._markupReady = function () {

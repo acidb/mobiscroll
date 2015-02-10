@@ -172,6 +172,7 @@
         components: {},
         defaults: {
             context: 'body',
+            mousewheel: true,
             vibrate: true
         },
         setDefaults: function (o) {
