@@ -391,7 +391,7 @@
             layout: layout,
             headerText: false,
             anchor: input,
-            closeOnTap: groupWheel ? [false, true] : true,
+            confirmOnTap: groupWheel ? [false, true] : true,
             formatValue: function (d) {
                 var i,
                     opt,

@@ -17,7 +17,6 @@
     classes.Scroller = function (el, settings, inherit) {
         var $markup,
             btn,
-            closeOnTap,
             isScrollable,
             itemHeight,
             multiple,
@@ -101,6 +100,12 @@
                 // Better performance if there are tap events on document
                 ev.stopPropagation();
 
+                move = false;
+
+                if (ev.type === 'mouseup') {
+                    $(document).off('mousemove', onMove).off('mouseup', onEnd);
+                }
+
                 if (has3d && time < 300) {
                     speed = (stop - start) / time;
                     dist = (speed * speed) / s.speedUnit;
@@ -125,16 +130,16 @@
                         hl = true;
                     }
 
-                    if (!multiple && (closeOnTap === true || closeOnTap[index]) && li.hasClass('dw-sel')) {
-                        that.select();
-                        return;
-                    }
-
                     if (hl && valid) {
                         li.addClass('dw-hl'); // Highlight
                         setTimeout(function () {
                             li.removeClass('dw-hl');
                         }, 100);
+                    }
+
+                    if (!multiple && (s.confirmOnTap === true || s.confirmOnTap[index]) && li.hasClass('dw-sel')) {
+                        that.select();
+                        return;
                     }
                 } else {
                     val = constrain(Math.round(p - dist / itemHeight), min, max);
@@ -144,12 +149,6 @@
                 if (isScrollable) {
                     calc(target, index, val, 0, time, true);
                 }
-
-                if (ev.type === 'mouseup') {
-                    $(document).off('mousemove', onMove).off('mouseup', onEnd);
-                }
-
-                move = false;
             }
         }
 
@@ -551,8 +550,6 @@
                 html = '',
                 l = 0;
 
-            closeOnTap = s.closeOnTap || (s.wheels.length == 1 && s.wheels[0].length == 1);
-
             $.each(s.wheels, function (i, wg) { // Wheel groups
                 html += '<div class="mbsc-w-p dwc' + (s.mode != 'scroller' ? ' dwpm' : ' dwsc') + (s.showLabel ? '' : ' dwhl') + '">' +
                             '<div class="dwwc"' + (s.maxWidth ? '' : ' style="max-width:600px;"') + '>' +
@@ -670,6 +667,7 @@
             delay: 300,
             readonly: false,
             showLabel: true,
+            confirmOnTap: true,
             wheels: [],
             mode: 'scroller',
             preset: '',
