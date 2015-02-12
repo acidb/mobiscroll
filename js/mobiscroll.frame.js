@@ -16,7 +16,7 @@
         empty = function () { },
         prevdef = function (ev) { ev.preventDefault(); };
 
-    ms.classes.Widget = function (el, settings, inherit) {
+    ms.classes.Frame = function (el, settings, inherit) {
         var $ariaDiv,
             $ctx,
             $header,
@@ -630,7 +630,7 @@
             s.headerText = s.headerText === undefined ? (s.display !== 'inline' ? '{value}' : false) : s.headerText;
         };
 
-        // Generic widget functions
+        // Generic frame functions
 
         /**
         * Attach tap event to the given element.
@@ -781,7 +781,7 @@
         }
     };
 
-    ms.classes.Widget.prototype._defaults = {
+    ms.classes.Frame.prototype._defaults = {
         // Localization
         lang: 'en',
         setText: 'Set',
@@ -802,7 +802,7 @@
         focusOnClose: !isIOS8 // Temporary for iOS8
     };
 
-    ms.themes.widget.mobiscroll = {
+    ms.themes.frame.mobiscroll = {
         rows: 5,
         showLabel: false,
         headerText: false,

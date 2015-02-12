@@ -162,7 +162,7 @@
             menustrip: {}
         },
         themes: {
-            widget: {},
+            frame: {},
             listview: {},
             menustrip: {}
         },

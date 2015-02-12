@@ -1,6 +1,6 @@
 (function ($) {
 
-    var themes = $.mobiscroll.themes.widget,
+    var themes = $.mobiscroll.themes.frame,
         theme = {
             display: 'bottom',
             dateOrder: 'MMdyy',

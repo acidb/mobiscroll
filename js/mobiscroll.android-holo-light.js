@@ -1,6 +1,6 @@
 (function ($) {
     
-    $.mobiscroll.themes.widget['android-holo-light'] = {
+    $.mobiscroll.themes.frame['android-holo-light'] = {
         baseTheme: 'android-holo',
         dateOrder: 'Mddyy',
         //mode: 'mixed',

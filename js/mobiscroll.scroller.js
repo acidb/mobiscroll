@@ -451,7 +451,7 @@
         }
 
         // Call the parent constructor
-        classes.Widget.call(this, el, settings, true);
+        classes.Frame.call(this, el, settings, true);
 
         // Public functions
 
@@ -661,7 +661,7 @@
         _hasLang: true,
         _hasPreset: true,
         _class: 'scroller',
-        _defaults: $.extend({}, classes.Widget.prototype._defaults, {
+        _defaults: $.extend({}, classes.Frame.prototype._defaults, {
             // Options
             minWidth: 80,
             height: 40,
@@ -709,6 +709,6 @@
         })
     };
 
-    ms.themes.scroller = ms.themes.widget;
+    ms.themes.scroller = ms.themes.frame;
 
 })(jQuery, window, document);
