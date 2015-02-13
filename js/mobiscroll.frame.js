@@ -499,7 +499,7 @@
                         onShow(prevFocus);
                     }).find('.dw').addClass('dw-' + doAnim);
                 }
-            } else if ($elm.is('div')) {
+            } else if ($elm.is('div') && !that._hasContent) {
                 $elm.html($markup);
             } else {
                 $markup.insertAfter($elm);
@@ -748,7 +748,9 @@
 
             if (isModal) {
                 that._readValue();
-                that.attachShow($elm);
+                if (!that._hasContent) {
+                    that.attachShow($elm);
+                }
             } else {
                 that.show();
             }
