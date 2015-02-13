@@ -3,7 +3,6 @@
     var move,
         ms = $.mobiscroll,
         classes = ms.classes,
-        instances = ms.instances,
         util = ms.util,
         pr = util.jsPrefix,
         has3d = util.has3d,
@@ -597,12 +596,12 @@
                 .on('touchend', '.dwwb', onBtnEnd);
 
             if (s.mousewheel) {
-                $markup.on('DOMMouseScroll mousewheel', '.dwwl', onScroll)
+                $markup.on('DOMMouseScroll mousewheel', '.dwwl', onScroll);
             }
         };
 
-        that._markupReady = function () {
-            $markup = that._markup;
+        that._markupReady = function ($m) {
+            $markup = $m;
             scrollToPos();
         };
 
@@ -649,7 +648,6 @@
 
         // Constructor
         if (!inherit) {
-            instances[el.id] = that;
             that.init(settings);
         }
     };

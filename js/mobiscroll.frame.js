@@ -459,7 +459,7 @@
 
             posEvents = 'orientationchange resize';
 
-            that._markupReady();
+            that._markupReady($markup);
             
             event('onMarkupReady', [$markup]);
 
@@ -523,6 +523,10 @@
                         $(this).click();
                     }
                 });
+
+            $('input', $markup).on('selectstart mousedown', function (ev) {
+                ev.stopPropagation();
+            });
 
             setTimeout(function () {
                 // Init buttons
@@ -712,7 +716,7 @@
             $elm.off('.dw');
 
             doAnim = isOldAndroid ? false : s.animate;
-            buttons = s.buttons;
+            buttons = s.buttons || [];
             isModal = s.display !== 'inline';
             setReadOnly = s.showOnFocus || s.showOnTap;
             $wnd = $(s.context == 'body' ? window : s.context);
