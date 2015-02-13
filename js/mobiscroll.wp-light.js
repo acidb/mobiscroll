@@ -61,6 +61,14 @@
             buttons.cancel.icon = 'close';
             buttons.clear.icon = 'close';
 
+            if (buttons.ok) {
+                buttons.ok.icon = 'checkmark';
+            }
+
+            if (buttons.close) {
+                buttons.close.icon = 'close';
+            }
+
             if (buttons.now) {
                 buttons.now.icon = 'loop2';
             }
