@@ -728,7 +728,7 @@
 
             // If no set button is found, live mode is activated
             $.each(buttons, function (i, b) {
-                if (b === 'set' || b.handler === 'set') {
+                if (b == 'ok' || b == 'set' || b.handler == 'set') {
                     that.live = false;
                     return false;
                 }
