@@ -473,7 +473,7 @@
          * Returns the selected value
          */
         that.getVal = that._getVal = function (temp) {
-            var val = that._hasValue ? that[temp ? '_tempValue' : '_value'] : null;
+            var val = that._hasValue || temp ? that[temp ? '_tempValue' : '_value'] : null;
             return util.isNumeric(val) ? +val : val;
         };
 
