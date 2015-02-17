@@ -471,7 +471,7 @@
 
                 // Prevent scroll if not specified otherwise
                 if (s.scrollLock) {
-                    $markup.on('touchmove mousewheel DOMMouseScroll', function (ev) {
+                    $markup.on('touchmove mousewheel wheel', function (ev) {
                         if (scrollLock) {
                             ev.preventDefault();
                         }

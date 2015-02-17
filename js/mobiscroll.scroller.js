@@ -20,6 +20,7 @@
             itemHeight,
             multiple,
             s,
+            scrollDebounce,
             trigger,
 
             click,
@@ -192,11 +193,18 @@
             if (!isReadOnly(this)) {
                 ev.preventDefault();
                 ev = ev.originalEvent || ev;
-                var delta = ev.wheelDelta ? (ev.wheelDelta / 120) : (ev.detail ? (-ev.detail / 3) : 0),
+
+                var delta = ev.deltaY || ev.wheelDelta || ev.detail,
                     t = $('.dw-ul', this);
 
                 setGlobals(t);
-                calc(t, index, Math.round(pos[index] - delta), delta < 0 ? 1 : 2);
+
+                scroll(t, index, constrain(((delta < 0 ? -20 : 20) - pixels[index]) / itemHeight, min - 1, max + 1));
+
+                clearTimeout(scrollDebounce);
+                scrollDebounce = setTimeout(function () {
+                    calc(t, index, Math.round(pos[index]), delta < 0 ? 1 : 2, 0.1);
+                }, 200);
             }
         }
 
@@ -596,7 +604,7 @@
                 .on('touchend', '.dwwb', onBtnEnd);
 
             if (s.mousewheel) {
-                $markup.on('DOMMouseScroll mousewheel', '.dwwl', onScroll);
+                $markup.on('wheel mousewheel', '.dwwl', onScroll);
             }
         };
 

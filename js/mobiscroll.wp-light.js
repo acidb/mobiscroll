@@ -25,7 +25,7 @@
                 touch,
                 active;
 
-            $('.dwwl', elm).on('touchstart mousedown DOMMouseScroll mousewheel', function (e) {
+            $('.dwwl', elm).on('touchstart mousedown wheel mousewheel', function (e) {
                 if (e.type === 'mousedown' && touch) {
                     return;
                 }
