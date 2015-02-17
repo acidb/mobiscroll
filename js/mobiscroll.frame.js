@@ -746,6 +746,8 @@
                 that.hide(true, false, true);
             }
 
+            event('onInit', []);
+
             if (isModal) {
                 that._readValue();
                 if (!that._hasContent) {
@@ -761,8 +763,6 @@
                 }
                 that._preventChange = false;
             });
-
-            event('onInit', []);
         };
 
         that.buttons = {};
