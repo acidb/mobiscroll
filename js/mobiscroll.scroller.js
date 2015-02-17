@@ -203,7 +203,7 @@
 
                 clearTimeout(scrollDebounce);
                 scrollDebounce = setTimeout(function () {
-                    calc(t, index, Math.round(pos[index]), delta < 0 ? 1 : 2, 0.1);
+                    calc(t, index, Math.round(pos[index]), delta > 0 ? 1 : 2, 0.1);
                 }, 200);
             }
         }
