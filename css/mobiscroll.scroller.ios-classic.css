@@ -36,13 +36,11 @@
     background: -webkit-linear-gradient(#333,#999 10%,#fff 30%,#fff 70%,#999 90%,#333);
     background: -moz-linear-gradient(#333,#999 10%,#fff 30%,#fff 70%,#999 90%,#333);
     background: linear-gradient(#333,#999 10%,#fff 30%,#fff 70%,#999 90%,#333);
-    -webkit-border-radius: 0;
     border-radius: 0;
 }
 .mbsc-ios-classic .dwpm .dwwl {
     margin: 4px 2px;
     border: 1px solid #000;
-    -webkit-border-radius: 3px;
     border-radius: 3px;
 }
 .mbsc-ios-classic .dwpm .dww {
@@ -97,12 +95,10 @@
     background: linear-gradient(#c7d1e2,#808ea6 50%,#75859f 50%,#3f4e68);
 }
 .mbsc-ios-classic .dwwbp {
-    -webkit-border-radius: 3px 3px 0 0;
     border-radius: 3px 3px 0 0;
     font-size: 40px;
 }
 .mbsc-ios-classic .dwwbm {
-    -webkit-border-radius: 0 0 3px 3px;
     border-radius: 0 0 3px 3px;
     font-size: 32px;
     font-weight: bold;
