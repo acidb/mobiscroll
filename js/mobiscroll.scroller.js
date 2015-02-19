@@ -3,7 +3,6 @@
     var move,
         ms = $.mobiscroll,
         classes = ms.classes,
-        instances = ms.instances,
         util = ms.util,
         pr = util.jsPrefix,
         has3d = util.has3d,
@@ -12,12 +11,16 @@
         constrain = util.constrain,
         testTouch = util.testTouch;
 
+    ms.presetShort('scroller', 'Scroller', false);
+
     classes.Scroller = function (el, settings, inherit) {
         var $markup,
             btn,
             isScrollable,
             itemHeight,
+            multiple,
             s,
+            scrollDebounce,
             trigger,
 
             click,
@@ -88,14 +91,20 @@
         function onEnd(ev) {
             if (move) {
                 var time = new Date() - startTime,
-                    val = constrain(p + (start - stop) / itemHeight, min - 1, max + 1),
+                    curr = constrain(Math.round(p + (start - stop) / itemHeight), min - 1, max + 1),
+                    val = curr,
                     speed,
                     dist,
-                    tindex,
                     ttop = target.offset().top;
 
                 // Better performance if there are tap events on document
                 ev.stopPropagation();
+
+                move = false;
+
+                if (ev.type === 'mouseup') {
+                    $(document).off('mousemove', onMove).off('mouseup', onEnd);
+                }
 
                 if (has3d && time < 300) {
                     speed = (stop - start) / time;
@@ -107,16 +116,16 @@
                     dist = stop - start;
                 }
 
-                tindex = Math.round(p - dist / itemHeight);
-
                 if (!moved) { // this is a "tap"
                     var idx = Math.floor((stop - ttop) / itemHeight),
                         li = $($('.dw-li', target)[idx]),
                         valid = li.hasClass('dw-v'),
                         hl = isScrollable;
 
+                    time = 0.1;
+
                     if (trigger('onValueTap', [li]) !== false && valid) {
-                        tindex = idx;
+                        val = idx;
                     } else {
                         hl = true;
                     }
@@ -127,17 +136,19 @@
                             li.removeClass('dw-hl');
                         }, 100);
                     }
+
+                    if (!multiple && (s.confirmOnTap === true || s.confirmOnTap[index]) && li.hasClass('dw-sel')) {
+                        that.select();
+                        return;
+                    }
+                } else {
+                    val = constrain(Math.round(p - dist / itemHeight), min, max);
+                    time = speed ? Math.max(0.1, Math.abs((val - curr) / speed) * s.timeUnit) : 0.1;
                 }
 
                 if (isScrollable) {
-                    calc(target, tindex, 0, true, Math.round(val));
+                    calc(target, index, val, 0, time, true);
                 }
-
-                if (ev.type === 'mouseup') {
-                    $(document).off('mousemove', onMove).off('mouseup', onEnd);
-                }
-
-                move = false;
             }
         }
 
@@ -182,11 +193,18 @@
             if (!isReadOnly(this)) {
                 ev.preventDefault();
                 ev = ev.originalEvent || ev;
-                var delta = ev.wheelDelta ? (ev.wheelDelta / 120) : (ev.detail ? (-ev.detail / 3) : 0),
+
+                var delta = ev.deltaY || ev.wheelDelta || ev.detail,
                     t = $('.dw-ul', this);
 
                 setGlobals(t);
-                calc(t, Math.round(pos[index] - delta), delta < 0 ? 1 : 2);
+
+                scroll(t, index, constrain(((delta < 0 ? -20 : 20) - pixels[index]) / itemHeight, min - 1, max + 1));
+
+                clearTimeout(scrollDebounce);
+                scrollDebounce = setTimeout(function () {
+                    calc(t, index, Math.round(pos[index]), delta > 0 ? 1 : 2, 0.1);
+                }, 200);
             }
         }
 
@@ -220,7 +238,7 @@
                 w = wheels[i],
                 l = 1,
                 labels = w.labels || [],
-                values = w.values,
+                values = w.values || [],
                 keys = w.keys || values;
 
             $.each(values, function (j, v) {
@@ -237,9 +255,9 @@
         }
 
         function setGlobals(t) {
-            var multiple = t.closest('.dwwl').hasClass('dwwms');
+            multiple = t.closest('.dwwl').hasClass('dwwms');
             min = $('.dw-li', t).index($(multiple ? '.dw-li' : '.dw-v', t).eq(0));
-            max = Math.max(min, $('.dw-li', t).index($(multiple ? '.dw-li' : '.dw-v', t).eq(-1)) - (multiple ? s.rows - 1 : 0));
+            max = Math.max(min, $('.dw-li', t).index($(multiple ? '.dw-li' : '.dw-v', t).eq(-1)) - (multiple ? s.rows - (s.mode == 'scroller' ? 1 : 3) : 0));
             index = $('.dw-ul', $markup).index(t);
         }
 
@@ -267,8 +285,8 @@
             }
 
             //if (time && px != pixels[index]) {
-                // Trigger animation start event
-                //trigger('onAnimStart', [$markup, index, time]);
+            // Trigger animation start event
+            //trigger('onAnimStart', [$markup, index, time]);
             //}
 
             pixels[index] = px;
@@ -294,8 +312,9 @@
             pos[index] = val;
         }
 
-        function getValid(val, t, dir, multiple) {
-            var cell = $('.dw-li[data-val="' + val + '"]', t),
+        function getValid(val, t, dir, multiple, select) {
+            var selected,
+                cell = $('.dw-li[data-val="' + val + '"]', t),
                 cells = $('.dw-li', t),
                 v = cells.index(cell),
                 l = cells.length;
@@ -328,8 +347,21 @@
                 }
             }
 
+            selected = cell.hasClass('dw-sel');
+
+            if (select) {
+                if (!multiple) {
+                    $('.dw-sel', t).removeAttr('aria-selected');
+                    cell.attr('aria-selected', 'true');
+                }
+
+                // Add selected class to cell
+                $('.dw-sel', t).removeClass('dw-sel');
+                cell.addClass('dw-sel');
+            }
+
             return {
-                cell: cell,
+                selected: selected,
                 v: multiple ? constrain(v, min, max) : v,
                 val: cell.hasClass('dw-v') ? cell.attr('data-val') : null
             };
@@ -343,21 +375,12 @@
                     var t = $(this),
                         multiple = t.closest('.dwwl').hasClass('dwwms'),
                         sc = i == index || index === undefined,
-                        res = getValid(that._tempWheelArray[i], t, dir, multiple),
-                        cell = res.cell;
+                        res = getValid(that._tempWheelArray[i], t, dir, multiple, true),
+                        selected = res.selected;
 
-                    if (!(cell.hasClass('dw-sel')) || sc) {
+                    if (!selected || sc) {
                         // Set valid value
                         that._tempWheelArray[i] = res.val;
-
-                        if (!multiple) {
-                            $('.dw-sel', t).removeAttr('aria-selected');
-                            cell.attr('aria-selected', 'true');
-                        }
-
-                        // Add selected class to cell
-                        $('.dw-sel', t).removeClass('dw-sel');
-                        cell.addClass('dw-sel');
 
                         // Scroll to position
                         scroll(t, i, res.v, sc ? time : 0.1, sc ? active : false);
@@ -367,7 +390,7 @@
                 trigger('onValidated', []);
 
                 // Reformat value if validation changed something
-                that._tempValue = s.formatResult(that._tempWheelArray);
+                that._tempValue = s.formatValue(that._tempWheelArray);
 
                 if (that.live) {
                     that._hasValue = manual || that._hasValue;
@@ -383,18 +406,11 @@
 
         }
 
-        function calc(t, val, dir, anim, orig) {
+        function calc(t, idx, val, dir, time, active) {
             val = constrain(val, min, max);
 
-            var cell = $('.dw-li', t).eq(val),
-                o = orig === undefined ? val : orig,
-                active = orig !== undefined,
-                idx = index,
-                dist = Math.abs(val - o),
-                time = anim ? (val == o ? 0.1 : dist * s.timeUnit * Math.max(0.5, (100 - dist) / 100)) : 0;
-
             // Set selected scroller value
-            that._tempWheelArray[idx] = cell.attr('data-val');
+            that._tempWheelArray[idx] = $('.dw-li', t).eq(val).attr('data-val');
 
             scroll(t, idx, val, time, active);
 
@@ -406,12 +422,12 @@
 
         function plus(t) {
             var val = pos[index] + 1;
-            calc(t, val > max ? min : val, 1, true);
+            calc(t, index, val > max ? min : val, 1, 0.1);
         }
 
         function minus(t) {
             var val = pos[index] - 1;
-            calc(t, val < min ? max : val, 2, true);
+            calc(t, index, val < min ? max : val, 2, 0.1);
         }
 
         function setValue(fill, change, time, noscroll, temp) {
@@ -419,7 +435,7 @@
                 scrollToPos(time);
             }
 
-            that._tempValue = s.formatResult(that._tempWheelArray);
+            that._tempValue = s.formatValue(that._tempWheelArray);
 
             if (!temp) {
                 that._wheelArray = that._tempWheelArray.slice(0);
@@ -442,7 +458,7 @@
         }
 
         // Call the parent constructor
-        classes.Widget.call(this, el, settings, true);
+        classes.Frame.call(this, el, settings, true);
 
         // Public functions
 
@@ -465,7 +481,7 @@
          * Returns the selected value
          */
         that.getVal = that._getVal = function (temp) {
-            var val = that._hasValue ? that[temp ? '_tempValue' : '_value'] : null;
+            var val = that._hasValue || temp ? that[temp ? '_tempValue' : '_value'] : null;
             return util.isNumeric(val) ? +val : val;
         };
 
@@ -532,6 +548,8 @@
         */
         that.getValidCell = getValid;
 
+        that.scroll = scroll;
+
         // Protected overrides
 
         that._generateContent = function () {
@@ -558,7 +576,7 @@
                                 '<div class="dwl">' + lbl + '</div>' + // Wheel label
                                 '<div tabindex="0" aria-live="off" aria-label="' + lbl + '" role="listbox" class="dwww">' +
                                     '<div class="dww" style="height:' + (s.rows * itemHeight) + 'px;">' +
-                                        '<div class="dw-ul" style="margin-top:' + (w.multiple ? 0 : s.rows / 2 * itemHeight - itemHeight / 2) + 'px;">';
+                                        '<div class="dw-ul" style="margin-top:' + (w.multiple ? (s.mode == 'scroller' ? 0 : itemHeight) : s.rows / 2 * itemHeight - itemHeight / 2) + 'px;">';
 
                     // Create wheel values
                     html += generateWheelItems(l) +
@@ -577,7 +595,6 @@
 
         that._attachEvents = function ($markup) {
             $markup
-                .on('DOMMouseScroll mousewheel', '.dwwl', onScroll)
                 .on('keydown', '.dwwl', onKeyDown)
                 .on('keyup', '.dwwl', onKeyUp)
                 .on('touchstart mousedown', '.dwwl', onStart)
@@ -585,10 +602,14 @@
                 .on('touchend', '.dwwl', onEnd)
                 .on('touchstart mousedown', '.dwwb', onBtnStart)
                 .on('touchend', '.dwwb', onBtnEnd);
+
+            if (s.mousewheel) {
+                $markup.on('wheel mousewheel', '.dwwl', onScroll);
+            }
         };
 
-        that._markupReady = function () {
-            $markup = that._markup;
+        that._markupReady = function ($m) {
+            $markup = $m;
             scrollToPos();
         };
 
@@ -612,11 +633,20 @@
 
             that._isLiquid = (s.layout || (/top|bottom/.test(s.display) && s.wheels.length == 1 ? 'liquid' : '')) === 'liquid';
 
-            //that._wheelArray = null;
-            //that._tempWheelArray = null;
+            // @deprecated since 2.15.0, backward compatibility code
+            // ---
+            if (s.formatResult) {
+                s.formatValue = s.formatResult;
+            }
+            // ---
 
             if (lines > 1) {
                 s.cssClass = (s.cssClass || '') + ' dw-ml';
+            }
+
+            // Ensure a minimum number of 3 items if clickpick buttons present
+            if (s.mode != 'scroller') {
+                s.rows = Math.max(3, s.rows);
             }
         };
 
@@ -626,53 +656,65 @@
 
         // Constructor
         if (!inherit) {
-            instances[el.id] = that;
             that.init(settings);
         }
     };
 
     // Extend defaults
-    classes.Scroller.prototype._class = 'scroller';
-    classes.Scroller.prototype._defaults = $.extend({}, classes.Widget.prototype._defaults, {
-        // Options
-        minWidth: 80,
-        height: 40,
-        rows: 3,
-        multiline: 1,
-        delay: 300,
-        readonly: false,
-        showLabel: true,
-        wheels: [],
-        mode: 'scroller',
-        preset: '',
-        speedUnit: 0.0012,
-        timeUnit: 0.08,
-        formatResult: function (d) {
-            return d.join(' ');
-        },
-        parseValue: function (value, inst) {
-            var val = [],
-                ret = [],
-                i = 0,
-                keys;
+    classes.Scroller.prototype = {
+        _hasDef: true,
+        _hasTheme: true,
+        _hasLang: true,
+        _hasPreset: true,
+        _class: 'scroller',
+        _defaults: $.extend({}, classes.Frame.prototype._defaults, {
+            // Options
+            minWidth: 80,
+            height: 40,
+            rows: 3,
+            multiline: 1,
+            delay: 300,
+            readonly: false,
+            showLabel: true,
+            confirmOnTap: true,
+            wheels: [],
+            mode: 'scroller',
+            preset: '',
+            speedUnit: 0.0012,
+            timeUnit: 0.08,
+            formatValue: function (d) {
+                return d.join(' ');
+            },
+            parseValue: function (value, inst) {
+                var val = [],
+                    ret = [],
+                    i = 0,
+                    found,
+                    keys;
 
-            if (value !== null && value !== undefined) {
-                val = (value + '').split(' ');
-            }
+                if (value !== null && value !== undefined) {
+                    val = (value + '').split(' ');
+                }
 
-            $.each(inst.settings.wheels, function (j, wg) {
-                $.each(wg, function (k, w) {
-                    keys = w.keys || w.values;
-                    if ($.inArray(val[i], keys) !== -1) {
-                        ret.push(val[i]);
-                    } else {
-                        ret.push(keys[0]);
-                    }
-                    i++;
+                $.each(inst.settings.wheels, function (j, wg) {
+                    $.each(wg, function (k, w) {
+                        keys = w.keys || w.values;
+                        found = keys[0]; // Default to first wheel value if not found
+                        $.each(keys, function (l, key) {
+                            if (val[i] == key) { // Don't do strict comparison
+                                found = key;
+                                return false;
+                            }
+                        });
+                        ret.push(found);
+                        i++;
+                    });
                 });
-            });
-            return ret;
-        }
-    });
+                return ret;
+            }
+        })
+    };
+
+    ms.themes.scroller = ms.themes.frame;
 
 })(jQuery, window, document);

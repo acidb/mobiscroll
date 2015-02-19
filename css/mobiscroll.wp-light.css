@@ -68,7 +68,10 @@
 .mbsc-wp-light .dw-cal-day-m {
     border-color: rgb(0,0,0) rgb(0,0,0) transparent transparent;
 }
-.mbsc-wp-light .dw-cal-day-hl .dw-i {
+.mbsc-wp-light .dw-cal-day-fg {
+    border-color: rgb(166,166,166);
+}
+.mbsc-wp-light .dw-cal-day-hl .dw-cal-day-fg {
     background: rgb(0,0,0);
     border-color: rgb(0,0,0);
     color: rgb(222,222,222);

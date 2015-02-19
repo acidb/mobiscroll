@@ -26,6 +26,7 @@
         pmText: 'akşam',
         amText: 'sabah',
         // Calendar component
+        firstDay: 1,
         dateText: 'Tarih',
         timeText: 'Zaman',
         calendarText: 'Takvim',

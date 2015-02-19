@@ -49,7 +49,9 @@
     filter: Alpha(Opacity=30);
 }
 .mbsc-wp .wpa .dw-v, 
-.mbsc-wp .dwa .dw-v { 
+.mbsc-wp .wpa .dw-fv,
+.mbsc-wp .dwa .dw-v,
+.mbsc-wp .dwa .dw-fv { 
     opacity: 1;
     filter: Alpha(Opacity=100);
 }
@@ -94,7 +96,6 @@
     font-size: .688em;
     text-align: center;
     border: 2px solid #fff;
-    -webkit-border-radius: 1.182em;
     border-radius: 1.182em;
 }
 .mbsc-wp .dwwl .dwb-a {
@@ -121,6 +122,7 @@
     color: #fff;
     border: 0;
     padding-left: 1.538em;
+    background: none;
 }
 .mbsc-wp .dwwms .dw-li:after {
     content: '';
@@ -144,10 +146,7 @@
     color: #fff;
 }
 /* Group select */
-.mbsc-wp .dw-select-gr .dw-li .dw-i {
-    padding-left: 40px;
-}
-.mbsc-wp .dw-select-gr .dw-w-gr {
+.mbsc-wp .dw-select-gr.wpa .dw-w-gr {
     font-size: 22px;
     font-weight: normal;
     opacity: 1;
@@ -161,37 +160,5 @@
     display: none;
 }
 
-/* Accents */
-.mbsc-wp-lime .dw-sel .dw-i, .mbsc-wp-lime .dw-ul .dw-hl .dw-i { background: #a4c400; border-color: #a4c400; }
-.mbsc-wp-green .dw-sel .dw-i, .mbsc-wp-green .dw-ul .dw-hl .dw-i { background: #60a917; border-color: #60a917; }
-.mbsc-wp-emerald .dw-sel .dw-i, .mbsc-wp-emerald .dw-ul .dw-hl .dw-i { background: #008a00; border-color: #008a00; }
-.mbsc-wp-teal .dw-sel .dw-i, .mbsc-wp-teal .dw-ul .dw-hl .dw-i { background: #00aba9; border-color: #00aba9; }
-.mbsc-wp-cyan .dw-sel .dw-i, .mbsc-wp-cyan .dw-ul .dw-hl .dw-i { background: #1ba1e2; border-color: #1ba1e2; }
-.mbsc-wp-cobalt .dw-sel .dw-i, .mbsc-wp-cobalt .dw-ul .dw-hl .dw-i { background: #0050ef; border-color: #0050ef; }
-.mbsc-wp-indigo .dw-sel .dw-i, .mbsc-wp-indigo .dw-ul .dw-hl .dw-i { background: #6a00ff; border-color: #6a00ff; }
-.mbsc-wp-violet .dw-sel .dw-i, .mbsc-wp-violet .dw-ul .dw-hl .dw-i { background: #aa00ff; border-color: #aa00ff; }
-.mbsc-wp-pink .dw-sel .dw-i, .mbsc-wp-pink .dw-ul .dw-hl .dw-i { background: #f472d0; border-color: #f472d0; }
-.mbsc-wp-magenta .dw-sel .dw-i, .mbsc-wp-magenta .dw-ul .dw-hl .dw-i { background: #d80073; border-color: #d80073; }
-.mbsc-wp-crimson .dw-sel .dw-i, .mbsc-wp-crimson .dw-ul .dw-hl .dw-i { background: #a20025; border-color: #a20025; }
-.mbsc-wp-red .dw-sel .dw-i, .mbsc-wp-red .dw-ul .dw-hl .dw-i { background: #e51400; border-color: #e51400; }
-.mbsc-wp-orange .dw-sel .dw-i, .mbsc-wp-orange .dw-ul .dw-hl .dw-i { background: #fa6800; border-color: #fa6800; }
-.mbsc-wp-amber .dw-sel .dw-i, .mbsc-wp-amber .dw-ul .dw-hl .dw-i { background: #f0a30a; border-color: #f0a30a; }
-.mbsc-wp-yellow .dw-sel .dw-i, .mbsc-wp-yellow .dw-ul .dw-hl .dw-i { background: #d8c100; border-color: #d8c100; }
-.mbsc-wp-brown .dw-sel .dw-i, .mbsc-wp-brown .dw-ul .dw-hl .dw-i { background: #825a2c; border-color: #825a2c; }
-.mbsc-wp-olive .dw-sel .dw-i, .mbsc-wp-olive .dw-ul .dw-hl .dw-i { background: #6d8764; border-color: #6d8764; }
-.mbsc-wp-steel .dw-sel .dw-i, .mbsc-wp-steel .dw-ul .dw-hl .dw-i { background: #647687; border-color: #647687; }
-.mbsc-wp-mauve .dw-sel .dw-i, .mbsc-wp-mauve .dw-ul .dw-hl .dw-i { background: #76608a; border-color: #76608a; }
-.mbsc-wp-sienna .dw-sel .dw-i, .mbsc-wp-sienna .dw-ul .dw-hl .dw-i { background: #7a3b3f; border-color: #7a3b3f; }
-
-/* Override accents */
-.mbsc-wp .dwa .dw-i {
-    color: #fff;
-    border-color: #4c4c4c;
-    background: none;
-}
-
-.mbsc-wp .dwwms .dw-i {
-    background: none;
-}
 
 

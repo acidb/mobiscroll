@@ -25,6 +25,7 @@
         amText: 'rano',
         pmText: 'po południu',
         // Calendar component
+        firstDay: 1,
         dateText: 'Data',
         timeText: 'Czas',
         calendarText: 'Kalendarz',

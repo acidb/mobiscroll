@@ -1,10 +1,9 @@
 (function ($) {
 
-    var themes = $.mobiscroll.themes,
+    var themes = $.mobiscroll.themes.frame,
         theme = {
             minWidth: 76,
             height: 76,
-            accent: 'none',
             dateOrder: 'mmMMddDDyy',
             headerText: false,
             showLabel: false,
@@ -20,14 +19,12 @@
             btnCalNextClass: 'mbsc-ic mbsc-ic-arrow-right2',
             btnPlusClass: 'mbsc-ic mbsc-ic-plus',
             btnMinusClass: 'mbsc-ic mbsc-ic-minus',
-            onMarkupInserted: function (elm, inst) {
+            onMarkupInserted: function (elm) {
                 var click,
                     touch,
                     active;
-
-                elm.addClass('mbsc-wp mbsc-wp-' + inst.settings.accent);
             
-                $('.dwwl', elm).on('touchstart mousedown DOMMouseScroll mousewheel', function (e) {
+                $('.dwwl', elm).on('touchstart mousedown wheel mousewheel', function (e) {
                     if (e.type === 'mousedown' && touch) {
                         return;
                     }
@@ -64,6 +61,14 @@
                 buttons.cancel.icon = 'close';
                 buttons.clear.icon = 'close';
 
+                if (buttons.ok) {
+                    buttons.ok.icon = 'checkmark';
+                }
+
+                if (buttons.close) {
+                    buttons.close.icon = 'close';
+                }
+                
                 if (buttons.now) {
                     buttons.now.icon = 'loop2';
                 }

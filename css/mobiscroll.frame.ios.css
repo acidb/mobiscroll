@@ -52,7 +52,6 @@
     border-color: #f7f7f7 transparent transparent transparent;
 }
 .mbsc-ios.dw-bubble .dwwr {
-    -webkit-border-radius: 8px;
     border-radius: 8px;
 }
 /* Inline display */

@@ -4,11 +4,11 @@
         util = ms.util,
         isString = util.isString,
         defaults = {
+            batch: 40,
             inputClass: '',
             invalid: [],
             rtl: false,
             showInput: true,
-            group: false,
             groupLabel: 'Groups',
             checkIcon: 'checkmark',
             dataText: 'text',
@@ -22,6 +22,9 @@
     ms.presets.scroller.select = function (inst) {
         var change,
             group,
+            groupArray,
+            groupChanged,
+            groupTap,
             groupWheelIdx,
             i,
             input,
@@ -31,8 +34,14 @@
             origValues,
             prevGroup,
             timer,
+            batchChanged = {},
+            batchStart = {},
+            batchEnd = {},
+            tempBatchStart = {},
+            tempBatchEnd = {},
             orig = $.extend({}, inst.settings),
             s = $.extend(inst.settings, defaults, orig),
+            batch = s.batch,
             layout = s.layout || (/top|bottom/.test(s.display) ? 'liquid' : ''),
             isLiquid = layout == 'liquid',
             elm = $(this),
@@ -44,10 +53,12 @@
             origReadOnly = s.readonly,
             data = s.data,
             hasData = !!data,
-            hasGroups = hasData ? data[0][s.dataGroup] : $('optgroup', elm).length,
-            defaultValue = hasData ? data[0][s.dataValue] : $('option', elm).attr('value'),
-            groupWheel = hasGroups && s.group,
-            groupHdr = hasGroups && !groupWheel,
+            hasGroups = hasData ? !!s.group : $('optgroup', elm).length,
+            defaultValue = hasData ? (data[0] ? data[0][s.dataValue] : null) : $('option', elm).attr('value'),
+            groupSetup = s.group,
+            groupWheel = hasGroups && groupSetup && groupSetup.groupWheel !== false,
+            groupSep = hasGroups && groupSetup && groupWheel && groupSetup.clustered === true,
+            groupHdr = hasGroups && (!groupSetup || (groupSetup.header !== false && !groupSep)),
             values = elm.val() || [],
             invalid = [],
             selectedValues = {},
@@ -60,31 +71,38 @@
                 opt,
                 txt,
                 val,
+                l = 0,
                 c = 0,
                 groupIndexes = {};
 
             optionArray = [];
+            groupArray = [];
 
             if (hasData) {
-                $.each(data, function (i, v) {
+                $.each(s.data, function (i, v) {
                     txt = v[s.dataText];
                     val = v[s.dataValue];
                     lbl = v[s.dataGroup];
                     opt = {
                         value: val,
-                        text: txt
+                        text: txt,
+                        index: i
                     };
                     options[val] = opt;
                     optionArray.push(opt);
 
                     if (hasGroups) {
                         if (groupIndexes[lbl] === undefined) {
-                            gr = { label: lbl, options: [] };
+                            gr = { text: lbl, value: c, options: [], index: c };
                             groups[c] = gr;
                             groupIndexes[lbl] = c;
+                            groupArray.push(gr);
                             c++;
                         } else {
                             gr = groups[groupIndexes[lbl]];
+                        }
+                        if (groupSep) {
+                            opt.index = gr.options.length;
                         }
                         opt.group = groupIndexes[lbl];
                         gr.options.push(opt);
@@ -96,14 +114,17 @@
             } else {
                 if (hasGroups) {
                     $('optgroup', elm).each(function (i) {
-                        groups[i] = { label: this.label, options: [] };
-                        $('option', this).each(function () {
+                        groups[i] = { text: this.label, value: i, options: [], index: i };
+                        groupArray.push(groups[i]);
+                        $('option', this).each(function (j) {
                             opt = {
                                 value: this.value,
                                 text: this.text,
+                                index: groupSep ? j : l++,
                                 group: i
                             };
                             options[this.value] = opt;
+                            optionArray.push(opt);
                             groups[i].options.push(opt);
                             if (this.disabled) {
                                 invalid.push(this.value);
@@ -111,10 +132,11 @@
                         });
                     });
                 } else {
-                    $('option', elm).each(function () {
+                    $('option', elm).each(function (i) {
                         opt = {
                             value: this.value,
-                            text: this.text
+                            text: this.text,
+                            index: i
                         };
                         options[this.value] = opt;
                         optionArray.push(opt);
@@ -124,83 +146,99 @@
                     });
                 }
             }
-        }
 
-        function genValues(data, keys, values) {
-            $.each(data, function (i, v) {
-                values.push(v.text);
-                keys.push(v.value);
-            });
-        }
-
-        function genWheels() {
-            var wheel,
-                wg = 0,
-                values = [],
-                keys = [],
-                w = [[]];
-
-            // Generate group wheel
-            if (groupWheel) {
-                $.each(groups, function (i, v) {
-                    values.push(v.label);
-                    keys.push(i);
+            if (groupHdr) {
+                optionArray = [];
+                l = 0;
+                $.each(groups, function (i, gr) {
+                    val = '__group' + i;
+                    opt = {
+                        text: gr.text,
+                        value: val,
+                        group: i,
+                        index: l++
+                    };
+                    options[val] = opt;
+                    optionArray.push(opt);
+                    invalid.push(opt.value);
+                    $.each(gr.options, function (j, opt) {
+                        opt.index = l++;
+                        optionArray.push(opt);
+                    });
                 });
+            }
+        }
+
+        function genValues(w, data, dataMap, value, index, multiple, label) {
+            var i,
+                wheel,
+                keys = [],
+                values = [],
+                selectedIndex = dataMap[value] !== undefined ? dataMap[value].index : 0,
+                start = Math.max(0, selectedIndex - batch),
+                end = Math.min(data.length - 1, start + batch * 2);
+
+            if (batchStart[index] !== start || batchEnd[index] !== end) {
+                for (i = start; i <= end; i++) {
+                    values.push(data[i].text);
+                    keys.push(data[i].value);
+                }
+                batchChanged[index] = true;
+                tempBatchStart[index] = start;
+                tempBatchEnd[index] = end;
 
                 wheel = {
+                    multiple: multiple,
                     values: values,
                     keys: keys,
-                    label: s.groupLabel
+                    label: label
                 };
 
                 if (isLiquid) {
-                    w[0][wg] = wheel;
+                    w[0][index] = wheel;
                 } else {
-                    w[wg] = [wheel];
+                    w[index] = [wheel];
                 }
-
-                wg++;
-            }
-
-            values = [];
-            keys = [];
-
-            if (groupHdr) { // Generate options wheel with group headers
-                $.each(groups, function (i, gr) {
-                    values.push(gr.label);
-                    keys.push('__group' + i);
-                    invalid.push('__group' + i);
-                    genValues(gr.options, keys, values);
-                });
-            } else { // Generate options wheel (for selected group or all, if not grouped)
-                genValues(groupWheel ? groups[group].options : optionArray, keys, values);
-            }
-
-            wheel = {
-                multiple: multiple,
-                values: values,
-                keys: keys,
-                label: label
-            };
-
-            if (isLiquid) {
-                w[0][wg] = wheel;
             } else {
-                w[wg] = [wheel];
+                batchChanged[index] = false;
             }
+        }
+
+        function genGroupWheel(w) {
+            genValues(w, groupArray, groups, group, groupWheelIdx, false, s.groupLabel);
+        }
+
+        function genOptWheel(w) {
+            genValues(w, groupSep ? groups[group].options : optionArray, options, option, optionWheelIdx, multiple, label);
+        }
+
+        function genWheels() {
+            var w = [[]];
+
+            if (groupWheel) {
+                genGroupWheel(w);
+            }
+
+            genOptWheel(w);
 
             return w;
         }
 
         function getOption(v) {
-            if (multiple && $.isArray(v)) {
-                v = v[0];
+            if (multiple) {
+                if (v && isString(v)) {
+                    v = v.split(',');
+                }
+                if ($.isArray(v)) {
+                    v = v[0];
+                }
             }
 
             option = v === undefined || v === null || v === '' ? defaultValue : v;
 
             if (groupWheel) {
                 group = options[option].group;
+                prevGroup = group;
             }
         }
 
@@ -228,6 +266,8 @@
                 val = option;
                 txt = options[option] ? options[option].text : '';
             }
+            
+            inst._tempValue = val;
 
             input.val(txt);
             elm.val(val);
@@ -248,6 +288,8 @@
                     }
                 }
                 return false;
+            } else if (li.hasClass('dw-w-gr')) {
+                groupTap = li.attr('data-val');
             }
         }
 
@@ -264,6 +306,8 @@
         }
 
         if (multiple) {
+            elm.prop('multiple', true);
+
             if (values && isString(values)) {
                 values = values.split(',');
             }
@@ -311,6 +355,28 @@
             return getVal(temp, group);
         };
 
+        inst.refresh = function () {
+
+            prepareData();
+
+            batchStart = {};
+            batchEnd = {};
+
+            s.wheels = genWheels();
+
+            batchStart[groupWheelIdx] = tempBatchStart[groupWheelIdx];
+            batchEnd[groupWheelIdx] = tempBatchEnd[groupWheelIdx];
+            batchStart[optionWheelIdx] = tempBatchStart[optionWheelIdx];
+            batchEnd[optionWheelIdx] = tempBatchEnd[optionWheelIdx];
+
+            // Prevent wheel generation on initial validation
+            change = true;
+
+            if (inst._isVisible) {
+                inst.changeWheel(groupWheel ? [groupWheelIdx, optionWheelIdx] : [optionWheelIdx]);
+            }
+        };
+
         // @deprecated since 2.14.0, backward compatibility code
         // ---
         inst.getValues = inst.getVal;
@@ -325,8 +391,10 @@
             layout: layout,
             headerText: false,
             anchor: input,
-            formatResult: function (d) {
+            confirmOnTap: groupWheel ? [false, true] : true,
+            formatValue: function (d) {
                 var i,
+                    opt,
                     sel = [];
 
                 if (multiple) {
@@ -336,8 +404,9 @@
                     return sel.join(', ');
                 }
 
-                option = d[optionWheelIdx];
-                return options[option] ? options[option].text : '';
+                opt = d[optionWheelIdx];
+
+                return options[opt] ? options[opt].text : '';
             },
             parseValue: function (val) {
                 getOption(val === undefined ? elm.val() : val);
@@ -359,13 +428,10 @@
                 getOption(elm.val());
 
                 if (groupWheel) {
-                    prevGroup = group;
                     inst._tempWheelArray = [group, option];
                 }
 
-                prepareData();
-
-                s.wheels = genWheels();
+                inst.refresh();
             },
             onMarkupReady: function (dw) {
                 dw.addClass('dw-select');
@@ -374,9 +440,14 @@
                     clearTimeout(timer);
                 });
 
+                $('.dwwl' + optionWheelIdx, dw).on('mousedown touchstart', function () {
+                    if (!groupChanged) {
+                        clearTimeout(timer);
+                    }
+                });
+
                 if (groupHdr) {
-                    $('.dw', dw).addClass('dw-select-gr');
-                    $('.dw-li[data-val^="__group"]', dw).addClass('dw-w-gr');
+                    $('.dwwl' + optionWheelIdx, dw).addClass('dw-select-gr');
                 }
 
                 if (multiple) {
@@ -393,12 +464,120 @@
                     origValues = $.extend({}, selectedValues);
                 }
             },
-            validate: function (dw, i, time) {
+            validate: function (dw, i, time, dir) {
                 var j,
                     v,
+                    changes = [],
                     temp = inst.getArrayVal(true),
-                    t = $('.dw-ul', dw).eq(optionWheelIdx);
+                    tempGr = temp[groupWheelIdx],
+                    tempOpt = temp[optionWheelIdx],
+                    t1 = $('.dw-ul', dw).eq(groupWheelIdx),
+                    t2 = $('.dw-ul', dw).eq(optionWheelIdx);
 
+                if (batchStart[groupWheelIdx] > 1) {
+                    $('.dw-li', t1).slice(0, 2).removeClass('dw-v').addClass('dw-fv');
+                }
+
+                if (batchEnd[groupWheelIdx] < groupArray.length - 2) {
+                    $('.dw-li', t1).slice(-2).removeClass('dw-v').addClass('dw-fv');
+                }
+
+                if (batchStart[optionWheelIdx] > 1) {
+                    $('.dw-li', t2).slice(0, 2).removeClass('dw-v').addClass('dw-fv');
+                }
+
+                if (batchEnd[optionWheelIdx] < (groupSep ? groups[tempGr].options : optionArray).length - 2) {
+                    $('.dw-li', t2).slice(-2).removeClass('dw-v').addClass('dw-fv');
+                }
+
+                if (!change) {
+
+                    option = tempOpt;
+
+                    if (groupWheel) {
+
+                        group = options[option].group;
+
+                        // If group changed, load group options
+                        if (i === undefined || i === groupWheelIdx) {
+                            group = +temp[groupWheelIdx];
+                            groupChanged = false;
+                            if (group !== prevGroup) {
+                                option = groups[group].options[0].value;
+                                batchStart[optionWheelIdx] = null;
+                                batchEnd[optionWheelIdx] = null;
+                                groupChanged = true;
+                                s.readonly = [false, true];
+                            } else {
+                                s.readonly = origReadOnly;
+                            }
+                        }
+                    }
+
+                    // Adjust value to the first group option if group header was selected
+                    if (hasGroups && (/__group/.test(option) || groupTap)) {
+                        option = groups[options[groupTap || option].group].options[0].value;
+                        tempOpt = option;
+                        groupTap = false;
+                    }
+
+                    // Update values if changed
+                    // Don't set the new option yet (if group changed), because it's not on the wheel yet 
+                    inst._tempWheelArray = groupWheel ? [tempGr, tempOpt] : [tempOpt];
+
+                    // Generate new wheel batches
+                    if (groupWheel) {
+                        genGroupWheel(s.wheels);
+
+                        if (batchChanged[groupWheelIdx]) {
+                            changes.push(groupWheelIdx);
+                        }
+                    }
+
+                    genOptWheel(s.wheels);
+
+                    if (batchChanged[optionWheelIdx]) {
+                        changes.push(optionWheelIdx);
+                    }
+
+                    clearTimeout(timer);
+                    timer = setTimeout(function () {
+                        if (changes.length) {
+                            change = true;
+                            groupChanged = false;
+                            prevGroup = group;
+
+                            // Save current batch boundaries
+                            batchStart[groupWheelIdx] = tempBatchStart[groupWheelIdx];
+                            batchEnd[groupWheelIdx] = tempBatchEnd[groupWheelIdx];
+                            batchStart[optionWheelIdx] = tempBatchStart[optionWheelIdx];
+                            batchEnd[optionWheelIdx] = tempBatchEnd[optionWheelIdx];
+
+                            // Set the updated values
+                            inst._tempWheelArray = groupWheel ? [tempGr, option] : [option];
+
+                            // Change the wheels
+                            inst.changeWheel(changes, 0, i !== undefined);
+                        }
+
+                        if (groupWheel) {
+                            if (i === optionWheelIdx) {
+                                inst.scroll(t1, groupWheelIdx, inst.getValidCell(group, t1, dir, false, true).v, 0.1);
+                            }
+                            inst._tempWheelArray[groupWheelIdx] = group;
+                        }
+
+                        // Restore readonly status
+                        s.readonly = origReadOnly;
+                            
+                    }, i === undefined ? 100 : time * 1000);
+
+                    if (changes.length) {
+                        return groupChanged ? false : true;
+                    }
+                }
+
+                // Add selected styling to selected elements in case of multiselect
                 if (i === undefined && multiple) {
                     v = selectedValues;
                     j = 0;
@@ -410,32 +589,14 @@
                     }
                 }
 
-                if (groupWheel && (i === undefined || i === groupWheelIdx)) {
-                    group = +temp[groupWheelIdx];
-                    if (group !== prevGroup) {
-                        option = groups[group].options[0].value;
-                        s.wheels = genWheels();
-                        if (!change) {
-                            inst._tempWheelArray = [group, option];
-                            s.readonly = [false, true];
-                            clearTimeout(timer);
-                            timer = setTimeout(function () {
-                                change = true;
-                                prevGroup = group;
-                                inst.changeWheel([optionWheelIdx], undefined, true);
-                                s.readonly = origReadOnly;
-                            }, time * 1000);
-                            return false;
-                        }
-                    } else {
-                        s.readonly = origReadOnly;
-                    }
-                } else {
-                    option = temp[optionWheelIdx];
+                // Add styling to group headers
+                if (groupHdr) {
+                    $('.dw-li[data-val^="__group"]', dw).addClass('dw-w-gr');
                 }
 
+                // Disable invalid options
                 $.each(s.invalid, function (i, v) {
-                    $('.dw-li[data-val="' + v + '"]', t).removeClass('dw-v');
+                    $('.dw-li[data-val="' + v + '"]', t2).removeClass('dw-v dw-fv');
                 });
 
                 change = false;

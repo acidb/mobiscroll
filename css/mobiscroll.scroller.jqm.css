@@ -14,7 +14,6 @@
     padding: 4px 2px 1px 2px;
 }
 .mbsc-jqm .dwwl {
-    -webkit-border-radius: 4px;
     border-radius: 4px;
 }
 .mbsc-jqm14 .dwwl {
@@ -57,11 +56,9 @@
     margin-top: -1px;
 }
 .mbsc-jqm .dwwbp {
-    -webkit-border-radius: 4px 4px 0 0;
     border-radius: 4px 4px 0 0;
 }
 .mbsc-jqm .dwwbm {
-    -webkit-border-radius: 0 0 4px 4px;
     border-radius: 0 0 4px 4px;
 }
 .mbsc-jqm .dwwbp span {

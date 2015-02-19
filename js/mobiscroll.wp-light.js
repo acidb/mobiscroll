@@ -1,6 +1,6 @@
 (function ($) {
     
-    $.mobiscroll.themes['wp-light'] = {
+    $.mobiscroll.themes.frame['wp-light'] = {
         baseTheme: 'wp',
         minWidth: 76,
         height: 76,
@@ -25,7 +25,7 @@
                 touch,
                 active;
 
-            $('.dwwl', elm).on('touchstart mousedown DOMMouseScroll mousewheel', function (e) {
+            $('.dwwl', elm).on('touchstart mousedown wheel mousewheel', function (e) {
                 if (e.type === 'mousedown' && touch) {
                     return;
                 }
@@ -60,6 +60,14 @@
             buttons.set.icon = 'checkmark';
             buttons.cancel.icon = 'close';
             buttons.clear.icon = 'close';
+
+            if (buttons.ok) {
+                buttons.ok.icon = 'checkmark';
+            }
+
+            if (buttons.close) {
+                buttons.close.icon = 'close';
+            }
 
             if (buttons.now) {
                 buttons.now.icon = 'loop2';

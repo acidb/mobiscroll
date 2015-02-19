@@ -19,7 +19,7 @@
             lvl = 0,
             ilvl = 0,
             timer = {},
-            currLevel = 1,
+            currLevel,
             currWheelVector = [],
             wa = s.wheelArray || createWheelArray(elm),
             labels = generateLabels(lvl),
@@ -341,7 +341,10 @@
             wheels: w,
             layout: layout,
             headerText: false,
-            formatResult: function (d) {
+            formatValue: function (d) {
+                if (currLevel === undefined) {
+                    currLevel = calcLevelOfVector2(d, d.length).lvl;
+                }
                 return d.slice(0, currLevel).join(' ');
             },
             parseValue: function (value) {
@@ -354,6 +357,7 @@
                 prevent = true;
             },
             onValueFill: function (v) {
+                currLevel = undefined;
                 if (input) {
                     input.val(v);
                 }

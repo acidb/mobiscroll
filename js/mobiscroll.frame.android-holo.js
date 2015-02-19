@@ -1,5 +1,5 @@
 (function ($) {
-    var themes = $.mobiscroll.themes,
+    var themes = $.mobiscroll.themes.frame,
         theme = {
             dateOrder: 'Mddyy',
             //mode: 'mixed',

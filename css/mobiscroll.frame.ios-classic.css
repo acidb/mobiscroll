@@ -67,7 +67,6 @@
     background: -webkit-linear-gradient(#7b7b7b,#1a1a1a 50%,#000 50%);
     background: -moz-linear-gradient(#7b7b7b,#1a1a1a 50%,#000 50%);
     background: linear-gradient(#7b7b7b,#1a1a1a 50%,#000 50%);
-    -webkit-border-radius: 5px;
     -webkit-box-shadow: 0 1px 0 rgba(255,255,255,0.3);
     border-radius: 5px;
     box-shadow: 0 1px 0 rgba(255,255,255,0.3);
@@ -99,7 +98,6 @@
     background: -webkit-linear-gradient(#afafaf, #1b2530 30%);
     background: -moz-linear-gradient(#afafaf, #1b2530 30%);
     background: linear-gradient(#afafaf, #1b2530 30%);
-    -webkit-border-radius: 5px;
     -webkit-box-shadow: 0 0 25px rgba(0,0,0,0.7);
     border-radius: 5px;
     box-shadow: 0 0 25px rgba(0,0,0,0.7);
@@ -117,4 +115,15 @@
 }
 .mbsc-ios-classic .dw-bubble-top .dw-arr {
     border-color: #1b2530 transparent transparent transparent;
+}
+/* Widget */
+.mbsc-ios-classic.mbsc-wdg .dwwr {
+    padding: 6px;
+}
+.mbsc-ios-classic.mbsc-wdg .dwcc {
+    background: #fff;
+    color: #000;
+    -webkit-box-shadow: 0 1px 1px rgba(255,255,255,.3), 0 1px 5px rgba(0, 0, 0, 0.90) inset, 0 -1px 1px rgba(0, 0, 0, 0.90) inset;
+    box-shadow: 0 1px 1px rgba(255,255,255,.3), 0 1px 5px rgba(0, 0, 0, 0.90) inset, 0 -1px 1px rgba(0, 0, 0, 0.90) inset;
+    border-radius: .5em;
 }

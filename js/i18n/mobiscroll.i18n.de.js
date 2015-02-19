@@ -26,6 +26,7 @@
         pmText: 'nachm.',
         amText: 'vorm.',
         // Calendar component
+        firstDay: 1,
         dateText: 'Datum',
         timeText: 'Zeit',
         calendarText: 'Kalender',

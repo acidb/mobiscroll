@@ -2,7 +2,7 @@
 
     var ver = $.mobile && $.mobile.version && $.mobile.version.match(/1\.4/);
 
-    $.mobiscroll.themes.jqm = {
+    $.mobiscroll.themes.frame.jqm = {
         jqmBorder: 'a',
         jqmBody: ver ? 'a' : 'c',
         jqmHeader: 'b',

@@ -1,6 +1,6 @@
 (function ($) {
     
-    $.mobiscroll.themes['mobiscroll-dark'] = {
+    $.mobiscroll.themes.frame['mobiscroll-dark'] = {
         baseTheme: 'mobiscroll',
         rows: 5,
         showLabel: false,

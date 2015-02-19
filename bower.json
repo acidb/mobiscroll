@@ -1,9 +1,9 @@
 {
     "name": "mobiscroll",
-    "version": "2.14.4",
+    "version": "2.15.0",
     "main": [
         "js/mobiscroll.core.js",
-        "js/mobiscroll.widget.js",
+        "js/mobiscroll.frame.js",
         "js/mobiscroll.scroller.js",
         "js/mobiscroll.util.datetime.js",
         "js/mobiscroll.datetimebase.js",
@@ -13,7 +13,7 @@
         "js/mobiscroll.treelist.js",
         "js/mobiscroll.image.js",
         "css/mobiscroll.animation.css",
-        "css/mobiscroll.widget.css",
+        "css/mobiscroll.frame.css",
         "css/mobiscroll.scroller.css"
     ],
     "description": "A wheel scroller control optimized for touchscreens to easily enter date/time. It can easily be customized to support any custom values.",

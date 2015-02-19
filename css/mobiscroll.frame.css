@@ -161,6 +161,13 @@
 .dwbw .dwb:before {
     padding: .375em;
 }
+/* Widget content styling */
+.mbsc-wdg .dwcc {
+    padding: .5em 1em;
+    font-size: 14px;
+    text-align: left;
+    white-space: normal;
+}
 
 /* Default theme */
 .mbsc-mobiscroll .dwwr {

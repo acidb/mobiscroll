@@ -2,10 +2,8 @@
 
     var $activeElm,
         preventShow,
-        extend = $.extend,
         ms = $.mobiscroll,
         instances = ms.instances,
-        userdef = ms.userdef,
         util = ms.util,
         pr = util.jsPrefix,
         has3d = util.has3d,
@@ -13,11 +11,12 @@
         constrain = util.constrain,
         isString = util.isString,
         isOldAndroid = /android [1-3]/i.test(navigator.userAgent),
+        isIOS8 = /(iphone|ipod|ipad).* os 8_/i.test(navigator.userAgent),
         animEnd = 'webkitAnimationEnd animationend',
         empty = function () { },
         prevdef = function (ev) { ev.preventDefault(); };
 
-    ms.classes.Widget = function (el, settings, inherit) {
+    ms.classes.Frame = function (el, settings, inherit) {
         var $ariaDiv,
             $ctx,
             $header,
@@ -30,19 +29,16 @@
             buttons,
             btn,
             doAnim,
+            event,
             hasButtons,
             isModal,
-            lang,
             modalWidth,
             modalHeight,
             posEvents,
-            preset,
             preventPos,
             s,
             scrollLock,
             setReadOnly,
-            theme,
-            wasReadOnly,
             wndWidth,
             wndHeight,
 
@@ -138,7 +134,7 @@
             }, 200);
         }
 
-        function show(beforeShow) {
+        function show(beforeShow, $elm) {
             if (!ms.tapped) {
 
                 if (beforeShow) {
@@ -159,16 +155,8 @@
             }, 300); // With jQuery < 1.9 focus is fired twice in IE
         }
 
-        function event(name, args) {
-            var ret;
-            args.push(that);
-            $.each([userdef, theme, preset, settings], function (i, v) {
-                if (v && v[name]) { // Call preset event
-                    ret = v[name].apply(el, args);
-                }
-            });
-            return ret;
-        }
+        // Call the parent constructor
+        ms.classes.Base.call(this, el, settings, true);
 
         /**
         * Positions the scroller on the screen.
@@ -306,10 +294,10 @@
         * @param {Function} [beforeShow=undefined] - Optional function to execute before showing mobiscroll.
         */
         that.attachShow = function ($elm, beforeShow) {
-            elmList.push($elm);
+            elmList.push({ readOnly: $elm.prop('readonly'), el: $elm });
             if (s.display !== 'inline') {
-                if (setReadOnly) {
-                    $elm.on('mousedown.dw', function (ev) {
+                if (setReadOnly && $elm.is('input')) {
+                    $elm.prop('readonly', true).on('mousedown.dw', function (ev) {
                         // Prevent input to get focus on tap (virtual keyboard pops up on some devices)
                         ev.preventDefault();
                     });
@@ -318,14 +306,23 @@
                 if (s.showOnFocus) {
                     $elm.on('focus.dw', function () {
                         if (!preventShow) {
-                            show(beforeShow);
+                            show(beforeShow, $elm);
                         }
                     });
                 }
 
                 if (s.showOnTap) {
+
+                    $elm.on('keydown.dw', function (ev) {
+                        if (ev.keyCode == 32 || ev.keyCode == 13) { // Space or Enter
+                            ev.preventDefault();
+                            ev.stopPropagation();
+                            show(beforeShow, $elm);
+                        }
+                    });
+
                     that.tap($elm, function () {
-                        show(beforeShow);
+                        show(beforeShow, $elm);
                     });
                 }
             }
@@ -358,7 +355,7 @@
             if (isModal && !that.live) {
                 that.hide(false, 'clear');
             }
-            that.setValue(null, true);
+            that.setVal(null, true);
         };
 
         /**
@@ -462,7 +459,7 @@
 
             posEvents = 'orientationchange resize';
 
-            that._markupReady();
+            that._markupReady($markup);
             
             event('onMarkupReady', [$markup]);
 
@@ -474,7 +471,7 @@
 
                 // Prevent scroll if not specified otherwise
                 if (s.scrollLock) {
-                    $markup.on('touchmove mousewheel DOMMouseScroll', function (ev) {
+                    $markup.on('touchmove mousewheel wheel', function (ev) {
                         if (scrollLock) {
                             ev.preventDefault();
                         }
@@ -502,7 +499,7 @@
                         onShow(prevFocus);
                     }).find('.dw').addClass('dw-' + doAnim);
                 }
-            } else if ($elm.is('div')) {
+            } else if ($elm.is('div') && !that._hasContent) {
                 $elm.html($markup);
             } else {
                 $markup.insertAfter($elm);
@@ -526,6 +523,10 @@
                         $(this).click();
                     }
                 });
+
+            $('input', $markup).on('selectstart mousedown', function (ev) {
+                ev.stopPropagation();
+            });
 
             setTimeout(function () {
                 // Init buttons
@@ -611,7 +612,7 @@
 
         // Protected functions to override
 
-        that.setValue = empty;
+        that.setVal = empty;
 
         that._generateContent = empty;
 
@@ -625,7 +626,15 @@
 
         that._processSettings = empty;
 
-        // Generic widget functions
+        that._presetLoad = function (s) {
+            // Add default buttons
+            s.buttons = s.buttons || (s.display !== 'inline' ? ['set', 'cancel'] : []);
+
+            // Hide header text in inline mode by default
+            s.headerText = s.headerText === undefined ? (s.display !== 'inline' ? '{value}' : false) : s.headerText;
+        };
+
+        // Generic frame functions
 
         /**
         * Attach tap event to the given element.
@@ -678,19 +687,6 @@
         };
 
         /**
-        * Sets one ore more options.
-        */
-        that.option = function (opt, value) {
-            var obj = {};
-            if (typeof opt === 'object') {
-                obj = opt;
-            } else {
-                obj[opt] = value;
-            }
-            that.init(obj);
-        };
-
-        /**
         * Destroys the mobiscroll instance.
         */
         that.destroy = function () {
@@ -699,70 +695,18 @@
 
             // Remove all events from elements
             $.each(elmList, function (i, v) {
-                v.off('.dw');
+                v.el.off('.dw').prop('readonly', v.readOnly);
             });
 
-            // Reset original readonly state
-            if (that._isInput && setReadOnly) {
-                el.readOnly = wasReadOnly;
-            }
-
-            event('onDestroy', []);
-
-            // Delete scroller instance
-            delete instances[el.id];
-
-            that = null;
+            that._destroy();
         };
-
-        /**
-        * Returns the mobiscroll instance.
-        */
-        that.getInst = function () {
-            return that;
-        };
-
-        /**
-        * Triggers a mobiscroll event.
-        */
-        that.trigger = event;
 
         /**
         * Scroller initialization.
         */
         that.init = function (ss) {
-            that.settings = s = {};
 
-            // Update original user settings
-            extend(settings, ss);
-            extend(s, ms.defaults, that._defaults, userdef, settings);
-
-            // Get theme defaults
-            theme = ms.themes[s.theme] || ms.themes.mobiscroll;
-
-            // Get language defaults
-            lang = ms.i18n[s.lang];
-
-            event('onThemeLoad', [lang, settings]);
-
-            extend(s, theme, lang, userdef, settings);
-            
-            preset = ms.presets[that._class][s.preset];
-
-            // Add default buttons
-            s.buttons = s.buttons || (s.display !== 'inline' ? ['set', 'cancel'] : []);
-
-            // Hide header text in inline mode by default
-            s.headerText = s.headerText === undefined ? (s.display !== 'inline' ? '{value}' : false) : s.headerText;
-
-            if (preset) {
-                preset = preset.call(el, that);
-                extend(s, preset, settings); // Load preset settings
-            }
-
-            if (!ms.themes[s.theme]) {
-                s.theme = 'mobiscroll';
-            }
+            that._init(ss);
 
             that._isLiquid = (s.layout || (/top|bottom/.test(s.display) ? 'liquid' : '')) === 'liquid';
 
@@ -772,7 +716,7 @@
             $elm.off('.dw');
 
             doAnim = isOldAndroid ? false : s.animate;
-            buttons = s.buttons;
+            buttons = s.buttons || [];
             isModal = s.display !== 'inline';
             setReadOnly = s.showOnFocus || s.showOnTap;
             $wnd = $(s.context == 'body' ? window : s.context);
@@ -784,7 +728,7 @@
 
             // If no set button is found, live mode is activated
             $.each(buttons, function (i, b) {
-                if (b === 'set' || b.handler === 'set') {
+                if (b == 'ok' || b == 'set' || b.handler == 'set') {
                     that.live = false;
                     return false;
                 }
@@ -802,30 +746,23 @@
                 that.hide(true, false, true);
             }
 
+            event('onInit', []);
+
             if (isModal) {
                 that._readValue();
-                if (that._isInput && setReadOnly) {
-                    // Set element readonly, save original state
-                    if (wasReadOnly === undefined) {
-                        wasReadOnly = el.readOnly;
-                    }
-                    el.readOnly = true;
+                if (!that._hasContent) {
+                    that.attachShow($elm);
                 }
-                that.attachShow($elm);
             } else {
                 that.show();
             }
 
-            //if (that._isInput) {
             $elm.on('change.dw', function () {
                 if (!that._preventChange) {
                     that.setVal($elm.val(), true, false);
                 }
                 that._preventChange = false;
             });
-            //}
-
-            event('onInit', []);
         };
 
         that.buttons = {};
@@ -841,13 +778,16 @@
         that._isVisible = false;
 
         // Constructor
+
+        s = that.settings;
+        event = that.trigger;
+
         if (!inherit) {
-            instances[el.id] = that;
             that.init(settings);
         }
     };
 
-    ms.classes.Widget.prototype._defaults = {
+    ms.classes.Frame.prototype._defaults = {
         // Localization
         lang: 'en',
         setText: 'Set',
@@ -858,17 +798,17 @@
         // Options
         disabled: false,
         closeOnOverlay: true,
-        showOnFocus: true,
+        showOnFocus: false,
         showOnTap: true,
         display: 'modal',
         scrollLock: true,
         tap: true,
         btnClass: 'dwb',
         btnWidth: true,
-        focusOnClose: false // Temporary for iOS8
+        focusOnClose: !isIOS8 // Temporary for iOS8
     };
 
-    ms.themes.mobiscroll = {
+    ms.themes.frame.mobiscroll = {
         rows: 5,
         showLabel: false,
         headerText: false,

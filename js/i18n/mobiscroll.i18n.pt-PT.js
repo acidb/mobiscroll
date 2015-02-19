@@ -28,6 +28,7 @@
         pmText: 'da tarde',
         amText: 'da manhã',
         // Calendar component
+        firstDay: 1,
         dateText: 'Data',
         timeText: 'Tempo',
         calendarText: 'Calend&aacute;rio',

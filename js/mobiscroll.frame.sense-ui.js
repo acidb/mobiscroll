@@ -1,10 +1,6 @@
 (function ($) {
 
-    $.mobiscroll.themes.android = {
-        dateOrder: 'Mddyy',
-        mode: 'clickpick',
-        height: 50,
-        showLabel: false,
+    $.mobiscroll.themes.frame['sense-ui'] = {
         btnStartClass: 'mbsc-ic mbsc-ic-play3',
         btnStopClass: 'mbsc-ic mbsc-ic-pause2',
         btnResetClass: 'mbsc-ic mbsc-ic-stop2',
@@ -12,4 +8,3 @@
     };
 
 })(jQuery);
-

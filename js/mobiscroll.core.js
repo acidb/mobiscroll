@@ -1,5 +1,5 @@
 /*!
- * Mobiscroll v2.14.4
+ * Mobiscroll v2.15.0
  * http://mobiscroll.com
  *
  * Copyright 2010-2014, Acid Media
@@ -36,9 +36,6 @@
         // Init
         if (typeof options === 'object') {
             return that.each(function () {
-                if (!this.id) {
-                    this.id = 'mobiscroll' + (++id);
-                }
                 if (instances[this.id]) {
                     instances[this.id].destroy();
                 }
@@ -80,7 +77,7 @@
     };
 
     $.mobiscroll = $.mobiscroll || {
-        version: '2.14.4',
+        version: '2.15.0',
         util: {
             prefix: prefix,
             jsPrefix: pr,
@@ -149,14 +146,23 @@
             },
             constrain: function (val, min, max) {
                 return Math.max(min, Math.min(val, max));
+            },
+            vibrate: function (time) {
+                if ('vibrate' in navigator) {
+                    navigator.vibrate(time || 50);
+                }
             }
         },
         tapped: false,
+        autoTheme: 'mobiscroll',
         presets: {
             scroller: {},
-            numpad: {}
+            numpad: {},
+            listview: {},
+            menustrip: {}
         },
         themes: {
+            frame: {},
             listview: {},
             menustrip: {}
         },
@@ -165,18 +171,145 @@
         classes: {},
         components: {},
         defaults: {
-            theme: 'mobiscroll',
-            context: 'body'
+            context: 'body',
+            mousewheel: true,
+            vibrate: true
         },
-        userdef: {},
         setDefaults: function (o) {
-            extend(this.userdef, o);
+            extend(this.defaults, o);
         },
         presetShort: function (name, c, p) {
             this.components[name] = function (s) {
                 return init(this, extend(s, { component: c, preset: p === false ? undefined : name }), arguments);
             };
         }
+    };
+
+    $.mobiscroll.classes.Base = function (el, settings) {
+
+        var lang,
+            preset,
+            s,
+            theme,
+            themeName,
+            defaults,
+            ms = $.mobiscroll,
+            that = this;
+
+        that.settings = {};
+
+        that._presetLoad = function () {};
+
+        that._init = function (ss) {
+            s = that.settings;
+
+            // Update original user settings
+            extend(settings, ss);
+
+            // Load user defaults
+            if (that._hasDef) {
+                defaults = ms.defaults;
+            }
+
+            // Create settings object
+            extend(s, that._defaults, defaults, settings);
+
+            // Get theme defaults
+            if (that._hasTheme) {
+
+                themeName = s.theme;
+
+                if (themeName == 'auto' || !themeName) {
+                    themeName = ms.autoTheme;
+                }
+
+                if (themeName == 'default') {
+                    themeName = 'mobiscroll';
+                }
+
+                settings.theme = themeName;
+
+                theme = ms.themes[that._class][themeName];
+            }
+
+            // Get language defaults
+            if (that._hasLang) {
+                lang = ms.i18n[s.lang];
+            }
+
+            if (that._hasTheme) {
+                that.trigger('onThemeLoad', [lang, settings]);
+            }
+
+            // Update settings object
+            extend(s, theme, lang, defaults, settings);
+
+            // Load preset settings
+            if (that._hasPreset) {
+
+                that._presetLoad(s);
+
+                preset = ms.presets[that._class][s.preset];
+
+                if (preset) {
+                    preset = preset.call(el, that);
+                    extend(s, preset, settings);
+                }
+            }
+        };
+
+        that._destroy = function () {
+            that.trigger('onDestroy', []);
+
+            // Delete scroller instance
+            delete instances[el.id];
+
+            that = null;
+        };
+
+        /**
+         * Triggers an event
+         */
+        that.trigger = function (name, args) {
+            var ret;
+            args.push(that);
+            $.each([defaults, theme, preset, settings], function (i, v) {
+                if (v && v[name]) { // Call preset event
+                    ret = v[name].apply(el, args);
+                }
+            });
+            return ret;
+        };
+
+        /**
+         * Sets one ore more options.
+         */
+        that.option = function (opt, value) {
+            var obj = {};
+            if (typeof opt === 'object') {
+                obj = opt;
+            } else {
+                obj[opt] = value;
+            }
+            that.init(obj);
+        };
+
+        /**
+         * Returns the mobiscroll instance.
+         */
+        that.getInst = function () {
+            return that;
+        };
+
+        settings = settings || {};
+
+        // Autogenerate id
+        if (!el.id) {
+            el.id = 'mobiscroll' + (++id);
+        }
+
+        // Save instance
+        instances[el.id] = that;
     };
 
 })(jQuery);

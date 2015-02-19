@@ -26,6 +26,7 @@
         amText: 'До полудня',
         pmText: 'После полудня',
         // Calendar component
+        firstDay: 1,
         dateText: 'Дата',
         timeText: 'Время',
         calendarText: 'Календарь',

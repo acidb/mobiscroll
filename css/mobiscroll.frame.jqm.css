@@ -45,7 +45,6 @@
 .mbsc-jqm.dw-top .dwwr,
 .mbsc-jqm.dw-bottom .dwwr {
     padding: 0;
-    -webkit-border-radius: 0;
     border-radius: 0;
 }
 .mbsc-jqm.dw-top .dw {

@@ -78,7 +78,8 @@
                 wheels = [],
                 ord = [],
                 o = {},
-                f = { y: getYear, m: getMonth, d: getDay, h: getHour, i: getMinute, s: getSecond, a: getAmPm },
+                innerValues = {},
+                f = { y: getYear, m: getMonth, d: getDay, h: getHour, i: getMinute, s: getSecond, u: getMillisecond, a: getAmPm },
                 invalid = s.invalid,
                 valid = s.valid,
                 p = s.preset,
@@ -217,6 +218,9 @@
                 if (o[i] !== undefined) {
                     return +d[o[i]];
                 }
+                if (innerValues[i] !== undefined) {
+                    return innerValues[i];
+                }
                 if (def !== undefined) {
                     return def;
                 }
@@ -238,7 +242,7 @@
             function getYear(d) {
                 return s.getYear(d);
             }
-			
+
             function getMonth(d) {
                 return s.getMonth(d);
             }
@@ -261,6 +265,10 @@
                 return step(d.getSeconds(), stepS, minS, maxS);
             }
 
+            function getMillisecond(d) {
+                return d.getMilliseconds();
+            }
+
             function getAmPm(d) {
                 return ampm && d.getHours() > 11 ? 1 : 0;
             }
@@ -269,8 +277,13 @@
                 if (d === null) {
                     return d;
                 }
-                var hour = get(d, 'h', 0);
-                return s.getDate(get(d, 'y'), get(d, 'm'), get(d, 'd', 1), get(d, 'a', 0) ? hour + 12 : hour, get(d, 'i', 0), get(d, 's', 0));
+
+                var year = get(d, 'y'),
+                    month = get(d, 'm'),
+                    day = Math.min(get(d, 'd', 1), s.getMaxDayOfMonth(year, month)),
+                    hour = get(d, 'h', 0);
+
+                return s.getDate(year, month, day, get(d, 'a', 0) ? hour + 12 : hour, get(d, 'i', 0), get(d, 's', 0), get(d, 'u', 0));
             }
 
             function getMax(step, min, max) {
@@ -328,7 +341,7 @@
                     return prev;
                 }
 
-                return down < up && prevValid ? prev : next;
+                return down <= up && prevValid ? prev : next;
             }
 
             function isValid(d) {
@@ -568,17 +581,21 @@
                 return getIndex(t, v) + add;
             }
 
-            function getArray(d) {
-                var i,
-                    ret = [];
+            function getArray(d, fillInner) {
+                var ret = [];
 
                 if (d === null || d === undefined) {
                     return d;
                 }
 
-                for (i in o) {
-                    ret[o[i]] = f[i](d);
-                }
+                $.each(['y', 'm', 'd', 'a', 'h', 'i', 's', 'u'], function (x, i) {
+                    if (o[i] !== undefined) {
+                        ret[o[i]] = f[i](d);
+                    }
+                    if (fillInner) {
+                        innerValues[i] = f[i](d);
+                    }
+                });
 
                 return ret;
             }
@@ -662,11 +679,14 @@
                 headerText: s.headerText ? function () {
                     return datetime.formatDate(hformat, getDate(inst.getArrayVal(true)), s);
                 } : false,
-                formatResult: function (d) {
+                formatValue: function (d) {
                     return datetime.formatDate(format, getDate(d), s);
                 },
                 parseValue: function (val) {
-                    return getArray(val ? datetime.parseDate(format, val, s) : (s.defaultValue || new Date()));
+                    if (!val) {
+                        innerValues = {};
+                    }
+                    return getArray(val ? datetime.parseDate(format, val, s) : (s.defaultValue || new Date()), !!val && !!val.getTime);
                 },
                 validate: function (dw, i, time, dir) {
                     var validated = getClosestValidDate(getDate(inst.getArrayVal(true)), dir),
