@@ -122,6 +122,7 @@
     color: #fff;
     border: 0;
     padding-left: 1.538em;
+    background: none;
 }
 .mbsc-wp .dwwms .dw-li:after {
     content: '';
