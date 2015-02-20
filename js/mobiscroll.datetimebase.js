@@ -13,6 +13,7 @@
             timeWheels: 'hhiiA',
             timeFormat: 'hh:ii A',
             dayText: 'Day',
+            monthText: 'Month',
             yearText: 'Year',
             hourText: 'Hours',
             minuteText: 'Minutes',

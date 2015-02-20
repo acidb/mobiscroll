@@ -9,7 +9,6 @@
             dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
             dayNamesShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
             dayNamesMin: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
-            monthText: 'Month',
             amText: 'am',
             pmText: 'pm',
             getYear: function (d) { return d.getFullYear(); },
