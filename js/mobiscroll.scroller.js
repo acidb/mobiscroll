@@ -17,6 +17,7 @@
         var $markup,
             //btn,
             //isScrollable,
+            batchSize = 10,
             itemHeight,
             //multiple,
             s,
@@ -254,14 +255,22 @@
             //return html;
 
             var i,
+                key,
+                value,
                 html = '',
                 labels = wheel.labels || [],
                 values = wheel.values,
-                keys = wheel.keys;
+                keys = wheel.keys,
+                isArray = $.isArray(values),
+                length = values.length;
 
             //$.each(values, function (j, v) {
-            for (i = start; i < end; i++) {
-                html += '<div role="option" aria-selected="false" class="mbsc-btn mbsc-sc-itm" data-val="' + keys[i] + '"' + (labels[i] ? ' aria-label="' + labels[i] + '"' : '') + ' style="height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;">' + values[i] + '</div>';
+            for (i = start; i <= end; i++) {
+
+                value = (isArray ? $(values).get(i % length) : values(i));
+                key = (isArray ? $(keys).get(i % length) : keys(i));
+
+                html += '<div data-index="' + i + '" role="option" aria-selected="false" class="mbsc-btn mbsc-sc-itm" data-val="' + key + '"' + (labels[i] ? ' aria-label="' + labels[i] + '"' : '') + ' style="-webkit-transform: rotateX(' + (i * 18) + 'deg) translateZ(100px);height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;">' + value + '</div>';
             }
 
             return html;
@@ -443,6 +452,34 @@
         //    calc(t, index, val < min ? max : val, 2, 0.1);
         //}
 
+        function infinite(wheel, pos) {
+            var diff = Math.round((wheel.position - pos) / itemHeight),
+                first = wheel.first,
+                last = wheel.last;
+
+            if (diff) {
+                wheel.first += diff;
+                wheel.last += diff;
+
+                wheel.position = pos;
+
+                // Generate items
+                setTimeout(function () {
+                    if (diff > 0) {
+                        wheel.$markup.append(generateWheelItems(wheel, last + 1, last + diff));
+                        $('.mbsc-sc-itm', wheel.$markup).slice(0, diff).remove();
+                    } else if (diff < 0) {
+                        wheel.$markup.prepend(generateWheelItems(wheel, first + diff, first - 1));
+                        $('.mbsc-sc-itm', wheel.$markup).slice(diff).remove();
+                    }
+
+                    wheel.margin += diff * itemHeight;
+                    //wheel.$markup.css('margin-top', wheel.margin + 'px');
+
+                }, 10);
+            }
+        }
+
         function setValue(fill, change, time, noscroll, temp) {
             if (that._isVisible && !noscroll) {
                 //scrollToPos(time);
@@ -530,31 +567,31 @@
         * @param {Number} [time=0] Animation time when scrolling to the selected value on the new wheel.
         * @param {Boolean} [manual=false] Indicates that the change was triggered by the user or from code.
         */
-        that.changeWheel = function (idx, time, manual) {
-            if ($markup) {
-                var i = 0,
-                    nr = idx.length;
+        //that.changeWheel = function (idx, time, manual) {
+        //    if ($markup) {
+        //        var i = 0,
+        //            nr = idx.length;
 
-                $.each(s.wheels, function (j, wg) {
-                    $.each(wg, function (k, w) {
-                        if ($.inArray(i, idx) > -1) {
-                            wheels[i] = w;
-                            $('.dw-ul', $markup).eq(i).html(generateWheelItems(i));
-                            nr--;
-                            if (!nr) {
-                                that.position();
-                                //scrollToPos(time, undefined, manual);
-                                return false;
-                            }
-                        }
-                        i++;
-                    });
-                    if (!nr) {
-                        return false;
-                    }
-                });
-            }
-        };
+        //        $.each(s.wheels, function (j, wg) {
+        //            $.each(wg, function (k, w) {
+        //                if ($.inArray(i, idx) > -1) {
+        //                    wheels[i] = w;
+        //                    $('.dw-ul', $markup).eq(i).html(generateWheelItems(i));
+        //                    nr--;
+        //                    if (!nr) {
+        //                        that.position();
+        //                        scrollToPos(time, undefined, manual);
+        //                        return false;
+        //                    }
+        //                }
+        //                i++;
+        //            });
+        //            if (!nr) {
+        //                return false;
+        //            }
+        //        });
+        //    }
+        //};
 
         /**
         * Returns the closest valid cell.
@@ -610,10 +647,15 @@
                     w.values = w.values || [];
                     w.keys = w.keys || w.values;
                     w.map = {};
+                    w.position = 0;
+                    w.margin = 0;//-batchSize * itemHeight;
 
                     $.each(w.keys, function (i, v) {
                         w.map[v] = i;
                     });
+
+                    w.first = w.map[that._tempWheelArray[l]] - batchSize;
+                    w.last = w.map[that._tempWheelArray[l]] + batchSize;
 
                     wheels[l] = w;
 
@@ -632,10 +674,10 @@
                                     //'<div class="dww" style="height:' + (s.rows * itemHeight) + 'px;">' +
                                         //'<div class="dw-ul" style="margin-top:' + (w.multiple ? (s.mode == 'scroller' ? 0 : itemHeight) : s.rows / 2 * itemHeight - itemHeight / 2) + 'px;">';
                                         '<div class="mbsc-sc-whl-c" style="height:' + itemHeight + 'px;margin-top:-' + (itemHeight / 2) + 'px;">' +
-                                        '<div class="mbsc-sc-whl-sc">';
+                                        '<div class="mbsc-sc-whl-sc" style="margin-top:' + w.margin + 'px;">';
 
                     // Create wheel values
-                    html += generateWheelItems(w, w.map[that._tempWheelArray[l]] - 20, w.map[that._tempWheelArray[l]] + 20) +
+                    html += generateWheelItems(w, w.first, w.last) +
                         '</div></div>' +
                         //'</div></div><div class="dwwo"></div></div><div class="dwwol"' +
                         //(s.selectedLineHeight ? ' style="height:' + itemHeight + 'px;margin-top:-' + (itemHeight / 2 + (s.selectedLineBorder || 0)) + 'px;"' : '') + '></div></div>' +
@@ -652,9 +694,21 @@
 
         that._attachEvents = function ($markup) {
 
-            $('.mbsc-sc-whl-c', $markup).mobiscroll().scrollview({
-                mousewheel: s.mousewheel,
-                snap: itemHeight
+            $('.mbsc-sc-whl-c', $markup).each(function (i) {
+                var wheel = wheels[i];
+
+                wheel.$markup = $('.mbsc-sc-whl-sc', this);
+
+                $(this).mobiscroll().scrollview({
+                    mousewheel: s.mousewheel,
+                    snap: itemHeight,
+                    minScroll: -Infinity,
+                    maxScroll: Infinity,
+                    maxSnapScroll: batchSize,
+                    onMoveEnd: function (pos) {
+                        infinite(wheel, pos);
+                    }
+                });
             });
 
             //$markup
