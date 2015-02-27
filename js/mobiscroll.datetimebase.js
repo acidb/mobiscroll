@@ -141,7 +141,8 @@
                         for (i = 0; i < 12; i++) {
                             var str = dord.replace(/[dy]/gi, '').replace(/mm/, (i < 9 ? '0' + (i + 1) : i + 1) + (s.monthSuffix || '')).replace(/m/, i + 1 + (s.monthSuffix || ''));
                             keys.push(i);
-                            values.push(str.match(/MM/) ? str.replace(/MM/, '<span class="dw-mon">' + s.monthNames[i] + '</span>') : str.replace(/M/, '<span class="dw-mon">' + s.monthNamesShort[i] + '</span>'));
+                            //values.push(str.match(/MM/) ? str.replace(/MM/, '<div class="dw-mon">' + s.monthNames[i] + '</div>') : str.replace(/M/, '<div class="dw-mon">' + s.monthNamesShort[i] + '</div>'));
+                            values.push(str.match(/MM/) ? str.replace(/MM/, s.monthNames[i]) : str.replace(/M/, s.monthNamesShort[i]));
                         }
                         addWheel(wg, keys, values, s.monthText);
                     } else if (k == o.d) {

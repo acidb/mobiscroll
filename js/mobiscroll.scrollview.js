@@ -131,7 +131,7 @@
                     isBtn = false;
                 }
 
-                if (!nativeScroll && Math.abs(diff) > 5) {
+                if (that.scrolled || (!nativeScroll && Math.abs(diff) > 5)) {
                     that.scrolled = true;
 
                     if (s.liveSwipe && !rafRunning) {
@@ -170,6 +170,8 @@
             //    lastX = endX;
             //}
 
+            trigger('onMove', [currPos]);
+
             rafRunning = false;
         }
         
@@ -192,7 +194,7 @@
                         diff = Math.max(Math.abs(diff), (speed * speed) / s.speedUnit) * (diff < 0 ? -1 : 1);
                     }
 
-                    finalize(diff);
+                    finalize(diff, speed);
                 }
 
                 if (isBtn) {
@@ -245,8 +247,9 @@
             }
         }
 
-        function finalize(diff) {
+        function finalize(diff, speed) {
             var i,
+                time,
                 newPos;
 
             // Limit scroll to snap size
@@ -282,10 +285,11 @@
                 newPos = constrain(newPos, minScroll, maxScroll);
             }
 
-            trigger('onMoveEnd', [newPos]);
+            time = s.time || (currPos < minScroll || currPos > maxScroll ? 200 : Math.max(200, Math.abs(newPos - currPos) * s.timeUnit));
 
             // Scroll to the calculated position
-            scroll(newPos, s.time || (currPos < minScroll || currPos > maxScroll ? 200 : Math.max(200, Math.abs(newPos - currPos) * s.timeUnit)), function () {
+            scroll(newPos, time, function () {
+            //scroll(newPos, s.time || (currPos < minScroll || currPos > maxScroll ? 200 : speed ? Math.max(200, Math.abs((newPos - currPos) / speed) * 3) : 100), function () {
                 trigger('onScrollEnd', [currPos]);
             });
         }
@@ -302,12 +306,11 @@
 
             if (has3d) {
                 style[pr + 'Transition'] = time ? pref + 'transform ' + Math.round(time) + 'ms ' + s.easing : '';
-                //style[pr + 'Transform'] = 'translate3d(' + (vertical ? '0,' + pos + 'px,' : pos + 'px,' + '0,') + '0)';
-                style[pr + 'Transform'] = 'rotateX(' + (-pos) + 'deg)';
+                style[pr + 'Transform'] = 'translate3d(' + (vertical ? '0,' + pos + 'px,' : pos + 'px,' + '0,') + '0)';
 
                 if (currPos == pos || !time) {
                     done();
-                } else if (time) {
+                } else if (time > 1) {
                     target.on(transEnd, function (e) {
                         if (e.target === target[0]) {
                             target.off(transEnd);
@@ -320,6 +323,8 @@
                 setTimeout(done, time || 0);
                 style[dir] = pos + 'px';
             }
+
+            trigger('onScroll', [pos, time, s.easing]);
 
             currPos = pos;
         }
@@ -448,9 +453,9 @@
         _class: 'scrollview',
         _defaults: {
             speedUnit: 0.0022,
-            timeUnit: 0.8,
+            timeUnit: 3,
             axis: 'Y',
-            easing: 'ease-out',
+            easing: 'cubic-bezier(0.190, 1.000, 0.220, 1.000)',
             swipe: true,
             liveSwipe: true,
             momentum: true,

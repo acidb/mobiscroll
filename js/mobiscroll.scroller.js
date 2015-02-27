@@ -17,7 +17,7 @@
         var $markup,
             //btn,
             //isScrollable,
-            batchSize = 10,
+            batchSize = 20,
             itemHeight,
             //multiple,
             s,
@@ -264,13 +264,29 @@
                 isArray = $.isArray(values),
                 length = values.length;
 
-            //$.each(values, function (j, v) {
             for (i = start; i <= end; i++) {
 
                 value = (isArray ? $(values).get(i % length) : values(i));
                 key = (isArray ? $(keys).get(i % length) : keys(i));
 
-                html += '<div data-index="' + i + '" role="option" aria-selected="false" class="mbsc-btn mbsc-sc-itm" data-val="' + key + '"' + (labels[i] ? ' aria-label="' + labels[i] + '"' : '') + ' style="-webkit-transform: rotateX(' + (i * 18) + 'deg) translateZ(100px);height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;">' + value + '</div>';
+                html += '<div data-index="' + i + '" role="option" aria-selected="false" class="mbsc-btn mbsc-sc-itm" data-val="' + key + '"' + (labels[i] ? ' aria-label="' + labels[i] + '"' : '') + ' style="height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;">' + value + '</div>';
+            }
+
+            return html;
+        }
+
+        function generate3dItems(wheel, start, end) {
+            var i,
+                value,
+                html = '',
+                values = wheel.values,
+                isArray = $.isArray(values),
+                length = values.length;
+
+            for (i = start; i <= end; i++) {
+                value = (isArray ? $(values).get(i % length) : values(i));
+
+                html += '<div data-index="' + i + '" class="mbsc-btn mbsc-sc-itm-3d" style="-webkit-transform:rotateX(' + ((wheel.first + batchSize + wheel.position - i) * 22.5 % 360) + 'deg) translateZ(100px);height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;">' + value + '</div>';
             }
 
             return html;
@@ -453,28 +469,36 @@
         //}
 
         function infinite(wheel, pos) {
-            var diff = Math.round((wheel.position - pos) / itemHeight),
+            var index = Math.round(pos / itemHeight),
+                diff = wheel.position - index,
                 first = wheel.first,
                 last = wheel.last;
 
             if (diff) {
+
                 wheel.first += diff;
                 wheel.last += diff;
 
-                wheel.position = pos;
+                wheel.position = index;
 
                 // Generate items
                 setTimeout(function () {
                     if (diff > 0) {
                         wheel.$markup.append(generateWheelItems(wheel, last + 1, last + diff));
                         $('.mbsc-sc-itm', wheel.$markup).slice(0, diff).remove();
+
+                        wheel.$3d.append(generate3dItems(wheel, last - batchSize + 8 + 1, last - batchSize + 8 + diff));
+                        $('.mbsc-sc-itm-3d', wheel.$3d).slice(0, diff).remove();
                     } else if (diff < 0) {
                         wheel.$markup.prepend(generateWheelItems(wheel, first + diff, first - 1));
                         $('.mbsc-sc-itm', wheel.$markup).slice(diff).remove();
+
+                        wheel.$3d.prepend(generate3dItems(wheel, first + batchSize - 8 + 1 + diff, first + batchSize - 8));
+                        $('.mbsc-sc-itm-3d', wheel.$3d).slice(diff).remove();
                     }
 
                     wheel.margin += diff * itemHeight;
-                    //wheel.$markup.css('margin-top', wheel.margin + 'px');
+                    wheel.$markup.css('margin-top', wheel.margin + 'px');
 
                 }, 10);
             }
@@ -648,7 +672,8 @@
                     w.keys = w.keys || w.values;
                     w.map = {};
                     w.position = 0;
-                    w.margin = 0;//-batchSize * itemHeight;
+                    w.deg = 0;
+                    w.margin = -batchSize * itemHeight;
 
                     $.each(w.keys, function (i, v) {
                         w.map[v] = i;
@@ -673,12 +698,17 @@
                                 //'<div tabindex="0" aria-live="off" aria-label="' + lbl + '" role="listbox" class="dwww">' +
                                     //'<div class="dww" style="height:' + (s.rows * itemHeight) + 'px;">' +
                                         //'<div class="dw-ul" style="margin-top:' + (w.multiple ? (s.mode == 'scroller' ? 0 : itemHeight) : s.rows / 2 * itemHeight - itemHeight / 2) + 'px;">';
-                                        '<div class="mbsc-sc-whl-c" style="height:' + itemHeight + 'px;margin-top:-' + (itemHeight / 2) + 'px;">' +
-                                        '<div class="mbsc-sc-whl-sc" style="margin-top:' + w.margin + 'px;">';
+                                        '<div class="mbsc-sc-whl-c" style="height:' + itemHeight + 'px;margin-top:-' + (itemHeight / 2 + (s.selectedLineBorder || 0)) + 'px;">' +
+                                            '<div class="mbsc-sc-whl-sc" style="margin-top:' + w.margin + 'px;">';
 
                     // Create wheel values
                     html += generateWheelItems(w, w.first, w.last) +
                         '</div></div>' +
+                        '<div class="mbsc-sc-whl-3d" style="height:' + itemHeight + 'px;margin-top:-' + (itemHeight / 2) + 'px;">';
+
+                    html += generate3dItems(w, w.first + batchSize - 7, w.first + batchSize + 8);
+
+                    html += '</div>' +
                         //'</div></div><div class="dwwo"></div></div><div class="dwwol"' +
                         //(s.selectedLineHeight ? ' style="height:' + itemHeight + 'px;margin-top:-' + (itemHeight / 2 + (s.selectedLineBorder || 0)) + 'px;"' : '') + '></div></div>' +
                         (hasFlex ? '</div>' : '</td>');
@@ -694,18 +724,25 @@
 
         that._attachEvents = function ($markup) {
 
-            $('.mbsc-sc-whl-c', $markup).each(function (i) {
+            $('.mbsc-sc-whl', $markup).each(function (i) {
                 var wheel = wheels[i];
 
                 wheel.$markup = $('.mbsc-sc-whl-sc', this);
+                wheel.$3d = $('.mbsc-sc-whl-3d', this);
 
                 $(this).mobiscroll().scrollview({
                     mousewheel: s.mousewheel,
+                    moveElement: wheel.$markup,
+                    contSize: 0,
                     snap: itemHeight,
                     minScroll: -Infinity,
                     maxScroll: Infinity,
                     maxSnapScroll: batchSize,
-                    onMoveEnd: function (pos) {
+                    onScroll: function (pos, time, easing) {
+                        wheel.deg = -pos * 22.5 / itemHeight;
+                        wheel.$3d[0].style.webkitTransition = time ? '-webkit-transform ' + Math.round(time) + 'ms ' + easing : '';
+                        wheel.$3d[0].style.webkitTransform = 'rotateX(' + (-pos * 22.5 / itemHeight) + 'deg)';
+
                         infinite(wheel, pos);
                     }
                 });
