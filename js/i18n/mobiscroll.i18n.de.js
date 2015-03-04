@@ -46,6 +46,9 @@
         stopText: 'Stoppen',
         resetText: 'Zurücksetzen',
         lapText: 'Lap',
-        hideText: 'Ausblenden'
+        hideText: 'Ausblenden',
+        // Listview
+        backText: 'Zurück',
+        undoText: 'Rückgängig'
     });
 })(jQuery);

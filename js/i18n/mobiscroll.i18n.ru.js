@@ -50,6 +50,9 @@
         stopText:       'Стоп',
         resetText:      'Сбросить',
         lapText:        'Круг',
-        hideText:       'Скрыть'
+        hideText:       'Скрыть',
+        // Listview
+        backText: 'назад',
+        undoText: 'аннулировать'
     });
 })(jQuery);

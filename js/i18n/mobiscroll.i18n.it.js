@@ -45,6 +45,9 @@
         stopText: 'Arresto',
         resetText: 'Ripristina',
         lapText: 'Lap',
-        hideText: 'Nascondi'
+        hideText: 'Nascondi',
+        // Listview
+        backText: 'Indietro',
+        undoText: 'Disfare'
     });
 })(jQuery);

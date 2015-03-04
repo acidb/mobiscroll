@@ -47,6 +47,9 @@
         stopText: '停止',
         resetText: 'リセット',
         lapText: 'ラップ',
-        hideText: '隠す'
+        hideText: '隠す',
+        // Listview
+        backText: 'バック',
+        undoText: 'アンドゥ'
     });
 })(jQuery);

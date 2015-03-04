@@ -45,6 +45,9 @@
         stopText: 'Stop',
         resetText: 'Resetovať',
         lapText: 'Etapa',
-        hideText: 'Schovať'
+        hideText: 'Schovať',
+        // Listview
+        backText: 'Späť',
+        undoText: 'Zrušiť'
     });
 })(jQuery);

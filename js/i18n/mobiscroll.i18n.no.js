@@ -46,6 +46,9 @@
         stopText: 'Stopp',
         resetText: 'Tilbakestille',
         lapText: 'Runde',
-        hideText: 'Skjul'
+        hideText: 'Skjul',
+        // Listview
+        backText: 'Tilbake',
+        undoText: 'Angre'
     });
 })(jQuery);

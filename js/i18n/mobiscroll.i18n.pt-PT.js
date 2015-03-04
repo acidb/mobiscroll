@@ -48,6 +48,9 @@
         stopText: 'Parar',
         resetText: 'Reinicializar',
         lapText: 'Lap',
-        hideText: 'Esconder'
+        hideText: 'Esconder',
+        // Listview
+        backText: 'De volta',
+        undoText: 'Desfazer'
     });
 })(jQuery);
