@@ -127,7 +127,7 @@
                 //return ev.changedTouches ? ev.changedTouches[0]['page' + c] : e['page' + c];
             },
             getPosition: function (t, vertical) {
-                var style = window.getComputedStyle ? getComputedStyle(t[0]) : t[0].style,
+                var style = getComputedStyle(t[0]),
                     matrix,
                     px;
 

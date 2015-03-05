@@ -67,8 +67,8 @@
                 keys,
                 values,
                 wg,
-                start,
-                end,
+                //start,
+                //end,
                 hasTime,
                 mins,
                 maxs,
@@ -125,15 +125,24 @@
                 for (k = 0; k < 3; k++) {
                     if (k == o.y) {
                         offset++;
-                        values = [];
-                        keys = [];
-                        start = s.getYear(mind);
-                        end = s.getYear(maxd);
-                        for (i = start; i <= end; i++) {
-                            keys.push(i);
-                            values.push((dord.match(/yy/i) ? i : (i + '').substr(2, 2)) + (s.yearSuffix || ''));
-                        }
-                        addWheel(wg, keys, values, s.yearText);
+                        //values = [];
+                        //keys = [];
+                        //start = s.getYear(mind);
+                        //end = s.getYear(maxd);
+                        //for (i = start; i <= end; i++) {
+                        //    keys.push(i);
+                        //    values.push((dord.match(/yy/i) ? i : (i + '').substr(2, 2)) + (s.yearSuffix || ''));
+                        //}
+                        //addWheel(wg, keys, values, s.yearText);
+                        addWheel(
+                            wg,
+                            s.yearText,
+                            function (i) { return i; },
+                            function (i) { return dord.match(/yy/i) ? i : (i + '').substr(2, 2); },
+                            function (v) { return v; },
+                            mind.getFullYear(),
+                            maxd.getFullYear()
+                        );
                     } else if (k == o.m) {
                         offset++;
                         values = [];
@@ -141,10 +150,10 @@
                         for (i = 0; i < 12; i++) {
                             var str = dord.replace(/[dy]/gi, '').replace(/mm/, (i < 9 ? '0' + (i + 1) : i + 1) + (s.monthSuffix || '')).replace(/m/, i + 1 + (s.monthSuffix || ''));
                             keys.push(i);
-                            //values.push(str.match(/MM/) ? str.replace(/MM/, '<div class="dw-mon">' + s.monthNames[i] + '</div>') : str.replace(/M/, '<div class="dw-mon">' + s.monthNamesShort[i] + '</div>'));
-                            values.push(str.match(/MM/) ? str.replace(/MM/, s.monthNames[i]) : str.replace(/M/, s.monthNamesShort[i]));
+                            values.push(str.match(/MM/) ? str.replace(/MM/, '<div class="dw-mon">' + s.monthNames[i] + '</div>') : str.replace(/M/, '<div class="dw-mon">' + s.monthNamesShort[i] + '</div>'));
+                            //values.push(str.match(/MM/) ? str.replace(/MM/, s.monthNames[i]) : str.replace(/M/, s.monthNamesShort[i]));
                         }
-                        addWheel(wg, keys, values, s.monthText);
+                        addWheel(wg, s.monthText, keys, values);
                     } else if (k == o.d) {
                         offset++;
                         values = [];
@@ -153,7 +162,7 @@
                             keys.push(i);
                             values.push((dord.match(/dd/i) && i < 10 ? '0' + i : i) + (s.daySuffix || ''));
                         }
-                        addWheel(wg, keys, values, s.dayText);
+                        addWheel(wg, s.dayText, keys, values);
                     }
                 }
                 wheels.push(wg);
@@ -187,7 +196,7 @@
                             keys.push(i);
                             values.push(hampm && i === 0 ? 12 : tord.match(/hh/i) && i < 10 ? '0' + i : i);
                         }
-                        addWheel(wg, keys, values, s.hourText);
+                        addWheel(wg, s.hourText, keys, values);
                     } else if (k == o.i) {
                         offset++;
                         values = [];
@@ -196,7 +205,7 @@
                             keys.push(i);
                             values.push(tord.match(/ii/) && i < 10 ? '0' + i : i);
                         }
-                        addWheel(wg, keys, values, s.minuteText);
+                        addWheel(wg, s.minuteText, keys, values);
                     } else if (k == o.s) {
                         offset++;
                         values = [];
@@ -205,11 +214,11 @@
                             keys.push(i);
                             values.push(tord.match(/ss/) && i < 10 ? '0' + i : i);
                         }
-                        addWheel(wg, keys, values, s.secText);
+                        addWheel(wg, s.secText, keys, values);
                     } else if (k == o.a) {
                         offset++;
                         var upper = tord.match(/A/);
-                        addWheel(wg, [0, 1], upper ? [s.amText.toUpperCase(), s.pmText.toUpperCase()] : [s.amText, s.pmText], s.ampmText);
+                        addWheel(wg, s.ampmText, [0, 1], upper ? [s.amText.toUpperCase(), s.pmText.toUpperCase()] : [s.amText, s.pmText]);
                     }
                 }
 
@@ -229,11 +238,14 @@
                 return f[i](defd);
             }
 
-            function addWheel(wg, k, v, lbl) {
+            function addWheel(wg, lbl, k, v, getIndex, min, max) {
                 wg.push({
                     values: v,
                     keys: k,
-                    label: lbl
+                    label: lbl,
+                    min: min,
+                    max: max,
+                    getIndex: getIndex
                 });
             }
 

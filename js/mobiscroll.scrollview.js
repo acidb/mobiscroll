@@ -21,6 +21,8 @@
         var $btn,
             btnTimer,
             contSize,
+            currPos,
+            currSnap,
             diffX,
             diffY,
             diff,
@@ -50,8 +52,6 @@
             trigger,
             vertical,
             that = this,
-            currPos = 0,
-            currSnap = 0,
             currSnapDir = 1,
             s = settings,
             $elm = $(el);
@@ -65,9 +65,11 @@
 
             if (testTouch(ev, this) && !move) {
                 // Better performance if there are tap events on document
-                //ev.stopPropagation();
+                if (s.stopProp) {
+                    ev.stopPropagation();
+                }
 
-                if (ev.type == 'mousedown') {
+                if (s.prevDef || ev.type == 'mousedown') {
                     // Prevent touch highlight and focus
                     ev.preventDefault();
                 }
@@ -78,13 +80,16 @@
 
                 // Highlight button
                 isBtn = false;
-                $btn = $(ev.target).closest('.mbsc-btn', this);
 
-                if ($btn.length && !$btn.hasClass('mbsc-btn-d')) {
-                    isBtn = true;
-                    btnTimer = setTimeout(function () {
-                        $btn.addClass('mbsc-btn-a');
-                    }, 100);
+                if (!moving) {
+                    $btn = $(ev.target).closest('.mbsc-btn', this);
+
+                    if ($btn.length && !$btn.hasClass('mbsc-btn-d')) {
+                        isBtn = true;
+                        btnTimer = setTimeout(function () {
+                            $btn.addClass('mbsc-btn-a');
+                        }, 100);
+                    }
                 }
 
                 move = true;
@@ -105,7 +110,7 @@
                 startPos = +getCurrentPosition(target, vertical) || 0;
 
                 // Stop scrolling animation, 1ms is needed for Android 4.0
-                scroll(startPos, 1);
+                scroll(startPos, 0);
 
                 if (ev.type === 'mousedown') {
                     $(document).on('mousemove', onMove).on('mouseup', onEnd);
@@ -117,7 +122,10 @@
 
         function onMove(ev) {
             if (move) {
-                //ev.stopPropagation();
+                
+                if (s.stopProp) {
+                    ev.stopPropagation();
+                }
 
                 endX = getCoord(ev, 'X');
                 endY = getCoord(ev, 'Y');
@@ -181,7 +189,9 @@
                     time = new Date() - startTime;
 
                 // Better performance if there are tap events on document
-                //ev.stopPropagation();
+                if (s.stopProp) {
+                    ev.stopPropagation();
+                }
 
                 rafc(rafID);
                 rafRunning = false;
@@ -386,6 +396,11 @@
             maxSnapScroll = s.snap ? s.maxSnapScroll : 0;
             elastic = s.elastic ? (isNumeric(s.snap) ? snap : (isNumeric(s.elastic) ? s.elastic : 0)) : 0;// && s.snap ? snap : 0;
 
+            if (currPos === undefined) {
+                currPos = s.initialPos;
+                currSnap = Math.round(currPos / snap);
+            }
+
             that.scroll(s.snap ? (snapPoints ? snapPoints[currSnap]['snap' + currSnapDir] : (currSnap * snap)) : currPos);
         };
         
@@ -400,30 +415,33 @@
             
             that.refresh();
 
-            if (s.swipe) {
-                $elm.on('touchstart mousedown', onStart)
-                    .on('touchmove', onMove)
-                    .on('touchend touchcancel', onEnd);
-            }
+            // Attach events with latency to prevent unwanted mouse events
+            setTimeout(function () {
+                if (s.swipe) {
+                    $elm.on('touchstart mousedown', onStart)
+                        .on('touchmove', onMove)
+                        .on('touchend touchcancel', onEnd);
+                }
 
-            if (s.mousewheel) {
-                $elm.on('wheel mousewheel', onScroll);
-            }
+                if (s.mousewheel) {
+                    $elm.on('wheel mousewheel', onScroll);
+                }
 
-            if (el.addEventListener) {
-                el.addEventListener('click', function (ev) {
-                    if (that.scrolled) {
-                        ev.stopPropagation();
-                        ev.preventDefault();
-                    }
-                }, true);
-            }
+                if (el.addEventListener) {
+                    el.addEventListener('click', function (ev) {
+                        if (that.scrolled) {
+                            ev.stopPropagation();
+                            ev.preventDefault();
+                        }
+                    }, true);
+                }
 
-            //el.addEventListener('touchend', function (ev) {
-            //    if (scrolled) {
-            //        ev.stopPropagation();
-            //    }
-            //}, true);
+                //el.addEventListener('touchend', function (ev) {
+                //    if (scrolled) {
+                //        ev.stopPropagation();
+                //    }
+                //}, true);
+            }, 300);
         };
 
         /**
@@ -454,6 +472,7 @@
         _defaults: {
             speedUnit: 0.0022,
             timeUnit: 3,
+            initialPos: 0,
             axis: 'Y',
             easing: 'cubic-bezier(0.190, 1.000, 0.220, 1.000)',
             swipe: true,

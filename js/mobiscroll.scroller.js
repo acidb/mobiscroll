@@ -4,11 +4,12 @@
         ms = $.mobiscroll,
         classes = ms.classes,
         util = ms.util,
-        //pr = util.jsPrefix,
+        pref = util.prefix,
+        pr = util.jsPrefix,
         //has3d = util.has3d,
         hasFlex = util.hasFlex;
         //getCoord = util.getCoord,
-        //constrain = util.constrain,
+        //constrain = util.constrain;
         //testTouch = util.testTouch;
 
     ms.presetShort('scroller', 'Scroller', false);
@@ -234,7 +235,14 @@
         //    return s.readonly;
         //}
 
-        function generateWheelItems(wheel, start, end) {
+        function getItem(wheel, values, i) {
+            if (i < wheel.min || i > wheel.max) {
+                return '';
+            }
+            return wheel._array ? (wheel.circular ? $(values).get(i % wheel._length) : values[i]) : values(i);
+        }
+
+        function generateItems(wheel, start, end) {
             //var html = '<div class="dw-bf">',
             //    w = wheels[i],
             //    l = 1,
@@ -260,16 +268,16 @@
                 html = '',
                 labels = wheel.labels || [],
                 values = wheel.values,
-                keys = wheel.keys,
-                isArray = $.isArray(values),
-                length = values.length;
+                keys = wheel.keys;
 
             for (i = start; i <= end; i++) {
 
-                value = (isArray ? $(values).get(i % length) : values(i));
-                key = (isArray ? $(keys).get(i % length) : keys(i));
+                value = getItem(wheel, values, i);
+                key = getItem(wheel, keys, i);
 
-                html += '<div data-index="' + i + '" role="option" aria-selected="false" class="mbsc-btn mbsc-sc-itm" data-val="' + key + '"' + (labels[i] ? ' aria-label="' + labels[i] + '"' : '') + ' style="height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;">' + value + '</div>';
+                //if (key !== undefined) {
+                html += '<div role="option" aria-selected="false" class="mbsc-btn mbsc-sc-itm" data-val="' + key + '"' + (labels[i] ? ' aria-label="' + labels[i] + '"' : '') + ' style="height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;">' + value + '</div>';
+                //}
             }
 
             return html;
@@ -279,14 +287,13 @@
             var i,
                 value,
                 html = '',
-                values = wheel.values,
-                isArray = $.isArray(values),
-                length = values.length;
+                values = wheel.values;
 
             for (i = start; i <= end; i++) {
-                value = (isArray ? $(values).get(i % length) : values(i));
-
-                html += '<div data-index="' + i + '" class="mbsc-btn mbsc-sc-itm-3d" style="-webkit-transform:rotateX(' + ((wheel.first + batchSize + wheel.position - i) * 22.5 % 360) + 'deg) translateZ(100px);height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;">' + value + '</div>';
+                value = getItem(wheel, values, i);
+                //html += '<div data-index="' + i + '" class="mbsc-btn mbsc-sc-itm-3d" style="-webkit-transform:rotateX(' + ((wheel.first + batchSize + wheel.position - i) * 22.5 % 360) + 'deg) translateZ(100px);height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;">' + value + '</div>';
+                //wheel._$3d.find('.mbsc-sc-itm-3d').eq((i - wheel._first - batchSize - wheel._index + 7) % 16).html(value);
+                wheel._$3d.find('.mbsc-sc-itm-3d').eq((i + 7 - wheel._offset) % 16).html(value);
             }
 
             return html;
@@ -469,36 +476,45 @@
         //}
 
         function infinite(wheel, pos) {
-            var index = Math.round(pos / itemHeight),
-                diff = wheel.position - index,
-                first = wheel.first,
-                last = wheel.last;
+            var index = Math.round(-pos / itemHeight),
+                diff = index - wheel._index,
+                first = wheel._first,
+                last = wheel._last;
+
+            //wheel._first = Math.max(wheel.min, wheel._first + diff);
+            //wheel._last = Math.min(wheel.max, wheel._last + diff);
+
+            //diff = diff < 0 ? (wheel._first - first) : (wheel._last - last);
 
             if (diff) {
 
-                wheel.first += diff;
-                wheel.last += diff;
+                wheel._first += diff;
+                wheel._last += diff;
 
-                wheel.position = index;
+                wheel._index = index;
 
                 // Generate items
                 setTimeout(function () {
                     if (diff > 0) {
-                        wheel.$markup.append(generateWheelItems(wheel, last + 1, last + diff));
-                        $('.mbsc-sc-itm', wheel.$markup).slice(0, diff).remove();
+                        wheel._$markup.append(generateItems(wheel, last + 1, last + diff));
+                        $('.mbsc-sc-itm', wheel._$markup).slice(0, diff).remove();
 
-                        wheel.$3d.append(generate3dItems(wheel, last - batchSize + 8 + 1, last - batchSize + 8 + diff));
-                        $('.mbsc-sc-itm-3d', wheel.$3d).slice(0, diff).remove();
+                        // 3D
+                        if (s.scroll3d) {
+                            generate3dItems(wheel, last - batchSize + 8 + 1, last - batchSize + 8 + diff);
+                        }
                     } else if (diff < 0) {
-                        wheel.$markup.prepend(generateWheelItems(wheel, first + diff, first - 1));
-                        $('.mbsc-sc-itm', wheel.$markup).slice(diff).remove();
+                        wheel._$markup.prepend(generateItems(wheel, first + diff, first - 1));
+                        $('.mbsc-sc-itm', wheel._$markup).slice(diff).remove();
 
-                        wheel.$3d.prepend(generate3dItems(wheel, first + batchSize - 8 + 1 + diff, first + batchSize - 8));
-                        $('.mbsc-sc-itm-3d', wheel.$3d).slice(diff).remove();
+                        // 3D
+                        if (s.scroll3d) {
+                            generate3dItems(wheel, first + batchSize - 8 + 1 + diff, first + batchSize - 8);
+                        }
                     }
 
-                    wheel.margin += diff * itemHeight;
-                    wheel.$markup.css('margin-top', wheel.margin + 'px');
+                    wheel._margin += diff * itemHeight;
+                    wheel._$markup.css('margin-top', wheel._margin + 'px');
 
                 }, 10);
             }
@@ -600,7 +616,7 @@
         //            $.each(wg, function (k, w) {
         //                if ($.inArray(i, idx) > -1) {
         //                    wheels[i] = w;
-        //                    $('.dw-ul', $markup).eq(i).html(generateWheelItems(i));
+        //                    $('.dw-ul', $markup).eq(i).html(generateItems(i));
         //                    nr--;
         //                    if (!nr) {
         //                        that.position();
@@ -653,7 +669,7 @@
                 //                        '<div class="dw-ul" style="margin-top:' + (w.multiple ? (s.mode == 'scroller' ? 0 : itemHeight) : s.rows / 2 * itemHeight - itemHeight / 2) + 'px;">';
 
                 //    // Create wheel values
-                //    html += generateWheelItems(l) +
+                //    html += generateItems(l) +
                 //        '</div></div><div class="dwwo"></div></div><div class="dwwol"' +
                 //        (s.selectedLineHeight ? ' style="height:' + itemHeight + 'px;margin-top:-' + (itemHeight / 2 + (s.selectedLineBorder || 0)) + 'px;"' : '') + '></div></div>' +
                 //        (hasFlex ? '</div>' : '</td>');
@@ -662,7 +678,7 @@
                 //});
 
                 //html += (hasFlex ? '' : '</tr></table>') + '</div></div>';
-                html += '<div class="mbsc-w-p mbsc-sc-whl-gr' + (s.mode != 'scroller' ? ' mbsc-sc-cp' : '') + (s.showLabel ? ' mbsc-sc-lbl-v' : '') + '">' +
+                html += '<div class="mbsc-w-p mbsc-sc-whl-gr' + (s.scroll3d ? ' mbsc-sc-whl-gr-3d' : '') + (s.mode != 'scroller' ? ' mbsc-sc-cp' : '') + (s.showLabel ? ' mbsc-sc-lbl-v' : '') + '">' +
                             //'<div class="dwwc"' + (s.maxWidth ? '' : ' style="max-width:600px;"') + '>' +
                                 (hasFlex ? '' : '<table class="dw-tbl" cellpadding="0" cellspacing="0"><tr>');
 
@@ -670,45 +686,62 @@
 
                     w.values = w.values || [];
                     w.keys = w.keys || w.values;
-                    w.map = {};
-                    w.position = 0;
-                    w.deg = 0;
-                    w.margin = -batchSize * itemHeight;
 
-                    $.each(w.keys, function (i, v) {
-                        w.map[v] = i;
-                    });
+                    w._map = {};
+                    w._array = $.isArray(w.values);
 
-                    w.first = w.map[that._tempWheelArray[l]] - batchSize;
-                    w.last = w.map[that._tempWheelArray[l]] + batchSize;
+                    // Map keys to index
+                    if (w._array) {
+                        w._length = w.values.length;
+                        $.each(w.keys, function (i, v) {
+                            w._map[v] = i;
+                        });
+                    }
+
+                    w.circular = w.circular || (w._array && w._length > s.rows);
+                    w.min = w.min === undefined ? (w._array && !w.circular ? 0 : -Infinity) : w.min;
+                    w.max = w.max === undefined ? (w._array && !w.circular ? w._length - 1 : Infinity) : w.max;
+
+                    w._index = w._array ? w._map[that._tempWheelArray[l]] : w.getIndex(that._tempWheelArray[l]);
+                    w._offset = w._index;
+                    w._first = w._index - batchSize,//Math.max(w.min, w._index - batchSize);
+                    w._last = w._index + batchSize,//Math.min(w.max, w._first + 2 * batchSize);
+                    w._margin = w._first * itemHeight;
 
                     wheels[l] = w;
 
                     lbl = w.label !== undefined ? w.label : j;
+
                     html += '<' + (hasFlex ? 'div' : 'td') + ' class="mbsc-sc-whl"' + ' style="' +
                                     'height:' + (s.rows * itemHeight) + 'px;' +
                                     (s.fixedWidth ? ('width:' + (s.fixedWidth[l] || s.fixedWidth) + 'px;') :
                                     (s.minWidth ? ('min-width:' + (s.minWidth[l] || s.minWidth) + 'px;') : 'min-width:' + s.width + 'px;') +
                                     (s.maxWidth ? ('max-width:' + (s.maxWidth[l] || s.maxWidth) + 'px;') : '')) + '">' +
                                 //'<div class="dwwl dwwl' + l + (w.multiple ? ' dwwms' : '') + '">' +
-                                (s.mode != 'scroller' ?
-                                    '<div class="dwb-e dwwb dwwbp ' + (s.btnPlusClass || '') + '" style="height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;"><span>+</span></div>' + // + button
-                                    '<div class="dwb-e dwwb dwwbm ' + (s.btnMinusClass || '') + '" style="height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;"><span>&ndash;</span></div>' : '') + // - button
+                                //(s.mode != 'scroller' ?
+                                //    '<div class="dwb-e dwwb dwwbp ' + (s.btnPlusClass || '') + '" style="height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;"><span>+</span></div>' + // + button
+                                //    '<div class="dwb-e dwwb dwwbm ' + (s.btnMinusClass || '') + '" style="height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;"><span>&ndash;</span></div>' : '') + // - button
                                 //'<div class="mbsc-sc-lbl">' + lbl + '</div>' + // Wheel label
                                 //'<div tabindex="0" aria-live="off" aria-label="' + lbl + '" role="listbox" class="dwww">' +
                                     //'<div class="dww" style="height:' + (s.rows * itemHeight) + 'px;">' +
                                         //'<div class="dw-ul" style="margin-top:' + (w.multiple ? (s.mode == 'scroller' ? 0 : itemHeight) : s.rows / 2 * itemHeight - itemHeight / 2) + 'px;">';
-                                        '<div class="mbsc-sc-whl-c" style="height:' + itemHeight + 'px;margin-top:-' + (itemHeight / 2 + (s.selectedLineBorder || 0)) + 'px;">' +
-                                            '<div class="mbsc-sc-whl-sc" style="margin-top:' + w.margin + 'px;">';
+                                        '<div class="mbsc-sc-whl-c" style="height:' + itemHeight + 'px;margin-top:-' + (itemHeight / 2 + (s.selectedLineBorder || 0)) + 'px;' + (s.scroll3d ? pref + 'transform: translateZ(' + (itemHeight * s.rows / 2) + 'px);' : '') + '">' +
+                                            '<div class="mbsc-sc-whl-sc" style="margin-top:' + w._margin + 'px;">';
 
                     // Create wheel values
-                    html += generateWheelItems(w, w.first, w.last) +
-                        '</div></div>' +
-                        '<div class="mbsc-sc-whl-3d" style="height:' + itemHeight + 'px;margin-top:-' + (itemHeight / 2) + 'px;">';
+                    html += generateItems(w, w._first, w._last) +
+                        '</div></div>';
+                        
 
-                    html += generate3dItems(w, w.first + batchSize - 7, w.first + batchSize + 8);
+                    if (s.scroll3d) {
+                        html += '<div class="mbsc-sc-whl-3d" style="height:' + itemHeight + 'px;margin-top:-' + (itemHeight / 2) + 'px;">';
+                        for (var k = 0; k < 16; k++) {
+                            html += '<div class="mbsc-btn mbsc-sc-itm-3d" style="' + pref + 'transform:rotateX(' + ((7 - k - w._offset) * 22.5 % 360) + 'deg) translateZ(' + (itemHeight * s.rows / 2) + 'px);height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;">' + getItem(w, w.values, w._index + k - 7) + '</div>';
+                        }
+                        html += '</div>';
+                    }
 
-                    html += '</div>' +
+                    html += 
                         //'</div></div><div class="dwwo"></div></div><div class="dwwol"' +
                         //(s.selectedLineHeight ? ' style="height:' + itemHeight + 'px;margin-top:-' + (itemHeight / 2 + (s.selectedLineBorder || 0)) + 'px;"' : '') + '></div></div>' +
                         (hasFlex ? '</div>' : '</td>');
@@ -723,30 +756,6 @@
         };
 
         that._attachEvents = function ($markup) {
-
-            $('.mbsc-sc-whl', $markup).each(function (i) {
-                var wheel = wheels[i];
-
-                wheel.$markup = $('.mbsc-sc-whl-sc', this);
-                wheel.$3d = $('.mbsc-sc-whl-3d', this);
-
-                $(this).mobiscroll().scrollview({
-                    mousewheel: s.mousewheel,
-                    moveElement: wheel.$markup,
-                    contSize: 0,
-                    snap: itemHeight,
-                    minScroll: -Infinity,
-                    maxScroll: Infinity,
-                    maxSnapScroll: batchSize,
-                    onScroll: function (pos, time, easing) {
-                        wheel.deg = -pos * 22.5 / itemHeight;
-                        wheel.$3d[0].style.webkitTransition = time ? '-webkit-transform ' + Math.round(time) + 'ms ' + easing : '';
-                        wheel.$3d[0].style.webkitTransform = 'rotateX(' + (-pos * 22.5 / itemHeight) + 'deg)';
-
-                        infinite(wheel, pos);
-                    }
-                });
-            });
 
             //$markup
             //    .on('keydown', '.dwwl', onKeyDown)
@@ -765,6 +774,34 @@
         that._markupReady = function ($m) {
             $markup = $m;
             //scrollToPos();
+
+            $('.mbsc-sc-whl', $markup).each(function (i) {
+                var wheel = wheels[i];
+
+                wheel._$markup = $('.mbsc-sc-whl-sc', this);
+                wheel._$3d = $('.mbsc-sc-whl-3d', this);
+
+                $(this).mobiscroll().scrollview({
+                    mousewheel: s.mousewheel,
+                    moveElement: wheel._$markup,
+                    initialPos: -wheel._index * itemHeight,
+                    contSize: 0,
+                    snap: itemHeight,
+                    minScroll: -wheel.max * itemHeight,
+                    maxScroll: -wheel.min * itemHeight,
+                    maxSnapScroll: batchSize,
+                    prevDef: true,
+                    stopProp: true,
+                    onScroll: function (pos, time, easing) {
+                        if (s.scroll3d) {
+                            wheel._$3d[0].style[pr + 'Transition'] = time ? pref + 'transform ' + Math.round(time) + 'ms ' + easing : '';
+                            wheel._$3d[0].style[pr + 'Transform'] = 'rotateX(' + (-pos * 22.5 / itemHeight) + 'deg)';
+                        }
+
+                        infinite(wheel, pos);
+                    }
+                });
+            });
         };
 
         that._fillValue = function () {
@@ -830,6 +867,7 @@
             delay: 300,
             readonly: false,
             showLabel: true,
+            scroll3d: false,
             confirmOnTap: true,
             wheels: [],
             mode: 'scroller',
