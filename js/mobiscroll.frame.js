@@ -134,6 +134,12 @@
             }, 200);
         }
 
+        function onFocus(ev) {
+            if (!$popup[0].contains(ev.target)) {
+                $popup.focus();
+            }
+        }
+
         function show(beforeShow, $elm) {
             if (!ms.tapped) {
 
@@ -510,7 +516,9 @@
             // Set position
             that.position();
 
-            $wnd.on(posEvents, onPosition);
+            $wnd
+                .on(posEvents, onPosition)
+                .on('focusin', onFocus);
 
             // Events
             $markup
@@ -521,6 +529,30 @@
                         ev.preventDefault();
                         ev.stopPropagation();
                         $(this).click();
+                    }
+                })
+                .on('keydown', function (ev) { // Trap focus inside modal
+                    if (ev.keyCode == 32) { // Space
+                        ev.preventDefault();
+                    } else if (ev.keyCode == 9) { // Tab
+
+                        var $focusable = $markup.find('[tabindex="0"]').filter(function () {
+                                return this.offsetWidth > 0 || this.offsetHeight > 0;
+                            }),
+                            index = $focusable.index($(':focus', $markup)),
+                            i = $focusable.length - 1,
+                            target = 0;
+
+                        if (ev.shiftKey) {
+                            i = 0;
+                            target = -1;
+                        }
+
+                        if (index === i) {
+                            $focusable.eq(target).focus();
+                            ev.preventDefault();
+                        }
+
                     }
                 });
 
@@ -587,7 +619,9 @@
                 }
 
                 // Stop positioning on window resize
-                $wnd.off(posEvents, onPosition);
+                $wnd
+                    .off(posEvents, onPosition)
+                    .off('focusin', onFocus);
             }
 
             if (isModal) {
