@@ -44,6 +44,9 @@
         stopText: '停止',
         resetText: '重置',
         lapText: '圈',
-        hideText: '隐藏'
+        hideText: '隐藏',
+        // Listview
+        backText: '背部',
+        undoText: '复原'
     });
 })(jQuery);

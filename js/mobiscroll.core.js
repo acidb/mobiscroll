@@ -2,7 +2,7 @@
  * Mobiscroll v2.15.0
  * http://mobiscroll.com
  *
- * Copyright 2010-2014, Acid Media
+ * Copyright 2010-2015, Acid Media
  * Licensed under the MIT license.
  *
  */

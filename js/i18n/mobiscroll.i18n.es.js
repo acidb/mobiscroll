@@ -44,6 +44,9 @@
         stopText: 'Deténgase',
         resetText: 'Reinicializar',
         lapText: 'Lap',
-        hideText: 'Esconder'
+        hideText: 'Esconder',
+        // Listview
+        backText: 'Espalda',
+        undoText: 'Deshacer'
     });
 })(jQuery);

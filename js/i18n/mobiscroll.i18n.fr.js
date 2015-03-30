@@ -45,6 +45,9 @@
         stopText: 'Arrêter',
         resetText: 'Réinitialiser',
         lapText: 'Lap',
-        hideText: 'Cachez'
+        hideText: 'Cachez',
+        // Listview
+        backText: 'Arrière',
+        undoText: 'Défaire'
     });
 })(jQuery);

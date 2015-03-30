@@ -811,8 +811,12 @@
 
         that._readValue = function () {
             var v = $elm.val() || '';
-            that._hasValue = v !== '';
-            that._tempWheelArray = that._wheelArray ? that._wheelArray.slice(0) : s.parseValue(v, that) || [];
+
+            if (v !== '') {
+                that._hasValue = true;
+            }
+
+            that._tempWheelArray = that._hasValue && that._wheelArray ? that._wheelArray.slice(0) : s.parseValue(v, that) || [];
             setValue();
         };
 

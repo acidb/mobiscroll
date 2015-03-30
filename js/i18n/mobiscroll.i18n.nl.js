@@ -45,6 +45,9 @@
         stopText: 'Stop',
         resetText: 'Reset',
         lapText: 'Ronde',
-        hideText: 'Verbergen'
+        hideText: 'Verbergen',
+        // Listview
+        backText: 'Terug',
+        undoText: 'Ongedaan'
     });
 })(jQuery);

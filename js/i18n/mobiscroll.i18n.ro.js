@@ -46,6 +46,9 @@
         stopText: 'Stop',
         resetText: 'Resetare',
         lapText: 'Tură',
-        hideText: 'Ascundere'
+        hideText: 'Ascundere',
+        // Listview
+        backText: 'Înapoi',
+        undoText: 'Desface'
     });
 })(jQuery);

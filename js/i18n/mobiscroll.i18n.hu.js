@@ -53,6 +53,9 @@
         stopText: 'Megállít',
         resetText: 'Visszaállít',
         lapText: 'Lap',
-        hideText: 'Elrejt'
+        hideText: 'Elrejt',
+        // Listview
+        backText: 'Vissza',
+        undoText: 'Visszavon'
     });
 })(jQuery);

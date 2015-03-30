@@ -21,6 +21,9 @@
     /*outline-color: transparent;*/
     outline: none;
 }
+.dw :focus {
+    outline-offset: -2px;
+}
 .dw-rtl {
     direction: rtl;
 }

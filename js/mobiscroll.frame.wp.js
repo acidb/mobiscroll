@@ -19,32 +19,34 @@
             btnCalNextClass: 'mbsc-ic mbsc-ic-arrow-right2',
             btnPlusClass: 'mbsc-ic mbsc-ic-plus',
             btnMinusClass: 'mbsc-ic mbsc-ic-minus',
-            onMarkupInserted: function (elm) {
+            onMarkupInserted: function (elm, inst) {
                 var click,
                     touch,
                     active;
             
-                $('.dwwl', elm).on('touchstart mousedown wheel mousewheel', function (e) {
-                    if (e.type === 'mousedown' && touch) {
-                        return;
-                    }
-                    touch = e.type === 'touchstart';
-                    click = true;
-                    active = $(this).hasClass('wpa');
-                    $('.dwwl', elm).removeClass('wpa');
-                    $('.dw-sel', this).removeClass('dw-sel');
-                    $(this).addClass('wpa');
-                }).on('touchmove mousemove', function () {
-                    click = false;
-                }).on('touchend mouseup', function (e) {
-                    if (click && active && $(e.target).closest('.dw-li').hasClass('dw-sel')) {
-                        $(this).removeClass('wpa');
-                    }
-                    if (e.type === 'mouseup') {
-                        touch = false;
-                    }
-                    click = false;
-                });
+                if (inst.settings.mode != 'clickpick') {
+                    $('.dwwl', elm).on('touchstart mousedown wheel mousewheel', function (e) {
+                        if (e.type === 'mousedown' && touch) {
+                            return;
+                        }
+                        touch = e.type === 'touchstart';
+                        click = true;
+                        active = $(this).hasClass('wpa');
+                        $('.dwwl', elm).removeClass('wpa');
+                        $('.dw-sel', this).removeClass('dw-sel');
+                        $(this).addClass('wpa');
+                    }).on('touchmove mousemove', function () {
+                        click = false;
+                    }).on('touchend mouseup', function (e) {
+                        if (click && active && $(e.target).closest('.dw-li').hasClass('dw-sel')) {
+                            $(this).removeClass('wpa');
+                        }
+                        if (e.type === 'mouseup') {
+                            touch = false;
+                        }
+                        click = false;
+                    });
+                }
             },
             onThemeLoad: function (lang, s) {
                 if (lang && lang.dateOrder && !s.dateOrder) {
