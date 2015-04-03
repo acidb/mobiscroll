@@ -46,6 +46,9 @@
         stopText: 'Durdur',
         resetText: 'Sıfırla',
         lapText: 'Tur',
-        hideText: 'Gizle'
+        hideText: 'Gizle',
+        // Listview
+        backText: 'Geri',
+        undoText: 'Sökmek'
     });
 })(jQuery);

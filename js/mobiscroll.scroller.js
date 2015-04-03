@@ -390,7 +390,7 @@
                 trigger('onValidated', []);
 
                 // Reformat value if validation changed something
-                that._tempValue = s.formatValue(that._tempWheelArray);
+                that._tempValue = s.formatValue(that._tempWheelArray, that);
 
                 if (that.live) {
                     that._hasValue = manual || that._hasValue;
@@ -435,7 +435,7 @@
                 scrollToPos(time);
             }
 
-            that._tempValue = s.formatValue(that._tempWheelArray);
+            that._tempValue = s.formatValue(that._tempWheelArray, that);
 
             if (!temp) {
                 that._wheelArray = that._tempWheelArray.slice(0);
@@ -620,8 +620,12 @@
 
         that._readValue = function () {
             var v = $elm.val() || '';
-            that._hasValue = v !== '';
-            that._tempWheelArray = that._wheelArray ? that._wheelArray.slice(0) : s.parseValue(v, that) || [];
+
+            if (v !== '') {
+                that._hasValue = true;
+            }
+
+            that._tempWheelArray = that._hasValue && that._wheelArray ? that._wheelArray.slice(0) : s.parseValue.call(el, v, that) || [];
             setValue();
         };
 

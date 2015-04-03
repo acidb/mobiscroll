@@ -200,6 +200,9 @@
         stopText: 'پايان',
         resetText: 'تنظیم مجدد',
         lapText: 'Lap',
-        hideText: 'پنهان کردن'
+        hideText: 'پنهان کردن',
+        // Listview
+        backText: 'پشت',
+        undoText: 'واچیدن'
     });
 })(jQuery);

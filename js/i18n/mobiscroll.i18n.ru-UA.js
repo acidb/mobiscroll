@@ -46,6 +46,9 @@
         stopText: 'Стоп',
         resetText: ' Сброс ',
         lapText: ' Этап ',
-        hideText: ' Скрыть '
+        hideText: ' Скрыть ',
+        // Listview
+        backText: 'назад',
+        undoText: 'аннулировать'
     });
 })(jQuery);

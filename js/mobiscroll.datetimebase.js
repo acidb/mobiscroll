@@ -13,6 +13,7 @@
             timeWheels: 'hhiiA',
             timeFormat: 'hh:ii A',
             dayText: 'Day',
+            monthText: 'Month',
             yearText: 'Year',
             hourText: 'Hours',
             minuteText: 'Minutes',
@@ -297,6 +298,10 @@
                     prevValid = false,
                     up = 0,
                     down = 0;
+
+                // Normalize min and max dates for comparing later (set default values where there are no values from wheels)
+                mind = getDate(getArray(mind));
+                maxd = getDate(getArray(maxd));
 
                 if (isValid(d)) {
                     return d;
@@ -664,10 +669,6 @@
 
             invalid = convertRanges(invalid);
             valid = convertRanges(valid);
-
-            // Normalize min and max dates for comparing later (set default values where there are no values from wheels)
-            mind = getDate(getArray(mind));
-            maxd = getDate(getArray(maxd));
 
             mins = { y: mind.getFullYear(), m: 0, d: 1, h: minH, i: minM, s: minS, a: 0 };
             maxs = { y: maxd.getFullYear(), m: 11, d: 31, h: maxH, i: maxM, s: maxS, a: 1 };

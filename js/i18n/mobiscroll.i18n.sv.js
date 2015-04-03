@@ -45,6 +45,9 @@
         stopText: 'Stopp',
         resetText: 'Återställ',
         lapText: 'Varv',
-        hideText: 'Dölj'
+        hideText: 'Dölj',
+        // Listview
+        backText: 'Tillbaka',
+        undoText: 'Ångra'
     });
 })(jQuery);

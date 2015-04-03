@@ -45,6 +45,9 @@
         stopText: 'Zatrzymać',
         resetText: 'Zresetować',
         lapText: 'Zakładka',
-        hideText: 'Ukryć'
+        hideText: 'Ukryć',
+        // Listview
+        backText: 'Z powrotem',
+        undoText: 'Odwiązać'
     });
 })(jQuery);
