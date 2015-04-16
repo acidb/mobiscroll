@@ -866,12 +866,18 @@
     });
 
     // Prevent standard behaviour on body click
-    $(document).on('mouseover mouseup mousedown click', function (ev) { 
+    function preventClick(ev) {
         if (ms.tapped) {
             ev.stopPropagation();
             ev.preventDefault();
             return false;
         }
-    });
+    }
+
+    if (document.addEventListener) {
+        $.each(['mouseover', 'mousedown', 'mouseup', 'click'], function (i, ev) {
+            document.addEventListener(ev, preventClick, true);
+        });
+    }
 
 })(jQuery, window, document);
