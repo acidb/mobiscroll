@@ -75,6 +75,9 @@
                 c = 0,
                 groupIndexes = {};
 
+            options = {};
+            groups = {};
+
             optionArray = [];
             groupArray = [];
 
