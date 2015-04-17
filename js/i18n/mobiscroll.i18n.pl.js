@@ -48,6 +48,6 @@
         hideText: 'Ukryć',
         // Listview
         backText: 'Z powrotem',
-        undoText: 'Odwiązać'
+        undoText: 'Cofnij'
     });
 })(jQuery);

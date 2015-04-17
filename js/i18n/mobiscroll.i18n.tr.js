@@ -49,6 +49,6 @@
         hideText: 'Gizle',
         // Listview
         backText: 'Geri',
-        undoText: 'Sökmek'
+        undoText: 'Geri Al'
     });
 })(jQuery);
