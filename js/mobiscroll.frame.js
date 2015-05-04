@@ -1,5 +1,4 @@
 ﻿(function ($, window, document, undefined) {
-
     var $activeElm,
         preventShow,
         ms = $.mobiscroll,
@@ -142,7 +141,6 @@
 
         function show(beforeShow, $elm) {
             if (!ms.tapped) {
-
                 if (beforeShow) {
                     beforeShow();
                 }
@@ -318,7 +316,6 @@
                 }
 
                 if (s.showOnTap) {
-
                     $elm.on('keydown.dw', function (ev) {
                         if (ev.keyCode == 32 || ev.keyCode == 13) { // Space or Enter
                             ev.preventDefault();
@@ -412,7 +409,7 @@
             event('onBeforeShow', []);
 
             // Create wheels containers
-            html = '<div lang="' + s.lang + '" class="mbsc-' + s.theme +  (s.baseTheme ? ' mbsc-' + s.baseTheme : '') + ' dw-' + s.display + ' ' +
+            html = '<div lang="' + s.lang + '" class="mbsc-' + s.theme + (s.baseTheme ? ' mbsc-' + s.baseTheme : '') + ' dw-' + s.display + ' ' +
                 (s.cssClass || '') +
                 (that._isLiquid ? ' dw-liq' : '') +
                 (isOldAndroid ? ' mbsc-old' : '') +
@@ -425,7 +422,7 @@
                                 '<div aria-live="assertive" class="dw-aria dw-hidden"></div>' +
                                 (s.headerText ? '<div class="dwv">' + (isString(s.headerText) ? s.headerText : '') + '</div>' : '') + // Header
                                 '<div class="dwcc">'; // Wheel group container
-            
+
             html += that._generateContent();
 
             html += '</div>';
@@ -466,12 +463,11 @@
             posEvents = 'orientationchange resize';
 
             that._markupReady($markup);
-            
+
             event('onMarkupReady', [$markup]);
 
             // Show
             if (isModal) {
-
                 // Enter / ESC
                 $(window).on('keydown', onWndKeyDown);
 
@@ -535,10 +531,9 @@
                     if (ev.keyCode == 32) { // Space
                         ev.preventDefault();
                     } else if (ev.keyCode == 9) { // Tab
-
                         var $focusable = $markup.find('[tabindex="0"]').filter(function () {
-                                return this.offsetWidth > 0 || this.offsetHeight > 0;
-                            }),
+                            return this.offsetWidth > 0 || this.offsetHeight > 0;
+                        }),
                             index = $focusable.index($(':focus', $markup)),
                             i = $focusable.length - 1,
                             target = 0;
@@ -552,7 +547,6 @@
                             $focusable.eq(target).focus();
                             ev.preventDefault();
                         }
-
                     }
                 });
 
@@ -584,7 +578,6 @@
                     .on('touchend', '.dwb-e', onBtnEnd);
 
                 that._attachEvents($markup);
-
             }, 300);
 
             event('onShow', [$markup, that._tempValue]);
@@ -594,7 +587,6 @@
         * Hides the scroller instance.
         */
         that.hide = function (prevAnim, btn, force) {
-
             // If onClose handler returns false, prevent hide
             if (!that._isVisible || (!force && !that._isValid && btn == 'set') || (!force && event('onClose', [that._tempValue, btn]) === false)) {
                 return false;
@@ -602,7 +594,6 @@
 
             // Hide wheels and overlay
             if ($markup) {
-
                 // Re-enable temporary disabled fields
                 if (pr !== 'Moz') {
                     $('.dwtd', $ctx).each(function () {
@@ -617,6 +608,8 @@
                 } else {
                     onHide(prevAnim);
                 }
+
+                that._detachEvents($markup);
 
                 // Stop positioning on window resize
                 $wnd
@@ -651,6 +644,8 @@
         that._generateContent = empty;
 
         that._attachEvents = empty;
+
+        that._detachEvents = empty;
 
         that._readValue = empty;
 
@@ -694,7 +689,7 @@
                     }
                 }).on('touchend.dw', function (ev) {
                     var that = this;
-                    
+
                     if (!moved) {
                         // preventDefault and setTimeout are needed by iOS
                         ev.preventDefault();
@@ -717,7 +712,6 @@
                 }
                 ev.preventDefault();
             });
-
         };
 
         /**
@@ -739,7 +733,6 @@
         * Scroller initialization.
         */
         that.init = function (ss) {
-
             that._init(ss);
 
             that._isLiquid = (s.layout || (/top|bottom/.test(s.display) ? 'liquid' : '')) === 'liquid';
@@ -879,5 +872,4 @@
             document.addEventListener(ev, preventClick, true);
         });
     }
-
 })(jQuery, window, document);

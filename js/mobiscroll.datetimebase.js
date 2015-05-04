@@ -1,11 +1,10 @@
 (function ($, undefined) {
-
     var ms = $.mobiscroll,
         datetime = ms.datetime,
         date = new Date(),
         defaults = {
             startYear: date.getFullYear() - 100,
-            endYear: date.getFullYear() + 1, 
+            endYear: date.getFullYear() + 1,
             separator: ' ',
             // Localization
             dateFormat: 'mm/dd/yy',
@@ -33,22 +32,22 @@
             // Force format for html5 date inputs (experimental)
             if (that.is('input')) {
                 switch (that.attr('type')) {
-                case 'date':
-                    format = 'yy-mm-dd';
-                    break;
-                case 'datetime':
-                    format = 'yy-mm-ddTHH:ii:ssZ';
-                    break;
-                case 'datetime-local':
-                    format = 'yy-mm-ddTHH:ii:ss';
-                    break;
-                case 'month':
-                    format = 'yy-mm';
-                    html5def.dateOrder = 'mmyy';
-                    break;
-                case 'time':
-                    format = 'HH:ii:ss';
-                    break;
+                    case 'date':
+                        format = 'yy-mm-dd';
+                        break;
+                    case 'datetime':
+                        format = 'yy-mm-ddTHH:ii:ssZ';
+                        break;
+                    case 'datetime-local':
+                        format = 'yy-mm-ddTHH:ii:ss';
+                        break;
+                    case 'month':
+                        format = 'yy-mm';
+                        html5def.dateOrder = 'mmyy';
+                        break;
+                    case 'time':
+                        format = 'HH:ii:ss';
+                        break;
                 }
                 // Check for min/max attributes
                 var min = that.attr('min'),
@@ -108,7 +107,6 @@
             format = format || hformat;
 
             if (p.match(/date/i)) {
-
                 // Determine the order of year, month, day wheels
                 $.each(['y', 'm', 'd'], function (j, v) {
                     i = dord.search(new RegExp(v, 'i'));
@@ -192,7 +190,7 @@
                         offset++;
                         values = [];
                         keys = [];
-                        for (i = minH; i < (hampm ? 12 : 24); i += stepH) {
+                        for (i = minH; i < (hampm ? 12 : 24) ; i += stepH) {
                             keys.push(i);
                             values.push(hampm && i === 0 ? 12 : tord.match(/hh/i) && i < 10 ? '0' + i : i);
                         }
@@ -485,7 +483,6 @@
                         all = false;
 
                         if (obj.start && (obj.apply || (!obj.d && !spec[day]))) {
-
                             // Define time parts
                             parts1 = obj.start.split(':');
                             parts2 = obj.end.split(':');
@@ -556,7 +553,7 @@
                                     }
                                 }
                             }
-                            
+
                             if (!all) {
                                 // Calculate min and max values
                                 v1 = step(parts1[i], steps[v], mins[v], maxs[v]) + add;
@@ -579,7 +576,6 @@
                                     $('.dw-li', target).slice(i1, i2).removeClass('dw-v');
                                 }
                             }
-                                    
                         }
                     });
                 }
@@ -670,14 +666,13 @@
 
             // ---
 
-
             // Initializations
-            // --- 
+            // ---
 
             inst.format = hformat;
             inst.order = o;
 
-            inst.handlers.now = function () { inst.setDate(new Date(), false, 0.3, true, true); };
+            inst.handlers.now = function () { inst.setDate(new Date(), false, 1000, true, true); };
             inst.buttons.now = { text: s.nowText, handler: 'now' };
 
             invalid = convertRanges(invalid);
@@ -764,7 +759,7 @@
 
                                 // Set invalid indexes
                                 validateDates(invalid, y, m, first, maxdays, idx, 1);
-                                // Delete indexes which are valid 
+                                // Delete indexes which are valid
                                 validateDates(valid, y, m, first, maxdays, idx, 0);
 
                                 $.each(idx, function (i, v) {
@@ -801,5 +796,4 @@
     $.each(['date', 'time', 'datetime'], function (i, v) {
         ms.presets.scroller[v] = preset;
     });
-
 })(jQuery);

@@ -1,5 +1,4 @@
 (function ($, undefined) {
-
     var ms = $.mobiscroll,
         classes = ms.classes,
         util = ms.util,
@@ -16,7 +15,7 @@
         transEnd = 'webkitTransitionEnd transitionend',
         raf = window.requestAnimationFrame || function (x) { x(); },
         rafc = window.cancelAnimationFrame || empty;
-    
+
     classes.ScrollView = function (el, settings, inherit) {
         var $btn,
             btnTimer,
@@ -41,6 +40,7 @@
             rafID,
             rafRunning,
             scrollDebounce,
+            scrollTimer,
             snap,
             snapPoints,
             startPos,
@@ -55,7 +55,7 @@
             currSnapDir = 1,
             s = settings,
             $elm = $(el);
-        
+
         function onStart(ev) {
             /* TRIALCOND */
 
@@ -106,11 +106,11 @@
                 diff = 0;
 
                 startTime = new Date();
-                
+
                 startPos = +getCurrentPosition(target, vertical) || 0;
 
                 // Stop scrolling animation, 1ms is needed for Android 4.0
-                scroll(startPos, 0);
+                scroll(startPos, 1);
 
                 if (ev.type === 'mousedown') {
                     $(document).on('mousemove', onMove).on('mouseup', onEnd);
@@ -122,7 +122,6 @@
 
         function onMove(ev) {
             if (move) {
-                
                 if (s.stopProp) {
                     ev.stopPropagation();
                 }
@@ -182,7 +181,7 @@
 
             rafRunning = false;
         }
-        
+
         function onEnd(ev) {
             if (move) {
                 var speed,
@@ -234,7 +233,6 @@
             diff = vertical ? ev.deltaY || ev.wheelDelta || ev.detail : ev.deltaX;
 
             if (diff) {
-
                 ev.preventDefault();
 
                 diff = diff < 0 ? 20 : -20;
@@ -248,7 +246,6 @@
 
                 clearTimeout(scrollDebounce);
                 scrollDebounce = setTimeout(function () {
-
                     rafc(rafID);
                     rafRunning = false;
 
@@ -299,7 +296,7 @@
 
             // Scroll to the calculated position
             scroll(newPos, time, function () {
-            //scroll(newPos, s.time || (currPos < minScroll || currPos > maxScroll ? 200 : speed ? Math.max(200, Math.abs((newPos - currPos) / speed) * 3) : 100), function () {
+                //scroll(newPos, s.time || (currPos < minScroll || currPos > maxScroll ? 200 : speed ? Math.max(200, Math.abs((newPos - currPos) / speed) * 3) : 100), function () {
                 trigger('onScrollEnd', [currPos]);
             });
         }
@@ -307,6 +304,8 @@
         function scroll(pos, time, callback) {
             var done = function () {
                 moving = false;
+                clearInterval(scrollTimer);
+                trigger('onScroll', [pos]);
                 if (callback) {
                     callback();
                 }
@@ -318,10 +317,15 @@
                 style[pr + 'Transition'] = time ? pref + 'transform ' + Math.round(time) + 'ms ' + s.easing : '';
                 style[pr + 'Transform'] = 'translate3d(' + (vertical ? '0,' + pos + 'px,' : pos + 'px,' + '0,') + '0)';
 
-                if (currPos == pos || !time) {
+                if (currPos == pos || !time || time <= 1) {
                     done();
                 } else if (time > 1) {
-                    target.on(transEnd, function (e) {
+                    clearInterval(scrollTimer);
+                    scrollTimer = setInterval(function () {
+                        trigger('onScroll', [+getCurrentPosition(target, vertical) || 0]);
+                    }, 100);
+
+                    target.off(transEnd).on(transEnd, function (e) {
                         if (e.target === target[0]) {
                             target.off(transEnd);
                             style[pr + 'Transition'] = '';
@@ -334,7 +338,7 @@
                 style[dir] = pos + 'px';
             }
 
-            trigger('onScroll', [pos, time, s.easing]);
+            //trigger('onScroll', [pos, time, s.easing]);
 
             currPos = pos;
         }
@@ -384,7 +388,7 @@
                     });
                 });
             }
-            
+
             //snap = s.snap ?
             //    (util.isNumeric(s.snap) ? s.snap :
             //        ((vertical ?
@@ -403,16 +407,15 @@
 
             that.scroll(s.snap ? (snapPoints ? snapPoints[currSnap]['snap' + currSnapDir] : (currSnap * snap)) : currPos);
         };
-        
-        that.init = function (ss) {
 
+        that.init = function (ss) {
             that._init(ss);
 
             vertical = s.axis == 'Y';
             dir = vertical ? 'top' : 'left';
             target = s.moveElement || $elm.children().eq(0);
             style = target[0].style;
-            
+
             that.refresh();
 
             // Attach events with latency to prevent unwanted mouse events
@@ -448,6 +451,7 @@
          * Destroy
          */
         that.destroy = function () {
+            clearInterval(scrollTimer);
 
             $elm.off('touchstart mousedown', onStart)
                 .off('touchmove', onMove)
@@ -483,5 +487,4 @@
     };
 
     ms.presetShort('scrollview', 'ScrollView', false);
-    
 })(jQuery);

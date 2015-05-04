@@ -1,5 +1,4 @@
 (function ($, window, document, undefined) {
-
     var //move,
         ms = $.mobiscroll,
         classes = ms.classes,
@@ -8,9 +7,9 @@
         pr = util.jsPrefix,
         //has3d = util.has3d,
         hasFlex = util.hasFlex;
-        //getCoord = util.getCoord,
-        //constrain = util.constrain;
-        //testTouch = util.testTouch;
+    //getCoord = util.getCoord,
+    //constrain = util.constrain;
+    //testTouch = util.testTouch;
 
     ms.presetShort('scroller', 'Scroller', false);
 
@@ -235,6 +234,10 @@
         //    return s.readonly;
         //}
 
+        function getIndex(wheel, i) {
+            return wheel._array ? wheel._map[that._tempWheelArray[i]] : wheel.getIndex(that._tempWheelArray[i]);
+        }
+
         function getItem(wheel, values, i) {
             if (i < wheel.min || i > wheel.max) {
                 return '';
@@ -271,7 +274,6 @@
                 keys = wheel.keys;
 
             for (i = start; i <= end; i++) {
-
                 value = getItem(wheel, values, i);
                 key = getItem(wheel, keys, i);
 
@@ -475,7 +477,7 @@
         //    calc(t, index, val < min ? max : val, 2, 0.1);
         //}
 
-        function infinite(wheel, pos) {
+        function infinite(wheel, pos, i) {
             var index = Math.round(-pos / itemHeight),
                 diff = index - wheel._index,
                 first = wheel._first,
@@ -485,13 +487,14 @@
             //wheel._last = Math.min(wheel.max, wheel._last + diff);
 
             //diff = diff < 0 ? (wheel._first - first) : (wheel._last - last);
-
             if (diff) {
-
                 wheel._first += diff;
                 wheel._last += diff;
 
                 wheel._index = index;
+
+                // ????
+                that._tempWheelArray[i] = getItem(wheel, wheel.keys, index);
 
                 // Generate items
                 setTimeout(function () {
@@ -515,14 +518,23 @@
 
                     wheel._margin += diff * itemHeight;
                     wheel._$markup.css('margin-top', wheel._margin + 'px');
-
                 }, 10);
             }
+        }
+
+        function scrollToValues(time) {
+            $('.mbsc-sc-whl', $markup).each(function (i) {
+                var wheel = wheels[i],
+                    idx = getIndex(wheel, i);
+
+                $(this).mobiscroll('scroll', -idx * itemHeight, time);
+            });
         }
 
         function setValue(fill, change, time, noscroll, temp) {
             if (that._isVisible && !noscroll) {
                 //scrollToPos(time);
+                scrollToValues(time);
             }
 
             that._tempValue = s.formatValue(that._tempWheelArray, that);
@@ -533,7 +545,6 @@
             }
 
             if (fill) {
-
                 trigger('onValueFill', [that._hasValue ? that._tempValue : '', change]);
 
                 if (that._isInput) {
@@ -683,7 +694,6 @@
                                 (hasFlex ? '' : '<table class="dw-tbl" cellpadding="0" cellspacing="0"><tr>');
 
                 $.each(wg, function (j, w) { // Wheels
-
                     w.values = w.values || [];
                     w.keys = w.keys || w.values;
 
@@ -702,7 +712,7 @@
                     w.min = w.min === undefined ? (w._array && !w.circular ? 0 : -Infinity) : w.min;
                     w.max = w.max === undefined ? (w._array && !w.circular ? w._length - 1 : Infinity) : w.max;
 
-                    w._index = w._array ? w._map[that._tempWheelArray[l]] : w.getIndex(that._tempWheelArray[l]);
+                    w._index = getIndex(w, l);
                     w._offset = w._index;
                     w._first = w._index - batchSize,//Math.max(w.min, w._index - batchSize);
                     w._last = w._index + batchSize,//Math.min(w.max, w._first + 2 * batchSize);
@@ -731,7 +741,6 @@
                     // Create wheel values
                     html += generateItems(w, w._first, w._last) +
                         '</div></div>';
-                        
 
                     if (s.scroll3d) {
                         html += '<div class="mbsc-sc-whl-3d" style="height:' + itemHeight + 'px;margin-top:-' + (itemHeight / 2) + 'px;">';
@@ -741,7 +750,7 @@
                         html += '</div>';
                     }
 
-                    html += 
+                    html +=
                         //'</div></div><div class="dwwo"></div></div><div class="dwwol"' +
                         //(s.selectedLineHeight ? ' style="height:' + itemHeight + 'px;margin-top:-' + (itemHeight / 2 + (s.selectedLineBorder || 0)) + 'px;"' : '') + '></div></div>' +
                         (hasFlex ? '</div>' : '</td>');
@@ -756,7 +765,6 @@
         };
 
         that._attachEvents = function ($markup) {
-
             //$markup
             //    .on('keydown', '.dwwl', onKeyDown)
             //    .on('keyup', '.dwwl', onKeyUp)
@@ -769,6 +777,10 @@
             //if (s.mousewheel) {
             //    $markup.on('wheel mousewheel', '.dwwl', onScroll);
             //}
+        };
+
+        that._detachEvents = function ($m) {
+            $('.mbsc-sc-whl', $m).mobiscroll('destroy');
         };
 
         that._markupReady = function ($m) {
@@ -798,7 +810,7 @@
                             wheel._$3d[0].style[pr + 'Transform'] = 'rotateX(' + (-pos * 22.5 / itemHeight) + 'deg)';
                         }
 
-                        infinite(wheel, pos);
+                        infinite(wheel, pos, i);
                     }
                 });
             });
@@ -912,5 +924,4 @@
     };
 
     ms.themes.scroller = ms.themes.frame;
-
 })(jQuery, window, document);
