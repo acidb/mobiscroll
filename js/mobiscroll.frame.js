@@ -225,8 +225,8 @@
                 $wrapper.width(w).css('white-space', totalw > nw ? '' : 'nowrap');
             }
 
-            modalWidth = that._isFullScreen ? nw : $popup.outerWidth();
-            modalHeight = that._isFullScreen ? nh : $popup.outerHeight(true);
+            modalWidth = $popup.outerWidth();
+            modalHeight = $popup.outerHeight(true);
             scrollLock = modalHeight <= nh && modalWidth <= nw;
 
             that.scrollLock = scrollLock;
@@ -495,6 +495,8 @@
 
                 $markup.appendTo($ctx);
 
+                $wnd.on('focusin', onFocus);
+
                 if (has3d && doAnim && !prevAnim) {
                     $markup.addClass('dw-in dw-trans').on(animEnd, function () {
                         $markup.off(animEnd).removeClass('dw-in dw-trans').find('.dw').removeClass('dw-' + doAnim);
@@ -512,9 +514,7 @@
             // Set position
             that.position();
 
-            $wnd
-                .on(posEvents, onPosition)
-                .on('focusin', onFocus);
+            $wnd.on(posEvents, onPosition);
 
             // Events
             $markup
@@ -530,7 +530,7 @@
                 .on('keydown', function (ev) { // Trap focus inside modal
                     if (ev.keyCode == 32) { // Space
                         ev.preventDefault();
-                    } else if (ev.keyCode == 9) { // Tab
+                    } else if (ev.keyCode == 9 && isModal) { // Tab
                         var $focusable = $markup.find('[tabindex="0"]').filter(function () {
                             return this.offsetWidth > 0 || this.offsetHeight > 0;
                         }),

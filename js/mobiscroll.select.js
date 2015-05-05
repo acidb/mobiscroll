@@ -1,5 +1,4 @@
 (function ($, undefined) {
-
     var ms = $.mobiscroll,
         util = ms.util,
         isString = util.isString,
@@ -21,6 +20,7 @@
 
     ms.presets.scroller.select = function (inst) {
         var change,
+            defaultValue,
             group,
             groupArray,
             groupChanged,
@@ -54,7 +54,6 @@
             data = s.data,
             hasData = !!data,
             hasGroups = hasData ? !!s.group : $('optgroup', elm).length,
-            defaultValue = hasData ? (data[0] ? data[0][s.dataValue] : null) : $('option', elm).attr('value'),
             groupSetup = s.group,
             groupWheel = hasGroups && groupSetup && groupSetup.groupWheel !== false,
             groupSep = hasGroups && groupSetup && groupWheel && groupSetup.clustered === true,
@@ -150,6 +149,10 @@
                 }
             }
 
+            if (optionArray.length) {
+                defaultValue = optionArray[0].value;
+            }
+
             if (groupHdr) {
                 optionArray = [];
                 l = 0;
@@ -237,10 +240,10 @@
                 }
             }
 
-            option = v === undefined || v === null || v === '' ? defaultValue : v;
+            option = v === undefined || v === null || v === '' || !options[v] ? defaultValue : v;
 
             if (groupWheel) {
-                group = options[option].group;
+                group = options[option] ? options[option].group : null;
                 prevGroup = group;
             }
         }
@@ -269,7 +272,7 @@
                 val = option;
                 txt = options[option] ? options[option].text : '';
             }
-            
+
             inst._tempValue = val;
 
             input.val(txt);
@@ -359,7 +362,6 @@
         };
 
         inst.refresh = function () {
-
             prepareData();
 
             batchStart = {};
@@ -374,6 +376,10 @@
 
             // Prevent wheel generation on initial validation
             change = true;
+
+            getOption(option);
+
+            inst._tempWheelArray = groupWheel ? [group, option] : [option];
 
             if (inst._isVisible) {
                 inst.changeWheel(groupWheel ? [groupWheelIdx, optionWheelIdx] : [optionWheelIdx]);
@@ -494,11 +500,9 @@
                 }
 
                 if (!change) {
-
                     option = tempOpt;
 
                     if (groupWheel) {
-
                         group = options[option].group;
 
                         // If group changed, load group options
@@ -525,7 +529,7 @@
                     }
 
                     // Update values if changed
-                    // Don't set the new option yet (if group changed), because it's not on the wheel yet 
+                    // Don't set the new option yet (if group changed), because it's not on the wheel yet
                     inst._tempWheelArray = groupWheel ? [tempGr, tempOpt] : [tempOpt];
 
                     // Generate new wheel batches
@@ -572,7 +576,6 @@
 
                         // Restore readonly status
                         s.readonly = origReadOnly;
-                            
                     }, i === undefined ? 100 : time * 1000);
 
                     if (changes.length) {
@@ -620,5 +623,4 @@
             }
         };
     };
-
 })(jQuery);

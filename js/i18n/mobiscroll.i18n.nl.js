@@ -48,6 +48,6 @@
         hideText: 'Verbergen',
         // Listview
         backText: 'Terug',
-        undoText: 'Ongedaan'
+        undoText: 'Onged. maken'
     });
 })(jQuery);

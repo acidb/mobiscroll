@@ -49,6 +49,6 @@
         hideText: 'Ausblenden',
         // Listview
         backText: 'Zurück',
-        undoText: 'Rückgängig'
+        undoText: 'Rückgängig machen'
     });
 })(jQuery);
