@@ -26,6 +26,7 @@
             diffY,
             diff,
             dir,
+            easing,
             elastic,
             endX,
             endY,
@@ -292,37 +293,39 @@
                 newPos = constrain(newPos, minScroll, maxScroll);
             }
 
-            time = s.time || (currPos < minScroll || currPos > maxScroll ? 200 : Math.max(200, Math.abs(newPos - currPos) * s.timeUnit));
+            time = s.time || (currPos < minScroll || currPos > maxScroll ? 1000 : Math.max(1000, Math.abs(newPos - currPos) * s.timeUnit));
 
             // Scroll to the calculated position
             scroll(newPos, time, function () {
                 //scroll(newPos, s.time || (currPos < minScroll || currPos > maxScroll ? 200 : speed ? Math.max(200, Math.abs((newPos - currPos) / speed) * 3) : 100), function () {
                 trigger('onScrollEnd', [currPos]);
             });
+
+            trigger('onScroll', [newPos, time, easing]);
         }
 
         function scroll(pos, time, callback) {
             var done = function () {
                 moving = false;
                 clearInterval(scrollTimer);
-                trigger('onScroll', [pos]);
+                trigger('onScroll', [pos, false, easing]);
                 if (callback) {
                     callback();
                 }
             };
 
-            moving = true;
-
             if (has3d) {
-                style[pr + 'Transition'] = time ? pref + 'transform ' + Math.round(time) + 'ms ' + s.easing : '';
+                style[pr + 'Transition'] = time ? pref + 'transform ' + Math.round(time) + 'ms ' + easing : '';
                 style[pr + 'Transform'] = 'translate3d(' + (vertical ? '0,' + pos + 'px,' : pos + 'px,' + '0,') + '0)';
 
-                if (currPos == pos || !time || time <= 1) {
+                if ((currPos == pos && !moving) || !time || time <= 1) {
                     done();
                 } else if (time > 1) {
+                    moving = true;
+
                     clearInterval(scrollTimer);
                     scrollTimer = setInterval(function () {
-                        trigger('onScroll', [+getCurrentPosition(target, vertical) || 0]);
+                        trigger('onScroll', [+getCurrentPosition(target, vertical) || 0, false, false]);
                     }, 100);
 
                     target.off(transEnd).on(transEnd, function (e) {
@@ -337,8 +340,6 @@
                 setTimeout(done, time || 0);
                 style[dir] = pos + 'px';
             }
-
-            //trigger('onScroll', [pos, time, s.easing]);
 
             currPos = pos;
         }
@@ -398,6 +399,7 @@
 
             snap = isNumeric(s.snap) ? s.snap : 1;
             maxSnapScroll = s.snap ? s.maxSnapScroll : 0;
+            easing = s.easing;
             elastic = s.elastic ? (isNumeric(s.snap) ? snap : (isNumeric(s.elastic) ? s.elastic : 0)) : 0;// && s.snap ? snap : 0;
 
             if (currPos === undefined) {

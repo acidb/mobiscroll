@@ -3,8 +3,8 @@
         ms = $.mobiscroll,
         classes = ms.classes,
         util = ms.util,
-        pref = util.prefix,
-        pr = util.jsPrefix,
+        //pref = util.prefix,
+        //pr = util.jsPrefix,
         //has3d = util.has3d,
         hasFlex = util.hasFlex;
     //getCoord = util.getCoord,
@@ -234,6 +234,36 @@
         //    return s.readonly;
         //}
 
+        function initWheel(w, l) {
+            w.values = w.values || [];
+            w.keys = w.keys || w.values;
+            w.label = w.label !== undefined ? w.label : l;
+
+            w._map = {};
+            w._array = $.isArray(w.values);
+
+            // Map keys to index
+            if (w._array) {
+                w._length = w.values.length;
+                $.each(w.keys, function (i, v) {
+                    w._map[v] = i;
+                });
+            }
+
+            w.circular = w.circular || (w._array && w._length > s.rows);
+            w.min = w.min === undefined ? (w._array && !w.circular ? 0 : -Infinity) : w.min;
+            w.max = w.max === undefined ? (w._array && !w.circular ? w._length - 1 : Infinity) : w.max;
+
+            w._index = getIndex(w, l);
+            w._batch = 0;
+            w._offset = w._index;
+            w._first = w._index - batchSize,//Math.max(w.min, w._index - batchSize);
+            w._last = w._index + batchSize,//Math.min(w.max, w._first + 2 * batchSize);
+            w._margin = w._first * itemHeight;
+
+            return w;
+        }
+
         function getIndex(wheel, i) {
             return wheel._array ? wheel._map[that._tempWheelArray[i]] : wheel.getIndex(that._tempWheelArray[i]);
         }
@@ -285,21 +315,19 @@
             return html;
         }
 
-        function generate3dItems(wheel, start, end) {
-            var i,
-                value,
-                html = '',
-                values = wheel.values;
+        //function generate3dItems(wheel, start, end) {
+        //    var i,
+        //        value,
+        //        html = '',
+        //        values = wheel.values;
 
-            for (i = start; i <= end; i++) {
-                value = getItem(wheel, values, i);
-                //html += '<div data-index="' + i + '" class="mbsc-btn mbsc-sc-itm-3d" style="-webkit-transform:rotateX(' + ((wheel.first + batchSize + wheel.position - i) * 22.5 % 360) + 'deg) translateZ(100px);height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;">' + value + '</div>';
-                //wheel._$3d.find('.mbsc-sc-itm-3d').eq((i - wheel._first - batchSize - wheel._index + 7) % 16).html(value);
-                wheel._$3d.find('.mbsc-sc-itm-3d').eq((i + 7 - wheel._offset) % 16).html(value);
-            }
+        //    for (i = start; i <= end; i++) {
+        //        value = getItem(wheel, values, i);
+        //        wheel._$3d.find('.mbsc-sc-itm-3d').eq((i + 7 - wheel._offset) % 16).html(value);
+        //    }
 
-            return html;
-        }
+        //    return html;
+        //}
 
         //function setGlobals(t) {
         //    multiple = t.closest('.dwwl').hasClass('dwwms');
@@ -308,10 +336,10 @@
         //    index = $('.dw-ul', $markup).index(t);
         //}
 
-        //function formatHeader(v) {
-        //    var t = s.headerText;
-        //    return t ? (typeof t === 'function' ? t.call(el, v) : t.replace(/\{value\}/i, v)) : '';
-        //}
+        function formatHeader(v) {
+            var t = s.headerText;
+            return t ? (typeof t === 'function' ? t.call(el, v) : t.replace(/\{value\}/i, v)) : '';
+        }
 
         //function getCurrentPosition(t) {
         //    return Math.round(-util.getPosition(t, true) / itemHeight);
@@ -477,24 +505,17 @@
         //    calc(t, index, val < min ? max : val, 2, 0.1);
         //}
 
-        function infinite(wheel, pos, i) {
+        function infinite(wheel, pos) {
             var index = Math.round(-pos / itemHeight),
                 diff = index - wheel._index,
                 first = wheel._first,
                 last = wheel._last;
 
-            //wheel._first = Math.max(wheel.min, wheel._first + diff);
-            //wheel._last = Math.min(wheel.max, wheel._last + diff);
-
-            //diff = diff < 0 ? (wheel._first - first) : (wheel._last - last);
             if (diff) {
                 wheel._first += diff;
                 wheel._last += diff;
 
                 wheel._index = index;
-
-                // ????
-                that._tempWheelArray[i] = getItem(wheel, wheel.keys, index);
 
                 // Generate items
                 setTimeout(function () {
@@ -503,17 +524,17 @@
                         $('.mbsc-sc-itm', wheel._$markup).slice(0, diff).remove();
 
                         // 3D
-                        if (s.scroll3d) {
-                            generate3dItems(wheel, last - batchSize + 8 + 1, last - batchSize + 8 + diff);
-                        }
+                        //if (s.scroll3d) {
+                        //    generate3dItems(wheel, last - batchSize + 8 + 1, last - batchSize + 8 + diff);
+                        //}
                     } else if (diff < 0) {
                         wheel._$markup.prepend(generateItems(wheel, first + diff, first - 1));
                         $('.mbsc-sc-itm', wheel._$markup).slice(diff).remove();
 
                         // 3D
-                        if (s.scroll3d) {
-                            generate3dItems(wheel, first + batchSize - 8 + 1 + diff, first + batchSize - 8);
-                        }
+                        //if (s.scroll3d) {
+                        //    generate3dItems(wheel, first + batchSize - 8 + 1 + diff, first + batchSize - 8);
+                        //}
                     }
 
                     wheel._margin += diff * itemHeight;
@@ -522,22 +543,55 @@
             }
         }
 
-        function scrollToValues(time) {
-            $('.mbsc-sc-whl', $markup).each(function (i) {
-                var wheel = wheels[i],
+        function scrollToPos(time, index, dir) {
+            var idx,
+                ret = s.validate.call(el, that._tempWheelArray.slice(0), index, dir, that) || {};
+
+            if (ret.valid) {
+                that._tempWheelArray = ret.valid.slice(0);
+            }
+
+            trigger('onValidated', []);
+
+            that._tempValue = s.formatValue(that._tempWheelArray, that);
+
+            if (that._isVisible) {
+                //if (that.live) {
+                //    that._hasValue = manual || that._hasValue;
+                //    setValue(manual, manual, 0, true);
+                //}
+
+                that._header.html(formatHeader(that._tempValue));
+
+                //if (manual) {
+                //    trigger('onChange', [that._tempValue]);
+                //}
+
+                $.each(wheels, function (i, wheel) {
                     idx = getIndex(wheel, i);
 
-                $(this).mobiscroll('scroll', -idx * itemHeight, time);
-            });
+                    wheel._scroller.scroll(-idx * itemHeight - wheel._batch, time);
+
+                    // Enable all items
+                    wheel._$markup.find('.mbsc-sc-itm').removeClass('mbsc-sc-inv');
+
+                    // Disable invalid items
+                    if (ret.disabled && ret.disabled[i]) {
+                        // TODO: disable dynamically generated elements as well
+                        $.each(ret.disabled[i], function (j, v) {
+                            wheel._$markup.find('.mbsc-sc-itm[data-val="' + v + '"]').addClass('mbsc-sc-inv');
+                        });
+                    }
+                });
+            }
         }
 
         function setValue(fill, change, time, noscroll, temp) {
-            if (that._isVisible && !noscroll) {
-                //scrollToPos(time);
-                scrollToValues(time);
+            if (!noscroll) {
+                scrollToPos(time);
             }
 
-            that._tempValue = s.formatValue(that._tempWheelArray, that);
+            //that._tempValue = s.formatValue(that._tempWheelArray, that);
 
             if (!temp) {
                 that._wheelArray = that._tempWheelArray.slice(0);
@@ -654,8 +708,7 @@
         // Protected overrides
 
         that._generateContent = function () {
-            var lbl,
-                html = '',
+            var html = '',
                 l = 0;
 
             $.each(s.wheels, function (i, wg) { // Wheel groups
@@ -689,38 +742,15 @@
                 //});
 
                 //html += (hasFlex ? '' : '</tr></table>') + '</div></div>';
-                html += '<div class="mbsc-w-p mbsc-sc-whl-gr' + (s.scroll3d ? ' mbsc-sc-whl-gr-3d' : '') + (s.mode != 'scroller' ? ' mbsc-sc-cp' : '') + (s.showLabel ? ' mbsc-sc-lbl-v' : '') + '">' +
+                html += '<div class="mbsc-w-p mbsc-sc-whl-gr' +
+                    //(s.scroll3d ? ' mbsc-sc-whl-gr-3d' : '') +
+                    (s.mode != 'scroller' ? ' mbsc-sc-cp' : '') +
+                    (s.showLabel ? ' mbsc-sc-lbl-v' : '') + '">' +
                             //'<div class="dwwc"' + (s.maxWidth ? '' : ' style="max-width:600px;"') + '>' +
                                 (hasFlex ? '' : '<table class="dw-tbl" cellpadding="0" cellspacing="0"><tr>');
 
                 $.each(wg, function (j, w) { // Wheels
-                    w.values = w.values || [];
-                    w.keys = w.keys || w.values;
-
-                    w._map = {};
-                    w._array = $.isArray(w.values);
-
-                    // Map keys to index
-                    if (w._array) {
-                        w._length = w.values.length;
-                        $.each(w.keys, function (i, v) {
-                            w._map[v] = i;
-                        });
-                    }
-
-                    w.circular = w.circular || (w._array && w._length > s.rows);
-                    w.min = w.min === undefined ? (w._array && !w.circular ? 0 : -Infinity) : w.min;
-                    w.max = w.max === undefined ? (w._array && !w.circular ? w._length - 1 : Infinity) : w.max;
-
-                    w._index = getIndex(w, l);
-                    w._offset = w._index;
-                    w._first = w._index - batchSize,//Math.max(w.min, w._index - batchSize);
-                    w._last = w._index + batchSize,//Math.min(w.max, w._first + 2 * batchSize);
-                    w._margin = w._first * itemHeight;
-
-                    wheels[l] = w;
-
-                    lbl = w.label !== undefined ? w.label : j;
+                    wheels[l] = initWheel(w, l);
 
                     html += '<' + (hasFlex ? 'div' : 'td') + ' class="mbsc-sc-whl"' + ' style="' +
                                     'height:' + (s.rows * itemHeight) + 'px;' +
@@ -735,20 +765,23 @@
                                 //'<div tabindex="0" aria-live="off" aria-label="' + lbl + '" role="listbox" class="dwww">' +
                                     //'<div class="dww" style="height:' + (s.rows * itemHeight) + 'px;">' +
                                         //'<div class="dw-ul" style="margin-top:' + (w.multiple ? (s.mode == 'scroller' ? 0 : itemHeight) : s.rows / 2 * itemHeight - itemHeight / 2) + 'px;">';
-                                        '<div class="mbsc-sc-whl-c" style="height:' + itemHeight + 'px;margin-top:-' + (itemHeight / 2 + (s.selectedLineBorder || 0)) + 'px;' + (s.scroll3d ? pref + 'transform: translateZ(' + (itemHeight * s.rows / 2) + 'px);' : '') + '">' +
+                                        '<div class="mbsc-sc-whl-c" style="height:' + itemHeight + 'px;margin-top:-' +
+                                            (itemHeight / 2 + (s.selectedLineBorder || 0)) + 'px;' +
+                                            //(s.scroll3d ? pref + 'transform: translateZ(' + (itemHeight * s.rows / 2) + 'px);' : '') +
+                                        '">' +
                                             '<div class="mbsc-sc-whl-sc" style="margin-top:' + w._margin + 'px;">';
 
                     // Create wheel values
                     html += generateItems(w, w._first, w._last) +
                         '</div></div>';
 
-                    if (s.scroll3d) {
-                        html += '<div class="mbsc-sc-whl-3d" style="height:' + itemHeight + 'px;margin-top:-' + (itemHeight / 2) + 'px;">';
-                        for (var k = 0; k < 16; k++) {
-                            html += '<div class="mbsc-btn mbsc-sc-itm-3d" style="' + pref + 'transform:rotateX(' + ((7 - k - w._offset) * 22.5 % 360) + 'deg) translateZ(' + (itemHeight * s.rows / 2) + 'px);height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;">' + getItem(w, w.values, w._index + k - 7) + '</div>';
-                        }
-                        html += '</div>';
-                    }
+                    //if (s.scroll3d) {
+                    //    html += '<div class="mbsc-sc-whl-3d" style="height:' + itemHeight + 'px;margin-top:-' + (itemHeight / 2) + 'px;">';
+                    //    for (var k = 0; k < 16; k++) {
+                    //        html += '<div class="mbsc-btn mbsc-sc-itm-3d" style="' + pref + 'transform:rotateX(' + ((7 - k - w._offset) * 22.5 % 360) + 'deg) translateZ(' + (itemHeight * s.rows / 2) + 'px);height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;">' + getItem(w, w.values, w._index + k - 7) + '</div>';
+                    //    }
+                    //    html += '</div>';
+                    //}
 
                     html +=
                         //'</div></div><div class="dwwo"></div></div><div class="dwwol"' +
@@ -764,20 +797,20 @@
             return html;
         };
 
-        that._attachEvents = function ($markup) {
-            //$markup
-            //    .on('keydown', '.dwwl', onKeyDown)
-            //    .on('keyup', '.dwwl', onKeyUp)
-            //    .on('touchstart mousedown', '.dwwl', onStart)
-            //    .on('touchmove', '.dwwl', onMove)
-            //    .on('touchend', '.dwwl', onEnd)
-            //    .on('touchstart mousedown', '.dwwb', onBtnStart)
-            //    .on('touchend', '.dwwb', onBtnEnd);
+        //that._attachEvents = function ($markup) {
+        //    $markup
+        //        .on('keydown', '.dwwl', onKeyDown)
+        //        .on('keyup', '.dwwl', onKeyUp)
+        //        .on('touchstart mousedown', '.dwwl', onStart)
+        //        .on('touchmove', '.dwwl', onMove)
+        //        .on('touchend', '.dwwl', onEnd)
+        //        .on('touchstart mousedown', '.dwwb', onBtnStart)
+        //        .on('touchend', '.dwwb', onBtnEnd);
 
-            //if (s.mousewheel) {
-            //    $markup.on('wheel mousewheel', '.dwwl', onScroll);
-            //}
-        };
+        //    if (s.mousewheel) {
+        //        $markup.on('wheel mousewheel', '.dwwl', onScroll);
+        //    }
+        //};
 
         that._detachEvents = function ($m) {
             $('.mbsc-sc-whl', $m).mobiscroll('destroy');
@@ -785,15 +818,16 @@
 
         that._markupReady = function ($m) {
             $markup = $m;
-            //scrollToPos();
 
             $('.mbsc-sc-whl', $markup).each(function (i) {
-                var wheel = wheels[i];
+                var idx,
+                    wheel = wheels[i],
+                    len = wheel.values.length;
 
                 wheel._$markup = $('.mbsc-sc-whl-sc', this);
                 wheel._$3d = $('.mbsc-sc-whl-3d', this);
 
-                $(this).mobiscroll().scrollview({
+                wheel._scroller = new ms.classes.ScrollView(this, {
                     mousewheel: s.mousewheel,
                     moveElement: wheel._$markup,
                     initialPos: -wheel._index * itemHeight,
@@ -804,16 +838,29 @@
                     maxSnapScroll: batchSize,
                     prevDef: true,
                     stopProp: true,
-                    onScroll: function (pos, time, easing) {
-                        if (s.scroll3d) {
-                            wheel._$3d[0].style[pr + 'Transition'] = time ? pref + 'transform ' + Math.round(time) + 'ms ' + easing : '';
-                            wheel._$3d[0].style[pr + 'Transform'] = 'rotateX(' + (-pos * 22.5 / itemHeight) + 'deg)';
-                        }
+                    onScroll: function (pos, time/*, easing*/) {
+                        //if (s.scroll3d && easing !== false) {
+                        //    wheel._$3d[0].style[pr + 'Transition'] = time ? pref + 'transform ' + Math.round(time) + 'ms ' + easing : '';
+                        //    wheel._$3d[0].style[pr + 'Transform'] = 'rotateX(' + (-pos * 22.5 / itemHeight) + 'deg)';
+                        //}
 
-                        infinite(wheel, pos, i);
+                        if (time === false) {
+                            infinite(wheel, pos);
+                        } else {
+                            idx = Math.round(-pos / itemHeight);
+                            // Get the value of the new position
+                            that._tempWheelArray[i] = getItem(wheel, wheel.keys, Math.round(-pos / itemHeight));
+                            // In case of circular wheels calculate the offset of the current batch
+                            wheel._batch = wheel._array ? Math.floor(idx / len) * len * itemHeight : 0;
+                            // Validate
+                            // TODO: pass direction
+                            scrollToPos(time, i);
+                        }
                     }
                 });
             });
+
+            scrollToPos();
         };
 
         that._fillValue = function () {
@@ -829,6 +876,7 @@
             }
 
             that._tempWheelArray = that._hasValue && that._wheelArray ? that._wheelArray.slice(0) : s.parseValue.call(el, v, that) || [];
+
             setValue();
         };
 
@@ -883,7 +931,7 @@
             delay: 300,
             readonly: false,
             showLabel: true,
-            scroll3d: false,
+            //scroll3d: false,
             confirmOnTap: true,
             wheels: [],
             mode: 'scroller',
