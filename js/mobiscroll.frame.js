@@ -1,4 +1,4 @@
-﻿(function ($, window, document, undefined) {
+(function ($, window, document, undefined) {
     var $activeElm,
         preventShow,
         ms = $.mobiscroll,
@@ -12,8 +12,10 @@
         isOldAndroid = /android [1-3]/i.test(navigator.userAgent),
         isIOS8 = /(iphone|ipod|ipad).* os 8_/i.test(navigator.userAgent),
         animEnd = 'webkitAnimationEnd animationend',
-        empty = function () { },
-        prevdef = function (ev) { ev.preventDefault(); };
+        empty = function () {},
+        prevdef = function (ev) {
+            ev.preventDefault();
+        };
 
     ms.classes.Frame = function (el, settings, inherit) {
         var $ariaDiv,
@@ -103,7 +105,7 @@
                         value = activeEl.value;
                         try {
                             activeEl.type = 'button';
-                        } catch (ex) { }
+                        } catch (ex) {}
                         $activeElm.focus();
                         activeEl.type = type;
                         activeEl.value = value;
@@ -163,8 +165,8 @@
         ms.classes.Base.call(this, el, settings, true);
 
         /**
-        * Positions the scroller on the screen.
-        */
+         * Positions the scroller on the screen.
+         */
         that.position = function (check) {
             var w,
                 l,
@@ -260,7 +262,9 @@
                 arrl = constrain(al + aw / 2 - (l + (modalWidth - arrw) / 2), 0, arrw);
 
                 // Limit Arrow position
-                $('.dw-arr', $markup).css({ left: arrl });
+                $('.dw-arr', $markup).css({
+                    left: arrl
+                });
             } else {
                 l = sl;
                 if (s.display == 'top') {
@@ -279,12 +283,16 @@
             // If top + modal height > doc height, increase doc height
             $persp.height(0);
             dh = Math.max(t + modalHeight, s.context == 'body' ? $(document).height() : $ctx[0].scrollHeight);
-            $persp.css({ height: dh });
+            $persp.css({
+                height: dh
+            });
 
             // Scroll needed
             if (scroll && ((t + modalHeight > st + nh) || (at > st + nh))) {
                 preventPos = true;
-                setTimeout(function () { preventPos = false; }, 300);
+                setTimeout(function () {
+                    preventPos = false;
+                }, 300);
                 $wnd.scrollTop(Math.min(t + modalHeight - nh, dh - nh));
             }
 
@@ -293,12 +301,15 @@
         };
 
         /**
-        * Show mobiscroll on focus and click event of the parameter.
-        * @param {jQuery} $elm - Events will be attached to this element.
-        * @param {Function} [beforeShow=undefined] - Optional function to execute before showing mobiscroll.
-        */
+         * Show mobiscroll on focus and click event of the parameter.
+         * @param {jQuery} $elm - Events will be attached to this element.
+         * @param {Function} [beforeShow=undefined] - Optional function to execute before showing mobiscroll.
+         */
         that.attachShow = function ($elm, beforeShow) {
-            elmList.push({ readOnly: $elm.prop('readonly'), el: $elm });
+            elmList.push({
+                readOnly: $elm.prop('readonly'),
+                el: $elm
+            });
             if (s.display !== 'inline') {
                 if (setReadOnly && $elm.is('input')) {
                     $elm.prop('readonly', true).on('mousedown.dw', function (ev) {
@@ -332,8 +343,8 @@
         };
 
         /**
-        * Set button handler.
-        */
+         * Set button handler.
+         */
         that.select = function () {
             if (!isModal || that.hide(false, 'set') !== false) {
                 that._fillValue();
@@ -342,8 +353,8 @@
         };
 
         /**
-        * Cancel and hide the scroller instance.
-        */
+         * Cancel and hide the scroller instance.
+         */
         that.cancel = function () {
             if (!isModal || that.hide(false, 'cancel') !== false) {
                 event('onCancel', [that._value]);
@@ -351,8 +362,8 @@
         };
 
         /**
-        * Clear button handler.
-        */
+         * Clear button handler.
+         */
         that.clear = function () {
             event('onClear', [$markup]);
             if (isModal && !that.live) {
@@ -362,8 +373,8 @@
         };
 
         /**
-        * Enables the scroller and the associated input.
-        */
+         * Enables the scroller and the associated input.
+         */
         that.enable = function () {
             s.disabled = false;
             if (that._isInput) {
@@ -372,8 +383,8 @@
         };
 
         /**
-        * Disables the scroller and the associated input.
-        */
+         * Disables the scroller and the associated input.
+         */
         that.disable = function () {
             s.disabled = true;
             if (that._isInput) {
@@ -382,10 +393,10 @@
         };
 
         /**
-        * Shows the scroller instance.
-        * @param {Boolean} prevAnim - Prevent animation if true
-        * @param {Boolean} prevFocus - Prevent focusing if true
-        */
+         * Shows the scroller instance.
+         * @param {Boolean} prevAnim - Prevent animation if true
+         * @param {Boolean} prevFocus - Prevent focusing if true
+         */
         that.show = function (prevAnim, prevFocus) {
             // Create wheels
             var html;
@@ -414,14 +425,14 @@
                 (that._isLiquid ? ' dw-liq' : '') +
                 (isOldAndroid ? ' mbsc-old' : '') +
                 (hasButtons ? '' : ' dw-nobtn') + '">' +
-                    '<div class="dw-persp">' +
-                        (isModal ? '<div class="dwo"></div>' : '') + // Overlay
-                        '<div' + (isModal ? ' role="dialog" tabindex="-1"' : '') + ' class="dw' + (s.rtl ? ' dw-rtl' : ' dw-ltr') + '">' + // Popup
-                            (s.display === 'bubble' ? '<div class="dw-arrw"><div class="dw-arrw-i"><div class="dw-arr"></div></div></div>' : '') + // Bubble arrow
-                            '<div class="dwwr">' + // Popup content
-                                '<div aria-live="assertive" class="dw-aria dw-hidden"></div>' +
-                                (s.headerText ? '<div class="dwv">' + (isString(s.headerText) ? s.headerText : '') + '</div>' : '') + // Header
-                                '<div class="dwcc">'; // Wheel group container
+                '<div class="dw-persp">' +
+                (isModal ? '<div class="dwo"></div>' : '') + // Overlay
+                '<div' + (isModal ? ' role="dialog" tabindex="-1"' : '') + ' class="dw' + (s.rtl ? ' dw-rtl' : ' dw-ltr') + '">' + // Popup
+                (s.display === 'bubble' ? '<div class="dw-arrw"><div class="dw-arrw-i"><div class="dw-arr"></div></div></div>' : '') + // Bubble arrow
+                '<div class="dwwr">' + // Popup content
+                '<div aria-live="assertive" class="dw-aria dw-hidden"></div>' +
+                (s.headerText ? '<div class="dwv">' + (isString(s.headerText) ? s.headerText : '') + '</div>' : '') + // Header
+                '<div class="dwcc">'; // Wheel group container
 
             html += that._generateContent();
 
@@ -584,8 +595,8 @@
         };
 
         /**
-        * Hides the scroller instance.
-        */
+         * Hides the scroller instance.
+         */
         that.hide = function (prevAnim, btn, force) {
             // If onClose handler returns false, prevent hide
             if (!that._isVisible || (!force && !that._isValid && btn == 'set') || (!force && event('onClose', [that._tempValue, btn]) === false)) {
@@ -629,8 +640,8 @@
         };
 
         /**
-        * Return true if the scroller is currently visible.
-        */
+         * Return true if the scroller is currently visible.
+         */
         that.isVisible = function () {
             return that._isVisible;
         };
@@ -662,8 +673,8 @@
         // Generic frame functions
 
         /**
-        * Attach tap event to the given element.
-        */
+         * Attach tap event to the given element.
+         */
         that.tap = function (el, handler, prevent) {
             var startX,
                 startY,
@@ -711,8 +722,8 @@
         };
 
         /**
-        * Destroys the mobiscroll instance.
-        */
+         * Destroys the mobiscroll instance.
+         */
         that.destroy = function () {
             // Force hide without animation
             that.hide(true, false, true);
@@ -726,8 +737,8 @@
         };
 
         /**
-        * Scroller initialization.
-        */
+         * Scroller initialization.
+         */
         that.init = function (ss) {
             that._init(ss);
 
@@ -757,9 +768,18 @@
                 }
             });
 
-            that.buttons.set = { text: s.setText, handler: 'set' };
-            that.buttons.cancel = { text: (that.live) ? s.closeText : s.cancelText, handler: 'cancel' };
-            that.buttons.clear = { text: s.clearText, handler: 'clear' };
+            that.buttons.set = {
+                text: s.setText,
+                handler: 'set'
+            };
+            that.buttons.cancel = {
+                text: (that.live) ? s.closeText : s.cancelText,
+                handler: 'cancel'
+            };
+            that.buttons.clear = {
+                text: s.clearText,
+                handler: 'clear'
+            };
 
             that._isInput = $elm.is('input');
 
@@ -854,18 +874,4 @@
         }
     });
 
-    // Prevent standard behaviour on body click
-    function preventClick(ev) {
-        if (ms.tapped) {
-            ev.stopPropagation();
-            ev.preventDefault();
-            return false;
-        }
-    }
-
-    if (document.addEventListener) {
-        $.each(['mouseover', 'mousedown', 'mouseup', 'click'], function (i, ev) {
-            document.addEventListener(ev, preventClick, true);
-        });
-    }
 })(jQuery, window, document);
