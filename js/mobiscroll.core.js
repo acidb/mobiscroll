@@ -62,7 +62,8 @@
         return ret;
     }
 
-    var id = +new Date(),
+    var ms,
+        id = +new Date(),
         instances = {},
         extend = $.extend,
         mod = document.createElement('modernizr').style,
@@ -76,7 +77,7 @@
         return init(this, method, arguments);
     };
 
-    $.mobiscroll = $.mobiscroll || {
+    ms = $.mobiscroll = $.mobiscroll || {
         version: '2.15.1',
         util: {
             prefix: prefix,
@@ -120,11 +121,12 @@
             isString: function (s) {
                 return typeof s === 'string';
             },
-            getCoord: function (e, c) {
-                var ev = e.originalEvent || e;
+            getCoord: function (e, c, client) {
+                var ev = e.originalEvent || e,
+                    prop = (client ? 'client' : 'page') + c;
                 // Multi touch support
                 return ev.targetTouches ? ev.targetTouches[0]['client' + c] : e['client' + c];
-                //return ev.changedTouches ? ev.changedTouches[0]['page' + c] : e['page' + c];
+                //return ev.changedTouches ? ev.changedTouches[0][prop] : e[prop];
             },
             getPosition: function (t, vertical) {
                 var style = getComputedStyle(t[0]),
@@ -155,7 +157,7 @@
                 }
             }
         },
-        tapped: false,
+        tapped: 0,
         autoTheme: 'mobiscroll',
         presets: {
             scroller: {},
@@ -164,6 +166,7 @@
             menustrip: {}
         },
         themes: {
+            form: {},
             frame: {},
             listview: {},
             menustrip: {}
@@ -182,7 +185,10 @@
         },
         presetShort: function (name, c, p) {
             this.components[name] = function (s) {
-                return init(this, extend(s, { component: c, preset: p === false ? undefined : name }), arguments);
+                return init(this, extend(s, {
+                    component: c,
+                    preset: p === false ? undefined : name
+                }), arguments);
             };
         }
     };
@@ -313,5 +319,20 @@
         // Save instance
         instances[el.id] = that;
     };
+
+    // Prevent standard behaviour on body click
+    function preventClick(ev) {
+        if (ms.tapped && !ev.tap) {
+            ev.stopPropagation();
+            ev.preventDefault();
+            return false;
+        }
+    }
+
+    if (document.addEventListener) {
+        $.each(['mouseover', 'mousedown', 'mouseup', 'click'], function (i, ev) {
+            document.addEventListener(ev, preventClick, true);
+        });
+    }
 
 })(jQuery);
