@@ -398,6 +398,13 @@
                 return;
             }
 
+            // Parse value from input
+            that._readValue();
+
+            event('onBeforeShow', []);
+
+            doAnim = isOldAndroid ? false : s.animate;
+
             if (doAnim !== false) {
                 if (s.display == 'top') {
                     doAnim = 'slidedown';
@@ -406,11 +413,6 @@
                     doAnim = 'slideup';
                 }
             }
-
-            // Parse value from input
-            that._readValue();
-
-            event('onBeforeShow', []);
 
             // Create wheels containers
             html = '<div lang="' + s.lang + '" class="mbsc-' + s.theme + (s.baseTheme ? ' mbsc-' + s.baseTheme : '') + ' dw-' + s.display + ' ' +
@@ -738,7 +740,6 @@
             // Unbind all events (if re-init)
             $elm.off('.dw');
 
-            doAnim = isOldAndroid ? false : s.animate;
             buttons = s.buttons || [];
             isModal = s.display !== 'inline';
             setReadOnly = s.showOnFocus || s.showOnTap;
