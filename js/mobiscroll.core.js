@@ -155,7 +155,7 @@
                 }
             }
         },
-        tapped: false,
+        tapped: 0,
         autoTheme: 'mobiscroll',
         presets: {
             scroller: {},
@@ -320,7 +320,7 @@
 
     // Prevent standard behaviour on body click
     function preventClick(ev) {
-        if (ms.tapped) {
+        if (ms.tapped && !ev.tap) {
             ev.stopPropagation();
             ev.preventDefault();
             return false;

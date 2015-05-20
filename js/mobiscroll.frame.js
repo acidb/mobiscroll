@@ -2,7 +2,6 @@
     var $activeElm,
         preventShow,
         ms = $.mobiscroll,
-        instances = ms.instances,
         util = ms.util,
         pr = util.jsPrefix,
         has3d = util.has3d,
@@ -110,10 +109,6 @@
                         activeEl.type = type;
                         activeEl.value = value;
                     } else if (focus) {
-                        // If a mobiscroll field is focused, allow show
-                        if (instances[$(focus).attr('id')]) {
-                            ms.tapped = false;
-                        }
                         $(focus).focus();
                     }
                 }, 200);
@@ -142,19 +137,17 @@
         }
 
         function show(beforeShow, $elm) {
-            if (!ms.tapped) {
-                if (beforeShow) {
-                    beforeShow();
-                }
-
-                // Hide virtual keyboard
-                if ($(document.activeElement).is('input,textarea')) {
-                    $(document.activeElement).blur();
-                }
-
-                $activeElm = $elm;
-                that.show();
+            if (beforeShow) {
+                beforeShow();
             }
+
+            // Hide virtual keyboard
+            if ($(document.activeElement).is('input,textarea')) {
+                $(document.activeElement).blur();
+            }
+
+            $activeElm = $elm;
+            that.show();
 
             setTimeout(function () {
                 preventShow = false;
@@ -543,8 +536,8 @@
                         ev.preventDefault();
                     } else if (ev.keyCode == 9 && isModal) { // Tab
                         var $focusable = $markup.find('[tabindex="0"]').filter(function () {
-                            return this.offsetWidth > 0 || this.offsetHeight > 0;
-                        }),
+                                return this.offsetWidth > 0 || this.offsetHeight > 0;
+                            }),
                             index = $focusable.index($(':focus', $markup)),
                             i = $focusable.length - 1,
                             target = 0;
@@ -691,33 +684,29 @@
                     moved = false;
                 }).on('touchmove.dw', function (ev) {
                     // If movement is more than 20px, don't fire the click event handler
-                    if (Math.abs(getCoord(ev, 'X') - startX) > 20 || Math.abs(getCoord(ev, 'Y') - startY) > 20) {
+                    if (!moved && Math.abs(getCoord(ev, 'X') - startX) > 20 || Math.abs(getCoord(ev, 'Y') - startY) > 20) {
                         moved = true;
                     }
                 }).on('touchend.dw', function (ev) {
                     var that = this;
 
                     if (!moved) {
-                        // preventDefault and setTimeout are needed by iOS
                         ev.preventDefault();
-                        //setTimeout(function () {
                         handler.call(that, ev);
-                        //}, isOldAndroid ? 400 : 10);
                     }
-                    // Prevent click events to happen
-                    ms.tapped = true;
+
+                    // Prevent ghost click events to happen
+                    ms.tapped++;
                     setTimeout(function () {
-                        ms.tapped = false;
+                        ms.tapped--;
                     }, 500);
                 });
             }
 
             el.on('click.dw', function (ev) {
-                if (!ms.tapped) {
-                    // If handler was not called on touchend, call it on click;
-                    handler.call(this, ev);
-                }
                 ev.preventDefault();
+                // If handler was not called on touchend, call it on click;
+                handler.call(this, ev);
             });
         };
 
