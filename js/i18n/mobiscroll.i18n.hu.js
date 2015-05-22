@@ -56,6 +56,9 @@
         hideText: 'Elrejt',
         // Listview
         backText: 'Vissza',
-        undoText: 'Visszavon'
+        undoText: 'Visszavon',
+        // Form
+        offText: 'Ki',
+        onText: 'Be'
     });
 })(jQuery);

@@ -131,7 +131,7 @@
         }
 
         function onFocus(ev) {
-            if (!$popup[0].contains(ev.target)) {
+            if (ev.target.nodeType && !$popup[0].contains(ev.target)) {
                 $popup.focus();
             }
         }

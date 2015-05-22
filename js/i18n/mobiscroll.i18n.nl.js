@@ -19,7 +19,7 @@
         monthText: 'Maand',
         secText: 'Seconden',
         timeFormat: 'HH:ii',
-        timeWheels: 'hhii',
+        timeWheels: 'HHii',
         yearText: 'Jaar',
         nowText: 'Nu',
         pmText: 'pm',
