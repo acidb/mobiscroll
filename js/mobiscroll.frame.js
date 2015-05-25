@@ -217,7 +217,7 @@
                     minw = (w > minw) ? w : minw;
                 });
                 w = totalw > nw ? minw : totalw;
-                $wrapper.width(w).css('white-space', totalw > nw ? '' : 'nowrap');
+                $wrapper.width(w + 1).css('white-space', totalw > nw ? '' : 'nowrap');
             }
 
             modalWidth = $popup.outerWidth();
