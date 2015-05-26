@@ -93,6 +93,8 @@
                 type,
                 focus = s.focusOnClose;
 
+            that._markupRemove();
+
             $markup.remove();
 
             if ($activeElm && !prevAnim) {
@@ -515,6 +517,8 @@
                 $markup.insertAfter($elm);
             }
 
+            that._markupInserted($markup);
+
             event('onMarkupInserted', [$markup]);
 
             // Set position
@@ -560,31 +564,31 @@
                 ev.stopPropagation();
             });
 
-            setTimeout(function () {
-                // Init buttons
-                $.each(buttons, function (i, b) {
-                    that.tap($('.dwb' + i, $markup), function (ev) {
-                        b = isString(b) ? that.buttons[b] : b;
-                        b.handler.call(this, ev, that);
-                    }, true);
+            //setTimeout(function () {
+            // Init buttons
+            $.each(buttons, function (i, b) {
+                that.tap($('.dwb' + i, $markup), function (ev) {
+                    b = isString(b) ? that.buttons[b] : b;
+                    b.handler.call(this, ev, that);
+                }, true);
+            });
+
+            if (s.closeOnOverlay) {
+                that.tap($overlay, function () {
+                    that.cancel();
                 });
+            }
 
-                if (s.closeOnOverlay) {
-                    that.tap($overlay, function () {
-                        that.cancel();
-                    });
-                }
+            if (isModal && !doAnim) {
+                onShow(prevFocus);
+            }
 
-                if (isModal && !doAnim) {
-                    onShow(prevFocus);
-                }
+            $markup
+                .on('touchstart mousedown', '.dwb-e', onBtnStart)
+                .on('touchend', '.dwb-e', onBtnEnd);
 
-                $markup
-                    .on('touchstart mousedown', '.dwb-e', onBtnStart)
-                    .on('touchend', '.dwb-e', onBtnEnd);
-
-                that._attachEvents($markup);
-            }, 300);
+            that._attachEvents($markup);
+            //}, 300);
 
             event('onShow', [$markup, that._tempValue]);
         };
@@ -654,6 +658,10 @@
         that._fillValue = empty;
 
         that._markupReady = empty;
+
+        that._markupInserted = empty;
+
+        that._markupRemove = empty;
 
         that._processSettings = empty;
 
