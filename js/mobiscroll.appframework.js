@@ -16,11 +16,29 @@ if (!window.jQuery) {
             class2type = {},
             toString = class2type.toString;
 
-        function type(obj)          { return obj == null ? String(obj) : class2type[toString.call(obj)] || "object" }
-        function isWindow(obj)      { return obj != null && obj == obj.window }
-        function isObject(obj)      { return type(obj) == "object" }
-        function isPlainObject(obj) { return isObject(obj) && !isWindow(obj) && obj.__proto__ == Object.prototype }
-        function isArray(value)     { return value instanceof Array }
+        function type(obj) {
+            return obj == null ? String(obj) : class2type[toString.call(obj)] || "object"
+        }
+
+        function isWindow(obj) {
+            return obj != null && obj == obj.window
+        }
+
+        function isFunction(value) {
+            return type(value) == "function"
+        }
+
+        function isObject(obj) {
+            return type(obj) == "object"
+        }
+
+        function isPlainObject(obj) {
+            return isObject(obj) && !isWindow(obj) && obj.__proto__ == Object.prototype
+        }
+
+        function isArray(value) {
+            return value instanceof Array
+        }
 
         function extend(target, source, deep) {
             for (key in source)
@@ -31,7 +49,7 @@ if (!window.jQuery) {
                         target[key] = []
                     extend(target[key], source[key], deep)
                 } else if (source[key] !== undefined)
-                    target[key] = source[key]
+                target[key] = source[key]
         }
 
         function isNumeric(n) {
@@ -44,101 +62,118 @@ if (!window.jQuery) {
             }
 
             var matchesSelector = element.webkitMatchesSelector || element.mozMatchesSelector ||
-                                  element.oMatchesSelector || element.matchesSelector;
+                element.oMatchesSelector || element.matchesSelector;
 
             if (matchesSelector) {
                 return matchesSelector.call(element, selector);
             }
             // fall back to performing a selector:
-            var match, parent = element.parentNode, temp = !parent
-            if (temp) (parent = tempParent).appendChild(element)
+            var match, parent = element.parentNode,
+                temp = !parent
+            if (temp)(parent = tempParent).appendChild(element)
             match = ~qsa(parent, selector).indexOf(element)
             temp && tempParent.removeChild(element)
             return match
         }
 
-        function qsa(element, selector){
+        function qsa(element, selector) {
             var found
             return (element === document && idSelectorRE.test(selector)) ?
-            ( (found = element.getElementById(RegExp.$1)) ? [found] : emptyArray ) :
-            (element.nodeType !== 1 && element.nodeType !== 9) ? emptyArray :
-            slice.call(
-                classSelectorRE.test(selector) ? element.getElementsByClassName(RegExp.$1) :
-                tagSelectorRE.test(selector) ? element.getElementsByTagName(selector) :
-                element.querySelectorAll(selector)
+                ((found = element.getElementById(RegExp.$1)) ? [found] : emptyArray) :
+                (element.nodeType !== 1 && element.nodeType !== 9) ? emptyArray :
+                slice.call(
+                    classSelectorRE.test(selector) ? element.getElementsByClassName(RegExp.$1) :
+                    tagSelectorRE.test(selector) ? element.getElementsByTagName(selector) :
+                    element.querySelectorAll(selector)
                 )
         }
 
         function camelize(str) {
-            return str.replace(/-+(.)?/g, function(match, chr){ return chr ? chr.toUpperCase() : '' });
+            return str.replace(/-+(.)?/g, function (match, chr) {
+                return chr ? chr.toUpperCase() : ''
+            });
         }
 
-        $.each("Boolean Number String Function Array Date RegExp Object Error".split(" "), function(i, name) {
-            class2type[ "[object " + name + "]" ] = name.toLowerCase()
+        $.each("Boolean Number String Function Array Date RegExp Object Error".split(" "), function (i, name) {
+            class2type["[object " + name + "]"] = name.toLowerCase()
         });
 
-        ['width', 'height'].forEach(function(dimension){
-            $.fn[dimension] = function(value){
+        ['width', 'height'].forEach(function (dimension) {
+            $.fn[dimension] = function (value) {
                 var body = document.body,
                     html = document.documentElement,
-                    offset, Dimension = dimension.replace(/./, function(m){return m[0].toUpperCase()})
+                    offset, Dimension = dimension.replace(/./, function (m) {
+                        return m[0].toUpperCase()
+                    })
                 if (value === undefined) return this[0] == window ? document.documentElement['client' + Dimension] :
-                    this[0] == document ? Math.max(body['scroll' + Dimension], body['offset' + Dimension], html['client' + Dimension], html['scroll' + Dimension], html['offset' + Dimension]) : //document.documentElement['offset' + Dimension] :
+                    this[0] == document ?
+                    Math.max(body['scroll' + Dimension], body['offset' + Dimension], html['client' + Dimension], html['scroll' + Dimension], html['offset' + Dimension]) :
                     (offset = this.offset()) && offset[dimension]
-                else return this.each(function(idx){
+                else return this.each(function (idx) {
                     var el = $(this)
                     el.css(dimension, value)
                 })
             }
         });
 
-        ['width', 'height'].forEach(function(dimension) {
-            var offset, Dimension = dimension.replace(/./, function(m) {return m[0].toUpperCase()});
-            $.fn['outer' + Dimension] = function(margin) {
+        ['width', 'height'].forEach(function (dimension) {
+            var offset, Dimension = dimension.replace(/./, function (m) {
+                return m[0].toUpperCase()
+            });
+            $.fn['outer' + Dimension] = function (margin) {
                 var elem = this;
                 if (elem) {
                     var size = elem[0]['offset' + Dimension];
-                    var sides = {'width': ['left', 'right'], 'height': ['top', 'bottom']};
-                    sides[dimension].forEach(function(side) {
-                         if (margin) {
+                    var sides = {
+                        'width': ['left', 'right'],
+                        'height': ['top', 'bottom']
+                    };
+                    sides[dimension].forEach(function (side) {
+                        if (margin) {
                             size += parseInt(elem.css(camelize('margin-' + side)), 10);
                         }
                     });
                     return size;
-                }
-                else {
+                } else {
                     return null;
                 }
             };
         });
 
         ['width', 'height'].forEach(function (dimension) {
-            var offset, Dimension = dimension.replace(/./, function (m) { return m[0].toUpperCase(); });
+            var offset, Dimension = dimension.replace(/./, function (m) {
+                return m[0].toUpperCase();
+            });
             $.fn['inner' + Dimension] = function () {
                 var elem = this;
                 if (elem[0]['inner' + Dimension]) {
                     return elem[0]['inner' + Dimension];
                 } else {
                     var size = elem[0]['offset' + Dimension],
-                        sides = {'width': ['left', 'right'], 'height': ['top', 'bottom']};
+                        sides = {
+                            'width': ['left', 'right'],
+                            'height': ['top', 'bottom']
+                        };
                     sides[dimension].forEach(function (side) {
-                            size -= parseInt(elem.css(camelize('border-' + side + '-width')), 10);
+                        size -= parseInt(elem.css(camelize('border-' + side + '-width')), 10);
                     });
                     return size;
                 }
             };
         });
 
-        ["Left", "Top"].forEach(function(name, i) {
+        ["Left", "Top"].forEach(function (name, i) {
             var method = "scroll" + name;
-            function isWindow( obj ) {
+
+            function isWindow(obj) {
                 return obj && typeof obj === "object" && "setInterval" in obj;
             }
-            function getWindow( elem ) {
-                return isWindow( elem ) ? elem : elem.nodeType === 9 ? elem.defaultView || elem.parentWindow : false;
+
+            function getWindow(elem) {
+                return isWindow(elem) ? elem : elem.nodeType === 9 ? elem.defaultView || elem.parentWindow : false;
             }
 
-            $.fn[method] = function( val ) {
+            $.fn[method] = function (val) {
                 var elem, win;
                 if (val === undefined) {
                     elem = this[0];
@@ -154,14 +189,13 @@ if (!window.jQuery) {
                 }
 
                 // Set the scroll offset
-                this.each(function() {
+                this.each(function () {
                     win = getWindow(this);
                     if (win) {
                         var xCoord = !i ? val : $(win).scrollLeft();
                         var yCoord = i ? val : $(win).scrollTop();
                         win.scrollTo(xCoord, yCoord);
-                    }
-                    else {
+                    } else {
                         this[method] = val;
                     }
                 });
@@ -190,6 +224,11 @@ if (!window.jQuery) {
 
         $.fn.before = function (elm) {
             $(elm).insertBefore(this);
+            return this;
+        };
+
+        $.fn.after = function (elm) {
+            $(elm).insertAfter(this);
             return this;
         };
 
@@ -269,6 +308,20 @@ if (!window.jQuery) {
             }
         };
 
+        $.fn._filter = $.fn.filter;
+        $.fn.filter = function (selector) {
+            var nodes = [];
+            if (isFunction(selector)) {
+                this.each(function (idx) {
+                    if (selector.call(this, idx)) {
+                        nodes.push(this)
+                    }
+                });
+                return $(nodes);
+            }
+            return this._filter(selector);
+        };
+
         // Copy all but undefined properties from one or more
         // objects to the `target` object.
         $.extend = function (target) {
@@ -282,6 +335,14 @@ if (!window.jQuery) {
                 extend(target, arg, deep)
             })
             return target
+        }
+
+        if (!$.fn.contents) {
+            $.fn.contents = function () {
+                return this.map(function (i, v) {
+                    return slice.call(v.childNodes)
+                })
+            };
         }
 
     })(jQuery);
