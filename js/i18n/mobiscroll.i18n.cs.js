@@ -1,5 +1,5 @@
 (function ($) {
-    $.mobiscroll.i18n.cs = $.extend($.mobiscroll.i18n.cs, {
+    $.mobiscroll.i18n.cs = {
         // Core
         setText: 'Zadej',
         cancelText: 'Storno',
@@ -48,6 +48,9 @@
         hideText: 'Schovat',
         // Listview
         backText: 'Zpět',
-        undoText: 'Rozlepit'
-    });
+        undoText: 'Rozlepit',
+        // Form
+        offText: 'O',
+        onText: 'I'
+    };
 })(jQuery);

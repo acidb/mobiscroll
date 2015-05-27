@@ -1,6 +1,6 @@
 (function ($) {
-    $.mobiscroll.i18n.pl = $.extend($.mobiscroll.i18n.pl, {
-      // Core
+    $.mobiscroll.i18n.pl = {
+        // Core
         setText: 'Zestaw',
         cancelText: 'Anuluj',
         clearText: 'Oczyścić',
@@ -48,6 +48,9 @@
         hideText: 'Ukryć',
         // Listview
         backText: 'Z powrotem',
-        undoText: 'Cofnij'
-    });
+        undoText: 'Cofnij',
+        // Form
+        offText: 'Wył',
+        onText: 'Wł'
+    };
 })(jQuery);

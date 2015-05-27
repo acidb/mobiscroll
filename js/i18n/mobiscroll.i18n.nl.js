@@ -1,5 +1,5 @@
 (function ($) {
-    $.mobiscroll.i18n.nl = $.extend($.mobiscroll.i18n.nl, {
+    $.mobiscroll.i18n.nl = {
         // Core
         setText: 'Instellen',
         cancelText: 'Annuleren',
@@ -48,6 +48,9 @@
         hideText: 'Verbergen',
         // Listview
         backText: 'Terug',
-        undoText: 'Onged. maken'
-    });
+        undoText: 'Onged. maken',
+        // Form
+        offText: 'Uit',
+        onText: 'Aan'
+    };
 })(jQuery);

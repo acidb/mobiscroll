@@ -1,5 +1,5 @@
 (function ($) {
-    $.mobiscroll.i18n['ru-UA'] = $.extend($.mobiscroll.i18n['ru-UA'], {
+    $.mobiscroll.i18n['ru-UA'] = {
         // Core
         setText: 'Установить',
         cancelText: 'Отменить',
@@ -49,6 +49,9 @@
         hideText: ' Скрыть ',
         // Listview
         backText: 'назад',
-        undoText: 'аннулировать'
-    });
+        undoText: 'аннулировать',
+        // Form
+        offText: 'O',
+        onText: 'I'
+    };
 })(jQuery);

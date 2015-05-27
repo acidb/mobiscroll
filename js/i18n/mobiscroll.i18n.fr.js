@@ -1,5 +1,5 @@
 (function ($) {
-    $.mobiscroll.i18n.fr = $.extend($.mobiscroll.i18n.fr, {
+    $.mobiscroll.i18n.fr = {
         // Core
         setText: 'Terminé',
         cancelText: 'Annuler',
@@ -48,6 +48,9 @@
         hideText: 'Cachez',
         // Listview
         backText: 'Arrière',
-        undoText: 'Défaire'
-    });
+        undoText: 'Défaire',
+        // Form
+        offText: 'Non',
+        onText: 'Oui'
+    };
 })(jQuery);

@@ -2,7 +2,7 @@
  * Translation to pt-EU by: Jorge Simoes <http://jorge.simoes.com>
  */
 (function ($) {
-    $.mobiscroll.i18n['pt-PT'] = $.extend($.mobiscroll.i18n['pt-PT'], {
+    $.mobiscroll.i18n['pt-PT'] = {
         // Core
         setText: 'Seleccionar',
         cancelText: 'Cancelar',
@@ -11,14 +11,14 @@
         // Datetime component
         dateFormat: 'dd-mm-yy',
         dateOrder: 'ddMMyy',
-        dayNames: ['Domingo','Segunda-feira','Terça-feira','Quarta-feira','Quinta-feira','Sexta-feira','S&aacute;bado'],
-        dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','S&aacute;b'],
-        dayNamesMin: ['D','S','T','Q','Q','S','S'],
+        dayNames: ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'S&aacute;bado'],
+        dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'S&aacute;b'],
+        dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'],
         dayText: 'Dia',
         hourText: 'Horas',
         minuteText: 'Minutos',
-        monthNames: ['Janeiro','Fevereiro','Mar&ccedil;o','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
-        monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
+        monthNames: ['Janeiro', 'Fevereiro', 'Mar&ccedil;o', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+        monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
         monthText: 'M&ecirc;s',
         secText: 'Segundo',
         timeFormat: 'HH:ii:ss',
@@ -51,6 +51,9 @@
         hideText: 'Esconder',
         // Listview
         backText: 'De volta',
-        undoText: 'Anular'
-    });
+        undoText: 'Anular',
+        // Form
+        offText: 'Desl',
+        onText: 'Lig'
+    };
 })(jQuery);

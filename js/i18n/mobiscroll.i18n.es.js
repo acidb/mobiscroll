@@ -1,5 +1,5 @@
 (function ($) {
-    $.mobiscroll.i18n.es = $.extend($.mobiscroll.i18n.es, {
+    $.mobiscroll.i18n.es = {
         // Core
         setText: 'Aceptar',
         cancelText: 'Cancelar',
@@ -8,14 +8,14 @@
         // Datetime component
         dateFormat: 'dd/mm/yy',
         dateOrder: 'ddmmyy',
-        dayNames: ['Domingo','Lunes','Martes','Mi&#xE9;rcoles','Jueves','Viernes','S&#xE1;bado'],
-        dayNamesShort: ['Do','Lu','Ma','Mi','Ju','Vi','S&#xE1;'],
-        dayNamesMin: ['D','L','M','M','J','V','S'],
+        dayNames: ['Domingo', 'Lunes', 'Martes', 'Mi&#xE9;rcoles', 'Jueves', 'Viernes', 'S&#xE1;bado'],
+        dayNamesShort: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'S&#xE1;'],
+        dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
         dayText: 'D&#237;a',
         hourText: 'Horas',
         minuteText: 'Minutos',
-        monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
-        monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
+        monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+        monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
         monthText: 'Mes',
         secText: 'Segundos',
         timeFormat: 'HH:ii',
@@ -47,6 +47,9 @@
         hideText: 'Esconder',
         // Listview
         backText: 'Espalda',
-        undoText: 'Deshacer'
-    });
+        undoText: 'Deshacer',
+        // Form
+        offText: 'No',
+        onText: 'Sí'
+    };
 })(jQuery);

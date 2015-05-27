@@ -1,5 +1,5 @@
 (function ($) {
-    $.mobiscroll.i18n.it = $.extend($.mobiscroll.i18n.it, {
+    $.mobiscroll.i18n.it = {
         // Core
         setText: 'OK',
         cancelText: 'Annulla',
@@ -48,6 +48,9 @@
         hideText: 'Nascondi',
         // Listview
         backText: 'Indietro',
-        undoText: 'Annulla'
-    });
+        undoText: 'Annulla',
+        // Form
+        offText: 'Via',
+        onText: 'Su'
+    };
 })(jQuery);
