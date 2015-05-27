@@ -61,10 +61,10 @@
     border-color: transparent transparent rgb(255,255,255) transparent;
 }
 .mbsc-mobiscroll-dark .dw-cal-event-time {
-    color: rgb(38,50,56);
+    color: rgb(140,178,175);
 }
 .mbsc-mobiscroll-dark .dw-cal-event-dur {
-    color: rgb(38,50,56);
+    color: rgb(140,178,175);
 }
 .mbsc-mobiscroll-dark .dw-cal-day-hl .dw-i {
     border-color: rgb(79,204,196); 
@@ -197,4 +197,104 @@
 }
 .mbsc-mobiscroll-dark.mbsc-ms-b.mbsc-ms-bottom .mbsc-ms-item-sel .mbsc-ms-item-i {
     border-top-color: rgb(79,204,196);
+}
+
+/* Form elements */
+.mbsc-mobiscroll-dark.mbsc-form {
+    background: rgb(38,50,56);
+    color: rgb(247,247,247);
+}
+.mbsc-mobiscroll-dark.mbsc-form *::-moz-selection {
+    background: rgb(79,204,196);
+}
+.mbsc-mobiscroll-dark.mbsc-form *::selection {
+    background: rgb(79,204,196);
+}
+.mbsc-mobiscroll-dark .mbsc-desc {
+    color: rgb(255,255,255);
+}
+.mbsc-mobiscroll-dark .mbsc-divider {
+    color: rgb(79,204,196);
+}
+/* Textbox */
+.mbsc-mobiscroll-dark .mbsc-input textarea,
+.mbsc-mobiscroll-dark .mbsc-input input {
+    border-bottom: 1px solid rgb(255,255,255);
+    color: rgb(209,209,209);
+}
+.mbsc-mobiscroll-dark .mbsc-input select:focus ~ input,
+.mbsc-mobiscroll-dark .mbsc-input textarea:focus,
+.mbsc-mobiscroll-dark .mbsc-input:not(.mbsc-select) input:focus {
+    border-bottom: 1px solid rgb(79,204,196);
+}
+/* Textbox */
+.mbsc-mobiscroll-dark .mbsc-input-ic {
+    color: rgb(255,255,255);
+}
+
+/* Checkbox */
+.mbsc-mobiscroll-dark .mbsc-checkbox-box {
+    background: rgb(79,204,196);
+}
+.mbsc-mobiscroll-dark .mbsc-checkbox-box:after {
+    border: .125em solid rgb(38,50,56);
+    border-top: 0;
+    border-right: 0;
+}
+.mbsc-mobiscroll-dark .mbsc-checkbox input:disabled + .mbsc-checkbox-box {
+    background: rgb(16,21,23);
+}
+/* Radio */
+.mbsc-mobiscroll-dark .mbsc-radio-box {
+    border: .125em solid rgb(79,204,196);
+}
+.mbsc-mobiscroll-dark .mbsc-radio-box:after {
+    background: rgb(79,204,196);
+}
+.mbsc-mobiscroll-dark .mbsc-radio input:checked + .mbsc-radio-box {
+    background: transparent;
+}
+.mbsc-mobiscroll-dark .mbsc-radio input:disabled + .mbsc-radio-box {
+    border-color: rgb(16,21,23);
+}
+.mbsc-mobiscroll-dark .mbsc-radio input:disabled + .mbsc-radio-box:after {
+    background: rgb(16,21,23);
+}
+.mbsc-mobiscroll-dark .mbsc-toggle-track {
+    background: rgb(43,57,64);
+}
+.mbsc-mobiscroll-dark .mbsc-toggle-handle {
+    background: rgb(35,46,51);
+}
+.mbsc-mobiscroll-dark .mbsc-toggle input:checked + .mbsc-toggle-track {
+    background: rgb(181,230,227);
+}
+.mbsc-mobiscroll-dark .mbsc-toggle input:checked + .mbsc-toggle-track .mbsc-toggle-handle {
+    background: rgb(79,204,196);
+}
+.mbsc-mobiscroll-dark .mbsc-toggle input:disabled + .mbsc-toggle-track {
+    background: rgb(16,21,23);
+}
+.mbsc-mobiscroll-dark .mbsc-toggle input:disabled + .mbsc-toggle-track .mbsc-toggle-handle {
+    background: rgb(24,32,36);
+}
+/* Buttons */
+.mbsc-mobiscroll-dark .mbsc-btn {
+    background: rgb(79,204,196);
+    color: rgb(38,50,56);
+}
+.mbsc-mobiscroll-dark .mbsc-btn:disabled {
+    background: rgb(43,57,64);
+}
+.mbsc-mobiscroll-dark .mbsc-btn-flat.mbsc-active {
+    background: rgba(79,204,196, .3)
+}
+.mbsc-mobiscroll-dark .mbsc-btn-flat {
+    background: transparent;
+    color: rgb(79,204,196);
+    border-color: transparent;
+}
+.mbsc-mobiscroll-dark .mbsc-btn-flat:disabled {
+    background: transparent;
+    color: rgb(35,46,51);
 }

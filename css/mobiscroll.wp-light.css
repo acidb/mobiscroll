@@ -172,3 +172,118 @@
 .mbsc-wp-light .mbsc-ms-item-sel {
     color: rgb(0,0,0);
 }
+
+/* Form elements */
+.mbsc-wp-light.mbsc-form {
+    background-color: rgb(255,255,255);
+    color: rgb(0,0,0);
+}
+.mbsc-wp-light .mbsc-input-ic {
+    color: rgb(0,0,0);
+}
+.mbsc-wp-light .mbsc-input select {
+    background: rgb(255,255,255);
+    color: rgb(0,0,0);
+}
+.mbsc-wp-light .mbsc-select input {
+    border-color: rgb(0,0,0);
+    color: rgb(0,0,0); /*!!!!!!!*/
+}
+.mbsc-wp-light .mbsc-input select.mbsc-active + input {
+    border-color: rgb(0,0,0);
+}
+.mbsc-wp-light .mbsc-select .mbsc-input-wrap .mbsc-ic {
+    color: rgb(0,0,0);
+}
+.mbsc-wp-light .mbsc-input select:disabled ~ input,
+.mbsc-wp-light .mbsc-input textarea:disabled,
+.mbsc-wp-light .mbsc-input input:disabled {
+    background-color: transparent;
+}
+
+/* Checkbox */
+.mbsc-wp-light .mbsc-checkbox-box {
+    border-color: rgb(0,0,0);
+}
+.mbsc-wp-light .mbsc-checkbox-box:after {
+    border-color: rgb(0,0,0);
+}
+/* Radio */
+.mbsc-wp-light .mbsc-radio-box {
+    border-color: rgb(0,0,0);
+}
+.mbsc-wp-light .mbsc-radio-box:after {
+    background-color: rgb(0,0,0);
+}
+/* Toggle */
+.mbsc-wp-light .mbsc-toggle .mbsc-toggle-track {
+    -webkit-box-shadow: inset 0px 0px 0px 2px rgb(255,255,255), 0px 0px 0px 2px rgb(0,0,0);
+    box-shadow: inset 0px 0px 0px 2px rgb(255,255,255), 0px 0px 0px 2px rgb(0,0,0);
+}
+.mbsc-wp-light .mbsc-toggle .mbsc-toggle-handle {
+    background: rgb(0,0,0);
+    border: 2px solid rgb(255,255,255);
+}
+.mbsc-wp-light .mbsc-toggle input:disabled + .mbsc-toggle-track {
+    background: transparent;
+}
+.mbsc-wp-light .mbsc-toggle input:checked:disabled + .mbsc-toggle-track {
+    background: rgb(0,0,0);
+}
+/* Button */
+.mbsc-wp-light .mbsc-btn {
+    color: rgb(0,0,0);
+    border-color: rgb(0,0,0);
+}
+.mbsc-wp-light .mbsc-btn .mbsc-ic {
+    color: rgb(0,0,0);
+}
+.mbsc-wp-light .mbsc-btn-flat,
+.mbsc-wp-light .mbsc-btn-flat.mbsc-active {
+    color: rgb(0,0,0);
+}
+.mbsc-wp-light .mbsc-btn-flat.mbsc-active .mbsc-ic,
+.mbsc-wp-light .mbsc-btn-flat .mbsc-ic {
+    border-color: rgb(0,0,0);
+}
+/* acent */
+.mbsc-wp-light .mbsc-toggle input:checked + .mbsc-toggle-track,
+.mbsc-wp-light .mbsc-radio input.mbsc-active + .mbsc-radio-box:after,
+.mbsc-wp-light .mbsc-radio input.mbsc-active + .mbsc-radio-box,
+.mbsc-wp-light .mbsc-checkbox input.mbsc-active + .mbsc-checkbox-box {
+    background: rgb(181,181,181);
+}
+.mbsc-wp-light.mbsc-form *::-moz-selection {
+    color: rgb(255,255,255);
+    background: rgb(181,181,181);
+}
+
+.mbsc-wp-light.mbsc-form *::selection {
+    color: rgb(0,0,0);
+    background: rgb(181,181,181);
+}
+.mbsc-wp-light .mbsc-input input:focus, 
+.mbsc-wp-light .mbsc-input select:focus + input, 
+.mbsc-wp-light .mbsc-input textarea:focus {
+    background: rgb(255,255,255);
+    border-color: rgb(181,181,181);
+    color: rgb(0,0,0);
+}
+
+.mbsc-wp-light .mbsc-input select.mbsc-active + input {
+    background: rgb(181,181,181);
+    border-color: rgb(255,255,255);
+    color: rgb(255,255,255);
+}
+
+.mbsc-wp-light .mbsc-btn-flat.mbsc-active .mbsc-ic {
+    border-color: rgb(181,181,181);
+}
+.mbsc-wp-light .mbsc-btn.mbsc-active .mbsc-ic {
+    background: rgb(181,181,181);
+    color: rgb(255,255,255);
+}
+.mbsc-wp-light .mbsc-btn.mbsc-active:not(.mbsc-btn-flat) {
+    background: rgb(181,181,181);
+    color:rgb(255,255,255);
+}

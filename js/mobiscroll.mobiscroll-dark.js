@@ -25,4 +25,8 @@
         baseTheme: 'mobiscroll'
     };
     
+    $.mobiscroll.themes.form['mobiscroll-dark'] = {
+        baseTheme: 'mobiscroll'
+    };
+    
 })(jQuery);
