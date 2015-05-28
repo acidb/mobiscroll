@@ -215,6 +215,13 @@
     color: rgb(0,0,0);
     border-color: rgb(168,168,168);
 }
+.mbsc-android-holo-light.mbsc-wdg .mbsc-input textarea,
+.mbsc-android-holo-light.mbsc-wdg .mbsc-input input,
+.mbsc-lv-android-holo-light .mbsc-input textarea,
+.mbsc-lv-android-holo-light .mbsc-input input {
+    background: rgb(245,245,245);
+    outline-color: rgb(245,245,245);
+}
 .mbsc-android-holo-light .mbsc-select .mbsc-input-wrap .mbsc-select-ic {
     border-color: transparent rgb(168,168,168) rgb(168,168,168) transparent;
 }
