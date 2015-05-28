@@ -95,7 +95,12 @@
 
                     if (hasGroups) {
                         if (groupIndexes[lbl] === undefined) {
-                            gr = { text: lbl, value: c, options: [], index: c };
+                            gr = {
+                                text: lbl,
+                                value: c,
+                                options: [],
+                                index: c
+                            };
                             groups[c] = gr;
                             groupIndexes[lbl] = c;
                             groupArray.push(gr);
@@ -116,7 +121,12 @@
             } else {
                 if (hasGroups) {
                     $('optgroup', elm).each(function (i) {
-                        groups[i] = { text: this.label, value: i, options: [], index: i };
+                        groups[i] = {
+                            text: this.label,
+                            value: i,
+                            options: [],
+                            index: i
+                        };
                         groupArray.push(groups[i]);
                         $('option', this).each(function (j) {
                             opt = {
@@ -328,13 +338,17 @@
 
         $('#' + id).remove();
 
-        input = $('<input type="text" id="' + id + '" class="' + s.inputClass + '" placeholder="' + (s.placeholder || '') + '" readonly />');
+        if (elm.next().is('input.mbsc-control')) {
+            input = elm.off('.mbsc-form').next().removeAttr('tabindex');
+        } else {
+            input = $('<input type="text" id="' + id + '" class="' + s.inputClass + '" readonly />');
 
-        if (s.showInput) {
-            input.insertBefore(elm);
+            if (s.showInput) {
+                input.insertBefore(elm);
+            }
         }
 
-        inst.attachShow(input);
+        inst.attachShow(input.attr('placeholder', s.placeholder || ''));
 
         elm.addClass('dw-hsel').attr('tabindex', -1).closest('.ui-field-contain').trigger('create');
 
