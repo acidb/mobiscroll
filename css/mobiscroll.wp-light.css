@@ -235,15 +235,15 @@
     color: rgb(0,0,0);
     border-color: rgb(0,0,0);
 }
-.mbsc-wp-light .mbsc-btn .mbsc-ic {
+.mbsc-wp-light .mbsc-btn .mbsc-btn-ic {
     color: rgb(0,0,0);
 }
 .mbsc-wp-light .mbsc-btn-flat,
 .mbsc-wp-light .mbsc-btn-flat.mbsc-active {
     color: rgb(0,0,0);
 }
-.mbsc-wp-light .mbsc-btn-flat.mbsc-active .mbsc-ic,
-.mbsc-wp-light .mbsc-btn-flat .mbsc-ic {
+.mbsc-wp-light .mbsc-btn-flat.mbsc-active .mbsc-btn-ic,
+.mbsc-wp-light .mbsc-btn-flat .mbsc-btn-ic {
     border-color: rgb(0,0,0);
 }
 /* acent */
@@ -276,10 +276,10 @@
     color: rgb(255,255,255);
 }
 
-.mbsc-wp-light .mbsc-btn-flat.mbsc-active .mbsc-ic {
+.mbsc-wp-light .mbsc-btn-flat.mbsc-active .mbsc-btn-ic {
     border-color: rgb(181,181,181);
 }
-.mbsc-wp-light .mbsc-btn.mbsc-active .mbsc-ic {
+.mbsc-wp-light .mbsc-btn.mbsc-active .mbsc-btn-ic {
     background: rgb(181,181,181);
     color: rgb(255,255,255);
 }
