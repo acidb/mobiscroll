@@ -140,7 +140,7 @@
     border-color: rgb(217,217,217);
 }
 /* Listview */
-.mbsc-lv-android-holo-light {
+.mbsc-lv-android-holo-light .mbsc-lv {
     background: rgb(219,219,219);
 }
 .mbsc-lv-android-holo-light .mbsc-lv .mbsc-lv-item.mbsc-lv-item-dragging  {
@@ -301,7 +301,7 @@
 .mbsc-android-holo-light .mbsc-input input:focus {
     border-color: rgb(49,183,232);
 }
-.mbsc-android-holo-light .mbsc-input select:focus ~ .mbsc-select-ic {
+.mbsc-android-holo-light .mbsc-input .mbsc-control:focus ~ .mbsc-select-ic {
     border-color: transparent rgb(49,183,232) rgb(49,183,232) transparent;
 }
 

@@ -224,8 +224,8 @@
 }
 .mbsc-mobiscroll-dark .mbsc-input select:focus ~ input,
 .mbsc-mobiscroll-dark .mbsc-input textarea:focus,
-.mbsc-mobiscroll-dark .mbsc-input:not(.mbsc-select) input:focus {
-    border-bottom: 1px solid rgb(79,204,196);
+.mbsc-mobiscroll-dark .mbsc-input input:focus {
+    border-color: rgb(79,204,196);
 }
 /* Textbox */
 .mbsc-mobiscroll-dark .mbsc-input-ic {
@@ -287,7 +287,7 @@
     background: rgb(43,57,64);
 }
 .mbsc-mobiscroll-dark .mbsc-btn-flat.mbsc-active {
-    background: rgba(79,204,196, .3)
+    background: rgba(79,204,196, .3);
 }
 .mbsc-mobiscroll-dark .mbsc-btn-flat {
     background: transparent;
