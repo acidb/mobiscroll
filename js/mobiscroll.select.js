@@ -632,7 +632,9 @@
                 }
             },
             onDestroy: function () {
-                input.remove();
+                if (!input.hasClass('mbsc-control')) {
+                    input.remove();
+                }
                 elm.removeClass('dw-hsel').removeAttr('tabindex');
             }
         };
