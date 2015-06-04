@@ -281,9 +281,7 @@
 }
 .mbsc-wp-light .mbsc-btn.mbsc-active .mbsc-btn-ic {
     background: rgb(181,181,181);
-    color: rgb(255,255,255);
 }
 .mbsc-wp-light .mbsc-btn.mbsc-active:not(.mbsc-btn-flat) {
     background: rgb(181,181,181);
-    color:rgb(255,255,255);
 }
