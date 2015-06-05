@@ -497,6 +497,10 @@
                     });
                 }
 
+                if (ms.activeInstance) {
+                    ms.activeInstance.hide();
+                }
+
                 posEvents += ' scroll';
 
                 ms.activeInstance = that;
