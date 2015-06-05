@@ -55,8 +55,9 @@
     top: -.3em;
 }
 .mbsc-wp .dwb-a:before {
-    background: #fff;
-    color: #1f1f1f;
+    background: #1a9fe0;
+    border-color: #1a9fe0;
+    color: #fff;
 }
 /* Bubble positioning */
 .mbsc-wp .dw-bubble-bottom .dw-arr {

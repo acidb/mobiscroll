@@ -72,7 +72,8 @@
 .mbsc-wp .dw-sel .dw-i,
 .mbsc-wp .dw-hl .dw-i {
     color: #fff;
-    background: #4c4c4c;
+    background: #1a9fe0;
+    border-color: #1a9fe0;
 }
 .mbsc-wp .dwwo {
     display: none;

@@ -15,9 +15,9 @@
 }
 .mbsc-wp-light .dw-sel .dw-i,
 .mbsc-wp-light .dw-hl .dw-i {
-    color: #000;
-    background: rgb(181,181,181);
-    border-color: rgb(181,181,181);
+    color: #fff;
+    background: rgb(28,161,227);
+    border-color: rgb(28,161,227);
 }
 /* Clickpick-mode */ 
 .mbsc-wp-light .dwwb {
@@ -31,7 +31,7 @@
     background: rgb(222,222,222);
 }
 .mbsc-wp-light .dwwl .dwb-a:before {
-    color: rgb(222,222,222);
+    color: rgb(28,161,227);
 }
 /* Bubble positioning */
 .mbsc-wp-light .dw-bubble-bottom .dw-arr {
@@ -90,18 +90,16 @@
     border-color: rgb(0,0,0);
     color: rgb(222,222,222);
 }
-.mbsc-wp-light .dwb-a:before,
-.mbsc-wp-light .dwb-a .dw-cal-btn-txt:before  {
-    background: rgb(0,0,0);
-}
-.mbsc-wp-light .dwb.dwb-a:before ,
-.mbsc-wp-light .dwb-a .dw-cal-btn-txt:before {
-    color: rgb(222,222,222);
-}
 .mbsc-wp-light .dwb:before,
 .mbsc-wp-light .dw-cal-btn-txt:before {
     color: rgb(0,0,0);
     border-color:  rgb(0,0,0);
+}
+.mbsc-wp-light .dwb-a:before,
+.mbsc-wp-light .dwb-a .dw-cal-btn-txt:before  {
+    background: rgb(28,161,227);
+    border-color: rgb(28,161,227);
+    color: #fff;
 }
 .mbsc-wp-light .dw-week-nrs-c {
     background: rgb(222,222,222);
@@ -120,7 +118,7 @@
 /* Timer */
 .mbsc-wp-light.dw-timespan .dwl,
 .mbsc-wp-light.dw-timer .dwl {
-    color: #000;
+    color: #fff;
 }
 /* Numpad */
 .mbsc-wp-light .mbsc-np-btn {
@@ -128,8 +126,8 @@
     border: 2px solid rgb(222,222,222);
 }
 .mbsc-wp-light .mbsc-np-btn.dwb-a {
-    background: rgb(181,181,181);
-    color: #000;
+    background: rgb(28,161,227);
+    color: #fff;
 }
 .mbsc-wp-light .mbsc-np-btn.dwb-d {
     color: rgb(0,0,0);
@@ -187,7 +185,7 @@
 }
 .mbsc-wp-light .mbsc-select input {
     border-color: rgb(0,0,0);
-    color: rgb(0,0,0); /*!!!!!!!*/
+    color: rgb(0,0,0); 
 }
 .mbsc-wp-light .mbsc-input select.mbsc-active + input {
     border-color: rgb(0,0,0);
@@ -251,37 +249,43 @@
 .mbsc-wp-light .mbsc-radio input.mbsc-active + .mbsc-radio-box:after,
 .mbsc-wp-light .mbsc-radio input.mbsc-active + .mbsc-radio-box,
 .mbsc-wp-light .mbsc-checkbox input.mbsc-active + .mbsc-checkbox-box {
-    background: rgb(181,181,181);
+    background: rgb(28,161,227);
 }
 .mbsc-wp-light.mbsc-form *::-moz-selection {
     color: rgb(255,255,255);
-    background: rgb(181,181,181);
+    background: rgb(28,161,227);
 }
 
 .mbsc-wp-light.mbsc-form *::selection {
     color: rgb(0,0,0);
-    background: rgb(181,181,181);
+    background: rgb(28,161,227);
 }
 .mbsc-wp-light .mbsc-input input:focus, 
 .mbsc-wp-light .mbsc-input select:focus + input, 
 .mbsc-wp-light .mbsc-input textarea:focus {
+    border-color: rgb(28,161,227);
+}
+.mbsc-wp-light .mbsc-input select:focus + input {
     background: rgb(255,255,255);
-    border-color: rgb(181,181,181);
     color: rgb(0,0,0);
 }
 
 .mbsc-wp-light .mbsc-input select.mbsc-active + input {
-    background: rgb(181,181,181);
-    border-color: rgb(255,255,255);
-    color: rgb(255,255,255);
+    background: rgb(28,161,227);
+    border-color: rgb(28,161,227);
+    color: #fff;
+}
+
+.mbsc-wp-light .mbsc-select select.mbsc-active ~ .mbsc-ic {
+    color: #fff;
 }
 
 .mbsc-wp-light .mbsc-btn-flat.mbsc-active .mbsc-btn-ic {
-    border-color: rgb(181,181,181);
+    border-color: rgb(28,161,227);
 }
 .mbsc-wp-light .mbsc-btn.mbsc-active .mbsc-btn-ic {
-    background: rgb(181,181,181);
+    background: rgb(28,161,227);
 }
 .mbsc-wp-light .mbsc-btn.mbsc-active:not(.mbsc-btn-flat) {
-    background: rgb(181,181,181);
+    background: rgb(28,161,227);
 }
