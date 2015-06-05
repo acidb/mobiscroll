@@ -264,6 +264,7 @@
 .mbsc-wp-light .mbsc-input select:focus + input, 
 .mbsc-wp-light .mbsc-input textarea:focus {
     border-color: rgb(28,161,227);
+    color: rgb(0,0,0);
 }
 .mbsc-wp-light .mbsc-input select:focus + input {
     background: rgb(255,255,255);
@@ -275,7 +276,9 @@
     border-color: rgb(28,161,227);
     color: #fff;
 }
-
+.mbsc-wp-light .mbsc-select select:focus ~ .mbsc-ic {
+    color: rgb(0,0,0);
+}
 .mbsc-wp-light .mbsc-select select.mbsc-active ~ .mbsc-ic {
     color: #fff;
 }
