@@ -1,7 +1,7 @@
 (function ($) {
     $.mobiscroll.i18n.fr = {
         // Core
-        setText: 'Terminé',
+        setText: 'Terminer',
         cancelText: 'Annuler',
         clearText: 'Effacer',
         selectedText: 'Sélectionné',
