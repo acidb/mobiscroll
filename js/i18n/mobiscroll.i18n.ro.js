@@ -49,6 +49,6 @@
         hideText: 'Ascundere',
         // Listview
         backText: 'Înapoi',
-        undoText: 'Desface'
+        undoText: 'Anulaţi'
     });
 })(jQuery);

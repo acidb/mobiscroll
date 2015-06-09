@@ -51,6 +51,6 @@
         hideText: 'Esconder',
         // Listview
         backText: 'De volta',
-        undoText: 'Desfazer'
+        undoText: 'Anular'
     });
 })(jQuery);

@@ -1,11 +1,10 @@
 (function ($, undefined) {
-
     var ms = $.mobiscroll,
         datetime = ms.datetime,
         date = new Date(),
         defaults = {
             startYear: date.getFullYear() - 100,
-            endYear: date.getFullYear() + 1, 
+            endYear: date.getFullYear() + 1,
             separator: ' ',
             // Localization
             dateFormat: 'mm/dd/yy',
@@ -33,22 +32,22 @@
             // Force format for html5 date inputs (experimental)
             if (that.is('input')) {
                 switch (that.attr('type')) {
-                case 'date':
-                    format = 'yy-mm-dd';
-                    break;
-                case 'datetime':
-                    format = 'yy-mm-ddTHH:ii:ssZ';
-                    break;
-                case 'datetime-local':
-                    format = 'yy-mm-ddTHH:ii:ss';
-                    break;
-                case 'month':
-                    format = 'yy-mm';
-                    html5def.dateOrder = 'mmyy';
-                    break;
-                case 'time':
-                    format = 'HH:ii:ss';
-                    break;
+                    case 'date':
+                        format = 'yy-mm-dd';
+                        break;
+                    case 'datetime':
+                        format = 'yy-mm-ddTHH:ii:ssZ';
+                        break;
+                    case 'datetime-local':
+                        format = 'yy-mm-ddTHH:ii:ss';
+                        break;
+                    case 'month':
+                        format = 'yy-mm';
+                        html5def.dateOrder = 'mmyy';
+                        break;
+                    case 'time':
+                        format = 'HH:ii:ss';
+                        break;
                 }
                 // Check for min/max attributes
                 var min = that.attr('min'),
@@ -67,8 +66,8 @@
                 keys,
                 values,
                 wg,
-                start,
-                end,
+                //start,
+                //end,
                 hasTime,
                 mins,
                 maxs,
@@ -108,7 +107,6 @@
             format = format || hformat;
 
             if (p.match(/date/i)) {
-
                 // Determine the order of year, month, day wheels
                 $.each(['y', 'm', 'd'], function (j, v) {
                     i = dord.search(new RegExp(v, 'i'));
@@ -125,15 +123,24 @@
                 for (k = 0; k < 3; k++) {
                     if (k == o.y) {
                         offset++;
-                        values = [];
-                        keys = [];
-                        start = s.getYear(mind);
-                        end = s.getYear(maxd);
-                        for (i = start; i <= end; i++) {
-                            keys.push(i);
-                            values.push((dord.match(/yy/i) ? i : (i + '').substr(2, 2)) + (s.yearSuffix || ''));
-                        }
-                        addWheel(wg, keys, values, s.yearText);
+                        //values = [];
+                        //keys = [];
+                        //start = s.getYear(mind);
+                        //end = s.getYear(maxd);
+                        //for (i = start; i <= end; i++) {
+                        //    keys.push(i);
+                        //    values.push((dord.match(/yy/i) ? i : (i + '').substr(2, 2)) + (s.yearSuffix || ''));
+                        //}
+                        //addWheel(wg, keys, values, s.yearText);
+                        addWheel(
+                            wg,
+                            s.yearText,
+                            function (i) { return i; },
+                            function (i) { return dord.match(/yy/i) ? i : (i + '').substr(2, 2); },
+                            function (v) { return v; },
+                            mind.getFullYear(),
+                            maxd.getFullYear()
+                        );
                     } else if (k == o.m) {
                         offset++;
                         values = [];
@@ -141,9 +148,10 @@
                         for (i = 0; i < 12; i++) {
                             var str = dord.replace(/[dy]/gi, '').replace(/mm/, (i < 9 ? '0' + (i + 1) : i + 1) + (s.monthSuffix || '')).replace(/m/, i + 1 + (s.monthSuffix || ''));
                             keys.push(i);
-                            values.push(str.match(/MM/) ? str.replace(/MM/, '<span class="dw-mon">' + s.monthNames[i] + '</span>') : str.replace(/M/, '<span class="dw-mon">' + s.monthNamesShort[i] + '</span>'));
+                            values.push(str.match(/MM/) ? str.replace(/MM/, '<div class="dw-mon">' + s.monthNames[i] + '</div>') : str.replace(/M/, '<div class="dw-mon">' + s.monthNamesShort[i] + '</div>'));
+                            //values.push(str.match(/MM/) ? str.replace(/MM/, s.monthNames[i]) : str.replace(/M/, s.monthNamesShort[i]));
                         }
-                        addWheel(wg, keys, values, s.monthText);
+                        addWheel(wg, s.monthText, keys, values);
                     } else if (k == o.d) {
                         offset++;
                         values = [];
@@ -152,7 +160,7 @@
                             keys.push(i);
                             values.push((dord.match(/dd/i) && i < 10 ? '0' + i : i) + (s.daySuffix || ''));
                         }
-                        addWheel(wg, keys, values, s.dayText);
+                        addWheel(wg, s.dayText, keys, values);
                     }
                 }
                 wheels.push(wg);
@@ -182,11 +190,11 @@
                         offset++;
                         values = [];
                         keys = [];
-                        for (i = minH; i < (hampm ? 12 : 24); i += stepH) {
+                        for (i = minH; i < (hampm ? 12 : 24) ; i += stepH) {
                             keys.push(i);
                             values.push(hampm && i === 0 ? 12 : tord.match(/hh/i) && i < 10 ? '0' + i : i);
                         }
-                        addWheel(wg, keys, values, s.hourText);
+                        addWheel(wg, s.hourText, keys, values);
                     } else if (k == o.i) {
                         offset++;
                         values = [];
@@ -195,7 +203,7 @@
                             keys.push(i);
                             values.push(tord.match(/ii/) && i < 10 ? '0' + i : i);
                         }
-                        addWheel(wg, keys, values, s.minuteText);
+                        addWheel(wg, s.minuteText, keys, values);
                     } else if (k == o.s) {
                         offset++;
                         values = [];
@@ -204,11 +212,11 @@
                             keys.push(i);
                             values.push(tord.match(/ss/) && i < 10 ? '0' + i : i);
                         }
-                        addWheel(wg, keys, values, s.secText);
+                        addWheel(wg, s.secText, keys, values);
                     } else if (k == o.a) {
                         offset++;
                         var upper = tord.match(/A/);
-                        addWheel(wg, [0, 1], upper ? [s.amText.toUpperCase(), s.pmText.toUpperCase()] : [s.amText, s.pmText], s.ampmText);
+                        addWheel(wg, s.ampmText, [0, 1], upper ? [s.amText.toUpperCase(), s.pmText.toUpperCase()] : [s.amText, s.pmText]);
                     }
                 }
 
@@ -228,11 +236,14 @@
                 return f[i](defd);
             }
 
-            function addWheel(wg, k, v, lbl) {
+            function addWheel(wg, lbl, k, v, getIndex, min, max) {
                 wg.push({
                     values: v,
                     keys: k,
-                    label: lbl
+                    label: lbl,
+                    min: min,
+                    max: max,
+                    getIndex: getIndex
                 });
             }
 
@@ -414,22 +425,22 @@
                         if (!d.start) {
                             if (d.getTime) { // Exact date
                                 if (s.getYear(d) == y && s.getMonth(d) == m) {
-                                    idx[s.getDay(d) - 1] = val;
+                                    idx[s.getDay(d)] = val;
                                 }
                             } else if (!v.match(/w/i)) { // Day of month
                                 v = v.split('/');
                                 if (v[1]) {
                                     if (v[0] - 1 == m) {
-                                        idx[v[1] - 1] = val;
+                                        idx[v[1]] = val;
                                     }
                                 } else {
-                                    idx[v[0] - 1] = val;
+                                    idx[v[0]] = val;
                                 }
                             } else { // Day of week
                                 v = +v.replace('w', '');
                                 for (k = v - first; k < maxdays; k += 7) {
                                     if (k >= 0) {
-                                        idx[k] = val;
+                                        idx[k + 1] = val;
                                     }
                                 }
                             }
@@ -472,7 +483,6 @@
                         all = false;
 
                         if (obj.start && (obj.apply || (!obj.d && !spec[day]))) {
-
                             // Define time parts
                             parts1 = obj.start.split(':');
                             parts2 = obj.end.split(':');
@@ -543,7 +553,7 @@
                                     }
                                 }
                             }
-                            
+
                             if (!all) {
                                 // Calculate min and max values
                                 v1 = step(parts1[i], steps[v], mins[v], maxs[v]) + add;
@@ -566,7 +576,6 @@
                                     $('.dw-li', target).slice(i1, i2).removeClass('dw-v');
                                 }
                             }
-                                    
                         }
                     });
                 }
@@ -657,14 +666,13 @@
 
             // ---
 
-
             // Initializations
-            // --- 
+            // ---
 
             inst.format = hformat;
             inst.order = o;
 
-            inst.handlers.now = function () { inst.setDate(new Date(), false, 0.3, true, true); };
+            inst.handlers.now = function () { inst.setDate(new Date(), false, 1000, true, true); };
             inst.buttons.now = { text: s.nowText, handler: 'now' };
 
             invalid = convertRanges(invalid);
@@ -689,9 +697,10 @@
                     }
                     return getArray(val ? datetime.parseDate(format, val, s) : (s.defaultValue || new Date()), !!val && !!val.getTime);
                 },
-                validate: function (dw, i, time, dir) {
-                    var validated = getClosestValidDate(getDate(inst.getArrayVal(true)), dir),
+                validate: function (arrayVal, index, dir) {
+                    var validated = getClosestValidDate(getDate(arrayVal), dir),
                         temp = getArray(validated),
+                        disabled = [],
                         y = get(temp, 'y'),
                         m = get(temp, 'm'),
                         minprop = true,
@@ -702,21 +711,22 @@
                             var min = mins[i],
                                 max = maxs[i],
                                 maxdays = 31,
-                                val = get(temp, i),
-                                t = $('.dw-ul', dw).eq(o[i]);
+                                val = get(temp, i);
+
+                            disabled[o[i]] = [];
 
                             if (i == 'd') {
                                 maxdays = s.getMaxDayOfMonth(y, m);
                                 max = maxdays;
-                                if (regen) {
-                                    $('.dw-li', t).each(function () {
-                                        var that = $(this),
-                                            d = that.data('val'),
-                                            w = s.getDate(y, m, d).getDay(),
-                                            str = dord.replace(/[my]/gi, '').replace(/dd/, (d < 10 ? '0' + d : d) + (s.daySuffix || '')).replace(/d/, d + (s.daySuffix || ''));
-                                        $('.dw-i', that).html(str.match(/DD/) ? str.replace(/DD/, '<span class="dw-day">' + s.dayNames[w] + '</span>') : str.replace(/D/, '<span class="dw-day">' + s.dayNamesShort[w] + '</span>'));
-                                    });
-                                }
+                                //if (regen) {
+                                //    $('.dw-li', t).each(function () {
+                                //        var that = $(this),
+                                //            d = that.data('val'),
+                                //            w = s.getDate(y, m, d).getDay(),
+                                //            str = dord.replace(/[my]/gi, '').replace(/dd/, (d < 10 ? '0' + d : d) + (s.daySuffix || '')).replace(/d/, d + (s.daySuffix || ''));
+                                //        $('.dw-i', that).html(str.match(/DD/) ? str.replace(/DD/, '<span class="dw-day">' + s.dayNames[w] + '</span>') : str.replace(/D/, '<span class="dw-day">' + s.dayNamesShort[w] + '</span>'));
+                                //    });
+                                //}
                             }
                             if (minprop && mind) {
                                 min = f[i](mind);
@@ -725,11 +735,13 @@
                                 max = f[i](maxd);
                             }
                             if (i != 'y') {
-                                var i1 = getIndex(t, min),
-                                    i2 = getIndex(t, max);
-                                $('.dw-li', t).removeClass('dw-v').slice(i1, i2 + 1).addClass('dw-v');
-                                if (i == 'd') { // Hide days not in month
-                                    $('.dw-li', t).removeClass('dw-h').slice(maxdays).addClass('dw-h');
+                                //if (i == 'd') { // Hide days not in month
+                                //    $('.dw-li', t).removeClass('dw-h').slice(maxdays).addClass('dw-h');
+                                //}
+                                for (var j = mins[i]; j <= maxs[i]; j++) {
+                                    if (j < min || j > max) {
+                                        disabled[o[i]].push(j);
+                                    }
                                 }
                             }
                             if (val < min) {
@@ -751,12 +763,12 @@
 
                                 // Set invalid indexes
                                 validateDates(invalid, y, m, first, maxdays, idx, 1);
-                                // Delete indexes which are valid 
+                                // Delete indexes which are valid
                                 validateDates(valid, y, m, first, maxdays, idx, 0);
 
-                                $.each(idx, function (i, v) {
+                                $.each(idx, function (j, v) {
                                     if (v) {
-                                        $('.dw-li', t).eq(i).removeClass('dw-v');
+                                        disabled[o[i]].push(j);
                                     }
                                 });
                             }
@@ -764,23 +776,26 @@
                     });
 
                     // Invalid times
-                    if (hasTime) {
-                        $.each(['a', 'h', 'i', 's'], function (i, v) {
-                            var val = get(temp, v),
-                                d = get(temp, 'd'),
-                                t = $('.dw-ul', dw).eq(o[v]);
+                    //if (hasTime) {
+                    //    $.each(['a', 'h', 'i', 's'], function (i, v) {
+                    //        var val = get(temp, v),
+                    //            d = get(temp, 'd'),
+                    //            t = $('.dw-ul', dw).eq(o[v]);
 
-                            if (o[v] !== undefined) {
-                                validateTimes(invalid, i, v, temp, y, m, d, t, 0);
-                                validateTimes(valid, i, v, temp, y, m, d, t, 1);
+                    //        if (o[v] !== undefined) {
+                    //            validateTimes(invalid, i, v, temp, y, m, d, t, 0);
+                    //            validateTimes(valid, i, v, temp, y, m, d, t, 1);
 
-                                // Get valid value
-                                validValues[i] = +inst.getValidCell(val, t, dir).val;
-                            }
-                        });
-                    }
+                    //            // Get valid value
+                    //            validValues[i] = +inst.getValidCell(val, t, dir).val;
+                    //        }
+                    //    });
+                    //}
 
-                    inst._tempWheelArray = temp;
+                    return {
+                        disabled: disabled,
+                        valid: temp
+                    };
                 }
             };
         };
@@ -788,5 +803,4 @@
     $.each(['date', 'time', 'datetime'], function (i, v) {
         ms.presets.scroller[v] = preset;
     });
-
 })(jQuery);

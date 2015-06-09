@@ -48,6 +48,6 @@
         hideText: 'Nascondi',
         // Listview
         backText: 'Indietro',
-        undoText: 'Disfare'
+        undoText: 'Annulla'
     });
 })(jQuery);

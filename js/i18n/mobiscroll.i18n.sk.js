@@ -48,6 +48,6 @@
         hideText: 'Schovať',
         // Listview
         backText: 'Späť',
-        undoText: 'Zrušiť'
+        undoText: 'Späť'
     });
 })(jQuery);
