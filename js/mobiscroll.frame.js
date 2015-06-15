@@ -564,8 +564,12 @@
                     }
                 });
 
-            $('input', $markup).on('selectstart mousedown', function (ev) {
+            $('input,select,textarea', $markup).on('selectstart mousedown', function (ev) {
                 ev.stopPropagation();
+            }).on('keydown', function (ev) {
+                if (ev.keyCode == 32) { // Space
+                    ev.stopPropagation();
+                }
             });
 
             //setTimeout(function () {
