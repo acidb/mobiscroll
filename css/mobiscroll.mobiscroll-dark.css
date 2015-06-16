@@ -216,6 +216,9 @@
 .mbsc-mobiscroll-dark .mbsc-divider {
     color: rgb(79,204,196);
 }
+.mbsc-mobiscroll-dark a {
+    color: rgb(79,204,196);
+}
 /* Textbox */
 .mbsc-mobiscroll-dark .mbsc-input textarea,
 .mbsc-mobiscroll-dark .mbsc-input input {

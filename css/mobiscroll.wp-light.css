@@ -295,3 +295,7 @@
 .mbsc-wp-light .mbsc-btn.mbsc-active:not(.mbsc-btn-flat) {
     background: rgb(28,161,227);
 }
+
+.mbsc-wp-light a {
+    color: rgb(28,161,227);
+}

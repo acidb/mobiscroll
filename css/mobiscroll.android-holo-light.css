@@ -294,13 +294,18 @@
 .mbsc-android-holo-light .mbsc-divider {
     border-bottom: 1px solid rgb(49,183,232);
     color: rgb(49,183,232);
-
 }
+
+.mbsc-android-holo-light a {
+    color: rgb(49,183,232);
+}
+
 .mbsc-android-holo-light .mbsc-input select:focus + input,
 .mbsc-android-holo-light .mbsc-input textarea:focus,
 .mbsc-android-holo-light .mbsc-input input:focus {
     border-color: rgb(49,183,232);
 }
+
 .mbsc-android-holo-light .mbsc-input .mbsc-control:focus ~ .mbsc-select-ic {
     border-color: transparent rgb(49,183,232) rgb(49,183,232) transparent;
 }
