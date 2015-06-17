@@ -248,7 +248,7 @@
     border-color: rgb(0,0,0);
 }
 /* acent */
-.mbsc-wp-light .mbsc-toggle input:checked + .mbsc-toggle-track,
+.mbsc-wp-light .mbsc-switch input:checked + .mbsc-switch-track,
 .mbsc-wp-light .mbsc-radio input.mbsc-active + .mbsc-radio-box:after,
 .mbsc-wp-light .mbsc-radio input.mbsc-active + .mbsc-radio-box,
 .mbsc-wp-light .mbsc-checkbox input.mbsc-active + .mbsc-checkbox-box {
