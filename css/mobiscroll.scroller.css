@@ -64,6 +64,8 @@
 .dww {
     overflow: hidden;
     position: relative;
+    border-radius: 1px;
+    /* Forces IE to respect overflow hidden while animating */
 }
 
 .dw-bf {
