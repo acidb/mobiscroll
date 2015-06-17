@@ -216,19 +216,19 @@
 .mbsc-wp-light .mbsc-radio-box:after {
     background-color: rgb(0,0,0);
 }
-/* Toggle */
-.mbsc-wp-light .mbsc-toggle .mbsc-toggle-track {
+/* Switch */
+.mbsc-wp-light .mbsc-switch .mbsc-switch-track {
     -webkit-box-shadow: inset 0px 0px 0px 2px rgb(255,255,255), 0px 0px 0px 2px rgb(0,0,0);
     box-shadow: inset 0px 0px 0px 2px rgb(255,255,255), 0px 0px 0px 2px rgb(0,0,0);
 }
-.mbsc-wp-light .mbsc-toggle .mbsc-toggle-handle {
+.mbsc-wp-light .mbsc-switch .mbsc-switch-handle {
     background: rgb(0,0,0);
     border: 2px solid rgb(255,255,255);
 }
-.mbsc-wp-light .mbsc-toggle input:disabled + .mbsc-toggle-track {
+.mbsc-wp-light .mbsc-switch input:disabled + .mbsc-switch-track {
     background: transparent;
 }
-.mbsc-wp-light .mbsc-toggle input:checked:disabled + .mbsc-toggle-track {
+.mbsc-wp-light .mbsc-switch input:checked:disabled + .mbsc-switch-track {
     background: rgb(0,0,0);
 }
 /* Button */

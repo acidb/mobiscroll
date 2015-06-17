@@ -235,21 +235,21 @@
 .mbsc-android-holo-light .mbsc-checkbox-box {
     border-color: rgb(76,76,76);
 }
-.mbsc-android-holo-light .mbsc-toggle-handle {
+.mbsc-android-holo-light .mbsc-switch-handle {
     color: #fff;
 }
-.mbsc-android-holo-light .mbsc-toggle .mbsc-toggle-track {
+.mbsc-android-holo-light .mbsc-switch .mbsc-switch-track {
     background: rgb(217,217,217);
 }
-.mbsc-android-holo-light .mbsc-toggle .mbsc-toggle-handle {
+.mbsc-android-holo-light .mbsc-switch .mbsc-switch-handle {
     background: rgb(201,201,201);
 }
-.mbsc-android-holo-light .mbsc-toggle input:checked:not(:disabled) + .mbsc-toggle-track .mbsc-toggle-handle {
+.mbsc-android-holo-light .mbsc-switch input:checked:not(:disabled) + .mbsc-switch-track .mbsc-switch-handle {
     background: rgb(49,183,232);
     background: rgba(49,183,232,.7);
 }
 
-/*Checkbox, Toggle, Radio */
+/*Checkbox, Switch, Radio */
 .mbsc-android-holo-light .mbsc-checkbox input.mbsc-active + .mbsc-checkbox-box:before,
 .mbsc-android-holo-light .mbsc-radio input.mbsc-active + .mbsc-radio-box:before {
     background: rgba(150,150,150, .2);

@@ -263,22 +263,22 @@
 .mbsc-mobiscroll-dark .mbsc-radio input:disabled + .mbsc-radio-box:after {
     background: rgb(16,21,23);
 }
-.mbsc-mobiscroll-dark .mbsc-toggle-track {
+.mbsc-mobiscroll-dark .mbsc-switch-track {
     background: rgb(43,57,64);
 }
-.mbsc-mobiscroll-dark .mbsc-toggle-handle {
+.mbsc-mobiscroll-dark .mbsc-switch-handle {
     background: rgb(35,46,51);
 }
-.mbsc-mobiscroll-dark .mbsc-toggle input:checked + .mbsc-toggle-track {
+.mbsc-mobiscroll-dark .mbsc-switch input:checked + .mbsc-switch-track {
     background: rgb(181,230,227);
 }
-.mbsc-mobiscroll-dark .mbsc-toggle input:checked + .mbsc-toggle-track .mbsc-toggle-handle {
+.mbsc-mobiscroll-dark .mbsc-switch input:checked + .mbsc-switch-track .mbsc-switch-handle {
     background: rgb(79,204,196);
 }
-.mbsc-mobiscroll-dark .mbsc-toggle input:disabled + .mbsc-toggle-track {
+.mbsc-mobiscroll-dark .mbsc-switch input:disabled + .mbsc-switch-track {
     background: rgb(16,21,23);
 }
-.mbsc-mobiscroll-dark .mbsc-toggle input:disabled + .mbsc-toggle-track .mbsc-toggle-handle {
+.mbsc-mobiscroll-dark .mbsc-switch input:disabled + .mbsc-switch-track .mbsc-switch-handle {
     background: rgb(24,32,36);
 }
 /* Buttons */
