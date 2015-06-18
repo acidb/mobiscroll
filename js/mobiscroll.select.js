@@ -621,6 +621,9 @@
 
                 change = false;
             },
+            onValidated: function () {
+                option = inst._tempWheelArray[optionWheelIdx];
+            },
             onClear: function (dw) {
                 selectedValues = {};
                 input.val('');

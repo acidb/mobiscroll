@@ -201,6 +201,8 @@
 /* Widget content styling */
 
 .mbsc-wdg .dwcc {
+    position: relative;
+    z-index: 0;
     padding: 1em;
     font-size: 14px;
     text-align: left;
