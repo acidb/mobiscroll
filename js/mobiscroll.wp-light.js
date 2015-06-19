@@ -1,5 +1,5 @@
 (function ($) {
-    
+
     $.mobiscroll.themes.frame['wp-light'] = {
         baseTheme: 'wp',
         minWidth: 76,
@@ -9,7 +9,10 @@
         headerText: false,
         showLabel: false,
         deleteIcon: 'backspace4',
-        icon: { filled: 'star3', empty: 'star' },
+        icon: {
+            filled: 'star3',
+            empty: 'star'
+        },
         btnWidth: false,
         btnStartClass: 'mbsc-ic mbsc-ic-play3',
         btnStopClass: 'mbsc-ic mbsc-ic-pause2',
@@ -51,8 +54,8 @@
         onThemeLoad: function (lang, s) {
             if (lang && lang.dateOrder && !s.dateOrder) {
                 var ord = lang.dateOrder;
-                ord = ord.match(/mm/i) ? ord.replace(/mmMM|mm|MM/,  'mmMM') : ord.replace(/mM|m|M/,  'mM');
-                ord = ord.match(/dd/i) ? ord.replace(/ddDD|dd|DD/,  'ddDD') : ord.replace(/dD|d|D/,  'dD');
+                ord = ord.match(/mm/i) ? ord.replace(/mmMM|mm|MM/, 'mmMM') : ord.replace(/mM|m|M/, 'mM');
+                ord = ord.match(/dd/i) ? ord.replace(/ddDD|dd|DD/, 'ddDD') : ord.replace(/dD|d|D/, 'dD');
                 s.dateOrder = ord;
             }
         },
@@ -76,15 +79,19 @@
             }
         }
     };
-    
+
     $.mobiscroll.themes.listview['wp-light'] = {
         baseTheme: 'wp'
     };
-    
+
     $.mobiscroll.themes.menustrip['wp-light'] = {
         baseTheme: 'wp'
     };
-    
+
+    $.mobiscroll.themes.form['wp-light'] = {
+        baseTheme: 'wp'
+    };
+
 })(jQuery);
 
 

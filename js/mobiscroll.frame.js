@@ -1,9 +1,7 @@
-﻿(function ($, window, document, undefined) {
-
+(function ($, window, document, undefined) {
     var $activeElm,
         preventShow,
         ms = $.mobiscroll,
-        instances = ms.instances,
         util = ms.util,
         pr = util.jsPrefix,
         has3d = util.has3d,
@@ -13,8 +11,10 @@
         isOldAndroid = /android [1-3]/i.test(navigator.userAgent),
         isIOS8 = /(iphone|ipod|ipad).* os 8_/i.test(navigator.userAgent),
         animEnd = 'webkitAnimationEnd animationend',
-        empty = function () { },
-        prevdef = function (ev) { ev.preventDefault(); };
+        empty = function () {},
+        prevdef = function (ev) {
+            ev.preventDefault();
+        };
 
     ms.classes.Frame = function (el, settings, inherit) {
         var $ariaDiv,
@@ -93,6 +93,8 @@
                 type,
                 focus = s.focusOnClose;
 
+            that._markupRemove();
+
             $markup.remove();
 
             if ($activeElm && !prevAnim) {
@@ -104,15 +106,11 @@
                         value = activeEl.value;
                         try {
                             activeEl.type = 'button';
-                        } catch (ex) { }
+                        } catch (ex) {}
                         $activeElm.focus();
                         activeEl.type = type;
                         activeEl.value = value;
                     } else if (focus) {
-                        // If a mobiscroll field is focused, allow show
-                        if (instances[$(focus).attr('id')]) {
-                            ms.tapped = false;
-                        }
                         $(focus).focus();
                     }
                 }, 200);
@@ -135,26 +133,23 @@
         }
 
         function onFocus(ev) {
-            if (!$popup[0].contains(ev.target)) {
+            if (ev.target.nodeType && !$popup[0].contains(ev.target)) {
                 $popup.focus();
             }
         }
 
         function show(beforeShow, $elm) {
-            if (!ms.tapped) {
-
-                if (beforeShow) {
-                    beforeShow();
-                }
-
-                // Hide virtual keyboard
-                if ($(document.activeElement).is('input,textarea')) {
-                    $(document.activeElement).blur();
-                }
-
-                $activeElm = $elm;
-                that.show();
+            if (beforeShow) {
+                beforeShow();
             }
+
+            // Hide virtual keyboard
+            if ($(document.activeElement).is('input,textarea')) {
+                $(document.activeElement).blur();
+            }
+
+            $activeElm = $elm;
+            that.show();
 
             setTimeout(function () {
                 preventShow = false;
@@ -165,8 +160,8 @@
         ms.classes.Base.call(this, el, settings, true);
 
         /**
-        * Positions the scroller on the screen.
-        */
+         * Positions the scroller on the screen.
+         */
         that.position = function (check) {
             var w,
                 l,
@@ -224,11 +219,11 @@
                     minw = (w > minw) ? w : minw;
                 });
                 w = totalw > nw ? minw : totalw;
-                $wrapper.width(w).css('white-space', totalw > nw ? '' : 'nowrap');
+                $wrapper.width(w + 1).css('white-space', totalw > nw ? '' : 'nowrap');
             }
 
-            modalWidth = that._isFullScreen ? nw : $popup.outerWidth();
-            modalHeight = that._isFullScreen ? nh : $popup.outerHeight(true);
+            modalWidth = $popup.outerWidth();
+            modalHeight = $popup.outerHeight(true);
             scrollLock = modalHeight <= nh && modalWidth <= nw;
 
             that.scrollLock = scrollLock;
@@ -262,7 +257,9 @@
                 arrl = constrain(al + aw / 2 - (l + (modalWidth - arrw) / 2), 0, arrw);
 
                 // Limit Arrow position
-                $('.dw-arr', $markup).css({ left: arrl });
+                $('.dw-arr', $markup).css({
+                    left: arrl
+                });
             } else {
                 l = sl;
                 if (s.display == 'top') {
@@ -281,12 +278,16 @@
             // If top + modal height > doc height, increase doc height
             $persp.height(0);
             dh = Math.max(t + modalHeight, s.context == 'body' ? $(document).height() : $ctx[0].scrollHeight);
-            $persp.css({ height: dh });
+            $persp.css({
+                height: dh
+            });
 
             // Scroll needed
             if (scroll && ((t + modalHeight > st + nh) || (at > st + nh))) {
                 preventPos = true;
-                setTimeout(function () { preventPos = false; }, 300);
+                setTimeout(function () {
+                    preventPos = false;
+                }, 300);
                 $wnd.scrollTop(Math.min(t + modalHeight - nh, dh - nh));
             }
 
@@ -295,12 +296,15 @@
         };
 
         /**
-        * Show mobiscroll on focus and click event of the parameter.
-        * @param {jQuery} $elm - Events will be attached to this element.
-        * @param {Function} [beforeShow=undefined] - Optional function to execute before showing mobiscroll.
-        */
+         * Show mobiscroll on focus and click event of the parameter.
+         * @param {jQuery} $elm - Events will be attached to this element.
+         * @param {Function} [beforeShow=undefined] - Optional function to execute before showing mobiscroll.
+         */
         that.attachShow = function ($elm, beforeShow) {
-            elmList.push({ readOnly: $elm.prop('readonly'), el: $elm });
+            elmList.push({
+                readOnly: $elm.prop('readonly'),
+                el: $elm
+            });
             if (s.display !== 'inline') {
                 if (setReadOnly && $elm.is('input')) {
                     $elm.prop('readonly', true).on('mousedown.dw', function (ev) {
@@ -318,7 +322,6 @@
                 }
 
                 if (s.showOnTap) {
-
                     $elm.on('keydown.dw', function (ev) {
                         if (ev.keyCode == 32 || ev.keyCode == 13) { // Space or Enter
                             ev.preventDefault();
@@ -335,8 +338,8 @@
         };
 
         /**
-        * Set button handler.
-        */
+         * Set button handler.
+         */
         that.select = function () {
             if (!isModal || that.hide(false, 'set') !== false) {
                 that._fillValue();
@@ -345,8 +348,8 @@
         };
 
         /**
-        * Cancel and hide the scroller instance.
-        */
+         * Cancel and hide the scroller instance.
+         */
         that.cancel = function () {
             if (!isModal || that.hide(false, 'cancel') !== false) {
                 event('onCancel', [that._value]);
@@ -354,8 +357,8 @@
         };
 
         /**
-        * Clear button handler.
-        */
+         * Clear button handler.
+         */
         that.clear = function () {
             event('onClear', [$markup]);
             if (isModal && !that.live) {
@@ -365,8 +368,8 @@
         };
 
         /**
-        * Enables the scroller and the associated input.
-        */
+         * Enables the scroller and the associated input.
+         */
         that.enable = function () {
             s.disabled = false;
             if (that._isInput) {
@@ -375,8 +378,8 @@
         };
 
         /**
-        * Disables the scroller and the associated input.
-        */
+         * Disables the scroller and the associated input.
+         */
         that.disable = function () {
             s.disabled = true;
             if (that._isInput) {
@@ -385,10 +388,10 @@
         };
 
         /**
-        * Shows the scroller instance.
-        * @param {Boolean} prevAnim - Prevent animation if true
-        * @param {Boolean} prevFocus - Prevent focusing if true
-        */
+         * Shows the scroller instance.
+         * @param {Boolean} prevAnim - Prevent animation if true
+         * @param {Boolean} prevFocus - Prevent focusing if true
+         */
         that.show = function (prevAnim, prevFocus) {
             // Create wheels
             var html;
@@ -396,6 +399,13 @@
             if (s.disabled || that._isVisible) {
                 return;
             }
+
+            // Parse value from input
+            that._readValue();
+
+            event('onBeforeShow', []);
+
+            doAnim = isOldAndroid ? false : s.animate;
 
             if (doAnim !== false) {
                 if (s.display == 'top') {
@@ -406,26 +416,21 @@
                 }
             }
 
-            // Parse value from input
-            that._readValue();
-
-            event('onBeforeShow', []);
-
             // Create wheels containers
-            html = '<div lang="' + s.lang + '" class="mbsc-' + s.theme +  (s.baseTheme ? ' mbsc-' + s.baseTheme : '') + ' dw-' + s.display + ' ' +
+            html = '<div lang="' + s.lang + '" class="mbsc-' + s.theme + (s.baseTheme ? ' mbsc-' + s.baseTheme : '') + ' dw-' + s.display + ' ' +
                 (s.cssClass || '') +
                 (that._isLiquid ? ' dw-liq' : '') +
                 (isOldAndroid ? ' mbsc-old' : '') +
                 (hasButtons ? '' : ' dw-nobtn') + '">' +
-                    '<div class="dw-persp">' +
-                        (isModal ? '<div class="dwo"></div>' : '') + // Overlay
-                        '<div' + (isModal ? ' role="dialog" tabindex="-1"' : '') + ' class="dw' + (s.rtl ? ' dw-rtl' : ' dw-ltr') + '">' + // Popup
-                            (s.display === 'bubble' ? '<div class="dw-arrw"><div class="dw-arrw-i"><div class="dw-arr"></div></div></div>' : '') + // Bubble arrow
-                            '<div class="dwwr">' + // Popup content
-                                '<div aria-live="assertive" class="dw-aria dw-hidden"></div>' +
-                                (s.headerText ? '<div class="dwv">' + (isString(s.headerText) ? s.headerText : '') + '</div>' : '') + // Header
-                                '<div class="dwcc">'; // Wheel group container
-            
+                '<div class="dw-persp">' +
+                (isModal ? '<div class="dwo"></div>' : '') + // Overlay
+                '<div' + (isModal ? ' role="dialog" tabindex="-1"' : '') + ' class="dw' + (s.rtl ? ' dw-rtl' : ' dw-ltr') + '">' + // Popup
+                (s.display === 'bubble' ? '<div class="dw-arrw"><div class="dw-arrw-i"><div class="dw-arr"></div></div></div>' : '') + // Bubble arrow
+                '<div class="dwwr">' + // Popup content
+                '<div aria-live="assertive" class="dw-aria dw-hidden"></div>' +
+                (s.headerText ? '<div class="dwv">' + (isString(s.headerText) ? s.headerText : '') + '</div>' : '') + // Header
+                '<div class="dwcc">'; // Wheel group container
+
             html += that._generateContent();
 
             html += '</div>';
@@ -466,12 +471,11 @@
             posEvents = 'orientationchange resize';
 
             that._markupReady($markup);
-            
+
             event('onMarkupReady', [$markup]);
 
             // Show
             if (isModal) {
-
                 // Enter / ESC
                 $(window).on('keydown', onWndKeyDown);
 
@@ -493,11 +497,17 @@
                     });
                 }
 
+                if (ms.activeInstance) {
+                    ms.activeInstance.hide();
+                }
+
                 posEvents += ' scroll';
 
                 ms.activeInstance = that;
 
                 $markup.appendTo($ctx);
+
+                $wnd.on('focusin', onFocus);
 
                 if (has3d && doAnim && !prevAnim) {
                     $markup.addClass('dw-in dw-trans').on(animEnd, function () {
@@ -511,14 +521,14 @@
                 $markup.insertAfter($elm);
             }
 
+            that._markupInserted($markup);
+
             event('onMarkupInserted', [$markup]);
 
             // Set position
             that.position();
 
-            $wnd
-                .on(posEvents, onPosition)
-                .on('focusin', onFocus);
+            $wnd.on(posEvents, onPosition);
 
             // Events
             $markup
@@ -534,8 +544,7 @@
                 .on('keydown', function (ev) { // Trap focus inside modal
                     if (ev.keyCode == 32) { // Space
                         ev.preventDefault();
-                    } else if (ev.keyCode == 9) { // Tab
-
+                    } else if (ev.keyCode == 9 && isModal) { // Tab
                         var $focusable = $markup.find('[tabindex="0"]').filter(function () {
                                 return this.offsetWidth > 0 || this.offsetHeight > 0;
                             }),
@@ -552,49 +561,50 @@
                             $focusable.eq(target).focus();
                             ev.preventDefault();
                         }
-
                     }
                 });
 
-            $('input', $markup).on('selectstart mousedown', function (ev) {
+            $('input,select,textarea', $markup).on('selectstart mousedown', function (ev) {
                 ev.stopPropagation();
+            }).on('keydown', function (ev) {
+                if (ev.keyCode == 32) { // Space
+                    ev.stopPropagation();
+                }
             });
 
-            setTimeout(function () {
-                // Init buttons
-                $.each(buttons, function (i, b) {
-                    that.tap($('.dwb' + i, $markup), function (ev) {
-                        b = isString(b) ? that.buttons[b] : b;
-                        b.handler.call(this, ev, that);
-                    }, true);
+            //setTimeout(function () {
+            // Init buttons
+            $.each(buttons, function (i, b) {
+                that.tap($('.dwb' + i, $markup), function (ev) {
+                    b = isString(b) ? that.buttons[b] : b;
+                    b.handler.call(this, ev, that);
+                }, true);
+            });
+
+            if (s.closeOnOverlay) {
+                that.tap($overlay, function () {
+                    that.cancel();
                 });
+            }
 
-                if (s.closeOnOverlay) {
-                    that.tap($overlay, function () {
-                        that.cancel();
-                    });
-                }
+            if (isModal && !doAnim) {
+                onShow(prevFocus);
+            }
 
-                if (isModal && !doAnim) {
-                    onShow(prevFocus);
-                }
+            $markup
+                .on('touchstart mousedown', '.dwb-e', onBtnStart)
+                .on('touchend', '.dwb-e', onBtnEnd);
 
-                $markup
-                    .on('touchstart mousedown', '.dwb-e', onBtnStart)
-                    .on('touchend', '.dwb-e', onBtnEnd);
-
-                that._attachEvents($markup);
-
-            }, 300);
+            that._attachEvents($markup);
+            //}, 300);
 
             event('onShow', [$markup, that._tempValue]);
         };
 
         /**
-        * Hides the scroller instance.
-        */
+         * Hides the scroller instance.
+         */
         that.hide = function (prevAnim, btn, force) {
-
             // If onClose handler returns false, prevent hide
             if (!that._isVisible || (!force && !that._isValid && btn == 'set') || (!force && event('onClose', [that._tempValue, btn]) === false)) {
                 return false;
@@ -602,7 +612,6 @@
 
             // Hide wheels and overlay
             if ($markup) {
-
                 // Re-enable temporary disabled fields
                 if (pr !== 'Moz') {
                     $('.dwtd', $ctx).each(function () {
@@ -638,8 +647,8 @@
         };
 
         /**
-        * Return true if the scroller is currently visible.
-        */
+         * Return true if the scroller is currently visible.
+         */
         that.isVisible = function () {
             return that._isVisible;
         };
@@ -658,6 +667,10 @@
 
         that._markupReady = empty;
 
+        that._markupInserted = empty;
+
+        that._markupRemove = empty;
+
         that._processSettings = empty;
 
         that._presetLoad = function (s) {
@@ -671,8 +684,8 @@
         // Generic frame functions
 
         /**
-        * Attach tap event to the given element.
-        */
+         * Attach tap event to the given element.
+         */
         that.tap = function (el, handler, prevent) {
             var startX,
                 startY,
@@ -689,40 +702,35 @@
                     moved = false;
                 }).on('touchmove.dw', function (ev) {
                     // If movement is more than 20px, don't fire the click event handler
-                    if (Math.abs(getCoord(ev, 'X') - startX) > 20 || Math.abs(getCoord(ev, 'Y') - startY) > 20) {
+                    if (!moved && Math.abs(getCoord(ev, 'X') - startX) > 20 || Math.abs(getCoord(ev, 'Y') - startY) > 20) {
                         moved = true;
                     }
                 }).on('touchend.dw', function (ev) {
                     var that = this;
-                    
+
                     if (!moved) {
-                        // preventDefault and setTimeout are needed by iOS
                         ev.preventDefault();
-                        //setTimeout(function () {
                         handler.call(that, ev);
-                        //}, isOldAndroid ? 400 : 10);
                     }
-                    // Prevent click events to happen
-                    ms.tapped = true;
+
+                    // Prevent ghost click events to happen
+                    ms.tapped++;
                     setTimeout(function () {
-                        ms.tapped = false;
+                        ms.tapped--;
                     }, 500);
                 });
             }
 
             el.on('click.dw', function (ev) {
-                if (!ms.tapped) {
-                    // If handler was not called on touchend, call it on click;
-                    handler.call(this, ev);
-                }
                 ev.preventDefault();
+                // If handler was not called on touchend, call it on click;
+                handler.call(this, ev);
             });
-
         };
 
         /**
-        * Destroys the mobiscroll instance.
-        */
+         * Destroys the mobiscroll instance.
+         */
         that.destroy = function () {
             // Force hide without animation
             that.hide(true, false, true);
@@ -736,10 +744,9 @@
         };
 
         /**
-        * Scroller initialization.
-        */
+         * Scroller initialization.
+         */
         that.init = function (ss) {
-
             that._init(ss);
 
             that._isLiquid = (s.layout || (/top|bottom/.test(s.display) ? 'liquid' : '')) === 'liquid';
@@ -749,7 +756,6 @@
             // Unbind all events (if re-init)
             $elm.off('.dw');
 
-            doAnim = isOldAndroid ? false : s.animate;
             buttons = s.buttons || [];
             isModal = s.display !== 'inline';
             setReadOnly = s.showOnFocus || s.showOnTap;
@@ -768,9 +774,18 @@
                 }
             });
 
-            that.buttons.set = { text: s.setText, handler: 'set' };
-            that.buttons.cancel = { text: (that.live) ? s.closeText : s.cancelText, handler: 'cancel' };
-            that.buttons.clear = { text: s.clearText, handler: 'clear' };
+            that.buttons.set = {
+                text: s.setText,
+                handler: 'set'
+            };
+            that.buttons.cancel = {
+                text: (that.live) ? s.closeText : s.cancelText,
+                handler: 'cancel'
+            };
+            that.buttons.clear = {
+                text: s.clearText,
+                handler: 'clear'
+            };
 
             that._isInput = $elm.is('input');
 
@@ -862,15 +877,6 @@
     $(window).on('focus', function () {
         if ($activeElm) {
             preventShow = true;
-        }
-    });
-
-    // Prevent standard behaviour on body click
-    $(document).on('mouseover mouseup mousedown click', function (ev) { 
-        if (ms.tapped) {
-            ev.stopPropagation();
-            ev.preventDefault();
-            return false;
         }
     });
 

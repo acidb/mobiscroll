@@ -1,5 +1,5 @@
 (function ($) {
-    $.mobiscroll.i18n.sv = $.extend($.mobiscroll.i18n.sv, {
+    $.mobiscroll.i18n.sv = {
         // Core
         setText: 'OK',
         cancelText: 'Avbryt',
@@ -48,6 +48,9 @@
         hideText: 'Dölj',
         // Listview
         backText: 'Tillbaka',
-        undoText: 'Ångra'
-    });
+        undoText: 'Ångra',
+        // Form
+        offText: 'Av',
+        onText: 'På'
+    };
 })(jQuery);

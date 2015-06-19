@@ -1,5 +1,5 @@
 (function ($) {
-    $.mobiscroll.i18n.nl = $.extend($.mobiscroll.i18n.nl, {
+    $.mobiscroll.i18n.nl = {
         // Core
         setText: 'Instellen',
         cancelText: 'Annuleren',
@@ -19,7 +19,7 @@
         monthText: 'Maand',
         secText: 'Seconden',
         timeFormat: 'HH:ii',
-        timeWheels: 'hhii',
+        timeWheels: 'HHii',
         yearText: 'Jaar',
         nowText: 'Nu',
         pmText: 'pm',
@@ -48,6 +48,9 @@
         hideText: 'Verbergen',
         // Listview
         backText: 'Terug',
-        undoText: 'Ongedaan'
-    });
+        undoText: 'Onged. maken',
+        // Form
+        offText: 'Uit',
+        onText: 'Aan'
+    };
 })(jQuery);

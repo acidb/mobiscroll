@@ -1,4 +1,4 @@
-﻿(function ($) {
+(function ($) {
 
     var JalaliDate = {
         gDaysInMonth: [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
@@ -51,7 +51,7 @@
             gDayNo = gDayNo % 365;
         }
 
-        for (i = 0; gDayNo >= JalaliDate.gDaysInMonth[i] + (i == 1 && leap) ; i++) {
+        for (i = 0; gDayNo >= JalaliDate.gDaysInMonth[i] + (i == 1 && leap); i++) {
             gDayNo -= JalaliDate.gDaysInMonth[i] + (i == 1 && leap);
         }
 
@@ -112,7 +112,7 @@
         return [jy, jm, jd];
     };
 
-    $.mobiscroll.i18n.fa = $.extend($.mobiscroll.i18n.fa, {
+    $.mobiscroll.i18n.fa = {
         // Core
         setText: 'تاييد',
         cancelText: 'انصراف',
@@ -129,7 +129,6 @@
         minuteText: 'دقيقه',
         monthNames: ['فروردين', 'ارديبهشت', 'خرداد', 'تير', 'مرداد', 'شهريور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'],
         monthNamesShort: ['فروردين', 'ارديبهشت', 'خرداد', 'تير', 'مرداد', 'شهريور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'],
-        //monthNamesShort: ['Farvardin', 'Ordibehesht', 'Khordad', 'Tir', 'Mordad', 'Shahrivar', 'Mehr', 'Aban', 'Azar', 'Dey', 'Bahman', 'Esfand'],
         monthText: 'ماه',
         secText: 'ثانيه',
         timeFormat: 'HH:ii',
@@ -204,5 +203,5 @@
         // Listview
         backText: 'پشت',
         undoText: 'واچیدن'
-    });
+    };
 })(jQuery);

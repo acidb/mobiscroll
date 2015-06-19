@@ -140,7 +140,7 @@
     border-color: rgb(217,217,217);
 }
 /* Listview */
-.mbsc-lv-android-holo-light {
+.mbsc-lv-android-holo-light .mbsc-lv {
     background: rgb(219,219,219);
 }
 .mbsc-lv-android-holo-light .mbsc-lv .mbsc-lv-item.mbsc-lv-item-dragging  {
@@ -197,4 +197,124 @@
 }
 .mbsc-android-holo-light .mbsc-btn-a .mbsc-ms-item-i {
     background: rgb(40,121,156);
+}
+
+/* Form elements */
+.mbsc-android-holo-light.mbsc-form {
+    background: rgb(245,245,245);
+    color: rgb(0,0,0);
+}
+.mbsc-android-holo-light  .mbsc-desc {
+    color: rgb(161,161,161);
+}
+.mbsc-android-holo-light .mbsc-input select,
+.mbsc-android-holo-light .mbsc-input textarea,
+.mbsc-android-holo-light .mbsc-input input {
+    background: rgb(245,245,245);
+    outline-color: rgb(245,245,245);
+    color: rgb(0,0,0);
+    border-color: rgb(168,168,168);
+}
+.mbsc-android-holo-light.mbsc-wdg .mbsc-input textarea,
+.mbsc-android-holo-light.mbsc-wdg .mbsc-input input,
+.mbsc-lv-android-holo-light .mbsc-input textarea,
+.mbsc-lv-android-holo-light .mbsc-input input {
+    background: rgb(245,245,245);
+    outline-color: rgb(245,245,245);
+}
+.mbsc-android-holo-light .mbsc-select .mbsc-input-wrap .mbsc-select-ic {
+    border-color: transparent rgb(168,168,168) rgb(168,168,168) transparent;
+}
+.mbsc-android-holo-light .mbsc-input textarea:-webkit-autofill,
+.mbsc-android-holo-light .mbsc-input input:-webkit-autofill {
+    /*border-color: #e8c640;*/
+    box-shadow: 0 0 0 50em rgb(245,245,245) inset;
+    -webkit-text-fill-color: rgb(0,0,0);
+}
+.mbsc-android-holo-light .mbsc-radio-box,
+.mbsc-android-holo-light .mbsc-checkbox-box {
+    border-color: rgb(76,76,76);
+}
+.mbsc-android-holo-light .mbsc-switch-handle {
+    color: #fff;
+}
+.mbsc-android-holo-light .mbsc-switch .mbsc-switch-track {
+    background: rgb(217,217,217);
+}
+.mbsc-android-holo-light .mbsc-switch .mbsc-switch-handle {
+    background: rgb(201,201,201);
+}
+.mbsc-android-holo-light .mbsc-switch input:checked:not(:disabled) + .mbsc-switch-track .mbsc-switch-handle {
+    background: rgb(49,183,232);
+    background: rgba(49,183,232,.7);
+}
+
+/*Checkbox, Switch, Radio */
+.mbsc-android-holo-light .mbsc-checkbox input.mbsc-active + .mbsc-checkbox-box:before,
+.mbsc-android-holo-light .mbsc-radio input.mbsc-active + .mbsc-radio-box:before {
+    background: rgba(150,150,150, .2);
+}
+
+/* Button */
+.mbsc-android-holo-light .mbsc-btn {
+    border-color: rgb(212,212,212);
+    border-top: none;
+    background: rgb(212,212,212);
+    color: rgb(0,0,0);
+}
+
+.mbsc-android-holo-light .mbsc-btn.mbsc-active {
+    background: rgb(194,194,194);
+}
+
+.mbsc-android-holo-light .mbsc-btn-flat {
+    background: transparent;
+    border-color: transparent;
+    color: rgb(0,0,0);
+}
+
+.mbsc-android-holo-light .mbsc-btn-flat.mbsc-active {
+    background: transparent;
+    border-color: transparent;
+}
+
+.mbsc-android-holo-light .mbsc-btn-flat:disabled {
+    color: rgb(0,0,0);
+}
+
+/* accent */
+.mbsc-android-holo-light.mbsc-form *::-moz-selection {
+    background: rgb(49,183,232);
+}
+
+.mbsc-android-holo-light.mbsc-form *::selection {
+    background: rgb(49,183,232);
+}
+
+.mbsc-android-holo-light .mbsc-divider {
+    border-bottom: 1px solid rgb(49,183,232);
+    color: rgb(49,183,232);
+}
+
+.mbsc-android-holo-light a {
+    color: rgb(49,183,232);
+}
+
+.mbsc-android-holo-light .mbsc-input select:focus + input,
+.mbsc-android-holo-light .mbsc-input textarea:focus,
+.mbsc-android-holo-light .mbsc-input input:focus {
+    border-color: rgb(49,183,232);
+}
+
+.mbsc-android-holo-light .mbsc-input .mbsc-control:focus ~ .mbsc-select-ic {
+    border-color: transparent rgb(49,183,232) rgb(49,183,232) transparent;
+}
+
+.mbsc-android-holo-light .mbsc-checkbox-box:after {
+    border: 3px solid rgb(49,183,232);
+    border-top: 0;
+    border-right: 0;
+}
+.mbsc-android-holo-light .mbsc-radio-box:after {
+    background: rgb(49,183,232);
 }

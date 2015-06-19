@@ -1,5 +1,5 @@
 (function ($) {
-    $.mobiscroll.i18n.hu = $.extend($.mobiscroll.i18n.hu, {
+    $.mobiscroll.i18n.hu = {
         // Core
         setText: 'OK',
         cancelText: 'Mégse',
@@ -56,6 +56,9 @@
         hideText: 'Elrejt',
         // Listview
         backText: 'Vissza',
-        undoText: 'Visszavon'
-    });
+        undoText: 'Visszavon',
+        // Form
+        offText: 'Ki',
+        onText: 'Be'
+    };
 })(jQuery);
