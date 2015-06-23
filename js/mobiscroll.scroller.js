@@ -257,8 +257,8 @@
             w._index = getIndex(w, l);
             w._batch = 0;
             w._offset = w._index;
-            w._first = w._index - batchSize,//Math.max(w.min, w._index - batchSize);
-            w._last = w._index + batchSize,//Math.min(w.max, w._first + 2 * batchSize);
+            w._first = w._index - batchSize; //Math.max(w.min, w._index - batchSize);
+            w._last = w._index + batchSize; //Math.min(w.max, w._first + 2 * batchSize);
             w._margin = w._first * itemHeight;
 
             return w;
@@ -308,7 +308,7 @@
                 key = getItem(wheel, keys, i);
 
                 //if (key !== undefined) {
-                html += '<div role="option" aria-selected="false" class="mbsc-btn mbsc-sc-itm" data-val="' + key + '"' + (labels[i] ? ' aria-label="' + labels[i] + '"' : '') + ' style="height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;">' + value + '</div>';
+                html += '<div role="option" aria-selected="false" class="mbsc-sc-itm" data-val="' + key + '"' + (labels[i] ? ' aria-label="' + labels[i] + '"' : '') + ' style="height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;">' + value + '</div>';
                 //}
             }
 
@@ -618,14 +618,14 @@
         // Public functions
 
         /**
-        * Gets the selected wheel values, formats it, and set the value of the scroller instance.
-        * If input parameter is true, populates the associated input element.
-        * @param {Array} values Wheel values.
-        * @param {Boolean} [fill=false] Also set the value of the associated input element.
-        * @param {Number} [time=0] Animation time
-        * @param {Boolean} [temp=false] If true, then only set the temporary value.(only scroll there but not set the value)
-        * @param {Boolean} [change=false] Trigger change on the input element
-        */
+         * Gets the selected wheel values, formats it, and set the value of the scroller instance.
+         * If input parameter is true, populates the associated input element.
+         * @param {Array} values Wheel values.
+         * @param {Boolean} [fill=false] Also set the value of the associated input element.
+         * @param {Number} [time=0] Animation time
+         * @param {Boolean} [temp=false] If true, then only set the temporary value.(only scroll there but not set the value)
+         * @param {Boolean} [change=false] Trigger change on the input element
+         */
         that.setVal = that._setVal = function (val, fill, change, temp, time) {
             that._hasValue = val !== null && val !== undefined;
             that._tempWheelArray = $.isArray(val) ? val.slice(0) : s.parseValue.call(el, val, that) || [];
@@ -660,18 +660,18 @@
         };
 
         /**
-        * Return the selected wheel values.
-        */
+         * Return the selected wheel values.
+         */
         that.getValue = that.getArrayVal;
 
         // ---
 
         /**
-        * Changes the values of a wheel, and scrolls to the correct position
-        * @param {Array} idx Indexes of the wheels to change.
-        * @param {Number} [time=0] Animation time when scrolling to the selected value on the new wheel.
-        * @param {Boolean} [manual=false] Indicates that the change was triggered by the user or from code.
-        */
+         * Changes the values of a wheel, and scrolls to the correct position
+         * @param {Array} idx Indexes of the wheels to change.
+         * @param {Number} [time=0] Animation time when scrolling to the selected value on the new wheel.
+         * @param {Boolean} [manual=false] Indicates that the change was triggered by the user or from code.
+         */
         //that.changeWheel = function (idx, time, manual) {
         //    if ($markup) {
         //        var i = 0,
@@ -699,8 +699,8 @@
         //};
 
         /**
-        * Returns the closest valid cell.
-        */
+         * Returns the closest valid cell.
+         */
         //that.getValidCell = getValid;
 
         that.scroll = scroll;
@@ -746,30 +746,30 @@
                     //(s.scroll3d ? ' mbsc-sc-whl-gr-3d' : '') +
                     (s.mode != 'scroller' ? ' mbsc-sc-cp' : '') +
                     (s.showLabel ? ' mbsc-sc-lbl-v' : '') + '">' +
-                            //'<div class="dwwc"' + (s.maxWidth ? '' : ' style="max-width:600px;"') + '>' +
-                                (hasFlex ? '' : '<table class="dw-tbl" cellpadding="0" cellspacing="0"><tr>');
+                    //'<div class="dwwc"' + (s.maxWidth ? '' : ' style="max-width:600px;"') + '>' +
+                    (hasFlex ? '' : '<table class="dw-tbl" cellpadding="0" cellspacing="0"><tr>');
 
                 $.each(wg, function (j, w) { // Wheels
                     wheels[l] = initWheel(w, l);
 
                     html += '<' + (hasFlex ? 'div' : 'td') + ' class="mbsc-sc-whl"' + ' style="' +
-                                    'height:' + (s.rows * itemHeight) + 'px;' +
-                                    (s.fixedWidth ? ('width:' + (s.fixedWidth[l] || s.fixedWidth) + 'px;') :
-                                    (s.minWidth ? ('min-width:' + (s.minWidth[l] || s.minWidth) + 'px;') : 'min-width:' + s.width + 'px;') +
-                                    (s.maxWidth ? ('max-width:' + (s.maxWidth[l] || s.maxWidth) + 'px;') : '')) + '">' +
-                                //'<div class="dwwl dwwl' + l + (w.multiple ? ' dwwms' : '') + '">' +
-                                //(s.mode != 'scroller' ?
-                                //    '<div class="dwb-e dwwb dwwbp ' + (s.btnPlusClass || '') + '" style="height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;"><span>+</span></div>' + // + button
-                                //    '<div class="dwb-e dwwb dwwbm ' + (s.btnMinusClass || '') + '" style="height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;"><span>&ndash;</span></div>' : '') + // - button
-                                //'<div class="mbsc-sc-lbl">' + lbl + '</div>' + // Wheel label
-                                //'<div tabindex="0" aria-live="off" aria-label="' + lbl + '" role="listbox" class="dwww">' +
-                                    //'<div class="dww" style="height:' + (s.rows * itemHeight) + 'px;">' +
-                                        //'<div class="dw-ul" style="margin-top:' + (w.multiple ? (s.mode == 'scroller' ? 0 : itemHeight) : s.rows / 2 * itemHeight - itemHeight / 2) + 'px;">';
-                                        '<div class="mbsc-sc-whl-c" style="height:' + itemHeight + 'px;margin-top:-' +
-                                            (itemHeight / 2 + (s.selectedLineBorder || 0)) + 'px;' +
-                                            //(s.scroll3d ? pref + 'transform: translateZ(' + (itemHeight * s.rows / 2) + 'px);' : '') +
-                                        '">' +
-                                            '<div class="mbsc-sc-whl-sc" style="margin-top:' + w._margin + 'px;">';
+                        'height:' + (s.rows * itemHeight) + 'px;' +
+                        (s.fixedWidth ? ('width:' + (s.fixedWidth[l] || s.fixedWidth) + 'px;') :
+                            (s.minWidth ? ('min-width:' + (s.minWidth[l] || s.minWidth) + 'px;') : 'min-width:' + s.width + 'px;') +
+                            (s.maxWidth ? ('max-width:' + (s.maxWidth[l] || s.maxWidth) + 'px;') : '')) + '">' +
+                        //'<div class="dwwl dwwl' + l + (w.multiple ? ' dwwms' : '') + '">' +
+                        //(s.mode != 'scroller' ?
+                        //    '<div class="dwb-e dwwb dwwbp ' + (s.btnPlusClass || '') + '" style="height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;"><span>+</span></div>' + // + button
+                        //    '<div class="dwb-e dwwb dwwbm ' + (s.btnMinusClass || '') + '" style="height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;"><span>&ndash;</span></div>' : '') + // - button
+                        //'<div class="mbsc-sc-lbl">' + lbl + '</div>' + // Wheel label
+                        //'<div tabindex="0" aria-live="off" aria-label="' + lbl + '" role="listbox" class="dwww">' +
+                        //'<div class="dww" style="height:' + (s.rows * itemHeight) + 'px;">' +
+                        //'<div class="dw-ul" style="margin-top:' + (w.multiple ? (s.mode == 'scroller' ? 0 : itemHeight) : s.rows / 2 * itemHeight - itemHeight / 2) + 'px;">';
+                        '<div class="mbsc-sc-whl-c" style="height:' + itemHeight + 'px;margin-top:-' +
+                        (itemHeight / 2 + (s.selectedLineBorder || 0)) + 'px;' +
+                        //(s.scroll3d ? pref + 'transform: translateZ(' + (itemHeight * s.rows / 2) + 'px);' : '') +
+                        '">' +
+                        '<div class="mbsc-sc-whl-sc" style="margin-top:' + w._margin + 'px;">';
 
                     // Create wheel values
                     html += generateItems(w, w._first, w._last) +
@@ -838,7 +838,7 @@
                     maxSnapScroll: batchSize,
                     prevDef: true,
                     stopProp: true,
-                    onScroll: function (pos, time/*, easing*/) {
+                    onScroll: function (pos, time /*, easing*/ ) {
                         //if (s.scroll3d && easing !== false) {
                         //    wheel._$3d[0].style[pr + 'Transition'] = time ? pref + 'transform ' + Math.round(time) + 'ms ' + easing : '';
                         //    wheel._$3d[0].style[pr + 'Transform'] = 'rotateX(' + (-pos * 22.5 / itemHeight) + 'deg)';
