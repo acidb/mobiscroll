@@ -1,5 +1,5 @@
 (function ($) {
-    $.mobiscroll.i18n.ro = $.extend($.mobiscroll.i18n.ro, {
+    $.mobiscroll.i18n.ro = {
         // Core
         setText: 'Setare',
         cancelText: 'Anulare',
@@ -49,6 +49,9 @@
         hideText: 'Ascundere',
         // Listview
         backText: 'Înapoi',
-        undoText: 'Anulaţi'
-    });
+        undoText: 'Anulaţi',
+        // Form
+        offText: 'Nu',
+        onText: 'Da'
+    };
 })(jQuery);

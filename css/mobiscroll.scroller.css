@@ -1,10 +1,10 @@
 .dwwb,
 .dwwo,
 .dwwol {
-    /*-webkit-backface-visibility: hidden;*/
     -webkit-transform: translateZ(0);
 }
 /* Wheel container wrapper */
+
 .dwc {
     max-width: 100%;
     vertical-align: middle;
@@ -15,6 +15,7 @@
     box-sizing: border-box;
 }
 /* Wheel label */
+
 .dwl {
     line-height: 30px;
     height: 30px;
@@ -26,6 +27,7 @@
     width: 100%;
 }
 /* Wheel container */
+
 .dwwc {
     margin: 0 auto;
     position: relative;
@@ -47,6 +49,7 @@
     flex: 1 auto;
 }
 /* Wheels */
+
 .dwwl {
     position: relative;
     z-index: 5;
@@ -61,6 +64,8 @@
 .dww {
     overflow: hidden;
     position: relative;
+    border-radius: 1px;
+    /* Forces IE to respect overflow hidden while animating */
 }
 
 .dw-bf {
@@ -84,14 +89,19 @@
     opacity: .3;
     filter: Alpha(Opacity=30);
     cursor: pointer;
+    -webkit-transition: opacity .2s ease-out;
+    -moz-transition: opacity .2s ease-out;
+    transition: opacity .2s ease-out;
 }
     /* Valid entry */
+
     .dw-li.dw-v,
     .dw-li.dw-fv {
         opacity: 1;
         filter: Alpha(Opacity=100);
     }
     /* Hidden entry */
+
     .dw-li.dw-h {
         visibility: hidden;
     }
@@ -103,6 +113,7 @@
     text-overflow: ellipsis;
 }
 /* Clickpick mode */
+
 .dwwb {
     position: absolute;
     z-index: 4;
@@ -132,6 +143,7 @@
     display: none;
 }
 /* Wheel overlay */
+
 .dwwo {
     position: absolute;
     z-index: 3;
@@ -142,6 +154,7 @@
     pointer-events: none;
 }
 /* Background line */
+
 .dwwol {
     position: absolute;
     z-index: 1;
@@ -151,6 +164,7 @@
     pointer-events: none;
 }
 /* Liquid mode */
+
 .dw-liq .dwc {
     display: block;
 }
@@ -160,19 +174,22 @@
     table-layout: fixed;
 }
 /* Hidden label */
+
 .dwhl .dwl {
     display: none;
 }
 /* Hidden select element */
+
 .dw-hsel {
     position: absolute;
     height: 1px;
     width: 1px;
     left: 0;
     overflow: hidden;
-    clip: rect(1px,1px,1px,1px);
+    clip: rect(1px, 1px, 1px, 1px);
 }
 /* Multiple lines */
+
 .dw-ml .dw-li {
     overflow: hidden;
 }
@@ -185,6 +202,7 @@
         white-space: normal;
     }
 /* Multiple selection */
+
 .dwwms .dw-li {
     padding: 0 40px;
 }
@@ -201,14 +219,15 @@
     left: 0;
 }
 /* Select groups */
+
 .dww .dw-w-gr {
     padding: 0 5px;
     opacity: 1;
     font-weight: bold;
     text-align: left;
 }
-
 /* Default theme */
+
 .mbsc-mobiscroll .dwc {
     padding: 2em .25em 0 .25em;
 }
@@ -232,7 +251,7 @@
 }
 
 .mbsc-mobiscroll .dw-hl {
-    background: rgba(78,204,196,.3);
+    background: rgba(78, 204, 196, .3);
 }
 
 .mbsc-mobiscroll .dwwol {
@@ -240,6 +259,7 @@
     border-bottom: 1px solid #4eccc4;
 }
 /* Clickpick mode */
+
 .mbsc-mobiscroll .dwpm .dwwol {
     display: block;
 }
@@ -273,13 +293,14 @@
 }
 
 .mbsc-mobiscroll .dwwb.dwb-a:before {
-    background: rgba(78,204,196,.3);
+    background: rgba(78, 204, 196, .3);
 }
 /* Group select */
-/* Multiple select */
+
 .mbsc-mobiscroll .dw-w-gr {
     font-size: 1.125em;
 }
+/* Multiple select */
 
 .mbsc-mobiscroll .dw-msel:before {
     font-size: 40px;

@@ -1,5 +1,5 @@
 (function ($) {
-    $.mobiscroll.i18n.zh = $.extend($.mobiscroll.i18n.zh, {
+    $.mobiscroll.i18n.zh = {
         // Core
         setText: '确定',
         cancelText: '取消',
@@ -47,6 +47,9 @@
         hideText: '隐藏',
         // Listview
         backText: '背部',
-        undoText: '复原'
-    });
+        undoText: '复原',
+        // Form
+        offText: '关闭',
+        onText: '开启'
+    };
 })(jQuery);

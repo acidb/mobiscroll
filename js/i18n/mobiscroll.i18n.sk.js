@@ -1,5 +1,5 @@
 (function ($) {
-    $.mobiscroll.i18n.sk = $.extend($.mobiscroll.i18n.sk, {
+    $.mobiscroll.i18n.sk = {
         // Core
         setText: 'Zadaj',
         cancelText: 'Zrušiť',
@@ -48,6 +48,9 @@
         hideText: 'Schovať',
         // Listview
         backText: 'Späť',
-        undoText: 'Späť'
-    });
+        undoText: 'Späť',
+        // Form
+        offText: 'O',
+        onText: 'I'
+    };
 })(jQuery);

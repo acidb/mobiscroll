@@ -1,5 +1,5 @@
 (function ($) {
-    $.mobiscroll.i18n.tr = $.extend($.mobiscroll.i18n.tr, {
+    $.mobiscroll.i18n.tr = {
         // Core
         setText: 'Seç',
         cancelText: 'İptal',
@@ -49,6 +49,9 @@
         hideText: 'Gizle',
         // Listview
         backText: 'Geri',
-        undoText: 'Geri Al'
-    });
+        undoText: 'Geri Al',
+        // Form
+        offText: 'O',
+        onText: 'I'
+    };
 })(jQuery);
