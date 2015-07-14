@@ -229,7 +229,9 @@
         }
 
         function genWheels() {
-            var w = [[]];
+            var w = [
+                []
+            ];
 
             if (groupWheel) {
                 genGroupWheel(w);
@@ -444,7 +446,7 @@
                         $.each(selectedValues, function () {
                             length++;
                         });
-                        return length + ' ' + s.selectedText;
+                        return length + ' ' + (length > 1 ? s.selectedPluralText || s.selectedText : s.selectedText);
                     };
                 }
 

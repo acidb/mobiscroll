@@ -5,6 +5,7 @@
         cancelText: 'Annulla',
         clearText: 'Chiarire',
         selectedText: 'Selezionato',
+        selectedPluralText: 'Selezionati',
         // Datetime component
         dateFormat: 'dd-mm-yyyy',
         dateOrder: 'ddmmyy',
