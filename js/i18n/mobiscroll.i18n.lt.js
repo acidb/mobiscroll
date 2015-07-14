@@ -4,7 +4,7 @@
         setText: 'OK',
         cancelText: 'Atšaukti',
         clearText: 'Išvalyti',
-        selectedText: 'Pasirinktas',
+        selectedText: 'pasirinktas',
         // Datetime component
         dateFormat: 'yy.mm.dd',
         dateOrder: 'yymmdd',

@@ -4,7 +4,7 @@
         setText: 'Zestaw',
         cancelText: 'Anuluj',
         clearText: 'Oczyścić',
-        selectedText: 'Wybór',
+        selectedText: 'wybór',
         // Datetime component
         dateFormat: 'yy-mm-dd',
         dateOrder: 'ddmmy',
