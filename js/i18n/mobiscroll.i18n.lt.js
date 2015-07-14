@@ -1,5 +1,5 @@
 (function ($) {
-    $.mobiscroll.i18n['lt'] =  {
+    $.mobiscroll.i18n.lt = {
         // Core
         setText: 'OK',
         cancelText: 'Atšaukti',
@@ -10,18 +10,18 @@
         dateOrder: 'yymmdd',
         dayNames: ['Sekmadienis', 'Pirmadienis', 'Antradienis', 'Trečiadienis', 'Ketvirtadienis', 'Penktadienis', 'Šeštadienis'],
         dayNamesShort: ['S', 'Pr', 'A', 'T', 'K', 'Pn', 'Š'],
-		dayNamesMin: ['S', 'Pr', 'A', 'T', 'K', 'Pn', 'Š'],	// same as dayNamesShort, included just incase
+        dayNamesMin: ['S', 'Pr', 'A', 'T', 'K', 'Pn', 'Š'],
         dayText: 'Diena',
         hourText: 'Valanda',
         minuteText: 'Minutes',
         monthNames: ['Sausis', 'Vasaris', 'Kovas', 'Balandis', 'Gegužė', 'Birželis', 'Liepa', 'Rugpjūtis', 'Rugsėjis', 'Spalis', 'Lapkritis', 'Gruodis'],
-        monthNamesShort: ['Sau', 'Vas', 'Kov', 'Bal', 'Geg', 'Bir', 'Lie', 'Rugp', 'Rugs', 'Spa', 'Lap', 'Gruo'], // Literally never used
+        monthNamesShort: ['Sau', 'Vas', 'Kov', 'Bal', 'Geg', 'Bir', 'Lie', 'Rugp', 'Rugs', 'Spa', 'Lap', 'Gruo'],
         monthText: 'Mėnuo',
         secText: 'Sekundes',
-        amText: 'am', 
+        amText: 'am',
         pmText: 'pm',
-        timeFormat: 'hh:ii',
-        timeWheels: 'hhii',
+        timeFormat: 'HH:ii',
+        timeWheels: 'HHii',
         yearText: 'Metai',
         nowText: 'Dabar',
         // Calendar component
@@ -48,6 +48,9 @@
         hideText: 'Slėpti',
         // Listview
         backText: 'Atgal',
-        undoText: 'Atšaukti veiksmą'
-    });
+        undoText: 'Atšaukti veiksmą',
+        // Form
+        offText: 'Išj.',
+        onText: 'Įj.'
+    };
 })(jQuery);
