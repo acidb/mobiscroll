@@ -41,8 +41,8 @@
         labels: ['Metai', 'Mėnesiai', 'Dienos', 'Valandos', 'Minutes', 'Sekundes', ''],
         labelsShort: ['m', 'mėn.', 'd', 'h', 'min', 's', ''],
         // Timer component
-        startText: 'Pradėiti',
-        stopText: 'Sustoti',
+        startText: 'Pradėti',
+        stopText: 'Sustabdyti',
         resetText: 'Išnaujo',
         lapText: 'Ratas',
         hideText: 'Slėpti',
