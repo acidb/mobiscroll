@@ -187,6 +187,10 @@
     width: 100%;
     text-align: center;
 }
+
+.dwbc .dwb-d {
+    opacity: .3;
+}
 /* Button wrapper */
 
 .dwbw {
