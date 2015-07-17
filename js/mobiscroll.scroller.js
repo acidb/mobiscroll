@@ -220,7 +220,9 @@
 
                 setGlobals(t);
                 clearInterval(timer);
-                timer = setInterval(function () { func(t); }, s.delay);
+                timer = setInterval(function () {
+                    func(t);
+                }, s.delay);
                 func(t);
             }
         }
@@ -363,7 +365,7 @@
             return {
                 selected: selected,
                 v: multiple ? constrain(v, min, max) : v,
-                val: cell.hasClass('dw-v') ? cell.attr('data-val') : null
+                val: cell.hasClass('dw-v') || multiple ? cell.attr('data-val') : null
             };
         }
 
@@ -463,14 +465,14 @@
         // Public functions
 
         /**
-        * Gets the selected wheel values, formats it, and set the value of the scroller instance.
-        * If input parameter is true, populates the associated input element.
-        * @param {Array} values Wheel values.
-        * @param {Boolean} [fill=false] Also set the value of the associated input element.
-        * @param {Number} [time=0] Animation time
-        * @param {Boolean} [temp=false] If true, then only set the temporary value.(only scroll there but not set the value)
-        * @param {Boolean} [change=false] Trigger change on the input element
-        */
+         * Gets the selected wheel values, formats it, and set the value of the scroller instance.
+         * If input parameter is true, populates the associated input element.
+         * @param {Array} values Wheel values.
+         * @param {Boolean} [fill=false] Also set the value of the associated input element.
+         * @param {Number} [time=0] Animation time
+         * @param {Boolean} [temp=false] If true, then only set the temporary value.(only scroll there but not set the value)
+         * @param {Boolean} [change=false] Trigger change on the input element
+         */
         that.setVal = that._setVal = function (val, fill, change, temp, time) {
             that._hasValue = val !== null && val !== undefined;
             that._tempWheelArray = $.isArray(val) ? val.slice(0) : s.parseValue.call(el, val, that) || [];
@@ -505,18 +507,18 @@
         };
 
         /**
-        * Return the selected wheel values.
-        */
+         * Return the selected wheel values.
+         */
         that.getValue = that.getArrayVal;
 
         // ---
 
         /**
-        * Changes the values of a wheel, and scrolls to the correct position
-        * @param {Array} idx Indexes of the wheels to change.
-        * @param {Number} [time=0] Animation time when scrolling to the selected value on the new wheel.
-        * @param {Boolean} [manual=false] Indicates that the change was triggered by the user or from code.
-        */
+         * Changes the values of a wheel, and scrolls to the correct position
+         * @param {Array} idx Indexes of the wheels to change.
+         * @param {Number} [time=0] Animation time when scrolling to the selected value on the new wheel.
+         * @param {Boolean} [manual=false] Indicates that the change was triggered by the user or from code.
+         */
         that.changeWheel = function (idx, time, manual) {
             if ($markup) {
                 var i = 0,
@@ -544,8 +546,8 @@
         };
 
         /**
-        * Returns the closest valid cell.
-        */
+         * Returns the closest valid cell.
+         */
         that.getValidCell = getValid;
 
         that.scroll = scroll;
@@ -559,24 +561,24 @@
 
             $.each(s.wheels, function (i, wg) { // Wheel groups
                 html += '<div class="mbsc-w-p dwc' + (s.mode != 'scroller' ? ' dwpm' : ' dwsc') + (s.showLabel ? '' : ' dwhl') + '">' +
-                            '<div class="dwwc"' + (s.maxWidth ? '' : ' style="max-width:600px;"') + '>' +
-                                (hasFlex ? '' : '<table class="dw-tbl" cellpadding="0" cellspacing="0"><tr>');
+                    '<div class="dwwc"' + (s.maxWidth ? '' : ' style="max-width:600px;"') + '>' +
+                    (hasFlex ? '' : '<table class="dw-tbl" cellpadding="0" cellspacing="0"><tr>');
 
                 $.each(wg, function (j, w) { // Wheels
                     wheels[l] = w;
                     lbl = w.label !== undefined ? w.label : j;
                     html += '<' + (hasFlex ? 'div' : 'td') + ' class="dwfl"' + ' style="' +
-                                    (s.fixedWidth ? ('width:' + (s.fixedWidth[l] || s.fixedWidth) + 'px;') :
-                                    (s.minWidth ? ('min-width:' + (s.minWidth[l] || s.minWidth) + 'px;') : 'min-width:' + s.width + 'px;') +
-                                    (s.maxWidth ? ('max-width:' + (s.maxWidth[l] || s.maxWidth) + 'px;') : '')) + '">' +
-                                '<div class="dwwl dwwl' + l + (w.multiple ? ' dwwms' : '') + '">' +
-                                (s.mode != 'scroller' ?
-                                    '<div class="dwb-e dwwb dwwbp ' + (s.btnPlusClass || '') + '" style="height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;"><span>+</span></div>' + // + button
-                                    '<div class="dwb-e dwwb dwwbm ' + (s.btnMinusClass || '') + '" style="height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;"><span>&ndash;</span></div>' : '') + // - button
-                                '<div class="dwl">' + lbl + '</div>' + // Wheel label
-                                '<div tabindex="0" aria-live="off" aria-label="' + lbl + '" role="listbox" class="dwww">' +
-                                    '<div class="dww" style="height:' + (s.rows * itemHeight) + 'px;">' +
-                                        '<div class="dw-ul" style="margin-top:' + (w.multiple ? (s.mode == 'scroller' ? 0 : itemHeight) : s.rows / 2 * itemHeight - itemHeight / 2) + 'px;">';
+                        (s.fixedWidth ? ('width:' + (s.fixedWidth[l] || s.fixedWidth) + 'px;') :
+                            (s.minWidth ? ('min-width:' + (s.minWidth[l] || s.minWidth) + 'px;') : 'min-width:' + s.width + 'px;') +
+                            (s.maxWidth ? ('max-width:' + (s.maxWidth[l] || s.maxWidth) + 'px;') : '')) + '">' +
+                        '<div class="dwwl dwwl' + l + (w.multiple ? ' dwwms' : '') + '">' +
+                        (s.mode != 'scroller' ?
+                            '<div class="dwb-e dwwb dwwbp ' + (s.btnPlusClass || '') + '" style="height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;"><span>+</span></div>' + // + button
+                            '<div class="dwb-e dwwb dwwbm ' + (s.btnMinusClass || '') + '" style="height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;"><span>&ndash;</span></div>' : '') + // - button
+                        '<div class="dwl">' + lbl + '</div>' + // Wheel label
+                        '<div tabindex="0" aria-live="off" aria-label="' + lbl + '" role="listbox" class="dwww">' +
+                        '<div class="dww" style="height:' + (s.rows * itemHeight) + 'px;">' +
+                        '<div class="dw-ul" style="margin-top:' + (w.multiple ? (s.mode == 'scroller' ? 0 : itemHeight) : s.rows / 2 * itemHeight - itemHeight / 2) + 'px;">';
 
                     // Create wheel values
                     html += generateWheelItems(l) +

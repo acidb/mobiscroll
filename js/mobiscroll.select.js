@@ -484,7 +484,7 @@
                             e.stopPropagation();
                             onTap($('.dw-sel', this));
                         }
-                    }).eq(optionWheelIdx).addClass('dwwms').attr('aria-multiselectable', 'true');
+                    }).eq(optionWheelIdx).attr('aria-multiselectable', 'true');
 
                     origValues = $.extend({}, selectedValues);
                 }
