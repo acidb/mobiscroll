@@ -44,7 +44,7 @@
 }
 
 .dwwr {
-    min-width: 170px;
+    min-width: 200px;
     zoom: 1;
     overflow: hidden;
     text-align: center;
@@ -63,6 +63,7 @@
 
 .dw-persp {
     z-index: 99998;
+    pointer-events: auto;
 }
 
 .dwo {
@@ -186,6 +187,10 @@
     width: 100%;
     text-align: center;
 }
+
+.dwbc .dwb-d {
+    opacity: .3;
+}
 /* Button wrapper */
 
 .dwbw {
@@ -211,7 +216,7 @@
 /* Default theme */
 
 .mbsc-mobiscroll .dwwr {
-    min-width: 220px;
+    min-width: 16em;
     background: #f7f7f7;
     color: #454545;
     font-size: 16px;

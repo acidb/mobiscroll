@@ -7,7 +7,8 @@
         setText: 'Selecionar',
         cancelText: 'Cancelar',
         clearText: 'Claro',
-        selectedText: 'Selecionado',
+        selectedText: 'selecionado',
+        selectedPluralText: 'selecionados',
         // Datetime component
         dateFormat: 'dd/mm/yy',
         dateOrder: 'ddMMyy',

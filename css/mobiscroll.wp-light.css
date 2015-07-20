@@ -85,6 +85,9 @@
 .mbsc-wp-light .dw-cal-day-fg {
     border-color: rgb(166,166,166);
 }
+.mbsc-wp-light .dw-cal-day-inv .dw-cal-day-fg {
+    color: rgba(0,0,0,.3);
+}
 .mbsc-wp-light .dw-sel .dw-cal-day-fg {
     border-color: rgb(28,161,227);
 }

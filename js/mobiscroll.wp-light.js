@@ -26,11 +26,19 @@
         onMarkupInserted: function (elm, inst) {
             var click,
                 touch,
-                active;
+                active,
+                s = inst.settings;
+
+            function isReadOnly(wheel) {
+                if ($.isArray(s.readonly)) {
+                    return s.readonly[$('.dwwl', elm).index(wheel)];
+                }
+                return s.readonly;
+            }
 
             if (inst.settings.mode != 'clickpick') {
                 $('.dwwl', elm).on('touchstart mousedown wheel mousewheel', function (e) {
-                    if (e.type === 'mousedown' && touch) {
+                    if ((e.type === 'mousedown' && touch) || isReadOnly(this)) {
                         return;
                     }
                     touch = e.type === 'touchstart';
@@ -93,5 +101,3 @@
     };
 
 })(jQuery);
-
-
