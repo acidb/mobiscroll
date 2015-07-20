@@ -446,7 +446,10 @@
                         $.each(selectedValues, function () {
                             length++;
                         });
-                        return length + ' ' + (length > 1 ? s.selectedPluralText || s.selectedText : s.selectedText);
+                        return s.selectedTextFormat.replace(/count/,length).replace(/text/,length>1? s.selectedPluralText || s.selectedText : s.selectedText); 
+                        // Allow formating for selectedtext, as in some languages count goes first.
+                        // Example: selectedTextFormat: "count text", would return "5 selected"
+                        //          selectedTextFormat: "text count", would return "selected 5"
                     };
                 }
 
