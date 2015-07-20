@@ -1,3 +1,4 @@
+// Lietuvių
 (function ($) {
     $.mobiscroll.i18n.lt = {
         // Core
