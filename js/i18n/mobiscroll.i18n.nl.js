@@ -4,7 +4,7 @@
         setText: 'Instellen',
         cancelText: 'Annuleren',
         clearText: 'Duidelijk',
-        selectedText: 'Gekozen',
+        selectedText: 'gekozen',
         // Datetime component
         dateFormat: 'dd/mm/yy',
         dateOrder: 'ddmmyy',

@@ -8,7 +8,10 @@
             headerText: false,
             showLabel: false,
             deleteIcon: 'backspace4',
-            icon: { filled: 'star3', empty: 'star' },
+            icon: {
+                filled: 'star3',
+                empty: 'star'
+            },
             btnWidth: false,
             btnStartClass: 'mbsc-ic mbsc-ic-play3',
             btnStopClass: 'mbsc-ic mbsc-ic-pause2',
@@ -22,11 +25,19 @@
             onMarkupInserted: function (elm, inst) {
                 var click,
                     touch,
-                    active;
-            
-                if (inst.settings.mode != 'clickpick') {
+                    active,
+                    s = inst.settings;
+
+                function isReadOnly(wheel) {
+                    if ($.isArray(s.readonly)) {
+                        return s.readonly[$('.dwwl', elm).index(wheel)];
+                    }
+                    return s.readonly;
+                }
+
+                if (s.mode != 'clickpick') {
                     $('.dwwl', elm).on('touchstart mousedown wheel mousewheel', function (e) {
-                        if (e.type === 'mousedown' && touch) {
+                        if ((e.type === 'mousedown' && touch) || isReadOnly(this)) {
                             return;
                         }
                         touch = e.type === 'touchstart';
@@ -51,8 +62,8 @@
             onThemeLoad: function (lang, s) {
                 if (lang && lang.dateOrder && !s.dateOrder) {
                     var ord = lang.dateOrder;
-                    ord = ord.match(/mm/i) ? ord.replace(/mmMM|mm|MM/,  'mmMM') : ord.replace(/mM|m|M/,  'mM');
-                    ord = ord.match(/dd/i) ? ord.replace(/ddDD|dd|DD/,  'ddDD') : ord.replace(/dD|d|D/,  'dD');
+                    ord = ord.match(/mm/i) ? ord.replace(/mmMM|mm|MM/, 'mmMM') : ord.replace(/mM|m|M/, 'mM');
+                    ord = ord.match(/dd/i) ? ord.replace(/ddDD|dd|DD/, 'ddDD') : ord.replace(/dD|d|D/, 'dD');
                     s.dateOrder = ord;
                 }
             },
@@ -70,7 +81,7 @@
                 if (buttons.close) {
                     buttons.close.icon = 'close';
                 }
-                
+
                 if (buttons.now) {
                     buttons.now.icon = 'loop2';
                 }
@@ -84,5 +95,3 @@
     themes['wp light'] = theme;
 
 })(jQuery);
-
-

@@ -229,7 +229,9 @@
         }
 
         function genWheels() {
-            var w = [[]];
+            var w = [
+                []
+            ];
 
             if (groupWheel) {
                 genGroupWheel(w);
@@ -341,7 +343,7 @@
         if (elm.next().is('input.mbsc-control')) {
             input = elm.off('.mbsc-form').next().removeAttr('tabindex');
         } else {
-            input = $('<input type="text" id="' + id + '" class="' + s.inputClass + '" readonly />');
+            input = $('<input type="text" id="' + id + '" class="mbsc-control mbsc-control-ev ' + s.inputClass + '" readonly />');
 
             if (s.showInput) {
                 input.insertBefore(elm);
@@ -444,7 +446,7 @@
                         $.each(selectedValues, function () {
                             length++;
                         });
-                        return length + ' ' + s.selectedText;
+                        return length + ' ' + (length > 1 ? s.selectedPluralText || s.selectedText : s.selectedText);
                     };
                 }
 
@@ -482,7 +484,7 @@
                             e.stopPropagation();
                             onTap($('.dw-sel', this));
                         }
-                    }).eq(optionWheelIdx).addClass('dwwms').attr('aria-multiselectable', 'true');
+                    }).eq(optionWheelIdx).attr('aria-multiselectable', 'true');
 
                     origValues = $.extend({}, selectedValues);
                 }

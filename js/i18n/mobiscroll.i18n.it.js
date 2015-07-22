@@ -4,7 +4,8 @@
         setText: 'OK',
         cancelText: 'Annulla',
         clearText: 'Chiarire',
-        selectedText: 'Selezionato',
+        selectedText: 'selezionato',
+        selectedPluralText: 'selezionati',
         // Datetime component
         dateFormat: 'dd-mm-yyyy',
         dateOrder: 'ddmmyy',

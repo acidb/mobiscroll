@@ -221,9 +221,9 @@
 
         //        setGlobals(t);
         //        clearInterval(timer);
-        //        timer = setInterval(function () { func(t); }, s.delay);
-        //        func(t);
-        //    }
+        //        timer = setInterval(function () {
+        //            func(t);
+        //        }, s.delay);
         //}
 
         //function isReadOnly(wh) {
@@ -438,7 +438,7 @@
         //    return {
         //        selected: selected,
         //        v: multiple ? constrain(v, min, max) : v,
-        //        val: cell.hasClass('dw-v') ? cell.attr('data-val') : null
+        //        val: cell.hasClass('dw-v') || multiple ? cell.attr('data-val') : null
         //    };
         //}
 
@@ -713,7 +713,7 @@
 
             $.each(s.wheels, function (i, wg) { // Wheel groups
                 //html += '<div class="mbsc-w-p dwc' + (s.mode != 'scroller' ? ' dwpm' : ' dwsc') + (s.showLabel ? '' : ' dwhl') + '">' +
-                //            '<div class="dwwc"' + (s.maxWidth ? '' : ' style="max-width:600px;"') + '>' +
+                //    '<div class="dwwc"' + (s.maxWidth ? '' : ' style="max-width:600px;"') + '>' +
                 //                (hasFlex ? '' : '<table class="dw-tbl" cellpadding="0" cellspacing="0"><tr>');
 
                 //$.each(wg, function (j, w) { // Wheels
@@ -761,7 +761,7 @@
                         //(s.mode != 'scroller' ?
                         //    '<div class="dwb-e dwwb dwwbp ' + (s.btnPlusClass || '') + '" style="height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;"><span>+</span></div>' + // + button
                         //    '<div class="dwb-e dwwb dwwbm ' + (s.btnMinusClass || '') + '" style="height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;"><span>&ndash;</span></div>' : '') + // - button
-                        //'<div class="mbsc-sc-lbl">' + lbl + '</div>' + // Wheel label
+                        //'<div class="dwl">' + lbl + '</div>' + // Wheel label
                         //'<div tabindex="0" aria-live="off" aria-label="' + lbl + '" role="listbox" class="dwww">' +
                         //'<div class="dww" style="height:' + (s.rows * itemHeight) + 'px;">' +
                         //'<div class="dw-ul" style="margin-top:' + (w.multiple ? (s.mode == 'scroller' ? 0 : itemHeight) : s.rows / 2 * itemHeight - itemHeight / 2) + 'px;">';
