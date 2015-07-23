@@ -556,6 +556,7 @@
             that._tempValue = s.formatValue(that._tempWheelArray, that);
 
             if (that._isVisible) {
+                // TODO: live mode
                 //if (that.live) {
                 //    that._hasValue = manual || that._hasValue;
                 //    setValue(manual, manual, 0, true);
@@ -563,6 +564,7 @@
 
                 that._header.html(formatHeader(that._tempValue));
 
+                // TODO: onChange event
                 //if (manual) {
                 //    trigger('onChange', [that._tempValue]);
                 //}

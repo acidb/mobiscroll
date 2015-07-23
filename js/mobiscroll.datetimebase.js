@@ -79,7 +79,16 @@
                 ord = [],
                 o = {},
                 innerValues = {},
-                f = { y: getYear, m: getMonth, d: getDay, h: getHour, i: getMinute, s: getSecond, u: getMillisecond, a: getAmPm },
+                f = {
+                    y: getYear,
+                    m: getMonth,
+                    d: getDay,
+                    h: getHour,
+                    i: getMinute,
+                    s: getSecond,
+                    u: getMillisecond,
+                    a: getAmPm
+                },
                 invalid = s.invalid,
                 valid = s.valid,
                 p = s.preset,
@@ -111,10 +120,15 @@
                 $.each(['y', 'm', 'd'], function (j, v) {
                     i = dord.search(new RegExp(v, 'i'));
                     if (i > -1) {
-                        ord.push({ o: i, v: v });
+                        ord.push({
+                            o: i,
+                            v: v
+                        });
                     }
                 });
-                ord.sort(function (a, b) { return a.o > b.o ? 1 : -1; });
+                ord.sort(function (a, b) {
+                    return a.o > b.o ? 1 : -1;
+                });
                 $.each(ord, function (i, v) {
                     o[v.v] = i;
                 });
@@ -135,9 +149,15 @@
                         addWheel(
                             wg,
                             s.yearText,
-                            function (i) { return i; },
-                            function (i) { return dord.match(/yy/i) ? i : (i + '').substr(2, 2); },
-                            function (v) { return v; },
+                            function (i) {
+                                return i;
+                            },
+                            function (i) {
+                                return dord.match(/yy/i) ? i : (i + '').substr(2, 2);
+                            },
+                            function (v) {
+                                return v;
+                            },
                             mind.getFullYear(),
                             maxd.getFullYear()
                         );
@@ -174,7 +194,10 @@
                 $.each(['h', 'i', 's', 'a'], function (i, v) {
                     i = tord.search(new RegExp(v, 'i'));
                     if (i > -1) {
-                        ord.push({ o: i, v: v });
+                        ord.push({
+                            o: i,
+                            v: v
+                        });
                     }
                 });
                 ord.sort(function (a, b) {
@@ -190,7 +213,7 @@
                         offset++;
                         values = [];
                         keys = [];
-                        for (i = minH; i < (hampm ? 12 : 24) ; i += stepH) {
+                        for (i = minH; i < (hampm ? 12 : 24); i += stepH) {
                             keys.push(i);
                             values.push(hampm && i === 0 ? 12 : tord.match(/hh/i) && i < 10 ? '0' + i : i);
                         }
@@ -452,7 +475,12 @@
             function validateTimes(vobj, i, v, temp, y, m, d, target, valid) {
                 var dd, ss, str, parts1, parts2, prop1, prop2, v1, v2, j, i1, i2, add, remove, all, hours1, hours2, hours3,
                     spec = {},
-                    steps = { h: stepH, i: stepM, s: stepS, a: 1 },
+                    steps = {
+                        h: stepH,
+                        i: stepM,
+                        s: stepS,
+                        a: 1
+                    },
                     day = s.getDate(y, m, d),
                     w = ['a', 'h', 'i', 's'];
 
@@ -464,8 +492,8 @@
                             ss = dd + '';
                             str = ss.split('/');
                             if (dd && ((dd.getTime && y == s.getYear(dd) && m == s.getMonth(dd) && d == s.getDay(dd)) || // Exact date
-                                (!ss.match(/w/i) && ((str[1] && d == str[1] && m == str[0] - 1) || (!str[1] && d == str[0]))) || // Day of month
-                                (ss.match(/w/i) && day.getDay() == +ss.replace('w', '')) // Day of week
+                                    (!ss.match(/w/i) && ((str[1] && d == str[1] && m == str[0] - 1) || (!str[1] && d == str[0]))) || // Day of month
+                                    (ss.match(/w/i) && day.getDay() == +ss.replace('w', '')) // Day of week
                                 )) {
                                 obj.apply = true;
                                 spec[day] = true; // Prevent applying generic rule on day, if specific exists
@@ -672,14 +700,35 @@
             inst.format = hformat;
             inst.order = o;
 
-            inst.handlers.now = function () { inst.setDate(new Date(), false, 1000, true, true); };
-            inst.buttons.now = { text: s.nowText, handler: 'now' };
+            inst.handlers.now = function () {
+                inst.setDate(new Date(), false, 1000, true, true);
+            };
+            inst.buttons.now = {
+                text: s.nowText,
+                handler: 'now'
+            };
 
             invalid = convertRanges(invalid);
             valid = convertRanges(valid);
 
-            mins = { y: mind.getFullYear(), m: 0, d: 1, h: minH, i: minM, s: minS, a: 0 };
-            maxs = { y: maxd.getFullYear(), m: 11, d: 31, h: maxH, i: maxM, s: maxS, a: 1 };
+            mins = {
+                y: mind.getFullYear(),
+                m: 0,
+                d: 1,
+                h: minH,
+                i: minM,
+                s: minS,
+                a: 0
+            };
+            maxs = {
+                y: maxd.getFullYear(),
+                m: 11,
+                d: 31,
+                h: maxH,
+                i: maxM,
+                s: maxS,
+                a: 1
+            };
 
             // ---
 
@@ -727,6 +776,7 @@
                                 //        $('.dw-i', that).html(str.match(/DD/) ? str.replace(/DD/, '<span class="dw-day">' + s.dayNames[w] + '</span>') : str.replace(/D/, '<span class="dw-day">' + s.dayNamesShort[w] + '</span>'));
                                 //    });
                                 //}
+                                // TODO: generate names of days
                             }
                             if (minprop && mind) {
                                 min = f[i](mind);
@@ -738,6 +788,7 @@
                                 //if (i == 'd') { // Hide days not in month
                                 //    $('.dw-li', t).removeClass('dw-h').slice(maxdays).addClass('dw-h');
                                 //}
+                                // TODO: days not in months should be hidden, not disabled
                                 for (var j = mins[i]; j <= maxs[i]; j++) {
                                     if (j < min || j > max) {
                                         disabled[o[i]].push(j);
@@ -775,6 +826,7 @@
                         }
                     });
 
+                    // TODO: validate times
                     // Invalid times
                     //if (hasTime) {
                     //    $.each(['a', 'h', 'i', 's'], function (i, v) {
