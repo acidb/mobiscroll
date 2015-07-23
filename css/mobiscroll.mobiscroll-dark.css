@@ -301,3 +301,20 @@
     background: transparent;
     color: rgb(35,46,51);
 }
+/* Slider & Progress */
+.mbsc-mobiscroll-dark .mbsc-slider-track {
+    background: rgb(43,57,64);
+}
+.mbsc-mobiscroll-dark .mbsc-slider-progress {
+    background: rgb(79,204,196);
+}
+.mbsc-mobiscroll-dark .mbsc-slider-handle {
+    background: rgb(79,204,196);
+}
+.mbsc-mobiscroll-dark  .mbsc-slider-tooltip {
+    color: rgb(38,50,56);
+    background: rgb(79,204,196);
+}
+.mbsc-mobiscroll-dark  .mbsc-slider-step {
+    background: rgb(38,50,56);
+}

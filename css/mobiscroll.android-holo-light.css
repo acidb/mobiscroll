@@ -222,6 +222,10 @@
     background: rgb(245,245,245);
     outline-color: rgb(245,245,245);
 }
+.mbsc-android-holo-light .mbsc-input input:-webkit-autofill,
+.mbsc-android-holo-light .mbsc-input textarea:-webkit-autofill {
+    border-color: rgb(242,216,17);
+}
 .mbsc-android-holo-light .mbsc-select .mbsc-input-wrap .mbsc-select-ic {
     border-color: transparent rgb(168,168,168) rgb(168,168,168) transparent;
 }
@@ -317,4 +321,43 @@
 }
 .mbsc-android-holo-light .mbsc-radio-box:after {
     background: rgb(49,183,232);
+}
+/* Slider & Progress*/
+.mbsc-android-holo-light .mbsc-slider-track {
+    background: rgb(217,213,217);
+}
+.mbsc-android-holo-light .mbsc-slider-handle {
+    background: rgb(49,183,232);
+}
+.mbsc-android-holo-light .mbsc-slider-handle.mbsc-active {
+    background:  rgb(0,0,0);
+}
+.mbsc-android-holo-light .mbsc-slider-handle:after {
+    background: rgba(49,183,232,.3);
+}
+.mbsc-android-holo-light .mbsc-slider-progress {
+    background: rgb(49,183,232);
+}
+.mbsc-android-holo-light .mbsc-slider .mbsc-input-ic {
+    color: rgb(0,0,0);
+}
+.mbsc-android-holo-light .mbsc-slider input:disabled ~ .mbsc-slider-cont .mbsc-slider-track {
+    background: rgb(0,0,0);
+}
+.mbsc-android-holo-light .mbsc-slider input:disabled ~ .mbsc-slider-cont .mbsc-slider-handle {
+    background: rgb(0,0,0);
+}
+.mbsc-android-holo-light .mbsc-slider input:disabled ~ .mbsc-slider-cont .mbsc-slider-progress {
+    background: rgb(168,168,168);
+}
+.mbsc-android-holo-light .mbsc-slider-handle:focus:after,
+.mbsc-android-holo-light .mbsc-active .mbsc-slider-handle:after {
+    border: 1px solid rgb(40,121,156);
+}
+.mbsc-android-holo-light .mbsc-slider-tooltip {
+    color: rgb(0,0,0);
+    background: rgb(245,245,245);
+}
+.mbsc-android-holo-light .mbsc-slider-step {
+    background: rgb(0,0,0);
 }
