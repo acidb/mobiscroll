@@ -655,6 +655,8 @@
 
         that.setVal = empty;
 
+        that.getVal = empty;
+
         that._generateContent = empty;
 
         that._attachEvents = empty;
