@@ -9,7 +9,7 @@
         // Datetime component
         dateFormat: 'dd-mm-yyyy',
         dateOrder: 'ddmmyy',
-        dayNames: ['Domenica', 'Luned&Igrave;', 'Merted&Igrave;', 'Mercoled&Igrave;', 'Gioved&Igrave;', 'Venerd&Igrave;', 'Sabato'],
+        dayNames: ['Domenica', 'Lunedì', 'Mertedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'],
         dayNamesShort: ['Do', 'Lu', 'Ma', 'Me', 'Gi', 'Ve', 'Sa'],
         dayNamesMin: ['D', 'L', 'M', 'M', 'G', 'V', 'S'],
         dayText: 'Giorno',
