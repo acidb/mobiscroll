@@ -148,12 +148,13 @@
                 $(document.activeElement).blur();
             }
 
-            $activeElm = $elm;
-            that.show();
+            if (that.show() !== false) {
+                $activeElm = $elm;
 
-            setTimeout(function () {
-                preventShow = false;
-            }, 300); // With jQuery < 1.9 focus is fired twice in IE
+                setTimeout(function () {
+                    preventShow = false;
+                }, 300); // With jQuery < 1.9 focus is fired twice in IE
+            }
         }
 
         // Call the parent constructor
@@ -403,7 +404,9 @@
             // Parse value from input
             that._readValue();
 
-            event('onBeforeShow', []);
+            if (event('onBeforeShow', []) === false) {
+                return false;
+            }
 
             doAnim = isOldAndroid ? false : s.animate;
 
