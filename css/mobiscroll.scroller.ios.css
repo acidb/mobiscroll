@@ -1,89 +1,111 @@
 .mbsc-ios .dwl {
     text-align: left;
-    text-indent: 5px;
+    text-indent: .4166667em;
     color: #ababab;
 }
+
 .mbsc-ios .dwwc {
-    padding: 30px 10px 10px 10px;
+    padding: 2.5em .833333em .833333em .833333em;
 }
+
 .mbsc-ios .dwhl .dwwc {
-    padding-top: 10px;
+    padding-top: .833333em;
 }
+
 .mbsc-ios .dwwo {
-    background: -webkit-gradient(linear,left bottom,left top,from(#f7f7f7),color-stop(0.52, rgba(245,245,245,0)),color-stop(0.48, rgba(245,245,245,0)),to(#f7f7f7));
-    background: -webkit-linear-gradient(#f7f7f7,rgba(245,245,245,0) 52%, rgba(245,245,245,0) 48%, #f7f7f7);
-    background: -moz-linear-gradient(#f7f7f7,rgba(245,245,245,0) 52%, rgba(245,245,245,0) 48%, #f7f7f7);
-    background: linear-gradient(#f7f7f7,rgba(245,245,245,0) 52%, rgba(245,245,245,0) 48%, #f7f7f7);
+    background: -webkit-gradient(linear, left bottom, left top, from(#f7f7f7), color-stop(0.52, rgba(245, 245, 245, 0)), color-stop(0.48, rgba(245, 245, 245, 0)), to(#f7f7f7));
+    background: -webkit-linear-gradient(#f7f7f7, rgba(245, 245, 245, 0) 52%, rgba(245, 245, 245, 0) 48%, #f7f7f7);
+    background: -moz-linear-gradient(#f7f7f7, rgba(245, 245, 245, 0) 52%, rgba(245, 245, 245, 0) 48%, #f7f7f7);
+    background: linear-gradient(#f7f7f7, rgba(245, 245, 245, 0) 52%, rgba(245, 245, 245, 0) 48%, #f7f7f7);
 }
+
 .mbsc-ios .dwwol {
-    padding: 0 10px;
-    height: 34px;
-    margin: -18px 0 0 -10px;
+    padding: 0 .833333em;
+    height: 2.833333em;
+    margin: -1.5 0 0 -.833333em;
     border-top: 1px solid #dbdbdb;
     border-bottom: 1px solid #dbdbdb;
 }
+
 .mbsc-ios .dw-li {
     color: #9d9d9d;
-    font-size: 22px;
+    font-size: 1.833333em;
     text-align: left;
 }
+
 .mbsc-ios .dw-hl {
-    background: rgba(0,122,255,.2);
+    background: rgba(0, 122, 255, .2);
 }
+
 .mbsc-ios .dw-sel {
     color: #000;
 }
 /* Clickpick mode */
+
 .mbsc-ios .dwpm .dw-li {
     text-align: center;
 }
+
 .mbsc-ios .dwpm .dwwol {
     display: block;
 }
+
 .mbsc-ios .dwwb {
     color: #007aff;
     background: #f7f7f7;
 }
+
 .mbsc-ios .dwwbp {
     bottom: 0;
     top: auto;
 }
+
 .mbsc-ios .dwwbm {
     top: 0;
     bottom: auto;
 }
+
 .mbsc-ios .dwwb span {
     display: none;
 }
+
 .mbsc-ios .dwwb:before {
     position: absolute;
     left: 0;
     top: 0;
     width: 100%;
-    font-size: 24px;
+    font-size: 2em;
     text-align: center;
 }
 /* Select */
+
 .mbsc-ios.dw-select .dwwo {
     display: none;
 }
 /* Multiple select */
+
 .mbsc-ios .dwwms .dw-li {
-    padding: 0 5px 0 40px;
+    /*22px*/
+    
+    padding: 0 .227272em 0 1.818181em;
     color: #000;
 }
+
 .mbsc-ios .dwwms .dw-msel {
     color: #007aff;
 }
+
 .mbsc-ios .dw-msel:before {
-    font-size: 40px;
+    font-size: 1.818181em;
 }
 /* Group select */
+
 .mbsc-ios .dw-select-gr .dw-li {
-    padding-left: 40px;
+    padding-left: 1.818181em;
 }
+
 .mbsc-ios .dw-select-gr .dw-w-gr {
-    padding-left: 5px;
+    padding-left: .277777em;
     font-weight: normal;
-    font-size: 18px;
+    font-size: 1.222222em;
 }
