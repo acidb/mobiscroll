@@ -22,7 +22,7 @@
 .mbsc-ios .dwwol {
     padding: 0 .833333em;
     height: 2.833333em;
-    margin: -1.5 0 0 -.833333em;
+    margin: -1.5em 0 0 -.833333em;
     border-top: 1px solid #dbdbdb;
     border-bottom: 1px solid #dbdbdb;
 }
@@ -85,8 +85,6 @@
 /* Multiple select */
 
 .mbsc-ios .dwwms .dw-li {
-    /*22px*/
-    
     padding: 0 .227272em 0 1.818181em;
     color: #000;
 }
