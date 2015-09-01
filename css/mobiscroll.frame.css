@@ -107,6 +107,7 @@
 
 .dw-bubble .dw-arrw {
     position: absolute;
+    z-index: 1;
     left: 0;
     width: 100%;
 }
