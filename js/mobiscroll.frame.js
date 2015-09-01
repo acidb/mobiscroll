@@ -157,6 +157,19 @@
             }
         }
 
+        function set() {
+            that._fillValue();
+            event('onSelect', [that._value]);
+        }
+
+        function cancel() {
+            event('onCancel', [that._value]);
+        }
+
+        function clear() {
+            that.setVal(null, true);
+        }
+
         // Call the parent constructor
         ms.classes.Base.call(this, el, settings, true);
 
@@ -342,9 +355,10 @@
          * Set button handler.
          */
         that.select = function () {
-            if (!isModal || that.hide(false, 'set') !== false) {
-                that._fillValue();
-                event('onSelect', [that._value]);
+            if (isModal) {
+                that.hide(false, 'set', false, set);
+            } else {
+                set();
             }
         };
 
@@ -352,8 +366,10 @@
          * Cancel and hide the scroller instance.
          */
         that.cancel = function () {
-            if (!isModal || that.hide(false, 'cancel') !== false) {
-                event('onCancel', [that._value]);
+            if (isModal) {
+                that.hide(false, 'cancel', false, cancel);
+            } else {
+                set();
             }
         };
 
@@ -363,9 +379,10 @@
         that.clear = function () {
             event('onClear', [$markup]);
             if (isModal && !that.live) {
-                that.hide(false, 'clear');
+                that.hide(false, 'clear', false, clear);
+            } else {
+                clear();
             }
-            that.setVal(null, true);
         };
 
         /**
@@ -605,9 +622,9 @@
         /**
          * Hides the scroller instance.
          */
-        that.hide = function (prevAnim, btn, force) {
+        that.hide = function (prevAnim, btn, force, callback) {
             // If onClose handler returns false, prevent hide
-            if (!that._isVisible || (!force && !that._isValid && btn == 'set') || (!force && event('onClose', [that._tempValue, btn]) === false)) {
+            if (!that._isVisible || (!force && !that._isValid && btn == 'set') || (!force && event('onBeforeClose', [that._tempValue, btn]) === false)) {
                 return false;
             }
 
@@ -638,6 +655,13 @@
                 $(window).off('keydown', onWndKeyDown);
                 delete ms.activeInstance;
             }
+
+            if (callback) {
+                callback();
+            }
+
+            event('onClosed', [that._value]);
+
         };
 
         that.ariaMessage = function (txt) {
@@ -754,6 +778,13 @@
 
             that._isLiquid = (s.layout || (/top|bottom/.test(s.display) ? 'liquid' : '')) === 'liquid';
 
+            // @deprecated since 2.17.0, backward compatibility code
+            // ---
+            if (s.onClose) {
+                s.onBeforeClose = s.onClose;
+            }
+            // ---
+
             that._processSettings();
 
             // Unbind all events (if re-init)
@@ -781,10 +812,12 @@
                 text: s.setText,
                 handler: 'set'
             };
+
             that.buttons.cancel = {
                 text: (that.live) ? s.closeText : s.cancelText,
                 handler: 'cancel'
             };
+
             that.buttons.clear = {
                 text: s.clearText,
                 handler: 'clear'
