@@ -80,6 +80,9 @@
             optionArray = [];
             groupArray = [];
 
+            // Reset invalids
+            invalid.length = 0;
+
             if (hasData) {
                 $.each(s.data, function (i, v) {
                     txt = v[s.dataText];
