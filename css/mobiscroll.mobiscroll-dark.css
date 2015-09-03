@@ -1,320 +1,360 @@
-/* Higlighted */
 .mbsc-mobiscroll-dark .dwwr {
-    background: rgb(38,50,56); /*background*/
-    color: rgb(247,247,247);  /*text*/
+  background: #263238;
+  color: #f7f7f7;
 }
 .mbsc-mobiscroll-dark .dwv,
 .mbsc-mobiscroll-dark .dwl {
-    color: rgb(79,204,196);
+  color: #50ccc4;
 }
 .mbsc-mobiscroll-dark .dwwol {
-    border-color: rgb(79,204,196); /*accent*/
+  border-color: #50ccc4;
+  /*accent*/
 }
 .mbsc-mobiscroll-dark .dwb-a {
-    background: rgba(79,204,196, 0.3);
+  background: rgba(80, 204, 196, 0.3);
 }
 .mbsc-mobiscroll-dark .dw-hl {
-    background: rgba(79,204,196, 0.3);
+  background: rgba(80, 204, 196, 0.3);
 }
 .mbsc-mobiscroll-dark .dwb {
-    color: rgb(79,204,196);
+  color: #50ccc4;
 }
 .mbsc-mobiscroll-dark .dwwb {
-    color: rgb(79,204,196);
-    background: rgb(38,50,56);
+  color: #50ccc4;
+  background: #263238;
 }
 .mbsc-mobiscroll-dark .dwwb.dwb-a:before {
-    background: rgba(79,204,196,0.3);
+  background: rgba(80, 204, 196, 0.3);
 }
 .mbsc-mobiscroll-dark .dw-bubble-bottom .dw-arr {
-    border-color: transparent transparent rgb(38,50,56) transparent;
+  border-color: transparent transparent #263238 transparent;
 }
 .mbsc-mobiscroll-dark .dw-bubble-top .dw-arr {
-    border-color: rgb(38,50,56) transparent transparent transparent;
+  border-color: #263238 transparent transparent transparent;
 }
 .mbsc-mobiscroll-dark .dw-msel:before {
-    color: rgb(79,204,196);
+  color: #50ccc4;
 }
 /* Calendar */
-.mbsc-mobiscroll-dark  .dw-cal .dw-sel .dw-i {
-    background: rgb(79,204,196);
-    color: rgb(38,50,56);
+.mbsc-mobiscroll-dark .dw-cal .dw-sel .dw-i {
+  background: #50ccc4;
+  color: #263238;
 }
-.mbsc-mobiscroll-dark  .dw-cal-days {
-    color: rgb(79,204,196);
-    border-color: rgb(79,204,196);
+.mbsc-mobiscroll-dark .dw-hl-now .dw-cal-today {
+  color: #50ccc4;
 }
-.mbsc-mobiscroll-dark  .dw-cal-btn-txt {
-    color: rgb(79,204,196);
+.mbsc-mobiscroll-dark .dw-cal-days {
+  color: #50ccc4;
+  border-color: #50ccc4;
+}
+.mbsc-mobiscroll-dark .dw-cal-btn-txt {
+  color: #50ccc4;
 }
 .mbsc-mobiscroll-dark .dw-cal-event-color {
-    background: rgb(79,204,196);
+  background: #50ccc4;
 }
 .mbsc-mobiscroll-dark .dw-cal-events {
-    color: rgb(38,50,56);
-    background: rgb(255,255,255);
+  color: #263238;
+  background: #ffffff;
 }
 .mbsc-mobiscroll-dark .dw-cal-events-arr {
-    border-color: rgb(255,255,255) transparent transparent transparent;
+  border-color: #ffffff transparent transparent transparent;
 }
 .mbsc-mobiscroll-dark .dw-cal-events-b .dw-cal-events-arr {
-    border-color: transparent transparent rgb(255,255,255) transparent;
+  border-color: transparent transparent #ffffff transparent;
 }
 .mbsc-mobiscroll-dark .dw-cal-event-time {
-    color: rgb(140,178,175);
+  color: #8db3b0;
 }
 .mbsc-mobiscroll-dark .dw-cal-event-dur {
-    color: rgb(140,178,175);
+  color: #8db3b0;
 }
 .mbsc-mobiscroll-dark .dw-cal-day-hl .dw-i {
-    border-color: rgb(79,204,196); 
+  border-color: #50ccc4;
 }
 .mbsc-mobiscroll-dark .dw-week-nrs-c {
-    color: rgb(79,204,196);
-    background: rgb(38,50,56);
+  color: #50ccc4;
+  background: #263238;
 }
 .mbsc-mobiscroll-dark .dw-cal-day-m {
-    background: rgb(247,247,247); 
+  background: #f7f7f7;
 }
 .mbsc-mobiscroll-dark .dw-sel .dw-cal-day-m {
-    background: rgb(38,50,56); 
+  background: #263238;
 }
 .mbsc-mobiscroll-dark .dw-cal-day-m-c {
-    background: rgb(79,204,196);
+  background: #50ccc4;
 }
 .mbsc-mobiscroll-dark .dw-sel .dw-cal-day-m-c {
-    background: rgb(38,50,56);
+  background: #263238;
 }
 .mbsc-mobiscroll-dark .dw-cal-day-txt {
-    color: rgb(38,50,56);
-    background: rgb(247,247,247);
+  color: #263238;
+  background: #f7f7f7;
 }
 .mbsc-mobiscroll-dark .dw-cal-tab {
-    border-color: rgb(79,204,196);
+  border-color: #50ccc4;
 }
 .mbsc-mobiscroll-dark .dw-cal-tab .dw-i {
-    color: rgb(247,247,247);
+  color: #f7f7f7;
 }
 .mbsc-mobiscroll-dark .dw-cal-tabs .dw-sel {
-    background: rgb(79,204,196);
+  background: #50ccc4;
 }
 .mbsc-mobiscroll-dark .dw-cal-tabs .dw-sel .dw-i {
-    color: rgb(38,50,56);
+  color: #263238;
 }
 .mbsc-mobiscroll-dark .dw-cal-sc-c {
-    background: rgb(38,50,56);
+  background: #263238;
 }
 /* Rangepicker */
 .mbsc-mobiscroll-dark .dw-dr {
-    border-color: rgb(79,204,196);
+  border-color: #50ccc4;
 }
 .mbsc-mobiscroll-dark .dw-sel .dw-dr {
-    background: rgb(79,204,196);
-    color: rgb(38,50,56);
+  background: #50ccc4;
+  color: #263238;
 }
 .mbsc-mobiscroll-dark.dw-range .dw-cal-table .dw-sel .dw-i {
-    color: rgb(247,247,247);
-    background: rgba(79,204,196, 0.3);
+  color: #f7f7f7;
+  background: rgba(80, 204, 196, 0.3);
 }
 .mbsc-mobiscroll-dark.dw-range .dw-cal-table .dw-cal-day-hl .dw-i {
-    background: rgb(79,204,196);
-    color: rgb(38,50,56);
+  background: #50ccc4;
+  color: #263238;
 }
-
 /* Rating */
 .mbsc-mobiscroll-dark .mbsc-rating-icon {
-    color: rgb(79,204,196);
+  color: #50ccc4;
 }
 .mbsc-mobiscroll-dark .mbsc-rating-icon-unf {
-    color: rgba(79,204,196, 0.3);
+  color: rgba(80, 204, 196, 0.3);
 }
 .mbsc-mobiscroll-dark .mbsc-rating-circle {
-    background: rgb(79,204,196);
-    color: rgb(38,50,56);
+  background: #50ccc4;
+  color: #263238;
 }
 .mbsc-mobiscroll-dark .mbsc-rating-circle-unf {
-    background: none;
-    border-color: rgb(79,204,196);
+  background: none;
+  border-color: #50ccc4;
 }
 /* Numpad */
 .mbsc-mobiscroll-dark .mbsc-np-del {
-    color: rgb(79,204,196);
+  color: #50ccc4;
 }
 /* Colorpicker */
 .mbsc-mobiscroll-dark .dw-color {
-    border-color: rgb(38,50,56);
+  border-color: #263238;
 }
 /* Listview */
 .mbsc-lv-mobiscroll-dark .mbsc-lv-item {
-    background: rgb(38,50,56);
-    color: rgb(247,247,247);
+  background: #263238;
+  color: #f7f7f7;
 }
 .mbsc-lv-mobiscroll-dark .mbsc-lv-gr-title {
-    background: rgb(79,204,196);
-    color: rgb(38,50,56);
+  background: #50ccc4;
+  color: #263238;
 }
 .mbsc-lv-mobiscroll-dark .mbsc-lv-arr {
-    color: rgb(79,204,196);
+  color: #50ccc4;
 }
 .mbsc-lv-mobiscroll-dark .mbsc-lv-handle-bar {
-    background: rgb(79,204,196);
+  background: #50ccc4;
 }
 .mbsc-lv-mobiscroll-dark .mbsc-lv-item-active::after {
-    background: rgba(79,204,196, 0.3);
+  background: rgba(80, 204, 196, 0.3);
 }
 .mbsc-lv-mobiscroll-dark.mbsc-lv-alt-row .mbsc-lv-item:nth-child(even) {
-    background: rgb(29,38,43);
+  background: #1d272b;
 }
 .mbsc-lv-mobiscroll-dark .mbsc-lv-item.mbsc-lv-item-dragging {
-    background: rgb(79,204,196);
-    color: rgb(38,50,56);
+  background: #50ccc4;
+  color: #263238;
 }
 .mbsc-lv-mobiscroll-dark .mbsc-lv-item-dragging .mbsc-lv-handle-bar {
-    background: rgb(38,50,56);
+  background: #263238;
 }
 .mbsc-lv-mobiscroll-dark .mbsc-lv-item-dragging .mbsc-lv-arr {
-    color: rgb(38,50,56);
+  color: #263238;
 }
 /* Menustrip */
 .mbsc-mobiscroll-dark.mbsc-ms-c {
-    color: rgb(247,247,247);
-    background: rgb(38,50,56);
+  color: #f7f7f7;
+  background: #263238;
 }
 .mbsc-mobiscroll-dark .mbsc-btn-a .mbsc-ms-item-i {
-    background: rgba(79,204,196,.3);
+  background: rgba(80, 204, 196, 0.3);
 }
 .mbsc-mobiscroll-dark.mbsc-ms-a .mbsc-ms-item-sel .mbsc-ms-item-i {
-    color: rgb(79,204,196);
+  color: #50ccc4;
 }
 .mbsc-mobiscroll-dark.mbsc-ms-b.mbsc-ms-top {
-    border-color: rgb(79,204,196);
+  border-color: #50ccc4;
 }
 .mbsc-mobiscroll-dark.mbsc-ms-b.mbsc-ms-bottom {
-    border-color: rgb(79,204,196);
+  border-color: #50ccc4;
 }
 .mbsc-mobiscroll-dark.mbsc-ms-b .mbsc-ms-item-sel .mbsc-ms-item-i {
-    border-bottom-color: rgb(79,204,196);
+  border-bottom-color: #50ccc4;
 }
 .mbsc-mobiscroll-dark.mbsc-ms-b.mbsc-ms-bottom .mbsc-ms-item-sel .mbsc-ms-item-i {
-    border-top-color: rgb(79,204,196);
+  border-top-color: #50ccc4;
 }
-
 /* Form elements */
 .mbsc-mobiscroll-dark.mbsc-form {
-    background: rgb(38,50,56);
-    color: rgb(247,247,247);
+  background: #263238;
+  color: #f7f7f7;
 }
 .mbsc-mobiscroll-dark.mbsc-form *::-moz-selection {
-    background: rgb(79,204,196);
+  background: #50ccc4;
 }
 .mbsc-mobiscroll-dark.mbsc-form *::selection {
-    background: rgb(79,204,196);
+  background: #50ccc4;
 }
 .mbsc-mobiscroll-dark .mbsc-desc {
-    color: rgb(255,255,255);
+  color: #ffffff;
 }
 .mbsc-mobiscroll-dark .mbsc-divider {
-    color: rgb(79,204,196);
+  color: #50ccc4;
 }
 .mbsc-mobiscroll-dark a {
-    color: rgb(79,204,196);
+  color: #50ccc4;
 }
 /* Textbox */
 .mbsc-mobiscroll-dark .mbsc-input textarea,
 .mbsc-mobiscroll-dark .mbsc-input input {
-    border-bottom: 1px solid rgb(255,255,255);
-    color: rgb(209,209,209);
+  border-bottom: 1px solid #ffffff;
+  color: #d1d1d1;
 }
 .mbsc-mobiscroll-dark .mbsc-input select:focus ~ input,
 .mbsc-mobiscroll-dark .mbsc-input textarea:focus,
 .mbsc-mobiscroll-dark .mbsc-input input:focus {
-    border-color: rgb(79,204,196);
+  border-color: #50ccc4;
 }
 /* Textbox */
 .mbsc-mobiscroll-dark .mbsc-input-ic {
-    color: rgb(255,255,255);
+  color: #ffffff;
 }
-
 /* Checkbox */
 .mbsc-mobiscroll-dark .mbsc-checkbox-box {
-    background: rgb(79,204,196);
+  background: #50ccc4;
 }
 .mbsc-mobiscroll-dark .mbsc-checkbox-box:after {
-    border: .125em solid rgb(38,50,56);
-    border-top: 0;
-    border-right: 0;
+  border: 0.125em solid #263238;
+  border-top: 0;
+  border-right: 0;
 }
 .mbsc-mobiscroll-dark .mbsc-checkbox input:disabled + .mbsc-checkbox-box {
-    background: rgb(16,21,23);
+  background: #101517;
 }
 /* Radio */
 .mbsc-mobiscroll-dark .mbsc-radio-box {
-    border: .125em solid rgb(79,204,196);
+  border: 0.125em solid #50ccc4;
 }
 .mbsc-mobiscroll-dark .mbsc-radio-box:after {
-    background: rgb(79,204,196);
+  background: #50ccc4;
 }
 .mbsc-mobiscroll-dark .mbsc-radio input:checked + .mbsc-radio-box {
-    background: transparent;
+  background: transparent;
 }
 .mbsc-mobiscroll-dark .mbsc-radio input:disabled + .mbsc-radio-box {
-    border-color: rgb(16,21,23);
+  border-color: #101517;
 }
 .mbsc-mobiscroll-dark .mbsc-radio input:disabled + .mbsc-radio-box:after {
-    background: rgb(16,21,23);
+  background: #101517;
 }
 .mbsc-mobiscroll-dark .mbsc-switch-track {
-    background: rgb(43,57,64);
+  background: #2b3940;
 }
 .mbsc-mobiscroll-dark .mbsc-switch-handle {
-    background: rgb(35,46,51);
+  background: #232e33;
 }
 .mbsc-mobiscroll-dark .mbsc-switch input:checked + .mbsc-switch-track {
-    background: rgb(181,230,227);
+  background: #b5e6e2;
 }
 .mbsc-mobiscroll-dark .mbsc-switch input:checked + .mbsc-switch-track .mbsc-switch-handle {
-    background: rgb(79,204,196);
+  background: #50ccc4;
 }
 .mbsc-mobiscroll-dark .mbsc-switch input:disabled + .mbsc-switch-track {
-    background: rgb(16,21,23);
+  background: #101517;
 }
 .mbsc-mobiscroll-dark .mbsc-switch input:disabled + .mbsc-switch-track .mbsc-switch-handle {
-    background: rgb(24,32,36);
+  background: #182024;
 }
 /* Buttons */
 .mbsc-mobiscroll-dark .mbsc-btn {
-    background: rgb(79,204,196);
-    color: rgb(38,50,56);
+  background: #50ccc4;
+  color: #263238;
 }
 .mbsc-mobiscroll-dark .mbsc-btn:disabled {
-    background: rgb(43,57,64);
+  background: #2b3940;
 }
 .mbsc-mobiscroll-dark .mbsc-btn-flat.mbsc-active {
-    background: rgba(79,204,196, .3);
+  background: rgba(80, 204, 196, 0.3);
 }
 .mbsc-mobiscroll-dark .mbsc-btn-flat {
-    background: transparent;
-    color: rgb(79,204,196);
-    border-color: transparent;
+  background: transparent;
+  color: #50ccc4;
+  border-color: transparent;
 }
 .mbsc-mobiscroll-dark .mbsc-btn-flat:disabled {
-    background: transparent;
-    color: rgb(35,46,51);
+  background: transparent;
+  color: #232e33;
 }
 /* Slider & Progress */
 .mbsc-mobiscroll-dark .mbsc-slider-track {
-    background: rgb(43,57,64);
+  background: #2b3940;
 }
 .mbsc-mobiscroll-dark .mbsc-slider-progress {
-    background: rgb(79,204,196);
+  background: #50ccc4;
 }
 .mbsc-mobiscroll-dark .mbsc-slider-handle {
-    background: rgb(79,204,196);
+  background: #50ccc4;
 }
-.mbsc-mobiscroll-dark  .mbsc-slider-tooltip {
-    color: rgb(38,50,56);
-    background: rgb(79,204,196);
+.mbsc-mobiscroll-dark .mbsc-slider-tooltip {
+  color: #263238;
+  background: #50ccc4;
 }
-.mbsc-mobiscroll-dark  .mbsc-slider-step {
-    background: rgb(38,50,56);
+.mbsc-mobiscroll-dark .mbsc-slider-step {
+  background: #263238;
+}
+/* Stepper segmented */
+.mbsc-mobiscroll-dark .mbsc-segmented-content {
+  border-bottom: 0.125em solid #50ccc4;
+  border-top: 0.125em solid #50ccc4;
+  border-right: 0.0625em solid #50ccc4;
+  border-left: 0.0625em solid #50ccc4;
+  color: #50ccc4;
+}
+.mbsc-mobiscroll-dark .mbsc-stepper-val {
+  color: #f7f7f7;
+}
+.mbsc-mobiscroll-dark .mbsc-stepper .mbsc-active .mbsc-segmented-content,
+.mbsc-mobiscroll-dark .mbsc-segmented input:checked + .mbsc-segmented-content {
+  background: #50ccc4;
+  color: #263238;
+}
+.mbsc-mobiscroll-dark .mbsc-segmented input.mbsc-active + .mbsc-segmented-content {
+  background: rgba(80, 204, 196, 0.25);
+  color: #263238;
+}
+.mbsc-mobiscroll-dark .mbsc-stepper-cont {
+  padding: 1.75em 12.875em 1.75em 1em;
+}
+.mbsc-mobiscroll-dark .mbsc-stepper {
+  margin-top: -1.25em;
+}
+.mbsc-mobiscroll-dark .mbsc-segmented input:disabled ~ .mbsc-segmented-item .mbsc-segmented-content,
+.mbsc-mobiscroll-dark .mbsc-step-disabled .mbsc-segmented-content,
+.mbsc-mobiscroll-dark .mbsc-segmented input:disabled + .mbsc-segmented-content {
+  color: #101517;
+  border-color: #101517;
+}
+.mbsc-mobiscroll-dark .mbsc-segmented input:disabled:checked + .mbsc-segmented-content {
+  background: #2b3940;
+  border-color: #2b3940;
+  color: #263238;
+}
+.mbsc-mobiscroll-dark .mbsc-stepper .mbsc-active.mbsc-step-disabled .mbsc-segmented-content {
+  color: #101517;
 }

@@ -1,326 +1,338 @@
-.mbsc-wp-light .dwwr, 
+.mbsc-wp-light .dwwr,
 .mbsc-wp-light .dw-dr,
 .mbsc-wp-light .dwb,
 .mbsc-wp-light .dw-cal-tabs .dw-i {
-    color: rgb(0,0,0);
+  color: #000000;
 }
 .mbsc-wp-light .dwwr {
-    background: rgb(222,222,222);
+  background: #dedede;
 }
 .mbsc-wp-light .dw-i {
-    border-color: rgb(166,166,166);
+  border-color: #a6a6a6;
 }
 .mbsc-wp-light .dw-li .dw-i {
-    color: rgb(0,0,0);
+  color: #000000;
 }
 .mbsc-wp-light .dw-sel .dw-i,
 .mbsc-wp-light .dw-hl .dw-i {
-    color: #fff;
-    background: rgb(28,161,227);
-    border-color: rgb(28,161,227);
+  color: white;
+  background: #1ba0e3;
+  border-color: #1ba0e3;
 }
-/* Clickpick-mode */ 
+/* Clickpick-mode */
 .mbsc-wp-light .dwwb {
-    background: rgb(222,222,222);
+  background: #dedede;
 }
 .mbsc-wp-light .dwwb:before {
-    color: rgb(0,0,0);
-    border-color: rgb(0,0,0);
+  color: #000000;
+  border-color: #000000;
 }
 .mbsc-wp-light .dwwl .dwb-a {
-    background: rgb(222,222,222);
+  background: #dedede;
 }
 .mbsc-wp-light .dwwl .dwb-a:before {
-    color: rgb(28,161,227);
+  color: #1ba0e3;
 }
 /* Bubble positioning */
 .mbsc-wp-light .dw-bubble-bottom .dw-arr {
-    border-color: transparent transparent rgb(222,222,222) transparent;
+  border-color: transparent transparent #dedede transparent;
 }
 .mbsc-wp-light .dw-bubble-top .dw-arr {
-    border-color: rgb(222,222,222) transparent transparent transparent;
+  border-color: #dedede transparent transparent transparent;
 }
 /* Multiple select */
 .mbsc-wp-light .dwwms .dw-li .dw-i {
-    color: rgb(0,0,0);
+  color: #000000;
 }
 .mbsc-wp-light .dwwms .dw-li:after {
-    border-color: rgb(0,0,0);
+  border-color: #000000;
 }
 .mbsc-wp-light .dwwms .dw-msel:before {
-    color: rgb(0,0,0);
+  color: #000000;
 }
-
 /* Override accents */
 .mbsc-wp-light .dwa .dw-i {
-    color: rgb(0,0,0);
-    border-color: rgb(166,166,166);
-    background: none;
+  color: #000000;
+  border-color: #a6a6a6;
+  background: none;
 }
 .mbsc-wp-light .dwwms .dw-i {
-    background: none;
+  background: none;
 }
-
 /* Calendar */
 .mbsc-wp-light .dw-cal-sc-m-cell {
-    background: rgb(222,222,222);
+  background: #dedede;
 }
 .mbsc-wp-light .dw-cal-event {
-    background: rgb(166,166,166);
-    color: #000;
+  background: #a6a6a6;
+  color: black;
 }
 .mbsc-wp-light .dw-cal-events {
-    background: rgb(0,0,0);
-    background: rgba(0,0,0, .8);
+  background: #000000;
+  background: rgba(0, 0, 0, 0.8);
 }
 .mbsc-wp-light .dw-cal-events-arr {
-    border-color: rgba(0,0,0, .8) transparent transparent;
+  border-color: rgba(0, 0, 0, 0.8) transparent transparent;
 }
 .mbsc-wp-light .dw-cal-events-b .dw-cal-events-arr {
-    border-color: transparent transparent rgba(0,0,0, .8);
+  border-color: transparent transparent rgba(0, 0, 0, 0.8);
 }
 .mbsc-wp-light .dw-cal-day-m {
-    border-color: rgb(0,0,0) rgb(0,0,0) transparent transparent;
+  border-color: #000000 #000000 transparent transparent;
 }
 .mbsc-wp-light .dw-cal-day-fg {
-    border-color: rgb(166,166,166);
+  border-color: #a6a6a6;
 }
 .mbsc-wp-light .dw-cal-day-inv .dw-cal-day-fg {
-    color: rgba(0,0,0,.3);
+  color: rgba(0, 0, 0, 0.3);
 }
 .mbsc-wp-light .dw-sel .dw-cal-day-fg {
-    border-color: rgb(28,161,227);
+  border-color: #1ba0e3;
 }
 .mbsc-wp-light .dw-cal-day-hl .dw-cal-day-fg {
-    background: rgb(0,0,0);
-    border-color: rgb(0,0,0);
-    color: rgb(222,222,222);
+  background: #000000;
+  border-color: #000000;
+  color: #dedede;
+}
+.mbsc-wp-light .dw-hl-now .dw-cal-today {
+  color: #1ba0e3;
 }
 .mbsc-wp-light .dwb:before,
 .mbsc-wp-light .dw-cal-btn-txt:before {
-    color: rgb(0,0,0);
-    border-color:  rgb(0,0,0);
+  color: #000000;
+  border-color: #000000;
 }
 .mbsc-wp-light .dwb-a:before,
-.mbsc-wp-light .dwb-a .dw-cal-btn-txt:before  {
-    background: rgb(28,161,227);
-    border-color: rgb(28,161,227);
-    color: #fff;
+.mbsc-wp-light .dwb-a .dw-cal-btn-txt:before {
+  background: #1ba0e3;
+  border-color: #1ba0e3;
+  color: white;
 }
 .mbsc-wp-light .dw-week-nrs-c {
-    background: rgb(222,222,222);
+  background: #dedede;
 }
 /* Rating */
 .mbsc-wp-light .mbsc-rating-icon {
-    color: inherit;
+  color: inherit;
 }
 .mbsc-wp-light .mbsc-rating-circle {
-    background: rgb(0,0,0);
-    color: rgb(222,222,222);
+  background: #000000;
+  color: #dedede;
 }
 .mbsc-wp-light .mbsc-rating-circle-unf {
-    background: #646464;
+  background: #646464;
 }
 /* Timer */
 .mbsc-wp-light.dw-timespan .dwl,
 .mbsc-wp-light.dw-timer .dwl {
-    color: #fff;
+  color: white;
 }
 /* Numpad */
 .mbsc-wp-light .mbsc-np-btn {
-    background: rgb(204,204,204);
-    border: 2px solid rgb(222,222,222);
+  background: #cccccc;
+  border: 2px solid #dedede;
 }
 .mbsc-wp-light .mbsc-np-btn.dwb-a {
-    background: rgb(28,161,227);
-    color: #fff;
+  background: #1ba0e3;
+  color: white;
 }
 .mbsc-wp-light .mbsc-np-btn.dwb-d {
-    color: rgb(0,0,0);
-    opacity: .5;
+  color: #000000;
+  opacity: .5;
 }
 .mbsc-wp-light .mbsc-np-del.dwb-a:before {
-    color: rgb(0,0,0);
+  color: #000000;
 }
 .mbsc-wp-light .mbsc-np-btn-empty {
-    background: none;
+  background: none;
 }
 /* Listview */
 .mbsc-lv-wp-light .mbsc-lv-item,
 .mbsc-lv-wp-light .mbsc-lv-gr-title {
-    background: rgb(222,222,222);
-    color: rgb(0,0,0);
+  background: #dedede;
+  color: #000000;
 }
 .mbsc-lv-wp-light.mbsc-lv-alt-row .mbsc-lv-item:nth-child(even) {
-    background: rgb(240,240,240);
+  background: #f0f0f0;
 }
 /* Menustrip */
 .mbsc-wp-light.mbsc-ms-c {
-    background: rgb(222,222,222);
-    color: rgb(0,0,0);
+  background: #dedede;
+  color: #000000;
 }
 .mbsc-wp-light .mbsc-ms-item {
-    color: rgb(166,166,166);
+  color: #a6a6a6;
 }
 .mbsc-wp-light .mbsc-ms-ic:before {
-    border-color: rgb(0,0,0);
+  border-color: #000000;
 }
 .mbsc-wp-light .mbsc-ms-item-sel .mbsc-ms-ic:before,
 .mbsc-wp-light .mbsc-btn-a .mbsc-ms-ic:before {
-    background: rgb(0,0,0);
-    color: rgb(222,222,222);
+  background: #000000;
+  color: #dedede;
 }
 .mbsc-wp-light.mbsc-ms-icons .mbsc-ms-item {
-    color: rgb(0,0,0);
+  color: #000000;
 }
 .mbsc-wp-light .mbsc-ms-item-sel {
-    color: rgb(0,0,0);
+  color: #000000;
 }
-
 /* Form elements */
 .mbsc-wp-light.mbsc-form {
-    background-color: rgb(255,255,255);
-    color: rgb(0,0,0);
+  background-color: #ffffff;
+  color: #000000;
 }
 .mbsc-wp-light .mbsc-input-ic {
-    color: rgb(0,0,0);
+  color: #000000;
 }
 .mbsc-wp-light .mbsc-input select {
-    background: rgb(255,255,255);
-    color: rgb(0,0,0);
+  background: #ffffff;
+  color: #000000;
 }
 .mbsc-wp-light .mbsc-select input {
-    border-color: rgb(0,0,0);
-    color: rgb(0,0,0); 
+  border-color: #000000;
+  color: #000000;
 }
 .mbsc-wp-light .mbsc-input select.mbsc-active + input {
-    border-color: rgb(0,0,0);
+  border-color: #000000;
 }
 .mbsc-wp-light .mbsc-select .mbsc-input-wrap .mbsc-ic {
-    color: rgb(0,0,0);
+  color: #000000;
 }
 .mbsc-wp-light .mbsc-input select:disabled ~ input,
 .mbsc-wp-light .mbsc-input textarea:disabled,
 .mbsc-wp-light .mbsc-input input:disabled {
-    background-color: transparent;
+  background-color: transparent;
 }
-
 /* Checkbox */
 .mbsc-wp-light .mbsc-checkbox-box {
-    border-color: rgb(0,0,0);
+  border-color: #000000;
 }
 .mbsc-wp-light .mbsc-checkbox-box:after {
-    border-color: rgb(0,0,0);
+  border-color: #000000;
 }
 /* Radio */
 .mbsc-wp-light .mbsc-radio-box {
-    border-color: rgb(0,0,0);
+  border-color: #000000;
 }
 .mbsc-wp-light .mbsc-radio-box:after {
-    background-color: rgb(0,0,0);
+  background-color: #000000;
 }
 /* Switch */
 .mbsc-wp-light .mbsc-switch .mbsc-switch-track {
-    -webkit-box-shadow: inset 0px 0px 0px 2px rgb(255,255,255), 0px 0px 0px 2px rgb(0,0,0);
-    box-shadow: inset 0px 0px 0px 2px rgb(255,255,255), 0px 0px 0px 2px rgb(0,0,0);
+  -webkit-box-shadow: inset 0px 0px 0px 2px #ffffff, 0px 0px 0px 2px #000000;
+  box-shadow: inset 0px 0px 0px 2px #ffffff, 0px 0px 0px 2px #000000;
 }
 .mbsc-wp-light .mbsc-switch .mbsc-switch-handle {
-    background: rgb(0,0,0);
-    border: 2px solid rgb(255,255,255);
+  background: #000000;
+  border: 2px solid #ffffff;
 }
 .mbsc-wp-light .mbsc-switch input:disabled + .mbsc-switch-track {
-    background: transparent;
+  background: transparent;
 }
 .mbsc-wp-light .mbsc-switch input:checked:disabled + .mbsc-switch-track {
-    background: rgb(0,0,0);
+  background: #000000;
 }
 /* Button */
 .mbsc-wp-light .mbsc-btn {
-    color: rgb(0,0,0);
-    border-color: rgb(0,0,0);
+  color: #000000;
+  border-color: #000000;
 }
 .mbsc-wp-light .mbsc-btn .mbsc-btn-ic {
-    color: rgb(0,0,0);
+  color: #000000;
 }
 .mbsc-wp-light .mbsc-btn-flat,
 .mbsc-wp-light .mbsc-btn-flat.mbsc-active {
-    color: rgb(0,0,0);
+  color: #000000;
 }
 .mbsc-wp-light .mbsc-btn-flat.mbsc-active .mbsc-btn-ic,
 .mbsc-wp-light .mbsc-btn-flat .mbsc-btn-ic {
-    border-color: rgb(0,0,0);
+  border-color: #000000;
 }
 /* acent */
 .mbsc-wp-light .mbsc-switch input:checked + .mbsc-switch-track,
 .mbsc-wp-light .mbsc-radio input.mbsc-active + .mbsc-radio-box:after,
 .mbsc-wp-light .mbsc-radio input.mbsc-active + .mbsc-radio-box,
 .mbsc-wp-light .mbsc-checkbox input.mbsc-active + .mbsc-checkbox-box {
-    background: rgb(28,161,227);
+  background: #1ba0e3;
 }
 .mbsc-wp-light.mbsc-form *::-moz-selection {
-    color: rgb(255,255,255);
-    background: rgb(28,161,227);
+  color: #ffffff;
+  background: #1ba0e3;
 }
-
 .mbsc-wp-light.mbsc-form *::selection {
-    color: rgb(0,0,0);
-    background: rgb(28,161,227);
+  color: #000000;
+  background: #1ba0e3;
 }
-.mbsc-wp-light .mbsc-input input:focus, 
-.mbsc-wp-light .mbsc-input select:focus + input, 
+.mbsc-wp-light .mbsc-input input:focus,
+.mbsc-wp-light .mbsc-input select:focus + input,
 .mbsc-wp-light .mbsc-input textarea:focus {
-    border-color: rgb(28,161,227);
-    color: rgb(0,0,0);
+  border-color: #1ba0e3;
+  color: #000000;
 }
 .mbsc-wp-light .mbsc-input select:focus + input {
-    background: rgb(255,255,255);
-    color: rgb(0,0,0);
+  background: #ffffff;
+  color: #000000;
 }
-
 .mbsc-wp-light .mbsc-input select.mbsc-active + input {
-    background: rgb(28,161,227);
-    border-color: rgb(28,161,227);
-    color: #fff;
+  background: #1ba0e3;
+  border-color: #1ba0e3;
+  color: white;
 }
 .mbsc-wp-light .mbsc-select select:focus ~ .mbsc-ic {
-    color: rgb(0,0,0);
+  color: #000000;
 }
 .mbsc-wp-light .mbsc-select select.mbsc-active ~ .mbsc-ic {
-    color: #fff;
+  color: white;
 }
-
 .mbsc-wp-light .mbsc-btn-flat.mbsc-active .mbsc-btn-ic {
-    border-color: rgb(28,161,227);
+  border-color: #1ba0e3;
 }
 .mbsc-wp-light .mbsc-btn.mbsc-active .mbsc-btn-ic {
-    background: rgb(28,161,227);
+  background: #1ba0e3;
 }
 .mbsc-wp-light .mbsc-btn.mbsc-active:not(.mbsc-btn-flat) {
-    background: rgb(28,161,227);
+  background: #1ba0e3;
 }
-
 .mbsc-wp-light a {
-    color: rgb(28,161,227);
+  color: #1ba0e3;
 }
-
-/* Slider & Progress */ 
+/* Slider & Progress */
 .mbsc-wp-light .mbsc-slider-track {
-    background: rgb(222,222,222);
+  background: #dedede;
 }
 .mbsc-wp-light .mbsc-slider-handle {
-    background: rgb(0,0,0);
+  background: #000000;
 }
 .mbsc-wp-light .mbsc-slider .mbsc-input-ic {
-    color: rgb(0,0,0);
+  color: #000000;
 }
 .mbsc-wp-light .mbsc-slider-progress {
-    background: rgb(28,161,227);
+  background: #1ba0e3;
 }
-.mbsc-wp-light .mbsc-slider-tooltip  {
-    background: rgb(0,0,0);
-    color: rgb(166,166,166);
-    border-color: rgb(166,166,166);
+.mbsc-wp-light .mbsc-slider-tooltip {
+  background: #000000;
+  color: #a6a6a6;
+  border-color: #a6a6a6;
 }
 .mbsc-wp-light .mbsc-slider-step {
-    background: rgb(255,255,255);
+  background: #ffffff;
+}
+/* Segmented & Stepper */
+.mbsc-wp-light .mbsc-segmented-content {
+  border-bottom: 0.125em solid #000000;
+  border-top: 0.125em solid #000000;
+  border-right: 0.0625em solid #000000;
+  border-left: 0.0625em solid #000000;
+  color: #000000;
+}
+.mbsc-wp-light .mbsc-segmented input:checked + .mbsc-segmented-content {
+  background: #000000;
+  color: #ffffff;
+}
+.mbsc-wp-light .mbsc-segmented input.mbsc-active + .mbsc-segmented-content {
+  background: #1ba0e3;
+}
+.mbsc-wp-light .mbsc-stepper .mbsc-active .mbsc-segmented-content {
+  background: #1ba0e3;
 }
