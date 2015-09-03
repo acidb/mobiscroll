@@ -774,16 +774,16 @@
          * Scroller initialization.
          */
         that.init = function (ss) {
+            // @deprecated since 2.17.0, backward compatibility code
+            // ---
+            if (ss.onClose) {
+                ss.onBeforeClose = ss.onClose;
+            }
+            // ---
+
             that._init(ss);
 
             that._isLiquid = (s.layout || (/top|bottom/.test(s.display) ? 'liquid' : '')) === 'liquid';
-
-            // @deprecated since 2.17.0, backward compatibility code
-            // ---
-            if (s.onClose) {
-                s.onBeforeClose = s.onClose;
-            }
-            // ---
 
             that._processSettings();
 
