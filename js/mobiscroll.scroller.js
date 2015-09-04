@@ -389,7 +389,7 @@
                     }
                 });
 
-                trigger('onValidated', []);
+                trigger('onValidated', [index]);
 
                 // Reformat value if validation changed something
                 that._tempValue = s.formatValue(that._tempWheelArray, that);
