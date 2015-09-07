@@ -320,10 +320,7 @@
 }
 /* Stepper segmented */
 .mbsc-mobiscroll-dark .mbsc-segmented-content {
-  border-bottom: 0.125em solid #50ccc4;
-  border-top: 0.125em solid #50ccc4;
-  border-right: 0.0625em solid #50ccc4;
-  border-left: 0.0625em solid #50ccc4;
+  border-color: #50ccc4;
   color: #50ccc4;
 }
 .mbsc-mobiscroll-dark .mbsc-stepper-val {

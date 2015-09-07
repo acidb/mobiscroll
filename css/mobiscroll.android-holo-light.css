@@ -357,10 +357,7 @@
 }
 /* Segmented control */
 .mbsc-android-holo-light .mbsc-segmented-content {
-  border-bottom: 0.125em solid #31b7e8;
-  border-top: 0.125em solid #31b7e8;
-  border-right: 0.0625em solid #31b7e8;
-  border-left: 0.0625em solid #31b7e8;
+  border-color: #31b7e8;
 }
 .mbsc-android-holo-light .mbsc-segmented input:checked + .mbsc-segmented-content {
   background: #31b7e8;

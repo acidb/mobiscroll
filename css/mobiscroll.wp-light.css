@@ -320,10 +320,7 @@
 }
 /* Segmented & Stepper */
 .mbsc-wp-light .mbsc-segmented-content {
-  border-bottom: 0.125em solid #000000;
-  border-top: 0.125em solid #000000;
-  border-right: 0.0625em solid #000000;
-  border-left: 0.0625em solid #000000;
+  border-color: #000000;
   color: #000000;
 }
 .mbsc-wp-light .mbsc-segmented input:checked + .mbsc-segmented-content {
@@ -335,4 +332,14 @@
 }
 .mbsc-wp-light .mbsc-stepper .mbsc-active .mbsc-segmented-content {
   background: #1ba0e3;
+}
+.mbsc-wp .mbsc-stepper input:disabled ~ .mbsc-segmented-item .mbsc-segmented-content,
+.mbsc-wp .mbsc-step-disabled .mbsc-segmented-content,
+.mbsc-wp .mbsc-segmented input:disabled + .mbsc-segmented-content {
+  color: #b3b3b3;
+  border-color: #b3b3b3;
+}
+.mbsc-wp .mbsc-segmented input:disabled:checked + .mbsc-segmented-content {
+  color: #ffffff;
+  background: #b3b3b3;
 }
