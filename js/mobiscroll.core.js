@@ -88,7 +88,9 @@
                 if (e.type == 'touchstart') {
                     $(elm).attr('data-touch', '1');
                 } else if ($(elm).attr('data-touch')) {
-                    $(elm).removeAttr('data-touch');
+                    setTimeout(function () {
+                        $(elm).removeAttr('data-touch');
+                    }, 10);
                     return false;
                 }
                 return true;
