@@ -525,7 +525,9 @@
 
                 $markup.appendTo($ctx);
 
-                $wnd.on('focusin', onFocus);
+                if (s.focusTrap) {
+                    $wnd.on('focusin', onFocus);
+                }
 
                 if (has3d && doAnim && !prevAnim) {
                     $markup.addClass('dw-in dw-trans').on(animEnd, function () {
@@ -562,7 +564,7 @@
                 .on('keydown', function (ev) { // Trap focus inside modal
                     if (ev.keyCode == 32) { // Space
                         ev.preventDefault();
-                    } else if (ev.keyCode == 9 && isModal) { // Tab
+                    } else if (ev.keyCode == 9 && isModal && s.focusTrap) { // Tab
                         var $focusable = $markup.find('[tabindex="0"]').filter(function () {
                                 return this.offsetWidth > 0 || this.offsetHeight > 0;
                             }),
@@ -890,6 +892,7 @@
         tap: true,
         btnClass: 'dwb',
         btnWidth: true,
+        focusTrap: true,
         focusOnClose: !isIOS8 // Temporary for iOS8
     };
 
