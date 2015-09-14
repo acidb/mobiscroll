@@ -47,6 +47,8 @@
     -webkit-flex: 1 auto;
     -ms-flex: 1 auto;
     flex: 1 auto;
+    -ms-touch-action: none;
+    touch-action: none;
 }
 /* Wheels */
 

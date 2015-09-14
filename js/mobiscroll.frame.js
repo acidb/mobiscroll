@@ -242,6 +242,12 @@
 
             that.scrollLock = scrollLock;
 
+            if (scrollLock) {
+                $ctx.addClass('mbsc-fr-lock');
+            } else {
+                $ctx.removeClass('mbsc-fr-lock');
+            }
+
             if (s.display == 'modal') {
                 l = Math.max(0, sl + (nw - modalWidth) / 2);
                 t = st + (nh - modalHeight) / 2;
@@ -654,6 +660,7 @@
             }
 
             if (isModal) {
+                $ctx.removeClass('mbsc-fr-lock');
                 $(window).off('keydown', onWndKeyDown);
                 delete ms.activeInstance;
             }
@@ -721,7 +728,7 @@
                 moved;
 
             if (s.tap) {
-                el.on('touchstart.dw', function (ev) {
+                el.on('touchstart.dw pointerdown.dw', function (ev) {
                     // Can't always call preventDefault here, it kills page scroll
                     if (prevent) {
                         ev.preventDefault();
@@ -729,12 +736,12 @@
                     startX = getCoord(ev, 'X');
                     startY = getCoord(ev, 'Y');
                     moved = false;
-                }).on('touchmove.dw', function (ev) {
+                }).on('touchmove.dw pointermove.dw', function (ev) {
                     // If movement is more than 20px, don't fire the click event handler
                     if (!moved && Math.abs(getCoord(ev, 'X') - startX) > 20 || Math.abs(getCoord(ev, 'Y') - startY) > 20) {
                         moved = true;
                     }
-                }).on('touchend.dw', function (ev) {
+                }).on('touchend.dw pointerup.dw', function (ev) {
                     var that = this;
 
                     if (!moved) {
