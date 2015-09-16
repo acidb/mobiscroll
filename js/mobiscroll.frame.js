@@ -5,7 +5,6 @@
         util = ms.util,
         pr = util.jsPrefix,
         has3d = util.has3d,
-        getCoord = util.getCoord,
         constrain = util.constrain,
         isString = util.isString,
         isOldAndroid = /android [1-3]/i.test(navigator.userAgent),
@@ -726,70 +725,6 @@
         };
 
         // Generic frame functions
-
-        /**
-         * Attach tap event to the given element.
-         */
-        that.tap = function (el, handler, prevent) {
-            var startX,
-                startY,
-                moved;
-
-            function onStart(ev) {
-                // Can't always call preventDefault here, it kills page scroll
-                if (prevent) {
-                    ev.preventDefault();
-                }
-                startX = getCoord(ev, 'X');
-                startY = getCoord(ev, 'Y');
-                moved = false;
-
-                if (ev.type == 'pointerdown') {
-                    $(document)
-                        .on('pointermove', onMove)
-                        .on('pointerup', onEnd);
-                }
-            }
-
-            function onMove(ev) {
-                // If movement is more than 20px, don't fire the click event handler
-                if (!moved && Math.abs(getCoord(ev, 'X') - startX) > 20 || Math.abs(getCoord(ev, 'Y') - startY) > 20) {
-                    moved = true;
-                }
-            }
-
-            function onEnd(ev) {
-
-                if (!moved) {
-                    ev.preventDefault();
-                    handler.call(el[0], ev, that);
-                }
-
-                if (ev.type == 'pointerup') {
-                    $(document)
-                        .off('pointermove', onMove)
-                        .off('pointerup', onEnd);
-                }
-
-                // Prevent ghost click events to happen
-                ms.tapped++;
-                setTimeout(function () {
-                    ms.tapped--;
-                }, 500);
-            }
-
-            if (s.tap) {
-                el.on('touchstart.dw pointerdown.dw', onStart)
-                    .on('touchmove.dw', onMove)
-                    .on('touchend.dw', onEnd);
-            }
-
-            el.on('click.dw', function (ev) {
-                ev.preventDefault();
-                // If handler was not called on touchend, call it on click;
-                handler.call(this, ev, that);
-            });
-        };
 
         /**
          * Destroys the mobiscroll instance.
