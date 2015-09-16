@@ -52,13 +52,18 @@
             if (btn) {
                 btn.removeClass('dwb-a');
             }
+
             btn = $(this);
+
             // Active button
             if (!btn.hasClass('dwb-d') && !btn.hasClass('dwb-nhl')) {
                 btn.addClass('dwb-a');
             }
+
             if (ev.type === 'mousedown') {
                 $(document).on('mouseup', onBtnEnd);
+            } else if (ev.type === 'pointerdown') {
+                $(document).on('pointerup', onBtnEnd);
             }
         }
 
@@ -67,8 +72,11 @@
                 btn.removeClass('dwb-a');
                 btn = null;
             }
+
             if (ev.type === 'mouseup') {
                 $(document).off('mouseup', onBtnEnd);
+            } else if (ev.type === 'pointerup') {
+                $(document).off('pointerup', onBtnEnd);
             }
         }
 
@@ -618,7 +626,7 @@
             }
 
             $markup
-                .on('touchstart mousedown', '.dwb-e', onBtnStart)
+                .on('touchstart mousedown pointerdown', '.dwb-e', onBtnStart)
                 .on('touchend', '.dwb-e', onBtnEnd);
 
             that._attachEvents($markup);
@@ -727,40 +735,59 @@
                 startY,
                 moved;
 
+            function onStart(ev) {
+                // Can't always call preventDefault here, it kills page scroll
+                if (prevent) {
+                    ev.preventDefault();
+                }
+                startX = getCoord(ev, 'X');
+                startY = getCoord(ev, 'Y');
+                moved = false;
+
+                if (ev.type == 'pointerdown') {
+                    $(document)
+                        .on('pointermove', onMove)
+                        .on('pointerup', onEnd);
+                }
+            }
+
+            function onMove(ev) {
+                // If movement is more than 20px, don't fire the click event handler
+                if (!moved && Math.abs(getCoord(ev, 'X') - startX) > 20 || Math.abs(getCoord(ev, 'Y') - startY) > 20) {
+                    moved = true;
+                }
+            }
+
+            function onEnd(ev) {
+
+                if (!moved) {
+                    ev.preventDefault();
+                    handler.call(el[0], ev, that);
+                }
+
+                if (ev.type == 'pointerup') {
+                    $(document)
+                        .off('pointermove', onMove)
+                        .off('pointerup', onEnd);
+                }
+
+                // Prevent ghost click events to happen
+                ms.tapped++;
+                setTimeout(function () {
+                    ms.tapped--;
+                }, 500);
+            }
+
             if (s.tap) {
-                el.on('touchstart.dw pointerdown.dw', function (ev) {
-                    // Can't always call preventDefault here, it kills page scroll
-                    if (prevent) {
-                        ev.preventDefault();
-                    }
-                    startX = getCoord(ev, 'X');
-                    startY = getCoord(ev, 'Y');
-                    moved = false;
-                }).on('touchmove.dw pointermove.dw', function (ev) {
-                    // If movement is more than 20px, don't fire the click event handler
-                    if (!moved && Math.abs(getCoord(ev, 'X') - startX) > 20 || Math.abs(getCoord(ev, 'Y') - startY) > 20) {
-                        moved = true;
-                    }
-                }).on('touchend.dw pointerup.dw', function (ev) {
-                    var that = this;
-
-                    if (!moved) {
-                        ev.preventDefault();
-                        handler.call(that, ev);
-                    }
-
-                    // Prevent ghost click events to happen
-                    ms.tapped++;
-                    setTimeout(function () {
-                        ms.tapped--;
-                    }, 500);
-                });
+                el.on('touchstart.dw pointerdown.dw', onStart)
+                    .on('touchmove.dw', onMove)
+                    .on('touchend.dw', onEnd);
             }
 
             el.on('click.dw', function (ev) {
                 ev.preventDefault();
                 // If handler was not called on touchend, call it on click;
-                handler.call(this, ev);
+                handler.call(this, ev, that);
             });
         };
 
