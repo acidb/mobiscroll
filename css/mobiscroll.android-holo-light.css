@@ -393,14 +393,19 @@
 .mbsc-android-holo-light .mbsc-stepper input:disabled ~ .mbsc-segmented-item .mbsc-stepper-val {
   background: #f5f5f5;
 }
-.mbsc-android-holo-light .mbsc-stepper .mbsc-stepper-right-value,
-.mbsc-android-holo-light .mbsc-stepper .mbsc-stepper-left-value {
-  background: transparent;
-  color: #000000;
-}
-.mbsc-android-holo-light .mbsc-stepper input:disabled ~ .mbsc-segmented-item .mbsc-segmented-content,
 .mbsc-android-holo-light .mbsc-segmented input:disabled:checked + .mbsc-segmented-content,
-.mbsc-android-holo-light .mbsc-step-disabled.mbsc-segmented-item .mbsc-segmented-content {
+.mbsc-android-holo-light .mbsc-stepper input:disabled ~ .mbsc-segmented-item .mbsc-segmented-content,
+.mbsc-android-holo-light .mbsc-stepper .mbsc-step-disabled .mbsc-segmented-content {
   background: #e6e6e6;
   color: #b5b5b5;
+}
+.mbsc-android-holo-light .mbsc-stepper input:disabled {
+  color: #b5b5b5;
+}
+.mbsc-android-holo-light .mbsc-stepper input {
+  color: #f5f5f5;
+}
+.mbsc-android-holo-light .mbsc-stepper-val-left input,
+.mbsc-android-holo-light .mbsc-stepper-val-right input {
+  color: #000000;
 }
