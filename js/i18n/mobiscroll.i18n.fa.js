@@ -117,7 +117,7 @@
         setText: 'تاييد',
         cancelText: 'انصراف',
         clearText: 'واضح ',
-        selectedText: 'منتخب',
+        selectedText: '{count} منتخب',
         // Datetime component
         dateFormat: 'yy/mm/dd',
         dateOrder: 'yymmdd',

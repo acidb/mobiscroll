@@ -449,11 +449,12 @@
                         $.each(selectedValues, function () {
                             length++;
                         });
-                        return length + ' ' + (length > 1 ? s.selectedPluralText || s.selectedText : s.selectedText);
+                        return (length > 1 ? s.selectedPluralText || s.selectedText : s.selectedText).replace(/{count}/, length);
                     };
                 }
 
                 getOption(elm.val());
+
 
                 if (groupWheel) {
                     inst._tempWheelArray = [group, option];
