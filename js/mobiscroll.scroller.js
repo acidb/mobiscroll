@@ -1,7 +1,6 @@
 (function ($, window, document, undefined) {
 
-    var move,
-        ms = $.mobiscroll,
+    var ms = $.mobiscroll,
         classes = ms.classes,
         util = ms.util,
         pr = util.jsPrefix,
@@ -39,20 +38,18 @@
             $elm = $(el),
             iv = {},
             pos = {},
-            pixels = {},
             wheels = [];
 
         // Event handlers
 
         function onStart(ev) {
             // Scroll start
-            if (testTouch(ev, this) && !move && !click && !btn && !isReadOnly(this)) {
+            if (testTouch(ev, this) && !target && !click && !btn && !isReadOnly(this)) {
                 // Prevent touch highlight
                 ev.preventDefault();
                 // Better performance if there are tap events on document
                 ev.stopPropagation();
 
-                move = true;
                 isScrollable = s.mode != 'clickpick';
                 target = $('.dw-ul', this);
                 setGlobals(target);
@@ -74,7 +71,7 @@
         }
 
         function onMove(ev) {
-            if (move) {
+            if (target) {
                 if (isScrollable) {
                     // Prevent scroll
                     ev.preventDefault();
@@ -89,7 +86,7 @@
         }
 
         function onEnd(ev) {
-            if (move) {
+            if (target) {
                 var time = new Date() - startTime,
                     curr = constrain(Math.round(p + (start - stop) / itemHeight), min - 1, max + 1),
                     val = curr,
@@ -99,8 +96,6 @@
 
                 // Better performance if there are tap events on document
                 ev.stopPropagation();
-
-                move = false;
 
                 if (ev.type === 'mouseup') {
                     $(document).off('mousemove', onMove).off('mouseup', onEnd);
@@ -149,6 +144,8 @@
                 if (isScrollable) {
                     calc(target, index, val, 0, time, true);
                 }
+
+                target = false;
             }
         }
 
