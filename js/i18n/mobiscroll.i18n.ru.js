@@ -4,7 +4,7 @@
         setText: 'Установить',
         cancelText: 'Отмена',
         clearText: 'Очистить',
-        selectedText: 'Выбрать',
+        selectedText: '{count} Выбрать',
         // Datetime component
         dateFormat: 'dd.mm.yy',
         dateOrder: 'ddmmyy',

@@ -847,7 +847,7 @@
         // Localization
         lang: 'en',
         setText: 'Set',
-        selectedText: 'Selected',
+        selectedText: '{count} selected',
         closeText: 'Close',
         cancelText: 'Cancel',
         clearText: 'Clear',
