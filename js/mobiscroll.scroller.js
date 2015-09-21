@@ -18,6 +18,7 @@
             isScrollable,
             itemHeight,
             multiple,
+            pixels,
             s,
             scrollDebounce,
             trigger,
@@ -609,6 +610,7 @@
 
         that._markupReady = function ($m) {
             $markup = $m;
+            pixels = {};
             scrollToPos();
         };
 
