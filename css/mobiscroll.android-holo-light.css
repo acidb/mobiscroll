@@ -237,19 +237,6 @@
 .mbsc-android-holo-light .mbsc-checkbox-box {
   border-color: #4d4d4d;
 }
-.mbsc-android-holo-light .mbsc-switch-handle {
-  color: #fff;
-}
-.mbsc-android-holo-light .mbsc-switch .mbsc-switch-track {
-  background: #d9d9d9;
-}
-.mbsc-android-holo-light .mbsc-switch .mbsc-switch-handle {
-  background: #c9c9c9;
-}
-.mbsc-android-holo-light .mbsc-switch input:checked:not(:disabled) + .mbsc-switch-track .mbsc-switch-handle {
-  background: #31b7e8;
-  background: rgba(49, 183, 232, 0.7);
-}
 /*Checkbox, Switch, Radio */
 .mbsc-android-holo-light .mbsc-checkbox input.mbsc-active + .mbsc-checkbox-box:before,
 .mbsc-android-holo-light .mbsc-radio input.mbsc-active + .mbsc-radio-box:before {
@@ -354,6 +341,18 @@
 }
 .mbsc-android-holo-light .mbsc-slider-step {
   background: #000000;
+}
+/* Switch */
+.mbsc-android-holo-light .mbsc-switch-handle {
+  color: #fff;
+  background: #c9c9c9;
+}
+.mbsc-android-holo-light .mbsc-switch-track {
+  background: #d9d9d9;
+}
+.mbsc-android-holo-light .mbsc-switch input:checked:not(:disabled) + .mbsc-switch-track .mbsc-switch-handle {
+  background: #31b7e8;
+  background: rgba(49, 183, 232, 0.7);
 }
 /* Segmented control */
 .mbsc-android-holo-light .mbsc-segmented-content {

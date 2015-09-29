@@ -263,24 +263,6 @@
 .mbsc-mobiscroll-dark .mbsc-radio input:disabled + .mbsc-radio-box:after {
   background: #101517;
 }
-.mbsc-mobiscroll-dark .mbsc-switch-track {
-  background: #2b3940;
-}
-.mbsc-mobiscroll-dark .mbsc-switch-handle {
-  background: #232e33;
-}
-.mbsc-mobiscroll-dark .mbsc-switch input:checked + .mbsc-switch-track {
-  background: #b5e6e2;
-}
-.mbsc-mobiscroll-dark .mbsc-switch input:checked + .mbsc-switch-track .mbsc-switch-handle {
-  background: #50ccc4;
-}
-.mbsc-mobiscroll-dark .mbsc-switch input:disabled + .mbsc-switch-track {
-  background: #101517;
-}
-.mbsc-mobiscroll-dark .mbsc-switch input:disabled + .mbsc-switch-track .mbsc-switch-handle {
-  background: #182024;
-}
 /* Buttons */
 .mbsc-mobiscroll-dark .mbsc-btn {
   background: #50ccc4;
@@ -317,6 +299,25 @@
 }
 .mbsc-mobiscroll-dark .mbsc-slider-step {
   background: #263238;
+}
+/* Switch */
+.mbsc-mobiscroll-dark .mbsc-switch-track {
+  background: #2b3940;
+}
+.mbsc-mobiscroll-dark .mbsc-switch-handle {
+  background: #232e33;
+}
+.mbsc-mobiscroll-dark .mbsc-switch input:checked + .mbsc-switch-track {
+  background: #b5e6e2;
+}
+.mbsc-mobiscroll-dark .mbsc-switch input:checked + .mbsc-switch-track .mbsc-switch-handle {
+  background: #50ccc4;
+}
+.mbsc-mobiscroll-dark .mbsc-switch input:disabled + .mbsc-switch-track {
+  background: #101517;
+}
+.mbsc-mobiscroll-dark .mbsc-switch input:disabled + .mbsc-switch-track .mbsc-switch-handle {
+  background: #182024;
 }
 /* Stepper segmented */
 .mbsc-mobiscroll-dark .mbsc-segmented-content {
