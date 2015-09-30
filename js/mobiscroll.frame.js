@@ -7,7 +7,7 @@
         has3d = util.has3d,
         constrain = util.constrain,
         isString = util.isString,
-        isOldAndroid = /android [1-3]/i.test(navigator.userAgent),
+        isOldAndroid = util.isOldAndroid,
         isIOS8 = /(iphone|ipod|ipad).* os 8_/i.test(navigator.userAgent),
         animEnd = 'webkitAnimationEnd animationend',
         empty = function () {},

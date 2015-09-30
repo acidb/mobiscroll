@@ -84,13 +84,12 @@
             jsPrefix: pr,
             has3d: has3d,
             hasFlex: hasFlex,
+            isOldAndroid: /android [1-3]/i.test(navigator.userAgent),
             testTouch: function (e, elm) {
                 if (e.type == 'touchstart') {
                     $(elm).attr('data-touch', '1');
                 } else if ($(elm).attr('data-touch')) {
-                    setTimeout(function () {
-                        $(elm).removeAttr('data-touch');
-                    }, 10);
+                    $(elm).removeAttr('data-touch');
                     return false;
                 }
                 return true;
