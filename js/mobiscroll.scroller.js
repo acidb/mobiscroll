@@ -601,7 +601,7 @@
                 .on('touchmove', '.dwwl', onMove)
                 .on('touchend', '.dwwl', onEnd)
                 .on('touchstart mousedown', '.dwwb', onBtnStart)
-                .on('touchend', '.dwwb', onBtnEnd);
+                .on('touchend touchcancel', '.dwwb', onBtnEnd);
 
             if (s.mousewheel) {
                 $markup.on('wheel mousewheel', '.dwwl', onScroll);
