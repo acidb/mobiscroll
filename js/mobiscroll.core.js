@@ -386,7 +386,8 @@
 
     // Prevent standard behaviour on body click
     function preventClick(ev) {
-        if (ms.tapped && !ev.tap) {
+        // Textarea needs the mousedown event
+        if (ms.tapped && !ev.tap && !(ev.target.nodeName == 'TEXTAREA' && ev.type == 'mousedown')) {
             ev.stopPropagation();
             ev.preventDefault();
             return false;
