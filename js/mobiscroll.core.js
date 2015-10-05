@@ -85,6 +85,13 @@
             has3d: has3d,
             hasFlex: hasFlex,
             isOldAndroid: /android [1-3]/i.test(navigator.userAgent),
+            preventClick: function () {
+                // Prevent ghost click
+                ms.tapped++;
+                setTimeout(function () {
+                    ms.tapped--;
+                }, 500);
+            },
             testTouch: function (e, elm) {
                 if (e.type == 'touchstart') {
                     $(elm).attr('data-touch', '1');
@@ -201,7 +208,8 @@
             themeName,
             defaults,
             ms = $.mobiscroll,
-            getCoord = ms.util.getCoord,
+            util = ms.util,
+            getCoord = util.getCoord,
             that = this;
 
         that.settings = {};
@@ -319,11 +327,7 @@
                         .off('pointerup', onEnd);
                 }
 
-                // Prevent ghost click events to happen
-                ms.tapped++;
-                setTimeout(function () {
-                    ms.tapped--;
-                }, 500);
+                util.preventClick();
             }
 
             if (s.tap) {
