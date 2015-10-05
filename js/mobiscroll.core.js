@@ -154,6 +154,36 @@
 
                 return px;
             },
+            addIcon: function ($control, ic) {
+                var icons = {},
+                    $parent = $control.parent(),
+                    errorMsg = $parent.find('.mbsc-err-msg'),
+                    align = $control.attr('data-icon-align') || 'left',
+                    icon = $control.attr('data-icon');
+
+                // Wrap input
+                $('<span class="mbsc-input-wrap"></span>').insertAfter($control).append($control);
+
+                if (errorMsg) {
+                    $parent.find('.mbsc-input-wrap').append(errorMsg);
+                }
+
+                if (icon) {
+                    if (icon.indexOf('{') !== -1) {
+                        icons = JSON.parse(icon);
+                    } else {
+                        icons[align] = icon;
+                    }
+
+                    extend(icons, ic);
+
+                    $parent
+                        .addClass((icons.right ? 'mbsc-ic-right ' : '') + (icons.left ? ' mbsc-ic-left' : ''))
+                        .find('.mbsc-input-wrap')
+                        .append(icons.left ? '<span class="mbsc-input-ic mbsc-left-ic mbsc-ic mbsc-ic-' + icons.left + '"></span>' : '')
+                        .append(icons.right ? '<span class="mbsc-input-ic mbsc-right-ic mbsc-ic mbsc-ic-' + icons.right + '"></span>' : '');
+                }
+            },
             constrain: function (val, min, max) {
                 return Math.max(min, Math.min(val, max));
             },
@@ -245,7 +275,7 @@
 
                 settings.theme = themeName;
 
-                theme = ms.themes[that._class][themeName];
+                theme = ms.themes[that._class] ? ms.themes[that._class][themeName] : {};
             }
 
             // Get language defaults
