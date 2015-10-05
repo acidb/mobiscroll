@@ -135,6 +135,7 @@
 
                     if (!multiple && (s.confirmOnTap === true || s.confirmOnTap[index]) && li.hasClass('dw-sel')) {
                         that.select();
+                        target = false;
                         return;
                     }
                 } else {
