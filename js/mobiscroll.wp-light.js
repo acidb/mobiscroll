@@ -100,4 +100,8 @@
         baseTheme: 'wp'
     };
 
+    $.mobiscroll.themes.progress['wp-light'] = {
+        baseTheme: 'wp'
+    };
+
 })(jQuery);

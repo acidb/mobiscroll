@@ -122,7 +122,7 @@
   background: #7d7d7d;
   color: white;
 }
-/* Rangepicker */
+/* Range */
 .mbsc-android-holo-light .dw-dr {
   background: #d9d9d9;
 }
@@ -201,6 +201,43 @@
 .mbsc-android-holo-light .mbsc-btn-a .mbsc-ms-item-i {
   background: #28799c;
 }
+/* Progress */
+.mbsc-android-holo-light .mbsc-progress-track {
+  background: #d9d4d4;
+}
+.mbsc-android-holo-light .mbsc-progress-bar {
+  background: #31b7e8;
+}
+/* Slider */
+.mbsc-android-holo-light .mbsc-slider-step {
+  background: #000000;
+}
+.mbsc-android-holo-light .mbsc-slider-handle {
+  background: #31b7e8;
+}
+.mbsc-android-holo-light .mbsc-slider-handle.mbsc-active {
+  background: #000000;
+}
+.mbsc-android-holo-light .mbsc-slider-handle:after {
+  background: rgba(49, 183, 232, 0.3);
+}
+.mbsc-android-holo-light .mbsc-slider-handle:focus:after,
+.mbsc-android-holo-light .mbsc-active .mbsc-slider-handle:after {
+  border-color: #28799c;
+}
+.mbsc-android-holo-light .mbsc-slider-tooltip {
+  color: #000000;
+  background: #f5f5f5;
+}
+.mbsc-android-holo-light.mbsc-slider input:disabled ~ .mbsc-progress-cont .mbsc-progress-track {
+  background: #4d4d4d;
+}
+.mbsc-android-holo-light.mbsc-slider input:disabled ~ .mbsc-progress-cont .mbsc-slider-handle {
+  background: #000000;
+}
+.mbsc-android-holo-light.mbsc-slider input:disabled ~ .mbsc-progress-cont .mbsc-progress-bar {
+  background: #a8a8a8;
+}
 /* Form elements */
 .mbsc-android-holo-light.mbsc-form {
   background: #f5f5f5;
@@ -229,7 +266,6 @@
 }
 .mbsc-android-holo-light .mbsc-input textarea:-webkit-autofill,
 .mbsc-android-holo-light .mbsc-input input:-webkit-autofill {
-  /*border-color: #e8c640;*/
   box-shadow: 0 0 0 50em #f5f5f5 inset;
   -webkit-text-fill-color: #000000;
 }
@@ -237,7 +273,7 @@
 .mbsc-android-holo-light .mbsc-checkbox-box {
   border-color: #4d4d4d;
 }
-/*Checkbox, Switch, Radio */
+/* Checkbox, Switch, Radio */
 .mbsc-android-holo-light .mbsc-checkbox input.mbsc-active + .mbsc-checkbox-box:before,
 .mbsc-android-holo-light .mbsc-radio input.mbsc-active + .mbsc-radio-box:before {
   background: rgba(150, 150, 150, 0.2);
@@ -273,7 +309,7 @@
   background: #e6e6e6;
   color: #b5b5b5;
 }
-/* accent */
+/* Text highlight */
 .mbsc-android-holo-light.mbsc-form *::-moz-selection {
   background: #31b7e8;
 }
@@ -303,51 +339,12 @@
 .mbsc-android-holo-light .mbsc-radio-box:after {
   background: #31b7e8;
 }
-/* Slider & Progress*/
-.mbsc-android-holo-light .mbsc-slider-track {
-  background: #d9d4d4;
-}
-.mbsc-android-holo-light .mbsc-slider-handle {
-  background: #31b7e8;
-}
-.mbsc-android-holo-light .mbsc-slider-handle.mbsc-active {
-  background: #000000;
-}
-.mbsc-android-holo-light .mbsc-slider-handle:after {
-  background: rgba(49, 183, 232, 0.3);
-}
-.mbsc-android-holo-light .mbsc-slider-progress {
-  background: #31b7e8;
-}
-.mbsc-android-holo-light .mbsc-slider .mbsc-input-ic {
-  color: #000000;
-}
-.mbsc-android-holo-light .mbsc-slider input:disabled ~ .mbsc-slider-cont .mbsc-slider-track {
-  background: #4d4d4d;
-}
-.mbsc-android-holo-light .mbsc-slider input:disabled ~ .mbsc-slider-cont .mbsc-slider-handle {
-  background: #000000;
-}
-.mbsc-android-holo-light .mbsc-slider input:disabled ~ .mbsc-slider-cont .mbsc-slider-progress {
-  background: #a8a8a8;
-}
-.mbsc-android-holo-light .mbsc-slider-handle:focus:after,
-.mbsc-android-holo-light .mbsc-active .mbsc-slider-handle:after {
-  border: 1px solid #28799c;
-}
-.mbsc-android-holo-light .mbsc-slider-tooltip {
-  color: #000000;
-  background: #f5f5f5;
-}
-.mbsc-android-holo-light .mbsc-slider-step {
-  background: #000000;
-}
 /* Switch */
 .mbsc-android-holo-light .mbsc-switch-handle {
   color: #fff;
   background: #c9c9c9;
 }
-.mbsc-android-holo-light .mbsc-switch-track {
+.mbsc-android-holo-light .mbsc-switch .mbsc-switch-track {
   background: #d9d9d9;
 }
 .mbsc-android-holo-light .mbsc-switch input:checked:not(:disabled) + .mbsc-switch-track .mbsc-switch-handle {

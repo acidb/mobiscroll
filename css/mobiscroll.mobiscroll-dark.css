@@ -8,7 +8,6 @@
 }
 .mbsc-mobiscroll-dark .dwwol {
   border-color: #50ccc4;
-  /*accent*/
 }
 .mbsc-mobiscroll-dark .dwb-a {
   background: rgba(80, 204, 196, 0.3);
@@ -107,7 +106,7 @@
 .mbsc-mobiscroll-dark .dw-cal-sc-c {
   background: #263238;
 }
-/* Rangepicker */
+/* Range */
 .mbsc-mobiscroll-dark .dw-dr {
   border-color: #50ccc4;
 }
@@ -200,6 +199,27 @@
 .mbsc-mobiscroll-dark.mbsc-ms-b.mbsc-ms-bottom .mbsc-ms-item-sel .mbsc-ms-item-i {
   border-top-color: #50ccc4;
 }
+/* Progress */
+.mbsc-mobiscroll-dark.mbsc-progress .mbsc-input-ic {
+  color: #ffffff;
+}
+.mbsc-mobiscroll-dark .mbsc-progress-track {
+  background: #2b3940;
+}
+.mbsc-mobiscroll-dark .mbsc-progress-bar {
+  background: #50ccc4;
+}
+/* Slider */
+.mbsc-mobiscroll-dark .mbsc-slider-step {
+  background: #263238;
+}
+.mbsc-mobiscroll-dark .mbsc-slider-handle {
+  background: #50ccc4;
+}
+.mbsc-mobiscroll-dark .mbsc-slider-tooltip {
+  color: #263238;
+  background: #50ccc4;
+}
 /* Form elements */
 .mbsc-mobiscroll-dark.mbsc-form {
   background: #263238;
@@ -231,7 +251,6 @@
 .mbsc-mobiscroll-dark .mbsc-input input:focus {
   border-color: #50ccc4;
 }
-/* Textbox */
 .mbsc-mobiscroll-dark .mbsc-input-ic {
   color: #ffffff;
 }
@@ -282,23 +301,6 @@
 .mbsc-mobiscroll-dark .mbsc-btn-flat:disabled {
   background: transparent;
   color: #232e33;
-}
-/* Slider & Progress */
-.mbsc-mobiscroll-dark .mbsc-slider-track {
-  background: #2b3940;
-}
-.mbsc-mobiscroll-dark .mbsc-slider-progress {
-  background: #50ccc4;
-}
-.mbsc-mobiscroll-dark .mbsc-slider-handle {
-  background: #50ccc4;
-}
-.mbsc-mobiscroll-dark .mbsc-slider-tooltip {
-  color: #263238;
-  background: #50ccc4;
-}
-.mbsc-mobiscroll-dark .mbsc-slider-step {
-  background: #263238;
 }
 /* Switch */
 .mbsc-mobiscroll-dark .mbsc-switch-track {

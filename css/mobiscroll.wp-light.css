@@ -177,6 +177,31 @@
 .mbsc-wp-light .mbsc-ms-item-sel {
   color: #000000;
 }
+/* Progress */
+.mbsc-wp-light.mbsc-progress .mbsc-label {
+  color: #878787;
+}
+.mbsc-wp-light.mbsc-progress .mbsc-input-ic {
+  color: #000000;
+}
+.mbsc-wp-light .mbsc-progress-track {
+  background: #dedede;
+}
+.mbsc-wp-light .mbsc-progress-bar {
+  background: #1ba0e3;
+}
+/* Slider */
+.mbsc-wp-light .mbsc-slider-handle {
+  background: #000000;
+}
+.mbsc-wp-light .mbsc-slider-tooltip {
+  background: #000000;
+  color: #a6a6a6;
+  border-color: #a6a6a6;
+}
+.mbsc-wp-light .mbsc-slider-step {
+  background: #ffffff;
+}
 /* Form elements */
 .mbsc-wp-light.mbsc-form {
   background-color: #ffffff;
@@ -234,7 +259,6 @@
 .mbsc-wp-light .mbsc-btn-flat .mbsc-btn-ic {
   border-color: #000000;
 }
-/* acent */
 .mbsc-wp-light .mbsc-switch input:checked + .mbsc-switch-track,
 .mbsc-wp-light .mbsc-radio input.mbsc-active + .mbsc-radio-box:after,
 .mbsc-wp-light .mbsc-radio input.mbsc-active + .mbsc-radio-box,
@@ -281,27 +305,6 @@
 }
 .mbsc-wp-light a {
   color: #1ba0e3;
-}
-/* Slider & Progress */
-.mbsc-wp-light .mbsc-slider-track {
-  background: #dedede;
-}
-.mbsc-wp-light .mbsc-slider-handle {
-  background: #000000;
-}
-.mbsc-wp-light .mbsc-slider .mbsc-input-ic {
-  color: #000000;
-}
-.mbsc-wp-light .mbsc-slider-progress {
-  background: #1ba0e3;
-}
-.mbsc-wp-light .mbsc-slider-tooltip {
-  background: #000000;
-  color: #a6a6a6;
-  border-color: #a6a6a6;
-}
-.mbsc-wp-light .mbsc-slider-step {
-  background: #ffffff;
 }
 /* Switch */
 .mbsc-wp-light .mbsc-switch-track {
