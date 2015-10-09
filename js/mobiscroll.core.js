@@ -320,50 +320,62 @@
         that.tap = function (el, handler, prevent) {
             var startX,
                 startY,
+                target,
                 moved;
 
             function onStart(ev) {
-                // Can't always call preventDefault here, it kills page scroll
-                if (prevent) {
-                    ev.preventDefault();
-                }
-                startX = getCoord(ev, 'X');
-                startY = getCoord(ev, 'Y');
-                moved = false;
+                if (!target) {
+                    // Can't always call preventDefault here, it kills page scroll
+                    if (prevent) {
+                        ev.preventDefault();
+                    }
+                    target = this;
+                    startX = getCoord(ev, 'X');
+                    startY = getCoord(ev, 'Y');
+                    moved = false;
 
-                if (ev.type == 'pointerdown') {
-                    $(document)
-                        .on('pointermove', onMove)
-                        .on('pointerup', onEnd);
+                    if (ev.type == 'pointerdown') {
+                        $(document)
+                            .on('pointermove', onMove)
+                            .on('pointerup', onEnd);
+                    }
                 }
             }
 
             function onMove(ev) {
                 // If movement is more than 20px, don't fire the click event handler
-                if (!moved && Math.abs(getCoord(ev, 'X') - startX) > 20 || Math.abs(getCoord(ev, 'Y') - startY) > 20) {
+                if (target && !moved && Math.abs(getCoord(ev, 'X') - startX) > 20 || Math.abs(getCoord(ev, 'Y') - startY) > 20) {
                     moved = true;
                 }
             }
 
             function onEnd(ev) {
-                var target = this;
+                if (target) {
+                    if (!moved) {
+                        ev.preventDefault();
+                        handler.call(target, ev, that);
+                    }
 
-                if (!moved) {
-                    ev.preventDefault();
-                    handler.call(target, ev, that);
+                    if (ev.type == 'pointerup') {
+                        $(document)
+                            .off('pointermove', onMove)
+                            .off('pointerup', onEnd);
+                    }
+
+                    target = false;
+
+                    util.preventClick();
                 }
+            }
 
-                if (ev.type == 'pointerup') {
-                    $(document)
-                        .off('pointermove', onMove)
-                        .off('pointerup', onEnd);
-                }
-
-                util.preventClick();
+            function onCancel() {
+                target = false;
             }
 
             if (s.tap) {
-                el.on('touchstart.dw pointerdown.dw', onStart)
+                el
+                    .on('touchstart.dw pointerdown.dw', onStart)
+                    .on('touchcancel.dw pointercancel.dw', onCancel)
                     .on('touchmove.dw', onMove)
                     .on('touchend.dw', onEnd);
             }

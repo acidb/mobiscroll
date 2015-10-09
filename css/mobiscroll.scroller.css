@@ -1,6 +1,9 @@
 .dwwb,
+.dwww,
 .dwwo,
 .dwwol {
+    /* .dwww is for Firefox */
+    
     -webkit-transform: translateZ(0);
 }
 /* Wheel container wrapper */
@@ -68,9 +71,6 @@
     position: relative;
     border-radius: 1px;
     /* Forces IE to respect overflow hidden while animating */
-    
-    transform: translateZ(0);
-    /* fixes Firefox 40.0.x rendering issues */
 }
 
 .dw-bf {
