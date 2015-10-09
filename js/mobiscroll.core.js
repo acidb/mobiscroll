@@ -346,10 +346,11 @@
             }
 
             function onEnd(ev) {
+                var target = this;
 
                 if (!moved) {
                     ev.preventDefault();
-                    handler.call(el[0], ev, that);
+                    handler.call(target, ev, that);
                 }
 
                 if (ev.type == 'pointerup') {
