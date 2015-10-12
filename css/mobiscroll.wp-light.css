@@ -207,6 +207,12 @@
   background-color: #ffffff;
   color: #000000;
 }
+.mbsc-wp-light .mbsc-input .mbsc-label {
+  color: #000000;
+}
+.mbsc-wp-light .mbsc-desc {
+  color: #5e5e5e;
+}
 .mbsc-wp-light .mbsc-input-ic {
   color: #000000;
 }
