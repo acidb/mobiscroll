@@ -342,12 +342,15 @@
 .mbsc-wp-light .mbsc-stepper .mbsc-active .mbsc-segmented-content {
   background: #1ba0e3;
 }
-.mbsc-wp-light .mbsc-stepper input:disabled,
 .mbsc-wp-light .mbsc-stepper input:disabled ~ .mbsc-segmented-item .mbsc-segmented-content,
 .mbsc-wp-light .mbsc-step-disabled .mbsc-segmented-content,
 .mbsc-wp-light .mbsc-segmented input:disabled + .mbsc-segmented-content {
   color: #b3b3b3;
   border-color: #b3b3b3;
+}
+.mbsc-wp-light .mbsc-stepper input:disabled {
+  color: #b3b3b3;
+  -webkit-text-fill-color: #b3b3b3;
 }
 .mbsc-wp-light .mbsc-segmented input:disabled:checked + .mbsc-segmented-content {
   color: #ffffff;

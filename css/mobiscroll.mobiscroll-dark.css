@@ -344,12 +344,15 @@
 .mbsc-mobiscroll-dark .mbsc-stepper {
   margin-top: -1.25em;
 }
-.mbsc-mobiscroll-dark .mbsc-stepper input:disabled,
 .mbsc-mobiscroll-dark .mbsc-segmented input:disabled ~ .mbsc-segmented-item .mbsc-segmented-content,
 .mbsc-mobiscroll-dark .mbsc-step-disabled .mbsc-segmented-content,
 .mbsc-mobiscroll-dark .mbsc-segmented input:disabled + .mbsc-segmented-content {
   color: #101517;
   border-color: #101517;
+}
+.mbsc-mobiscroll-dark .mbsc-stepper input:disabled {
+  color: #101517;
+  -webkit-text-fill-color: #101517;
 }
 .mbsc-mobiscroll-dark .mbsc-segmented input:disabled:checked + .mbsc-segmented-content {
   background: #2b3940;

@@ -397,6 +397,7 @@
 }
 .mbsc-android-holo-light .mbsc-stepper input:disabled {
   color: #b5b5b5;
+  -webkit-text-fill-color: #b5b5b5;
 }
 .mbsc-android-holo-light .mbsc-stepper input {
   color: #f5f5f5;
