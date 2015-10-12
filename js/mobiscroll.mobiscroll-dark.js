@@ -28,5 +28,9 @@
     $.mobiscroll.themes.form['mobiscroll-dark'] = {
         baseTheme: 'mobiscroll'
     };
+
+    $.mobiscroll.themes.progress['mobiscroll-dark'] = {
+        baseTheme: 'mobiscroll'
+    };
     
 })(jQuery);

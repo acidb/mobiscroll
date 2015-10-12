@@ -1,5 +1,5 @@
 /*!
- * Mobiscroll v2.16.1
+ * Mobiscroll v2.17.0
  * http://mobiscroll.com
  *
  * Copyright 2010-2015, Acid Media
@@ -78,12 +78,20 @@
     };
 
     ms = $.mobiscroll = $.mobiscroll || {
-        version: '2.16.1',
+        version: '2.17.0',
         util: {
             prefix: prefix,
             jsPrefix: pr,
             has3d: has3d,
             hasFlex: hasFlex,
+            isOldAndroid: /android [1-3]/i.test(navigator.userAgent),
+            preventClick: function () {
+                // Prevent ghost click
+                ms.tapped++;
+                setTimeout(function () {
+                    ms.tapped--;
+                }, 500);
+            },
             testTouch: function (e, elm) {
                 if (e.type == 'touchstart') {
                     $(elm).attr('data-touch', '1');
@@ -146,6 +154,36 @@
 
                 return px;
             },
+            addIcon: function ($control, ic) {
+                var icons = {},
+                    $parent = $control.parent(),
+                    errorMsg = $parent.find('.mbsc-err-msg'),
+                    align = $control.attr('data-icon-align') || 'left',
+                    icon = $control.attr('data-icon');
+
+                // Wrap input
+                $('<span class="mbsc-input-wrap"></span>').insertAfter($control).append($control);
+
+                if (errorMsg) {
+                    $parent.find('.mbsc-input-wrap').append(errorMsg);
+                }
+
+                if (icon) {
+                    if (icon.indexOf('{') !== -1) {
+                        icons = JSON.parse(icon);
+                    } else {
+                        icons[align] = icon;
+                    }
+
+                    extend(icons, ic);
+
+                    $parent
+                        .addClass((icons.right ? 'mbsc-ic-right ' : '') + (icons.left ? ' mbsc-ic-left' : ''))
+                        .find('.mbsc-input-wrap')
+                        .append(icons.left ? '<span class="mbsc-input-ic mbsc-left-ic mbsc-ic mbsc-ic-' + icons.left + '"></span>' : '')
+                        .append(icons.right ? '<span class="mbsc-input-ic mbsc-right-ic mbsc-ic mbsc-ic-' + icons.right + '"></span>' : '');
+                }
+            },
             constrain: function (val, min, max) {
                 return Math.max(min, Math.min(val, max));
             },
@@ -167,7 +205,8 @@
             form: {},
             frame: {},
             listview: {},
-            menustrip: {}
+            menustrip: {},
+            progress: {}
         },
         i18n: {},
         instances: instances,
@@ -200,6 +239,8 @@
             themeName,
             defaults,
             ms = $.mobiscroll,
+            util = ms.util,
+            getCoord = util.getCoord,
             that = this;
 
         that.settings = {};
@@ -235,7 +276,7 @@
 
                 settings.theme = themeName;
 
-                theme = ms.themes[that._class][themeName];
+                theme = ms.themes[that._class] ? ms.themes[that._class][themeName] : {};
             }
 
             // Get language defaults
@@ -271,6 +312,79 @@
             delete instances[el.id];
 
             that = null;
+        };
+
+        /**
+         * Attach tap event to the given element.
+         */
+        that.tap = function (el, handler, prevent) {
+            var startX,
+                startY,
+                target,
+                moved;
+
+            function onStart(ev) {
+                if (!target) {
+                    // Can't always call preventDefault here, it kills page scroll
+                    if (prevent) {
+                        ev.preventDefault();
+                    }
+                    target = this;
+                    startX = getCoord(ev, 'X');
+                    startY = getCoord(ev, 'Y');
+                    moved = false;
+
+                    if (ev.type == 'pointerdown') {
+                        $(document)
+                            .on('pointermove', onMove)
+                            .on('pointerup', onEnd);
+                    }
+                }
+            }
+
+            function onMove(ev) {
+                // If movement is more than 20px, don't fire the click event handler
+                if (target && !moved && Math.abs(getCoord(ev, 'X') - startX) > 20 || Math.abs(getCoord(ev, 'Y') - startY) > 20) {
+                    moved = true;
+                }
+            }
+
+            function onEnd(ev) {
+                if (target) {
+                    if (!moved) {
+                        ev.preventDefault();
+                        handler.call(target, ev, that);
+                    }
+
+                    if (ev.type == 'pointerup') {
+                        $(document)
+                            .off('pointermove', onMove)
+                            .off('pointerup', onEnd);
+                    }
+
+                    target = false;
+
+                    util.preventClick();
+                }
+            }
+
+            function onCancel() {
+                target = false;
+            }
+
+            if (s.tap) {
+                el
+                    .on('touchstart.dw pointerdown.dw', onStart)
+                    .on('touchcancel.dw pointercancel.dw', onCancel)
+                    .on('touchmove.dw', onMove)
+                    .on('touchend.dw', onEnd);
+            }
+
+            el.on('click.dw', function (ev) {
+                ev.preventDefault();
+                // If handler was not called on touchend, call it on click;
+                handler.call(this, ev, that);
+            });
         };
 
         /**
@@ -320,7 +434,8 @@
 
     // Prevent standard behaviour on body click
     function preventClick(ev) {
-        if (ms.tapped && !ev.tap) {
+        // Textarea needs the mousedown event
+        if (ms.tapped && !ev.tap && !(ev.target.nodeName == 'TEXTAREA' && ev.type == 'mousedown')) {
             ev.stopPropagation();
             ev.preventDefault();
             return false;

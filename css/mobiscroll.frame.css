@@ -4,6 +4,11 @@
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
+.mbsc-fr-lock {
+    -ms-touch-action: none;
+    touch-action: none;
+}
+
 .dw {
     max-width: 98%;
     position: absolute;
@@ -15,15 +20,12 @@
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-    -ms-touch-action: none;
     user-select: none;
-    /*touch-action: none;*/
-    /* Kills native scroll in Chrome >=35 */
+    -ms-touch-action: pan-y;
+    touch-action: pan-y;
 }
 
 .dw:focus {
-    /*outline-color: transparent;*/
-    
     outline: none;
 }
 
@@ -107,6 +109,7 @@
 
 .dw-bubble .dw-arrw {
     position: absolute;
+    z-index: 1;
     left: 0;
     width: 100%;
 }

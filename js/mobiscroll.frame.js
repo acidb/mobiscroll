@@ -5,10 +5,9 @@
         util = ms.util,
         pr = util.jsPrefix,
         has3d = util.has3d,
-        getCoord = util.getCoord,
         constrain = util.constrain,
         isString = util.isString,
-        isOldAndroid = /android [1-3]/i.test(navigator.userAgent),
+        isOldAndroid = util.isOldAndroid,
         isIOS8 = /(iphone|ipod|ipad).* os 8_/i.test(navigator.userAgent),
         animEnd = 'webkitAnimationEnd animationend',
         empty = function () {},
@@ -52,13 +51,18 @@
             if (btn) {
                 btn.removeClass('dwb-a');
             }
+
             btn = $(this);
+
             // Active button
             if (!btn.hasClass('dwb-d') && !btn.hasClass('dwb-nhl')) {
                 btn.addClass('dwb-a');
             }
+
             if (ev.type === 'mousedown') {
                 $(document).on('mouseup', onBtnEnd);
+            } else if (ev.type === 'pointerdown') {
+                $(document).on('pointerup', onBtnEnd);
             }
         }
 
@@ -67,8 +71,11 @@
                 btn.removeClass('dwb-a');
                 btn = null;
             }
+
             if (ev.type === 'mouseup') {
                 $(document).off('mouseup', onBtnEnd);
+            } else if (ev.type === 'pointerup') {
+                $(document).off('pointerup', onBtnEnd);
             }
         }
 
@@ -148,12 +155,26 @@
                 $(document.activeElement).blur();
             }
 
-            $activeElm = $elm;
-            that.show();
+            if (that.show() !== false) {
+                $activeElm = $elm;
 
-            setTimeout(function () {
-                preventShow = false;
-            }, 300); // With jQuery < 1.9 focus is fired twice in IE
+                setTimeout(function () {
+                    preventShow = false;
+                }, 300); // With jQuery < 1.9 focus is fired twice in IE
+            }
+        }
+
+        function set() {
+            that._fillValue();
+            event('onSelect', [that._value]);
+        }
+
+        function cancel() {
+            event('onCancel', [that._value]);
+        }
+
+        function clear() {
+            that.setVal(null, true);
         }
 
         // Call the parent constructor
@@ -227,6 +248,12 @@
             scrollLock = modalHeight <= nh && modalWidth <= nw;
 
             that.scrollLock = scrollLock;
+
+            if (scrollLock) {
+                $ctx.addClass('mbsc-fr-lock');
+            } else {
+                $ctx.removeClass('mbsc-fr-lock');
+            }
 
             if (s.display == 'modal') {
                 l = Math.max(0, sl + (nw - modalWidth) / 2);
@@ -341,9 +368,10 @@
          * Set button handler.
          */
         that.select = function () {
-            if (!isModal || that.hide(false, 'set') !== false) {
-                that._fillValue();
-                event('onSelect', [that._value]);
+            if (isModal) {
+                that.hide(false, 'set', false, set);
+            } else {
+                set();
             }
         };
 
@@ -351,8 +379,10 @@
          * Cancel and hide the scroller instance.
          */
         that.cancel = function () {
-            if (!isModal || that.hide(false, 'cancel') !== false) {
-                event('onCancel', [that._value]);
+            if (isModal) {
+                that.hide(false, 'cancel', false, cancel);
+            } else {
+                set();
             }
         };
 
@@ -362,9 +392,10 @@
         that.clear = function () {
             event('onClear', [$markup]);
             if (isModal && !that.live) {
-                that.hide(false, 'clear');
+                that.hide(false, 'clear', false, clear);
+            } else {
+                clear();
             }
-            that.setVal(null, true);
         };
 
         /**
@@ -403,7 +434,9 @@
             // Parse value from input
             that._readValue();
 
-            event('onBeforeShow', []);
+            if (event('onBeforeShow', []) === false) {
+                return false;
+            }
 
             doAnim = isOldAndroid ? false : s.animate;
 
@@ -505,7 +538,9 @@
 
                 $markup.appendTo($ctx);
 
-                $wnd.on('focusin', onFocus);
+                if (s.focusTrap) {
+                    $wnd.on('focusin', onFocus);
+                }
 
                 if (has3d && doAnim && !prevAnim) {
                     $markup.addClass('dw-in dw-trans').on(animEnd, function () {
@@ -542,7 +577,7 @@
                 .on('keydown', function (ev) { // Trap focus inside modal
                     if (ev.keyCode == 32) { // Space
                         ev.preventDefault();
-                    } else if (ev.keyCode == 9 && isModal) { // Tab
+                    } else if (ev.keyCode == 9 && isModal && s.focusTrap) { // Tab
                         var $focusable = $markup.find('[tabindex="0"]').filter(function () {
                                 return this.offsetWidth > 0 || this.offsetHeight > 0;
                             }),
@@ -590,7 +625,7 @@
             }
 
             $markup
-                .on('touchstart mousedown', '.dwb-e', onBtnStart)
+                .on('touchstart mousedown pointerdown', '.dwb-e', onBtnStart)
                 .on('touchend', '.dwb-e', onBtnEnd);
 
             that._attachEvents($markup);
@@ -602,9 +637,9 @@
         /**
          * Hides the scroller instance.
          */
-        that.hide = function (prevAnim, btn, force) {
+        that.hide = function (prevAnim, btn, force, callback) {
             // If onClose handler returns false, prevent hide
-            if (!that._isVisible || (!force && !that._isValid && btn == 'set') || (!force && event('onClose', [that._tempValue, btn]) === false)) {
+            if (!that._isVisible || (!force && !that._isValid && btn == 'set') || (!force && event('onBeforeClose', [that._tempValue, btn]) === false)) {
                 return false;
             }
 
@@ -632,9 +667,17 @@
             }
 
             if (isModal) {
+                $ctx.removeClass('mbsc-fr-lock');
                 $(window).off('keydown', onWndKeyDown);
                 delete ms.activeInstance;
             }
+
+            if (callback) {
+                callback();
+            }
+
+            event('onClosed', [that._value]);
+
         };
 
         that.ariaMessage = function (txt) {
@@ -654,6 +697,8 @@
         // Protected functions to override
 
         that.setVal = empty;
+
+        that.getVal = empty;
 
         that._generateContent = empty;
 
@@ -682,51 +727,6 @@
         // Generic frame functions
 
         /**
-         * Attach tap event to the given element.
-         */
-        that.tap = function (el, handler, prevent) {
-            var startX,
-                startY,
-                moved;
-
-            if (s.tap) {
-                el.on('touchstart.dw', function (ev) {
-                    // Can't always call preventDefault here, it kills page scroll
-                    if (prevent) {
-                        ev.preventDefault();
-                    }
-                    startX = getCoord(ev, 'X');
-                    startY = getCoord(ev, 'Y');
-                    moved = false;
-                }).on('touchmove.dw', function (ev) {
-                    // If movement is more than 20px, don't fire the click event handler
-                    if (!moved && Math.abs(getCoord(ev, 'X') - startX) > 20 || Math.abs(getCoord(ev, 'Y') - startY) > 20) {
-                        moved = true;
-                    }
-                }).on('touchend.dw', function (ev) {
-                    var that = this;
-
-                    if (!moved) {
-                        ev.preventDefault();
-                        handler.call(that, ev);
-                    }
-
-                    // Prevent ghost click events to happen
-                    ms.tapped++;
-                    setTimeout(function () {
-                        ms.tapped--;
-                    }, 500);
-                });
-            }
-
-            el.on('click.dw', function (ev) {
-                ev.preventDefault();
-                // If handler was not called on touchend, call it on click;
-                handler.call(this, ev);
-            });
-        };
-
-        /**
          * Destroys the mobiscroll instance.
          */
         that.destroy = function () {
@@ -745,6 +745,13 @@
          * Scroller initialization.
          */
         that.init = function (ss) {
+            // @deprecated since 2.17.0, backward compatibility code
+            // ---
+            if (ss.onClose) {
+                ss.onBeforeClose = ss.onClose;
+            }
+            // ---
+
             that._init(ss);
 
             that._isLiquid = (s.layout || (/top|bottom/.test(s.display) ? 'liquid' : '')) === 'liquid';
@@ -776,10 +783,12 @@
                 text: s.setText,
                 handler: 'set'
             };
+
             that.buttons.cancel = {
                 text: (that.live) ? s.closeText : s.cancelText,
                 handler: 'cancel'
             };
+
             that.buttons.clear = {
                 text: s.clearText,
                 handler: 'clear'
@@ -838,7 +847,7 @@
         // Localization
         lang: 'en',
         setText: 'Set',
-        selectedText: 'Selected',
+        selectedText: '{count} selected',
         closeText: 'Close',
         cancelText: 'Cancel',
         clearText: 'Clear',
@@ -852,6 +861,7 @@
         tap: true,
         btnClass: 'dwb',
         btnWidth: true,
+        focusTrap: true,
         focusOnClose: !isIOS8 // Temporary for iOS8
     };
 

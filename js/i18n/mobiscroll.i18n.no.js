@@ -4,7 +4,7 @@
         setText: 'OK',
         cancelText: 'Avbryt',
         clearText: 'Tømme',
-        selectedText: 'valgt',
+        selectedText: '{count} valgt',
         // Datetime component
         dateFormat: 'dd.mm.yy',
         dateOrder: 'ddmmyy',

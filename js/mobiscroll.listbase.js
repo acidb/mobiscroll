@@ -6,7 +6,7 @@
             inputClass: ''
         };
 
-    ms.presets.scroller.list = function (inst) {            
+    ms.presets.scroller.list = function (inst) {
         var orig = $.extend({}, inst.settings),
             s = $.extend(inst.settings, defaults, orig),
             layout = s.layout || (/top|bottom/.test(s.display) ? 'liquid' : ''),
@@ -25,14 +25,14 @@
             labels = generateLabels(lvl),
             fwv = firstWheelVector(wa),
             w = generateWheelsFromVector(fwv, lvl);
-        
+
         /**
-            * Disables the invalid items on the wheels
-            * @param {Object} dw - the jQuery mobiscroll object
-            * @param {Number} nrWheels - the number of the current wheels
-            * @param {Array} whArray - The wheel array objects containing the wheel tree
-            * @param {Array} whVector - the wheel vector containing the current keys
-            */
+         * Disables the invalid items on the wheels
+         * @param {Object} dw - the jQuery mobiscroll object
+         * @param {Number} nrWheels - the number of the current wheels
+         * @param {Array} whArray - The wheel array objects containing the wheel tree
+         * @param {Array} whVector - the wheel vector containing the current keys
+         */
         function setDisabled(dw, nrWheels, whArray, whVector) {
             var j,
                 i = 0;
@@ -49,12 +49,12 @@
         }
 
         /**
-            * Returns the invalid keys of one wheel as an array
-            * @param {Array} whVector - the wheel vector used to search for the wheel in the wheel array
-            * @param {Number} index - index of the wheel in the wheel vector, that we are interested in
-            * @param {Array} whArray - the wheel array we are searching in
-            * @return {Array} - list of invalid keys
-            */
+         * Returns the invalid keys of one wheel as an array
+         * @param {Array} whVector - the wheel vector used to search for the wheel in the wheel array
+         * @param {Number} index - index of the wheel in the wheel vector, that we are interested in
+         * @param {Array} whArray - the wheel array we are searching in
+         * @return {Array} - list of invalid keys
+         */
         function getInvalidKeys(whVector, index, whArray) {
             var i = 0,
                 n,
@@ -83,10 +83,10 @@
         }
 
         /**
-            * Creates a Boolean vector with true values (except one) that can be used as the readonly vector
-            * n - the length of the vector
-            * i - the index of the value that's going to be false
-            */
+         * Creates a Boolean vector with true values (except one) that can be used as the readonly vector
+         * n - the length of the vector
+         * i - the index of the value that's going to be false
+         */
         function createROVector(n, i) {
             var a = [];
             while (n) {
@@ -97,9 +97,9 @@
         }
 
         /**
-            * Creates a labels vector, from values if they are defined, otherwise from numbers
-            * l - the length of the vector
-            */
+         * Creates a labels vector, from values if they are defined, otherwise from numbers
+         * l - the length of the vector
+         */
         function generateLabels(l) {
             var a = [],
                 i;
@@ -110,13 +110,16 @@
         }
 
         /**
-            * Creates the wheel array from the vector provided
-            * wv - wheel vector containing the values that should be selected on the wheels
-            * l - the length of the wheel array
-            */
+         * Creates the wheel array from the vector provided
+         * wv - wheel vector containing the values that should be selected on the wheels
+         * l - the length of the wheel array
+         */
         function generateWheelsFromVector(wv, l, index) {
-            var i = 0, j, obj, chInd,
-                w = [[]],
+            var i = 0,
+                j, obj, chInd,
+                w = [
+                    []
+                ],
                 wtObjA = wa;
 
             if (l) { // if length is defined we need to generate that many wheels (even if they are empty)
@@ -159,9 +162,9 @@
         }
 
         /**
-            * Returns the first valid Wheel Node Object or its index from a Wheel Node Object Array
-            * getInd - if it is true then the return value is going to be the index, otherwise the object itself
-            */
+         * Returns the first valid Wheel Node Object or its index from a Wheel Node Object Array
+         * getInd - if it is true then the return value is going to be the index, otherwise the object itself
+         */
         function getFirstValidItemObjOrInd(wtObjA, getInd) {
             if (!wtObjA) {
                 return false;
@@ -195,18 +198,18 @@
         }
 
         /**
-            * Hides the last i number of wheels
-            * i - the last number of wheels that has to be hidden
-            */
+         * Hides the last i number of wheels
+         * i - the last number of wheels that has to be hidden
+         */
         function hideWheels(dw, i) {
             $('.dwfl', dw).css('display', '').slice(i).hide();
         }
 
         /**
-            * Generates the first wheel vector from the wheeltree
-            * wt - the wheel tree object
-            * uses the lvl global variable to determine the length of the vector
-            */
+         * Generates the first wheel vector from the wheeltree
+         * wt - the wheel tree object
+         * uses the lvl global variable to determine the length of the vector
+         */
         function firstWheelVector(wa) {
             var t = [],
                 ndObjA = wa,
@@ -226,10 +229,10 @@
         }
 
         /**
-            * Calculates the level of a wheel vector and the new wheel vector, depending on current wheel vector and the index of the changed wheel
-            * wv - current wheel vector
-            * index - index of the changed wheel
-            */
+         * Calculates the level of a wheel vector and the new wheel vector, depending on current wheel vector and the index of the changed wheel
+         * wv - current wheel vector
+         * index - index of the changed wheel
+         */
         function calcLevelOfVector2(wv, index) {
             var t = [],
                 ndObjA = wa,
