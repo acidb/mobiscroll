@@ -391,7 +391,7 @@
          */
         that.clear = function () {
             event('onClear', [$markup]);
-            if (isModal && !that.live) {
+            if (isModal && that._isVisible && !that.live) {
                 that.hide(false, 'clear', false, clear);
             } else {
                 clear();
@@ -653,9 +653,9 @@
                 }
 
                 if (has3d && isModal && doAnim && !prevAnim && !$markup.hasClass('dw-trans')) { // If dw-trans class was not removed, means that there was no animation
-                    $markup.addClass('dw-out dw-trans').find('.dw').addClass('dw-' + doAnim).on(animEnd, function () {
+                    $markup.addClass('dw-out dw-trans').on(animEnd, function () {
                         onHide(prevAnim);
-                    });
+                    }).find('.dw').addClass('dw-' + doAnim);
                 } else {
                     onHide(prevAnim);
                 }
