@@ -3,7 +3,7 @@
         // Core
         setText: 'Aceptar',
         cancelText: 'Cancelar',
-        clearText: 'Claro',
+        clearText: 'Borrar',
         selectedText: '{count} seleccionado',
         selectedPluralText: '{count} seleccionados',
         // Datetime component
@@ -47,7 +47,7 @@
         lapText: 'Lap',
         hideText: 'Esconder',
         // Listview
-        backText: 'Espalda',
+        backText: 'Volver',
         undoText: 'Deshacer',
         // Form
         offText: 'No',
