@@ -46,6 +46,7 @@
             isLiquid = layout == 'liquid',
             elm = $(this),
             multiple = s.multiple || elm.prop('multiple'),
+            maxSelect = util.isNumeric(s.multiple) ? s.multiple : Infinity,
             id = this.id + '_dummy',
             lbl = $('label[for="' + this.id + '"]').attr('for', id),
             label = s.label !== undefined ? s.label : (lbl.length ? lbl.text() : elm.attr('name')),
@@ -303,7 +304,7 @@
                     if (selected) {
                         li.removeClass(selectedClass).removeAttr('aria-selected');
                         delete selectedValues[val];
-                    } else {
+                    } else if (util.objectToArray(selectedValues).length < maxSelect) {
                         li.addClass(selectedClass).attr('aria-selected', 'true');
                         selectedValues[val] = val;
                     }
