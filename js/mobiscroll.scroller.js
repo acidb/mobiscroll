@@ -1,15 +1,14 @@
 (function ($, window, document, undefined) {
-    var //move,
-        ms = $.mobiscroll,
+    var ms = $.mobiscroll,
         classes = ms.classes,
         util = ms.util,
         //pref = util.prefix,
         //pr = util.jsPrefix,
         //has3d = util.has3d,
         hasFlex = util.hasFlex;
-    //getCoord = util.getCoord,
-    //constrain = util.constrain;
-    //testTouch = util.testTouch;
+        //getCoord = util.getCoord,
+        //constrain = util.constrain,
+        //testTouch = util.testTouch;
 
     ms.presetShort('scroller', 'Scroller', false);
 
@@ -20,6 +19,7 @@
             batchSize = 20,
             itemHeight,
             //multiple,
+            pixels,
             s,
             //scrollDebounce,
             trigger,
@@ -40,20 +40,18 @@
             $elm = $(el),
             //iv = {},
             //pos = {},
-            //pixels = {},
             wheels = [];
 
         // Event handlers
 
         //function onStart(ev) {
         //    // Scroll start
-        //    if (testTouch(ev, this) && !move && !click && !btn && !isReadOnly(this)) {
+        //    if (testTouch(ev, this) && !target && !click && !btn && !isReadOnly(this)) {
         //        // Prevent touch highlight
         //        ev.preventDefault();
         //        // Better performance if there are tap events on document
         //        ev.stopPropagation();
 
-        //        move = true;
         //        isScrollable = s.mode != 'clickpick';
         //        target = $('.dw-ul', this);
         //        setGlobals(target);
@@ -75,7 +73,7 @@
         //}
 
         //function onMove(ev) {
-        //    if (move) {
+        //    if (target) {
         //        if (isScrollable) {
         //            // Prevent scroll
         //            ev.preventDefault();
@@ -90,7 +88,7 @@
         //}
 
         //function onEnd(ev) {
-        //    if (move) {
+        //    if (target) {
         //        var time = new Date() - startTime,
         //            curr = constrain(Math.round(p + (start - stop) / itemHeight), min - 1, max + 1),
         //            val = curr,
@@ -100,8 +98,6 @@
 
         //        // Better performance if there are tap events on document
         //        ev.stopPropagation();
-
-        //        move = false;
 
         //        if (ev.type === 'mouseup') {
         //            $(document).off('mousemove', onMove).off('mouseup', onEnd);
@@ -140,6 +136,7 @@
 
         //            if (!multiple && (s.confirmOnTap === true || s.confirmOnTap[index]) && li.hasClass('dw-sel')) {
         //                that.select();
+        //                target = false;
         //                return;
         //            }
         //        } else {
@@ -150,6 +147,8 @@
         //        if (isScrollable) {
         //            calc(target, index, val, 0, time, true);
         //        }
+
+                  target = false;
         //    }
         //}
 
@@ -462,7 +461,7 @@
         //            }
         //        });
 
-        //        trigger('onValidated', []);
+        //        trigger('onValidated', [index]);
 
         //        // Reformat value if validation changed something
         //        that._tempValue = s.formatValue(that._tempWheelArray, that);
@@ -807,7 +806,7 @@
         //        .on('touchmove', '.dwwl', onMove)
         //        .on('touchend', '.dwwl', onEnd)
         //        .on('touchstart mousedown', '.dwwb', onBtnStart)
-        //        .on('touchend', '.dwwb', onBtnEnd);
+        //        .on('touchend touchcancel', '.dwwb', onBtnEnd);
 
         //    if (s.mousewheel) {
         //        $markup.on('wheel mousewheel', '.dwwl', onScroll);
@@ -820,6 +819,7 @@
 
         that._markupReady = function ($m) {
             $markup = $m;
+            //pixels = {};
 
             $('.mbsc-sc-whl', $markup).each(function (i) {
                 var idx,

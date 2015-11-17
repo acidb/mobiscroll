@@ -5,7 +5,8 @@
         setText: 'OK',
         cancelText: 'Atšaukti',
         clearText: 'Išvalyti',
-        selectedText: 'pasirinktas',
+        selectedText: 'Pasirinktas {count}',
+        selectedPluralText: 'Pasirinkti {count}',
         // Datetime component
         dateFormat: 'yy.mm.dd',
         dateOrder: 'yymmdd',

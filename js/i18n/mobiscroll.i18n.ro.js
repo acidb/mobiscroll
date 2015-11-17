@@ -4,8 +4,8 @@
         setText: 'Setare',
         cancelText: 'Anulare',
         clearText: 'Ştergere',
-        selectedText: 'selectat',
-        selectedPluralText: 'selectate',
+        selectedText: '{count} selectat',
+        selectedPluralText: '{count} selectate',
         // Datetime component
         dateFormat: 'dd.mm.yy',
         dateOrder: 'ddmmy',

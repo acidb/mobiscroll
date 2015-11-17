@@ -31,4 +31,8 @@
         baseTheme: 'android-holo'
     };
 
+    $.mobiscroll.themes.progress['android-holo-light'] = {
+        baseTheme: 'android-holo'
+    };
+
 })(jQuery);

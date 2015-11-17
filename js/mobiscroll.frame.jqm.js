@@ -1,10 +1,9 @@
 (function ($) {
 
-    var ver = $.mobile && $.mobile.version && $.mobile.version.match(/1\.4/);
+    var ver;
 
     $.mobiscroll.themes.frame.jqm = {
         jqmBorder: 'a',
-        jqmBody: ver ? 'a' : 'c',
         jqmHeader: 'b',
         jqmWheel: 'd',
         jqmLine: 'b',
@@ -22,6 +21,12 @@
             var cal = s.jqmBody || 'c',
                 txt = s.jqmEventText || 'b',
                 bubble = s.jqmEventBubble || 'a';
+
+            ver = $.mobile && $.mobile.version && $.mobile.version.match(/1\.4/);
+
+            if (!s.jqmBody) {
+                s.jqmBody = ver ? 'a' : 'c';
+            }
 
             s.dayClass = 'ui-body-a ui-body-' + cal;
             s.innerDayClass = 'ui-state-default ui-btn ui-btn-up-' + cal;

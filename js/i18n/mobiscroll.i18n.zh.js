@@ -4,7 +4,7 @@
         setText: '确定',
         cancelText: '取消',
         clearText: '明确',
-        selectedText: '选',
+        selectedText: '{count} 选',
         // Datetime component
         dateFormat: 'yy/mm/dd',
         dateOrder: 'yymmdd',

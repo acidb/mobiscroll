@@ -80,6 +80,9 @@
             optionArray = [];
             groupArray = [];
 
+            // Reset invalids
+            invalid.length = 0;
+
             if (hasData) {
                 $.each(s.data, function (i, v) {
                     txt = v[s.dataText];
@@ -446,11 +449,12 @@
                         $.each(selectedValues, function () {
                             length++;
                         });
-                        return length + ' ' + (length > 1 ? s.selectedPluralText || s.selectedText : s.selectedText);
+                        return (length > 1 ? s.selectedPluralText || s.selectedText : s.selectedText).replace(/{count}/, length);
                     };
                 }
 
                 getOption(elm.val());
+
 
                 if (groupWheel) {
                     inst._tempWheelArray = [group, option];

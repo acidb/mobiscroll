@@ -4,8 +4,8 @@
         setText: 'Terminer',
         cancelText: 'Annuler',
         clearText: 'Effacer',
-        selectedText: 'sélectionné',
-        selectedPluralText: 'sélectionnés',
+        selectedText: '{count} sélectionné',
+        selectedPluralText: '{count} sélectionnés',
         // Datetime component
         dateFormat: 'dd/mm/yy',
         dateOrder: 'ddmmyy',

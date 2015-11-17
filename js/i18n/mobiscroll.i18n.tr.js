@@ -4,7 +4,7 @@
         setText: 'Seç',
         cancelText: 'İptal',
         clearText: 'Temizleyin',
-        selectedText: 'seçilmiş',
+        selectedText: '{count} seçilmiş',
         // Datetime component
         dateFormat: 'dd.mm.yy',
         dateOrder: 'ddmmyy',

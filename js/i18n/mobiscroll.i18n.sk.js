@@ -4,7 +4,7 @@
         setText: 'Zadaj',
         cancelText: 'Zrušiť',
         clearText: 'Vymazať',
-        selectedText: 'označený',
+        selectedText: 'Označený: {count}',
         // Datetime component
         dateFormat: 'dd/mm/yy',
         dateOrder: 'ddmmy',
