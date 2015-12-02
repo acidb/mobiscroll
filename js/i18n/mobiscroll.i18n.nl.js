@@ -51,6 +51,11 @@
         undoText: 'Onged. maken',
         // Form
         offText: 'Uit',
-        onText: 'Aan'
+        onText: 'Aan',
+        // Numpad
+        separators: {
+            decimal: ',',
+            thousands: ' '
+        }
     };
 })(jQuery);

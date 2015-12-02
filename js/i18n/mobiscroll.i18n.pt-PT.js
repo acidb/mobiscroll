@@ -55,6 +55,11 @@
         undoText: 'Anular',
         // Form
         offText: 'Desl',
-        onText: 'Lig'
+        onText: 'Lig',
+        // Numpad
+        separators: {
+            decimal: ',',
+            thousands: ' '
+        }
     };
 })(jQuery);

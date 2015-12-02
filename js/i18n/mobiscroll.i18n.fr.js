@@ -52,6 +52,11 @@
         undoText: 'Défaire',
         // Form
         offText: 'Non',
-        onText: 'Oui'
+        onText: 'Oui',
+        // Numpad
+        separators: {
+            decimal: ',',
+            thousands: ' '
+        }
     };
 })(jQuery);

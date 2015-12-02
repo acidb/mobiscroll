@@ -59,6 +59,11 @@
         undoText: 'Visszavon',
         // Form
         offText: 'Ki',
-        onText: 'Be'
+        onText: 'Be',
+        // Numpad
+        separators: {
+            decimal: ',',
+            thousands: ' '
+        }
     };
 })(jQuery);

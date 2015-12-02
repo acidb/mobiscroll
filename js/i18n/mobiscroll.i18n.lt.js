@@ -53,6 +53,11 @@
         undoText: 'Atšaukti veiksmą',
         // Form
         offText: 'Išj.',
-        onText: 'Įj.'
+        onText: 'Įj.',
+        // Numpad
+        separators: {
+            decimal: ',',
+            thousands: ' '
+        }
     };
 })(jQuery);

@@ -52,6 +52,11 @@
         undoText: 'Rückgängig machen',
         // Form
         offText: 'Aus',
-        onText: 'Ein'
+        onText: 'Ein',
+        // Numpad
+        separators: {
+            decimal: ',',
+            thousands: ' '
+        }
     };
 })(jQuery);

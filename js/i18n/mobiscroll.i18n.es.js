@@ -51,6 +51,11 @@
         undoText: 'Deshacer',
         // Form
         offText: 'No',
-        onText: 'Sí'
+        onText: 'Sí',
+        // Numpad
+        separators: {
+            decimal: ',',
+            thousands: ' '
+        }
     };
 })(jQuery);

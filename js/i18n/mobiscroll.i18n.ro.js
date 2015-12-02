@@ -53,6 +53,11 @@
         undoText: 'Anulaţi',
         // Form
         offText: 'Nu',
-        onText: 'Da'
+        onText: 'Da',
+        // Numpad
+        separators: {
+            decimal: ',',
+            thousands: ' '
+        }
     };
 })(jQuery);

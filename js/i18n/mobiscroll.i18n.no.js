@@ -52,6 +52,11 @@
         undoText: 'Angre',
         // Form
         offText: 'Av',
-        onText: 'På'
+        onText: 'På',
+        // Numpad
+        separators: {
+            decimal: ',',
+            thousands: ' '
+        }
     };
 })(jQuery);

@@ -51,6 +51,11 @@
         undoText: 'Cofnij',
         // Form
         offText: 'Wył',
-        onText: 'Wł'
+        onText: 'Wł',
+        // Numpad
+        separators: {
+            decimal: ',',
+            thousands: ' '
+        }
     };
 })(jQuery);
