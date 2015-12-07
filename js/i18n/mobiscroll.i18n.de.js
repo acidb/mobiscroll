@@ -40,7 +40,7 @@
         unitText: 'Maßeinheit',
         // Time / Timespan component
         labels: ['Jahre', 'Monate', 'Tage', 'Stunden', 'Minuten', 'Sekunden', ''],
-		labelsShort: ['Jahr.', 'Mon.', 'Tag.', 'Std.', 'Min.', 'Sek.', ''],
+        labelsShort: ['Jahr.', 'Mon.', 'Tag.', 'Std.', 'Min.', 'Sek.', ''],
         // Timer component
         startText: 'Starten',
         stopText: 'Stoppen',
