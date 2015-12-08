@@ -40,7 +40,7 @@
         unitText: 'Enhet',
         // Time / Timespan component
         labels: ['År', 'Måneder', 'Dager', 'Timer', 'Minutter', 'Sekunder', ''],
-        labelsShort: ['Yrs', 'Mths', 'Days', 'Hrs', 'Mins', 'Secs', ''],
+        labelsShort: ['År', 'Mån', 'Dag', 'Time', 'Min', 'Sek', ''],
         // Timer component
         startText: 'Start',
         stopText: 'Stopp',
