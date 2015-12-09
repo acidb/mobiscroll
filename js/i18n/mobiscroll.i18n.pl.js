@@ -53,9 +53,7 @@
         offText: 'Wył',
         onText: 'Wł',
         // Numpad
-        separators: {
-            decimal: ',',
-            thousands: ' '
-        }
+        decimalSeparator: ',',
+        thousandsSeparator: ' '
     };
 })(jQuery);

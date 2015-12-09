@@ -57,9 +57,7 @@
         offText: 'Desl',
         onText: 'Lig',
         // Numpad
-        separators: {
-            decimal: ',',
-            thousands: ' '
-        }
+        decimalSeparator: ',',
+        thousandsSeparator: ' '
     };
 })(jQuery);

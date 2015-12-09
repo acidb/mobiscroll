@@ -61,9 +61,7 @@
         offText: 'Ki',
         onText: 'Be',
         // Numpad
-        separators: {
-            decimal: ',',
-            thousands: ' '
-        }
+        decimalSeparator: ',',
+        thousandsSeparator: ' '
     };
 })(jQuery);

@@ -53,9 +53,7 @@
         offText: 'No',
         onText: 'Sí',
         // Numpad
-        separators: {
-            decimal: ',',
-            thousands: ' '
-        }
+        decimalSeparator: ',',
+        thousandsSeparator: ' '
     };
 })(jQuery);

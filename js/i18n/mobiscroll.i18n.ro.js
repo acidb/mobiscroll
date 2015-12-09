@@ -55,9 +55,7 @@
         offText: 'Nu',
         onText: 'Da',
         // Numpad
-        separators: {
-            decimal: ',',
-            thousands: ' '
-        }
+        decimalSeparator: ',',
+        thousandsSeparator: ' '
     };
 })(jQuery);

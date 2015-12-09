@@ -53,9 +53,7 @@
         offText: 'Uit',
         onText: 'Aan',
         // Numpad
-        separators: {
-            decimal: ',',
-            thousands: ' '
-        }
+        decimalSeparator: ',',
+        thousandsSeparator: ' '
     };
 })(jQuery);

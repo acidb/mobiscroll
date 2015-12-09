@@ -54,9 +54,7 @@
         offText: 'Aus',
         onText: 'Ein',
         // Numpad
-        separators: {
-            decimal: ',',
-            thousands: ' '
-        }
+        decimalSeparator: ',',
+        thousandsSeparator: ' '
     };
 })(jQuery);

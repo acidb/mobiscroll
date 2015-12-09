@@ -54,9 +54,7 @@
         offText: 'O',
         onText: 'I',
         // Numpad
-        separators: {
-            decimal: ',',
-            thousands: '.'
-        }
+        decimalSeparator: ',',
+        thousandsSeparator: '.'
     };
 })(jQuery);

@@ -55,9 +55,7 @@
         offText: 'Išj.',
         onText: 'Įj.',
         // Numpad
-        separators: {
-            decimal: ',',
-            thousands: ' '
-        }
+        decimalSeparator: ',',
+        thousandsSeparator: ' '
     };
 })(jQuery);

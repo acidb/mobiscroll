@@ -54,9 +54,7 @@
         offText: 'Via',
         onText: 'Su',
         // Numpad
-        separators: {
-            decimal: ',',
-            thousands: ' '
-        }
+        decimalSeparator: ',',
+        thousandsSeparator: ' '
     };
 })(jQuery);
