@@ -52,6 +52,9 @@
         undoText: 'аннулировать',
         // Form
         offText: 'O',
-        onText: 'I'
+        onText: 'I',
+        // Numpad
+        decimalSeparator: ',',
+        thousandsSeparator: ' '
     };
 })(jQuery);

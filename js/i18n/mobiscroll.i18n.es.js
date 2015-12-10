@@ -52,6 +52,9 @@
         undoText: 'Deshacer',
         // Form
         offText: 'No',
-        onText: 'Sí'
+        onText: 'Sí',
+        // Numpad
+        decimalSeparator: ',',
+        thousandsSeparator: ' '
     };
 })(jQuery);

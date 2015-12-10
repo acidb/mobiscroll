@@ -50,6 +50,9 @@
         undoText: '复原',
         // Form
         offText: '关闭',
-        onText: '开启'
+        onText: '开启',
+        // Numpad
+        decimalSeparator: ',',
+        thousandsSeparator: ' '
     };
 })(jQuery);

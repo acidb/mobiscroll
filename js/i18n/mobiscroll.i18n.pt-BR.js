@@ -54,6 +54,9 @@
         undoText: 'Desfazer',
         // Form
         offText: 'Desl',
-        onText: 'Lig'
+        onText: 'Lig',
+        // Numpad
+        decimalSeparator: ',',
+        thousandsSeparator: ' '
     };
 })(jQuery);

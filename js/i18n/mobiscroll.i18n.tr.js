@@ -52,6 +52,9 @@
         undoText: 'Geri Al',
         // Form
         offText: 'O',
-        onText: 'I'
+        onText: 'I',
+        // Numpad
+        decimalSeparator: ',',
+        thousandsSeparator: '.'
     };
 })(jQuery);

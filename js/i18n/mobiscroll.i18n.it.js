@@ -52,6 +52,9 @@
         undoText: 'Annulla',
         // Form
         offText: 'Via',
-        onText: 'Su'
+        onText: 'Su',
+        // Numpad
+        decimalSeparator: ',',
+        thousandsSeparator: ' '
     };
 })(jQuery);
