@@ -56,7 +56,7 @@
                 setGlobals(target);
                 moved = iv[index] !== undefined; // Don't allow tap, if still moving
                 p = moved ? getCurrentPosition(target) : pos[index];
-                start = getCoord(ev, 'Y');
+                start = getCoord(ev, 'Y', true);
                 startTime = new Date();
                 stop = start;
                 scroll(target, index, p, 0.001);
@@ -77,7 +77,7 @@
                     // Prevent scroll
                     ev.preventDefault();
                     ev.stopPropagation();
-                    stop = getCoord(ev, 'Y');
+                    stop = getCoord(ev, 'Y', true);
                     if (Math.abs(stop - start) > 3 || moved) {
                         scroll(target, index, constrain(p + (start - stop) / itemHeight, min - 1, max + 1));
                         moved = true;

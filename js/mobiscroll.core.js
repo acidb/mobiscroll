@@ -129,9 +129,9 @@
             isString: function (s) {
                 return typeof s === 'string';
             },
-            getCoord: function (e, c, client) {
+            getCoord: function (e, c, page) {
                 var ev = e.originalEvent || e,
-                    prop = (client ? 'client' : 'page') + c;
+                    prop = (page ? 'page' : 'client') + c;
                 return ev.changedTouches ? ev.changedTouches[0][prop] : e[prop];
             },
             getPosition: function (t, vertical) {
@@ -344,7 +344,7 @@
 
             function onMove(ev) {
                 // If movement is more than 20px, don't fire the click event handler
-                if (target && !moved && Math.abs(getCoord(ev, 'X') - startX) > 20 || Math.abs(getCoord(ev, 'Y') - startY) > 20) {
+                if (target && !moved && Math.abs(getCoord(ev, 'X') - startX) > 9 || Math.abs(getCoord(ev, 'Y') - startY) > 9) {
                     moved = true;
                 }
             }
