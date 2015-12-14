@@ -423,6 +423,8 @@
 
         settings = settings || {};
 
+        $(el).addClass('mbsc-comp');
+
         // Autogenerate id
         if (!el.id) {
             el.id = 'mobiscroll' + (++id);

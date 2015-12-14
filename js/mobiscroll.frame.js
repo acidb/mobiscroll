@@ -320,6 +320,14 @@
 
             wndWidth = nw;
             wndHeight = nh;
+
+            // Call position for nested mobiscroll components
+            $('.mbsc-comp', $markup).each(function () {
+                var inst = $(this).mobiscroll('getInst');
+                if (inst !== that && inst.position) {
+                    inst.position();
+                }
+            });
         };
 
         /**
@@ -764,10 +772,9 @@
             buttons = s.buttons || [];
             isModal = s.display !== 'inline';
             setReadOnly = s.showOnFocus || s.showOnTap;
-            $wnd = $(s.context == 'body' ? window : s.context);
-            $ctx = $(s.context);
 
-            that.context = $wnd;
+            that._window = $wnd = $(s.context == 'body' ? window : s.context);
+            that._context = $ctx = $(s.context);
 
             that.live = true;
 
