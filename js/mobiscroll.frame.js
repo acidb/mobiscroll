@@ -145,6 +145,11 @@
             }
         }
 
+        function onBlur() {
+            $(this).off('blur', onBlur);
+            that.position();
+        }
+
         function show(beforeShow, $elm) {
             if (beforeShow) {
                 beforeShow();
@@ -204,7 +209,13 @@
                 minw = 0,
                 css = {},
                 nw = Math.min($wnd[0].innerWidth || $wnd.innerWidth(), $persp.width()), //$persp.width(), // To get the width without scrollbar
-                nh = $wnd[0].innerHeight || $wnd.innerHeight();
+                nh = $wnd[0].innerHeight || $wnd.innerHeight(),
+                $focused = $(document.activeElement);
+
+            if ($focused.is('input,textarea') && !/(button|submit|checkbox|radio)/.test($focused.attr('type'))) {
+                $focused.on('blur', onBlur);
+                return;
+            }
 
             if ((wndWidth === nw && wndHeight === nh && check) || preventPos) {
                 return;
