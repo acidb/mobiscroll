@@ -179,7 +179,7 @@
 }
 /* Progress */
 .mbsc-wp-light.mbsc-progress .mbsc-label {
-  color: #878787;
+  color: #000000;
 }
 .mbsc-wp-light.mbsc-progress .mbsc-input-ic {
   color: #000000;
@@ -234,6 +234,8 @@
 .mbsc-wp-light .mbsc-input textarea:disabled,
 .mbsc-wp-light .mbsc-input input:disabled {
   background-color: transparent;
+  color: #4f4f4f;
+  border-color: #4f4f4f;
 }
 /* Checkbox */
 .mbsc-wp-light .mbsc-checkbox-box {
