@@ -147,7 +147,9 @@
 
         function onBlur() {
             $(this).off('blur', onBlur);
-            that.position();
+            setTimeout(function () {
+                that.position();
+            }, 100);
         }
 
         function show(beforeShow, $elm) {
@@ -270,7 +272,9 @@
                 l = Math.max(0, sl + (nw - modalWidth) / 2);
                 t = st + (nh - modalHeight) / 2;
             } else if (s.display == 'bubble') {
-                scroll = true;
+                // Scroll only if width also changed
+                // to prevent scroll when address bar appears / hides
+                scroll = wndWidth !== nw;
                 arr = $('.dw-arrw-i', $markup);
                 ap = anchor.offset();
                 at = Math.abs($ctx.offset().top - ap.top);
@@ -326,7 +330,7 @@
                 setTimeout(function () {
                     preventPos = false;
                 }, 300);
-                $wnd.scrollTop(Math.min(t + modalHeight - nh, dh - nh));
+                $wnd.scrollTop(Math.min(at, t + modalHeight - nh, dh - nh));
             }
 
             wndWidth = nw;
