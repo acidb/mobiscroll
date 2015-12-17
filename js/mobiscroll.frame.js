@@ -145,6 +145,13 @@
             }
         }
 
+        function onBlur() {
+            $(this).off('blur', onBlur);
+            setTimeout(function () {
+                that.position();
+            }, 100);
+        }
+
         function show(beforeShow, $elm) {
             if (beforeShow) {
                 beforeShow();
@@ -204,7 +211,13 @@
                 minw = 0,
                 css = {},
                 nw = Math.min($wnd[0].innerWidth || $wnd.innerWidth(), $persp.width()), //$persp.width(), // To get the width without scrollbar
-                nh = $wnd[0].innerHeight || $wnd.innerHeight();
+                nh = $wnd[0].innerHeight || $wnd.innerHeight(),
+                $focused = $(document.activeElement);
+
+            if ($focused.is('input,textarea') && !/(button|submit|checkbox|radio)/.test($focused.attr('type'))) {
+                $focused.on('blur', onBlur);
+                return;
+            }
 
             if ((wndWidth === nw && wndHeight === nh && check) || preventPos) {
                 return;
@@ -259,7 +272,9 @@
                 l = Math.max(0, sl + (nw - modalWidth) / 2);
                 t = st + (nh - modalHeight) / 2;
             } else if (s.display == 'bubble') {
-                scroll = true;
+                // Scroll only if width also changed
+                // to prevent scroll when address bar appears / hides
+                scroll = wndWidth !== nw;
                 arr = $('.dw-arrw-i', $markup);
                 ap = anchor.offset();
                 at = Math.abs($ctx.offset().top - ap.top);
@@ -315,11 +330,19 @@
                 setTimeout(function () {
                     preventPos = false;
                 }, 300);
-                $wnd.scrollTop(Math.min(t + modalHeight - nh, dh - nh));
+                $wnd.scrollTop(Math.min(at, t + modalHeight - nh, dh - nh));
             }
 
             wndWidth = nw;
             wndHeight = nh;
+
+            // Call position for nested mobiscroll components
+            $('.mbsc-comp', $markup).each(function () {
+                var inst = $(this).mobiscroll('getInst');
+                if (inst !== that && inst.position) {
+                    inst.position();
+                }
+            });
         };
 
         /**
@@ -391,7 +414,7 @@
          */
         that.clear = function () {
             event('onClear', [$markup]);
-            if (isModal && !that.live) {
+            if (isModal && that._isVisible && !that.live) {
                 that.hide(false, 'clear', false, clear);
             } else {
                 clear();
@@ -653,9 +676,9 @@
                 }
 
                 if (has3d && isModal && doAnim && !prevAnim && !$markup.hasClass('dw-trans')) { // If dw-trans class was not removed, means that there was no animation
-                    $markup.addClass('dw-out dw-trans').find('.dw').addClass('dw-' + doAnim).on(animEnd, function () {
+                    $markup.addClass('dw-out dw-trans').on(animEnd, function () {
                         onHide(prevAnim);
-                    });
+                    }).find('.dw').addClass('dw-' + doAnim);
                 } else {
                     onHide(prevAnim);
                 }
@@ -764,10 +787,9 @@
             buttons = s.buttons || [];
             isModal = s.display !== 'inline';
             setReadOnly = s.showOnFocus || s.showOnTap;
-            $wnd = $(s.context == 'body' ? window : s.context);
-            $ctx = $(s.context);
 
-            that.context = $wnd;
+            that._window = $wnd = $(s.context == 'body' ? window : s.context);
+            that._context = $ctx = $(s.context);
 
             that.live = true;
 

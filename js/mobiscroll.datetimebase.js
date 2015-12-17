@@ -5,7 +5,7 @@
         date = new Date(),
         defaults = {
             startYear: date.getFullYear() - 100,
-            endYear: date.getFullYear() + 1, 
+            endYear: date.getFullYear() + 1,
             separator: ' ',
             // Localization
             dateFormat: 'mm/dd/yy',
@@ -33,22 +33,22 @@
             // Force format for html5 date inputs (experimental)
             if (that.is('input')) {
                 switch (that.attr('type')) {
-                case 'date':
-                    format = 'yy-mm-dd';
-                    break;
-                case 'datetime':
-                    format = 'yy-mm-ddTHH:ii:ssZ';
-                    break;
-                case 'datetime-local':
-                    format = 'yy-mm-ddTHH:ii:ss';
-                    break;
-                case 'month':
-                    format = 'yy-mm';
-                    html5def.dateOrder = 'mmyy';
-                    break;
-                case 'time':
-                    format = 'HH:ii:ss';
-                    break;
+                    case 'date':
+                        format = 'yy-mm-dd';
+                        break;
+                    case 'datetime':
+                        format = 'yy-mm-ddTHH:ii:ssZ';
+                        break;
+                    case 'datetime-local':
+                        format = 'yy-mm-ddTHH:ii:ss';
+                        break;
+                    case 'month':
+                        format = 'yy-mm';
+                        html5def.dateOrder = 'mmyy';
+                        break;
+                    case 'time':
+                        format = 'HH:ii:ss';
+                        break;
                 }
                 // Check for min/max attributes
                 var min = that.attr('min'),
@@ -80,7 +80,16 @@
                 ord = [],
                 o = {},
                 innerValues = {},
-                f = { y: getYear, m: getMonth, d: getDay, h: getHour, i: getMinute, s: getSecond, u: getMillisecond, a: getAmPm },
+                f = {
+                    y: getYear,
+                    m: getMonth,
+                    d: getDay,
+                    h: getHour,
+                    i: getMinute,
+                    s: getSecond,
+                    u: getMillisecond,
+                    a: getAmPm
+                },
                 invalid = s.invalid,
                 valid = s.valid,
                 p = s.preset,
@@ -113,10 +122,15 @@
                 $.each(['y', 'm', 'd'], function (j, v) {
                     i = dord.search(new RegExp(v, 'i'));
                     if (i > -1) {
-                        ord.push({ o: i, v: v });
+                        ord.push({
+                            o: i,
+                            v: v
+                        });
                     }
                 });
-                ord.sort(function (a, b) { return a.o > b.o ? 1 : -1; });
+                ord.sort(function (a, b) {
+                    return a.o > b.o ? 1 : -1;
+                });
                 $.each(ord, function (i, v) {
                     o[v.v] = i;
                 });
@@ -166,7 +180,10 @@
                 $.each(['h', 'i', 's', 'a'], function (i, v) {
                     i = tord.search(new RegExp(v, 'i'));
                     if (i > -1) {
-                        ord.push({ o: i, v: v });
+                        ord.push({
+                            o: i,
+                            v: v
+                        });
                     }
                 });
                 ord.sort(function (a, b) {
@@ -281,7 +298,7 @@
 
                 var year = get(d, 'y'),
                     month = get(d, 'm'),
-                    day = Math.min(get(d, 'd', 1), s.getMaxDayOfMonth(year, month)),
+                    day = Math.min(get(d, 'd'), s.getMaxDayOfMonth(year, month)),
                     hour = get(d, 'h', 0);
 
                 return s.getDate(year, month, day, get(d, 'a', 0) ? hour + 12 : hour, get(d, 'i', 0), get(d, 's', 0), get(d, 'u', 0));
@@ -441,7 +458,12 @@
             function validateTimes(vobj, i, v, temp, y, m, d, target, valid) {
                 var dd, ss, str, parts1, parts2, prop1, prop2, v1, v2, j, i1, i2, add, remove, all, hours1, hours2, hours3,
                     spec = {},
-                    steps = { h: stepH, i: stepM, s: stepS, a: 1 },
+                    steps = {
+                        h: stepH,
+                        i: stepM,
+                        s: stepS,
+                        a: 1
+                    },
                     day = s.getDate(y, m, d),
                     w = ['a', 'h', 'i', 's'];
 
@@ -453,8 +475,8 @@
                             ss = dd + '';
                             str = ss.split('/');
                             if (dd && ((dd.getTime && y == s.getYear(dd) && m == s.getMonth(dd) && d == s.getDay(dd)) || // Exact date
-                                (!ss.match(/w/i) && ((str[1] && d == str[1] && m == str[0] - 1) || (!str[1] && d == str[0]))) || // Day of month
-                                (ss.match(/w/i) && day.getDay() == +ss.replace('w', '')) // Day of week
+                                    (!ss.match(/w/i) && ((str[1] && d == str[1] && m == str[0] - 1) || (!str[1] && d == str[0]))) || // Day of month
+                                    (ss.match(/w/i) && day.getDay() == +ss.replace('w', '')) // Day of week
                                 )) {
                                 obj.apply = true;
                                 spec[day] = true; // Prevent applying generic rule on day, if specific exists
@@ -543,7 +565,7 @@
                                     }
                                 }
                             }
-                            
+
                             if (!all) {
                                 // Calculate min and max values
                                 v1 = step(parts1[i], steps[v], mins[v], maxs[v]) + add;
@@ -566,7 +588,7 @@
                                     $('.dw-li', target).slice(i1, i2).removeClass('dw-v');
                                 }
                             }
-                                    
+
                         }
                     });
                 }
@@ -664,14 +686,36 @@
             inst.format = hformat;
             inst.order = o;
 
-            inst.handlers.now = function () { inst.setDate(new Date(), false, 0.3, true, true); };
-            inst.buttons.now = { text: s.nowText, handler: 'now' };
+            inst.handlers.now = function () {
+                inst.setDate(new Date(), false, 0.3, true, true);
+            };
+
+            inst.buttons.now = {
+                text: s.nowText,
+                handler: 'now'
+            };
 
             invalid = convertRanges(invalid);
             valid = convertRanges(valid);
 
-            mins = { y: mind.getFullYear(), m: 0, d: 1, h: minH, i: minM, s: minS, a: 0 };
-            maxs = { y: maxd.getFullYear(), m: 11, d: 31, h: maxH, i: maxM, s: maxS, a: 1 };
+            mins = {
+                y: mind.getFullYear(),
+                m: 0,
+                d: 1,
+                h: minH,
+                i: minM,
+                s: minS,
+                a: 0
+            };
+            maxs = {
+                y: maxd.getFullYear(),
+                m: 11,
+                d: 31,
+                h: maxH,
+                i: maxM,
+                s: maxS,
+                a: 1
+            };
 
             // ---
 
