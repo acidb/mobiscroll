@@ -3,7 +3,7 @@
         // Core
         setText: 'Aceptar',
         cancelText: 'Cancelar',
-        clearText: 'Claro',
+        clearText: 'Borrar',
         selectedText: '{count} seleccionado',
         selectedPluralText: '{count} seleccionados',
         // Datetime component
@@ -26,6 +26,7 @@
         pmText: 'pm',
         amText: 'am',
         // Calendar component
+        firstDay: 1,
         dateText: 'Fecha',
         timeText: 'Tiempo',
         calendarText: 'Calendario',
@@ -39,7 +40,7 @@
         unitText: 'Unidad',
         // Time / Timespan component
         labels: ['Años', 'Meses', 'Días', 'Horas', 'Minutos', 'Segundos', ''],
-        labelsShort: ['Yrs', 'Mths', 'Days', 'Hrs', 'Mins', 'Secs', ''],
+        labelsShort: ['Año', 'Mes', 'Día', 'Hora', 'Min', 'Seg', ''],
         // Timer component
         startText: 'Iniciar',
         stopText: 'Deténgase',
@@ -47,10 +48,13 @@
         lapText: 'Lap',
         hideText: 'Esconder',
         // Listview
-        backText: 'Espalda',
+        backText: 'Volver',
         undoText: 'Deshacer',
         // Form
         offText: 'No',
-        onText: 'Sí'
+        onText: 'Sí',
+        // Numpad
+        decimalSeparator: ',',
+        thousandsSeparator: ' '
     };
 })(jQuery);

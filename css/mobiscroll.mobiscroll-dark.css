@@ -44,6 +44,8 @@
 }
 .mbsc-mobiscroll-dark .dw-cal-days {
   color: #50ccc4;
+}
+.mbsc-mobiscroll-dark .dw-cal-days th {
   border-color: #50ccc4;
 }
 .mbsc-mobiscroll-dark .dw-cal-btn-txt {

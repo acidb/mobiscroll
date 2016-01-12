@@ -40,7 +40,7 @@
         unitText: 'Maßeinheit',
         // Time / Timespan component
         labels: ['Jahre', 'Monate', 'Tage', 'Stunden', 'Minuten', 'Sekunden', ''],
-        labelsShort: ['Yrs', 'Mths', 'Days', 'Hrs', 'Mins', 'Secs', ''],
+        labelsShort: ['Jahr.', 'Mon.', 'Tag.', 'Std.', 'Min.', 'Sek.', ''],
         // Timer component
         startText: 'Starten',
         stopText: 'Stoppen',
@@ -52,6 +52,9 @@
         undoText: 'Rückgängig machen',
         // Form
         offText: 'Aus',
-        onText: 'Ein'
+        onText: 'Ein',
+        // Numpad
+        decimalSeparator: ',',
+        thousandsSeparator: ' '
     };
 })(jQuery);

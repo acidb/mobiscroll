@@ -40,7 +40,7 @@
         unitText: 'Unità',
         // Time / Timespan component
         labels: ['Anni', 'Mesi', 'Giorni', 'Ore', 'Minuti', 'Secondi', ''],
-        labelsShort: ['Yrs', 'Mths', 'Days', 'Hrs', 'Mins', 'Secs', ''],
+        labelsShort: ['Anni', 'Mesi', 'Gio', 'Ore', 'Min', 'Sec', ''],
         // Timer component
         startText: 'Inizio',
         stopText: 'Arresto',
@@ -52,6 +52,9 @@
         undoText: 'Annulla',
         // Form
         offText: 'Via',
-        onText: 'Su'
+        onText: 'Su',
+        // Numpad
+        decimalSeparator: ',',
+        thousandsSeparator: ' '
     };
 })(jQuery);
