@@ -214,7 +214,7 @@
                 nh = $wnd[0].innerHeight || $wnd.innerHeight(),
                 $focused = $(document.activeElement);
 
-            if ($focused.is('input,textarea') && !/(button|submit|checkbox|radio)/.test($focused.attr('type'))) {
+            if (isModal && $focused.is('input,textarea') && !/(button|submit|checkbox|radio)/.test($focused.attr('type'))) {
                 $focused.on('blur', onBlur);
                 return;
             }
