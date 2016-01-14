@@ -6,9 +6,9 @@
         //pr = util.jsPrefix,
         //has3d = util.has3d,
         hasFlex = util.hasFlex;
-        //getCoord = util.getCoord,
-        //constrain = util.constrain,
-        //testTouch = util.testTouch;
+    //getCoord = util.getCoord,
+    //constrain = util.constrain,
+    //testTouch = util.testTouch;
 
     ms.presetShort('scroller', 'Scroller', false);
 
@@ -19,7 +19,7 @@
             batchSize = 20,
             itemHeight,
             //multiple,
-            pixels,
+            //pixels,
             s,
             //scrollDebounce,
             trigger,
@@ -148,7 +148,7 @@
         //            calc(target, index, val, 0, time, true);
         //        }
 
-                  target = false;
+        //        target = false;
         //    }
         //}
 
@@ -818,6 +818,8 @@
         };
 
         that._markupReady = function ($m) {
+            var skip;
+
             $markup = $m;
             //pixels = {};
 
@@ -840,15 +842,13 @@
                     maxSnapScroll: batchSize,
                     prevDef: true,
                     stopProp: true,
-                    onScroll: function (pos, time /*, easing*/ ) {
-                        //if (s.scroll3d && easing !== false) {
-                        //    wheel._$3d[0].style[pr + 'Transition'] = time ? pref + 'transform ' + Math.round(time) + 'ms ' + easing : '';
-                        //    wheel._$3d[0].style[pr + 'Transform'] = 'rotateX(' + (-pos * 22.5 / itemHeight) + 'deg)';
-                        //}
+                    timeUnit: 3,
+                    easing: 'cubic-bezier(0.190, 1.000, 0.220, 1.000)',
+                    onAnimationStart: function (ev) {
+                        var time = ev.duration,
+                            pos = ev.destinationY;
 
-                        if (time === false) {
-                            infinite(wheel, pos);
-                        } else {
+                        if (!skip) {
                             idx = Math.round(-pos / itemHeight);
                             // Get the value of the new position
                             that._tempWheelArray[i] = getItem(wheel, wheel.keys, Math.round(-pos / itemHeight));
@@ -856,8 +856,19 @@
                             wheel._batch = wheel._array ? Math.floor(idx / len) * len * itemHeight : 0;
                             // Validate
                             // TODO: pass direction
-                            scrollToPos(time, i);
+                            setTimeout(function () {
+                                skip = true;
+                                scrollToPos(time, i);
+                                skip = false;
+                            }, 10);
                         }
+                    },
+                    onMove: function (ev) {
+                        //if (s.scroll3d && easing !== false) {
+                        //    wheel._$3d[0].style[pr + 'Transition'] = time ? pref + 'transform ' + Math.round(time) + 'ms ' + easing : '';
+                        //    wheel._$3d[0].style[pr + 'Transform'] = 'rotateX(' + (-pos * 22.5 / itemHeight) + 'deg)';
+                        //}
+                        infinite(wheel, ev.posY);
                     }
                 });
             });
