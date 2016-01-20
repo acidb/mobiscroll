@@ -307,7 +307,9 @@
                 key = getItem(wheel, keys, i);
 
                 //if (key !== undefined) {
-                html += '<div role="option" aria-selected="false" class="mbsc-sc-itm" data-val="' + key + '"' + (labels[i] ? ' aria-label="' + labels[i] + '"' : '') + ' style="height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;">' + value + '</div>';
+                // TODO: labels
+                // TODO: multiline
+                html += '<div role="option" aria-selected="false" class="mbsc-sc-itm mbsc-btn-e" data-index="' + i + '" data-val="' + key + '"' + (labels[i] ? ' aria-label="' + labels[i] + '"' : '') + ' style="height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;">' + value + '</div>';
                 //}
             }
 
@@ -574,13 +576,13 @@
                     wheel._scroller.scroll(-idx * itemHeight - wheel._batch, time);
 
                     // Enable all items
-                    wheel._$markup.find('.mbsc-sc-itm').removeClass('mbsc-sc-inv');
+                    wheel._$markup.find('.mbsc-sc-itm').removeClass('mbsc-sc-inv mbsc-btn-d');
 
                     // Disable invalid items
                     if (ret.disabled && ret.disabled[i]) {
                         // TODO: disable dynamically generated elements as well
                         $.each(ret.disabled[i], function (j, v) {
-                            wheel._$markup.find('.mbsc-sc-itm[data-val="' + v + '"]').addClass('mbsc-sc-inv');
+                            wheel._$markup.find('.mbsc-sc-itm[data-val="' + v + '"]').addClass('mbsc-sc-inv mbsc-btn-d');
                         });
                     }
                 });
@@ -656,14 +658,14 @@
         // @deprecated since 2.14.0, backward compatibility code
         // ---
 
-        that.setValue = function (val, fill, time, temp, change) {
-            that.setVal(val, fill, change, temp, time);
-        };
+        //that.setValue = function (val, fill, time, temp, change) {
+        //    that.setVal(val, fill, change, temp, time);
+        //};
 
         /**
          * Return the selected wheel values.
          */
-        that.getValue = that.getArrayVal;
+        //that.getValue = that.getArrayVal;
 
         // ---
 
@@ -869,6 +871,11 @@
                         //    wheel._$3d[0].style[pr + 'Transform'] = 'rotateX(' + (-pos * 22.5 / itemHeight) + 'deg)';
                         //}
                         infinite(wheel, ev.posY);
+                    },
+                    onBtnTap: function ($item, inst) {
+                        if (trigger('onValueTap', [$item]) !== false) {
+                            inst.scroll(-$item.attr('data-index') * itemHeight, 200);
+                        }
                     }
                 });
             });
@@ -903,9 +910,9 @@
 
             // @deprecated since 2.15.0, backward compatibility code
             // ---
-            if (s.formatResult) {
-                s.formatValue = s.formatResult;
-            }
+            //if (s.formatResult) {
+            //    s.formatValue = s.formatResult;
+            //}
             // ---
 
             if (lines > 1) {
