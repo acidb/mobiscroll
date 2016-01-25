@@ -2,10 +2,12 @@
     var ms = $.mobiscroll,
         classes = ms.classes,
         util = ms.util,
-        //pref = util.prefix,
-        //pr = util.jsPrefix,
-        //has3d = util.has3d,
-        hasFlex = util.hasFlex;
+        getCoord = util.getCoord,
+        testTouch = util.testTouch;
+    //pref = util.prefix,
+    //pr = util.jsPrefix,
+    //has3d = util.has3d,
+    //hasFlex = util.hasFlex,
     //getCoord = util.getCoord,
     //constrain = util.constrain,
     //testTouch = util.testTouch;
@@ -14,9 +16,15 @@
 
     classes.Scroller = function (el, settings, inherit) {
         var $markup,
+            $stepBtn,
             //btn,
             //isScrollable,
             batchSize = 20,
+            stepTimer,
+            stepRunning,
+            stepSkip,
+            stepBtnX,
+            stepBtnY,
             itemHeight,
             //multiple,
             //pixels,
@@ -152,42 +160,104 @@
         //    }
         //}
 
-        //function onBtnStart(ev) {
-        //    btn = $(this);
-        //    // +/- buttons
-        //    if (testTouch(ev, this)) {
-        //        step(ev, btn.closest('.dwwl'), btn.hasClass('dwwbp') ? plus : minus);
-        //    }
-        //    if (ev.type === 'mousedown') {
-        //        $(document).on('mouseup', onBtnEnd);
-        //    }
-        //}
+        function onBtnStart(ev) {
+            //    btn = $(this);
+            //    // +/- buttons
+            //    if (testTouch(ev, this)) {
+            //        step(ev, btn.closest('.dwwl'), btn.hasClass('dwwbp') ? plus : minus);
+            //    }
+            //    if (ev.type === 'mousedown') {
+            //        $(document).on('mouseup', onBtnEnd);
+            //    }
 
-        //function onBtnEnd(ev) {
-        //    btn = null;
-        //    if (click) {
-        //        clearInterval(timer);
-        //        click = false;
-        //    }
-        //    if (ev.type === 'mouseup') {
-        //        $(document).off('mouseup', onBtnEnd);
-        //    }
-        //}
+            var i = $(this).attr('data-index');
 
-        //function onKeyDown(ev) {
-        //    if (ev.keyCode == 38) { // up
-        //        step(ev, $(this), minus);
-        //    } else if (ev.keyCode == 40) { // down
-        //        step(ev, $(this), plus);
-        //    }
-        //}
+            ev.stopPropagation();
 
-        //function onKeyUp() {
-        //    if (click) {
-        //        clearInterval(timer);
-        //        click = false;
-        //    }
-        //}
+            if (ev.type === 'mousedown') {
+                // Prevent focus
+                ev.preventDefault();
+            }
+
+            if (testTouch(ev, this) && !isReadOnly(i)) {
+
+                $stepBtn = $(this).addClass('mbsc-sc-btn-a');
+
+                stepBtnX = getCoord(ev, 'X');
+                stepBtnY = getCoord(ev, 'Y');
+
+                stepRunning = true;
+                stepSkip = false;
+                setTimeout(function () {
+                    runStepper(i, $stepBtn.attr('data-dir') == 'inc' ? 1 : -1);
+                }, 100);
+
+                if (ev.type === 'mousedown') {
+                    $(document)
+                        .on('mousemove', onBtnMove)
+                        .on('mouseup', onBtnEnd);
+                }
+            }
+        }
+
+        function onBtnMove(ev) {
+            if (Math.abs(stepBtnX - getCoord(ev, 'X')) > 7 || Math.abs(stepBtnY - getCoord(ev, 'Y')) > 7) {
+                stopStepper(true);
+            }
+        }
+
+        function onBtnEnd(ev) {
+            //    btn = null;
+            //    if (click) {
+            //        clearInterval(timer);
+            //        click = false;
+            //    }
+            //    if (ev.type === 'mouseup') {
+            //        $(document).off('mouseup', onBtnEnd);
+            //    }
+            //}
+            stopStepper();
+
+            if (ev.type === 'mouseup') {
+                $(document)
+                    .off('mousemove', onBtnMove)
+                    .off('mouseup', onBtnEnd);
+            }
+        }
+
+        function onKeyDown(ev) {
+            //    if (ev.keyCode == 38) { // up
+            //        step(ev, $(this), minus);
+            //    } else if (ev.keyCode == 40) { // down
+            //        step(ev, $(this), plus);
+            //    }
+            var direction;
+
+            if (ev.keyCode == 38) { // up
+                direction = -1;
+            } else if (ev.keyCode == 40) { // down
+                direction = 1;
+            }
+
+            if (direction) {
+                ev.stopPropagation();
+                ev.preventDefault();
+
+                if (!stepRunning) {
+                    stepRunning = true;
+                    stepSkip = false;
+                    runStepper($(this).attr('data-index'), direction);
+                }
+            }
+        }
+
+        function onKeyUp() {
+            //    if (click) {
+            //        clearInterval(timer);
+            //        click = false;
+            //    }
+            stopStepper();
+        }
 
         //function onScroll(ev) {
         //    if (!isReadOnly(this)) {
@@ -209,6 +279,34 @@
         //}
 
         // Private functions
+
+        function runStepper(index, direction) {
+            if (!stepSkip) {
+                step(index, direction);
+            }
+
+            if (stepRunning) {
+                clearInterval(stepTimer);
+                stepTimer = setInterval(function () {
+                    step(index, direction);
+                }, s.delay);
+            }
+        }
+
+        function stopStepper(skip) {
+            clearInterval(stepTimer);
+            stepSkip = skip;
+            stepRunning = false;
+
+            if ($stepBtn) {
+                $stepBtn.removeClass('mbsc-sc-btn-a');
+            }
+        }
+
+        function step(index, direction) {
+            var wheel = wheels[index];
+            wheel._scroller.scroll(-(wheel._index + direction) * itemHeight, 200);
+        }
 
         //function step(ev, w, func) {
         //    ev.stopPropagation();
@@ -232,6 +330,10 @@
         //    }
         //    return s.readonly;
         //}
+
+        function isReadOnly(i) {
+            $.isArray(s.readonly) ? s.readonly[i] : s.readonly;
+        }
 
         function initWheel(w, l) {
             w.values = w.values || [];
@@ -748,22 +850,22 @@
                 html += '<div class="mbsc-w-p mbsc-sc-whl-gr' +
                     //(s.scroll3d ? ' mbsc-sc-whl-gr-3d' : '') +
                     (s.mode != 'scroller' ? ' mbsc-sc-cp' : '') +
-                    (s.showLabel ? ' mbsc-sc-lbl-v' : '') + '">' +
-                    //'<div class="dwwc"' + (s.maxWidth ? '' : ' style="max-width:600px;"') + '>' +
-                    (hasFlex ? '' : '<table class="dw-tbl" cellpadding="0" cellspacing="0"><tr>');
+                    (s.showLabel ? ' mbsc-sc-lbl-v' : '') + '">';
+                //'<div class="dwwc"' + (s.maxWidth ? '' : ' style="max-width:600px;"') + '>' +
+                //(hasFlex ? '' : '<table class="dw-tbl" cellpadding="0" cellspacing="0"><tr>');
 
                 $.each(wg, function (j, w) { // Wheels
                     wheels[l] = initWheel(w, l);
 
-                    html += '<' + (hasFlex ? 'div' : 'td') + ' class="mbsc-sc-whl"' + ' style="' +
+                    html += '<div tabindex="0" aria-live="off" aria-label="" role="listbox" data-index="' + l + '" class="mbsc-sc-whl"' + ' style="' +
                         'height:' + (s.rows * itemHeight) + 'px;' +
                         (s.fixedWidth ? ('width:' + (s.fixedWidth[l] || s.fixedWidth) + 'px;') :
                             (s.minWidth ? ('min-width:' + (s.minWidth[l] || s.minWidth) + 'px;') : 'min-width:' + s.width + 'px;') +
                             (s.maxWidth ? ('max-width:' + (s.maxWidth[l] || s.maxWidth) + 'px;') : '')) + '">' +
                         //'<div class="dwwl dwwl' + l + (w.multiple ? ' dwwms' : '') + '">' +
-                        //(s.mode != 'scroller' ?
-                        //    '<div class="dwb-e dwwb dwwbp ' + (s.btnPlusClass || '') + '" style="height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;"><span>+</span></div>' + // + button
-                        //    '<div class="dwb-e dwwb dwwbm ' + (s.btnMinusClass || '') + '" style="height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;"><span>&ndash;</span></div>' : '') + // - button
+                        (s.mode != 'scroller' ?
+                            '<div data-index="' + l + '" data-dir="inc" class="mbsc-sc-btn mbsc-sc-btn-plus ' + (s.btnPlusClass || '') + '" style="height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;"></div>' + // + button
+                            '<div data-index="' + l + '" data-dir="dec" class="mbsc-sc-btn mbsc-sc-btn-minus ' + (s.btnMinusClass || '') + '" style="height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;"></div>' : '') + // - button
                         //'<div class="dwl">' + lbl + '</div>' + // Wheel label
                         //'<div tabindex="0" aria-live="off" aria-label="' + lbl + '" role="listbox" class="dwww">' +
                         //'<div class="dww" style="height:' + (s.rows * itemHeight) + 'px;">' +
@@ -786,34 +888,43 @@
                     //    html += '</div>';
                     //}
 
-                    html +=
-                        //'</div></div><div class="dwwo"></div></div><div class="dwwol"' +
-                        //(s.selectedLineHeight ? ' style="height:' + itemHeight + 'px;margin-top:-' + (itemHeight / 2 + (s.selectedLineBorder || 0)) + 'px;"' : '') + '></div></div>' +
-                        (hasFlex ? '</div>' : '</td>');
+                    html += '</div>';
+                    //'</div></div><div class="dwwo"></div></div><div class="dwwol"' +
+                    //(s.selectedLineHeight ? ' style="height:' + itemHeight + 'px;margin-top:-' + (itemHeight / 2 + (s.selectedLineBorder || 0)) + 'px;"' : '') + '></div></div>' +
+                    //(hasFlex ? '</div>' : '</td>');
 
                     l++;
                 });
 
-                html += (hasFlex ? '' : '</tr></table>') + '</div>';
+                //html += (hasFlex ? '' : '</tr></table>') + '</div>';
+                html += '</div>';
             });
 
             return html;
         };
 
-        //that._attachEvents = function ($markup) {
-        //    $markup
-        //        .on('keydown', '.dwwl', onKeyDown)
-        //        .on('keyup', '.dwwl', onKeyUp)
-        //        .on('touchstart mousedown', '.dwwl', onStart)
-        //        .on('touchmove', '.dwwl', onMove)
-        //        .on('touchend', '.dwwl', onEnd)
-        //        .on('touchstart mousedown', '.dwwb', onBtnStart)
-        //        .on('touchend touchcancel', '.dwwb', onBtnEnd);
+        that._attachEvents = function ($markup) {
+            //    $markup
+            //        .on('keydown', '.dwwl', onKeyDown)
+            //        .on('keyup', '.dwwl', onKeyUp)
+            //        .on('touchstart mousedown', '.dwwl', onStart)
+            //        .on('touchmove', '.dwwl', onMove)
+            //        .on('touchend', '.dwwl', onEnd)
+            //        .on('touchstart mousedown', '.dwwb', onBtnStart)
+            //        .on('touchend touchcancel', '.dwwb', onBtnEnd);
 
-        //    if (s.mousewheel) {
-        //        $markup.on('wheel mousewheel', '.dwwl', onScroll);
-        //    }
-        //};
+            //    if (s.mousewheel) {
+            //        $markup.on('wheel mousewheel', '.dwwl', onScroll);
+            //    }
+            $('.mbsc-sc-btn', $markup)
+                .on('touchstart mousedown', onBtnStart)
+                .on('touchmove', onBtnMove)
+                .on('touchend touchcancel', onBtnEnd);
+
+            $('.mbsc-sc-whl', $markup)
+                .on('keydown', onKeyDown)
+                .on('keyup', onKeyUp);
+        };
 
         that._detachEvents = function ($m) {
             $('.mbsc-sc-whl', $m).mobiscroll('destroy');
@@ -827,11 +938,12 @@
 
             $('.mbsc-sc-whl', $markup).each(function (i) {
                 var idx,
+                    $wh = $(this),
                     wheel = wheels[i],
                     len = wheel.values.length;
 
                 wheel._$markup = $('.mbsc-sc-whl-sc', this);
-                wheel._$3d = $('.mbsc-sc-whl-3d', this);
+                //wheel._$3d = $('.mbsc-sc-whl-3d', this);
 
                 wheel._scroller = new ms.classes.ScrollView(this, {
                     mousewheel: s.mousewheel,
@@ -846,10 +958,19 @@
                     stopProp: true,
                     timeUnit: 3,
                     easing: 'cubic-bezier(0.190, 1.000, 0.220, 1.000)',
+                    onStart: function (ev, inst) {
+                        inst.settings.readonly = isReadOnly(i) || s.mode == 'clickpick';
+                    },
+                    onGestureStart: function () {
+                        $wh.addClass('mbsc-sc-whl-a');
+
+                    },
                     onAnimationStart: function (ev) {
-                        var time = ev.duration,
+                        var dir = ev.direction == 90 ? 1 : 2,
+                            time = ev.duration,
                             pos = ev.destinationY;
 
+                        // TODO: find a better solution than skip
                         if (!skip) {
                             idx = Math.round(-pos / itemHeight);
                             // Get the value of the new position
@@ -857,13 +978,15 @@
                             // In case of circular wheels calculate the offset of the current batch
                             wheel._batch = wheel._array ? Math.floor(idx / len) * len * itemHeight : 0;
                             // Validate
-                            // TODO: pass direction
                             setTimeout(function () {
                                 skip = true;
-                                scrollToPos(time, i);
+                                scrollToPos(time, i, dir);
                                 skip = false;
                             }, 10);
                         }
+                    },
+                    onAnimationEnd: function () {
+                        $wh.removeClass('mbsc-sc-whl-a');
                     },
                     onMove: function (ev) {
                         //if (s.scroll3d && easing !== false) {
@@ -907,13 +1030,6 @@
             lines = s.multiline;
 
             that._isLiquid = (s.layout || (/top|bottom/.test(s.display) && s.wheels.length == 1 ? 'liquid' : '')) === 'liquid';
-
-            // @deprecated since 2.15.0, backward compatibility code
-            // ---
-            //if (s.formatResult) {
-            //    s.formatValue = s.formatResult;
-            //}
-            // ---
 
             if (lines > 1) {
                 s.cssClass = (s.cssClass || '') + ' dw-ml';
