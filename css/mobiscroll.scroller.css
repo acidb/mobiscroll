@@ -318,6 +318,20 @@
 }
 /* New CSS */
 
+.mbsc-sc-whl-gr-c {
+    max-width: 100%;
+    vertical-align: middle;
+    display: inline-block;
+    overflow: hidden;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.dw-liq .mbsc-sc-whl-gr-c {
+    display: block;
+}
+
 .mbsc-sc-whl-gr {
     margin: 0 auto;
     position: relative;
@@ -330,14 +344,24 @@
     justify-content: center;
 }
 
-.mbsc-sc-whl {
+.mbsc-sc-whl-w {
     max-width: 100%;
     -webkit-box-flex: 1;
     -webkit-flex: 1 auto;
     -ms-flex: 1 auto;
     flex: 1 auto;
-    overflow: hidden;
     position: relative;
+}
+
+.mbsc-sc-whl {
+    overflow: hidden;
+    border-radius: 1px;
+    /* Forces IE to respect overflow hidden while animating */
+    
+    border-top: 1px solid transparent;
+    /* Fixes Firefox rendering issues */
+    
+    border-bottom: 1px solid transparent;
 }
 
 .mbsc-sc-whl-c {
@@ -351,11 +375,24 @@
 }
 
 .mbsc-sc-itm {
+    position: relative;
     cursor: pointer;
+    white-space: nowrap;
 }
 
 .mbsc-sc-inv {
     opacity: .3;
+}
+
+.mbsc-sc-lbl {
+    position: absolute;
+    width: 100%;
+    bottom: 100%;
+    display: none;
+}
+
+.mbsc-sc-lbl-v .mbsc-sc-lbl {
+    display: block;
 }
 
 .mbsc-sc-btn {
@@ -415,14 +452,31 @@
     -moz-backface-visibility: hidden;
     backface-visibility: hidden;
 }*/
+/* Multiple */
+
+.mbsc-sc-whl-multi {
+    top: 0;
+    height: 100%;
+}
 /* Default Theme */
 
 .mbsc-mobiscroll .mbsc-sc-whl-gr {
     padding: .5em .25em;
 }
 
-.mbsc-mobiscroll .mbsc-sc-whl {
+.mbsc-mobiscroll .mbsc-sc-whl-w {
     margin: 0 .25em;
+}
+
+.mbsc-mobiscroll .mbsc-sc-lbl-v .mbsc-sc-whl-w {
+    margin-top: 1.875em;
+}
+
+.mbsc-mobiscroll .mbsc-sc-lbl {
+    color: #4eccc4;
+    font-size: .75em;
+    line-height: 2.5em;
+    text-transform: uppercase;
 }
 /*.mbsc-mobiscroll .mbsc-sc-whl:after {
     content: '';
@@ -465,4 +519,23 @@
 
 .mbsc-mobiscroll .mbsc-btn-a {
     background: rgba(78, 204, 196, .3);
+}
+/* Multiple */
+
+.mbsc-mobiscroll .mbsc-sc-whl-multi {
+    border: 0;
+}
+
+.mbsc-mobiscroll .mbsc-sc-whl-multi .mbsc-sc-itm {
+    padding: 0 1.818181em;
+}
+
+.mbsc-mobiscroll .mbsc-sc-whl-multi .mbsc-sc-itm-sel:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1em;
+    font-size: 1.818181em;
+    color: #4eccc4;
+    text-align: center;
 }

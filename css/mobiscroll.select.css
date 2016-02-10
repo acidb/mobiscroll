@@ -1,0 +1,8 @@
+.mbsc-sel-hdn {
+    position: absolute;
+    height: 1px !important;
+    width: 1px !important;
+    left: 0;
+    overflow: hidden;
+    clip: rect(1px, 1px, 1px, 1px);
+}

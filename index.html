@@ -1,5 +1,6 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
@@ -7,28 +8,26 @@
     <title>Mobiscroll</title>
 
     <!-- jQuery Include -->
-    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://code.jquery.com/jquery-2.2.0.min.js"></script>
 
     <!-- Mobiscroll JS and CSS Includes -->
-    
+
     <script src="js/mobiscroll.core.js"></script>
+    <script src="../js/mobiscroll.scrollview.js"></script>
     <script src="js/mobiscroll.frame.js"></script>
     <script src="js/mobiscroll.scroller.js"></script>
-
     <script src="js/mobiscroll.util.datetime.js"></script>
     <script src="js/mobiscroll.datetimebase.js"></script>
     <script src="js/mobiscroll.datetime.js"></script>
-    <script src="js/mobiscroll.select.js"></script>
-    <script src="js/mobiscroll.listbase.js"></script>
-    <script src="js/mobiscroll.image.js"></script>
-    <script src="js/mobiscroll.treelist.js"></script>
+    <script src="js/select.js"></script>
 
-    <script src="js/mobiscroll.frame.android.js"></script>
+    <!--<script src="js/mobiscroll.listbase.js"></script>
+    <script src="js/mobiscroll.image.js"></script>
+    <script src="js/mobiscroll.treelist.js"></script>-->
+
     <script src="js/mobiscroll.frame.android-holo.js"></script>
-    <script src="js/mobiscroll.frame.ios-classic.js"></script>
     <script src="js/mobiscroll.frame.ios.js"></script>
     <script src="js/mobiscroll.frame.jqm.js"></script>
-    <script src="js/mobiscroll.frame.sense-ui.js"></script>
     <script src="js/mobiscroll.frame.wp.js"></script>
 
     <script src="js/mobiscroll.android-holo-light.js"></script>
@@ -60,118 +59,149 @@
     <link href="css/mobiscroll.animation.css" rel="stylesheet" type="text/css" />
     <link href="css/mobiscroll.icons.css" rel="stylesheet" type="text/css" />
     <link href="css/mobiscroll.frame.css" rel="stylesheet" type="text/css" />
-    <link href="css/mobiscroll.frame.android.css" rel="stylesheet" type="text/css" />
     <link href="css/mobiscroll.frame.android-holo.css" rel="stylesheet" type="text/css" />
-    <link href="css/mobiscroll.frame.ios-classic.css" rel="stylesheet" type="text/css" />
     <link href="css/mobiscroll.frame.ios.css" rel="stylesheet" type="text/css" />
     <link href="css/mobiscroll.frame.jqm.css" rel="stylesheet" type="text/css" />
-    <link href="css/mobiscroll.frame.sense-ui.css" rel="stylesheet" type="text/css" />
     <link href="css/mobiscroll.frame.wp.css" rel="stylesheet" type="text/css" />
     <link href="css/mobiscroll.scroller.css" rel="stylesheet" type="text/css" />
-    <link href="css/mobiscroll.scroller.android.css" rel="stylesheet" type="text/css" />
     <link href="css/mobiscroll.scroller.android-holo.css" rel="stylesheet" type="text/css" />
-    <link href="css/mobiscroll.scroller.ios-classic.css" rel="stylesheet" type="text/css" />
     <link href="css/mobiscroll.scroller.ios.css" rel="stylesheet" type="text/css" />
     <link href="css/mobiscroll.scroller.jqm.css" rel="stylesheet" type="text/css" />
-    <link href="css/mobiscroll.scroller.sense-ui.css" rel="stylesheet" type="text/css" />
     <link href="css/mobiscroll.scroller.wp.css" rel="stylesheet" type="text/css" />
     <link href="css/mobiscroll.image.css" rel="stylesheet" type="text/css" />
+
+    <link href="css/select.css" rel="stylesheet" type="text/css" />
 
     <link href="css/mobiscroll.android-holo-light.css" rel="stylesheet" type="text/css" />
     <link href="css/mobiscroll.wp-light.css" rel="stylesheet" type="text/css" />
     <link href="css/mobiscroll.mobiscroll-dark.css" rel="stylesheet" type="text/css" />
-    
+
     <style type="text/css">
-        /* Demo Page styling, you can disregard this in your implementation */
-        body { padding: 0; margin: 0; font-size: 16px; font-family: arial, verdana, sans-serif; }
-        input, select { width: 100%; padding: .625em; margin: 0 0 .625em 0; border: 1px solid #aaa; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; }
-        .header { padding: .625em; background: #5185a8;}
-        .header h1 { margin: 0; padding: 0; color: #fff; text-align: center; font-size: 1.25em; font-weight: bold; text-shadow: 1px 1px 1px #000; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
-        .content { padding: 1em; }
+    /* Demo Page styling, you can disregard this in your implementation */
+    
+    body {
+        padding: 0;
+        margin: 0;
+        font-size: 16px;
+        font-family: arial, verdana, sans-serif;
+    }
+    
+    input,
+    select {
+        width: 100%;
+        padding: .625em;
+        margin: 0 0 .625em 0;
+        border: 1px solid #aaa;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+    }
+    
+    .header {
+        padding: .625em;
+        background: #5185a8;
+    }
+    
+    .header h1 {
+        margin: 0;
+        padding: 0;
+        color: #fff;
+        text-align: center;
+        font-size: 1.25em;
+        font-weight: bold;
+        text-shadow: 1px 1px 1px #000;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+    
+    .content {
+        padding: 1em;
+    }
     </style>
 
     <script>
-        $(function () {
+    $(function() {
 
-            function init() {
-                
-                // Select demo initialization
-                $('#demo_select').mobiscroll().select({
-                    theme: theme,     // Specify theme like: theme: 'ios' or omit setting to use default 
-                    mode: mode,       // Specify scroller mode like: mode: 'mixed' or omit setting to use default 
-                    display: display, // Specify display mode like: display: 'bottom' or omit setting to use default 
-                    lang: lang        // Specify language like: lang: 'pl' or omit setting to use default 
-                });
-                
-                // Date demo initialization
-                $('#demo_date').mobiscroll().date({
-                    theme: theme,     // Specify theme like: theme: 'ios' or omit setting to use default 
-                    mode: mode,       // Specify scroller mode like: mode: 'mixed' or omit setting to use default 
-                    display: display, // Specify display mode like: display: 'bottom' or omit setting to use default 
-                    lang: lang        // Specify language like: lang: 'pl' or omit setting to use default 
-                });
-                
-                // Date & Time demo initialization
-                $('#demo_datetime').mobiscroll().datetime({
-                    theme: theme,     // Specify theme like: theme: 'ios' or omit setting to use default 
-                    mode: mode,       // Specify scroller mode like: mode: 'mixed' or omit setting to use default 
-                    display: display, // Specify display mode like: display: 'bottom' or omit setting to use default 
-                    lang: lang,       // Specify language like: lang: 'pl' or omit setting to use default
-                    minDate: new Date(2012,3,10,9,22),  // More info about minDate: http://docs.mobiscroll.com/2-14-0/datetime#!opt-minDate
-                    maxDate: new Date(2014,7,30,15,44),   // More info about maxDate: http://docs.mobiscroll.com/2-14-0/datetime#!opt-maxDate
-                    stepMinute: 5  // More info about stepMinute: http://docs.mobiscroll.com/2-14-0/datetime#!opt-stepMinute
-                });
-                
-                // Time demo initialization
-                $('#demo_time').mobiscroll().time({
-                    theme: theme,     // Specify theme like: theme: 'ios' or omit setting to use default 
-                    mode: mode,       // Specify scroller mode like: mode: 'mixed' or omit setting to use default 
-                    display: display, // Specify display mode like: display: 'bottom' or omit setting to use default 
-                    lang: lang        // Specify language like: lang: 'pl' or omit setting to use default 
-                });
-                
-                // Image demo initialization
-                $('#demo_image').mobiscroll().image({
-                    theme: theme,     // Specify theme like: theme: 'ios' or omit setting to use default 
-                    mode: mode,       // Specify scroller mode like: mode: 'mixed' or omit setting to use default 
-                    display: display, // Specify display mode like: display: 'bottom' or omit setting to use default 
-                    lang: lang,       // Specify language like: lang: 'pl' or omit setting to use default
-                    labels: ['Cars'],  // More info about labels: http://docs.mobiscroll.com/2-14-0/image#!opt-labels
-                    enhance: true
-                });
-                
-                // Treelist demo initialization
-                $('#demo_treelist').mobiscroll().treelist({
-                    theme: theme,     // Specify theme like: theme: 'ios' or omit setting to use default 
-                    mode: mode,       // Specify scroller mode like: mode: 'mixed' or omit setting to use default 
-                    display: display, // Specify display mode like: display: 'bottom' or omit setting to use default 
-                    lang: lang,       // Specify language like: lang: 'pl' or omit setting to use default
-                    labels: ['Region', 'Country', 'City']  // More info about labels: http://docs.mobiscroll.com/2-14-0/list#!opt-labels
-                });
-                
-            }    
+        function init() {
 
-            // -------------------------------------------------------------------
-            // Demo page code START, you can disregard this in your implementation
-            var demo, theme, mode, display, lang;
-            
-            $('.settings').on('change', function() {
-                demo = $('#demo').val();
-                theme = $('#theme').val() || $.mobiscroll.defaults.theme,
-                mode = $('#mode').val(),
-                display = $('#display').val(),
-                lang = $('#language').val();
-
-                $('.demo-cont').hide();
-                $("#demo_cont_" + demo).show();
-                
-                init();
+            // Date demo initialization
+            $('#demo_date').mobiscroll().date({
+                theme: theme, // Specify theme like: theme: 'ios' or omit setting to use default 
+                mode: mode, // Specify scroller mode like: mode: 'mixed' or omit setting to use default 
+                display: display, // Specify display mode like: display: 'bottom' or omit setting to use default 
+                lang: lang // Specify language like: lang: 'pl' or omit setting to use default 
             });
 
-            $('#demo').trigger('change');
-            // Demo page code END
-            // -------------------------------------------------------------------
+            // Select demo initialization
+            $('#demo_select').mobiscroll().select({
+                theme: theme, // Specify theme like: theme: 'ios' or omit setting to use default 
+                mode: mode, // Specify scroller mode like: mode: 'mixed' or omit setting to use default 
+                display: display, // Specify display mode like: display: 'bottom' or omit setting to use default 
+                lang: lang // Specify language like: lang: 'pl' or omit setting to use default 
+            });
+
+            // Date & Time demo initialization
+            /*$('#demo_datetime').mobiscroll().datetime({
+                theme: theme,     // Specify theme like: theme: 'ios' or omit setting to use default 
+                mode: mode,       // Specify scroller mode like: mode: 'mixed' or omit setting to use default 
+                display: display, // Specify display mode like: display: 'bottom' or omit setting to use default 
+                lang: lang,       // Specify language like: lang: 'pl' or omit setting to use default
+                minDate: new Date(2012,3,10,9,22),  // More info about minDate: http://docs.mobiscroll.com/2-14-0/datetime#!opt-minDate
+                maxDate: new Date(2014,7,30,15,44),   // More info about maxDate: http://docs.mobiscroll.com/2-14-0/datetime#!opt-maxDate
+                stepMinute: 5  // More info about stepMinute: http://docs.mobiscroll.com/2-14-0/datetime#!opt-stepMinute
+            });
+                
+            // Time demo initialization
+            $('#demo_time').mobiscroll().time({
+                theme: theme,     // Specify theme like: theme: 'ios' or omit setting to use default 
+                mode: mode,       // Specify scroller mode like: mode: 'mixed' or omit setting to use default 
+                display: display, // Specify display mode like: display: 'bottom' or omit setting to use default 
+                lang: lang        // Specify language like: lang: 'pl' or omit setting to use default 
+            });
+                
+            // Image demo initialization
+            $('#demo_image').mobiscroll().image({
+                theme: theme,     // Specify theme like: theme: 'ios' or omit setting to use default 
+                mode: mode,       // Specify scroller mode like: mode: 'mixed' or omit setting to use default 
+                display: display, // Specify display mode like: display: 'bottom' or omit setting to use default 
+                lang: lang,       // Specify language like: lang: 'pl' or omit setting to use default
+                labels: ['Cars'],  // More info about labels: http://docs.mobiscroll.com/2-14-0/image#!opt-labels
+                enhance: true
+            });
+                
+            // Treelist demo initialization
+            $('#demo_treelist').mobiscroll().treelist({
+                theme: theme,     // Specify theme like: theme: 'ios' or omit setting to use default 
+                mode: mode,       // Specify scroller mode like: mode: 'mixed' or omit setting to use default 
+                display: display, // Specify display mode like: display: 'bottom' or omit setting to use default 
+                lang: lang,       // Specify language like: lang: 'pl' or omit setting to use default
+                labels: ['Region', 'Country', 'City']  // More info about labels: http://docs.mobiscroll.com/2-14-0/list#!opt-labels
+            });*/
+
+        }
+
+        // -------------------------------------------------------------------
+        // Demo page code START, you can disregard this in your implementation
+        var demo, theme, mode, display, lang;
+
+        $('.settings').on('change', function() {
+            demo = $('#demo').val();
+            theme = $('#theme').val() || $.mobiscroll.defaults.theme;
+            mode = $('#mode').val();
+            display = $('#display').val();
+            lang = $('#language').val();
+
+            //$('.demo-cont').hide();
+            //$("#demo_cont_" + demo).show();
+
+            init();
         });
+
+        $('#demo').trigger('change');
+        // Demo page code END
+        // -------------------------------------------------------------------
+    });
     </script>
 </head>
 
@@ -245,17 +275,16 @@
         <div>
             <label for="demo">Demo</label>
             <select name="demo" id="demo" class="settings">
-                <option value="select" selected>Select</option>
-                <option value="date" >Date</option>
-                <option value="datetime" >Date & Time</option>
-                <option value="time" >Time</option>
-                <option value="image" >Image</option>
-                <option value="treelist" >Treelist</option>
+                <option value="date">Date</option>
+                <option value="select">Select</option>
+                <option value="datetime">Date & Time</option>
+                <option value="time">Time</option>
+                <option value="image">Image</option>
+                <option value="treelist">Treelist</option>
             </select>
         </div>
         <!-- Demo configurator markup END -->
 
-    
         <!-- Select demo markup -->
         <div data-role="fieldcontain" class="demo-cont" id="demo_cont_select">
             <label for="demo_select">Try Select</label>
@@ -270,31 +299,31 @@
                 <option value="7">New York</option>
                 <option value="8">Paris</option>
                 <option value="9">San Francisco</option>
-            </select>   
+            </select>
         </div>
-    
+
         <!-- Date demo markup -->
         <div data-role="fieldcontain" class="demo-cont" id="demo_cont_date">
             <label for="demo_date">Try Date</label>
-            <input type="text" id="demo_date" />  
+            <input type="text" id="demo_date" />
         </div>
-    
+
         <!-- Date & Time demo markup -->
         <div data-role="fieldcontain" class="demo-cont" id="demo_cont_datetime">
             <label for="demo_datetime">Try Date & Time</label>
-            <input type="text" id="demo_datetime" />  
+            <input type="text" id="demo_datetime" />
         </div>
-    
+
         <!-- Time demo markup -->
         <div data-role="fieldcontain" class="demo-cont" id="demo_cont_time">
             <label for="demo_time">Try Time</label>
-            <input type="text" id="demo_time" />  
+            <input type="text" id="demo_time" />
         </div>
-    
+
         <!-- Image demo markup -->
-        <div data-role="fieldcontain" class="demo-cont" id="demo_cont_image">
+        <!-- <div data-role="fieldcontain" class="demo-cont" id="demo_cont_image">
             <label for="demo_image_text_dummy">Click here to try</label>
-            <ul id="demo_image" >
+            <ul id="demo_image">
                 <li>
                     <img src="http://demo.mobiscroll.com/Content/img/BMW_logo.png" />
                     <p>BMW</p>
@@ -311,11 +340,11 @@
                     <img src="http://demo.mobiscroll.com/Content/img/Mercedes_logo.png" />
                     <p>Mercedes</p>
                 </li>
-            </ul>   
-        </div>
-    
+            </ul>
+        </div> -->
+
         <!-- Treelist demo markup -->
-        <div data-role="fieldcontain" class="demo-cont" id="demo_cont_treelist">
+        <!-- <div data-role="fieldcontain" class="demo-cont" id="demo_cont_treelist">
             <label for="demo_treelist_dummy">Try Treelist</label>
             <ul id="demo_treelist">
                 <li>America
@@ -395,9 +424,10 @@
                         </li>
                     </ul>
                 </li>
-            </ul>   
-        </div>
-    
+            </ul>
+        </div> -->
+
     </div>
 </body>
+
 </html>
