@@ -157,11 +157,6 @@
                 beforeShow();
             }
 
-            // Hide virtual keyboard
-            if ($(document.activeElement).is('input,textarea')) {
-                $(document.activeElement).blur();
-            }
-
             if (that.show() !== false) {
                 $activeElm = $elm;
 
@@ -460,6 +455,9 @@
             if (event('onBeforeShow', []) === false) {
                 return false;
             }
+
+            // Hide virtual keyboard
+            document.activeElement.blur();
 
             doAnim = isOldAndroid ? false : s.animate;
 
