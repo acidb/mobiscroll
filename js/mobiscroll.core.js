@@ -176,7 +176,9 @@
                     } else {
                         icons[align] = icon;
                     }
+                }
 
+                if (icon || ic) {
                     extend(icons, ic);
 
                     $parent
