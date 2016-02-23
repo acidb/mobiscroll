@@ -923,6 +923,9 @@
                 }
 
                 return $(array);
+            },
+            detach: function () {
+                return this.remove();
             }
         };
 
