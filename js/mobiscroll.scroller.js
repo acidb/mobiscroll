@@ -234,8 +234,6 @@
             return s.readonly;
         }
 
-        
-        // for the measurement issues chack here !!! maybe the .html() is the odd one out !!!! check
         function generateWheelItems(i) {
             var html = '<div class="dw-bf">',
                 w = wheels[i],
@@ -528,9 +526,6 @@
 
                 $.each(s.wheels, function (j, wg) {
                     $.each(wg, function (k, w) {
-                        if (!nr) {    // check why not breaking from the each !!!!
-                            return false;
-                        }
                         if ($.inArray(i, idx) > -1) {
                             wheels[i] = w;
                             $('.dw-ul', $markup).eq(i).html(generateWheelItems(i));

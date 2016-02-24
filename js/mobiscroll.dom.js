@@ -7,51 +7,44 @@
         filter = emptyArray.filter;
 
     function isFunction(value) {
-        return typeof value === "function"
+        return typeof value === "function";
     }
 
     function isWindow(obj) {
-        return obj != null && obj === obj.window
+        return obj !== null && obj === obj.window;
     }
 
     function isDocument(obj) {
-        return obj != null && obj.nodeType === obj.DOCUMENT_NODE
+        return obj !== null && obj.nodeType === obj.DOCUMENT_NODE;
     }
 
     function isObject(obj) {
-        return typeof obj === "object"
-    }
-
-    function compact(array) {
-        return filter.call(array, function (item) {
-            return item != null
-        })
+        return typeof obj === "object";
     }
 
     function likeArray(obj) {
-        return typeof obj.length == 'number'
+        return typeof obj.length == 'number';
     }
 
     function flatten(array) {
-        return array.length > 0 ? $.fn.concat.apply([], array) : array
+        return array.length > 0 ? $.fn.concat.apply([], array) : array;
     }
 
     function camelize(str) {
         return str.replace(/-+(.)?/g, function (match, chr) {
-            return chr ? chr.toUpperCase() : ''
-        })
+            return chr ? chr.toUpperCase() : '';
+        });
     }
 
     function extend(target, source, deep) {
-        for (key in source) {
-            if (deep && (isPlainObject(source[key]) || isArray(source[key]))) {
-                if (isPlainObject(source[key]) && !isPlainObject(target[key]))
-                    target[key] = {}
-                if (isArray(source[key]) && !isArray(target[key]))
-                    target[key] = []
-                extend(target[key], source[key], deep)
+        for (var key in source) {
+            if (deep && ($.isPlainObject(source[key]) || $.isArray(source[key]))) {
+                if ($.isPlainObject(source[key]) && !$.isPlainObject(target[key]) || $.isArray(source[key]) && !$.isArray(target[key])) {
+                    target[key] = {};
+                }
+                extend(target[key], source[key], deep);
             } else if (source[key] !== undefined) {
-                target[key] = source[key]
+                target[key] = source[key];
             }
         }
     }
@@ -61,7 +54,7 @@
             .replace(/([A-Z]+)([A-Z][a-z])/g, '$1_$2')
             .replace(/([a-z\d])([A-Z])/g, '$1_$2')
             .replace(/_/g, '-')
-            .toLowerCase()
+            .toLowerCase();
     }
 
     function maybeAddPx(name, value) {
@@ -101,11 +94,21 @@
                     selector = html = selector.trim();
                     if (html.indexOf('<') >= 0 && html.indexOf('>') >= 0) {
                         var toCreate = 'div';
-                        if (html.indexOf('<li') === 0) toCreate = 'ul';
-                        if (html.indexOf('<tr') === 0) toCreate = 'tbody';
-                        if (html.indexOf('<td') === 0 || html.indexOf('<th') === 0) toCreate = 'tr';
-                        if (html.indexOf('<tbody') === 0) toCreate = 'table';
-                        if (html.indexOf('<option') === 0) toCreate = 'select';
+                        if (html.indexOf('<li') === 0) {
+                            toCreate = 'ul';
+                        }
+                        if (html.indexOf('<tr') === 0) {
+                            toCreate = 'tbody';
+                        }
+                        if (html.indexOf('<td') === 0 || html.indexOf('<th') === 0) {
+                            toCreate = 'tr';
+                        }
+                        if (html.indexOf('<tbody') === 0) {
+                            toCreate = 'table';
+                        }
+                        if (html.indexOf('<option') === 0) {
+                            toCreate = 'select';
+                        }
                         tempParent = document.createElement(toCreate);
                         tempParent.innerHTML = html;
                         for (i = 0; i < tempParent.childNodes.length; i++) {
@@ -124,7 +127,9 @@
 
                         }
                         for (i = 0; i < els.length; i++) {
-                            if (els[i]) arr.push(els[i]);
+                            if (els[i]) {
+                                arr.push(els[i]);
+                            }
                         }
                     }
                 }
@@ -147,27 +152,27 @@
         Dom.prototype = {
             ready: function (callback) {
                 if (/complete|loaded|interactive/.test(document.readyState) && document.body) {
-                    callback($)
+                    callback($);
                 } else {
                     document.addEventListener('DOMContentLoaded', function () {
-                        callback($)
-                    }, false)
+                        callback($);
+                    }, false);
                 }
                 return this;
             },
             concat: emptyArray.concat,
             empty: function () {
                 return this.each(function () {
-                    this.innerHTML = ''
-                })
+                    this.innerHTML = '';
+                });
             },
             map: function (fn) {
                 return $($.map(this, function (el, i) {
-                    return fn.call(el, i, el)
-                }))
+                    return fn.call(el, i, el);
+                }));
             },
             slice: function () {
-                return $(slice.apply(this, arguments))
+                return $(slice.apply(this, arguments));
             },
             // Classes and attriutes
             addClass: function (className) {
@@ -179,7 +184,9 @@
 
                 for (var i = 0; i < classes.length; i++) {
                     for (var j = 0; j < this.length; j++) {
-                        if (typeof this[j].classList !== 'undefined' && classes[i] != '') this[j].classList.add(classes[i]);
+                        if (typeof this[j].classList !== 'undefined' && classes[i] !== '') {
+                            this[j].classList.add(classes[i]);
+                        }
                     }
                 }
                 return this;
@@ -188,40 +195,44 @@
                 var classes = className.split(' ');
                 for (var i = 0; i < classes.length; i++) {
                     for (var j = 0; j < this.length; j++) {
-                        if (typeof this[j].classList !== 'undefined' && classes[i] != '') this[j].classList.remove(classes[i]);
+                        if (typeof this[j].classList !== 'undefined' && classes[i] !== '') {
+                            this[j].classList.remove(classes[i]);
+                        }
                     }
                 }
                 return this;
             },
             hasClass: function (className) {
-                if (!this[0]) return false;
-                else return this[0].classList.contains(className);
+                return this[0] ? this[0].classList.contains(className) : false;
             },
             toggleClass: function (className) {
                 var classes = className.split(' ');
                 for (var i = 0; i < classes.length; i++) {
                     for (var j = 0; j < this.length; j++) {
-                        if (typeof this[j].classList !== 'undefined') this[j].classList.toggle(classes[i]);
+                        if (typeof this[j].classList !== 'undefined') {
+                            this[j].classList.toggle(classes[i]);
+                        }
                     }
                 }
                 return this;
             },
-            closest: function (selector, context) {
-                var node = this[0],
-                    collection = false;
+            closest: function(selector, context){
+              var node = this[0], 
+                  collection = false;
+                
                 if (typeof selector == 'object') {
-                    collection = $(selector)
+                    collection = $(selector);
                 }
-                while (node && !(collection ? collection.indexOf(node) >= 0 : $.matches(node, selector))) {
-                    node = node !== context && !(node.nodeType == node.DOCUMENT_NODE) /*isDocument(node)*/ && node.parentNode;
+                while (node && !(collection ? collection.indexOf(node) >= 0 : $.matches(node, selector))) { 
+                    node = node !== context && !isDocument(node) && node.parentNode;
                 }
-
-                return $(node)
+                
+                return $(node);
             },
             attr: function (attrs, value) {
                 var attr;
 
-                if (arguments.length === 1 && typeof attrs === 'string') {
+                if (arguments.length === 1 && typeof attrs === 'string' && this.length) {
                     // Get attr
                     attr = this[0].getAttribute(attrs);
 
@@ -256,8 +267,7 @@
             prop: function (props, value) {
                 if (arguments.length === 1 && typeof props === 'string') {
                     // Get prop
-                    if (this[0]) return this[0][props];
-                    else return undefined;
+                    return this[0] ? this[0][props] : undefined;
                 } else {
                     // Set props
                     for (var i = 0; i < this.length; i++) {
@@ -274,33 +284,9 @@
                     return this;
                 }
             },
-            data: function (key, value) {
-                if (typeof value === 'undefined') {
-                    // Get value
-                    if (this[0]) {
-                        if (this[0].DomElementDataStorage && (key in this[0].DomElementDataStorage)) {
-                            return this[0].DomElementDataStorage[key];
-                        } else {
-                            var dataKey = this[0].getAttribute('data-' + key);
-                            if (dataKey) {
-                                return dataKey;
-                            } else return undefined;
-                        }
-                    } else return undefined;
-                } else {
-                    // Set value
-                    for (var i = 0; i < this.length; i++) {
-                        var el = this[i];
-                        if (!el.DomElementDataStorage) el.DomElementDataStorage = {};
-                        el.DomElementDataStorage[key] = value;
-                    }
-                    return this;
-                }
-            },
             val: function (value) {
                 if (typeof value === 'undefined') {
-                    if (this[0]) return this[0].value;
-                    else return undefined;
+                    return this[0] ? this[0].value : undefined;
                 } else {
                     for (var i = 0; i < this.length; i++) {
                         this[i].value = value;
@@ -312,11 +298,15 @@
             on: function (eventName, targetSelector, listener, capture) {
                 function handleLiveEvent(e) {
                     var target = e.target;
-                    if ($(target).is(targetSelector)) listener.call(target, e);
+                    if ($(target).is(targetSelector)) {
+                        listener.call(target, e);
+                    }
                     else {
                         var parents = $(target).parents();
                         for (var k = 0; k < parents.length; k++) {
-                            if ($(parents[k]).is(targetSelector)) listener.call(parents[k], e);
+                            if ($(parents[k]).is(targetSelector)) {
+                                listener.call(parents[k], e);
+                            }
                         }
                     }
                 }
@@ -335,7 +325,9 @@
                     } else {
                         //Live events
                         for (j = 0; j < events.length; j++) {
-                            if (!this[i].DomLiveListeners) this[i].DomLiveListeners = [];
+                            if (!this[i].DomLiveListeners) {
+                                this[i].DomLiveListeners = [];
+                            }
                             this[i].DomLiveListeners.push({
                                 listener: listener,
                                 liveListener: handleLiveEvent
@@ -428,45 +420,50 @@
                     if (includeMargins) {
                         var styles = this.styles();
                         return this[0].offsetWidth + parseFloat(styles.getPropertyValue('margin-right')) + parseFloat(styles.getPropertyValue('margin-left'));
-                    } else
+                    } else {
                         return this[0].offsetWidth;
-                } else return null;
+                    }
+                }
             },
             outerHeight: function (includeMargins) {
                 if (this.length > 0) {
                     if (includeMargins) {
                         var styles = this.styles();
                         return this[0].offsetHeight + parseFloat(styles.getPropertyValue('margin-top')) + parseFloat(styles.getPropertyValue('margin-bottom'));
-                    } else
+                    } else {
                         return this[0].offsetHeight;
-                } else return null;
+                    }
+                }
             },
             innerWidth: function () {
-                var elem = this;
-                if (elem[0]['innerWidth']) {
-                    return elem[0]['innerWidth'];
-                } else {
-                    var size = elem[0]['offsetWidth'],
-                        sides = ['left', 'right'];
-                    sides.forEach(function (side) {
-                        size -= parseInt(elem.css(camelize('border-' + side + '-width')) || 0, 10);
-                    });
-                    return size;
+                if (this.length > 0) {
+                    if (this[0].innerWidth) {
+                        return this[0].innerWidth;
+                    } else {
+                        var size = this[0].offsetWidth,
+                            sides = ['left', 'right'];
+                        sides.forEach(function (side) {
+                            size -= parseInt(this.css(camelize('border-' + side + '-width')) || 0, 10);
+                        });
+                        return size;
+                    }
                 }
             },
             innerHeight: function () {
-                var elem = this;
-                if (elem[0]['innerHeight']) {
-                    return elem[0]['innerHeight'];
-                } else {
-                    var size = elem[0]['offsetHeight'],
-                        sides = ['top', 'bottom'];
+                if (this.length > 0) {
+                    var elm = this;
+                    if (this[0].innerHeight) {
+                        return this[0].innerHeight;
+                    } else {
+                        var size = this[0].offsetHeight,
+                            sides = ['top', 'bottom'];
 
-                    sides.forEach(function (side) {
-                        size -= parseInt(elem.css(camelize('border-' + side + '-width')) || 0, 10); // check || 0 !!!
-                    });
+                        sides.forEach(function (side) {
+                            size -= parseInt(elm.css(camelize('border-' + side + '-width')) || 0, 10); // check || 0 !!!
+                        });
 
-                    return size;
+                        return size;
+                    }
                 }
             },
             offset: function () {
@@ -494,7 +491,7 @@
             },
             show: function() {
                 for (var i = 0; i < this.length; i++) {
-                    this[i].style.display == "none" && (this[i].style.display = '')
+                    this[i].style.display == "none" && (this[i].style.display = 'block');
 
                     if (this[i].style.getPropertyValue("display") == "none") {
                         this[i].style.display = 'block';
@@ -514,40 +511,46 @@
                     var computedStyle,
                         element = this[0];
 
-                    if (!element) return
-                    computedStyle = getComputedStyle(element, '')
-                    if (typeof property === 'string')
-                        return element.style[property] || computedStyle.getPropertyValue(property)
-                    else if ($.isArray(property)) {
-                        var props = {}
+                    if (!element) {
+                        return;
+                    }
+                    computedStyle = getComputedStyle(element, '');
+                    if (typeof property === 'string') {
+                        return element.style[property] || computedStyle.getPropertyValue(property);
+                    } else if ($.isArray(property)) {
+                        var props = {};
                         $.each(property, function (_, prop) {
-                            props[prop] = (element.style[prop] || computedStyle.getPropertyValue(prop))
-                        })
-                        return props
+                            props[prop] = (element.style[prop] || computedStyle.getPropertyValue(prop));
+                        });
+                        return props;
                     }
                 }
 
-                var css = ''
+                var css = '';
                 if (typeof property === 'string') {
-                    if (!value && value !== 0)
+                    if (!value && value !== 0) {
                         this.each(function () {
-                            this.style.removeProperty(dasherize(property))
-                        })
-                    else
-                        css = dasherize(property) + ":" + maybeAddPx(property, value)
+                            this.style.removeProperty(dasherize(property));
+                        });
+                    }
+                    else {
+                        css = dasherize(property) + ":" + maybeAddPx(property, value);
+                    }
                 } else {
-                    for (key in property)
-                        if (!property[key] && property[key] !== 0)
+                    for (var key in property) {
+                        if (!property[key] && property[key] !== 0) {
                             this.each(function () {
-                                this.style.removeProperty(dasherize(key))
-                            })
-                        else
-                            css += dasherize(key) + ':' + maybeAddPx(key, property[key]) + ';'
+                                this.style.removeProperty(dasherize(key));
+                            });
+                        } else {
+                            css += dasherize(key) + ':' + maybeAddPx(key, property[key]) + ';';
+                        }
+                    }
                 }
 
                 return this.each(function () {
-                    this.style.cssText += ';' + css
-                })
+                    this.style.cssText += ';' + css;
+                });
             },
             //Dom manipulation
             each: function (callback) {
@@ -564,19 +567,22 @@
 
                 if (isFunction(callback)) {
                     for (var i = 0; i < dom.length; i++) {
-                        if (callback.call(dom[i], i, dom[i])) matchedItems.push(dom[i]);
+                        if (callback.call(dom[i], i, dom[i])) {
+                            matchedItems.push(dom[i]);
+                        }
                     }
                     return new Dom(matchedItems);
                 }
 
                 return filter.call(this, function (element) {
-                    return $.matches(element, callback)
+                    return $.matches(element, callback);
                 });
             },
             html: function (html) {
                 if (typeof html === 'undefined') {
                     return this[0] ? this[0].innerHTML : undefined;
                 } else {
+                    this.empty();
                     for (var i = 0; i < this.length; i++) {
                         this[i].innerHTML = html;
                     }
@@ -585,9 +591,7 @@
             },
             text: function (text) {
                 if (typeof text === 'undefined') {
-                    if (this[0]) {
-                        return this[0].textContent.trim();
-                    } else return null;
+                    return this[0] ? this[0].textContent.trim() : null;
                 } else {
                     for (var i = 0; i < this.length; i++) {
                         this[i].textContent = text;
@@ -596,75 +600,51 @@
                 }
             },
             is: function (selector) {
-                if (!this[0] || typeof selector === 'undefined') return false;
-                var compareWith, i;
-                if (typeof selector === 'string') {
-                    var el = this[0];
-                    if (el === document) return selector === document;
-                    if (el === window) return selector === window;
-
-                    if (el.matches) return el.matches(selector);
-                    else if (el.webkitMatchesSelector) return el.webkitMatchesSelector(selector);
-                    else if (el.mozMatchesSelector) return el.mozMatchesSelector(selector);
-                    else if (el.msMatchesSelector) return el.msMatchesSelector(selector);
-                    else {
-                        compareWith = $(selector);
-                        for (i = 0; i < compareWith.length; i++) {
-                            if (compareWith[i] === this[0]) return true;
-                        }
-                        return false;
-                    }
-                } else if (selector === document) return this[0] === document;
-                else if (selector === window) return this[0] === window;
-                else {
-                    if (selector.nodeType || selector instanceof Dom) {
-                        compareWith = selector.nodeType ? [selector] : selector;
-                        for (i = 0; i < compareWith.length; i++) {
-                            if (compareWith[i] === this[0]) return true;
-                        }
-                        return false;
-                    }
-                    return false;
-                }
-
+                return this.length > 0 && $.matches(this[0], selector);
             },
             not: function (selector) {
                 var nodes = [];
                 if (isFunction(selector) && selector.call !== undefined) {
                     this.each(function (idx) {
                         if (!selector.call(this, idx)) {
-                            nodes.push(this)
+                            nodes.push(this);
                         }
                     });
                 } else {
                     var excludes = typeof selector == 'string' ? this.filter(selector) : (likeArray(selector) && isFunction(selector.item)) ? slice.call(selector) : $(selector);
 
                     this.each(function (i, el) {
-                        if (excludes.indexOf(el) < 0) nodes.push(el);
+                        if (excludes.indexOf(el) < 0) {
+                            nodes.push(el);
+                        }
                     });
                 }
 
-                return $(nodes)
+                return $(nodes);
             },
             indexOf: function (el) {
                 for (var i = 0; i < this.length; i++) {
-                    if (this[i] === el) return i;
+                    if (this[i] === el) {
+                        return i;
+                    }
                 }
             },
             index: function (element) {
-                return element ? this.indexOf($(element)[0]) : this.parent().children().indexOf(this[0])
+                return element ? this.indexOf($(element)[0]) : this.parent().children().indexOf(this[0]);
             },
             eq: function (index) {
-                if (typeof index === 'undefined') return this;
-                var length = this.length;
-                var returnIndex;
+                if (typeof index === 'undefined') {
+                    return this;
+                }
+                var length = this.length,
+                    returnIndex;
+                
                 if (index > length - 1) {
                     return new Dom([]);
                 }
                 if (index < 0) {
                     returnIndex = length + index;
-                    if (returnIndex < 0) return new Dom([]);
-                    else return new Dom([this[returnIndex]]);
+                    return returnIndex < 0 ? new Dom([]) : new Dom([this[returnIndex]]);
                 }
                 return new Dom([this[index]]);
             },
@@ -746,23 +726,40 @@
             next: function (selector) {
                 if (this.length > 0) {
                     if (selector) {
-                        if (this[0].nextElementSibling && $(this[0].nextElementSibling).is(selector)) return new Dom([this[0].nextElementSibling]);
-                        else return new Dom([]);
+                        if (this[0].nextElementSibling && $(this[0].nextElementSibling).is(selector)) {
+                            return new Dom([this[0].nextElementSibling]);
+                        }
+                        else {
+                            return new Dom([]);
+                        }
                     } else {
-                        if (this[0].nextElementSibling) return new Dom([this[0].nextElementSibling]);
-                        else return new Dom([]);
+                        if (this[0].nextElementSibling) {
+                            return new Dom([this[0].nextElementSibling]);
+                        }
+                        else {
+                            return new Dom([]);
+                        }
                     }
-                } else return new Dom([]);
+                } else {
+                    return new Dom([]);
+                }
             },
             nextAll: function (selector) {
-                var nextEls = [];
-                var el = this[0];
-                if (!el) return new Dom([]);
+                var nextEls = [],
+                    el = this[0];
+                
+                if (!el) {
+                    return new Dom([]);
+                }
                 while (el.nextElementSibling) {
                     var next = el.nextElementSibling;
                     if (selector) {
-                        if ($(next).is(selector)) nextEls.push(next);
-                    } else nextEls.push(next);
+                        if ($(next).is(selector)) {
+                            nextEls.push(next);
+                        }
+                    } else {
+                        nextEls.push(next);
+                    }
                     el = next;
                 }
                 return new Dom(nextEls);
@@ -770,23 +767,38 @@
             prev: function (selector) {
                 if (this.length > 0) {
                     if (selector) {
-                        if (this[0].previousElementSibling && $(this[0].previousElementSibling).is(selector)) return new Dom([this[0].previousElementSibling]);
-                        else return new Dom([]);
+                        if (this[0].previousElementSibling && $(this[0].previousElementSibling).is(selector)) {
+                            return new Dom([this[0].previousElementSibling]);
+                        }
+                        else {
+                            return new Dom([]);
+                        }
                     } else {
-                        if (this[0].previousElementSibling) return new Dom([this[0].previousElementSibling]);
-                        else return new Dom([]);
+                        if (this[0].previousElementSibling) {
+                            return new Dom([this[0].previousElementSibling]);
+                        } else {
+                            return new Dom([]);
+                        }
                     }
-                } else return new Dom([]);
+                } else {
+                    return new Dom([]);
+                }
             },
             prevAll: function (selector) {
                 var prevEls = [];
                 var el = this[0];
-                if (!el) return new Dom([]);
+                if (!el) {
+                    return new Dom([]);
+                }
                 while (el.previousElementSibling) {
                     var prev = el.previousElementSibling;
                     if (selector) {
-                        if ($(prev).is(selector)) prevEls.push(prev);
-                    } else prevEls.push(prev);
+                        if ($(prev).is(selector)) {
+                            prevEls.push(prev);
+                        }
+                    } else {
+                        prevEls.push(prev);
+                    }
                     el = prev;
                 }
                 return new Dom(prevEls);
@@ -796,7 +808,9 @@
                 for (var i = 0; i < this.length; i++) {
                     if (this[i].parentNode !== null) {
                         if (selector) {
-                            if ($(this[i].parentNode).is(selector)) parents.push(this[i].parentNode);
+                            if ($(this[i].parentNode).is(selector)) {
+                                parents.push(this[i].parentNode);
+                            }
                         } else {
                             parents.push(this[i].parentNode);
                         }
@@ -810,7 +824,9 @@
                     var parent = this[i].parentNode;
                     while (parent) {
                         if (selector) {
-                            if ($(parent).is(selector)) parents.push(parent);
+                            if ($(parent).is(selector)) {
+                                parents.push(parent);
+                            }
                         } else {
                             parents.push(parent);
                         }
@@ -836,9 +852,13 @@
 
                     for (var j = 0; j < childNodes.length; j++) {
                         if (!selector) {
-                            if (childNodes[j].nodeType === 1) children.push(childNodes[j]);
+                            if (childNodes[j].nodeType === 1) {
+                                children.push(childNodes[j]);
+                            }
                         } else {
-                            if (childNodes[j].nodeType === 1 && $(childNodes[j]).is(selector)) children.push(childNodes[j]);
+                            if (childNodes[j].nodeType === 1 && $(childNodes[j]).is(selector)) {
+                                children.push(childNodes[j]);
+                            }
                         }
                     }
                 }
@@ -847,7 +867,9 @@
             },
             remove: function () {
                 for (var i = 0; i < this.length; i++) {
-                    if (this[i].parentNode) this[i].parentNode.removeChild(this[i]);
+                    if (this[i].parentNode) {
+                        this[i].parentNode.removeChild(this[i]);
+                    }
                 }
                 return this;
             },
@@ -872,35 +894,39 @@
                 return this;
             },
             scrollTop: function (value) {
-                if (!this.length) return
+                if (!this.length) {
+                    return;
+                }
                 var hasScrollTop = 'scrollTop' in this[0];
 
                 if (value === undefined) {
                     return hasScrollTop ? this[0].scrollTop : this[0].pageYOffset;
                 }
                 return this.each(hasScrollTop ? function () {
-                    this.scrollTop = value
+                    this.scrollTop = value;
                 } : function () {
-                    this.scrollTo(this.scrollX, value)
+                    this.scrollTo(this.scrollX, value);
                 });
             },
             scrollLeft: function (value) {
-                if (!this.length) return
+                if (!this.length) {
+                    return;
+                }
                 var hasScrollLeft = 'scrollLeft' in this[0];
 
                 if (value === undefined) {
                     return hasScrollLeft ? this[0].scrollLeft : this[0].pageXOffset;
                 }
                 return this.each(hasScrollLeft ? function () {
-                    this.scrollLeft = value
+                    this.scrollLeft = value;
                 } : function () {
-                    this.scrollTo(value, this.scrollY)
+                    this.scrollTo(value, this.scrollY);
                 });
             },
             contents: function () {
                 return this.map(function (i, v) {
-                    return slice.call(v.childNodes)
-                })
+                    return slice.call(v.childNodes);
+                });
             },
             nextUntil: function (selector) {
                 var n = this,
@@ -943,22 +969,9 @@
     window.jQuery = Dom;
 
     // DOM Library Utilites
-    $.parseUrlQuery = function (url) {
-        var query = {},
-            i, params, param;
-        if (url.indexOf('?') >= 0) url = url.split('?')[1];
-        else return query;
-        params = url.split('&');
-        for (i = 0; i < params.length; i++) {
-            param = params[i].split('=');
-            query[param[0]] = param[1];
-        }
-        return query;
-    };
-
     $.inArray = function (elem, array, i) {
-        return emptyArray.indexOf.call(array, elem, i)
-    }
+        return emptyArray.indexOf.call(array, elem, i);
+    };
 
     $.extend = function (target) {
         arguments[0] = arguments[0] || {};
@@ -966,12 +979,12 @@
             args = slice.call(arguments, 1);
         
         if (typeof target == 'boolean') {
-            deep = target
-            target = args.shift()
+            deep = target;
+            target = args.shift();
         }
         args.forEach(function (arg) {
-            extend(target, arg, deep)
-        })
+            extend(target, arg, deep);
+        });
         
         return target;
     };
@@ -979,37 +992,46 @@
     $.isFunction = isFunction;
 
     $.isArray = function (arr) {
-        if (Object.prototype.toString.apply(arr) === '[object Array]') return true;
-        else return false;
+        return Object.prototype.toString.apply(arr) === '[object Array]';
     };
 
     $.isPlainObject = function (obj) {
-        return isObject(obj) && !isWindow(obj) && Object.getPrototypeOf(obj) == Object.prototype
+        return isObject(obj) && !isWindow(obj) && Object.getPrototypeOf(obj) == Object.prototype;
     };
 
     $.each = function (obj, callback) {
-        if (typeof obj !== 'object') return;
-        if (!callback) return;
+        if (typeof obj !== 'object' || !callback) {
+            return;
+        }
+
         var i, prop;
         if ($.isArray(obj) || obj instanceof Dom) {
             // Array
             for (i = 0; i < obj.length; i++) {
-                callback(i, obj[i]);
+                if (callback.call(obj[i], i, obj[i]) === false) {
+                    break;
+                }
             }
         } else {
             // Object
             for (prop in obj) {
                 if (obj.hasOwnProperty(prop) && prop !== 'length') {
-                    callback(prop, obj[prop]);
+                    if (callback.call(obj[prop], prop, obj[prop]) === false) {
+                        break;
+                    }
                 }
             }
         }
+        
+        return this;
     };
 
     $.unique = function (arr) {
         var unique = [];
         for (var i = 0; i < arr.length; i++) {
-            if (unique.indexOf(arr[i]) === -1) unique.push(arr[i]);
+            if (unique.indexOf(arr[i]) === -1) {
+                unique.push(arr[i]);
+            }
         }
         return unique;
     };
@@ -1019,16 +1041,20 @@
             i, key;
         if (likeArray(elements)) {
             for (i = 0; i < elements.length; i++) {
-                value = callback(elements[i], i)
-                if (value != null) values.push(value)
+                value = callback(elements[i], i);
+                if (value !== null) {
+                    values.push(value);
+                }
             }
         } else {
             for (key in elements) {
-                value = callback(elements[key], key)
-                if (value != null) values.push(value)
+                value = callback(elements[key], key);
+                if (value !== null) {
+                    values.push(value);
+                }
             }
         }
-        return flatten(values)
+        return flatten(values);
     };
 
     $.matches = function (element, selector) {
@@ -1036,7 +1062,7 @@
             return false;
         }
 
-        var matchesSelector = element.webkitMatchesSelector || element.mozMatchesSelector || lement.oMatchesSelector || element.matchesSelector;
+        var matchesSelector = element.webkitMatchesSelector || element.mozMatchesSelector || element.oMatchesSelector || element.matchesSelector;
 
         if (matchesSelector) {
             return matchesSelector.call(element, selector);
@@ -1046,11 +1072,11 @@
             temp = !parent;
         
         if (temp) { 
-            (parent = tempParent).appendChild(element)
+            (parent = tempParent).appendChild(element);
         }
         match = ~$(parent, selector).indexOf(element);
-        temp && tempParent.removeChild(element)
+        temp && tempParent.removeChild(element);
         return match;
-    }
+    };
 
 })(window, document);
