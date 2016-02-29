@@ -371,19 +371,16 @@
             function onCancel() {
                 target = false;
             }
-            
-            // Todo: - .dw namespace removed
-            //       - need to remove events manually
 
             if (s.tap) {
                 el
-                    .on('touchstart pointerdown', onStart)
-                    .on('touchcancel pointercancel', onCancel)
-                    .on('touchmove', onMove)
-                    .on('touchend', onEnd);
+                    .on('touchstart.dw pointerdown.dw', onStart)
+                    .on('touchcancel.dw pointercancel.dw', onCancel)
+                    .on('touchmove.dw', onMove)
+                    .on('touchend.dw', onEnd);
             }
 
-            el.on('click', function (ev) {
+            el.on('click.dw', function (ev) {
                 ev.preventDefault();
                 // If handler was not called on touchend, call it on click;
                 handler.call(this, ev, that);

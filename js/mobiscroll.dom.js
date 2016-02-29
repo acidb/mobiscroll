@@ -296,6 +296,10 @@
             },
             //Events
             on: function (eventName, targetSelector, listener, capture) {
+                var events = eventName.split(' '),
+                    that = this,
+                    i, j;
+                
                 function handleLiveEvent(e) {
                     var target = e.target;
                     if ($(target).is(targetSelector)) {
@@ -310,8 +314,18 @@
                         }
                     }
                 }
-                var events = eventName.split(' ');
-                var i, j;
+                
+                function handleNamespaces(name, listener, capture) {
+                    var namespace = name.split('.');
+                    
+                    if (!that[i].DomNameSpaces) {
+                        that[i].DomNameSpaces = [];
+                    }
+                    
+                    that[i].DomNameSpaces.push({ namespace: namespace[1],  event: namespace[0], listener: listener, capture:  capture });
+                    that[i].addEventListener(namespace[0], listener, capture);
+                }
+
                 for (i = 0; i < this.length; i++) {
                     if (isFunction(targetSelector) || targetSelector === false) {
                         // Usual events
@@ -320,7 +334,12 @@
                             capture = arguments[2] || false;
                         }
                         for (j = 0; j < events.length; j++) {
-                            this[i].addEventListener(events[j], listener, capture);
+                            // check for namespaces
+                            if (events[j].indexOf('.') != -1) {
+                                handleNamespaces(events[j], listener, capture);
+                            } else {
+                                this[i].addEventListener(events[j], listener, capture);
+                            }
                         }
                     } else {
                         //Live events
@@ -332,15 +351,42 @@
                                 listener: listener,
                                 liveListener: handleLiveEvent
                             });
-                            this[i].addEventListener(events[j], handleLiveEvent, capture);
+                            
+                            if (events[j].indexOf('.') != -1) {
+                                handleNamespaces(events[j], handleLiveEvent, capture);
+                            } else {
+                                this[i].addEventListener(events[j], handleLiveEvent, capture);
+                            }
                         }
                     }
                 }
 
                 return this;
             },
+            
+            
             off: function (eventName, targetSelector, listener, capture) {
-                var events = eventName.split(' ');
+                var events,
+                    that = this,
+                    nameSpace;
+                
+                function removeEvents(evName) {
+                    for (var i = 0; i < that.length; ++i) {
+                        if (that[i].DomNameSpaces) {
+                            for (var j = 0; j < that[i].DomNameSpaces.length; ++j) {
+                                nameSpace = that[i].DomNameSpaces[j];
+
+                                if (nameSpace.namespace == evName) {
+                                    that[i].removeEventListener(nameSpace.event, nameSpace.listener, nameSpace.capture);
+                                    that[i].DomNameSpaces.splice(j, 1); // remove the namespace from the array
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                events = eventName.split(' ');
+                
                 for (var i = 0; i < events.length; i++) {
                     for (var j = 0; j < this.length; j++) {
                         if (isFunction(targetSelector) || targetSelector === false) {
@@ -349,9 +395,17 @@
                                 listener = arguments[1];
                                 capture = arguments[2] || false;
                             }
-                            this[j].removeEventListener(events[i], listener, capture);
+
+                            if (events[i].indexOf('.') == 0) { // remove namespace events
+                                removeEvents(events[i].substr(1), listener, capture);
+                            } else {
+                                this[j].removeEventListener(events[i], listener, capture);
+                            }
                         } else {
                             // Live event
+                            if (this[j].DomNameSpaces) {
+                                removeEvents(events[i].substr(1));
+                            }
                             if (this[j].DomLiveListeners) {
                                 for (var k = 0; k < this[j].DomLiveListeners.length; k++) {
                                     if (this[j].DomLiveListeners[k].listener === listener) {
@@ -362,6 +416,7 @@
                         }
                     }
                 }
+
                 return this;
             },
             trigger: function (eventName, eventData) {
