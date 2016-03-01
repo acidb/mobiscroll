@@ -3,7 +3,6 @@
         util = ms.util,
         isString = util.isString,
         defaults = {
-            //batch: 40,
             inputClass: '',
             invalid: [],
             rtl: false,
@@ -30,17 +29,14 @@
             optionArray,
             options,
             optionWheelIdx,
-            //origValues,
             $elm = $(this),
             orig = $.extend({}, inst.settings),
             s = $.extend(inst.settings, defaults, orig),
             layout = s.layout || (/top|bottom/.test(s.display) ? 'liquid' : ''),
             isLiquid = layout == 'liquid',
             multiple = s.multiple || $elm.prop('multiple'),
-            //maxSelect = util.isNumeric(s.multiple) ? s.multiple : Infinity,
             id = this.id + '_dummy',
             lbl = $('label[for="' + this.id + '"]').attr('for', id),
-            //selectedClass = 'mbsc-sc-item-sel mbsc-ic mbsc-ic-' + s.checkIcon,
             label = s.label !== undefined ? s.label : (lbl.length ? lbl.text() : $elm.attr('name')),
             hasData = !!s.data,
             hasGroups = hasData ? !!s.group : $('optgroup', $elm).length,
@@ -50,7 +46,6 @@
             groupHdr = hasGroups && (!groupSetup || (groupSetup.header !== false && !groupSep)),
             values = $elm.val() || [],
             invalid = [];
-        //selectedValues = {};
 
         function prepareData() {
             var gr,
@@ -249,7 +244,6 @@
 
             if (groupWheel) {
                 group = options[option] ? options[option].group : null;
-                //prevGroup = group;
             }
         }
 
@@ -258,35 +252,78 @@
             return val ? (s.group && group ? val : val[optionWheelIdx]) : null;
         }
 
-        function onFill() {
-            // TODO: be able to override formatting
-            var txt,
-                val,
-                sel = [],
-                i = 0;
+        function formatValue(d) {
+            var i,
+                opt,
+                sel = [];
 
             if (multiple) {
-                val = [];
-
-                //for (i in selectedValues) {
-                for (i in inst._selected[optionWheelIdx]) {
+                for (i in inst._tempSelected[optionWheelIdx]) {
                     sel.push(options[i] ? options[i].text : '');
-                    val.push(i);
                 }
-
-                txt = sel.join(', ');
-            } else {
-                val = option;
-                txt = options[option] ? options[option].text : '';
+                return sel.join(', ');
             }
 
-            inst._tempValue = val;
+            opt = d[optionWheelIdx];
+
+            return options[opt] ? options[opt].text : '';
+        }
+
+        function onFill() {
+            var val = inst.getVal(),
+                txt = inst._value;
+
+            // inst._tempValue = val; ???
 
             $input.val(txt);
             $elm.val(val);
         }
 
+        // Extended methods
+        // ---
+
+        inst.setVal = function (val, fill, change, temp, time) {
+            if (multiple) {
+                if (val && isString(val)) {
+                    val = val.split(',');
+                }
+
+                inst._tempSelected[optionWheelIdx] = util.arrayToObject(val);
+
+                if (!temp) {
+                    inst._selected[optionWheelIdx] = util.arrayToObject(val);
+                }
+
+                val = val ? val[0] : null;
+            }
+            inst._setVal(val, fill, change, temp, time);
+        };
+
+        inst.getVal = function (temp, group) {
+            if (multiple) {
+                return util.objectToArray(temp ? inst._tempSelected[optionWheelIdx] : inst._selected[optionWheelIdx]);
+            }
+            return getVal(temp, group);
+        };
+
+        inst.refresh = function () {
+            prepareData();
+
+            s.wheels = genWheels();
+
+            getOption(option);
+
+            inst._tempWheelArray = groupWheel ? [group, option] : [option];
+
+            if (inst._isVisible) {
+                inst.changeWheel(groupWheel ? [groupWheelIdx, optionWheelIdx] : [optionWheelIdx]);
+            }
+        };
+
+        // ---
+
         // Inits
+        // ---
 
         if (!s.invalid.length) {
             s.invalid = invalid;
@@ -305,15 +342,11 @@
 
             inst._selected[optionWheelIdx] = {};
 
-            // TODO: parse ???
             if (values && isString(values)) {
                 values = values.split(',');
             }
 
-            for (i = 0; i < values.length; i++) {
-                //selectedValues[values[i]] = values[i];
-                inst._selected[optionWheelIdx][values[i]] = values[i];
-            }
+            inst._selected[optionWheelIdx] = util.arrayToObject(values);
         }
 
         // Remove dummy element if exists
@@ -342,44 +375,7 @@
 
         getOption($elm.val());
 
-        onFill();
-
-        // Extended methods
         // ---
-
-        inst.setVal = function (val, fill, change, temp, time) {
-            if (multiple) {
-                if (val && isString(val)) {
-                    val = val.split(',');
-                }
-                //selectedValues = util.arrayToObject(val);
-                inst._selected[optionWheelIdx] = util.arrayToObject(val);
-                inst._tempSelected[optionWheelIdx] = util.arrayToObject(val);
-                val = val ? val[0] : null;
-            }
-            inst._setVal(val, fill, change, temp, time);
-        };
-
-        inst.getVal = function (temp, group) {
-            if (multiple) {
-                return util.objectToArray(temp ? inst._tempSelected[optionWheelIdx] : inst._selected[optionWheelIdx]);
-            }
-            return getVal(temp, group);
-        };
-
-        inst.refresh = function () {
-            prepareData();
-
-            s.wheels = genWheels();
-
-            getOption(option);
-
-            inst._tempWheelArray = groupWheel ? [group, option] : [option];
-
-            if (inst._isVisible) {
-                inst.changeWheel(groupWheel ? [groupWheelIdx, optionWheelIdx] : [optionWheelIdx]);
-            }
-        };
 
         return {
             width: 50,
@@ -387,23 +383,7 @@
             headerText: false,
             anchor: $input,
             confirmOnTap: groupWheel ? [false, true] : true,
-            formatValue: function (d) {
-                var i,
-                    opt,
-                    sel = [];
-
-                if (multiple) {
-                    //for (i in selectedValues) {
-                    for (i in inst._tempSelected[optionWheelIdx]) {
-                        sel.push(options[i] ? options[i].text : '');
-                    }
-                    return sel.join(', ');
-                }
-
-                opt = d[optionWheelIdx];
-
-                return options[opt] ? options[opt].text : '';
-            },
+            formatValue: formatValue,
             parseValue: function (val) {
                 getOption(val === undefined ? $elm.val() : val);
                 return groupWheel ? [group, option] : [option];
@@ -417,6 +397,7 @@
                     disabled: disabled
                 };
             },
+            onValueRead: onFill,
             onValueFill: onFill,
             onBeforeShow: function () {
                 if (multiple && s.counter) {
@@ -456,10 +437,6 @@
                         inst.setArrayVal(values, false, false, true, 200);
                     }
                 }
-            },
-            onValidated: function () {
-                // TODO:
-                //option = inst._tempWheelArray[optionWheelIdx];
             },
             onDestroy: function () {
                 if (!$input.hasClass('mbsc-control')) {

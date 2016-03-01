@@ -500,7 +500,7 @@
                 }
             }
 
-            function validateTimes(vobj, i, v, temp, y, m, d, target, valid) {
+            function validateTimes(vobj, i, v, temp, y, m, d, idx, valid) {
                 var dd, ss, str, parts1, parts2, prop1, prop2, v1, v2, j, i1, i2, add, remove, all, hours1, hours2, hours3,
                     spec = {},
                     steps = {
@@ -532,8 +532,8 @@
                     $.each(vobj, function (x, obj) {
                         add = 0;
                         remove = 0;
-                        i1 = 0;
-                        i2 = undefined;
+                        i1 = mins[v];
+                        i2 = maxs[v];
                         prop1 = true;
                         prop2 = true;
                         all = false;
@@ -616,40 +616,24 @@
                                 v2 = step(parts2[i], steps[v], mins[v], maxs[v]) - remove;
 
                                 if (prop1) {
-                                    i1 = getValidIndex(target, v1, maxs[v], 0);
+                                    i1 = v1;
                                 }
 
                                 if (prop2) {
-                                    i2 = getValidIndex(target, v2, maxs[v], 1);
+                                    i2 = v2 + 1;
                                 }
                             }
 
                             // Disable values
                             if (prop1 || prop2 || all) {
-                                if (valid) {
-                                    $('.dw-li', target).slice(i1, i2).addClass('dw-v');
-                                } else {
-                                    $('.dw-li', target).slice(i1, i2).removeClass('dw-v');
+                                for (j = i1; j < i2; j++) {
+                                    idx[j] = !valid;
                                 }
                             }
 
                         }
                     });
                 }
-            }
-
-            function getIndex(t, v) {
-                return $('.dw-li', t).index($('.dw-li[data-val="' + v + '"]', t));
-            }
-
-            function getValidIndex(t, v, max, add) {
-                if (v < 0) {
-                    return 0;
-                }
-                if (v > max) {
-                    return $('.dw-li', t).length;
-                }
-                return getIndex(t, v) + add;
             }
 
             function getArray(d, fillInner) {
@@ -856,23 +840,30 @@
                         }
                     });
 
-                    // TODO: validate times
                     // Invalid times
-                    //if (hasTime) {
-                    //    $.each(['a', 'h', 'i', 's'], function (i, v) {
-                    //        var val = get(temp, v),
-                    //            d = get(temp, 'd'),
-                    //            t = $('.dw-ul', dw).eq(o[v]);
+                    if (hasTime) {
+                        $.each(['a', 'h', 'i', 's'], function (i, v) {
+                            var val = get(temp, v),
+                                d = get(temp, 'd'),
+                                idx = {};
 
-                    //        if (o[v] !== undefined) {
-                    //            validateTimes(invalid, i, v, temp, y, m, d, t, 0);
-                    //            validateTimes(valid, i, v, temp, y, m, d, t, 1);
+                            if (o[v] !== undefined) {
+                                disabled[o[v]] = [];
 
-                    //            // Get valid value
-                    //            validValues[i] = +inst.getValidCell(val, t, dir).val;
-                    //        }
-                    //    });
-                    //}
+                                validateTimes(invalid, i, v, temp, y, m, d, idx, 0);
+                                validateTimes(valid, i, v, temp, y, m, d, idx, 1);
+
+                                $.each(idx, function (j, x) {
+                                    if (x) {
+                                        disabled[o[v]].push(j);
+                                    }
+                                });
+
+                                // Get valid value
+                                validValues[i] = inst.getValidValue(o[v], val, dir, idx);
+                            }
+                        });
+                    }
 
                     return {
                         disabled: disabled,

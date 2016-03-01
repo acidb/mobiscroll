@@ -314,22 +314,28 @@
             }
         }
 
-        function getValid(index, val, dir) {
-            var wheel = wheels[index],
-                disabled = wheel._disabled,
+        function getValid(index, val, dir, dis) {
+            var counter,
+                wheel = wheels[index],
+                disabled = dis || wheel._disabled,
                 idx = getIndex(wheel, val),
                 v1 = val,
                 v2 = val,
                 dist1 = 0,
                 dist2 = 0;
 
+            // TODO: what if all items are invalid
             if (disabled[val]) {
-                while (idx - dist1 >= wheel.min && disabled[v1]) {
+                counter = 0;
+                while (idx - dist1 >= wheel.min && disabled[v1] && counter < 100) {
+                    counter++;
                     dist1++;
                     v1 = getValue(wheel, idx - dist1);
                 }
 
-                while (idx + dist2 < wheel.max && disabled[v2]) {
+                counter = 0;
+                while (idx + dist2 < wheel.max && disabled[v2] && counter < 100) {
+                    counter++;
                     dist2++;
                     v2 = getValue(wheel, idx + dist2);
                 }
@@ -507,9 +513,9 @@
         };
 
         /**
-         * Returns the closest valid cell.
+         * Returns the closest valid value.
          */
-        //that.getValidCell = getValid;
+        that.getValidValue = getValid;
 
         // Protected overrides
 
@@ -530,7 +536,7 @@
                     that._tempSelected[l] = extend({}, that._selected[l]);
 
                     // TODO: this should be done on initialization, not on show
-                    wheels[l] = initWheel(w, l);
+                    //wheels[l] = initWheel(w, l);
 
                     lbl = w.label !== undefined ? w.label : j;
 
@@ -688,7 +694,8 @@
         };
 
         that._readValue = function () {
-            var v = $elm.val() || '';
+            var v = $elm.val() || '',
+                l = 0;
 
             if (v !== '') {
                 that._hasValue = true;
@@ -700,7 +707,16 @@
 
             that._tempSelected = extend(true, {}, that._selected);
 
+            $.each(s.wheels, function (i, wg) {
+                $.each(wg, function (j, w) { // Wheels
+                    wheels[l] = initWheel(w, l);
+                    l++;
+                });
+            });
+
             setValue();
+
+            trigger('onValueRead', []);
         };
 
         that._processSettings = function () {
