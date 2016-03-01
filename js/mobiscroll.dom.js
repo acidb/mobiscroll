@@ -371,14 +371,20 @@
                     nameSpace;
                 
                 function removeEvents(evName) {
-                    for (var i = 0; i < that.length; ++i) {
+                    for (i = 0; i < that.length; ++i) {
                         if (that[i].DomNameSpaces) {
-                            for (var j = 0; j < that[i].DomNameSpaces.length; ++j) {
+                            for (j = 0; j < that[i].DomNameSpaces.length; ++j) {
                                 nameSpace = that[i].DomNameSpaces[j];
 
                                 if (nameSpace.namespace == evName) {
                                     that[i].removeEventListener(nameSpace.event, nameSpace.listener, nameSpace.capture);
-                                    that[i].DomNameSpaces.splice(j, 1); // remove the namespace from the array
+                                    nameSpace.removed = true;
+                                }
+                            }
+                            // remove the events from the DomNameSpaces array 
+                            for (j = that[i].DomNameSpaces.length - 1; j >= 0 ; --j) {
+                                if (that[i].DomNameSpaces[j].removed) {
+                                    that[i].DomNameSpaces.splice(j, 1); 
                                 }
                             }
                         }
@@ -403,15 +409,15 @@
                             }
                         } else {
                             // Live event
-                            if (this[j].DomNameSpaces) {
-                                removeEvents(events[i].substr(1));
-                            }
                             if (this[j].DomLiveListeners) {
                                 for (var k = 0; k < this[j].DomLiveListeners.length; k++) {
                                     if (this[j].DomLiveListeners[k].listener === listener) {
                                         this[j].removeEventListener(events[i], this[j].DomLiveListeners[k].liveListener, capture);
                                     }
                                 }
+                            }
+                            if (this[j].DomNameSpaces && this[j].DomNameSpaces.length) {
+                                removeEvents(events[i].substr(1));
                             }
                         }
                     }
