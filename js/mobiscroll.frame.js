@@ -408,6 +408,7 @@
          * Clear button handler.
          */
         that.clear = function () {
+            that._clearValue();
             event('onClear', [$markup]);
             if (isModal && that._isVisible && !that.live) {
                 that.hide(false, 'clear', false, clear);

@@ -6,3 +6,15 @@
     overflow: hidden;
     clip: rect(1px, 1px, 1px, 1px);
 }
+
+.mbsc-sel-gr {
+    padding: 0 .25em;
+    opacity: 1;
+    font-weight: bold;
+    text-align: left;
+}
+/* Mobiscroll theme */
+
+.mbsc-mobiscroll .mbsc-sel-gr {
+    font-size: 1.125em;
+}

@@ -1,4 +1,28 @@
 (function ($, window, document, undefined) {
+
+    function getIndex(wheel, val) {
+        return wheel._array ? wheel._map[val] : wheel.getIndex(val);
+    }
+
+    function getItem(wheel, i, def) {
+        var values = wheel.values;
+
+        if (i < wheel.min || i > wheel.max) {
+            return def;
+        }
+        return wheel._array ?
+            (wheel.circular ? $(values).get(i % wheel._length) : values[i]) :
+            ($.isFunction(values) ? values(i) : '');
+    }
+
+    function getItemValue(item) {
+        return $.isPlainObject(item) ? (item.value !== undefined ? item.value : item.text) : item;
+    }
+
+    function getValue(wheel, i, def) {
+        return getItemValue(getItem(wheel, i, def));
+    }
+
     var ms = $.mobiscroll,
         extend = $.extend,
         classes = ms.classes,
@@ -77,22 +101,29 @@
         }
 
         function onKeyDown(ev) {
-            var direction;
+            var i = $(this).attr('data-index'),
+                handle,
+                direction;
 
-            if (ev.keyCode == 38) { // up
+            if (ev.keyCode == 38) { // Up
+                handle = true;
                 direction = -1;
-            } else if (ev.keyCode == 40) { // down
+            } else if (ev.keyCode == 40) { // Down
+                handle = true;
                 direction = 1;
+            } else if (ev.keyCode == 32) { // Space
+                handle = true;
+                toggleItem(i);
             }
 
-            if (direction) {
+            if (handle) {
                 ev.stopPropagation();
                 ev.preventDefault();
 
-                if (!stepRunning) {
+                if (direction && !stepRunning) {
                     stepRunning = true;
                     stepSkip = false;
-                    runStepper($(this).attr('data-index'), direction);
+                    runStepper(i, direction);
                 }
             }
         }
@@ -102,6 +133,26 @@
         }
 
         // Private functions
+
+        function toggleItem(i, $selected) {
+            var wheel = wheels[i],
+                $item = $selected || wheel._$markup.find('.mbsc-sc-itm[data-val="' + tempWheelArray[i] + '"]'),
+                idx = +$item.attr('data-index'),
+                val = getValue(wheel, idx),
+                selected = that._tempSelected[i],
+                maxSelect = util.isNumeric(wheel.multiple) ? wheel.multiple : Infinity;
+
+            if (wheel.multiple && !wheel._disabled[val]) {
+                if (selected[val] !== undefined) {
+                    $item.removeClass(selectedClass).removeAttr('aria-selected');
+                    delete selected[val];
+                } else if (util.objectToArray(selected).length < maxSelect) {
+                    $item.addClass(selectedClass).attr('aria-selected', 'true');
+                    selected[val] = val;
+                }
+                return true;
+            }
+        }
 
         function runStepper(index, direction) {
             if (!stepSkip) {
@@ -137,7 +188,7 @@
 
         function initWheel(w, l) {
             w.values = w.values || [];
-            w.keys = w.keys || w.values;
+            //w.keys = w.keys || w.values;
             w.label = w.label !== undefined ? w.label : l;
 
             w._map = {};
@@ -146,8 +197,8 @@
             // Map keys to index
             if (w._array) {
                 w._length = w.values.length;
-                $.each(w.keys, function (i, v) {
-                    w._map[v] = i;
+                $.each(w.values, function (i, v) {
+                    w._map[getItemValue(v)] = i;
                 });
             }
 
@@ -167,45 +218,40 @@
             return w;
         }
 
-        function getIndex(wheel, val) {
-            return wheel._array ? wheel._map[val] : wheel.getIndex(val);
-        }
-
-        function getItem(wheel, values, i, def) {
-            if (i < wheel.min || i > wheel.max) {
-                return def;
-            }
-            return wheel._array ?
-                (wheel.circular ? $(values).get(i % wheel._length) : values[i]) :
-                ($.isFunction(values) ? values(i) : '');
-        }
-
         function generateItems(wheel, start, end) {
             var i,
-                key,
+                css,
+                item,
                 value,
+                text,
                 lbl,
                 html = '',
                 selected = that._tempSelected[wheel._nr],
-                disabled = wheel._disabled || {},
-                labels = wheel.labels || [],
-                values = wheel.values,
-                keys = wheel.keys;
+                disabled = wheel._disabled || {};
+            //values = wheel.values
+            //labels = wheel.labels || [],
+            //keys = wheel.keys;
 
             for (i = start; i <= end; i++) {
-                value = getItem(wheel, values, i, '');
-                key = getItem(wheel, keys, i);
-                lbl = getItem(wheel, labels, i, '');
+                item = getItem(wheel, i);
+                text = $.isPlainObject(item) ? item.text : item;
+                value = item && item.value !== undefined ? item.value : text;
+                css = item && item.cssClass !== undefined ? item.cssClass : '';
+                lbl = item && item.label !== undefined ? item.label : '';
+
+                //key = getItem(wheel, keys, i);
+                //lbl = getItem(wheel, labels, i, '');
 
                 // TODO: multiline
-                html += '<div role="option" aria-selected="' + (selected[key] ? true : false) +
-                    '" class="mbsc-sc-itm ' +
-                    (selected[key] ? selectedClass : '') +
-                    (key !== undefined && !disabled[key] ? " mbsc-btn-e" : '') +
+                // TODO: don't generate items with no value (use margin or placeholder instead)
+                html += '<div role="option" aria-selected="' + (selected[value] ? true : false) +
+                    '" class="mbsc-sc-itm ' + css + ' ' +
+                    (selected[value] ? selectedClass : '') +
+                    (value !== undefined && !disabled[value] ? ' mbsc-btn-e' : ' mbsc-sc-inv mbsc-btn-d') +
                     '" data-index="' + i +
-                    '" data-val="' + key + '"' +
+                    '" data-val="' + value + '"' +
                     (lbl ? ' aria-label="' + lbl + '"' : '') +
-                    ' style="height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;">' + value + '</div>';
+                    ' style="height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;">' + (text === undefined ? '' : text) + '</div>';
             }
 
             return html;
@@ -280,12 +326,12 @@
             if (disabled[val]) {
                 while (idx - dist1 >= wheel.min && disabled[v1]) {
                     dist1++;
-                    v1 = getItem(wheel, wheel.keys, idx - dist1);
+                    v1 = getValue(wheel, idx - dist1);
                 }
 
                 while (idx + dist2 < wheel.max && disabled[v2]) {
                     dist2++;
-                    v2 = getItem(wheel, wheel.keys, idx + dist2);
+                    v2 = getValue(wheel, idx + dist2);
                 }
 
                 // If we have direction (+/- or mouse wheel), the distance does not count
@@ -333,16 +379,25 @@
 
                     // Disable invalid items
                     if (ret.disabled && ret.disabled[i]) {
-                        // TODO: disable dynamically generated elements as well
                         $.each(ret.disabled[i], function (j, v) {
                             wheel._disabled[v] = true;
                             wheel._$markup.find('.mbsc-sc-itm[data-val="' + v + '"]').addClass('mbsc-sc-inv mbsc-btn-d');
                         });
                     }
 
-                    // TODO: mark element as aria selected
                     // Get closest valid value
                     tempWheelArray[i] = wheel.multiple ? tempWheelArray[i] : getValid(i, tempWheelArray[i], dir);
+
+                    if (!wheel.multiple) {
+                        // Mark element as aria selected
+                        if (wheel._$selected) {
+                            wheel._$selected.removeClass('mbsc-sc-itm-sel').removeAttr('aria-selected');
+                        }
+                        wheel._$selected = wheel._$markup
+                            .find('.mbsc-sc-itm[data-val="' + tempWheelArray[i] + '"]')
+                            .addClass('mbsc-sc-itm-sel')
+                            .attr('aria-selected', 'true');
+                    }
 
                     // Get index of valid value
                     idx = getIndex(wheel, tempWheelArray[i]);
@@ -474,6 +529,7 @@
 
                     that._tempSelected[l] = extend({}, that._selected[l]);
 
+                    // TODO: this should be done on initialization, not on show
                     wheels[l] = initWheel(w, l);
 
                     lbl = w.label !== undefined ? w.label : j;
@@ -491,10 +547,10 @@
                         '<div class="mbsc-sc-lbl">' + lbl + '</div>' + // Wheel label
                         '<div class="mbsc-sc-whl-c' +
                         (w.multiple ?
-                            ' mbsc-sc-whl-multi' :
-                            '" style="height:' + itemHeight + 'px;margin-top:-' + (itemHeight / 2 + (s.selectedLineBorder || 0)) + 'px;') +
+                            ' mbsc-sc-whl-multi" aria-multiselectable="true"' :
+                            '" style="height:' + itemHeight + 'px;margin-top:-' + (itemHeight / 2 + (s.selectedLineBorder || 0)) + 'px;"') +
                         //(s.scroll3d ? pref + 'transform: translateZ(' + (itemHeight * s.rows / 2) + 'px);' : '') +
-                        '">' +
+                        '>' +
                         '<div class="mbsc-sc-whl-sc" style="margin-top:' + w._margin + 'px;">';
 
                     // Create wheel values
@@ -578,7 +634,7 @@
                         if (!skip) {
                             idx = Math.round(-pos / itemHeight);
                             // Get the value of the new position
-                            tempWheelArray[i] = getItem(wheel, wheel.keys, idx);
+                            tempWheelArray[i] = getValue(wheel, idx);
                             // In case of circular wheels calculate the offset of the current batch
                             wheel._batch = wheel._array ? Math.floor(idx / len) * len * itemHeight : 0;
                             // Validate
@@ -604,22 +660,11 @@
                         infinite(wheel, ev.posY);
                     },
                     onBtnTap: function ($item, inst) {
-                        var idx = +$item.attr('data-index'),
-                            val = getItem(wheel, wheel.keys, idx),
-                            selected = that._tempSelected[i],
-                            maxSelect = util.isNumeric(wheel.multiple) ? wheel.multiple : Infinity;
+                        var idx = +$item.attr('data-index');
 
                         // Select item on tap
-                        // TODO: clear + keyboard support
-                        if (wheel.multiple && !wheel._disabled[val]) {
-                            if (selected[val] !== undefined) {
-                                $item.removeClass(selectedClass).removeAttr('aria-selected');
-                                delete selected[val];
-                            } else if (util.objectToArray(selected).length < maxSelect) {
-                                $item.addClass(selectedClass).attr('aria-selected', 'true');
-                                selected[val] = val;
-                            }
-                            // Don't scroll, but triggers validation
+                        if (toggleItem(i, $item)) {
+                            // Don't scroll, but trigger validation
                             idx = wheel._index;
                         }
 
@@ -636,6 +681,10 @@
         that._fillValue = function () {
             that._hasValue = true;
             setValue(true, true, 0, true);
+        };
+
+        that._clearValue = function () {
+            $('.mbsc-sc-whl-multi .mbsc-sc-itm-sel', $markup).removeClass(selectedClass).removeAttr('aria-selected');
         };
 
         that._readValue = function () {
@@ -722,11 +771,13 @@
 
                 $.each(inst.settings.wheels, function (j, wg) {
                     $.each(wg, function (k, w) {
-                        keys = w.keys || w.values;
-                        found = keys[0]; // Default to first wheel value if not found
+                        //keys = w.keys || w.values;
+                        //found = keys[0]; // Default to first wheel value if not found
+                        keys = w.values;
+                        found = getItemValue(keys[0]);
                         $.each(keys, function (l, key) {
-                            if (val[i] == key) { // Don't do strict comparison
-                                found = key;
+                            if (val[i] == getItemValue(key)) { // Don't do strict comparison
+                                found = getItemValue(key);
                                 return false;
                             }
                         });

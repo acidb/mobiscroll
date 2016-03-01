@@ -163,7 +163,8 @@
                         text: gr.text,
                         value: val,
                         group: i,
-                        index: l++
+                        index: l++,
+                        cssClass: 'mbsc-sel-gr'
                     };
                     options[val] = opt;
                     optionArray.push(opt);
@@ -178,19 +179,22 @@
 
         function genValues(data, multiple, label) {
             var i,
-                keys = [],
+                //keys = [],
                 values = [];
 
             for (i = 0; i < data.length; i++) {
-                values.push(data[i].text);
-                keys.push(data[i].value);
+                values.push({
+                    value: data[i].value,
+                    text: data[i].text,
+                    cssClass: data[i].cssClass
+                });
             }
 
             return {
                 circular: false,
                 multiple: multiple,
                 values: values,
-                keys: keys,
+                //keys: keys,
                 label: label
             };
         }
@@ -413,7 +417,6 @@
                     disabled: disabled
                 };
             },
-            //onValueTap: onTap,
             onValueFill: onFill,
             onBeforeShow: function () {
                 if (multiple && s.counter) {
@@ -455,12 +458,8 @@
                 }
             },
             onValidated: function () {
+                // TODO:
                 //option = inst._tempWheelArray[optionWheelIdx];
-            },
-            onClear: function () {
-                //selectedValues = {};
-                $input.val('');
-                //$('.dwwl' + optionWheelIdx + ' .dw-li', dw).removeClass(selectedClass).removeAttr('aria-selected');
             },
             onDestroy: function () {
                 if (!$input.hasClass('mbsc-control')) {

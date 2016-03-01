@@ -63,7 +63,7 @@
             // Set year-month-day order
             var i,
                 k,
-                keys,
+                //keys,
                 values,
                 wg,
                 //start,
@@ -150,10 +150,10 @@
                             wg,
                             s.yearText,
                             function (i) {
-                                return i;
-                            },
-                            function (i) {
-                                return dord.match(/yy/i) ? i : (i + '').substr(2, 2);
+                                return {
+                                    value: i,
+                                    text: dord.match(/yy/i) ? i : (i + '').substr(2, 2)
+                                };
                             },
                             function (v) {
                                 return v;
@@ -164,23 +164,29 @@
                     } else if (k == o.m) {
                         offset++;
                         values = [];
-                        keys = [];
+                        //keys = [];
                         for (i = 0; i < 12; i++) {
                             var str = dord.replace(/[dy]/gi, '').replace(/mm/, (i < 9 ? '0' + (i + 1) : i + 1) + (s.monthSuffix || '')).replace(/m/, i + 1 + (s.monthSuffix || ''));
-                            keys.push(i);
-                            values.push(str.match(/MM/) ? str.replace(/MM/, '<div class="dw-mon">' + s.monthNames[i] + '</div>') : str.replace(/M/, '<div class="dw-mon">' + s.monthNamesShort[i] + '</div>'));
+                            //keys.push(i);
+                            values.push({
+                                value: i,
+                                text: str.match(/MM/) ? str.replace(/MM/, '<div class="dw-mon">' + s.monthNames[i] + '</div>') : str.replace(/M/, '<div class="dw-mon">' + s.monthNamesShort[i] + '</div>')
+                            });
                             //values.push(str.match(/MM/) ? str.replace(/MM/, s.monthNames[i]) : str.replace(/M/, s.monthNamesShort[i]));
                         }
-                        addWheel(wg, s.monthText, keys, values);
+                        addWheel(wg, s.monthText, values);
                     } else if (k == o.d) {
                         offset++;
                         values = [];
-                        keys = [];
+                        //keys = [];
                         for (i = 1; i < 32; i++) {
-                            keys.push(i);
-                            values.push((dord.match(/dd/i) && i < 10 ? '0' + i : i) + (s.daySuffix || ''));
+                            //keys.push(i);
+                            values.push({
+                                value: i,
+                                text: (dord.match(/dd/i) && i < 10 ? '0' + i : i) + (s.daySuffix || '')
+                            });
                         }
-                        addWheel(wg, s.dayText, keys, values);
+                        addWheel(wg, s.dayText, values);
                     }
                 }
                 wheels.push(wg);
@@ -212,34 +218,56 @@
                     if (k == o.h) {
                         offset++;
                         values = [];
-                        keys = [];
+                        //keys = [];
                         for (i = minH; i < (hampm ? 12 : 24); i += stepH) {
-                            keys.push(i);
-                            values.push(hampm && i === 0 ? 12 : tord.match(/hh/i) && i < 10 ? '0' + i : i);
+                            //keys.push(i);
+                            values.push({
+                                value: i,
+                                text: hampm && i === 0 ? 12 : tord.match(/hh/i) && i < 10 ? '0' + i : i
+                            });
                         }
-                        addWheel(wg, s.hourText, keys, values);
+                        addWheel(wg, s.hourText, values);
                     } else if (k == o.i) {
                         offset++;
                         values = [];
-                        keys = [];
+                        //keys = [];
                         for (i = minM; i < 60; i += stepM) {
-                            keys.push(i);
-                            values.push(tord.match(/ii/) && i < 10 ? '0' + i : i);
+                            //keys.push(i);
+                            values.push({
+                                value: i,
+                                text: tord.match(/ii/) && i < 10 ? '0' + i : i
+                            });
                         }
-                        addWheel(wg, s.minuteText, keys, values);
+                        addWheel(wg, s.minuteText, values);
                     } else if (k == o.s) {
                         offset++;
                         values = [];
-                        keys = [];
+                        //keys = [];
                         for (i = minS; i < 60; i += stepS) {
-                            keys.push(i);
-                            values.push(tord.match(/ss/) && i < 10 ? '0' + i : i);
+                            //keys.push(i);
+                            values.push({
+                                value: i,
+                                text: tord.match(/ss/) && i < 10 ? '0' + i : i
+                            });
                         }
-                        addWheel(wg, s.secText, keys, values);
+                        addWheel(wg, s.secText, values);
                     } else if (k == o.a) {
                         offset++;
                         var upper = tord.match(/A/);
-                        addWheel(wg, s.ampmText, [0, 1], upper ? [s.amText.toUpperCase(), s.pmText.toUpperCase()] : [s.amText, s.pmText]);
+
+                        addWheel(wg, s.ampmText, upper ? [{
+                            value: 0,
+                            text: s.amText.toUpperCase()
+                        }, {
+                            value: 1,
+                            text: s.pmText.toUpperCase()
+                        }] : [{
+                            value: 0,
+                            text: s.amText
+                        }, {
+                            value: 1,
+                            text: s.pmText
+                        }]);
                     }
                 }
 
@@ -259,10 +287,10 @@
                 return f[i](defd);
             }
 
-            function addWheel(wg, lbl, k, v, getIndex, min, max) {
+            function addWheel(wg, lbl, v, getIndex, min, max) {
                 wg.push({
                     values: v,
-                    keys: k,
+                    //keys: k,
                     label: lbl,
                     min: min,
                     max: max,
