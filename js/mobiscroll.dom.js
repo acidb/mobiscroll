@@ -175,6 +175,7 @@
                 return $(slice.apply(this, arguments));
             },
             // Classes and attriutes
+            // NOTE: element.classList attribure is not supported on android 2.3!!!
             addClass: function (className) {
                 if (typeof className === 'undefined') {
                     return this;
@@ -416,7 +417,7 @@
                                     }
                                 }
                             }
-                            if (this[j].DomNameSpaces && this[j].DomNameSpaces.length) {
+                            if (this[j].DomNameSpaces && this[j].DomNameSpaces.length && events[i]) {
                                 removeEvents(events[i].substr(1));
                             }
                         }
