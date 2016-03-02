@@ -437,7 +437,8 @@
 
                 if (change) {
                     that._preventChange = true;
-                    $elm.change();
+                   // $elm.change();
+                    $elm.trigger('change');
                 }
             }
         }
@@ -496,6 +497,7 @@
                         initialPos: -w._index * itemHeight,
                         minScroll: -(w.max - (w.multiple ? (s.rows - 1) : 0)) * itemHeight,
                         maxScroll: -w.min * itemHeight
+
                     });
 
                     w._$markup
