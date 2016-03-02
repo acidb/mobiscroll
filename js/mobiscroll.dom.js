@@ -235,12 +235,8 @@
                 if (arguments.length === 1 && typeof attrs === 'string' && this.length) {
                     // Get attr
                     attr = this[0].getAttribute(attrs);
-
-                    if (this[0] && attr) {
-                        return attr;
-                    } else {
-                        return undefined;
-                    }
+                    
+                    return this[0] && attr ? attr : "";
                 } else {
                     // Set attrs
                     for (var i = 0; i < this.length; i++) {
