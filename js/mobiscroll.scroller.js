@@ -437,7 +437,7 @@
 
                 if (change) {
                     that._preventChange = true;
-                    $elm.change();
+                    $elm.trigger('change');
                 }
             }
         }
