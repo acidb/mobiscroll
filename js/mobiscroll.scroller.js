@@ -183,7 +183,7 @@
         }
 
         function isReadOnly(i) {
-            $.isArray(s.readonly) ? s.readonly[i] : s.readonly;
+            return $.isArray(s.readonly) ? s.readonly[i] : s.readonly;
         }
 
         function initWheel(w, l) {
@@ -392,6 +392,7 @@
                     }
 
                     // Get closest valid value
+                    // TODO: this should be done somehow also if scroller is not visible to correctly validate
                     tempWheelArray[i] = wheel.multiple ? tempWheelArray[i] : getValid(i, tempWheelArray[i], dir);
 
                     if (!wheel.multiple) {
@@ -536,7 +537,7 @@
                     that._tempSelected[l] = extend({}, that._selected[l]);
 
                     // TODO: this should be done on initialization, not on show
-                    //wheels[l] = initWheel(w, l);
+                    wheels[l] = initWheel(w, l);
 
                     lbl = w.label !== undefined ? w.label : j;
 
@@ -630,6 +631,9 @@
                     onGestureStart: function () {
                         $wh.addClass('mbsc-sc-whl-a');
 
+                        trigger('onWheelGestureStart', [{
+                            index: i
+                        }]);
                     },
                     onAnimationStart: function (ev) {
                         var dir = ev.direction == 90 ? 1 : 2,
@@ -654,7 +658,7 @@
                     onAnimationEnd: function () {
                         $wh.removeClass('mbsc-sc-whl-a');
 
-                        trigger('onWheelStopped', [{
+                        trigger('onWheelAnimationEnd', [{
                             index: i
                         }]);
                     },
