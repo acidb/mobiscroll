@@ -408,6 +408,7 @@
          * Clear button handler.
          */
         that.clear = function () {
+            that._clearValue();
             event('onClear', [$markup]);
             if (isModal && that._isVisible && !that.live) {
                 that.hide(false, 'clear', false, clear);
@@ -681,6 +682,8 @@
                     onHide(prevAnim);
                 }
 
+                that._detachEvents($markup);
+
                 // Stop positioning on window resize
                 $wnd
                     .off(posEvents, onPosition)
@@ -724,6 +727,8 @@
         that._generateContent = empty;
 
         that._attachEvents = empty;
+
+        that._detachEvents = empty;
 
         that._readValue = empty;
 

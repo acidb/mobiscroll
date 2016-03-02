@@ -132,10 +132,12 @@
             getCoord: function (e, c, page) {
                 var ev = e.originalEvent || e,
                     prop = (page ? 'page' : 'client') + c;
-                return ev.changedTouches ? ev.changedTouches[0][prop] : e[prop];
+                // Multi touch support
+                return ev.targetTouches ? ev.targetTouches[0]['client' + c] : e['client' + c];
+                //return ev.changedTouches ? ev.changedTouches[0][prop] : e[prop];
             },
             getPosition: function (t, vertical) {
-                var style = window.getComputedStyle ? getComputedStyle(t[0]) : t[0].style,
+                var style = getComputedStyle(t[0]),
                     matrix,
                     px;
 
