@@ -3,8 +3,7 @@
     var cssNumber = { 'column-count': 1, 'columns': 1, 'font-weight': 1, 'line-height': 1, 'opacity': 1, 'z-index': 1, 'zoom': 1 },
         emptyArray = [],
         tempParent = document.createElement('div'),
-        slice = Array.prototype.slice,
-        filter = emptyArray.filter;
+        slice = Array.prototype.slice;
 
     function isFunction(value) {
         return typeof value === "function";
@@ -217,7 +216,7 @@
                 }
                 return this;
             },
-            closest: function(selector, context){
+            closest: function(selector, context) {
               var node = this[0], 
                   collection = false;
                 
@@ -403,7 +402,7 @@
                                 capture = arguments[2] || false;
                             }
 
-                            if (events[i].indexOf('.') == 0) { // remove namespace events
+                            if (events[i].indexOf('.') === 0) { // remove namespace events
                                 removeEvents(events[i].substr(1), listener, capture);
                             } else {
                                 this[j].removeEventListener(events[i], listener, capture);
@@ -625,20 +624,18 @@
             },
             filter: function (callback) {
                 var matchedItems = [];
-                var dom = this;
-
-                if (isFunction(callback)) {
-                    for (var i = 0; i < dom.length; i++) {
-                        if (callback.call(dom[i], i, dom[i])) {
-                            matchedItems.push(dom[i]);
-                        }
+                
+                for (var i = 0; i < this.length; i++) {
+                    if (isFunction(callback)) {
+                        if (callback.call(this[i], i, this[i])) {
+                            matchedItems.push(this[i]);
+                        } 
+                    } else if ($.matches(this[i], callback)) {
+                        matchedItems.push(this[i]);
                     }
-                    return new Dom(matchedItems);
                 }
 
-                return filter.call(this, function (element) {
-                    return $.matches(element, callback);
-                });
+                return new Dom(matchedItems);
             },
             html: function (html) {
                 if (typeof html === 'undefined') {
@@ -675,6 +672,10 @@
                 } else {
                     var excludes = typeof selector == 'string' ? this.filter(selector) : (likeArray(selector) && isFunction(selector.item)) ? slice.call(selector) : $(selector);
 
+                    if (isObject(excludes)) {
+                        excludes = $.map(excludes, function (el) { return el; });
+                    }
+                    
                     this.each(function (i, el) {
                         if (excludes.indexOf(el) < 0) {
                             nodes.push(el);
@@ -1124,7 +1125,7 @@
             return false;
         }
 
-        var matchesSelector = element.webkitMatchesSelector || element.mozMatchesSelector || element.oMatchesSelector || element.matchesSelector;
+        var matchesSelector = element.webkitMatchesSelector || element.mozMatchesSelector || element.matchesSelector;
 
         if (matchesSelector) {
             return matchesSelector.call(element, selector);
