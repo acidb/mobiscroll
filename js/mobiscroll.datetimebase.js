@@ -755,7 +755,7 @@
                                 if (regen) {
                                     $('.dw-li', t).each(function () {
                                         var that = $(this),
-                                            d = that.data('val'),
+                                            d = that.attr('data-val'),
                                             w = s.getDate(y, m, d).getDay(),
                                             str = dord.replace(/[my]/gi, '').replace(/dd/, (d < 10 ? '0' + d : d) + (s.daySuffix || '')).replace(/d/, d + (s.daySuffix || ''));
                                         $('.dw-i', that).html(str.match(/DD/) ? str.replace(/DD/, '<span class="dw-day">' + s.dayNames[w] + '</span>') : str.replace(/D/, '<span class="dw-day">' + s.dayNamesShort[w] + '</span>'));
