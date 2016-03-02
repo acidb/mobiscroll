@@ -1,6 +1,14 @@
 (function (window, document, undefined) {
 
-    var cssNumber = { 'column-count': 1, 'columns': 1, 'font-weight': 1, 'line-height': 1, 'opacity': 1, 'z-index': 1, 'zoom': 1 },
+    var cssNumber = {
+            'column-count': 1,
+            'columns': 1,
+            'font-weight': 1,
+            'line-height': 1,
+            'opacity': 1,
+            'z-index': 1,
+            'zoom': 1
+        },
         emptyArray = [],
         tempParent = document.createElement('div'),
         slice = Array.prototype.slice;
@@ -72,7 +80,7 @@
             // Return collection with methods
             return $(this);
         };
-        
+
         var $ = function (selector, context) {
             var arr = [],
                 i = 0;
@@ -216,17 +224,17 @@
                 }
                 return this;
             },
-            closest: function(selector, context) {
-              var node = this[0], 
-                  collection = false;
-                
+            closest: function (selector, context) {
+                var node = this[0],
+                    collection = false;
+
                 if (typeof selector == 'object') {
                     collection = $(selector);
                 }
-                while (node && !(collection ? collection.indexOf(node) >= 0 : $.matches(node, selector))) { 
+                while (node && !(collection ? collection.indexOf(node) >= 0 : $.matches(node, selector))) {
                     node = node !== context && !isDocument(node) && node.parentNode;
                 }
-                
+
                 return $(node);
             },
             attr: function (attrs, value) {
@@ -235,7 +243,7 @@
                 if (arguments.length === 1 && typeof attrs === 'string' && this.length) {
                     // Get attr
                     attr = this[0].getAttribute(attrs);
-                    
+
                     return this[0] && attr ? attr : "";
                 } else {
                     // Set attrs
@@ -295,13 +303,12 @@
                 var events = eventName.split(' '),
                     that = this,
                     i, j;
-                
+
                 function handleLiveEvent(e) {
                     var target = e.target;
                     if ($(target).is(targetSelector)) {
                         listener.call(target, e);
-                    }
-                    else {
+                    } else {
                         var parents = $(target).parents();
                         for (var k = 0; k < parents.length; k++) {
                             if ($(parents[k]).is(targetSelector)) {
@@ -310,15 +317,20 @@
                         }
                     }
                 }
-                
+
                 function handleNamespaces(name, listener, capture) {
                     var namespace = name.split('.');
-                    
+
                     if (!that[i].DomNameSpaces) {
                         that[i].DomNameSpaces = [];
                     }
-                    
-                    that[i].DomNameSpaces.push({ namespace: namespace[1],  event: namespace[0], listener: listener, capture:  capture });
+
+                    that[i].DomNameSpaces.push({
+                        namespace: namespace[1],
+                        event: namespace[0],
+                        listener: listener,
+                        capture: capture
+                    });
                     that[i].addEventListener(namespace[0], listener, capture);
                 }
 
@@ -347,7 +359,7 @@
                                 listener: listener,
                                 liveListener: handleLiveEvent
                             });
-                            
+
                             if (events[j].indexOf('.') != -1) {
                                 handleNamespaces(events[j], handleLiveEvent, capture);
                             } else {
@@ -359,13 +371,13 @@
 
                 return this;
             },
-            
-            
+
+
             off: function (eventName, targetSelector, listener, capture) {
                 var events,
                     that = this,
                     nameSpace;
-                
+
                 function removeEvents(evName) {
                     for (i = 0; i < that.length; ++i) {
                         if (that[i].DomNameSpaces) {
@@ -378,17 +390,17 @@
                                 }
                             }
                             // remove the events from the DomNameSpaces array 
-                            for (j = that[i].DomNameSpaces.length - 1; j >= 0 ; --j) {
+                            for (j = that[i].DomNameSpaces.length - 1; j >= 0; --j) {
                                 if (that[i].DomNameSpaces[j].removed) {
-                                    that[i].DomNameSpaces.splice(j, 1); 
+                                    that[i].DomNameSpaces.splice(j, 1);
                                 }
                             }
                         }
                     }
                 }
-                
+
                 events = eventName.split(' ');
-                
+
                 for (var i = 0; i < events.length; i++) {
                     for (var j = 0; j < this.length; j++) {
                         if (isFunction(targetSelector) || targetSelector === false) {
@@ -546,7 +558,7 @@
                 }
                 return this;
             },
-            show: function() {
+            show: function () {
                 for (var i = 0; i < this.length; i++) {
                     this[i].style.display == "none" && (this[i].style.display = 'block');
 
@@ -589,8 +601,7 @@
                         this.each(function () {
                             this.style.removeProperty(dasherize(property));
                         });
-                    }
-                    else {
+                    } else {
                         css = dasherize(property) + ":" + maybeAddPx(property, value);
                     }
                 } else {
@@ -620,12 +631,12 @@
             },
             filter: function (callback) {
                 var matchedItems = [];
-                
+
                 for (var i = 0; i < this.length; i++) {
                     if (isFunction(callback)) {
                         if (callback.call(this[i], i, this[i])) {
                             matchedItems.push(this[i]);
-                        } 
+                        }
                     } else if ($.matches(this[i], callback)) {
                         matchedItems.push(this[i]);
                     }
@@ -669,9 +680,11 @@
                     var excludes = typeof selector == 'string' ? this.filter(selector) : (likeArray(selector) && isFunction(selector.item)) ? slice.call(selector) : $(selector);
 
                     if (isObject(excludes)) {
-                        excludes = $.map(excludes, function (el) { return el; });
+                        excludes = $.map(excludes, function (el) {
+                            return el;
+                        });
                     }
-                    
+
                     this.each(function (i, el) {
                         if (excludes.indexOf(el) < 0) {
                             nodes.push(el);
@@ -691,13 +704,16 @@
             index: function (element) {
                 return element ? this.indexOf($(element)[0]) : this.parent().children().indexOf(this[0]);
             },
+            get: function (idx) {
+                return idx === undefined ? slice.call(this) : this[idx >= 0 ? idx : idx + this.length];
+            },
             eq: function (index) {
                 if (typeof index === 'undefined') {
                     return this;
                 }
                 var length = this.length,
                     returnIndex;
-                
+
                 if (index > length - 1) {
                     return new Dom([]);
                 }
@@ -787,15 +803,13 @@
                     if (selector) {
                         if (this[0].nextElementSibling && $(this[0].nextElementSibling).is(selector)) {
                             return new Dom([this[0].nextElementSibling]);
-                        }
-                        else {
+                        } else {
                             return new Dom([]);
                         }
                     } else {
                         if (this[0].nextElementSibling) {
                             return new Dom([this[0].nextElementSibling]);
-                        }
-                        else {
+                        } else {
                             return new Dom([]);
                         }
                     }
@@ -806,7 +820,7 @@
             nextAll: function (selector) {
                 var nextEls = [],
                     el = this[0];
-                
+
                 if (!el) {
                     return new Dom([]);
                 }
@@ -828,8 +842,7 @@
                     if (selector) {
                         if (this[0].previousElementSibling && $(this[0].previousElementSibling).is(selector)) {
                             return new Dom([this[0].previousElementSibling]);
-                        }
-                        else {
+                        } else {
                             return new Dom([]);
                         }
                     } else {
@@ -1034,9 +1047,9 @@
 
     $.extend = function (target) {
         arguments[0] = arguments[0] || {};
-        var deep, 
+        var deep,
             args = slice.call(arguments, 1);
-        
+
         if (typeof target == 'boolean') {
             deep = target;
             target = args.shift();
@@ -1044,7 +1057,7 @@
         args.forEach(function (arg) {
             extend(target, arg, deep);
         });
-        
+
         return target;
     };
 
@@ -1081,7 +1094,7 @@
                 }
             }
         }
-        
+
         return this;
     };
 
@@ -1129,8 +1142,8 @@
         // fall back to performing a selector:
         var match, parent = element.parentNode,
             temp = !parent;
-        
-        if (temp) { 
+
+        if (temp) {
             (parent = tempParent).appendChild(element);
         }
         match = ~$(parent, selector).indexOf(element);

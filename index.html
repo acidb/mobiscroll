@@ -7,57 +7,7 @@
 
     <title>Mobiscroll</title>
 
-    <!-- jQuery Include -->
-    <script src="http://code.jquery.com/jquery-2.2.0.min.js"></script>
-    
-    <script src="js/mobiscroll.dom.js"></script>
-
-    <!-- Mobiscroll JS and CSS Includes -->
-
-    <script src="js/mobiscroll.core.js"></script>
-    <script src="js/mobiscroll.scrollview.js"></script>
-    <script src="js/mobiscroll.frame.js"></script>
-    <script src="js/mobiscroll.scroller.js"></script>
-    <script src="js/mobiscroll.util.datetime.js"></script>
-    <script src="js/mobiscroll.datetimebase.js"></script>
-    <script src="js/mobiscroll.datetime.js"></script>
-    <script src="js/mobiscroll.select.js"></script>
-
-    <!--<script src="js/mobiscroll.listbase.js"></script>
-    <script src="js/mobiscroll.image.js"></script>
-    <script src="js/mobiscroll.treelist.js"></script>-->
-
-    <script src="js/mobiscroll.frame.android-holo.js"></script>
-    <script src="js/mobiscroll.frame.ios.js"></script>
-    <script src="js/mobiscroll.frame.jqm.js"></script>
-    <script src="js/mobiscroll.frame.wp.js"></script>
-
-    <script src="js/mobiscroll.android-holo-light.js"></script>
-    <script src="js/mobiscroll.wp-light.js"></script>
-    <script src="js/mobiscroll.mobiscroll-dark.js"></script>
-
-    <script src="js/i18n/mobiscroll.i18n.cs.js"></script>
-    <script src="js/i18n/mobiscroll.i18n.de.js"></script>
-    <script src="js/i18n/mobiscroll.i18n.en-UK.js"></script>
-    <script src="js/i18n/mobiscroll.i18n.es.js"></script>
-    <script src="js/i18n/mobiscroll.i18n.fa.js"></script>
-    <script src="js/i18n/mobiscroll.i18n.fr.js"></script>
-    <script src="js/i18n/mobiscroll.i18n.hu.js"></script>
-    <script src="js/i18n/mobiscroll.i18n.it.js"></script>
-    <script src="js/i18n/mobiscroll.i18n.ja.js"></script>
-    <script src="js/i18n/mobiscroll.i18n.nl.js"></script>
-    <script src="js/i18n/mobiscroll.i18n.no.js"></script>
-    <script src="js/i18n/mobiscroll.i18n.pl.js"></script>
-    <script src="js/i18n/mobiscroll.i18n.pt-BR.js"></script>
-    <script src="js/i18n/mobiscroll.i18n.pt-PT.js"></script>
-    <script src="js/i18n/mobiscroll.i18n.ro.js"></script>
-    <script src="js/i18n/mobiscroll.i18n.ru.js"></script>
-    <script src="js/i18n/mobiscroll.i18n.ru-UA.js"></script>
-    <script src="js/i18n/mobiscroll.i18n.sk.js"></script>
-    <script src="js/i18n/mobiscroll.i18n.sv.js"></script>
-    <script src="js/i18n/mobiscroll.i18n.tr.js"></script>
-    <script src="js/i18n/mobiscroll.i18n.zh.js"></script>
-
+    <!-- Mobiscroll CSS Includes -->
     <link href="css/mobiscroll.animation.css" rel="stylesheet" type="text/css" />
     <link href="css/mobiscroll.icons.css" rel="stylesheet" type="text/css" />
     <link href="css/mobiscroll.frame.css" rel="stylesheet" type="text/css" />
@@ -71,9 +21,7 @@
     <link href="css/mobiscroll.scroller.jqm.css" rel="stylesheet" type="text/css" />
     <link href="css/mobiscroll.scroller.wp.css" rel="stylesheet" type="text/css" />
     <link href="css/mobiscroll.image.css" rel="stylesheet" type="text/css" />
-
     <link href="css/mobiscroll.select.css" rel="stylesheet" type="text/css" />
-
     <link href="css/mobiscroll.android-holo-light.css" rel="stylesheet" type="text/css" />
     <link href="css/mobiscroll.wp-light.css" rel="stylesheet" type="text/css" />
     <link href="css/mobiscroll.mobiscroll-dark.css" rel="stylesheet" type="text/css" />
@@ -99,92 +47,6 @@
         box-sizing: border-box;
     }
     </style>
-
-    <script>
-        
-    $(function() {
-        //document.addEventListener("DOMContentLoaded", function(event) { 
-
-        function init() {
-
-            // Date demo initialization
-            $('#demo_date').mobiscroll().date({
-                theme: theme, // Specify theme like: theme: 'ios' or omit setting to use default 
-                mode: mode, // Specify scroller mode like: mode: 'mixed' or omit setting to use default 
-                display: display, // Specify display mode like: display: 'bottom' or omit setting to use default 
-                lang: lang // Specify language like: lang: 'pl' or omit setting to use default 
-            });
-
-            // Select demo initialization
-            $('#demo_select').mobiscroll().select({
-                theme: theme, // Specify theme like: theme: 'ios' or omit setting to use default 
-                mode: mode, // Specify scroller mode like: mode: 'mixed' or omit setting to use default 
-                display: display, // Specify display mode like: display: 'bottom' or omit setting to use default 
-                lang: lang // Specify language like: lang: 'pl' or omit setting to use default 
-            });
-
-            // Date & Time demo initialization
-            $('#demo_datetime').mobiscroll().datetime({
-                theme: theme, // Specify theme like: theme: 'ios' or omit setting to use default 
-                mode: mode, // Specify scroller mode like: mode: 'mixed' or omit setting to use default 
-                display: display, // Specify display mode like: display: 'bottom' or omit setting to use default 
-                lang: lang, // Specify language like: lang: 'pl' or omit setting to use default
-                minDate: new Date(2012, 3, 10, 9, 22), // More info about minDate: http://docs.mobiscroll.com/2-14-0/datetime#!opt-minDate
-                maxDate: new Date(2014, 7, 30, 15, 44), // More info about maxDate: http://docs.mobiscroll.com/2-14-0/datetime#!opt-maxDate
-                stepMinute: 5 // More info about stepMinute: http://docs.mobiscroll.com/2-14-0/datetime#!opt-stepMinute
-            });
-
-            // Time demo initialization
-            $('#demo_time').mobiscroll().time({
-                theme: theme, // Specify theme like: theme: 'ios' or omit setting to use default 
-                mode: mode, // Specify scroller mode like: mode: 'mixed' or omit setting to use default 
-                display: display, // Specify display mode like: display: 'bottom' or omit setting to use default 
-                lang: lang // Specify language like: lang: 'pl' or omit setting to use default 
-            });
-
-            // Image demo initialization
-            /*$('#demo_image').mobiscroll().image({
-                theme: theme,     // Specify theme like: theme: 'ios' or omit setting to use default 
-                mode: mode,       // Specify scroller mode like: mode: 'mixed' or omit setting to use default 
-                display: display, // Specify display mode like: display: 'bottom' or omit setting to use default 
-                lang: lang,       // Specify language like: lang: 'pl' or omit setting to use default
-                labels: ['Cars'],  // More info about labels: http://docs.mobiscroll.com/2-14-0/image#!opt-labels
-                enhance: true
-            });
-                
-            // Treelist demo initialization
-            $('#demo_treelist').mobiscroll().treelist({
-                theme: theme,     // Specify theme like: theme: 'ios' or omit setting to use default 
-                mode: mode,       // Specify scroller mode like: mode: 'mixed' or omit setting to use default 
-                display: display, // Specify display mode like: display: 'bottom' or omit setting to use default 
-                lang: lang,       // Specify language like: lang: 'pl' or omit setting to use default
-                labels: ['Region', 'Country', 'City']  // More info about labels: http://docs.mobiscroll.com/2-14-0/list#!opt-labels
-            });*/
-
-        }
-
-        // -------------------------------------------------------------------
-        // Demo page code START, you can disregard this in your implementation
-        var demo, theme, mode, display, lang;
-
-        $('.settings').on('change', function() {
-            demo = $('#demo').val();
-            theme = $('#theme').val() || $.mobiscroll.defaults.theme;
-            mode = $('#mode').val();
-            display = $('#display').val();
-            lang = $('#language').val();
-
-            $('.demo-cont').hide();
-            $("#demo_cont_" + demo).show();
-
-            init();
-        });
-
-        $('#demo').trigger('change');
-        // Demo page code END
-        // -------------------------------------------------------------------
-    });
-    </script>
 </head>
 
 <body>
@@ -400,6 +262,130 @@
             </li>
         </ul>
     </div> -->
+
+    <!-- Mobiscroll JS Includes -->
+    <script src="js/mobiscroll.dom.js"></script>
+    <script src="js/mobiscroll.core.js"></script>
+    <script src="js/mobiscroll.scrollview.js"></script>
+    <script src="js/mobiscroll.frame.js"></script>
+    <script src="js/mobiscroll.frame.android-holo.js"></script>
+    <script src="js/mobiscroll.frame.ios.js"></script>
+    <script src="js/mobiscroll.frame.jqm.js"></script>
+    <script src="js/mobiscroll.frame.wp.js"></script>
+    <script src="js/mobiscroll.scroller.js"></script>
+    <script src="js/mobiscroll.util.datetime.js"></script>
+    <script src="js/mobiscroll.datetimebase.js"></script>
+    <script src="js/mobiscroll.datetime.js"></script>
+    <script src="js/mobiscroll.select.js"></script>
+    <!--<script src="js/mobiscroll.listbase.js"></script>
+    <script src="js/mobiscroll.image.js"></script>
+    <script src="js/mobiscroll.treelist.js"></script>-->
+    <script src="js/mobiscroll.android-holo-light.js"></script>
+    <script src="js/mobiscroll.wp-light.js"></script>
+    <script src="js/mobiscroll.mobiscroll-dark.js"></script>
+
+    <script src="js/i18n/mobiscroll.i18n.cs.js"></script>
+    <script src="js/i18n/mobiscroll.i18n.de.js"></script>
+    <script src="js/i18n/mobiscroll.i18n.en-UK.js"></script>
+    <script src="js/i18n/mobiscroll.i18n.es.js"></script>
+    <script src="js/i18n/mobiscroll.i18n.fa.js"></script>
+    <script src="js/i18n/mobiscroll.i18n.fr.js"></script>
+    <script src="js/i18n/mobiscroll.i18n.hu.js"></script>
+    <script src="js/i18n/mobiscroll.i18n.it.js"></script>
+    <script src="js/i18n/mobiscroll.i18n.ja.js"></script>
+    <script src="js/i18n/mobiscroll.i18n.nl.js"></script>
+    <script src="js/i18n/mobiscroll.i18n.no.js"></script>
+    <script src="js/i18n/mobiscroll.i18n.pl.js"></script>
+    <script src="js/i18n/mobiscroll.i18n.pt-BR.js"></script>
+    <script src="js/i18n/mobiscroll.i18n.pt-PT.js"></script>
+    <script src="js/i18n/mobiscroll.i18n.ro.js"></script>
+    <script src="js/i18n/mobiscroll.i18n.ru.js"></script>
+    <script src="js/i18n/mobiscroll.i18n.ru-UA.js"></script>
+    <script src="js/i18n/mobiscroll.i18n.sk.js"></script>
+    <script src="js/i18n/mobiscroll.i18n.sv.js"></script>
+    <script src="js/i18n/mobiscroll.i18n.tr.js"></script>
+    <script src="js/i18n/mobiscroll.i18n.zh.js"></script>
+
+    <script>
+    function init() {
+
+        // Date demo initialization
+        $('#demo_date').mobiscroll().date({
+            theme: theme, // Specify theme like: theme: 'ios' or omit setting to use default 
+            mode: mode, // Specify scroller mode like: mode: 'mixed' or omit setting to use default 
+            display: display, // Specify display mode like: display: 'bottom' or omit setting to use default 
+            lang: lang // Specify language like: lang: 'pl' or omit setting to use default 
+        });
+
+        // Select demo initialization
+        $('#demo_select').mobiscroll().select({
+            theme: theme, // Specify theme like: theme: 'ios' or omit setting to use default 
+            mode: mode, // Specify scroller mode like: mode: 'mixed' or omit setting to use default 
+            display: display, // Specify display mode like: display: 'bottom' or omit setting to use default 
+            lang: lang // Specify language like: lang: 'pl' or omit setting to use default 
+        });
+
+        // Date & Time demo initialization
+        $('#demo_datetime').mobiscroll().datetime({
+            theme: theme, // Specify theme like: theme: 'ios' or omit setting to use default 
+            mode: mode, // Specify scroller mode like: mode: 'mixed' or omit setting to use default 
+            display: display, // Specify display mode like: display: 'bottom' or omit setting to use default 
+            lang: lang, // Specify language like: lang: 'pl' or omit setting to use default
+            minDate: new Date(2012, 3, 10, 9, 22), // More info about minDate: http://docs.mobiscroll.com/2-14-0/datetime#!opt-minDate
+            maxDate: new Date(2014, 7, 30, 15, 44), // More info about maxDate: http://docs.mobiscroll.com/2-14-0/datetime#!opt-maxDate
+            stepMinute: 5 // More info about stepMinute: http://docs.mobiscroll.com/2-14-0/datetime#!opt-stepMinute
+        });
+
+        // Time demo initialization
+        $('#demo_time').mobiscroll().time({
+            theme: theme, // Specify theme like: theme: 'ios' or omit setting to use default 
+            mode: mode, // Specify scroller mode like: mode: 'mixed' or omit setting to use default 
+            display: display, // Specify display mode like: display: 'bottom' or omit setting to use default 
+            lang: lang // Specify language like: lang: 'pl' or omit setting to use default 
+        });
+
+        // Image demo initialization
+        /*$('#demo_image').mobiscroll().image({
+            theme: theme,     // Specify theme like: theme: 'ios' or omit setting to use default 
+            mode: mode,       // Specify scroller mode like: mode: 'mixed' or omit setting to use default 
+            display: display, // Specify display mode like: display: 'bottom' or omit setting to use default 
+            lang: lang,       // Specify language like: lang: 'pl' or omit setting to use default
+            labels: ['Cars'],  // More info about labels: http://docs.mobiscroll.com/2-14-0/image#!opt-labels
+            enhance: true
+        });
+            
+        // Treelist demo initialization
+        $('#demo_treelist').mobiscroll().treelist({
+            theme: theme,     // Specify theme like: theme: 'ios' or omit setting to use default 
+            mode: mode,       // Specify scroller mode like: mode: 'mixed' or omit setting to use default 
+            display: display, // Specify display mode like: display: 'bottom' or omit setting to use default 
+            lang: lang,       // Specify language like: lang: 'pl' or omit setting to use default
+            labels: ['Region', 'Country', 'City']  // More info about labels: http://docs.mobiscroll.com/2-14-0/list#!opt-labels
+        });*/
+
+    }
+
+    // -------------------------------------------------------------------
+    // Demo page code START, you can disregard this in your implementation
+    var demo, theme, mode, display, lang;
+
+    $('.settings').on('change', function() {
+        demo = $('#demo').val();
+        theme = $('#theme').val() || $.mobiscroll.defaults.theme;
+        mode = $('#mode').val();
+        display = $('#display').val();
+        lang = $('#language').val();
+
+        $('.demo-cont').hide();
+        $("#demo_cont_" + demo).show();
+
+        init();
+    });
+
+    $('#demo').trigger('change');
+    // Demo page code END
+    // -------------------------------------------------------------------
+    </script>
 </body>
 
 </html>
