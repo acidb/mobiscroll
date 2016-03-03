@@ -541,7 +541,7 @@
 
                     lbl = w.label !== undefined ? w.label : j;
 
-                    html += '<div class="mbsc-sc-whl-w" style="' +
+                    html += '<div class="mbsc-sc-whl-w' + (w.multiple ? ' mbsc-sc-whl-multi' : '') + '" style="' +
                         (s.fixedWidth ? ('width:' + (s.fixedWidth[l] || s.fixedWidth) + 'px;') :
                             (s.minWidth ? ('min-width:' + (s.minWidth[l] || s.minWidth) + 'px;') : 'min-width:' + s.width + 'px;') +
                             (s.maxWidth ? ('max-width:' + (s.maxWidth[l] || s.maxWidth) + 'px;') : '')) + '">' +
@@ -552,10 +552,10 @@
                             '<div data-index="' + l + '" data-dir="inc" class="mbsc-sc-btn mbsc-sc-btn-plus ' + (s.btnPlusClass || '') + '" style="height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;"></div>' + // + button
                             '<div data-index="' + l + '" data-dir="dec" class="mbsc-sc-btn mbsc-sc-btn-minus ' + (s.btnMinusClass || '') + '" style="height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;"></div>' : '') + // - button
                         '<div class="mbsc-sc-lbl">' + lbl + '</div>' + // Wheel label
-                        '<div class="mbsc-sc-whl-c' +
+                        '<div class="mbsc-sc-whl-c"' +
                         (w.multiple ?
-                            ' mbsc-sc-whl-multi" aria-multiselectable="true"' :
-                            '" style="height:' + itemHeight + 'px;margin-top:-' + (itemHeight / 2 + (s.selectedLineBorder || 0)) + 'px;"') +
+                            ' aria-multiselectable="true"' :
+                            ' style="height:' + itemHeight + 'px;margin-top:-' + (itemHeight / 2 + (s.selectedLineBorder || 0)) + 'px;"') +
                         //(s.scroll3d ? pref + 'transform: translateZ(' + (itemHeight * s.rows / 2) + 'px);' : '') +
                         '>' +
                         '<div class="mbsc-sc-whl-sc" style="margin-top:' + w._margin + 'px;">';
@@ -606,8 +606,7 @@
             $('.mbsc-sc-whl', $markup).each(function (i) {
                 var idx,
                     $wh = $(this),
-                    wheel = wheels[i],
-                    len = wheel.values.length;
+                    wheel = wheels[i];
 
                 wheel._$markup = $('.mbsc-sc-whl-sc', this);
                 //wheel._$3d = $('.mbsc-sc-whl-3d', this);
@@ -638,7 +637,8 @@
                     onAnimationStart: function (ev) {
                         var dir = ev.direction == 90 ? 1 : 2,
                             time = ev.duration,
-                            pos = ev.destinationY;
+                            pos = ev.destinationY,
+                            len = wheel._length;
 
                         // TODO: find a better solution than skip
                         if (!skip) {
