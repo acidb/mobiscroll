@@ -56,7 +56,7 @@
             trigger,
             vertical,
             that = this,
-            currPos = 0,
+            currPos,
             currSnap = 0,
             currSnapDir = 1,
             s = settings,

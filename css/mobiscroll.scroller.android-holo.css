@@ -93,3 +93,20 @@
 .mbsc-android-holo .mbsc-sel-gr:after {
     display: none;
 }
+/* Date & Time */
+
+.mbsc-android-holo .mbsc-dt-whl-h:after {
+    content: ':';
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    width: 1.25em;
+    height: 2em;
+    margin-top: -1em;
+    line-height: 2em;
+}
+
+.mbsc-android-holo .dw-rtl .mbsc-dt-whl-h:after {
+    left: auto;
+    right: 100%;
+}
