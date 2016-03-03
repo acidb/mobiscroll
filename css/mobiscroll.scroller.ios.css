@@ -1,7 +1,6 @@
 .mbsc-ios .mbsc-sc-lbl {
-    text-align: left;
-    text-indent: .4166667em;
     color: #ababab;
+    line-height: 2.5em;
 }
 
 .mbsc-ios .mbsc-sc-whl-gr {
@@ -11,25 +10,23 @@
 .mbsc-ios .mbsc-sc-lbl-v {
     padding-top: 2.5em;
 }
-/*.mbsc-ios .dwwo {
+
+.mbsc-ios .mbsc-sc-whl-l {
+    margin: 0 -.833333em;
+    border-top: 1px solid #dbdbdb;
+    border-bottom: 1px solid #dbdbdb;
+}
+
+.mbsc-ios .mbsc-sc-whl-o {
     background: -webkit-gradient(linear, left bottom, left top, from(#f7f7f7), color-stop(0.52, rgba(245, 245, 245, 0)), color-stop(0.48, rgba(245, 245, 245, 0)), to(#f7f7f7));
     background: -webkit-linear-gradient(#f7f7f7, rgba(245, 245, 245, 0) 52%, rgba(245, 245, 245, 0) 48%, #f7f7f7);
-    background: -moz-linear-gradient(#f7f7f7, rgba(245, 245, 245, 0) 52%, rgba(245, 245, 245, 0) 48%, #f7f7f7);
     background: linear-gradient(#f7f7f7, rgba(245, 245, 245, 0) 52%, rgba(245, 245, 245, 0) 48%, #f7f7f7);
 }
 
-.mbsc-ios .dwwol {
-    padding: 0 .833333em;
-    height: 2.833333em;
-    margin: -1.5em 0 0 -.833333em;
-    border-top: 1px solid #dbdbdb;
-    border-bottom: 1px solid #dbdbdb;
-}*/
-
 .mbsc-ios .mbsc-sc-itm {
+    padding: 0 .5em;
     color: #9d9d9d;
     font-size: 1.833333em;
-    text-align: left;
 }
 
 .mbsc-ios .mbsc-btn-a {
@@ -40,13 +37,10 @@
     color: #000;
 }
 /* Clickpick mode */
-/*.mbsc-ios .dwpm .dw-li {
+
+.mbsc-ios .mbsc-sc-cp .mbsc-sc-whl .mbsc-sc-itm {
     text-align: center;
 }
-
-.mbsc-ios .dwpm .dwwol {
-    display: block;
-}*/
 
 .mbsc-ios .mbsc-sc-btn {
     color: #007aff;
@@ -56,30 +50,48 @@
 .mbsc-ios .mbsc-sc-btn:before {
     font-size: 2em;
 }
-/* Select */
-/*.mbsc-ios.dw-select .dwwo {
-    display: none;
-}*/
+
+.mbsc-ios .mbsc-sc-btn-a:before {
+    opacity: .5;
+}
 /* Multiple select */
-/*.mbsc-ios .dwwms .dw-li {
-    padding: 0 .227272em 0 1.818181em;
+
+.mbsc-ios .mbsc-sc-whl-multi .mbsc-sc-whl-o {
+    display: none;
+}
+
+.mbsc-ios .mbsc-sc-whl-multi .mbsc-sc-itm {
+    padding: 0 1.818181em;
     color: #000;
 }
 
-.mbsc-ios .dwwms .dw-msel {
+.mbsc-ios .mbsc-sc-whl-multi .mbsc-sc-itm-sel {
     color: #007aff;
 }
 
-.mbsc-ios .dw-msel:before {
+.mbsc-ios .mbsc-sc-whl-multi .mbsc-sc-itm-sel:before {
     font-size: 1.818181em;
-}*/
+}
 /* Group select */
-/*.mbsc-ios .dw-select-gr .dw-li {
+
+.mbsc-ios .dw-select-gr .mbsc-sc-itm {
     padding-left: 1.818181em;
 }
 
-.mbsc-ios .dw-select-gr .dw-w-gr {
+.mbsc-ios .mbsc-sel-gr {
     padding-left: .277777em;
     font-weight: normal;
     font-size: 1.222222em;
-}*/
+}
+/* Date & Time */
+
+.mbsc-ios .mbsc-dt-whl-m .mbsc-sc-itm {
+    text-align: left;
+}
+
+.mbsc-ios .mbsc-dt-whl-d .mbsc-sc-itm,
+.mbsc-ios .mbsc-dt-whl-h .mbsc-sc-itm,
+.mbsc-ios .mbsc-dt-whl-i .mbsc-sc-itm,
+.mbsc-ios .mbsc-dt-whl-s .mbsc-sc-itm {
+    text-align: right;
+}

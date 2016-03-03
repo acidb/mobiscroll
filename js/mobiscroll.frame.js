@@ -542,7 +542,7 @@
                 }
 
                 // Disable inputs to prevent bleed through (Android bug)
-                if (pr !== 'Moz') {
+                if (isOldAndroid) {
                     $('input,select,button', $ctx).each(function () {
                         if (!this.disabled) {
                             $(this).addClass('dwtd').prop('disabled', true);
@@ -668,7 +668,7 @@
             // Hide wheels and overlay
             if ($markup) {
                 // Re-enable temporary disabled fields
-                if (pr !== 'Moz') {
+                if (isOldAndroid) {
                     $('.dwtd', $ctx).each(function () {
                         $(this).prop('disabled', false).removeClass('dwtd');
                     });

@@ -259,8 +259,9 @@
                 ev.stopPropagation();
             }
 
+            ev.preventDefault();
+
             if (diff && !s.readonly /* TRIALCOND */ ) {
-                ev.preventDefault();
 
                 diff = diff < 0 ? 20 : -20;
 

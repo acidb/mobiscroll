@@ -36,6 +36,13 @@
 }*/
 /* New CSS */
 
+.mbsc-sc-whl-o,
+.mbsc-sc-btn {
+    /* Prevent flickering on animation */
+    
+    -webkit-transform: translateZ(0);
+}
+
 .mbsc-sc-whl-gr-c {
     max-width: 100%;
     vertical-align: middle;
@@ -73,6 +80,25 @@
     touch-action: none;*/
 }
 
+.mbsc-sc-whl-o {
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    pointer-events: none;
+}
+
+.mbsc-sc-whl-l {
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    left: 0;
+    right: 0;
+    pointer-events: none;
+}
+
 .mbsc-sc-whl {
     overflow: hidden;
     border-radius: 1px;
@@ -88,6 +114,8 @@
     position: relative;
     z-index: 1;
     top: 50%;
+    border-top: 1px solid transparent;
+    border-bottom: 1px solid transparent;
 }
 
 .mbsc-sc-whl-sc {
@@ -179,6 +207,11 @@
 .mbsc-sc-whl-multi .mbsc-sc-whl-c {
     top: 0;
     height: 100%;
+    border: 0;
+}
+
+.mbsc-sc-whl-multi .mbsc-sc-whl-l {
+    display: none;
 }
 
 .mbsc-sc-whl-multi .mbsc-sc-itm-sel:before {
@@ -196,6 +229,10 @@
 
 .mbsc-mobiscroll .mbsc-sc-whl-w {
     margin: 0 .25em;
+}
+
+.mbsc-mobiscroll .mbsc-sc-whl-o {
+    display: none;
 }
 
 .mbsc-mobiscroll .mbsc-sc-lbl-v .mbsc-sc-whl-w {
@@ -223,8 +260,7 @@
     background: linear-gradient(#f7f7f7,rgba(245,245,245,0) 52%, rgba(245,245,245,0) 48%, #f7f7f7);
 }*/
 
-.mbsc-mobiscroll .mbsc-sc-whl-c {
-    background: #f7f7f7;
+.mbsc-mobiscroll .mbsc-sc-whl-l {
     border-top: 1px solid #4eccc4;
     border-bottom: 1px solid #4eccc4;
 }

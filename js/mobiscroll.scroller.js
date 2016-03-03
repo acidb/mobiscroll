@@ -93,6 +93,9 @@
         function onBtnEnd(ev) {
             stopStepper();
 
+            // Prevent scroll on double tap on iOS
+            ev.preventDefault();
+
             if (ev.type === 'mouseup') {
                 $(document)
                     .off('mousemove', onBtnMove)
@@ -541,10 +544,12 @@
 
                     lbl = w.label !== undefined ? w.label : j;
 
-                    html += '<div class="mbsc-sc-whl-w' + (w.multiple ? ' mbsc-sc-whl-multi' : '') + '" style="' +
+                    html += '<div class="mbsc-sc-whl-w ' + (w.cssClass || '') + (w.multiple ? ' mbsc-sc-whl-multi' : '') + '" style="' +
                         (s.fixedWidth ? ('width:' + (s.fixedWidth[l] || s.fixedWidth) + 'px;') :
                             (s.minWidth ? ('min-width:' + (s.minWidth[l] || s.minWidth) + 'px;') : 'min-width:' + s.width + 'px;') +
                             (s.maxWidth ? ('max-width:' + (s.maxWidth[l] || s.maxWidth) + 'px;') : '')) + '">' +
+                        '<div class="mbsc-sc-whl-o"></div>' +
+                        '<div class="mbsc-sc-whl-l" style="height:' + itemHeight + 'px;margin-top:-' + (itemHeight / 2 + (s.selectedLineBorder || 0)) + 'px;"></div>' +
                         '<div tabindex="0" aria-live="off" aria-label="' + lbl + '" role="listbox" data-index="' + l + '" class="mbsc-sc-whl"' + ' style="' +
                         'height:' + (s.rows * itemHeight) + 'px;">' +
                         //'<div class="dwwl dwwl' + l + (w.multiple ? ' dwwms' : '') + '">' +
@@ -555,7 +560,7 @@
                         '<div class="mbsc-sc-whl-c"' +
                         (w.multiple ?
                             ' aria-multiselectable="true"' :
-                            ' style="height:' + itemHeight + 'px;margin-top:-' + (itemHeight / 2 + (s.selectedLineBorder || 0)) + 'px;"') +
+                            ' style="height:' + itemHeight + 'px;margin-top:-' + (itemHeight / 2 + 1) + 'px;"') +
                         //(s.scroll3d ? pref + 'transform: translateZ(' + (itemHeight * s.rows / 2) + 'px);' : '') +
                         '>' +
                         '<div class="mbsc-sc-whl-sc" style="margin-top:' + w._margin + 'px;">';
@@ -620,7 +625,7 @@
                     minScroll: -(wheel.max - (wheel.multiple ? (s.rows - 1) : 0)) * itemHeight,
                     maxScroll: -wheel.min * itemHeight,
                     maxSnapScroll: batchSize,
-                    //prevDef: true,
+                    prevDef: true,
                     stopProp: true,
                     //timeUnit: 3,
                     //easing: 'cubic-bezier(0.190, 1.000, 0.220, 1.000)',
