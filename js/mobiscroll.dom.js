@@ -17,24 +17,12 @@
         return typeof value === "function";
     }
 
-    function isWindow(obj) {
-        return obj !== null && obj === obj.window;
-    }
-
-    function isDocument(obj) {
-        return obj !== null && obj.nodeType === obj.DOCUMENT_NODE;
-    }
-
     function isObject(obj) {
         return typeof obj === "object";
     }
 
     function likeArray(obj) {
         return typeof obj.length == 'number';
-    }
-
-    function flatten(array) {
-        return array.length > 0 ? $.fn.concat.apply([], array) : array;
     }
 
     function camelize(str) {
@@ -228,11 +216,11 @@
                 var node = this[0],
                     collection = false;
 
-                if (typeof selector == 'object') {
+                if (isObject(selector)) {
                     collection = $(selector);
                 }
                 while (node && !(collection ? collection.indexOf(node) >= 0 : $.matches(node, selector))) {
-                    node = node !== context && !isDocument(node) && node.parentNode;
+                    node = node !== context && node.nodeType !== node.DOCUMENT_NODE && node.parentNode;
                 }
 
                 return $(node);
@@ -243,8 +231,7 @@
                 if (arguments.length === 1 && typeof attrs === 'string' && this.length) {
                     // Get attr
                     attr = this[0].getAttribute(attrs);
-
-                    return this[0] && attr ? attr : "";
+                    return this[0] && (attr || attr === '') ? attr : undefined;
                 } else {
                     // Set attrs
                     for (var i = 0; i < this.length; i++) {
@@ -528,7 +515,7 @@
                             sides = ['top', 'bottom'];
 
                         sides.forEach(function (side) {
-                            size -= parseInt(elm.css(camelize('border-' + side + '-width')) || 0, 10); // check || 0 !!!
+                            size -= parseInt(elm.css(camelize('border-' + side + '-width')) || 0, 10);
                         });
 
                         return size;
@@ -537,19 +524,18 @@
             },
             offset: function () {
                 if (this.length > 0) {
-                    var el = this[0];
-                    var box = el.getBoundingClientRect();
-                    var body = document.body;
-                    var clientTop = el.clientTop || body.clientTop || 0;
-                    var clientLeft = el.clientLeft || body.clientLeft || 0;
-                    var scrollTop = window.pageYOffset || el.scrollTop;
-                    var scrollLeft = window.pageXOffset || el.scrollLeft;
+                    var el = this[0],
+                        box = el.getBoundingClientRect(),
+                        body = document.body,
+                        clientTop = el.clientTop || body.clientTop || 0,
+                        clientLeft = el.clientLeft || body.clientLeft || 0,
+                        scrollTop = window.pageYOffset || el.scrollTop,
+                        scrollLeft = window.pageXOffset || el.scrollLeft;
+                    
                     return {
                         top: box.top + scrollTop - clientTop,
                         left: box.left + scrollLeft - clientLeft
                     };
-                } else {
-                    return null;
                 }
             },
             hide: function () {
@@ -1068,15 +1054,16 @@
     };
 
     $.isPlainObject = function (obj) {
-        return isObject(obj) && !isWindow(obj) && Object.getPrototypeOf(obj) == Object.prototype;
+        return isObject(obj) && obj !== obj.window && Object.getPrototypeOf(obj) == Object.prototype;
     };
 
     $.each = function (obj, callback) {
-        if (typeof obj !== 'object' || !callback) {
+        var i, prop;
+        
+        if (!isObject(obj) || !callback) {
             return;
         }
 
-        var i, prop;
         if ($.isArray(obj) || obj instanceof Dom) {
             // Array
             for (i = 0; i < obj.length; i++) {
@@ -1126,7 +1113,8 @@
                 }
             }
         }
-        return flatten(values);
+        
+        return values.length > 0 ? $.fn.concat.apply([], values) : values;
     };
 
     $.matches = function (element, selector) {
@@ -1134,21 +1122,10 @@
             return false;
         }
 
-        var matchesSelector = element.webkitMatchesSelector || element.mozMatchesSelector || element.matchesSelector;
+        var matchesSelector = element.matchesSelector || element.webkitMatchesSelector || element.mozMatchesSelector || element.msMatchesSelector;
 
-        if (matchesSelector) {
-            return matchesSelector.call(element, selector);
-        }
-        // fall back to performing a selector:
-        var match, parent = element.parentNode,
-            temp = !parent;
+        return matchesSelector.call(element, selector);
 
-        if (temp) {
-            (parent = tempParent).appendChild(element);
-        }
-        match = ~$(parent, selector).indexOf(element);
-        temp && tempParent.removeChild(element);
-        return match;
     };
 
 })(window, document);
