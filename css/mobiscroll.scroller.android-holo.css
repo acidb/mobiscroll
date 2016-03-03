@@ -2,12 +2,13 @@
     padding: .0625em .625em;
 }
 
-.mbsc-android-holo .mbsc-sc-lbl-v .mbsc-sc-whl-gr {
+.mbsc-android-holo .mbsc-sc-lbl-v {
     padding: 1.875em .625em .0625em .625em;
 }
 
 .mbsc-android-holo .mbsc-sc-lbl {
     font-size: .75em;
+    line-height: 2.5em;
 }
 
 .mbsc-android-holo .mbsc-sc-whl-w {
