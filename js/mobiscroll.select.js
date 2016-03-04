@@ -28,10 +28,10 @@
             optionArray,
             options,
             optionWheelIdx,
-            origReadOnly,
             $elm = $(this),
             orig = $.extend({}, inst.settings),
             s = $.extend(inst.settings, defaults, orig),
+            origReadOnly = s.readonly,
             layout = s.layout || (/top|bottom/.test(s.display) ? 'liquid' : ''),
             isLiquid = layout == 'liquid',
             multiple = s.multiple || $elm.prop('multiple'),
@@ -417,7 +417,6 @@
             },
             onWheelGestureStart: function (ev) {
                 if (ev.index == groupWheelIdx) {
-                    origReadOnly = s.readonly;
                     s.readonly = [false, true];
                 }
             },

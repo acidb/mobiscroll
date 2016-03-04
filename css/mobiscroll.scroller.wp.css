@@ -141,9 +141,10 @@
 
 .mbsc-wp .mbsc-dt-day,
 .mbsc-wp .mbsc-dt-month {
+    position: absolute;
+    bottom: .454545em;
+    display: block;
     line-height: 1.636363em;
     font-size: .423076em;
     letter-spacing: normal;
-    position: absolute;
-    bottom: .454545em;
 }
