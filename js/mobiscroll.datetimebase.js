@@ -147,6 +147,7 @@
                         //}
                         //addWheel(wg, keys, values, s.yearText);
                         addWheel(
+                            'mbsc-dt-whl-y',
                             wg,
                             s.yearText,
                             function (i) {
@@ -170,11 +171,11 @@
                             //keys.push(i);
                             values.push({
                                 value: i,
-                                text: str.match(/MM/) ? str.replace(/MM/, '<div class="dw-mon">' + s.monthNames[i] + '</div>') : str.replace(/M/, '<div class="dw-mon">' + s.monthNamesShort[i] + '</div>')
+                                text: str.match(/MM/) ? str.replace(/MM/, '<div class="mbsc-dt-month">' + s.monthNames[i] + '</div>') : str.replace(/M/, '<div class="mbsc-dt-month">' + s.monthNamesShort[i] + '</div>')
                             });
                             //values.push(str.match(/MM/) ? str.replace(/MM/, s.monthNames[i]) : str.replace(/M/, s.monthNamesShort[i]));
                         }
-                        addWheel(wg, s.monthText, values);
+                        addWheel('mbsc-dt-whl-m', wg, s.monthText, values);
                     } else if (k == o.d) {
                         offset++;
                         values = [];
@@ -186,7 +187,7 @@
                                 text: (dord.match(/dd/i) && i < 10 ? '0' + i : i) + (s.daySuffix || '')
                             });
                         }
-                        addWheel(wg, s.dayText, values);
+                        addWheel('mbsc-dt-whl-d', wg, s.dayText, values);
                     }
                 }
                 wheels.push(wg);
@@ -226,7 +227,7 @@
                                 text: hampm && i === 0 ? 12 : tord.match(/hh/i) && i < 10 ? '0' + i : i
                             });
                         }
-                        addWheel(wg, s.hourText, values);
+                        addWheel('mbsc-dt-whl-h', wg, s.hourText, values);
                     } else if (k == o.i) {
                         offset++;
                         values = [];
@@ -238,7 +239,7 @@
                                 text: tord.match(/ii/) && i < 10 ? '0' + i : i
                             });
                         }
-                        addWheel(wg, s.minuteText, values);
+                        addWheel('mbsc-dt-whl-i', wg, s.minuteText, values);
                     } else if (k == o.s) {
                         offset++;
                         values = [];
@@ -250,12 +251,12 @@
                                 text: tord.match(/ss/) && i < 10 ? '0' + i : i
                             });
                         }
-                        addWheel(wg, s.secText, values);
+                        addWheel('mbsc-dt-whl-s', wg, s.secText, values);
                     } else if (k == o.a) {
                         offset++;
                         var upper = tord.match(/A/);
 
-                        addWheel(wg, s.ampmText, upper ? [{
+                        addWheel('mbsc-dt-whl-a', wg, s.ampmText, upper ? [{
                             value: 0,
                             text: s.amText.toUpperCase()
                         }, {
@@ -287,14 +288,15 @@
                 return f[i](defd);
             }
 
-            function addWheel(wg, lbl, v, getIndex, min, max) {
+            function addWheel(cssClass, wg, lbl, v, getIndex, min, max) {
                 wg.push({
                     values: v,
                     //keys: k,
                     label: lbl,
                     min: min,
                     max: max,
-                    getIndex: getIndex
+                    getIndex: getIndex,
+                    cssClass: cssClass
                 });
             }
 
@@ -747,6 +749,7 @@
             // ---
 
             return {
+                compClass: 'mbsc-dt',
                 wheels: wheels,
                 headerText: s.headerText ? function () {
                     return datetime.formatDate(hformat, getDate(inst.getArrayVal(true)), s);

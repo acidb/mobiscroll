@@ -383,6 +383,7 @@
             headerText: false,
             anchor: $input,
             confirmOnTap: groupWheel ? [false, true] : true,
+            compClass: 'mbsc-sel',
             formatValue: formatValue,
             parseValue: function (val) {
                 getOption(val === undefined ? $elm.val() : val);

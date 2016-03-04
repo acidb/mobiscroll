@@ -133,7 +133,7 @@
                 var ev = e.originalEvent || e,
                     prop = (page ? 'page' : 'client') + c;
                 // Multi touch support
-                return ev.targetTouches ? ev.targetTouches[0]['client' + c] : e['client' + c];
+                return ev.targetTouches ? ev.targetTouches[0][prop] : e[prop];
                 //return ev.changedTouches ? ev.changedTouches[0][prop] : e[prop];
             },
             getPosition: function (t, vertical) {
