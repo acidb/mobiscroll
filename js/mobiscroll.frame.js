@@ -473,7 +473,8 @@
 
             // Create wheels containers
             html = '<div lang="' + s.lang + '" class="mbsc-' + s.theme + (s.baseTheme ? ' mbsc-' + s.baseTheme : '') + ' dw-' + s.display + ' ' +
-                (s.cssClass || '') +
+                (s.cssClass || '') + ' ' +
+                (s.compClass || '') +
                 (that._isLiquid ? ' dw-liq' : '') +
                 (isOldAndroid ? ' mbsc-old' : '') +
                 (hasButtons ? '' : ' dw-nobtn') + '">' +

@@ -250,7 +250,8 @@
                 html += '<div role="option" aria-selected="' + (selected[value] ? true : false) +
                     '" class="mbsc-sc-itm ' + css + ' ' +
                     (selected[value] ? selectedClass : '') +
-                    (value !== undefined && !disabled[value] ? ' mbsc-btn-e' : ' mbsc-sc-inv mbsc-btn-d') +
+                    (value === undefined ? ' mbsc-sc-itm-ph' : ' mbsc-btn-e') +
+                    (disabled[value] ? ' mbsc-sc-itm-inv mbsc-btn-d' : '') +
                     '" data-index="' + i +
                     '" data-val="' + value + '"' +
                     (lbl ? ' aria-label="' + lbl + '"' : '') +
@@ -383,37 +384,38 @@
 
                 $.each(wheels, function (i, wheel) {
                     // Enable all items
-                    wheel._$markup.find('.mbsc-sc-itm').removeClass('mbsc-sc-inv mbsc-btn-d');
+                    wheel._$markup.find('.mbsc-sc-itm').removeClass('mbsc-sc-itm-inv mbsc-btn-d');
                     wheel._disabled = {};
 
                     // Disable invalid items
                     if (ret.disabled && ret.disabled[i]) {
                         $.each(ret.disabled[i], function (j, v) {
                             wheel._disabled[v] = true;
-                            wheel._$markup.find('.mbsc-sc-itm[data-val="' + v + '"]').addClass('mbsc-sc-inv mbsc-btn-d');
+                            wheel._$markup.find('.mbsc-sc-itm[data-val="' + v + '"]').addClass('mbsc-sc-itm-inv mbsc-btn-d');
                         });
+                    }
+
+                    if (wheel._$selected) {
+                        wheel._$selected.removeClass('mbsc-sc-itm-sel').removeAttr('aria-selected');
                     }
 
                     // Get closest valid value
                     // TODO: this should be done somehow also if scroller is not visible to correctly validate
                     tempWheelArray[i] = wheel.multiple ? tempWheelArray[i] : getValid(i, tempWheelArray[i], dir);
 
-                    if (!wheel.multiple) {
-                        // Mark element as aria selected
-                        if (wheel._$selected) {
-                            wheel._$selected.removeClass('mbsc-sc-itm-sel').removeAttr('aria-selected');
-                        }
-                        wheel._$selected = wheel._$markup
-                            .find('.mbsc-sc-itm[data-val="' + tempWheelArray[i] + '"]')
-                            .addClass('mbsc-sc-itm-sel')
-                            .attr('aria-selected', 'true');
-                    }
-
                     // Get index of valid value
                     idx = getIndex(wheel, tempWheelArray[i]);
 
                     // Scroll to valid value
-                    wheel._scroller.scroll(-idx * itemHeight - wheel._batch, time);
+                    wheel._scroller.scroll(-idx * itemHeight - wheel._batch, time, function () {
+                        if (!wheel.multiple) {
+                            // Mark element as aria selected
+                            wheel._$selected = wheel._$markup
+                                .find('.mbsc-sc-itm[data-val="' + tempWheelArray[i] + '"]')
+                                .addClass('mbsc-sc-itm-sel')
+                                .attr('aria-selected', 'true');
+                        }
+                    });
                 });
             }
         }
@@ -633,7 +635,7 @@
                         inst.settings.readonly = isReadOnly(i) || s.mode == 'clickpick';
                     },
                     onGestureStart: function () {
-                        $wh.addClass('mbsc-sc-whl-a');
+                        $wh.addClass('mbsc-sc-whl-a mbsc-sc-whl-anim');
 
                         trigger('onWheelGestureStart', [{
                             index: i
@@ -644,6 +646,8 @@
                             time = ev.duration,
                             pos = ev.destinationY,
                             len = wheel._length;
+
+                        $wh.addClass('mbsc-sc-whl-anim');
 
                         // TODO: find a better solution than skip
                         if (!skip) {
@@ -661,7 +665,7 @@
                         }
                     },
                     onAnimationEnd: function () {
-                        $wh.removeClass('mbsc-sc-whl-a');
+                        $wh.removeClass('mbsc-sc-whl-a mbsc-sc-whl-anim');
 
                         trigger('onWheelAnimationEnd', [{
                             index: i

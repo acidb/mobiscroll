@@ -29,7 +29,7 @@
     font-size: 1.833333em;
 }
 
-.mbsc-ios .mbsc-btn-a {
+.mbsc-ios .mbsc-sc-itm.mbsc-btn-a {
     background: rgba(0, 122, 255, .2);
 }
 
@@ -74,8 +74,9 @@
 }
 /* Group select */
 
-.mbsc-ios .mbsc-sel-gr {
+.mbsc-ios .mbsc-sc-whl .mbsc-sel-gr {
     padding-left: .277777em;
+    color: #9d9d9d;
     font-weight: normal;
     font-size: 1.222222em;
 }

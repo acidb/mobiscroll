@@ -1,29 +1,4 @@
-/*.dwwb,
-.dwwo,
-.dwwol {
-    -webkit-transform: translateZ(0);
-}
-
-.dwwo {
-    position: absolute;
-    z-index: 3;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-}
-
-.dwwol {
-    position: absolute;
-    z-index: 1;
-    top: 50%;
-    left: 0;
-    width: 100%;
-    pointer-events: none;
-}
-
-.dw-ml .dw-li {
+/*.dw-ml .dw-li {
     overflow: hidden;
 }
 
@@ -130,7 +105,7 @@
     text-overflow: ellipsis;
 }
 
-.mbsc-sc-inv {
+.mbsc-sc-itm-inv {
     opacity: .3;
 }
 
@@ -279,14 +254,14 @@
 }
 
 .mbsc-mobiscroll .mbsc-sc-itm {
-    font-size: 1.375em;
     padding: 0 .25em;
+    font-size: 1.375em;
 }
 
-.mbsc-mobiscroll .mbsc-btn-a {
+.mbsc-mobiscroll .mbsc-sc-itm.mbsc-btn-a {
     background: rgba(78, 204, 196, .3);
 }
-/* Multiple */
+/* Multiple select */
 
 .mbsc-mobiscroll .mbsc-sc-whl-multi .mbsc-sc-whl-c {
     border: 0;

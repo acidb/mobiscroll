@@ -749,6 +749,7 @@
             // ---
 
             return {
+                compClass: 'mbsc-dt',
                 wheels: wheels,
                 headerText: s.headerText ? function () {
                     return datetime.formatDate(hformat, getDate(inst.getArrayVal(true)), s);

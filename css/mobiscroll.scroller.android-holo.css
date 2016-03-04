@@ -31,7 +31,7 @@
     font-size: 1.125em;
 }
 
-.mbsc-android-holo .mbsc-btn-a {
+.mbsc-android-holo .mbsc-sc-itm.mbsc-btn-a {
     background: rgba(49, 182, 231, .5);
 }
 
@@ -84,13 +84,13 @@
 }
 /* Group select */
 
-.mbsc-android-holo .mbsc-sel-gr {
+.mbsc-android-holo .mbsc-sc-whl .mbsc-sel-gr {
     padding: 0 .375em;
     font-size: 1em;
     font-weight: normal;
 }
 
-.mbsc-android-holo .mbsc-sel-gr:after {
+.mbsc-android-holo .mbsc-sc-whl .mbsc-sel-gr:after {
     display: none;
 }
 /* Date & Time */
