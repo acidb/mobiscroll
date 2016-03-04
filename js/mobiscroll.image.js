@@ -1,5 +1,5 @@
-﻿(function ($) {
-    var ms = $.mobiscroll,
+(function () {
+    var ms = mobiscroll,
         presets = ms.presets.scroller;
 
     ms.presetShort('image');
@@ -32,4 +32,4 @@
         return presets.list.call(this, inst);
     };
     
-})(jQuery);
+})();

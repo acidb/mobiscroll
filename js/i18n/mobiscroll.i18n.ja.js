@@ -1,5 +1,5 @@
-(function ($) {
-    $.mobiscroll.i18n.ja = {
+(function () {
+    mobiscroll.i18n.ja = {
         // Core
         setText: 'セット',
         cancelText: 'キャンセル',
@@ -52,4 +52,4 @@
         backText: 'バック',
         undoText: 'アンドゥ'
     };
-})(jQuery);
+})();

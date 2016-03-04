@@ -1,5 +1,6 @@
-(function ($, undefined) {
-    var ms = $.mobiscroll;
+(function (undefined) {
+    var ms = mobiscroll,
+        $ = ms.$;
 
     ms.datetime = {
         defaults: {
@@ -288,4 +289,4 @@
     ms.parseDate = ms.datetime.parseDate;
     // ---
     
-})(jQuery);
+})();

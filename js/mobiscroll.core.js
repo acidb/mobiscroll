@@ -2,11 +2,14 @@
  * Mobiscroll v2.17.1
  * http://mobiscroll.com
  *
- * Copyright 2010-2015, Acid Media
+ * Copyright 2010-2016, Acid Media
  * Licensed under the MIT license.
  *
  */
-(function ($, undefined) {
+
+mobiscroll = mobiscroll || {};
+
+(function (undefined) {
 
     function testProps(props) {
         var i;
@@ -39,7 +42,7 @@
                 if (instances[this.id]) {
                     instances[this.id].destroy();
                 }
-                new $.mobiscroll.classes[options.component || 'Scroller'](this, options);
+                new mobiscroll.classes[options.component || 'Scroller'](this, options);
             });
         }
 
@@ -63,6 +66,7 @@
     }
 
     var ms,
+        $ = mobiscroll.$,
         id = +new Date(),
         instances = {},
         extend = $.extend,
@@ -73,11 +77,12 @@
         pr = prefix.replace(/^\-/, '').replace(/\-$/, '').replace('moz', 'Moz');
 
     $.fn.mobiscroll = function (method) {
-        extend(this, $.mobiscroll.components);
+        extend(this, mobiscroll.components);
         return init(this, method, arguments);
     };
 
-    ms = $.mobiscroll = $.mobiscroll || {
+    ms = mobiscroll = {
+        $: $,
         version: '2.17.1',
         util: {
             prefix: prefix,
@@ -234,7 +239,7 @@
         }
     };
 
-    $.mobiscroll.classes.Base = function (el, settings) {
+    mobiscroll.classes.Base = function (el, settings) {
 
         var lang,
             preset,
@@ -242,7 +247,7 @@
             theme,
             themeName,
             defaults,
-            ms = $.mobiscroll,
+            ms = mobiscroll,
             util = ms.util,
             getCoord = util.getCoord,
             that = this;
@@ -454,4 +459,4 @@
         });
     }
 
-})(jQuery);
+})();

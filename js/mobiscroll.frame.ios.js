@@ -1,6 +1,6 @@
-(function ($) {
+(function () {
 
-    var themes = $.mobiscroll.themes.frame,
+    var themes = mobiscroll.themes.frame,
         theme = {
             display: 'bottom',
             dateOrder: 'MMdyy',
@@ -34,4 +34,4 @@
     // @deprecated since 2.14.0, backward compatibility code
     themes.ios7 = theme;
 
-})(jQuery);
+})();

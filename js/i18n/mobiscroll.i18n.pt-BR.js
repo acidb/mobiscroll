@@ -1,8 +1,8 @@
 /*
  * Translation by: Ivan Gomes <contato@ivangomes.com.br>
  */
-(function ($) {
-    $.mobiscroll.i18n['pt-BR'] = {
+(function () {
+    mobiscroll.i18n['pt-BR'] = {
         // Core
         setText: 'Selecionar',
         cancelText: 'Cancelar',
@@ -59,4 +59,4 @@
         decimalSeparator: ',',
         thousandsSeparator: ' '
     };
-})(jQuery);
+})();

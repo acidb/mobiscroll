@@ -1,3 +1,5 @@
+ window.mobiscroll = window.mobiscroll || {};
+
 (function (window, document, undefined) {
 
     var cssNumber = {
@@ -1022,9 +1024,8 @@
     // Export to local scope
     var $ = Dom;
 
-    // Export to Window
-    window.$ = Dom;
-    window.jQuery = Dom;
+    // Export to mobiscroll
+    mobiscroll.$ = Dom;
 
     // DOM Library Utilites
     $.inArray = function (elem, array, i) {

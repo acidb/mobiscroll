@@ -1,5 +1,5 @@
-(function ($) {
-    $.mobiscroll.i18n.nl = {
+(function () {
+    mobiscroll.i18n.nl = {
         // Core
         setText: 'Instellen',
         cancelText: 'Annuleren',
@@ -56,4 +56,4 @@
         decimalSeparator: ',',
         thousandsSeparator: ' '
     };
-})(jQuery);
+})();

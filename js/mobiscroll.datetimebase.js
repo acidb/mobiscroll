@@ -1,5 +1,6 @@
-(function ($, undefined) {
-    var ms = $.mobiscroll,
+(function (undefined) {
+    var ms = mobiscroll,
+        $ = ms.$,
         datetime = ms.datetime,
         date = new Date(),
         defaults = {
@@ -876,4 +877,4 @@
     $.each(['date', 'time', 'datetime'], function (i, v) {
         ms.presets.scroller[v] = preset;
     });
-})(jQuery);
+})();

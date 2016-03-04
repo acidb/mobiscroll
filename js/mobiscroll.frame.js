@@ -1,7 +1,8 @@
-(function ($, window, document, undefined) {
+(function (window, document, undefined) {
     var $activeElm,
         preventShow,
-        ms = $.mobiscroll,
+        ms = mobiscroll,
+        $ = ms.$,
         util = ms.util,
         pr = util.jsPrefix,
         has3d = util.has3d,
@@ -913,4 +914,4 @@
         }
     });
 
-})(jQuery, window, document);
+})( window, document);

@@ -1,5 +1,5 @@
-(function ($) {
-    $.mobiscroll.i18n.ro = {
+(function () {
+    mobiscroll.i18n.ro = {
         // Core
         setText: 'Setare',
         cancelText: 'Anulare',
@@ -58,4 +58,4 @@
         decimalSeparator: ',',
         thousandsSeparator: ' '
     };
-})(jQuery);
+})();

@@ -1,5 +1,5 @@
-(function ($) {
-    $.mobiscroll.i18n.zh = {
+(function () {
+    mobiscroll.i18n.zh = {
         // Core
         setText: '确定',
         cancelText: '取消',
@@ -55,4 +55,4 @@
         decimalSeparator: ',',
         thousandsSeparator: ' '
     };
-})(jQuery);
+})();

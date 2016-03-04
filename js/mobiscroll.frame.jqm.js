@@ -1,8 +1,9 @@
-(function ($) {
+(function () {
 
-    var ver;
+    var ms =  mobiscroll,
+        $ = ms.$;
 
-    $.mobiscroll.themes.frame.jqm = {
+    ms.themes.frame.jqm = {
         jqmBorder: 'a',
         jqmHeader: 'b',
         jqmWheel: 'd',
@@ -73,4 +74,4 @@
         }
     };
 
-})(jQuery);
+})();

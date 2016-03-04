@@ -1,5 +1,5 @@
-(function ($) {
-    $.mobiscroll.i18n.es = {
+(function () {
+    mobiscroll.i18n.es = {
         // Core
         setText: 'Aceptar',
         cancelText: 'Cancelar',
@@ -57,4 +57,4 @@
         decimalSeparator: ',',
         thousandsSeparator: ' '
     };
-})(jQuery);
+})();

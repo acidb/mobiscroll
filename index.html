@@ -307,6 +307,8 @@
     <script src="js/i18n/mobiscroll.i18n.zh.js"></script>
 
     <script>
+    var $ = mobiscroll.$;
+        
     function init() {
 
         // Date demo initialization
@@ -371,7 +373,7 @@
 
     $('.settings').on('change', function() {
         demo = $('#demo').val();
-        theme = $('#theme').val() || $.mobiscroll.defaults.theme;
+        theme = $('#theme').val() || mobiscroll.defaults.theme;
         mode = $('#mode').val();
         display = $('#display').val();
         lang = $('#language').val();

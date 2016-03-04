@@ -1,5 +1,5 @@
-(function ($) {
-    var themes = $.mobiscroll.themes.frame,
+(function () {
+    var themes = mobiscroll.themes.frame,
         theme = {
             dateOrder: 'Mddyy',
             //mode: 'mixed',
@@ -34,5 +34,5 @@
     themes['android-ics light'] = theme;
     themes['android-holo light'] = theme;
 
-})(jQuery);
+})();
 

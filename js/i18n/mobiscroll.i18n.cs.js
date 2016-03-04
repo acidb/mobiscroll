@@ -1,5 +1,5 @@
-(function ($) {
-    $.mobiscroll.i18n.cs = {
+(function () {
+    mobiscroll.i18n.cs = {
         // Core
         setText: 'Zadej',
         cancelText: 'Storno',
@@ -56,4 +56,4 @@
         decimalSeparator: ',',
         thousandsSeparator: ' '
     };
-})(jQuery);
+})();

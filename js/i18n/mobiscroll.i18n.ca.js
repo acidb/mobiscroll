@@ -1,5 +1,5 @@
-(function ($) {
-    $.mobiscroll.i18n.ca = {
+(function () {
+    mobiscroll.i18n.ca = {
         // Core
         setText: 'Acceptar',
         cancelText: 'Cancel·lar',
@@ -54,4 +54,4 @@
         offText: 'No',
         onText: 'Si'
     };
-})(jQuery);
+})();

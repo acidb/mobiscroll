@@ -1,4 +1,4 @@
-(function ($, window, document, undefined) {
+(function (window, document, undefined) {
 
     function getIndex(wheel, val) {
         return wheel._array ? wheel._map[val] : wheel.getIndex(val);
@@ -23,7 +23,8 @@
         return getItemValue(getItem(wheel, i, def));
     }
 
-    var ms = $.mobiscroll,
+    var ms = mobiscroll,
+        $ = ms.$,
         extend = $.extend,
         classes = ms.classes,
         util = ms.util,
@@ -811,4 +812,4 @@
     };
 
     ms.themes.scroller = ms.themes.frame;
-})(jQuery, window, document);
+})(window, document);

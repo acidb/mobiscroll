@@ -1,6 +1,6 @@
 // Lietuvių
-(function ($) {
-    $.mobiscroll.i18n.lt = {
+(function () {
+    mobiscroll.i18n.lt = {
         // Core
         setText: 'OK',
         cancelText: 'Atšaukti',
@@ -58,4 +58,4 @@
         decimalSeparator: ',',
         thousandsSeparator: ' '
     };
-})(jQuery);
+})();
