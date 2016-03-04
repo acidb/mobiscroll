@@ -171,7 +171,7 @@
                             //keys.push(i);
                             values.push({
                                 value: i,
-                                text: str.match(/MM/) ? str.replace(/MM/, '<div class="mbsc-dt-month">' + s.monthNames[i] + '</div>') : str.replace(/M/, '<div class="mbsc-dt-month">' + s.monthNamesShort[i] + '</div>')
+                                text: str.match(/MM/) ? str.replace(/MM/, '<span class="mbsc-dt-month">' + s.monthNames[i] + '</span>') : str.replace(/M/, '<span class="mbsc-dt-month">' + s.monthNamesShort[i] + '</span>')
                             });
                             //values.push(str.match(/MM/) ? str.replace(/MM/, s.monthNames[i]) : str.replace(/M/, s.monthNamesShort[i]));
                         }
