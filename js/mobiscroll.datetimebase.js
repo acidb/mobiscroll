@@ -1,7 +1,7 @@
 (function (undefined) {
     var ms = mobiscroll,
         $ = ms.$,
-        datetime = ms.datetime,
+        datetime = ms.util.datetime,
         date = new Date(),
         defaults = {
             startYear: date.getFullYear() - 100,
@@ -73,7 +73,7 @@
                 mins,
                 maxs,
                 orig = $.extend({}, inst.settings),
-                s = $.extend(inst.settings, ms.datetime.defaults, defaults, html5def, orig),
+                s = $.extend(inst.settings, ms.util.datetime.defaults, defaults, html5def, orig),
                 offset = 0,
                 validValues = [],
                 wheels = [],

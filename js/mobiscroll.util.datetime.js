@@ -2,7 +2,7 @@
     var ms = mobiscroll,
         $ = ms.$;
 
-    ms.datetime = {
+    ms.util.datetime = {
         defaults: {
             shortYearCutoff: '+10',
             monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
@@ -285,8 +285,8 @@
 
     // @deprecated since 2.11.0, backward compatibility code
     // ---
-    ms.formatDate = ms.datetime.formatDate;
-    ms.parseDate = ms.datetime.parseDate;
+    ms.formatDate = ms.util.datetime.formatDate;
+    ms.parseDate = ms.util.datetime.parseDate;
     // ---
-    
+
 })();

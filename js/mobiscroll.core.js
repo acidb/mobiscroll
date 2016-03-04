@@ -230,6 +230,24 @@ mobiscroll = mobiscroll || {};
             extend(this.defaults, o);
         },
         presetShort: function (name, c, p) {
+            ms[name] = function (selector, s) {
+                var inst,
+                    instIds,
+                    ret = {},
+                    options = s || {};
+
+                $.extend(options , { preset: p === false ? undefined : name });
+
+                $(selector).each(function () {
+                    inst = new ms.classes[c || 'Scroller'](this, options);
+                    ret[this.id] = inst;
+                });
+
+                instIds = Object.keys(ret);
+
+                return instIds.length == 1 ? ret[instIds[0]] : ret;
+            };
+
             this.components[name] = function (s) {
                 return init(this, extend(s, {
                     component: c,
