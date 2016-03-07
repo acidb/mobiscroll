@@ -37,7 +37,7 @@
     background: rgba(0, 122, 255, .2);
 }
 
-.mbsc-ios .dw-sel {
+.mbsc-ios .mbsc-sel {
     color: #000;
 }
 /* Clickpick mode */
@@ -79,7 +79,7 @@
 }
 /* Select */
 
-.mbsc-ios.dw-select .dwwo {
+.mbsc-ios.mbsc-select .dwwo {
     display: none;
 }
 /* Multiple select */
@@ -98,11 +98,11 @@
 }
 /* Group select */
 
-.mbsc-ios .dw-select-gr .dw-li {
+.mbsc-ios .mbsc-select-gr .dw-li {
     padding-left: 1.818181em;
 }
 
-.mbsc-ios .dw-select-gr .dw-w-gr {
+.mbsc-ios .mbsc-select-gr .dw-w-gr {
     padding-left: .277777em;
     font-weight: normal;
     font-size: 1.222222em;

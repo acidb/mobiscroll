@@ -35,92 +35,92 @@
   color: #50ccc4;
 }
 /* Calendar */
-.mbsc-mobiscroll-dark .dw-cal .dw-sel .dw-i {
+.mbsc-mobiscroll-dark .mbsc-cal .mbsc-sel .mbsc-i {
   background: #50ccc4;
   color: #263238;
 }
-.mbsc-mobiscroll-dark .dw-hl-now .dw-cal-today {
+.mbsc-mobiscroll-dark .mbsc-hl-now .mbsc-cal-today {
   color: #50ccc4;
 }
-.mbsc-mobiscroll-dark .dw-cal-days {
+.mbsc-mobiscroll-dark .mbsc-cal-days {
   color: #50ccc4;
 }
-.mbsc-mobiscroll-dark .dw-cal-days th {
+.mbsc-mobiscroll-dark .mbsc-cal-days th {
   border-color: #50ccc4;
 }
-.mbsc-mobiscroll-dark .dw-cal-btn-txt {
+.mbsc-mobiscroll-dark .mbsc-cal-btn-txt {
   color: #50ccc4;
 }
-.mbsc-mobiscroll-dark .dw-cal-event-color {
+.mbsc-mobiscroll-dark .mbsc-cal-event-color {
   background: #50ccc4;
 }
-.mbsc-mobiscroll-dark .dw-cal-events {
+.mbsc-mobiscroll-dark .mbsc-cal-events {
   color: #263238;
   background: #ffffff;
 }
-.mbsc-mobiscroll-dark .dw-cal-events-arr {
+.mbsc-mobiscroll-dark .mbsc-cal-events-arr {
   border-color: #ffffff transparent transparent transparent;
 }
-.mbsc-mobiscroll-dark .dw-cal-events-b .dw-cal-events-arr {
+.mbsc-mobiscroll-dark .mbsc-cal-events-b .mbsc-cal-events-arr {
   border-color: transparent transparent #ffffff transparent;
 }
-.mbsc-mobiscroll-dark .dw-cal-event-time {
+.mbsc-mobiscroll-dark .mbsc-cal-event-time {
   color: #8db3b0;
 }
-.mbsc-mobiscroll-dark .dw-cal-event-dur {
+.mbsc-mobiscroll-dark .mbsc-cal-event-dur {
   color: #8db3b0;
 }
-.mbsc-mobiscroll-dark .dw-cal-day-hl .dw-i {
+.mbsc-mobiscroll-dark .mbsc-cal-day-hl .mbsc-i {
   border-color: #50ccc4;
 }
-.mbsc-mobiscroll-dark .dw-week-nrs-c {
+.mbsc-mobiscroll-dark .mbsc-week-nrs-c {
   color: #50ccc4;
   background: #263238;
 }
-.mbsc-mobiscroll-dark .dw-cal-day-m {
+.mbsc-mobiscroll-dark .mbsc-cal-day-m {
   background: #f7f7f7;
 }
-.mbsc-mobiscroll-dark .dw-sel .dw-cal-day-m {
+.mbsc-mobiscroll-dark .mbsc-sel .mbsc-cal-day-m {
   background: #263238;
 }
-.mbsc-mobiscroll-dark .dw-cal-day-m-c {
+.mbsc-mobiscroll-dark .mbsc-cal-day-m-c {
   background: #50ccc4;
 }
-.mbsc-mobiscroll-dark .dw-sel .dw-cal-day-m-c {
+.mbsc-mobiscroll-dark .mbsc-sel .mbsc-cal-day-m-c {
   background: #263238;
 }
-.mbsc-mobiscroll-dark .dw-cal-day-txt {
+.mbsc-mobiscroll-dark .mbsc-cal-day-txt {
   color: #263238;
   background: #f7f7f7;
 }
-.mbsc-mobiscroll-dark .dw-cal-tab {
+.mbsc-mobiscroll-dark .mbsc-cal-tab {
   border-color: #50ccc4;
 }
-.mbsc-mobiscroll-dark .dw-cal-tab .dw-i {
+.mbsc-mobiscroll-dark .mbsc-cal-tab .mbsc-i {
   color: #f7f7f7;
 }
-.mbsc-mobiscroll-dark .dw-cal-tabs .dw-sel {
+.mbsc-mobiscroll-dark .mbsc-cal-tabs .mbsc-sel {
   background: #50ccc4;
 }
-.mbsc-mobiscroll-dark .dw-cal-tabs .dw-sel .dw-i {
+.mbsc-mobiscroll-dark .mbsc-cal-tabs .mbsc-sel .mbsc-i {
   color: #263238;
 }
-.mbsc-mobiscroll-dark .dw-cal-sc-c {
+.mbsc-mobiscroll-dark .mbsc-cal-sc-c {
   background: #263238;
 }
 /* Range */
-.mbsc-mobiscroll-dark .dw-dr {
+.mbsc-mobiscroll-dark .mbsc-dr {
   border-color: #50ccc4;
 }
-.mbsc-mobiscroll-dark .dw-sel .dw-dr {
+.mbsc-mobiscroll-dark .mbsc-sel .mbsc-dr {
   background: #50ccc4;
   color: #263238;
 }
-.mbsc-mobiscroll-dark.dw-range .dw-cal-table .dw-sel .dw-i {
+.mbsc-mobiscroll-dark.mbsc-range .mbsc-cal-table .mbsc-sel .mbsc-i {
   color: #f7f7f7;
   background: rgba(80, 204, 196, 0.3);
 }
-.mbsc-mobiscroll-dark.dw-range .dw-cal-table .dw-cal-day-hl .dw-i {
+.mbsc-mobiscroll-dark.mbsc-range .mbsc-cal-table .mbsc-cal-day-hl .mbsc-i {
   background: #50ccc4;
   color: #263238;
 }

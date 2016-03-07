@@ -112,7 +112,7 @@
     visibility: hidden;
 }
 
-.dw-i {
+.mbsc-i {
     position: relative;
     height: 100%;
     overflow: hidden;
@@ -200,7 +200,7 @@
     overflow: hidden;
 }
 
-.dw-ml .dw-li .dw-i {
+.dw-ml .dw-li .mbsc-i {
     width: 100%;
     height: auto;
     display: inline-block;

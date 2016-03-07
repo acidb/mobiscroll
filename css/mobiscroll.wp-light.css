@@ -1,20 +1,20 @@
 .mbsc-wp-light .dwwr,
-.mbsc-wp-light .dw-dr,
+.mbsc-wp-light .mbsc-dr,
 .mbsc-wp-light .dwb,
-.mbsc-wp-light .dw-cal-tabs .dw-i {
+.mbsc-wp-light .mbsc-cal-tabs .mbsc-i {
   color: #000000;
 }
 .mbsc-wp-light .dwwr {
   background: #dedede;
 }
-.mbsc-wp-light .dw-i {
+.mbsc-wp-light .mbsc-i {
   border-color: #a6a6a6;
 }
-.mbsc-wp-light .dw-li .dw-i {
+.mbsc-wp-light .dw-li .mbsc-i {
   color: #000000;
 }
-.mbsc-wp-light .dw-sel .dw-i,
-.mbsc-wp-light .dw-hl .dw-i {
+.mbsc-wp-light .mbsc-sel .mbsc-i,
+.mbsc-wp-light .dw-hl .mbsc-i {
   color: white;
   background: #1ba0e3;
   border-color: #1ba0e3;
@@ -41,7 +41,7 @@
   border-color: #dedede transparent transparent transparent;
 }
 /* Multiple select */
-.mbsc-wp-light .dwwms .dw-li .dw-i {
+.mbsc-wp-light .dwwms .dw-li .mbsc-i {
   color: #000000;
 }
 .mbsc-wp-light .dwwms .dw-li:after {
@@ -51,64 +51,64 @@
   color: #000000;
 }
 /* Override accents */
-.mbsc-wp-light .dwa .dw-i {
+.mbsc-wp-light .dwa .mbsc-i {
   color: #000000;
   border-color: #a6a6a6;
   background: none;
 }
-.mbsc-wp-light .dwwms .dw-i {
+.mbsc-wp-light .dwwms .mbsc-i {
   background: none;
 }
 /* Calendar */
-.mbsc-wp-light .dw-cal-sc-m-cell {
+.mbsc-wp-light .mbsc-cal-sc-m-cell {
   background: #dedede;
 }
-.mbsc-wp-light .dw-cal-event {
+.mbsc-wp-light .mbsc-cal-event {
   background: #a6a6a6;
   color: black;
 }
-.mbsc-wp-light .dw-cal-events {
+.mbsc-wp-light .mbsc-cal-events {
   background: #000000;
   background: rgba(0, 0, 0, 0.8);
 }
-.mbsc-wp-light .dw-cal-events-arr {
+.mbsc-wp-light .mbsc-cal-events-arr {
   border-color: rgba(0, 0, 0, 0.8) transparent transparent;
 }
-.mbsc-wp-light .dw-cal-events-b .dw-cal-events-arr {
+.mbsc-wp-light .mbsc-cal-events-b .mbsc-cal-events-arr {
   border-color: transparent transparent rgba(0, 0, 0, 0.8);
 }
-.mbsc-wp-light .dw-cal-day-m {
+.mbsc-wp-light .mbsc-cal-day-m {
   border-color: #000000 #000000 transparent transparent;
 }
-.mbsc-wp-light .dw-cal-day-fg {
+.mbsc-wp-light .mbsc-cal-day-fg {
   border-color: #a6a6a6;
 }
-.mbsc-wp-light .dw-cal-day-inv .dw-cal-day-fg {
+.mbsc-wp-light .mbsc-cal-day-inv .mbsc-cal-day-fg {
   color: rgba(0, 0, 0, 0.3);
 }
-.mbsc-wp-light .dw-sel .dw-cal-day-fg {
+.mbsc-wp-light .mbsc-sel .mbsc-cal-day-fg {
   border-color: #1ba0e3;
 }
-.mbsc-wp-light .dw-cal-day-hl .dw-cal-day-fg {
+.mbsc-wp-light .mbsc-cal-day-hl .mbsc-cal-day-fg {
   background: #000000;
   border-color: #000000;
   color: #dedede;
 }
-.mbsc-wp-light .dw-hl-now .dw-cal-today {
+.mbsc-wp-light .mbsc-hl-now .mbsc-cal-today {
   color: #1ba0e3;
 }
 .mbsc-wp-light .dwb:before,
-.mbsc-wp-light .dw-cal-btn-txt:before {
+.mbsc-wp-light .mbsc-cal-btn-txt:before {
   color: #000000;
   border-color: #000000;
 }
 .mbsc-wp-light .dwb-a:before,
-.mbsc-wp-light .dwb-a .dw-cal-btn-txt:before {
+.mbsc-wp-light .dwb-a .mbsc-cal-btn-txt:before {
   background: #1ba0e3;
   border-color: #1ba0e3;
   color: white;
 }
-.mbsc-wp-light .dw-week-nrs-c {
+.mbsc-wp-light .mbsc-week-nrs-c {
   background: #dedede;
 }
 /* Rating */
@@ -124,7 +124,7 @@
 }
 /* Timer */
 .mbsc-wp-light.dw-timespan .dwl,
-.mbsc-wp-light.dw-timer .dwl {
+.mbsc-wp-light.mbsc-timer .dwl {
   color: white;
 }
 /* Numpad */

@@ -46,12 +46,12 @@
                         click = true;
                         active = $(this).hasClass('wpa');
                         $('.dwwl', elm).removeClass('wpa');
-                        $('.dw-sel', this).removeClass('dw-sel');
+                        $('.mbsc-sel', this).removeClass('mbsc-sel');
                         $(this).addClass('wpa');
                     }).on('touchmove mousemove', function () {
                         click = false;
                     }).on('touchend mouseup', function (e) {
-                        if (click && active && $(e.target).closest('.dw-li').hasClass('dw-sel')) {
+                        if (click && active && $(e.target).closest('.dw-li').hasClass('mbsc-sel')) {
                             $(this).removeClass('wpa');
                         }
                         if (e.type === 'mouseup') {
