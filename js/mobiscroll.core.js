@@ -2,11 +2,14 @@
  * Mobiscroll v2.17.1
  * http://mobiscroll.com
  *
- * Copyright 2010-2015, Acid Media
+ * Copyright 2010-2016, Acid Media
  * Licensed under the MIT license.
  *
  */
-(function ($, undefined) {
+
+var mobiscroll = mobiscroll || {};
+
+(function (undefined) {
 
     function testProps(props) {
         var i;
@@ -39,7 +42,7 @@
                 if (instances[this.id]) {
                     instances[this.id].destroy();
                 }
-                new $.mobiscroll.classes[options.component || 'Scroller'](this, options);
+                new mobiscroll.classes[options.component || 'Scroller'](this, options);
             });
         }
 
@@ -63,6 +66,7 @@
     }
 
     var ms,
+        $ = mobiscroll.$,
         id = +new Date(),
         instances = {},
         extend = $.extend,
@@ -73,11 +77,12 @@
         pr = prefix.replace(/^\-/, '').replace(/\-$/, '').replace('moz', 'Moz');
 
     $.fn.mobiscroll = function (method) {
-        extend(this, $.mobiscroll.components);
+        extend(this, mobiscroll.components);
         return init(this, method, arguments);
     };
 
-    ms = $.mobiscroll = $.mobiscroll || {
+    ms = mobiscroll = {
+        $: $,
         version: '2.17.1',
         util: {
             prefix: prefix,
@@ -225,6 +230,26 @@
             extend(this.defaults, o);
         },
         presetShort: function (name, c, p) {
+            ms[name] = function (selector, s) {
+                var inst,
+                    instIds,
+                    ret = {},
+                    options = s || {};
+
+                $.extend(options, {
+                    preset: p === false ? undefined : name
+                });
+
+                $(selector).each(function () {
+                    inst = new ms.classes[c || 'Scroller'](this, options);
+                    ret[this.id] = inst;
+                });
+
+                instIds = Object.keys(ret);
+
+                return instIds.length == 1 ? ret[instIds[0]] : ret;
+            };
+
             this.components[name] = function (s) {
                 return init(this, extend(s, {
                     component: c,
@@ -234,7 +259,7 @@
         }
     };
 
-    $.mobiscroll.classes.Base = function (el, settings) {
+    mobiscroll.classes.Base = function (el, settings) {
 
         var lang,
             preset,
@@ -242,7 +267,7 @@
             theme,
             themeName,
             defaults,
-            ms = $.mobiscroll,
+            ms = mobiscroll,
             util = ms.util,
             getCoord = util.getCoord,
             that = this;
@@ -454,4 +479,4 @@
         });
     }
 
-})(jQuery);
+})();

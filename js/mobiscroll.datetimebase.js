@@ -1,6 +1,7 @@
-(function ($, undefined) {
-    var ms = $.mobiscroll,
-        datetime = ms.datetime,
+(function (undefined) {
+    var ms = mobiscroll,
+        $ = ms.$,
+        datetime = ms.util.datetime,
         date = new Date(),
         defaults = {
             startYear: date.getFullYear() - 100,
@@ -72,7 +73,7 @@
                 mins,
                 maxs,
                 orig = $.extend({}, inst.settings),
-                s = $.extend(inst.settings, ms.datetime.defaults, defaults, html5def, orig),
+                s = $.extend(inst.settings, ms.util.datetime.defaults, defaults, html5def, orig),
                 offset = 0,
                 validValues = [],
                 wheels = [],
@@ -879,4 +880,4 @@
     $.each(['date', 'time', 'datetime'], function (i, v) {
         ms.presets.scroller[v] = preset;
     });
-})(jQuery);
+})();

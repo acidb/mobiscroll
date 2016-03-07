@@ -1,5 +1,5 @@
-(function ($) {
-    $.mobiscroll.i18n['ru-RU'] = $.mobiscroll.i18n.ru = {
+(function () {
+    mobiscroll.i18n['ru-RU'] = mobiscroll.i18n.ru = {
         // Core
         setText: 'Установить',
         cancelText: 'Отмена',
@@ -57,4 +57,4 @@
         decimalSeparator: ',',
         thousandsSeparator: ' '
     };
-})(jQuery);
+})();

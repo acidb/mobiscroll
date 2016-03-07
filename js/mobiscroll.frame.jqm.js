@@ -1,6 +1,9 @@
-(function ($) {
+(function () {
 
-    $.mobiscroll.themes.frame.jqm = {
+    var ms =  mobiscroll,
+        $ = ms.$;
+
+    ms.themes.frame.jqm = {
         jqmBody: 'a',
         jqmBorder: 'a',
         jqmHeader: 'b',
@@ -65,4 +68,4 @@
         }
     };
 
-})(jQuery);
+})();

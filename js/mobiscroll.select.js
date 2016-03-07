@@ -1,5 +1,6 @@
-(function ($, undefined) {
-    var ms = $.mobiscroll,
+(function (undefined) {
+    var ms = mobiscroll,
+        $ = ms.$,
         util = ms.util,
         isString = util.isString,
         defaults = {
@@ -455,4 +456,4 @@
         };
     };
 
-})(jQuery);
+})();

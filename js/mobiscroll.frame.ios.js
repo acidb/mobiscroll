@@ -1,6 +1,6 @@
-(function ($) {
+(function () {
 
-    var themes = $.mobiscroll.themes.frame,
+    var themes = mobiscroll.themes.frame,
         theme = {
             display: 'bottom',
             dateOrder: 'MMdyy',
@@ -23,4 +23,4 @@
 
     themes.ios = theme;
 
-})(jQuery);
+})();

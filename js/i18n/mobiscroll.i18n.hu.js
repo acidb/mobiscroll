@@ -1,5 +1,5 @@
-(function ($) {
-    $.mobiscroll.i18n.hu = {
+(function () {
+    mobiscroll.i18n.hu = {
         // Core
         setText: 'OK',
         cancelText: 'Mégse',
@@ -64,4 +64,4 @@
         decimalSeparator: ',',
         thousandsSeparator: ' '
     };
-})(jQuery);
+})();

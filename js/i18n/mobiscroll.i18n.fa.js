@@ -1,4 +1,4 @@
-(function ($) {
+(function () {
 
     var JalaliDate = {
         gDaysInMonth: [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
@@ -112,7 +112,7 @@
         return [jy, jm, jd];
     };
 
-    $.mobiscroll.i18n.fa = {
+    mobiscroll.i18n.fa = {
         // Core
         setText: 'تاييد',
         cancelText: 'انصراف',
@@ -204,4 +204,4 @@
         backText: 'پشت',
         undoText: 'واچیدن'
     };
-})(jQuery);
+})();

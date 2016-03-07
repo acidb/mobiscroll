@@ -1,5 +1,5 @@
-(function ($) {
-    $.mobiscroll.i18n.no = {
+(function () {
+    mobiscroll.i18n.no = {
         // Core
         setText: 'OK',
         cancelText: 'Avbryt',
@@ -57,4 +57,4 @@
         decimalSeparator: ',',
         thousandsSeparator: ' '
     };
-})(jQuery);
+})();

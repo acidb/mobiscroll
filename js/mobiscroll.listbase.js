@@ -1,5 +1,6 @@
-(function ($, undefined) {
-    var ms = $.mobiscroll,
+(function (undefined) {
+    var ms = mobiscroll,
+        $ = ms.$,
         defaults = {
             invalid: [],
             showInput: true,
@@ -421,4 +422,4 @@
             }
         };
     };
-})(jQuery);
+})();
