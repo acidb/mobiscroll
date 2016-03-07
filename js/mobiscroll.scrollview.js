@@ -1,5 +1,6 @@
-(function ( undefined) {
+(function (undefined) {
     var ms = mobiscroll,
+        $ = ms.$,
         classes = ms.classes,
         util = ms.util,
         constrain = util.constrain,
