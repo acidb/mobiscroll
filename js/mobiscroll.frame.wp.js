@@ -1,6 +1,8 @@
-(function ($) {
+(function () {
 
-    var themes = $.mobiscroll.themes.frame,
+    var ms = mobiscroll,
+        $ = ms.$,
+        themes = ms.themes.frame,
         theme = {
             minWidth: 76,
             height: 76,
@@ -87,4 +89,4 @@
     themes.wp = theme;
     themes['wp-light'] = theme;
 
-})(jQuery);
+})();

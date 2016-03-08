@@ -1,5 +1,5 @@
-(function ($) {
-    $.mobiscroll.i18n.sv = {
+(function () {
+    mobiscroll.i18n.sv = {
         // Core
         setText: 'OK',
         cancelText: 'Avbryt',
@@ -53,4 +53,4 @@
         offText: 'Av',
         onText: 'På'
     };
-})(jQuery);
+})();

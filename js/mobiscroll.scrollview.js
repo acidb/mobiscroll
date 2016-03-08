@@ -1,5 +1,6 @@
-(function ($, undefined) {
-    var ms = $.mobiscroll,
+(function (undefined) {
+    var ms = mobiscroll,
+        $ = ms.$,
         classes = ms.classes,
         util = ms.util,
         constrain = util.constrain,
@@ -574,4 +575,4 @@
     };
 
     ms.presetShort('scrollview', 'ScrollView', false);
-})(jQuery);
+})();

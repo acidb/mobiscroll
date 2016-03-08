@@ -1,6 +1,7 @@
-(function ($, undefined) {
-    var ms = $.mobiscroll,
-        datetime = ms.datetime,
+(function (undefined) {
+    var ms = mobiscroll,
+        $ = ms.$,
+        datetime = ms.util.datetime,
         date = new Date(),
         defaults = {
             startYear: date.getFullYear() - 100,
@@ -72,7 +73,7 @@
                 mins,
                 maxs,
                 orig = $.extend({}, inst.settings),
-                s = $.extend(inst.settings, ms.datetime.defaults, defaults, html5def, orig),
+                s = $.extend(inst.settings, ms.util.datetime.defaults, defaults, html5def, orig),
                 offset = 0,
                 validValues = [],
                 wheels = [],
@@ -787,7 +788,7 @@
                                 //if (regen) {
                                 //    $('.dw-li', t).each(function () {
                                 //        var that = $(this),
-                                //            d = that.data('val'),
+                                //            d = that.attr('data-val'),
                                 //            w = s.getDate(y, m, d).getDay(),
                                 //            str = dord.replace(/[my]/gi, '').replace(/dd/, (d < 10 ? '0' + d : d) + (s.daySuffix || '')).replace(/d/, d + (s.daySuffix || ''));
                                 //        $('.dw-i', that).html(str.match(/DD/) ? str.replace(/DD/, '<span class="dw-day">' + s.dayNames[w] + '</span>') : str.replace(/D/, '<span class="dw-day">' + s.dayNamesShort[w] + '</span>'));
@@ -879,4 +880,4 @@
     $.each(['date', 'time', 'datetime'], function (i, v) {
         ms.presets.scroller[v] = preset;
     });
-})(jQuery);
+})();

@@ -1,7 +1,8 @@
-(function ($, undefined) {
-    var ms = $.mobiscroll;
+(function (undefined) {
+    var ms = mobiscroll,
+        $ = ms.$;
 
-    ms.datetime = {
+    ms.util.datetime = {
         defaults: {
             shortYearCutoff: '+10',
             monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
@@ -40,7 +41,7 @@
             if (!date) {
                 return null;
             }
-            var s = $.extend({}, ms.datetime.defaults, settings),
+            var s = $.extend({}, ms.util.datetime.defaults, settings),
                 look = function (m) { // Check whether a format character is doubled
                     var n = 0;
                     while (i + 1 < format.length && format.charAt(i + 1) == m) {
@@ -136,7 +137,7 @@
         * @return {Date} Returns the extracted date.
         */
         parseDate: function (format, value, settings) {
-            var s = $.extend({}, ms.datetime.defaults, settings),
+            var s = $.extend({}, ms.util.datetime.defaults, settings),
                 def = s.defaultValue || new Date();
 
             if (!format || !value) {
@@ -284,8 +285,8 @@
 
     // @deprecated since 2.11.0, backward compatibility code
     // ---
-    ms.formatDate = ms.datetime.formatDate;
-    ms.parseDate = ms.datetime.parseDate;
+    ms.formatDate = ms.util.datetime.formatDate;
+    ms.parseDate = ms.util.datetime.parseDate;
     // ---
-    
-})(jQuery);
+
+})();

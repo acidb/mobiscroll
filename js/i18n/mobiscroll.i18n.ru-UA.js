@@ -1,5 +1,5 @@
-(function ($) {
-    $.mobiscroll.i18n['ru-UA'] = {
+(function () {
+    mobiscroll.i18n['ru-UA'] = {
         // Core
         setText: 'Установить',
         cancelText: 'Отменить',
@@ -57,4 +57,4 @@
         decimalSeparator: ',',
         thousandsSeparator: ' '
     };
-})(jQuery);
+})();

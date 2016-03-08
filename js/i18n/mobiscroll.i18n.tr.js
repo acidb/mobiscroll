@@ -1,5 +1,5 @@
-(function ($) {
-    $.mobiscroll.i18n.tr = {
+(function () {
+    mobiscroll.i18n.tr = {
         // Core
         setText: 'Seç',
         cancelText: 'İptal',
@@ -57,4 +57,4 @@
         decimalSeparator: ',',
         thousandsSeparator: '.'
     };
-})(jQuery);
+})();

@@ -1,6 +1,9 @@
-(function ($) {
+(function () {
 
-    $.mobiscroll.themes.frame['wp-light'] = {
+    var ms = mobiscroll,
+        $ = ms.$;
+    
+    ms.themes.frame['wp-light'] = {
         baseTheme: 'wp',
         minWidth: 76,
         height: 76,
@@ -88,20 +91,20 @@
         }
     };
 
-    $.mobiscroll.themes.listview['wp-light'] = {
+    ms.themes.listview['wp-light'] = {
         baseTheme: 'wp'
     };
 
-    $.mobiscroll.themes.menustrip['wp-light'] = {
+    ms.themes.menustrip['wp-light'] = {
         baseTheme: 'wp'
     };
 
-    $.mobiscroll.themes.form['wp-light'] = {
+    ms.themes.form['wp-light'] = {
         baseTheme: 'wp'
     };
 
-    $.mobiscroll.themes.progress['wp-light'] = {
+    ms.themes.progress['wp-light'] = {
         baseTheme: 'wp'
     };
 
-})(jQuery);
+})();

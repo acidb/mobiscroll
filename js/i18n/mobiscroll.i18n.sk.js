@@ -1,5 +1,5 @@
-(function ($) {
-    $.mobiscroll.i18n.sk = {
+(function () {
+    mobiscroll.i18n.sk = {
         // Core
         setText: 'Zadaj',
         cancelText: 'Zrušiť',
@@ -56,4 +56,4 @@
         decimalSeparator: ',',
         thousandsSeparator: ' '
     };
-})(jQuery);
+})();
