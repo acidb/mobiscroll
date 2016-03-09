@@ -39,6 +39,7 @@
 }
 
 .mbsc-jqm .mbsc-sc-itm {
+    padding: 0 5px;
     font-size: 26px;
 }
 
@@ -88,6 +89,6 @@
 /* Group select */
 
 .mbsc-jqm .mbsc-sc-whl .mbsc-sel-gr {
-    padding: 0;
+    padding: 0 5px;
     font-size: 20px;
 }

@@ -32,6 +32,9 @@
             s.eventTextClass = 'ui-btn-up-' + txt;
             s.eventBubbleClass = 'ui-body-' + bubble;
         },
+        onInit: function () {
+            $(this).closest('.ui-field-contain').trigger('create');
+        },
         onEventBubbleShow: function (evd, evc) {
             $('.dw-cal-event-list', evc).attr('data-role', 'listview');
             evc.page().trigger('create');
