@@ -6,7 +6,7 @@
 .mbsc-android-holo-light .dwb,
 .mbsc-android-holo-light .dw-li,
 .mbsc-android-holo-light .mbsc-dr,
-.mbsc-android-holo-light .mbsc-cal-tabs .mbsc-i {
+.mbsc-android-holo-light .mbsc-cal-tabs .mbsc-cal-tab-i {
   color: #000000;
 }
 .mbsc-android-holo-light .dwv {
@@ -64,7 +64,8 @@
 .mbsc-android-holo-light .mbsc-cal-m-bottom .mbsc-cal-day-m {
   background: #31b7e8;
 }
-.mbsc-android-holo-light .mbsc-cal .mbsc-sel .mbsc-i {
+.mbsc-android-holo-light .mbsc-cal .mbsc-sel .mbsc-cal-sc-cell-i,
+.mbsc-android-holo-light .mbsc-cal .mbsc-sel .mbsc-cal-day-i {
   background: #31b7e8;
   background: rgba(49, 183, 232, 0.5);
 }
@@ -80,7 +81,7 @@
 .mbsc-android-holo-light .mbsc-cal-event-color {
   background: #31b7e8;
 }
-.mbsc-android-holo-light .mbsc-cal .mbsc-cal-day-hl .mbsc-i {
+.mbsc-android-holo-light .mbsc-cal .mbsc-cal-day-hl .mbsc-cal-day-i {
   background: #31b7e8;
   color: white;
 }
@@ -90,7 +91,7 @@
 .mbsc-android-holo-light .mbsc-cal-tab {
   border-color: #e6e6e6;
 }
-.mbsc-android-holo-light .mbsc-cal-tabs .mbsc-i,
+.mbsc-android-holo-light .mbsc-cal-tabs .mbsc-cal-tab-i,
 .mbsc-android-holo-light .mbsc-cal-day,
 .mbsc-android-holo-light .mbsc-cal-sc-m-cell {
   border-color: #d9d9d9;

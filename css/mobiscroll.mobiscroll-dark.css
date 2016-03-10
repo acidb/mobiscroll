@@ -35,7 +35,7 @@
   color: #50ccc4;
 }
 /* Calendar */
-.mbsc-mobiscroll-dark .mbsc-cal .mbsc-sel .mbsc-i {
+.mbsc-mobiscroll-dark .mbsc-cal .mbsc-sel .mbsc-cal-day-i {
   background: #50ccc4;
   color: #263238;
 }
@@ -70,7 +70,7 @@
 .mbsc-mobiscroll-dark .mbsc-cal-event-dur {
   color: #8db3b0;
 }
-.mbsc-mobiscroll-dark .mbsc-cal-day-hl .mbsc-i {
+.mbsc-mobiscroll-dark .mbsc-cal-day-hl .mbsc-cal-day-i {
   border-color: #50ccc4;
 }
 .mbsc-mobiscroll-dark .mbsc-week-nrs-c {
@@ -96,13 +96,13 @@
 .mbsc-mobiscroll-dark .mbsc-cal-tab {
   border-color: #50ccc4;
 }
-.mbsc-mobiscroll-dark .mbsc-cal-tab .mbsc-i {
+.mbsc-mobiscroll-dark .mbsc-cal-tab .mbsc-cal-tab-i {
   color: #f7f7f7;
 }
 .mbsc-mobiscroll-dark .mbsc-cal-tabs .mbsc-sel {
   background: #50ccc4;
 }
-.mbsc-mobiscroll-dark .mbsc-cal-tabs .mbsc-sel .mbsc-i {
+.mbsc-mobiscroll-dark .mbsc-cal-tabs .mbsc-sel .mbsc-cal-tab-i {
   color: #263238;
 }
 .mbsc-mobiscroll-dark .mbsc-cal-sc-c {
@@ -116,11 +116,11 @@
   background: #50ccc4;
   color: #263238;
 }
-.mbsc-mobiscroll-dark.mbsc-range .mbsc-cal-table .mbsc-sel .mbsc-i {
+.mbsc-mobiscroll-dark.mbsc-range .mbsc-cal-table .mbsc-sel .mbsc-cal-day-i {
   color: #f7f7f7;
   background: rgba(80, 204, 196, 0.3);
 }
-.mbsc-mobiscroll-dark.mbsc-range .mbsc-cal-table .mbsc-cal-day-hl .mbsc-i {
+.mbsc-mobiscroll-dark.mbsc-range .mbsc-cal-table .mbsc-cal-day-hl .mbsc-cal-day-i {
   background: #50ccc4;
   color: #263238;
 }
@@ -144,7 +144,7 @@
   color: #50ccc4;
 }
 /* Colorpicker */
-.mbsc-mobiscroll-dark .dw-color {
+.mbsc-mobiscroll-dark .mbsc-color {
   border-color: #263238;
 }
 /* Listview */

@@ -1,20 +1,20 @@
 .mbsc-wp-light .dwwr,
 .mbsc-wp-light .mbsc-dr,
 .mbsc-wp-light .dwb,
-.mbsc-wp-light .mbsc-cal-tabs .mbsc-i {
+.mbsc-wp-light .mbsc-cal-tabs .mbsc-cal-tab-i {
   color: #000000;
 }
 .mbsc-wp-light .dwwr {
   background: #dedede;
 }
-.mbsc-wp-light .mbsc-i {
+.mbsc-wp-light .mbsc-cal-day-i {
   border-color: #a6a6a6;
 }
-.mbsc-wp-light .dw-li .mbsc-i {
+.mbsc-wp-light .dw-li .dw-i {
   color: #000000;
 }
-.mbsc-wp-light .mbsc-sel .mbsc-i,
-.mbsc-wp-light .dw-hl .mbsc-i {
+.mbsc-wp-light .mbsc-sel .dw-i,
+.mbsc-wp-light .dw-hl .dw-i {
   color: white;
   background: #1ba0e3;
   border-color: #1ba0e3;
@@ -41,7 +41,7 @@
   border-color: #dedede transparent transparent transparent;
 }
 /* Multiple select */
-.mbsc-wp-light .dwwms .dw-li .mbsc-i {
+.mbsc-wp-light .dwwms .dw-li .dw-i {
   color: #000000;
 }
 .mbsc-wp-light .dwwms .dw-li:after {
@@ -51,12 +51,12 @@
   color: #000000;
 }
 /* Override accents */
-.mbsc-wp-light .dwa .mbsc-i {
+.mbsc-wp-light .dwa .dw-i {
   color: #000000;
   border-color: #a6a6a6;
   background: none;
 }
-.mbsc-wp-light .dwwms .mbsc-i {
+.mbsc-wp-light .dwwms .dw-i {
   background: none;
 }
 /* Calendar */
@@ -123,7 +123,7 @@
   background: #646464;
 }
 /* Timer */
-.mbsc-wp-light.dw-timespan .dwl,
+.mbsc-wp-light.mbsc-timespan .dwl,
 .mbsc-wp-light.mbsc-timer .dwl {
   color: white;
 }

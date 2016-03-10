@@ -28,7 +28,7 @@
     opacity: 0;
     filter: Alpha(Opacity=0);
 }
-.mbsc-wp .mbsc-i {
+.mbsc-wp .dw-i {
     position: relative;
     top: 4%;
     height: 92%;
@@ -39,7 +39,7 @@
     box-sizing: border-box;
     filter: inherit;
 }
-.mbsc-wp .dw-li .mbsc-i {
+.mbsc-wp .dw-li .dw-i {
     /*width: 99.5%;*/
     color: #fff;
 }
@@ -69,8 +69,8 @@
     opacity: 1;
     filter: Alpha(Opacity=100);
 }
-.mbsc-wp .mbsc-sel .mbsc-i,
-.mbsc-wp .dw-hl .mbsc-i {
+.mbsc-wp .mbsc-sel .dw-i,
+.mbsc-wp .dw-hl .dw-i {
     color: #fff;
     background: #1a9fe0;
     border-color: #1a9fe0;
@@ -119,7 +119,7 @@
     opacity: 1;
     filter: Alpha(Opacity=100);
 }
-.mbsc-wp .dwwms .dw-li .mbsc-i {
+.mbsc-wp .dwwms .dw-li .dw-i {
     color: #fff;
     border: 0;
     padding-left: 1.538em;
@@ -153,7 +153,7 @@
     opacity: 1;
     filter: Alpha(Opacity=100);
 }
-.mbsc-wp .mbsc-select-gr .dw-w-gr .mbsc-i {
+.mbsc-wp .mbsc-select-gr .dw-w-gr .dw-i {
     border: 0;
     padding-left: 5px;
 }
