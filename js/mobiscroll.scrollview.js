@@ -1,5 +1,6 @@
-(function ( undefined) {
+(function (undefined) {
     var ms = mobiscroll,
+        $ = ms.$,
         classes = ms.classes,
         util = ms.util,
         constrain = util.constrain,
@@ -56,7 +57,7 @@
             trigger,
             vertical,
             that = this,
-            currPos = 0,
+            currPos,
             currSnap = 0,
             currSnapDir = 1,
             s = settings,
@@ -259,8 +260,9 @@
                 ev.stopPropagation();
             }
 
+            ev.preventDefault();
+
             if (diff && !s.readonly /* TRIALCOND */ ) {
-                ev.preventDefault();
 
                 diff = diff < 0 ? 20 : -20;
 

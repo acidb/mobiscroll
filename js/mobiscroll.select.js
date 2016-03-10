@@ -29,10 +29,10 @@
             optionArray,
             options,
             optionWheelIdx,
-            origReadOnly,
             $elm = $(this),
             orig = $.extend({}, inst.settings),
             s = $.extend(inst.settings, defaults, orig),
+            origReadOnly = s.readonly,
             layout = s.layout || (/top|bottom/.test(s.display) ? 'liquid' : ''),
             isLiquid = layout == 'liquid',
             multiple = s.multiple || $elm.prop('multiple'),
@@ -370,7 +370,6 @@
         inst.attachShow($input.attr('placeholder', s.placeholder || ''));
 
         $elm.addClass('mbsc-sel-hdn').attr('tabindex', -1);
-        // TODO: move this to jqm integation .closest('.ui-field-contain').trigger('create');
 
         prepareData();
 
@@ -384,6 +383,7 @@
             headerText: false,
             anchor: $input,
             confirmOnTap: groupWheel ? [false, true] : true,
+            compClass: 'mbsc-sel',
             formatValue: formatValue,
             parseValue: function (val) {
                 getOption(val === undefined ? $elm.val() : val);
@@ -417,7 +417,6 @@
             },
             onWheelGestureStart: function (ev) {
                 if (ev.index == groupWheelIdx) {
-                    origReadOnly = s.readonly;
                     s.readonly = [false, true];
                 }
             },

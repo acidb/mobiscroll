@@ -1,78 +1,94 @@
-.mbsc-jqm .dwc {
-    padding: 30px 2px 4px 2px;
+.mbsc-jqm .mbsc-sc-whl-gr-c {
     overflow: visible;
 }
-.mbsc-jqm .dwhl {
-    padding-top: 4px;
+
+.mbsc-jqm .mbsc-sc-whl-gr {
+    padding: 4px 2px;
 }
-.mbsc-jqm .dwl {
+
+.mbsc-jqm .mbsc-sc-lbl-v {
+    padding-top: 30px;
+}
+
+.mbsc-jqm .mbsc-sc-lbl {
     border: 0;
     background: none;
-    top: -31px;
+    line-height: 30px;
 }
-.mbsc-jqm .dwfl {
-    padding: 4px 2px 1px 2px;
+
+.mbsc-jqm .mbsc-sc-whl-w {
+    margin: 0 2px;
 }
-.mbsc-jqm .dwwl {
-    border-radius: 4px;
-}
-.mbsc-jqm14 .dwwl {
-    border: 1px solid transparent;
-}
-.mbsc-jqm .dwwol {
-    z-index: 3;
+
+.mbsc-jqm .mbsc-sc-whl-l {
+    z-index: 2;
+    margin: 0 -2px;
     border-left: 0;
     border-right: 0;
-    padding: 0 3px;
-    margin: 0 -3px;
     opacity: .3;
-    filter: Alpha(Opacity=30);
 }
-.mbsc-jqm .dw-ltr .dwfl:first-child .dwwol,
-.mbsc-jqm .dw-rtl .dwfl:last-child .dwwol {
-    padding-left: 5px;
-    margin-left: -5px;
+
+.mbsc-jqm .dw-ltr .mbsc-sc-whl-w:first-child .mbsc-sc-whl-l,
+.mbsc-jqm .dw-rtl .mbsc-sc-whl-w:last-child .mbsc-sc-whl-l {
+    margin-left: -4px;
 }
-.mbsc-jqm .dw-ltr .dwfl:last-child .dwwol,
-.mbsc-jqm .dw-rtl .dwfl:first-child .dwwol {
-    padding-right: 5px;
-    margin-right: -5px;
+
+.mbsc-jqm .dw-ltr .mbsc-sc-whl-w:last-child .mbsc-sc-whl-l,
+.mbsc-jqm .dw-rtl .mbsc-sc-whl-w:first-child .mbsc-sc-whl-l {
+    margin-right: -4px;
 }
-.mbsc-jqm .dw-li {
+
+.mbsc-jqm .mbsc-sc-itm {
+    padding: 0 5px;
     font-size: 26px;
 }
-.mbsc-jqm .dw-hl {
-    background: rgba(0,0,0,.1);
+
+.mbsc-jqm .mbsc-sc-itm.mbsc-btn-a {
+    background: rgba(0, 0, 0, .1);
 }
+
+
 /* Clickpick mode */
-.mbsc-jqm .dwwb {
-    margin: -1px;
+
+.mbsc-jqm .mbsc-sc-cp .mbsc-sc-whl-l {
+    display: none;
+}
+
+.mbsc-jqm .mbsc-sc-btn {
+    margin: 0;
     padding: 0;
 }
-.mbsc-jqm .dwwb span {
-    padding: 0;
+
+.mbsc-jqm .mbsc-sc-btn:after {
+    top: 50%;
+    margin-top: -11px;
 }
-.mbsc-jqm .dwwb .ui-btn-inner {
-    margin-top: -1px;
+
+.mbsc-jqm .mbsc-sc-btn-plus {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
 }
-.mbsc-jqm .dwwbp {
-    border-radius: 4px 4px 0 0;
+
+.mbsc-jqm .mbsc-sc-btn-minus {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
 }
-.mbsc-jqm .dwwbm {
-    border-radius: 0 0 4px 4px;
+
+
+/* Multiple select */
+
+.mbsc-jqm .mbsc-sc-whl-multi .mbsc-sc-itm {
+    padding: 0 40px;
 }
-.mbsc-jqm .dwwbp span {
-    font-size: 40px;
-    font-weight: normal;
+
+.mbsc-jqm .mbsc-sc-whl-multi .mbsc-sc-itm-sel:after {
+    left: 9px;
 }
-.mbsc-jqm .dwwbm span {
-    font-size: 32px;
-}
-.mbsc-jqm .dwpm .dwl {
-    border: 0;
-    background: none;
-}
+
+
 /* Group select */
-.mbsc-jqm .dw-w-gr {
+
+.mbsc-jqm .mbsc-sc-whl .mbsc-sel-gr {
+    padding: 0 5px;
     font-size: 20px;
 }

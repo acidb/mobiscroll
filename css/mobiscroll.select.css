@@ -15,6 +15,7 @@
 }
 /* Mobiscroll theme */
 
-.mbsc-mobiscroll .mbsc-sel-gr {
+.mbsc-mobiscroll .mbsc-sc-whl .mbsc-sel-gr {
+    padding: 0 .25em;
     font-size: 1.125em;
 }

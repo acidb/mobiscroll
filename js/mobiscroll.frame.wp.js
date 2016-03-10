@@ -30,29 +30,25 @@
                     active,
                     s = inst.settings;
 
-                function isReadOnly(wheel) {
-                    if ($.isArray(s.readonly)) {
-                        return s.readonly[$('.dwwl', elm).index(wheel)];
-                    }
-                    return s.readonly;
+                function isReadOnly(i) {
+                    return $.isArray(s.readonly) ? s.readonly[i] : s.readonly;
                 }
 
                 if (s.mode != 'clickpick') {
-                    $('.dwwl', elm).on('touchstart mousedown wheel mousewheel', function (e) {
-                        if ((e.type === 'mousedown' && touch) || isReadOnly(this)) {
+                    $('.mbsc-sc-whl', elm).on('touchstart mousedown wheel mousewheel', function (e) {
+                        if ((e.type === 'mousedown' && touch) || isReadOnly($(this).attr('data-index'))) {
                             return;
                         }
                         touch = e.type === 'touchstart';
                         click = true;
-                        active = $(this).hasClass('wpa');
-                        $('.dwwl', elm).removeClass('wpa');
-                        $('.mbsc-sel', this).removeClass('mbsc-sel');
-                        $(this).addClass('wpa');
+                        active = $(this).hasClass('mbsc-sc-whl-wpa');
+                        $('.mbsc-sc-whl', elm).removeClass('mbsc-sc-whl-wpa');
+                        $(this).addClass('mbsc-sc-whl-wpa');
                     }).on('touchmove mousemove', function () {
                         click = false;
                     }).on('touchend mouseup', function (e) {
-                        if (click && active && $(e.target).closest('.dw-li').hasClass('mbsc-sel')) {
-                            $(this).removeClass('wpa');
+                        if (click && active && $(e.target).closest('.mbsc-sc-itm').hasClass('mbsc-sc-itm-sel')) {
+                            $(this).removeClass('mbsc-sc-whl-wpa');
                         }
                         if (e.type === 'mouseup') {
                             touch = false;
@@ -92,8 +88,5 @@
 
     themes.wp = theme;
     themes['wp-light'] = theme;
-
-    // @deprecated since 2.12.0, backward compatibility code
-    themes['wp light'] = theme;
 
 })();

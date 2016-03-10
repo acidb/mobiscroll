@@ -1,202 +1,4 @@
-.dwwb,
-.dwwo,
-.dwwol {
-    -webkit-transform: translateZ(0);
-}
-/* Wheel container wrapper */
-
-.dwc {
-    max-width: 100%;
-    vertical-align: middle;
-    display: inline-block;
-    overflow: hidden;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
-/* Wheel label */
-
-.dwl {
-    line-height: 30px;
-    height: 30px;
-    top: -30px;
-    left: 0;
-    text-align: center;
-    white-space: nowrap;
-    position: absolute;
-    width: 100%;
-}
-/* Wheel container */
-
-.dwwc {
-    margin: 0 auto;
-    position: relative;
-    zoom: 1;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: center;
-    -webkit-justify-content: center;
-    justify-content: center;
-}
-
-.dwfl {
-    max-width: 100%;
-    -webkit-box-flex: 1;
-    -webkit-flex: 1 auto;
-    -ms-flex: 1 auto;
-    flex: 1 auto;
-    -ms-touch-action: none;
-    touch-action: none;
-}
-/* Wheels */
-
-.dwwl {
-    position: relative;
-    z-index: 5;
-}
-
-.dwww {
-    position: relative;
-    padding: 1px;
-}
-
-.dww {
-    overflow: hidden;
-    position: relative;
-    /* Forces IE to respect overflow hidden while animating */
-    
-    border-radius: 1px;
-    /* Fixes Firefox rendering issues */
-    
-    border-top: 1px solid transparent;
-    border-bottom: 1px solid transparent;
-}
-
-.dw-bf {
-    -webkit-backface-visibility: hidden;
-    -webkit-perspective: 1000px;
-    backface-visibility: hidden;
-    perspective: 1000px;
-}
-
-.dw-ul {
-    position: relative;
-    z-index: 3;
-}
-
-.dw-li {
-    padding: 0 5px;
-    position: relative;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: bottom;
-    opacity: .3;
-    filter: Alpha(Opacity=30);
-    cursor: pointer;
-    -webkit-transition: opacity .2s ease-out;
-    -moz-transition: opacity .2s ease-out;
-    transition: opacity .2s ease-out;
-}
-/* Valid entry */
-
-.dw-li.dw-v,
-.dw-li.dw-fv {
-    opacity: 1;
-    filter: Alpha(Opacity=100);
-}
-/* Hidden entry */
-
-.dw-li.dw-h {
-    visibility: hidden;
-}
-
-.dw-i {
-    position: relative;
-    height: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-/* Clickpick mode */
-
-.dwwb {
-    position: absolute;
-    z-index: 4;
-    left: 0;
-    cursor: pointer;
-    width: 100%;
-    text-decoration: none;
-    text-align: center;
-    opacity: 1;
-    -webkit-transition: opacity .2s linear;
-    transition: opacity .2s linear;
-}
-
-.dwa .dwwb {
-    opacity: 0;
-}
-
-.dwpm .dwwbp {
-    top: 0;
-}
-
-.dwpm .dwwbm {
-    bottom: 0;
-}
-
-.dwpm .dwwol {
-    display: none;
-}
-/* Wheel overlay */
-
-.dwwo {
-    position: absolute;
-    z-index: 3;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-}
-/* Background line */
-
-.dwwol {
-    position: absolute;
-    z-index: 1;
-    top: 50%;
-    left: 0;
-    width: 100%;
-    pointer-events: none;
-}
-/* Liquid mode */
-
-.dw-liq .dwc {
-    display: block;
-}
-
-.dw-liq .dw-tbl {
-    width: 100%;
-    table-layout: fixed;
-}
-/* Hidden label */
-
-.dwhl .dwl {
-    display: none;
-}
-/* Hidden select element */
-
-.dw-hsel {
-    position: absolute;
-    height: 1px !important;
-    width: 1px !important;
-    left: 0;
-    overflow: hidden;
-    clip: rect(1px, 1px, 1px, 1px);
-}
-/* Multiple lines */
-
-.dw-ml .dw-li {
+/*.dw-ml .dw-li {
     overflow: hidden;
 }
 
@@ -206,117 +8,16 @@
     display: inline-block;
     vertical-align: middle;
     white-space: normal;
-}
-/* Multiple selection */
+}*/
 
-.dwwms .dw-li {
-    padding: 0 40px;
-}
 
-.dwwms .dwwol {
-    display: none;
-}
-
-.dw-msel:before {
-    width: 40px;
-    text-align: center;
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-/* Select groups */
-
-.dww .dw-w-gr {
-    padding: 0 5px;
-    opacity: 1;
-    font-weight: bold;
-    text-align: left;
-}
-/* Default theme */
-
-.mbsc-mobiscroll .dwc {
-    padding: 2em .25em 0 .25em;
-}
-
-.mbsc-mobiscroll .dwl {
-    color: #4eccc4;
-    font-size: .75em;
-    text-transform: uppercase;
-}
-
-.mbsc-mobiscroll .dwhl {
-    padding-top: 0;
-}
-
-.mbsc-mobiscroll .dwfl {
-    padding: .5em .25em;
-}
-
-.mbsc-mobiscroll .dw-li {
-    font-size: 1.375em;
-}
-
-.mbsc-mobiscroll .dw-hl {
-    background: rgba(78, 204, 196, .3);
-}
-
-.mbsc-mobiscroll .dwwol {
-    border-top: 1px solid #4eccc4;
-    border-bottom: 1px solid #4eccc4;
-}
-/* Clickpick mode */
-
-.mbsc-mobiscroll .dwpm .dwwol {
-    display: block;
-}
-
-.mbsc-mobiscroll .dwwb {
-    color: #4eccc4;
-    background: #f7f7f7;
-}
-
-.mbsc-mobiscroll .dwwbp {
-    bottom: 0;
-    top: auto;
-}
-
-.mbsc-mobiscroll .dwwbm {
-    top: 0;
-    bottom: auto;
-}
-
-.mbsc-mobiscroll .dwwb span {
-    display: none;
-}
-
-.mbsc-mobiscroll .dwwb:before {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    font-size: 24px;
-    text-align: center;
-}
-
-.mbsc-mobiscroll .dwwb.dwb-a:before {
-    background: rgba(78, 204, 196, .3);
-}
-/* Group select */
-
-.mbsc-mobiscroll .dw-w-gr {
-    font-size: 1.125em;
-}
-/* Multiple select */
-
-.mbsc-mobiscroll .dw-msel:before {
-    font-size: 40px;
-    color: #4eccc4;
-}
-
-.mbsc-mobiscroll .dwwms .dwwol {
-    display: none;
-}
 /* New CSS */
+
+.mbsc-sc-whl-o,
+.mbsc-sc-btn {
+    /* Prevent flickering on animation */
+    -webkit-transform: translateZ(0);
+}
 
 .mbsc-sc-whl-gr-c {
     max-width: 100%;
@@ -351,16 +52,35 @@
     -ms-flex: 1 auto;
     flex: 1 auto;
     position: relative;
+    /*-ms-touch-action: none;
+    touch-action: none;*/
+}
+
+.mbsc-sc-whl-o {
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    pointer-events: none;
+}
+
+.mbsc-sc-whl-l {
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    left: 0;
+    right: 0;
+    pointer-events: none;
 }
 
 .mbsc-sc-whl {
     overflow: hidden;
     border-radius: 1px;
     /* Forces IE to respect overflow hidden while animating */
-    
     border-top: 1px solid transparent;
     /* Fixes Firefox rendering issues */
-    
     border-bottom: 1px solid transparent;
 }
 
@@ -368,6 +88,8 @@
     position: relative;
     z-index: 1;
     top: 50%;
+    border-top: 1px solid transparent;
+    border-bottom: 1px solid transparent;
 }
 
 .mbsc-sc-whl-sc {
@@ -378,15 +100,18 @@
     position: relative;
     cursor: pointer;
     white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-.mbsc-sc-inv {
+.mbsc-sc-itm-inv {
     opacity: .3;
 }
 
 .mbsc-sc-lbl {
     position: absolute;
-    width: 100%;
+    left: 0;
+    right: 0;
     bottom: 100%;
     display: none;
 }
@@ -424,7 +149,11 @@
 .mbsc-sc-btn-minus {
     top: 0;
 }
+
+
 /* 3D */
+
+
 /*.mbsc-sc-whl-gr-3d {
     -webkit-perspective: 2500px;
     -moz-perspective: 2500px;
@@ -452,12 +181,29 @@
     -moz-backface-visibility: hidden;
     backface-visibility: hidden;
 }*/
+
+
 /* Multiple */
 
-.mbsc-sc-whl-multi {
+.mbsc-sc-whl-multi .mbsc-sc-whl-c {
     top: 0;
     height: 100%;
+    border: 0;
 }
+
+.mbsc-sc-whl-multi .mbsc-sc-whl-l {
+    display: none;
+}
+
+.mbsc-sc-whl-multi .mbsc-sc-itm-sel:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1em;
+    text-align: center;
+}
+
+
 /* Default Theme */
 
 .mbsc-mobiscroll .mbsc-sc-whl-gr {
@@ -466,6 +212,10 @@
 
 .mbsc-mobiscroll .mbsc-sc-whl-w {
     margin: 0 .25em;
+}
+
+.mbsc-mobiscroll .mbsc-sc-whl-o {
+    display: none;
 }
 
 .mbsc-mobiscroll .mbsc-sc-lbl-v .mbsc-sc-whl-w {
@@ -478,6 +228,8 @@
     line-height: 2.5em;
     text-transform: uppercase;
 }
+
+
 /*.mbsc-mobiscroll .mbsc-sc-whl:after {
     content: '';
     position: absolute;
@@ -493,8 +245,7 @@
     background: linear-gradient(#f7f7f7,rgba(245,245,245,0) 52%, rgba(245,245,245,0) 48%, #f7f7f7);
 }*/
 
-.mbsc-mobiscroll .mbsc-sc-whl-c {
-    background: #f7f7f7;
+.mbsc-mobiscroll .mbsc-sc-whl-l {
     border-top: 1px solid #4eccc4;
     border-bottom: 1px solid #4eccc4;
 }
@@ -513,16 +264,18 @@
 }
 
 .mbsc-mobiscroll .mbsc-sc-itm {
-    font-size: 1.375em;
     padding: 0 .25em;
+    font-size: 1.375em;
 }
 
-.mbsc-mobiscroll .mbsc-btn-a {
+.mbsc-mobiscroll .mbsc-sc-itm.mbsc-btn-a {
     background: rgba(78, 204, 196, .3);
 }
-/* Multiple */
 
-.mbsc-mobiscroll .mbsc-sc-whl-multi {
+
+/* Multiple select */
+
+.mbsc-mobiscroll .mbsc-sc-whl-multi .mbsc-sc-whl-c {
     border: 0;
 }
 
@@ -531,11 +284,6 @@
 }
 
 .mbsc-mobiscroll .mbsc-sc-whl-multi .mbsc-sc-itm-sel:before {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 1em;
     font-size: 1.818181em;
     color: #4eccc4;
-    text-align: center;
 }

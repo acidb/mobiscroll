@@ -1,4 +1,4 @@
- window.mobiscroll = window.mobiscroll || {};
+var mobiscroll = mobiscroll || {};
 
 (function (window, document, undefined) {
 
@@ -12,7 +12,6 @@
             'zoom': 1
         },
         emptyArray = [],
-        tempParent = document.createElement('div'),
         slice = Array.prototype.slice;
 
     function isFunction(value) {
@@ -378,7 +377,7 @@
                                     nameSpace.removed = true;
                                 }
                             }
-                            // remove the events from the DomNameSpaces array 
+                            // remove the events from the DomNameSpaces array
                             for (j = that[i].DomNameSpaces.length - 1; j >= 0; --j) {
                                 if (that[i].DomNameSpaces[j].removed) {
                                     that[i].DomNameSpaces.splice(j, 1);
@@ -533,7 +532,7 @@
                         clientLeft = el.clientLeft || body.clientLeft || 0,
                         scrollTop = window.pageYOffset || el.scrollTop,
                         scrollLeft = window.pageXOffset || el.scrollLeft;
-                    
+
                     return {
                         top: box.top + scrollTop - clientTop,
                         left: box.left + scrollLeft - clientLeft
@@ -1060,7 +1059,7 @@
 
     $.each = function (obj, callback) {
         var i, prop;
-        
+
         if (!isObject(obj) || !callback) {
             return;
         }
@@ -1114,7 +1113,7 @@
                 }
             }
         }
-        
+
         return values.length > 0 ? $.fn.concat.apply([], values) : values;
     };
 

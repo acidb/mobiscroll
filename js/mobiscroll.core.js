@@ -7,7 +7,7 @@
  *
  */
 
-mobiscroll = mobiscroll || {};
+var mobiscroll = mobiscroll || {};
 
 (function (undefined) {
 
@@ -138,7 +138,7 @@ mobiscroll = mobiscroll || {};
                 var ev = e.originalEvent || e,
                     prop = (page ? 'page' : 'client') + c;
                 // Multi touch support
-                return ev.targetTouches ? ev.targetTouches[0]['client' + c] : e['client' + c];
+                return ev.targetTouches ? ev.targetTouches[0][prop] : e[prop];
                 //return ev.changedTouches ? ev.changedTouches[0][prop] : e[prop];
             },
             getPosition: function (t, vertical) {
@@ -236,7 +236,9 @@ mobiscroll = mobiscroll || {};
                     ret = {},
                     options = s || {};
 
-                $.extend(options , { preset: p === false ? undefined : name });
+                $.extend(options, {
+                    preset: p === false ? undefined : name
+                });
 
                 $(selector).each(function () {
                     inst = new ms.classes[c || 'Scroller'](this, options);
