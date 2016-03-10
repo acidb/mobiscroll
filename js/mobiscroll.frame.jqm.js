@@ -1,15 +1,15 @@
 (function () {
 
-    var ms =  mobiscroll,
+    var ms = mobiscroll,
         $ = ms.$;
 
     ms.themes.frame.jqm = {
         jqmBody: 'a',
         jqmBorder: 'a',
-        jqmHeader: 'b',
-        jqmWheel: 'd',
+        //jqmHeader: 'b',
+        //jqmWheel: 'd',
         jqmLine: 'b',
-        jqmClickPick: 'c',
+        //jqmClickPick: 'c',
         jqmSet: 'b',
         jqmCancel: 'c',
         disabledClass: 'ui-disabled',
@@ -32,6 +32,9 @@
             s.eventTextClass = 'ui-btn-up-' + txt;
             s.eventBubbleClass = 'ui-body-' + bubble;
         },
+        onInit: function () {
+            $(this).closest('.ui-field-contain').trigger('create');
+        },
         onEventBubbleShow: function (evd, evc) {
             $('.dw-cal-event-list', evc).attr('data-role', 'listview');
             evc.page().trigger('create');
@@ -48,11 +51,13 @@
             $('.dw', elm).removeClass('dwbg').addClass('ui-selectmenu ui-overlay-shadow ui-corner-all ui-body-' + s.jqmBorder);
             $('.dwbc .dwb', elm).attr('data-role', 'button').attr('data-mini', 'true').attr('data-theme', s.jqmCancel);
             $('.dwb-s .dwb', elm).addClass('ui-btn-' + s.jqmSet).attr('data-theme', s.jqmSet);
-            $('.dwv', elm).addClass('ui-corner-all ui-header ui-bar-' + s.jqmHeader);
+            $('.dwv', elm).addClass('ui-header ui-bar-inherit');
             $('.dwwr', elm).addClass('ui-corner-all ui-body-' + s.jqmBody);
             // Scroller
-            $('.mbsc-sc-btn', elm).addClass('ui-btn ui-mini ui-corner-all ui-btn-' + s.jqmClickPick);
-            $('.mbsc-sc-whl', elm).addClass('ui-body-' + s.jqmWheel);
+            $('.mbsc-sc-btn', elm).addClass('ui-btn ui-mini ui-corner-all ui-btn-icon-top');
+            $('.mbsc-sc-btn-plus', elm).addClass('ui-icon-carat-d');
+            $('.mbsc-sc-btn-minus', elm).addClass('ui-icon-carat-u');
+            //$('.mbsc-sc-whl', elm).addClass('ui-body-' + s.jqmWheel);
             $('.mbsc-sc-whl-l', elm).addClass('ui-body-' + s.jqmLine);
             // Calendar base
             $('.dw-cal-tabs', elm).attr('data-role', 'navbar');

@@ -207,8 +207,8 @@
             }
 
             w.circular = w.circular === undefined ? (w._array && w._length > s.rows) : w.circular;
-            w.min = w._array ? (w.circular ? -Infinity : 0) : w.min;
-            w.max = w._array ? (w.circular ? Infinity : w._length - 1) : w.max;
+            w.min = w._array ? (w.circular ? -Infinity : 0) : (w.min === undefined ? -Infinity : w.min);
+            w.max = w._array ? (w.circular ? Infinity : w._length - 1) : (w.max === undefined ? Infinity : w.max);
 
             w._index = getIndex(w, tempWheelArray[l]);
             w._disabled = {};
@@ -218,6 +218,16 @@
             w._last = w._index + batchSize; //Math.min(w.max, w._first + 2 * batchSize);
             w._margin = w._first * itemHeight;
             w._nr = l;
+
+            w._refresh = function () {
+                extend(w._scroller.settings, {
+                    initialPos: -w._index * itemHeight,
+                    minScroll: -(w.max - (w.multiple ? (s.rows - 1) : 0)) * itemHeight,
+                    maxScroll: -w.min * itemHeight
+                });
+
+                w._scroller.refresh();
+            };
 
             return w;
         }
@@ -498,17 +508,11 @@
                 if (that._isVisible) {
                     initWheel(w, i);
 
-                    extend(w._scroller.settings, {
-                        initialPos: -w._index * itemHeight,
-                        minScroll: -(w.max - (w.multiple ? (s.rows - 1) : 0)) * itemHeight,
-                        maxScroll: -w.min * itemHeight
-                    });
-
                     w._$markup
                         .html(generateItems(w, w._first, w._last))
                         .css('margin-top', w._margin + 'px');
 
-                    w._scroller.refresh();
+                    w._refresh();
                 }
             });
 
@@ -785,6 +789,7 @@
             preset: '',
             speedUnit: 0.0012,
             timeUnit: 0.08,
+            validate: function () {},
             formatValue: function (d) {
                 return d.join(' ');
             },

@@ -39,12 +39,15 @@
 }
 
 .mbsc-jqm .mbsc-sc-itm {
+    padding: 0 5px;
     font-size: 26px;
 }
 
 .mbsc-jqm .mbsc-sc-itm.mbsc-btn-a {
     background: rgba(0, 0, 0, .1);
 }
+
+
 /* Clickpick mode */
 
 .mbsc-jqm .mbsc-sc-cp .mbsc-sc-whl-l {
@@ -56,42 +59,36 @@
     padding: 0;
 }
 
+.mbsc-jqm .mbsc-sc-btn:after {
+    top: 50%;
+    margin-top: -11px;
+}
+
 .mbsc-jqm .mbsc-sc-btn-plus {
-    top: 0;
-    bottom: auto;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-}
-
-.mbsc-jqm .mbsc-sc-btn-plus:after {
-    content: '+';
-    font-size: 40px;
-    font-weight: normal;
-}
-
-.mbsc-jqm .mbsc-sc-btn-minus {
-    top: auto;
-    bottom: 0;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }
 
-.mbsc-jqm .mbsc-sc-btn-minus:after {
-    content: '–';
-    font-size: 34px;
+.mbsc-jqm .mbsc-sc-btn-minus {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
 }
+
+
 /* Multiple select */
 
 .mbsc-jqm .mbsc-sc-whl-multi .mbsc-sc-itm {
     padding: 0 40px;
 }
 
-.mbsc-jqm .mbsc-sc-whl-multi .mbsc-sc-itm-sel:before {
-    width: 40px;
+.mbsc-jqm .mbsc-sc-whl-multi .mbsc-sc-itm-sel:after {
+    left: 9px;
 }
+
+
 /* Group select */
 
 .mbsc-jqm .mbsc-sc-whl .mbsc-sel-gr {
-    padding: 0;
+    padding: 0 5px;
     font-size: 20px;
 }

@@ -6,7 +6,7 @@
             dateOrder: 'MMdyy',
             rows: 5,
             height: 34,
-            minWidth: 45,
+            minWidth: 55,
             headerText: false,
             showLabel: false,
             btnWidth: false,

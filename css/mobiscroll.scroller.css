@@ -9,12 +9,13 @@
     vertical-align: middle;
     white-space: normal;
 }*/
+
+
 /* New CSS */
 
 .mbsc-sc-whl-o,
 .mbsc-sc-btn {
     /* Prevent flickering on animation */
-    
     -webkit-transform: translateZ(0);
 }
 
@@ -78,10 +79,8 @@
     overflow: hidden;
     border-radius: 1px;
     /* Forces IE to respect overflow hidden while animating */
-    
     border-top: 1px solid transparent;
     /* Fixes Firefox rendering issues */
-    
     border-bottom: 1px solid transparent;
 }
 
@@ -111,7 +110,8 @@
 
 .mbsc-sc-lbl {
     position: absolute;
-    width: 100%;
+    left: 0;
+    right: 0;
     bottom: 100%;
     display: none;
 }
@@ -149,7 +149,11 @@
 .mbsc-sc-btn-minus {
     top: 0;
 }
+
+
 /* 3D */
+
+
 /*.mbsc-sc-whl-gr-3d {
     -webkit-perspective: 2500px;
     -moz-perspective: 2500px;
@@ -177,6 +181,8 @@
     -moz-backface-visibility: hidden;
     backface-visibility: hidden;
 }*/
+
+
 /* Multiple */
 
 .mbsc-sc-whl-multi .mbsc-sc-whl-c {
@@ -196,6 +202,8 @@
     width: 1em;
     text-align: center;
 }
+
+
 /* Default Theme */
 
 .mbsc-mobiscroll .mbsc-sc-whl-gr {
@@ -220,6 +228,8 @@
     line-height: 2.5em;
     text-transform: uppercase;
 }
+
+
 /*.mbsc-mobiscroll .mbsc-sc-whl:after {
     content: '';
     position: absolute;
@@ -261,6 +271,8 @@
 .mbsc-mobiscroll .mbsc-sc-itm.mbsc-btn-a {
     background: rgba(78, 204, 196, .3);
 }
+
+
 /* Multiple select */
 
 .mbsc-mobiscroll .mbsc-sc-whl-multi .mbsc-sc-whl-c {

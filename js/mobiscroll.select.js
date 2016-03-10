@@ -370,7 +370,6 @@
         inst.attachShow($input.attr('placeholder', s.placeholder || ''));
 
         $elm.addClass('mbsc-sel-hdn').attr('tabindex', -1);
-        // TODO: move this to jqm integation .closest('.ui-field-contain').trigger('create');
 
         prepareData();
 
