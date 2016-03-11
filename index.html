@@ -157,7 +157,7 @@
     </div>
 
     <!-- Image demo markup -->
-    <!-- <div data-role="fieldcontain" class="demo-cont" id="demo_cont_image">
+    <div data-role="fieldcontain" class="demo-cont" id="demo_cont_image">
         <label for="demo_image_text_dummy">Click here to try</label>
         <ul id="demo_image">
             <li>
@@ -177,10 +177,10 @@
                 <p>Mercedes</p>
             </li>
         </ul>
-    </div> -->
+    </div>
 
     <!-- Treelist demo markup -->
-    <!-- <div data-role="fieldcontain" class="demo-cont" id="demo_cont_treelist">
+    <div data-role="fieldcontain" class="demo-cont" id="demo_cont_treelist">
         <label for="demo_treelist_dummy">Try Treelist</label>
         <ul id="demo_treelist">
             <li>America
@@ -261,7 +261,7 @@
                 </ul>
             </li>
         </ul>
-    </div> -->
+    </div>
 
     <!-- Mobiscroll JS Includes -->
     <script src="js/mobiscroll.dom.js"></script>
@@ -277,9 +277,9 @@
     <script src="js/mobiscroll.datetimebase.js"></script>
     <script src="js/mobiscroll.datetime.js"></script>
     <script src="js/mobiscroll.select.js"></script>
-    <!--<script src="js/mobiscroll.listbase.js"></script>
+    <script src="js/mobiscroll.listbase.js"></script>
     <script src="js/mobiscroll.image.js"></script>
-    <script src="js/mobiscroll.treelist.js"></script>-->
+    <script src="js/mobiscroll.treelist.js"></script>
     <script src="js/mobiscroll.android-holo-light.js"></script>
     <script src="js/mobiscroll.wp-light.js"></script>
     <script src="js/mobiscroll.mobiscroll-dark.js"></script>
@@ -307,7 +307,7 @@
     <script src="js/i18n/mobiscroll.i18n.zh.js"></script>
 
     <script>
-    (function($) {
+    (function ($) {
 
         function init() {
 
@@ -347,23 +347,23 @@
             });
 
             // Image demo initialization
-            /*$('#demo_image').mobiscroll().image({
-                theme: theme,     // Specify theme like: theme: 'ios' or omit setting to use default
-                mode: mode,       // Specify scroller mode like: mode: 'mixed' or omit setting to use default
+            $('#demo_image').mobiscroll().image({
+                theme: theme, // Specify theme like: theme: 'ios' or omit setting to use default
+                mode: mode, // Specify scroller mode like: mode: 'mixed' or omit setting to use default
                 display: display, // Specify display mode like: display: 'bottom' or omit setting to use default
-                lang: lang,       // Specify language like: lang: 'pl' or omit setting to use default
-                labels: ['Cars'],  // More info about labels: http://docs.mobiscroll.com/2-14-0/image#!opt-labels
+                lang: lang, // Specify language like: lang: 'pl' or omit setting to use default
+                labels: ['Cars'], // More info about labels: http://docs.mobiscroll.com/2-14-0/image#!opt-labels
                 enhance: true
             });
 
             // Treelist demo initialization
             $('#demo_treelist').mobiscroll().treelist({
-                theme: theme,     // Specify theme like: theme: 'ios' or omit setting to use default
-                mode: mode,       // Specify scroller mode like: mode: 'mixed' or omit setting to use default
+                theme: theme, // Specify theme like: theme: 'ios' or omit setting to use default
+                mode: mode, // Specify scroller mode like: mode: 'mixed' or omit setting to use default
                 display: display, // Specify display mode like: display: 'bottom' or omit setting to use default
-                lang: lang,       // Specify language like: lang: 'pl' or omit setting to use default
-                labels: ['Region', 'Country', 'City']  // More info about labels: http://docs.mobiscroll.com/2-14-0/list#!opt-labels
-            });*/
+                lang: lang, // Specify language like: lang: 'pl' or omit setting to use default
+                labels: ['Region', 'Country', 'City'] // More info about labels: http://docs.mobiscroll.com/2-14-0/list#!opt-labels
+            });
 
         }
 
@@ -371,7 +371,7 @@
         // Demo page code START, you can disregard this in your implementation
         var demo, theme, mode, display, lang;
 
-        $('.settings').on('change', function() {
+        $('.settings').on('change', function () {
             demo = $('#demo').val();
             theme = $('#theme').val() || mobiscroll.defaults.theme;
             mode = $('#mode').val();
