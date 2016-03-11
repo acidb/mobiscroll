@@ -29,6 +29,7 @@
             optionArray,
             options,
             optionWheelIdx,
+            prevent,
             $elm = $(this),
             orig = $.extend({}, inst.settings),
             s = $.extend(inst.settings, defaults, orig),
@@ -280,6 +281,13 @@
             $elm.val(val);
         }
 
+        function changeWheel() {
+            var wheels = {};
+            wheels[optionWheelIdx] = genOptWheel();
+            prevent = true;
+            inst.changeWheel(wheels);
+        }
+
         // Extended methods
         // ---
 
@@ -389,10 +397,16 @@
                 getOption(val === undefined ? $elm.val() : val);
                 return groupWheel ? [group, option] : [option];
             },
-            validate: function () {
+            validate: function (values, index) {
                 var disabled = [];
 
                 disabled[optionWheelIdx] = s.invalid;
+
+                if (groupSep && !prevent && index === undefined) {
+                    changeWheel();
+                }
+
+                prevent = false;
 
                 return {
                     disabled: disabled
@@ -414,6 +428,7 @@
                 getOption($elm.val());
 
                 inst.settings.wheels = genWheels();
+                prevent = true;
             },
             onWheelGestureStart: function (ev) {
                 if (ev.index == groupWheelIdx) {
@@ -421,8 +436,7 @@
                 }
             },
             onWheelAnimationEnd: function (ev) {
-                var values = inst.getArrayVal(true),
-                    wheels = {};
+                var values = inst.getArrayVal(true);
 
                 if (ev.index == groupWheelIdx) {
                     s.readonly = origReadOnly;
@@ -431,8 +445,7 @@
                         option = groups[group].options[0].value;
                         values[optionWheelIdx] = option;
                         if (groupSep) {
-                            wheels[optionWheelIdx] = genOptWheel();
-                            inst.changeWheel(wheels);
+                            changeWheel();
                         } else {
                             inst.setArrayVal(values, false, false, true);
                         }

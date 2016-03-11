@@ -19,7 +19,6 @@
             id = this.id + '_dummy',
             lvl = 0,
             ilvl = 0,
-            timer = {},
             currLevel,
             currWheelVector = [],
             wa = s.wheelArray || createWheelArray(elm),
@@ -34,19 +33,16 @@
          * @param {Array} whArray - The wheel array objects containing the wheel tree
          * @param {Array} whVector - the wheel vector containing the current keys
          */
-        function setDisabled(dw, nrWheels, whArray, whVector) {
-            var j,
-                i = 0;
+        function getDisabled(nrWheels, whArray, whVector) {
+            var i = 0,
+                disabled = [];
 
             while (i < nrWheels) {
-                var currWh = $('.dwwl' + i, dw),
-                    inv = getInvalidKeys(whVector, i, whArray);
-
-                for (j = 0; j < inv.length; j++) {
-                    $('.dw-li[data-val="' + inv[j] + '"]', currWh).removeClass('dw-v');
-                }
+                disabled[i] = getInvalidKeys(whVector, i, whArray);
                 i++;
             }
+
+            return disabled;
         }
 
         /**
@@ -64,7 +60,6 @@
 
             while (i < index) {
                 var ii = whVector[i];
-                //whObjA = whObjA[ii].children;
                 for (n in whObjA) {
                     if (whObjA[n].key == ii) {
                         whObjA = whObjA[n].children;
@@ -184,15 +179,16 @@
 
         function getWheelFromObjA(objA, lbl) {
             var wheel = {
-                    keys: [],
                     values: [],
                     label: lbl
                 },
                 j = 0;
 
             while (j < objA.length) {
-                wheel.values.push(objA[j].value);
-                wheel.keys.push(objA[j].key);
+                wheel.values.push({
+                    value: objA[j].key,
+                    text: objA[j].value
+                });
                 j++;
             }
             return wheel;
@@ -202,8 +198,8 @@
          * Hides the last i number of wheels
          * i - the last number of wheels that has to be hidden
          */
-        function hideWheels(dw, i) {
-            $('.dwfl', dw).css('display', '').slice(i).hide();
+        function hideWheels(i) {
+            $('.mbsc-sc-whl-w', inst._markup).css('display', '').slice(i).hide();
         }
 
         /**
@@ -328,16 +324,45 @@
             return wheelArray;
         }
 
-        $('#' + id).remove(); // Remove input if exists
+        function changeWheels(values, index, o) {
+            var j,
+                i = (index || 0) + 1,
+                args = [],
+                w = {},
+                wheels = {};
+
+            w = generateWheelsFromVector(values, null, index);
+
+            for (j = 0; j < values.length; j++) {
+                inst._tempWheelArray[j] = values[j] = o.nVector[j] || 0;
+            }
+
+            while (i < o.lvl) {
+                wheels[i] = isLiquid ? w[0][i] : w[i][0];
+                args.push(i++);
+            }
+
+            hideWheels(o.lvl);
+            currWheelVector = values.slice(0);
+
+            if (args.length) {
+                prevent = true;
+                inst.changeWheel(wheels);
+            }
+        }
+
+        // Remove input if exists
+        $('#' + id).remove();
 
         if (s.showInput) {
             input = $('<input type="text" id="' + id + '" value="" class="' + s.inputClass + '" placeholder="' + (s.placeholder || '') + '" readonly />').insertBefore(elm);
-            s.anchor = input; // give the core the input element for the bubble positioning
+            // give the core the input element for the bubble positioning
+            s.anchor = input;
             inst.attachShow(input);
         }
 
         if (!s.wheelArray) {
-            elm.hide().closest('.ui-field-contain').trigger('create');
+            elm.hide();
         }
 
         return {
@@ -360,65 +385,51 @@
                 s.wheels = generateWheelsFromVector(t, lvl, lvl);
                 prevent = true;
             },
+            onWheelGestureStart: function (ev) {
+                s.readonly = createROVector(lvl, ev.index);
+            },
+            onWheelAnimationEnd: function (ev) {
+                var index = ev.index,
+                    values = inst.getArrayVal(true),
+                    o = calcLevelOfVector2(values, index);
+
+                currLevel = o.lvl;
+
+                s.readonly = origReadOnly;
+
+                if (values[index] != currWheelVector[index]) {
+                    changeWheels(values, index, o);
+                }
+            },
             onValueFill: function (v) {
                 currLevel = undefined;
                 if (input) {
                     input.val(v);
                 }
             },
-            onShow: function (dw) {
-                $('.dwwl', dw).on('mousedown touchstart', function () {
-                    clearTimeout(timer[$('.dwwl', dw).index(this)]);
-                });
+            validate: function (values, index) {
+                var o = calcLevelOfVector2(values, values.length);
+
+                currLevel = o.lvl;
+
+                if (index === undefined) {
+                    hideWheels(o.lvl);
+                    if (!prevent) {
+                        changeWheels(values, index, o);
+                    }
+                }
+
+                prevent = false;
+
+                return {
+                    disabled: getDisabled(currLevel, wa, values)
+                };
             },
             onDestroy: function () {
                 if (input) {
                     input.remove();
                 }
                 elm.show();
-            },
-            validate: function (dw, index, time) {
-                var args = [],
-                    t = inst.getArrayVal(true),
-                    i = (index || 0) + 1,
-                    j,
-                    o;
-
-                if ((index !== undefined && currWheelVector[index] != t[index]) || (index === undefined && !prevent)) {
-                    s.wheels = generateWheelsFromVector(t, null, index);
-                    o = calcLevelOfVector2(t, index === undefined ? t.length : index);
-                    currLevel = o.lvl;
-
-                    for (j = 0; j < t.length; j++) {
-                        t[j] = o.nVector[j] || 0;
-                    }
-
-                    while (i < o.lvl) {
-                        args.push(i++);
-                    }
-
-                    if (args.length) {
-                        s.readonly = createROVector(lvl, index);
-                        clearTimeout(timer[index]);
-                        timer[index] = setTimeout(function () {
-                            prevent = true;
-                            hideWheels(dw, o.lvl);
-                            currWheelVector = t.slice(0);
-                            inst.changeWheel(args, index === undefined ? time : 0, index !== undefined);
-                            s.readonly = origReadOnly;
-                        }, index === undefined ? 0 : time * 1000);
-                        return false;
-                    }
-                } else {
-                    o = calcLevelOfVector2(t, t.length);
-                    currLevel = o.lvl;
-                }
-
-                currWheelVector = t.slice(0);
-                setDisabled(dw, o.lvl, wa, t);
-                hideWheels(dw, o.lvl);
-
-                prevent = false;
             }
         };
     };
