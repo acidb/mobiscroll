@@ -182,8 +182,13 @@
         }
 
         function step(index, direction) {
-            var wheel = wheels[index];
-            wheel._scroller.scroll(-(wheel._index + direction) * itemHeight, 200);
+            var wheel = wheels[index],
+                value = getValue(wheel, wheel._index + direction);
+
+            if (value !== undefined) {
+                tempWheelArray[index] = value;
+                scrollToPos(200, index, direction == 1 ? 1 : 2, true);
+            }
         }
 
         function isReadOnly(i) {
@@ -232,15 +237,16 @@
             return w;
         }
 
-        function generateItems(wheel, start, end) {
+        function generateItems(wheel, index, start, end) {
             var i,
                 css,
                 item,
                 value,
                 text,
                 lbl,
+                selected,
                 html = '',
-                selected = that._tempSelected[wheel._nr],
+                checked = that._tempSelected[wheel._nr],
                 disabled = wheel._disabled || {};
             //values = wheel.values
             //labels = wheel.labels || [],
@@ -252,20 +258,23 @@
                 value = item && item.value !== undefined ? item.value : text;
                 css = item && item.cssClass !== undefined ? item.cssClass : '';
                 lbl = item && item.label !== undefined ? item.label : '';
+                selected = value !== undefined && value == tempWheelArray[index];
 
                 //key = getItem(wheel, keys, i);
                 //lbl = getItem(wheel, labels, i, '');
 
                 // TODO: multiline
                 // TODO: don't generate items with no value (use margin or placeholder instead)
-                html += '<div role="option" aria-selected="' + (selected[value] ? true : false) +
+                html += '<div role="option" aria-selected="' + (checked[value] ? true : false) +
                     '" class="mbsc-sc-itm ' + css + ' ' +
-                    (selected[value] ? selectedClass : '') +
+                    (selected ? 'mbsc-sc-itm-sel ' : '') +
+                    (checked[value] ? selectedClass : '') +
                     (value === undefined ? ' mbsc-sc-itm-ph' : ' mbsc-btn-e') +
                     (disabled[value] ? ' mbsc-sc-itm-inv mbsc-btn-d' : '') +
                     '" data-index="' + i +
                     '" data-val="' + value + '"' +
                     (lbl ? ' aria-label="' + lbl + '"' : '') +
+                    (selected ? ' aria-selected="true"' : '') +
                     ' style="height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;">' + (text === undefined ? '' : text) + '</div>';
             }
 
@@ -291,7 +300,7 @@
             return t ? (typeof t === 'function' ? t.call(el, v) : t.replace(/\{value\}/i, v)) : '';
         }
 
-        function infinite(wheel, pos) {
+        function infinite(wheel, i, pos) {
             var index = Math.round(-pos / itemHeight),
                 diff = index - wheel._index,
                 first = wheel._first,
@@ -306,7 +315,7 @@
                 // Generate items
                 setTimeout(function () {
                     if (diff > 0) {
-                        wheel._$markup.append(generateItems(wheel, last + 1, last + diff));
+                        wheel._$markup.append(generateItems(wheel, i, last + 1, last + diff));
                         $('.mbsc-sc-itm', wheel._$markup).slice(0, diff).remove();
 
                         // 3D
@@ -314,7 +323,7 @@
                         //    generate3dItems(wheel, last - batchSize + 8 + 1, last - batchSize + 8 + diff);
                         //}
                     } else if (diff < 0) {
-                        wheel._$markup.prepend(generateItems(wheel, first + diff, first - 1));
+                        wheel._$markup.prepend(generateItems(wheel, i, first + diff, first - 1));
                         $('.mbsc-sc-itm', wheel._$markup).slice(diff).remove();
 
                         // 3D
@@ -406,27 +415,28 @@
                         });
                     }
 
-                    if (wheel._$selected) {
-                        wheel._$selected.removeClass('mbsc-sc-itm-sel').removeAttr('aria-selected');
-                    }
-
                     // Get closest valid value
                     // TODO: this should be done somehow also if scroller is not visible to correctly validate
                     tempWheelArray[i] = wheel.multiple ? tempWheelArray[i] : getValid(i, tempWheelArray[i], dir);
+
+                    if (!wheel.multiple) {
+                        wheel._$markup
+                            .find('.mbsc-sc-itm-sel')
+                            .removeClass('mbsc-sc-itm-sel')
+                            .removeAttr('aria-selected');
+
+                        // Mark element as aria selected
+                        wheel._$markup
+                            .find('.mbsc-sc-itm[data-val="' + tempWheelArray[i] + '"]')
+                            .addClass('mbsc-sc-itm-sel')
+                            .attr('aria-selected', 'true');
+                    }
 
                     // Get index of valid value
                     idx = getIndex(wheel, tempWheelArray[i]);
 
                     // Scroll to valid value
-                    wheel._scroller.scroll(-idx * itemHeight - wheel._batch, time, function () {
-                        if (!wheel.multiple) {
-                            // Mark element as aria selected
-                            wheel._$selected = wheel._$markup
-                                .find('.mbsc-sc-itm[data-val="' + tempWheelArray[i] + '"]')
-                                .addClass('mbsc-sc-itm-sel')
-                                .attr('aria-selected', 'true');
-                        }
-                    });
+                    wheel._scroller.scroll(-idx * itemHeight - wheel._batch, time);
                 });
             }
         }
@@ -509,7 +519,7 @@
                     initWheel(w, i);
 
                     w._$markup
-                        .html(generateItems(w, w._first, w._last))
+                        .html(generateItems(w, i, w._first, w._last))
                         .css('margin-top', w._margin + 'px');
 
                     w._refresh();
@@ -573,7 +583,7 @@
                         '<div class="mbsc-sc-whl-sc" style="margin-top:' + w._margin + 'px;">';
 
                     // Create wheel values
-                    html += generateItems(w, w._first, w._last) +
+                    html += generateItems(w, l, w._first, w._last) +
                         '</div></div></div>';
 
                     //if (s.scroll3d) {
@@ -611,7 +621,7 @@
         };
 
         that._markupReady = function ($m) {
-            var skip;
+            //var skip;
 
             $markup = $m;
 
@@ -646,28 +656,24 @@
                             index: i
                         }]);
                     },
-                    onAnimationStart: function (ev) {
+                    onGestureEnd: function (ev) {
                         var dir = ev.direction == 90 ? 1 : 2,
                             time = ev.duration,
                             pos = ev.destinationY,
                             len = wheel._length;
 
+                        idx = Math.round(-pos / itemHeight);
+                        // Get the value of the new position
+                        tempWheelArray[i] = getValue(wheel, idx);
+                        // In case of circular wheels calculate the offset of the current batch
+                        wheel._batch = wheel._array ? Math.floor(idx / len) * len * itemHeight : 0;
+                        // Validate
+                        setTimeout(function () {
+                            scrollToPos(time, i, dir, true);
+                        }, 10);
+                    },
+                    onAnimationStart: function () {
                         $wh.addClass('mbsc-sc-whl-anim');
-
-                        // TODO: find a better solution than skip
-                        if (!skip) {
-                            idx = Math.round(-pos / itemHeight);
-                            // Get the value of the new position
-                            tempWheelArray[i] = getValue(wheel, idx);
-                            // In case of circular wheels calculate the offset of the current batch
-                            wheel._batch = wheel._array ? Math.floor(idx / len) * len * itemHeight : 0;
-                            // Validate
-                            setTimeout(function () {
-                                skip = true;
-                                scrollToPos(time, i, dir, true);
-                                skip = false;
-                            }, 10);
-                        }
                     },
                     onAnimationEnd: function () {
                         $wh.removeClass('mbsc-sc-whl-a mbsc-sc-whl-anim');
@@ -681,9 +687,9 @@
                         //    wheel._$3d[0].style[pr + 'Transition'] = time ? pref + 'transform ' + Math.round(time) + 'ms ' + easing : '';
                         //    wheel._$3d[0].style[pr + 'Transform'] = 'rotateX(' + (-pos * 22.5 / itemHeight) + 'deg)';
                         //}
-                        infinite(wheel, ev.posY);
+                        infinite(wheel, i, ev.posY);
                     },
-                    onBtnTap: function ($item, inst) {
+                    onBtnTap: function ($item) {
                         var idx = +$item.attr('data-index');
 
                         // Select item on tap
@@ -693,7 +699,9 @@
                         }
 
                         if (trigger('onValueTap', [$item]) !== false) {
-                            inst.scroll(-idx * itemHeight, 200);
+                            //inst.scroll(-idx * itemHeight, 200);
+                            tempWheelArray[i] = getValue(wheel, idx);
+                            scrollToPos(200, i, undefined, true);
                         }
                     }
                 });

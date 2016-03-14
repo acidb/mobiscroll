@@ -6,7 +6,6 @@
         constrain = util.constrain,
         pr = util.jsPrefix,
         pref = util.prefix,
-        has3d = util.has3d,
         getCoord = util.getCoord,
         getCurrentPosition = util.getPosition,
         testTouch = util.testTouch,
@@ -186,7 +185,7 @@
 
             scroll(constrain(startPos + diff, minScroll - elastic, maxScroll + elastic));
 
-            //if (s.momentum && has3d) {
+            //if (s.momentum) {
             //    startTime = time;
             //    lastX = endX;
             //}
@@ -209,13 +208,11 @@
 
                 if (!nativeScroll && that.scrolled) {
                     // Calculate momentum distance
-                    if (s.momentum && has3d && time < 300) {
+                    if (s.momentum && time < 300) {
                         speed = diff / time;
                         //speed = Math.abs(lastX - endX) / time;
                         diff = Math.max(Math.abs(diff), (speed * speed) / s.speedUnit) * (diff < 0 ? -1 : 1);
                     }
-
-                    trigger('onGestureEnd', [eventObj]);
 
                     finalize(diff);
                 }
@@ -292,8 +289,6 @@
                     rafRunning = false;
                     scrolled = false;
 
-                    trigger('onGestureEnd', [eventObj]);
-
                     finalize(diff);
                 }, 200);
             }
@@ -338,6 +333,13 @@
             }
 
             time = s.time || (currPos < minScroll || currPos > maxScroll ? 200 : Math.max(200, Math.abs(newPos - currPos) * s.timeUnit));
+
+            eventObj.destinationX = vertical ? 0 : newPos;
+            eventObj.destinationY = vertical ? newPos : 0;
+            eventObj.duration = time;
+            eventObj.transitionTiming = easing;
+
+            trigger('onGestureEnd', [eventObj]);
 
             // Scroll to the calculated position
             scroll(newPos, time);
@@ -387,12 +389,8 @@
                 trigger('onAnimationStart', [eventObj]);
             }
 
-            if (has3d) {
-                style[pr + 'Transition'] = time ? pref + 'transform ' + Math.round(time) + 'ms ' + easing : '';
-                style[pr + 'Transform'] = 'translate3d(' + (vertical ? '0,' + pos + 'px,' : pos + 'px,' + '0,') + '0)';
-            } else {
-                style[dir] = pos + 'px';
-            }
+            style[pr + 'Transition'] = time ? pref + 'transform ' + Math.round(time) + 'ms ' + easing : '';
+            style[pr + 'Transform'] = 'translate3d(' + (vertical ? '0,' + pos + 'px,' : pos + 'px,' + '0,') + '0)';
 
             if ((!changed && !moving) || !time || time <= 1) {
                 done();
@@ -410,9 +408,7 @@
                 clearTimeout(transTimer);
                 transTimer = setTimeout(function () {
                     done();
-                    if (has3d) {
-                        style[pr + 'Transition'] = '';
-                    }
+                    style[pr + 'Transition'] = '';
                 }, time);
 
                 // target.off(transEnd).on(transEnd, function (e) {
