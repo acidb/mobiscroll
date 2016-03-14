@@ -90,7 +90,7 @@
 
         function onShow(prevFocus) {
             if (!prevFocus) {
-                $popup.trigger('focus');
+                $popup[0].focus();
             }
             that.ariaMessage(s.ariaMessage);
         }
@@ -115,11 +115,11 @@
                         try {
                             activeEl.type = 'button';
                         } catch (ex) {}
-                        $activeElm.trigger('focus');
+                        $activeElm[0].focus();
                         activeEl.type = type;
                         activeEl.value = value;
                     } else if (focus) {
-                        $(focus).trigger('focus');
+                        $(focus)[0].focus();
                     }
                 }, 200);
             }
@@ -142,7 +142,7 @@
 
         function onFocus(ev) {
             if (ev.target.nodeType && !$popup[0].contains(ev.target)) {
-                $popup.trigger('focus');
+                $popup[0].focus();
             }
         }
 
@@ -615,7 +615,7 @@
                         }
 
                         if (index === i) {
-                            $focusable.eq(target).trigger('focus');
+                            $focusable.eq(target)[0].focus();
                             ev.preventDefault();
                         }
                     }
