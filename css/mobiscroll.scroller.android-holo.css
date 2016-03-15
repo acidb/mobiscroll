@@ -106,7 +106,7 @@
     line-height: 2em;
 }
 
-.mbsc-android-holo .dw-rtl .mbsc-dt-whl-h:after {
+.mbsc-android-holo .mbsc-rtl .mbsc-dt-whl-h:after {
     left: auto;
     right: 100%;
 }

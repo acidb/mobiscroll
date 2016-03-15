@@ -52,7 +52,7 @@
                 }).on('touchmove mousemove', function () {
                     click = false;
                 }).on('touchend mouseup', function (e) {
-                    if (click && active && $(e.target).closest('.dw-li').hasClass('dw-sel')) {
+                    if (click && active && $(e.target).closest('.dw-li').hasClass('mbsc-sel')) {
                         $(this).removeClass('wpa');
                     }
                     if (e.type === 'mouseup') {

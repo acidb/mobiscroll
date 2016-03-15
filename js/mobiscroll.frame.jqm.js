@@ -36,23 +36,23 @@
             $(this).closest('.ui-field-contain').trigger('create');
         },
         onEventBubbleShow: function (evd, evc) {
-            $('.dw-cal-event-list', evc).attr('data-role', 'listview');
+            $('.mbsc-cal-event-list', evc).attr('data-role', 'listview');
             evc.page().trigger('create');
         },
         onMarkupInserted: function (elm, inst) {
             var s = inst.settings;
 
             //elm.addClass('mbsc-jqm14');
-            $('.mbsc-np-btn, .dwwb, .dw-cal-sc-m-cell .dw-i', elm).addClass('ui-btn');
-            $('.dwbc .dwb, .dw-dr', elm).addClass('ui-btn ui-mini ui-corner-all');
-            $('.dw-cal-prev .dw-cal-btn-txt', elm).addClass('ui-btn ui-icon-arrow-l ui-btn-icon-notext ui-shadow ui-corner-all');
-            $('.dw-cal-next .dw-cal-btn-txt', elm).addClass('ui-btn ui-icon-arrow-r ui-btn-icon-notext ui-shadow ui-corner-all');
+            $('.mbsc-np-btn, .dwwb, .mbsc-cal-sc-m-cell .mbsc-cal-sc-cell-i', elm).addClass('ui-btn');
+            $('.mbsc-fr-c .mbsc-fr-btn, .mbsc-range-dr', elm).addClass('ui-btn ui-mini ui-corner-all');
+            $('.mbsc-cal-prev .mbsc-cal-btn-txt', elm).addClass('ui-btn ui-icon-arrow-l ui-btn-icon-notext ui-shadow ui-corner-all');
+            $('.mbsc-cal-next .mbsc-cal-btn-txt', elm).addClass('ui-btn ui-icon-arrow-r ui-btn-icon-notext ui-shadow ui-corner-all');
 
-            $('.dw', elm).removeClass('dwbg').addClass('ui-selectmenu ui-overlay-shadow ui-corner-all ui-body-' + s.jqmBorder);
-            $('.dwbc .dwb', elm).attr('data-role', 'button').attr('data-mini', 'true').attr('data-theme', s.jqmCancel);
-            $('.dwb-s .dwb', elm).addClass('ui-btn-' + s.jqmSet).attr('data-theme', s.jqmSet);
-            $('.dwv', elm).addClass('ui-header ui-bar-inherit');
-            $('.dwwr', elm).addClass('ui-corner-all ui-body-' + s.jqmBody);
+            $('.mbsc-fr-popup', elm).removeClass('dwbg').addClass('ui-selectmenu ui-overlay-shadow ui-corner-all ui-body-' + s.jqmBorder);
+            $('.mbsc-fr-btn-cont .mbsc-fr-btn', elm).attr('data-role', 'button').attr('data-mini', 'true').attr('data-theme', s.jqmCancel);
+            $('.mbsc-fr-btn-s .mbsc-fr-btn', elm).addClass('ui-btn-' + s.jqmSet).attr('data-theme', s.jqmSet);
+            $('.mbsc-fr-hdr', elm).addClass('ui-header ui-bar-inherit');
+            $('.mbsc-fr-w', elm).addClass('ui-corner-all ui-body-' + s.jqmBody);
             // Scroller
             $('.mbsc-sc-btn', elm).addClass('ui-btn ui-mini ui-corner-all ui-btn-icon-top');
             $('.mbsc-sc-btn-plus', elm).addClass('ui-icon-carat-d');
@@ -60,13 +60,13 @@
             //$('.mbsc-sc-whl', elm).addClass('ui-body-' + s.jqmWheel);
             $('.mbsc-sc-whl-l', elm).addClass('ui-body-' + s.jqmLine);
             // Calendar base
-            $('.dw-cal-tabs', elm).attr('data-role', 'navbar');
-            $('.dw-cal-prev .dw-cal-btn-txt', elm).attr('data-role', 'button').attr('data-icon', 'arrow-l').attr('data-iconpos', 'notext');
-            $('.dw-cal-next .dw-cal-btn-txt', elm).attr('data-role', 'button').attr('data-icon', 'arrow-r').attr('data-iconpos', 'notext');
+            $('.mbsc-cal-tabs', elm).attr('data-role', 'navbar');
+            $('.mbsc-cal-prev .mbsc-cal-btn-txt', elm).attr('data-role', 'button').attr('data-icon', 'arrow-l').attr('data-iconpos', 'notext');
+            $('.mbsc-cal-next .mbsc-cal-btn-txt', elm).attr('data-role', 'button').attr('data-icon', 'arrow-r').attr('data-iconpos', 'notext');
             // Calendar events
-            $('.dw-cal-events', elm).attr('data-role', 'page');
+            $('.mbsc-cal-events', elm).attr('data-role', 'page');
             // Rangepicker
-            $('.dw-dr', elm).attr('data-role', 'button').attr('data-mini', 'true');
+            $('.mbsc-range-dr', elm).attr('data-role', 'button').attr('data-mini', 'true');
             // Numpad
             $('.mbsc-np-btn', elm).attr('data-role', 'button').attr('data-corners', 'false');
             elm.trigger('create');
