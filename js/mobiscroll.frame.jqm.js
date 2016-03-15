@@ -43,7 +43,7 @@
             var s = inst.settings;
 
             $('.mbsc-np-btn, .mbsc-cal-sc-m-cell .mbsc-cal-sc-cell-i', elm).addClass('ui-btn');
-            $('.mbsc-fr-btn-cont .mbsc-fr-btn, .mbsc-range-dr', elm).addClass('ui-btn ui-mini ui-corner-all');
+            $('.mbsc-fr-btn-cont .mbsc-fr-btn, .mbsc-range-btn', elm).addClass('ui-btn ui-mini ui-corner-all');
             $('.mbsc-cal-prev .mbsc-cal-btn-txt', elm).addClass('ui-btn ui-icon-arrow-l ui-btn-icon-notext ui-shadow ui-corner-all');
             $('.mbsc-cal-next .mbsc-cal-btn-txt', elm).addClass('ui-btn ui-icon-arrow-r ui-btn-icon-notext ui-shadow ui-corner-all');
 
@@ -64,7 +64,7 @@
             // Calendar events
             $('.mbsc-cal-events', elm).attr('data-role', 'page');
             // Rangepicker
-            $('.mbsc-range-dr', elm).attr('data-role', 'button').attr('data-mini', 'true');
+            $('.mbsc-range-btn', elm).attr('data-role', 'button').attr('data-mini', 'true');
             // Numpad
             $('.mbsc-np-btn', elm).attr('data-role', 'button').attr('data-corners', 'false');
             elm.trigger('create');
