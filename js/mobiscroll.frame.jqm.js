@@ -42,8 +42,7 @@
         onMarkupInserted: function (elm, inst) {
             var s = inst.settings;
 
-            //elm.addClass('mbsc-jqm14');
-            $('.mbsc-np-btn, .dwwb, .mbsc-cal-sc-m-cell .mbsc-cal-sc-cell-i', elm).addClass('ui-btn');
+            $('.mbsc-np-btn, .mbsc-cal-sc-m-cell .mbsc-cal-sc-cell-i', elm).addClass('ui-btn');
             $('.mbsc-fr-c .mbsc-fr-btn, .mbsc-range-dr', elm).addClass('ui-btn ui-mini ui-corner-all');
             $('.mbsc-cal-prev .mbsc-cal-btn-txt', elm).addClass('ui-btn ui-icon-arrow-l ui-btn-icon-notext ui-shadow ui-corner-all');
             $('.mbsc-cal-next .mbsc-cal-btn-txt', elm).addClass('ui-btn ui-icon-arrow-r ui-btn-icon-notext ui-shadow ui-corner-all');
