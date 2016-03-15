@@ -50,14 +50,14 @@
         function onBtnStart(ev) {
             // Can't call preventDefault here, it kills page scroll
             if (btn) {
-                btn.removeClass('dwb-a');
+                btn.removeClass('mbsc-fr-btn-a');
             }
 
             btn = $(this);
 
             // Active button
-            if (!btn.hasClass('dwb-d') && !btn.hasClass('dwb-nhl')) {
-                btn.addClass('dwb-a');
+            if (!btn.hasClass('mbsc-fr-btn-d') && !btn.hasClass('mbsc-fr-btn-nhl')) {
+                btn.addClass('mbsc-fr-btn-a');
             }
 
             if (ev.type === 'mousedown') {
@@ -69,7 +69,7 @@
 
         function onBtnEnd(ev) {
             if (btn) {
-                btn.removeClass('dwb-a');
+                btn.removeClass('mbsc-fr-btn-a');
                 btn = null;
             }
 
@@ -235,9 +235,9 @@
             // Set / unset liquid layout based on screen width, but only if not set explicitly by the user
             if (that._isLiquid && s.layout !== 'liquid') {
                 if (nw < 400) {
-                    $markup.addClass('dw-liq');
+                    $markup.addClass('mbsc-fr-liq');
                 } else {
-                    $markup.removeClass('dw-liq');
+                    $markup.removeClass('mbsc-fr-liq');
                 }
             }
 
@@ -271,7 +271,7 @@
                 // Scroll only if width also changed
                 // to prevent scroll when address bar appears / hides
                 scroll = wndWidth !== nw;
-                arr = $('.dw-arrw-i', $markup);
+                arr = $('.mbsc-fr-arr-i', $markup);
                 ap = anchor.offset();
                 at = Math.abs($ctx.offset().top - ap.top);
                 al = Math.abs($ctx.offset().left - ap.left);
@@ -284,10 +284,10 @@
                 // vertical positioning
                 t = at - modalHeight; // above the input
                 if ((t < st) || (at > st + nh)) { // if doesn't fit above or the input is out of the screen
-                    $popup.removeClass('dw-bubble-top').addClass('dw-bubble-bottom');
+                    $popup.removeClass('mbsc-fr-bubble-top').addClass('mbsc-fr-bubble-bottom');
                     t = at + ah; // below the input
                 } else {
-                    $popup.removeClass('dw-bubble-bottom').addClass('dw-bubble-top');
+                    $popup.removeClass('mbsc-fr-bubble-bottom').addClass('mbsc-fr-bubble-top');
                 }
 
                 // Calculate Arrow position
@@ -295,7 +295,7 @@
                 arrl = constrain(al + aw / 2 - (l + (modalWidth - arrw) / 2), 0, arrw);
 
                 // Limit Arrow position
-                $('.dw-arr', $markup).css({
+                $('.mbsc-fr-arr', $markup).css({
                     left: arrl
                 });
             } else {
@@ -353,14 +353,14 @@
             });
             if (s.display !== 'inline') {
                 if (setReadOnly && $elm.is('input')) {
-                    $elm.prop('readonly', true).on('mousedown.dw', function (ev) {
+                    $elm.prop('readonly', true).on('mousedown.mbsc', function (ev) {
                         // Prevent input to get focus on tap (virtual keyboard pops up on some devices)
                         ev.preventDefault();
                     });
                 }
 
                 if (s.showOnFocus) {
-                    $elm.on('focus.dw', function () {
+                    $elm.on('focus.mbsc', function () {
                         if (!preventShow) {
                             show(beforeShow, $elm);
                         }
@@ -368,7 +368,7 @@
                 }
 
                 if (s.showOnTap) {
-                    $elm.on('keydown.dw', function (ev) {
+                    $elm.on('keydown.mbsc', function (ev) {
                         if (ev.keyCode == 32 || ev.keyCode == 13) { // Space or Enter
                             ev.preventDefault();
                             ev.stopPropagation();
@@ -473,51 +473,51 @@
             }
 
             // Create wheels containers
-            html = '<div lang="' + s.lang + '" class="mbsc-' + s.theme + (s.baseTheme ? ' mbsc-' + s.baseTheme : '') + ' dw-' + s.display + ' ' +
+            html = '<div lang="' + s.lang + '" class="mbsc-' + s.theme + (s.baseTheme ? ' mbsc-' + s.baseTheme : '') + ' mbsc-fr-' + s.display + ' ' +
                 (s.cssClass || '') + ' ' +
                 (s.compClass || '') +
-                (that._isLiquid ? ' dw-liq' : '') +
+                (that._isLiquid ? ' mbsc-fr-liq' : '') +
                 (isOldAndroid ? ' mbsc-old' : '') +
-                (hasButtons ? '' : ' dw-nobtn') + '">' +
-                '<div class="dw-persp">' +
-                (isModal ? '<div class="dwo"></div>' : '') + // Overlay
-                '<div' + (isModal ? ' role="dialog" tabindex="-1"' : '') + ' class="dw' + (s.rtl ? ' dw-rtl' : ' dw-ltr') + '">' + // Popup
-                (s.display === 'bubble' ? '<div class="dw-arrw"><div class="dw-arrw-i"><div class="dw-arr"></div></div></div>' : '') + // Bubble arrow
-                '<div class="dwwr">' + // Popup content
-                '<div aria-live="assertive" class="dw-aria dw-hidden"></div>' +
-                (s.headerText ? '<div class="dwv">' + (isString(s.headerText) ? s.headerText : '') + '</div>' : '') + // Header
-                '<div class="dwcc">'; // Wheel group container
+                (hasButtons ? '' : ' mbsc-fr-nobtn') + '">' +
+                '<div class="mbsc-fr-persp">' +
+                (isModal ? '<div class="mbsc-fr-overlay"></div>' : '') + // Overlay
+                '<div' + (isModal ? ' role="dialog" tabindex="-1"' : '') + ' class="mbsc-fr-popup' + (s.rtl ? ' mbsc-rtl' : ' mbsc-ltr') + '">' + // Popup
+                (s.display === 'bubble' ? '<div class="mbsc-fr-arr-w"><div class="mbsc-fr-arr-i"><div class="mbsc-fr-arr"></div></div></div>' : '') + // Bubble arrow
+                '<div class="mbsc-fr-w">' + // Popup content
+                '<div aria-live="assertive" class="mbsc-fr-aria mbsc-fr-hdn"></div>' +
+                (s.headerText ? '<div class="mbsc-fr-hdr">' + (isString(s.headerText) ? s.headerText : '') + '</div>' : '') + // Header
+                '<div class="mbsc-fr-c">'; // Wheel group container
 
             html += that._generateContent();
 
             html += '</div>';
 
             if (hasButtons) {
-                html += '<div class="dwbc">';
+                html += '<div class="mbsc-fr-btn-cont">';
                 $.each(buttons, function (i, b) {
                     b = isString(b) ? that.buttons[b] : b;
 
                     if (b.handler === 'set') {
-                        b.parentClass = 'dwb-s';
+                        b.parentClass = 'mbsc-fr-btn-s';
                     }
 
                     if (b.handler === 'cancel') {
-                        b.parentClass = 'dwb-c';
+                        b.parentClass = 'mbsc-fr-btn-c';
                     }
 
-                    html += '<div' + (s.btnWidth ? ' style="width:' + (100 / buttons.length) + '%"' : '') + ' class="dwbw ' + (b.parentClass || '') + '"><div tabindex="0" role="button" class="dwb' + i + ' dwb-e ' + (b.cssClass === undefined ? s.btnClass : b.cssClass) + (b.icon ? ' mbsc-ic mbsc-ic-' + b.icon : '') + '">' + (b.text || '') + '</div></div>';
+                    html += '<div' + (s.btnWidth ? ' style="width:' + (100 / buttons.length) + '%"' : '') + ' class="mbsc-fr-btn-w ' + (b.parentClass || '') + '"><div tabindex="0" role="button" class="mbsc-fr-btn' + i + ' mbsc-fr-btn-e ' + (b.cssClass === undefined ? s.btnClass : b.cssClass) + (b.icon ? ' mbsc-ic mbsc-ic-' + b.icon : '') + '">' + (b.text || '') + '</div></div>';
                 });
                 html += '</div>';
             }
             html += '</div></div></div></div>';
 
             $markup = $(html);
-            $persp = $('.dw-persp', $markup);
-            $overlay = $('.dwo', $markup);
-            $wrapper = $('.dwwr', $markup);
-            $header = $('.dwv', $markup);
-            $popup = $('.dw', $markup);
-            $ariaDiv = $('.dw-aria', $markup);
+            $persp = $('.mbsc-fr-persp', $markup);
+            $overlay = $('.mbsc-fr-overlay', $markup);
+            $wrapper = $('.mbsc-fr-w', $markup);
+            $header = $('.mbsc-fr-hdr', $markup);
+            $popup = $('.mbsc-fr-popup', $markup);
+            $ariaDiv = $('.mbsc-fr-aria', $markup);
 
             that._markup = $markup;
             that._header = $header;
@@ -547,7 +547,7 @@
                 if (isOldAndroid) {
                     $('input,select,button', $ctx).each(function () {
                         if (!this.disabled) {
-                            $(this).addClass('dwtd').prop('disabled', true);
+                            $(this).addClass('mbsc-fr-td').prop('disabled', true);
                         }
                     });
                 }
@@ -567,10 +567,10 @@
                 }
 
                 if (has3d && doAnim && !prevAnim) {
-                    $markup.addClass('dw-in dw-trans').on(animEnd, function () {
-                        $markup.off(animEnd).removeClass('dw-in dw-trans').find('.dw').removeClass('dw-' + doAnim);
+                    $markup.addClass('mbsc-anim-in mbsc-anim-trans').on(animEnd, function () {
+                        $markup.off(animEnd).removeClass('mbsc-anim-in mbsc-anim-trans').find('.mbsc-fr-popup').removeClass('mbsc-anim-' + doAnim);
                         onShow(prevFocus);
-                    }).find('.dw').addClass('dw-' + doAnim);
+                    }).find('.mbsc-fr-popup').addClass('mbsc-anim-' + doAnim);
                 }
             } else if ($elm.is('div') && !that._hasContent) {
                 $elm.html($markup);
@@ -590,8 +590,8 @@
             // Events
             $markup
                 .on('selectstart mousedown', prevdef) // Prevents blue highlight on Android and text selection in IE
-                .on('click', '.dwb-e', prevdef)
-                .on('keydown', '.dwb-e', function (ev) {
+                .on('click', '.mbsc-fr-btn-e', prevdef)
+                .on('keydown', '.mbsc-fr-btn-e', function (ev) {
                     if (ev.keyCode == 32) { // Space
                         ev.preventDefault();
                         ev.stopPropagation();
@@ -632,7 +632,7 @@
             //setTimeout(function () {
             // Init buttons
             $.each(buttons, function (i, b) {
-                that.tap($('.dwb' + i, $markup), function (ev) {
+                that.tap($('.mbsc-fr-btn' + i, $markup), function (ev) {
                     b = isString(b) ? that.buttons[b] : b;
                     (isString(b.handler) ? that.handlers[b.handler] : b.handler).call(this, ev, that);
                 }, true);
@@ -649,8 +649,8 @@
             }
 
             $markup
-                .on('touchstart mousedown pointerdown', '.dwb-e', onBtnStart)
-                .on('touchend', '.dwb-e', onBtnEnd);
+                .on('touchstart mousedown pointerdown', '.mbsc-fr-btn-e', onBtnStart)
+                .on('touchend', '.mbsc-fr-btn-e', onBtnEnd);
 
             that._attachEvents($markup);
             //}, 300);
@@ -671,15 +671,15 @@
             if ($markup) {
                 // Re-enable temporary disabled fields
                 if (isOldAndroid) {
-                    $('.dwtd', $ctx).each(function () {
-                        $(this).prop('disabled', false).removeClass('dwtd');
+                    $('.mbsc-fr-td', $ctx).each(function () {
+                        $(this).prop('disabled', false).removeClass('mbsc-fr-td');
                     });
                 }
 
-                if (has3d && isModal && doAnim && !prevAnim && !$markup.hasClass('dw-trans')) { // If dw-trans class was not removed, means that there was no animation
-                    $markup.addClass('dw-out dw-trans').on(animEnd, function () {
+                if (has3d && isModal && doAnim && !prevAnim && !$markup.hasClass('mbsc-anim-trans')) { // If mbsc-anim-trans class was not removed, means that there was no animation
+                    $markup.addClass('mbsc-anim-out mbsc-anim-trans').on(animEnd, function () {
                         onHide(prevAnim);
-                    }).find('.dw').addClass('dw-' + doAnim);
+                    }).find('.mbsc-fr-popup').addClass('mbsc-anim-' + doAnim);
                 } else {
                     onHide(prevAnim);
                 }
@@ -763,7 +763,7 @@
 
             // Remove all events from elements
             $.each(elmList, function (i, v) {
-                v.el.off('.dw').prop('readonly', v.readOnly);
+                v.el.off('.mbsc').prop('readonly', v.readOnly);
             });
 
             that._destroy();
@@ -787,7 +787,7 @@
             that._processSettings();
 
             // Unbind all events (if re-init)
-            $elm.off('.dw');
+            $elm.off('.mbsc');
 
             buttons = s.buttons || [];
             isModal = s.display !== 'inline';
@@ -840,7 +840,7 @@
                 that.show();
             }
 
-            $elm.on('change.dw', function () {
+            $elm.on('change.mbsc', function () {
                 if (!that._preventChange) {
                     that.setVal($elm.val(), true, false);
                 }
@@ -886,7 +886,7 @@
         display: 'modal',
         scrollLock: true,
         tap: true,
-        btnClass: 'dwb',
+        btnClass: 'mbsc-fr-btn',
         btnWidth: true,
         focusTrap: true,
         focusOnClose: !isIOS8 // Temporary for iOS8

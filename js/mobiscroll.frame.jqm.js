@@ -44,15 +44,15 @@
 
             //elm.addClass('mbsc-jqm14');
             $('.mbsc-np-btn, .dwwb, .mbsc-cal-sc-m-cell .mbsc-cal-sc-cell-i', elm).addClass('ui-btn');
-            $('.dwbc .dwb, .mbsc-dr', elm).addClass('ui-btn ui-mini ui-corner-all');
+            $('.mbsc-fr-c .mbsc-fr-btn, .mbsc-range-dr', elm).addClass('ui-btn ui-mini ui-corner-all');
             $('.mbsc-cal-prev .mbsc-cal-btn-txt', elm).addClass('ui-btn ui-icon-arrow-l ui-btn-icon-notext ui-shadow ui-corner-all');
             $('.mbsc-cal-next .mbsc-cal-btn-txt', elm).addClass('ui-btn ui-icon-arrow-r ui-btn-icon-notext ui-shadow ui-corner-all');
 
-            $('.dw', elm).removeClass('dwbg').addClass('ui-selectmenu ui-overlay-shadow ui-corner-all ui-body-' + s.jqmBorder);
-            $('.dwbc .dwb', elm).attr('data-role', 'button').attr('data-mini', 'true').attr('data-theme', s.jqmCancel);
-            $('.dwb-s .dwb', elm).addClass('ui-btn-' + s.jqmSet).attr('data-theme', s.jqmSet);
-            $('.dwv', elm).addClass('ui-header ui-bar-inherit');
-            $('.dwwr', elm).addClass('ui-corner-all ui-body-' + s.jqmBody);
+            $('.mbsc-fr-popup', elm).removeClass('dwbg').addClass('ui-selectmenu ui-overlay-shadow ui-corner-all ui-body-' + s.jqmBorder);
+            $('.mbsc-fr-btn-cont .mbsc-fr-btn', elm).attr('data-role', 'button').attr('data-mini', 'true').attr('data-theme', s.jqmCancel);
+            $('.mbsc-fr-btn-s .mbsc-fr-btn', elm).addClass('ui-btn-' + s.jqmSet).attr('data-theme', s.jqmSet);
+            $('.mbsc-fr-hdr', elm).addClass('ui-header ui-bar-inherit');
+            $('.mbsc-fr-w', elm).addClass('ui-corner-all ui-body-' + s.jqmBody);
             // Scroller
             $('.mbsc-sc-btn', elm).addClass('ui-btn ui-mini ui-corner-all ui-btn-icon-top');
             $('.mbsc-sc-btn-plus', elm).addClass('ui-icon-carat-d');
@@ -66,7 +66,7 @@
             // Calendar events
             $('.mbsc-cal-events', elm).attr('data-role', 'page');
             // Rangepicker
-            $('.mbsc-dr', elm).attr('data-role', 'button').attr('data-mini', 'true');
+            $('.mbsc-range-dr', elm).attr('data-role', 'button').attr('data-mini', 'true');
             // Numpad
             $('.mbsc-np-btn', elm).attr('data-role', 'button').attr('data-corners', 'false');
             elm.trigger('create');

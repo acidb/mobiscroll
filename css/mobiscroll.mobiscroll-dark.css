@@ -1,34 +1,34 @@
-.mbsc-mobiscroll-dark .dwwr {
+.mbsc-mobiscroll-dark .mbsc-fr-w {
   background: #263238;
   color: #f7f7f7;
 }
-.mbsc-mobiscroll-dark .dwv,
+.mbsc-mobiscroll-dark .mbsc-fr-hdr,
 .mbsc-mobiscroll-dark .dwl {
   color: #50ccc4;
 }
 .mbsc-mobiscroll-dark .dwwol {
   border-color: #50ccc4;
 }
-.mbsc-mobiscroll-dark .dwb-a {
+.mbsc-mobiscroll-dark .mbsc-fr-btn-a {
   background: rgba(80, 204, 196, 0.3);
 }
 .mbsc-mobiscroll-dark .dw-hl {
   background: rgba(80, 204, 196, 0.3);
 }
-.mbsc-mobiscroll-dark .dwb {
+.mbsc-mobiscroll-dark .mbsc-fr-btn {
   color: #50ccc4;
 }
 .mbsc-mobiscroll-dark .dwwb {
   color: #50ccc4;
   background: #263238;
 }
-.mbsc-mobiscroll-dark .dwwb.dwb-a:before {
+.mbsc-mobiscroll-dark .dwwb.mbsc-fr-btn-a:before {
   background: rgba(80, 204, 196, 0.3);
 }
-.mbsc-mobiscroll-dark .dw-bubble-bottom .dw-arr {
+.mbsc-mobiscroll-dark .mbsc-fr-bubble-bottom .mbsc-fr-arr {
   border-color: transparent transparent #263238 transparent;
 }
-.mbsc-mobiscroll-dark .dw-bubble-top .dw-arr {
+.mbsc-mobiscroll-dark .mbsc-fr-bubble-top .mbsc-fr-arr {
   border-color: #263238 transparent transparent transparent;
 }
 .mbsc-mobiscroll-dark .dw-msel:before {
@@ -39,7 +39,7 @@
   background: #50ccc4;
   color: #263238;
 }
-.mbsc-mobiscroll-dark .mbsc-hl-now .mbsc-cal-today {
+.mbsc-mobiscroll-dark .mbsc-cal-hl-now .mbsc-cal-today {
   color: #50ccc4;
 }
 .mbsc-mobiscroll-dark .mbsc-cal-days {
@@ -73,7 +73,7 @@
 .mbsc-mobiscroll-dark .mbsc-cal-day-hl .mbsc-cal-day-i {
   border-color: #50ccc4;
 }
-.mbsc-mobiscroll-dark .mbsc-week-nrs-c {
+.mbsc-mobiscroll-dark .mbsc-cal-week-nrs-c {
   color: #50ccc4;
   background: #263238;
 }
@@ -109,10 +109,10 @@
   background: #263238;
 }
 /* Range */
-.mbsc-mobiscroll-dark .mbsc-dr {
+.mbsc-mobiscroll-dark .mbsc-range-dr {
   border-color: #50ccc4;
 }
-.mbsc-mobiscroll-dark .mbsc-sel .mbsc-dr {
+.mbsc-mobiscroll-dark .mbsc-sel .mbsc-range-dr {
   background: #50ccc4;
   color: #263238;
 }

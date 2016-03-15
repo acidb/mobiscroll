@@ -1,13 +1,13 @@
-.dw-ltr .mbsc-img-w { 
+.mbsc-ltr .mbsc-img-w { 
     text-align: left; 
 }
-.dw-ltr .mbsc-img-txt {
+.mbsc-ltr .mbsc-img-txt {
     margin: 0 0 0 .5em; 
 }
-.dw-rtl .mbsc-img-w { 
+.mbsc-rtl .mbsc-img-w { 
     text-align: right; 
 }
-.dw-rtl .mbsc-img-txt {
+.mbsc-rtl .mbsc-img-txt {
     margin: 0 .5em 0 0; 
 }
 .mbsc-img-w .mbsc-ic {

@@ -28,13 +28,13 @@
     opacity: .3;
 }
 
-.mbsc-jqm .dw-ltr .mbsc-sc-whl-w:first-child .mbsc-sc-whl-l,
-.mbsc-jqm .dw-rtl .mbsc-sc-whl-w:last-child .mbsc-sc-whl-l {
+.mbsc-jqm .mbsc-ltr .mbsc-sc-whl-w:first-child .mbsc-sc-whl-l,
+.mbsc-jqm .mbsc-rtl .mbsc-sc-whl-w:last-child .mbsc-sc-whl-l {
     margin-left: -4px;
 }
 
-.mbsc-jqm .dw-ltr .mbsc-sc-whl-w:last-child .mbsc-sc-whl-l,
-.mbsc-jqm .dw-rtl .mbsc-sc-whl-w:first-child .mbsc-sc-whl-l {
+.mbsc-jqm .mbsc-ltr .mbsc-sc-whl-w:last-child .mbsc-sc-whl-l,
+.mbsc-jqm .mbsc-rtl .mbsc-sc-whl-w:first-child .mbsc-sc-whl-l {
     margin-right: -4px;
 }
 

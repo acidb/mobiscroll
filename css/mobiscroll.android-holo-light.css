@@ -1,15 +1,15 @@
-.mbsc-android-holo-light .dwwr,
+.mbsc-android-holo-light .mbsc-fr-w,
 .mbsc-android-holo-light .mbsc-cal-sc-c {
   background: #f5f5f5;
 }
-.mbsc-android-holo-light .dwwr,
-.mbsc-android-holo-light .dwb,
+.mbsc-android-holo-light .mbsc-fr-w,
+.mbsc-android-holo-light .mbsc-fr-btn,
 .mbsc-android-holo-light .dw-li,
-.mbsc-android-holo-light .mbsc-dr,
+.mbsc-android-holo-light .mbsc-range-dr,
 .mbsc-android-holo-light .mbsc-cal-tabs .mbsc-cal-tab-i {
   color: #000000;
 }
-.mbsc-android-holo-light .dwv {
+.mbsc-android-holo-light .mbsc-fr-hdr {
   color: #31b7e8;
   border-bottom: 2px solid #31b7e8;
 }
@@ -21,7 +21,7 @@
   color: #7d7d7d;
   background: #f5f5f5;
 }
-.mbsc-android-holo-light .dwwl .dwb-a {
+.mbsc-android-holo-light .dwwl .mbsc-fr-btn-a {
   color: #319abd;
   background: #f5f5f5;
 }
@@ -29,7 +29,7 @@
   border-top: 2px solid #31b7e8;
   border-bottom: 2px solid #31b7e8;
 }
-.mbsc-android-holo-light .dwb-a {
+.mbsc-android-holo-light .mbsc-fr-btn-a {
   background: #28799c;
   color: black;
 }
@@ -46,15 +46,15 @@
   background: -moz-linear-gradient(#f5f5f5, rgba(245, 245, 245, 0) 52%, rgba(245, 245, 245, 0) 48%, #f5f5f5);
   background: linear-gradient(#f5f5f5, rgba(245, 245, 245, 0) 52%, rgba(245, 245, 245, 0) 48%, #f5f5f5);
 }
-.mbsc-android-holo-light .dwbc,
-.mbsc-android-holo-light .dwbw .dwb {
+.mbsc-android-holo-light .mbsc-fr-btn-cont,
+.mbsc-android-holo-light .mbsc-fr-btn-w .mbsc-fr-btn {
   border-color: #d9d4d4;
 }
 /* Bubble positioning */
-.mbsc-android-holo-light .dw-bubble-bottom .dw-arr {
+.mbsc-android-holo-light .mbsc-fr-bubble-bottom .mbsc-fr-arr {
   border-color: transparent transparent #f5f5f5 transparent;
 }
-.mbsc-android-holo-light .dw-bubble-top .dw-arr {
+.mbsc-android-holo-light .mbsc-fr-bubble-top .mbsc-fr-arr {
   border-color: #f5f5f5 transparent transparent transparent;
 }
 /* Calendar */
@@ -69,10 +69,10 @@
   background: #31b7e8;
   background: rgba(49, 183, 232, 0.5);
 }
-.mbsc-android-holo-light .mbsc-hl-now .mbsc-cal-today {
+.mbsc-android-holo-light .mbsc-cal-hl-now .mbsc-cal-today {
   color: #31b7e8;
 }
-.mbsc-android-holo-light .dwb-a .mbsc-cal-btn-txt {
+.mbsc-android-holo-light .mbsc-fr-btn-a .mbsc-cal-btn-txt {
   color: #319abd;
 }
 .mbsc-android-holo-light .mbsc-cal-tabs .mbsc-sel {
@@ -99,10 +99,10 @@
 .mbsc-android-holo-light .mbsc-cal-btn-txt {
   color: #7d7d7d;
 }
-.mbsc-android-holo-light .mbsc-week-nrs-c {
+.mbsc-android-holo-light .mbsc-cal-week-nrs-c {
   background: #f5f5f5;
 }
-.mbsc-android-holo-light .mbsc-week-nr-i {
+.mbsc-android-holo-light .mbsc-cal-week-nr-i {
   border-color: #d9d9d9;
   color: #7d7d7d;
 }
@@ -124,10 +124,10 @@
   color: white;
 }
 /* Range */
-.mbsc-android-holo-light .mbsc-dr {
+.mbsc-android-holo-light .mbsc-range-dr {
   background: #d9d9d9;
 }
-.mbsc-android-holo-light .mbsc-sel .mbsc-dr {
+.mbsc-android-holo-light .mbsc-sel .mbsc-range-dr {
   background: #31b7e8;
   color: white;
 }

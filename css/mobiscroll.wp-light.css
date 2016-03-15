@@ -1,10 +1,10 @@
-.mbsc-wp-light .dwwr,
-.mbsc-wp-light .mbsc-dr,
-.mbsc-wp-light .dwb,
+.mbsc-wp-light .mbsc-fr-w,
+.mbsc-wp-light .mbsc-range-dr,
+.mbsc-wp-light .mbsc-fr-btn,
 .mbsc-wp-light .mbsc-cal-tabs .mbsc-cal-tab-i {
   color: #000000;
 }
-.mbsc-wp-light .dwwr {
+.mbsc-wp-light .mbsc-fr-w {
   background: #dedede;
 }
 .mbsc-wp-light .mbsc-cal-day-i {
@@ -27,17 +27,17 @@
   color: #000000;
   border-color: #000000;
 }
-.mbsc-wp-light .dwwl .dwb-a {
+.mbsc-wp-light .dwwl .mbsc-fr-btn-a {
   background: #dedede;
 }
-.mbsc-wp-light .dwwl .dwb-a:before {
+.mbsc-wp-light .dwwl .mbsc-fr-btn-a:before {
   color: #1ba0e3;
 }
 /* Bubble positioning */
-.mbsc-wp-light .dw-bubble-bottom .dw-arr {
+.mbsc-wp-light .mbsc-fr-bubble-bottom .mbsc-fr-arr {
   border-color: transparent transparent #dedede transparent;
 }
-.mbsc-wp-light .dw-bubble-top .dw-arr {
+.mbsc-wp-light .mbsc-fr-bubble-top .mbsc-fr-arr {
   border-color: #dedede transparent transparent transparent;
 }
 /* Multiple select */
@@ -94,21 +94,21 @@
   border-color: #000000;
   color: #dedede;
 }
-.mbsc-wp-light .mbsc-hl-now .mbsc-cal-today {
+.mbsc-wp-light .mbsc-cal-hl-now .mbsc-cal-today {
   color: #1ba0e3;
 }
-.mbsc-wp-light .dwb:before,
+.mbsc-wp-light .mbsc-fr-btn:before,
 .mbsc-wp-light .mbsc-cal-btn-txt:before {
   color: #000000;
   border-color: #000000;
 }
-.mbsc-wp-light .dwb-a:before,
-.mbsc-wp-light .dwb-a .mbsc-cal-btn-txt:before {
+.mbsc-wp-light .mbsc-fr-btn-a:before,
+.mbsc-wp-light .mbsc-fr-btn-a .mbsc-cal-btn-txt:before {
   background: #1ba0e3;
   border-color: #1ba0e3;
   color: white;
 }
-.mbsc-wp-light .mbsc-week-nrs-c {
+.mbsc-wp-light .mbsc-cal-week-nrs-c {
   background: #dedede;
 }
 /* Rating */
@@ -132,15 +132,15 @@
   background: #cccccc;
   border: 2px solid #dedede;
 }
-.mbsc-wp-light .mbsc-np-btn.dwb-a {
+.mbsc-wp-light .mbsc-np-btn.mbsc-fr-btn-a {
   background: #1ba0e3;
   color: white;
 }
-.mbsc-wp-light .mbsc-np-btn.dwb-d {
+.mbsc-wp-light .mbsc-np-btn.mbsc-fr-btn-d {
   color: #000000;
   opacity: .5;
 }
-.mbsc-wp-light .mbsc-np-del.dwb-a:before {
+.mbsc-wp-light .mbsc-np-del.mbsc-fr-btn-a:before {
   color: #000000;
 }
 .mbsc-wp-light .mbsc-np-btn-empty {

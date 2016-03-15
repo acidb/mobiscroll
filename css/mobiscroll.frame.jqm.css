@@ -1,8 +1,8 @@
-.mbsc-jqm .dwo {
+.mbsc-jqm .mbsc-fr-overlay {
     background: none;
 }
 
-.mbsc-jqm .dwv {
+.mbsc-jqm .mbsc-fr-hdr {
     position: static;
     width: auto;
     border: 0;
@@ -11,7 +11,7 @@
     min-height: 18px;
 }
 
-.mbsc-jqm .dwwr {
+.mbsc-jqm .mbsc-fr-w {
     border: 0;
     font-family: inherit;
 }
@@ -19,31 +19,31 @@
 
 /* Buttons */
 
-.mbsc-jqm .dwbc {
+.mbsc-jqm .mbsc-fr-btn-cont {
     font-size: 12px;
     padding: 0 2px 4px 2px;
 }
 
-.mbsc-jqm .dwbc .ui-btn {
+.mbsc-jqm .mbsc-fr-btn-cont .ui-btn {
     margin: 0 2px;
 }
 
-.mbsc-jqm .dwbc .ui-btn-inner {
+.mbsc-jqm .mbsc-fr-btn-cont .ui-btn-inner {
     font-size: 12px;
 }
 
 
 /* Bubble positioning */
 
-.mbsc-jqm .dw-bubble-bottom .dw-arr {
+.mbsc-jqm .mbsc-fr-bubble-bottom .mbsc-fr-arr {
     border-color: transparent transparent #222 transparent;
 }
 
-.mbsc-jqm .dw-bubble-top .dw-arr {
+.mbsc-jqm .mbsc-fr-bubble-top .mbsc-fr-arr {
     border-color: #222 transparent transparent transparent;
 }
 
-.mbsc-jqm.dw-bubble .dw {
+.mbsc-jqm.mbsc-fr-bubble .mbsc-fr-popup {
     background: #222;
     border: 0;
     padding: 6px;
@@ -52,23 +52,23 @@
 
 /* Top / bottom mode */
 
-.mbsc-jqm.dw-liq .dw,
-.mbsc-jqm.dw-top .dw,
-.mbsc-jqm.dw-bottom .dw,
-.mbsc-jqm.dw-liq .dwwr,
-.mbsc-jqm.dw-top .dwwr,
-.mbsc-jqm.dw-bottom .dwwr {
+.mbsc-jqm.mbsc-fr-liq .mbsc-fr-popup,
+.mbsc-jqm.mbsc-fr-top .mbsc-fr-popup,
+.mbsc-jqm.mbsc-fr-bottom .mbsc-fr-popup,
+.mbsc-jqm.mbsc-fr-liq .mbsc-fr-w,
+.mbsc-jqm.mbsc-fr-top .mbsc-fr-w,
+.mbsc-jqm.mbsc-fr-bottom .mbsc-fr-w {
     padding: 0;
     border-radius: 0;
 }
 
-.mbsc-jqm.dw-top .dw {
+.mbsc-jqm.mbsc-fr-top .mbsc-fr-popup {
     border-right: 0;
     border-top: 0;
     border-left: 0;
 }
 
-.mbsc-jqm.dw-bottom .dw {
+.mbsc-jqm.mbsc-fr-bottom .mbsc-fr-popup {
     border-bottom: 0;
     border-right: 0;
     border-left: 0;

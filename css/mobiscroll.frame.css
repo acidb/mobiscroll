@@ -1,5 +1,5 @@
-.dw,
-.dwo {
+.mbsc-fr-popup,
+.mbsc-fr-overlay {
     -webkit-font-smoothing: antialiased;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
@@ -9,7 +9,7 @@
     touch-action: none;
 }
 
-.dw {
+.mbsc-fr-popup {
     max-width: 98%;
     position: absolute;
     top: 0;
@@ -25,27 +25,27 @@
     touch-action: pan-y;
 }
 
-.dw:focus {
+.mbsc-fr-popup:focus {
     outline: none;
 }
 
-.dw:focus {
+.mbsc-fr-popup:focus {
     outline-offset: -2px;
 }
 
-.dw-rtl {
+.mbsc-rtl {
     direction: rtl;
 }
 /* Box sizing */
 
-.dw,
-.dwbc {
+.mbsc-fr-popup,
+.mbsc-fr-btn-cont {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
 
-.dwwr {
+.mbsc-fr-w {
     min-width: 200px;
     zoom: 1;
     overflow: hidden;
@@ -54,8 +54,8 @@
 }
 /* Modal overlay */
 
-.dw-persp,
-.dwo {
+.mbsc-fr-persp,
+.mbsc-fr-overlay {
     width: 100%;
     height: 100%;
     position: absolute;
@@ -63,12 +63,12 @@
     left: 0;
 }
 
-.dw-persp {
+.mbsc-fr-persp {
     z-index: 99998;
     pointer-events: auto;
 }
 
-.dwo {
+.mbsc-fr-overlay {
     z-index: 1;
     background: #000;
     background: rgba(0, 0, 0, .7);
@@ -76,63 +76,63 @@
 }
 /* Liquid mode */
 
-.dw-liq .dw {
+.mbsc-fr-liq .mbsc-fr-popup {
     max-width: 100%;
 }
 /* Top/Bottom mode */
 
-.dw-top .dw,
-.dw-bottom .dw {
+.mbsc-fr-top .mbsc-fr-popup,
+.mbsc-fr-bottom .mbsc-fr-popup {
     width: 100%;
     max-width: 100%;
 }
 /* Inline mode */
 
-.dw-inline .dw {
+.mbsc-fr-inline .mbsc-fr-popup {
     position: static;
     display: inline-block;
     max-width: 100%;
 }
 
-.dw-inline.dw-liq .dw-persp .dw {
+.mbsc-fr-inline.mbsc-fr-liq .mbsc-fr-persp .mbsc-fr-popup {
     display: block;
 }
 
-.dw-inline .dw-persp {
+.mbsc-fr-inline .mbsc-fr-persp {
     position: static;
 }
 /* Bubble mode */
 
-.dw-bubble .dw {
+.mbsc-fr-bubble .mbsc-fr-popup {
     margin: 20px 0;
 }
 
-.dw-bubble .dw-arrw {
+.mbsc-fr-bubble .mbsc-fr-arr-w {
     position: absolute;
     z-index: 1;
     left: 0;
     width: 100%;
 }
 
-.dw-bubble-top .dw-arrw {
+.mbsc-fr-bubble-top .mbsc-fr-arr-w {
     bottom: -36px;
 }
 
-.dw-bubble-bottom .dw-arrw {
+.mbsc-fr-bubble-bottom .mbsc-fr-arr-w {
     top: -36px;
 }
 
-.dw-bubble .dw-arrw-i {
+.mbsc-fr-bubble .mbsc-fr-arr-i {
     margin: 0 30px;
     position: relative;
     height: 36px;
 }
 
-.dw-bubble .dw-arr {
+.mbsc-fr-bubble .mbsc-fr-arr {
     display: block;
 }
 
-.dw-arr {
+.mbsc-fr-arr {
     display: none;
     position: absolute;
     left: 0;
@@ -143,15 +143,15 @@
     margin-left: -18px;
 }
 
-.dw-bubble-bottom .dw-arr {
+.mbsc-fr-bubble-bottom .mbsc-fr-arr {
     top: 0;
 }
 
-.dw-bubble-top .dw-arr {
+.mbsc-fr-bubble-top .mbsc-fr-arr {
     bottom: 0;
 }
 
-.dw-hidden {
+.mbsc-fr-hdn {
     width: 0;
     height: 0;
     margin: 0;
@@ -161,13 +161,13 @@
 }
 /* Header */
 
-.dwv {
+.mbsc-fr-hdr {
     overflow: hidden;
     text-overflow: ellipsis;
 }
 /* Buttons */
 
-.dwb {
+.mbsc-fr-btn {
     overflow: hidden;
     display: block;
     text-decoration: none;
@@ -176,34 +176,34 @@
     vertical-align: top;
 }
 
-.dwb-e {
+.mbsc-fr-btn-e {
     cursor: pointer;
 }
 
-.dwb-d {
+.mbsc-fr-btn-d {
     cursor: default;
 }
 /* Button container */
 
-.dwbc {
+.mbsc-fr-btn-cont {
     display: table;
     width: 100%;
     text-align: center;
 }
 
-.dwbc .dwb-d {
+.mbsc-fr-btn-cont .mbsc-fr-btn-d {
     opacity: .3;
 }
 /* Button wrapper */
 
-.dwbw {
+.mbsc-fr-btn-w {
     vertical-align: top;
     display: table-cell;
     position: relative;
     z-index: 5;
 }
 
-.dwbw .dwb:before {
+.mbsc-fr-btn-w .mbsc-fr-btn:before {
     padding: .375em;
 }
 /* Widget content styling */
@@ -218,14 +218,14 @@
 }
 /* Default theme */
 
-.mbsc-mobiscroll .dwwr {
+.mbsc-mobiscroll .mbsc-fr-w {
     min-width: 16em;
     background: #f7f7f7;
     color: #454545;
     font-size: 16px;
 }
 
-.mbsc-mobiscroll .dwv {
+.mbsc-mobiscroll .mbsc-fr-hdr {
     padding: 0 .6666em;
     padding-top: .6666em;
     color: #4eccc4;
@@ -235,23 +235,23 @@
     line-height: 2em;
 }
 
-.mbsc-mobiscroll .dwbc {
+.mbsc-mobiscroll .mbsc-fr-btn-cont {
     display: block;
     overflow: hidden;
     text-align: right;
     padding: 0 .5em .5em .5em;
 }
 
-.mbsc-mobiscroll .dwbw {
+.mbsc-mobiscroll .mbsc-fr-btn-w {
     display: block;
     float: right;
 }
 
-.mbsc-mobiscroll .dw-rtl .dwbw {
+.mbsc-mobiscroll .mbsc-rtl .mbsc-fr-btn-w {
     float: left;
 }
 
-.mbsc-mobiscroll .dwb {
+.mbsc-mobiscroll .mbsc-fr-btn {
     height: 2.5em;
     line-height: 2.5em;
     padding: 0 1em;
@@ -259,14 +259,14 @@
     text-transform: uppercase;
 }
 
-.mbsc-mobiscroll .dwb-a {
+.mbsc-mobiscroll .mbsc-fr-btn-a {
     background: rgba(78, 204, 196, .3);
 }
 
-.mbsc-mobiscroll .dw-bubble-bottom .dw-arr {
+.mbsc-mobiscroll .mbsc-fr-bubble-bottom .mbsc-fr-arr {
     border-color: transparent transparent #f7f7f7 transparent;
 }
 
-.mbsc-mobiscroll .dw-bubble-top .dw-arr {
+.mbsc-mobiscroll .mbsc-fr-bubble-top .mbsc-fr-arr {
     border-color: #f7f7f7 transparent transparent transparent;
 }
