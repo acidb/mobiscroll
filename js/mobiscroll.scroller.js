@@ -696,6 +696,11 @@
                     onBtnTap: function ($item) {
                         var idx = +$item.attr('data-index');
 
+                        if (!wheel.multiple && (s.confirmOnTap === true || s.confirmOnTap[i]) && $item.hasClass('mbsc-sc-itm-sel')) {
+                            that.select();
+                            return;
+                        }
+
                         // Select item on tap
                         if (toggleItem(i, $item)) {
                             // Don't scroll, but trigger validation
@@ -703,7 +708,6 @@
                         }
 
                         if (trigger('onValueTap', [$item]) !== false) {
-                            //inst.scroll(-idx * itemHeight, 200);
                             setWheelValue(wheel, i, idx, 200);
                         }
                     }
