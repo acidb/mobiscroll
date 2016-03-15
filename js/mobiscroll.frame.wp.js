@@ -15,11 +15,6 @@
                 empty: 'star'
             },
             btnWidth: false,
-            btnStartClass: 'mbsc-ic mbsc-ic-play3',
-            btnStopClass: 'mbsc-ic mbsc-ic-pause2',
-            btnResetClass: 'mbsc-ic mbsc-ic-stop2',
-            btnLapClass: 'mbsc-ic mbsc-ic-loop2',
-            btnHideClass: 'mbsc-ic mbsc-ic-close',
             btnCalPrevClass: 'mbsc-ic mbsc-ic-arrow-left2',
             btnCalNextClass: 'mbsc-ic mbsc-ic-arrow-right2',
             btnPlusClass: 'mbsc-ic mbsc-ic-plus',
@@ -72,6 +67,7 @@
                 buttons.cancel.icon = 'close';
                 buttons.clear.icon = 'close';
 
+                // Widget
                 if (buttons.ok) {
                     buttons.ok.icon = 'checkmark';
                 }
@@ -80,8 +76,34 @@
                     buttons.close.icon = 'close';
                 }
 
+                // Date & Time
                 if (buttons.now) {
                     buttons.now.icon = 'loop2';
+                }
+
+                // Timer
+                if (buttons.toggle) {
+                    buttons.toggle.icon = 'play3';
+                }
+
+                if (buttons.start) {
+                    buttons.start.icon = 'play3';
+                }
+
+                if (buttons.stop) {
+                    buttons.stop.icon = 'pause2';
+                }
+
+                if (buttons.reset) {
+                    buttons.reset.icon = 'stop2';
+                }
+
+                if (buttons.lap) {
+                    buttons.lap.icon = 'loop2';
+                }
+
+                if (buttons.hide) {
+                    buttons.hide.icon = 'close';
                 }
             }
         };
