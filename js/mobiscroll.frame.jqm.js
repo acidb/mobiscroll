@@ -37,19 +37,18 @@
         },
         onEventBubbleShow: function (evd, evc) {
             $('.mbsc-cal-event-list', evc).attr('data-role', 'listview');
-            evc.page().trigger('create');
+            jQuery(evc[0]).page().trigger('create');
         },
         onMarkupInserted: function (elm, inst) {
             var s = inst.settings;
 
             $('.mbsc-np-btn, .mbsc-cal-sc-m-cell .mbsc-cal-sc-cell-i', elm).addClass('ui-btn');
-            $('.mbsc-fr-c .mbsc-fr-btn, .mbsc-range-dr', elm).addClass('ui-btn ui-mini ui-corner-all');
+            $('.mbsc-fr-btn-cont .mbsc-fr-btn, .mbsc-range-dr', elm).addClass('ui-btn ui-mini ui-corner-all');
             $('.mbsc-cal-prev .mbsc-cal-btn-txt', elm).addClass('ui-btn ui-icon-arrow-l ui-btn-icon-notext ui-shadow ui-corner-all');
             $('.mbsc-cal-next .mbsc-cal-btn-txt', elm).addClass('ui-btn ui-icon-arrow-r ui-btn-icon-notext ui-shadow ui-corner-all');
 
             $('.mbsc-fr-popup', elm).removeClass('dwbg').addClass('ui-selectmenu ui-overlay-shadow ui-corner-all ui-body-' + s.jqmBorder);
-            $('.mbsc-fr-btn-cont .mbsc-fr-btn', elm).attr('data-role', 'button').attr('data-mini', 'true').attr('data-theme', s.jqmCancel);
-            $('.mbsc-fr-btn-s .mbsc-fr-btn', elm).addClass('ui-btn-' + s.jqmSet).attr('data-theme', s.jqmSet);
+            $('.mbsc-fr-btn-s .mbsc-fr-btn', elm).addClass('ui-btn-' + s.jqmSet);
             $('.mbsc-fr-hdr', elm).addClass('ui-header ui-bar-inherit');
             $('.mbsc-fr-w', elm).addClass('ui-corner-all ui-body-' + s.jqmBody);
             // Scroller
