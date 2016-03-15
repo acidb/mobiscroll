@@ -182,13 +182,8 @@
         }
 
         function step(index, direction) {
-            var wheel = wheels[index],
-                value = getValue(wheel, wheel._index + direction);
-
-            if (value !== undefined) {
-                tempWheelArray[index] = value;
-                scrollToPos(200, index, direction == 1 ? 1 : 2, true);
-            }
+            var wheel = wheels[index];
+            setWheelValue(wheel, index, wheel._index + direction, 200, direction == 1 ? 1 : 2);
         }
 
         function isReadOnly(i) {
@@ -441,6 +436,22 @@
             }
         }
 
+        function setWheelValue(wheel, i, idx, time, dir) {
+            // Get the value at the given index
+            var value = getValue(wheel, idx);
+
+            if (value !== undefined) {
+                tempWheelArray[i] = value;
+
+                // In case of circular wheels calculate the offset of the current batch
+                wheel._batch = wheel._array ? Math.floor(idx / wheel._length) * wheel._length * itemHeight : 0;
+
+                setTimeout(function () {
+                    scrollToPos(time, i, dir, true);
+                }, 10);
+            }
+        }
+
         function setValue(fill, change, time, noscroll, temp) {
             if (!noscroll) {
                 scrollToPos(time);
@@ -659,18 +670,11 @@
                     onGestureEnd: function (ev) {
                         var dir = ev.direction == 90 ? 1 : 2,
                             time = ev.duration,
-                            pos = ev.destinationY,
-                            len = wheel._length;
+                            pos = ev.destinationY;
 
                         idx = Math.round(-pos / itemHeight);
-                        // Get the value of the new position
-                        tempWheelArray[i] = getValue(wheel, idx);
-                        // In case of circular wheels calculate the offset of the current batch
-                        wheel._batch = wheel._array ? Math.floor(idx / len) * len * itemHeight : 0;
-                        // Validate
-                        setTimeout(function () {
-                            scrollToPos(time, i, dir, true);
-                        }, 10);
+
+                        setWheelValue(wheel, i, idx, time, dir);
                     },
                     onAnimationStart: function () {
                         $wh.addClass('mbsc-sc-whl-anim');
@@ -700,8 +704,7 @@
 
                         if (trigger('onValueTap', [$item]) !== false) {
                             //inst.scroll(-idx * itemHeight, 200);
-                            tempWheelArray[i] = getValue(wheel, idx);
-                            scrollToPos(200, i, undefined, true);
+                            setWheelValue(wheel, i, idx, 200);
                         }
                     }
                 });
