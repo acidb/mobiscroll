@@ -1,18 +1,3 @@
-/*.dw-ml .dw-li {
-    overflow: hidden;
-}
-
-.dw-ml .dw-li .dw-i {
-    width: 100%;
-    height: auto;
-    display: inline-block;
-    vertical-align: middle;
-    white-space: normal;
-}*/
-
-
-/* New CSS */
-
 .mbsc-sc-whl-o,
 .mbsc-sc-btn {
     /* Prevent flickering on animation */
@@ -181,6 +166,17 @@
     -moz-backface-visibility: hidden;
     backface-visibility: hidden;
 }*/
+
+
+/* Multiline */
+
+.mbsc-sc-itm-ml {
+    width: 100%;
+    height: auto;
+    display: inline-block;
+    vertical-align: middle;
+    white-space: normal;
+}
 
 
 /* Multiple */
