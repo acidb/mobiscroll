@@ -5,7 +5,6 @@
         $ = ms.$,
         util = ms.util,
         pr = util.jsPrefix,
-        has3d = util.has3d,
         constrain = util.constrain,
         isString = util.isString,
         isOldAndroid = util.isOldAndroid,
@@ -566,7 +565,7 @@
                     $wnd.on('focusin', onFocus);
                 }
 
-                if (has3d && doAnim && !prevAnim) {
+                if (doAnim && !prevAnim) {
                     $markup.addClass('mbsc-anim-in mbsc-anim-trans').on(animEnd, function () {
                         $markup.off(animEnd).removeClass('mbsc-anim-in mbsc-anim-trans').find('.mbsc-fr-popup').removeClass('mbsc-anim-' + doAnim);
                         onShow(prevFocus);
@@ -676,7 +675,7 @@
                     });
                 }
 
-                if (has3d && isModal && doAnim && !prevAnim && !$markup.hasClass('mbsc-anim-trans')) { // If mbsc-anim-trans class was not removed, means that there was no animation
+                if (isModal && doAnim && !prevAnim && !$markup.hasClass('mbsc-anim-trans')) { // If mbsc-anim-trans class was not removed, means that there was no animation
                     $markup.addClass('mbsc-anim-out mbsc-anim-trans').on(animEnd, function () {
                         onHide(prevAnim);
                     }).find('.mbsc-fr-popup').addClass('mbsc-anim-' + doAnim);
@@ -773,12 +772,6 @@
          * Scroller initialization.
          */
         that.init = function (ss) {
-            // @deprecated since 2.17.0, backward compatibility code
-            // ---
-            if (ss.onClose) {
-                ss.onBeforeClose = ss.onClose;
-            }
-            // ---
 
             that._init(ss);
 

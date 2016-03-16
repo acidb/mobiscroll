@@ -146,18 +146,15 @@ var mobiscroll = mobiscroll || {};
                     matrix,
                     px;
 
-                if (has3d) {
-                    $.each(['t', 'webkitT', 'MozT', 'OT', 'msT'], function (i, v) {
-                        if (style[v + 'ransform'] !== undefined) {
-                            matrix = style[v + 'ransform'];
-                            return false;
-                        }
-                    });
-                    matrix = matrix.split(')')[0].split(', ');
-                    px = vertical ? (matrix[13] || matrix[5]) : (matrix[12] || matrix[4]);
-                } else {
-                    px = vertical ? style.top.replace('px', '') : style.left.replace('px', '');
-                }
+                $.each(['t', 'webkitT', 'MozT', 'OT', 'msT'], function (i, v) {
+                    if (style[v + 'ransform'] !== undefined) {
+                        matrix = style[v + 'ransform'];
+                        return false;
+                    }
+                });
+                matrix = matrix.split(')')[0].split(', ');
+                px = vertical ? (matrix[13] || matrix[5]) : (matrix[12] || matrix[4]);
+                
 
                 return px;
             },

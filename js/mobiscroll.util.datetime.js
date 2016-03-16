@@ -283,10 +283,4 @@
         }
     };
 
-    // @deprecated since 2.11.0, backward compatibility code
-    // ---
-    ms.formatDate = ms.util.datetime.formatDate;
-    ms.parseDate = ms.util.datetime.parseDate;
-    // ---
-
 })();
