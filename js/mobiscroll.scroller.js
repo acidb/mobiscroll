@@ -258,7 +258,6 @@
                 //key = getItem(wheel, keys, i);
                 //lbl = getItem(wheel, labels, i, '');
 
-                // TODO: multiline
                 // TODO: don't generate items with no value (use margin or placeholder instead)
                 html += '<div role="option" aria-selected="' + (checked[value] ? true : false) +
                     '" class="mbsc-sc-itm ' + css + ' ' +
@@ -270,7 +269,11 @@
                     '" data-val="' + value + '"' +
                     (lbl ? ' aria-label="' + lbl + '"' : '') +
                     (selected ? ' aria-selected="true"' : '') +
-                    ' style="height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;">' + (text === undefined ? '' : text) + '</div>';
+                    ' style="height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;">' +
+                    (lines > 1 ? '<div class="mbsc-sc-itm-ml" style="line-height:' + Math.round(itemHeight / lines) + 'px;font-size:' + Math.round(itemHeight / lines * 0.8) + 'px;">' : '') +
+                    (text === undefined ? '' : text) +
+                    (lines > 1 ? '</div>' : '') +
+                    '</div>';
             }
 
             return html;
