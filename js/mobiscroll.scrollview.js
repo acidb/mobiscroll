@@ -11,6 +11,7 @@
         testTouch = util.testTouch,
         isNumeric = util.isNumeric,
         isString = util.isString,
+        isIOS = /(iphone|ipod|ipad)/i.test(navigator.userAgent),
         empty = function () {},
         //transEnd = 'webkitTransitionEnd transitionend',
         raf = window.requestAnimationFrame || function (x) {
@@ -118,7 +119,7 @@
                 startPos = +getCurrentPosition(target, vertical) || 0;
 
                 // Stop scrolling animation, 1ms is needed for Android 4.0
-                scroll(startPos, 1);
+                scroll(startPos, isIOS ? 0 : 1);
 
                 if (ev.type === 'mousedown') {
                     $(document).on('mousemove', onMove).on('mouseup', onEnd);
