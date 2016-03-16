@@ -109,6 +109,5 @@
         };
 
     themes.wp = theme;
-    themes['wp-light'] = theme;
 
 })();
