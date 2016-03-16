@@ -11,6 +11,9 @@ var mobiscroll = mobiscroll || {};
             'z-index': 1,
             'zoom': 1
         },
+        propMap = {
+            'readonly': 'readOnly',
+        },
         emptyArray = [],
         slice = Array.prototype.slice;
 
@@ -257,21 +260,14 @@ var mobiscroll = mobiscroll || {};
                 return this;
             },
             prop: function (props, value) {
+                props = propMap[props] || props;
                 if (arguments.length === 1 && typeof props === 'string') {
                     // Get prop
                     return this[0] ? this[0][props] : undefined;
                 } else {
                     // Set props
                     for (var i = 0; i < this.length; i++) {
-                        if (arguments.length === 2) {
-                            // String
-                            this[i][props] = value;
-                        } else {
-                            // Object
-                            for (var propName in props) {
-                                this[i][propName] = props[propName];
-                            }
-                        }
+                        this[i][props] = value;
                     }
                     return this;
                 }
