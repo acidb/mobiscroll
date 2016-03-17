@@ -401,10 +401,10 @@
                     changeWheels(values, index, o);
                 }
             },
-            onValueFill: function (v) {
+            onValueFill: function (ev) {
                 currLevel = undefined;
                 if (input) {
-                    input.val(v);
+                    input.val(ev.valueText);
                 }
             },
             validate: function (values, index) {

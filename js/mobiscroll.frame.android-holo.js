@@ -1,4 +1,5 @@
 (function () {
+    var $ = mobiscroll.$;
     mobiscroll.themes.frame['android-holo'] = {
         dateOrder: 'Mddyy',
         //mode: 'mixed',
@@ -15,8 +16,8 @@
         },
         btnPlusClass: 'mbsc-ic mbsc-ic-arrow-down6',
         btnMinusClass: 'mbsc-ic mbsc-ic-arrow-up6',
-        onMarkupReady: function (markup) {
-            markup.addClass('mbsc-android-holo');
+        onMarkupReady: function (ev) {
+            $(ev.target).addClass('mbsc-android-holo');
         }
     };
 

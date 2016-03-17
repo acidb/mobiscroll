@@ -311,7 +311,7 @@ var mobiscroll = mobiscroll || {};
             }
 
             if (that._hasTheme) {
-                that.trigger('onThemeLoad', [lang, settings]);
+                that.trigger('onThemeLoad', { lang: lang, setting: settings });
             }
 
             // Update settings object
@@ -332,7 +332,7 @@ var mobiscroll = mobiscroll || {};
         };
 
         that._destroy = function () {
-            that.trigger('onDestroy', []);
+            that.trigger('onDestroy', {});
 
             // Delete scroller instance
             delete instances[el.id];
@@ -416,12 +416,12 @@ var mobiscroll = mobiscroll || {};
         /**
          * Triggers an event
          */
-        that.trigger = function (name, args) {
+        that.trigger = function (name, ev) {
             var ret;
-            args.push(that);
+           // args.push(that);
             $.each([defaults, theme, preset, settings], function (i, v) {
                 if (v && v[name]) { // Call preset event
-                    ret = v[name].apply(el, args);
+                    ret = v[name].call(el, ev || {}, that);
                 }
             });
             return ret;

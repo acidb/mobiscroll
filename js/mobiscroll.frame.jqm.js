@@ -35,12 +35,13 @@
         onInit: function () {
             $(this).closest('.ui-field-contain').trigger('create');
         },
-        onEventBubbleShow: function (evd, evc) {
-            $('.mbsc-cal-event-list', evc).attr('data-role', 'listview');
-            jQuery(evc[0]).page().trigger('create');
+        onEventBubbleShow: function (ev) {
+            $('.mbsc-cal-event-list', ev.events).attr('data-role', 'listview');
+            jQuery(ev.events).page().trigger('create');
         },
-        onMarkupInserted: function (elm, inst) {
-            var s = inst.settings;
+        onMarkupInserted: function (ev, inst) {
+            var s = inst.settings,
+                elm = $(ev.target);
 
             $('.mbsc-np-btn, .mbsc-cal-sc-m-cell .mbsc-cal-sc-cell-i', elm).addClass('ui-btn');
             $('.mbsc-fr-btn-cont .mbsc-fr-btn, .mbsc-range-btn', elm).addClass('ui-btn ui-mini ui-corner-all');
