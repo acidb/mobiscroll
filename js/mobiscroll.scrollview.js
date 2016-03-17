@@ -81,7 +81,7 @@
                 return;
             }
 
-            if (testTouch(ev, this) && !move /* TRIALCOND */ ) {
+            if (testTouch(ev, this) && !move) {
 
                 if ($btn) {
                     $btn.removeClass('mbsc-btn-a');
@@ -260,7 +260,7 @@
 
             ev.preventDefault();
 
-            if (diff && !s.readonly /* TRIALCOND */ ) {
+            if (diff && !s.readonly) {
 
                 diff = diff < 0 ? 20 : -20;
 

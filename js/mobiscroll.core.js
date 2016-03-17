@@ -1,5 +1,5 @@
 /*!
- * Mobiscroll v2.17.1
+ * Mobiscroll v3.0.0-beta
  * http://mobiscroll.com
  *
  * Copyright 2010-2016, Acid Media
@@ -9,7 +9,7 @@
 
 var mobiscroll = mobiscroll || {};
 
-(function (undefined) {
+(function (window, document, undefined) {
 
     function testProps(props) {
         var i;
@@ -66,7 +66,7 @@ var mobiscroll = mobiscroll || {};
     }
 
     var ms,
-        $ = mobiscroll.$,
+        $ = window.jQuery || mobiscroll.$,
         id = +new Date(),
         instances = {},
         extend = $.extend,
@@ -76,14 +76,9 @@ var mobiscroll = mobiscroll || {};
         prefix = testPrefix(),
         pr = prefix.replace(/^\-/, '').replace(/\-$/, '').replace('moz', 'Moz');
 
-    $.fn.mobiscroll = function (method) {
-        extend(this, mobiscroll.components);
-        return init(this, method, arguments);
-    };
-
     ms = mobiscroll = {
         $: $,
-        version: '2.17.1',
+        version: '3.0.0-beta',
         util: {
             prefix: prefix,
             jsPrefix: pr,
@@ -154,7 +149,7 @@ var mobiscroll = mobiscroll || {};
                 });
                 matrix = matrix.split(')')[0].split(', ');
                 px = vertical ? (matrix[13] || matrix[5]) : (matrix[12] || matrix[4]);
-                
+
 
                 return px;
             },
@@ -254,6 +249,13 @@ var mobiscroll = mobiscroll || {};
                 }), arguments);
             };
         }
+    };
+
+    $.mobiscroll = mobiscroll;
+
+    $.fn.mobiscroll = function (method) {
+        extend(this, mobiscroll.components);
+        return init(this, method, arguments);
     };
 
     mobiscroll.classes.Base = function (el, settings) {
@@ -476,4 +478,4 @@ var mobiscroll = mobiscroll || {};
         });
     }
 
-})();
+})(window, document);

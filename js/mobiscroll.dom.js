@@ -12,7 +12,7 @@ var mobiscroll = mobiscroll || {};
             'zoom': 1
         },
         propMap = {
-            'readonly': 'readOnly',
+            'readonly': 'readOnly'
         },
         emptyArray = [],
         slice = Array.prototype.slice;
