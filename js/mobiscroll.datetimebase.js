@@ -154,7 +154,7 @@
                             function (i) {
                                 return {
                                     value: i,
-                                    text: dord.match(/yy/i) ? i : (i + '').substr(2, 2)
+                                    text: dord.match(/yy/i) ? i : (i + '').substr(2, 2) + (s.yearSuffix || '')
                                 };
                             },
                             function (v) {

@@ -199,7 +199,9 @@
          * i - the last number of wheels that has to be hidden
          */
         function hideWheels(i) {
-            $('.mbsc-sc-whl-w', inst._markup).css('display', '').slice(i).hide();
+            if (inst._isVisible) {
+                $('.mbsc-sc-whl-w', inst._markup).css('display', '').slice(i).hide();
+            }
         }
 
         /**
