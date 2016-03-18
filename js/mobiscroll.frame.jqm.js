@@ -36,8 +36,8 @@
             $(this).closest('.ui-field-contain').trigger('create');
         },
         onEventBubbleShow: function (ev) {
-            $('.mbsc-cal-event-list', ev.events).attr('data-role', 'listview');
-            jQuery(ev.events).page().trigger('create');
+            $('.mbsc-cal-event-list', ev.eventList).attr('data-role', 'listview');
+            jQuery(ev.eventList).page().trigger('create');
         },
         onMarkupInserted: function (ev, inst) {
             var s = inst.settings,

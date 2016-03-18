@@ -662,7 +662,7 @@
          */
         that.hide = function (prevAnim, btn, force, callback) {
             // If onClose handler returns false, prevent hide
-            if (!that._isVisible || (!force && !that._isValid && btn == 'set') || (!force && event('onBeforeClose', { valueText: that._tempValue, btn: btn }) === false)) {
+            if (!that._isVisible || (!force && !that._isValid && btn == 'set') || (!force && event('onBeforeClose', { valueText: that._tempValue, button: btn }) === false)) {
                 return false;
             }
 
