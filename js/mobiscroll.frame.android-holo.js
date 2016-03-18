@@ -14,10 +14,7 @@
             empty: 'star'
         },
         btnPlusClass: 'mbsc-ic mbsc-ic-arrow-down6',
-        btnMinusClass: 'mbsc-ic mbsc-ic-arrow-up6',
-        onMarkupReady: function (markup) {
-            markup.addClass('mbsc-android-holo');
-        }
+        btnMinusClass: 'mbsc-ic mbsc-ic-arrow-up6'
     };
 
 })();

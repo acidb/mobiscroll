@@ -1,0 +1,362 @@
+.mbsc-wp-light .mbsc-fr-w,
+.mbsc-wp-light .mbsc-range-btn,
+.mbsc-wp-light .mbsc-fr-btn,
+.mbsc-wp-light .mbsc-cal-tabs .mbsc-cal-tab-i {
+  color: #000000;
+}
+.mbsc-wp-light .mbsc-fr-w {
+  background: #dedede;
+}
+.mbsc-wp-light .mbsc-sc-itm {
+  color: #000000;
+}
+.mbsc-wp-light .mbsc-sc-itm:after {
+  border-color: #000000;
+}
+.mbsc-wp-light .mbsc-sc-whl .mbsc-sc-itm-sel {
+  color: white;
+}
+.mbsc-wp-light .mbsc-cal-day-sel .mbsc-cal-day-i,
+.mbsc-wp-light .mbsc-cal-sc-sel .mbsc-cal-sc-cell-i {
+  color: white;
+  background: #1ba0e3;
+  border-color: #1ba0e3;
+}
+/* Clickpick-mode */
+.mbsc-wp-light .mbsc-sc-btn {
+  background: #dedede;
+}
+.mbsc-wp-light .mbsc-sc-btn:before {
+  color: #000000;
+  border-color: #000000;
+}
+.mbsc-wp-light .mbsc-sc-itm-sel:after,
+.mbsc-wp-light .mbsc-sc-itm.mbsc-btn-a:after,
+.mbsc-wp-light .mbsc-sc-btn-a:before {
+  background: #1ba0e3;
+  border-color: #1ba0e3;
+}
+.mbsc-wp-light .mbsc-sc-whl-w:not(.mbsc-sc-whl-multi) .mbsc-sc-whl-anim .mbsc-sc-itm-sel {
+  color: #000000;
+}
+.mbsc-wp-light .mbsc-sc-whl-w:not(.mbsc-sc-whl-multi) .mbsc-sc-whl-anim .mbsc-sc-itm-sel:after,
+.mbsc-wp-light .mbsc-sc-whl-w:not(.mbsc-sc-whl-multi) .mbsc-sc-whl-wpa .mbsc-sc-itm.mbsc-btn-a:after {
+  background: none;
+  border-color: #000000;
+}
+/* Bubble positioning */
+.mbsc-wp-light .mbsc-fr-bubble-bottom .mbsc-fr-arr {
+  border-color: transparent transparent #dedede transparent;
+}
+.mbsc-wp-light .mbsc-fr-bubble-top .mbsc-fr-arr {
+  border-color: #dedede transparent transparent transparent;
+}
+/* Multiple select */
+.mbsc-wp-light .mbsc-sc-whl-multi .mbsc-sc-itm:after {
+  border-color: #000000;
+}
+.mbsc-wp-light .mbsc-sc-whl-multi .mbsc-sc-itm-sel:before {
+  color: #000000;
+}
+/* Calendar */
+.mbsc-wp-light .mbsc-cal-sc-m-cell {
+  background: #dedede;
+}
+.mbsc-wp-light .mbsc-cal-event {
+  background: #a6a6a6;
+  color: black;
+}
+.mbsc-wp-light .mbsc-cal-events {
+  background: #000000;
+  background: rgba(0, 0, 0, 0.8);
+}
+.mbsc-wp-light .mbsc-cal-events-arr {
+  border-color: rgba(0, 0, 0, 0.8) transparent transparent;
+}
+.mbsc-wp-light .mbsc-cal-events-b .mbsc-cal-events-arr {
+  border-color: transparent transparent rgba(0, 0, 0, 0.8);
+}
+.mbsc-wp-light .mbsc-cal-day-m {
+  border-color: #000000 #000000 transparent transparent;
+}
+.mbsc-wp-light .mbsc-cal-day-fg {
+  border-color: #a6a6a6;
+}
+.mbsc-wp-light .mbsc-cal-day-inv .mbsc-cal-day-fg {
+  color: rgba(0, 0, 0, 0.3);
+}
+.mbsc-wp-light .mbsc-cal-day-sel .mbsc-cal-day-fg {
+  border-color: #1ba0e3;
+}
+.mbsc-wp-light .mbsc-cal-day-hl .mbsc-cal-day-fg {
+  background: #000000;
+  border-color: #000000;
+  color: #dedede;
+}
+.mbsc-wp-light .mbsc-cal-hl-now .mbsc-cal-today {
+  color: #1ba0e3;
+}
+.mbsc-wp-light .mbsc-fr-btn:before,
+.mbsc-wp-light .mbsc-cal-btn-txt:before {
+  color: #000000;
+  border-color: #000000;
+}
+.mbsc-wp-light .mbsc-fr-btn-a:before,
+.mbsc-wp-light .mbsc-fr-btn-a .mbsc-cal-btn-txt:before {
+  background: #1ba0e3;
+  border-color: #1ba0e3;
+  color: white;
+}
+.mbsc-wp-light .mbsc-cal-week-nrs-c {
+  background: #dedede;
+}
+/* Rating */
+.mbsc-wp-light .mbsc-rating-icon {
+  color: inherit;
+}
+.mbsc-wp-light .mbsc-rating-circle {
+  background: #000000;
+  color: #dedede;
+}
+.mbsc-wp-light .mbsc-rating-circle-unf {
+  background: #646464;
+}
+/* Timer */
+.mbsc-wp-light.mbsc-ts .mbsc-sc-lbl,
+.mbsc-wp-light.mbsc-timer .mbsc-sc-lbl {
+  color: white;
+}
+/* Numpad */
+.mbsc-wp-light .mbsc-np-btn {
+  background: #cccccc;
+  border: 2px solid #dedede;
+}
+.mbsc-wp-light .mbsc-np-btn.mbsc-fr-btn-a {
+  background: #1ba0e3;
+  color: white;
+}
+.mbsc-wp-light .mbsc-np-btn.mbsc-fr-btn-d {
+  color: #000000;
+  opacity: .5;
+}
+.mbsc-wp-light .mbsc-np-del.mbsc-fr-btn-a:before {
+  color: #000000;
+}
+.mbsc-wp-light .mbsc-np-btn-empty {
+  background: none;
+}
+/* Listview */
+.mbsc-lv-wp-light .mbsc-lv-item,
+.mbsc-lv-wp-light .mbsc-lv-gr-title {
+  background: #dedede;
+  color: #000000;
+}
+.mbsc-lv-wp-light.mbsc-lv-alt-row .mbsc-lv-item:nth-child(even) {
+  background: #f0f0f0;
+}
+/* Menustrip */
+.mbsc-wp-light.mbsc-ms-c {
+  background: #dedede;
+  color: #000000;
+}
+.mbsc-wp-light .mbsc-ms-item {
+  color: #a6a6a6;
+}
+.mbsc-wp-light .mbsc-ms-ic:before {
+  border-color: #000000;
+}
+.mbsc-wp-light .mbsc-ms-item-sel .mbsc-ms-ic:before,
+.mbsc-wp-light .mbsc-btn-a .mbsc-ms-ic:before {
+  background: #000000;
+  color: #dedede;
+}
+.mbsc-wp-light.mbsc-ms-icons .mbsc-ms-item {
+  color: #000000;
+}
+.mbsc-wp-light .mbsc-ms-item-sel {
+  color: #000000;
+}
+/* Progress */
+.mbsc-wp-light.mbsc-progress .mbsc-label {
+  color: #000000;
+}
+.mbsc-wp-light.mbsc-progress .mbsc-input-ic {
+  color: #000000;
+}
+.mbsc-wp-light .mbsc-progress-track {
+  background: #dedede;
+}
+.mbsc-wp-light .mbsc-progress-bar {
+  background: #1ba0e3;
+}
+/* Slider */
+.mbsc-wp-light .mbsc-slider-handle {
+  background: #000000;
+}
+.mbsc-wp-light .mbsc-slider-tooltip {
+  background: #000000;
+  color: #a6a6a6;
+  border-color: #a6a6a6;
+}
+.mbsc-wp-light .mbsc-slider-step {
+  background: #ffffff;
+}
+/* Form elements */
+.mbsc-wp-light.mbsc-form {
+  background-color: #ffffff;
+  color: #000000;
+}
+.mbsc-wp-light .mbsc-input .mbsc-label {
+  color: #000000;
+}
+.mbsc-wp-light .mbsc-desc {
+  color: #5e5e5e;
+}
+.mbsc-wp-light .mbsc-input-ic {
+  color: #000000;
+}
+.mbsc-wp-light .mbsc-input select {
+  background: #ffffff;
+  color: #000000;
+}
+.mbsc-wp-light .mbsc-select input {
+  border-color: #000000;
+  color: #000000;
+}
+.mbsc-wp-light .mbsc-input select.mbsc-active + input {
+  border-color: #000000;
+}
+.mbsc-wp-light .mbsc-select .mbsc-input-wrap .mbsc-ic {
+  color: #000000;
+}
+.mbsc-wp-light .mbsc-input select:disabled ~ input,
+.mbsc-wp-light .mbsc-input textarea:disabled,
+.mbsc-wp-light .mbsc-input input:disabled {
+  background-color: transparent;
+  color: #4f4f4f;
+  border-color: #4f4f4f;
+}
+/* Checkbox */
+.mbsc-wp-light .mbsc-checkbox-box {
+  border-color: #000000;
+}
+.mbsc-wp-light .mbsc-checkbox-box:after {
+  border-color: #000000;
+}
+/* Radio */
+.mbsc-wp-light .mbsc-radio-box {
+  border-color: #000000;
+}
+.mbsc-wp-light .mbsc-radio-box:after {
+  background-color: #000000;
+}
+/* Button */
+.mbsc-wp-light .mbsc-btn {
+  color: #000000;
+  border-color: #000000;
+}
+.mbsc-wp-light .mbsc-btn .mbsc-btn-ic {
+  color: #000000;
+}
+.mbsc-wp-light .mbsc-btn-flat,
+.mbsc-wp-light .mbsc-btn-flat.mbsc-active {
+  color: #000000;
+}
+.mbsc-wp-light .mbsc-btn-flat.mbsc-active .mbsc-btn-ic,
+.mbsc-wp-light .mbsc-btn-flat .mbsc-btn-ic {
+  border-color: #000000;
+}
+.mbsc-wp-light .mbsc-switch input:checked + .mbsc-switch-track,
+.mbsc-wp-light .mbsc-radio input.mbsc-active + .mbsc-radio-box:after,
+.mbsc-wp-light .mbsc-radio input.mbsc-active + .mbsc-radio-box,
+.mbsc-wp-light .mbsc-checkbox input.mbsc-active + .mbsc-checkbox-box {
+  background: #1ba0e3;
+}
+.mbsc-wp-light.mbsc-form *::-moz-selection {
+  color: #ffffff;
+  background: #1ba0e3;
+}
+.mbsc-wp-light.mbsc-form *::selection {
+  color: #000000;
+  background: #1ba0e3;
+}
+.mbsc-wp-light .mbsc-input input:focus,
+.mbsc-wp-light .mbsc-input select:focus + input,
+.mbsc-wp-light .mbsc-input textarea:focus {
+  border-color: #1ba0e3;
+  color: #000000;
+}
+.mbsc-wp-light .mbsc-input select:focus + input {
+  background: #ffffff;
+  color: #000000;
+}
+.mbsc-wp-light .mbsc-input select.mbsc-active + input {
+  background: #1ba0e3;
+  border-color: #1ba0e3;
+  color: white;
+}
+.mbsc-wp-light .mbsc-select select:focus ~ .mbsc-ic {
+  color: #000000;
+}
+.mbsc-wp-light .mbsc-select select.mbsc-active ~ .mbsc-ic {
+  color: white;
+}
+.mbsc-wp-light .mbsc-btn-flat.mbsc-active .mbsc-btn-ic {
+  border-color: #1ba0e3;
+}
+.mbsc-wp-light .mbsc-btn.mbsc-active .mbsc-btn-ic {
+  background: #1ba0e3;
+}
+.mbsc-wp-light .mbsc-btn.mbsc-active:not(.mbsc-btn-flat) {
+  background: #1ba0e3;
+}
+.mbsc-wp-light a {
+  color: #1ba0e3;
+}
+/* Switch */
+.mbsc-wp-light .mbsc-switch-track {
+  -webkit-box-shadow: inset 0px 0px 0px 2px #ffffff, 0px 0px 0px 2px #000000;
+  box-shadow: inset 0px 0px 0px 2px #ffffff, 0px 0px 0px 2px #000000;
+}
+.mbsc-wp-light .mbsc-switch-handle {
+  background: #000000;
+  border-color: #ffffff;
+}
+.mbsc-wp-light .mbsc-switch input:disabled + .mbsc-switch-track {
+  background: transparent;
+}
+.mbsc-wp-light .mbsc-switch input:checked:disabled + .mbsc-switch-track {
+  background: #000000;
+}
+/* Segmented & Stepper */
+.mbsc-wp-light .mbsc-segmented-content {
+  border-color: #000000;
+  color: #000000;
+}
+.mbsc-wp-light .mbsc-segmented input:checked + .mbsc-segmented-content {
+  background: #000000;
+  color: #ffffff;
+}
+.mbsc-wp-light .mbsc-segmented input.mbsc-active + .mbsc-segmented-content {
+  background: #1ba0e3;
+}
+.mbsc-wp-light .mbsc-stepper .mbsc-active .mbsc-segmented-content {
+  background: #1ba0e3;
+}
+.mbsc-wp-light .mbsc-stepper input:disabled ~ .mbsc-segmented-item .mbsc-segmented-content,
+.mbsc-wp-light .mbsc-step-disabled .mbsc-segmented-content,
+.mbsc-wp-light .mbsc-segmented input:disabled + .mbsc-segmented-content {
+  color: #b3b3b3;
+  border-color: #b3b3b3;
+}
+.mbsc-wp-light .mbsc-stepper input:disabled {
+  color: #b3b3b3;
+  -webkit-text-fill-color: #b3b3b3;
+}
+.mbsc-wp-light .mbsc-segmented input:disabled:checked + .mbsc-segmented-content {
+  color: #ffffff;
+  background: #b3b3b3;
+}
+.mbsc-wp-light .mbsc-stepper input {
+  color: #000000;
+}
