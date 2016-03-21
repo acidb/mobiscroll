@@ -50,7 +50,10 @@
                 });
             }
         },
-        onThemeLoad: function (lang, s) {
+        onThemeLoad: function (ev) {
+            var lang = ev.lang,
+                s = ev.settings;
+
             if (lang && lang.dateOrder && !s.dateOrder) {
                 var ord = lang.dateOrder;
                 ord = ord.match(/mm/i) ? ord.replace(/mmMM|mm|MM/, 'mmMM') : ord.replace(/mM|m|M/, 'mM');
@@ -58,7 +61,7 @@
                 s.dateOrder = ord;
             }
         },
-        onInit: function (inst) {
+        onInit: function (ev, inst) {
             var buttons = inst.buttons;
 
             buttons.set.icon = 'checkmark';

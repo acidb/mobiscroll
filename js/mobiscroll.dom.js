@@ -285,16 +285,18 @@ var mobiscroll = mobiscroll || {};
             //Events
             on: function (eventName, targetSelector, listener, capture) {
                 var events = eventName.split(' '),
-                    that = this,
                     i, j;
 
                 function handleLiveEvent(e) {
-                    var target = e.target;
+                    var k,
+                        parents,
+                        target = e.target;
+
                     if ($(target).is(targetSelector)) {
                         listener.call(target, e);
                     } else {
-                        var parents = $(target).parents();
-                        for (var k = 0; k < parents.length; k++) {
+                        parents = $(target).parents();
+                        for (k = 0; k < parents.length; k++) {
                             if ($(parents[k]).is(targetSelector)) {
                                 listener.call(parents[k], e);
                             }
@@ -302,20 +304,21 @@ var mobiscroll = mobiscroll || {};
                     }
                 }
 
-                function handleNamespaces(name, listener, capture) {
+                function handleNamespaces(elm, name, listener, capture) {
                     var namespace = name.split('.');
 
-                    if (!that[i].DomNameSpaces) {
-                        that[i].DomNameSpaces = [];
+                    if (!elm.DomNameSpaces) {
+                        elm.DomNameSpaces = [];
                     }
 
-                    that[i].DomNameSpaces.push({
+                    elm.DomNameSpaces.push({
                         namespace: namespace[1],
                         event: namespace[0],
                         listener: listener,
                         capture: capture
                     });
-                    that[i].addEventListener(namespace[0], listener, capture);
+
+                    elm.addEventListener(namespace[0], listener, capture);
                 }
 
                 for (i = 0; i < this.length; i++) {
@@ -328,49 +331,53 @@ var mobiscroll = mobiscroll || {};
                         for (j = 0; j < events.length; j++) {
                             // check for namespaces
                             if (events[j].indexOf('.') != -1) {
-                                handleNamespaces(events[j], listener, capture);
+                                handleNamespaces(this[i], events[j], listener, capture);
                             } else {
                                 this[i].addEventListener(events[j], listener, capture);
                             }
                         }
                     } else {
-                        //Live events
+                        // Live events
                         for (j = 0; j < events.length; j++) {
                             if (!this[i].DomLiveListeners) {
                                 this[i].DomLiveListeners = [];
                             }
+
                             this[i].DomLiveListeners.push({
                                 listener: listener,
                                 liveListener: handleLiveEvent
                             });
 
                             if (events[j].indexOf('.') != -1) {
-                                handleNamespaces(events[j], handleLiveEvent, capture);
+                                handleNamespaces(this[i], events[j], handleLiveEvent, capture);
                             } else {
                                 this[i].addEventListener(events[j], handleLiveEvent, capture);
                             }
                         }
                     }
                 }
-
                 return this;
             },
-
-
             off: function (eventName, targetSelector, listener, capture) {
                 var events,
-                    that = this,
-                    nameSpace;
+                    i, j, k,
+                    that = this;
 
-                function removeEvents(evName) {
+                function removeEvents(event) {
+                    var i, j,
+                        item,
+                        parts = event.split('.'),
+                        name = parts[0],
+                        ns = parts[1];
+
                     for (i = 0; i < that.length; ++i) {
                         if (that[i].DomNameSpaces) {
                             for (j = 0; j < that[i].DomNameSpaces.length; ++j) {
-                                nameSpace = that[i].DomNameSpaces[j];
+                                item = that[i].DomNameSpaces[j];
 
-                                if (nameSpace.namespace == evName) {
-                                    that[i].removeEventListener(nameSpace.event, nameSpace.listener, nameSpace.capture);
-                                    nameSpace.removed = true;
+                                if (item.namespace == ns && (item.event == name || !name)) {
+                                    that[i].removeEventListener(item.event, item.listener, item.capture);
+                                    item.removed = true;
                                 }
                             }
                             // remove the events from the DomNameSpaces array
@@ -385,8 +392,8 @@ var mobiscroll = mobiscroll || {};
 
                 events = eventName.split(' ');
 
-                for (var i = 0; i < events.length; i++) {
-                    for (var j = 0; j < this.length; j++) {
+                for (i = 0; i < events.length; i++) {
+                    for (j = 0; j < this.length; j++) {
                         if (isFunction(targetSelector) || targetSelector === false) {
                             // Usual events
                             if (isFunction(targetSelector)) {
@@ -402,14 +409,14 @@ var mobiscroll = mobiscroll || {};
                         } else {
                             // Live event
                             if (this[j].DomLiveListeners) {
-                                for (var k = 0; k < this[j].DomLiveListeners.length; k++) {
+                                for (k = 0; k < this[j].DomLiveListeners.length; k++) {
                                     if (this[j].DomLiveListeners[k].listener === listener) {
                                         this[j].removeEventListener(events[i], this[j].DomLiveListeners[k].liveListener, capture);
                                     }
                                 }
                             }
                             if (this[j].DomNameSpaces && this[j].DomNameSpaces.length && events[i]) {
-                                removeEvents(events[i].substr(1));
+                                removeEvents(events[i]);
                             }
                         }
                     }

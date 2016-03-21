@@ -315,7 +315,7 @@ var mobiscroll = mobiscroll || {};
             if (that._hasTheme) {
                 that.trigger('onThemeLoad', {
                     lang: lang,
-                    setting: settings
+                    settings: settings
                 });
             }
 

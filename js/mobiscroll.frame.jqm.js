@@ -20,8 +20,9 @@
         selectedLineHeight: true,
         selectedLineBorder: 1,
         checkIcon: 'none ui-btn-icon-left ui-icon-check',
-        onThemeLoad: function (lang, s) {
-            var cal = s.jqmBody || 'c',
+        onThemeLoad: function (ev) {
+            var s = ev.settings,
+                cal = s.jqmBody || 'c',
                 txt = s.jqmEventText || 'b',
                 bubble = s.jqmEventBubble || 'a';
 

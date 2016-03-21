@@ -8,7 +8,7 @@
         isString = util.isString,
         isOldAndroid = util.isOldAndroid,
         isIOS8 = /(iphone|ipod|ipad).* os 8_/i.test(navigator.userAgent),
-        animEnd = 'webkitAnimationEnd animationend',
+        animEnd = 'webkitAnimationEnd.mbsc animationend.mbsc',
         empty = function () {},
         prevdef = function (ev) {
             ev.preventDefault();
