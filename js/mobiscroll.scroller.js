@@ -381,7 +381,7 @@
                 that._tempWheelArray = tempWheelArray = ret.valid.slice(0);
             }
 
-            trigger('onValidated', []);
+            trigger('onValidated');
 
             that._tempValue = s.formatValue(tempWheelArray, that);
 
@@ -397,7 +397,9 @@
                 }
 
                 if (manual) {
-                    trigger('onChange', [that._tempValue]);
+                    trigger('onChange', {
+                        valueText: that._tempValue
+                    });
                 }
 
                 $.each(wheels, function (i, wheel) {
@@ -469,7 +471,10 @@
             }
 
             if (fill) {
-                trigger('onValueFill', [that._hasValue ? that._tempValue : '', change]);
+                trigger('onValueFill', {
+                    valueText: that._hasValue ? that._tempValue : '',
+                    change: change
+                });
 
                 if (that._isInput) {
                     $elm.val(that._hasValue ? that._tempValue : '');
@@ -666,9 +671,9 @@
                     onGestureStart: function () {
                         $wh.addClass('mbsc-sc-whl-a mbsc-sc-whl-anim');
 
-                        trigger('onWheelGestureStart', [{
+                        trigger('onWheelGestureStart', {
                             index: i
-                        }]);
+                        });
                     },
                     onGestureEnd: function (ev) {
                         var dir = ev.direction == 90 ? 1 : 2,
@@ -685,9 +690,9 @@
                     onAnimationEnd: function () {
                         $wh.removeClass('mbsc-sc-whl-a mbsc-sc-whl-anim');
 
-                        trigger('onWheelAnimationEnd', [{
+                        trigger('onWheelAnimationEnd', {
                             index: i
-                        }]);
+                        });
                     },
                     onMove: function (ev) {
                         //if (s.scroll3d && easing !== false) {
@@ -696,8 +701,9 @@
                         //}
                         infinite(wheel, i, ev.posY);
                     },
-                    onBtnTap: function ($item) {
-                        var idx = +$item.attr('data-index');
+                    onBtnTap: function (ev) {
+                        var $item = $(ev.target),
+                            idx = +$item.attr('data-index');
 
                         if (!wheel.multiple && (s.confirmOnTap === true || s.confirmOnTap[i]) && $item.hasClass('mbsc-sc-itm-sel')) {
                             that.select();
@@ -710,7 +716,9 @@
                             idx = wheel._index;
                         }
 
-                        if (trigger('onValueTap', [$item]) !== false) {
+                        if (trigger('onValueTap', {
+                                target: $item[0]
+                            }) !== false) {
                             setWheelValue(wheel, i, idx, 200);
                         }
                     }
@@ -752,7 +760,7 @@
 
             setValue();
 
-            trigger('onValueRead', []);
+            trigger('onValueRead');
         };
 
         that._processSettings = function () {

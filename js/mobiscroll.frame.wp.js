@@ -19,10 +19,11 @@
             btnCalNextClass: 'mbsc-ic mbsc-ic-arrow-right2',
             btnPlusClass: 'mbsc-ic mbsc-ic-plus',
             btnMinusClass: 'mbsc-ic mbsc-ic-minus',
-            onMarkupInserted: function (elm, inst) {
+            onMarkupInserted: function (ev, inst) {
                 var click,
                     touch,
                     active,
+                    elm = $(ev.target),
                     s = inst.settings;
 
                 function isReadOnly(i) {

@@ -65,7 +65,7 @@
 
         function onStart(ev) {
 
-            trigger('onStart', [{}]);
+            trigger('onStart');
 
             // Better performance if there are tap events on document
             if (s.stopProp) {
@@ -150,7 +150,7 @@
                 if (that.scrolled || (!nativeScroll && Math.abs(diff) > 5)) {
 
                     if (!scrolled) {
-                        trigger('onGestureStart', [eventObj]);
+                        trigger('onGestureStart', eventObj);
                     }
 
                     that.scrolled = scrolled = true;
@@ -232,7 +232,7 @@
                         //    util.preventClick();
                         //}
 
-                        trigger('onBtnTap', [$btn]);
+                        trigger('onBtnTap', { target: $btn[0] });
                     }
                 }
 
@@ -252,7 +252,7 @@
 
             diff = vertical ? ev.deltaY || ev.wheelDelta || ev.detail : ev.deltaX;
 
-            trigger('onStart', [{}]);
+            trigger('onStart');
 
             if (s.stopProp) {
                 ev.stopPropagation();
@@ -274,7 +274,7 @@
                         originY: vertical ? startPos : 0,
                         direction: diff > 0 ? (vertical ? 270 : 360) : (vertical ? 90 : 180)
                     };
-                    trigger('onGestureStart', [eventObj]);
+                    trigger('onGestureStart', eventObj);
                 }
 
                 if (!rafRunning) {
@@ -340,7 +340,7 @@
             eventObj.duration = time;
             eventObj.transitionTiming = easing;
 
-            trigger('onGestureEnd', [eventObj]);
+            trigger('onGestureEnd', eventObj);
 
             // Scroll to the calculated position
             scroll(newPos, time);
@@ -358,12 +358,12 @@
                     eventObj.posY = vertical ? pos : 0;
 
                     if (changed) {
-                        trigger('onMove', [eventObj]);
+                        trigger('onMove', eventObj);
                     }
 
                     if (anim) {
                         //that.scrolled = false;
-                        trigger('onAnimationEnd', [eventObj]);
+                        trigger('onAnimationEnd', eventObj);
                     }
 
                     if (callback) {
@@ -387,7 +387,7 @@
                 eventObj.duration = time;
                 eventObj.transitionTiming = easing;
 
-                trigger('onAnimationStart', [eventObj]);
+                trigger('onAnimationStart', eventObj);
             }
 
             style[pr + 'Transition'] = time ? pref + 'transform ' + Math.round(time) + 'ms ' + easing : '';
@@ -403,7 +403,7 @@
                     var p = +getCurrentPosition(target, vertical) || 0;
                     eventObj.posX = vertical ? 0 : p;
                     eventObj.posY = vertical ? p : 0;
-                    trigger('onMove', [eventObj]);
+                    trigger('onMove', eventObj);
                 }, 100);
 
                 clearTimeout(transTimer);

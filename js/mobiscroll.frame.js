@@ -124,7 +124,7 @@
 
             that._isVisible = false;
 
-            event('onHide', []);
+            event('onHide');
         }
 
         function onPosition(ev) {
@@ -167,11 +167,15 @@
 
         function set() {
             that._fillValue();
-            event('onSelect', [that._value]);
+            event('onSelect', {
+                valueText: that._value
+            });
         }
 
         function cancel() {
-            event('onCancel', [that._value]);
+            event('onCancel', {
+                valueText: that._value
+            });
         }
 
         function clear() {
@@ -222,7 +226,11 @@
                 $popup.width(nw);
             }
 
-            if (event('onPosition', [$markup, nw, nh]) === false || !isModal) {
+            if (event('onPosition', {
+                    target: $markup[0],
+                    windowWidth: nw,
+                    windowHeight: nh
+                }) === false || !isModal) {
                 return;
             }
 
@@ -408,7 +416,9 @@
          */
         that.clear = function () {
             that._clearValue();
-            event('onClear', [$markup]);
+            event('onClear', {
+                target: $markup[0]
+            });
             if (isModal && that._isVisible && !that.live) {
                 that.hide(false, 'clear', false, clear);
             } else {
@@ -452,7 +462,7 @@
             // Parse value from input
             that._readValue();
 
-            if (event('onBeforeShow', []) === false) {
+            if (event('onBeforeShow') === false) {
                 return false;
             }
 
@@ -525,7 +535,9 @@
 
             that._markupReady($markup);
 
-            event('onMarkupReady', [$markup]);
+            event('onMarkupReady', {
+                target: $markup[0]
+            });
 
             // Show
             if (isModal) {
@@ -578,7 +590,9 @@
 
             that._markupInserted($markup);
 
-            event('onMarkupInserted', [$markup]);
+            event('onMarkupInserted', {
+                target: $markup[0]
+            });
 
             // Set position
             that.position();
@@ -653,7 +667,10 @@
             that._attachEvents($markup);
             //}, 300);
 
-            event('onShow', [$markup, that._tempValue]);
+            event('onShow', {
+                target: $markup[0],
+                valueText: that._tempValue
+            });
         };
 
         /**
@@ -661,7 +678,10 @@
          */
         that.hide = function (prevAnim, btn, force, callback) {
             // If onClose handler returns false, prevent hide
-            if (!that._isVisible || (!force && !that._isValid && btn == 'set') || (!force && event('onBeforeClose', [that._tempValue, btn]) === false)) {
+            if (!that._isVisible || (!force && !that._isValid && btn == 'set') || (!force && event('onBeforeClose', {
+                    valueText: that._tempValue,
+                    button: btn
+                }) === false)) {
                 return false;
             }
 
@@ -700,7 +720,9 @@
                 callback();
             }
 
-            event('onClosed', [that._value]);
+            event('onClosed', {
+                valueText: that._value
+            });
 
         };
 
@@ -821,7 +843,7 @@
                 that.hide(true, false, true);
             }
 
-            event('onInit', []);
+            event('onInit');
 
             if (isModal) {
                 that._readValue();
