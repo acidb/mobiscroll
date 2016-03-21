@@ -325,7 +325,7 @@
             inst._tempWheelArray = groupWheel ? [group, option] : [option];
 
             if (inst._isVisible) {
-                inst.changeWheel(groupWheel ? [groupWheelIdx, optionWheelIdx] : [optionWheelIdx]);
+                inst.changeWheel(groupWheel ? [groupWheelIdx, optionWheelIdx] : [optionWheelIdx], 0, true);
             }
         };
 

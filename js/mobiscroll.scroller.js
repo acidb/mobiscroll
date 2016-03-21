@@ -521,7 +521,7 @@
             return temp ? that._tempWheelArray : that._wheelArray;
         };
 
-        that.changeWheel = function (whls, time) {
+        that.changeWheel = function (whls, time, manual) {
             var w;
 
             $.each(whls, function (i, wheel) {
@@ -544,7 +544,7 @@
                 that.position();
             }
 
-            scrollToPos(time);
+            scrollToPos(time, undefined, undefined, manual);
         };
 
         /**

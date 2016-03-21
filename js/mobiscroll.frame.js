@@ -4,7 +4,6 @@
         ms = mobiscroll,
         $ = ms.$,
         util = ms.util,
-        pr = util.jsPrefix,
         constrain = util.constrain,
         isString = util.isString,
         isOldAndroid = util.isOldAndroid,
