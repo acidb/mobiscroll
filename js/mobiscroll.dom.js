@@ -497,14 +497,17 @@ var mobiscroll = mobiscroll || {};
             },
             innerWidth: function () {
                 if (this.length > 0) {
+                    var elm = this;
                     if (this[0].innerWidth) {
                         return this[0].innerWidth;
                     } else {
                         var size = this[0].offsetWidth,
                             sides = ['left', 'right'];
+                            
                         sides.forEach(function (side) {
-                            size -= parseInt(this.css(camelize('border-' + side + '-width')) || 0, 10);
+                            size -= parseInt(elm.css(camelize('border-' + side + '-width')) || 0, 10);
                         });
+                        
                         return size;
                     }
                 }
