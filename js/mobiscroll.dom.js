@@ -447,7 +447,7 @@ var mobiscroll = mobiscroll || {};
             },
             // Sizing/Styles
             width: function (dim) {
-                if (dim || dim === '') {
+                if (dim !== undefined) {
                     return this.css('width', dim);
                 }
 
@@ -460,7 +460,7 @@ var mobiscroll = mobiscroll || {};
                 }
             },
             height: function (dim) {
-                if (dim || dim === '') {
+                if (dim !== undefined) {
                     return this.css('height', dim);
                 }
 
@@ -496,22 +496,24 @@ var mobiscroll = mobiscroll || {};
                 }
             },
             innerWidth: function () {
+                var elm = this;
                 if (this.length > 0) {
                     if (this[0].innerWidth) {
                         return this[0].innerWidth;
                     } else {
                         var size = this[0].offsetWidth,
                             sides = ['left', 'right'];
+
                         sides.forEach(function (side) {
-                            size -= parseInt(this.css(camelize('border-' + side + '-width')) || 0, 10);
+                            size -= parseInt(elm.css(camelize('border-' + side + '-width')) || 0, 10);
                         });
                         return size;
                     }
                 }
             },
             innerHeight: function () {
+                var elm = this;
                 if (this.length > 0) {
-                    var elm = this;
                     if (this[0].innerHeight) {
                         return this[0].innerHeight;
                     } else {
@@ -560,16 +562,22 @@ var mobiscroll = mobiscroll || {};
                 return this;
             },
             clone: function () {
-                return $(this[0].cloneNode(true));
+                return this.map(function () {
+                    return this.cloneNode(true);
+                });
             },
             styles: function () {
                 return this[0] ? window.getComputedStyle(this[0], null) : undefined;
             },
             css: function (property, value) {
-                if (arguments.length < 2) {
-                    var computedStyle,
-                        element = this[0];
+                var computedStyle,
+                    i,
+                    key,
+                    props,
+                    element = this[0],
+                    css = '';
 
+                if (arguments.length < 2) {
                     if (!element) {
                         return;
                     }
@@ -577,7 +585,7 @@ var mobiscroll = mobiscroll || {};
                     if (typeof property === 'string') {
                         return element.style[property] || computedStyle.getPropertyValue(property);
                     } else if ($.isArray(property)) {
-                        var props = {};
+                        props = {};
                         $.each(property, function (_, prop) {
                             props[prop] = (element.style[prop] || computedStyle.getPropertyValue(prop));
                         });
@@ -585,7 +593,6 @@ var mobiscroll = mobiscroll || {};
                     }
                 }
 
-                var css = '';
                 if (typeof property === 'string') {
                     if (!value && value !== 0) {
                         this.each(function () {
@@ -595,11 +602,11 @@ var mobiscroll = mobiscroll || {};
                         css = dasherize(property) + ":" + maybeAddPx(property, value);
                     }
                 } else {
-                    for (var key in property) {
+                    for (key in property) {
                         if (!property[key] && property[key] !== 0) {
-                            this.each(function () {
-                                this.style.removeProperty(dasherize(key));
-                            });
+                            for (i = 0; i < this.length; i++) {
+                                this[i].style.removeProperty(dasherize(key));
+                            }
                         } else {
                             css += dasherize(key) + ':' + maybeAddPx(key, property[key]) + ';';
                         }
@@ -610,7 +617,6 @@ var mobiscroll = mobiscroll || {};
                     this.style.cssText += ';' + css;
                 });
             },
-            //Dom manipulation
             each: function (callback) {
                 for (var i = 0; i < this.length; i++) {
                     if (callback.apply(this[i], [i, this[i]]) === false) {
@@ -1035,7 +1041,6 @@ var mobiscroll = mobiscroll || {};
     };
 
     $.extend = function (target) {
-        arguments[0] = arguments[0] || {};
         var deep,
             args = slice.call(arguments, 1);
 
@@ -1043,6 +1048,9 @@ var mobiscroll = mobiscroll || {};
             deep = target;
             target = args.shift();
         }
+
+        target = target || {};
+
         args.forEach(function (arg) {
             extend(target, arg, deep);
         });
