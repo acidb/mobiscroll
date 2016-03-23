@@ -747,7 +747,7 @@
                                 max = maxs[i],
                                 maxdays = 31,
                                 val = get(temp, i),
-                                t = $('.dw-ul', dw).eq(o[i]);
+                                t = $('.dwwl' + o[i] + ' .dw-ul', dw);
 
                             if (i == 'd') {
                                 maxdays = s.getMaxDayOfMonth(y, m);
@@ -812,7 +812,7 @@
                         $.each(['a', 'h', 'i', 's'], function (i, v) {
                             var val = get(temp, v),
                                 d = get(temp, 'd'),
-                                t = $('.dw-ul', dw).eq(o[v]);
+                                t = $('.dwwl' + o[v] + ' .dw-ul', dw);
 
                             if (o[v] !== undefined) {
                                 validateTimes(invalid, i, v, temp, y, m, d, t, 0);
