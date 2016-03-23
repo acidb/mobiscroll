@@ -233,6 +233,10 @@ var mobiscroll = mobiscroll || {};
                 });
 
                 $(selector).each(function () {
+                    if (instances[this.id]) {
+                        instances[this.id].destroy();
+                    }
+                    
                     inst = new ms.classes[c || 'Scroller'](this, options);
                     ret[this.id] = inst;
                 });
