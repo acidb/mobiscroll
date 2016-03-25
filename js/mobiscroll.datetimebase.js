@@ -21,15 +21,11 @@
             secText: 'Seconds',
             nowText: 'Now'
         },
-        /**
-         * @class Mobiscroll.datetime
-         * @extends Mobiscroll
-         * Mobiscroll Datetime component
-         */
         preset = function (inst) {
             var that = $(this),
                 html5def = {},
                 format;
+
             // Force format for html5 date inputs (experimental)
             if (that.is('input')) {
                 switch (that.attr('type')) {
@@ -64,14 +60,12 @@
             // Set year-month-day order
             var i,
                 k,
-                //keys,
                 values,
                 wg,
-                //start,
-                //end,
                 hasTime,
                 mins,
                 maxs,
+                monthStr,
                 orig = $.extend({}, inst.settings),
                 s = $.extend(inst.settings, ms.util.datetime.defaults, defaults, html5def, orig),
                 offset = 0,
@@ -127,9 +121,11 @@
                         });
                     }
                 });
+
                 ord.sort(function (a, b) {
                     return a.o > b.o ? 1 : -1;
                 });
+
                 $.each(ord, function (i, v) {
                     o[v.v] = i;
                 });
@@ -138,51 +134,30 @@
                 for (k = 0; k < 3; k++) {
                     if (k == o.y) {
                         offset++;
-                        //values = [];
-                        //keys = [];
-                        //start = s.getYear(mind);
-                        //end = s.getYear(maxd);
-                        //for (i = start; i <= end; i++) {
-                        //    keys.push(i);
-                        //    values.push((dord.match(/yy/i) ? i : (i + '').substr(2, 2)) + (s.yearSuffix || ''));
-                        //}
-                        //addWheel(wg, keys, values, s.yearText);
                         addWheel(
                             'mbsc-dt-whl-y',
                             wg,
                             s.yearText,
-                            function (i) {
-                                return {
-                                    value: i,
-                                    text: dord.match(/yy/i) ? i : (i + '').substr(2, 2) + (s.yearSuffix || '')
-                                };
-                            },
-                            function (v) {
-                                return v;
-                            },
+                            getYearValue,
+                            getYearIndex,
                             mind.getFullYear(),
                             maxd.getFullYear()
                         );
                     } else if (k == o.m) {
                         offset++;
                         values = [];
-                        //keys = [];
                         for (i = 0; i < 12; i++) {
-                            var str = dord.replace(/[dy]/gi, '').replace(/mm/, (i < 9 ? '0' + (i + 1) : i + 1) + (s.monthSuffix || '')).replace(/m/, i + 1 + (s.monthSuffix || ''));
-                            //keys.push(i);
+                            monthStr = dord.replace(/[dy]/gi, '').replace(/mm/, (i < 9 ? '0' + (i + 1) : i + 1) + (s.monthSuffix || '')).replace(/m/, i + 1 + (s.monthSuffix || ''));
                             values.push({
                                 value: i,
-                                text: str.match(/MM/) ? str.replace(/MM/, '<span class="mbsc-dt-month">' + s.monthNames[i] + '</span>') : str.replace(/M/, '<span class="mbsc-dt-month">' + s.monthNamesShort[i] + '</span>')
+                                text: monthStr.match(/MM/) ? monthStr.replace(/MM/, '<span class="mbsc-dt-month">' + s.monthNames[i] + '</span>') : monthStr.replace(/M/, '<span class="mbsc-dt-month">' + s.monthNamesShort[i] + '</span>')
                             });
-                            //values.push(str.match(/MM/) ? str.replace(/MM/, s.monthNames[i]) : str.replace(/M/, s.monthNamesShort[i]));
                         }
                         addWheel('mbsc-dt-whl-m', wg, s.monthText, values);
                     } else if (k == o.d) {
                         offset++;
                         values = [];
-                        //keys = [];
                         for (i = 1; i < 32; i++) {
-                            //keys.push(i);
                             values.push({
                                 value: i,
                                 text: (dord.match(/dd/i) && i < 10 ? '0' + i : i) + (s.daySuffix || '')
@@ -208,9 +183,11 @@
                         });
                     }
                 });
+
                 ord.sort(function (a, b) {
                     return a.o > b.o ? 1 : -1;
                 });
+
                 $.each(ord, function (i, v) {
                     o[v.v] = offset + i;
                 });
@@ -220,9 +197,7 @@
                     if (k == o.h) {
                         offset++;
                         values = [];
-                        //keys = [];
                         for (i = minH; i < (hampm ? 12 : 24); i += stepH) {
-                            //keys.push(i);
                             values.push({
                                 value: i,
                                 text: hampm && i === 0 ? 12 : tord.match(/hh/i) && i < 10 ? '0' + i : i
@@ -232,9 +207,7 @@
                     } else if (k == o.i) {
                         offset++;
                         values = [];
-                        //keys = [];
                         for (i = minM; i < 60; i += stepM) {
-                            //keys.push(i);
                             values.push({
                                 value: i,
                                 text: tord.match(/ii/) && i < 10 ? '0' + i : i
@@ -244,9 +217,7 @@
                     } else if (k == o.s) {
                         offset++;
                         values = [];
-                        //keys = [];
                         for (i = minS; i < 60; i += stepS) {
-                            //keys.push(i);
                             values.push({
                                 value: i,
                                 text: tord.match(/ss/) && i < 10 ? '0' + i : i
@@ -287,6 +258,17 @@
                     return def;
                 }
                 return f[i](defd);
+            }
+
+            function getYearValue(i) {
+                return {
+                    value: i,
+                    text: dord.match(/yy/i) ? i : (i + '').substr(2, 2) + (s.yearSuffix || '')
+                };
+            }
+
+            function getYearIndex(v) {
+                return v;
             }
 
             function addWheel(cssClass, wg, lbl, v, getIndex, min, max) {
@@ -764,12 +746,19 @@
                     }
                     return getArray(val ? datetime.parseDate(format, val, s) : (s.defaultValue || new Date()), !!val && !!val.getTime);
                 },
-                validate: function (arrayVal, index, dir) {
-                    var validated = getClosestValidDate(getDate(arrayVal), dir),
+                validate: function (values, index, dir) {
+                    var i,
+                        j,
+                        dayStr,
+                        weekDay,
+                        dayWheel = inst.settings.wheels[0][o.d],
+                        validated = getClosestValidDate(getDate(values), dir),
                         temp = getArray(validated),
                         disabled = [],
+                        wheels = {},
                         y = get(temp, 'y'),
                         m = get(temp, 'm'),
+                        maxdays = s.getMaxDayOfMonth(y, m),
                         minprop = true,
                         maxprop = true;
 
@@ -777,25 +766,10 @@
                         if (o[i] !== undefined) {
                             var min = mins[i],
                                 max = maxs[i],
-                                maxdays = 31,
                                 val = get(temp, i);
 
                             disabled[o[i]] = [];
 
-                            if (i == 'd') {
-                                maxdays = s.getMaxDayOfMonth(y, m);
-                                max = maxdays;
-                                //if (regen) {
-                                //    $('.dw-li', t).each(function () {
-                                //        var that = $(this),
-                                //            d = that.attr('data-val'),
-                                //            w = s.getDate(y, m, d).getDay(),
-                                //            str = dord.replace(/[my]/gi, '').replace(/dd/, (d < 10 ? '0' + d : d) + (s.daySuffix || '')).replace(/d/, d + (s.daySuffix || ''));
-                                //        $('.mbsc-i', that).html(str.match(/DD/) ? str.replace(/DD/, '<span class="dw-day">' + s.dayNames[w] + '</span>') : str.replace(/D/, '<span class="dw-day">' + s.dayNamesShort[w] + '</span>'));
-                                //    });
-                                //}
-                                // TODO: generate names of days
-                            }
                             if (minprop && mind) {
                                 min = f[i](mind);
                             }
@@ -803,11 +777,7 @@
                                 max = f[i](maxd);
                             }
                             if (i != 'y') {
-                                //if (i == 'd') { // Hide days not in month
-                                //    $('.dw-li', t).removeClass('dw-h').slice(maxdays).addClass('dw-h');
-                                //}
-                                // TODO: days not in months should be hidden, not disabled
-                                for (var j = mins[i]; j <= maxs[i]; j++) {
+                                for (j = mins[i]; j <= maxs[i]; j++) {
                                     if (j < min || j > max) {
                                         disabled[o[i]].push(j);
                                     }
@@ -867,6 +837,24 @@
                                 validValues[i] = inst.getValidValue(o[v], val, dir, idx);
                             }
                         });
+                    }
+
+                    // Regenerate day wheel if number of days in month changes
+                    // or if day names needs to be regenerated
+                    if (dayWheel && (dayWheel._length !== maxdays || (regen && index === undefined || index === o.y || index === o.m))) {
+                        wheels[o.d] = dayWheel;
+                        dayWheel.values = [];
+                        for (i = 1; i <= maxdays; i++) {
+                            weekDay = s.getDate(y, m, i).getDay();
+                            dayStr = dord.replace(/[my]/gi, '').replace(/dd/, (i < 10 ? '0' + i : i) + (s.daySuffix || '')).replace(/d/, i + (s.daySuffix || ''));
+                            dayWheel.values.push({
+                                value: i,
+                                text: dayStr.match(/DD/) ? dayStr.replace(/DD/, '<span class="mbsc-dt-day">' + s.dayNames[weekDay] + '</span>') : dayStr.replace(/D/, '<span class="mbsc-dt-day">' + s.dayNamesShort[weekDay] + '</span>')
+                            });
+                        }
+                        // Need to update day value, if out of month
+                        inst._tempWheelArray[o.d] = temp[o.d];
+                        inst.changeWheel(wheels);
                     }
 
                     return {

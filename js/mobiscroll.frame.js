@@ -696,6 +696,7 @@
 
                 if (isModal && doAnim && !prevAnim && !$markup.hasClass('mbsc-anim-trans')) { // If mbsc-anim-trans class was not removed, means that there was no animation
                     $markup.addClass('mbsc-anim-out mbsc-anim-trans').on(animEnd, function () {
+                        $markup.off(animEnd);
                         onHide(prevAnim);
                     }).find('.mbsc-fr-popup').addClass('mbsc-anim-' + doAnim);
                 } else {
@@ -753,6 +754,8 @@
         that._detachEvents = empty;
 
         that._readValue = empty;
+
+        that._clearValue = empty;
 
         that._fillValue = empty;
 

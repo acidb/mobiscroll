@@ -45,6 +45,7 @@
             stepBtnY,
             tempWheelArray,
             itemHeight,
+            isValidating,
             s,
             trigger,
             lines,
@@ -375,7 +376,11 @@
 
         function scrollToPos(time, index, dir, manual) {
             var idx,
-                ret = s.validate.call(el, tempWheelArray.slice(0), index, dir, that) || {};
+                ret;
+
+            isValidating = true;
+            ret = s.validate.call(el, tempWheelArray.slice(0), index, dir, that) || {};
+            isValidating = false;
 
             if (ret.valid) {
                 that._tempWheelArray = tempWheelArray = ret.valid.slice(0);
@@ -436,7 +441,7 @@
                     idx = getIndex(wheel, tempWheelArray[i]);
 
                     // Scroll to valid value
-                    wheel._scroller.scroll(-idx * itemHeight - wheel._batch, time);
+                    wheel._scroller.scroll(-idx * itemHeight - wheel._batch, (i === index || i === undefined) ? time : 200);
                 });
             }
         }
@@ -534,9 +539,9 @@
 
                 extend(w, wheel);
 
-                if (that._isVisible) {
-                    initWheel(w, i);
+                initWheel(w, i);
 
+                if (that._isVisible) {
                     w._$markup
                         .html(generateItems(w, i, w._first, w._last))
                         .css('margin-top', w._margin + 'px');
@@ -549,7 +554,9 @@
                 that.position();
             }
 
-            scrollToPos(time, undefined, undefined, manual);
+            if (!isValidating) {
+                scrollToPos(time, undefined, undefined, manual);
+            }
         };
 
         /**
