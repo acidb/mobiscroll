@@ -449,7 +449,7 @@
                     diff = idx - wheel._index + wheel._batch;
 
                     if (Math.abs(diff) > 2 * batchSize + 1) {
-                        offset = diff > 0 ? diff - 2 * batchSize - 1 : diff + 2 * batchSize + 1;
+                        offset = diff + (2 * batchSize + 1) * (diff > 0 ? -1 : 1);
                         wheel._offset += offset;
                         wheel._margin -= offset * itemHeight;
                         wheel._refresh();
@@ -623,7 +623,7 @@
                             ' style="height:' + itemHeight + 'px;margin-top:-' + (itemHeight / 2 + 1) + 'px;"') +
                         //(s.scroll3d ? pref + 'transform: translateZ(' + (itemHeight * s.rows / 2) + 'px);' : '') +
                         '>' +
-                        '<div class="mbsc-sc-whl-sc" style="margin-top:' + w._margin + 'px;">';
+                        '<div class="mbsc-sc-whl-sc">';
 
                     // Create wheel values
                     html += generateItems(w, l, w._first, w._last) +
@@ -679,7 +679,7 @@
                 wheel._scroller = new ms.classes.ScrollView(this, {
                     mousewheel: s.mousewheel,
                     moveElement: wheel._$markup,
-                    //initialPos: -wheel._current * itemHeight,
+                    initialPos: -(wheel._index - wheel._offset) * itemHeight,
                     contSize: 0,
                     snap: itemHeight,
                     minScroll: -(wheel.max - wheel._offset - (wheel.multiple ? (s.rows - 1) : 0)) * itemHeight,

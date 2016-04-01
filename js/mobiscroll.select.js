@@ -447,7 +447,7 @@
                         if (groupSep) {
                             changeWheel();
                         } else {
-                            inst.setArrayVal(values, false, false, true);
+                            inst.setArrayVal(values, false, false, true, 200);
                         }
                     }
                 } else if (ev.index == optionWheelIdx && values[optionWheelIdx] != option && groupWheel) {
