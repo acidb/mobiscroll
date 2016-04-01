@@ -184,7 +184,7 @@
 
         function step(index, direction) {
             var wheel = wheels[index];
-            setWheelValue(wheel, index, wheel._index + direction, 200, direction == 1 ? 1 : 2);
+            setWheelValue(wheel, index, wheel._current + direction, 200, direction == 1 ? 1 : 2);
         }
 
         function isReadOnly(i) {
@@ -214,17 +214,19 @@
             w._index = getIndex(w, tempWheelArray[l]);
             w._disabled = {};
             w._batch = 0;
-            w._offset = w._index;
-            w._first = w._index - batchSize; //Math.max(w.min, w._index - batchSize);
+            w._current = w._index;
+            w._first = w._index - batchSize; //Math.max(w.min, w._current - batchSize);
             w._last = w._index + batchSize; //Math.min(w.max, w._first + 2 * batchSize);
-            w._margin = w._first * itemHeight;
-            w._nr = l;
+            w._margin = 0; //w._first * itemHeight;
+            w._offset = w._first;
+            //w._offset = 0;
+            //w._nr = l;
 
             w._refresh = function () {
                 extend(w._scroller.settings, {
-                    initialPos: -w._index * itemHeight,
-                    minScroll: -(w.max - (w.multiple ? (s.rows - 1) : 0)) * itemHeight,
-                    maxScroll: -w.min * itemHeight
+                    //initialPos: -w._current * itemHeight,
+                    minScroll: -(w.max - w._offset - (w.multiple ? (s.rows - 1) : 0)) * itemHeight,
+                    maxScroll: -(w.min - w._offset) * itemHeight
                 });
 
                 w._scroller.refresh();
@@ -242,7 +244,7 @@
                 lbl,
                 selected,
                 html = '',
-                checked = that._tempSelected[wheel._nr],
+                checked = that._tempSelected[index],
                 disabled = wheel._disabled || {};
             //values = wheel.values
             //labels = wheel.labels || [],
@@ -300,8 +302,8 @@
         }
 
         function infinite(wheel, i, pos) {
-            var index = Math.round(-pos / itemHeight),
-                diff = index - wheel._index,
+            var index = Math.round(-pos / itemHeight) + wheel._offset,
+                diff = index - wheel._current,
                 first = wheel._first,
                 last = wheel._last;
 
@@ -309,21 +311,21 @@
                 wheel._first += diff;
                 wheel._last += diff;
 
-                wheel._index = index;
+                wheel._current = index;
 
                 // Generate items
                 setTimeout(function () {
                     if (diff > 0) {
-                        wheel._$markup.append(generateItems(wheel, i, last + 1, last + diff));
-                        $('.mbsc-sc-itm', wheel._$markup).slice(0, diff).remove();
+                        wheel._$markup.append(generateItems(wheel, i, Math.max(last + 1, first + diff), last + diff));
+                        $('.mbsc-sc-itm', wheel._$markup).slice(0, Math.min(diff, last - first + 1)).remove();
 
                         // 3D
                         //if (s.scroll3d) {
                         //    generate3dItems(wheel, last - batchSize + 8 + 1, last - batchSize + 8 + diff);
                         //}
                     } else if (diff < 0) {
-                        wheel._$markup.prepend(generateItems(wheel, i, first + diff, first - 1));
-                        $('.mbsc-sc-itm', wheel._$markup).slice(diff).remove();
+                        wheel._$markup.prepend(generateItems(wheel, i, first + diff, Math.min(first - 1, last + diff)));
+                        $('.mbsc-sc-itm', wheel._$markup).slice(Math.max(diff, first - last - 1)).remove();
 
                         // 3D
                         //if (s.scroll3d) {
@@ -375,7 +377,9 @@
         }
 
         function scrollToPos(time, index, dir, manual) {
-            var idx,
+            var diff,
+                idx,
+                offset,
                 ret;
 
             isValidating = true;
@@ -440,8 +444,19 @@
                     // Get index of valid value
                     idx = getIndex(wheel, tempWheelArray[i]);
 
+                    diff = idx - wheel._index + wheel._batch;
+
+                    if (Math.abs(diff) > 2 * batchSize + 1) {
+                        offset = diff > 0 ? diff - 2 * batchSize - 1 : diff + 2 * batchSize + 1;
+                        wheel._offset += offset;
+                        wheel._margin -= offset * itemHeight;
+                        wheel._refresh();
+                    }
+
+                    wheel._index = idx + wheel._batch;
+
                     // Scroll to valid value
-                    wheel._scroller.scroll(-idx * itemHeight - wheel._batch, (i === index || i === undefined) ? time : 200);
+                    wheel._scroller.scroll(-(idx - wheel._offset + wheel._batch) * itemHeight, (index === i || index === undefined) ? time : 200);
                 });
             }
         }
@@ -454,7 +469,7 @@
                 tempWheelArray[i] = value;
 
                 // In case of circular wheels calculate the offset of the current batch
-                wheel._batch = wheel._array ? Math.floor(idx / wheel._length) * wheel._length * itemHeight : 0;
+                wheel._batch = wheel._array ? Math.floor(idx / wheel._length) * wheel._length : 0;
 
                 setTimeout(function () {
                     scrollToPos(time, i, dir, true);
@@ -615,7 +630,7 @@
                     //if (s.scroll3d) {
                     //    html += '<div class="mbsc-sc-whl-3d" style="height:' + itemHeight + 'px;margin-top:-' + (itemHeight / 2) + 'px;">';
                     //    for (var k = 0; k < 16; k++) {
-                    //        html += '<div class="mbsc-btn mbsc-sc-itm-3d" style="' + pref + 'transform:rotateX(' + ((7 - k - w._offset) * 22.5 % 360) + 'deg) translateZ(' + (itemHeight * s.rows / 2) + 'px);height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;">' + getItem(w, w.values, w._index + k - 7) + '</div>';
+                    //        html += '<div class="mbsc-btn mbsc-sc-itm-3d" style="' + pref + 'transform:rotateX(' + ((7 - k - w._offset) * 22.5 % 360) + 'deg) translateZ(' + (itemHeight * s.rows / 2) + 'px);height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;">' + getItem(w, w.values, w._current + k - 7) + '</div>';
                     //    }
                     //    html += '</div>';
                     //}
@@ -662,11 +677,11 @@
                 wheel._scroller = new ms.classes.ScrollView(this, {
                     mousewheel: s.mousewheel,
                     moveElement: wheel._$markup,
-                    initialPos: -wheel._index * itemHeight,
+                    //initialPos: -wheel._current * itemHeight,
                     contSize: 0,
                     snap: itemHeight,
-                    minScroll: -(wheel.max - (wheel.multiple ? (s.rows - 1) : 0)) * itemHeight,
-                    maxScroll: -wheel.min * itemHeight,
+                    minScroll: -(wheel.max - wheel._offset - (wheel.multiple ? (s.rows - 1) : 0)) * itemHeight,
+                    maxScroll: -(wheel.min - wheel._offset) * itemHeight,
                     maxSnapScroll: batchSize,
                     prevDef: true,
                     stopProp: true,
@@ -687,7 +702,7 @@
                             time = ev.duration,
                             pos = ev.destinationY;
 
-                        idx = Math.round(-pos / itemHeight);
+                        idx = Math.round(-pos / itemHeight) + wheel._offset;
 
                         setWheelValue(wheel, i, idx, time, dir);
                     },
@@ -720,7 +735,7 @@
                         // Select item on tap
                         if (toggleItem(i, $item)) {
                             // Don't scroll, but trigger validation
-                            idx = wheel._index;
+                            idx = wheel._current;
                         }
 
                         if (trigger('onValueTap', {
