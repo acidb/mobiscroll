@@ -841,7 +841,7 @@
 
                     // Regenerate day wheel if number of days in month changes
                     // or if day names needs to be regenerated
-                    if (dayWheel && (dayWheel._length !== maxdays || (regen && index === undefined || index === o.y || index === o.m))) {
+                    if (dayWheel && (dayWheel._length !== maxdays || (regen && (index === undefined || index === o.y || index === o.m)))) {
                         wheels[o.d] = dayWheel;
                         dayWheel.values = [];
                         for (i = 1; i <= maxdays; i++) {

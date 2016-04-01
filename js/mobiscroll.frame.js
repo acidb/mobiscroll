@@ -407,7 +407,7 @@
             if (isModal) {
                 that.hide(false, 'cancel', false, cancel);
             } else {
-                set();
+                cancel();
             }
         };
 

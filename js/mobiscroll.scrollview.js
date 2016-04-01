@@ -232,7 +232,9 @@
                         //    util.preventClick();
                         //}
 
-                        trigger('onBtnTap', { target: $btn[0] });
+                        trigger('onBtnTap', {
+                            target: $btn[0]
+                        });
                     }
                 }
 
