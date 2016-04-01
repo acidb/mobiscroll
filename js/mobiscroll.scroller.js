@@ -207,7 +207,9 @@
                 });
             }
 
-            w.circular = w.circular === undefined ? (w._array && w._length > s.rows) : w.circular;
+            w.circular = s.circular === undefined ?
+                (w.circular === undefined ? (w._array && w._length > s.rows) : w.circular) :
+                ($.isArray(s.circular) ? s.circular[l] : s.circular);
             w.min = w._array ? (w.circular ? -Infinity : 0) : (w.min === undefined ? -Infinity : w.min);
             w.max = w._array ? (w.circular ? Infinity : w._length - 1) : (w.max === undefined ? Infinity : w.max);
 
