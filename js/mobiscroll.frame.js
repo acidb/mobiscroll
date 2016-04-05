@@ -28,7 +28,6 @@
             btn,
             doAnim,
             event,
-            hasButtons,
             isModal,
             modalWidth,
             modalHeight,
@@ -352,11 +351,14 @@
          * @param {jQuery} $elm - Events will be attached to this element.
          * @param {Function} [beforeShow=undefined] - Optional function to execute before showing mobiscroll.
          */
-        that.attachShow = function ($elm, beforeShow) {
+        that.attachShow = function (elm, beforeShow) {
+            var $elm = $(elm);
+
             elmList.push({
                 readOnly: $elm.prop('readonly'),
                 el: $elm
             });
+
             if (s.display !== 'inline') {
                 if (setReadOnly && $elm.is('input')) {
                     $elm.prop('readonly', true).on('mousedown.mbsc', function (ev) {
@@ -452,8 +454,8 @@
          * @param {Boolean} prevFocus - Prevent focusing if true
          */
         that.show = function (prevAnim, prevFocus) {
-            // Create wheels
-            var html;
+            var hasButtons,
+                html;
 
             if (s.disabled || that._isVisible) {
                 return;
@@ -479,6 +481,8 @@
                     doAnim = 'slideup';
                 }
             }
+
+            hasButtons = buttons.length > 0;
 
             // Create wheels containers
             html = '<div lang="' + s.lang + '" class="mbsc-' + s.theme + (s.baseTheme ? ' mbsc-' + s.baseTheme : '') + ' mbsc-fr-' + s.display + ' ' +
@@ -839,8 +843,6 @@
             };
 
             that._isInput = $elm.is('input');
-
-            hasButtons = buttons.length > 0;
 
             if (that._isVisible) {
                 that.hide(true, false, true);

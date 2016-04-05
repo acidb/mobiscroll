@@ -1,7 +1,7 @@
 (function (window, document, undefined) {
 
     function getIndex(wheel, val) {
-        return wheel._array ? wheel._map[val] : wheel.getIndex(val);
+        return (wheel._array ? wheel._map[val] : wheel.getIndex(val)) || 0;
     }
 
     function getItem(wheel, i, def) {
@@ -351,6 +351,10 @@
                 dist1 = 0,
                 dist2 = 0;
 
+            if (val === undefined) {
+                val = getValue(wheel, idx);
+            }
+
             // TODO: what if all items are invalid
             if (disabled[val]) {
                 counter = 0;
@@ -382,7 +386,8 @@
             var diff,
                 idx,
                 offset,
-                ret;
+                ret,
+                isVisible = that._isVisible;
 
             isValidating = true;
             ret = s.validate.call(el, tempWheelArray.slice(0), index, dir, that) || {};
@@ -394,42 +399,27 @@
 
             trigger('onValidated');
 
-            that._tempValue = s.formatValue(tempWheelArray, that);
-
-            if (that._isVisible) {
-
-                // Update header text
-                that._header.html(formatHeader(that._tempValue));
-
-                // If in live mode, set and fill value on every move
-                if (that.live) {
-                    that._hasValue = manual || that._hasValue;
-                    setValue(manual, manual, 0, true);
+            $.each(wheels, function (i, wheel) {
+                if (isVisible) {
+                    // Enable all items
+                    wheel._$markup.find('.mbsc-sc-itm').removeClass('mbsc-sc-itm-inv mbsc-btn-d');
                 }
+                wheel._disabled = {};
 
-                if (manual) {
-                    trigger('onChange', {
-                        valueText: that._tempValue
+                // Disable invalid items
+                if (ret.disabled && ret.disabled[i]) {
+                    $.each(ret.disabled[i], function (j, v) {
+                        wheel._disabled[v] = true;
+                        if (isVisible) {
+                            wheel._$markup.find('.mbsc-sc-itm[data-val="' + v + '"]').addClass('mbsc-sc-itm-inv mbsc-btn-d');
+                        }
                     });
                 }
 
-                $.each(wheels, function (i, wheel) {
-                    // Enable all items
-                    wheel._$markup.find('.mbsc-sc-itm').removeClass('mbsc-sc-itm-inv mbsc-btn-d');
-                    wheel._disabled = {};
+                // Get closest valid value
+                tempWheelArray[i] = wheel.multiple ? tempWheelArray[i] : getValid(i, tempWheelArray[i], dir);
 
-                    // Disable invalid items
-                    if (ret.disabled && ret.disabled[i]) {
-                        $.each(ret.disabled[i], function (j, v) {
-                            wheel._disabled[v] = true;
-                            wheel._$markup.find('.mbsc-sc-itm[data-val="' + v + '"]').addClass('mbsc-sc-itm-inv mbsc-btn-d');
-                        });
-                    }
-
-                    // Get closest valid value
-                    // TODO: this should be done somehow also if scroller is not visible to correctly validate
-                    tempWheelArray[i] = wheel.multiple ? tempWheelArray[i] : getValid(i, tempWheelArray[i], dir);
-
+                if (isVisible) {
                     if (!wheel.multiple) {
                         wheel._$markup
                             .find('.mbsc-sc-itm-sel')
@@ -459,6 +449,26 @@
 
                     // Scroll to valid value
                     wheel._scroller.scroll(-(idx - wheel._offset + wheel._batch) * itemHeight, (index === i || index === undefined) ? time : 200);
+                }
+            });
+
+            // Get formatted value
+            that._tempValue = s.formatValue(tempWheelArray, that);
+
+            if (isVisible) {
+                // Update header text
+                that._header.html(formatHeader(that._tempValue));
+            }
+
+            // If in live mode, set and fill value on every move
+            if (that.live) {
+                that._hasValue = manual || that._hasValue;
+                setValue(manual, manual, 0, true);
+            }
+
+            if (manual) {
+                trigger('onChange', {
+                    valueText: that._tempValue
                 });
             }
         }
@@ -493,11 +503,6 @@
             }
 
             if (fill) {
-                trigger('onValueFill', {
-                    valueText: that._hasValue ? that._tempValue : '',
-                    change: change
-                });
-
                 if (that._isInput) {
                     $elm.val(that._hasValue ? that._tempValue : '');
                 }
@@ -506,6 +511,11 @@
                     that._preventChange = true;
                     $elm.trigger('change');
                 }
+
+                trigger('onValueFill', {
+                    valueText: that._hasValue ? that._tempValue : '',
+                    change: change
+                });
             }
         }
 
@@ -729,7 +739,7 @@
                         var $item = $(ev.target),
                             idx = +$item.attr('data-index');
 
-                        if (!wheel.multiple && (s.confirmOnTap === true || s.confirmOnTap[i]) && $item.hasClass('mbsc-sc-itm-sel')) {
+                        if (!wheel.multiple && s.display !== 'inline' && (s.confirmOnTap === true || s.confirmOnTap[i]) && $item.hasClass('mbsc-sc-itm-sel')) {
                             that.select();
                             return;
                         }

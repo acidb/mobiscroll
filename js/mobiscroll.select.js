@@ -316,16 +316,24 @@
         };
 
         inst.refresh = function () {
+            var wheels = {};
+
             prepareData();
 
             s.wheels = genWheels();
 
             getOption(option);
 
-            inst._tempWheelArray = groupWheel ? [group, option] : [option];
+            wheels[optionWheelIdx] = genOptWheel();
+            inst._tempWheelArray[optionWheelIdx] = option;
+
+            if (groupWheel) {
+                wheels[groupWheelIdx] = genGroupWheel();
+                inst._tempWheelArray[groupWheelIdx] = group;
+            }
 
             if (inst._isVisible) {
-                inst.changeWheel(groupWheel ? [groupWheelIdx, optionWheelIdx] : [optionWheelIdx], 0, true);
+                inst.changeWheel(wheels, 0, true);
             }
         };
 
@@ -450,9 +458,9 @@
                             inst.setArrayVal(values, false, false, true, 200);
                         }
                     }
-                } else if (ev.index == optionWheelIdx && values[optionWheelIdx] != option && groupWheel) {
+                } else if (ev.index == optionWheelIdx && values[optionWheelIdx] != option) {
                     option = values[optionWheelIdx];
-                    if (options[option].group != group) {
+                    if (groupWheel && options[option].group != group) {
                         group = options[option].group;
                         values[groupWheelIdx] = group;
                         inst.setArrayVal(values, false, false, true, 200);
