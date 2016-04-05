@@ -168,6 +168,9 @@
     left: 0;
     width: 100%;
     pointer-events: none;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
 }
 /* Liquid mode */
 
