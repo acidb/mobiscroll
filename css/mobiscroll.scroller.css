@@ -58,6 +58,9 @@
     left: 0;
     right: 0;
     pointer-events: none;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
 }
 
 .mbsc-sc-whl {

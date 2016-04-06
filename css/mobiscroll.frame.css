@@ -51,6 +51,9 @@
     overflow: hidden;
     text-align: center;
     font-family: arial, verdana, sans-serif;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
 }
 /* Modal overlay */
 
