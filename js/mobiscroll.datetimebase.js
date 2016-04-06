@@ -699,7 +699,7 @@
             inst.order = o;
 
             inst.handlers.now = function () {
-                inst.setDate(new Date(), inst.live, 1000, true, true);
+                inst.setDate(new Date(), inst.live, 200, true, true);
             };
 
             inst.buttons.now = {

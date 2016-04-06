@@ -191,7 +191,9 @@
             return $.isArray(s.readonly) ? s.readonly[i] : s.readonly;
         }
 
-        function initWheel(w, l) {
+        function initWheel(w, l, keep) {
+            var index = w._index - w._batch;
+
             w.values = w.values || [];
             //w.keys = w.keys || w.values;
             w.label = w.label !== undefined ? w.label : l;
@@ -219,8 +221,14 @@
             w._current = w._index;
             w._first = w._index - batchSize; //Math.max(w.min, w._current - batchSize);
             w._last = w._index + batchSize; //Math.min(w.max, w._first + 2 * batchSize);
-            w._margin = 0; //w._first * itemHeight;
             w._offset = w._first;
+
+            if (keep) {
+                w._offset -= w._margin / itemHeight + (w._index - index);
+                w._margin += (w._index - index) * itemHeight;
+            } else {
+                w._margin = 0; //w._first * itemHeight;
+            }
             //w._offset = 0;
             //w._nr = l;
 
@@ -563,17 +571,19 @@
 
             $.each(whls, function (i, wheel) {
                 w = wheels[i];
+                // Check if wheel exists
+                if (w) {
+                    extend(w, wheel);
 
-                extend(w, wheel);
+                    initWheel(w, i, true);
 
-                initWheel(w, i);
+                    if (that._isVisible) {
+                        w._$markup
+                            .html(generateItems(w, i, w._first, w._last))
+                            .css('margin-top', w._margin + 'px');
 
-                if (that._isVisible) {
-                    w._$markup
-                        .html(generateItems(w, i, w._first, w._last))
-                        .css('margin-top', w._margin + 'px');
-
-                    w._refresh();
+                        w._refresh();
+                    }
                 }
             });
 

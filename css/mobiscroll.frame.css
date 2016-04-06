@@ -27,15 +27,14 @@
 
 .mbsc-fr-popup:focus {
     outline: none;
-}
-
-.mbsc-fr-popup:focus {
     outline-offset: -2px;
 }
 
 .mbsc-rtl {
     direction: rtl;
 }
+
+
 /* Box sizing */
 
 .mbsc-fr-popup,
@@ -55,6 +54,8 @@
     -moz-box-sizing: content-box;
     box-sizing: content-box;
 }
+
+
 /* Modal overlay */
 
 .mbsc-fr-persp,
@@ -73,15 +74,17 @@
 
 .mbsc-fr-overlay {
     z-index: 1;
-    background: #000;
     background: rgba(0, 0, 0, .7);
-    filter: Alpha(Opacity=70);
 }
+
+
 /* Liquid mode */
 
 .mbsc-fr-liq .mbsc-fr-popup {
     max-width: 100%;
 }
+
+
 /* Top/Bottom mode */
 
 .mbsc-fr-top .mbsc-fr-popup,
@@ -89,6 +92,8 @@
     width: 100%;
     max-width: 100%;
 }
+
+
 /* Inline mode */
 
 .mbsc-fr-inline .mbsc-fr-popup {
@@ -104,6 +109,8 @@
 .mbsc-fr-inline .mbsc-fr-persp {
     position: static;
 }
+
+
 /* Bubble mode */
 
 .mbsc-fr-bubble .mbsc-fr-popup {
@@ -162,12 +169,16 @@
     border: 0;
     overflow: hidden;
 }
+
+
 /* Header */
 
 .mbsc-fr-hdr {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+
 /* Buttons */
 
 .mbsc-fr-btn {
@@ -186,6 +197,8 @@
 .mbsc-fr-btn-d {
     cursor: default;
 }
+
+
 /* Button container */
 
 .mbsc-fr-btn-cont {
@@ -197,6 +210,8 @@
 .mbsc-fr-btn-cont .mbsc-fr-btn-d {
     opacity: .3;
 }
+
+
 /* Button wrapper */
 
 .mbsc-fr-btn-w {
@@ -209,6 +224,8 @@
 .mbsc-fr-btn-w .mbsc-fr-btn:before {
     padding: .375em;
 }
+
+
 /* Widget content styling */
 
 .mbsc-wdg .mbsc-wdg-c {
@@ -219,6 +236,8 @@
     text-align: left;
     white-space: normal;
 }
+
+
 /* Default theme */
 
 .mbsc-mobiscroll .mbsc-fr-w {
