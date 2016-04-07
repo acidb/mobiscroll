@@ -528,15 +528,15 @@
                     $elm.val(that._hasValue ? that._tempValue : '');
                 }
 
-                if (change) {
-                    that._preventChange = true;
-                    $elm.trigger('change');
-                }
-
                 trigger('onValueFill', {
                     valueText: that._hasValue ? that._tempValue : '',
                     change: change
                 });
+
+                if (change) {
+                    that._preventChange = true;
+                    $elm.trigger('change');
+                }
             }
         }
 
