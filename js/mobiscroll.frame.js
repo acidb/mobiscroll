@@ -204,7 +204,7 @@
                 totalw = 0,
                 minw = 0,
                 css = {},
-                nw = Math.min($wnd[0].innerWidth || $wnd.innerWidth(), $persp.width()), //$persp.width(), // To get the width without scrollbar
+                nw = Math.min($wnd[0].innerWidth || $wnd.innerWidth(), $persp ? $persp.width() : 0), //$persp.width(), // To get the width without scrollbar
                 nh = $wnd[0].innerHeight || $wnd.innerHeight(),
                 $focused = $(document.activeElement);
 
@@ -213,7 +213,7 @@
                 return;
             }
 
-            if ((wndWidth === nw && wndHeight === nh && check) || preventPos) {
+            if ((wndWidth === nw && wndHeight === nh && check) || preventPos || !that._isVisible) {
                 return;
             }
 
