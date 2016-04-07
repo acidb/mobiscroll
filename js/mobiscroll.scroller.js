@@ -395,6 +395,7 @@
                 idx,
                 offset,
                 ret,
+                v,
                 isVisible = that._isVisible;
 
             isValidating = true;
@@ -428,12 +429,24 @@
                 tempWheelArray[i] = wheel.multiple ? tempWheelArray[i] : getValid(i, tempWheelArray[i], dir);
 
                 if (isVisible) {
-                    if (!wheel.multiple) {
+                    if (!wheel.multiple || index === undefined) {
                         wheel._$markup
                             .find('.mbsc-sc-itm-sel')
-                            .removeClass('mbsc-sc-itm-sel')
+                            .removeClass(selectedClass)
                             .removeAttr('aria-selected');
+                    }
 
+                    if (wheel.multiple) {
+                        // Add selected styling to selected elements in case of multiselect
+                        if (index === undefined) {
+                            for (v in that._tempSelected[i]) {
+                                wheel._$markup
+                                    .find('.mbsc-sc-itm[data-val="' + v + '"]')
+                                    .addClass(selectedClass)
+                                    .attr('aria-selected', 'true');
+                            }
+                        }
+                    } else {
                         // Mark element as aria selected
                         wheel._$markup
                             .find('.mbsc-sc-itm[data-val="' + tempWheelArray[i] + '"]')
@@ -778,7 +791,9 @@
         };
 
         that._clearValue = function () {
-            $('.mbsc-sc-whl-multi .mbsc-sc-itm-sel', $markup).removeClass(selectedClass).removeAttr('aria-selected');
+            $('.mbsc-sc-whl-multi .mbsc-sc-itm-sel', $markup)
+                .removeClass(selectedClass)
+                .removeAttr('aria-selected');
         };
 
         that._readValue = function () {
