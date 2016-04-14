@@ -12,11 +12,22 @@
             dayNamesMin: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
             amText: 'am',
             pmText: 'pm',
-            getYear: function (d) { return d.getFullYear(); },
-            getMonth: function (d) { return d.getMonth(); },
-            getDay: function (d) { return d.getDate(); },
-            getDate: function (y, m, d, h, i, s, u) { return new Date(y, m, d, h || 0, i || 0, s || 0, u || 0); },
-            getMaxDayOfMonth: function (y, m) { return 32 - new Date(y, m, 32).getDate(); },
+            getYear: function (d) {
+                return d.getFullYear();
+            },
+            getMonth: function (d) {
+                return d.getMonth();
+            },
+            getDay: function (d) {
+                return d.getDate();
+            },
+            getDate: function (y, m, d, h, i, s, u) {
+                console.log(y, m, d, h);
+                return new Date(y, m, d, h || 12, i || 0, s || 0, u || 0);
+            },
+            getMaxDayOfMonth: function (y, m) {
+                return 32 - new Date(y, m, 32, 12).getDate();
+            },
             getWeekNumber: function (d) {
                 // Copy date so don't modify original
                 d = new Date(d);
@@ -31,12 +42,12 @@
             }
         },
         /**
-        * Format a date into a string value with a specified format.
-        * @param {String} format Output format.
-        * @param {Date} date Date to format.
-        * @param {Object} [settings={}] Settings.
-        * @return {String} Returns the formatted date string.
-        */
+         * Format a date into a string value with a specified format.
+         * @param {String} format Output format.
+         * @param {Date} date Date to format.
+         * @param {Object} [settings={}] Settings.
+         * @return {String} Returns the formatted date string.
+         */
         formatDate: function (format, date, settings) {
             if (!date) {
                 return null;
@@ -130,12 +141,12 @@
             return output;
         },
         /**
-        * Extract a date from a string value with a specified format.
-        * @param {String} format Input format.
-        * @param {String} value String to parse.
-        * @param {Object} [settings={}] Settings.
-        * @return {Date} Returns the extracted date.
-        */
+         * Extract a date from a string value with a specified format.
+         * @param {String} format Input format.
+         * @param {String} value String to parse.
+         * @param {Object} [settings={}] Settings.
+         * @return {Date} Returns the extracted date.
+         */
         parseDate: function (format, value, settings) {
             var s = $.extend({}, ms.util.datetime.defaults, settings),
                 def = s.defaultValue || new Date();

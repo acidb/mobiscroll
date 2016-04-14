@@ -155,7 +155,7 @@
 
                     that.scrolled = scrolled = true;
 
-                    if (s.liveSwipe && !rafRunning) {
+                    if (!rafRunning) {
                         rafRunning = true;
                         rafID = raf(onMoving);
                     }
@@ -504,11 +504,9 @@
 
             that.refresh();
 
-            if (s.swipe) {
-                $elm.on('touchstart mousedown pointerdown', onStart)
-                    .on('touchmove', onMove)
-                    .on('touchend touchcancel pointercancel', onEnd);
-            }
+            $elm.on('touchstart mousedown pointerdown', onStart)
+                .on('touchmove', onMove)
+                .on('touchend touchcancel pointercancel', onEnd);
 
             if (s.mousewheel) {
                 $elm.on('wheel mousewheel', onScroll);
@@ -566,8 +564,6 @@
             easing: 'ease-out',
             //easing: 'cubic-bezier(0.190, 1.000, 0.220, 1.000)',
             stopProp: true,
-            swipe: true,
-            liveSwipe: true,
             momentum: true,
             elastic: true
         }

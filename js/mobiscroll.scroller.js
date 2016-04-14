@@ -638,8 +638,8 @@
                     lbl = w.label !== undefined ? w.label : j;
 
                     html += '<div class="mbsc-sc-whl-w ' + (w.cssClass || '') + (w.multiple ? ' mbsc-sc-whl-multi' : '') + '" style="' +
-                        (s.fixedWidth ? ('width:' + (s.fixedWidth[l] || s.fixedWidth) + 'px;') :
-                            (s.minWidth ? ('min-width:' + (s.minWidth[l] || s.minWidth) + 'px;') : 'min-width:' + s.width + 'px;') +
+                        (s.width ? ('width:' + (s.width[l] || s.width) + 'px;') :
+                            (s.minWidth ? ('min-width:' + (s.minWidth[l] || s.minWidth) + 'px;') : '') +
                             (s.maxWidth ? ('max-width:' + (s.maxWidth[l] || s.maxWidth) + 'px;') : '')) + '">' +
                         '<div class="mbsc-sc-whl-o"></div>' +
                         '<div class="mbsc-sc-whl-l" style="height:' + itemHeight + 'px;margin-top:-' + (itemHeight / 2 + (s.selectedLineBorder || 0)) + 'px;"></div>' +
@@ -773,7 +773,7 @@
                             idx = wheel._current;
                         }
 
-                        if (trigger('onValueTap', {
+                        if (trigger('onItemTap', {
                                 target: $item[0]
                             }) !== false) {
                             setWheelValue(wheel, i, idx, 200);

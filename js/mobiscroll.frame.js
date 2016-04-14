@@ -246,7 +246,7 @@
                 }
             }
 
-            if (!that._isFullScreen && /modal|bubble/.test(s.display)) {
+            if (!that._isFullScreen && /center|bubble/.test(s.display)) {
                 $wrapper.width('');
                 $('.mbsc-w-p', $markup).each(function () {
                     w = $(this).outerWidth(true);
@@ -269,7 +269,7 @@
                 $ctx.removeClass('mbsc-fr-lock');
             }
 
-            if (s.display == 'modal') {
+            if (s.display == 'center') {
                 l = Math.max(0, sl + (nw - modalWidth) / 2);
                 t = st + (nh - modalHeight) / 2;
             } else if (s.display == 'bubble') {
@@ -902,7 +902,7 @@
         closeOnOverlay: true,
         showOnFocus: false,
         showOnTap: true,
-        display: 'modal',
+        display: 'center',
         scrollLock: true,
         tap: true,
         btnClass: 'mbsc-fr-btn',
