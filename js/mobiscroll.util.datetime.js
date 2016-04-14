@@ -22,8 +22,7 @@
                 return d.getDate();
             },
             getDate: function (y, m, d, h, i, s, u) {
-                console.log(y, m, d, h);
-                return new Date(y, m, d, h || 12, i || 0, s || 0, u || 0);
+                return new Date(y, m, d, h || 0, i || 0, s || 0, u || 0);
             },
             getMaxDayOfMonth: function (y, m) {
                 return 32 - new Date(y, m, 32, 12).getDate();
