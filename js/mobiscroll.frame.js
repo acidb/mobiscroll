@@ -418,9 +418,7 @@
          */
         that.clear = function () {
             that._clearValue();
-            event('onClear', {
-                target: $markup[0]
-            });
+            event('onClear');
             if (isModal && that._isVisible && !that.live) {
                 that.hide(false, 'clear', false, clear);
             } else {
