@@ -2,6 +2,7 @@
 
     var ms = $.mobiscroll,
         datetime = ms.datetime,
+        adjustedDate = datetime.adjustedDate,
         date = new Date(),
         defaults = {
             startYear: date.getFullYear() - 100,
@@ -105,8 +106,8 @@
                 stepM = steps.minute || s.stepMinute || 1,
                 stepS = steps.second || s.stepSecond || 1,
                 zeroBased = steps.zeroBased,
-                mind = s.minDate || new Date(s.startYear, 0, 1),
-                maxd = s.maxDate || new Date(s.endYear, 11, 31, 23, 59, 59),
+                mind = s.minDate || adjustedDate(s.startYear, 0, 1),
+                maxd = s.maxDate || adjustedDate(s.endYear, 11, 31, 23, 59, 59),
                 minH = zeroBased ? 0 : mind.getHours() % stepH,
                 minM = zeroBased ? 0 : mind.getMinutes() % stepM,
                 minS = zeroBased ? 0 : mind.getSeconds() % stepS,
@@ -637,7 +638,7 @@
                         if (v.start && v.start.getTime) {
                             start = new Date(v.start);
                             while (start <= v.end) {
-                                ret.push(new Date(start.getFullYear(), start.getMonth(), start.getDate()));
+                                ret.push(adjustedDate(start.getFullYear(), start.getMonth(), start.getDate()));
                                 start.setDate(start.getDate() + 1);
                             }
                         } else {
