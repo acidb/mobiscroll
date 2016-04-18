@@ -308,12 +308,14 @@
         };
 
         that._destroy = function () {
-            that.trigger('onDestroy', []);
+            if (that) {
+                that.trigger('onDestroy', []);
 
-            // Delete scroller instance
-            delete instances[el.id];
+                // Delete scroller instance
+                delete instances[el.id];
 
-            that = null;
+                that = null;
+            }
         };
 
         /**
