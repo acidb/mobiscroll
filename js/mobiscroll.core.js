@@ -337,12 +337,6 @@
                     startX = getCoord(ev, 'X');
                     startY = getCoord(ev, 'Y');
                     moved = false;
-
-                    if (ev.type == 'pointerdown') {
-                        $(document)
-                            .on('pointermove', onMove)
-                            .on('pointerup', onEnd);
-                    }
                 }
             }
 
@@ -360,12 +354,6 @@
                         handler.call(target, ev, that);
                     }
 
-                    if (ev.type == 'pointerup') {
-                        $(document)
-                            .off('pointermove', onMove)
-                            .off('pointerup', onEnd);
-                    }
-
                     target = false;
 
                     util.preventClick();
@@ -378,8 +366,8 @@
 
             if (s.tap) {
                 el
-                    .on('touchstart.dw pointerdown.dw', onStart)
-                    .on('touchcancel.dw pointercancel.dw', onCancel)
+                    .on('touchstart.dw', onStart)
+                    .on('touchcancel.dw', onCancel)
                     .on('touchmove.dw', onMove)
                     .on('touchend.dw', onEnd);
             }
