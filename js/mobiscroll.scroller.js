@@ -228,7 +228,7 @@
 
         function isReadOnly(wh) {
             if ($.isArray(s.readonly)) {
-                var i = $('.dwwl', $markup).index(wh);
+                var i = +$(wh).attr('data-index');
                 return s.readonly[i];
             }
             return s.readonly;
@@ -259,7 +259,7 @@
             multiple = t.closest('.dwwl').hasClass('dwwms');
             min = $('.dw-li', t).index($(multiple ? '.dw-li' : '.dw-v', t).eq(0));
             max = Math.max(min, $('.dw-li', t).index($(multiple ? '.dw-li' : '.dw-v', t).eq(-1)) - (multiple ? s.rows - (s.mode == 'scroller' ? 1 : 3) : 0));
-            index = $('.dw-ul', $markup).index(t);
+            index = +t.closest('.dwwl').attr('data-index');
         }
 
         function formatHeader(v) {
@@ -372,8 +372,9 @@
             // Call validation event
             if (trigger('validate', [$markup, index, time, dir]) !== false) {
                 // Set scrollers to position
-                $('.dw-ul', $markup).each(function (i) {
+                $('.dw-ul', $markup).each(function () {
                     var t = $(this),
+                        i = +t.closest('.dwwl').attr('data-index'),
                         multiple = t.closest('.dwwl').hasClass('dwwms'),
                         sc = i == index || index === undefined,
                         res = getValid(that._tempWheelArray[i], t, dir, multiple, true),
@@ -527,7 +528,7 @@
                     $.each(wg, function (k, w) {
                         if ($.inArray(i, idx) > -1) {
                             wheels[i] = w;
-                            $('.dw-ul', $markup).eq(i).html(generateWheelItems(i));
+                            $('.dwwl' + i + ' .dw-ul', $markup).html(generateWheelItems(i));
                             nr--;
                             if (!nr) {
                                 that.position();
@@ -570,7 +571,7 @@
                         (s.fixedWidth ? ('width:' + (s.fixedWidth[l] || s.fixedWidth) + 'px;') :
                             (s.minWidth ? ('min-width:' + (s.minWidth[l] || s.minWidth) + 'px;') : 'min-width:' + s.width + 'px;') +
                             (s.maxWidth ? ('max-width:' + (s.maxWidth[l] || s.maxWidth) + 'px;') : '')) + '">' +
-                        '<div class="dwwl dwwl' + l + (w.multiple ? ' dwwms' : '') + '">' +
+                        '<div class="dwwl dwwl' + l + (w.multiple ? ' dwwms' : '') + '" data-index="' + l + '">' +
                         (s.mode != 'scroller' ?
                             '<div class="dwb-e dwwb dwwbp ' + (s.btnPlusClass || '') + '" style="height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;"><span>+</span></div>' + // + button
                             '<div class="dwb-e dwwb dwwbm ' + (s.btnMinusClass || '') + '" style="height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;"><span>&ndash;</span></div>' : '') + // - button

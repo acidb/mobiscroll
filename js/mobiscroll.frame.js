@@ -3,7 +3,6 @@
         preventShow,
         ms = $.mobiscroll,
         util = ms.util,
-        pr = util.jsPrefix,
         has3d = util.has3d,
         constrain = util.constrain,
         isString = util.isString,
@@ -98,23 +97,27 @@
             var activeEl,
                 value,
                 type,
+                $activeEl = $activeElm,
                 focus = s.focusOnClose;
 
             that._markupRemove();
 
             $markup.remove();
 
-            if ($activeElm && !prevAnim) {
+            if (!prevAnim) {
+                if (!$activeEl) {
+                    $activeEl = $elm;
+                }
                 setTimeout(function () {
                     if (focus === undefined || focus === true) {
                         preventShow = true;
-                        activeEl = $activeElm[0];
+                        activeEl = $activeEl[0];
                         type = activeEl.type;
                         value = activeEl.value;
                         try {
                             activeEl.type = 'button';
                         } catch (ex) {}
-                        $activeElm.focus();
+                        $activeEl.focus();
                         activeEl.type = type;
                         activeEl.value = value;
                     } else if (focus) {
@@ -122,6 +125,8 @@
                     }
                 }, 200);
             }
+
+            $activeElm = null;
 
             that._isVisible = false;
 
@@ -155,11 +160,6 @@
         function show(beforeShow, $elm) {
             if (beforeShow) {
                 beforeShow();
-            }
-
-            // Hide virtual keyboard
-            if ($(document.activeElement).is('input,textarea')) {
-                $(document.activeElement).blur();
             }
 
             if (that.show() !== false) {
@@ -210,16 +210,16 @@
                 totalw = 0,
                 minw = 0,
                 css = {},
-                nw = Math.min($wnd[0].innerWidth || $wnd.innerWidth(), $persp.width()), //$persp.width(), // To get the width without scrollbar
+                nw = Math.min($wnd[0].innerWidth || $wnd.innerWidth(), $persp ? $persp.width() : 0), //$persp.width(), // To get the width without scrollbar
                 nh = $wnd[0].innerHeight || $wnd.innerHeight(),
                 $focused = $(document.activeElement);
 
-            if ($focused.is('input,textarea') && !/(button|submit|checkbox|radio)/.test($focused.attr('type'))) {
+            if (isModal && $focused.is('input,textarea') && !/(button|submit|checkbox|radio)/.test($focused.attr('type'))) {
                 $focused.on('blur', onBlur);
                 return;
             }
 
-            if ((wndWidth === nw && wndHeight === nh && check) || preventPos) {
+            if ((wndWidth === nw && wndHeight === nh && check) || preventPos || !that._isVisible) {
                 return;
             }
 
@@ -461,6 +461,9 @@
                 return false;
             }
 
+            // Hide virtual keyboard
+            document.activeElement.blur();
+
             doAnim = isOldAndroid ? false : s.animate;
 
             if (doAnim !== false) {
@@ -543,7 +546,7 @@
                 }
 
                 // Disable inputs to prevent bleed through (Android bug)
-                if (pr !== 'Moz') {
+                if (isOldAndroid) {
                     $('input,select,button', $ctx).each(function () {
                         if (!this.disabled) {
                             $(this).addClass('dwtd').prop('disabled', true);
@@ -669,7 +672,7 @@
             // Hide wheels and overlay
             if ($markup) {
                 // Re-enable temporary disabled fields
-                if (pr !== 'Moz') {
+                if (isOldAndroid) {
                     $('.dwtd', $ctx).each(function () {
                         $(this).prop('disabled', false).removeClass('dwtd');
                     });

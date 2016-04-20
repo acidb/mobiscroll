@@ -1,6 +1,16 @@
 (function ($, undefined) {
     var ms = $.mobiscroll;
 
+    function adjustedDate(y, m, d, h, i, s, u) {
+        var date = new Date(y, m, d, h || 0, i || 0, s || 0, u || 0);
+
+        if (date.getHours() == 23 && (h || 0) === 0) {
+            date.setHours(date.getHours() + 2);
+        }
+
+        return date;
+    }
+
     ms.datetime = {
         defaults: {
             shortYearCutoff: '+10',
@@ -11,11 +21,19 @@
             dayNamesMin: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
             amText: 'am',
             pmText: 'pm',
-            getYear: function (d) { return d.getFullYear(); },
-            getMonth: function (d) { return d.getMonth(); },
-            getDay: function (d) { return d.getDate(); },
-            getDate: function (y, m, d, h, i, s, u) { return new Date(y, m, d, h || 0, i || 0, s || 0, u || 0); },
-            getMaxDayOfMonth: function (y, m) { return 32 - new Date(y, m, 32).getDate(); },
+            getYear: function (d) {
+                return d.getFullYear();
+            },
+            getMonth: function (d) {
+                return d.getMonth();
+            },
+            getDay: function (d) {
+                return d.getDate();
+            },
+            getDate: adjustedDate,
+            getMaxDayOfMonth: function (y, m) {
+                return 32 - new Date(y, m, 32, 12).getDate();
+            },
             getWeekNumber: function (d) {
                 // Copy date so don't modify original
                 d = new Date(d);
@@ -29,13 +47,14 @@
                 return Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
             }
         },
+        adjustedDate: adjustedDate,
         /**
-        * Format a date into a string value with a specified format.
-        * @param {String} format Output format.
-        * @param {Date} date Date to format.
-        * @param {Object} [settings={}] Settings.
-        * @return {String} Returns the formatted date string.
-        */
+         * Format a date into a string value with a specified format.
+         * @param {String} format Output format.
+         * @param {Date} date Date to format.
+         * @param {Object} [settings={}] Settings.
+         * @return {String} Returns the formatted date string.
+         */
         formatDate: function (format, date, settings) {
             if (!date) {
                 return null;
@@ -129,12 +148,12 @@
             return output;
         },
         /**
-        * Extract a date from a string value with a specified format.
-        * @param {String} format Input format.
-        * @param {String} value String to parse.
-        * @param {Object} [settings={}] Settings.
-        * @return {Date} Returns the extracted date.
-        */
+         * Extract a date from a string value with a specified format.
+         * @param {String} format Input format.
+         * @param {String} value String to parse.
+         * @param {Object} [settings={}] Settings.
+         * @return {Date} Returns the extracted date.
+         */
         parseDate: function (format, value, settings) {
             var s = $.extend({}, ms.datetime.defaults, settings),
                 def = s.defaultValue || new Date();
@@ -262,7 +281,7 @@
                 month = 1;
                 day = doy;
                 do {
-                    var dim = 32 - new Date(year, month - 1, 32).getDate();
+                    var dim = 32 - new Date(year, month - 1, 32, 12).getDate();
                     if (day <= dim) {
                         break;
                     }
@@ -287,5 +306,5 @@
     ms.formatDate = ms.datetime.formatDate;
     ms.parseDate = ms.datetime.parseDate;
     // ---
-    
+
 })(jQuery);

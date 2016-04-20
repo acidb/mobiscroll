@@ -1,5 +1,5 @@
 /*!
- * Mobiscroll v2.17.1
+ * Mobiscroll v2.17.2
  * http://mobiscroll.com
  *
  * Copyright 2010-2015, Acid Media
@@ -78,7 +78,7 @@
     };
 
     ms = $.mobiscroll = $.mobiscroll || {
-        version: '2.17.1',
+        version: '2.17.2',
         util: {
             prefix: prefix,
             jsPrefix: pr,
@@ -174,7 +174,9 @@
                     } else {
                         icons[align] = icon;
                     }
+                }
 
+                if (icon || ic) {
                     extend(icons, ic);
 
                     $parent
@@ -306,12 +308,14 @@
         };
 
         that._destroy = function () {
-            that.trigger('onDestroy', []);
+            if (that) {
+                that.trigger('onDestroy', []);
 
-            // Delete scroller instance
-            delete instances[el.id];
+                // Delete scroller instance
+                delete instances[el.id];
 
-            that = null;
+                that = null;
+            }
         };
 
         /**
@@ -333,12 +337,6 @@
                     startX = getCoord(ev, 'X');
                     startY = getCoord(ev, 'Y');
                     moved = false;
-
-                    if (ev.type == 'pointerdown') {
-                        $(document)
-                            .on('pointermove', onMove)
-                            .on('pointerup', onEnd);
-                    }
                 }
             }
 
@@ -356,12 +354,6 @@
                         handler.call(target, ev, that);
                     }
 
-                    if (ev.type == 'pointerup') {
-                        $(document)
-                            .off('pointermove', onMove)
-                            .off('pointerup', onEnd);
-                    }
-
                     target = false;
 
                     util.preventClick();
@@ -374,8 +366,8 @@
 
             if (s.tap) {
                 el
-                    .on('touchstart.dw pointerdown.dw', onStart)
-                    .on('touchcancel.dw pointercancel.dw', onCancel)
+                    .on('touchstart.dw', onStart)
+                    .on('touchcancel.dw', onCancel)
                     .on('touchmove.dw', onMove)
                     .on('touchend.dw', onEnd);
             }
