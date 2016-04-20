@@ -2,6 +2,16 @@
     var ms = mobiscroll,
         $ = ms.$;
 
+    function adjustedDate(y, m, d, h, i, s, u) {
+        var date = new Date(y, m, d, h || 0, i || 0, s || 0, u || 0);
+
+        if (date.getHours() == 23 && (h || 0) === 0) {
+            date.setHours(date.getHours() + 2);
+        }
+
+        return date;
+    }
+
     ms.util.datetime = {
         defaults: {
             shortYearCutoff: '+10',
@@ -21,9 +31,7 @@
             getDay: function (d) {
                 return d.getDate();
             },
-            getDate: function (y, m, d, h, i, s, u) {
-                return new Date(y, m, d, h || 0, i || 0, s || 0, u || 0);
-            },
+            getDate: adjustedDate,
             getMaxDayOfMonth: function (y, m) {
                 return 32 - new Date(y, m, 32, 12).getDate();
             },
@@ -40,6 +48,7 @@
                 return Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
             }
         },
+        adjustedDate: adjustedDate,
         /**
          * Format a date into a string value with a specified format.
          * @param {String} format Output format.
@@ -273,7 +282,7 @@
                 month = 1;
                 day = doy;
                 do {
-                    var dim = 32 - new Date(year, month - 1, 32).getDate();
+                    var dim = 32 - new Date(year, month - 1, 32, 12).getDate();
                     if (day <= dim) {
                         break;
                     }
@@ -294,3 +303,4 @@
     };
 
 })();
+

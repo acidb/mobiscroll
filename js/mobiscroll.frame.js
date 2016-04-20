@@ -96,23 +96,27 @@
             var activeEl,
                 value,
                 type,
+                $activeEl = $activeElm,
                 focus = s.focusOnClose;
 
             that._markupRemove();
 
             $markup.remove();
 
-            if ($activeElm && !prevAnim) {
+            if (!prevAnim) {
+                if (!$activeEl) {
+                    $activeEl = $elm;
+                }
                 setTimeout(function () {
                     if (focus === undefined || focus === true) {
                         preventShow = true;
-                        activeEl = $activeElm[0];
+                        activeEl = $activeEl[0];
                         type = activeEl.type;
                         value = activeEl.value;
                         try {
                             activeEl.type = 'button';
                         } catch (ex) {}
-                        $activeElm[0].focus();
+                        $activeEl[0].focus();
                         activeEl.type = type;
                         activeEl.value = value;
                     } else if (focus) {
@@ -120,6 +124,8 @@
                     }
                 }, 200);
             }
+
+            $activeElm = null;
 
             that._isVisible = false;
 

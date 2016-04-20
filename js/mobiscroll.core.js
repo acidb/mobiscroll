@@ -341,12 +341,14 @@ var mobiscroll = mobiscroll || {};
         };
 
         that._destroy = function () {
-            that.trigger('onDestroy');
+            if (that) {
+                that.trigger('onDestroy', []);
 
-            // Delete scroller instance
-            delete instances[el.id];
+                // Delete scroller instance
+                delete instances[el.id];
 
-            that = null;
+                that = null;
+            }
         };
 
         /**
@@ -368,12 +370,6 @@ var mobiscroll = mobiscroll || {};
                     startX = getCoord(ev, 'X');
                     startY = getCoord(ev, 'Y');
                     moved = false;
-
-                    if (ev.type == 'pointerdown') {
-                        $(document)
-                            .on('pointermove', onMove)
-                            .on('pointerup', onEnd);
-                    }
                 }
             }
 
@@ -391,12 +387,6 @@ var mobiscroll = mobiscroll || {};
                         handler.call(target, ev, that);
                     }
 
-                    if (ev.type == 'pointerup') {
-                        $(document)
-                            .off('pointermove', onMove)
-                            .off('pointerup', onEnd);
-                    }
-
                     target = false;
 
                     util.preventClick();
@@ -409,8 +399,8 @@ var mobiscroll = mobiscroll || {};
 
             if (s.tap) {
                 el
-                    .on('touchstart.mbsc pointerdown.mbsc', onStart)
-                    .on('touchcancel.mbsc pointercancel.mbsc', onCancel)
+                    .on('touchstart.mbsc', onStart)
+                    .on('touchcancel.mbsc', onCancel)
                     .on('touchmove.mbsc', onMove)
                     .on('touchend.mbsc', onEnd);
             }
