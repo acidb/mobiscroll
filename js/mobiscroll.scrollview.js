@@ -123,8 +123,6 @@
 
                 if (ev.type === 'mousedown') {
                     $(document).on('mousemove', onMove).on('mouseup', onEnd);
-                } else if (ev.type === 'pointerdown') {
-                    $(document).on('pointermove', onMove).on('pointerup', onEnd);
                 }
             }
         }
@@ -241,8 +239,6 @@
                 // Detach document events
                 if (ev.type == 'mouseup') {
                     $(document).off('mousemove', onMove).off('mouseup', onEnd);
-                } else if (ev.type == 'pointerup') {
-                    $(document).off('pointermove', onMove).off('pointerup', onEnd);
                 }
 
                 move = false;
@@ -504,9 +500,9 @@
 
             that.refresh();
 
-            $elm.on('touchstart mousedown pointerdown', onStart)
+            $elm.on('touchstart mousedown', onStart)
                 .on('touchmove', onMove)
-                .on('touchend touchcancel pointercancel', onEnd);
+                .on('touchend touchcancel', onEnd);
 
             if (s.mousewheel) {
                 $elm.on('wheel mousewheel', onScroll);
@@ -535,9 +531,9 @@
         that.destroy = function () {
             clearInterval(scrollTimer);
 
-            $elm.off('touchstart mousedown pointerdown', onStart)
+            $elm.off('touchstart mousedown', onStart)
                 .off('touchmove', onMove)
-                .off('touchend touchcancel pointercancel', onEnd)
+                .off('touchend touchcancel', onEnd)
                 .off('wheel mousewheel', onScroll);
 
             that._destroy();
