@@ -179,15 +179,15 @@
 
         function getWheelFromObjA(objA, lbl) {
             var wheel = {
-                    values: [],
+                    data: [],
                     label: lbl
                 },
                 j = 0;
 
             while (j < objA.length) {
-                wheel.values.push({
+                wheel.data.push({
                     value: objA[j].key,
-                    text: objA[j].value
+                    display: objA[j].value
                 });
                 j++;
             }
@@ -368,7 +368,6 @@
         }
 
         return {
-            width: 50,
             wheels: w,
             layout: layout,
             headerText: false,

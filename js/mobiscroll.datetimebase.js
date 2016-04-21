@@ -151,7 +151,7 @@
                             monthStr = dord.replace(/[dy]/gi, '').replace(/mm/, (i < 9 ? '0' + (i + 1) : i + 1) + (s.monthSuffix || '')).replace(/m/, i + 1 + (s.monthSuffix || ''));
                             values.push({
                                 value: i,
-                                text: monthStr.match(/MM/) ? monthStr.replace(/MM/, '<span class="mbsc-dt-month">' + s.monthNames[i] + '</span>') : monthStr.replace(/M/, '<span class="mbsc-dt-month">' + s.monthNamesShort[i] + '</span>')
+                                display: monthStr.match(/MM/) ? monthStr.replace(/MM/, '<span class="mbsc-dt-month">' + s.monthNames[i] + '</span>') : monthStr.replace(/M/, '<span class="mbsc-dt-month">' + s.monthNamesShort[i] + '</span>')
                             });
                         }
                         addWheel('mbsc-dt-whl-m', wg, s.monthText, values);
@@ -161,7 +161,7 @@
                         for (i = 1; i < 32; i++) {
                             values.push({
                                 value: i,
-                                text: (dord.match(/dd/i) && i < 10 ? '0' + i : i) + (s.daySuffix || '')
+                                display: (dord.match(/dd/i) && i < 10 ? '0' + i : i) + (s.daySuffix || '')
                             });
                         }
                         addWheel('mbsc-dt-whl-d', wg, s.dayText, values);
@@ -201,7 +201,7 @@
                         for (i = minH; i < (hampm ? 12 : 24); i += stepH) {
                             values.push({
                                 value: i,
-                                text: hampm && i === 0 ? 12 : tord.match(/hh/i) && i < 10 ? '0' + i : i
+                                display: hampm && i === 0 ? 12 : tord.match(/hh/i) && i < 10 ? '0' + i : i
                             });
                         }
                         addWheel('mbsc-dt-whl-h', wg, s.hourText, values);
@@ -211,7 +211,7 @@
                         for (i = minM; i < 60; i += stepM) {
                             values.push({
                                 value: i,
-                                text: tord.match(/ii/) && i < 10 ? '0' + i : i
+                                display: tord.match(/ii/) && i < 10 ? '0' + i : i
                             });
                         }
                         addWheel('mbsc-dt-whl-i', wg, s.minuteText, values);
@@ -221,7 +221,7 @@
                         for (i = minS; i < 60; i += stepS) {
                             values.push({
                                 value: i,
-                                text: tord.match(/ss/) && i < 10 ? '0' + i : i
+                                display: tord.match(/ss/) && i < 10 ? '0' + i : i
                             });
                         }
                         addWheel('mbsc-dt-whl-s', wg, s.secText, values);
@@ -231,16 +231,16 @@
 
                         addWheel('mbsc-dt-whl-a', wg, s.ampmText, upper ? [{
                             value: 0,
-                            text: s.amText.toUpperCase()
+                            display: s.amText.toUpperCase()
                         }, {
                             value: 1,
-                            text: s.pmText.toUpperCase()
+                            display: s.pmText.toUpperCase()
                         }] : [{
                             value: 0,
-                            text: s.amText
+                            display: s.amText
                         }, {
                             value: 1,
-                            text: s.pmText
+                            display: s.pmText
                         }]);
                     }
                 }
@@ -264,7 +264,7 @@
             function getYearValue(i) {
                 return {
                     value: i,
-                    text: dord.match(/yy/i) ? i : (i + '').substr(2, 2) + (s.yearSuffix || '')
+                    display: dord.match(/yy/i) ? i : (i + '').substr(2, 2) + (s.yearSuffix || '')
                 };
             }
 
@@ -274,8 +274,7 @@
 
             function addWheel(cssClass, wg, lbl, v, getIndex, min, max) {
                 wg.push({
-                    values: v,
-                    //keys: k,
+                    data: v,
                     label: lbl,
                     min: min,
                     max: max,
@@ -745,7 +744,7 @@
                     if (!val) {
                         innerValues = {};
                     }
-                    return getArray(val ? datetime.parseDate(format, val, s) : (s.defaultValue || new Date()), !!val && !!val.getTime);
+                    return getArray(val ? datetime.parseDate(format, val, s) : (s.defaultValue && s.defaultValue.getTime ? s.defaultValue : new Date()), !!val && !!val.getTime);
                 },
                 validate: function (values, index, dir) {
                     var i,
@@ -844,13 +843,13 @@
                     // or if day names needs to be regenerated
                     if (dayWheel && (dayWheel._length !== maxdays || (regen && (index === undefined || index === o.y || index === o.m)))) {
                         wheels[o.d] = dayWheel;
-                        dayWheel.values = [];
+                        dayWheel.data = [];
                         for (i = 1; i <= maxdays; i++) {
                             weekDay = s.getDate(y, m, i).getDay();
                             dayStr = dord.replace(/[my]/gi, '').replace(/dd/, (i < 10 ? '0' + i : i) + (s.daySuffix || '')).replace(/d/, i + (s.daySuffix || ''));
-                            dayWheel.values.push({
+                            dayWheel.data.push({
                                 value: i,
-                                text: dayStr.match(/DD/) ? dayStr.replace(/DD/, '<span class="mbsc-dt-day">' + s.dayNames[weekDay] + '</span>') : dayStr.replace(/D/, '<span class="mbsc-dt-day">' + s.dayNamesShort[weekDay] + '</span>')
+                                display: dayStr.match(/DD/) ? dayStr.replace(/DD/, '<span class="mbsc-dt-day">' + s.dayNames[weekDay] + '</span>') : dayStr.replace(/D/, '<span class="mbsc-dt-day">' + s.dayNamesShort[weekDay] + '</span>')
                             });
                         }
                         // Need to update day value, if out of month

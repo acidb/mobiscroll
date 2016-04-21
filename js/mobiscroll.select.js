@@ -176,13 +176,12 @@
 
         function genValues(data, multiple, label) {
             var i,
-                //keys = [],
                 values = [];
 
             for (i = 0; i < data.length; i++) {
                 values.push({
                     value: data[i].value,
-                    text: data[i].text,
+                    display: data[i].text,
                     cssClass: data[i].cssClass
                 });
             }
@@ -190,8 +189,7 @@
             return {
                 circular: false,
                 multiple: multiple,
-                values: values,
-                //keys: keys,
+                data: values,
                 label: label
             };
         }
@@ -394,7 +392,6 @@
         // ---
 
         return {
-            width: 50,
             layout: layout,
             headerText: false,
             anchor: $input,

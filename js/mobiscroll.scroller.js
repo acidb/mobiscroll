@@ -5,18 +5,18 @@
     }
 
     function getItem(wheel, i, def) {
-        var values = wheel.values;
+        var data = wheel.data;
 
         if (i < wheel.min || i > wheel.max) {
             return def;
         }
         return wheel._array ?
-            (wheel.circular ? $(values).get(i % wheel._length) : values[i]) :
-            ($.isFunction(values) ? values(i) : '');
+            (wheel.circular ? $(data).get(i % wheel._length) : data[i]) :
+            ($.isFunction(data) ? data(i) : '');
     }
 
     function getItemValue(item) {
-        return $.isPlainObject(item) ? (item.value !== undefined ? item.value : item.text) : item;
+        return $.isPlainObject(item) ? (item.value !== undefined ? item.value : item.display) : item;
     }
 
     function getValue(wheel, i, def) {
@@ -38,6 +38,7 @@
             $stepBtn,
             batchSize = 20,
             selectedClass,
+            showScrollArrows,
             stepTimer,
             stepRunning,
             stepSkip,
@@ -51,7 +52,8 @@
             lines,
             that = this,
             $elm = $(el),
-            wheels = [];
+            wheels = [],
+            wheelsMap = {};
 
         // Event handlers
 
@@ -194,17 +196,17 @@
         function initWheel(w, l, keep) {
             var index = w._index - w._batch;
 
-            w.values = w.values || [];
-            //w.keys = w.keys || w.values;
+            w.data = w.data || [];
+            w.key = w.key !== undefined ? w.key : l;
             w.label = w.label !== undefined ? w.label : l;
 
             w._map = {};
-            w._array = $.isArray(w.values);
+            w._array = $.isArray(w.data);
 
             // Map keys to index
             if (w._array) {
-                w._length = w.values.length;
-                $.each(w.values, function (i, v) {
+                w._length = w.data.length;
+                $.each(w.data, function (i, v) {
                     w._map[getItemValue(v)] = i;
                 });
             }
@@ -215,6 +217,7 @@
             w.min = w._array ? (w.circular ? -Infinity : 0) : (w.min === undefined ? -Infinity : w.min);
             w.max = w._array ? (w.circular ? Infinity : w._length - 1) : (w.max === undefined ? Infinity : w.max);
 
+            w._nr = l;
             w._index = getIndex(w, tempWheelArray[l]);
             w._disabled = {};
             w._batch = 0;
@@ -229,18 +232,17 @@
             } else {
                 w._margin = 0; //w._first * itemHeight;
             }
-            //w._offset = 0;
-            //w._nr = l;
 
             w._refresh = function () {
                 extend(w._scroller.settings, {
-                    //initialPos: -w._current * itemHeight,
                     minScroll: -(w.max - w._offset - (w.multiple ? (s.rows - 1) : 0)) * itemHeight,
                     maxScroll: -(w.min - w._offset) * itemHeight
                 });
 
                 w._scroller.refresh();
             };
+
+            wheelsMap[w.key] = w;
 
             return w;
         }
@@ -256,20 +258,14 @@
                 html = '',
                 checked = that._tempSelected[index],
                 disabled = wheel._disabled || {};
-            //values = wheel.values
-            //labels = wheel.labels || [],
-            //keys = wheel.keys;
 
             for (i = start; i <= end; i++) {
                 item = getItem(wheel, i);
-                text = $.isPlainObject(item) ? item.text : item;
+                text = $.isPlainObject(item) ? item.display : item;
                 value = item && item.value !== undefined ? item.value : text;
                 css = item && item.cssClass !== undefined ? item.cssClass : '';
                 lbl = item && item.label !== undefined ? item.label : '';
                 selected = value !== undefined && value == tempWheelArray[index];
-
-                //key = getItem(wheel, keys, i);
-                //lbl = getItem(wheel, labels, i, '');
 
                 // TODO: don't generate items with no value (use margin or placeholder instead)
                 html += '<div role="option" aria-selected="' + (checked[value] ? true : false) +
@@ -296,10 +292,10 @@
         //    var i,
         //        value,
         //        html = '',
-        //        values = wheel.values;
+        //        data = wheel.data;
 
         //    for (i = start; i <= end; i++) {
-        //        value = getItem(wheel, values, i);
+        //        value = getItem(wheel, data, i);
         //        wheel._$3d.find('.mbsc-sc-itm-3d').eq((i + 7 - wheel._offset) % 16).html(value);
         //    }
 
@@ -580,10 +576,12 @@
         };
 
         that.changeWheel = function (whls, time, manual) {
-            var w;
+            var i,
+                w;
 
-            $.each(whls, function (i, wheel) {
-                w = wheels[i];
+            $.each(whls, function (key, wheel) {
+                w = wheelsMap[key];
+                i = w._nr;
                 // Check if wheel exists
                 if (w) {
                     extend(w, wheel);
@@ -665,7 +663,7 @@
                     //if (s.scroll3d) {
                     //    html += '<div class="mbsc-sc-whl-3d" style="height:' + itemHeight + 'px;margin-top:-' + (itemHeight / 2) + 'px;">';
                     //    for (var k = 0; k < 16; k++) {
-                    //        html += '<div class="mbsc-btn mbsc-sc-itm-3d" style="' + pref + 'transform:rotateX(' + ((7 - k - w._offset) * 22.5 % 360) + 'deg) translateZ(' + (itemHeight * s.rows / 2) + 'px);height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;">' + getItem(w, w.values, w._current + k - 7) + '</div>';
+                    //        html += '<div class="mbsc-btn mbsc-sc-itm-3d" style="' + pref + 'transform:rotateX(' + ((7 - k - w._offset) * 22.5 % 360) + 'deg) translateZ(' + (itemHeight * s.rows / 2) + 'px);height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;">' + getItem(w, w.data, w._current + k - 7) + '</div>';
                     //    }
                     //    html += '</div>';
                     //}
@@ -769,7 +767,8 @@
                         }
 
                         if (trigger('onItemTap', {
-                                target: $item[0]
+                                target: $item[0],
+                                selected: $item.hasClass('mbsc-itm-sel')
                             }) !== false) {
                             setWheelValue(wheel, i, idx, 200);
                         }
@@ -877,7 +876,7 @@
                     ret = [],
                     i = 0,
                     found,
-                    keys;
+                    data;
 
                 if (value !== null && value !== undefined) {
                     val = (value + '').split(' ');
@@ -885,13 +884,13 @@
 
                 $.each(inst.settings.wheels, function (j, wg) {
                     $.each(wg, function (k, w) {
-                        //keys = w.keys || w.values;
-                        //found = keys[0]; // Default to first wheel value if not found
-                        keys = w.values;
-                        found = getItemValue(keys[0]);
-                        $.each(keys, function (l, key) {
-                            if (val[i] == getItemValue(key)) { // Don't do strict comparison
-                                found = getItemValue(key);
+                        data = w.data;
+                        // Default to first wheel value if not found
+                        found = getItemValue(data[0]);
+                        $.each(data, function (l, item) {
+                            // Don't do strict comparison
+                            if (val[i] == getItemValue(item)) {
+                                found = getItemValue(item);
                                 return false;
                             }
                         });
@@ -905,4 +904,5 @@
     };
 
     ms.themes.scroller = ms.themes.frame;
+
 })(window, document);
