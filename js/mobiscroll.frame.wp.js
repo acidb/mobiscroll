@@ -30,28 +30,26 @@
                     return $.isArray(s.readonly) ? s.readonly[i] : s.readonly;
                 }
 
-                if (s.mode != 'clickpick') {
-                    $('.mbsc-sc-whl', elm).on('touchstart mousedown wheel mousewheel', function (e) {
-                        if ((e.type === 'mousedown' && touch) || isReadOnly($(this).attr('data-index'))) {
-                            return;
-                        }
-                        touch = e.type === 'touchstart';
-                        click = true;
-                        active = $(this).hasClass('mbsc-sc-whl-wpa');
-                        $('.mbsc-sc-whl', elm).removeClass('mbsc-sc-whl-wpa');
-                        $(this).addClass('mbsc-sc-whl-wpa');
-                    }).on('touchmove mousemove', function () {
-                        click = false;
-                    }).on('touchend mouseup', function (e) {
-                        if (click && active && $(e.target).closest('.mbsc-sc-itm').hasClass('mbsc-sc-itm-sel')) {
-                            $(this).removeClass('mbsc-sc-whl-wpa');
-                        }
-                        if (e.type === 'mouseup') {
-                            touch = false;
-                        }
-                        click = false;
-                    });
-                }
+                $('.mbsc-sc-whl', elm).on('touchstart mousedown wheel mousewheel', function (e) {
+                    if ((e.type === 'mousedown' && touch) || isReadOnly($(this).attr('data-index'))) {
+                        return;
+                    }
+                    touch = e.type === 'touchstart';
+                    click = true;
+                    active = $(this).hasClass('mbsc-sc-whl-wpa');
+                    $('.mbsc-sc-whl', elm).removeClass('mbsc-sc-whl-wpa');
+                    $(this).addClass('mbsc-sc-whl-wpa');
+                }).on('touchmove mousemove', function () {
+                    click = false;
+                }).on('touchend mouseup', function (e) {
+                    if (click && active && $(e.target).closest('.mbsc-sc-itm').hasClass('mbsc-sc-itm-sel')) {
+                        $(this).removeClass('mbsc-sc-whl-wpa');
+                    }
+                    if (e.type === 'mouseup') {
+                        touch = false;
+                    }
+                    click = false;
+                });
             },
             onThemeLoad: function (ev) {
                 var lang = ev.lang,

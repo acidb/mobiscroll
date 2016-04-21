@@ -3,7 +3,6 @@
     mobiscroll.themes.frame['android-holo-light'] = {
         baseTheme: 'android-holo',
         dateOrder: 'Mddyy',
-        //mode: 'mixed',
         rows: 5,
         minWidth: 76,
         height: 36,

@@ -658,7 +658,7 @@
                 }, true);
             });
 
-            if (s.closeOnOverlay) {
+            if (s.closeOnOverlayTap) {
                 that.tap($overlay, function () {
                     that.cancel();
                 });
@@ -903,7 +903,7 @@
         clearText: 'Clear',
         // Options
         disabled: false,
-        closeOnOverlay: true,
+        closeOnOverlayTap: true,
         showOnFocus: false,
         showOnTap: true,
         display: 'center',

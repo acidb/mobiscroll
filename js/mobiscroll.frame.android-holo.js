@@ -2,7 +2,6 @@
 
     mobiscroll.themes.frame['android-holo'] = {
         dateOrder: 'Mddyy',
-        //mode: 'mixed',
         rows: 5,
         minWidth: 76,
         height: 36,

@@ -624,7 +624,7 @@
             $.each(s.wheels, function (i, wg) {
                 html += '<div class="mbsc-w-p mbsc-sc-whl-gr-c"><div class="mbsc-sc-whl-gr' +
                     //(s.scroll3d ? ' mbsc-sc-whl-gr-3d' : '') +
-                    (s.mode != 'scroller' ? ' mbsc-sc-cp' : '') +
+                    (showScrollArrows ? ' mbsc-sc-cp' : '') +
                     (s.showLabel ? ' mbsc-sc-lbl-v' : '') + '">';
                 //'<div class="dwwc"' + (s.maxWidth ? '' : ' style="max-width:600px;"') + '>' +
 
@@ -646,7 +646,7 @@
                         '<div tabindex="0" aria-live="off" aria-label="' + lbl + '" role="listbox" data-index="' + l + '" class="mbsc-sc-whl"' + ' style="' +
                         'height:' + (s.rows * itemHeight) + 'px;">' +
                         //'<div class="dwwl dwwl' + l + (w.multiple ? ' dwwms' : '') + '">' +
-                        (s.mode != 'scroller' ?
+                        (showScrollArrows ?
                             '<div data-index="' + l + '" data-dir="inc" class="mbsc-sc-btn mbsc-sc-btn-plus ' + (s.btnPlusClass || '') + '" style="height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;"></div>' + // + button
                             '<div data-index="' + l + '" data-dir="dec" class="mbsc-sc-btn mbsc-sc-btn-minus ' + (s.btnMinusClass || '') + '" style="height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;"></div>' : '') + // - button
                         '<div class="mbsc-sc-lbl">' + lbl + '</div>' + // Wheel label
@@ -723,7 +723,7 @@
                     //timeUnit: 3,
                     //easing: 'cubic-bezier(0.190, 1.000, 0.220, 1.000)',
                     onStart: function (ev, inst) {
-                        inst.settings.readonly = isReadOnly(i) || s.mode == 'clickpick';
+                        inst.settings.readonly = isReadOnly(i);
                     },
                     onGestureStart: function () {
                         $wh.addClass('mbsc-sc-whl-a mbsc-sc-whl-anim');
@@ -761,11 +761,6 @@
                     onBtnTap: function (ev) {
                         var $item = $(ev.target),
                             idx = +$item.attr('data-index');
-
-                        if (!wheel.multiple && s.display !== 'inline' && (s.confirmOnTap === true || s.confirmOnTap[i]) && $item.hasClass('mbsc-sc-itm-sel')) {
-                            that.select();
-                            return;
-                        }
 
                         // Select item on tap
                         if (toggleItem(i, $item)) {
@@ -827,6 +822,7 @@
             trigger = that.trigger;
             itemHeight = s.height;
             lines = s.multiline;
+            showScrollArrows = s.showScrollArrows;
             selectedClass = 'mbsc-sc-itm-sel mbsc-ic mbsc-ic-' + s.checkIcon;
 
             that._isLiquid = (s.layout || (/top|bottom/.test(s.display) && s.wheels.length == 1 ? 'liquid' : '')) === 'liquid';
@@ -836,7 +832,7 @@
             }
 
             // Ensure a minimum number of 3 items if clickpick buttons present
-            if (s.mode != 'scroller') {
+            if (showScrollArrows) {
                 s.rows = Math.max(3, s.rows);
             }
         };
@@ -868,9 +864,7 @@
             readonly: false,
             showLabel: true,
             //scroll3d: false,
-            confirmOnTap: true,
             wheels: [],
-            mode: 'scroller',
             preset: '',
             speedUnit: 0.0012,
             timeUnit: 0.08,

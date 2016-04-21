@@ -2,8 +2,8 @@
 /*
  * Translation by: Mikkel Bonde, Apacta A/S <mikbonde@gmail.com>
  */
-(function ($) {
-    $.mobiscroll.i18n.da = {
+(function () {
+    mobiscroll.i18n.da = {
         // Core
         setText: 'Sæt',
         cancelText: 'Annuller',
@@ -58,4 +58,4 @@
         backText: 'Tilbage',
         undoText: 'Fortryd'
     };
-})(jQuery);
+})();
