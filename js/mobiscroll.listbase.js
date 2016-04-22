@@ -408,8 +408,10 @@
                     input.val(ev.valueText);
                 }
             },
-            validate: function (values, index) {
-                var o = calcLevelOfVector2(values, values.length);
+            validate: function (data) {
+                var values = data.values,
+                    index = data.index,
+                    o = calcLevelOfVector2(values, values.length);
 
                 currLevel = o.lvl;
 

@@ -746,11 +746,14 @@
                     }
                     return getArray(val ? datetime.parseDate(format, val, s) : (s.defaultValue && s.defaultValue.getTime ? s.defaultValue : new Date()), !!val && !!val.getTime);
                 },
-                validate: function (values, index, dir) {
+                validate: function (data) {
                     var i,
                         j,
                         dayStr,
                         weekDay,
+                        values = data.values,
+                        index = data.index,
+                        dir = data.direction,
                         dayWheel = inst.settings.wheels[0][o.d],
                         validated = getClosestValidDate(getDate(values), dir),
                         temp = getArray(validated),

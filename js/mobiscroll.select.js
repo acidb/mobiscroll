@@ -401,8 +401,9 @@
                 getOption(val === undefined ? $elm.val() : val);
                 return groupWheel ? [group, option] : [option];
             },
-            validate: function (values, index) {
-                var disabled = [];
+            validate: function (data) {
+                var index = data.index,
+                    disabled = [];
 
                 disabled[optionWheelIdx] = s.invalid;
 

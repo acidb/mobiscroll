@@ -395,7 +395,11 @@
                 isVisible = that._isVisible;
 
             isValidating = true;
-            ret = s.validate.call(el, tempWheelArray.slice(0), index, dir, that) || {};
+            ret = s.validate.call(el, {
+                values: tempWheelArray.slice(0),
+                index: index,
+                direction: dir
+            }, that) || {};
             isValidating = false;
 
             if (ret.valid) {
