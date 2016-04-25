@@ -1,3 +1,4 @@
+// Cestina
 (function () {
     mobiscroll.i18n.cs = {
         // Core
@@ -6,8 +7,7 @@
         clearText: 'Vymazat',
         selectedText: 'Označený: {count}',
         // Datetime component
-        dateFormat: 'dd/mm/yy',
-        dateOrder: 'ddmmy',
+        dateFormat: 'dd.mm.yy',
         dayNames: ['Neděle', 'Pondělí', 'Úterý', 'Středa', 'Čtvrtek', 'Pátek', 'Sobota'],
         dayNamesShort: ['Ne', 'Po', 'Út', 'St', 'Čt', 'Pá', 'So'],
         dayNamesMin: ['N', 'P', 'Ú', 'S', 'Č', 'P', 'S'],
@@ -18,8 +18,7 @@
         monthNamesShort: ['Led', 'Úno', 'Bře', 'Dub', 'Kvě', 'Čer', 'Čvc', 'Spr', 'Zář', 'Říj', 'Lis', 'Pro'],
         monthText: 'Měsíc',
         secText: 'Sekundy',
-        timeFormat: 'hh:ii A',
-        timeWheels: 'hhiiA',
+        timeFormat: 'HH:ii',
         yearText: 'Rok',
         nowText: 'Teď',
         amText: 'am',

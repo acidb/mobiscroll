@@ -12,7 +12,6 @@
         selectedPluralText: '{count} valgt',
         // Datetime component
         dateFormat: 'dd/mm/yy',
-        dateOrder: 'ddmmyy',
         dayNames: ['Søndag', 'Mandag', 'Tirsdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lørdag'],
         dayNamesShort: ['Søn', 'Man', 'Tir', 'Ons', 'Tor', 'Fre', 'Lør'],
         dayNamesMin: ['S', 'M', 'T', 'O', 'T', 'F', 'L'],
@@ -25,8 +24,7 @@
         secText: 'Sekunder',
         amText: 'am',
         pmText: 'pm',
-        timeFormat: 'HH:ii',
-        timeWheels: 'HHii',
+        timeFormat: 'HH.ii',
         yearText: 'År',
         nowText: 'Nu',
         // Calendar component

@@ -2,7 +2,7 @@
 
     mobiscroll.themes.frame.ios = {
         display: 'bottom',
-        dateOrder: 'MMdyy',
+        dateDisplay: 'MMdyy',
         rows: 5,
         height: 34,
         minWidth: 55,

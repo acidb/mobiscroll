@@ -8,8 +8,7 @@
         selectedText: 'Pasirinktas {count}',
         selectedPluralText: 'Pasirinkti {count}',
         // Datetime component
-        dateFormat: 'yy.mm.dd',
-        dateOrder: 'yymmdd',
+        dateFormat: 'yy-mm-dd',
         dayNames: ['Sekmadienis', 'Pirmadienis', 'Antradienis', 'Trečiadienis', 'Ketvirtadienis', 'Penktadienis', 'Šeštadienis'],
         dayNamesShort: ['S', 'Pr', 'A', 'T', 'K', 'Pn', 'Š'],
         dayNamesMin: ['S', 'Pr', 'A', 'T', 'K', 'Pn', 'Š'],
@@ -23,7 +22,6 @@
         amText: 'am',
         pmText: 'pm',
         timeFormat: 'HH:ii',
-        timeWheels: 'HHii',
         yearText: 'Metai',
         nowText: 'Dabar',
         // Calendar component

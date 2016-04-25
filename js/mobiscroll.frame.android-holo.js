@@ -1,7 +1,7 @@
 (function () {
 
     mobiscroll.themes.frame['android-holo'] = {
-        dateOrder: 'Mddyy',
+        dateDisplay: 'Mddyy',
         rows: 5,
         minWidth: 76,
         height: 36,

@@ -1,3 +1,4 @@
+// Slovencina
 (function () {
     mobiscroll.i18n.sk = {
         // Core
@@ -6,8 +7,7 @@
         clearText: 'Vymazať',
         selectedText: 'Označený: {count}',
         // Datetime component
-        dateFormat: 'dd/mm/yy',
-        dateOrder: 'ddmmy',
+        dateFormat: 'd.m.yy',
         dayNames: ['Nedeľa', 'Pondelok', 'Utorok', 'Streda', 'Štvrtok', 'Piatok', 'Sobota'],
         dayNamesShort: ['Ne', 'Po', 'Ut', 'St', 'Št', 'Pi', 'So'],
         dayNamesMin: ['N', 'P', 'U', 'S', 'Š', 'P', 'S'],
@@ -18,8 +18,7 @@
         monthNamesShort: ['Jan', 'Feb', 'Mar', 'Apr', 'Máj', 'Jún', 'Júl', 'Aug', 'Sep', 'Okt', 'Nov', 'Dec'],
         monthText: 'Mesiac',
         secText: 'Sekundy',
-        timeFormat: 'hh:ii A',
-        timeWheels: 'hhiiA',
+        timeFormat: 'H:ii',
         yearText: 'Rok',
         nowText: 'Teraz',
         amText: 'am',

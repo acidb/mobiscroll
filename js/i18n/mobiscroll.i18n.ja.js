@@ -1,3 +1,4 @@
+// Japanese
 (function () {
     mobiscroll.i18n.ja = {
         // Core
@@ -7,7 +8,6 @@
         selectedText: '{count} 選択',
         // Datetime component
         dateFormat: 'yy年mm月dd日',
-        dateOrder: 'yymmdd',
         dayNames: ['日', '月', '火', '水', '木', '金', '土'],
         dayNamesShort: ['日', '月', '火', '水', '木', '金', '土'],
         dayNamesMin: ['日', '月', '火', '水', '木', '金', '土'],
@@ -19,7 +19,6 @@
         monthText: '月',
         secText: '秒',
         timeFormat: 'HH:ii',
-        timeWheels: 'HHii',
         yearText: '年',
         nowText: '今',
         pmText: '午後',

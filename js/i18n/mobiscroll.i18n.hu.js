@@ -1,3 +1,4 @@
+// Magyar
 (function () {
     mobiscroll.i18n.hu = {
         // Core
@@ -7,7 +8,6 @@
         selectedText: '{count} kiválasztva',
         // Datetime component
         dateFormat: 'yy.mm.dd.',
-        dateOrder: 'yymmdd',
         dayNames: ['Vasárnap', 'Hétfő', 'Kedd', 'Szerda', 'Csütörtök', 'Péntek', 'Szombat'],
         dayNamesShort: ['Va', 'Hé', 'Ke', 'Sze', 'Csü', 'Pé', 'Szo'],
         dayNamesMin: ['V', 'H', 'K', 'Sz', 'Cs', 'P', 'Sz'],
@@ -19,8 +19,7 @@
         monthNamesShort: ['Jan', 'Feb', 'Már', 'Ápr', 'Máj', 'Jún', 'Júl', 'Aug', 'Szep', 'Okt', 'Nov', 'Dec'],
         monthText: 'Hónap',
         secText: 'Másodperc',
-        timeFormat: 'HH:ii',
-        timeWheels: 'HHii',
+        timeFormat: 'H:ii',
         yearText: 'Év',
         nowText: 'Most',
         pmText: 'de',

@@ -1,3 +1,4 @@
+// Italiano 
 (function () {
     mobiscroll.i18n.it = {
         // Core
@@ -7,8 +8,7 @@
         selectedText: '{count} selezionato',
         selectedPluralText: '{count} selezionati',
         // Datetime component
-        dateFormat: 'dd-mm-yyyy',
-        dateOrder: 'ddmmyy',
+        dateFormat: 'dd/mm/yy',
         dayNames: ['Domenica', 'Lunedì', 'Mertedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'],
         dayNamesShort: ['Do', 'Lu', 'Ma', 'Me', 'Gi', 'Ve', 'Sa'],
         dayNamesMin: ['D', 'L', 'M', 'M', 'G', 'V', 'S'],
@@ -20,7 +20,6 @@
         monthText: 'Mese',
         secText: 'Secondi',
         timeFormat: 'HH:ii',
-        timeWheels: 'HHii',
         yearText: 'Anno',
         nowText: 'Ora',
         pmText: 'pm',

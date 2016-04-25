@@ -1,3 +1,4 @@
+// Русский
 (function () {
     mobiscroll.i18n['ru-RU'] = mobiscroll.i18n.ru = {
         // Core
@@ -7,7 +8,6 @@
         selectedText: '{count} Выбрать',
         // Datetime component
         dateFormat: 'dd.mm.yy',
-        dateOrder: 'ddmmyy',
         dayNames: ['воскресенье', 'понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота'],
         dayNamesShort: ['вс', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб'],
         dayNamesMin: ['в', 'п', 'в', 'с', 'ч', 'п', 'с'],
@@ -20,7 +20,6 @@
         monthText: 'Месяц',
         secText: 'Секунд',
         timeFormat: 'HH:ii',
-        timeWheels: 'HHii',
         yearText: 'Год',
         nowText: 'Сейчас',
         amText: 'До полудня',

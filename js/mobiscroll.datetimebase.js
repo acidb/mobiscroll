@@ -10,9 +10,9 @@
             separator: ' ',
             // Localization
             dateFormat: 'mm/dd/yy',
-            dateOrder: 'mmddy',
-            timeWheels: 'hhiiA',
+            dateDisplay: 'MMddyy',
             timeFormat: 'hh:ii A',
+            timeDisplay: 'hhiiA',
             dayText: 'Day',
             monthText: 'Month',
             yearText: 'Year',
@@ -88,11 +88,13 @@
                 invalid = s.invalid,
                 valid = s.valid,
                 p = s.preset,
-                dord = s.dateOrder,
-                tord = s.timeWheels,
-                regen = dord.match(/D/),
+                dord = s.dateWheels || s.dateFormat,
+                ddisplay = s.dateWheels || s.dateDisplay,
+                tord = s.timeWheels || s.timeFormat,
+                tdisplay = s.timeWheels || s.timeDisplay,
+                regen = ddisplay.match(/D/),
                 ampm = tord.match(/a/i),
-                hampm = tord.match(/h/),
+                hampm = tdisplay.match(/h/),
                 hformat = p == 'datetime' ? s.dateFormat + s.separator + s.timeFormat : p == 'time' ? s.timeFormat : s.dateFormat,
                 defd = new Date(),
                 steps = s.steps || {},
@@ -141,14 +143,14 @@
                             s.yearText,
                             getYearValue,
                             getYearIndex,
-                            mind.getFullYear(),
-                            maxd.getFullYear()
+                            s.getYear(mind),
+                            s.getYear(maxd)
                         );
                     } else if (k == o.m) {
                         offset++;
                         values = [];
                         for (i = 0; i < 12; i++) {
-                            monthStr = dord.replace(/[dy]/gi, '').replace(/mm/, (i < 9 ? '0' + (i + 1) : i + 1) + (s.monthSuffix || '')).replace(/m/, i + 1 + (s.monthSuffix || ''));
+                            monthStr = ddisplay.replace(/[dy]/gi, '').replace(/mm/, (i < 9 ? '0' + (i + 1) : i + 1) + (s.monthSuffix || '')).replace(/m/, i + 1 + (s.monthSuffix || ''));
                             values.push({
                                 value: i,
                                 display: monthStr.match(/MM/) ? monthStr.replace(/MM/, '<span class="mbsc-dt-month">' + s.monthNames[i] + '</span>') : monthStr.replace(/M/, '<span class="mbsc-dt-month">' + s.monthNamesShort[i] + '</span>')
@@ -161,7 +163,7 @@
                         for (i = 1; i < 32; i++) {
                             values.push({
                                 value: i,
-                                display: (dord.match(/dd/i) && i < 10 ? '0' + i : i) + (s.daySuffix || '')
+                                display: (ddisplay.match(/dd/i) && i < 10 ? '0' + i : i) + (s.daySuffix || '')
                             });
                         }
                         addWheel('mbsc-dt-whl-d', wg, s.dayText, values);
@@ -201,7 +203,7 @@
                         for (i = minH; i < (hampm ? 12 : 24); i += stepH) {
                             values.push({
                                 value: i,
-                                display: hampm && i === 0 ? 12 : tord.match(/hh/i) && i < 10 ? '0' + i : i
+                                display: hampm && i === 0 ? 12 : tdisplay.match(/hh/i) && i < 10 ? '0' + i : i
                             });
                         }
                         addWheel('mbsc-dt-whl-h', wg, s.hourText, values);
@@ -211,7 +213,7 @@
                         for (i = minM; i < 60; i += stepM) {
                             values.push({
                                 value: i,
-                                display: tord.match(/ii/) && i < 10 ? '0' + i : i
+                                display: tdisplay.match(/ii/) && i < 10 ? '0' + i : i
                             });
                         }
                         addWheel('mbsc-dt-whl-i', wg, s.minuteText, values);
@@ -221,13 +223,13 @@
                         for (i = minS; i < 60; i += stepS) {
                             values.push({
                                 value: i,
-                                display: tord.match(/ss/) && i < 10 ? '0' + i : i
+                                display: tdisplay.match(/ss/) && i < 10 ? '0' + i : i
                             });
                         }
                         addWheel('mbsc-dt-whl-s', wg, s.secText, values);
                     } else if (k == o.a) {
                         offset++;
-                        var upper = tord.match(/A/);
+                        var upper = tdisplay.match(/A/);
 
                         addWheel('mbsc-dt-whl-a', wg, s.ampmText, upper ? [{
                             value: 0,
@@ -264,7 +266,7 @@
             function getYearValue(i) {
                 return {
                     value: i,
-                    display: dord.match(/yy/i) ? i : (i + '').substr(2, 2) + (s.yearSuffix || '')
+                    display: (ddisplay.match(/yy/i) ? i : (i + '').substr(2, 2)) + (s.yearSuffix || '')
                 };
             }
 
@@ -849,7 +851,7 @@
                         dayWheel.data = [];
                         for (i = 1; i <= maxdays; i++) {
                             weekDay = s.getDate(y, m, i).getDay();
-                            dayStr = dord.replace(/[my]/gi, '').replace(/dd/, (i < 10 ? '0' + i : i) + (s.daySuffix || '')).replace(/d/, i + (s.daySuffix || ''));
+                            dayStr = ddisplay.replace(/[my]/gi, '').replace(/dd/, (i < 10 ? '0' + i : i) + (s.daySuffix || '')).replace(/d/, i + (s.daySuffix || ''));
                             dayWheel.data.push({
                                 value: i,
                                 display: dayStr.match(/DD/) ? dayStr.replace(/DD/, '<span class="mbsc-dt-day">' + s.dayNames[weekDay] + '</span>') : dayStr.replace(/D/, '<span class="mbsc-dt-day">' + s.dayNamesShort[weekDay] + '</span>')

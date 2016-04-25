@@ -12,6 +12,7 @@
         //jqmClickPick: 'c',
         jqmSet: 'b',
         jqmCancel: 'c',
+        dateDisplay: 'Mddyy',
         disabledClass: 'ui-disabled',
         activeClass: 'ui-btn-active',
         activeTabInnerClass: 'ui-btn-active',

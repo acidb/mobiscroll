@@ -1,3 +1,4 @@
+// فارسی
 (function () {
 
     var JalaliDate = {
@@ -120,7 +121,6 @@
         selectedText: '{count} منتخب',
         // Datetime component
         dateFormat: 'yy/mm/dd',
-        dateOrder: 'yymmdd',
         dayNames: ['يکشنبه', 'دوشنبه', 'سه‌شنبه', 'چهارشنبه', 'پنج‌شنبه', 'جمعه', 'شنبه'],
         dayNamesShort: ['ی', 'د', 'س', 'چ', 'پ', 'ج', 'ش'],
         dayNamesMin: ['ی', 'د', 'س', 'چ', 'پ', 'ج', 'ش'],
@@ -132,7 +132,6 @@
         monthText: 'ماه',
         secText: 'ثانيه',
         timeFormat: 'HH:ii',
-        timeWheels: 'HHii',
         yearText: 'سال',
         nowText: 'اکنون',
         amText: 'ب',
