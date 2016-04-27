@@ -172,9 +172,6 @@
 
         function set() {
             that._fillValue();
-            event('onSelect', {
-                valueText: that._value
-            });
         }
 
         function cancel() {
@@ -537,7 +534,6 @@
 
             that._markup = $markup;
             that._header = $header;
-            that._isVisible = true;
 
             posEvents = 'orientationchange resize';
 
@@ -601,6 +597,8 @@
             event('onMarkupInserted', {
                 target: $markup[0]
             });
+
+            that._isVisible = true;
 
             // Set position
             that.position();
@@ -729,7 +727,7 @@
                 callback();
             }
 
-            event('onClosed', {
+            event('onClose', {
                 valueText: that._value
             });
 

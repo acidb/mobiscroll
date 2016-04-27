@@ -417,8 +417,8 @@
                     disabled: disabled
                 };
             },
-            onValueRead: onFill,
-            onValueFill: onFill,
+            onRead: onFill,
+            onSet: onFill,
             onBeforeShow: function () {
                 if (multiple && s.counter) {
                     s.headerText = function () {

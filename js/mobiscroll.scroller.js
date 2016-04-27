@@ -528,7 +528,7 @@
                     $elm.val(that._hasValue ? that._tempValue : '');
                 }
 
-                trigger('onValueFill', {
+                trigger('onSet', {
                     valueText: that._hasValue ? that._tempValue : '',
                     change: change
                 });
@@ -817,7 +817,7 @@
 
             setValue();
 
-            trigger('onValueRead');
+            trigger('onRead');
         };
 
         that._processSettings = function () {

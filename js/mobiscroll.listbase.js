@@ -402,7 +402,7 @@
                     changeWheels(values, index, o);
                 }
             },
-            onValueFill: function (ev) {
+            onSet: function (ev) {
                 currLevel = undefined;
                 if (input) {
                     input.val(ev.valueText);
