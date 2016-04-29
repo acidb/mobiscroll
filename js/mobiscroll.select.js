@@ -36,7 +36,7 @@
             origReadOnly = s.readonly,
             layout = s.layout || (/top|bottom/.test(s.display) ? 'liquid' : ''),
             isLiquid = layout == 'liquid',
-            multiple = s.multiple || $elm.prop('multiple'),
+            multiple = util.isNumeric(s.select) ? s.select : (s.select == 'multiple' || $elm.prop('multiple')),
             id = this.id + '_dummy',
             lbl = $('label[for="' + this.id + '"]').attr('for', id),
             label = s.label !== undefined ? s.label : (lbl.length ? lbl.text() : $elm.attr('name')),
@@ -396,6 +396,7 @@
             headerText: false,
             anchor: $input,
             compClass: 'mbsc-sel',
+            setOnTap: groupWheel ? [false, true] : true,
             formatValue: formatValue,
             parseValue: function (val) {
                 getOption(val === undefined ? $elm.val() : val);

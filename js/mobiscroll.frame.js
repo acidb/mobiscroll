@@ -29,6 +29,7 @@
             doAnim,
             event,
             isModal,
+            isInserted,
             modalWidth,
             modalHeight,
             posEvents,
@@ -129,6 +130,8 @@
 
             that._isVisible = false;
 
+            isInserted = false;
+
             event('onHide');
         }
 
@@ -219,7 +222,7 @@
                 return;
             }
 
-            if ((wndWidth === nw && wndHeight === nh && check) || preventPos || !that._isVisible) {
+            if ((wndWidth === nw && wndHeight === nh && check) || preventPos || !isInserted) {
                 return;
             }
 
@@ -534,6 +537,7 @@
 
             that._markup = $markup;
             that._header = $header;
+            that._isVisible = true;
 
             posEvents = 'orientationchange resize';
 
@@ -592,13 +596,13 @@
                 $markup.insertAfter($elm);
             }
 
+            isInserted = true;
+
             that._markupInserted($markup);
 
             event('onMarkupInserted', {
                 target: $markup[0]
             });
-
-            that._isVisible = true;
 
             // Set position
             that.position();

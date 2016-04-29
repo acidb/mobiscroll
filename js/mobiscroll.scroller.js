@@ -775,6 +775,12 @@
                                 selected: $item.hasClass('mbsc-itm-sel')
                             }) !== false) {
                             setWheelValue(wheel, i, idx, 200);
+
+                            if (that.live && !wheel.multiple && (s.setOnTap === true || s.setOnTap[i])) {
+                                setTimeout(function () {
+                                    that.select();
+                                }, 200);
+                            }
                         }
                     }
                 });
@@ -866,6 +872,7 @@
             delay: 300,
             readonly: false,
             showLabel: true,
+            setOnTap: false,
             //scroll3d: false,
             wheels: [],
             preset: '',

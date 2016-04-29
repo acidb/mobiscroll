@@ -48,6 +48,8 @@
 .mbsc-android-holo .mbsc-sc-btn:before {
     font-size: 1.625em;
 }
+
+
 /* Multiple select */
 
 .mbsc-android-holo .mbsc-sc-whl-multi .mbsc-sc-whl-o {
@@ -71,6 +73,10 @@
     border: 1px solid #424542;
 }
 
+.mbsc-android-holo .mbsc-sc-itm-ph:after {
+    display: none;
+}
+
 .mbsc-android-holo .mbsc-sc-whl-multi .mbsc-sc-itm-sel:before {
     z-index: 2;
     top: 50%;
@@ -82,6 +88,8 @@
     line-height: .875em;
     text-shadow: 0 0 .375em #29799c;
 }
+
+
 /* Group select */
 
 .mbsc-android-holo .mbsc-sc-whl .mbsc-sel-gr {
@@ -93,6 +101,8 @@
 .mbsc-android-holo .mbsc-sc-whl .mbsc-sel-gr:after {
     display: none;
 }
+
+
 /* Date & Time */
 
 .mbsc-android-holo .mbsc-dt-whl-h:after {

@@ -371,6 +371,7 @@
             wheels: w,
             layout: layout,
             headerText: false,
+            setOnTap: lvl == 1,
             formatValue: function (d) {
                 if (currLevel === undefined) {
                     currLevel = calcLevelOfVector2(d, d.length).lvl;
