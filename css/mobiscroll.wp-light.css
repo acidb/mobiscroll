@@ -17,7 +17,9 @@
   color: white;
 }
 .mbsc-wp-light .mbsc-cal-day-sel .mbsc-cal-day-i,
-.mbsc-wp-light .mbsc-cal-sc-sel .mbsc-cal-sc-cell-i {
+.mbsc-wp-light .mbsc-cal-sc-sel .mbsc-cal-sc-cell-i,
+.mbsc-wp-light .mbsc-cal-tabs .mbsc-cal-tab-sel .mbsc-cal-tab-i,
+.mbsc-wp-light .mbsc-range-btn-sel .mbsc-range-btn {
   color: white;
   background: #1ba0e3;
   border-color: #1ba0e3;
@@ -55,7 +57,8 @@
 .mbsc-wp-light .mbsc-sc-whl-multi .mbsc-sc-itm:after {
   border-color: #000000;
 }
-.mbsc-wp-light .mbsc-sc-whl-multi .mbsc-sc-itm-sel:before {
+.mbsc-wp-light .mbsc-sc-whl-multi .mbsc-sc-itm-sel:before,
+.mbsc-wp-light .mbsc-sc-whl-multi .mbsc-sc-itm-sel {
   color: #000000;
 }
 /* Calendar */

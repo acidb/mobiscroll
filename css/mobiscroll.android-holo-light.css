@@ -72,7 +72,8 @@
 .mbsc-android-holo-light .mbsc-fr-btn-a .mbsc-cal-btn-txt {
   color: #319abd;
 }
-.mbsc-android-holo-light .mbsc-cal-tabs .mbsc-range-btn-sel {
+.mbsc-android-holo-light .mbsc-cal-tabs .mbsc-range-btn-sel,
+.mbsc-android-holo-light .mbsc-cal-tabs .mbsc-cal-tab-sel {
   border-bottom: 5px solid #31b7e8;
 }
 .mbsc-android-holo-light .mbsc-cal-event-color {

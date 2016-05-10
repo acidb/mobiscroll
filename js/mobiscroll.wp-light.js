@@ -48,17 +48,6 @@
                 click = false;
             });
         },
-        onThemeLoad: function (ev) {
-            var lang = ev.lang,
-                s = ev.settings;
-
-            if (lang && lang.dateOrder && !s.dateOrder) {
-                var ord = lang.dateOrder;
-                ord = ord.match(/mm/i) ? ord.replace(/mmMM|mm|MM/, 'mmMM') : ord.replace(/mM|m|M/, 'mM');
-                ord = ord.match(/dd/i) ? ord.replace(/ddDD|dd|DD/, 'ddDD') : ord.replace(/dD|d|D/, 'dD');
-                s.dateOrder = ord;
-            }
-        },
         onInit: function (ev, inst) {
             var buttons = inst.buttons;
 
