@@ -24,14 +24,12 @@
         onThemeLoad: function (ev) {
             var s = ev.settings,
                 cal = s.jqmBody || 'c',
-                txt = s.jqmEventText || 'b',
                 bubble = s.jqmEventBubble || 'a';
 
             s.dayClass = 'ui-body-a ui-body-' + cal;
             s.innerDayClass = 'ui-state-default ui-btn ui-btn-up-' + cal;
             s.calendarClass = 'ui-body-a ui-body-' + cal;
             s.weekNrClass = 'ui-body-a ui-body-' + cal;
-            s.eventTextClass = 'ui-btn-up-' + txt;
             s.eventBubbleClass = 'ui-body-' + bubble;
         },
         onInit: function () {
@@ -39,7 +37,7 @@
         },
         onEventBubbleShow: function (ev) {
             $('.mbsc-cal-event-list', ev.eventList).attr('data-role', 'listview');
-            jQuery(ev.eventList).page().trigger('create');
+            $(ev.eventList).page().trigger('create');
         },
         onMarkupInserted: function (ev, inst) {
             var s = inst.settings,
