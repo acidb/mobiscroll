@@ -591,7 +591,7 @@
                     }).find('.mbsc-fr-popup').addClass('mbsc-anim-' + doAnim);
                 }
             } else if ($elm.is('div') && !that._hasContent) {
-                $elm.html($markup);
+                $elm.empty().append($markup);
             } else {
                 $markup.insertAfter($elm);
             }
