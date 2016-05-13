@@ -403,7 +403,7 @@
                     changeWheels(values, index, o);
                 }
             },
-            onSet: function (ev) {
+            onFill: function (ev) {
                 currLevel = undefined;
                 if (input) {
                     input.val(ev.valueText);

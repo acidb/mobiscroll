@@ -175,6 +175,9 @@
 
         function set() {
             that._fillValue();
+            event('onSet', {
+                valueText: that._value
+            });
         }
 
         function cancel() {

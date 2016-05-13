@@ -528,7 +528,7 @@
                     $elm.val(that._hasValue ? that._tempValue : '');
                 }
 
-                trigger('onSet', {
+                trigger('onFill', {
                     valueText: that._hasValue ? that._tempValue : '',
                     change: change
                 });

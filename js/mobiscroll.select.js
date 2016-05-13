@@ -419,7 +419,7 @@
                 };
             },
             onRead: onFill,
-            onSet: onFill,
+            onFill: onFill,
             onBeforeShow: function () {
                 if (multiple && s.counter) {
                     s.headerText = function () {
