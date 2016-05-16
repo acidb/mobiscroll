@@ -561,6 +561,7 @@
             //easing: 'cubic-bezier(0.190, 1.000, 0.220, 1.000)',
             stopProp: true,
             momentum: true,
+            mousewheel: true,
             elastic: true
         }
     };

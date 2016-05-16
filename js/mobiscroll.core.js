@@ -181,13 +181,9 @@ var mobiscroll = mobiscroll || {};
         instances: instances,
         classes: {},
         components: {},
-        defaults: {
-            context: 'body',
-            mousewheel: true,
-            vibrate: true
-        },
+        settings: {},
         setDefaults: function (o) {
-            extend(this.defaults, o);
+            extend(this.settings, o);
         },
         presetShort: function (name, c, p) {
             ms[name] = function (selector, s) {
@@ -255,7 +251,7 @@ var mobiscroll = mobiscroll || {};
 
             // Load user defaults
             if (that._hasDef) {
-                defaults = ms.defaults;
+                defaults = ms.settings;
             }
 
             // Create settings object

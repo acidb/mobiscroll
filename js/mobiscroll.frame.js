@@ -907,6 +907,7 @@
         cancelText: 'Cancel',
         clearText: 'Clear',
         // Options
+        context: 'body',
         disabled: false,
         closeOnOverlayTap: true,
         showOnFocus: false,
