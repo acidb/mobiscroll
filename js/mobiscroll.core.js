@@ -132,9 +132,17 @@ var mobiscroll = mobiscroll || {};
             getCoord: function (e, c, page) {
                 var ev = e.originalEvent || e,
                     prop = (page ? 'page' : 'client') + c;
+
                 // Multi touch support
-                return ev.targetTouches ? ev.targetTouches[0][prop] : e[prop];
-                //return ev.changedTouches ? ev.changedTouches[0][prop] : e[prop];
+                if (ev.targetTouches && ev.targetTouches[0]) {
+                    return ev.targetTouches[0][prop];
+                }
+
+                if (ev.changedTouches && ev.changedTouches[0]) {
+                    return ev.changedTouches[0][prop];
+                }
+
+                return e[prop];
             },
             getPosition: function (t, vertical) {
                 var style = getComputedStyle(t[0]),
