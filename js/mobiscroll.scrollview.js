@@ -256,9 +256,13 @@
                 ev.stopPropagation();
             }
 
-            ev.preventDefault();
+            if (diff) {
 
-            if (diff && !s.readonly) {
+                ev.preventDefault();
+
+                if (s.readonly) {
+                    return;
+                }
 
                 diff = diff < 0 ? 20 : -20;
 
