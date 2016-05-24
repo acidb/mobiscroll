@@ -1065,7 +1065,7 @@ var mobiscroll = mobiscroll || {};
     };
 
     $.isPlainObject = function (obj) {
-        return isObject(obj) && obj !== obj.window && Object.getPrototypeOf(obj) == Object.prototype;
+        return isObject(obj) && obj !== null && obj !== obj.window && Object.getPrototypeOf(obj) == Object.prototype;
     };
 
     $.each = function (obj, callback) {
