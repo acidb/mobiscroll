@@ -1,4 +1,5 @@
 (function () {
+    var $ = mobiscroll.$;
 
     mobiscroll.themes.frame['wp-light'] = {
         baseTheme: 'wp',
