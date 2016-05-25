@@ -77,17 +77,15 @@
   color: #50ccc4;
   background: #263238;
 }
-.mbsc-mobiscroll-dark .mbsc-cal-day-m {
-  background: #f7f7f7;
-}
-.mbsc-mobiscroll-dark .mbsc-cal-day-sel .mbsc-cal-day-m {
-  background: #263238;
-}
 .mbsc-mobiscroll-dark .mbsc-cal-day-m-c {
-  background: #50ccc4;
+  background: #f7f7f7;
 }
 .mbsc-mobiscroll-dark .mbsc-cal-day-sel .mbsc-cal-day-m-c {
   background: #263238;
+}
+.mbsc-mobiscroll-dark .mbsc-cal-day-txt {
+  color: #263238;
+  background: #f7f7f7;
 }
 .mbsc-mobiscroll-dark .mbsc-cal-day-txt {
   color: #263238;

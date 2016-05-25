@@ -79,8 +79,8 @@
 .mbsc-wp-light .mbsc-cal-events-b .mbsc-cal-events-arr {
   border-color: transparent transparent rgba(0, 0, 0, 0.8);
 }
-.mbsc-wp-light .mbsc-cal-day-m {
-  border-color: #000000 #000000 transparent transparent;
+.mbsc-wp-light .mbsc-cal-day-m-c {
+  background: #000000;
 }
 .mbsc-wp-light .mbsc-cal-day-fg {
   border-color: #a6a6a6;

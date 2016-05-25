@@ -55,10 +55,7 @@
   border-color: #f5f5f5 transparent transparent transparent;
 }
 /* Calendar */
-.mbsc-android-holo-light .mbsc-cal-day-m {
-  border-color: #31b7e8 #31b7e8 transparent transparent;
-}
-.mbsc-android-holo-light .mbsc-cal-m-bottom .mbsc-cal-day-m {
+.mbsc-android-holo-light .mbsc-cal-day-m-c {
   background: #31b7e8;
 }
 .mbsc-android-holo-light .mbsc-cal .mbsc-cal-sc-sel .mbsc-cal-sc-cell-i,
