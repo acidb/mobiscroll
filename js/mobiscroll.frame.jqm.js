@@ -1,15 +1,18 @@
-(function ($) {
+(function () {
 
-    var ver;
+    var ms = mobiscroll,
+        $ = ms.$;
 
-    $.mobiscroll.themes.frame.jqm = {
+    ms.themes.frame.jqm = {
+        jqmBody: 'a',
         jqmBorder: 'a',
-        jqmHeader: 'b',
-        jqmWheel: 'd',
+        //jqmHeader: 'b',
+        //jqmWheel: 'd',
         jqmLine: 'b',
-        jqmClickPick: 'c',
+        //jqmClickPick: 'c',
         jqmSet: 'b',
         jqmCancel: 'c',
+        dateDisplay: 'Mddyy',
         disabledClass: 'ui-disabled',
         activeClass: 'ui-btn-active',
         activeTabInnerClass: 'ui-btn-active',
@@ -17,60 +20,56 @@
         btnCalNextClass: '',
         selectedLineHeight: true,
         selectedLineBorder: 1,
-        onThemeLoad: function (lang, s) {
-            var cal = s.jqmBody || 'c',
-                txt = s.jqmEventText || 'b',
+        checkIcon: 'none ui-btn-icon-left ui-icon-check',
+        onThemeLoad: function (ev) {
+            var s = ev.settings,
+                cal = s.jqmBody || 'c',
                 bubble = s.jqmEventBubble || 'a';
-
-            ver = $.mobile && $.mobile.version && $.mobile.version.match(/1\.4/);
-
-            if (!s.jqmBody) {
-                s.jqmBody = ver ? 'a' : 'c';
-            }
 
             s.dayClass = 'ui-body-a ui-body-' + cal;
             s.innerDayClass = 'ui-state-default ui-btn ui-btn-up-' + cal;
             s.calendarClass = 'ui-body-a ui-body-' + cal;
             s.weekNrClass = 'ui-body-a ui-body-' + cal;
-            s.eventTextClass = 'ui-btn-up-' + txt;
             s.eventBubbleClass = 'ui-body-' + bubble;
         },
-        onEventBubbleShow: function (evd, evc) {
-            $('.dw-cal-event-list', evc).attr('data-role', 'listview');
-            evc.page().trigger('create');
+        onInit: function () {
+            $(this).closest('.ui-field-contain').trigger('create');
         },
-        onMarkupInserted: function (elm, inst) {
-            var s = inst.settings;
+        onEventBubbleShow: function (ev) {
+            $('.mbsc-cal-event-list', ev.eventList).attr('data-role', 'listview');
+            $(ev.eventList).page().trigger('create');
+        },
+        onMarkupInserted: function (ev, inst) {
+            var s = inst.settings,
+                elm = $(ev.target);
 
-            if (ver) {
-                elm.addClass('mbsc-jqm14');
-                $('.mbsc-np-btn, .dwwb, .dw-cal-sc-m-cell .dw-i', elm).addClass('ui-btn');
-                $('.dwbc .dwb, .dw-dr', elm).addClass('ui-btn ui-mini ui-corner-all');
-                $('.dw-cal-prev .dw-cal-btn-txt', elm).addClass('ui-btn ui-icon-arrow-l ui-btn-icon-notext ui-shadow ui-corner-all');
-                $('.dw-cal-next .dw-cal-btn-txt', elm).addClass('ui-btn ui-icon-arrow-r ui-btn-icon-notext ui-shadow ui-corner-all');
-            }
+            $('.mbsc-np-btn, .mbsc-cal-sc-m-cell .mbsc-cal-sc-cell-i', elm).addClass('ui-btn');
+            $('.mbsc-fr-btn-cont .mbsc-fr-btn, .mbsc-range-btn', elm).addClass('ui-btn ui-mini ui-corner-all');
+            $('.mbsc-cal-prev .mbsc-cal-btn-txt', elm).addClass('ui-btn ui-icon-arrow-l ui-btn-icon-notext ui-shadow ui-corner-all');
+            $('.mbsc-cal-next .mbsc-cal-btn-txt', elm).addClass('ui-btn ui-icon-arrow-r ui-btn-icon-notext ui-shadow ui-corner-all');
 
-            $('.dw', elm).removeClass('dwbg').addClass('ui-selectmenu ui-overlay-shadow ui-corner-all ui-body-' + s.jqmBorder);
-            $('.dwbc .dwb', elm).attr('data-role', 'button').attr('data-mini', 'true').attr('data-theme', s.jqmCancel);
-            $('.dwb-s .dwb', elm).addClass('ui-btn-' + s.jqmSet).attr('data-theme', s.jqmSet);
-            $('.dwwb', elm).attr('data-role', 'button').attr('data-theme', s.jqmClickPick);
-            $('.dwv', elm).addClass('ui-header ui-bar-' + s.jqmHeader);
-            $('.dwwr', elm).addClass('ui-corner-all ui-body-' + s.jqmBody);
-            $('.dwwl', elm).addClass('ui-body-' + s.jqmWheel);
-            $('.dwwol', elm).addClass('ui-body-' + s.jqmLine);
-            $('.dwl', elm).addClass('ui-body-' + s.jqmBody);
+            $('.mbsc-fr-popup', elm).removeClass('dwbg').addClass('ui-selectmenu ui-overlay-shadow ui-corner-all ui-body-' + s.jqmBorder);
+            $('.mbsc-fr-btn-s .mbsc-fr-btn', elm).addClass('ui-btn-' + s.jqmSet);
+            $('.mbsc-fr-hdr', elm).addClass('ui-header ui-bar-inherit');
+            $('.mbsc-fr-w', elm).addClass('ui-corner-all ui-body-' + s.jqmBody);
+            // Scroller
+            $('.mbsc-sc-btn', elm).addClass('ui-btn ui-mini ui-corner-all ui-btn-icon-top');
+            $('.mbsc-sc-btn-plus', elm).addClass('ui-icon-carat-d');
+            $('.mbsc-sc-btn-minus', elm).addClass('ui-icon-carat-u');
+            //$('.mbsc-sc-whl', elm).addClass('ui-body-' + s.jqmWheel);
+            $('.mbsc-sc-whl-l', elm).addClass('ui-body-' + s.jqmLine);
             // Calendar base
-            $('.dw-cal-tabs', elm).attr('data-role', 'navbar');
-            $('.dw-cal-prev .dw-cal-btn-txt', elm).attr('data-role', 'button').attr('data-icon', 'arrow-l').attr('data-iconpos', 'notext');
-            $('.dw-cal-next .dw-cal-btn-txt', elm).attr('data-role', 'button').attr('data-icon', 'arrow-r').attr('data-iconpos', 'notext');
+            $('.mbsc-cal-tabs', elm).attr('data-role', 'navbar');
+            $('.mbsc-cal-prev .mbsc-cal-btn-txt', elm).attr('data-role', 'button').attr('data-icon', 'arrow-l').attr('data-iconpos', 'notext');
+            $('.mbsc-cal-next .mbsc-cal-btn-txt', elm).attr('data-role', 'button').attr('data-icon', 'arrow-r').attr('data-iconpos', 'notext');
             // Calendar events
-            $('.dw-cal-events', elm).attr('data-role', 'page');
+            $('.mbsc-cal-events', elm).attr('data-role', 'page');
             // Rangepicker
-            $('.dw-dr', elm).attr('data-role', 'button').attr('data-mini', 'true');
+            $('.mbsc-range-btn', elm).attr('data-role', 'button').attr('data-mini', 'true');
             // Numpad
             $('.mbsc-np-btn', elm).attr('data-role', 'button').attr('data-corners', 'false');
             elm.trigger('create');
         }
     };
 
-})(jQuery);
+})();

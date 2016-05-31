@@ -1,5 +1,6 @@
-(function ($) {
-    $.mobiscroll.i18n.no = {
+// Norsk
+(function () {
+    mobiscroll.i18n.no = {
         // Core
         setText: 'OK',
         cancelText: 'Avbryt',
@@ -7,7 +8,6 @@
         selectedText: '{count} valgt',
         // Datetime component
         dateFormat: 'dd.mm.yy',
-        dateOrder: 'ddmmyy',
         dayNames: ['Søndag', 'Mandag', 'Tirsdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lørdag'],
         dayNamesShort: ['Sø', 'Ma', 'Ti', 'On', 'To', 'Fr', 'Lø'],
         dayNamesMin: ['S', 'M', 'T', 'O', 'T', 'F', 'L'],
@@ -20,7 +20,6 @@
         monthText: 'Måned',
         secText: 'Sekund',
         timeFormat: 'HH:ii',
-        timeWheels: 'HHii',
         yearText: 'År',
         nowText: 'Nå',
         pmText: 'pm',
@@ -57,4 +56,4 @@
         decimalSeparator: ',',
         thousandsSeparator: ' '
     };
-})(jQuery);
+})();

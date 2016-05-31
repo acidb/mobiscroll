@@ -1,11 +1,10 @@
-.dwwb,
-.dwwo,
-.dwwol {
+.mbsc-sc-whl-o,
+.mbsc-sc-btn {
+    /* Prevent flickering on animation */
     -webkit-transform: translateZ(0);
 }
-/* Wheel container wrapper */
 
-.dwc {
+.mbsc-sc-whl-gr-c {
     max-width: 100%;
     vertical-align: middle;
     display: inline-block;
@@ -14,24 +13,14 @@
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
-/* Wheel label */
 
-.dwl {
-    line-height: 30px;
-    height: 30px;
-    top: -30px;
-    left: 0;
-    text-align: center;
-    white-space: nowrap;
-    position: absolute;
-    width: 100%;
+.mbsc-fr-liq .mbsc-sc-whl-gr-c {
+    display: block;
 }
-/* Wheel container */
 
-.dwwc {
+.mbsc-sc-whl-gr {
     margin: 0 auto;
     position: relative;
-    zoom: 1;
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -41,155 +30,161 @@
     justify-content: center;
 }
 
-.dwfl {
+.mbsc-sc-whl-w {
     max-width: 100%;
     -webkit-box-flex: 1;
     -webkit-flex: 1 auto;
     -ms-flex: 1 auto;
     flex: 1 auto;
-    -ms-touch-action: none;
-    touch-action: none;
-}
-/* Wheels */
-
-.dwwl {
     position: relative;
-    z-index: 5;
+    /*-ms-touch-action: none;
+    touch-action: none;*/
 }
 
-.dwww {
-    position: relative;
-    padding: 1px;
-}
-
-.dww {
-    overflow: hidden;
-    position: relative;
-    /* Forces IE to respect overflow hidden while animating */
-    
-    border-radius: 1px;
-    /* Fixes Firefox rendering issues */
-    
-    border-top: 1px solid transparent;
-    border-bottom: 1px solid transparent;
-}
-
-.dw-bf {
-    -webkit-backface-visibility: hidden;
-    -webkit-perspective: 1000px;
-    backface-visibility: hidden;
-    perspective: 1000px;
-}
-
-.dw-ul {
-    position: relative;
-    z-index: 3;
-}
-
-.dw-li {
-    padding: 0 5px;
-    position: relative;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: bottom;
-    opacity: .3;
-    filter: Alpha(Opacity=30);
-    cursor: pointer;
-    -webkit-transition: opacity .2s ease-out;
-    -moz-transition: opacity .2s ease-out;
-    transition: opacity .2s ease-out;
-}
-/* Valid entry */
-
-.dw-li.dw-v,
-.dw-li.dw-fv {
-    opacity: 1;
-    filter: Alpha(Opacity=100);
-}
-/* Hidden entry */
-
-.dw-li.dw-h {
-    visibility: hidden;
-}
-
-.dw-i {
-    position: relative;
-    height: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-/* Clickpick mode */
-
-.dwwb {
+.mbsc-sc-whl-o {
     position: absolute;
-    z-index: 4;
-    left: 0;
-    cursor: pointer;
-    width: 100%;
-    text-decoration: none;
-    text-align: center;
-    opacity: 1;
-    -webkit-transition: opacity .2s linear;
-    transition: opacity .2s linear;
-}
-
-.dwa .dwwb {
-    opacity: 0;
-}
-
-.dwpm .dwwbp {
+    z-index: 2;
     top: 0;
-}
-
-.dwpm .dwwbm {
+    right: 0;
     bottom: 0;
-}
-
-.dwpm .dwwol {
-    display: none;
-}
-/* Wheel overlay */
-
-.dwwo {
-    position: absolute;
-    z-index: 3;
-    top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
     pointer-events: none;
 }
-/* Background line */
 
-.dwwol {
+.mbsc-sc-whl-l {
     position: absolute;
     z-index: 1;
     top: 50%;
     left: 0;
-    width: 100%;
+    right: 0;
     pointer-events: none;
     -webkit-box-sizing: content-box;
     -moz-box-sizing: content-box;
     box-sizing: content-box;
 }
-/* Liquid mode */
 
-.dw-liq .dwc {
+.mbsc-sc-whl {
+    overflow: hidden;
+    border-radius: 1px;
+    /* Forces IE to respect overflow hidden while animating */
+    border-top: 1px solid transparent;
+    /* Fixes Firefox rendering issues */
+    border-bottom: 1px solid transparent;
+}
+
+.mbsc-sc-whl-c {
+    position: relative;
+    z-index: 1;
+    top: 50%;
+    border-top: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+}
+
+.mbsc-sc-whl-sc {
+    position: relative;
+}
+
+.mbsc-sc-itm {
+    position: relative;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.mbsc-sc-itm-inv {
+    opacity: .3;
+}
+
+.mbsc-sc-lbl {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 100%;
+    display: none;
+}
+
+.mbsc-sc-lbl-v .mbsc-sc-lbl {
     display: block;
 }
 
-.dw-liq .dw-tbl {
+.mbsc-sc-btn {
+    position: absolute;
+    z-index: 2;
+    left: 0;
+    right: 0;
+    cursor: pointer;
+    opacity: 1;
+    -webkit-transition: opacity .2s linear;
+    transition: opacity .2s linear;
+}
+
+.mbsc-sc-btn:before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+}
+
+.mbsc-sc-whl-a .mbsc-sc-btn {
+    opacity: 0;
+}
+
+.mbsc-sc-btn-plus {
+    bottom: 0;
+}
+
+.mbsc-sc-btn-minus {
+    top: 0;
+}
+
+
+/* 3D */
+
+
+/*.mbsc-sc-whl-gr-3d {
+    -webkit-perspective: 2500px;
+    -moz-perspective: 2500px;
+    perspective: 2500px;
+}
+.mbsc-sc-whl-gr-3d .mbsc-sc-whl-c {
+    overflow: hidden;
+}
+.mbsc-sc-whl-3d {
+    position: absolute;
+    top: 50%;
+    left: 4px;
+    right: 4px;
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+}
+.mbsc-sc-itm-3d {
+    position: absolute;
     width: 100%;
-    table-layout: fixed;
-}
-/* Hidden label */
+    top: 0;
+    left: 0;
+    cursor: pointer;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    backface-visibility: hidden;
+}*/
 
-.dwhl .dwl {
-    display: none;
-}
-/* Hidden select element */
 
-.dw-hsel {
+/* Multiline */
+
+.mbsc-sc-itm-ml {
+    width: 100%;
+    height: auto;
+    display: inline-block;
+    vertical-align: middle;
+    white-space: normal;
+}
+
+
+/* Select */
+
+.mbsc-sel-hdn {
     position: absolute;
     height: 1px !important;
     width: 1px !important;
@@ -197,125 +192,104 @@
     overflow: hidden;
     clip: rect(1px, 1px, 1px, 1px);
 }
-/* Multiple lines */
 
-.dw-ml .dw-li {
-    overflow: hidden;
-}
-
-.dw-ml .dw-li .dw-i {
-    width: 100%;
-    height: auto;
-    display: inline-block;
-    vertical-align: middle;
-    white-space: normal;
-}
-/* Multiple selection */
-
-.dwwms .dw-li {
-    padding: 0 40px;
-}
-
-.dwwms .dwwol {
-    display: none;
-}
-
-.dw-msel:before {
-    width: 40px;
-    text-align: center;
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-/* Select groups */
-
-.dww .dw-w-gr {
-    padding: 0 5px;
+.mbsc-sel-gr {
+    padding: 0 .25em;
     opacity: 1;
     font-weight: bold;
     text-align: left;
 }
-/* Default theme */
 
-.mbsc-mobiscroll .dwc {
-    padding: 2em .25em 0 .25em;
+
+/* Multiple */
+
+.mbsc-sc-whl-multi .mbsc-sc-whl-c {
+    top: 0;
+    height: 100%;
+    border: 0;
 }
 
-.mbsc-mobiscroll .dwl {
-    color: #4eccc4;
-    font-size: .75em;
-    text-transform: uppercase;
+.mbsc-sc-whl-multi .mbsc-sc-whl-l {
+    display: none;
 }
 
-.mbsc-mobiscroll .dwhl {
-    padding-top: 0;
+.mbsc-sc-whl-multi .mbsc-sc-itm-sel:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1em;
+    text-align: center;
 }
 
-.mbsc-mobiscroll .dwfl {
+
+/* Default Theme */
+
+.mbsc-mobiscroll .mbsc-sc-whl-gr {
     padding: .5em .25em;
 }
 
-.mbsc-mobiscroll .dw-li {
-    font-size: 1.375em;
+.mbsc-mobiscroll .mbsc-sc-whl-w {
+    margin: 0 .25em;
 }
 
-.mbsc-mobiscroll .dw-hl {
-    background: rgba(78, 204, 196, .3);
+.mbsc-mobiscroll .mbsc-sc-whl-o {
+    display: none;
 }
 
-.mbsc-mobiscroll .dwwol {
+.mbsc-mobiscroll .mbsc-sc-lbl-v .mbsc-sc-whl-w {
+    margin-top: 1.875em;
+}
+
+.mbsc-mobiscroll .mbsc-sc-lbl {
+    color: #4eccc4;
+    font-size: .75em;
+    line-height: 2.5em;
+    text-transform: uppercase;
+}
+
+.mbsc-mobiscroll .mbsc-sc-whl-l {
     border-top: 1px solid #4eccc4;
     border-bottom: 1px solid #4eccc4;
 }
-/* Clickpick mode */
 
-.mbsc-mobiscroll .dwpm .dwwol {
-    display: block;
-}
-
-.mbsc-mobiscroll .dwwb {
+.mbsc-mobiscroll .mbsc-sc-btn {
     color: #4eccc4;
     background: #f7f7f7;
 }
 
-.mbsc-mobiscroll .dwwbp {
-    bottom: 0;
-    top: auto;
+.mbsc-mobiscroll .mbsc-sc-btn:before {
+    font-size: 1.5em;
 }
 
-.mbsc-mobiscroll .dwwbm {
-    top: 0;
-    bottom: auto;
-}
-
-.mbsc-mobiscroll .dwwb span {
-    display: none;
-}
-
-.mbsc-mobiscroll .dwwb:before {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    font-size: 24px;
-    text-align: center;
-}
-
-.mbsc-mobiscroll .dwwb.dwb-a:before {
+.mbsc-mobiscroll .mbsc-sc-btn-a:before {
     background: rgba(78, 204, 196, .3);
 }
-/* Group select */
 
-.mbsc-mobiscroll .dw-w-gr {
+.mbsc-mobiscroll .mbsc-sc-itm {
+    padding: 0 .25em;
+    font-size: 1.375em;
+}
+
+.mbsc-mobiscroll .mbsc-sc-itm.mbsc-btn-a {
+    background: rgba(78, 204, 196, .3);
+}
+
+
+/* Select */
+
+.mbsc-mobiscroll .mbsc-sc-whl .mbsc-sel-gr {
+    padding: 0 .25em;
     font-size: 1.125em;
 }
+
+
 /* Multiple select */
 
-.mbsc-mobiscroll .dw-msel:before {
-    font-size: 40px;
-    color: #4eccc4;
+.mbsc-mobiscroll .mbsc-sc-whl-multi .mbsc-sc-itm {
+    padding: 0 1.818181em;
 }
 
-.mbsc-mobiscroll .dwwms .dwwol {
-    display: none;
+.mbsc-mobiscroll .mbsc-sc-whl-multi .mbsc-sc-itm-sel:before {
+    font-size: 1.818181em;
+    color: #4eccc4;
 }

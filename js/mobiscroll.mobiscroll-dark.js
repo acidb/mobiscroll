@@ -1,6 +1,6 @@
-(function ($) {
+(function () {
     
-    $.mobiscroll.themes.frame['mobiscroll-dark'] = {
+    mobiscroll.themes.frame['mobiscroll-dark'] = {
         baseTheme: 'mobiscroll',
         rows: 5,
         showLabel: false,
@@ -17,20 +17,20 @@
         btnCalNextClass: 'mbsc-ic mbsc-ic-arrow-right5'
     };
 
-    $.mobiscroll.themes.listview['mobiscroll-dark'] = {
+    mobiscroll.themes.listview['mobiscroll-dark'] = {
         baseTheme: 'mobiscroll'
     };
     
-    $.mobiscroll.themes.menustrip['mobiscroll-dark'] = {
+    mobiscroll.themes.menustrip['mobiscroll-dark'] = {
         baseTheme: 'mobiscroll'
     };
     
-    $.mobiscroll.themes.form['mobiscroll-dark'] = {
+    mobiscroll.themes.form['mobiscroll-dark'] = {
         baseTheme: 'mobiscroll'
     };
 
-    $.mobiscroll.themes.progress['mobiscroll-dark'] = {
+    mobiscroll.themes.progress['mobiscroll-dark'] = {
         baseTheme: 'mobiscroll'
     };
     
-})(jQuery);
+})();
