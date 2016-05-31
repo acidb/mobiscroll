@@ -1,5 +1,6 @@
-(function ($) {
-    $.mobiscroll.i18n.sv = {
+// Svenska
+(function () {
+    mobiscroll.i18n.sv = {
         // Core
         setText: 'OK',
         cancelText: 'Avbryt',
@@ -7,7 +8,6 @@
         selectedText: '{count} vald',
         // Datetime component
         dateFormat: 'yy-mm-dd',
-        dateOrder: 'yymmdd',
         dayNames: ['Söndag', 'Måndag', 'Tisdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lördag'],
         dayNamesShort: ['Sö', 'Må', 'Ti', 'On', 'To', 'Fr', 'Lö'],
         dayNamesMin: ['S', 'M', 'T', 'O', 'T', 'F', 'L'],
@@ -19,7 +19,6 @@
         monthText: 'Månad',
         secText: 'Sekund',
         timeFormat: 'HH:ii',
-        timeWheels: 'HHii',
         yearText: 'År',
         nowText: 'Nu',
         pmText: 'pm',
@@ -53,4 +52,4 @@
         offText: 'Av',
         onText: 'På'
     };
-})(jQuery);
+})();

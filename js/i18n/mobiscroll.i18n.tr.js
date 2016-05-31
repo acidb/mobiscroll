@@ -1,5 +1,6 @@
-(function ($) {
-    $.mobiscroll.i18n.tr = {
+// Türkçe
+(function () {
+    mobiscroll.i18n.tr = {
         // Core
         setText: 'Seç',
         cancelText: 'İptal',
@@ -7,7 +8,6 @@
         selectedText: '{count} seçilmiş',
         // Datetime component
         dateFormat: 'dd.mm.yy',
-        dateOrder: 'ddmmyy',
         dayNames: ['Pazar', 'Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma', 'Cumartesi'],
         dayNamesShort: ['Paz', 'Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt'],
         dayNamesMin: ['P', 'P', 'S', 'Ç', 'P', 'C', 'C'],
@@ -19,8 +19,7 @@
         monthNamesShort: ['Oca', 'Şub', 'Mar', 'Nis', 'May', 'Haz', 'Tem', 'Ağu', 'Eyl', 'Eki', 'Kas', 'Ara'],
         monthText: 'Ay',
         secText: 'Saniye',
-        timeFormat: 'hh:ii A',
-        timeWheels: 'hhiiA',
+        timeFormat: 'HH:ii',
         yearText: 'Yıl',
         nowText: 'Şimdi',
         pmText: 'akşam',
@@ -57,4 +56,4 @@
         decimalSeparator: ',',
         thousandsSeparator: '.'
     };
-})(jQuery);
+})();

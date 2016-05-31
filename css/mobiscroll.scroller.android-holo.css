@@ -1,69 +1,66 @@
-/* Android Holo skin */
-.mbsc-android-holo .dwc {
-    padding: 1.875em .625em .063em .625em;
-}
-.mbsc-android-holo .dwl {
-    font-size: .75em;
-}
-.mbsc-android-holo .dwhl {
+.mbsc-android-holo .mbsc-sc-whl-gr {
     padding: .0625em .625em;
 }
-.mbsc-android-holo .dw-li {
-    color: #fff;
-    font-size: 1.125em;
+
+.mbsc-android-holo .mbsc-sc-lbl-v {
+    padding: 1.875em .625em .0625em .625em;
 }
-.mbsc-android-holo .dw-hl {
-    background: rgba(49,182,231,.5);
+
+.mbsc-android-holo .mbsc-sc-lbl {
+    font-size: .75em;
+    line-height: 2.5em;
 }
-.mbsc-android-holo .dwwo {
-    background: -webkit-gradient(linear,left bottom,left top,from(#282828),color-stop(0.52, rgba(40,40,40,0)),color-stop(0.48, rgba(40,40,40,0)),to(#282828));
-    background: -webkit-linear-gradient(#282828,rgba(40,40,40,0) 52%, rgba(40,40,40,0) 48%, #282828);
-    background: -moz-linear-gradient(#282828,rgba(40,40,40,0) 52%, rgba(40,40,40,0) 48%, #282828);
-    background: linear-gradient(#282828,rgba(40,40,40,0) 52%, rgba(40,40,40,0) 48%, #282828);
+
+.mbsc-android-holo .mbsc-sc-whl-w {
+    margin: 0 .625em;
 }
-.mbsc-android-holo .dwwb {
-    color: #7e7e7e;
-    background: #292829;
+
+.mbsc-android-holo .mbsc-sc-whl-o {
+    background: -webkit-gradient(linear, left bottom, left top, from(#282828), color-stop(0.52, rgba(40, 40, 40, 0)), color-stop(0.48, rgba(40, 40, 40, 0)), to(#282828));
+    background: -webkit-linear-gradient(#282828, rgba(40, 40, 40, 0) 52%, rgba(40, 40, 40, 0) 48%, #282828);
+    background: linear-gradient(#282828, rgba(40, 40, 40, 0) 52%, rgba(40, 40, 40, 0) 48%, #282828);
 }
-.mbsc-android-holo .dwwb span {
-    display: none;
-}
-.mbsc-android-holo .dwwb:before {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    font-size: 1.625em;
-    text-align: center;
-}
-.mbsc-android-holo .dwwbm {
-    top: 0;
-    bottom: auto;
-}
-.mbsc-android-holo .dwwbp {
-    bottom: 0;
-    top: auto;
-}
-.mbsc-android-holo .dwwl .dwb-a {
-    background: #292829;
-    color: #319abd;
-}
-.mbsc-android-holo .dwwol {
-    display: block;
-    width: 60%;
-    left: 20%;
+
+.mbsc-android-holo .mbsc-sc-whl-l {
     border-top: 2px solid #31b6e7;
     border-bottom: 2px solid #31b6e7;
 }
+
+.mbsc-android-holo .mbsc-sc-itm {
+    color: #fff;
+    font-size: 1.125em;
+}
+
+.mbsc-android-holo .mbsc-sc-itm.mbsc-btn-a {
+    background: rgba(49, 182, 231, .5);
+}
+
+.mbsc-android-holo .mbsc-sc-btn {
+    color: #7e7e7e;
+    background: #292829;
+}
+
+.mbsc-android-holo .mbsc-sc-btn-a {
+    background: #292829;
+    color: #319abd;
+}
+
+.mbsc-android-holo .mbsc-sc-btn:before {
+    font-size: 1.625em;
+}
+
+
 /* Multiple select */
-.mbsc-android-holo .dwwms .dwwo,
-.mbsc-android-holo .dwwms .dwwol {
+
+.mbsc-android-holo .mbsc-sc-whl-multi .mbsc-sc-whl-o {
     display: none;
 }
-.mbsc-android-holo .dwwms .dw-li {
+
+.mbsc-android-holo .mbsc-sc-whl-multi .mbsc-sc-itm {
     padding: 0 2.25em;
 }
-.mbsc-android-holo .dwwms .dw-li:after {
+
+.mbsc-android-holo .mbsc-sc-whl-multi .mbsc-sc-itm:after {
     content: '';
     position: absolute;
     z-index: 1;
@@ -75,7 +72,12 @@
     margin-top: -.5625em;
     border: 1px solid #424542;
 }
-.mbsc-android-holo .dw-msel:before {
+
+.mbsc-android-holo .mbsc-sc-itm-ph:after {
+    display: none;
+}
+
+.mbsc-android-holo .mbsc-sc-whl-multi .mbsc-sc-itm-sel:before {
     z-index: 2;
     top: 50%;
     left: auto;
@@ -86,13 +88,35 @@
     line-height: .875em;
     text-shadow: 0 0 .375em #29799c;
 }
+
+
 /* Group select */
-.mbsc-android-holo .dww .dw-w-gr {
+
+.mbsc-android-holo .mbsc-sc-whl .mbsc-sel-gr {
     padding: 0 .375em;
     font-size: 1em;
     font-weight: normal;
 }
-.mbsc-android-holo .dww .dw-w-gr:after {
+
+.mbsc-android-holo .mbsc-sc-whl .mbsc-sel-gr:after {
     display: none;
 }
 
+
+/* Date & Time */
+
+.mbsc-android-holo .mbsc-dt-whl-h:after {
+    content: ':';
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    width: 1.25em;
+    height: 2em;
+    margin-top: -1em;
+    line-height: 2em;
+}
+
+.mbsc-android-holo .mbsc-rtl .mbsc-dt-whl-h:after {
+    left: auto;
+    right: 100%;
+}

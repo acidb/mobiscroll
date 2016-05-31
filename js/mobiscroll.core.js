@@ -1,12 +1,15 @@
 /*!
- * Mobiscroll v2.17.2
+ * Mobiscroll v3.0.0-beta
  * http://mobiscroll.com
  *
- * Copyright 2010-2015, Acid Media
+ * Copyright 2010-2016, Acid Media
  * Licensed under the MIT license.
  *
  */
-(function ($, undefined) {
+
+var mobiscroll = mobiscroll || {};
+
+(function (window, document, undefined) {
 
     function testProps(props) {
         var i;
@@ -39,7 +42,7 @@
                 if (instances[this.id]) {
                     instances[this.id].destroy();
                 }
-                new $.mobiscroll.classes[options.component || 'Scroller'](this, options);
+                new mobiscroll.classes[options.component || 'Scroller'](this, options);
             });
         }
 
@@ -63,6 +66,7 @@
     }
 
     var ms,
+        $ = window.jQuery || mobiscroll.$,
         id = +new Date(),
         instances = {},
         extend = $.extend,
@@ -72,13 +76,9 @@
         prefix = testPrefix(),
         pr = prefix.replace(/^\-/, '').replace(/\-$/, '').replace('moz', 'Moz');
 
-    $.fn.mobiscroll = function (method) {
-        extend(this, $.mobiscroll.components);
-        return init(this, method, arguments);
-    };
-
-    ms = $.mobiscroll = $.mobiscroll || {
-        version: '2.17.2',
+    ms = mobiscroll = {
+        $: $,
+        version: '3.0.0-beta',
         util: {
             prefix: prefix,
             jsPrefix: pr,
@@ -132,59 +132,34 @@
             getCoord: function (e, c, page) {
                 var ev = e.originalEvent || e,
                     prop = (page ? 'page' : 'client') + c;
-                return ev.changedTouches ? ev.changedTouches[0][prop] : e[prop];
+
+                // Multi touch support
+                if (ev.targetTouches && ev.targetTouches[0]) {
+                    return ev.targetTouches[0][prop];
+                }
+
+                if (ev.changedTouches && ev.changedTouches[0]) {
+                    return ev.changedTouches[0][prop];
+                }
+
+                return e[prop];
             },
             getPosition: function (t, vertical) {
-                var style = window.getComputedStyle ? getComputedStyle(t[0]) : t[0].style,
+                var style = getComputedStyle(t[0]),
                     matrix,
                     px;
 
-                if (has3d) {
-                    $.each(['t', 'webkitT', 'MozT', 'OT', 'msT'], function (i, v) {
-                        if (style[v + 'ransform'] !== undefined) {
-                            matrix = style[v + 'ransform'];
-                            return false;
-                        }
-                    });
-                    matrix = matrix.split(')')[0].split(', ');
-                    px = vertical ? (matrix[13] || matrix[5]) : (matrix[12] || matrix[4]);
-                } else {
-                    px = vertical ? style.top.replace('px', '') : style.left.replace('px', '');
-                }
+                $.each(['t', 'webkitT', 'MozT', 'OT', 'msT'], function (i, v) {
+                    if (style[v + 'ransform'] !== undefined) {
+                        matrix = style[v + 'ransform'];
+                        return false;
+                    }
+                });
+                matrix = matrix.split(')')[0].split(', ');
+                px = vertical ? (matrix[13] || matrix[5]) : (matrix[12] || matrix[4]);
+
 
                 return px;
-            },
-            addIcon: function ($control, ic) {
-                var icons = {},
-                    $parent = $control.parent(),
-                    errorMsg = $parent.find('.mbsc-err-msg'),
-                    align = $control.attr('data-icon-align') || 'left',
-                    icon = $control.attr('data-icon');
-
-                // Wrap input
-                $('<span class="mbsc-input-wrap"></span>').insertAfter($control).append($control);
-
-                if (errorMsg) {
-                    $parent.find('.mbsc-input-wrap').append(errorMsg);
-                }
-
-                if (icon) {
-                    if (icon.indexOf('{') !== -1) {
-                        icons = JSON.parse(icon);
-                    } else {
-                        icons[align] = icon;
-                    }
-                }
-
-                if (icon || ic) {
-                    extend(icons, ic);
-
-                    $parent
-                        .addClass((icons.right ? 'mbsc-ic-right ' : '') + (icons.left ? ' mbsc-ic-left' : ''))
-                        .find('.mbsc-input-wrap')
-                        .append(icons.left ? '<span class="mbsc-input-ic mbsc-left-ic mbsc-ic mbsc-ic-' + icons.left + '"></span>' : '')
-                        .append(icons.right ? '<span class="mbsc-input-ic mbsc-right-ic mbsc-ic mbsc-ic-' + icons.right + '"></span>' : '');
-                }
             },
             constrain: function (val, min, max) {
                 return Math.max(min, Math.min(val, max));
@@ -214,15 +189,35 @@
         instances: instances,
         classes: {},
         components: {},
-        defaults: {
-            context: 'body',
-            mousewheel: true,
-            vibrate: true
-        },
+        settings: {},
         setDefaults: function (o) {
-            extend(this.defaults, o);
+            extend(this.settings, o);
         },
         presetShort: function (name, c, p) {
+            ms[name] = function (selector, s) {
+                var inst,
+                    instIds,
+                    ret = {},
+                    options = s || {};
+
+                $.extend(options, {
+                    preset: p === false ? undefined : name
+                });
+
+                $(selector).each(function () {
+                    if (instances[this.id]) {
+                        instances[this.id].destroy();
+                    }
+
+                    inst = new ms.classes[c || 'Scroller'](this, options);
+                    ret[this.id] = inst;
+                });
+
+                instIds = Object.keys(ret);
+
+                return instIds.length == 1 ? ret[instIds[0]] : ret;
+            };
+
             this.components[name] = function (s) {
                 return init(this, extend(s, {
                     component: c,
@@ -232,7 +227,14 @@
         }
     };
 
-    $.mobiscroll.classes.Base = function (el, settings) {
+    $.mobiscroll = mobiscroll;
+
+    $.fn.mobiscroll = function (method) {
+        extend(this, mobiscroll.components);
+        return init(this, method, arguments);
+    };
+
+    mobiscroll.classes.Base = function (el, settings) {
 
         var lang,
             preset,
@@ -240,7 +242,7 @@
             theme,
             themeName,
             defaults,
-            ms = $.mobiscroll,
+            ms = mobiscroll,
             util = ms.util,
             getCoord = util.getCoord,
             that = this;
@@ -257,7 +259,7 @@
 
             // Load user defaults
             if (that._hasDef) {
-                defaults = ms.defaults;
+                defaults = ms.settings;
             }
 
             // Create settings object
@@ -287,7 +289,10 @@
             }
 
             if (that._hasTheme) {
-                that.trigger('onThemeLoad', [lang, settings]);
+                that.trigger('onThemeLoad', {
+                    lang: lang,
+                    settings: settings
+                });
             }
 
             // Update settings object
@@ -366,13 +371,13 @@
 
             if (s.tap) {
                 el
-                    .on('touchstart.dw', onStart)
-                    .on('touchcancel.dw', onCancel)
-                    .on('touchmove.dw', onMove)
-                    .on('touchend.dw', onEnd);
+                    .on('touchstart.mbsc', onStart)
+                    .on('touchcancel.mbsc', onCancel)
+                    .on('touchmove.mbsc', onMove)
+                    .on('touchend.mbsc', onEnd);
             }
 
-            el.on('click.dw', function (ev) {
+            el.on('click.mbsc', function (ev) {
                 ev.preventDefault();
                 // If handler was not called on touchend, call it on click;
                 handler.call(this, ev, that);
@@ -382,12 +387,11 @@
         /**
          * Triggers an event
          */
-        that.trigger = function (name, args) {
+        that.trigger = function (name, ev) {
             var ret;
-            args.push(that);
             $.each([defaults, theme, preset, settings], function (i, v) {
                 if (v && v[name]) { // Call preset event
-                    ret = v[name].apply(el, args);
+                    ret = v[name].call(el, ev || {}, that);
                 }
             });
             return ret;
@@ -442,4 +446,4 @@
         });
     }
 
-})(jQuery);
+})(window, document);

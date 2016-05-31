@@ -1,13 +1,13 @@
-(function ($) {
-    $.mobiscroll.i18n.nl = {
+// Nederlands
+(function () {
+    mobiscroll.i18n.nl = {
         // Core
         setText: 'Instellen',
         cancelText: 'Annuleren',
         clearText: 'Duidelijk',
         selectedText: '{count} gekozen',
         // Datetime component
-        dateFormat: 'dd/mm/yy',
-        dateOrder: 'ddmmyy',
+        dateFormat: 'dd-mm-yy',
         dayNames: ['zondag', 'maandag', 'Dinsdag', 'Woensdag', 'Donderdag', 'Vrijdag', 'Zaterdag'],
         dayNamesShort: ['zo', 'ma', 'di', 'wo', 'do', 'vr', 'za'],
         dayNamesMin: ['z', 'm', 'd', 'w', 'd', 'v', 'z'],
@@ -19,7 +19,6 @@
         monthText: 'Maand',
         secText: 'Seconden',
         timeFormat: 'HH:ii',
-        timeWheels: 'HHii',
         yearText: 'Jaar',
         nowText: 'Nu',
         pmText: 'pm',
@@ -56,4 +55,4 @@
         decimalSeparator: ',',
         thousandsSeparator: ' '
     };
-})(jQuery);
+})();

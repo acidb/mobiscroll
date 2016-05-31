@@ -1,5 +1,6 @@
-(function ($) {
-    $.mobiscroll.i18n.es = {
+// Español
+(function () {
+    mobiscroll.i18n.es = {
         // Core
         setText: 'Aceptar',
         cancelText: 'Cancelar',
@@ -8,7 +9,6 @@
         selectedPluralText: '{count} seleccionados',
         // Datetime component
         dateFormat: 'dd/mm/yy',
-        dateOrder: 'ddmmyy',
         dayNames: ['Domingo', 'Lunes', 'Martes', 'Mi&#xE9;rcoles', 'Jueves', 'Viernes', 'S&#xE1;bado'],
         dayNamesShort: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'S&#xE1;'],
         dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
@@ -20,7 +20,6 @@
         monthText: 'Mes',
         secText: 'Segundos',
         timeFormat: 'HH:ii',
-        timeWheels: 'HHii',
         yearText: 'A&ntilde;o',
         nowText: 'Ahora',
         pmText: 'pm',
@@ -57,4 +56,4 @@
         decimalSeparator: ',',
         thousandsSeparator: ' '
     };
-})(jQuery);
+})();

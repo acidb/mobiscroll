@@ -1,5 +1,6 @@
-(function ($) {
-    $.mobiscroll.i18n['ru-UA'] = {
+// Русский (UA)
+(function () {
+    mobiscroll.i18n['ru-UA'] = {
         // Core
         setText: 'Установить',
         cancelText: 'Отменить',
@@ -7,7 +8,6 @@
         selectedText: '{count} Вібрать',
         // Datetime component
         dateFormat: 'dd.mm.yy',
-        dateOrder: 'ddmmy',
         dayNames: ['воскресенье', 'понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота'],
         dayNamesShort: ['вс', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб'],
         dayNamesMin: ['в', 'п', 'в', 'с', 'ч', 'п', 'с'],
@@ -20,7 +20,6 @@
         monthText: 'Месяцы',
         secText: 'Сикунды',
         timeFormat: 'HH:ii',
-        timeWheels: 'HHii',
         yearText: 'Год',
         nowText: 'Сейчас',
         amText: 'До полудня',
@@ -57,4 +56,4 @@
         decimalSeparator: ',',
         thousandsSeparator: ' '
     };
-})(jQuery);
+})();

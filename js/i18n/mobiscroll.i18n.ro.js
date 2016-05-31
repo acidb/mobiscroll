@@ -1,5 +1,6 @@
-(function ($) {
-    $.mobiscroll.i18n.ro = {
+// Română
+(function () {
+    mobiscroll.i18n.ro = {
         // Core
         setText: 'Setare',
         cancelText: 'Anulare',
@@ -8,7 +9,6 @@
         selectedPluralText: '{count} selectate',
         // Datetime component
         dateFormat: 'dd.mm.yy',
-        dateOrder: 'ddmmy',
         dayNames: ['Duminică', 'Luni', 'Marți', 'Miercuri', 'Joi', 'Vineri', 'Sâmbătă'],
         dayNamesShort: ['Du', 'Lu', 'Ma', 'Mi', 'Jo', 'Vi', 'Sâ'],
         dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
@@ -21,7 +21,6 @@
         monthText: 'Luna',
         secText: 'Secunde',
         timeFormat: 'HH:ii',
-        timeWheels: 'HHii',
         yearText: 'Anul',
         nowText: 'Acum',
         amText: 'am',
@@ -58,4 +57,4 @@
         decimalSeparator: ',',
         thousandsSeparator: ' '
     };
-})(jQuery);
+})();

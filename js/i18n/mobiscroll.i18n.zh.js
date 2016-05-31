@@ -1,5 +1,6 @@
-(function ($) {
-    $.mobiscroll.i18n.zh = {
+// Chinese
+(function () {
+    mobiscroll.i18n.zh = {
         // Core
         setText: '确定',
         cancelText: '取消',
@@ -7,7 +8,6 @@
         selectedText: '{count} 选',
         // Datetime component
         dateFormat: 'yy/mm/dd',
-        dateOrder: 'yymmdd',
         dayNames: ['周日', '周一', '周二', '周三', '周四', '周五', '周六'],
         dayNamesShort: ['日', '一', '二', '三', '四', '五', '六'],
         dayNamesMin: ['日', '一', '二', '三', '四', '五', '六'],
@@ -19,7 +19,6 @@
         monthText: '月',
         secText: '秒',
         timeFormat: 'HH:ii',
-        timeWheels: 'HHii',
         yearText: '年',
         nowText: '当前',
         pmText: '下午',
@@ -55,4 +54,4 @@
         decimalSeparator: ',',
         thousandsSeparator: ' '
     };
-})(jQuery);
+})();

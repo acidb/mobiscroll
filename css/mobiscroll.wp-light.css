@@ -1,114 +1,116 @@
-.mbsc-wp-light .dwwr,
-.mbsc-wp-light .dw-dr,
-.mbsc-wp-light .dwb,
-.mbsc-wp-light .dw-cal-tabs .dw-i {
+.mbsc-wp-light .mbsc-fr-w,
+.mbsc-wp-light .mbsc-range-btn,
+.mbsc-wp-light .mbsc-fr-btn,
+.mbsc-wp-light .mbsc-cal-tabs .mbsc-cal-tab-i {
   color: #000000;
 }
-.mbsc-wp-light .dwwr {
+.mbsc-wp-light .mbsc-fr-w {
   background: #dedede;
 }
-.mbsc-wp-light .dw-i {
-  border-color: #a6a6a6;
-}
-.mbsc-wp-light .dw-li .dw-i {
+.mbsc-wp-light .mbsc-sc-itm {
   color: #000000;
 }
-.mbsc-wp-light .dw-sel .dw-i,
-.mbsc-wp-light .dw-hl .dw-i {
+.mbsc-wp-light .mbsc-sc-itm:after {
+  border-color: #000000;
+}
+.mbsc-wp-light .mbsc-sc-whl .mbsc-sc-itm-sel {
+  color: white;
+}
+.mbsc-wp-light .mbsc-cal-day-sel .mbsc-cal-day-i,
+.mbsc-wp-light .mbsc-cal-sc-sel .mbsc-cal-sc-cell-i,
+.mbsc-wp-light .mbsc-cal-tabs .mbsc-cal-tab-sel .mbsc-cal-tab-i,
+.mbsc-wp-light .mbsc-range-btn-sel .mbsc-range-btn {
   color: white;
   background: #1ba0e3;
   border-color: #1ba0e3;
 }
 /* Clickpick-mode */
-.mbsc-wp-light .dwwb {
+.mbsc-wp-light .mbsc-sc-btn {
   background: #dedede;
 }
-.mbsc-wp-light .dwwb:before {
+.mbsc-wp-light .mbsc-sc-btn:before {
   color: #000000;
   border-color: #000000;
 }
-.mbsc-wp-light .dwwl .dwb-a {
-  background: #dedede;
+.mbsc-wp-light .mbsc-sc-itm-sel:after,
+.mbsc-wp-light .mbsc-sc-itm.mbsc-btn-a:after,
+.mbsc-wp-light .mbsc-sc-btn-a:before {
+  background: #1ba0e3;
+  border-color: #1ba0e3;
 }
-.mbsc-wp-light .dwwl .dwb-a:before {
-  color: #1ba0e3;
+.mbsc-wp-light .mbsc-sc-whl-w:not(.mbsc-sc-whl-multi) .mbsc-sc-whl-anim .mbsc-sc-itm-sel {
+  color: #000000;
+}
+.mbsc-wp-light .mbsc-sc-whl-w:not(.mbsc-sc-whl-multi) .mbsc-sc-whl-anim .mbsc-sc-itm-sel:after,
+.mbsc-wp-light .mbsc-sc-whl-w:not(.mbsc-sc-whl-multi) .mbsc-sc-whl-wpa .mbsc-sc-itm.mbsc-btn-a:after {
+  background: none;
+  border-color: #000000;
 }
 /* Bubble positioning */
-.mbsc-wp-light .dw-bubble-bottom .dw-arr {
+.mbsc-wp-light .mbsc-fr-bubble-bottom .mbsc-fr-arr {
   border-color: transparent transparent #dedede transparent;
 }
-.mbsc-wp-light .dw-bubble-top .dw-arr {
+.mbsc-wp-light .mbsc-fr-bubble-top .mbsc-fr-arr {
   border-color: #dedede transparent transparent transparent;
 }
 /* Multiple select */
-.mbsc-wp-light .dwwms .dw-li .dw-i {
-  color: #000000;
-}
-.mbsc-wp-light .dwwms .dw-li:after {
+.mbsc-wp-light .mbsc-sc-whl-multi .mbsc-sc-itm:after {
   border-color: #000000;
 }
-.mbsc-wp-light .dwwms .dw-msel:before {
+.mbsc-wp-light .mbsc-sc-whl-multi .mbsc-sc-itm-sel:before,
+.mbsc-wp-light .mbsc-sc-whl-multi .mbsc-sc-itm-sel {
   color: #000000;
-}
-/* Override accents */
-.mbsc-wp-light .dwa .dw-i {
-  color: #000000;
-  border-color: #a6a6a6;
-  background: none;
-}
-.mbsc-wp-light .dwwms .dw-i {
-  background: none;
 }
 /* Calendar */
-.mbsc-wp-light .dw-cal-sc-m-cell {
+.mbsc-wp-light .mbsc-cal-sc-m-cell {
   background: #dedede;
 }
-.mbsc-wp-light .dw-cal-event {
+.mbsc-wp-light .mbsc-cal-event {
   background: #a6a6a6;
   color: black;
 }
-.mbsc-wp-light .dw-cal-events {
+.mbsc-wp-light .mbsc-cal-events {
   background: #000000;
   background: rgba(0, 0, 0, 0.8);
 }
-.mbsc-wp-light .dw-cal-events-arr {
+.mbsc-wp-light .mbsc-cal-events-arr {
   border-color: rgba(0, 0, 0, 0.8) transparent transparent;
 }
-.mbsc-wp-light .dw-cal-events-b .dw-cal-events-arr {
+.mbsc-wp-light .mbsc-cal-events-b .mbsc-cal-events-arr {
   border-color: transparent transparent rgba(0, 0, 0, 0.8);
 }
-.mbsc-wp-light .dw-cal-day-m {
-  border-color: #000000 #000000 transparent transparent;
+.mbsc-wp-light .mbsc-cal-day-m-c {
+  background: #000000;
 }
-.mbsc-wp-light .dw-cal-day-fg {
+.mbsc-wp-light .mbsc-cal-day-fg {
   border-color: #a6a6a6;
 }
-.mbsc-wp-light .dw-cal-day-inv .dw-cal-day-fg {
+.mbsc-wp-light .mbsc-cal-day-inv .mbsc-cal-day-fg {
   color: rgba(0, 0, 0, 0.3);
 }
-.mbsc-wp-light .dw-sel .dw-cal-day-fg {
+.mbsc-wp-light .mbsc-cal-day-sel .mbsc-cal-day-fg {
   border-color: #1ba0e3;
 }
-.mbsc-wp-light .dw-cal-day-hl .dw-cal-day-fg {
+.mbsc-wp-light .mbsc-cal-day-hl .mbsc-cal-day-fg {
   background: #000000;
   border-color: #000000;
   color: #dedede;
 }
-.mbsc-wp-light .dw-hl-now .dw-cal-today {
+.mbsc-wp-light .mbsc-cal-hl-now .mbsc-cal-today {
   color: #1ba0e3;
 }
-.mbsc-wp-light .dwb:before,
-.mbsc-wp-light .dw-cal-btn-txt:before {
+.mbsc-wp-light .mbsc-fr-btn:before,
+.mbsc-wp-light .mbsc-cal-btn-txt:before {
   color: #000000;
   border-color: #000000;
 }
-.mbsc-wp-light .dwb-a:before,
-.mbsc-wp-light .dwb-a .dw-cal-btn-txt:before {
+.mbsc-wp-light .mbsc-fr-btn-a:before,
+.mbsc-wp-light .mbsc-fr-btn-a .mbsc-cal-btn-txt:before {
   background: #1ba0e3;
   border-color: #1ba0e3;
   color: white;
 }
-.mbsc-wp-light .dw-week-nrs-c {
+.mbsc-wp-light .mbsc-cal-week-nrs-c {
   background: #dedede;
 }
 /* Rating */
@@ -123,8 +125,8 @@
   background: #646464;
 }
 /* Timer */
-.mbsc-wp-light.dw-timespan .dwl,
-.mbsc-wp-light.dw-timer .dwl {
+.mbsc-wp-light.mbsc-ts .mbsc-sc-lbl,
+.mbsc-wp-light.mbsc-timer .mbsc-sc-lbl {
   color: white;
 }
 /* Numpad */
@@ -132,15 +134,15 @@
   background: #cccccc;
   border: 2px solid #dedede;
 }
-.mbsc-wp-light .mbsc-np-btn.dwb-a {
+.mbsc-wp-light .mbsc-np-btn.mbsc-fr-btn-a {
   background: #1ba0e3;
   color: white;
 }
-.mbsc-wp-light .mbsc-np-btn.dwb-d {
+.mbsc-wp-light .mbsc-np-btn.mbsc-fr-btn-d {
   color: #000000;
   opacity: .5;
 }
-.mbsc-wp-light .mbsc-np-del.dwb-a:before {
+.mbsc-wp-light .mbsc-np-del.mbsc-fr-btn-a:before {
   color: #000000;
 }
 .mbsc-wp-light .mbsc-np-btn-empty {

@@ -1,28 +1,28 @@
-.mbsc-wp .dwwr {
+.mbsc-wp .mbsc-fr-w {
     padding: .625em;
     background: #1f1f1f;
     color: #fff;
     font-size: 16px;
 }
-.mbsc-wp .dwv {
+.mbsc-wp .mbsc-fr-hdr {
     font-size: .75em;
     padding: .833em;
     min-height: 14px;
     padding-top: 0;
 }
-.mbsc-wp .dwbc {
+.mbsc-wp .mbsc-fr-btn-cont {
     display: block;
 }
-.mbsc-wp .dwbw {
+.mbsc-wp .mbsc-fr-btn-w {
     display: inline-block;
 }
-.mbsc-wp .dwb,
+.mbsc-wp .mbsc-fr-btn,
 .mbsc-wp .mbsc-ic:before {
     -webkit-box-sizing: content-box;
     -moz-box-sizing: content-box;
     box-sizing: content-box;
 }
-.mbsc-wp .dwb {
+.mbsc-wp .mbsc-fr-btn {
     position: relative;
     top: 0;
     min-width: 2.9em;
@@ -37,7 +37,7 @@
     -moz-transition: all .1s linear;
     transition: all .1s linear;
 }
-.mbsc-wp .dwb:before {
+.mbsc-wp .mbsc-fr-btn:before {
     position: absolute;
     top: .3em;
     left: 50%;
@@ -51,18 +51,18 @@
     text-align: center;
     border-radius: 1000px;
 }
-.mbsc-wp .dwb-a {
+.mbsc-wp .mbsc-fr-btn-a {
     top: -.3em;
 }
-.mbsc-wp .dwb-a:before {
+.mbsc-wp .mbsc-fr-btn-a:before {
     background: #1a9fe0;
     border-color: #1a9fe0;
     color: #fff;
 }
 /* Bubble positioning */
-.mbsc-wp .dw-bubble-bottom .dw-arr {
+.mbsc-wp .mbsc-fr-bubble-bottom .mbsc-fr-arr {
     border-color: transparent transparent #1f1f1f transparent;
 }
-.mbsc-wp .dw-bubble-top .dw-arr {
+.mbsc-wp .mbsc-fr-bubble-top .mbsc-fr-arr {
     border-color: #1f1f1f transparent transparent transparent;
 }

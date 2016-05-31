@@ -1,8 +1,9 @@
+// Português Europeu
 /*
- * Translation to pt-EU by: Jorge Simoes <http://jorge.simoes.com>
+ * Translation by: Jorge Simoes <http://jorge.simoes.com>
  */
-(function ($) {
-    $.mobiscroll.i18n['pt-PT'] = {
+(function () {
+    mobiscroll.i18n['pt-PT'] = {
         // Core
         setText: 'Seleccionar',
         cancelText: 'Cancelar',
@@ -11,7 +12,6 @@
         selectedPluralText: '{count} selecionados',
         // Datetime component
         dateFormat: 'dd-mm-yy',
-        dateOrder: 'ddMMyy',
         dayNames: ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'S&aacute;bado'],
         dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'S&aacute;b'],
         dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'],
@@ -22,8 +22,7 @@
         monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
         monthText: 'M&ecirc;s',
         secText: 'Segundo',
-        timeFormat: 'HH:ii:ss',
-        timeWheels: 'HHiiss',
+        timeFormat: 'HH:ii',
         yearText: 'Ano',
         nowText: 'Actualizar',
         pmText: 'da tarde',
@@ -60,4 +59,4 @@
         decimalSeparator: ',',
         thousandsSeparator: ' '
     };
-})(jQuery);
+})();

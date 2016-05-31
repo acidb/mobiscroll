@@ -1,8 +1,9 @@
+// Português Brasileiro
 /*
  * Translation by: Ivan Gomes <contato@ivangomes.com.br>
  */
-(function ($) {
-    $.mobiscroll.i18n['pt-BR'] = {
+(function () {
+    mobiscroll.i18n['pt-BR'] = {
         // Core
         setText: 'Selecionar',
         cancelText: 'Cancelar',
@@ -11,7 +12,6 @@
         selectedPluralText: '{count} selecionados',
         // Datetime component
         dateFormat: 'dd/mm/yy',
-        dateOrder: 'ddMMyy',
         dayNames: ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'],
         dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
         dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'],
@@ -23,7 +23,6 @@
         monthText: 'Mês',
         secText: 'Segundo',
         timeFormat: 'HH:ii',
-        timeWheels: 'HHii',
         yearText: 'Ano',
         nowText: 'Agora',
         pmText: 'da tarde',
@@ -59,4 +58,4 @@
         decimalSeparator: ',',
         thousandsSeparator: ' '
     };
-})(jQuery);
+})();
