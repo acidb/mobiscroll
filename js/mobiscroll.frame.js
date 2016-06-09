@@ -476,7 +476,9 @@
             }
 
             // Hide virtual keyboard
-            document.activeElement.blur();
+            if (document.activeElement) {
+                document.activeElement.blur();
+            }
 
             doAnim = isOldAndroid ? false : s.animate;
 
