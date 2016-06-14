@@ -274,13 +274,23 @@ var mobiscroll = mobiscroll || {};
             },
             val: function (value) {
                 if (typeof value === 'undefined') {
+                    if (this.length && this[0].multiple) {
+                        return $.map(this.find('option:checked'), function (v) { return v.value; });
+                    }
                     return this[0] ? this[0].value : undefined;
+                } 
+
+                if (this.length && this[0].multiple) {
+                    $.each(this[0].options, function () {
+                        this.selected = value.indexOf(this.value) != -1;
+                    });
                 } else {
                     for (var i = 0; i < this.length; i++) {
                         this[i].value = value;
                     }
-                    return this;
                 }
+
+                return this;
             },
             //Events
             on: function (eventName, targetSelector, listener, capture) {
