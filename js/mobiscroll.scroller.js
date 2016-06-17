@@ -235,7 +235,7 @@
 
             w._refresh = function () {
                 extend(w._scroller.settings, {
-                    minScroll: -(w.max - w._offset - (w.multiple ? (s.rows - 1) : 0)) * itemHeight,
+                    minScroll: -(Math.max(0, w.max - (w.multiple ? (s.rows - 1) : 0)) - w._offset) * itemHeight,
                     maxScroll: -(w.min - w._offset) * itemHeight
                 });
 
