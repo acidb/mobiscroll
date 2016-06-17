@@ -462,7 +462,9 @@
             }
 
             // Hide virtual keyboard
-            document.activeElement.blur();
+            if ($(document.activeElement).is('input,textarea')) {
+                document.activeElement.blur();
+            }
 
             doAnim = isOldAndroid ? false : s.animate;
 
