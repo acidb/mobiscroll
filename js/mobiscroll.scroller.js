@@ -265,8 +265,8 @@
                 value = item && item.value !== undefined ? item.value : text;
                 css = item && item.cssClass !== undefined ? item.cssClass : '';
                 lbl = item && item.label !== undefined ? item.label : '';
-                selected = value !== undefined && value == tempWheelArray[index];
-
+                selected = value !== undefined && value == tempWheelArray[index] && !wheel.multiple;
+                
                 // TODO: don't generate items with no value (use margin or placeholder instead)
                 html += '<div role="option" aria-selected="' + (checked[value] ? true : false) +
                     '" class="mbsc-sc-itm ' + css + ' ' +
