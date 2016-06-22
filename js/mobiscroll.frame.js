@@ -485,9 +485,12 @@
             if (doAnim !== false) {
                 if (s.display == 'top') {
                     doAnim = 'slidedown';
-                }
-                if (s.display == 'bottom') {
+                } else if (s.display == 'bottom') {
                     doAnim = 'slideup';
+                } else if (s.display == 'center') {
+                    doAnim = s.animate || 'fade';
+                } else if (s.display == 'bubble') {
+                    doAnim = s.animate || 'pop';
                 }
             }
 
