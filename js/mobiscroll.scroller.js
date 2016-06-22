@@ -266,7 +266,7 @@
                 css = item && item.cssClass !== undefined ? item.cssClass : '';
                 lbl = item && item.label !== undefined ? item.label : '';
                 selected = value !== undefined && value == tempWheelArray[index] && !wheel.multiple;
-                
+
                 // TODO: don't generate items with no value (use margin or placeholder instead)
                 html += '<div role="option" aria-selected="' + (checked[value] ? true : false) +
                     '" class="mbsc-sc-itm ' + css + ' ' +
@@ -717,7 +717,7 @@
                     initialPos: -(wheel._index - wheel._offset) * itemHeight,
                     contSize: 0,
                     snap: itemHeight,
-                    minScroll: -(wheel.max - wheel._offset - (wheel.multiple ? (s.rows - 1) : 0)) * itemHeight,
+                    minScroll: -(Math.max(0, wheel.max - (wheel.multiple ? (s.rows - 1) : 0)) - wheel._offset) * itemHeight,
                     maxScroll: -(wheel.min - wheel._offset) * itemHeight,
                     maxSnapScroll: batchSize,
                     prevDef: true,
