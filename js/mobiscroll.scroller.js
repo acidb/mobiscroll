@@ -233,13 +233,13 @@
                 w._margin = 0; //w._first * itemHeight;
             }
 
-            w._refresh = function () {
+            w._refresh = function (noScroll) {
                 extend(w._scroller.settings, {
-                    minScroll: -(Math.max(0, w.max - (w.multiple ? (s.rows - 1) : 0)) - w._offset) * itemHeight,
+                    minScroll: -((w.multiple ? Math.max(0, w.max - s.rows + 1) : w.max) - w._offset) * itemHeight,
                     maxScroll: -(w.min - w._offset) * itemHeight
                 });
 
-                w._scroller.refresh();
+                w._scroller.refresh(noScroll);
             };
 
             wheelsMap[w.key] = w;
@@ -597,7 +597,7 @@
                             .html(generateItems(w, i, w._first, w._last))
                             .css('margin-top', w._margin + 'px');
 
-                        w._refresh();
+                        w._refresh(isValidating);
                     }
                 }
             });
@@ -717,7 +717,7 @@
                     initialPos: -(wheel._index - wheel._offset) * itemHeight,
                     contSize: 0,
                     snap: itemHeight,
-                    minScroll: -(Math.max(0, wheel.max - (wheel.multiple ? (s.rows - 1) : 0)) - wheel._offset) * itemHeight,
+                    minScroll: -((wheel.multiple ? Math.max(0, wheel.max - s.rows + 1) : wheel.max) - wheel._offset) * itemHeight,
                     maxScroll: -(wheel.min - wheel._offset) * itemHeight,
                     maxSnapScroll: batchSize,
                     prevDef: true,
