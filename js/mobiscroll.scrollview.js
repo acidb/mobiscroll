@@ -447,7 +447,7 @@
             scroll(constrain(pos, minScroll, maxScroll), time, callback);
         };
 
-        that.refresh = function () {
+        that.refresh = function (noScroll) {
             var tempScroll;
 
             contSize = s.contSize === undefined ? vertical ? $elm.height() : $elm.width() : s.contSize;
@@ -491,7 +491,9 @@
                 currSnap = Math.round(currPos / snap);
             }
 
-            that.scroll(s.snap ? (snapPoints ? snapPoints[currSnap]['snap' + currSnapDir] : (currSnap * snap)) : currPos);
+            if (!noScroll) {
+                that.scroll(s.snap ? (snapPoints ? snapPoints[currSnap]['snap' + currSnapDir] : (currSnap * snap)) : currPos);
+            }
         };
 
         that.init = function (ss) {

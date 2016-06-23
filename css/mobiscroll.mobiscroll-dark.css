@@ -35,7 +35,8 @@
   color: #50ccc4;
 }
 /* Calendar */
-.mbsc-mobiscroll-dark .mbsc-cal .mbsc-cal-day-sel .mbsc-cal-day-i {
+.mbsc-mobiscroll-dark .mbsc-cal .mbsc-cal-day-sel .mbsc-cal-day-i,
+.mbsc-mobiscroll-dark .mbsc-cal .mbsc-cal-sc-sel .mbsc-cal-sc-cell-i {
   background: #50ccc4;
   color: #263238;
 }

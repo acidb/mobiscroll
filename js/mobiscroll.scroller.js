@@ -233,13 +233,13 @@
                 w._margin = 0; //w._first * itemHeight;
             }
 
-            w._refresh = function () {
+            w._refresh = function (noScroll) {
                 extend(w._scroller.settings, {
-                    minScroll: -(w.max - w._offset - (w.multiple ? (s.rows - 1) : 0)) * itemHeight,
+                    minScroll: -((w.multiple ? Math.max(0, w.max - s.rows + 1) : w.max) - w._offset) * itemHeight,
                     maxScroll: -(w.min - w._offset) * itemHeight
                 });
 
-                w._scroller.refresh();
+                w._scroller.refresh(noScroll);
             };
 
             wheelsMap[w.key] = w;
@@ -265,7 +265,7 @@
                 value = item && item.value !== undefined ? item.value : text;
                 css = item && item.cssClass !== undefined ? item.cssClass : '';
                 lbl = item && item.label !== undefined ? item.label : '';
-                selected = value !== undefined && value == tempWheelArray[index];
+                selected = value !== undefined && value == tempWheelArray[index] && !wheel.multiple;
 
                 // TODO: don't generate items with no value (use margin or placeholder instead)
                 html += '<div role="option" aria-selected="' + (checked[value] ? true : false) +
@@ -597,7 +597,7 @@
                             .html(generateItems(w, i, w._first, w._last))
                             .css('margin-top', w._margin + 'px');
 
-                        w._refresh();
+                        w._refresh(isValidating);
                     }
                 }
             });
@@ -717,7 +717,7 @@
                     initialPos: -(wheel._index - wheel._offset) * itemHeight,
                     contSize: 0,
                     snap: itemHeight,
-                    minScroll: -(wheel.max - wheel._offset - (wheel.multiple ? (s.rows - 1) : 0)) * itemHeight,
+                    minScroll: -((wheel.multiple ? Math.max(0, wheel.max - s.rows + 1) : wheel.max) - wheel._offset) * itemHeight,
                     maxScroll: -(wheel.min - wheel._offset) * itemHeight,
                     maxSnapScroll: batchSize,
                     prevDef: true,

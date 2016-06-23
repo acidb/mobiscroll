@@ -5,7 +5,7 @@
         baseTheme: 'wp',
         minWidth: 76,
         height: 76,
-        dateOrder: 'mmMMddDDyy',
+        dateDisplay: 'mmMMddDDyy',
         headerText: false,
         showLabel: false,
         deleteIcon: 'backspace4',
@@ -18,10 +18,11 @@
         btnCalNextClass: 'mbsc-ic mbsc-ic-arrow-right2',
         btnPlusClass: 'mbsc-ic mbsc-ic-plus',
         btnMinusClass: 'mbsc-ic mbsc-ic-minus',
-        onMarkupInserted: function (elm, inst) {
+        onMarkupInserted: function (event, inst) {
             var click,
                 touch,
                 active,
+				elm = event.target,
                 s = inst.settings;
 
             function isReadOnly(i) {

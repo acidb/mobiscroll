@@ -36,6 +36,8 @@
 .mbsc-ios .mbsc-sc-itm-sel {
     color: #000;
 }
+
+
 /* Clickpick mode */
 
 .mbsc-ios .mbsc-sc-cp .mbsc-sc-whl .mbsc-sc-itm {
@@ -54,6 +56,8 @@
 .mbsc-ios .mbsc-sc-btn-a:before {
     opacity: .5;
 }
+
+
 /* Multiple select */
 
 .mbsc-ios .mbsc-sc-whl-multi .mbsc-sc-whl-o {
@@ -72,6 +76,8 @@
 .mbsc-ios .mbsc-sc-whl-multi .mbsc-sc-itm-sel:before {
     font-size: 1.818181em;
 }
+
+
 /* Group select */
 
 .mbsc-ios .mbsc-sc-whl .mbsc-sel-gr {
@@ -80,6 +86,12 @@
     font-weight: normal;
     font-size: 1.222222em;
 }
+
+.mbsc-ios.mbsc-sel-gr-whl .mbsc-sc-whl-multi {
+    padding-left: 1.66666em;
+}
+
+
 /* Date & Time */
 
 .mbsc-ios .mbsc-dt-whl-m .mbsc-sc-itm {
