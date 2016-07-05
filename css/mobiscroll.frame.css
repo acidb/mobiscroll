@@ -75,6 +75,7 @@
 .mbsc-fr-overlay {
     z-index: 1;
     background: rgba(0, 0, 0, .7);
+    -webkit-transform: translateZ(0);
 }
 
 

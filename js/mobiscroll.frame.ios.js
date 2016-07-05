@@ -6,6 +6,7 @@
         rows: 5,
         height: 34,
         minWidth: 55,
+        scroll3d: true,
         headerText: false,
         showLabel: false,
         btnWidth: false,

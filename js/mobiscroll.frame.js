@@ -94,10 +94,7 @@
         }
 
         function onHide(prevAnim) {
-            var activeEl,
-                value,
-                type,
-                $activeEl = $activeElm,
+            var $activeEl = $activeElm,
                 focus = s.focusOnClose;
 
             that._markupRemove();
@@ -109,17 +106,12 @@
                     $activeEl = $elm;
                 }
                 setTimeout(function () {
+                    if (that._isVisible) {
+                        return;
+                    }
                     if (focus === undefined || focus === true) {
                         preventShow = true;
-                        activeEl = $activeEl[0];
-                        type = activeEl.type;
-                        value = activeEl.value;
-                        try {
-                            activeEl.type = 'button';
-                        } catch (ex) {}
                         $activeEl[0].focus();
-                        activeEl.type = type;
-                        activeEl.value = value;
                     } else if (focus) {
                         $(focus)[0].focus();
                     }
@@ -248,7 +240,7 @@
 
             // Set / unset liquid layout based on screen width, but only if not set explicitly by the user
             if (that._isLiquid && s.layout !== 'liquid') {
-                if (nw < 400) {
+                if (nw < 415) {
                     $markup.addClass('mbsc-fr-liq');
                 } else {
                     $markup.removeClass('mbsc-fr-liq');
