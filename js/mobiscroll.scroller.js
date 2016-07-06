@@ -341,7 +341,7 @@
 
                         // 3D
                         if (scroll3d) {
-                            generate3dItems(wheel, last - batchSize + scroll3dItems / 2 + 1, last - batchSize + scroll3dItems / 2 + diff);
+                            generate3dItems(wheel, Math.max(last - batchSize + scroll3dItems / 2 + 1, last - batchSize + scroll3dItems / 2 + diff - scroll3dItems), last - batchSize + scroll3dItems / 2 + diff);
                         }
                     } else if (diff < 0) {
                         wheel._$scroller.prepend(generateItems(wheel, i, first + diff, Math.min(first - 1, last + diff)));
@@ -349,7 +349,7 @@
 
                         // 3D
                         if (scroll3d) {
-                            generate3dItems(wheel, first + batchSize - scroll3dItems / 2 + 1 + diff, first + batchSize - scroll3dItems / 2);
+                            generate3dItems(wheel, first + batchSize - scroll3dItems / 2 + 1 + diff, Math.min(first + batchSize - scroll3dItems / 2, first + batchSize - scroll3dItems / 2 + 1 + diff + scroll3dItems));
                         }
                     }
 
