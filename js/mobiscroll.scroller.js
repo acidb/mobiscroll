@@ -4,23 +4,27 @@
         return (wheel._array ? wheel._map[val] : wheel.getIndex(val)) || 0;
     }
 
-    function getItem(wheel, i, def) {
+    function getItem(wheel, i) {
         var data = wheel.data;
 
-        if (i < wheel.min || i > wheel.max) {
-            return def;
+        if (i >= wheel.min && i <= wheel.max) {
+            return wheel._array ?
+                (wheel.circular ? $(data).get(i % wheel._length) : data[i]) :
+                ($.isFunction(data) ? data(i) : '');
         }
-        return wheel._array ?
-            (wheel.circular ? $(data).get(i % wheel._length) : data[i]) :
-            ($.isFunction(data) ? data(i) : '');
     }
 
     function getItemValue(item) {
         return $.isPlainObject(item) ? (item.value !== undefined ? item.value : item.display) : item;
     }
 
-    function getValue(wheel, i, def) {
-        return getItemValue(getItem(wheel, i, def));
+    function getItemText(item) {
+        var text = $.isPlainObject(item) ? item.display : item;
+        return text === undefined ? '' : text;
+    }
+
+    function getValue(wheel, i) {
+        return getItemValue(getItem(wheel, i));
     }
 
     var ms = mobiscroll,
@@ -40,8 +44,8 @@
             $stepBtn,
             batchSize = 40,
             animTime = 1000,
-            scroll3dItems = 18,
-            scroll3dAngle = 360 / scroll3dItems,
+            scroll3dItems,
+            scroll3dAngle,
             scroll3d,
             selectedClass,
             showScrollArrows,
@@ -267,8 +271,8 @@
 
             for (i = start; i <= end; i++) {
                 item = getItem(wheel, i);
-                text = $.isPlainObject(item) ? item.display : item;
-                value = item && item.value !== undefined ? item.value : text;
+                text = getItemText(item);
+                value = getItemValue(item);
                 css = item && item.cssClass !== undefined ? item.cssClass : '';
                 lbl = item && item.label !== undefined ? item.label : '';
                 selected = value !== undefined && value == tempWheelArray[index] && !wheel.multiple;
@@ -286,7 +290,7 @@
                     (selected ? ' aria-selected="true"' : '') +
                     ' style="height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;">' +
                     (lines > 1 ? '<div class="mbsc-sc-itm-ml" style="line-height:' + Math.round(itemHeight / lines) + 'px;font-size:' + Math.round(itemHeight / lines * 0.8) + 'px;">' : '') +
-                    (text === undefined ? '' : text) +
+                    text +
                     (lines > 1 ? '</div>' : '') +
                     '</div>';
             }
@@ -297,20 +301,16 @@
         function generate3dItems(wheel, start, end) {
             var i,
                 item,
-                text,
-                value,
                 html = '';
 
             for (i = start; i <= end; i++) {
                 item = getItem(wheel, i);
-                text = $.isPlainObject(item) ? item.display : item;
-                value = item && item.value !== undefined ? item.value : text;
                 wheel._$3d
                     .find('.mbsc-sc-itm-3d')
-                    .eq((i - wheel._offset + 4) % scroll3dItems)
+                    .eq((i - wheel._offset - batchSize + scroll3dItems / 2 - 1) % scroll3dItems)
                     .attr('data-index', i)
-                    .attr('data-val', value)[0]
-                    .innerHTML = (text === undefined ? '' : text);
+                    .attr('data-val', getItemValue(item))[0]
+                    .innerHTML = getItemText(item);
             }
 
             return html;
@@ -637,11 +637,10 @@
         // Protected overrides
 
         that._generateContent = function () {
-            var lbl,
+            var k,
+                lbl,
                 index,
                 item,
-                text,
-                value,
                 html = '',
                 style = scroll3d ? pref + 'transform: translateZ(' + (itemHeight * s.rows / 2 + 3) + 'px);' : '',
                 highlight = '<div class="mbsc-sc-whl-l" style="' + style + 'height:' + itemHeight + 'px;margin-top:-' + (itemHeight / 2 + (s.selectedLineBorder || 0)) + 'px;"></div>',
@@ -649,7 +648,6 @@
 
             $.each(s.wheels, function (i, wg) {
                 html += '<div class="mbsc-w-p mbsc-sc-whl-gr-c">' + highlight +
-                    '<div class="mbsc-sc-whl-o"></div>' +
                     '<div class="mbsc-sc-whl-gr' +
                     (scroll3d ? ' mbsc-sc-whl-gr-3d' : '') +
                     (showScrollArrows ? ' mbsc-sc-cp' : '') +
@@ -667,9 +665,10 @@
                     html += '<div class="mbsc-sc-whl-w ' + (w.cssClass || '') + (w.multiple ? ' mbsc-sc-whl-multi' : '') + '" style="' +
                         (s.width ? ('width:' + (s.width[l] || s.width) + 'px;') :
                             (s.minWidth ? ('min-width:' + (s.minWidth[l] || s.minWidth) + 'px;') : '') +
-                            (s.maxWidth ? ('max-width:' + (s.maxWidth[l] || s.maxWidth) + 'px;') : '')) + '">' + highlight +
+                            (s.maxWidth ? ('max-width:' + (s.maxWidth[l] || s.maxWidth) + 'px;') : '')) + '">' +
+                        '<div class="mbsc-sc-whl-o" style="' + style + '"></div>' + highlight +
                         '<div tabindex="0" aria-live="off" aria-label="' + lbl + '" role="listbox" data-index="' + l + '" class="mbsc-sc-whl"' + ' style="' +
-                        'height:' + (s.rows * itemHeight) + 'px;">' +
+                        'height:' + (s.rows * itemHeight * (scroll3d ? 1.1 : 1)) + 'px;">' +
                         (showScrollArrows ?
                             '<div data-index="' + l + '" data-dir="inc" class="mbsc-sc-btn mbsc-sc-btn-plus ' + (s.btnPlusClass || '') + '" style="height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;"></div>' + // + button
                             '<div data-index="' + l + '" data-dir="dec" class="mbsc-sc-btn mbsc-sc-btn-minus ' + (s.btnMinusClass || '') + '" style="height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;"></div>' : '') + // - button
@@ -686,13 +685,10 @@
 
                     if (scroll3d) {
                         html += '<div class="mbsc-sc-whl-3d" style="height:' + itemHeight + 'px;margin-top:-' + (itemHeight / 2) + 'px;">';
-                        for (var k = 0; k < scroll3dItems; k++) {
+                        for (k = 0; k < scroll3dItems; k++) {
                             index = w._current + k - scroll3dItems / 2 + 1;
                             item = getItem(w, index);
-                            text = $.isPlainObject(item) ? item.display : item;
-                            value = item && item.value !== undefined ? item.value : text;
-                            text = text === undefined ? '' : text;
-                            html += '<div class="mbsc-btn-e mbsc-sc-itm mbsc-sc-itm-3d" data-index="' + index + '" data-val="' + value + '" style="' + pref + 'transform:rotateX(' + ((scroll3dItems / 2 - 1 - k) * scroll3dAngle % 360) + 'deg) translateZ(' + (itemHeight * s.rows / 2) + 'px);height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;">' + text + '</div>';
+                            html += '<div class="mbsc-btn-e mbsc-sc-itm mbsc-sc-itm-3d" data-index="' + index + '" data-val="' + getItemValue(item) + '" style="' + pref + 'transform:rotateX(' + ((scroll3dItems / 2 - 1 - k) * scroll3dAngle % 360) + 'deg) translateZ(' + (itemHeight * s.rows / 2) + 'px);height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;">' + getItemText(item) + '</div>';
                         }
                         html += '</div>';
                     }
@@ -731,18 +727,17 @@
             $('.mbsc-sc-whl', $markup).each(function (i) {
                 var idx,
                     $wh = $(this),
-                    wheel = wheels[i];
+                    wheel = wheels[i],
+                    initial = wheel._index - wheel._offset;
 
                 wheel._$markup = $wh;
                 wheel._$scroller = $('.mbsc-sc-whl-sc', this);
                 wheel._$3d = $('.mbsc-sc-whl-3d', this);
 
-                wheel._3d = wheel._index - wheel._offset;
-
                 wheel._scroller = new ms.classes.ScrollView(this, {
                     mousewheel: s.mousewheel,
                     moveElement: wheel._$scroller,
-                    initialPos: -(wheel._index - wheel._offset) * itemHeight,
+                    initialPos: -initial * itemHeight,
                     contSize: 0,
                     snap: itemHeight,
                     minScroll: -((wheel.multiple ? Math.max(0, wheel.max - s.rows + 1) : wheel.max) - wheel._offset) * itemHeight,
@@ -755,7 +750,7 @@
                     sync: function (pos, time, easing) {
                         if (scroll3d) {
                             wheel._$3d[0].style[pr + 'Transition'] = time ? pref + 'transform ' + Math.round(time) + 'ms ' + easing : '';
-                            wheel._$3d[0].style[pr + 'Transform'] = 'rotateX(' + (-pos * scroll3dAngle / itemHeight - wheel._3d * scroll3dAngle) + 'deg)';
+                            wheel._$3d[0].style[pr + 'Transform'] = 'rotateX(' + (-pos * scroll3dAngle / itemHeight - initial * scroll3dAngle) + 'deg)';
                         }
                     },
                     onStart: function (ev, inst) {
@@ -865,6 +860,9 @@
             scroll3d = s.scroll3d;
             showScrollArrows = s.showScrollArrows;
             selectedClass = 'mbsc-sc-itm-sel mbsc-ic mbsc-ic-' + s.checkIcon;
+
+            scroll3dItems = Math.round(s.rows * 3.6 / 2) * 2;
+            scroll3dAngle = 360 / scroll3dItems;
 
             that._isLiquid = (s.layout || (/top|bottom/.test(s.display) && s.wheels.length == 1 ? 'liquid' : '')) === 'liquid';
 

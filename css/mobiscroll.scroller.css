@@ -154,8 +154,8 @@
 /* 3D */
 
 .mbsc-sc-whl-gr-3d {
-    -webkit-perspective: 1500px;
-    perspective: 1500px;
+    -webkit-perspective: 1200px;
+    perspective: 1200px;
 }
 
 .mbsc-sc-whl-gr-3d .mbsc-sc-whl {
