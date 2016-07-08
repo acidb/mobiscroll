@@ -1,5 +1,9 @@
 .mbsc-anim-trans .mbsc-fr-persp {
     overflow: hidden;
+}
+
+.mbsc-anim-trans-flip .mbsc-fr-persp,
+.mbsc-anim-trans-swing .mbsc-fr-persp {
     -webkit-perspective: 1000px;
     perspective: 1000px;
 }

@@ -159,6 +159,7 @@
 }
 
 .mbsc-sc-whl-gr-3d .mbsc-sc-whl {
+    /* For iOS to respect z-index */
     overflow: visible;
 }
 

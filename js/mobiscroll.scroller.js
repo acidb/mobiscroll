@@ -844,7 +844,7 @@
             showScrollArrows = s.showScrollArrows;
             selectedClass = 'mbsc-sc-itm-sel mbsc-ic mbsc-ic-' + s.checkIcon;
 
-            batchSize3d = Math.round(s.rows * 3.6 / 2);
+            batchSize3d = Math.round(s.rows * 1.8);
             scroll3dAngle = 360 / (batchSize3d * 2);
 
             that._isLiquid = (s.layout || (/top|bottom/.test(s.display) && s.wheels.length == 1 ? 'liquid' : '')) === 'liquid';
