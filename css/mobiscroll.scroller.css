@@ -185,6 +185,10 @@
     backface-visibility: hidden;
 }
 
+.mbsc-sc-itm-del {
+    display: none;
+}
+
 
 /* Multiline */
 

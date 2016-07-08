@@ -42,9 +42,9 @@
     classes.Scroller = function (el, settings, inherit) {
         var $markup,
             $stepBtn,
+            batchSize3d,
             batchSize = 40,
             animTime = 1000,
-            scroll3dItems,
             scroll3dAngle,
             scroll3d,
             selectedClass,
@@ -257,7 +257,7 @@
             return w;
         }
 
-        function generateItems(wheel, index, start, end) {
+        function generateItems(wheel, index, start, end, is3d) {
             var i,
                 css,
                 item,
@@ -279,7 +279,7 @@
 
                 // TODO: don't generate items with no value (use margin or placeholder instead)
                 html += '<div role="option" aria-selected="' + (checked[value] ? true : false) +
-                    '" class="mbsc-sc-itm ' + css + ' ' +
+                    '" class="mbsc-sc-itm ' + (is3d ? 'mbsc-sc-itm-3d ' : '') + css + ' ' +
                     (selected ? 'mbsc-sc-itm-sel ' : '') +
                     (checked[value] ? selectedClass : '') +
                     (value === undefined ? ' mbsc-sc-itm-ph' : ' mbsc-btn-e') +
@@ -288,29 +288,13 @@
                     '" data-val="' + value + '"' +
                     (lbl ? ' aria-label="' + lbl + '"' : '') +
                     (selected ? ' aria-selected="true"' : '') +
-                    ' style="height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;">' +
+                    ' style="height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;' +
+                    (is3d ? pref + 'transform:rotateX(' + ((wheel._offset - i) * scroll3dAngle % 360) + 'deg) translateZ(' + (itemHeight * s.rows / 2) + 'px);' : '') +
+                    '">' +
                     (lines > 1 ? '<div class="mbsc-sc-itm-ml" style="line-height:' + Math.round(itemHeight / lines) + 'px;font-size:' + Math.round(itemHeight / lines * 0.8) + 'px;">' : '') +
                     text +
                     (lines > 1 ? '</div>' : '') +
                     '</div>';
-            }
-
-            return html;
-        }
-
-        function generate3dItems(wheel, start, end) {
-            var i,
-                item,
-                html = '';
-
-            for (i = start; i <= end; i++) {
-                item = getItem(wheel, i);
-                wheel._$3d
-                    .find('.mbsc-sc-itm-3d')
-                    .eq((i - wheel._offset - batchSize + scroll3dItems / 2 - 1) % scroll3dItems)
-                    .attr('data-index', i)
-                    .attr('data-val', getItemValue(item))[0]
-                    .innerHTML = getItemText(item);
             }
 
             return html;
@@ -325,7 +309,9 @@
             var index = Math.round(-pos / itemHeight) + wheel._offset,
                 diff = index - wheel._current,
                 first = wheel._first,
-                last = wheel._last;
+                last = wheel._last,
+                first3d = first + batchSize - batchSize3d + 1,
+                last3d = last - batchSize + batchSize3d;
 
             if (diff) {
                 wheel._first += diff;
@@ -341,7 +327,8 @@
 
                         // 3D
                         if (scroll3d) {
-                            generate3dItems(wheel, Math.max(last - batchSize + scroll3dItems / 2 + 1, last - batchSize + scroll3dItems / 2 + diff - scroll3dItems), last - batchSize + scroll3dItems / 2 + diff);
+                            wheel._$3d.append(generateItems(wheel, i, Math.max(last3d + 1, first3d + diff), last3d + diff, true));
+                            $('.mbsc-sc-itm', wheel._$3d).slice(0, Math.min(diff, last3d - first3d + 1)).attr('class', 'mbsc-sc-itm-del');
                         }
                     } else if (diff < 0) {
                         wheel._$scroller.prepend(generateItems(wheel, i, first + diff, Math.min(first - 1, last + diff)));
@@ -349,7 +336,8 @@
 
                         // 3D
                         if (scroll3d) {
-                            generate3dItems(wheel, first + batchSize - scroll3dItems / 2 + 1 + diff, Math.min(first + batchSize - scroll3dItems / 2, first + batchSize - scroll3dItems / 2 + 1 + diff + scroll3dItems));
+                            wheel._$3d.prepend(generateItems(wheel, i, first3d + diff, Math.min(first3d - 1, last3d + diff), true));
+                            $('.mbsc-sc-itm', wheel._$3d).slice(Math.max(diff, first3d - last3d - 1)).attr('class', 'mbsc-sc-itm-del');
                         }
                     }
 
@@ -608,7 +596,8 @@
 
                     if (that._isVisible) {
                         if (scroll3d) {
-                            generate3dItems(wheel, w._current - scroll3dItems / 2 + 1, w._current - scroll3dItems / 2 + 1 + scroll3dItems);
+                            //generate3dItems(wheel, w._current - scroll3dItems / 2 + 1, w._current - scroll3dItems / 2 + 1 + scroll3dItems);
+                            w._$3d.html(generateItems(w, i, w._first + batchSize - batchSize3d + 1, w._last - batchSize + batchSize3d, true));
                         }
 
                         w._$scroller
@@ -637,10 +626,7 @@
         // Protected overrides
 
         that._generateContent = function () {
-            var k,
-                lbl,
-                index,
-                item,
+            var lbl,
                 html = '',
                 style = scroll3d ? pref + 'transform: translateZ(' + (itemHeight * s.rows / 2 + 3) + 'px);' : '',
                 highlight = '<div class="mbsc-sc-whl-l" style="' + style + 'height:' + itemHeight + 'px;margin-top:-' + (itemHeight / 2 + (s.selectedLineBorder || 0)) + 'px;"></div>',
@@ -685,11 +671,7 @@
 
                     if (scroll3d) {
                         html += '<div class="mbsc-sc-whl-3d" style="height:' + itemHeight + 'px;margin-top:-' + (itemHeight / 2) + 'px;">';
-                        for (k = 0; k < scroll3dItems; k++) {
-                            index = w._current + k - scroll3dItems / 2 + 1;
-                            item = getItem(w, index);
-                            html += '<div class="mbsc-btn-e mbsc-sc-itm mbsc-sc-itm-3d" data-index="' + index + '" data-val="' + getItemValue(item) + '" style="' + pref + 'transform:rotateX(' + ((scroll3dItems / 2 - 1 - k) * scroll3dAngle % 360) + 'deg) translateZ(' + (itemHeight * s.rows / 2) + 'px);height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;">' + getItemText(item) + '</div>';
-                        }
+                        html += generateItems(w, l, w._first + batchSize - batchSize3d + 1, w._last - batchSize + batchSize3d, true);
                         html += '</div>';
                     }
 
@@ -727,8 +709,7 @@
             $('.mbsc-sc-whl', $markup).each(function (i) {
                 var idx,
                     $wh = $(this),
-                    wheel = wheels[i],
-                    initial = wheel._index - wheel._offset;
+                    wheel = wheels[i];
 
                 wheel._$markup = $wh;
                 wheel._$scroller = $('.mbsc-sc-whl-sc', this);
@@ -737,7 +718,7 @@
                 wheel._scroller = new ms.classes.ScrollView(this, {
                     mousewheel: s.mousewheel,
                     moveElement: wheel._$scroller,
-                    initialPos: -initial * itemHeight,
+                    initialPos: (wheel._first - wheel._index) * itemHeight,
                     contSize: 0,
                     snap: itemHeight,
                     minScroll: -((wheel.multiple ? Math.max(0, wheel.max - s.rows + 1) : wheel.max) - wheel._offset) * itemHeight,
@@ -750,7 +731,7 @@
                     sync: function (pos, time, easing) {
                         if (scroll3d) {
                             wheel._$3d[0].style[pr + 'Transition'] = time ? pref + 'transform ' + Math.round(time) + 'ms ' + easing : '';
-                            wheel._$3d[0].style[pr + 'Transform'] = 'rotateX(' + (-pos * scroll3dAngle / itemHeight - initial * scroll3dAngle) + 'deg)';
+                            wheel._$3d[0].style[pr + 'Transform'] = 'rotateX(' + ((-pos / itemHeight) * scroll3dAngle) + 'deg)';
                         }
                     },
                     onStart: function (ev, inst) {
@@ -781,6 +762,8 @@
                         trigger('onWheelAnimationEnd', {
                             index: i
                         });
+
+                        wheel._$3d.find('.mbsc-sc-itm-del').remove();
                     },
                     onMove: function (ev) {
                         infinite(wheel, i, ev.posY);
@@ -861,8 +844,8 @@
             showScrollArrows = s.showScrollArrows;
             selectedClass = 'mbsc-sc-itm-sel mbsc-ic mbsc-ic-' + s.checkIcon;
 
-            scroll3dItems = Math.round(s.rows * 3.6 / 2) * 2;
-            scroll3dAngle = 360 / scroll3dItems;
+            batchSize3d = Math.round(s.rows * 3.6 / 2);
+            scroll3dAngle = 360 / (batchSize3d * 2);
 
             that._isLiquid = (s.layout || (/top|bottom/.test(s.display) && s.wheels.length == 1 ? 'liquid' : '')) === 'liquid';
 
