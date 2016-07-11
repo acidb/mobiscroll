@@ -252,6 +252,13 @@ var mobiscroll = mobiscroll || {};
         that._presetLoad = function () {};
 
         that._init = function (ss) {
+            var key;
+
+            // Reset settings object
+            for (key in that.settings) {
+                delete that.settings[key];
+            }
+
             s = that.settings;
 
             // Update original user settings

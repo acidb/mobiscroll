@@ -109,6 +109,9 @@
                     $activeEl = $elm;
                 }
                 setTimeout(function () {
+                    if (that._isVisible) {
+                        return;
+                    }
                     if (focus === undefined || focus === true) {
                         preventShow = true;
                         activeEl = $activeEl[0];

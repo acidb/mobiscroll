@@ -50,10 +50,10 @@
             s,
             trigger,
             lines,
+            wheels,
+            wheelsMap,
             that = this,
-            $elm = $(el),
-            wheels = [],
-            wheelsMap = {};
+            $elm = $(el);
 
         // Event handlers
 
@@ -485,6 +485,11 @@
             if (that.live) {
                 that._hasValue = manual || that._hasValue;
                 setValue(manual, manual, 0, true);
+                if (manual) {
+                    trigger('onSet', {
+                        valueText: that._value
+                    });
+                }
             }
 
             if (manual) {
@@ -833,6 +838,8 @@
             lines = s.multiline;
             showScrollArrows = s.showScrollArrows;
             selectedClass = 'mbsc-sc-itm-sel mbsc-ic mbsc-ic-' + s.checkIcon;
+            wheels = [];
+            wheelsMap = {};
 
             that._isLiquid = (s.layout || (/top|bottom/.test(s.display) && s.wheels.length == 1 ? 'liquid' : '')) === 'liquid';
 
