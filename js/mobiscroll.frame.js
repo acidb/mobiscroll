@@ -109,6 +109,9 @@
                     $activeEl = $elm;
                 }
                 setTimeout(function () {
+                    if (that._isVisible) {
+                        return;
+                    }
                     if (focus === undefined || focus === true) {
                         preventShow = true;
                         activeEl = $activeEl[0];
@@ -487,9 +490,7 @@
                     doAnim = 'slidedown';
                 } else if (s.display == 'bottom') {
                     doAnim = 'slideup';
-                } else if (s.display == 'center') {
-                    doAnim = s.animate || 'fade';
-                } else if (s.display == 'bubble') {
+                } else if (s.display == 'center' || s.display == 'bubble') {
                     doAnim = s.animate || 'pop';
                 }
             }
@@ -593,8 +594,8 @@
                 }
 
                 if (doAnim && !prevAnim) {
-                    $markup.addClass('mbsc-anim-in mbsc-anim-trans').on(animEnd, function () {
-                        $markup.off(animEnd).removeClass('mbsc-anim-in mbsc-anim-trans').find('.mbsc-fr-popup').removeClass('mbsc-anim-' + doAnim);
+                    $markup.addClass('mbsc-anim-in mbsc-anim-trans mbsc-anim-trans-' + doAnim).on(animEnd, function () {
+                        $markup.off(animEnd).removeClass('mbsc-anim-in mbsc-anim-trans mbsc-anim-trans-' + doAnim).find('.mbsc-fr-popup').removeClass('mbsc-anim-' + doAnim);
                         onShow(prevFocus);
                     }).find('.mbsc-fr-popup').addClass('mbsc-anim-' + doAnim);
                 }
@@ -713,7 +714,7 @@
                 }
 
                 if (isModal && doAnim && !prevAnim && !$markup.hasClass('mbsc-anim-trans')) { // If mbsc-anim-trans class was not removed, means that there was no animation
-                    $markup.addClass('mbsc-anim-out mbsc-anim-trans').on(animEnd, function () {
+                    $markup.addClass('mbsc-anim-out mbsc-anim-trans mbsc-anim-trans-' + doAnim).on(animEnd, function () {
                         $markup.off(animEnd);
                         onHide(prevAnim);
                     }).find('.mbsc-fr-popup').addClass('mbsc-anim-' + doAnim);
