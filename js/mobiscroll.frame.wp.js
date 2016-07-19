@@ -53,48 +53,49 @@
             },
             onInit: function (ev, inst) {
                 var buttons = inst.buttons;
+                if (buttons) {
+                    buttons.set.icon = 'checkmark';
+                    buttons.cancel.icon = 'close';
+                    buttons.clear.icon = 'close';
 
-                buttons.set.icon = 'checkmark';
-                buttons.cancel.icon = 'close';
-                buttons.clear.icon = 'close';
+                    // Widget
+                    if (buttons.ok) {
+                        buttons.ok.icon = 'checkmark';
+                    }
 
-                // Widget
-                if (buttons.ok) {
-                    buttons.ok.icon = 'checkmark';
-                }
+                    if (buttons.close) {
+                        buttons.close.icon = 'close';
+                    }
 
-                if (buttons.close) {
-                    buttons.close.icon = 'close';
-                }
+                    // Date & Time
+                    if (buttons.now) {
+                        buttons.now.icon = 'loop2';
+                    }
 
-                // Date & Time
-                if (buttons.now) {
-                    buttons.now.icon = 'loop2';
-                }
+                    // Timer
+                    if (buttons.toggle) {
+                        buttons.toggle.icon = 'play3';
+                    }
 
-                // Timer
-                if (buttons.toggle) {
-                    buttons.toggle.icon = 'play3';
-                }
+                    if (buttons.start) {
+                        buttons.start.icon = 'play3';
+                    }
 
-                if (buttons.start) {
-                    buttons.start.icon = 'play3';
-                }
+                    if (buttons.stop) {
+                        buttons.stop.icon = 'pause2';
+                    }
 
-                if (buttons.stop) {
-                    buttons.stop.icon = 'pause2';
-                }
+                    if (buttons.reset) {
+                        buttons.reset.icon = 'stop2';
+                    }
 
-                if (buttons.reset) {
-                    buttons.reset.icon = 'stop2';
-                }
+                    if (buttons.lap) {
+                        buttons.lap.icon = 'loop2';
+                    }
 
-                if (buttons.lap) {
-                    buttons.lap.icon = 'loop2';
-                }
-
-                if (buttons.hide) {
-                    buttons.hide.icon = 'close';
+                    if (buttons.hide) {
+                        buttons.hide.icon = 'close';
+                    }
                 }
             }
         };
