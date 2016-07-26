@@ -454,11 +454,6 @@
             minScroll = s.minScroll === undefined ? (vertical ? contSize - target.height() : contSize - target.width()) : s.minScroll;
             maxScroll = s.maxScroll === undefined ? 0 : s.maxScroll;
 
-            // check if it's ok elsewhere
-            if (contSize - (vertical ? target.height() : target.width() ) > 0) {
-                minScroll = minScroll / 2; 
-            }
-
             if (!vertical && s.rtl) {
                 tempScroll = maxScroll;
                 maxScroll = -minScroll;
