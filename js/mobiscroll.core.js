@@ -66,7 +66,7 @@ var mobiscroll = mobiscroll || {};
     }
 
     var ms,
-        $ = window.jQuery || mobiscroll.$,
+        $ = typeof jQuery == 'undefined' ? mobiscroll.$ : jQuery,
         id = +new Date(),
         instances = {},
         extend = $.extend,
