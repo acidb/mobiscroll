@@ -474,13 +474,6 @@
                 });
             }
 
-            //snap = s.snap ?
-            //    (util.isNumeric(s.snap) ? s.snap :
-            //        ((vertical ?
-            //            (s.snap === true ? $elm.height() : $(s.snap, el).eq(0).outerHeight()) :
-            //            (s.snap === true ? $elm.width()  : $(s.snap, el).eq(0).outerWidth())) || 1))
-            //    : 1;
-
             snap = isNumeric(s.snap) ? s.snap : 1;
             maxSnapScroll = s.snap ? s.maxSnapScroll : 0;
             easing = s.easing;
