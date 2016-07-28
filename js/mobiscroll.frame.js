@@ -211,6 +211,7 @@
                 al, // anchor left
                 arr, // arrow
                 arrw, // arrow width
+                arrh, // arrow height
                 arrl, // arrow left
                 dh,
                 scroll,
@@ -261,7 +262,7 @@
             if (!that._isFullScreen && /center|bubble/.test(s.display)) {
                 $wrapper.width('');
                 $('.mbsc-w-p', $markup).each(function () {
-                    w = $(this).outerWidth(true);
+                    w = this.offsetWidth;
                     totalw += w;
                     minw = (w > minw) ? w : minw;
                 });
@@ -269,8 +270,8 @@
                 $wrapper.width(w + 1).css('white-space', totalw > nw ? '' : 'nowrap');
             }
 
-            modalWidth = $popup.outerWidth();
-            modalHeight = $popup.outerHeight(true);
+            modalWidth = $popup[0].offsetWidth;
+            modalHeight = $popup[0].offsetHeight;
             scrollLock = modalHeight <= nh && modalWidth <= nw;
 
             that.scrollLock = scrollLock;
@@ -293,22 +294,25 @@
                 at = Math.abs($ctx.offset().top - ap.top);
                 al = Math.abs($ctx.offset().left - ap.left);
 
+                aw = anchor[0].offsetWidth;
+                ah = anchor[0].offsetHeight;
+
+                arrw = arr[0].offsetWidth;
+                arrh = arr[0].offsetHeight;
+
                 // horizontal positioning
-                aw = anchor.outerWidth();
-                ah = anchor.outerHeight();
-                l = constrain(al - ($popup.outerWidth(true) - aw) / 2, sl + 3, sl + nw - modalWidth - 3);
+                l = constrain(al - (modalWidth - aw) / 2, sl + 3, sl + nw - modalWidth - 3);
 
                 // vertical positioning
-                t = at - modalHeight; // above the input
+                t = at - modalHeight - arrh / 2; // above the input
                 if ((t < st) || (at > st + nh)) { // if doesn't fit above or the input is out of the screen
                     $popup.removeClass('mbsc-fr-bubble-top').addClass('mbsc-fr-bubble-bottom');
-                    t = at + ah; // below the input
+                    t = at + ah + arrh / 2; // below the input
                 } else {
                     $popup.removeClass('mbsc-fr-bubble-bottom').addClass('mbsc-fr-bubble-top');
                 }
 
                 // Calculate Arrow position
-                arrw = arr.outerWidth();
                 arrl = constrain(al + aw / 2 - (l + (modalWidth - arrw) / 2), 0, arrw);
 
                 // Limit Arrow position
