@@ -391,7 +391,6 @@
                 idx,
                 offset,
                 ret,
-                v,
                 isVisible = that._isVisible;
 
             isValidating = true;
@@ -439,7 +438,7 @@
                     if (wheel.multiple) {
                         // Add selected styling to selected elements in case of multiselect
                         if (index === undefined) {
-                            for (v in that._tempSelected[i]) {
+                            for (var v in that._tempSelected[i]) {
                                 wheel._$markup
                                     .find('.mbsc-sc-itm[data-val="' + v + '"]')
                                     .addClass(selectedClass)
