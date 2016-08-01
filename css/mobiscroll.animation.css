@@ -14,14 +14,16 @@
     animation-fill-mode: forwards;
 }
 
-.mbsc-anim-in .mbsc-fr-popup {
+.mbsc-anim-in .mbsc-fr-popup,
+.mbsc-anim-in .mbsc-fr-overlay {
     -webkit-animation-timing-function: ease-out;
     -webkit-animation-duration: 225ms;
     animation-timing-function: ease-out;
     animation-duration: 225ms;
 }
 
-.mbsc-anim-out .mbsc-fr-popup {
+.mbsc-anim-out .mbsc-fr-popup,
+.mbsc-anim-out .mbsc-fr-overlay {
     -webkit-animation-timing-function: ease-in;
     -webkit-animation-duration: 195ms;
     animation-timing-function: ease-in;
@@ -29,13 +31,13 @@
 }
 
 .mbsc-anim-in .mbsc-fr-overlay {
-    -webkit-animation: mbsc-anim-f-in 225ms ease-out;
-    animation: mbsc-anim-f-in 225ms ease-out;
+    -webkit-animation-name: mbsc-anim-f-in;
+    animation-name: mbsc-anim-f-in;
 }
 
 .mbsc-anim-out .mbsc-fr-overlay {
-    -webkit-animation: mbsc-anim-f-out 195ms ease-in;
-    animation: mbsc-anim-f-out 195ms ease-in;
+    -webkit-animation-name: mbsc-anim-f-out;
+    animation-name: mbsc-anim-f-out;
 }
 
 .mbsc-anim-flip,
@@ -70,15 +72,24 @@
 .mbsc-anim-in .mbsc-anim-pop {
     opacity: 1;
     -webkit-animation-name: mbsc-anim-p-in;
+    -webkit-animation-duration: 100ms;
     -webkit-transform: scale(1);
-    transform: scale(1);
     animation-name: mbsc-anim-p-in;
+    animation-duration: 100ms;
+    transform: scale(1);
 }
 
 .mbsc-anim-out .mbsc-anim-pop {
     opacity: 0;
     -webkit-animation-name: mbsc-anim-p-out;
+    -webkit-animation-duration: 150ms;
     animation-name: mbsc-anim-p-out;
+    animation-duration: 150ms;
+}
+
+.mbsc-anim-trans-pop .mbsc-fr-overlay {
+    -webkit-animation-duration: 150ms;
+    animation-duration: 150ms;
 }
 
 .mbsc-anim-in .mbsc-anim-flip {
@@ -145,8 +156,8 @@
 }
 
 .mbsc-anim-out .mbsc-anim-slidedown {
-    -webkit-transform: translateY(-100%);
     -webkit-animation-name: mbsc-anim-sd-out;
+    -webkit-transform: translateY(-100%);
     animation-name: mbsc-anim-sd-out;
 }
 
@@ -158,8 +169,8 @@
 }
 
 .mbsc-anim-out .mbsc-anim-slideup {
-    -webkit-transform: translateY(100%);
     -webkit-animation-name: mbsc-anim-su-out;
+    -webkit-transform: translateY(100%);
     animation-name: mbsc-anim-su-out;
 }
 

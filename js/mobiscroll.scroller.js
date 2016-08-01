@@ -60,10 +60,10 @@
             s,
             trigger,
             lines,
+            wheels,
+            wheelsMap,
             that = this,
-            $elm = $(el),
-            wheels = [],
-            wheelsMap = {};
+            $elm = $(el);
 
         // Event handlers
 
@@ -393,7 +393,6 @@
                 idx,
                 offset,
                 ret,
-                v,
                 isVisible = that._isVisible;
 
             isValidating = true;
@@ -441,7 +440,7 @@
                     if (wheel.multiple) {
                         // Add selected styling to selected elements in case of multiselect
                         if (index === undefined) {
-                            for (v in that._tempSelected[i]) {
+                            for (var v in that._tempSelected[i]) {
                                 wheel._$markup
                                     .find('.mbsc-sc-itm[data-val="' + v + '"]')
                                     .addClass(selectedClass)
@@ -487,6 +486,11 @@
             if (that.live) {
                 that._hasValue = manual || that._hasValue;
                 setValue(manual, manual, 0, true);
+                if (manual) {
+                    trigger('onSet', {
+                        valueText: that._value
+                    });
+                }
             }
 
             if (manual) {
@@ -843,6 +847,8 @@
             scroll3d = s.scroll3d;
             showScrollArrows = s.showScrollArrows;
             selectedClass = 'mbsc-sc-itm-sel mbsc-ic mbsc-ic-' + s.checkIcon;
+            wheels = [];
+            wheelsMap = {};
 
             batchSize3d = Math.round(s.rows * 1.8);
             scroll3dAngle = 360 / (batchSize3d * 2);

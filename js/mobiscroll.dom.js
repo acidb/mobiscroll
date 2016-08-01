@@ -275,10 +275,12 @@ var mobiscroll = mobiscroll || {};
             val: function (value) {
                 if (typeof value === 'undefined') {
                     if (this.length && this[0].multiple) {
-                        return $.map(this.find('option:checked'), function (v) { return v.value; });
+                        return $.map(this.find('option:checked'), function (v) {
+                            return v.value;
+                        });
                     }
                     return this[0] ? this[0].value : undefined;
-                } 
+                }
 
                 if (this.length && this[0].multiple) {
                     $.each(this[0].options, function () {
@@ -483,26 +485,6 @@ var mobiscroll = mobiscroll || {};
                     return Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
                 } else {
                     return this.length > 0 ? parseFloat(this.css('height')) : null;
-                }
-            },
-            outerWidth: function (includeMargins) {
-                if (this.length > 0) {
-                    if (includeMargins) {
-                        var styles = this.styles();
-                        return this[0].offsetWidth + parseFloat(styles.getPropertyValue('margin-right')) + parseFloat(styles.getPropertyValue('margin-left'));
-                    } else {
-                        return this[0].offsetWidth;
-                    }
-                }
-            },
-            outerHeight: function (includeMargins) {
-                if (this.length > 0) {
-                    if (includeMargins) {
-                        var styles = this.styles();
-                        return this[0].offsetHeight + parseFloat(styles.getPropertyValue('margin-top')) + parseFloat(styles.getPropertyValue('margin-bottom'));
-                    } else {
-                        return this[0].offsetHeight;
-                    }
                 }
             },
             innerWidth: function () {
