@@ -234,6 +234,8 @@
                 $popup.width(nw);
             }
 
+            that._position($markup);
+
             if (event('onPosition', {
                     target: $markup[0],
                     windowWidth: nw,
@@ -782,6 +784,8 @@
         that._markupInserted = empty;
 
         that._markupRemove = empty;
+
+        that._position = empty;
 
         that._processSettings = empty;
 

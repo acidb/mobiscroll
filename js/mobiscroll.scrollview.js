@@ -451,7 +451,7 @@
             var tempScroll;
 
             contSize = s.contSize === undefined ? vertical ? $elm.height() : $elm.width() : s.contSize;
-            minScroll = s.minScroll === undefined ? (vertical ? contSize - target.height() : contSize - target.width()) : s.minScroll;
+            minScroll = s.minScroll === undefined ? Math.min(0, vertical ? contSize - target.height() : contSize - target.width()) : s.minScroll;
             maxScroll = s.maxScroll === undefined ? 0 : s.maxScroll;
 
             if (!vertical && s.rtl) {
