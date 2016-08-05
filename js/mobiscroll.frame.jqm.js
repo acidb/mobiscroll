@@ -12,32 +12,11 @@
         //jqmClickPick: 'c',
         jqmSet: 'b',
         jqmCancel: 'c',
-        dateDisplay: 'Mddyy',
         disabledClass: 'ui-disabled',
         activeClass: 'ui-btn-active',
         activeTabInnerClass: 'ui-btn-active',
-        btnCalPrevClass: '',
-        btnCalNextClass: '',
-        selectedLineHeight: true,
-        selectedLineBorder: 1,
-        checkIcon: 'none ui-btn-icon-left ui-icon-check',
-        onThemeLoad: function (ev) {
-            var s = ev.settings,
-                cal = s.jqmBody || 'c',
-                bubble = s.jqmEventBubble || 'a';
-
-            s.dayClass = 'ui-body-a ui-body-' + cal;
-            s.innerDayClass = 'ui-state-default ui-btn ui-btn-up-' + cal;
-            s.calendarClass = 'ui-body-a ui-body-' + cal;
-            s.weekNrClass = 'ui-body-a ui-body-' + cal;
-            s.eventBubbleClass = 'ui-body-' + bubble;
-        },
         onInit: function () {
             $(this).closest('.ui-field-contain').trigger('create');
-        },
-        onEventBubbleShow: function (ev) {
-            $('.mbsc-cal-event-list', ev.eventList).attr('data-role', 'listview');
-            $(ev.eventList).page().trigger('create');
         },
         onMarkupInserted: function (ev, inst) {
             var s = inst.settings,
@@ -71,5 +50,29 @@
             elm.trigger('create');
         }
     };
+
+    ms.themes.scroller.jqm = $.extend({}, ms.themes.frame.jqm, {
+        dateDisplay: 'Mddyy',
+        onEventBubbleShow: function (ev) {
+            $('.mbsc-cal-event-list', ev.eventList).attr('data-role', 'listview');
+            $(ev.eventList).page().trigger('create');
+        },
+        btnCalPrevClass: '',
+        btnCalNextClass: '',
+        selectedLineHeight: true,
+        selectedLineBorder: 1,
+        checkIcon: 'none ui-btn-icon-left ui-icon-check',
+        onThemeLoad: function (ev) {
+            var s = ev.settings,
+                cal = s.jqmBody || 'c',
+                bubble = s.jqmEventBubble || 'a';
+
+            s.dayClass = 'ui-body-a ui-body-' + cal;
+            s.innerDayClass = 'ui-state-default ui-btn ui-btn-up-' + cal;
+            s.calendarClass = 'ui-body-a ui-body-' + cal;
+            s.weekNrClass = 'ui-body-a ui-body-' + cal;
+            s.eventBubbleClass = 'ui-body-' + bubble;
+        },
+    });
 
 })();

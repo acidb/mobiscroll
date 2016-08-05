@@ -931,10 +931,13 @@
     };
 
     ms.themes.frame.mobiscroll = {
+        headerText: false,
+        btnWidth: false
+    };
+
+    ms.themes.scroller.mobiscroll = $.extend({}, ms.themes.frame.mobiscroll, {
         rows: 5,
         showLabel: false,
-        headerText: false,
-        btnWidth: false,
         selectedLineHeight: true,
         selectedLineBorder: 1,
         weekDays: 'min',
@@ -943,7 +946,7 @@
         btnMinusClass: 'mbsc-ic mbsc-ic-arrow-up5',
         btnCalPrevClass: 'mbsc-ic mbsc-ic-arrow-left5',
         btnCalNextClass: 'mbsc-ic mbsc-ic-arrow-right5'
-    };
+    });
 
     // Prevent re-show on window focus
     $(window).on('focus', function () {
