@@ -84,7 +84,6 @@ var mobiscroll = mobiscroll || {};
             jsPrefix: pr,
             has3d: has3d,
             hasFlex: hasFlex,
-            isOldAndroid: /android [1-3]/i.test(navigator.userAgent),
             preventClick: function () {
                 // Prevent ghost click
                 ms.tapped++;
@@ -333,7 +332,7 @@ var mobiscroll = mobiscroll || {};
         /**
          * Attach tap event to the given element.
          */
-        that.tap = function (el, handler, prevent) {
+        that.tap = function (el, handler, preventScroll, allowClick) {
             var startX,
                 startY,
                 target,
@@ -342,7 +341,7 @@ var mobiscroll = mobiscroll || {};
             function onStart(ev) {
                 if (!target) {
                     // Can't always call preventDefault here, it kills page scroll
-                    if (prevent) {
+                    if (preventScroll) {
                         ev.preventDefault();
                     }
                     target = this;
@@ -362,7 +361,9 @@ var mobiscroll = mobiscroll || {};
             function onEnd(ev) {
                 if (target) {
                     if (!moved) {
-                        ev.preventDefault();
+                        if (!allowClick) {
+                            ev.preventDefault();
+                        }
                         handler.call(target, ev, that);
                     }
 
@@ -385,7 +386,9 @@ var mobiscroll = mobiscroll || {};
             }
 
             el.on('click.mbsc', function (ev) {
-                ev.preventDefault();
+                if (!allowClick) {
+                    ev.preventDefault();
+                }
                 // If handler was not called on touchend, call it on click;
                 handler.call(this, ev, that);
             });
