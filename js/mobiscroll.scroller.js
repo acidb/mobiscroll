@@ -320,30 +320,30 @@
                 wheel._current = index;
 
                 // Generate items
-                setTimeout(function () {
-                    if (diff > 0) {
-                        wheel._$scroller.append(generateItems(wheel, i, Math.max(last + 1, first + diff), last + diff));
-                        $('.mbsc-sc-itm', wheel._$scroller).slice(0, Math.min(diff, last - first + 1)).remove();
+                //setTimeout(function () {
+                if (diff > 0) {
+                    wheel._$scroller.append(generateItems(wheel, i, Math.max(last + 1, first + diff), last + diff));
+                    $('.mbsc-sc-itm', wheel._$scroller).slice(0, Math.min(diff, last - first + 1)).remove();
 
-                        // 3D
-                        if (scroll3d) {
-                            wheel._$3d.append(generateItems(wheel, i, Math.max(last3d + 1, first3d + diff), last3d + diff, true));
-                            $('.mbsc-sc-itm', wheel._$3d).slice(0, Math.min(diff, last3d - first3d + 1)).attr('class', 'mbsc-sc-itm-del');
-                        }
-                    } else if (diff < 0) {
-                        wheel._$scroller.prepend(generateItems(wheel, i, first + diff, Math.min(first - 1, last + diff)));
-                        $('.mbsc-sc-itm', wheel._$scroller).slice(Math.max(diff, first - last - 1)).remove();
-
-                        // 3D
-                        if (scroll3d) {
-                            wheel._$3d.prepend(generateItems(wheel, i, first3d + diff, Math.min(first3d - 1, last3d + diff), true));
-                            $('.mbsc-sc-itm', wheel._$3d).slice(Math.max(diff, first3d - last3d - 1)).attr('class', 'mbsc-sc-itm-del');
-                        }
+                    // 3D
+                    if (scroll3d) {
+                        wheel._$3d.append(generateItems(wheel, i, Math.max(last3d + 1, first3d + diff), last3d + diff, true));
+                        $('.mbsc-sc-itm', wheel._$3d).slice(0, Math.min(diff, last3d - first3d + 1)).attr('class', 'mbsc-sc-itm-del');
                     }
+                } else if (diff < 0) {
+                    wheel._$scroller.prepend(generateItems(wheel, i, first + diff, Math.min(first - 1, last + diff)));
+                    $('.mbsc-sc-itm', wheel._$scroller).slice(Math.max(diff, first - last - 1)).remove();
 
-                    wheel._margin += diff * itemHeight;
-                    wheel._$scroller.css('margin-top', wheel._margin + 'px');
-                }, 10);
+                    // 3D
+                    if (scroll3d) {
+                        wheel._$3d.prepend(generateItems(wheel, i, first3d + diff, Math.min(first3d - 1, last3d + diff), true));
+                        $('.mbsc-sc-itm', wheel._$3d).slice(Math.max(diff, first3d - last3d - 1)).attr('class', 'mbsc-sc-itm-del');
+                    }
+                }
+
+                wheel._margin += diff * itemHeight;
+                wheel._$scroller.css('margin-top', wheel._margin + 'px');
+                //}, 10);
             }
         }
 
