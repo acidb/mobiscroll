@@ -3,11 +3,13 @@
         preventShow,
         ms = mobiscroll,
         $ = ms.$,
+        platform = ms.platform,
         util = ms.util,
         constrain = util.constrain,
         isString = util.isString,
-        isIOS = /(iphone|ipod)/i.test(navigator.userAgent),
-        isIOS8 = /(iphone|ipod|ipad).* os 8_/i.test(navigator.userAgent),
+        getCoord = util.getCoord,
+        needsFixed = /(iphone|ipod)/i.test(navigator.userAgent) && platform.majorVersion >= 7,
+        isIOS8 = platform.name == 'ios' && platform.majorVersion == 8,
         animEnd = 'webkitAnimationEnd.mbsc animationend.mbsc',
         empty = function () {},
         prevdef = function (ev) {
@@ -328,7 +330,8 @@
          * @param {Function} [beforeShow=undefined] - Optional function to execute before showing mobiscroll.
          */
         that.attachShow = function (elm, beforeShow) {
-            var $elm = $(elm);
+            var $label,
+                $elm = $(elm);
 
             elmList.push({
                 readOnly: $elm.prop('readonly'),
@@ -341,6 +344,12 @@
                         // Prevent input to get focus on tap (virtual keyboard pops up on some devices)
                         ev.preventDefault();
                     });
+
+                    $label = $('label[for="' + $elm.attr('id') + '"]');
+
+                    if (!$label.length) {
+                        $label = $elm.closest('label');
+                    }
                 }
 
                 if (s.showOnFocus) {
@@ -363,6 +372,12 @@
                     that.tap($elm, function () {
                         show(beforeShow, $elm);
                     });
+
+                    if ($label && $label.length) {
+                        that.tap($label, function () {
+                            show(beforeShow, $elm);
+                        });
+                    }
                 }
             }
         };
@@ -445,7 +460,7 @@
             doAnim = s.animate;
 
             needsDimensions = hasContext || s.display == 'bubble';
-            needsLock = isIOS && !needsDimensions;
+            needsLock = needsFixed && !needsDimensions;
 
             hasButtons = buttons.length > 0;
 
@@ -567,11 +582,37 @@
                 }
 
                 if (s.closeOnOverlayTap) {
-                    that.tap($overlay, function (ev) {
-                        if (ev.target == $overlay[0]) {
-                            that.cancel();
-                        }
-                    }, false, true);
+                    var moved,
+                        target,
+                        startX,
+                        startY;
+
+                    $overlay
+                        .on('touchstart mousedown', function (ev) {
+                            if (!target && ev.target == $overlay[0]) {
+                                target = true;
+                                moved = false;
+                                startX = getCoord(ev, 'X');
+                                startY = getCoord(ev, 'Y');
+                            }
+                        })
+                        .on('touchmove mousemove', function (ev) {
+                            if (target && !moved && (Math.abs(getCoord(ev, 'X') - startX) > 9 || Math.abs(getCoord(ev, 'Y') - startY) > 9)) {
+                                moved = true;
+                            }
+                        })
+                        .on('touchcancel', function () {
+                            target = false;
+                        })
+                        .on('touchend touchcancel mouseup', function (ev) {
+                            if (target && !moved) {
+                                that.cancel();
+                                if (ev.type != 'mouseup') {
+                                    util.preventClick();
+                                }
+                            }
+                            target = false;
+                        });
                 }
 
                 if (needsDimensions) {

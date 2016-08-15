@@ -48,8 +48,8 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    /*-ms-touch-action: pan-y;
-    touch-action: pan-y;*/
+    -ms-touch-action: pan-y;
+    touch-action: pan-y;
 }
 
 .mbsc-fr-popup:focus {
