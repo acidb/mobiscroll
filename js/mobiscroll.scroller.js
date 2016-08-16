@@ -31,11 +31,13 @@
         $ = ms.$,
         extend = $.extend,
         classes = ms.classes,
+        platform = ms.platform,
         util = ms.util,
         pr = util.jsPrefix,
         pref = util.prefix,
         getCoord = util.getCoord,
-        testTouch = util.testTouch;
+        testTouch = util.testTouch,
+        force2D = (platform.name == 'ios' && platform.majorVersion < 8) || (platform.name == 'android' && platform.majorVersion < 5);
 
     ms.presetShort('scroller', 'Scroller', false);
 
@@ -244,9 +246,12 @@
             }
 
             w._refresh = function (noScroll) {
+                var maxScroll = -(w.min - w._offset + (w.multiple && !scroll3d ? Math.floor(s.rows / 2) : 0)) * itemHeight,
+                    minScroll = Math.min(maxScroll, -(w.max - w._offset - (w.multiple && !scroll3d ? Math.floor(s.rows / 2) : 0)) * itemHeight);
+
                 extend(w._scroller.settings, {
-                    minScroll: -((w.multiple ? Math.max(0, w.max - s.rows + 1) : w.max) - w._offset) * itemHeight,
-                    maxScroll: -(w.min - w._offset) * itemHeight
+                    minScroll: minScroll,
+                    maxScroll: maxScroll
                 });
 
                 w._scroller.refresh(noScroll);
@@ -637,11 +642,10 @@
                 l = 0;
 
             $.each(s.wheels, function (i, wg) {
-                html += '<div class="mbsc-w-p mbsc-sc-whl-gr-c">' + highlight +
+                html += '<div class="mbsc-w-p mbsc-sc-whl-gr-c' + (s.showLabel ? ' mbsc-sc-lbl-v' : '') + '">' + highlight +
                     '<div class="mbsc-sc-whl-gr' +
                     (scroll3d ? ' mbsc-sc-whl-gr-3d' : '') +
-                    (showScrollArrows ? ' mbsc-sc-cp' : '') +
-                    (s.showLabel ? ' mbsc-sc-lbl-v' : '') + '">';
+                    (showScrollArrows ? ' mbsc-sc-cp' : '') + '">';
 
                 $.each(wg, function (j, w) { // Wheels
 
@@ -664,9 +668,8 @@
                             '<div data-index="' + l + '" data-dir="dec" class="mbsc-sc-btn mbsc-sc-btn-minus ' + (s.btnMinusClass || '') + '" style="height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;"></div>' : '') + // - button
                         '<div class="mbsc-sc-lbl">' + lbl + '</div>' + // Wheel label
                         '<div class="mbsc-sc-whl-c"' +
-                        (w.multiple ?
-                            ' aria-multiselectable="true"' :
-                            ' style="height:' + itemHeight + 'px;margin-top:-' + (itemHeight / 2 + 1) + 'px;') + style + '">' +
+                        (w.multiple ? ' aria-multiselectable="true"' : '') +
+                        ' style="height:' + itemHeight + 'px;margin-top:-' + (itemHeight / 2 + 1) + 'px;' + style + '">' +
                         '<div class="mbsc-sc-whl-sc">';
 
                     // Create wheel values
@@ -706,14 +709,14 @@
         };
 
         that._markupReady = function ($m) {
-            //var skip;
-
             $markup = $m;
 
             $('.mbsc-sc-whl', $markup).each(function (i) {
                 var idx,
                     $wh = $(this),
-                    wheel = wheels[i];
+                    wheel = wheels[i],
+                    maxScroll = -(wheel.min - wheel._offset + (wheel.multiple && !scroll3d ? Math.floor(s.rows / 2) : 0)) * itemHeight,
+                    minScroll = Math.min(maxScroll, -(wheel.max - wheel._offset - (wheel.multiple && !scroll3d ? Math.floor(s.rows / 2) : 0)) * itemHeight);
 
                 wheel._$markup = $wh;
                 wheel._$scroller = $('.mbsc-sc-whl-sc', this);
@@ -725,8 +728,8 @@
                     initialPos: (wheel._first - wheel._index) * itemHeight,
                     contSize: 0,
                     snap: itemHeight,
-                    minScroll: -((wheel.multiple ? Math.max(0, wheel.max - s.rows + 1) : wheel.max) - wheel._offset) * itemHeight,
-                    maxScroll: -(wheel.min - wheel._offset) * itemHeight,
+                    minScroll: minScroll,
+                    maxScroll: maxScroll,
                     maxSnapScroll: batchSize,
                     prevDef: true,
                     stopProp: true,
@@ -844,7 +847,7 @@
             trigger = that.trigger;
             itemHeight = s.height;
             lines = s.multiline;
-            scroll3d = s.scroll3d;
+            scroll3d = s.scroll3d && !force2D;
             showScrollArrows = s.showScrollArrows;
             selectedClass = 'mbsc-sc-itm-sel mbsc-ic mbsc-ic-' + s.checkIcon;
             wheels = [];

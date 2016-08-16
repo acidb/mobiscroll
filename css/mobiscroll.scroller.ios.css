@@ -62,7 +62,12 @@
 }
 
 .mbsc-ios .mbsc-sc-lbl-v {
+    margin-bottom: -1.666667em;
+}
+
+.mbsc-ios .mbsc-sc-lbl-v .mbsc-sc-whl-gr {
     padding-top: 2.5em;
+    padding-bottom: 2.5em;
 }
 
 .mbsc-ios .mbsc-sc-whl-l,
@@ -146,6 +151,14 @@
 
 /* Multiple select */
 
+.mbsc-ios.mbsc-sel-multi .mbsc-sc-whl-l {
+    display: none;
+}
+
+.mbsc-ios.mbsc-sel-multi .mbsc-sc-whl-w:not(.mbsc-sc-whl-multi) .mbsc-sc-whl-l {
+    display: block;
+}
+
 .mbsc-ios .mbsc-sc-whl-multi .mbsc-sc-whl-o {
     display: none;
 }
@@ -163,6 +176,14 @@
     font-size: 1.818181em;
 }
 
+.mbsc-ios .mbsc-sc-whl-gr-3d .mbsc-sc-whl-multi .mbsc-sc-whl-o {
+    display: block;
+}
+
+.mbsc-ios .mbsc-sc-whl-gr-3d .mbsc-sc-whl-multi .mbsc-sc-whl-c {
+    visibility: hidden;
+}
+
 
 /* Group select */
 
@@ -173,8 +194,12 @@
     font-size: 1.222222em;
 }
 
-.mbsc-ios.mbsc-sel-gr-whl .mbsc-sc-whl-multi {
-    padding-left: 1.66666em;
+.mbsc-ios.mbsc-sel-gr-whl .mbsc-ltr .mbsc-sc-whl-multi {
+    margin-left: 2em;
+}
+
+.mbsc-ios.mbsc-sel-gr-whl .mbsc-rtl .mbsc-sc-whl-multi {
+    margin-right: 2em;
 }
 
 

@@ -223,12 +223,6 @@
 
 /* Multiple */
 
-.mbsc-sc-whl-multi .mbsc-sc-whl-c {
-    top: 0;
-    height: 100%;
-    border: 0;
-}
-
 .mbsc-sc-whl-multi .mbsc-sc-whl-l {
     display: none;
 }
