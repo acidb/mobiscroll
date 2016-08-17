@@ -1,32 +1,5 @@
 (function (window, document, undefined) {
 
-    function getIndex(wheel, val) {
-        return (wheel._array ? wheel._map[val] : wheel.getIndex(val)) || 0;
-    }
-
-    function getItem(wheel, i) {
-        var data = wheel.data;
-
-        if (i >= wheel.min && i <= wheel.max) {
-            return wheel._array ?
-                (wheel.circular ? $(data).get(i % wheel._length) : data[i]) :
-                ($.isFunction(data) ? data(i) : '');
-        }
-    }
-
-    function getItemValue(item) {
-        return $.isPlainObject(item) ? (item.value !== undefined ? item.value : item.display) : item;
-    }
-
-    function getItemText(item) {
-        var text = $.isPlainObject(item) ? item.display : item;
-        return text === undefined ? '' : text;
-    }
-
-    function getValue(wheel, i) {
-        return getItemValue(getItem(wheel, i));
-    }
-
     var ms = mobiscroll,
         $ = ms.$,
         extend = $.extend,
@@ -37,7 +10,7 @@
         pref = util.prefix,
         getCoord = util.getCoord,
         testTouch = util.testTouch,
-        force2D = (platform.name == 'ios' && platform.majorVersion < 8) || (platform.name == 'android' && platform.majorVersion < 5);
+        force2D = platform.name == 'wp' || (platform.name == 'ios' && platform.majorVersion < 8) || (platform.name == 'android' && platform.majorVersion < 5);
 
     ms.presetShort('scroller', 'Scroller', false);
 
@@ -58,6 +31,7 @@
             stepBtnY,
             tempWheelArray,
             itemHeight,
+            itemHeight3d,
             isValidating,
             s,
             trigger,
@@ -152,6 +126,33 @@
         }
 
         // Private functions
+
+        function getIndex(wheel, val) {
+            return (wheel._array ? wheel._map[val] : wheel.getIndex(val)) || 0;
+        }
+
+        function getItem(wheel, i) {
+            var data = wheel.data;
+
+            if (i >= wheel.min && i <= wheel.max) {
+                return wheel._array ?
+                    (wheel.circular ? $(data).get(i % wheel._length) : data[i]) :
+                    ($.isFunction(data) ? data(i) : '');
+            }
+        }
+
+        function getItemValue(item) {
+            return $.isPlainObject(item) ? (item.value !== undefined ? item.value : item.display) : item;
+        }
+
+        function getItemText(item) {
+            var text = $.isPlainObject(item) ? item.display : item;
+            return text === undefined ? '' : text;
+        }
+
+        function getValue(wheel, i) {
+            return getItemValue(getItem(wheel, i));
+        }
 
         function toggleItem(i, $selected) {
             var wheel = wheels[i],
@@ -605,7 +606,6 @@
 
                     if (that._isVisible) {
                         if (scroll3d) {
-                            //generate3dItems(wheel, w._current - scroll3dItems / 2 + 1, w._current - scroll3dItems / 2 + 1 + scroll3dItems);
                             w._$3d.html(generateItems(w, i, w._first + batchSize - batchSize3d + 1, w._last - batchSize + batchSize3d, true));
                         }
 
@@ -661,16 +661,15 @@
                             (s.minWidth ? ('min-width:' + (s.minWidth[l] || s.minWidth) + 'px;') : '') +
                             (s.maxWidth ? ('max-width:' + (s.maxWidth[l] || s.maxWidth) + 'px;') : '')) + '">' +
                         '<div class="mbsc-sc-whl-o" style="' + style + '"></div>' + highlight +
-                        '<div tabindex="0" aria-live="off" aria-label="' + lbl + '" role="listbox" data-index="' + l + '" class="mbsc-sc-whl"' + ' style="' +
+                        '<div tabindex="0" aria-live="off" aria-label="' + lbl + '"' + (w.multiple ? ' aria-multiselectable="true"' : '') + ' role="listbox" data-index="' + l + '" class="mbsc-sc-whl"' + ' style="' +
                         'height:' + (s.rows * itemHeight * (scroll3d ? 1.1 : 1)) + 'px;">' +
                         (showScrollArrows ?
                             '<div data-index="' + l + '" data-dir="inc" class="mbsc-sc-btn mbsc-sc-btn-plus ' + (s.btnPlusClass || '') + '" style="height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;"></div>' + // + button
                             '<div data-index="' + l + '" data-dir="dec" class="mbsc-sc-btn mbsc-sc-btn-minus ' + (s.btnMinusClass || '') + '" style="height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;"></div>' : '') + // - button
                         '<div class="mbsc-sc-lbl">' + lbl + '</div>' + // Wheel label
                         '<div class="mbsc-sc-whl-c"' +
-                        (w.multiple ? ' aria-multiselectable="true"' : '') +
-                        ' style="height:' + itemHeight + 'px;margin-top:-' + (itemHeight / 2 + 1) + 'px;' + style + '">' +
-                        '<div class="mbsc-sc-whl-sc">';
+                        ' style="height:' + itemHeight3d + 'px;margin-top:-' + (itemHeight3d / 2 + 1) + 'px;' + style + '">' +
+                        '<div class="mbsc-sc-whl-sc" style="top:' + ((itemHeight3d - itemHeight) / 2) + 'px;">';
 
                     // Create wheel values
                     html += generateItems(w, l, w._first, w._last) +
@@ -845,9 +844,10 @@
             s = that.settings;
             s.cssClass = (s.cssClass || '') + ' mbsc-sc';
             trigger = that.trigger;
-            itemHeight = s.height;
-            lines = s.multiline;
             scroll3d = s.scroll3d && !force2D;
+            itemHeight = s.height;
+            itemHeight3d = scroll3d ? Math.round((itemHeight - (itemHeight * s.rows / 2 + 3) * 0.03) / 2) * 2 : itemHeight;
+            lines = s.multiline;
             showScrollArrows = s.showScrollArrows;
             selectedClass = 'mbsc-sc-itm-sel mbsc-ic mbsc-ic-' + s.checkIcon;
             wheels = [];
@@ -867,6 +867,8 @@
                 s.rows = Math.max(3, s.rows);
             }
         };
+
+        that._getItemValue = getItemValue;
 
         // Properties
         that._tempSelected = {};
@@ -918,11 +920,11 @@
                     $.each(wg, function (k, w) {
                         data = w.data;
                         // Default to first wheel value if not found
-                        found = getItemValue(data[0]);
+                        found = inst._getItemValue(data[0]);
                         $.each(data, function (l, item) {
                             // Don't do strict comparison
-                            if (val[i] == getItemValue(item)) {
-                                found = getItemValue(item);
+                            if (val[i] == inst._getItemValue(item)) {
+                                found = inst._getItemValue(item);
                                 return false;
                             }
                         });

@@ -40,18 +40,6 @@
     background: #d1d5db;
 }
 
-@media (-webkit-min-device-pixel-ratio: 2) {
-    .mbsc-ios.mbsc-fr-top .mbsc-sc-whl-l,
-    .mbsc-ios.mbsc-fr-bottom .mbsc-sc-whl-l {
-        border-top-width: .5px;
-        border-bottom-width: .5px;
-    }
-    .mbsc-ios.mbsc-sc.mbsc-fr-top .mbsc-fr-btn-cont,
-    .mbsc-ios.mbsc-sc.mbsc-fr-bottom .mbsc-fr-btn-cont {
-        border-top-width: .5px;
-    }
-}
-
 .mbsc-ios .mbsc-sc-lbl {
     color: #ababab;
     line-height: 2.5em;

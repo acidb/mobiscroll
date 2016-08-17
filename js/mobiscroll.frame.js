@@ -331,12 +331,8 @@
          */
         that.attachShow = function (elm, beforeShow) {
             var $label,
-                $elm = $(elm);
-
-            elmList.push({
-                readOnly: $elm.prop('readonly'),
-                el: $elm
-            });
+                $elm = $(elm),
+                readOnly = $elm.prop('readonly');
 
             if (s.display !== 'inline') {
                 if (setReadOnly && $elm.is('input')) {
@@ -379,6 +375,12 @@
                         });
                     }
                 }
+
+                elmList.push({
+                    readOnly: readOnly,
+                    el: $elm,
+                    lbl: $label
+                });
             }
         };
 
@@ -828,6 +830,9 @@
             // Remove all events from elements
             $.each(elmList, function (i, v) {
                 v.el.off('.mbsc').prop('readonly', v.readOnly);
+                if (v.lbl) {
+                    v.lbl.off('.mbsc');
+                }
             });
 
             that._destroy();
@@ -957,7 +962,6 @@
         showLabel: false,
         headerText: false,
         btnWidth: false,
-        selectedLineHeight: true,
         selectedLineBorder: 1,
         weekDays: 'min',
         checkIcon: 'ion-ios7-checkmark-empty',

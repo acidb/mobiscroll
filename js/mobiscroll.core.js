@@ -73,7 +73,7 @@ var mobiscroll = mobiscroll || {};
         instances = {},
         extend = $.extend,
         userAgent = navigator.userAgent,
-        device = userAgent.match(/Android|iPhone|iPad|iPod|Windows|Windows Phone|MSIE/i),
+        device = userAgent.match(/Android|iPhone|iPad|iPod|Windows Phone|Windows|MSIE/i),
         mod = document.createElement('modernizr').style,
         has3d = testProps(['perspectiveProperty', 'WebkitPerspective', 'MozPerspective', 'OPerspective', 'msPerspective']),
         hasFlex = testProps(['flex', 'msFlex', 'WebkitBoxDirection']),
@@ -87,13 +87,15 @@ var mobiscroll = mobiscroll || {};
         if (vers) {
             version = vers[0].replace('Android ', '').split('.');
         }
-    } else if (/iPhone|iPad|iPos/i.test(device)) {
+    } else if (/iPhone|iPad|iPod/i.test(device)) {
         platform = 'ios';
         vers = navigator.userAgent.match(/OS\s+([\d\_]+)/i);
         if (vers) {
             version = vers[0].replace(/_/g, '.').replace('OS ', '').split('.');
         }
-    } else if (/Windows|MSIE|Windows Phone/i.test(device)) {
+    } else if (/Windows Phone/i.test(device)) {
+        platform = 'wp';
+    } else if (/Windows|MSIE/i.test(device)) {
         platform = 'windows';
     }
 
