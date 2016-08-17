@@ -1,14 +1,14 @@
 .mbsc-ios .mbsc-fr-overlay {
     background: rgba(0, 0, 0, .2);
-    filter: Alpha(Opacity=20);
 }
 
 .mbsc-ios .mbsc-fr-w {
     position: relative;
     background: #f7f7f7;
     color: #000;
-    padding-top: 3.333334em;
+    padding-top: 3.666667em;
     font-size: 12px;
+    font-family: -apple-system, Helvetica Neue, Helvetica, Arial, sans-serif;
 }
 
 .mbsc-ios .mbsc-fr-hdr {
@@ -28,12 +28,12 @@
 }
 
 .mbsc-ios .mbsc-fr-btn {
-    height: 2.352941em;
-    line-height: 2.352941em;
-    padding: 0 .588235em;
+    height: 2.75em;
+    line-height: 2.75em;
+    padding: 0 .625em;
     display: inline-block;
     color: #007aff;
-    font-size: 1.416667em;
+    font-size: 1.333333em;
 }
 
 .mbsc-ios .mbsc-fr-btn-a {
@@ -69,7 +69,8 @@
     border-color: #f7f7f7 transparent transparent transparent;
 }
 
-.mbsc-ios.mbsc-fr-bubble .mbsc-fr-w {
+.mbsc-ios.mbsc-fr-bubble .mbsc-fr-w,
+.mbsc-ios.mbsc-fr-center .mbsc-fr-w {
     border-radius: 8px;
 }
 

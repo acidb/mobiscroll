@@ -1,6 +1,6 @@
 {
     "name": "mobiscroll",
-    "version": "3.0.0-beta",
+    "version": "3.0.0-beta4",
     "main": [
         "js/mobiscroll.core.js",
         "js/mobiscroll.frame.js",
