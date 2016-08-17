@@ -45,13 +45,20 @@
     float: right;
 }
 
-.mbsc-ios .mbsc-fr-btn-c {
+.mbsc-ios .mbsc-fr-btn-c,
+.mbsc-ios .mbsc-rtl .mbsc-fr-btn-s {
     float: left;
+}
+
+.mbsc-ios .mbsc-rtl .mbsc-fr-btn-c {
+    float: right;
 }
 
 .mbsc-ios .mbsc-fr-btn-s .mbsc-fr-btn {
     font-weight: bold;
 }
+
+
 /* Bubble arrow */
 
 .mbsc-ios .mbsc-fr-bubble-bottom .mbsc-fr-arr {
@@ -65,6 +72,8 @@
 .mbsc-ios.mbsc-fr-bubble .mbsc-fr-w {
     border-radius: 8px;
 }
+
+
 /* Inline display */
 
 .mbsc-ios.mbsc-fr-nobtn .mbsc-fr-w {
