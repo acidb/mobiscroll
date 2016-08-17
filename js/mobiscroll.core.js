@@ -66,15 +66,38 @@ var mobiscroll = mobiscroll || {};
     }
 
     var ms,
+        platform,
+        vers,
         $ = typeof jQuery == 'undefined' ? mobiscroll.$ : jQuery,
         id = +new Date(),
         instances = {},
         extend = $.extend,
+        userAgent = navigator.userAgent,
+        device = userAgent.match(/Android|iPhone|iPad|iPod|Windows Phone|Windows|MSIE/i),
         mod = document.createElement('modernizr').style,
         has3d = testProps(['perspectiveProperty', 'WebkitPerspective', 'MozPerspective', 'OPerspective', 'msPerspective']),
         hasFlex = testProps(['flex', 'msFlex', 'WebkitBoxDirection']),
         prefix = testPrefix(),
-        pr = prefix.replace(/^\-/, '').replace(/\-$/, '').replace('moz', 'Moz');
+        pr = prefix.replace(/^\-/, '').replace(/\-$/, '').replace('moz', 'Moz'),
+        version = [];
+
+    if (/Android/i.test(device)) {
+        platform = 'android';
+        vers = navigator.userAgent.match(/Android\s+([\d\.]+)/i);
+        if (vers) {
+            version = vers[0].replace('Android ', '').split('.');
+        }
+    } else if (/iPhone|iPad|iPod/i.test(device)) {
+        platform = 'ios';
+        vers = navigator.userAgent.match(/OS\s+([\d\_]+)/i);
+        if (vers) {
+            version = vers[0].replace(/_/g, '.').replace('OS ', '').split('.');
+        }
+    } else if (/Windows Phone/i.test(device)) {
+        platform = 'wp';
+    } else if (/Windows|MSIE/i.test(device)) {
+        platform = 'windows';
+    }
 
     ms = mobiscroll = {
         $: $,
@@ -84,7 +107,6 @@ var mobiscroll = mobiscroll || {};
             jsPrefix: pr,
             has3d: has3d,
             hasFlex: hasFlex,
-            isOldAndroid: /android [1-3]/i.test(navigator.userAgent),
             preventClick: function () {
                 // Prevent ghost click
                 ms.tapped++;
@@ -184,6 +206,11 @@ var mobiscroll = mobiscroll || {};
             listview: {},
             menustrip: {},
             progress: {}
+        },
+        platform: {
+            name: platform,
+            majorVersion: version[0],
+            minorVersion: version[1]
         },
         i18n: {},
         instances: instances,
@@ -354,7 +381,7 @@ var mobiscroll = mobiscroll || {};
 
             function onMove(ev) {
                 // If movement is more than 20px, don't fire the click event handler
-                if (target && !moved && Math.abs(getCoord(ev, 'X') - startX) > 9 || Math.abs(getCoord(ev, 'Y') - startY) > 9) {
+                if (target && !moved && (Math.abs(getCoord(ev, 'X') - startX) > 9 || Math.abs(getCoord(ev, 'Y') - startY) > 9)) {
                     moved = true;
                 }
             }

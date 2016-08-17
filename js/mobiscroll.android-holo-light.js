@@ -7,7 +7,6 @@
         minWidth: 76,
         height: 36,
         showLabel: false,
-        selectedLineHeight: true,
         selectedLineBorder: 2,
         useShortLabels: true,
         icon: {

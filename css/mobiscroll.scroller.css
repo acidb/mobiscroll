@@ -7,20 +7,20 @@
 
 /* Force content box */
 
+.mbsc-sc-whl-c,
 .mbsc-sc-whl-l,
 .mbsc-sc-whl {
     -webkit-box-sizing: content-box;
-    -moz-box-sizing: content-box;
     box-sizing: content-box;
 }
 
 .mbsc-sc-whl-gr-c {
+    position: relative;
     max-width: 100%;
     vertical-align: middle;
     display: inline-block;
     overflow: hidden;
     -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
 
@@ -42,10 +42,10 @@
 
 .mbsc-sc-whl-w {
     max-width: 100%;
-    -webkit-box-flex: 1;
+    /*-webkit-box-flex: 1;
     -webkit-flex: 1 auto;
     -ms-flex: 1 auto;
-    flex: 1 auto;
+    flex: 1 auto;*/
     position: relative;
     /*-ms-touch-action: none;
     touch-action: none;*/
@@ -62,12 +62,17 @@
 }
 
 .mbsc-sc-whl-l {
+    display: none;
     position: absolute;
-    z-index: 1;
+    z-index: 3;
     top: 50%;
     left: 0;
     right: 0;
     pointer-events: none;
+}
+
+.mbsc-sc-whl-w .mbsc-sc-whl-l {
+    display: block;
 }
 
 .mbsc-sc-whl {
@@ -148,24 +153,29 @@
 
 /* 3D */
 
-
-/*.mbsc-sc-whl-gr-3d {
-    -webkit-perspective: 2500px;
-    -moz-perspective: 2500px;
-    perspective: 2500px;
+.mbsc-sc-whl-gr-3d {
+    -webkit-perspective: 1200px;
+    perspective: 1200px;
 }
+
+.mbsc-sc-whl-gr-3d .mbsc-sc-whl {
+    /* For iOS to respect z-index */
+    overflow: visible;
+}
+
 .mbsc-sc-whl-gr-3d .mbsc-sc-whl-c {
     overflow: hidden;
 }
+
 .mbsc-sc-whl-3d {
     position: absolute;
     top: 50%;
-    left: 4px;
-    right: 4px;
+    left: 0;
+    right: 0;
     -webkit-transform-style: preserve-3d;
-    -moz-transform-style: preserve-3d;
     transform-style: preserve-3d;
 }
+
 .mbsc-sc-itm-3d {
     position: absolute;
     width: 100%;
@@ -173,9 +183,12 @@
     left: 0;
     cursor: pointer;
     -webkit-backface-visibility: hidden;
-    -moz-backface-visibility: hidden;
     backface-visibility: hidden;
-}*/
+}
+
+.mbsc-sc-itm-del {
+    display: none;
+}
 
 
 /* Multiline */
@@ -209,12 +222,6 @@
 
 
 /* Multiple */
-
-.mbsc-sc-whl-multi .mbsc-sc-whl-c {
-    top: 0;
-    height: 100%;
-    border: 0;
-}
 
 .mbsc-sc-whl-multi .mbsc-sc-whl-l {
     display: none;

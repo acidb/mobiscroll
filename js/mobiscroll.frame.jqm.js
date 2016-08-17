@@ -18,7 +18,6 @@
         activeTabInnerClass: 'ui-btn-active',
         btnCalPrevClass: '',
         btnCalNextClass: '',
-        selectedLineHeight: true,
         selectedLineBorder: 1,
         checkIcon: 'none ui-btn-icon-left ui-icon-check',
         onThemeLoad: function (ev) {
