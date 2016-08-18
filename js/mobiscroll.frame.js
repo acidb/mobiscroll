@@ -335,7 +335,7 @@
                 readOnly = $elm.prop('readonly');
 
             if (s.display !== 'inline') {
-                if (setReadOnly && $elm.is('input')) {
+                if (setReadOnly && $elm.is('input,select')) {
                     $elm.prop('readonly', true).on('mousedown.mbsc', function (ev) {
                         // Prevent input to get focus on tap (virtual keyboard pops up on some devices)
                         ev.preventDefault();

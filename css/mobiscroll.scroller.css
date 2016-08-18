@@ -14,14 +14,21 @@
     box-sizing: content-box;
 }
 
+
+/* Force border box */
+
+.mbsc-sc-whl-gr-c,
+.mbsc-sc-itm {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
 .mbsc-sc-whl-gr-c {
     position: relative;
     max-width: 100%;
     vertical-align: middle;
     display: inline-block;
     overflow: hidden;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
 }
 
 .mbsc-fr-liq .mbsc-sc-whl-gr-c {
