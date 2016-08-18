@@ -61,21 +61,52 @@
 
 /* Bubble arrow */
 
-.mbsc-ios .mbsc-fr-bubble-bottom .mbsc-fr-arr {
+
+/*.mbsc-ios .mbsc-fr-bubble-bottom .mbsc-fr-arr {
     border-color: transparent transparent #f7f7f7 transparent;
 }
 
 .mbsc-ios .mbsc-fr-bubble-top .mbsc-fr-arr {
     border-color: #f7f7f7 transparent transparent transparent;
+}*/
+
+.mbsc-ios.mbsc-fr-bubble .mbsc-fr-w {
+    border-radius: 8px;
 }
 
-.mbsc-ios.mbsc-fr-bubble .mbsc-fr-w,
-.mbsc-ios.mbsc-fr-center .mbsc-fr-w {
-    border-radius: 8px;
+.mbsc-ios .mbsc-fr-arr-w {
+    z-index: 0;
+}
+
+.mbsc-ios .mbsc-fr-arr {
+    position: relative;
+    width: 26px;
+    height: 26px;
+    background: #f7f7f7;
+    border: 0;
+    -webkit-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    margin-left: -13px;
+}
+
+.mbsc-ios .mbsc-fr-bubble-top .mbsc-fr-arr {
+    top: -17px;
+    border-bottom-left-radius: 6px;
+}
+
+.mbsc-ios .mbsc-fr-bubble-bottom .mbsc-fr-arr {
+    top: 17px;
+    border-top-right-radius: 6px;
 }
 
 
 /* Inline display */
+
+.mbsc-ios.mbsc-fr-inline .mbsc-fr-w {
+    background: #fff;
+}
 
 .mbsc-ios.mbsc-fr-nobtn .mbsc-fr-w {
     padding-top: 0;
