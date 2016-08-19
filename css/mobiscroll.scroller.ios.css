@@ -40,6 +40,22 @@
     background: #d1d5db;
 }
 
+
+/* Inline color theme */
+
+.mbsc-ios.mbsc-fr-inline .mbsc-sc-whl-o {
+    background: -webkit-gradient(linear, left bottom, left top, from(#fff), color-stop(0.52, rgba(255, 255, 255, 0)), color-stop(0.48, rgba(255, 255, 255, 0)), to(#fff));
+    background: -webkit-linear-gradient(#fff, rgba(255, 255, 255, 0) 52%, rgba(255, 255, 255, 0) 48%, #fff);
+    background: linear-gradient(#fff, rgba(255, 255, 255, 0) 52%, rgba(255, 255, 255, 0) 48%, #fff);
+}
+
+.mbsc-ios.mbsc-fr-inline .mbsc-sc-whl-gr-3d .mbsc-sc-whl-c {
+    background: #fff;
+}
+
+
+/* Wheel label */
+
 .mbsc-ios .mbsc-sc-lbl {
     color: #ababab;
     line-height: 2.5em;
