@@ -70,7 +70,8 @@
     border-color: #f7f7f7 transparent transparent transparent;
 }*/
 
-.mbsc-ios.mbsc-fr-bubble .mbsc-fr-w {
+.mbsc-ios.mbsc-fr-bubble .mbsc-fr-w,
+.mbsc-ios.mbsc-fr-center .mbsc-fr-w {
     border-radius: 8px;
 }
 
