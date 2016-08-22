@@ -848,6 +848,10 @@
          */
         that.init = function (ss) {
 
+            if (that._isVisible) {
+                that.hide(true, false, true);
+            }
+
             that._init(ss);
 
             that._isLiquid = (s.layout || (/top|bottom/.test(s.display) ? 'liquid' : '')) === 'liquid';
@@ -893,10 +897,6 @@
             };
 
             that._isInput = $elm.is('input');
-
-            if (that._isVisible) {
-                that.hide(true, false, true);
-            }
 
             event('onInit');
 
