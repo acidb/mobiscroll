@@ -3,11 +3,13 @@
         preventShow,
         ms = mobiscroll,
         $ = ms.$,
+        platform = ms.platform,
         util = ms.util,
         constrain = util.constrain,
         isString = util.isString,
-        isOldAndroid = util.isOldAndroid,
-        isIOS8 = /(iphone|ipod|ipad).* os 8_/i.test(navigator.userAgent),
+        getCoord = util.getCoord,
+        needsFixed = /(iphone|ipod)/i.test(navigator.userAgent) && platform.majorVersion >= 7,
+        isIOS8 = platform.name == 'ios' && platform.majorVersion == 8,
         animEnd = 'webkitAnimationEnd.mbsc animationend.mbsc',
         empty = function () {},
         prevdef = function (ev) {
@@ -18,6 +20,7 @@
         var $ariaDiv,
             $ctx,
             $header,
+            $lock,
             $markup,
             $overlay,
             $persp,
@@ -28,14 +31,20 @@
             btn,
             doAnim,
             event,
+            hasContext,
             isModal,
             isInserted,
+            lockClass,
             modalWidth,
             modalHeight,
+            needsDimensions,
+            needsLock,
             posEvents,
             preventPos,
             s,
+            scrollLeft,
             scrollLock,
+            scrollTop,
             setReadOnly,
             wndWidth,
             wndHeight,
@@ -94,32 +103,36 @@
         }
 
         function onHide(prevAnim) {
-            var activeEl,
-                value,
-                type,
-                $activeEl = $activeElm,
+            var $activeEl = $activeElm,
                 focus = s.focusOnClose;
 
             that._markupRemove();
 
             $markup.remove();
 
+            if (isModal) {
+                $lock.removeClass(lockClass);
+                if (needsLock) {
+                    $ctx.css({
+                        top: '',
+                        left: ''
+                    });
+                    $wnd.scrollLeft(scrollLeft);
+                    $wnd.scrollTop(scrollTop);
+                }
+            }
+
             if (!prevAnim) {
                 if (!$activeEl) {
                     $activeEl = $elm;
                 }
                 setTimeout(function () {
+                    if (ms.activeInstance) {
+                        return;
+                    }
                     if (focus === undefined || focus === true) {
                         preventShow = true;
-                        activeEl = $activeEl[0];
-                        type = activeEl.type;
-                        value = activeEl.value;
-                        try {
-                            activeEl.type = 'button';
-                        } catch (ex) {}
                         $activeEl[0].focus();
-                        activeEl.type = type;
-                        activeEl.value = value;
                     } else if (focus) {
                         $(focus)[0].focus();
                     }
@@ -150,13 +163,6 @@
             if (ev.target.nodeType && !$popup[0].contains(ev.target)) {
                 $popup[0].focus();
             }
-        }
-
-        function onBlur() {
-            $(this).off('blur', onBlur);
-            setTimeout(function () {
-                that.position();
-            }, 100);
         }
 
         function show(beforeShow, $elm) {
@@ -197,185 +203,156 @@
          * Positions the scroller on the screen.
          */
         that.position = function (check) {
-            var w,
-                l,
-                t,
-                anchor,
-                aw, // anchor width
-                ah, // anchor height
-                ap, // anchor position
-                at, // anchor top
-                al, // anchor left
-                arr, // arrow
-                arrw, // arrow width
-                arrl, // arrow left
-                dh,
-                scroll,
-                sl, // scroll left
-                st, // scroll top
-                totalw = 0,
-                minw = 0,
+            var anchor,
+                anchorWidth,
+                anchorHeight,
+                anchorPos,
+                anchorTop,
+                anchorLeft,
+                arrow,
+                arrowWidth,
+                arrowHeight,
+                docHeight,
+                docWidth,
+                top,
+                left,
                 css = {},
-                nw = Math.min($wnd[0].innerWidth || $wnd.innerWidth(), $persp ? $persp.width() : 0), //$persp.width(), // To get the width without scrollbar
-                nh = $wnd[0].innerHeight || $wnd.innerHeight(),
-                $focused = $(document.activeElement);
+                newHeight = $markup[0].offsetHeight,
+                newWidth = $markup[0].offsetWidth,
+                scrollLeft = 0,
+                scrollTop = 0;
 
-            if (isModal && $focused.is('input,textarea') && !/(button|submit|checkbox|radio)/.test($focused.attr('type'))) {
-                $focused.on('blur', onBlur);
+            if ((wndWidth === newWidth && wndHeight === newHeight && check) || preventPos || !isInserted) {
                 return;
-            }
-
-            if ((wndWidth === nw && wndHeight === nh && check) || preventPos || !isInserted) {
-                return;
-            }
-
-            if (that._isFullScreen || /top|bottom/.test(s.display)) {
-                // Set width, if document is larger than viewport, needs to be set before onPosition (for calendar)
-                $popup.width(nw);
             }
 
             that._position($markup);
 
             if (event('onPosition', {
                     target: $markup[0],
-                    windowWidth: nw,
-                    windowHeight: nh
+                    windowWidth: newWidth,
+                    windowHeight: newHeight
                 }) === false || !isModal) {
                 return;
             }
 
-            sl = $wnd.scrollLeft();
-            st = $wnd.scrollTop();
-            anchor = s.anchor === undefined ? $elm : $(s.anchor);
-
             // Set / unset liquid layout based on screen width, but only if not set explicitly by the user
             if (that._isLiquid && s.layout !== 'liquid') {
-                if (nw < 400) {
+                if (newWidth < 415) {
                     $markup.addClass('mbsc-fr-liq');
                 } else {
                     $markup.removeClass('mbsc-fr-liq');
                 }
             }
 
-            if (!that._isFullScreen && /center|bubble/.test(s.display)) {
-                $wrapper.width('');
-                $('.mbsc-w-p', $markup).each(function () {
-                    w = $(this).outerWidth(true);
-                    totalw += w;
-                    minw = (w > minw) ? w : minw;
-                });
-                w = totalw > nw ? minw : totalw;
-                $wrapper.width(w + 1).css('white-space', totalw > nw ? '' : 'nowrap');
-            }
+            modalWidth = $popup[0].offsetWidth;
+            modalHeight = $popup[0].offsetHeight;
 
-            modalWidth = $popup.outerWidth();
-            modalHeight = $popup.outerHeight(true);
-            scrollLock = modalHeight <= nh && modalWidth <= nw;
+            that.scrollLock = scrollLock = modalHeight <= newHeight && modalWidth <= newWidth;
 
-            that.scrollLock = scrollLock;
-
-            if (scrollLock) {
-                $ctx.addClass('mbsc-fr-lock');
-            } else {
-                $ctx.removeClass('mbsc-fr-lock');
+            if (needsDimensions) {
+                scrollLeft = $wnd.scrollLeft();
+                scrollTop = $wnd.scrollTop();
             }
 
             if (s.display == 'center') {
-                l = Math.max(0, sl + (nw - modalWidth) / 2);
-                t = st + (nh - modalHeight) / 2;
+                left = Math.max(0, scrollLeft + (newWidth - modalWidth) / 2);
+                top = Math.max(0, scrollTop + (newHeight - modalHeight) / 2);
             } else if (s.display == 'bubble') {
-                // Scroll only if width also changed
-                // to prevent scroll when address bar appears / hides
-                scroll = wndWidth !== nw;
-                arr = $('.mbsc-fr-arr-i', $markup);
-                ap = anchor.offset();
-                at = Math.abs($ctx.offset().top - ap.top);
-                al = Math.abs($ctx.offset().left - ap.left);
+                anchor = s.anchor === undefined ? $elm : $(s.anchor);
 
-                // horizontal positioning
-                aw = anchor.outerWidth();
-                ah = anchor.outerHeight();
-                l = constrain(al - ($popup.outerWidth(true) - aw) / 2, sl + 3, sl + nw - modalWidth - 3);
+                arrow = $('.mbsc-fr-arr-i', $markup)[0];
+                anchorPos = anchor.offset();
+                anchorTop = anchorPos.top + (hasContext ? scrollTop - $ctx.offset().top : 0);
+                anchorLeft = anchorPos.left + (hasContext ? scrollLeft - $ctx.offset().left : 0);
 
-                // vertical positioning
-                t = at - modalHeight; // above the input
-                if ((t < st) || (at > st + nh)) { // if doesn't fit above or the input is out of the screen
+                anchorWidth = anchor[0].offsetWidth;
+                anchorHeight = anchor[0].offsetHeight;
+
+                arrowWidth = arrow.offsetWidth;
+                arrowHeight = arrow.offsetHeight;
+
+                // Horizontal positioning
+                left = constrain(anchorLeft - (modalWidth - anchorWidth) / 2, scrollLeft + 3, scrollLeft + newWidth - modalWidth - 3);
+
+                // Vertical positioning
+                // Above the input
+                top = anchorTop - modalHeight - arrowHeight / 2;
+                // If doesn't fit above or the input is out of the screen
+                if ((top < scrollTop) || (anchorTop > scrollTop + newHeight)) {
                     $popup.removeClass('mbsc-fr-bubble-top').addClass('mbsc-fr-bubble-bottom');
-                    t = at + ah; // below the input
+                    // Below the input
+                    top = anchorTop + anchorHeight + arrowHeight / 2;
                 } else {
                     $popup.removeClass('mbsc-fr-bubble-bottom').addClass('mbsc-fr-bubble-top');
                 }
 
-                // Calculate Arrow position
-                arrw = arr.outerWidth();
-                arrl = constrain(al + aw / 2 - (l + (modalWidth - arrw) / 2), 0, arrw);
-
-                // Limit Arrow position
+                // Set arrow position
                 $('.mbsc-fr-arr', $markup).css({
-                    left: arrl
+                    left: constrain(anchorLeft + anchorWidth / 2 - (left + (modalWidth - arrowWidth) / 2), 0, arrowWidth)
                 });
+
             } else {
-                l = sl;
-                if (s.display == 'top') {
-                    t = st;
-                } else if (s.display == 'bottom') {
-                    t = st + nh - modalHeight;
+                left = scrollLeft;
+                top = s.display == 'top' ? scrollTop : Math.max(0, scrollTop + newHeight - modalHeight);
+                css.width = newWidth;
+            }
+
+            if (needsDimensions) {
+                // If top + modal height > doc height, increase doc height
+                docHeight = Math.max(top + modalHeight, hasContext ? $ctx[0].scrollHeight : $(document).height());
+                docWidth = Math.max(left + modalWidth, hasContext ? $ctx[0].scrollWidth : $(document).width());
+                $persp.css({
+                    width: docWidth,
+                    height: docHeight
+                });
+
+                // Check if scroll needed
+                if (s.display == 'bubble' && ((top + modalHeight > scrollTop + newHeight) || (anchorTop > scrollTop + newHeight) || (anchorTop + anchorHeight < scrollTop))) {
+                    preventPos = true;
+                    setTimeout(function () {
+                        preventPos = false;
+                    }, 300);
+                    $wnd.scrollTop(Math.min(anchorTop, top + modalHeight - newHeight, docHeight - newHeight));
                 }
             }
 
-            t = t < 0 ? 0 : t;
+            css.top = top;
+            css.left = left;
 
-            css.top = t;
-            css.left = l;
             $popup.css(css);
 
-            // If top + modal height > doc height, increase doc height
-            $persp.height(0);
-            dh = Math.max(t + modalHeight, s.context == 'body' ? $(document).height() : $ctx[0].scrollHeight);
-            $persp.css({
-                height: dh
-            });
-
-            // Scroll needed
-            if (scroll && ((t + modalHeight > st + nh) || (at > st + nh))) {
-                preventPos = true;
-                setTimeout(function () {
-                    preventPos = false;
-                }, 300);
-                $wnd.scrollTop(Math.min(at, t + modalHeight - nh, dh - nh));
-            }
-
-            wndWidth = nw;
-            wndHeight = nh;
-
-            // Call position for nested mobiscroll components
-            $('.mbsc-comp', $markup).each(function () {
-                var inst = $(this).mobiscroll('getInst');
-                if (inst !== that && inst.position) {
-                    inst.position();
-                }
-            });
+            wndWidth = newWidth;
+            wndHeight = newHeight;
         };
 
         /**
          * Show mobiscroll on focus and click event of the parameter.
-         * @param {jQuery} $elm - Events will be attached to this element.
+         * @param {HTMLElement} elm - Events will be attached to this element.
          * @param {Function} [beforeShow=undefined] - Optional function to execute before showing mobiscroll.
          */
         that.attachShow = function (elm, beforeShow) {
-            var $elm = $(elm);
-
-            elmList.push({
-                readOnly: $elm.prop('readonly'),
-                el: $elm
-            });
+            var $label,
+                $elm = $(elm),
+                readOnly = $elm.prop('readonly');
 
             if (s.display !== 'inline') {
-                if (setReadOnly && $elm.is('input')) {
+                if (setReadOnly && $elm.is('input,select')) {
                     $elm.prop('readonly', true).on('mousedown.mbsc', function (ev) {
                         // Prevent input to get focus on tap (virtual keyboard pops up on some devices)
                         ev.preventDefault();
+                    }).on('focus.mbsc', function () {
+                        if (that._isVisible) {
+                            // Don't allow input focus if mobiscroll is being opened
+                            this.blur();
+                        }
                     });
+
+                    $label = $('label[for="' + $elm.attr('id') + '"]');
+
+                    if (!$label.length) {
+                        $label = $elm.closest('label');
+                    }
                 }
 
                 if (s.showOnFocus) {
@@ -398,7 +375,19 @@
                     that.tap($elm, function () {
                         show(beforeShow, $elm);
                     });
+
+                    if ($label && $label.length) {
+                        that.tap($label, function () {
+                            show(beforeShow, $elm);
+                        });
+                    }
                 }
+
+                elmList.push({
+                    readOnly: readOnly,
+                    el: $elm,
+                    lbl: $label
+                });
             }
         };
 
@@ -477,36 +466,62 @@
                 return false;
             }
 
-            // Hide virtual keyboard
-            if ($(document.activeElement).is('input,textarea')) {
-                document.activeElement.blur();
-            }
+            doAnim = s.animate;
 
-            doAnim = isOldAndroid ? false : s.animate;
+            needsDimensions = hasContext || s.display == 'bubble';
+            needsLock = needsFixed && !needsDimensions;
+
+            hasButtons = buttons.length > 0;
 
             if (doAnim !== false) {
                 if (s.display == 'top') {
                     doAnim = 'slidedown';
                 } else if (s.display == 'bottom') {
                     doAnim = 'slideup';
-                } else if (s.display == 'center') {
-                    doAnim = s.animate || 'fade';
-                } else if (s.display == 'bubble') {
+                } else if (s.display == 'center' || s.display == 'bubble') {
                     doAnim = s.animate || 'pop';
                 }
             }
 
-            hasButtons = buttons.length > 0;
+            if (isModal) {
+                lockClass = 'mbsc-fr-lock' + (needsLock ? ' mbsc-fr-lock-ios' : '') + (hasContext ? ' mbsc-fr-lock-ctx' : '');
+                scrollTop = $wnd.scrollTop();
+                scrollLeft = $wnd.scrollLeft();
+                wndWidth = 0;
+                wndHeight = 0;
+
+                if (needsLock) {
+                    $lock.scrollTop(0);
+                    $ctx.css({
+                        top: -scrollTop + 'px',
+                        left: -scrollLeft + 'px'
+                    });
+                }
+
+                $lock.addClass(lockClass);
+
+                // Hide virtual keyboard
+                if ($(document.activeElement).is('input,textarea')) {
+                    document.activeElement.blur();
+                }
+
+                // Hide active instance
+                if (ms.activeInstance) {
+                    ms.activeInstance.hide();
+                }
+
+                // Set active instance
+                ms.activeInstance = that;
+            }
 
             // Create wheels containers
-            html = '<div lang="' + s.lang + '" class="mbsc-' + s.theme + (s.baseTheme ? ' mbsc-' + s.baseTheme : '') + ' mbsc-fr-' + s.display + ' ' +
+            html = '<div lang="' + s.lang + '" class="mbsc-fr mbsc-' + s.theme + (s.baseTheme ? ' mbsc-' + s.baseTheme : '') + ' mbsc-fr-' + s.display + ' ' +
                 (s.cssClass || '') + ' ' +
                 (s.compClass || '') +
                 (that._isLiquid ? ' mbsc-fr-liq' : '') +
-                (isOldAndroid ? ' mbsc-old' : '') +
+                (needsLock ? ' mbsc-platform-ios' : '') +
                 (hasButtons ? '' : ' mbsc-fr-nobtn') + '">' +
-                '<div class="mbsc-fr-persp">' +
-                (isModal ? '<div class="mbsc-fr-overlay"></div>' : '') + // Overlay
+                (isModal ? '<div class="mbsc-fr-persp"><div class="mbsc-fr-overlay"></div><div class="mbsc-fr-scroll">' : '') + // Overlay
                 '<div' + (isModal ? ' role="dialog" tabindex="-1"' : '') + ' class="mbsc-fr-popup' + (s.rtl ? ' mbsc-rtl' : ' mbsc-ltr') + '">' + // Popup
                 (s.display === 'bubble' ? '<div class="mbsc-fr-arr-w"><div class="mbsc-fr-arr-i"><div class="mbsc-fr-arr"></div></div></div>' : '') + // Bubble arrow
                 '<div class="mbsc-fr-w">' + // Popup content
@@ -535,11 +550,11 @@
                 });
                 html += '</div>';
             }
-            html += '</div></div></div></div>';
+            html += '</div></div></div></div>' + (isModal ? '</div></div>' : '');
 
             $markup = $(html);
             $persp = $('.mbsc-fr-persp', $markup);
-            $overlay = $('.mbsc-fr-overlay', $markup);
+            $overlay = $('.mbsc-fr-scroll', $markup);
             $wrapper = $('.mbsc-fr-w', $markup);
             $header = $('.mbsc-fr-hdr', $markup);
             $popup = $('.mbsc-fr-popup', $markup);
@@ -557,7 +572,7 @@
                 target: $markup[0]
             });
 
-            // Show
+            // Attach events
             if (isModal) {
                 // Enter / ESC
                 $(window).on('keydown', onWndKeyDown);
@@ -571,55 +586,49 @@
                     });
                 }
 
-                // Disable inputs to prevent bleed through (Android bug)
-                if (isOldAndroid) {
-                    $('input,select,button', $ctx).each(function () {
-                        if (!this.disabled) {
-                            $(this).addClass('mbsc-fr-td').prop('disabled', true);
-                        }
-                    });
-                }
-
-                if (ms.activeInstance) {
-                    ms.activeInstance.hide();
-                }
-
-                posEvents += ' scroll';
-
-                ms.activeInstance = that;
-
-                $markup.appendTo($ctx);
-
                 if (s.focusTrap) {
                     $wnd.on('focusin', onFocus);
                 }
 
-                if (doAnim && !prevAnim) {
-                    $markup.addClass('mbsc-anim-in mbsc-anim-trans').on(animEnd, function () {
-                        $markup.off(animEnd).removeClass('mbsc-anim-in mbsc-anim-trans').find('.mbsc-fr-popup').removeClass('mbsc-anim-' + doAnim);
-                        onShow(prevFocus);
-                    }).find('.mbsc-fr-popup').addClass('mbsc-anim-' + doAnim);
+                if (s.closeOnOverlayTap) {
+                    var moved,
+                        target,
+                        startX,
+                        startY;
+
+                    $overlay
+                        .on('touchstart mousedown', function (ev) {
+                            if (!target && ev.target == $overlay[0]) {
+                                target = true;
+                                moved = false;
+                                startX = getCoord(ev, 'X');
+                                startY = getCoord(ev, 'Y');
+                            }
+                        })
+                        .on('touchmove mousemove', function (ev) {
+                            if (target && !moved && (Math.abs(getCoord(ev, 'X') - startX) > 9 || Math.abs(getCoord(ev, 'Y') - startY) > 9)) {
+                                moved = true;
+                            }
+                        })
+                        .on('touchcancel', function () {
+                            target = false;
+                        })
+                        .on('touchend touchcancel mouseup', function (ev) {
+                            if (target && !moved) {
+                                that.cancel();
+                                if (ev.type != 'mouseup') {
+                                    util.preventClick();
+                                }
+                            }
+                            target = false;
+                        });
                 }
-            } else if ($elm.is('div') && !that._hasContent) {
-                $elm.empty().append($markup);
-            } else {
-                $markup.insertAfter($elm);
+
+                if (needsDimensions) {
+                    posEvents += ' scroll';
+                }
             }
 
-            isInserted = true;
-
-            that._markupInserted($markup);
-
-            event('onMarkupInserted', {
-                target: $markup[0]
-            });
-
-            // Set position
-            that.position();
-
-            $wnd.on(posEvents, onPosition);
-
-            // Events
             $markup
                 .on('selectstart mousedown', prevdef) // Prevents blue highlight on Android and text selection in IE
                 .on('click', '.mbsc-fr-btn-e', prevdef)
@@ -627,7 +636,7 @@
                     if (ev.keyCode == 32) { // Space
                         ev.preventDefault();
                         ev.stopPropagation();
-                        $(this).click();
+                        this.click();
                     }
                 })
                 .on('keydown', function (ev) { // Trap focus inside modal
@@ -651,7 +660,9 @@
                             ev.preventDefault();
                         }
                     }
-                });
+                })
+                .on('touchstart mousedown pointerdown', '.mbsc-fr-btn-e', onBtnStart)
+                .on('touchend', '.mbsc-fr-btn-e', onBtnEnd);
 
             $('input,select,textarea', $markup).on('selectstart mousedown', function (ev) {
                 ev.stopPropagation();
@@ -661,7 +672,6 @@
                 }
             });
 
-            //setTimeout(function () {
             // Init buttons
             $.each(buttons, function (i, b) {
                 that.tap($('.mbsc-fr-btn' + i, $markup), function (ev) {
@@ -670,27 +680,54 @@
                 }, true);
             });
 
-            if (s.closeOnOverlayTap) {
-                that.tap($overlay, function () {
-                    that.cancel();
-                });
-            }
-
-            if (isModal && !doAnim) {
-                onShow(prevFocus);
-            }
-
-            $markup
-                .on('touchstart mousedown pointerdown', '.mbsc-fr-btn-e', onBtnStart)
-                .on('touchend', '.mbsc-fr-btn-e', onBtnEnd);
-
             that._attachEvents($markup);
-            //}, 300);
 
-            event('onShow', {
-                target: $markup[0],
-                valueText: that._tempValue
-            });
+            // Wait for the toolbar and addressbar to appear on iOS
+            setTimeout(function () {
+                // Show
+                if (isModal) {
+                    $markup.appendTo($ctx);
+                    if (doAnim && !prevAnim) {
+                        $markup.addClass('mbsc-anim-in mbsc-anim-trans mbsc-anim-trans-' + doAnim).on(animEnd, function () {
+                            $markup
+                                .off(animEnd)
+                                .removeClass('mbsc-anim-in mbsc-anim-trans mbsc-anim-trans-' + doAnim)
+                                .find('.mbsc-fr-popup')
+                                .removeClass('mbsc-anim-' + doAnim);
+                            onShow(prevFocus);
+                        }).find('.mbsc-fr-popup').addClass('mbsc-anim-' + doAnim);
+                    }
+                } else if ($elm.is('div') && !that._hasContent) {
+                    // Insert inside the element on which was initialized
+                    $elm.empty().append($markup);
+                } else {
+                    // Insert after the element
+                    $markup.insertAfter($elm);
+                }
+
+                isInserted = true;
+
+                that._markupInserted($markup);
+
+                event('onMarkupInserted', {
+                    target: $markup[0]
+                });
+
+                // Set position
+                that.position();
+
+                $wnd.on(posEvents, onPosition);
+
+                if (isModal && !doAnim) {
+                    onShow(prevFocus);
+                }
+
+                event('onShow', {
+                    target: $markup[0],
+                    valueText: that._tempValue
+                });
+
+            }, needsLock ? 100 : 0);
         };
 
         /**
@@ -707,15 +744,9 @@
 
             // Hide wheels and overlay
             if ($markup) {
-                // Re-enable temporary disabled fields
-                if (isOldAndroid) {
-                    $('.mbsc-fr-td', $ctx).each(function () {
-                        $(this).prop('disabled', false).removeClass('mbsc-fr-td');
-                    });
-                }
-
-                if (isModal && doAnim && !prevAnim && !$markup.hasClass('mbsc-anim-trans')) { // If mbsc-anim-trans class was not removed, means that there was no animation
-                    $markup.addClass('mbsc-anim-out mbsc-anim-trans').on(animEnd, function () {
+                // If mbsc-anim-trans class was not removed, means that there was no animation
+                if (isModal && doAnim && !prevAnim && !$markup.hasClass('mbsc-anim-trans')) {
+                    $markup.addClass('mbsc-anim-out mbsc-anim-trans mbsc-anim-trans-' + doAnim).on(animEnd, function () {
                         $markup.off(animEnd);
                         onHide(prevAnim);
                     }).find('.mbsc-fr-popup').addClass('mbsc-anim-' + doAnim);
@@ -732,7 +763,6 @@
             }
 
             if (isModal) {
-                $ctx.removeClass('mbsc-fr-lock');
                 $(window).off('keydown', onWndKeyDown);
                 delete ms.activeInstance;
             }
@@ -809,6 +839,9 @@
             // Remove all events from elements
             $.each(elmList, function (i, v) {
                 v.el.off('.mbsc').prop('readonly', v.readOnly);
+                if (v.lbl) {
+                    v.lbl.off('.mbsc');
+                }
             });
 
             that._destroy();
@@ -818,6 +851,10 @@
          * Scroller initialization.
          */
         that.init = function (ss) {
+
+            if (that._isVisible) {
+                that.hide(true, false, true);
+            }
 
             that._init(ss);
 
@@ -831,9 +868,12 @@
             buttons = s.buttons || [];
             isModal = s.display !== 'inline';
             setReadOnly = s.showOnFocus || s.showOnTap;
+            hasContext = s.context != 'body';
 
-            that._window = $wnd = $(s.context == 'body' ? window : s.context);
+            that._window = $wnd = $(hasContext ? s.context : window);
             that._context = $ctx = $(s.context);
+
+            $lock = hasContext ? $ctx : $('body,html');
 
             that.live = true;
 
@@ -861,10 +901,6 @@
             };
 
             that._isInput = $elm.is('input');
-
-            if (that._isVisible) {
-                that.hide(true, false, true);
-            }
 
             event('onInit');
 
@@ -938,7 +974,6 @@
     ms.themes.scroller.mobiscroll = $.extend({}, ms.themes.frame.mobiscroll, {
         rows: 5,
         showLabel: false,
-        selectedLineHeight: true,
         selectedLineBorder: 1,
         weekDays: 'min',
         checkIcon: 'ion-ios7-checkmark-empty',

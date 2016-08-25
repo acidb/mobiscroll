@@ -1,14 +1,14 @@
 .mbsc-ios .mbsc-fr-overlay {
     background: rgba(0, 0, 0, .2);
-    filter: Alpha(Opacity=20);
 }
 
 .mbsc-ios .mbsc-fr-w {
     position: relative;
     background: #f7f7f7;
     color: #000;
-    padding-top: 3.333334em;
+    padding-top: 3.666667em;
     font-size: 12px;
+    font-family: -apple-system, Helvetica Neue, Helvetica, Arial, sans-serif;
 }
 
 .mbsc-ios .mbsc-fr-hdr {
@@ -28,12 +28,12 @@
 }
 
 .mbsc-ios .mbsc-fr-btn {
-    height: 2.352941em;
-    line-height: 2.352941em;
-    padding: 0 .588235em;
+    height: 2.75em;
+    line-height: 2.75em;
+    padding: 0 .625em;
     display: inline-block;
     color: #007aff;
-    font-size: 1.416667em;
+    font-size: 1.333333em;
 }
 
 .mbsc-ios .mbsc-fr-btn-a {
@@ -45,27 +45,85 @@
     float: right;
 }
 
-.mbsc-ios .mbsc-fr-btn-c {
+.mbsc-ios .mbsc-fr-btn-c,
+.mbsc-ios .mbsc-rtl .mbsc-fr-btn-w {
     float: left;
+}
+
+.mbsc-ios .mbsc-rtl .mbsc-fr-btn-c {
+    float: right;
 }
 
 .mbsc-ios .mbsc-fr-btn-s .mbsc-fr-btn {
     font-weight: bold;
 }
+
+
 /* Bubble arrow */
 
-.mbsc-ios .mbsc-fr-bubble-bottom .mbsc-fr-arr {
+
+/*.mbsc-ios .mbsc-fr-bubble-bottom .mbsc-fr-arr {
     border-color: transparent transparent #f7f7f7 transparent;
 }
 
 .mbsc-ios .mbsc-fr-bubble-top .mbsc-fr-arr {
     border-color: #f7f7f7 transparent transparent transparent;
-}
+}*/
 
-.mbsc-ios.mbsc-fr-bubble .mbsc-fr-w {
+.mbsc-ios.mbsc-fr-bubble .mbsc-fr-w,
+.mbsc-ios.mbsc-fr-center .mbsc-fr-w {
     border-radius: 8px;
 }
+
+.mbsc-ios .mbsc-fr-arr-w {
+    z-index: 0;
+}
+
+.mbsc-ios .mbsc-fr-arr {
+    position: relative;
+    width: 26px;
+    height: 26px;
+    background: #f7f7f7;
+    border: 0;
+    -webkit-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    margin-left: -13px;
+}
+
+.mbsc-ios .mbsc-fr-bubble-top .mbsc-fr-arr {
+    top: -17px;
+    border-bottom-left-radius: 6px;
+}
+
+.mbsc-ios .mbsc-fr-bubble-bottom .mbsc-fr-arr {
+    top: 17px;
+    border-top-right-radius: 6px;
+}
+
+.mbsc-ios.mbsc-fr-bottom .mbsc-fr-popup {
+    border-top: 1px solid #909090;
+}
+
+.mbsc-ios.mbsc-fr-top .mbsc-fr-popup {
+    border-bottom: 1px solid #909090;
+}
+
+@media (-webkit-min-device-pixel-ratio: 2),
+(min-resolution: 192dpi) {
+    .mbsc-ios.mbsc-fr-bottom .mbsc-fr-popup,
+    .mbsc-ios .mbsc-fr-bubble-bottom .mbsc-fr-arr {
+        border-width: .5px;
+    }
+}
+
+
 /* Inline display */
+
+.mbsc-ios.mbsc-fr-inline .mbsc-fr-w {
+    background: #fff;
+}
 
 .mbsc-ios.mbsc-fr-nobtn .mbsc-fr-w {
     padding-top: 0;

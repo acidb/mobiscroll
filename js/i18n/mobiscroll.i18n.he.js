@@ -1,6 +1,6 @@
 // Hebrew
 (function () {
-    mobiscroll.i18n['he'] = {
+    mobiscroll.i18n.he = {
         // Core
         rtl: true, // Right to left mode
         setText: 'שמירה',
