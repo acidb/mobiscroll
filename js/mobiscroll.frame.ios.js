@@ -12,7 +12,7 @@
         scroll3d: true
     };
 
-    themes.scroller.ios= $.extend({}, themes.frame['<ios-base>'], {
+    themes.scroller.ios= $.extend({}, themes.frame.ios, {
         rows: 5, // scroller
         height: 34, // scroller
         minWidth: 55, // scroller
