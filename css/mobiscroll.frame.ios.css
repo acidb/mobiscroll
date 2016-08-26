@@ -58,17 +58,15 @@
     font-weight: bold;
 }
 
-
-/* Bubble arrow */
-
-
-/*.mbsc-ios .mbsc-fr-bubble-bottom .mbsc-fr-arr {
-    border-color: transparent transparent #f7f7f7 transparent;
+@media (-webkit-min-device-pixel-ratio: 2),
+(min-resolution: 192dpi) {
+    .mbsc-ios .mbsc-fr-hdr {
+        border-width: .5px;
+    }
 }
 
-.mbsc-ios .mbsc-fr-bubble-top .mbsc-fr-arr {
-    border-color: #f7f7f7 transparent transparent transparent;
-}*/
+
+/* Bubble arrow */
 
 .mbsc-ios.mbsc-fr-bubble .mbsc-fr-w,
 .mbsc-ios.mbsc-fr-center .mbsc-fr-w {

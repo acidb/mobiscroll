@@ -39,6 +39,13 @@
     background: #d1d5db;
 }
 
+@media (-webkit-min-device-pixel-ratio: 2),
+(min-resolution: 192dpi) {
+    .mbsc-ios.mbsc-calendar .mbsc-fr-popup .mbsc-fr-btn-cont {
+        border-width: .5px;
+    }
+}
+
 
 /* Inline color theme */
 
