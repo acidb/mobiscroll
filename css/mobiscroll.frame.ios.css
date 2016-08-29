@@ -60,7 +60,8 @@
 
 @media (-webkit-min-device-pixel-ratio: 2),
 (min-resolution: 192dpi) {
-    .mbsc-ios .mbsc-fr-hdr {
+    .mbsc-ios .mbsc-fr-hdr,
+    .mbsc-ios .mbsc-fr-btn-cont {
         border-width: .5px;
     }
 }
