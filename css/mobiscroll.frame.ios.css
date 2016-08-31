@@ -101,11 +101,14 @@
     border-bottom: 1px solid #909090;
 }
 
-.mbsc-ios .mbsc-fr-hdr,
-.mbsc-ios .mbsc-fr-btn-cont,
-.mbsc-ios.mbsc-fr-bottom .mbsc-fr-popup,
-.mbsc-ios .mbsc-fr-bubble-bottom .mbsc-fr-arr {
-    border-width: .5px;
+@media (-webkit-min-device-pixel-ratio: 2),
+(min-resolution: 192dpi) {
+    .mbsc-ios .mbsc-fr-hdr,
+    .mbsc-ios .mbsc-fr-btn-cont,
+    .mbsc-ios.mbsc-fr-bottom .mbsc-fr-popup,
+    .mbsc-ios .mbsc-fr-bubble-bottom .mbsc-fr-arr {
+        border-width: .5px;
+    }
 }
 
 
