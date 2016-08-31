@@ -58,14 +58,6 @@
     font-weight: bold;
 }
 
-@media (-webkit-min-device-pixel-ratio: 2),
-(min-resolution: 192dpi) {
-    .mbsc-ios .mbsc-fr-hdr,
-    .mbsc-ios .mbsc-fr-btn-cont {
-        border-width: .5px;
-    }
-}
-
 
 /* Bubble arrow */
 
@@ -109,12 +101,11 @@
     border-bottom: 1px solid #909090;
 }
 
-@media (-webkit-min-device-pixel-ratio: 2),
-(min-resolution: 192dpi) {
-    .mbsc-ios.mbsc-fr-bottom .mbsc-fr-popup,
-    .mbsc-ios .mbsc-fr-bubble-bottom .mbsc-fr-arr {
-        border-width: .5px;
-    }
+.mbsc-ios .mbsc-fr-hdr,
+.mbsc-ios .mbsc-fr-btn-cont,
+.mbsc-ios.mbsc-fr-bottom .mbsc-fr-popup,
+.mbsc-ios .mbsc-fr-bubble-bottom .mbsc-fr-arr {
+    border-width: .5px;
 }
 
 
