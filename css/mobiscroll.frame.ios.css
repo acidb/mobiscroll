@@ -138,6 +138,7 @@
     display: table;
     top: auto;
     bottom: 0;
+    border: 0;
     table-layout: fixed;
 }
 
