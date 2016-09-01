@@ -114,7 +114,8 @@
     .mbsc-ios .mbsc-fr-hdr,
     .mbsc-ios .mbsc-fr-btn-cont,
     .mbsc-ios.mbsc-fr-bottom .mbsc-fr-popup,
-    .mbsc-ios .mbsc-fr-bubble-bottom .mbsc-fr-arr {
+    .mbsc-ios .mbsc-fr-bubble-bottom .mbsc-fr-arr,
+    .mbsc-ios.mbsc-fr-center .mbsc-fr-btn-w {
         border-width: .5px;
     }
 }
@@ -128,4 +129,54 @@
 
 .mbsc-ios.mbsc-fr-nobtn .mbsc-fr-w {
     padding-top: 0;
+}
+
+/* Center display button  */
+.mbsc-ios.mbsc-fr-center .mbsc-fr-w {
+    padding-top: 0;
+    padding-bottom: 3.75em;
+}
+
+.mbsc-ios.mbsc-fr-center.mbsc-fr-nobtn .mbsc-fr-w,
+.mbsc-ios.mbsc-fr-center.mbsc-fr-btn-block .mbsc-fr-w {
+    padding: 0;
+}
+
+.mbsc-ios.mbsc-fr-center .mbsc-fr-btn-cont {
+    display: table;
+    top: auto;
+    bottom: 0;
+    border: 0;
+    table-layout: fixed;
+}
+
+.mbsc-ios.mbsc-fr-center .mbsc-fr-btn {
+    display: block;
+    font-weight: normal;
+}
+
+.mbsc-ios.mbsc-fr-center .mbsc-fr-btn-w {
+    display: table-cell;
+    float: none;
+    border-top: 1px solid #d6d6ce;
+    border-right: 1px solid #d6d6ce;
+}
+
+.mbsc-ios.mbsc-fr-center .mbsc-fr-btn-w:last-child {
+   border-right: 0;
+}
+
+.mbsc-ios.mbsc-fr-center .mbsc-fr-btn-a {
+    background: #ebebe8;
+    opacity: 1;
+}
+
+.mbsc-ios.mbsc-fr-center.mbsc-fr-btn-block .mbsc-fr-btn-cont {
+    position: static;
+    display: block;
+}
+
+.mbsc-ios.mbsc-fr-center.mbsc-fr-btn-block .mbsc-fr-btn-w {
+    display: block;
+    border-right: 0;
 }
