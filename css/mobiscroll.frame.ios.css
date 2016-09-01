@@ -93,6 +93,14 @@
     border-top-right-radius: 6px;
 }
 
+
+/* Top and bottom display */
+
+.mbsc-ios.mbsc-fr-bottom .mbsc-fr-overlay,
+.mbsc-ios.mbsc-fr-top .mbsc-fr-overlay {
+    background: none;
+}
+
 .mbsc-ios.mbsc-fr-bottom .mbsc-fr-popup {
     border-top: 1px solid #909090;
 }
