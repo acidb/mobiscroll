@@ -12,7 +12,7 @@
         btnWidth: false,
         selectedLineBorder: 1,
         useShortLabels: true,
-        deleteIcon: 'backspace3',
+        deleteIcon: 'ios-backspace',
         checkIcon: 'ion-ios7-checkmark-empty',
         btnCalPrevClass: 'mbsc-ic mbsc-ic-arrow-left5',
         btnCalNextClass: 'mbsc-ic mbsc-ic-arrow-right5',
