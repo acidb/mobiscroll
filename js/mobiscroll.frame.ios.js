@@ -8,7 +8,7 @@
         display: 'bottom', // frame
         headerText: false, // frame
         btnWidth: false, // frame
-        deleteIcon: 'backspace3', // numpad
+        deleteIcon: 'ios-backspace', // numpad
         scroll3d: true
     };
 
