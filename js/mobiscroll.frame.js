@@ -45,7 +45,6 @@
             scrollLeft,
             scrollLock,
             scrollTop,
-            setReadOnly,
             wndWidth,
             wndHeight,
 
@@ -162,6 +161,12 @@
         function onFocus(ev) {
             if (ev.target.nodeType && !$popup[0].contains(ev.target)) {
                 $popup[0].focus();
+            }
+        }
+
+        function hideKeyBoard() {
+            if ($(document.activeElement).is('input,textarea')) {
+                document.activeElement.blur();
             }
         }
 
@@ -337,7 +342,7 @@
                 readOnly = $elm.prop('readonly');
 
             if (s.display !== 'inline') {
-                if (setReadOnly && $elm.is('input,select')) {
+                if ((s.showOnFocus || s.showOnTap) && $elm.is('input,select')) {
                     $elm.prop('readonly', true).on('mousedown.mbsc', function (ev) {
                         // Prevent input to get focus on tap (virtual keyboard pops up on some devices)
                         ev.preventDefault();
@@ -353,6 +358,10 @@
                     if (!$label.length) {
                         $label = $elm.closest('label');
                     }
+                }
+
+                if ($elm.is('select')) {
+                    return;
                 }
 
                 if (s.showOnFocus) {
@@ -501,9 +510,7 @@
                 $lock.addClass(lockClass);
 
                 // Hide virtual keyboard
-                if ($(document.activeElement).is('input,textarea')) {
-                    document.activeElement.blur();
-                }
+                hideKeyBoard();
 
                 // Hide active instance
                 if (ms.activeInstance) {
@@ -763,6 +770,7 @@
             }
 
             if (isModal) {
+                hideKeyBoard();
                 $(window).off('keydown', onWndKeyDown);
                 delete ms.activeInstance;
             }
@@ -867,7 +875,6 @@
 
             buttons = s.buttons || [];
             isModal = s.display !== 'inline';
-            setReadOnly = s.showOnFocus || s.showOnTap;
             hasContext = s.context != 'body';
 
             that._window = $wnd = $(hasContext ? s.context : window);
