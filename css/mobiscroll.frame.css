@@ -177,6 +177,7 @@
 .mbsc-fr-bubble .mbsc-fr-arr-i {
     margin: 0 30px;
     position: relative;
+    direction: ltr;
 }
 
 .mbsc-fr-bubble .mbsc-fr-arr {
