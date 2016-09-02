@@ -422,12 +422,18 @@ var mobiscroll = mobiscroll || {};
          * Triggers an event
          */
         that.trigger = function (name, ev) {
-            var ret;
-            $.each([defaults, theme, preset, settings], function (i, v) {
-                if (v && v[name]) { // Call preset event
+            var ret,
+                i,
+                v,
+                s = [defaults, theme, preset, settings];
+
+            for (i = 0; i < 4; i++) {
+                v = s[i];
+                if (v && v[name]) {
                     ret = v[name].call(el, ev || {}, that);
                 }
-            });
+            }
+
             return ret;
         };
 
