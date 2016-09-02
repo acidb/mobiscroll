@@ -18,7 +18,7 @@
 .mbsc-ios.mbsc-calendar.mbsc-fr-top .mbsc-fr-btn-cont,
 .mbsc-ios.mbsc-calendar.mbsc-fr-bottom .mbsc-fr-btn-cont {
     background: #f7f7f7;
-    border-bottom: 1px solid #acacac;
+    border-bottom: 1px solid #ccc;
 }
 
 .mbsc-ios.mbsc-fr-top .mbsc-sc-whl-l,
@@ -84,8 +84,8 @@
 .mbsc-ios.mbsc-calendar .mbsc-sc-whl-l {
     display: block;
     margin: 0 -.833333em;
-    border-top: 1px solid #dbdbdb;
-    border-bottom: 1px solid #dbdbdb;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
 }
 
 .mbsc-ios .mbsc-sc-whl-w {

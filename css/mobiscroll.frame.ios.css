@@ -16,7 +16,7 @@
     color: #9d9d9d;
     line-height: 2.5em;
     min-height: 2.5em;
-    border-bottom: 1px solid #acacac;
+    border-bottom: 1px solid #ccc;
 }
 
 .mbsc-ios .mbsc-fr-btn-cont {
@@ -24,7 +24,7 @@
     top: 0;
     left: 0;
     width: 100%;
-    border-bottom: 1px solid #acacac;
+    border-bottom: 1px solid #ccc;
 }
 
 .mbsc-ios .mbsc-fr-btn {
@@ -120,18 +120,6 @@
 }
 
 
-/* Inline display */
-
-.mbsc-ios.mbsc-fr-inline .mbsc-fr-popup {
-    border: 0;
-}
-
-.mbsc-ios.mbsc-fr-inline .mbsc-fr-w {
-    background: #fff;
-    border-radius: 0;
-}
-
-
 /* Center display button  */
 
 .mbsc-ios.mbsc-fr-center .mbsc-fr-w {
@@ -159,8 +147,8 @@
 .mbsc-ios.mbsc-fr-center .mbsc-fr-btn-w {
     display: table-cell;
     float: none;
-    border-top: 1px solid #d6d6ce;
-    border-right: 1px solid #d6d6ce;
+    border-top: 1px solid #ccc;
+    border-right: 1px solid #ccc;
 }
 
 .mbsc-ios.mbsc-fr-center .mbsc-fr-btn-w:last-child {
@@ -180,6 +168,19 @@
 .mbsc-ios.mbsc-fr-center.mbsc-fr-btn-block .mbsc-fr-btn-w {
     display: block;
     border-right: 0;
+}
+
+
+/* Inline display */
+
+.mbsc-ios.mbsc-fr-inline .mbsc-fr-popup {
+    border: 0;
+}
+
+.mbsc-ios.mbsc-fr-inline .mbsc-fr-w {
+    padding: 0;
+    border-radius: 0;
+    background: #fff;
 }
 
 

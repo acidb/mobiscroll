@@ -403,14 +403,16 @@
 
                 clearInterval(scrollTimer);
                 scrollTimer = setInterval(function () {
-                    var p = +getCurrentPosition(target, vertical) || 0;
-                    eventObj.posX = vertical ? 0 : p;
-                    eventObj.posY = vertical ? p : 0;
-                    trigger('onMove', eventObj);
-                    // Trigger done if close to the end
-                    if (Math.abs(p - pos) < 2) {
-                        done();
-                    }
+                    raf(function () {
+                        var p = +getCurrentPosition(target, vertical) || 0;
+                        eventObj.posX = vertical ? 0 : p;
+                        eventObj.posY = vertical ? p : 0;
+                        trigger('onMove', eventObj);
+                        // Trigger done if close to the end
+                        if (Math.abs(p - pos) < 2) {
+                            done();
+                        }
+                    });
                 }, 100);
 
                 clearTimeout(transTimer);
