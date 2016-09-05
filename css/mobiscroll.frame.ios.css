@@ -1,3 +1,24 @@
+.mbsc-ios.mbsc-fr-top .mbsc-fr-w,
+.mbsc-ios.mbsc-fr-bottom .mbsc-fr-w {
+    background: #d1d5db;
+}
+
+.mbsc-ios.mbsc-calendar .mbsc-fr-w {
+    background: #f7f7f7;
+}
+
+.mbsc-ios.mbsc-fr-top .mbsc-fr-btn-cont,
+.mbsc-ios.mbsc-fr-bottom .mbsc-fr-btn-cont {
+    background: #efefef;
+    border-bottom: 0;
+}
+
+.mbsc-ios.mbsc-calendar.mbsc-fr-top .mbsc-fr-btn-cont,
+.mbsc-ios.mbsc-calendar.mbsc-fr-bottom .mbsc-fr-btn-cont {
+    background: #f7f7f7;
+    border-bottom: 1px solid #ccc;
+}
+
 .mbsc-ios .mbsc-fr-overlay {
     background: rgba(0, 0, 0, .2);
 }
@@ -148,10 +169,19 @@
     display: table-cell;
     float: none;
     border-top: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+}
+
+.mbsc-ios.mbsc-fr-center .mbsc-fr-btn-w:first-child {
+    border-left: 0;
+}
+
+.mbsc-ios.mbsc-fr-center .mbsc-rtl .mbsc-fr-btn-w {
+    border-left: 0;
     border-right: 1px solid #ccc;
 }
 
-.mbsc-ios.mbsc-fr-center .mbsc-fr-btn-w:last-child {
+.mbsc-ios.mbsc-fr-center .mbsc-rtl .mbsc-fr-btn-w:first-child {
     border-right: 0;
 }
 
@@ -167,6 +197,7 @@
 
 .mbsc-ios.mbsc-fr-center.mbsc-fr-btn-block .mbsc-fr-btn-w {
     display: block;
+    border-left: 0;
     border-right: 0;
 }
 
