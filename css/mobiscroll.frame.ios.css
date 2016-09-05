@@ -1,3 +1,24 @@
+.mbsc-ios.mbsc-fr-top .mbsc-fr-w,
+.mbsc-ios.mbsc-fr-bottom .mbsc-fr-w {
+    background: #d1d5db;
+}
+
+.mbsc-ios.mbsc-calendar .mbsc-fr-w {
+    background: #f7f7f7;
+}
+
+.mbsc-ios.mbsc-fr-top .mbsc-fr-btn-cont,
+.mbsc-ios.mbsc-fr-bottom .mbsc-fr-btn-cont {
+    background: #efefef;
+    border-bottom: 0;
+}
+
+.mbsc-ios.mbsc-calendar.mbsc-fr-top .mbsc-fr-btn-cont,
+.mbsc-ios.mbsc-calendar.mbsc-fr-bottom .mbsc-fr-btn-cont {
+    background: #f7f7f7;
+    border-bottom: 1px solid #ccc;
+}
+
 .mbsc-ios .mbsc-fr-overlay {
     background: rgba(0, 0, 0, .2);
 }
