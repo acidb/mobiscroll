@@ -35,10 +35,12 @@
             isModal,
             isInserted,
             lockClass,
+            markup,
             modalWidth,
             modalHeight,
             needsDimensions,
             needsLock,
+            popup,
             posEvents,
             preventPos,
             s,
@@ -96,7 +98,7 @@
 
         function onShow(prevFocus) {
             if (!prevFocus) {
-                $popup[0].focus();
+                popup.focus();
             }
             that.ariaMessage(s.ariaMessage);
         }
@@ -151,16 +153,25 @@
             clearTimeout(posDebounce[ev.type]);
             posDebounce[ev.type] = setTimeout(function () {
                 var isScroll = ev.type == 'scroll';
+
                 if (isScroll && !scrollLock) {
                     return;
                 }
+
                 that.position(!isScroll);
+
+                if (ev.type == 'orientationchange') {
+                    // Trigger reflow
+                    popup.style.display = 'none';
+                    popup.offsetHeight;
+                    popup.style.display = '';
+                }
             }, 200);
         }
 
         function onFocus(ev) {
-            if (ev.target.nodeType && !$popup[0].contains(ev.target)) {
-                $popup[0].focus();
+            if (ev.target.nodeType && !popup.contains(ev.target)) {
+                popup.focus();
             }
         }
 
@@ -223,8 +234,8 @@
                 top,
                 left,
                 css = {},
-                newHeight = $markup[0].offsetHeight,
-                newWidth = $markup[0].offsetWidth,
+                newHeight = markup.offsetHeight,
+                newWidth = markup.offsetWidth,
                 scrollLeft = 0,
                 scrollTop = 0,
                 minWidth = 0,
@@ -235,7 +246,7 @@
             }
 
             if (event('onPosition', {
-                    target: $markup[0],
+                    target: markup,
                     windowWidth: newWidth,
                     windowHeight: newHeight
                 }) === false || !isModal) {
@@ -264,8 +275,8 @@
                 });
             }
 
-            modalWidth = $popup[0].offsetWidth;
-            modalHeight = $popup[0].offsetHeight;
+            modalWidth = popup.offsetWidth;
+            modalHeight = popup.offsetHeight;
 
             that.scrollLock = scrollLock = modalHeight <= newHeight && modalWidth <= newWidth;
 
@@ -589,6 +600,9 @@
             $popup = $('.mbsc-fr-popup', $markup);
             $ariaDiv = $('.mbsc-fr-aria', $markup);
 
+            markup = $markup[0];
+            popup = $popup[0];
+
             that._markup = $markup;
             that._header = $header;
             that._isVisible = true;
@@ -598,7 +612,7 @@
             that._markupReady($markup);
 
             event('onMarkupReady', {
-                target: $markup[0]
+                target: markup
             });
 
             // Attach events
@@ -739,7 +753,7 @@
                 that._markupInserted($markup);
 
                 event('onMarkupInserted', {
-                    target: $markup[0]
+                    target: markup
                 });
 
                 // Set position
@@ -752,7 +766,7 @@
                 }
 
                 event('onShow', {
-                    target: $markup[0],
+                    target: markup,
                     valueText: that._tempValue
                 });
 
