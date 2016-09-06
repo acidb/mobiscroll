@@ -264,7 +264,8 @@
 
             if (!that._isFullScreen && /center|bubble/.test(s.display)) {
                 $('.mbsc-w-p', $markup).each(function () {
-                    width = this.offsetWidth;
+                    // Need fractional values here, so offsetWidth is not ok
+                    width = this.getBoundingClientRect().width;
                     totalWidth += width;
                     minWidth = (width > minWidth) ? width : minWidth;
                 });
@@ -730,16 +731,6 @@
                 // Show
                 if (isModal) {
                     $markup.appendTo($ctx);
-                    if (doAnim && !prevAnim) {
-                        $markup.addClass('mbsc-anim-in mbsc-anim-trans mbsc-anim-trans-' + doAnim).on(animEnd, function () {
-                            $markup
-                                .off(animEnd)
-                                .removeClass('mbsc-anim-in mbsc-anim-trans mbsc-anim-trans-' + doAnim)
-                                .find('.mbsc-fr-popup')
-                                .removeClass('mbsc-anim-' + doAnim);
-                            onShow(prevFocus);
-                        }).find('.mbsc-fr-popup').addClass('mbsc-anim-' + doAnim);
-                    }
                 } else if ($elm.is('div') && !that._hasContent) {
                     // Insert inside the element on which was initialized
                     $elm.empty().append($markup);
@@ -761,8 +752,19 @@
 
                 $wnd.on(posEvents, onPosition);
 
-                if (isModal && !doAnim) {
-                    onShow(prevFocus);
+                if (isModal) {
+                    if (doAnim && !prevAnim) {
+                        $markup.addClass('mbsc-anim-in mbsc-anim-trans mbsc-anim-trans-' + doAnim).on(animEnd, function () {
+                            $markup
+                                .off(animEnd)
+                                .removeClass('mbsc-anim-in mbsc-anim-trans mbsc-anim-trans-' + doAnim)
+                                .find('.mbsc-fr-popup')
+                                .removeClass('mbsc-anim-' + doAnim);
+                            onShow(prevFocus);
+                        }).find('.mbsc-fr-popup').addClass('mbsc-anim-' + doAnim);
+                    } else {
+                        onShow(prevFocus);
+                    }
                 }
 
                 event('onShow', {
