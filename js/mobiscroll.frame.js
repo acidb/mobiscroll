@@ -35,10 +35,12 @@
             isModal,
             isInserted,
             lockClass,
+            markup,
             modalWidth,
             modalHeight,
             needsDimensions,
             needsLock,
+            popup,
             posEvents,
             preventPos,
             s,
@@ -96,7 +98,7 @@
 
         function onShow(prevFocus) {
             if (!prevFocus) {
-                $popup[0].focus();
+                popup.focus();
             }
             that.ariaMessage(s.ariaMessage);
         }
@@ -151,16 +153,25 @@
             clearTimeout(posDebounce[ev.type]);
             posDebounce[ev.type] = setTimeout(function () {
                 var isScroll = ev.type == 'scroll';
+
                 if (isScroll && !scrollLock) {
                     return;
                 }
+
                 that.position(!isScroll);
+
+                if (ev.type == 'orientationchange') {
+                    // Trigger reflow
+                    popup.style.display = 'none';
+                    popup.offsetHeight;
+                    popup.style.display = '';
+                }
             }, 200);
         }
 
         function onFocus(ev) {
-            if (ev.target.nodeType && !$popup[0].contains(ev.target)) {
-                $popup[0].focus();
+            if (ev.target.nodeType && !popup.contains(ev.target)) {
+                popup.focus();
             }
         }
 
@@ -219,13 +230,16 @@
                 arrowHeight,
                 docHeight,
                 docWidth,
+                width,
                 top,
                 left,
                 css = {},
-                newHeight = $markup[0].offsetHeight,
-                newWidth = $markup[0].offsetWidth,
+                newHeight = markup.offsetHeight,
+                newWidth = markup.offsetWidth,
                 scrollLeft = 0,
-                scrollTop = 0;
+                scrollTop = 0,
+                minWidth = 0,
+                totalWidth = 0;
 
             if ((wndWidth === newWidth && wndHeight === newHeight && check) || preventPos || !isInserted) {
                 return;
@@ -234,7 +248,7 @@
             that._position($markup);
 
             if (event('onPosition', {
-                    target: $markup[0],
+                    target: markup,
                     windowWidth: newWidth,
                     windowHeight: newHeight
                 }) === false || !isModal) {
@@ -250,8 +264,22 @@
                 }
             }
 
-            modalWidth = $popup[0].offsetWidth;
-            modalHeight = $popup[0].offsetHeight;
+            if (!that._isFullScreen && /center|bubble/.test(s.display)) {
+                $('.mbsc-w-p', $markup).each(function () {
+                    // Need fractional values here, so offsetWidth is not ok
+                    width = this.getBoundingClientRect().width;
+                    totalWidth += width;
+                    minWidth = (width > minWidth) ? width : minWidth;
+                });
+
+                $wrapper.css({
+                    'width': totalWidth > newWidth ? minWidth : totalWidth,
+                    'white-space': totalWidth > newWidth ? '' : 'nowrap'
+                });
+            }
+
+            modalWidth = popup.offsetWidth;
+            modalHeight = popup.offsetHeight;
 
             that.scrollLock = scrollLock = modalHeight <= newHeight && modalWidth <= newWidth;
 
@@ -278,7 +306,7 @@
                 arrowHeight = arrow.offsetHeight;
 
                 // Horizontal positioning
-                left = constrain(anchorLeft - (modalWidth - anchorWidth) / 2, scrollLeft + 3, scrollLeft + newWidth - modalWidth - 3);
+                left = constrain(anchorLeft - (modalWidth - anchorWidth) / 2, scrollLeft + 8, scrollLeft + newWidth - modalWidth - 8);
 
                 // Vertical positioning
                 // Above the input
@@ -305,7 +333,7 @@
 
             if (needsDimensions) {
                 // If top + modal height > doc height, increase doc height
-                docHeight = Math.max(top + modalHeight, hasContext ? $ctx[0].scrollHeight : $(document).height());
+                docHeight = Math.max(top + modalHeight + 8, hasContext ? $ctx[0].scrollHeight : $(document).height());
                 docWidth = Math.max(left + modalWidth, hasContext ? $ctx[0].scrollWidth : $(document).width());
                 $persp.css({
                     width: docWidth,
@@ -313,12 +341,12 @@
                 });
 
                 // Check if scroll needed
-                if (s.display == 'bubble' && ((top + modalHeight > scrollTop + newHeight) || (anchorTop > scrollTop + newHeight) || (anchorTop + anchorHeight < scrollTop))) {
+                if (s.display == 'bubble' && ((top + modalHeight + 8 > scrollTop + newHeight) || (anchorTop > scrollTop + newHeight) || (anchorTop + anchorHeight < scrollTop))) {
                     preventPos = true;
                     setTimeout(function () {
                         preventPos = false;
                     }, 300);
-                    $wnd.scrollTop(Math.min(anchorTop, top + modalHeight - newHeight, docHeight - newHeight));
+                    $wnd.scrollTop(Math.min(anchorTop, top + modalHeight - newHeight + 8, docHeight - newHeight));
                 }
             }
 
@@ -329,6 +357,14 @@
 
             wndWidth = newWidth;
             wndHeight = newHeight;
+
+            // Call position for nested mobiscroll components
+            $('.mbsc-comp', $markup).each(function () {
+                var inst = ms.instances[this.id];
+                if (inst !== that && inst.position) {
+                    inst.position();
+                }
+            });
         };
 
         /**
@@ -567,6 +603,9 @@
             $popup = $('.mbsc-fr-popup', $markup);
             $ariaDiv = $('.mbsc-fr-aria', $markup);
 
+            markup = $markup[0];
+            popup = $popup[0];
+
             that._markup = $markup;
             that._header = $header;
             that._isVisible = true;
@@ -576,7 +615,7 @@
             that._markupReady($markup);
 
             event('onMarkupReady', {
-                target: $markup[0]
+                target: markup
             });
 
             // Attach events
@@ -694,16 +733,6 @@
                 // Show
                 if (isModal) {
                     $markup.appendTo($ctx);
-                    if (doAnim && !prevAnim) {
-                        $markup.addClass('mbsc-anim-in mbsc-anim-trans mbsc-anim-trans-' + doAnim).on(animEnd, function () {
-                            $markup
-                                .off(animEnd)
-                                .removeClass('mbsc-anim-in mbsc-anim-trans mbsc-anim-trans-' + doAnim)
-                                .find('.mbsc-fr-popup')
-                                .removeClass('mbsc-anim-' + doAnim);
-                            onShow(prevFocus);
-                        }).find('.mbsc-fr-popup').addClass('mbsc-anim-' + doAnim);
-                    }
                 } else if ($elm.is('div') && !that._hasContent) {
                     // Insert inside the element on which was initialized
                     $elm.empty().append($markup);
@@ -717,7 +746,7 @@
                 that._markupInserted($markup);
 
                 event('onMarkupInserted', {
-                    target: $markup[0]
+                    target: markup
                 });
 
                 // Set position
@@ -725,12 +754,23 @@
 
                 $wnd.on(posEvents, onPosition);
 
-                if (isModal && !doAnim) {
-                    onShow(prevFocus);
+                if (isModal) {
+                    if (doAnim && !prevAnim) {
+                        $markup.addClass('mbsc-anim-in mbsc-anim-trans mbsc-anim-trans-' + doAnim).on(animEnd, function () {
+                            $markup
+                                .off(animEnd)
+                                .removeClass('mbsc-anim-in mbsc-anim-trans mbsc-anim-trans-' + doAnim)
+                                .find('.mbsc-fr-popup')
+                                .removeClass('mbsc-anim-' + doAnim);
+                            onShow(prevFocus);
+                        }).find('.mbsc-fr-popup').addClass('mbsc-anim-' + doAnim);
+                    } else {
+                        onShow(prevFocus);
+                    }
                 }
 
                 event('onShow', {
-                    target: $markup[0],
+                    target: markup,
                     valueText: that._tempValue
                 });
 

@@ -844,11 +844,11 @@
             s = that.settings;
             s.cssClass = (s.cssClass || '') + ' mbsc-sc';
             trigger = that.trigger;
-            scroll3d = s.scroll3d && !force2D;
+            showScrollArrows = s.showScrollArrows;
+            scroll3d = s.scroll3d && !force2D && !showScrollArrows;
             itemHeight = s.height;
             itemHeight3d = scroll3d ? Math.round((itemHeight - (itemHeight * s.rows / 2 + 3) * 0.03) / 2) * 2 : itemHeight;
             lines = s.multiline;
-            showScrollArrows = s.showScrollArrows;
             selectedClass = 'mbsc-sc-itm-sel mbsc-ic mbsc-ic-' + s.checkIcon;
             wheels = [];
             wheelsMap = {};

@@ -1,3 +1,24 @@
+.mbsc-ios.mbsc-sc.mbsc-fr-top .mbsc-fr-w,
+.mbsc-ios.mbsc-sc.mbsc-fr-bottom .mbsc-fr-w {
+    background: #d1d5db;
+}
+
+.mbsc-ios.mbsc-calendar .mbsc-fr-popup .mbsc-fr-w {
+    background: #f7f7f7;
+}
+
+.mbsc-ios.mbsc-sc.mbsc-fr-top .mbsc-fr-btn-cont,
+.mbsc-ios.mbsc-sc.mbsc-fr-bottom .mbsc-fr-btn-cont {
+    border-bottom: 0;
+}
+
+.mbsc-ios.mbsc-calendar.mbsc-fr-top .mbsc-fr-btn-cont,
+.mbsc-ios.mbsc-calendar.mbsc-fr-bottom .mbsc-fr-btn-cont {
+    /*background: #f7f7f7;*/
+    border-bottom: 1px solid #ccc;
+}
+
+
 /* Top / bottom color theme */
 
 .mbsc-ios.mbsc-fr-top .mbsc-sc-whl-l,
@@ -124,9 +145,15 @@
     text-align: center;
 }
 
+.mbsc-ios .mbsc-sc-cp .mbsc-sc-whl-w {
+    padding: 2.666667em 0;
+}
+
 .mbsc-ios .mbsc-sc-btn {
     color: #007aff;
-    background: #f7f7f7;
+    height: 2.666667em !important;
+    line-height: 2.666667em !important;
+    opacity: 1;
 }
 
 .mbsc-ios .mbsc-sc-btn:before {
