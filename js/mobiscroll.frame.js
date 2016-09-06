@@ -304,7 +304,7 @@
                 arrowHeight = arrow.offsetHeight;
 
                 // Horizontal positioning
-                left = constrain(anchorLeft - (modalWidth - anchorWidth) / 2, scrollLeft + 3, scrollLeft + newWidth - modalWidth - 3);
+                left = constrain(anchorLeft - (modalWidth - anchorWidth) / 2, scrollLeft + 8, scrollLeft + newWidth - modalWidth - 8);
 
                 // Vertical positioning
                 // Above the input
@@ -331,7 +331,7 @@
 
             if (needsDimensions) {
                 // If top + modal height > doc height, increase doc height
-                docHeight = Math.max(top + modalHeight, hasContext ? $ctx[0].scrollHeight : $(document).height());
+                docHeight = Math.max(top + modalHeight + 8, hasContext ? $ctx[0].scrollHeight : $(document).height());
                 docWidth = Math.max(left + modalWidth, hasContext ? $ctx[0].scrollWidth : $(document).width());
                 $persp.css({
                     width: docWidth,
@@ -339,12 +339,12 @@
                 });
 
                 // Check if scroll needed
-                if (s.display == 'bubble' && ((top + modalHeight > scrollTop + newHeight) || (anchorTop > scrollTop + newHeight) || (anchorTop + anchorHeight < scrollTop))) {
+                if (s.display == 'bubble' && ((top + modalHeight + 8 > scrollTop + newHeight) || (anchorTop > scrollTop + newHeight) || (anchorTop + anchorHeight < scrollTop))) {
                     preventPos = true;
                     setTimeout(function () {
                         preventPos = false;
                     }, 300);
-                    $wnd.scrollTop(Math.min(anchorTop, top + modalHeight - newHeight, docHeight - newHeight));
+                    $wnd.scrollTop(Math.min(anchorTop, top + modalHeight - newHeight + 8, docHeight - newHeight));
                 }
             }
 
