@@ -219,13 +219,16 @@
                 arrowHeight,
                 docHeight,
                 docWidth,
+                width,
                 top,
                 left,
                 css = {},
                 newHeight = $markup[0].offsetHeight,
                 newWidth = $markup[0].offsetWidth,
                 scrollLeft = 0,
-                scrollTop = 0;
+                scrollTop = 0,
+                minWidth = 0,
+                totalWidth = 0;
 
             if ((wndWidth === newWidth && wndHeight === newHeight && check) || preventPos || !isInserted) {
                 return;
@@ -246,6 +249,19 @@
                 } else {
                     $markup.removeClass('mbsc-fr-liq');
                 }
+            }
+
+            if (!that._isFullScreen && /center|bubble/.test(s.display)) {
+                $('.mbsc-w-p', $markup).each(function () {
+                    width = this.offsetWidth;
+                    totalWidth += width;
+                    minWidth = (width > minWidth) ? width : minWidth;
+                });
+
+                $wrapper.css({
+                    'width': totalWidth > newWidth ? minWidth : totalWidth,
+                    'white-space': totalWidth > newWidth ? '' : 'nowrap'
+                });
             }
 
             modalWidth = $popup[0].offsetWidth;
@@ -327,6 +343,14 @@
 
             wndWidth = newWidth;
             wndHeight = newHeight;
+
+            // Call position for nested mobiscroll components
+            $('.mbsc-comp', $markup).each(function () {
+                var inst = ms.instances[this.id];
+                if (inst !== that && inst.position) {
+                    inst.position();
+                }
+            });
         };
 
         /**
