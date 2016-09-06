@@ -145,9 +145,15 @@
     text-align: center;
 }
 
+.mbsc-ios .mbsc-sc-cp .mbsc-sc-whl-w {
+    padding: 2.666667em 0;
+}
+
 .mbsc-ios .mbsc-sc-btn {
     color: #007aff;
-    background: #f7f7f7;
+    height: 2.666667em !important;
+    line-height: 2.666667em !important;
+    opacity: 1;
 }
 
 .mbsc-ios .mbsc-sc-btn:before {
