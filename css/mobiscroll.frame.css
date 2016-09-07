@@ -42,6 +42,11 @@
     -webkit-overflow-scrolling: touch;
 }
 
+.mbsc-fr-scroll:focus {
+    outline: none;
+    outline-offset: -2px;
+}
+
 .mbsc-fr-popup {
     max-width: 98%;
     position: absolute;
@@ -56,11 +61,6 @@
     user-select: none;
     -ms-touch-action: pan-y;
     touch-action: pan-y;
-}
-
-.mbsc-fr-popup:focus {
-    outline: none;
-    outline-offset: -2px;
 }
 
 .mbsc-rtl {

@@ -41,7 +41,7 @@
 }
 
 .mbsc-ios.mbsc-fr-nobtn .mbsc-fr-hdr,
-.mbsc-ios.mbsc-fr-center .mbsc-fr-hdr {
+.mbsc-ios.mbsc-fr-center:not(.mbsc-cal-liq) .mbsc-fr-hdr {
     position: relative;
     padding: .75em .5em;
     border-bottom: 1px solid #ccc;

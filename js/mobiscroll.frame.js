@@ -40,6 +40,7 @@
             modalHeight,
             needsDimensions,
             needsLock,
+            overlay,
             popup,
             posEvents,
             preventPos,
@@ -98,7 +99,7 @@
 
         function onShow(prevFocus) {
             if (!prevFocus) {
-                popup.focus();
+                overlay.focus();
             }
             that.ariaMessage(s.ariaMessage);
         }
@@ -562,8 +563,8 @@
                 (that._isLiquid ? ' mbsc-fr-liq' : '') +
                 (needsLock ? ' mbsc-platform-ios' : '') +
                 (hasButtons ? (buttons.length >= 3 ? ' mbsc-fr-btn-block ' : '') : ' mbsc-fr-nobtn') + '">' +
-                (isModal ? '<div class="mbsc-fr-persp"><div class="mbsc-fr-overlay"></div><div class="mbsc-fr-scroll">' : '') + // Overlay
-                '<div' + (isModal ? ' role="dialog" tabindex="-1"' : '') + ' class="mbsc-fr-popup' +
+                (isModal ? '<div class="mbsc-fr-persp"><div class="mbsc-fr-overlay"></div><div role="dialog" tabindex="-1" class="mbsc-fr-scroll">' : '') + // Overlay
+                '<div class="mbsc-fr-popup' +
                 (s.rtl ? ' mbsc-rtl' : ' mbsc-ltr') +
                 (s.headerText ? ' mbsc-fr-has-hdr' : '') +
                 '">' + // Popup
@@ -605,6 +606,7 @@
             $ariaDiv = $('.mbsc-fr-aria', $markup);
 
             markup = $markup[0];
+            overlay = $overlay[0];
             popup = $popup[0];
 
             that._markup = $markup;
