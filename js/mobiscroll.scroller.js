@@ -10,7 +10,7 @@
         pref = util.prefix,
         getCoord = util.getCoord,
         testTouch = util.testTouch,
-        force2D = platform.name == 'wp' || (platform.name == 'ios' && platform.majorVersion < 8) || (platform.name == 'android' && platform.majorVersion < 5);
+        force2D = platform.name == 'wp' || platform.name == 'android' || (platform.name == 'ios' && platform.majorVersion < 8);
 
     ms.presetShort('scroller', 'Scroller', false);
 
