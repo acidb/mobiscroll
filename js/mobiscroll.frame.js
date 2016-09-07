@@ -563,7 +563,10 @@
                 (needsLock ? ' mbsc-platform-ios' : '') +
                 (hasButtons ? (buttons.length >= 3 ? ' mbsc-fr-btn-block ' : '') : ' mbsc-fr-nobtn') + '">' +
                 (isModal ? '<div class="mbsc-fr-persp"><div class="mbsc-fr-overlay"></div><div class="mbsc-fr-scroll">' : '') + // Overlay
-                '<div' + (isModal ? ' role="dialog" tabindex="-1"' : '') + ' class="mbsc-fr-popup' + (s.rtl ? ' mbsc-rtl' : ' mbsc-ltr') + '">' + // Popup
+                '<div' + (isModal ? ' role="dialog" tabindex="-1"' : '') + ' class="mbsc-fr-popup' +
+                (s.rtl ? ' mbsc-rtl' : ' mbsc-ltr') +
+                (s.headerText ? ' mbsc-fr-has-hdr' : '') +
+                '">' + // Popup
                 (s.display === 'bubble' ? '<div class="mbsc-fr-arr-w"><div class="mbsc-fr-arr-i"><div class="mbsc-fr-arr"></div></div></div>' : '') + // Bubble arrow
                 '<div class="mbsc-fr-w">' + // Popup content
                 '<div aria-live="assertive" class="mbsc-fr-aria mbsc-fr-hdn"></div>' +
