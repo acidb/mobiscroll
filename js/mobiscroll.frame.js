@@ -254,13 +254,13 @@
             }
 
             // Set / unset liquid layout based on screen width, but only if not set explicitly by the user
-            if (that._isLiquid && s.layout !== 'liquid') {
-                if (newWidth < 415) {
-                    $markup.addClass('mbsc-fr-liq');
-                } else {
-                    $markup.removeClass('mbsc-fr-liq');
-                }
-            }
+            // if (that._isLiquid && s.layout !== 'liquid') {
+            //     if (newWidth < 415) {
+            //         $markup.addClass('mbsc-fr-liq');
+            //     } else {
+            //         $markup.removeClass('mbsc-fr-liq');
+            //     }
+            // }
 
             if (!that._isFullScreen && /center|bubble/.test(s.display)) {
                 $('.mbsc-w-p', $markup).each(function () {
