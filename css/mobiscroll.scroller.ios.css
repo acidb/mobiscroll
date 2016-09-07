@@ -221,6 +221,10 @@
 
 /* Date & Time */
 
+.mbsc-ios .mbsc-dt-whl-y .mbsc-sc-itm {
+    min-width: 3.8em;
+}
+
 .mbsc-ios .mbsc-dt-whl-m .mbsc-sc-itm {
     text-align: left;
 }
