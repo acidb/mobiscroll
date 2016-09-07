@@ -331,7 +331,7 @@
 
             if (needsDimensions) {
                 // If top + modal height > doc height, increase doc height
-                docHeight = Math.max(top + modalHeight + 8, hasContext ? $ctx[0].scrollHeight : $(document).height());
+                docHeight = Math.max(top + modalHeight, hasContext ? $ctx[0].scrollHeight : $(document).height());
                 docWidth = Math.max(left + modalWidth, hasContext ? $ctx[0].scrollWidth : $(document).width());
                 $persp.css({
                     width: docWidth,
