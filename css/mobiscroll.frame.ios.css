@@ -17,11 +17,26 @@
 }
 
 .mbsc-ios .mbsc-fr-hdr {
-    padding: 0 .416667em;
-    color: #9d9d9d;
-    line-height: 2.5em;
+    padding: 0 4.375em;
+    color: #000;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    font-size: 1.333334em;
+    font-weight: bold;
     min-height: 2.5em;
+    line-height: 2.75em;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    z-index: 1;
+}
+
+.mbsc-ios .mbsc-fr-nobtn .mbsc-fr-hdr,
+.mbsc-ios.mbsc-fr-center .mbsc-fr-hdr {
     border-bottom: 1px solid #ccc;
+    padding: 0;
+    position: relative;
 }
 
 .mbsc-ios .mbsc-fr-btn-cont {
