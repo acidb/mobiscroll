@@ -153,7 +153,8 @@
         function onPosition(ev) {
             clearTimeout(posDebounce[ev.type]);
             posDebounce[ev.type] = setTimeout(function () {
-                var isScroll = ev.type == 'scroll';
+                var h,
+                    isScroll = ev.type == 'scroll';
 
                 if (isScroll && !scrollLock) {
                     return;
@@ -164,7 +165,7 @@
                 if (ev.type == 'orientationchange') {
                     // Trigger reflow
                     popup.style.display = 'none';
-                    popup.offsetHeight;
+                    h = popup.offsetHeight;
                     popup.style.display = '';
                 }
             }, 200);
