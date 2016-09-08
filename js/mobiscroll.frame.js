@@ -263,6 +263,14 @@
             //     }
             // }
 
+            // Call position for nested mobiscroll components
+            $('.mbsc-comp', $markup).each(function () {
+                var inst = ms.instances[this.id];
+                if (inst !== that && inst.position) {
+                    inst.position();
+                }
+            });
+
             if (!that._isFullScreen && /center|bubble/.test(s.display)) {
                 $('.mbsc-w-p', $markup).each(function () {
                     // Need fractional values here, so offsetWidth is not ok
@@ -356,14 +364,6 @@
 
             wndWidth = newWidth;
             wndHeight = newHeight;
-
-            // Call position for nested mobiscroll components
-            $('.mbsc-comp', $markup).each(function () {
-                var inst = ms.instances[this.id];
-                if (inst !== that && inst.position) {
-                    inst.position();
-                }
-            });
         };
 
         /**
