@@ -88,9 +88,10 @@
     border-bottom: 1px solid #ccc;
 }
 
-.mbsc-ios .mbsc-sc-whl-w {
+
+/*.mbsc-ios .mbsc-sc-whl-w {
     margin: 0 .333334em;
-}
+}*/
 
 .mbsc-ios .mbsc-sc-whl-w .mbsc-sc-whl-l {
     display: none;
@@ -230,6 +231,7 @@
 }
 
 .mbsc-ios .mbsc-dt-whl-d .mbsc-sc-itm,
-.mbsc-ios .mbsc-dt-whl-h .mbsc-sc-itm {
+.mbsc-ios .mbsc-dt-whl-h .mbsc-sc-itm,
+.mbsc-ios .mbsc-dt-whl-date .mbsc-sc-itm {
     text-align: right;
 }
