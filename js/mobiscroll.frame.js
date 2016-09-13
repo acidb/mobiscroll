@@ -247,6 +247,11 @@
                 return;
             }
 
+            if (that._isFullScreen || /top|bottom/.test(s.display)) {
+                // Set width, if document is larger than viewport, needs to be set before onPosition (for calendar)
+                $popup.width(newWidth);
+            }
+
             if (event('onPosition', {
                     target: markup,
                     windowWidth: newWidth,
@@ -336,7 +341,6 @@
             } else {
                 left = scrollLeft;
                 top = s.display == 'top' ? scrollTop : Math.max(0, scrollTop + newHeight - modalHeight);
-                css.width = newWidth;
             }
 
             if (needsDimensions) {
