@@ -111,7 +111,8 @@
     text-overflow: ellipsis;
 }
 
-.mbsc-sc-itm-inv {
+.mbsc-sc-itm-inv,
+.mbsc-sc-itm-inv-h {
     opacity: .3;
 }
 
