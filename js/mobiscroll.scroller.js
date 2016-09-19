@@ -270,6 +270,7 @@
                 value,
                 text,
                 lbl,
+                invalid,
                 selected,
                 html = '',
                 checked = that._tempSelected[index],
@@ -281,6 +282,7 @@
                 value = getItemValue(item);
                 css = item && item.cssClass !== undefined ? item.cssClass : '';
                 lbl = item && item.label !== undefined ? item.label : '';
+                invalid = item && item.invalid;
                 selected = value !== undefined && value == tempWheelArray[index] && !wheel.multiple;
 
                 // TODO: don't generate items with no value (use margin or placeholder instead)
@@ -289,6 +291,7 @@
                     (selected ? 'mbsc-sc-itm-sel ' : '') +
                     (checked[value] ? selectedClass : '') +
                     (value === undefined ? ' mbsc-sc-itm-ph' : ' mbsc-btn-e') +
+                    (invalid ? ' mbsc-sc-itm-inv-h mbsc-btn-d' : '') +
                     (disabled[value] ? ' mbsc-sc-itm-inv mbsc-btn-d' : '') +
                     '" data-index="' + i +
                     '" data-val="' + value + '"' +
@@ -418,7 +421,7 @@
             $.each(wheels, function (i, wheel) {
                 if (isVisible) {
                     // Enable all items
-                    wheel._$markup.find('.mbsc-sc-itm').removeClass('mbsc-sc-itm-inv mbsc-btn-d');
+                    wheel._$markup.find('.mbsc-sc-itm-inv').removeClass('mbsc-sc-itm-inv mbsc-btn-d');
                 }
                 wheel._disabled = {};
 
