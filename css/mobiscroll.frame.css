@@ -4,6 +4,7 @@
 }
 
 .mbsc-fr {
+    pointer-events: none;
     z-index: 99998;
     font-weight: normal;
     -webkit-font-smoothing: antialiased;
@@ -138,6 +139,7 @@
 
 .mbsc-fr-inline {
     position: static;
+    pointer-events: auto;
 }
 
 .mbsc-fr-inline .mbsc-fr-popup {
