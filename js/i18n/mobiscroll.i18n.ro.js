@@ -25,6 +25,7 @@
         nowText: 'Acum',
         amText: 'am',
         pmText: 'pm',
+        todayText: 'Astăzi',
         // Calendar component
         firstDay: 1,
         dateText: 'Data',

@@ -27,6 +27,7 @@
         nowText: 'Actualizar',
         pmText: 'da tarde',
         amText: 'da manhã',
+        todayText: 'Hoy',
         // Calendar component
         firstDay: 1,
         dateText: 'Data',
