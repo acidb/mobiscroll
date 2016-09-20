@@ -24,6 +24,7 @@
         nowText: 'Ahora',
         pmText: 'pm',
         amText: 'am',
+        todayText: 'Hoy',
         // Calendar component
         firstDay: 1,
         dateText: 'Fecha',
