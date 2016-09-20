@@ -120,7 +120,9 @@
                 startPos = +getCurrentPosition(target, vertical) || 0;
 
                 // Stop scrolling animation, 1ms is needed for Android 4.0
-                scroll(startPos, isIOS ? 0 : 1);
+                if (moving) {
+                    scroll(startPos, isIOS ? 0 : 1);
+                }
 
                 if (ev.type === 'mousedown') {
                     $(document).on('mousemove', onMove).on('mouseup', onEnd);
