@@ -27,6 +27,7 @@
         nowText: 'Agora',
         pmText: 'da tarde',
         amText: 'da manhã',
+        todayText: 'Hoje',
         // Calendar component
         dateText: 'Data',
         timeText: 'Tempo',

@@ -41,6 +41,7 @@
             moving,
             nativeScroll,
             rafID,
+            rafMoveID,
             rafRunning,
             scrolled,
             scrollDebounce,
@@ -119,7 +120,9 @@
                 startPos = +getCurrentPosition(target, vertical) || 0;
 
                 // Stop scrolling animation, 1ms is needed for Android 4.0
-                scroll(startPos, isIOS ? 0 : 1);
+                if (moving) {
+                    scroll(startPos, isIOS ? 0 : 1);
+                }
 
                 if (ev.type === 'mousedown') {
                     $(document).on('mousemove', onMove).on('mouseup', onEnd);
@@ -335,7 +338,7 @@
                 newPos = constrain(newPos, minScroll, maxScroll);
             }
 
-            time = s.time || (currPos < minScroll || currPos > maxScroll ? 200 : Math.max(200, Math.abs(newPos - currPos) * s.timeUnit));
+            time = s.time || (currPos < minScroll || currPos > maxScroll ? 1000 : Math.max(1000, Math.abs(newPos - currPos) * s.timeUnit));
 
             eventObj.destinationX = vertical ? 0 : newPos;
             eventObj.destinationY = vertical ? newPos : 0;
@@ -348,11 +351,13 @@
             scroll(newPos, time);
         }
 
-        function scroll(pos, time, callback) {
+        function scroll(pos, time, tap, callback) {
             var changed = pos != currPos,
                 anim = time > 1,
                 done = function () {
                     clearInterval(scrollTimer);
+                    clearTimeout(transTimer);
+                    rafc(rafMoveID);
 
                     moving = false;
                     currPos = pos;
@@ -398,20 +403,26 @@
             if ((!changed && !moving) || !time || time <= 1) {
                 done();
             } else if (time) {
-                moving = true;
+                moving = !tap;
 
                 clearInterval(scrollTimer);
                 scrollTimer = setInterval(function () {
-                    var p = +getCurrentPosition(target, vertical) || 0;
-                    eventObj.posX = vertical ? 0 : p;
-                    eventObj.posY = vertical ? p : 0;
-                    trigger('onMove', eventObj);
+                    rafMoveID = raf(function () {
+                        var p = +getCurrentPosition(target, vertical) || 0;
+                        eventObj.posX = vertical ? 0 : p;
+                        eventObj.posY = vertical ? p : 0;
+                        trigger('onMove', eventObj);
+                        // Trigger done if close to the end
+                        if (Math.abs(p - pos) < 2) {
+                            done();
+                        }
+                    });
                 }, 100);
 
                 clearTimeout(transTimer);
                 transTimer = setTimeout(function () {
                     done();
-                    style[pr + 'Transition'] = '';
+                    //style[pr + 'Transition'] = '';
                 }, time);
 
                 // target.off(transEnd).on(transEnd, function (e) {
@@ -421,6 +432,10 @@
                 //         done();
                 //     }
                 // });
+            }
+
+            if (s.sync) {
+                s.sync(pos, time, easing);
             }
         }
 
@@ -432,7 +447,7 @@
         /**
          * Scroll to the given position or element
          */
-        that.scroll = function (pos, time, callback) {
+        that.scroll = function (pos, time, tap, callback) {
             // If position is not numeric, scroll to element
             if (!isNumeric(pos)) {
                 pos = Math.ceil(($(pos, el).length ? Math.round(target.offset()[dir] - $(pos, el).offset()[dir]) : currPos) / snap) * snap;
@@ -444,7 +459,7 @@
 
             startPos = currPos;
 
-            scroll(constrain(pos, minScroll, maxScroll), time, callback);
+            scroll(constrain(pos, minScroll, maxScroll), time, tap, callback);
         };
 
         that.refresh = function (noScroll) {
@@ -552,12 +567,12 @@
         _class: 'scrollview',
         _defaults: {
             speedUnit: 0.0022,
-            timeUnit: 0.8,
-            //timeUnit: 3,
+            //timeUnit: 0.8,
+            timeUnit: 3,
             initialPos: 0,
             axis: 'Y',
-            easing: 'ease-out',
-            //easing: 'cubic-bezier(0.190, 1.000, 0.220, 1.000)',
+            //easing: 'ease-out',
+            easing: 'cubic-bezier(0.190, 1.000, 0.220, 1.000)',
             stopProp: true,
             momentum: true,
             mousewheel: true,

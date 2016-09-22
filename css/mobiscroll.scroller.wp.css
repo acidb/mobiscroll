@@ -9,7 +9,7 @@
     padding: .1875em;
 }
 
-.mbsc-wp .mbsc-sc-lbl-v {
+.mbsc-wp .mbsc-sc-lbl-v .mbsc-sc-whl-gr {
     padding-top: 1.875em;
 }
 
@@ -156,4 +156,8 @@
     line-height: 1.636363em;
     font-size: .423076em;
     letter-spacing: normal;
+}
+
+.mbsc-wp .mbsc-dt-whl-date .mbsc-sc-itm {
+    font-size: 1.25em;
 }

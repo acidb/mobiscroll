@@ -24,6 +24,7 @@
         nowText: 'Şimdi',
         pmText: 'akşam',
         amText: 'sabah',
+        todayText: 'Bugün',
         // Calendar component
         firstDay: 1,
         dateText: 'Tarih',

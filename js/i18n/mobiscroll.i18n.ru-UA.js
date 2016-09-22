@@ -24,6 +24,7 @@
         nowText: 'Сейчас',
         amText: 'До полудня',
         pmText: 'После полудня',
+        todayText: 'Cегодня',
         // Calendar component
         firstDay: 1,
         dateText: 'Дата',

@@ -23,6 +23,7 @@
         nowText: 'Teraz',
         amText: 'rano',
         pmText: 'po południu',
+        todayText: 'Dzisiaj',
         // Calendar component
         firstDay: 1,
         dateText: 'Data',

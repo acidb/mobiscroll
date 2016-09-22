@@ -24,6 +24,7 @@
         nowText: 'Maintenant',
         pmText: 'après-midi',
         amText: 'avant-midi',
+        todayText: "Aujourd'hui",
         // Calendar component
         firstDay: 1,
         dateText: 'Date',
