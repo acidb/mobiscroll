@@ -337,8 +337,8 @@ var mobiscroll = mobiscroll || {};
                     if (isFunction(targetSelector) || targetSelector === false) {
                         // Usual events
                         if (isFunction(targetSelector)) {
-                            listener = arguments[1];
-                            capture = arguments[2] || false;
+                            capture = listener || false;
+                            listener = targetSelector;
                         }
                         for (j = 0; j < events.length; j++) {
                             // check for namespaces
@@ -409,8 +409,8 @@ var mobiscroll = mobiscroll || {};
                         if (isFunction(targetSelector) || targetSelector === false) {
                             // Usual events
                             if (isFunction(targetSelector)) {
-                                listener = arguments[1];
-                                capture = arguments[2] || false;
+                                capture = listener || false;
+                                listener = targetSelector;
                             }
 
                             if (events[i].indexOf('.') === 0) { // remove namespace events
