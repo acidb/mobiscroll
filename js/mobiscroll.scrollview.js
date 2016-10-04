@@ -41,7 +41,7 @@
             moving,
             nativeScroll,
             rafID,
-            rafMoveID,
+            //rafMoveID,
             rafRunning,
             scrolled,
             scrollDebounce,
@@ -357,7 +357,7 @@
                 done = function () {
                     clearInterval(scrollTimer);
                     clearTimeout(transTimer);
-                    rafc(rafMoveID);
+                    //rafc(rafMoveID);
 
                     moving = false;
                     currPos = pos;
@@ -407,16 +407,16 @@
 
                 clearInterval(scrollTimer);
                 scrollTimer = setInterval(function () {
-                    rafMoveID = raf(function () {
-                        var p = +getCurrentPosition(target, vertical) || 0;
-                        eventObj.posX = vertical ? 0 : p;
-                        eventObj.posY = vertical ? p : 0;
-                        trigger('onMove', eventObj);
-                        // Trigger done if close to the end
-                        if (Math.abs(p - pos) < 2) {
-                            done();
-                        }
-                    });
+                    //rafMoveID = raf(function () {
+                    var p = +getCurrentPosition(target, vertical) || 0;
+                    eventObj.posX = vertical ? 0 : p;
+                    eventObj.posY = vertical ? p : 0;
+                    trigger('onMove', eventObj);
+                    // Trigger done if close to the end
+                    if (Math.abs(p - pos) < 2) {
+                        done();
+                    }
+                    //});
                 }, 100);
 
                 clearTimeout(transTimer);
