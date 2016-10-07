@@ -683,59 +683,6 @@
                 }
             }
 
-            $markup
-                .on('selectstart mousedown', prevdef) // Prevents blue highlight on Android and text selection in IE
-                .on('click', '.mbsc-fr-btn-e', prevdef)
-                .on('keydown', '.mbsc-fr-btn-e', function (ev) {
-                    if (ev.keyCode == 32) { // Space
-                        ev.preventDefault();
-                        ev.stopPropagation();
-                        this.click();
-                    }
-                })
-                .on('keydown', function (ev) { // Trap focus inside modal
-                    if (ev.keyCode == 32) { // Space
-                        ev.preventDefault();
-                    } else if (ev.keyCode == 9 && isModal && s.focusTrap) { // Tab
-                        var $focusable = $markup.find('[tabindex="0"]').filter(function () {
-                                return this.offsetWidth > 0 || this.offsetHeight > 0;
-                            }),
-                            index = $focusable.index($(':focus', $markup)),
-                            i = $focusable.length - 1,
-                            target = 0;
-
-                        if (ev.shiftKey) {
-                            i = 0;
-                            target = -1;
-                        }
-
-                        if (index === i) {
-                            $focusable.eq(target)[0].focus();
-                            ev.preventDefault();
-                        }
-                    }
-                })
-                .on('touchstart mousedown pointerdown', '.mbsc-fr-btn-e', onBtnStart)
-                .on('touchend', '.mbsc-fr-btn-e', onBtnEnd);
-
-            $('input,select,textarea', $markup).on('selectstart mousedown', function (ev) {
-                ev.stopPropagation();
-            }).on('keydown', function (ev) {
-                if (ev.keyCode == 32) { // Space
-                    ev.stopPropagation();
-                }
-            });
-
-            // Init buttons
-            $.each(buttons, function (i, b) {
-                that.tap($('.mbsc-fr-btn' + i, $markup), function (ev) {
-                    b = isString(b) ? that.buttons[b] : b;
-                    (isString(b.handler) ? that.handlers[b.handler] : b.handler).call(this, ev, that);
-                }, true);
-            });
-
-            that._attachEvents($markup);
-
             // Wait for the toolbar and addressbar to appear on iOS
             setTimeout(function () {
                 // Show
@@ -756,6 +703,59 @@
                 event('onMarkupInserted', {
                     target: markup
                 });
+
+                $markup
+                    .on('selectstart mousedown', prevdef) // Prevents blue highlight on Android and text selection in IE
+                    .on('click', '.mbsc-fr-btn-e', prevdef)
+                    .on('keydown', '.mbsc-fr-btn-e', function (ev) {
+                        if (ev.keyCode == 32) { // Space
+                            ev.preventDefault();
+                            ev.stopPropagation();
+                            this.click();
+                        }
+                    })
+                    .on('keydown', function (ev) { // Trap focus inside modal
+                        if (ev.keyCode == 32) { // Space
+                            ev.preventDefault();
+                        } else if (ev.keyCode == 9 && isModal && s.focusTrap) { // Tab
+                            var $focusable = $markup.find('[tabindex="0"]').filter(function () {
+                                    return this.offsetWidth > 0 || this.offsetHeight > 0;
+                                }),
+                                index = $focusable.index($(':focus', $markup)),
+                                i = $focusable.length - 1,
+                                target = 0;
+
+                            if (ev.shiftKey) {
+                                i = 0;
+                                target = -1;
+                            }
+
+                            if (index === i) {
+                                $focusable.eq(target)[0].focus();
+                                ev.preventDefault();
+                            }
+                        }
+                    })
+                    .on('touchstart mousedown pointerdown', '.mbsc-fr-btn-e', onBtnStart)
+                    .on('touchend', '.mbsc-fr-btn-e', onBtnEnd);
+
+                $('input,select,textarea', $markup).on('selectstart mousedown', function (ev) {
+                    ev.stopPropagation();
+                }).on('keydown', function (ev) {
+                    if (ev.keyCode == 32) { // Space
+                        ev.stopPropagation();
+                    }
+                });
+
+                // Init buttons
+                $.each(buttons, function (i, b) {
+                    that.tap($('.mbsc-fr-btn' + i, $markup), function (ev) {
+                        b = isString(b) ? that.buttons[b] : b;
+                        (isString(b.handler) ? that.handlers[b.handler] : b.handler).call(this, ev, that);
+                    }, true);
+                });
+
+                that._attachEvents($markup);
 
                 // Set position
                 that.position();
