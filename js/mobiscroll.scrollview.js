@@ -468,6 +468,7 @@
             contSize = s.contSize === undefined ? vertical ? $elm.height() : $elm.width() : s.contSize;
             minScroll = s.minScroll === undefined ? (vertical ? contSize - target.height() : contSize - target.width()) : s.minScroll;
             maxScroll = s.maxScroll === undefined ? 0 : s.maxScroll;
+            snapPoints = null;
 
             if (!vertical && s.rtl) {
                 tempScroll = maxScroll;
