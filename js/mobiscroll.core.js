@@ -190,6 +190,29 @@ var mobiscroll = mobiscroll || {};
                 if ('vibrate' in navigator) {
                     navigator.vibrate(time || 50);
                 }
+            },
+            throttle: function (fn, threshhold) {
+                var last,
+                    timer;
+
+                threshhold = threshhold || 100;
+
+                return function () {
+                    var context = this,
+                        now = +new Date(),
+                        args = arguments;
+
+                    if (last && now < last + threshhold) {
+                        clearTimeout(timer);
+                        timer = setTimeout(function () {
+                            last = now;
+                            fn.apply(context, args);
+                        }, threshhold);
+                    } else {
+                        last = now;
+                        fn.apply(context, args);
+                    }
+                };
             }
         },
         tapped: 0,

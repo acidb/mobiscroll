@@ -544,9 +544,11 @@ var mobiscroll = mobiscroll || {};
             },
             show: function () {
                 for (var i = 0; i < this.length; i++) {
-                    this[i].style.display == "none" && (this[i].style.display = 'block');
+                    if (this[i].style.display == "none") {
+                        this[i].style.display = '';
+                    }
 
-                    if (this[i].style.getPropertyValue("display") == "none") {
+                    if (getComputedStyle(this[i], '').getPropertyValue("display") == "none") {
                         this[i].style.display = 'block';
                     }
                 }
@@ -562,10 +564,8 @@ var mobiscroll = mobiscroll || {};
                 return this[0] ? window.getComputedStyle(this[0], null) : undefined;
             },
             css: function (property, value) {
-                var computedStyle,
-                    i,
+                var i,
                     key,
-                    props,
                     element = this[0],
                     css = '';
 
@@ -573,16 +573,7 @@ var mobiscroll = mobiscroll || {};
                     if (!element) {
                         return;
                     }
-                    computedStyle = getComputedStyle(element, '');
-                    if (typeof property === 'string') {
-                        return element.style[property] || computedStyle.getPropertyValue(property);
-                    } else if ($.isArray(property)) {
-                        props = {};
-                        $.each(property, function (_, prop) {
-                            props[prop] = (element.style[prop] || computedStyle.getPropertyValue(prop));
-                        });
-                        return props;
-                    }
+                    return element.style[property] || getComputedStyle(element, '').getPropertyValue(property);
                 }
 
                 if (typeof property === 'string') {
