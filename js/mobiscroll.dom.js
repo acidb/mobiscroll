@@ -573,7 +573,9 @@ var mobiscroll = mobiscroll || {};
                     if (!element) {
                         return;
                     }
-                    return element.style[property] || getComputedStyle(element, '').getPropertyValue(property);
+                    if (typeof property === 'string') {
+                        return element.style[property] || getComputedStyle(element, '').getPropertyValue(property);
+                    }
                 }
 
                 if (typeof property === 'string') {
