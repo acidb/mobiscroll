@@ -385,14 +385,14 @@ var mobiscroll = mobiscroll || {};
 
             function onMove(ev) {
                 // If movement is more than 20px, don't fire the click event handler
-                if (target && new Date() - startTime > 100 && !moved && (Math.abs(getCoord(ev, 'X') - startX) > tolerance || Math.abs(getCoord(ev, 'Y') - startY) > tolerance)) {
+                if (target && !moved && (Math.abs(getCoord(ev, 'X') - startX) > tolerance || Math.abs(getCoord(ev, 'Y') - startY) > tolerance)) {
                     moved = true;
                 }
             }
 
             function onEnd(ev) {
                 if (target) {
-                    if (!moved) {
+                    if (!moved && new Date() - startTime > 100) {
                         ev.preventDefault();
                         handler.call(target, ev, that);
                     }
