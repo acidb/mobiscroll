@@ -364,7 +364,8 @@ var mobiscroll = mobiscroll || {};
             var startX,
                 startY,
                 target,
-                moved;
+                moved,
+                startTime;
 
             tolerance = tolerance || 9;
 
@@ -378,12 +379,13 @@ var mobiscroll = mobiscroll || {};
                     startX = getCoord(ev, 'X');
                     startY = getCoord(ev, 'Y');
                     moved = false;
+                    startTime = new Date();
                 }
             }
 
             function onMove(ev) {
                 // If movement is more than 20px, don't fire the click event handler
-                if (target && !moved && (Math.abs(getCoord(ev, 'X') - startX) > tolerance || Math.abs(getCoord(ev, 'Y') - startY) > tolerance)) {
+                if (target && new Date() - startTime > 100 && !moved && (Math.abs(getCoord(ev, 'X') - startX) > tolerance || Math.abs(getCoord(ev, 'Y') - startY) > tolerance)) {
                     moved = true;
                 }
             }
