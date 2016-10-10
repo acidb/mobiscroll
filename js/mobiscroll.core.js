@@ -360,11 +360,13 @@ var mobiscroll = mobiscroll || {};
         /**
          * Attach tap event to the given element.
          */
-        that.tap = function (el, handler, prevent) {
+        that.tap = function (el, handler, prevent, tolerance) {
             var startX,
                 startY,
                 target,
                 moved;
+
+            tolerance = tolerance || 9;
 
             function onStart(ev) {
                 if (!target) {
@@ -381,7 +383,7 @@ var mobiscroll = mobiscroll || {};
 
             function onMove(ev) {
                 // If movement is more than 20px, don't fire the click event handler
-                if (target && !moved && (Math.abs(getCoord(ev, 'X') - startX) > 9 || Math.abs(getCoord(ev, 'Y') - startY) > 9)) {
+                if (target && !moved && (Math.abs(getCoord(ev, 'X') - startX) > tolerance || Math.abs(getCoord(ev, 'Y') - startY) > tolerance)) {
                     moved = true;
                 }
             }
