@@ -7,10 +7,13 @@
     background: rgba(0, 0, 0, .2);
 }
 
-.mbsc-ios .mbsc-fr-w {
-    position: relative;
+.mbsc-ios .mbsc-fr-popup {
     background: #f7f7f7;
     color: #000;
+}
+
+.mbsc-ios .mbsc-fr-w {
+    position: relative;
     padding-top: 3.666667em;
     font-size: 12px;
     font-family: -apple-system, Helvetica Neue, Helvetica, Arial, sans-serif;
@@ -90,8 +93,8 @@
 
 /* Bubble arrow */
 
-.mbsc-ios.mbsc-fr-bubble .mbsc-fr-w,
-.mbsc-ios.mbsc-fr-center .mbsc-fr-w {
+.mbsc-ios.mbsc-fr-bubble .mbsc-fr-popup,
+.mbsc-ios.mbsc-fr-center .mbsc-fr-popup {
     border-radius: 8px;
 }
 
@@ -214,9 +217,6 @@
 
 .mbsc-ios.mbsc-fr-inline .mbsc-fr-popup {
     border: 0;
-}
-
-.mbsc-ios.mbsc-fr-inline .mbsc-fr-w {
     border-radius: 0;
     background: #fff;
 }

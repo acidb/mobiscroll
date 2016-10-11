@@ -1,9 +1,9 @@
-.mbsc-ios.mbsc-sc.mbsc-fr-top .mbsc-fr-w,
-.mbsc-ios.mbsc-sc.mbsc-fr-bottom .mbsc-fr-w {
+.mbsc-ios.mbsc-sc.mbsc-fr-top .mbsc-fr-popup,
+.mbsc-ios.mbsc-sc.mbsc-fr-bottom .mbsc-fr-popup {
     background: #d1d5db;
 }
 
-.mbsc-ios.mbsc-calendar .mbsc-fr-popup .mbsc-fr-w {
+.mbsc-ios.mbsc-calendar .mbsc-fr-popup .mbsc-fr-popup {
     background: #f7f7f7;
 }
 
