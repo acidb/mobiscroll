@@ -232,18 +232,25 @@
                 arrowHeight,
                 docHeight,
                 docWidth,
+                newHeight,
+                newWidth,
                 width,
                 top,
                 left,
                 css = {},
-                newHeight = markup.offsetHeight,
-                newWidth = markup.offsetWidth,
                 scrollLeft = 0,
                 scrollTop = 0,
                 minWidth = 0,
                 totalWidth = 0;
 
-            if ((wndWidth === newWidth && wndHeight === newHeight && check) || preventPos || !isInserted) {
+            if (preventPos || !isInserted) {
+                return;
+            }
+
+            newHeight = markup.offsetHeight;
+            newWidth = markup.offsetWidth;
+
+            if (wndWidth === newWidth && wndHeight === newHeight && check) {
                 return;
             }
 
@@ -272,7 +279,7 @@
             // Call position for nested mobiscroll components
             $('.mbsc-comp', $markup).each(function () {
                 var inst = ms.instances[this.id];
-                if (inst !== that && inst.position) {
+                if (inst && inst !== that && inst.position) {
                     inst.position();
                 }
             });
