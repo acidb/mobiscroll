@@ -360,7 +360,7 @@
                 });
 
                 // Check if scroll needed
-                if (s.display == 'bubble' && ((top + modalHeight + 8 > scrollTop + newHeight) || (anchorTop > scrollTop + newHeight) || (anchorTop + anchorHeight < scrollTop))) {
+                if (s.scroll && s.display == 'bubble' && ((top + modalHeight + 8 > scrollTop + newHeight) || (anchorTop > scrollTop + newHeight) || (anchorTop + anchorHeight < scrollTop))) {
                     preventPos = true;
                     setTimeout(function () {
                         preventPos = false;
@@ -1018,6 +1018,7 @@
         showOnFocus: false,
         showOnTap: true,
         display: 'center',
+        scroll: true,
         scrollLock: true,
         tap: true,
         btnClass: 'mbsc-fr-btn',
