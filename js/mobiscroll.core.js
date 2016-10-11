@@ -415,7 +415,7 @@ var mobiscroll = mobiscroll || {};
 
             function onEnd(ev) {
                 if (target) {
-                    if (new Date() - startTime < 100 && !moved) {
+                    if (new Date() - startTime < 100 || !moved) {
                         ev.preventDefault();
                         handler.call(target, ev, that);
                     }
