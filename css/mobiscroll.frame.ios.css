@@ -154,6 +154,10 @@
 
 /* Center display button  */
 
+.mbsc-ios.mbsc-fr-center .mbsc-fr-popup {
+    overflow: hidden;
+}
+
 .mbsc-ios.mbsc-fr-center .mbsc-fr-w {
     padding-top: 0;
     padding-bottom: 3.75em;
