@@ -528,9 +528,9 @@
         function setValue(fill, change, time, noscroll, temp) {
             if (!noscroll) {
                 scrollToPos(time);
+            } else {
+                that._tempValue = s.formatValue(that._tempWheelArray, that);
             }
-
-            //that._tempValue = s.formatValue(that._tempWheelArray, that);
 
             if (!temp) {
                 that._wheelArray = tempWheelArray.slice(0);
@@ -838,7 +838,7 @@
                 });
             });
 
-            setValue();
+            setValue(false, false, 0, true);
 
             trigger('onRead');
         };
