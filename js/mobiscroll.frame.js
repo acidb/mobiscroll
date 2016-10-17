@@ -40,6 +40,7 @@
             modalHeight,
             needsDimensions,
             needsLock,
+            overlay,
             popup,
             posEvents,
             preventPos,
@@ -98,7 +99,7 @@
 
         function onShow(prevFocus) {
             if (!prevFocus) {
-                popup.focus();
+                overlay.focus();
             }
             that.ariaMessage(s.ariaMessage);
         }
@@ -152,7 +153,8 @@
         function onPosition(ev) {
             clearTimeout(posDebounce[ev.type]);
             posDebounce[ev.type] = setTimeout(function () {
-                var isScroll = ev.type == 'scroll';
+                var h,
+                    isScroll = ev.type == 'scroll';
 
                 if (isScroll && !scrollLock) {
                     return;
@@ -163,7 +165,7 @@
                 if (ev.type == 'orientationchange') {
                     // Trigger reflow
                     popup.style.display = 'none';
-                    popup.offsetHeight;
+                    h = popup.offsetHeight;
                     popup.style.display = '';
                 }
             }, 200);
@@ -230,22 +232,32 @@
                 arrowHeight,
                 docHeight,
                 docWidth,
+                newHeight,
+                newWidth,
                 width,
                 top,
                 left,
                 css = {},
-                newHeight = markup.offsetHeight,
-                newWidth = markup.offsetWidth,
                 scrollLeft = 0,
                 scrollTop = 0,
                 minWidth = 0,
                 totalWidth = 0;
 
-            if ((wndWidth === newWidth && wndHeight === newHeight && check) || preventPos || !isInserted) {
+            if (preventPos || !isInserted) {
                 return;
             }
 
-            that._position($markup);
+            newHeight = markup.offsetHeight;
+            newWidth = markup.offsetWidth;
+
+            if (wndWidth === newWidth && wndHeight === newHeight && check) {
+                return;
+            }
+
+            if (that._isFullScreen || /top|bottom/.test(s.display)) {
+                // Set width, if document is larger than viewport, needs to be set before onPosition (for calendar)
+                $popup.width(newWidth);
+            }
 
             if (event('onPosition', {
                     target: markup,
@@ -263,6 +275,14 @@
             //         $markup.removeClass('mbsc-fr-liq');
             //     }
             // }
+
+            // Call position for nested mobiscroll components
+            $('.mbsc-comp', $markup).each(function () {
+                var inst = ms.instances[this.id];
+                if (inst && inst !== that && inst.position) {
+                    inst.position();
+                }
+            });
 
             if (!that._isFullScreen && /center|bubble/.test(s.display)) {
                 $('.mbsc-w-p', $markup).each(function () {
@@ -328,7 +348,6 @@
             } else {
                 left = scrollLeft;
                 top = s.display == 'top' ? scrollTop : Math.max(0, scrollTop + newHeight - modalHeight);
-                css.width = newWidth;
             }
 
             if (needsDimensions) {
@@ -341,7 +360,7 @@
                 });
 
                 // Check if scroll needed
-                if (s.display == 'bubble' && ((top + modalHeight + 8 > scrollTop + newHeight) || (anchorTop > scrollTop + newHeight) || (anchorTop + anchorHeight < scrollTop))) {
+                if (s.scroll && s.display == 'bubble' && ((top + modalHeight + 8 > scrollTop + newHeight) || (anchorTop > scrollTop + newHeight) || (anchorTop + anchorHeight < scrollTop))) {
                     preventPos = true;
                     setTimeout(function () {
                         preventPos = false;
@@ -357,14 +376,6 @@
 
             wndWidth = newWidth;
             wndHeight = newHeight;
-
-            // Call position for nested mobiscroll components
-            $('.mbsc-comp', $markup).each(function () {
-                var inst = ms.instances[this.id];
-                if (inst !== that && inst.position) {
-                    inst.position();
-                }
-            });
         };
 
         /**
@@ -564,8 +575,11 @@
                 (that._isLiquid ? ' mbsc-fr-liq' : '') +
                 (needsLock ? ' mbsc-platform-ios' : '') +
                 (hasButtons ? (buttons.length >= 3 ? ' mbsc-fr-btn-block ' : '') : ' mbsc-fr-nobtn') + '">' +
-                (isModal ? '<div class="mbsc-fr-persp"><div class="mbsc-fr-overlay"></div><div class="mbsc-fr-scroll">' : '') + // Overlay
-                '<div' + (isModal ? ' role="dialog" tabindex="-1"' : '') + ' class="mbsc-fr-popup' + (s.rtl ? ' mbsc-rtl' : ' mbsc-ltr') + '">' + // Popup
+                (isModal ? '<div class="mbsc-fr-persp"><div class="mbsc-fr-overlay"></div><div role="dialog" tabindex="-1" class="mbsc-fr-scroll">' : '') + // Overlay
+                '<div class="mbsc-fr-popup' +
+                (s.rtl ? ' mbsc-rtl' : ' mbsc-ltr') +
+                (s.headerText ? ' mbsc-fr-has-hdr' : '') +
+                '">' + // Popup
                 (s.display === 'bubble' ? '<div class="mbsc-fr-arr-w"><div class="mbsc-fr-arr-i"><div class="mbsc-fr-arr"></div></div></div>' : '') + // Bubble arrow
                 '<div class="mbsc-fr-w">' + // Popup content
                 '<div aria-live="assertive" class="mbsc-fr-aria mbsc-fr-hdn"></div>' +
@@ -604,6 +618,7 @@
             $ariaDiv = $('.mbsc-fr-aria', $markup);
 
             markup = $markup[0];
+            overlay = $overlay[0];
             popup = $popup[0];
 
             that._markup = $markup;
@@ -675,59 +690,6 @@
                 }
             }
 
-            $markup
-                .on('selectstart mousedown', prevdef) // Prevents blue highlight on Android and text selection in IE
-                .on('click', '.mbsc-fr-btn-e', prevdef)
-                .on('keydown', '.mbsc-fr-btn-e', function (ev) {
-                    if (ev.keyCode == 32) { // Space
-                        ev.preventDefault();
-                        ev.stopPropagation();
-                        this.click();
-                    }
-                })
-                .on('keydown', function (ev) { // Trap focus inside modal
-                    if (ev.keyCode == 32) { // Space
-                        ev.preventDefault();
-                    } else if (ev.keyCode == 9 && isModal && s.focusTrap) { // Tab
-                        var $focusable = $markup.find('[tabindex="0"]').filter(function () {
-                                return this.offsetWidth > 0 || this.offsetHeight > 0;
-                            }),
-                            index = $focusable.index($(':focus', $markup)),
-                            i = $focusable.length - 1,
-                            target = 0;
-
-                        if (ev.shiftKey) {
-                            i = 0;
-                            target = -1;
-                        }
-
-                        if (index === i) {
-                            $focusable.eq(target)[0].focus();
-                            ev.preventDefault();
-                        }
-                    }
-                })
-                .on('touchstart mousedown pointerdown', '.mbsc-fr-btn-e', onBtnStart)
-                .on('touchend', '.mbsc-fr-btn-e', onBtnEnd);
-
-            $('input,select,textarea', $markup).on('selectstart mousedown', function (ev) {
-                ev.stopPropagation();
-            }).on('keydown', function (ev) {
-                if (ev.keyCode == 32) { // Space
-                    ev.stopPropagation();
-                }
-            });
-
-            // Init buttons
-            $.each(buttons, function (i, b) {
-                that.tap($('.mbsc-fr-btn' + i, $markup), function (ev) {
-                    b = isString(b) ? that.buttons[b] : b;
-                    (isString(b.handler) ? that.handlers[b.handler] : b.handler).call(this, ev, that);
-                }, true);
-            });
-
-            that._attachEvents($markup);
-
             // Wait for the toolbar and addressbar to appear on iOS
             setTimeout(function () {
                 // Show
@@ -748,6 +710,59 @@
                 event('onMarkupInserted', {
                     target: markup
                 });
+
+                $markup
+                    .on('selectstart mousedown', prevdef) // Prevents blue highlight on Android and text selection in IE
+                    .on('click', '.mbsc-fr-btn-e', prevdef)
+                    .on('keydown', '.mbsc-fr-btn-e', function (ev) {
+                        if (ev.keyCode == 32) { // Space
+                            ev.preventDefault();
+                            ev.stopPropagation();
+                            this.click();
+                        }
+                    })
+                    .on('keydown', function (ev) { // Trap focus inside modal
+                        if (ev.keyCode == 32) { // Space
+                            ev.preventDefault();
+                        } else if (ev.keyCode == 9 && isModal && s.focusTrap) { // Tab
+                            var $focusable = $markup.find('[tabindex="0"]').filter(function () {
+                                    return this.offsetWidth > 0 || this.offsetHeight > 0;
+                                }),
+                                index = $focusable.index($(':focus', $markup)),
+                                i = $focusable.length - 1,
+                                target = 0;
+
+                            if (ev.shiftKey) {
+                                i = 0;
+                                target = -1;
+                            }
+
+                            if (index === i) {
+                                $focusable.eq(target)[0].focus();
+                                ev.preventDefault();
+                            }
+                        }
+                    })
+                    .on('touchstart mousedown pointerdown', '.mbsc-fr-btn-e', onBtnStart)
+                    .on('touchend', '.mbsc-fr-btn-e', onBtnEnd);
+
+                $('input,select,textarea', $markup).on('selectstart mousedown', function (ev) {
+                    ev.stopPropagation();
+                }).on('keydown', function (ev) {
+                    if (ev.keyCode == 32) { // Space
+                        ev.stopPropagation();
+                    }
+                });
+
+                // Init buttons
+                $.each(buttons, function (i, b) {
+                    that.tap($('.mbsc-fr-btn' + i, $markup), function (ev) {
+                        b = isString(b) ? that.buttons[b] : b;
+                        (isString(b.handler) ? that.handlers[b.handler] : b.handler).call(this, ev, that);
+                    }, true);
+                });
+
+                that._attachEvents($markup);
 
                 // Set position
                 that.position();
@@ -1005,6 +1020,7 @@
         showOnFocus: false,
         showOnTap: true,
         display: 'center',
+        scroll: true,
         scrollLock: true,
         tap: true,
         btnClass: 'mbsc-fr-btn',

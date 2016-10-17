@@ -24,6 +24,7 @@
         timeFormat: 'HH:ii',
         yearText: 'Metai',
         nowText: 'Dabar',
+        todayText: 'Šiandien',
         // Calendar component
         firstDay: 1,
         dateText: 'Data',

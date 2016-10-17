@@ -7,21 +7,48 @@
     background: rgba(0, 0, 0, .2);
 }
 
-.mbsc-ios .mbsc-fr-w {
-    position: relative;
+.mbsc-ios .mbsc-fr-popup {
     background: #f7f7f7;
     color: #000;
+}
+
+.mbsc-ios .mbsc-fr-w {
+    position: relative;
     padding-top: 3.666667em;
     font-size: 12px;
     font-family: -apple-system, Helvetica Neue, Helvetica, Arial, sans-serif;
 }
 
+.mbsc-ios .mbsc-fr-has-hdr .mbsc-fr-w {
+    min-width: 25em;
+}
+
+.mbsc-ios.mbsc-fr-nobtn .mbsc-fr-w,
+.mbsc-ios.mbsc-fr-center .mbsc-fr-w {
+    min-width: 16.666667em;
+}
+
 .mbsc-ios .mbsc-fr-hdr {
-    padding: 0 .416667em;
-    color: #9d9d9d;
-    line-height: 2.5em;
-    min-height: 2.5em;
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    left: 0;
+    line-height: 1.25em;
+    padding: .75em 4.375em;
+    color: #000;
+    font-size: 1.333334em;
+    font-weight: bold;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.mbsc-ios.mbsc-fr-nobtn .mbsc-fr-hdr,
+.mbsc-ios.mbsc-fr-center:not(.mbsc-cal-liq) .mbsc-fr-hdr {
+    position: relative;
+    padding: .75em .5em;
     border-bottom: 1px solid #ccc;
+    white-space: normal;
 }
 
 .mbsc-ios .mbsc-fr-btn-cont {
@@ -66,8 +93,8 @@
 
 /* Bubble arrow */
 
-.mbsc-ios.mbsc-fr-bubble .mbsc-fr-w,
-.mbsc-ios.mbsc-fr-center .mbsc-fr-w {
+.mbsc-ios.mbsc-fr-bubble .mbsc-fr-popup,
+.mbsc-ios.mbsc-fr-center .mbsc-fr-popup {
     border-radius: 8px;
 }
 
@@ -169,6 +196,22 @@
     border-right: 0;
 }
 
+.mbsc-ios.mbsc-fr-center .mbsc-ltr .mbsc-fr-btn-w:first-child .mbsc-fr-btn {
+    border-radius: 0 0 0 .5em;
+}
+
+.mbsc-ios.mbsc-fr-center .mbsc-ltr .mbsc-fr-btn-w:last-child .mbsc-fr-btn {
+    border-radius: 0 0 .5em 0;
+}
+
+.mbsc-ios.mbsc-fr-center .mbsc-rtl .mbsc-fr-btn-w:last-child .mbsc-fr-btn {
+    border-radius: 0 0 0 .5em;
+}
+
+.mbsc-ios.mbsc-fr-center .mbsc-rtl .mbsc-fr-btn-w:first-child .mbsc-fr-btn {
+    border-radius: 0 0 .5em 0;
+}
+
 .mbsc-ios.mbsc-fr-center .mbsc-fr-btn-a {
     background: #ebebe8;
     opacity: 1;
@@ -185,15 +228,19 @@
     border-right: 0;
 }
 
+.mbsc-ios.mbsc-fr-center.mbsc-fr-btn-block .mbsc-fr-w .mbsc-fr-btn-w .mbsc-fr-btn {
+    border-radius: 0;
+}
+
+.mbsc-ios.mbsc-fr-center.mbsc-fr-btn-block .mbsc-fr-btn-w:last-child .mbsc-fr-btn {
+    border-radius: 0 0 .5em .5em;
+}
+
 
 /* Inline display */
 
 .mbsc-ios.mbsc-fr-inline .mbsc-fr-popup {
     border: 0;
-}
-
-.mbsc-ios.mbsc-fr-inline .mbsc-fr-w {
-    padding: 0;
     border-radius: 0;
     background: #fff;
 }

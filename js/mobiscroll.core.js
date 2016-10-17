@@ -1,5 +1,5 @@
 /*!
- * Mobiscroll v3.0.0-beta5
+ * Mobiscroll v3.0.0-beta6
  * http://mobiscroll.com
  *
  * Copyright 2010-2016, Acid Media
@@ -101,7 +101,7 @@ var mobiscroll = mobiscroll || {};
 
     ms = mobiscroll = {
         $: $,
-        version: '3.0.0-beta5',
+        version: '3.0.0-beta6',
         util: {
             prefix: prefix,
             jsPrefix: pr,
@@ -190,6 +190,29 @@ var mobiscroll = mobiscroll || {};
                 if ('vibrate' in navigator) {
                     navigator.vibrate(time || 50);
                 }
+            },
+            throttle: function (fn, threshhold) {
+                var last,
+                    timer;
+
+                threshhold = threshhold || 100;
+
+                return function () {
+                    var context = this,
+                        now = +new Date(),
+                        args = arguments;
+
+                    if (last && now < last + threshhold) {
+                        clearTimeout(timer);
+                        timer = setTimeout(function () {
+                            last = now;
+                            fn.apply(context, args);
+                        }, threshhold);
+                    } else {
+                        last = now;
+                        fn.apply(context, args);
+                    }
+                };
             }
         },
         tapped: 0,
@@ -361,11 +384,14 @@ var mobiscroll = mobiscroll || {};
         /**
          * Attach tap event to the given element.
          */
-        that.tap = function (el, handler, prevent) {
+        that.tap = function (el, handler, prevent, tolerance) {
             var startX,
                 startY,
                 target,
-                moved;
+                moved,
+                startTime;
+
+            tolerance = tolerance || 9;
 
             function onStart(ev) {
                 if (!target) {
@@ -377,19 +403,20 @@ var mobiscroll = mobiscroll || {};
                     startX = getCoord(ev, 'X');
                     startY = getCoord(ev, 'Y');
                     moved = false;
+                    startTime = new Date();
                 }
             }
 
             function onMove(ev) {
                 // If movement is more than 20px, don't fire the click event handler
-                if (target && !moved && (Math.abs(getCoord(ev, 'X') - startX) > 9 || Math.abs(getCoord(ev, 'Y') - startY) > 9)) {
+                if (target && !moved && (Math.abs(getCoord(ev, 'X') - startX) > tolerance || Math.abs(getCoord(ev, 'Y') - startY) > tolerance)) {
                     moved = true;
                 }
             }
 
             function onEnd(ev) {
                 if (target) {
-                    if (!moved) {
+                    if (new Date() - startTime < 100 || !moved) {
                         ev.preventDefault();
                         handler.call(target, ev, that);
                     }

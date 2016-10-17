@@ -27,6 +27,7 @@
         timeFormat: 'HH.ii',
         yearText: 'År',
         nowText: 'Nu',
+        todayText: 'I dag',
         // Calendar component
         firstDay: 1,
         dateText: 'Dato',

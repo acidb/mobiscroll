@@ -23,6 +23,7 @@
         nowText: 'Nu',
         pmText: 'pm',
         amText: 'am',
+        todayText: 'Vandaag',
         // Calendar component
         firstDay: 1,
         dateText: 'Datum',

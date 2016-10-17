@@ -26,6 +26,7 @@
         yearSuffix: '年',
         monthSuffix: '月',
         daySuffix: '日',
+        todayText: '今日',
         // Calendar component
         dateText: '日付',
         timeText: '時間',

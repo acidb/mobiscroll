@@ -23,6 +23,7 @@
         nowText: 'Teď',
         amText: 'am',
         pmText: 'pm',
+        todayText: 'Dnes',
         // Calendar component
         firstDay: 1,
         dateText: 'Datum',

@@ -10,7 +10,7 @@
         pref = util.prefix,
         getCoord = util.getCoord,
         testTouch = util.testTouch,
-        force2D = platform.name == 'wp' || (platform.name == 'ios' && platform.majorVersion < 8) || (platform.name == 'android' && platform.majorVersion < 5);
+        force2D = platform.name == 'wp' || platform.name == 'android' || (platform.name == 'ios' && platform.majorVersion < 8);
 
     ms.presetShort('scroller', 'Scroller', false);
 
@@ -270,6 +270,7 @@
                 value,
                 text,
                 lbl,
+                invalid,
                 selected,
                 html = '',
                 checked = that._tempSelected[index],
@@ -281,6 +282,7 @@
                 value = getItemValue(item);
                 css = item && item.cssClass !== undefined ? item.cssClass : '';
                 lbl = item && item.label !== undefined ? item.label : '';
+                invalid = item && item.invalid;
                 selected = value !== undefined && value == tempWheelArray[index] && !wheel.multiple;
 
                 // TODO: don't generate items with no value (use margin or placeholder instead)
@@ -289,6 +291,7 @@
                     (selected ? 'mbsc-sc-itm-sel ' : '') +
                     (checked[value] ? selectedClass : '') +
                     (value === undefined ? ' mbsc-sc-itm-ph' : ' mbsc-btn-e') +
+                    (invalid ? ' mbsc-sc-itm-inv-h mbsc-btn-d' : '') +
                     (disabled[value] ? ' mbsc-sc-itm-inv mbsc-btn-d' : '') +
                     '" data-index="' + i +
                     '" data-val="' + value + '"' +
@@ -418,7 +421,7 @@
             $.each(wheels, function (i, wheel) {
                 if (isVisible) {
                     // Enable all items
-                    wheel._$markup.find('.mbsc-sc-itm').removeClass('mbsc-sc-itm-inv mbsc-btn-d');
+                    wheel._$markup.find('.mbsc-sc-itm-inv').removeClass('mbsc-sc-itm-inv mbsc-btn-d');
                 }
                 wheel._disabled = {};
 
@@ -525,9 +528,9 @@
         function setValue(fill, change, time, noscroll, temp) {
             if (!noscroll) {
                 scrollToPos(time);
+            } else {
+                that._tempValue = s.formatValue(that._tempWheelArray, that);
             }
-
-            //that._tempValue = s.formatValue(that._tempWheelArray, that);
 
             if (!temp) {
                 that._wheelArray = tempWheelArray.slice(0);
@@ -835,7 +838,7 @@
                 });
             });
 
-            setValue();
+            setValue(false, false, 0, true);
 
             trigger('onRead');
         };

@@ -24,6 +24,7 @@
         nowText: 'Ara',
         pmText: 'pm',
         amText: 'am',
+        todayText: 'Avui',
         // Calendar component
         firstDay: 1,
         dateText: 'Data',

@@ -1,9 +1,9 @@
-.mbsc-ios.mbsc-sc.mbsc-fr-top .mbsc-fr-w,
-.mbsc-ios.mbsc-sc.mbsc-fr-bottom .mbsc-fr-w {
+.mbsc-ios.mbsc-sc.mbsc-fr-top .mbsc-fr-popup,
+.mbsc-ios.mbsc-sc.mbsc-fr-bottom .mbsc-fr-popup {
     background: #d1d5db;
 }
 
-.mbsc-ios.mbsc-calendar .mbsc-fr-popup .mbsc-fr-w {
+.mbsc-ios.mbsc-calendar .mbsc-fr-persp .mbsc-fr-popup {
     background: #f7f7f7;
 }
 
@@ -88,9 +88,10 @@
     border-bottom: 1px solid #ccc;
 }
 
-.mbsc-ios .mbsc-sc-whl-w {
+
+/*.mbsc-ios .mbsc-sc-whl-w {
     margin: 0 .333334em;
-}
+}*/
 
 .mbsc-ios .mbsc-sc-whl-w .mbsc-sc-whl-l {
     display: none;
@@ -171,16 +172,15 @@
     display: none;
 }
 
-.mbsc-ios.mbsc-sel-multi .mbsc-sc-whl-w:not(.mbsc-sc-whl-multi) .mbsc-sc-whl-l {
-    display: block;
-}
-
 .mbsc-ios .mbsc-sc-whl-multi .mbsc-sc-whl-o {
     display: none;
 }
 
 .mbsc-ios .mbsc-sc-whl-multi .mbsc-sc-itm {
     padding: 0 1.818181em;
+}
+
+.mbsc-ios.mbsc-sel-multi .mbsc-sc-itm {
     color: #000;
 }
 
@@ -196,7 +196,7 @@
     display: block;
 }
 
-.mbsc-ios .mbsc-sc-whl-gr-3d .mbsc-sc-whl-multi .mbsc-sc-whl-c {
+.mbsc-ios.mbsc-sel-multi .mbsc-sc-whl-gr-3d .mbsc-sc-whl-c {
     visibility: hidden;
 }
 
@@ -230,6 +230,7 @@
 }
 
 .mbsc-ios .mbsc-dt-whl-d .mbsc-sc-itm,
-.mbsc-ios .mbsc-dt-whl-h .mbsc-sc-itm {
+.mbsc-ios .mbsc-dt-whl-h .mbsc-sc-itm,
+.mbsc-ios .mbsc-dt-whl-date .mbsc-sc-itm {
     text-align: right;
 }

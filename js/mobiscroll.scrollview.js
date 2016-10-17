@@ -41,7 +41,7 @@
             moving,
             nativeScroll,
             rafID,
-            rafMoveID,
+            //rafMoveID,
             rafRunning,
             scrolled,
             scrollDebounce,
@@ -120,7 +120,9 @@
                 startPos = +getCurrentPosition(target, vertical) || 0;
 
                 // Stop scrolling animation, 1ms is needed for Android 4.0
-                scroll(startPos, isIOS ? 0 : 1);
+                if (moving) {
+                    scroll(startPos, isIOS ? 0 : 1);
+                }
 
                 if (ev.type === 'mousedown') {
                     $(document).on('mousemove', onMove).on('mouseup', onEnd);
@@ -355,7 +357,7 @@
                 done = function () {
                     clearInterval(scrollTimer);
                     clearTimeout(transTimer);
-                    rafc(rafMoveID);
+                    //rafc(rafMoveID);
 
                     moving = false;
                     currPos = pos;
@@ -405,16 +407,16 @@
 
                 clearInterval(scrollTimer);
                 scrollTimer = setInterval(function () {
-                    rafMoveID = raf(function () {
-                        var p = +getCurrentPosition(target, vertical) || 0;
-                        eventObj.posX = vertical ? 0 : p;
-                        eventObj.posY = vertical ? p : 0;
-                        trigger('onMove', eventObj);
-                        // Trigger done if close to the end
-                        if (Math.abs(p - pos) < 2) {
-                            done();
-                        }
-                    });
+                    //rafMoveID = raf(function () {
+                    var p = +getCurrentPosition(target, vertical) || 0;
+                    eventObj.posX = vertical ? 0 : p;
+                    eventObj.posY = vertical ? p : 0;
+                    trigger('onMove', eventObj);
+                    // Trigger done if close to the end
+                    if (Math.abs(p - pos) < 2) {
+                        done();
+                    }
+                    //});
                 }, 100);
 
                 clearTimeout(transTimer);
@@ -466,6 +468,7 @@
             contSize = s.contSize === undefined ? vertical ? $elm.height() : $elm.width() : s.contSize;
             minScroll = s.minScroll === undefined ? Math.min(0, vertical ? contSize - target.height() : contSize - target.width()) : s.minScroll;
             maxScroll = s.maxScroll === undefined ? 0 : s.maxScroll;
+            snapPoints = null;
 
             if (!vertical && s.rtl) {
                 tempScroll = maxScroll;

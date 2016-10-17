@@ -136,6 +136,7 @@
         nowText: 'اکنون',
         amText: 'ب',
         pmText: 'ص',
+        todayText: 'امروز',
         getYear: function (date) {
             return JalaliDate.gregorianToJalali(date.getFullYear(), (date.getMonth() + 1), date.getDate())[0];
         },
