@@ -26,8 +26,6 @@
     <link href="css/mobiscroll.mobiscroll-dark.css" rel="stylesheet" type="text/css" />
 
     <style type="text/css">
-    /* Demo Page styling, you can disregard this in your implementation */
-    
     body {
         padding: 1em;
         margin: 0;
@@ -49,7 +47,6 @@
 </head>
 
 <body>
-    <!-- Demo configurator markup START, disregard this in your implementation -->
     <div>
         <label for="theme">Theme</label>
         <select name="theme" id="theme" class="settings">
@@ -99,7 +96,6 @@
             <option value="fa">فارسی</option>
         </select>
     </div>
-    <!-- Demo configurator markup END -->
 
     <label>
         Test
@@ -175,8 +171,6 @@
             });
         }
 
-        // -------------------------------------------------------------------
-        // Demo page code START, you can disregard this in your implementation
         var theme, display, lang;
 
         $('.settings').on('change', function () {
@@ -188,8 +182,6 @@
         });
 
         $('#theme').trigger('change');
-        // Demo page code END
-        // -------------------------------------------------------------------
     })(mobiscroll.$);
     </script>
 </body>
