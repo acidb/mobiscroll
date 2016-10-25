@@ -369,6 +369,8 @@
                 }
             }
 
+            that._position();
+
             css.top = top;
             css.left = left;
 
