@@ -1,21 +1,28 @@
 (function () {
 
-    mobiscroll.themes.frame['android-holo-light'] = {
-        baseTheme: 'android-holo',
-        dateOrder: 'Mddyy',
-        rows: 5,
-        minWidth: 76,
-        height: 36,
-        showLabel: false,
-        selectedLineBorder: 2,
-        useShortLabels: true,
-        icon: {
+    var mbsc = mobiscroll,
+        themes = mbsc.themes,
+        $ = mbsc.$;
+
+    themes.frame['android-holo-light'] = {
+        baseTheme: 'android-holo'
+    };
+
+    themes.scroller['android-holo-light'] = $.extend({}, themes.frame['android-holo-light'], {
+        dateDisplay: 'Mddyy', // datetime
+        rows: 5, // scroller
+        minWidth: 76, // scroller
+        height: 36, // scroller
+        showLabel: false, // scroller
+        selectedLineBorder: 2, // scroller
+        useShortLabels: true, // scroller
+        icon: { // rating
             filled: 'star3',
             empty: 'star'
         },
-        btnPlusClass: 'mbsc-ic mbsc-ic-arrow-down6',
-        btnMinusClass: 'mbsc-ic mbsc-ic-arrow-up6'
-    };
+        btnPlusClass: 'mbsc-ic mbsc-ic-arrow-down6', // scroller
+        btnMinusClass: 'mbsc-ic mbsc-ic-arrow-up6' // scroller
+    });
 
     mobiscroll.themes.listview['android-holo-light'] = {
         baseTheme: 'android-holo'
