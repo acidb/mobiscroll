@@ -42,7 +42,7 @@ var mobiscroll = mobiscroll || {};
                 if (instances[this.id]) {
                     instances[this.id].destroy();
                 }
-                new mobiscroll.classes[options.component || 'Scroller'](this, options);
+                new ms.classes[options.component || 'Scroller'](this, options);
             });
         }
 
@@ -277,14 +277,14 @@ var mobiscroll = mobiscroll || {};
         }
     };
 
-    $.mobiscroll = mobiscroll;
+    $.mobiscroll = ms;
 
     $.fn.mobiscroll = function (method) {
-        extend(this, mobiscroll.components);
+        extend(this, ms.components);
         return init(this, method, arguments);
     };
 
-    mobiscroll.classes.Base = function (el, settings) {
+    ms.classes.Base = function (el, settings) {
 
         var lang,
             preset,
@@ -292,7 +292,6 @@ var mobiscroll = mobiscroll || {};
             theme,
             themeName,
             defaults,
-            ms = mobiscroll,
             util = ms.util,
             getCoord = util.getCoord,
             that = this;
