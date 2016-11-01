@@ -369,7 +369,7 @@
                 }
             }
 
-            that._position();
+            that._position($markup);
 
             css.top = top;
             css.left = left;
