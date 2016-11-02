@@ -247,6 +247,8 @@
                 return;
             }
 
+            that._position($markup);
+
             newHeight = markup.offsetHeight;
             newWidth = markup.offsetWidth;
 
@@ -368,8 +370,6 @@
                     $wnd.scrollTop(Math.min(anchorTop, top + modalHeight - newHeight + 8, docHeight - newHeight));
                 }
             }
-
-            that._position($markup);
 
             css.top = top;
             css.left = left;
