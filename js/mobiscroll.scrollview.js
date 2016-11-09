@@ -444,6 +444,8 @@
 
         that.scrolled = false;
 
+        that._noremote = true;
+
         /**
          * Scroll to the given position or element
          */
@@ -505,14 +507,14 @@
             }
         };
 
-        that.init = function (ss) {
-            that._init(ss);
-
+        that._processSettings = function () {
             vertical = s.axis == 'Y';
             dir = vertical ? 'top' : 'left';
             target = s.moveElement || $elm.children().eq(0);
             style = target[0].style;
+        };
 
+        that._init = function () {
             that.refresh();
 
             $elm.on('touchstart mousedown', onStart)

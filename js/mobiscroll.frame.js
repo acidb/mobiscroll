@@ -878,7 +878,7 @@
 
         that._markupRemove = empty;
 
-        that._processSettings = empty;
+        that.__processSettings = empty;
 
         that._presetLoad = function (s) {
             // Add default buttons
@@ -908,23 +908,10 @@
             that._destroy();
         };
 
-        /**
-         * Scroller initialization.
-         */
-        that.init = function (ss) {
-
-            if (that._isVisible) {
-                that.hide(true, false, true);
-            }
-
-            that._init(ss);
-
+        that._processSettings = function () {
             that._isLiquid = (s.layout || (/top|bottom/.test(s.display) ? 'liquid' : '')) === 'liquid';
 
-            that._processSettings();
-
-            // Unbind all events (if re-init)
-            $elm.off('.mbsc');
+            that.__processSettings();
 
             buttons = s.buttons || [];
             isModal = s.display !== 'inline';
@@ -961,6 +948,19 @@
             };
 
             that._isInput = $elm.is('input');
+        };
+
+        /**
+         * Scroller initialization.
+         */
+        that._init = function () {
+
+            if (that._isVisible) {
+                that.hide(true, false, true);
+            }
+
+            // Unbind all events (if re-init)
+            $elm.off('.mbsc');
 
             event('onInit');
 

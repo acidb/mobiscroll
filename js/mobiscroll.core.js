@@ -68,6 +68,7 @@ var mobiscroll = mobiscroll || {};
     var ms,
         platform,
         vers,
+        empty = function () {},
         $ = typeof jQuery == 'undefined' ? mobiscroll.$ : jQuery,
         id = +new Date(),
         instances = {},
@@ -298,9 +299,11 @@ var mobiscroll = mobiscroll || {};
 
         that.settings = {};
 
-        that._presetLoad = function () {};
+        that._presetLoad = empty;
 
-        that._init = function (ss) {
+        that._init = empty;
+
+        that.init = function (ss) {
             var key;
 
             // Reset settings object
@@ -366,6 +369,10 @@ var mobiscroll = mobiscroll || {};
                     extend(s, preset, settings);
                 }
             }
+
+            that._processSettings();
+
+            that._init(ss);
         };
 
         that._destroy = function () {
