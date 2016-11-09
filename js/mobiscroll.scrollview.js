@@ -444,8 +444,6 @@
 
         that.scrolled = false;
 
-        that._noremote = true;
-
         /**
          * Scroll to the given position or element
          */
@@ -566,6 +564,7 @@
 
     classes.ScrollView.prototype = {
         _class: 'scrollview',
+        _noremote: true,
         _defaults: {
             speedUnit: 0.0022,
             //timeUnit: 0.8,
