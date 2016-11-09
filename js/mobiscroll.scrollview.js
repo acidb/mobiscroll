@@ -545,15 +545,13 @@
         /**
          * Destroy
          */
-        that.destroy = function () {
+        that._destroy = function () {
             clearInterval(scrollTimer);
 
             $elm.off('touchstart mousedown', onStart)
                 .off('touchmove', onMove)
                 .off('touchend touchcancel', onEnd)
                 .off('wheel mousewheel', onScroll);
-
-            that._destroy();
         };
 
         // Constructor

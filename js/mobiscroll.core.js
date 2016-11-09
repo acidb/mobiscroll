@@ -292,6 +292,7 @@ var mobiscroll = mobiscroll || {};
             s,
             theme,
             themeName,
+            trigger,
             defaults,
             util = ms.util,
             getCoord = util.getCoord,
@@ -299,9 +300,11 @@ var mobiscroll = mobiscroll || {};
 
         that.settings = {};
 
-        that._presetLoad = empty;
-
         that._init = empty;
+
+        that._destroy = empty;
+
+        that._processSettings = empty;
 
         that.init = function (ss) {
             var key;
@@ -348,7 +351,7 @@ var mobiscroll = mobiscroll || {};
             }
 
             if (that._hasTheme) {
-                that.trigger('onThemeLoad', {
+                trigger('onThemeLoad', {
                     lang: lang,
                     settings: settings
                 });
@@ -357,10 +360,12 @@ var mobiscroll = mobiscroll || {};
             // Update settings object
             extend(s, theme, lang, defaults, settings);
 
+            that._processSettings();
+
+            trigger('onProcessSettings');
+
             // Load preset settings
             if (that._hasPreset) {
-
-                that._presetLoad(s);
 
                 preset = ms.presets[that._class][s.preset];
 
@@ -370,14 +375,15 @@ var mobiscroll = mobiscroll || {};
                 }
             }
 
-            that._processSettings();
-
             that._init(ss);
+
+            trigger('onInit');
         };
 
-        that._destroy = function () {
+        that.destroy = function () {
             if (that) {
-                that.trigger('onDestroy', []);
+                that._destroy();
+                trigger('onDestroy');
 
                 // Delete scroller instance
                 delete instances[el.id];
@@ -491,6 +497,7 @@ var mobiscroll = mobiscroll || {};
         };
 
         settings = settings || {};
+        trigger = that.trigger;
 
         $(el).addClass('mbsc-comp');
 
