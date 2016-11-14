@@ -22,7 +22,7 @@
             var click,
                 touch,
                 active,
-				elm = event.target,
+                elm = event.target,
                 s = inst.settings;
 
             function isReadOnly(i) {
@@ -50,7 +50,7 @@
                 click = false;
             });
         },
-        onInit: function (ev, inst) {
+        onProcessSettings: function (ev, inst) {
             var buttons = inst.buttons;
 
             buttons.set.icon = 'checkmark';

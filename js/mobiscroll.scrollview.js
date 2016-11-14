@@ -505,14 +505,14 @@
             }
         };
 
-        that.init = function (ss) {
-            that._init(ss);
-
+        that._processSettings = function () {
             vertical = s.axis == 'Y';
             dir = vertical ? 'top' : 'left';
             target = s.moveElement || $elm.children().eq(0);
             style = target[0].style;
+        };
 
+        that._init = function () {
             that.refresh();
 
             $elm.on('touchstart mousedown', onStart)
@@ -543,15 +543,13 @@
         /**
          * Destroy
          */
-        that.destroy = function () {
+        that._destroy = function () {
             clearInterval(scrollTimer);
 
             $elm.off('touchstart mousedown', onStart)
                 .off('touchmove', onMove)
                 .off('touchend touchcancel', onEnd)
                 .off('wheel mousewheel', onScroll);
-
-            that._destroy();
         };
 
         // Constructor
@@ -566,6 +564,7 @@
 
     classes.ScrollView.prototype = {
         _class: 'scrollview',
+        _noremote: true,
         _defaults: {
             speedUnit: 0.0022,
             //timeUnit: 0.8,
