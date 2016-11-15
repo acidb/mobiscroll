@@ -564,7 +564,6 @@
 
     classes.ScrollView.prototype = {
         _class: 'scrollview',
-        _noremote: true,
         _defaults: {
             speedUnit: 0.0022,
             //timeUnit: 0.8,
