@@ -137,7 +137,7 @@
             if (i >= wheel.min && i <= wheel.max) {
                 return wheel._array ?
                     (wheel.circular ? $(data).get(i % wheel._length) : data[i]) :
-                    ($.isFunction(data) ? data(i) : '');
+                    ($.isFunction(data) ? data(i, that) : '');
             }
         }
 
@@ -526,7 +526,7 @@
         }
 
         function setValue(fill, change, time, noscroll, temp) {
-            if (!noscroll) {
+            if (!noscroll && that._isVisible) {
                 scrollToPos(time);
             } else {
                 that._tempValue = s.formatValue(that._tempWheelArray, that);
