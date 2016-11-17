@@ -526,7 +526,7 @@
         }
 
         function setValue(fill, change, time, noscroll, temp) {
-            if (!noscroll && that._isVisible) {
+            if (!noscroll) {
                 scrollToPos(time);
             } else {
                 that._tempValue = s.formatValue(that._tempWheelArray, that);
