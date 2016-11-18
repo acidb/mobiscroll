@@ -44,7 +44,7 @@
         // Event handlers
 
         function onBtnStart(ev) {
-            var i = $(this).attr('data-index');
+            var i = +$(this).attr('data-index');
 
             ev.stopPropagation();
 
