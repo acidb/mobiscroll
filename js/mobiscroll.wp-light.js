@@ -9,7 +9,7 @@
         headerText: false,
         deleteIcon: 'backspace4',
         btnWidth: false,
-        onInit: function (ev, inst) {
+        onProcessSettings: function (ev, inst) {
             var buttons = inst.buttons;
             if (buttons) {
                 buttons.set.icon = 'checkmark';

@@ -30,7 +30,6 @@
             buttons,
             btn,
             doAnim,
-            event,
             hasContext,
             isModal,
             isInserted,
@@ -48,6 +47,7 @@
             scrollLeft,
             scrollLock,
             scrollTop,
+            trigger,
             wndWidth,
             wndHeight,
 
@@ -147,7 +147,7 @@
 
             isInserted = false;
 
-            event('onHide');
+            trigger('onHide');
         }
 
         function onPosition(ev) {
@@ -199,13 +199,13 @@
 
         function set() {
             that._fillValue();
-            event('onSet', {
+            trigger('onSet', {
                 valueText: that._value
             });
         }
 
         function cancel() {
-            event('onCancel', {
+            trigger('onCancel', {
                 valueText: that._value
             });
         }
@@ -261,7 +261,7 @@
                 $popup.width(newWidth);
             }
 
-            if (event('onPosition', {
+            if (trigger('onPosition', {
                     target: markup,
                     windowWidth: newWidth,
                     windowHeight: newHeight
@@ -476,7 +476,7 @@
          */
         that.clear = function () {
             that._clearValue();
-            event('onClear');
+            trigger('onClear');
             if (isModal && that._isVisible && !that.live) {
                 that.hide(false, 'clear', false, clear);
             } else {
@@ -520,7 +520,7 @@
             // Parse value from input
             that._readValue();
 
-            if (event('onBeforeShow') === false) {
+            if (trigger('onBeforeShow') === false) {
                 return false;
             }
 
@@ -631,7 +631,7 @@
 
             that._markupReady($markup);
 
-            event('onMarkupReady', {
+            trigger('onMarkupReady', {
                 target: markup
             });
 
@@ -709,7 +709,7 @@
 
                 that._markupInserted($markup);
 
-                event('onMarkupInserted', {
+                trigger('onMarkupInserted', {
                     target: markup
                 });
 
@@ -786,7 +786,7 @@
                     }
                 }
 
-                event('onShow', {
+                trigger('onShow', {
                     target: markup,
                     valueText: that._tempValue
                 });
@@ -799,7 +799,7 @@
          */
         that.hide = function (prevAnim, btn, force, callback) {
             // If onClose handler returns false, prevent hide
-            if (!that._isVisible || (!force && !that._isValid && btn == 'set') || (!force && event('onBeforeClose', {
+            if (!that._isVisible || (!force && !that._isValid && btn == 'set') || (!force && trigger('onBeforeClose', {
                     valueText: that._tempValue,
                     button: btn
                 }) === false)) {
@@ -836,7 +836,7 @@
                 callback();
             }
 
-            event('onClose', {
+            trigger('onClose', {
                 valueText: that._value
             });
 
@@ -881,23 +881,18 @@
         that._markupRemove = empty;
 
         that._position = empty;
+        
+        that.__processSettings = empty;
 
-        that._processSettings = empty;
 
-        that._presetLoad = function (s) {
-            // Add default buttons
-            s.buttons = s.buttons || (s.display !== 'inline' ? ['set', 'cancel'] : []);
-
-            // Hide header text in inline mode by default
-            s.headerText = s.headerText === undefined ? (s.display !== 'inline' ? '{value}' : false) : s.headerText;
-        };
+        that.__init = empty;
 
         // Generic frame functions
 
         /**
          * Destroys the mobiscroll instance.
          */
-        that.destroy = function () {
+        that._destroy = function () {
             // Force hide without animation
             that.hide(true, false, true);
 
@@ -908,46 +903,34 @@
                     v.lbl.off('.mbsc');
                 }
             });
-
-            that._destroy();
         };
 
-        /**
-         * Scroller initialization.
-         */
-        that.init = function (ss) {
+        that._processSettings = function () {
+            var b, i;
 
-            if (that._isVisible) {
-                that.hide(true, false, true);
-            }
+            // Add default buttons
+            s.buttons = s.buttons || (s.display !== 'inline' ? ['set', 'cancel'] : []);
 
-            that._init(ss);
-
-            that._isLiquid = (s.layout || (/top|bottom/.test(s.display) ? 'liquid' : '')) === 'liquid';
-
-            that._processSettings();
-
-            // Unbind all events (if re-init)
-            $elm.off('.mbsc');
+            // Hide header text in inline mode by default
+            s.headerText = s.headerText === undefined ? (s.display !== 'inline' ? '{value}' : false) : s.headerText;
 
             buttons = s.buttons || [];
             isModal = s.display !== 'inline';
             hasContext = s.context != 'body';
-
-            that._window = $wnd = $(hasContext ? s.context : window);
-            that._context = $ctx = $(s.context);
-
             $lock = hasContext ? $ctx : $('body,html');
 
+            that._isLiquid = (s.layout || (/top|bottom/.test(s.display) ? 'liquid' : '')) === 'liquid';
+            that._window = $wnd = $(hasContext ? s.context : window);
+            that._context = $ctx = $(s.context);
             that.live = true;
 
             // If no set button is found, live mode is activated
-            $.each(buttons, function (i, b) {
+            for (i = 0; i < buttons.length; i++) {
+                b = buttons[i];
                 if (b == 'ok' || b == 'set' || b.handler == 'set') {
                     that.live = false;
-                    return false;
                 }
-            });
+            }
 
             that.buttons.set = {
                 text: s.setText,
@@ -966,7 +949,22 @@
 
             that._isInput = $elm.is('input');
 
-            event('onInit');
+            that.__processSettings();
+        };
+
+        /**
+         * Scroller initialization.
+         */
+        that._init = function () {
+
+            if (that._isVisible) {
+                that.hide(true, false, true);
+            }
+
+            // Unbind all events (if re-init)
+            $elm.off('.mbsc');
+
+            that.__init();
 
             if (isModal) {
                 that._readValue();
@@ -1000,7 +998,7 @@
         // Constructor
 
         s = that.settings;
-        event = that.trigger;
+        trigger = that.trigger;
 
         if (!inherit) {
             that.init(settings);

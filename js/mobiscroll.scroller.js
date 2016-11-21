@@ -843,7 +843,7 @@
             trigger('onRead');
         };
 
-        that._processSettings = function () {
+        that.__processSettings = function () {
             s = that.settings;
             s.cssClass = (s.cssClass || '') + ' mbsc-sc';
             trigger = that.trigger;
