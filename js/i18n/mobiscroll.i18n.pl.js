@@ -47,7 +47,7 @@
         lapText: 'Zakładka',
         hideText: 'Ukryć',
         // Listview
-        backText: 'Z powrotem',
+        backText: 'Wróć',
         undoText: 'Cofnij',
         // Form
         offText: 'Wył',

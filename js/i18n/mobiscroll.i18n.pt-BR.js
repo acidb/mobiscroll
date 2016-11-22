@@ -50,7 +50,7 @@
         lapText: 'Lap',
         hideText: 'Esconder',
         // Listview
-        backText: 'De volta',
+        backText: 'Anterior',
         undoText: 'Desfazer',
         // Form
         offText: 'Desl',

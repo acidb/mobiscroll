@@ -48,8 +48,8 @@
         lapText: 'Lap',
         hideText: 'Cachez',
         // Listview
-        backText: 'Arrière',
-        undoText: 'Défaire',
+        backText: 'Retour',
+        undoText: 'Annuler',
         // Form
         offText: 'Non',
         onText: 'Oui',

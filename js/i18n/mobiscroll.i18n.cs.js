@@ -48,7 +48,7 @@
         hideText: 'Schovat',
         // Listview
         backText: 'Zpět',
-        undoText: 'Rozlepit',
+        undoText: 'Zpět',
         // Form
         offText: 'O',
         onText: 'I',

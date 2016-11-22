@@ -49,7 +49,7 @@
         hideText: 'Amagar',
         // Listview
         backText: 'Tornar',
-        undoText: 'Desfer',
+        undoText: 'Desfés',
         // Form
         offText: 'No',
         onText: 'Si'
