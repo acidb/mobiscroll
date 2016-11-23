@@ -912,11 +912,12 @@
             buttons = s.buttons || [];
             isModal = s.display !== 'inline';
             hasContext = s.context != 'body';
+            $ctx = $(s.context);
             $lock = hasContext ? $ctx : $('body,html');
 
             that._isLiquid = (s.layout || (/top|bottom/.test(s.display) ? 'liquid' : '')) === 'liquid';
             that._window = $wnd = $(hasContext ? s.context : window);
-            that._context = $ctx = $(s.context);
+            that._context = $ctx;
             that.live = true;
 
             // If no set button is found, live mode is activated
