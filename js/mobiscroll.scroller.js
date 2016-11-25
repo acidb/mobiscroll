@@ -859,7 +859,7 @@
             batchSize3d = Math.round(s.rows * 1.8);
             scroll3dAngle = 360 / (batchSize3d * 2);
 
-            that._isLiquid = (s.layout || (/top|bottom/.test(s.display) && s.wheels.length == 1 ? 'liquid' : '')) === 'liquid';
+            that._isLiquid = (s.layout || (/top|bottom|inline/.test(s.display) && s.wheels.length == 1 ? 'liquid' : '')) === 'liquid';
 
             if (lines > 1) {
                 s.cssClass = (s.cssClass || '') + ' dw-ml';

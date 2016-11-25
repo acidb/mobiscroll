@@ -700,7 +700,15 @@
                     $elm.empty().append($markup);
                 } else {
                     // Insert after the element
-                    $markup.insertAfter($elm);
+                    if ($elm.hasClass('mbsc-control')) {
+                        var wrap = $elm.closest('.mbsc-control-w');
+                        $markup.insertAfter(wrap);
+                        if (wrap.hasClass('mbsc-select') && wrap.next().hasClass('mbsc-fr-inline')) {
+                            wrap.addClass('mbsc-select-inline');
+                        }
+                    } else {
+                        $markup.insertAfter($elm);
+                    }
                 }
 
                 isInserted = true;
@@ -915,7 +923,7 @@
             $ctx = $(s.context);
             $lock = hasContext ? $ctx : $('body,html');
 
-            that._isLiquid = (s.layout || (/top|bottom/.test(s.display) ? 'liquid' : '')) === 'liquid';
+            that._isLiquid = (s.layout || (/top|bottom|inline/.test(s.display) ? 'liquid' : '')) === 'liquid';
             that._window = $wnd = $(hasContext ? s.context : window);
             that._context = $ctx;
             that.live = true;
