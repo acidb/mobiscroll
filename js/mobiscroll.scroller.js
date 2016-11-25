@@ -128,7 +128,7 @@
         // Private functions
 
         function getIndex(wheel, val) {
-            return (wheel._array ? wheel._map[val] : wheel.getIndex(val)) || 0;
+            return (wheel._array ? wheel._map[val] : wheel.getIndex(val, that)) || 0;
         }
 
         function getItem(wheel, i) {
