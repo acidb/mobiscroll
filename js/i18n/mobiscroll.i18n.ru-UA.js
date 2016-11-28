@@ -49,7 +49,7 @@
         hideText: ' Скрыть ',
         // Listview
         backText: 'назад',
-        undoText: 'аннулировать',
+        undoText: 'ОтменитЬ',
         // Form
         offText: 'O',
         onText: 'I',

@@ -150,7 +150,7 @@ var mobiscroll = mobiscroll || {};
 
         Dom.prototype = {
             ready: function (callback) {
-                if (/complete|loaded|interactive/.test(document.readyState) && document.body) {
+                if (document.attachEvent ? document.readyState == 'complete' : document.readyState != 'loading') {
                     callback($);
                 } else {
                     document.addEventListener('DOMContentLoaded', function () {

@@ -50,7 +50,7 @@
         hideText: 'Ascundere',
         // Listview
         backText: 'Înapoi',
-        undoText: 'Anulaţi',
+        undoText: 'Anulează',
         // Form
         offText: 'Nu',
         onText: 'Da',

@@ -51,7 +51,7 @@
         lapText: 'Lap',
         hideText: 'Esconder',
         // Listview
-        backText: 'De volta',
+        backText: 'Anterior',
         undoText: 'Anular',
         // Form
         offText: 'Desl',

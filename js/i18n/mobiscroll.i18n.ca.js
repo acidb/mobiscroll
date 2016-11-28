@@ -48,8 +48,8 @@
         lapText: 'Volta',
         hideText: 'Amagar',
         // Listview
-        backText: 'Tornar',
-        undoText: 'Desfer',
+        backText: 'Enrere',
+        undoText: 'Desfés',
         // Form
         offText: 'No',
         onText: 'Si'
