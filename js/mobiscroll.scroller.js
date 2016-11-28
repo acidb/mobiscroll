@@ -904,6 +904,7 @@
             preset: '',
             speedUnit: 0.0012,
             timeUnit: 0.08,
+            checkIcon: 'checkmark',
             validate: function () {},
             formatValue: function (d) {
                 return d.join(' ');
