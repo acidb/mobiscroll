@@ -523,6 +523,7 @@
             }
 
             doAnim = s.animate;
+            buttons = s.buttons || [];
 
             needsDimensions = hasContext || s.display == 'bubble';
             needsLock = needsFixed && !needsDimensions;
