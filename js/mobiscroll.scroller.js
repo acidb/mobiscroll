@@ -847,23 +847,25 @@
             s = that.settings;
             s.cssClass = (s.cssClass || '') + ' mbsc-sc';
             trigger = that.trigger;
-            showScrollArrows = s.showScrollArrows;
-            scroll3d = s.scroll3d && !force2D && !showScrollArrows;
-            itemHeight = s.height;
-            itemHeight3d = scroll3d ? Math.round((itemHeight - (itemHeight * s.rows / 2 + 3) * 0.03) / 2) * 2 : itemHeight;
             lines = s.multiline;
             selectedClass = 'mbsc-sc-itm-sel mbsc-ic mbsc-ic-' + s.checkIcon;
             wheels = [];
             wheelsMap = {};
-
-            batchSize3d = Math.round(s.rows * 1.8);
-            scroll3dAngle = 360 / (batchSize3d * 2);
 
             that._isLiquid = (s.layout || (/top|bottom/.test(s.display) && s.wheels.length == 1 || /inline/.test(s.display) ? 'liquid' : '')) === 'liquid';
 
             if (lines > 1) {
                 s.cssClass = (s.cssClass || '') + ' dw-ml';
             }
+        };
+
+        that.__init = function () {
+            showScrollArrows = s.showScrollArrows;
+            scroll3d = s.scroll3d && !force2D && !showScrollArrows;
+            itemHeight = s.height;
+            itemHeight3d = scroll3d ? Math.round((itemHeight - (itemHeight * s.rows / 2 + 3) * 0.03) / 2) * 2 : itemHeight;
+            batchSize3d = Math.round(s.rows * 1.8);
+            scroll3dAngle = 360 / (batchSize3d * 2);
 
             // Ensure a minimum number of 3 items if clickpick buttons present
             if (showScrollArrows) {
@@ -904,6 +906,7 @@
             preset: '',
             speedUnit: 0.0012,
             timeUnit: 0.08,
+            checkIcon: 'checkmark',
             validate: function () {},
             formatValue: function (d) {
                 return d.join(' ');
