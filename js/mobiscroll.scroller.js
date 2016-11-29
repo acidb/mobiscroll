@@ -44,7 +44,7 @@
         // Event handlers
 
         function onBtnStart(ev) {
-            var i = $(this).attr('data-index');
+            var i = +$(this).attr('data-index');
 
             ev.stopPropagation();
 
@@ -128,7 +128,7 @@
         // Private functions
 
         function getIndex(wheel, val) {
-            return (wheel._array ? wheel._map[val] : wheel.getIndex(val)) || 0;
+            return (wheel._array ? wheel._map[val] : wheel.getIndex(val, that)) || 0;
         }
 
         function getItem(wheel, i) {
@@ -137,7 +137,7 @@
             if (i >= wheel.min && i <= wheel.max) {
                 return wheel._array ?
                     (wheel.circular ? $(data).get(i % wheel._length) : data[i]) :
-                    ($.isFunction(data) ? data(i) : '');
+                    ($.isFunction(data) ? data(i, that) : '');
             }
         }
 
