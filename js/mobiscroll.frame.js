@@ -881,6 +881,8 @@
 
         that.__processSettings = empty;
 
+        that.__init = empty;
+
         // Generic frame functions
 
         /**
@@ -958,6 +960,8 @@
 
             // Unbind all events (if re-init)
             $elm.off('.mbsc');
+
+            that.__init();
 
             if (isModal) {
                 that._readValue();
