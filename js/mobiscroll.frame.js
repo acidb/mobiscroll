@@ -635,10 +635,6 @@
                 target: markup
             });
 
-            $markup.on('touchstart', function () {
-                 $markup.removeClass('mbsc-no-touch');
-            });
-
             // Attach events
             if (isModal) {
                 // Enter / ESC
@@ -758,7 +754,10 @@
                         }
                     })
                     .on('touchstart mousedown pointerdown', '.mbsc-fr-btn-e', onBtnStart)
-                    .on('touchend', '.mbsc-fr-btn-e', onBtnEnd);
+                    .on('touchend', '.mbsc-fr-btn-e', onBtnEnd)
+                    .on('touchstart', function () {
+                        $markup.removeClass('mbsc-no-touch');
+                    });
 
                 $('input,select,textarea', $markup).on('selectstart mousedown', function (ev) {
                     ev.stopPropagation();
