@@ -571,7 +571,7 @@
             }
 
             // Create wheels containers
-            html = '<div lang="' + s.lang + '" class="mbsc-fr mbsc-' + s.theme + (s.baseTheme ? ' mbsc-' + s.baseTheme : '') + ' mbsc-fr-' + s.display + ' ' +
+            html = '<div lang="' + s.lang + '" class="mbsc-fr mbsc-no-touch mbsc-' + s.theme + (s.baseTheme ? ' mbsc-' + s.baseTheme : '') + ' mbsc-fr-' + s.display + ' ' +
                 (s.cssClass || '') + ' ' +
                 (s.compClass || '') +
                 (that._isLiquid ? ' mbsc-fr-liq' : '') +
@@ -633,6 +633,10 @@
 
             trigger('onMarkupReady', {
                 target: markup
+            });
+
+            $markup.on('touchstart', function () {
+                 $markup.removeClass('mbsc-no-touch');
             });
 
             // Attach events
