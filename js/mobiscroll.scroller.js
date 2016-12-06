@@ -852,8 +852,6 @@
             wheels = [];
             wheelsMap = {};
 
-            that._isLiquid = (s.layout || (/top|bottom/.test(s.display) && s.wheels.length == 1 || /inline/.test(s.display) ? 'liquid' : '')) === 'liquid';
-
             if (lines > 1) {
                 s.cssClass = (s.cssClass || '') + ' dw-ml';
             }
@@ -866,6 +864,8 @@
             itemHeight3d = scroll3d ? Math.round((itemHeight - (itemHeight * s.rows / 2 + 3) * 0.03) / 2) * 2 : itemHeight;
             batchSize3d = Math.round(s.rows * 1.8);
             scroll3dAngle = 360 / (batchSize3d * 2);
+
+            that._isLiquid = (s.layout || ((/top|bottom/.test(s.display) && s.wheels.length == 1) || s.display == 'inline' ? 'liquid' : '')) === 'liquid';
 
             // Ensure a minimum number of 3 items if clickpick buttons present
             if (showScrollArrows) {
