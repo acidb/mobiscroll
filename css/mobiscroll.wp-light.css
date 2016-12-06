@@ -367,11 +367,8 @@
   color: #000000;
 }
 /* Colorpicker */
-/*
-.mbsc-@{theme} .mbsc-color-item:before {
-	color: @output2_1;
-}*/
-.mbsc-wp-light .mbsc-color-active {
+.mbsc-wp-light .mbsc-color-active,
+.mbsc-no-touch.mbsc-wp-light .mbsc-color-item-c:hover {
   box-shadow: inset 0 0 0 0.1875em #1ba0e3;
 }
 .mbsc-wp-light .mbsc-color-preview-item-empty {
@@ -387,4 +384,7 @@
   background: #ffffff;
   color: #000000;
   border-color: #000000;
+}
+.mbsc-wp-light .mbsc-color-clear-item {
+  background: #ffffff;
 }

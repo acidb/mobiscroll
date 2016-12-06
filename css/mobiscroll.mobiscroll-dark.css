@@ -143,11 +143,8 @@
   color: #50ccc4;
 }
 /* Colorpicker */
-/*
-.mbsc-@{theme} .mbsc-color-item:before {
-	color: @output1_3;
-}*/
-.mbsc-mobiscroll-dark .mbsc-color-active {
+.mbsc-mobiscroll-dark .mbsc-color-active,
+.mbsc-no-touch.mbsc-mobiscroll-dark .mbsc-color-item-c:hover {
   box-shadow: inset 0 0 0 0.1875em #50ccc4;
 }
 .mbsc-mobiscroll-dark .mbsc-color-preview-item-empty {
@@ -159,6 +156,9 @@
 .mbsc-mobiscroll-dark.mbsc-form .mbsc-color-input {
   border-bottom: 1px solid #ffffff;
   color: #d1d1d1;
+}
+.mbsc-mobiscroll-dark .mbsc-color-clear-item {
+  background: rgba(223, 222, 222, 0.3);
 }
 /* Listview */
 .mbsc-lv-mobiscroll-dark .mbsc-lv-item {
