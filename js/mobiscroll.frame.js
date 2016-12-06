@@ -702,10 +702,10 @@
                 } else {
                     // Insert after the element
                     if ($elm.hasClass('mbsc-control')) {
-                        var wrap = $elm.closest('.mbsc-control-w');
-                        $markup.insertAfter(wrap);
-                        if (wrap.hasClass('mbsc-select') && wrap.next().hasClass('mbsc-fr-inline')) {
-                            wrap.addClass('mbsc-select-inline');
+                        var $wrap = $elm.closest('.mbsc-control-w');
+                        $markup.insertAfter($wrap);
+                        if ($wrap.hasClass('mbsc-select')) {
+                            $wrap.addClass('mbsc-select-inline');
                         }
                     } else {
                         $markup.insertAfter($elm);
