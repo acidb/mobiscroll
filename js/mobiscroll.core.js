@@ -227,6 +227,7 @@ var mobiscroll = mobiscroll || {};
         themes: {
             form: {},
             frame: {},
+            scroller: {},
             listview: {},
             menustrip: {},
             progress: {}

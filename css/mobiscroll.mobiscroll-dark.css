@@ -1,500 +1,380 @@
 .mbsc-mobiscroll-dark .mbsc-fr-w {
-    background: #263238;
-    color: #f7f7f7;
+  background: #263238;
+  color: #f7f7f7;
 }
-
 .mbsc-mobiscroll-dark .mbsc-fr-hdr,
 .mbsc-mobiscroll-dark .mbsc-sc-lbl {
-    color: #50ccc4;
+  color: #50ccc4;
 }
-
 .mbsc-mobiscroll-dark .mbsc-sc-whl-l {
-    border-color: #50ccc4;
+  border-color: #50ccc4;
 }
-
 .mbsc-mobiscroll-dark .mbsc-fr-btn-a {
-    background: rgba(80, 204, 196, 0.3);
+  background: rgba(80, 204, 196, 0.3);
 }
-
 .mbsc-mobiscroll-dark .mbsc-sc-itm.mbsc-btn-a {
-    background: rgba(80, 204, 196, 0.3);
+  background: rgba(80, 204, 196, 0.3);
 }
-
 .mbsc-mobiscroll-dark .mbsc-fr-btn {
-    color: #50ccc4;
+  color: #50ccc4;
 }
-
 .mbsc-mobiscroll-dark .mbsc-sc-btn {
-    color: #50ccc4;
-    background: #263238;
+  color: #50ccc4;
+  background: #263238;
 }
-
 .mbsc-mobiscroll-dark .mbsc-sc-btn-a:before {
-    background: rgba(80, 204, 196, 0.3);
+  background: rgba(80, 204, 196, 0.3);
 }
-
 .mbsc-mobiscroll-dark .mbsc-fr-bubble-bottom .mbsc-fr-arr {
-    border-color: transparent transparent #263238 transparent;
+  border-color: transparent transparent #263238 transparent;
 }
-
 .mbsc-mobiscroll-dark .mbsc-fr-bubble-top .mbsc-fr-arr {
-    border-color: #263238 transparent transparent transparent;
+  border-color: #263238 transparent transparent transparent;
 }
-
 .mbsc-mobiscroll-dark .mbsc-sc-whl-multi .mbsc-sc-itm-sel:before {
-    color: #50ccc4;
+  color: #50ccc4;
 }
-
-
 /* Calendar */
-
 .mbsc-mobiscroll-dark .mbsc-cal .mbsc-cal-day-sel .mbsc-cal-day-i,
 .mbsc-mobiscroll-dark .mbsc-cal .mbsc-cal-sc-sel .mbsc-cal-sc-cell-i {
-    background: #50ccc4;
-    color: #263238;
+  background: #50ccc4;
+  color: #263238;
 }
-
 .mbsc-mobiscroll-dark .mbsc-cal-hl-now .mbsc-cal-today {
-    color: #50ccc4;
+  color: #50ccc4;
 }
-
 .mbsc-mobiscroll-dark .mbsc-cal-days {
-    color: #50ccc4;
+  color: #50ccc4;
 }
-
 .mbsc-mobiscroll-dark .mbsc-cal-days th {
-    border-color: #50ccc4;
+  border-color: #50ccc4;
 }
-
 .mbsc-mobiscroll-dark .mbsc-cal-btn-txt {
-    color: #50ccc4;
+  color: #50ccc4;
 }
-
 .mbsc-mobiscroll-dark .mbsc-cal-event-color {
-    background: #50ccc4;
+  background: #50ccc4;
 }
-
 .mbsc-mobiscroll-dark .mbsc-cal-events {
-    color: #263238;
-    background: #ffffff;
+  color: #263238;
+  background: #ffffff;
 }
-
 .mbsc-mobiscroll-dark .mbsc-cal-events-arr {
-    border-color: #ffffff transparent transparent transparent;
+  border-color: #ffffff transparent transparent transparent;
 }
-
 .mbsc-mobiscroll-dark .mbsc-cal-events-b .mbsc-cal-events-arr {
-    border-color: transparent transparent #ffffff transparent;
+  border-color: transparent transparent #ffffff transparent;
 }
-
 .mbsc-mobiscroll-dark .mbsc-cal-event-time {
-    color: #8db3b0;
+  color: #8db3b0;
 }
-
 .mbsc-mobiscroll-dark .mbsc-cal-event-dur {
-    color: #8db3b0;
+  color: #8db3b0;
 }
-
 .mbsc-mobiscroll-dark .mbsc-cal-day-hl .mbsc-cal-day-i {
-    border-color: #50ccc4;
+  border-color: #50ccc4;
 }
-
 .mbsc-mobiscroll-dark .mbsc-cal-week-nrs-c {
-    color: #50ccc4;
-    background: #263238;
+  color: #50ccc4;
+  background: #263238;
 }
-
 .mbsc-mobiscroll-dark .mbsc-cal-day-m-c {
-    background: #f7f7f7;
+  background: #f7f7f7;
 }
-
 .mbsc-mobiscroll-dark .mbsc-cal-day-sel .mbsc-cal-day-m-c {
-    background: #263238;
+  background: #263238;
 }
-
 .mbsc-mobiscroll-dark .mbsc-cal-day-txt {
-    color: #263238;
-    background: #f7f7f7;
+  color: #263238;
+  background: #f7f7f7;
 }
-
 .mbsc-mobiscroll-dark .mbsc-cal-day-txt {
-    color: #263238;
-    background: #f7f7f7;
+  color: #263238;
+  background: #f7f7f7;
 }
-
 .mbsc-mobiscroll-dark .mbsc-cal-tab {
-    border-color: #50ccc4;
+  border-color: #50ccc4;
 }
-
 .mbsc-mobiscroll-dark .mbsc-cal-tab .mbsc-cal-tab-i {
-    color: #f7f7f7;
+  color: #f7f7f7;
 }
-
 .mbsc-mobiscroll-dark .mbsc-cal-tabs .mbsc-cal-tab-sel {
-    background: #50ccc4;
+  background: #50ccc4;
 }
-
 .mbsc-mobiscroll-dark .mbsc-cal-tabs .mbsc-cal-tab-sel .mbsc-cal-tab-i {
-    color: #263238;
+  color: #263238;
 }
-
 .mbsc-mobiscroll-dark .mbsc-cal-sc-c {
-    background: #263238;
+  background: #263238;
 }
-
-
 /* Range */
-
 .mbsc-mobiscroll-dark .mbsc-range-btn {
-    border-color: #50ccc4;
+  border-color: #50ccc4;
 }
-
 .mbsc-mobiscroll-dark .mbsc-range-btn-sel .mbsc-range-btn {
-    background: #50ccc4;
-    color: #263238;
+  background: #50ccc4;
+  color: #263238;
 }
-
 .mbsc-mobiscroll-dark.mbsc-range .mbsc-cal-table .mbsc-cal-day-sel .mbsc-cal-day-i {
-    color: #f7f7f7;
-    background: rgba(80, 204, 196, 0.3);
+  color: #f7f7f7;
+  background: rgba(80, 204, 196, 0.3);
 }
-
 .mbsc-mobiscroll-dark.mbsc-range .mbsc-cal-table .mbsc-cal-day-hl .mbsc-cal-day-i {
-    background: #50ccc4;
-    color: #263238;
+  background: #50ccc4;
+  color: #263238;
 }
-
-
 /* Rating */
-
 .mbsc-mobiscroll-dark .mbsc-rating-icon {
-    color: #50ccc4;
+  color: #50ccc4;
 }
-
 .mbsc-mobiscroll-dark .mbsc-rating-icon-unf {
-    color: rgba(80, 204, 196, 0.3);
+  color: rgba(80, 204, 196, 0.3);
 }
-
 .mbsc-mobiscroll-dark .mbsc-rating-circle {
-    background: #50ccc4;
-    color: #263238;
+  background: #50ccc4;
+  color: #263238;
 }
-
 .mbsc-mobiscroll-dark .mbsc-rating-circle-unf {
-    background: none;
-    border-color: #50ccc4;
+  background: none;
+  border-color: #50ccc4;
 }
-
-
 /* Numpad */
-
 .mbsc-mobiscroll-dark .mbsc-np-del {
-    color: #50ccc4;
+  color: #50ccc4;
 }
-
-
 /* Colorpicker */
-
-.mbsc-mobiscroll-dark .mbsc-color {
-    border-color: #263238;
+.mbsc-mobiscroll-dark .mbsc-color-active,
+.mbsc-no-touch.mbsc-mobiscroll-dark .mbsc-color-item-c:hover {
+  box-shadow: inset 0 0 0 0.1875em #50ccc4;
 }
-
-
+.mbsc-mobiscroll-dark .mbsc-color-preview-item-empty {
+  border-color: #34444d;
+}
+.mbsc-mobiscroll-dark .mbsc-color-preview-cont {
+  border-top-color: #232e33;
+}
+.mbsc-mobiscroll-dark.mbsc-form .mbsc-color-input {
+  border-bottom: 1px solid #ffffff;
+  color: #d1d1d1;
+}
+.mbsc-mobiscroll-dark .mbsc-color-clear-item {
+  background: rgba(223, 222, 222, 0.3);
+}
 /* Listview */
-
 .mbsc-lv-mobiscroll-dark .mbsc-lv-item {
-    background: #263238;
-    color: #f7f7f7;
+  background: #263238;
+  color: #f7f7f7;
 }
-
 .mbsc-lv-mobiscroll-dark .mbsc-lv-gr-title {
-    background: #50ccc4;
-    color: #263238;
+  background: #50ccc4;
+  color: #263238;
 }
-
 .mbsc-lv-mobiscroll-dark .mbsc-lv-arr {
-    color: #50ccc4;
+  color: #50ccc4;
 }
-
 .mbsc-lv-mobiscroll-dark .mbsc-lv-handle-bar {
-    background: #50ccc4;
+  background: #50ccc4;
 }
-
 .mbsc-lv-mobiscroll-dark .mbsc-lv-item-active::after {
-    background: rgba(80, 204, 196, 0.3);
+  background: rgba(80, 204, 196, 0.3);
 }
-
 .mbsc-lv-mobiscroll-dark.mbsc-lv-alt-row .mbsc-lv-item:nth-child(even) {
-    background: #1d272b;
+  background: #1d272b;
 }
-
 .mbsc-lv-mobiscroll-dark .mbsc-lv-item.mbsc-lv-item-dragging {
-    background: #50ccc4;
-    color: #263238;
+  background: #50ccc4;
+  color: #263238;
 }
-
 .mbsc-lv-mobiscroll-dark .mbsc-lv-item-dragging .mbsc-lv-handle-bar {
-    background: #263238;
+  background: #263238;
 }
-
 .mbsc-lv-mobiscroll-dark .mbsc-lv-item-dragging .mbsc-lv-arr {
-    color: #263238;
+  color: #263238;
 }
-
-
 /* Menustrip */
-
 .mbsc-mobiscroll-dark.mbsc-ms-c {
-    color: #f7f7f7;
-    background: #263238;
+  color: #f7f7f7;
+  background: #263238;
 }
-
 .mbsc-mobiscroll-dark .mbsc-btn-a .mbsc-ms-item-i {
-    background: rgba(80, 204, 196, 0.3);
+  background: rgba(80, 204, 196, 0.3);
 }
-
 .mbsc-mobiscroll-dark.mbsc-ms-a .mbsc-ms-item-sel .mbsc-ms-item-i {
-    color: #50ccc4;
+  color: #50ccc4;
 }
-
 .mbsc-mobiscroll-dark.mbsc-ms-b.mbsc-ms-top {
-    border-color: #50ccc4;
+  border-color: #50ccc4;
 }
-
 .mbsc-mobiscroll-dark.mbsc-ms-b.mbsc-ms-bottom {
-    border-color: #50ccc4;
+  border-color: #50ccc4;
 }
-
 .mbsc-mobiscroll-dark.mbsc-ms-b .mbsc-ms-item-sel .mbsc-ms-item-i {
-    border-bottom-color: #50ccc4;
+  border-bottom-color: #50ccc4;
 }
-
 .mbsc-mobiscroll-dark.mbsc-ms-b.mbsc-ms-bottom .mbsc-ms-item-sel .mbsc-ms-item-i {
-    border-top-color: #50ccc4;
+  border-top-color: #50ccc4;
 }
-
-
 /* Progress */
-
 .mbsc-mobiscroll-dark.mbsc-progress .mbsc-input-ic {
-    color: #ffffff;
+  color: #ffffff;
 }
-
 .mbsc-mobiscroll-dark .mbsc-progress-track {
-    background: #2b3940;
+  background: #2b3940;
 }
-
 .mbsc-mobiscroll-dark .mbsc-progress-bar {
-    background: #50ccc4;
+  background: #50ccc4;
 }
-
-
 /* Slider */
-
 .mbsc-mobiscroll-dark .mbsc-slider-step {
-    background: #263238;
+  background: #263238;
 }
-
 .mbsc-mobiscroll-dark .mbsc-slider-handle {
-    background: #50ccc4;
+  background: #50ccc4;
 }
-
 .mbsc-mobiscroll-dark .mbsc-slider-tooltip {
-    color: #263238;
-    background: #50ccc4;
+  color: #263238;
+  background: #50ccc4;
 }
-
-
 /* Form elements */
-
 .mbsc-mobiscroll-dark.mbsc-form {
-    background: #263238;
-    color: #f7f7f7;
+  background: #263238;
+  color: #f7f7f7;
 }
-
 .mbsc-mobiscroll-dark.mbsc-form *::-moz-selection {
-    background: #50ccc4;
+  background: #50ccc4;
 }
-
 .mbsc-mobiscroll-dark.mbsc-form *::selection {
-    background: #50ccc4;
+  background: #50ccc4;
 }
-
 .mbsc-mobiscroll-dark .mbsc-desc {
-    color: #ffffff;
+  color: #ffffff;
 }
-
 .mbsc-mobiscroll-dark .mbsc-divider,
 .mbsc-mobiscroll-dark .mbsc-form-group-title {
-    color: #50ccc4;
+  color: #50ccc4;
 }
-
 .mbsc-mobiscroll-dark a {
-    color: #50ccc4;
+  color: #50ccc4;
 }
-
-
 /* Textbox */
-
 .mbsc-mobiscroll-dark .mbsc-input textarea,
 .mbsc-mobiscroll-dark .mbsc-input input {
-    border-bottom: 1px solid #ffffff;
-    color: #d1d1d1;
+  border-bottom: 1px solid #ffffff;
+  color: #d1d1d1;
 }
-
 .mbsc-mobiscroll-dark .mbsc-input select:focus ~ input,
 .mbsc-mobiscroll-dark .mbsc-input textarea:focus,
 .mbsc-mobiscroll-dark .mbsc-input input:focus {
-    border-color: #50ccc4;
+  border-color: #50ccc4;
 }
-
 .mbsc-mobiscroll-dark .mbsc-input-ic {
-    color: #ffffff;
+  color: #ffffff;
 }
-
-
 /* Checkbox */
-
 .mbsc-mobiscroll-dark .mbsc-checkbox-box {
-    background: #50ccc4;
+  background: #50ccc4;
 }
-
 .mbsc-mobiscroll-dark .mbsc-checkbox-box:after {
-    border: 0.125em solid #263238;
-    border-top: 0;
-    border-right: 0;
+  border: 0.125em solid #263238;
+  border-top: 0;
+  border-right: 0;
 }
-
 .mbsc-mobiscroll-dark .mbsc-checkbox input:disabled + .mbsc-checkbox-box {
-    background: #101517;
+  background: #101517;
 }
-
-
 /* Radio */
-
 .mbsc-mobiscroll-dark .mbsc-radio-box {
-    border: 0.125em solid #50ccc4;
+  border: 0.125em solid #50ccc4;
 }
-
 .mbsc-mobiscroll-dark .mbsc-radio-box:after {
-    background: #50ccc4;
+  background: #50ccc4;
 }
-
 .mbsc-mobiscroll-dark .mbsc-radio input:checked + .mbsc-radio-box {
-    background: transparent;
+  background: transparent;
 }
-
 .mbsc-mobiscroll-dark .mbsc-radio input:disabled + .mbsc-radio-box {
-    border-color: #101517;
+  border-color: #101517;
 }
-
 .mbsc-mobiscroll-dark .mbsc-radio input:disabled + .mbsc-radio-box:after {
-    background: #101517;
+  background: #101517;
 }
-
-
 /* Buttons */
-
 .mbsc-mobiscroll-dark .mbsc-btn {
-    background: #50ccc4;
-    color: #263238;
+  background: #50ccc4;
+  color: #263238;
 }
-
 .mbsc-mobiscroll-dark .mbsc-btn:disabled {
-    background: #2b3940;
+  background: #2b3940;
 }
-
 .mbsc-mobiscroll-dark .mbsc-btn-flat.mbsc-active {
-    background: rgba(80, 204, 196, 0.3);
+  background: rgba(80, 204, 196, 0.3);
 }
-
 .mbsc-mobiscroll-dark .mbsc-btn-flat {
-    background: transparent;
-    color: #50ccc4;
-    border-color: transparent;
+  background: transparent;
+  color: #50ccc4;
+  border-color: transparent;
 }
-
 .mbsc-mobiscroll-dark .mbsc-btn-flat:disabled {
-    background: transparent;
-    color: #232e33;
+  background: transparent;
+  color: #232e33;
 }
-
-
 /* Switch */
-
 .mbsc-mobiscroll-dark .mbsc-switch-track {
-    background: #2b3940;
+  background: #2b3940;
 }
-
 .mbsc-mobiscroll-dark .mbsc-switch-handle {
-    background: #232e33;
+  background: #232e33;
 }
-
 .mbsc-mobiscroll-dark .mbsc-switch input:checked + .mbsc-switch-track {
-    background: #b5e6e2;
+  background: #b5e6e2;
 }
-
 .mbsc-mobiscroll-dark .mbsc-switch input:checked + .mbsc-switch-track .mbsc-switch-handle {
-    background: #50ccc4;
+  background: #50ccc4;
 }
-
 .mbsc-mobiscroll-dark .mbsc-switch input:disabled + .mbsc-switch-track {
-    background: #101517;
+  background: #101517;
 }
-
 .mbsc-mobiscroll-dark .mbsc-switch input:disabled + .mbsc-switch-track .mbsc-switch-handle {
-    background: #182024;
+  background: #182024;
 }
-
-
 /* Stepper segmented */
-
 .mbsc-mobiscroll-dark .mbsc-segmented-content {
-    border-color: #50ccc4;
-    color: #50ccc4;
+  border-color: #50ccc4;
+  color: #50ccc4;
 }
-
 .mbsc-mobiscroll-dark .mbsc-stepper input {
-    color: #f7f7f7;
+  color: #f7f7f7;
 }
-
 .mbsc-mobiscroll-dark .mbsc-stepper .mbsc-active .mbsc-segmented-content,
 .mbsc-mobiscroll-dark .mbsc-segmented input:checked + .mbsc-segmented-content {
-    background: #50ccc4;
-    color: #263238;
+  background: #50ccc4;
+  color: #263238;
 }
-
 .mbsc-mobiscroll-dark .mbsc-segmented input.mbsc-active + .mbsc-segmented-content {
-    background: rgba(80, 204, 196, 0.25);
-    color: #263238;
+  background: rgba(80, 204, 196, 0.25);
+  color: #263238;
 }
-
 .mbsc-mobiscroll-dark .mbsc-stepper-cont {
-    padding: 1.75em 12.875em 1.75em 1em;
+  padding: 1.75em 12.875em 1.75em 1em;
 }
-
 .mbsc-mobiscroll-dark .mbsc-stepper {
-    margin-top: -1.25em;
+  margin-top: -1.25em;
 }
-
 .mbsc-mobiscroll-dark .mbsc-segmented input:disabled ~ .mbsc-segmented-item .mbsc-segmented-content,
 .mbsc-mobiscroll-dark .mbsc-step-disabled .mbsc-segmented-content,
 .mbsc-mobiscroll-dark .mbsc-segmented input:disabled + .mbsc-segmented-content {
-    color: #101517;
-    border-color: #101517;
+  color: #101517;
+  border-color: #101517;
 }
-
 .mbsc-mobiscroll-dark .mbsc-stepper input:disabled {
-    color: #101517;
-    -webkit-text-fill-color: #101517;
+  color: #101517;
+  -webkit-text-fill-color: #101517;
 }
-
 .mbsc-mobiscroll-dark .mbsc-segmented input:disabled:checked + .mbsc-segmented-content {
-    background: #2b3940;
-    border-color: #2b3940;
-    color: #263238;
+  background: #2b3940;
+  border-color: #2b3940;
+  color: #263238;
 }
-
 .mbsc-mobiscroll-dark .mbsc-stepper .mbsc-active.mbsc-step-disabled .mbsc-segmented-content {
-    color: #101517;
+  color: #101517;
 }

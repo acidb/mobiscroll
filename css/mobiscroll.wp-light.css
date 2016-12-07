@@ -366,3 +366,25 @@
 .mbsc-wp-light .mbsc-stepper input {
   color: #000000;
 }
+/* Colorpicker */
+.mbsc-wp-light .mbsc-color-active,
+.mbsc-no-touch.mbsc-wp-light .mbsc-color-item-c:hover {
+  box-shadow: inset 0 0 0 0.1875em #1ba0e3;
+}
+.mbsc-wp-light .mbsc-color-preview-item-empty {
+  border-color: #9e9e9e;
+}
+.mbsc-wp-light .mbsc-color-preview-cont {
+  border-color: #9e9e9e;
+}
+.mbsc-wp-light.mbsc-color .mbsc-color-slider-cont .mbsc-progress-track {
+  background: #4f4f4f;
+}
+.mbsc-wp-light.mbsc-form .mbsc-color-input {
+  background: #ffffff;
+  color: #000000;
+  border-color: #000000;
+}
+.mbsc-wp-light .mbsc-color-clear-item {
+  background: #ffffff;
+}
