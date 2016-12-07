@@ -311,8 +311,8 @@
             }
 
             // Calculate snap and limit between min and max
-            currSnap = Math.round((startPos + diff) / snap);
-            newPos = constrain(currSnap * snap, minScroll, maxScroll);
+            newPos = constrain(Math.round((startPos + diff) / snap) * snap, minScroll, maxScroll);
+            currSnap = Math.round(newPos / snap);
 
             // Snap to nearest element
             if (snapPoints) {
@@ -455,11 +455,13 @@
                 pos = Math.round(pos / snap) * snap;
             }
 
+            pos = constrain(pos, minScroll, maxScroll);
+
             currSnap = Math.round(pos / snap);
 
             startPos = currPos;
 
-            scroll(constrain(pos, minScroll, maxScroll), time, tap, callback);
+            scroll(pos, time, tap, callback);
         };
 
         that.refresh = function (noScroll) {
