@@ -1,10 +1,7 @@
-.mbsc-android-holo .mbsc-fr-popup {
+.mbsc-android-holo .mbsc-fr-w {
     background: #292829;
     color: #fff;
     border-radius: .25em;
-}
-
-.mbsc-android-holo .mbsc-fr-w {
     font-size: 16px;
 }
 
@@ -39,35 +36,23 @@
     border-left: 1px solid #424542;
 }
 
-.mbsc-android-holo .mbsc-fr-btn-w:first-child .mbsc-fr-btn {
-    border: 0;
-    border-radius: 0 0 0 .214286em;
-}
-
-.mbsc-android-holo .mbsc-fr-btn-w:last-child .mbsc-fr-btn {
-    border-radius: 0 0 .214286em 0;
-}
-
-.mbsc-android-holo .mbsc-rtl .mbsc-fr-btn-w .mbsc-fr-btn {
-    border: 0;
-    border-right: 1px solid #424542;
-}
-
+.mbsc-android-holo .mbsc-ltr .mbsc-fr-btn-w:first-child .mbsc-fr-btn,
 .mbsc-android-holo .mbsc-rtl .mbsc-fr-btn-w:last-child .mbsc-fr-btn {
-    border-radius: 0 0 0 .214286em;
+    border: 0;
+    border-radius: 0 0 0 .285714em;
 }
 
+.mbsc-android-holo .mbsc-ltr .mbsc-fr-btn-w:last-child .mbsc-fr-btn,
 .mbsc-android-holo .mbsc-rtl .mbsc-fr-btn-w:first-child .mbsc-fr-btn {
-    border: 0;
-    border-radius: 0 0 .214286em 0;
+    border-radius: 0 0 .285714em 0;
 }
 
 
 /* Top, bottom mode */
 
-.mbsc-android-holo.mbsc-fr-liq .mbsc-fr-popup,
-.mbsc-android-holo.mbsc-fr-top .mbsc-fr-popup,
-.mbsc-android-holo.mbsc-fr-bottom .mbsc-fr-popup,
+.mbsc-android-holo.mbsc-fr-liq .mbsc-fr-w,
+.mbsc-android-holo.mbsc-fr-top .mbsc-fr-w,
+.mbsc-android-holo.mbsc-fr-bottom .mbsc-fr-w,
 .mbsc-android-holo.mbsc-fr-liq .mbsc-fr-btn-w .mbsc-fr-btn,
 .mbsc-android-holo.mbsc-fr-top .mbsc-fr-btn-w .mbsc-fr-btn,
 .mbsc-android-holo.mbsc-fr-bottom .mbsc-fr-btn-w .mbsc-fr-btn {
