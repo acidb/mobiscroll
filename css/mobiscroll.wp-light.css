@@ -17,6 +17,10 @@
 .mbsc-wp-light .mbsc-sc-whl .mbsc-sc-itm-sel {
   color: white;
 }
+.mbsc-wp-light.mbsc-no-touch .mbsc-cal-tab:hover .mbsc-cal-tab-i,
+.mbsc-wp-light.mbsc-no-touch .mbsc-cal-day-v:hover .mbsc-cal-day-i,
+.mbsc-wp-light.mbsc-no-touch .mbsc-cal-sc-cell:not(.mbsc-fr-btn-d):hover .mbsc-cal-sc-tbl,
+.mbsc-wp-light.mbsc-no-touch .mbsc-range-btn-c:hover .mbsc-range-btn,
 .mbsc-wp-light .mbsc-cal-day-sel .mbsc-cal-day-i,
 .mbsc-wp-light .mbsc-cal-sc-sel .mbsc-cal-sc-cell-i .mbsc-cal-sc-cell,
 .mbsc-wp-light .mbsc-cal-tabs .mbsc-cal-tab-sel .mbsc-cal-tab-i,
@@ -91,6 +95,7 @@
 .mbsc-wp-light .mbsc-cal-day-inv .mbsc-cal-day-fg {
   color: rgba(0, 0, 0, 0.3);
 }
+.mbsc-wp-light.mbsc-no-touch .mbsc-cal-day-v:hover .mbsc-cal-day-fg,
 .mbsc-wp-light .mbsc-cal-day-sel .mbsc-cal-day-fg {
   border-color: #1ba0e3;
 }
@@ -107,6 +112,8 @@
   color: #000000;
   border-color: #000000;
 }
+.mbsc-wp-light.mbsc-no-touch .mbsc-fr-btn-e:not(.mbsc-fr-btn-d):hover:before,
+.mbsc-wp-light.mbsc-no-touch .mbsc-cal-btn:not(.mbsc-fr-btn-d):hover .mbsc-cal-btn-txt:before,
 .mbsc-wp-light .mbsc-fr-btn-a:before,
 .mbsc-wp-light .mbsc-fr-btn-a .mbsc-cal-btn-txt:before {
   background: #1ba0e3;

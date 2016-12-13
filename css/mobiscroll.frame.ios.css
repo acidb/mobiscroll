@@ -69,6 +69,10 @@
     opacity: .5;
 }
 
+.mbsc-ios.mbsc-no-touch .mbsc-fr-btn-e:not(.mbsc-fr-btn-d):hover {
+    background: #ebebe8;
+}
+
 .mbsc-ios .mbsc-fr-btn-w {
     display: block;
     float: right;
@@ -230,7 +234,7 @@
 
 /* Inline display */
 
-.mbsc-ios.mbsc-fr-inline .mbsc-fr-popup {
+.mbsc-ios.mbsc-fr-inline .mbsc-fr-w {
     border: 0;
     border-radius: 0;
     background: #fff;

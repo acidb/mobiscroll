@@ -9,6 +9,7 @@
 .mbsc-mobiscroll-dark .mbsc-sc-whl-l {
   border-color: #50ccc4;
 }
+.mbsc-mobiscroll-dark.mbsc-no-touch .mbsc-fr-btn-e:not(.mbsc-fr-btn-d):hover,
 .mbsc-mobiscroll-dark .mbsc-fr-btn-a {
   background: rgba(80, 204, 196, 0.3);
 }
@@ -111,7 +112,7 @@
 .mbsc-mobiscroll-dark .mbsc-range-btn {
   border-color: #50ccc4;
 }
-.mbsc-mobiscroll-dark .mbsc-range-btn-sel .mbsc-range-btn {
+.mbsc-mobiscroll-dark.mbsc-range .mbsc-range-btn-t .mbsc-range-btn-sel .mbsc-range-btn {
   background: #50ccc4;
   color: #263238;
 }

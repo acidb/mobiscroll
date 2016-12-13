@@ -544,8 +544,8 @@
 
             if (isModal) {
                 lockClass = 'mbsc-fr-lock' + (needsLock ? ' mbsc-fr-lock-ios' : '') + (hasContext ? ' mbsc-fr-lock-ctx' : '');
-                scrollTop = $wnd.scrollTop();
-                scrollLeft = $wnd.scrollLeft();
+                scrollTop = Math.max(0, $wnd.scrollTop());
+                scrollLeft = Math.max(0, $wnd.scrollLeft());
                 wndWidth = 0;
                 wndHeight = 0;
 
@@ -893,7 +893,7 @@
         that._markupRemove = empty;
 
         that._position = empty;
-        
+
         that.__processSettings = empty;
 
 

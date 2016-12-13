@@ -1,8 +1,8 @@
-.mbsc-android-holo-light .mbsc-fr-popup,
+.mbsc-android-holo-light .mbsc-fr-w,
 .mbsc-android-holo-light .mbsc-cal-sc-c {
   background: #f5f5f5;
 }
-.mbsc-android-holo-light .mbsc-fr-popup,
+.mbsc-android-holo-light .mbsc-fr-w,
 .mbsc-android-holo-light .mbsc-fr-btn,
 .mbsc-android-holo-light .mbsc-sc-itm,
 .mbsc-android-holo-light .mbsc-range-btn,
@@ -27,6 +27,7 @@
 .mbsc-android-holo-light .mbsc-sc-whl-l {
   border-color: #31b7e8;
 }
+.mbsc-android-holo-light.mbsc-no-touch .mbsc-fr-btn-e:not(.mbsc-fr-btn-d):hover,
 .mbsc-android-holo-light .mbsc-fr-btn-a {
   background: #28799c;
   color: black;
@@ -60,8 +61,7 @@
 }
 .mbsc-android-holo-light .mbsc-cal .mbsc-cal-sc-sel .mbsc-cal-sc-cell-i,
 .mbsc-android-holo-light .mbsc-cal .mbsc-cal-day-sel .mbsc-cal-day-i {
-  background: #31b7e8;
-  background: rgba(49, 183, 232, 0.5);
+  background: #28799c;
 }
 .mbsc-android-holo-light .mbsc-cal-hl-now .mbsc-cal-today {
   color: #31b7e8;

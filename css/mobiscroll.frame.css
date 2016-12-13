@@ -238,7 +238,7 @@
 }
 
 .mbsc-fr-btn-d {
-    cursor: default;
+    cursor: not-allowed;
 }
 
 
@@ -327,6 +327,7 @@
     text-transform: uppercase;
 }
 
+.mbsc-mobiscroll.mbsc-no-touch .mbsc-fr-btn-e:not(.mbsc-fr-btn-d):hover,
 .mbsc-mobiscroll .mbsc-fr-btn-a {
     background: rgba(78, 204, 196, .3);
 }
