@@ -178,8 +178,8 @@
 .mbsc-wp-light .mbsc-ms-ic:before {
   border-color: #000000;
 }
-.mbsc-wp-light .mbsc-ms-item-sel .mbsc-ms-ic:before,
-.mbsc-wp-light .mbsc-btn-a .mbsc-ms-ic:before {
+.mbsc-wp-light .mbsc-ms-item-sel.mbsc-ms-ic:before,
+.mbsc-wp-light .mbsc-btn-a.mbsc-ms-ic:before {
   background: #000000;
   color: #dedede;
 }

@@ -197,10 +197,10 @@
   color: #f7f7f7;
   background: #263238;
 }
-.mbsc-mobiscroll-dark .mbsc-btn-a .mbsc-ms-item-i {
+.mbsc-mobiscroll-dark .mbsc-btn-a.mbsc-ms-item {
   background: rgba(80, 204, 196, 0.3);
 }
-.mbsc-mobiscroll-dark.mbsc-ms-a .mbsc-ms-item-sel .mbsc-ms-item-i {
+.mbsc-mobiscroll-dark.mbsc-ms-a .mbsc-ms-item-sel.mbsc-ms-item {
   color: #50ccc4;
 }
 .mbsc-mobiscroll-dark.mbsc-ms-b.mbsc-ms-top {
@@ -209,10 +209,10 @@
 .mbsc-mobiscroll-dark.mbsc-ms-b.mbsc-ms-bottom {
   border-color: #50ccc4;
 }
-.mbsc-mobiscroll-dark.mbsc-ms-b .mbsc-ms-item-sel .mbsc-ms-item-i {
+.mbsc-mobiscroll-dark.mbsc-ms-b .mbsc-ms-item-sel.mbsc-ms-item {
   border-bottom-color: #50ccc4;
 }
-.mbsc-mobiscroll-dark.mbsc-ms-b.mbsc-ms-bottom .mbsc-ms-item-sel .mbsc-ms-item-i {
+.mbsc-mobiscroll-dark.mbsc-ms-b.mbsc-ms-bottom .mbsc-ms-item-sel.mbsc-ms-item {
   border-top-color: #50ccc4;
 }
 /* Progress */
