@@ -20,6 +20,7 @@
   color: #7d7d7d;
   background: #f5f5f5;
 }
+.mbsc-android-holo-light.mbsc-no-touch .mbsc-sc-btn:hover,
 .mbsc-android-holo-light .mbsc-sc-btn-a {
   color: #319abd;
   background: #f5f5f5;
@@ -29,8 +30,8 @@
 }
 .mbsc-android-holo-light.mbsc-no-touch .mbsc-fr-btn-e:not(.mbsc-fr-btn-d):hover,
 .mbsc-android-holo-light .mbsc-fr-btn-a {
-  background: #28799c;
-  color: black;
+  background: rgba(49, 183, 232, 0.5);
+  color: white;
 }
 .mbsc-android-holo-light .mbsc-sc-whl-multi .mbsc-sc-itm:after {
   border-color: #d9d4d4;
@@ -59,9 +60,9 @@
 .mbsc-android-holo-light .mbsc-cal-day-m-c {
   background: #31b7e8;
 }
-.mbsc-android-holo-light .mbsc-cal .mbsc-cal-sc-sel .mbsc-cal-sc-cell-i,
-.mbsc-android-holo-light .mbsc-cal .mbsc-cal-day-sel .mbsc-cal-day-i {
-  background: #28799c;
+.mbsc-android-holo-light .mbsc-cal .mbsc-cal-sc-sel,
+.mbsc-android-holo-light .mbsc-cal .mbsc-cal-day-sel {
+  background: rgba(49, 183, 232, 0.5);
 }
 .mbsc-android-holo-light .mbsc-cal-hl-now .mbsc-cal-today {
   color: #31b7e8;
@@ -175,7 +176,7 @@
   color: #000000;
   background: #f5f5f5;
 }
-.mbsc-android-holo-light.mbsc-ms-a .mbsc-ms-item-sel.mbsc-ms-item {
+.mbsc-android-holo-light.mbsc-ms-a .mbsc-ms-item-sel .mbsc-ms-item-i {
   color: #31b7e8;
 }
 .mbsc-android-holo-light.mbsc-ms-b.mbsc-ms-top {
@@ -184,16 +185,16 @@
 .mbsc-android-holo-light.mbsc-ms-b.mbsc-ms-bottom {
   border-color: #31b7e8;
 }
-.mbsc-android-holo-light.mbsc-ms-b .mbsc-ms-item-sel.mbsc-ms-item {
+.mbsc-android-holo-light.mbsc-ms-b .mbsc-ms-item-sel .mbsc-ms-item-i {
   border-bottom-color: #31b7e8;
 }
-.mbsc-android-holo-light.mbsc-ms-b.mbsc-ms-bottom .mbsc-ms-item-sel.mbsc-ms-item {
+.mbsc-android-holo-light.mbsc-ms-b.mbsc-ms-bottom .mbsc-ms-item-sel .mbsc-ms-item-i {
   border-top-color: #31b7e8;
 }
-.mbsc-android-holo-light.mbsc-ms-b .mbsc-ms-item:after {
-  background: #d9d9d9;
+.mbsc-android-holo-light.mbsc-ms-b .mbsc-ms-item-i-c {
+  border-color: #d9d9d9;
 }
-.mbsc-android-holo-light .mbsc-btn-a.mbsc-ms-item {
+.mbsc-android-holo-light .mbsc-btn-a .mbsc-ms-item-i {
   background: #28799c;
 }
 /* Progress */

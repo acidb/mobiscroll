@@ -40,6 +40,7 @@
     background: #292829;
 }
 
+.mbsc-android-holo.mbsc-no-touch .mbsc-sc-btn:hover,
 .mbsc-android-holo .mbsc-sc-btn-a {
     background: #292829;
     color: #319abd;

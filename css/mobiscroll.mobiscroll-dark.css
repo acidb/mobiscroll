@@ -23,6 +23,7 @@
   color: #50ccc4;
   background: #263238;
 }
+.mbsc-mobiscroll-dark.mbsc-no-touch .mbsc-sc-btn:hover:before,
 .mbsc-mobiscroll-dark .mbsc-sc-btn-a:before {
   background: rgba(80, 204, 196, 0.3);
 }
@@ -197,10 +198,10 @@
   color: #f7f7f7;
   background: #263238;
 }
-.mbsc-mobiscroll-dark .mbsc-btn-a.mbsc-ms-item {
+.mbsc-mobiscroll-dark .mbsc-btn-a .mbsc-ms-item-i {
   background: rgba(80, 204, 196, 0.3);
 }
-.mbsc-mobiscroll-dark.mbsc-ms-a .mbsc-ms-item-sel.mbsc-ms-item {
+.mbsc-mobiscroll-dark.mbsc-ms-a .mbsc-ms-item-sel .mbsc-ms-item-i {
   color: #50ccc4;
 }
 .mbsc-mobiscroll-dark.mbsc-ms-b.mbsc-ms-top {
@@ -209,10 +210,10 @@
 .mbsc-mobiscroll-dark.mbsc-ms-b.mbsc-ms-bottom {
   border-color: #50ccc4;
 }
-.mbsc-mobiscroll-dark.mbsc-ms-b .mbsc-ms-item-sel.mbsc-ms-item {
+.mbsc-mobiscroll-dark.mbsc-ms-b .mbsc-ms-item-sel .mbsc-ms-item-i {
   border-bottom-color: #50ccc4;
 }
-.mbsc-mobiscroll-dark.mbsc-ms-b.mbsc-ms-bottom .mbsc-ms-item-sel.mbsc-ms-item {
+.mbsc-mobiscroll-dark.mbsc-ms-b.mbsc-ms-bottom .mbsc-ms-item-sel .mbsc-ms-item-i {
   border-top-color: #50ccc4;
 }
 /* Progress */

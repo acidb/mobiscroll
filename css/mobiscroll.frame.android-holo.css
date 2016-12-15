@@ -30,7 +30,7 @@
 
 .mbsc-android-holo.mbsc-no-touch .mbsc-fr-btn-e:not(.mbsc-fr-btn-d):hover,
 .mbsc-android-holo .mbsc-fr-btn-a {
-    background: #29799c;
+    background: rgba(49, 182, 231, .5);
 }
 
 .mbsc-android-holo .mbsc-fr-btn-w .mbsc-fr-btn {
