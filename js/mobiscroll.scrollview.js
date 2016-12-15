@@ -263,13 +263,19 @@
 
                 ev.preventDefault();
 
-                if (s.readonly) {
-                    return;
+                //diff = diff < 0 ? 20 : -20;
+
+                if (ev.deltaMode && ev.deltaMode == 1) {
+                    diff *= 5;
                 }
 
-                diff = diff < 0 ? 20 : -20;
+                diff = constrain(-diff, -20, 20);
 
                 startPos = currPos;
+
+                if (s.readonly || startPos + diff < minScroll || startPos + diff > maxScroll) {
+                    return;
+                }
 
                 if (!scrolled) {
                     eventObj = {

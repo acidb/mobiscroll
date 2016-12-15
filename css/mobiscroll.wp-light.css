@@ -92,9 +92,6 @@
 .mbsc-wp-light .mbsc-cal-tabs .mbsc-cal-tab-i {
   border-color: #a6a6a6;
 }
-.mbsc-wp-light .mbsc-cal-day-inv .mbsc-cal-day-fg {
-  color: rgba(0, 0, 0, 0.3);
-}
 .mbsc-wp-light.mbsc-no-touch .mbsc-cal-day-v:hover .mbsc-cal-day-fg,
 .mbsc-wp-light .mbsc-cal-day-sel .mbsc-cal-day-fg {
   border-color: #1ba0e3;
