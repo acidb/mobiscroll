@@ -25,8 +25,8 @@
         timeFormat: 'HH:ii',
         yearText: 'Ano',
         nowText: 'Agora',
-        pmText: 'da tarde',
-        amText: 'da manhã',
+        pmText: 'pm',
+        amText: 'am',
         todayText: 'Hoje',
         // Calendar component
         dateText: 'Data',

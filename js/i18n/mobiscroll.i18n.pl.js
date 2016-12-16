@@ -21,8 +21,8 @@
         timeFormat: 'HH:ii',
         yearText: 'Rok',
         nowText: 'Teraz',
-        amText: 'rano',
-        pmText: 'po południu',
+        amText: 'am',
+        pmText: 'pm',
         todayText: 'Dzisiaj',
         // Calendar component
         firstDay: 1,

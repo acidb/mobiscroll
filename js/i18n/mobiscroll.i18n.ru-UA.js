@@ -22,8 +22,8 @@
         timeFormat: 'HH:ii',
         yearText: 'Год',
         nowText: 'Сейчас',
-        amText: 'До полудня',
-        pmText: 'После полудня',
+        amText: 'am',
+        pmText: 'pm',
         todayText: 'Cегодня',
         // Calendar component
         firstDay: 1,

@@ -22,8 +22,8 @@
         timeFormat: 'HH:ii',
         yearText: 'Yıl',
         nowText: 'Şimdi',
-        pmText: 'akşam',
-        amText: 'sabah',
+        pmText: 'pm',
+        amText: 'am',
         todayText: 'Bugün',
         // Calendar component
         firstDay: 1,

@@ -22,8 +22,8 @@
         timeFormat: 'H:ii',
         yearText: 'Év',
         nowText: 'Most',
-        pmText: 'de',
-        amText: 'du',
+        pmText: 'pm',
+        amText: 'am',
         // Calendar component
         firstDay: 1,
         dateText: 'Dátum',

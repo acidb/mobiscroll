@@ -25,8 +25,8 @@
         timeFormat: 'HH:ii',
         yearText: 'Ano',
         nowText: 'Actualizar',
-        pmText: 'da tarde',
-        amText: 'da manhã',
+        pmText: 'pm',
+        amText: 'am',
         todayText: 'Hoy',
         // Calendar component
         firstDay: 1,
