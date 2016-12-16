@@ -396,7 +396,7 @@ var mobiscroll = mobiscroll || {};
         /**
          * Attach tap event to the given element.
          */
-        that.tap = function (el, handler, prevent, tolerance) {
+        that.tap = function (el, handler, prevent, tolerance, time) {
             var startX,
                 startY,
                 target,
@@ -428,7 +428,7 @@ var mobiscroll = mobiscroll || {};
 
             function onEnd(ev) {
                 if (target) {
-                    if (new Date() - startTime < 100 || !moved) {
+                    if ((time && new Date() - startTime < 100) || !moved) {
                         ev.preventDefault();
                         handler.call(target, ev, that);
                     }

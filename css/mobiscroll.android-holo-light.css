@@ -60,12 +60,13 @@
 .mbsc-android-holo-light .mbsc-cal-day-m-c {
   background: #31b7e8;
 }
+.mbsc-android-holo-light .mbsc-cal-hl-now .mbsc-cal-today {
+  color: #31b7e8;
+}
 .mbsc-android-holo-light .mbsc-cal .mbsc-cal-sc-sel,
 .mbsc-android-holo-light .mbsc-cal .mbsc-cal-day-sel {
   background: rgba(49, 183, 232, 0.5);
-}
-.mbsc-android-holo-light .mbsc-cal-hl-now .mbsc-cal-today {
-  color: #31b7e8;
+  color: white;
 }
 .mbsc-android-holo-light .mbsc-fr-btn-a .mbsc-cal-btn-txt {
   color: #319abd;
