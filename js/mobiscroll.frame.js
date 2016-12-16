@@ -550,7 +550,7 @@
                 wndHeight = 0;
 
                 if (needsLock) {
-                    $lock.scrollTop(0);
+                    //$lock.scrollTop(0);
                     $ctx.css({
                         top: -scrollTop + 'px',
                         left: -scrollLeft + 'px'
