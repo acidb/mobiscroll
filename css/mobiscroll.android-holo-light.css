@@ -282,6 +282,9 @@
   background: #d4d4d4;
   color: #000000;
 }
+.mbsc-android-holo-light.mbsc-no-touch .mbsc-btn:not(:disabled):not(.mbsc-active):hover {
+  background: #c9c9c9;
+}
 .mbsc-android-holo-light .mbsc-btn.mbsc-active {
   background: #c2c2c2;
 }

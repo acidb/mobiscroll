@@ -269,13 +269,25 @@
 .mbsc-wp-light .mbsc-btn .mbsc-btn-ic {
   color: #000000;
 }
+.mbsc-wp-light .mbsc-btn-flat .mbsc-btn-ic {
+  border-color: #000000;
+}
 .mbsc-wp-light .mbsc-btn-flat,
+.mbsc-wp-light.mbsc-no-touch .mbsc-btn-flat:not(:disabled):hover,
 .mbsc-wp-light .mbsc-btn-flat.mbsc-active {
   color: #000000;
 }
-.mbsc-wp-light .mbsc-btn-flat.mbsc-active .mbsc-btn-ic,
-.mbsc-wp-light .mbsc-btn-flat .mbsc-btn-ic {
-  border-color: #000000;
+.mbsc-wp-light.mbsc-no-touch .mbsc-btn-flat:not(:disabled):hover .mbsc-btn-ic,
+.mbsc-wp-light .mbsc-btn-flat.mbsc-active .mbsc-btn-ic {
+  border-color: #1ba0e3;
+}
+.mbsc-wp-light.mbsc-no-touch .mbsc-btn:not(:disabled):hover .mbsc-btn-ic,
+.mbsc-wp-light .mbsc-btn.mbsc-active .mbsc-btn-ic {
+  background: #1ba0e3;
+}
+.mbsc-wp-light.mbsc-no-touch .mbsc-btn:not(.mbsc-btn-flat):not(:disabled):hover,
+.mbsc-wp-light .mbsc-btn.mbsc-active:not(.mbsc-btn-flat) {
+  background: #1ba0e3;
 }
 .mbsc-wp-light .mbsc-switch input:checked + .mbsc-switch-track,
 .mbsc-wp-light .mbsc-radio input.mbsc-active + .mbsc-radio-box:after,
@@ -311,15 +323,6 @@
 }
 .mbsc-wp-light .mbsc-select select.mbsc-active ~ .mbsc-ic {
   color: white;
-}
-.mbsc-wp-light .mbsc-btn-flat.mbsc-active .mbsc-btn-ic {
-  border-color: #1ba0e3;
-}
-.mbsc-wp-light .mbsc-btn.mbsc-active .mbsc-btn-ic {
-  background: #1ba0e3;
-}
-.mbsc-wp-light .mbsc-btn.mbsc-active:not(.mbsc-btn-flat) {
-  background: #1ba0e3;
 }
 .mbsc-wp-light a {
   color: #1ba0e3;

@@ -308,6 +308,9 @@
 .mbsc-mobiscroll-dark .mbsc-btn:disabled {
   background: #2b3940;
 }
+.mbsc-mobiscroll-dark.mbsc-no-touch .mbsc-btn-flat:not(:disabled):not(.mbsc-active):hover {
+  background: rgba(80, 204, 196, 0.1);
+}
 .mbsc-mobiscroll-dark .mbsc-btn-flat.mbsc-active {
   background: rgba(80, 204, 196, 0.3);
 }
