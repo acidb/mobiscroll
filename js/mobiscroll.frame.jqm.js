@@ -72,7 +72,7 @@
             s.calendarClass = 'ui-body-a ui-body-' + cal;
             s.weekNrClass = 'ui-body-a ui-body-' + cal;
             s.eventBubbleClass = 'ui-body-' + bubble;
-        },
+        }
     });
 
 })();
