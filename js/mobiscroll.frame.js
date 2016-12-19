@@ -110,16 +110,19 @@
                 }
                 setTimeout(function () {
                     if (focus === undefined || focus === true) {
-                        preventShow = true;
-                        activeEl = $activeEl[0];
-                        type = activeEl.type;
-                        value = activeEl.value;
-                        try {
-                            activeEl.type = 'button';
-                        } catch (ex) {}
-                        $activeEl.focus();
-                        activeEl.type = type;
-                        activeEl.value = value;
+                        // Don't focus on a select
+                        if (!$activeEl.is('select')) {
+                            preventShow = true;
+                            activeEl = $activeEl[0];
+                            type = activeEl.type;
+                            value = activeEl.value;
+                            try {
+                                activeEl.type = 'button';
+                            } catch (ex) {}
+                            $activeEl.focus();
+                            activeEl.type = type;
+                            activeEl.value = value;
+                        }
                     } else if (focus) {
                         $(focus).focus();
                     }
