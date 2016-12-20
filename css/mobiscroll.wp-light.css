@@ -17,6 +17,10 @@
 .mbsc-wp-light .mbsc-sc-whl .mbsc-sc-itm-sel {
   color: white;
 }
+.mbsc-wp-light.mbsc-no-touch .mbsc-cal-tab:hover .mbsc-cal-tab-i,
+.mbsc-wp-light.mbsc-no-touch .mbsc-cal-day-v:hover .mbsc-cal-day-i,
+.mbsc-wp-light.mbsc-no-touch .mbsc-cal-sc-cell:not(.mbsc-fr-btn-d):hover .mbsc-cal-sc-tbl .mbsc-cal-sc-cell,
+.mbsc-wp-light.mbsc-no-touch .mbsc-range-btn-c:hover .mbsc-range-btn,
 .mbsc-wp-light .mbsc-cal-day-sel .mbsc-cal-day-i,
 .mbsc-wp-light .mbsc-cal-sc-sel .mbsc-cal-sc-cell-i .mbsc-cal-sc-cell,
 .mbsc-wp-light .mbsc-cal-tabs .mbsc-cal-tab-sel .mbsc-cal-tab-i,
@@ -35,7 +39,8 @@
 }
 .mbsc-wp-light .mbsc-sc-itm-sel:after,
 .mbsc-wp-light .mbsc-sc-itm.mbsc-btn-a:after,
-.mbsc-wp-light .mbsc-sc-btn-a:before {
+.mbsc-wp-light .mbsc-sc-btn-a:before,
+.mbsc-wp-light.mbsc-no-touch .mbsc-sc-btn:hover:before {
   background: #1ba0e3;
   border-color: #1ba0e3;
 }
@@ -88,9 +93,7 @@
 .mbsc-wp-light .mbsc-cal-tabs .mbsc-cal-tab-i {
   border-color: #a6a6a6;
 }
-.mbsc-wp-light .mbsc-cal-day-inv .mbsc-cal-day-fg {
-  color: rgba(0, 0, 0, 0.3);
-}
+.mbsc-wp-light.mbsc-no-touch .mbsc-cal-day-v:hover .mbsc-cal-day-fg,
 .mbsc-wp-light .mbsc-cal-day-sel .mbsc-cal-day-fg {
   border-color: #1ba0e3;
 }
@@ -107,6 +110,8 @@
   color: #000000;
   border-color: #000000;
 }
+.mbsc-wp-light.mbsc-no-touch .mbsc-fr-btn-e:not(.mbsc-fr-btn-d):hover:before,
+.mbsc-wp-light.mbsc-no-touch .mbsc-cal-btn:not(.mbsc-fr-btn-d):hover .mbsc-cal-btn-txt:before,
 .mbsc-wp-light .mbsc-fr-btn-a:before,
 .mbsc-wp-light .mbsc-fr-btn-a .mbsc-cal-btn-txt:before {
   background: #1ba0e3;
@@ -264,13 +269,25 @@
 .mbsc-wp-light .mbsc-btn .mbsc-btn-ic {
   color: #000000;
 }
+.mbsc-wp-light .mbsc-btn-flat .mbsc-btn-ic {
+  border-color: #000000;
+}
 .mbsc-wp-light .mbsc-btn-flat,
+.mbsc-wp-light.mbsc-no-touch .mbsc-btn-flat:not(:disabled):hover,
 .mbsc-wp-light .mbsc-btn-flat.mbsc-active {
   color: #000000;
 }
-.mbsc-wp-light .mbsc-btn-flat.mbsc-active .mbsc-btn-ic,
-.mbsc-wp-light .mbsc-btn-flat .mbsc-btn-ic {
-  border-color: #000000;
+.mbsc-wp-light.mbsc-no-touch .mbsc-btn-flat:not(:disabled):hover .mbsc-btn-ic,
+.mbsc-wp-light .mbsc-btn-flat.mbsc-active .mbsc-btn-ic {
+  border-color: #1ba0e3;
+}
+.mbsc-wp-light.mbsc-no-touch .mbsc-btn:not(:disabled):hover .mbsc-btn-ic,
+.mbsc-wp-light .mbsc-btn.mbsc-active .mbsc-btn-ic {
+  background: #1ba0e3;
+}
+.mbsc-wp-light.mbsc-no-touch .mbsc-btn:not(.mbsc-btn-flat):not(:disabled):hover,
+.mbsc-wp-light .mbsc-btn.mbsc-active:not(.mbsc-btn-flat) {
+  background: #1ba0e3;
 }
 .mbsc-wp-light .mbsc-switch input:checked + .mbsc-switch-track,
 .mbsc-wp-light .mbsc-radio input.mbsc-active + .mbsc-radio-box:after,
@@ -306,15 +323,6 @@
 }
 .mbsc-wp-light .mbsc-select select.mbsc-active ~ .mbsc-ic {
   color: white;
-}
-.mbsc-wp-light .mbsc-btn-flat.mbsc-active .mbsc-btn-ic {
-  border-color: #1ba0e3;
-}
-.mbsc-wp-light .mbsc-btn.mbsc-active .mbsc-btn-ic {
-  background: #1ba0e3;
-}
-.mbsc-wp-light .mbsc-btn.mbsc-active:not(.mbsc-btn-flat) {
-  background: #1ba0e3;
 }
 .mbsc-wp-light a {
   color: #1ba0e3;
@@ -365,4 +373,26 @@
 }
 .mbsc-wp-light .mbsc-stepper input {
   color: #000000;
+}
+/* Colorpicker */
+.mbsc-wp-light .mbsc-color-active,
+.mbsc-no-touch.mbsc-wp-light .mbsc-color-item-c:hover {
+  box-shadow: inset 0 0 0 0.1875em #1ba0e3;
+}
+.mbsc-wp-light .mbsc-color-preview-item-empty {
+  border-color: #9e9e9e;
+}
+.mbsc-wp-light .mbsc-color-preview-cont {
+  border-color: #9e9e9e;
+}
+.mbsc-wp-light.mbsc-color .mbsc-color-slider-cont .mbsc-progress-track {
+  background: #4f4f4f;
+}
+.mbsc-wp-light.mbsc-form .mbsc-color-input {
+  background: #ffffff;
+  color: #000000;
+  border-color: #000000;
+}
+.mbsc-wp-light .mbsc-color-clear-item {
+  background: #ffffff;
 }

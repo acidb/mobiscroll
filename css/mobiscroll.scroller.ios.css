@@ -1,9 +1,9 @@
-.mbsc-ios.mbsc-sc.mbsc-fr-top .mbsc-fr-popup,
-.mbsc-ios.mbsc-sc.mbsc-fr-bottom .mbsc-fr-popup {
+.mbsc-ios.mbsc-sc.mbsc-fr-top .mbsc-fr-w,
+.mbsc-ios.mbsc-sc.mbsc-fr-bottom .mbsc-fr-w {
     background: #d1d5db;
 }
 
-.mbsc-ios.mbsc-calendar .mbsc-fr-persp .mbsc-fr-popup {
+.mbsc-ios.mbsc-calendar .mbsc-fr-persp .mbsc-fr-w {
     background: #f7f7f7;
 }
 
@@ -14,7 +14,6 @@
 
 .mbsc-ios.mbsc-calendar.mbsc-fr-top .mbsc-fr-btn-cont,
 .mbsc-ios.mbsc-calendar.mbsc-fr-bottom .mbsc-fr-btn-cont {
-    /*background: #f7f7f7;*/
     border-bottom: 1px solid #ccc;
 }
 

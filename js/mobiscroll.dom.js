@@ -150,7 +150,7 @@ var mobiscroll = mobiscroll || {};
 
         Dom.prototype = {
             ready: function (callback) {
-                if (/complete|loaded|interactive/.test(document.readyState) && document.body) {
+                if (document.attachEvent ? document.readyState == 'complete' : document.readyState != 'loading') {
                     callback($);
                 } else {
                     document.addEventListener('DOMContentLoaded', function () {
@@ -192,6 +192,10 @@ var mobiscroll = mobiscroll || {};
                 return this;
             },
             removeClass: function (className) {
+                if (typeof className === 'undefined') {
+                    return this;
+                }
+
                 var classes = className.split(' ');
                 for (var i = 0; i < classes.length; i++) {
                     for (var j = 0; j < this.length; j++) {

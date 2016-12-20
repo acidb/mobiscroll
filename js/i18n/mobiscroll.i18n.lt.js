@@ -49,7 +49,7 @@
         hideText: 'Slėpti',
         // Listview
         backText: 'Atgal',
-        undoText: 'Atšaukti veiksmą',
+        undoText: 'Anuliuoti',
         // Form
         offText: 'Išj.',
         onText: 'Įj.',

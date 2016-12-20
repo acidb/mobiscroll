@@ -263,13 +263,19 @@
 
                 ev.preventDefault();
 
-                if (s.readonly) {
-                    return;
+                //diff = diff < 0 ? 20 : -20;
+
+                if (ev.deltaMode && ev.deltaMode == 1) {
+                    diff *= 5;
                 }
 
-                diff = diff < 0 ? 20 : -20;
+                diff = constrain(-diff, -20, 20);
 
                 startPos = currPos;
+
+                if (s.readonly || startPos + diff < minScroll || startPos + diff > maxScroll) {
+                    return;
+                }
 
                 if (!scrolled) {
                     eventObj = {
@@ -311,8 +317,8 @@
             }
 
             // Calculate snap and limit between min and max
-            currSnap = Math.round((startPos + diff) / snap);
-            newPos = constrain(currSnap * snap, minScroll, maxScroll);
+            newPos = constrain(Math.round((startPos + diff) / snap) * snap, minScroll, maxScroll);
+            currSnap = Math.round(newPos / snap);
 
             // Snap to nearest element
             if (snapPoints) {
@@ -455,18 +461,20 @@
                 pos = Math.round(pos / snap) * snap;
             }
 
+            pos = constrain(pos, minScroll, maxScroll);
+
             currSnap = Math.round(pos / snap);
 
             startPos = currPos;
 
-            scroll(constrain(pos, minScroll, maxScroll), time, tap, callback);
+            scroll(pos, time, tap, callback);
         };
 
         that.refresh = function (noScroll) {
             var tempScroll;
 
             contSize = s.contSize === undefined ? vertical ? $elm.height() : $elm.width() : s.contSize;
-            minScroll = s.minScroll === undefined ? (vertical ? contSize - target.height() : contSize - target.width()) : s.minScroll;
+            minScroll = s.minScroll === undefined ? Math.min(0, vertical ? contSize - target.height() : contSize - target.width()) : s.minScroll;
             maxScroll = s.maxScroll === undefined ? 0 : s.maxScroll;
             snapPoints = null;
 
@@ -505,14 +513,14 @@
             }
         };
 
-        that.init = function (ss) {
-            that._init(ss);
-
+        that._processSettings = function () {
             vertical = s.axis == 'Y';
             dir = vertical ? 'top' : 'left';
             target = s.moveElement || $elm.children().eq(0);
             style = target[0].style;
+        };
 
+        that._init = function () {
             that.refresh();
 
             $elm.on('touchstart mousedown', onStart)
@@ -543,15 +551,13 @@
         /**
          * Destroy
          */
-        that.destroy = function () {
+        that._destroy = function () {
             clearInterval(scrollTimer);
 
             $elm.off('touchstart mousedown', onStart)
                 .off('touchmove', onMove)
                 .off('touchend touchcancel', onEnd)
                 .off('wheel mousewheel', onScroll);
-
-            that._destroy();
         };
 
         // Constructor

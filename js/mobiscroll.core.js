@@ -1,5 +1,5 @@
 /*!
- * Mobiscroll v3.0.0-beta6
+ * Mobiscroll v3.0.0
  * http://mobiscroll.com
  *
  * Copyright 2010-2016, Acid Media
@@ -42,7 +42,7 @@ var mobiscroll = mobiscroll || {};
                 if (instances[this.id]) {
                     instances[this.id].destroy();
                 }
-                new mobiscroll.classes[options.component || 'Scroller'](this, options);
+                new ms.classes[options.component || 'Scroller'](this, options);
             });
         }
 
@@ -68,6 +68,7 @@ var mobiscroll = mobiscroll || {};
     var ms,
         platform,
         vers,
+        empty = function () {},
         $ = typeof jQuery == 'undefined' ? mobiscroll.$ : jQuery,
         id = +new Date(),
         instances = {},
@@ -101,7 +102,7 @@ var mobiscroll = mobiscroll || {};
 
     ms = mobiscroll = {
         $: $,
-        version: '3.0.0-beta6',
+        version: '3.0.0',
         util: {
             prefix: prefix,
             jsPrefix: pr,
@@ -226,6 +227,7 @@ var mobiscroll = mobiscroll || {};
         themes: {
             form: {},
             frame: {},
+            scroller: {},
             listview: {},
             menustrip: {},
             progress: {}
@@ -277,31 +279,35 @@ var mobiscroll = mobiscroll || {};
         }
     };
 
-    $.mobiscroll = mobiscroll;
+    $.mobiscroll = ms;
 
     $.fn.mobiscroll = function (method) {
-        extend(this, mobiscroll.components);
+        extend(this, ms.components);
         return init(this, method, arguments);
     };
 
-    mobiscroll.classes.Base = function (el, settings) {
+    ms.classes.Base = function (el, settings) {
 
         var lang,
             preset,
             s,
             theme,
             themeName,
+            trigger,
             defaults,
-            ms = mobiscroll,
             util = ms.util,
             getCoord = util.getCoord,
             that = this;
 
         that.settings = {};
 
-        that._presetLoad = function () {};
+        that._init = empty;
 
-        that._init = function (ss) {
+        that._destroy = empty;
+
+        that._processSettings = empty;
+
+        that.init = function (ss) {
             var key;
 
             // Reset settings object
@@ -346,7 +352,7 @@ var mobiscroll = mobiscroll || {};
             }
 
             if (that._hasTheme) {
-                that.trigger('onThemeLoad', {
+                trigger('onThemeLoad', {
                     lang: lang,
                     settings: settings
                 });
@@ -355,10 +361,12 @@ var mobiscroll = mobiscroll || {};
             // Update settings object
             extend(s, theme, lang, defaults, settings);
 
+            that._processSettings();
+
+            trigger('onProcessSettings');
+
             // Load preset settings
             if (that._hasPreset) {
-
-                that._presetLoad(s);
 
                 preset = ms.presets[that._class][s.preset];
 
@@ -367,11 +375,16 @@ var mobiscroll = mobiscroll || {};
                     extend(s, preset, settings);
                 }
             }
+
+            that._init(ss);
+
+            trigger('onInit');
         };
 
-        that._destroy = function () {
+        that.destroy = function () {
             if (that) {
-                that.trigger('onDestroy', []);
+                that._destroy();
+                trigger('onDestroy');
 
                 // Delete scroller instance
                 delete instances[el.id];
@@ -383,7 +396,7 @@ var mobiscroll = mobiscroll || {};
         /**
          * Attach tap event to the given element.
          */
-        that.tap = function (el, handler, prevent, tolerance) {
+        that.tap = function (el, handler, prevent, tolerance, time) {
             var startX,
                 startY,
                 target,
@@ -415,7 +428,7 @@ var mobiscroll = mobiscroll || {};
 
             function onEnd(ev) {
                 if (target) {
-                    if (new Date() - startTime < 100 || !moved) {
+                    if ((time && new Date() - startTime < 100) || !moved) {
                         ev.preventDefault();
                         handler.call(target, ev, that);
                     }
@@ -485,6 +498,7 @@ var mobiscroll = mobiscroll || {};
         };
 
         settings = settings || {};
+        trigger = that.trigger;
 
         $(el).addClass('mbsc-comp');
 

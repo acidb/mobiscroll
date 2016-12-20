@@ -22,8 +22,8 @@
         timeFormat: 'HH:ii',
         yearText: 'Jahr',
         nowText: 'Jetzt',
-        pmText: 'nachm.',
-        amText: 'vorm.',
+        pmText: 'pm',
+        amText: 'am',
         todayText: 'Heute',
         // Calendar component
         firstDay: 1,

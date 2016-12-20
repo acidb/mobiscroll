@@ -21,8 +21,8 @@
         timeFormat: 'HH:ii',
         yearText: 'Rok',
         nowText: 'Teraz',
-        amText: 'rano',
-        pmText: 'po południu',
+        amText: 'am',
+        pmText: 'pm',
         todayText: 'Dzisiaj',
         // Calendar component
         firstDay: 1,
@@ -47,7 +47,7 @@
         lapText: 'Zakładka',
         hideText: 'Ukryć',
         // Listview
-        backText: 'Z powrotem',
+        backText: 'Wróć',
         undoText: 'Cofnij',
         // Form
         offText: 'Wył',

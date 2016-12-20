@@ -7,14 +7,11 @@
     background: rgba(0, 0, 0, .2);
 }
 
-.mbsc-ios .mbsc-fr-popup {
-    background: #f7f7f7;
-    color: #000;
-}
-
 .mbsc-ios .mbsc-fr-w {
     position: relative;
     padding-top: 3.666667em;
+    background: #f7f7f7;
+    color: #000;
     font-size: 12px;
     font-family: -apple-system, Helvetica Neue, Helvetica, Arial, sans-serif;
 }
@@ -72,6 +69,16 @@
     opacity: .5;
 }
 
+.mbsc-ios.mbsc-no-touch .mbsc-fr-btn-e:not(.mbsc-fr-btn-d):hover {
+    background: #ebebe8;
+}
+
+.mbsc-ios.mbsc-fr-inline .mbsc-fr-w .mbsc-fr-btn-w .mbsc-fr-btn:hover,
+.mbsc-ios.mbsc-fr-top .mbsc-fr-w .mbsc-fr-btn-w .mbsc-fr-btn:hover,
+.mbsc-ios.mbsc-fr-bottom .mbsc-fr-w .mbsc-fr-btn-w .mbsc-fr-btn:hover {
+    background: none;
+}
+
 .mbsc-ios .mbsc-fr-btn-w {
     display: block;
     float: right;
@@ -93,8 +100,8 @@
 
 /* Bubble arrow */
 
-.mbsc-ios.mbsc-fr-bubble .mbsc-fr-popup,
-.mbsc-ios.mbsc-fr-center .mbsc-fr-popup {
+.mbsc-ios.mbsc-fr-bubble .mbsc-fr-w,
+.mbsc-ios.mbsc-fr-center .mbsc-fr-w {
     border-radius: 8px;
 }
 
@@ -196,18 +203,12 @@
     border-right: 0;
 }
 
-.mbsc-ios.mbsc-fr-center .mbsc-ltr .mbsc-fr-btn-w:first-child .mbsc-fr-btn {
-    border-radius: 0 0 0 .5em;
-}
-
-.mbsc-ios.mbsc-fr-center .mbsc-ltr .mbsc-fr-btn-w:last-child .mbsc-fr-btn {
-    border-radius: 0 0 .5em 0;
-}
-
+.mbsc-ios.mbsc-fr-center .mbsc-ltr .mbsc-fr-btn-w:first-child .mbsc-fr-btn,
 .mbsc-ios.mbsc-fr-center .mbsc-rtl .mbsc-fr-btn-w:last-child .mbsc-fr-btn {
     border-radius: 0 0 0 .5em;
 }
 
+.mbsc-ios.mbsc-fr-center .mbsc-ltr .mbsc-fr-btn-w:last-child .mbsc-fr-btn,
 .mbsc-ios.mbsc-fr-center .mbsc-rtl .mbsc-fr-btn-w:first-child .mbsc-fr-btn {
     border-radius: 0 0 .5em 0;
 }
@@ -239,7 +240,7 @@
 
 /* Inline display */
 
-.mbsc-ios.mbsc-fr-inline .mbsc-fr-popup {
+.mbsc-ios.mbsc-fr-inline .mbsc-fr-w {
     border: 0;
     border-radius: 0;
     background: #fff;

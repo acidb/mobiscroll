@@ -30,7 +30,6 @@
             buttons,
             btn,
             doAnim,
-            event,
             hasContext,
             isModal,
             isInserted,
@@ -48,6 +47,7 @@
             scrollLeft,
             scrollLock,
             scrollTop,
+            trigger,
             wndWidth,
             wndHeight,
 
@@ -147,7 +147,7 @@
 
             isInserted = false;
 
-            event('onHide');
+            trigger('onHide');
         }
 
         function onPosition(ev) {
@@ -199,13 +199,13 @@
 
         function set() {
             that._fillValue();
-            event('onSet', {
+            trigger('onSet', {
                 valueText: that._value
             });
         }
 
         function cancel() {
-            event('onCancel', {
+            trigger('onCancel', {
                 valueText: that._value
             });
         }
@@ -247,6 +247,8 @@
                 return;
             }
 
+            that._position($markup);
+
             newHeight = markup.offsetHeight;
             newWidth = markup.offsetWidth;
 
@@ -259,7 +261,7 @@
                 $popup.width(newWidth);
             }
 
-            if (event('onPosition', {
+            if (trigger('onPosition', {
                     target: markup,
                     windowWidth: newWidth,
                     windowHeight: newHeight
@@ -474,7 +476,7 @@
          */
         that.clear = function () {
             that._clearValue();
-            event('onClear');
+            trigger('onClear');
             if (isModal && that._isVisible && !that.live) {
                 that.hide(false, 'clear', false, clear);
             } else {
@@ -518,11 +520,12 @@
             // Parse value from input
             that._readValue();
 
-            if (event('onBeforeShow') === false) {
+            if (trigger('onBeforeShow') === false) {
                 return false;
             }
 
             doAnim = s.animate;
+            buttons = s.buttons || [];
 
             needsDimensions = hasContext || s.display == 'bubble';
             needsLock = needsFixed && !needsDimensions;
@@ -541,13 +544,13 @@
 
             if (isModal) {
                 lockClass = 'mbsc-fr-lock' + (needsLock ? ' mbsc-fr-lock-ios' : '') + (hasContext ? ' mbsc-fr-lock-ctx' : '');
-                scrollTop = $wnd.scrollTop();
-                scrollLeft = $wnd.scrollLeft();
+                scrollTop = Math.max(0, $wnd.scrollTop());
+                scrollLeft = Math.max(0, $wnd.scrollLeft());
                 wndWidth = 0;
                 wndHeight = 0;
 
                 if (needsLock) {
-                    $lock.scrollTop(0);
+                    //$lock.scrollTop(0);
                     $ctx.css({
                         top: -scrollTop + 'px',
                         left: -scrollLeft + 'px'
@@ -569,7 +572,7 @@
             }
 
             // Create wheels containers
-            html = '<div lang="' + s.lang + '" class="mbsc-fr mbsc-' + s.theme + (s.baseTheme ? ' mbsc-' + s.baseTheme : '') + ' mbsc-fr-' + s.display + ' ' +
+            html = '<div lang="' + s.lang + '" class="mbsc-fr mbsc-no-touch mbsc-' + s.theme + (s.baseTheme ? ' mbsc-' + s.baseTheme : '') + ' mbsc-fr-' + s.display + ' ' +
                 (s.cssClass || '') + ' ' +
                 (s.compClass || '') +
                 (that._isLiquid ? ' mbsc-fr-liq' : '') +
@@ -629,7 +632,7 @@
 
             that._markupReady($markup);
 
-            event('onMarkupReady', {
+            trigger('onMarkupReady', {
                 target: markup
             });
 
@@ -700,14 +703,22 @@
                     $elm.empty().append($markup);
                 } else {
                     // Insert after the element
-                    $markup.insertAfter($elm);
+                    if ($elm.hasClass('mbsc-control')) {
+                        var $wrap = $elm.closest('.mbsc-control-w');
+                        $markup.insertAfter($wrap);
+                        if ($wrap.hasClass('mbsc-select')) {
+                            $wrap.addClass('mbsc-select-inline');
+                        }
+                    } else {
+                        $markup.insertAfter($elm);
+                    }
                 }
 
                 isInserted = true;
 
                 that._markupInserted($markup);
 
-                event('onMarkupInserted', {
+                trigger('onMarkupInserted', {
                     target: markup
                 });
 
@@ -744,7 +755,10 @@
                         }
                     })
                     .on('touchstart mousedown pointerdown', '.mbsc-fr-btn-e', onBtnStart)
-                    .on('touchend', '.mbsc-fr-btn-e', onBtnEnd);
+                    .on('touchend', '.mbsc-fr-btn-e', onBtnEnd)
+                    .on('touchstart', function () {
+                        $markup.removeClass('mbsc-no-touch');
+                    });
 
                 $('input,select,textarea', $markup).on('selectstart mousedown', function (ev) {
                     ev.stopPropagation();
@@ -784,7 +798,7 @@
                     }
                 }
 
-                event('onShow', {
+                trigger('onShow', {
                     target: markup,
                     valueText: that._tempValue
                 });
@@ -797,7 +811,7 @@
          */
         that.hide = function (prevAnim, btn, force, callback) {
             // If onClose handler returns false, prevent hide
-            if (!that._isVisible || (!force && !that._isValid && btn == 'set') || (!force && event('onBeforeClose', {
+            if (!that._isVisible || (!force && !that._isValid && btn == 'set') || (!force && trigger('onBeforeClose', {
                     valueText: that._tempValue,
                     button: btn
                 }) === false)) {
@@ -834,7 +848,7 @@
                 callback();
             }
 
-            event('onClose', {
+            trigger('onClose', {
                 valueText: that._value
             });
 
@@ -878,22 +892,19 @@
 
         that._markupRemove = empty;
 
-        that._processSettings = empty;
+        that._position = empty;
 
-        that._presetLoad = function (s) {
-            // Add default buttons
-            s.buttons = s.buttons || (s.display !== 'inline' ? ['set', 'cancel'] : []);
+        that.__processSettings = empty;
 
-            // Hide header text in inline mode by default
-            s.headerText = s.headerText === undefined ? (s.display !== 'inline' ? '{value}' : false) : s.headerText;
-        };
+
+        that.__init = empty;
 
         // Generic frame functions
 
         /**
          * Destroys the mobiscroll instance.
          */
-        that.destroy = function () {
+        that._destroy = function () {
             // Force hide without animation
             that.hide(true, false, true);
 
@@ -904,46 +915,35 @@
                     v.lbl.off('.mbsc');
                 }
             });
-
-            that._destroy();
         };
 
-        /**
-         * Scroller initialization.
-         */
-        that.init = function (ss) {
+        that._processSettings = function () {
+            var b, i;
 
-            if (that._isVisible) {
-                that.hide(true, false, true);
-            }
+            // Add default buttons
+            s.buttons = s.buttons || (s.display !== 'inline' ? ['set', 'cancel'] : []);
 
-            that._init(ss);
-
-            that._isLiquid = (s.layout || (/top|bottom/.test(s.display) ? 'liquid' : '')) === 'liquid';
-
-            that._processSettings();
-
-            // Unbind all events (if re-init)
-            $elm.off('.mbsc');
+            // Hide header text in inline mode by default
+            s.headerText = s.headerText === undefined ? (s.display !== 'inline' ? '{value}' : false) : s.headerText;
 
             buttons = s.buttons || [];
             isModal = s.display !== 'inline';
             hasContext = s.context != 'body';
-
-            that._window = $wnd = $(hasContext ? s.context : window);
-            that._context = $ctx = $(s.context);
-
+            $ctx = $(s.context);
             $lock = hasContext ? $ctx : $('body,html');
 
+            that._isLiquid = (s.layout || (/top|bottom|inline/.test(s.display) ? 'liquid' : '')) === 'liquid';
+            that._window = $wnd = $(hasContext ? s.context : window);
+            that._context = $ctx;
             that.live = true;
 
             // If no set button is found, live mode is activated
-            $.each(buttons, function (i, b) {
+            for (i = 0; i < buttons.length; i++) {
+                b = buttons[i];
                 if (b == 'ok' || b == 'set' || b.handler == 'set') {
                     that.live = false;
-                    return false;
                 }
-            });
+            }
 
             that.buttons.set = {
                 text: s.setText,
@@ -962,7 +962,22 @@
 
             that._isInput = $elm.is('input');
 
-            event('onInit');
+            that.__processSettings();
+        };
+
+        /**
+         * Scroller initialization.
+         */
+        that._init = function () {
+
+            if (that._isVisible) {
+                that.hide(true, false, true);
+            }
+
+            // Unbind all events (if re-init)
+            $elm.off('.mbsc');
+
+            that.__init();
 
             if (isModal) {
                 that._readValue();
@@ -996,7 +1011,7 @@
         // Constructor
 
         s = that.settings;
-        event = that.trigger;
+        trigger = that.trigger;
 
         if (!inherit) {
             that.init(settings);
@@ -1028,10 +1043,13 @@
     };
 
     ms.themes.frame.mobiscroll = {
+        headerText: false,
+        btnWidth: false
+    };
+
+    ms.themes.scroller.mobiscroll = $.extend({}, ms.themes.frame.mobiscroll, {
         rows: 5,
         showLabel: false,
-        headerText: false,
-        btnWidth: false,
         selectedLineBorder: 1,
         weekDays: 'min',
         checkIcon: 'ion-ios7-checkmark-empty',
@@ -1039,7 +1057,7 @@
         btnMinusClass: 'mbsc-ic mbsc-ic-arrow-up5',
         btnCalPrevClass: 'mbsc-ic mbsc-ic-arrow-left5',
         btnCalNextClass: 'mbsc-ic mbsc-ic-arrow-right5'
-    };
+    });
 
     // Prevent re-show on window focus
     $(window).on('focus', function () {

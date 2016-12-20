@@ -22,8 +22,8 @@
         timeFormat: 'HH:ii',
         yearText: 'Année',
         nowText: 'Maintenant',
-        pmText: 'après-midi',
-        amText: 'avant-midi',
+        pmText: 'pm',
+        amText: 'am',
         todayText: "Aujourd'hui",
         // Calendar component
         firstDay: 1,
@@ -48,8 +48,8 @@
         lapText: 'Lap',
         hideText: 'Cachez',
         // Listview
-        backText: 'Arrière',
-        undoText: 'Défaire',
+        backText: 'Retour',
+        undoText: 'Annuler',
         // Form
         offText: 'Non',
         onText: 'Oui',

@@ -283,6 +283,7 @@
     font-size: 1.5em;
 }
 
+.mbsc-mobiscroll.mbsc-no-touch .mbsc-sc-btn:hover:before,
 .mbsc-mobiscroll .mbsc-sc-btn-a:before {
     background: rgba(78, 204, 196, .3);
 }

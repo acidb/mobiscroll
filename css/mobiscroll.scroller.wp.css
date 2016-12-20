@@ -81,7 +81,8 @@
 
 .mbsc-wp .mbsc-sc-itm-sel:after,
 .mbsc-wp .mbsc-sc-itm.mbsc-btn-a:after,
-.mbsc-wp .mbsc-sc-btn-a:before {
+.mbsc-wp .mbsc-sc-btn-a:before,
+.mbsc-wp.mbsc-no-touch .mbsc-sc-btn:hover:before {
     background: #1a9fe0;
     border-color: #1a9fe0;
 }

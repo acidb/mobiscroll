@@ -48,7 +48,7 @@
         lapText: 'Lap',
         hideText: 'Esconder',
         // Listview
-        backText: 'Volver',
+        backText: 'Atrás',
         undoText: 'Deshacer',
         // Form
         offText: 'No',
