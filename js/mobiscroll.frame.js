@@ -247,6 +247,8 @@
                 return;
             }
 
+            that._position($markup);
+
             newHeight = markup.offsetHeight;
             newWidth = markup.offsetWidth;
 
@@ -542,13 +544,13 @@
 
             if (isModal) {
                 lockClass = 'mbsc-fr-lock' + (needsLock ? ' mbsc-fr-lock-ios' : '') + (hasContext ? ' mbsc-fr-lock-ctx' : '');
-                scrollTop = $wnd.scrollTop();
-                scrollLeft = $wnd.scrollLeft();
+                scrollTop = Math.max(0, $wnd.scrollTop());
+                scrollLeft = Math.max(0, $wnd.scrollLeft());
                 wndWidth = 0;
                 wndHeight = 0;
 
                 if (needsLock) {
-                    $lock.scrollTop(0);
+                    //$lock.scrollTop(0);
                     $ctx.css({
                         top: -scrollTop + 'px',
                         left: -scrollLeft + 'px'
@@ -570,7 +572,7 @@
             }
 
             // Create wheels containers
-            html = '<div lang="' + s.lang + '" class="mbsc-fr mbsc-' + s.theme + (s.baseTheme ? ' mbsc-' + s.baseTheme : '') + ' mbsc-fr-' + s.display + ' ' +
+            html = '<div lang="' + s.lang + '" class="mbsc-fr mbsc-no-touch mbsc-' + s.theme + (s.baseTheme ? ' mbsc-' + s.baseTheme : '') + ' mbsc-fr-' + s.display + ' ' +
                 (s.cssClass || '') + ' ' +
                 (s.compClass || '') +
                 (that._isLiquid ? ' mbsc-fr-liq' : '') +
@@ -702,10 +704,10 @@
                 } else {
                     // Insert after the element
                     if ($elm.hasClass('mbsc-control')) {
-                        var wrap = $elm.closest('.mbsc-control-w');
-                        $markup.insertAfter(wrap);
-                        if (wrap.hasClass('mbsc-select') && wrap.next().hasClass('mbsc-fr-inline')) {
-                            wrap.addClass('mbsc-select-inline');
+                        var $wrap = $elm.closest('.mbsc-control-w');
+                        $markup.insertAfter($wrap);
+                        if ($wrap.hasClass('mbsc-select')) {
+                            $wrap.addClass('mbsc-select-inline');
                         }
                     } else {
                         $markup.insertAfter($elm);
@@ -753,7 +755,10 @@
                         }
                     })
                     .on('touchstart mousedown pointerdown', '.mbsc-fr-btn-e', onBtnStart)
-                    .on('touchend', '.mbsc-fr-btn-e', onBtnEnd);
+                    .on('touchend', '.mbsc-fr-btn-e', onBtnEnd)
+                    .on('touchstart', function () {
+                        $markup.removeClass('mbsc-no-touch');
+                    });
 
                 $('input,select,textarea', $markup).on('selectstart mousedown', function (ev) {
                     ev.stopPropagation();
@@ -887,7 +892,10 @@
 
         that._markupRemove = empty;
 
+        that._position = empty;
+
         that.__processSettings = empty;
+
 
         that.__init = empty;
 
@@ -1035,10 +1043,13 @@
     };
 
     ms.themes.frame.mobiscroll = {
+        headerText: false,
+        btnWidth: false
+    };
+
+    ms.themes.scroller.mobiscroll = $.extend({}, ms.themes.frame.mobiscroll, {
         rows: 5,
         showLabel: false,
-        headerText: false,
-        btnWidth: false,
         selectedLineBorder: 1,
         weekDays: 'min',
         checkIcon: 'ion-ios7-checkmark-empty',
@@ -1046,7 +1057,7 @@
         btnMinusClass: 'mbsc-ic mbsc-ic-arrow-up5',
         btnCalPrevClass: 'mbsc-ic mbsc-ic-arrow-left5',
         btnCalNextClass: 'mbsc-ic mbsc-ic-arrow-right5'
-    };
+    });
 
     // Prevent re-show on window focus
     $(window).on('focus', function () {

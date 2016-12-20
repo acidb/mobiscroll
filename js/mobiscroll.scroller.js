@@ -943,6 +943,4 @@
         })
     };
 
-    ms.themes.scroller = ms.themes.frame;
-
 })(window, document);

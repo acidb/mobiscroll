@@ -1,19 +1,26 @@
 (function () {
 
-    mobiscroll.themes.frame['android-holo'] = {
-        dateDisplay: 'Mddyy',
-        rows: 5,
-        minWidth: 76,
-        height: 36,
-        showLabel: false,
-        selectedLineBorder: 2,
-        useShortLabels: true,
-        icon: {
+    var mbsc = mobiscroll,
+        themes = mbsc.themes,
+        $ = mbsc.$;
+
+    themes.frame['android-holo'] = {};
+
+    themes.scroller['android-holo'] = $.extend({}, themes.frame['android-holo'], {
+        dateDisplay: 'Mddyy', // datetime
+        rows: 5, // scroller
+        minWidth: 76, // scroller
+        height: 36, // scroller
+        showLabel: false, // scroller
+        selectedLineHeight: true, // scroller
+        selectedLineBorder: 2, // scroller
+        useShortLabels: true, // scroller
+        icon: { // rating
             filled: 'star3',
             empty: 'star'
         },
-        btnPlusClass: 'mbsc-ic mbsc-ic-arrow-down6',
-        btnMinusClass: 'mbsc-ic mbsc-ic-arrow-up6'
-    };
+        btnPlusClass: 'mbsc-ic mbsc-ic-arrow-down6', // scroller
+        btnMinusClass: 'mbsc-ic mbsc-ic-arrow-up6' // scroller
+    });
 
 })();

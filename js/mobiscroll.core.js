@@ -1,5 +1,5 @@
 /*!
- * Mobiscroll v3.0.0-beta6
+ * Mobiscroll v3.0.0
  * http://mobiscroll.com
  *
  * Copyright 2010-2016, Acid Media
@@ -102,7 +102,7 @@ var mobiscroll = mobiscroll || {};
 
     ms = mobiscroll = {
         $: $,
-        version: '3.0.0-beta6',
+        version: '3.0.0',
         util: {
             prefix: prefix,
             jsPrefix: pr,
@@ -227,6 +227,7 @@ var mobiscroll = mobiscroll || {};
         themes: {
             form: {},
             frame: {},
+            scroller: {},
             listview: {},
             menustrip: {},
             progress: {}
@@ -395,7 +396,7 @@ var mobiscroll = mobiscroll || {};
         /**
          * Attach tap event to the given element.
          */
-        that.tap = function (el, handler, prevent, tolerance) {
+        that.tap = function (el, handler, prevent, tolerance, time) {
             var startX,
                 startY,
                 target,
@@ -427,7 +428,7 @@ var mobiscroll = mobiscroll || {};
 
             function onEnd(ev) {
                 if (target) {
-                    if (new Date() - startTime < 100 || !moved) {
+                    if ((time && new Date() - startTime < 100) || !moved) {
                         ev.preventDefault();
                         handler.call(target, ev, that);
                     }
