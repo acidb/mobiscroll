@@ -896,7 +896,6 @@
 
         that.__processSettings = empty;
 
-
         that.__init = empty;
 
         // Generic frame functions
@@ -907,6 +906,8 @@
         that._destroy = function () {
             // Force hide without animation
             that.hide(true, false, true);
+
+            $elm.off('.mbsc');
 
             // Remove all events from elements
             $.each(elmList, function (i, v) {

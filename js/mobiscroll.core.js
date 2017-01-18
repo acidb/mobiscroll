@@ -401,7 +401,8 @@ var mobiscroll = mobiscroll || {};
                 startY,
                 target,
                 moved,
-                startTime;
+                startTime,
+                $elm = $(el);
 
             tolerance = tolerance || 9;
 
@@ -444,14 +445,14 @@ var mobiscroll = mobiscroll || {};
             }
 
             if (s.tap) {
-                el
+                $elm
                     .on('touchstart.mbsc', onStart)
                     .on('touchcancel.mbsc', onCancel)
                     .on('touchmove.mbsc', onMove)
                     .on('touchend.mbsc', onEnd);
             }
 
-            el.on('click.mbsc', function (ev) {
+            $elm.on('click.mbsc', function (ev) {
                 ev.preventDefault();
                 // If handler was not called on touchend, call it on click;
                 handler.call(this, ev, that);

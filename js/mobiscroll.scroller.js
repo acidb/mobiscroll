@@ -371,7 +371,7 @@
             }
 
             // TODO: what if all items are invalid
-            if (disabled[val]) {
+            if (disabled[val] === true) {
                 counter = 0;
                 while (idx - dist1 >= wheel.min && disabled[v1] && counter < 100) {
                     counter++;
