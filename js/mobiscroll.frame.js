@@ -112,33 +112,34 @@
 
             $markup.remove();
 
-            if (isModal) {
-                $lock.removeClass(lockClass);
-                if (needsLock) {
-                    $ctx.css({
-                        top: '',
-                        left: ''
-                    });
-                    $wnd.scrollLeft(scrollLeft);
-                    $wnd.scrollTop(scrollTop);
+            // The follwing should be done only if no other
+            // instance was opened during the hide animation
+            if (!ms.activeInstance) {
+                if (isModal) {
+                    $lock.removeClass(lockClass);
+                    if (needsLock) {
+                        $ctx.css({
+                            top: '',
+                            left: ''
+                        });
+                        $wnd.scrollLeft(scrollLeft);
+                        $wnd.scrollTop(scrollTop);
+                    }
                 }
-            }
 
-            if (!prevAnim) {
-                if (!$activeEl) {
-                    $activeEl = $elm;
+                if (!prevAnim) {
+                    if (!$activeEl) {
+                        $activeEl = $elm;
+                    }
+                    setTimeout(function () {
+                        if (focus === undefined || focus === true) {
+                            preventShow = true;
+                            $activeEl[0].focus();
+                        } else if (focus) {
+                            $(focus)[0].focus();
+                        }
+                    }, 200);
                 }
-                setTimeout(function () {
-                    if (ms.activeInstance) {
-                        return;
-                    }
-                    if (focus === undefined || focus === true) {
-                        preventShow = true;
-                        $activeEl[0].focus();
-                    } else if (focus) {
-                        $(focus)[0].focus();
-                    }
-                }, 200);
             }
 
             $activeElm = null;
@@ -549,7 +550,7 @@
                 wndWidth = 0;
                 wndHeight = 0;
 
-                if (needsLock) {
+                if (needsLock && !$lock.hasClass('mbsc-fr-lock')) {
                     //$lock.scrollTop(0);
                     $ctx.css({
                         top: -scrollTop + 'px',
