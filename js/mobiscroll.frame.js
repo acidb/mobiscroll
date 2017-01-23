@@ -921,6 +921,8 @@
         that._processSettings = function () {
             var b, i;
 
+            that.__processSettings();
+
             // Add default buttons
             s.buttons = s.buttons || (s.display !== 'inline' ? ['set', 'cancel'] : []);
 
@@ -962,8 +964,6 @@
             };
 
             that._isInput = $elm.is('input');
-
-            that.__processSettings();
         };
 
         /**

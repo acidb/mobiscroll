@@ -69,14 +69,8 @@
     opacity: .5;
 }
 
-.mbsc-ios.mbsc-no-touch .mbsc-fr-btn-e:not(.mbsc-fr-btn-d):hover {
+.mbsc-ios.mbsc-fr-center.mbsc-no-touch .mbsc-fr-btn-e:not(.mbsc-fr-btn-d):hover {
     background: #ebebe8;
-}
-
-.mbsc-ios.mbsc-fr-inline .mbsc-fr-w .mbsc-fr-btn-w .mbsc-fr-btn:hover,
-.mbsc-ios.mbsc-fr-top .mbsc-fr-w .mbsc-fr-btn-w .mbsc-fr-btn:hover,
-.mbsc-ios.mbsc-fr-bottom .mbsc-fr-w .mbsc-fr-btn-w .mbsc-fr-btn:hover {
-    background: none;
 }
 
 .mbsc-ios .mbsc-fr-btn-w {
