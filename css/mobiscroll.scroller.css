@@ -316,3 +316,24 @@
     font-size: 1.818181em;
     color: #4eccc4;
 }
+
+
+/* Measurement */
+
+.mbsc-msr .mbsc-sc-whl-gr {
+    direction: ltr;
+}
+
+.mbsc-msr .mbsc-rtl .mbsc-sc-whl-w {
+    -webkit-box-ordinal-group: 2;
+    -moz-box-ordinal-group: 2;
+    -ms-flex-order: 2;
+    order: 2;
+}
+
+.mbsc-msr .mbsc-rtl .mbsc-msr-whl-unit {
+    -webkit-box-ordinal-group: 1;
+    -moz-box-ordinal-group: 1;
+    -ms-flex-order: 1;
+    order: 1;
+}

@@ -116,8 +116,3 @@
     margin-top: -1em;
     line-height: 2em;
 }
-
-.mbsc-android-holo .mbsc-rtl .mbsc-dt-whl-h:after {
-    left: auto;
-    right: 100%;
-}

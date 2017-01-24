@@ -851,10 +851,6 @@
             selectedClass = 'mbsc-sc-itm-sel mbsc-ic mbsc-ic-' + s.checkIcon;
             wheels = [];
             wheelsMap = {};
-
-            if (lines > 1) {
-                s.cssClass = (s.cssClass || '') + ' dw-ml';
-            }
         };
 
         that.__init = function () {
