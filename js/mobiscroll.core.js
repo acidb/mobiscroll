@@ -1,5 +1,5 @@
 /*!
- * Mobiscroll v3.0.0
+ * Mobiscroll v3.0.1
  * http://mobiscroll.com
  *
  * Copyright 2010-2016, Acid Media
@@ -102,7 +102,7 @@ var mobiscroll = mobiscroll || {};
 
     ms = mobiscroll = {
         $: $,
-        version: '3.0.0',
+        version: '3.0.1',
         util: {
             prefix: prefix,
             jsPrefix: pr,
@@ -401,7 +401,8 @@ var mobiscroll = mobiscroll || {};
                 startY,
                 target,
                 moved,
-                startTime;
+                startTime,
+                $elm = $(el);
 
             tolerance = tolerance || 9;
 
@@ -444,14 +445,14 @@ var mobiscroll = mobiscroll || {};
             }
 
             if (s.tap) {
-                el
+                $elm
                     .on('touchstart.mbsc', onStart)
                     .on('touchcancel.mbsc', onCancel)
                     .on('touchmove.mbsc', onMove)
                     .on('touchend.mbsc', onEnd);
             }
 
-            el.on('click.mbsc', function (ev) {
+            $elm.on('click.mbsc', function (ev) {
                 ev.preventDefault();
                 // If handler was not called on touchend, call it on click;
                 handler.call(this, ev, that);

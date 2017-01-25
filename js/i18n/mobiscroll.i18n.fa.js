@@ -132,6 +132,7 @@
         monthText: 'ماه',
         secText: 'ثانيه',
         timeFormat: 'HH:ii',
+        timeWheels: 'iiHH', // Need this for correct RTL display
         yearText: 'سال',
         nowText: 'اکنون',
         amText: 'ب',

@@ -1,17 +1,10 @@
 {
     "name": "mobiscroll",
-    "version": "3.0.0",
+    "version": "3.0.1",
     "main": [
         "js/mobiscroll.core.js",
         "js/mobiscroll.frame.js",
         "js/mobiscroll.scroller.js",
-        "js/mobiscroll.util.datetime.js",
-        "js/mobiscroll.datetimebase.js",
-        "js/mobiscroll.datetime.js",
-        "js/mobiscroll.select.js",
-        "js/mobiscroll.listbase.js",
-        "js/mobiscroll.treelist.js",
-        "js/mobiscroll.image.js",
         "css/mobiscroll.animation.css",
         "css/mobiscroll.frame.css",
         "css/mobiscroll.scroller.css"
@@ -22,16 +15,14 @@
         "input",
         "form",
         "html5",
-        "mobile",
-        "list",
-        "hierarchy",
-        "scroller",
-        "clickpick"
+        "mobile"
+        "scroller"
     ],
-    "authors": [
-        { "name": "Acid Media" },
-        { "homepage": "http://theacidmedia.net"}
-    ],
+    "authors": [{
+        "name": "Acid Media"
+    }, {
+        "homepage": "http://theacidmedia.net"
+    }],
     "ignore": [
         ".git",
         ".gitignore"

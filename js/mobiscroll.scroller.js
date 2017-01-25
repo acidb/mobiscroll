@@ -371,7 +371,7 @@
             }
 
             // TODO: what if all items are invalid
-            if (disabled[val]) {
+            if (disabled[val] === true) {
                 counter = 0;
                 while (idx - dist1 >= wheel.min && disabled[v1] && counter < 100) {
                     counter++;
@@ -851,10 +851,6 @@
             selectedClass = 'mbsc-sc-itm-sel mbsc-ic mbsc-ic-' + s.checkIcon;
             wheels = [];
             wheelsMap = {};
-
-            if (lines > 1) {
-                s.cssClass = (s.cssClass || '') + ' dw-ml';
-            }
         };
 
         that.__init = function () {

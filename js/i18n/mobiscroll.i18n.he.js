@@ -23,6 +23,7 @@
         amText: 'am',
         pmText: 'pm',
         timeFormat: 'HH:ii',
+        timeWheels: 'iiHH', // Need this for correct RTL display
         yearText: 'שנה',
         nowText: 'עכשיו',
         // Calendar component
