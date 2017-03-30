@@ -3,20 +3,20 @@ Mobiscroll
 
 What is mobiscroll?
 -----------------
-Mobiscroll is a library of Touch UI Components created with a lot of attention to usability and performance. The Components are based on the powerful and highly customizable Mobiscroll Core.
+Mobiscroll UI is a library of components for mobile web and hybrid development. Created with a lot of attention to usability and performance. It ships with 19 distinctive and customizable controls that can be used to enhance data entry, usability of websites and mobile apps. The scroller components are based on the customizable and open source scroller core.
 
 Where and how can I use mobiscroll?
 -----------------
-You can use mobiscroll components in your web and mobile apps for making data picking and navigation easy. It works with jQuery, jQuery Mobile, Zepto.JS and Intel App Framework (formerly known as jQMobi). You can also use it to develop hybrid apps with PhoneGap. You can use it in Windows 8 and Windows Phone 8 apps as well.
-Mobiscroll at its core is a javascript library so it runs everywhere where javascript can be executed. It is a great companion to all frameworks and libraries like Kendo UI, Backbone JS, Bootstrap, Angular JS, Knockout JS ....
+You can use mobiscroll components in your mobile web and hybrid apps for making data picking and navigation easy. Plays well with other frameworks and tools, and comes with different flavors & integrations: Vanilla Javascript, jQuery, jQuery Mobile, Angular, Ionic, React, Knockout and ASP.NET MVC. Mobiscroll supports all major browsers and platforms.
+At its core it is a javascript library so it runs everywhere where javascript can be executed.
 
 See demos
 -----------------
-http://demo.mobiscroll.com
+Explore demos for plain Javascript, jQuery, Angular and React - https://demo.mobiscroll.com
 
 
 
-Supported on iOS 4 +, Android 2.2 +, Windows Phone 8, BlackBerry,  Amazon Kindle, Chrome, Safari, Firefox, IE9 +. Please submit issues, and compatibility problems with other devices.
+Supported Platforms - Android 4.1+ including Android Marshmallow, iOS 6+ including iOS 10, Windows Phone 10 and all major mobile and desktop browsers. Please submit issues, and compatibility problems with other devices.
 
 _If you like it, spread the word!_
 
@@ -30,7 +30,7 @@ Google+ https://plus.google.com/+MobiscrollUI
 It'd be cool to see how you're using Mobiscroll!
 -----------------
 
-We're looking at showcasing some of the best work on http://mobiscroll.com . Feel free to let us know on twitter @mobiscroll!
+We're looking at showcasing some of the best work on https://mobiscroll.com . Feel free to let us know on twitter @mobiscroll!
 
 
-See complete changelog at http://mobiscroll.com/releases
+See complete changelog at https://mobiscroll.com/releases
