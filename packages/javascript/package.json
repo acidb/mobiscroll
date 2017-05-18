@@ -1,7 +1,7 @@
 {
     "name": "mobiscroll-javascript",
     "version": "3.2.0",
-    "description": "",
+    "description": "Framework agnostic UI library for progressive web and hybrid apps",
     "homepage": "https://mobiscroll.com/",
     "license": "Apache-2.0",
     "keywords": [
