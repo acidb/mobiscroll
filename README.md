@@ -3,7 +3,7 @@ Mobiscroll
 
 What is Mobiscroll?
 -----------------
-Mobiscroll UI is a library of components for progressive webapps and hybrid development. Created with a lot of attention to usability and performance. [Mobiscroll Forms](https://mobiscroll.com/forms) ships with 13 customizable controls that you can use for free that are included in this repository. Use Forms with the premium products that can be found on the [Mobiscroll website](https://mobiscroll.com).
+Mobiscroll is a UI library of components for progressive webapps and hybrid development. Created with a lot of attention to usability and performance. [Mobiscroll Forms](https://mobiscroll.com/forms) ships with 13 customizable controls that you can use for free that are included in this repository. Use Forms with the premium products that can be found on the [Mobiscroll website](https://mobiscroll.com).
 
 Where can I use Mobiscroll?
 -----------------
