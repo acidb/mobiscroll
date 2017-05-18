@@ -23,7 +23,7 @@ Getting help
 - Browse the [learning section](https://mobiscroll.com/support) and [help center](http://help.mobiscroll.com) for resources and more information on the products.
 - Submit and answer questions on [StackOverflow](http://stackoverflow.com/questions/tagged/mobiscroll) with the 'mobiscroll' tag.
 
-The Mobiscroll does not provide technical support for Mobiscroll Forms. To get support please [purchase a license from our website](https://mobiscroll.com/pricing).
+The Mobiscroll team does not provide technical support for Mobiscroll Forms. To get support please [purchase a license from our website](https://mobiscroll.com/pricing).
 
 Release notes
 -----------------
