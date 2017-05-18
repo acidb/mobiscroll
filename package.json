@@ -1,7 +1,7 @@
 {
     "name": "mobiscroll",
     "version": "3.2.0",
-    "description": "",
+    "description": "Cross platform UI controls for progressive web an hybrid apps",
     "homepage": "https://mobiscroll.com/",
     "license": "Apache-2.0",
     "keywords": [
