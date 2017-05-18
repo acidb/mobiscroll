@@ -1,0 +1,250 @@
+@import "../frame";
+
+/* Frame */
+
+.mbsc-ios.mbsc-fr-top .mbsc-fr-btn-cont,
+.mbsc-ios.mbsc-fr-bottom .mbsc-fr-btn-cont {
+    background: #efefef;
+}
+
+.mbsc-ios .mbsc-fr-overlay {
+    background: rgba(0, 0, 0, .2);
+}
+
+.mbsc-ios .mbsc-fr-w {
+    position: relative;
+    padding-top: 3.666667em;
+    background: #f7f7f7;
+    color: #000;
+    font-size: 12px;
+    font-family: -apple-system, Helvetica Neue, Helvetica, Arial, sans-serif;
+}
+
+.mbsc-ios .mbsc-fr-has-hdr .mbsc-fr-w {
+    min-width: 25em;
+}
+
+.mbsc-ios.mbsc-fr-nobtn .mbsc-fr-w,
+.mbsc-ios.mbsc-fr-center .mbsc-fr-w {
+    min-width: 16.666667em;
+}
+
+.mbsc-ios .mbsc-fr-hdr {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    left: 0;
+    line-height: 1.25em;
+    padding: .75em 4.375em;
+    color: #000;
+    font-size: 1.333334em;
+    font-weight: bold;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.mbsc-ios.mbsc-fr-nobtn .mbsc-fr-hdr,
+.mbsc-ios.mbsc-fr-center:not(.mbsc-cal-liq) .mbsc-fr-hdr {
+    position: relative;
+    padding: .75em .5em;
+    border-bottom: 1px solid #ccc;
+    white-space: normal;
+}
+
+.mbsc-ios .mbsc-fr-btn-cont {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+}
+
+.mbsc-ios .mbsc-fr-btn {
+    height: 2.75em;
+    line-height: 2.75em;
+    padding: 0 .625em;
+    display: inline-block;
+    color: #007aff;
+    font-size: 1.333334em;
+}
+
+.mbsc-ios .mbsc-fr-btn-a {
+    opacity: .5;
+}
+
+.mbsc-ios.mbsc-fr-center.mbsc-no-touch .mbsc-fr-btn-e:not(.mbsc-fr-btn-d):hover {
+    background: #ebebe8;
+}
+
+.mbsc-ios .mbsc-fr-btn-w {
+    display: block;
+    float: right;
+}
+
+.mbsc-ios .mbsc-fr-btn-c,
+.mbsc-ios .mbsc-rtl .mbsc-fr-btn-w {
+    float: left;
+}
+
+.mbsc-ios .mbsc-rtl .mbsc-fr-btn-c {
+    float: right;
+}
+
+.mbsc-ios .mbsc-fr-btn-s .mbsc-fr-btn {
+    font-weight: bold;
+}
+
+
+/* Bubble arrow */
+
+.mbsc-ios.mbsc-fr-bubble .mbsc-fr-w,
+.mbsc-ios.mbsc-fr-center .mbsc-fr-w {
+    border-radius: 8px;
+}
+
+.mbsc-ios .mbsc-fr-arr-w {
+    z-index: 0;
+}
+
+.mbsc-ios .mbsc-fr-arr {
+    position: relative;
+    width: 26px;
+    height: 26px;
+    background: #f7f7f7;
+    border: 0;
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    margin-left: -13px;
+}
+
+.mbsc-ios .mbsc-fr-bubble-top .mbsc-fr-arr {
+    top: -17px;
+    border-bottom-left-radius: 6px;
+}
+
+.mbsc-ios .mbsc-fr-bubble-bottom .mbsc-fr-arr {
+    top: 17px;
+    border-top-right-radius: 6px;
+}
+
+
+/* Top and bottom display */
+
+.mbsc-ios.mbsc-fr-bottom .mbsc-fr-overlay,
+.mbsc-ios.mbsc-fr-top .mbsc-fr-overlay {
+    background: none;
+}
+
+.mbsc-ios.mbsc-fr-bottom .mbsc-fr-popup {
+    border-top: 1px solid #909090;
+}
+
+.mbsc-ios.mbsc-fr-top .mbsc-fr-popup {
+    border-bottom: 1px solid #909090;
+}
+
+@media (-webkit-min-device-pixel-ratio: 2),
+(min-resolution: 192dpi) {
+    .mbsc-ios .mbsc-fr-hdr,
+    .mbsc-ios .mbsc-fr-btn-cont,
+    .mbsc-ios.mbsc-fr-bottom .mbsc-fr-popup,
+    .mbsc-ios.mbsc-fr-center .mbsc-fr-btn-w {
+        border-width: .5px;
+    }
+}
+
+
+/* Center display button  */
+
+.mbsc-ios.mbsc-fr-center .mbsc-fr-w {
+    padding-top: 0;
+    padding-bottom: 3.75em;
+}
+
+.mbsc-ios.mbsc-fr-center.mbsc-fr-btn-block .mbsc-fr-w {
+    padding: 0;
+}
+
+.mbsc-ios.mbsc-fr-center .mbsc-fr-btn-cont {
+    display: table;
+    top: auto;
+    bottom: 0;
+    border: 0;
+    table-layout: fixed;
+}
+
+.mbsc-ios.mbsc-fr-center .mbsc-fr-btn {
+    display: block;
+    font-weight: normal;
+}
+
+.mbsc-ios.mbsc-fr-center .mbsc-fr-btn-w {
+    display: table-cell;
+    float: none;
+    border-top: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+}
+
+.mbsc-ios.mbsc-fr-center .mbsc-fr-btn-w:first-child {
+    border-left: 0;
+}
+
+.mbsc-ios.mbsc-fr-center .mbsc-rtl .mbsc-fr-btn-w {
+    border-left: 0;
+    border-right: 1px solid #ccc;
+}
+
+.mbsc-ios.mbsc-fr-center .mbsc-rtl .mbsc-fr-btn-w:first-child {
+    border-right: 0;
+}
+
+.mbsc-ios.mbsc-fr-center .mbsc-ltr .mbsc-fr-btn-w:first-child .mbsc-fr-btn,
+.mbsc-ios.mbsc-fr-center .mbsc-rtl .mbsc-fr-btn-w:last-child .mbsc-fr-btn {
+    border-radius: 0 0 0 .5em;
+}
+
+.mbsc-ios.mbsc-fr-center .mbsc-ltr .mbsc-fr-btn-w:last-child .mbsc-fr-btn,
+.mbsc-ios.mbsc-fr-center .mbsc-rtl .mbsc-fr-btn-w:first-child .mbsc-fr-btn {
+    border-radius: 0 0 .5em 0;
+}
+
+.mbsc-ios.mbsc-fr-center .mbsc-fr-btn-a {
+    background: #ebebe8;
+    opacity: 1;
+}
+
+.mbsc-ios.mbsc-fr-center.mbsc-fr-btn-block .mbsc-fr-btn-cont {
+    position: static;
+    display: block;
+}
+
+.mbsc-ios.mbsc-fr-center.mbsc-fr-btn-block .mbsc-fr-btn-w {
+    display: block;
+    border-left: 0;
+    border-right: 0;
+}
+
+.mbsc-ios.mbsc-fr-center.mbsc-fr-btn-block .mbsc-fr-w .mbsc-fr-btn-w .mbsc-fr-btn {
+    border-radius: 0;
+}
+
+.mbsc-ios.mbsc-fr-center.mbsc-fr-btn-block .mbsc-fr-btn-w:last-child .mbsc-fr-btn {
+    border-radius: 0 0 .5em .5em;
+}
+
+
+/* Inline display */
+
+.mbsc-ios.mbsc-fr-inline .mbsc-fr-w {
+    border: 0;
+    border-radius: 0;
+    background: #fff;
+}
+
+
+/* No buttons */
+
+.mbsc-ios.mbsc-fr-nobtn .mbsc-fr-w {
+    padding: 0;
+}

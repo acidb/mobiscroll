@@ -1,0 +1,122 @@
+@import "widget";
+
+/* Toast, snackbar */
+
+.mbsc-toast .mbsc-fr-persp,
+.mbsc-snackbar .mbsc-fr-persp {
+    pointer-events: none;
+}
+
+.mbsc-toast .mbsc-fr-overlay,
+.mbsc-snackbar .mbsc-fr-overlay {
+    display: none;
+}
+
+.mbsc-toast.mbsc-fr .mbsc-fr-persp .mbsc-fr-popup,
+.mbsc-snackbar.mbsc-fr .mbsc-fr-persp .mbsc-fr-popup {
+    border: 0;
+    box-shadow: none;
+    line-height: 1.428572;
+}
+
+
+/* Snackbar */
+
+.mbsc-snackbar .mbsc-fr-popup {
+    pointer-events: auto;
+}
+
+.mbsc-snackbar.mbsc-fr .mbsc-fr-w {
+    min-width: 18em;
+    max-width: 36em;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.mbsc-snackbar-cont {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.mbsc-snackbar-msg {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    padding: 0 1em;
+}
+
+.mbsc-snackbar .mbsc-snackbar-cont .mbsc-snackbar-btn {
+    margin: -1em 0;
+    padding: 1em;
+    line-height: 1.428572;
+    font-size: 1em;
+    font-weight: 400;
+}
+
+.mbsc-snackbar.mbsc-no-touch.mbsc-fr .mbsc-fr-c .mbsc-btn-flat:not(:disabled):hover {
+    background: none;
+}
+
+
+/* Toast */
+
+.mbsc-toast.mbsc-fr .mbsc-fr-w {
+    background: none;
+}
+
+.mbsc-toast.mbsc-fr .mbsc-fr-c.mbsc-wdg-c {
+    text-align: center;
+    padding-bottom: 4em;
+}
+
+.mbsc-toast .mbsc-toast-msg {
+    display: inline-block;
+    min-width: 10em;
+    max-width: 50em;
+    padding: .857143em 2em;
+}
+
+
+/* Alert, confirm, prompt */
+
+.mbsc-alert.mbsc-fr .mbsc-fr-c.mbsc-wdg-c {
+    padding: 1.714286em;
+    max-width: 20em;
+}
+
+.mbsc-alert .mbsc-fr-c .mbsc-input {
+    padding: 0;
+}
+
+.mbsc-alert.mbsc-fr h2 {
+    margin: 0 0 1em 0;
+    padding: 0;
+    font-size: 1.428572em;
+    font-weight: bold;
+}
+
+.mbsc-alert.mbsc-fr p {
+    margin: 1em 0;
+    padding: 0;
+    font-size: 1em;
+}
+
+
+/* Mobiscroll */
+
+.mbsc-mobiscroll.mbsc-snackbar .mbsc-fr-w {
+    background: #787878;
+    color: #fff;
+}
+
+.mbsc-mobiscroll.mbsc-toast .mbsc-toast-msg {
+    background: rgba(120, 120, 120, .9);
+    border-radius: .5em;
+    color: #fff;
+}

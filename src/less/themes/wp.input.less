@@ -1,0 +1,55 @@
+@import "../input";
+
+/* Input */
+
+.mbsc-wp .mbsc-input {
+    padding: .75em 1em;
+}
+
+.mbsc-wp .mbsc-input input,
+.mbsc-wp .mbsc-input textarea {
+    height: 2em;
+    padding: 0 .3125em;
+    background: #ccc;
+    border: .125em solid #ccc;
+    font-size: 1em;
+    color: #2b2b2b;
+}
+
+.mbsc-wp .mbsc-input textarea {
+    padding-top: .125em;
+    padding-bottom: .125em;
+}
+
+.mbsc-wp .mbsc-input input::-webkit-input-placeholder {
+    color: #5c5c5c;
+}
+
+.mbsc-wp .mbsc-input input::-ms-input-placeholder {
+    color: #5c5c5c;
+}
+
+.mbsc-wp .mbsc-input input::-moz-placeholder {
+    color: #5c5c5c;
+}
+
+.mbsc-wp .mbsc-input input:focus,
+.mbsc-wp .mbsc-input select:focus + input,
+.mbsc-wp .mbsc-input textarea:focus {
+    background: #fff;
+    border-color: #1a9fe0;
+    color: #000;
+}
+
+.mbsc-wp .mbsc-input select:disabled + input,
+.mbsc-wp .mbsc-input textarea:disabled,
+.mbsc-wp .mbsc-input input:disabled {
+    background: #000;
+    border-color: #4e4e4e;
+    color: #4e4e4e;
+}
+
+.mbsc-wp .mbsc-input.mbsc-err input,
+.mbsc-wp .mbsc-input.mbsc-err textarea {
+    border-color: #d30101;
+}

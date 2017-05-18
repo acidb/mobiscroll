@@ -1,0 +1,43 @@
+{
+    "name": "mobiscroll-react",
+    "version": "3.2.0",
+    "description": "React UI library for progressive web and hybrid apps",
+    "homepage": "https://mobiscroll.com/",
+    "license": "Apache-2.0",
+    "keywords": [
+        "mobile web",
+        "hybrid apps",
+        "javascript",
+        "mobiscroll",
+        "javascript library",
+        "react",
+        "component library",
+        "ui components",
+        "ui kit"
+    ],
+    "author": {
+        "name": "Mobiscroll",
+        "url": "https://mobiscroll.com/"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/acidb/mobiscroll.git"
+    },
+    "bugs": {
+        "url": "https://github.com/acidb/mobiscroll/issues"
+    },
+    "main": "dist/js/mobiscroll.react.min.js",
+    "style": "dist/css/mobiscroll.min.css",
+    "files": [
+        "dist/js/mobiscroll.react.js",
+        "dist/js/mobiscroll.react.min.js",
+        "dist/css/mobiscroll.css",
+        "dist/css/mobiscroll.min.css",
+        "dist/css/icons_mobiscroll.ttf",
+        "dist/css/icons_mobiscroll.woff"
+    ],
+    "dependencies": {
+        "react": ">=0.13.0",
+        "react-dom": ">=0.13.0"
+    }
+}

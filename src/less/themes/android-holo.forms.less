@@ -1,0 +1,478 @@
+@import "../forms";
+@import "android-holo.page.less";
+@import "android-holo.slider.less";
+@import "android-holo.input.less";
+@import "android-holo.notifications.less";
+
+/* Forms */
+
+.mbsc-android-holo.mbsc-form {
+    background: #000;
+    color: #fff;
+}
+
+.mbsc-android-holo.mbsc-form *::-moz-selection {
+    color: #fff;
+    background: #31c6e7;
+}
+
+.mbsc-android-holo.mbsc-form *::selection {
+    color: #fff;
+    background: #31c6e7;
+}
+
+.mbsc-android-holo .mbsc-padding {
+    padding: .75em;
+}
+
+.mbsc-android-holo .mbsc-divider,
+.mbsc-android-holo .mbsc-form-group-title {
+    margin: 0 1em;
+    padding: 2em 0 1em 0;
+    border-bottom: 1px solid #31c6e7;
+    font-size: .75em;
+    color: #31c6e7;
+    text-transform: uppercase;
+}
+
+.mbsc-android-holo .mbsc-err-msg {
+    color: #f35047;
+    float: right;
+    padding-top: .375em;
+}
+
+
+/* Textbox, textarea, select */
+
+.mbsc-android-holo .mbsc-select input {
+    padding: 0 .75em;
+    outline: 0;
+    border-width: 0 0 1px;
+    padding-bottom: 4px;
+}
+
+.mbsc-android-holo .mbsc-input-ic {
+    top: 0;
+    margin-top: -3px;
+}
+
+.mbsc-android-holo .mbsc-input .mbsc-label {
+    font-size: .75em;
+    padding: 0 1em;
+}
+
+.mbsc-android-holo.mbsc-ltr .mbsc-ic-left input,
+.mbsc-android-holo.mbsc-ltr .mbsc-ic-left textarea,
+.mbsc-android-holo.mbsc-rtl .mbsc-ic-right input,
+.mbsc-android-holo.mbsc-rtl .mbsc-ic-right textarea {
+    padding-left: 2.4em;
+}
+
+.mbsc-android-holo.mbsc-ltr .mbsc-ic-right input,
+.mbsc-android-holo.mbsc-ltr .mbsc-ic-right textarea,
+.mbsc-android-holo.mbsc-rtl .mbsc-ic-left input,
+.mbsc-android-holo.mbsc-rtl .mbsc-ic-left textarea {
+    padding-right: 2.4em;
+}
+
+.mbsc-android-holo .mbsc-select .mbsc-input-wrap .mbsc-select-ic {
+    position: absolute;
+    display: block;
+    height: 0;
+    width: 0;
+    bottom: 0;
+    right: 0;
+    border: 5px solid black;
+    border-color: transparent #a9a9a9 #a9a9a9 transparent;
+}
+
+.mbsc-android-holo .mbsc-ic-left .mbsc-left-ic,
+.mbsc-android-holo.mbsc-rtl .mbsc-ic-right .mbsc-right-ic {
+    right: auto;
+    left: .125em;
+}
+
+.mbsc-android-holo .mbsc-ic-right .mbsc-right-ic,
+.mbsc-android-holo.mbsc-rtl .mbsc-ic-left .mbsc-left-ic {
+    left: auto;
+    right: .125em;
+}
+
+.mbsc-android-holo .mbsc-select-ic:before {
+    display: none;
+}
+
+
+/* Select inline */
+
+.mbsc-android-holo .mbsc-select-inline .mbsc-input-wrap .mbsc-select-ic {
+    display: none;
+}
+
+
+/* Checkbox, radio, switch */
+
+.mbsc-android-holo .mbsc-checkbox input:disabled + .mbsc-checkbox-box,
+.mbsc-android-holo .mbsc-checkbox input:disabled ~ .mbsc-label,
+.mbsc-android-holo .mbsc-checkbox input:disabled ~ .mbsc-desc,
+.mbsc-android-holo .mbsc-radio input:disabled + .mbsc-radio-box,
+.mbsc-android-holo .mbsc-radio input:disabled ~ .mbsc-label,
+.mbsc-android-holo .mbsc-radio input:disabled ~ .mbsc-desc,
+.mbsc-android-holo .mbsc-switch input:disabled + .mbsc-switch-track,
+.mbsc-android-holo .mbsc-switch input:disabled ~ .mbsc-label,
+.mbsc-android-holo .mbsc-switch input:disabled ~ .mbsc-desc {
+    opacity: .4;
+}
+
+
+/* Checkbox */
+
+.mbsc-android-holo.mbsc-form .mbsc-checkbox {
+    padding: 1.25em 3em 1.25em .75em;
+}
+
+.mbsc-android-holo.mbsc-rtl .mbsc-checkbox {
+    padding: 1.25em .75em 1.25em 3em;
+}
+
+.mbsc-android-holo .mbsc-checkbox-box {
+    width: 1em;
+    height: 1em;
+    border: 1px solid #4e4e4e;
+    background: transparent;
+    right: 1.25em;
+    margin-top: -.5em;
+}
+
+.mbsc-android-holo.mbsc-rtl .mbsc-checkbox-box {
+    right: auto;
+    left: 1.25em;
+}
+
+.mbsc-android-holo .mbsc-checkbox-box:after {
+    top: 0;
+    left: 16%;
+    width: .925em;
+    height: .438em;
+    border: 3px solid #31c6e7;
+    border-top: 0;
+    border-right: 0;
+}
+
+.mbsc-android-holo .mbsc-checkbox input:disabled + .mbsc-checkbox-box:after {
+    border-color: #444;
+}
+
+.mbsc-android-holo .mbsc-checkbox input.mbsc-active + .mbsc-checkbox-box:before {
+    position: absolute;
+    height: 2em;
+    width: 2em;
+    top: 50%;
+    left: 50%;
+    margin-top: -1em;
+    margin-left: -1em;
+    border-radius: 3px;
+    content: ' ';
+    background: rgba(55, 55, 55, .6);
+}
+
+
+/* Radio */
+
+.mbsc-android-holo.mbsc-form .mbsc-radio {
+    padding: 1.25em 3.25em 1.25em .75em;
+}
+
+.mbsc-android-holo.mbsc-rtl .mbsc-radio {
+    padding: 1.25em .75em 1.25em 3.25em;
+}
+
+.mbsc-android-holo .mbsc-radio-box {
+    background: transparent;
+    border: 2px solid #4e4e4e;
+    right: 1.25em;
+    margin-top: -.625em;
+}
+
+.mbsc-android-holo.mbsc-rtl .mbsc-radio-box {
+    right: auto;
+    left: 1.25em;
+}
+
+.mbsc-android-holo .mbsc-radio-box:after {
+    background: #31c6e7;
+}
+
+.mbsc-android-holo .mbsc-radio input:checked:disabled + .mbsc-radio-box:after {
+    background: #7b7e82;
+}
+
+.mbsc-android-holo .mbsc-radio input.mbsc-active + .mbsc-radio-box:before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -1.25em;
+    margin-left: -1.25em;
+    border-radius: 2.5em;
+    height: 2.5em;
+    width: 2.5em;
+    content: ' ';
+    background: rgba(55, 55, 55, .6);
+}
+
+
+/* Button */
+
+.mbsc-android-holo .mbsc-btn {
+    margin: .5em .25em;
+    padding: .625em;
+    color: #fff;
+    background: #5c5c5c;
+    border-radius: 2px;
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, .2), 0 1px 1px rgba(0, 0, 0, .5);
+}
+
+.mbsc-android-holo .mbsc-btn-ic {
+    padding-right: .625em;
+}
+
+.mbsc-android-holo .mbsc-btn-icon-only .mbsc-btn-ic {
+    padding: 0 .625em;
+}
+
+.mbsc-android-holo.mbsc-no-touch .mbsc-btn:not(:disabled):not(.mbsc-active):hover {
+    background: #676767;
+}
+
+.mbsc-android-holo .mbsc-btn.mbsc-active {
+    background: #757575;
+}
+
+.mbsc-android-holo .mbsc-btn:disabled {
+    background: #e5e5e5;
+    color: #b5b5b5;
+    box-shadow: none;
+}
+
+.mbsc-android-holo .mbsc-btn.mbsc-btn-flat {
+    border-color: transparent;
+    background: transparent;
+    font-weight: bold;
+    box-shadow: none;
+}
+
+.mbsc-android-holo.mbsc-no-touch .mbsc-btn-flat:not(:disabled):not(.mbsc-active):hover {
+    opacity: .8;
+}
+
+.mbsc-android-holo .mbsc-btn-flat.mbsc-active {
+    opacity: .6;
+}
+
+.mbsc-android-holo .mbsc-btn-flat:disabled {
+    opacity: .2;
+    background: transparent;
+    color: #fff;
+}
+
+.mbsc-android-holo .mbsc-btn-group,
+.mbsc-android-holo .mbsc-btn-group-justified {
+    padding: .25em .5em;
+}
+
+.mbsc-android-holo .mbsc-btn-group-block {
+    padding: .25em .75em;
+}
+
+
+/* Switch */
+
+.mbsc-android-holo.mbsc-form .mbsc-switch {
+    padding: 1.25em 7.25em 1.25em .75em;
+}
+
+.mbsc-android-holo.mbsc-rtl .mbsc-switch {
+    padding: 1.25em .75em 1.25em 7.25em;
+}
+
+.mbsc-android-holo .mbsc-switch-track {
+    background: #464646;
+    width: 4.625em;
+    height: 1.25em;
+    right: 1.25em;
+    padding: 0 1.125em;
+    margin-top: -.625em;
+}
+
+.mbsc-android-holo.mbsc-rtl .mbsc-switch-track {
+    right: auto;
+    left: 1.25em;
+}
+
+.mbsc-android-holo .mbsc-switch-handle {
+    top: .375em;
+    left: -.125em;
+    height: 100%;
+    width: 2.25em;
+    height: 1.25em;
+    margin: 0;
+    background: #676767;
+    border-radius: 0;
+    text-transform: uppercase;
+    box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .2), inset 0 1px 0 rgba(255, 255, 255, .2), inset 1px 0 0 rgba(0, 0, 0, .1), inset -1px 0 0 rgba(0, 0, 0, .1);
+}
+
+.mbsc-android-holo.mbsc-rtl .mbsc-switch-handle {
+    left: auto;
+    right: -.125em;
+}
+
+.mbsc-android-holo .mbsc-switch-handle:after {
+    display: none;
+}
+
+.mbsc-android-holo .mbsc-switch input:checked + .mbsc-switch-track .mbsc-switch-txt-off {
+    display: none;
+}
+
+.mbsc-android-holo .mbsc-switch-handle .mbsc-switch-txt-off,
+.mbsc-android-holo .mbsc-switch input:checked + .mbsc-switch-track .mbsc-switch-txt-on {
+    display: block;
+}
+
+.mbsc-android-holo .mbsc-switch input.mbsc-active + .mbsc-switch-track .mbsc-switch-handle {
+    background: #737373;
+}
+
+.mbsc-android-holo .mbsc-switch input:checked + .mbsc-switch-track .mbsc-switch-handle {
+    background: #29799c;
+}
+
+.mbsc-android-holo .mbsc-switch input:disabled + .mbsc-switch-track .mbsc-switch-handle {
+    background: #a6a7a6;
+}
+
+
+/* Segmented & Stepper */
+
+.mbsc-android-holo .mbsc-segmented {
+    padding: .75em;
+}
+
+.mbsc-android-holo .mbsc-segmented-content {
+    height: 2.2857145em;
+    margin: 0 -.07142857em;
+    line-height: 2.2857145em;
+    padding: 0 .428571em;
+    text-transform: capitalize;
+    border: .142857em solid #31c6e7;
+}
+
+.mbsc-android-holo .mbsc-stepper-cont {
+    padding: 1.75em 12.375em 1.75em .75em;
+}
+
+.mbsc-android-holo.mbsc-rtl .mbsc-stepper-cont {
+    padding: 1.75em .75em 1.75em 12.375em;
+}
+
+.mbsc-android-holo .mbsc-segmented .mbsc-segmented-item input:checked + .mbsc-segmented-content {
+    background: #31c6e7;
+}
+
+.mbsc-android-holo .mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control.mbsc-active .mbsc-segmented-content {
+    background: #757575;
+}
+
+.mbsc-android-holo .mbsc-segmented .mbsc-segmented-item input.mbsc-active + .mbsc-segmented-content {
+    background: rgba(49, 198, 231, .35);
+}
+
+.mbsc-android-holo .mbsc-stepper-control .mbsc-segmented-content {
+    border: 0;
+    background: #5c5c5c;
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, .2), 0 1px 1px rgba(0, 0, 0, .5);
+}
+
+.mbsc-android-holo.mbsc-ltr .mbsc-stepper-minus .mbsc-segmented-content,
+.mbsc-android-holo.mbsc-ltr .mbsc-segmented-item:first-child .mbsc-segmented-content,
+.mbsc-android-holo.mbsc-rtl .mbsc-stepper-plus .mbsc-segmented-content,
+.mbsc-android-holo.mbsc-rtl .mbsc-segmented-item:last-child .mbsc-segmented-content {
+    border-top-left-radius: .142857em;
+    border-bottom-left-radius: .142857em;
+}
+
+.mbsc-android-holo.mbsc-ltr .mbsc-stepper-plus .mbsc-segmented-content,
+.mbsc-android-holo.mbsc-ltr .mbsc-segmented-item:last-child .mbsc-segmented-content,
+.mbsc-android-holo.mbsc-rtl .mbsc-stepper-minus .mbsc-segmented-content,
+.mbsc-android-holo.mbsc-rtl .mbsc-segmented-item:first-child .mbsc-segmented-content {
+    border-top-right-radius: .142857em;
+    border-bottom-right-radius: .142857em;
+}
+
+.mbsc-android-holo .mbsc-stepper .mbsc-stepper-val {
+    border: 0;
+    background: #f5f5f5;
+    color: #000;
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, .2), 0 1px 1px rgba(0, 0, 0, .5);
+}
+
+.mbsc-android-holo .mbsc-stepper {
+    right: .75em;
+    margin-top: -1em;
+}
+
+.mbsc-android-holo.mbsc-rtl .mbsc-stepper {
+    right: auto;
+    left: .75em;
+}
+
+.mbsc-android-holo .mbsc-stepper .mbsc-segmented-content {
+    margin: 0;
+}
+
+.mbsc-android-holo .mbsc-segmented .mbsc-segmented-item input:disabled + .mbsc-segmented-content {
+    color: #b5b5b5;
+    border-color: #5c5c5c;
+    background: transparent;
+}
+
+.mbsc-android-holo .mbsc-segmented .mbsc-segmented-item input:disabled:checked + .mbsc-segmented-content,
+.mbsc-android-holo .mbsc-segmented input:disabled ~ .mbsc-segmented-item .mbsc-segmented-content,
+.mbsc-android-holo .mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control.mbsc-step-disabled .mbsc-segmented-content {
+    background: #e5e5e5;
+    color: #b5b5b5;
+    border-color: #e5e5e5;
+}
+
+.mbsc-android-holo .mbsc-stepper .mbsc-segmented-item input:disabled ~ .mbsc-segmented-item .mbsc-stepper-val {
+    background: #f5f5f5;
+}
+
+.mbsc-android-holo .mbsc-stepper-val-left .mbsc-segmented-item:nth-child(2) .mbsc-segmented-content,
+.mbsc-android-holo .mbsc-stepper-val-right .mbsc-segmented-item:last-child .mbsc-segmented-content {
+    box-shadow: none;
+}
+
+.mbsc-android-holo .mbsc-stepper input {
+    color: #000;
+    z-index: 3;
+}
+
+.mbsc-android-holo .mbsc-stepper-val-left input,
+.mbsc-android-holo .mbsc-stepper-val-right input {
+    color: #fff;
+}
+
+.mbsc-android-holo .mbsc-stepper input:disabled {
+    color: #b5b5b5;
+    -webkit-text-fill-color: #b5b5b5;
+}
+
+.mbsc-android-holo.mbsc-no-touch .mbsc-segmented-item:hover .mbsc-segmented-content {
+    background: rgba(49, 182, 231, 0.2);
+}
+
+.mbsc-android-holo.mbsc-no-touch .mbsc-stepper-control:hover .mbsc-segmented-content {
+    background: #676767;
+}

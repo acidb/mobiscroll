@@ -1,0 +1,92 @@
+.mbsc-input {
+    position: relative;
+    display: block;
+    margin: 0;
+    z-index: 0;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.mbsc-input input,
+.mbsc-input select,
+.mbsc-input textarea {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    outline: 0;
+    font-family: inherit;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.mbsc-input-wrap,
+.mbsc-input input,
+.mbsc-input textarea {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.mbsc-input input,
+.mbsc-input select,
+.mbsc-input textarea {
+    display: block;
+    width: 100%;
+    font-size: 1em;
+}
+
+.mbsc-input input:focus,
+.mbsc-input select:focus,
+.mbsc-input textarea:focus {
+    outline: 0;
+}
+
+.mbsc-input-wrap {
+    position: relative;
+    display: block;
+}
+
+
+/* Textbox */
+
+.mbsc-mobiscroll .mbsc-input input,
+.mbsc-mobiscroll .mbsc-input textarea {
+    height: 2.125em;
+    padding: 0 0 1px 0;
+    background: transparent;
+    border-bottom: 1px solid #787878;
+    font-size: 1em;
+    color: #1f1f1f;
+}
+
+.mbsc-mobiscroll .mbsc-input input:focus,
+.mbsc-mobiscroll .mbsc-input select:focus ~ input .mbsc-mobiscroll .mbsc-input textarea:focus,
+.mbsc-mobiscroll .mbsc-input textarea:focus {
+    border-color: #4eccc4;
+}
+
+.mbsc-mobiscroll .mbsc-input input:disabled,
+.mbsc-mobiscroll .mbsc-input textarea:disabled,
+.mbsc-mobiscroll .mbsc-input select:disabled ~ input,
+.mbsc-mobiscroll .mbsc-input select:disabled ~ .mbsc-select-ic {
+    opacity: .4;
+}
+
+.mbsc-mobiscroll .mbsc-input input:-webkit-autofill,
+.mbsc-mobiscroll .mbsc-input textarea:-webkit-autofill {
+    padding: 0 .25em;
+}
+
+.mbsc-mobiscroll .mbsc-input {
+    padding: .5em 1em;
+}
+
+.mbsc-mobiscroll .mbsc-input.mbsc-err input,
+.mbsc-mobiscroll .mbsc-input.mbsc-err textarea {
+    padding: 0;
+    border-bottom: 1px solid #ec2a32;
+}

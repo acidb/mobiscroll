@@ -1,0 +1,85 @@
+@import "../slider";
+@import "android-holo.progress.less";
+
+/* Slider */
+
+.mbsc-android-holo.mbsc-slider .mbsc-input-wrap {
+    padding: 0 .9375em;
+}
+
+.mbsc-android-holo .mbsc-slider-step {
+    background: #fff;
+}
+
+.mbsc-android-holo .mbsc-slider-handle {
+    top: 50%;
+    width: .625em;
+    height: .625em;
+    margin: -.3125em -.3125em 0 0;
+    border-radius: .625em;
+    background: #31c6e7;
+}
+
+.mbsc-android-holo .mbsc-slider-handle.mbsc-active {
+    background: #fff;
+}
+
+.mbsc-android-holo .mbsc-slider-handle:after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -.9375em;
+    margin-left: -.9375em;
+    border-radius: 1.875em;
+    height: 1.875em;
+    width: 1.875em;
+    content: ' ';
+    background: rgba(67, 198, 231, .3);
+}
+
+.mbsc-android-holo .mbsc-slider-handle:focus:after,
+.mbsc-android-holo .mbsc-active .mbsc-slider-handle:after {
+    margin-top: -1em;
+    margin-left: -1em;
+    border: 1px solid #29799c;
+}
+
+.mbsc-android-holo .mbsc-slider-tooltip {
+    width: 3em;
+    top: -1.25em;
+    margin-right: -1.5em;
+    text-align: center;
+    color: #fff;
+    background: #000;
+    -webkit-transition: opacity .2s ease-in-out;
+    transition: opacity .2s ease-in-out;
+}
+
+.mbsc-android-holo .mbsc-slider-handle:focus ~ .mbsc-slider-tooltip,
+.mbsc-android-holo .mbsc-active .mbsc-slider-tooltip {
+    opacity: 1;
+}
+
+.mbsc-android-holo.mbsc-slider input:disabled ~ .mbsc-progress-cont .mbsc-progress-track {
+    background: #fff;
+    opacity: .4;
+}
+
+.mbsc-android-holo.mbsc-slider input:disabled ~ .mbsc-progress-cont .mbsc-slider-handle {
+    width: .25em;
+    height: .25em;
+    margin: -.125em -.125em 0 0;
+    border-radius: .625em;
+    background: #fff;
+}
+
+.mbsc-android-holo.mbsc-slider input:disabled ~ .mbsc-progress-cont .mbsc-slider-handle:after {
+    margin-top: -.9375em;
+    margin-left: -.9375em;
+    border: 0;
+    background: rgba(200, 200, 200, .5);
+}
+
+.mbsc-android-holo.mbsc-slider input:disabled ~ .mbsc-progress-cont .mbsc-progress-bar {
+    background: #a9a9a9;
+}

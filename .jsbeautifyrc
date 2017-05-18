@@ -1,0 +1,21 @@
+{
+    // Details: https://github.com/victorporof/Sublime-HTMLPrettify#using-your-own-jsbeautifyrc-options
+    // Documentation: https://github.com/einars/js-beautify/
+
+    "html": {
+        "allowed_file_extensions": ["htm", "html", "xhtml", "shtml", "xml", "svg"],
+        "space_after_anon_function": true,
+        "end_with_newline": false
+    },
+    "css": {
+        "allowed_file_extensions": ["css", "scss", "sass", "less"],
+        "end_with_newline": false,
+        "space_around_combinator": true
+    },
+    "js": {
+        "allowed_file_extensions": ["js", "jsx", "json", "jshintrc", "jsbeautifyrc"],
+        "e4x": true,
+        "space_after_anon_function": true,
+        "end_with_newline": false
+    }
+}

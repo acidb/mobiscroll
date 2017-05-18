@@ -1,0 +1,829 @@
+@theme: ios;
+@input1: hsl(211, 100%, 50%);
+@input2: hsl(211, 100%, 50%);
+@input3: hsl(0, 0%, 97%);
+@input4: hsl(0, 0%, 0%);
+@minput3: hsl(hue(@input3), saturation(@input3), max(lightness(@input3), 3%));
+@output1_1: @input1;
+@output2_1: @input2;
+@output3_1: @minput3;
+@output4_1: @input4;
+@error: hsl(3, 69%, 51%);
+@delta2_1: red(@output2_1)*0.299 + green(@output2_1)*0.587 + blue(@output2_1)*0.114;
+@delta3: red(@input3)*0.299 + green(@input3)*0.587 + blue(@input3)*0.114;
+@delta4: red(@input4)*0.299 + green(@input4)*0.587 + blue(@input4)*0.114;
+.-();
+.-() when (@delta2_1 <=150) {
+    @output2_1_text: #fff;
+    @output2_2: spin(lighten(desaturate(@input2, 42%), 35%), 3);
+    @output2_3: spin(lighten(desaturate(@input2, 48%), 22%), -1);
+    @output2_4: darken(desaturate(@input2, 15%), 3%);
+    @output2_5: lighten(desaturate(@input2, 1%), 2%);
+    @colorClearBackground: fade(#dfdede, 60%);
+    @snackbar_btn: hsl(hue(@input2), saturation(@input2), max(lightness(@input2), 80%));
+}
+
+.-() when (@delta2_1 > 150) {
+    @output2_1_text: #000;
+    @output2_2: spin(darken(saturate(@input2, 42%), 35%), -3);
+    @output2_3: spin(darken(saturate(@input2, 48%), 22%), 1);
+    @output2_4: lighten(saturate(@input2, 15%), 3%);
+    @output2_5: darken(saturate(@input2, 1%), 2%);
+    @colorClearBackground: fade(#dfdede, 30%);
+    @snackbar_btn: @input2;
+}
+
+.-() when (@delta3 <=150) {
+    @output3_2: lighten(@minput3, 21%);
+    @output3_3: lighten(@minput3, 10%);
+    @output3_6: lighten(@minput3, 8%);
+    @output3_7: lighten(@minput3, 17%);
+    @output3_8: lighten(@minput3, 40%);
+    @output3_9: lighten(@minput3, 4%);
+    @output3_10: lighten(@minput3, 3%);
+    @output3_12: lighten(@minput3, 10%);
+    @output3_13: lighten(@minput3, 20%);
+    @output3_14: lighten(@minput3, 12%);
+    @output3_15: spin(lighten(desaturate(@input3, 12%), 14%), 218);
+    @output3_16: lighten(@minput3, 10%);
+    @lv_handle: lighten(@minput3, 40%);
+    @output3_20: lighten(@minput3, 40%);
+    @output3_21: #fff;
+    @output3_22: lighten(@minput3, 13%);
+    @output3_23: lighten(@minput3, 6%);
+    @output3_24: lighten(@minput3, 70%);
+    @sw_track: lighten(@minput3, 17%);
+    @sw_shadow: #fff;
+    @output3_5: hsl(hue(@input4), saturation(@input4), min(lightness(@input4), 62%));
+    @output3_11: hsl(hue(@input4), saturation(@input4), min(lightness(@input4), 80%));
+    @overlay: fade(#fff, 10%);
+    @output3_25: lighten(desaturate(@input3, 19%), 10%);
+    @output3_26: darken(@input4, 44%);
+    @output4_2: spin(lighten(saturate(@input4, 10%), 55%), 220);
+    @slider_track_step: lighten(@minput3, 27%);
+}
+
+.-() when (@delta3 > 150) {
+    @output3_2: darken(@minput3, 21%);
+    @output3_3: darken(@minput3, 1%);
+    @output3_6: darken(@minput3, 8%);
+    @output3_7: darken(@minput3, 17%);
+    @output3_8: darken(@minput3, 33%);
+    @output3_9: darken(@minput3, 4%);
+    @output3_10: lighten(@minput3, 3%);
+    @output3_12: darken(@minput3, 10%);
+    @output3_13: darken(@minput3, 20%);
+    @output3_14: darken(@minput3, 5%);
+    @output3_15: spin(darken(saturate(@input3, 12%), 14%), 218);
+    @output3_16: @output3_1;
+    @lv_handle: darken(@minput3, 17%);
+    @output3_20: darken(@minput3, 40%);
+    @output3_21: darken(@minput3, 7%);
+    @output3_22: darken(@minput3, 13%);
+    @output3_23: lighten(@minput3, 3%);
+    @output3_24: darken(@minput3, 26%);
+    @sw_track: darken(@minput3, 7%);
+    @sw_shadow: #000;
+    @output3_5: hsl(hue(@input4), saturation(@input4), max(lightness(@input4), 62%));
+    @output3_11: hsl(hue(@input4), saturation(@input4), max(lightness(@input4), 80%));
+    @overlay: fade(#000, 20%);
+    @output3_25: spin(darken(saturate(@input3, 19%), 2%), 240);
+    @output3_26: lighten(@input4, 44%);
+    @output4_2: spin(darken(desaturate(@input4, 10%), 55%), 220);
+    @slider_track_step: darken(@minput3, 10%);
+}
+
+.mbsc-@{theme} .mbsc-fr-overlay {
+    background: @overlay;
+}
+
+.mbsc-@{theme} .mbsc-fr-w {
+    background: @output3_1;
+    color: @output4_1;
+}
+
+.mbsc-@{theme} .mbsc-fr-hdr {
+    border-color: @output3_7;
+    color: @output3_5;
+}
+
+.mbsc-@{theme} .mbsc-fr-hdr {
+    color: @output4_1;
+}
+
+.mbsc-@{theme} .mbsc-fr-nobtn .mbsc-fr-hdr,
+.mbsc-@{theme}.mbsc-fr-center .mbsc-fr-hdr {
+    border-color: @output3_7;
+}
+
+.mbsc-@{theme} .mbsc-fr-btn-cont,
+.mbsc-@{theme}.mbsc-cal-liq.mbsc-fr-center .mbsc-fr-btn-cont {
+    border-color: @output3_7;
+}
+
+.mbsc-@{theme} .mbsc-sc-whl-o,
+.mbsc-@{theme}.mbsc-calendar .mbsc-sc-whl-o {
+    background: -webkit-gradient(linear, left bottom, left top, from(@output3_1), color-stop(0.52, fade(@output3_1, 0%)), color-stop(0.48, fade(@output3_1, 0%)), to(@output3_1));
+    background: -webkit-linear-gradient(@output3_1, fade(@output3_1, 0%) 52%, fade(@output3_1, 0%) 48%, @output3_1);
+    background: linear-gradient(@output3_1, fade(@output3_1, 0%) 52%, fade(@output3_1, 0%) 48%, @output3_1);
+}
+
+.mbsc-@{theme} .mbsc-sc-whl-l,
+.mbsc-@{theme}.mbsc-calendar .mbsc-sc-whl-l {
+    border-color: @output3_7;
+}
+
+.mbsc-@{theme} .mbsc-sc-itm {
+    color: @output3_5;
+}
+
+.mbsc-@{theme} .mbsc-sc-itm.mbsc-btn-a {
+    background: fade(@output2_1, 20%);
+}
+
+.mbsc-@{theme} .mbsc-sc-itm-sel {
+    color: @output4_1;
+}
+
+.mbsc-@{theme} .mbsc-sc-btn {
+    color: @output4_1;
+}
+
+.mbsc-@{theme} .mbsc-fr-btn {
+    color: @output1_1;
+}
+
+.mbsc-@{theme} .mbsc-sc-lbl {
+    color: @output4_1;
+}
+
+.mbsc-@{theme}.mbsc-fr-center .mbsc-fr-popup .mbsc-fr-btn-w {
+    border-color: @output3_7;
+}
+
+.mbsc-@{theme}.mbsc-fr-center.mbsc-no-touch .mbsc-fr-btn-e:not(.mbsc-fr-btn-d):hover,
+.mbsc-@{theme}.mbsc-fr-center .mbsc-fr-btn-a {
+    background: @output3_14;
+}
+
+.mbsc-@{theme}.mbsc-fr-bottom .mbsc-fr-popup,
+.mbsc-@{theme}.mbsc-fr-top .mbsc-fr-popup {
+    border-color: @output3_2;
+}
+
+
+/* Top / bottom color theme */
+
+.mbsc-@{theme}.mbsc-fr-top .mbsc-fr-btn-cont,
+.mbsc-@{theme}.mbsc-fr-bottom .mbsc-fr-btn-cont {
+    background: @output3_6;
+}
+
+.mbsc-@{theme}.mbsc-sc.mbsc-fr-top .mbsc-fr-w,
+.mbsc-@{theme}.mbsc-sc.mbsc-fr-bottom .mbsc-fr-w,
+.mbsc-@{theme} .mbsc-fr-bubble-top .mbsc-fr-arr,
+.mbsc-@{theme} .mbsc-fr-bubble-bottom .mbsc-fr-arr,
+.mbsc-@{theme}.mbsc-calendar .mbsc-fr-persp .mbsc-fr-w {
+    background: @output3_1;
+}
+
+.mbsc-@{theme}.mbsc-calendar.mbsc-fr-top .mbsc-fr-btn-cont,
+.mbsc-@{theme}.mbsc-calendar.mbsc-fr-bottom .mbsc-fr-btn-cont {
+    border-color: @output3_7;
+}
+
+.mbsc-@{theme}.mbsc-fr-top .mbsc-sc-whl-l,
+.mbsc-@{theme}.mbsc-fr-bottom .mbsc-sc-whl-l {
+    border-color: @output3_7;
+}
+
+.mbsc-@{theme}.mbsc-fr-top .mbsc-sc-whl-o,
+.mbsc-@{theme}.mbsc-fr-bottom .mbsc-sc-whl-o {
+    background: -webkit-gradient(linear, left bottom, left top, from(@output3_1), color-stop(0.52, fade(@output3_1, 0%), color-stop(0.48, fade(@output3_1, 0%)), to(@output3_1)));
+    background: -webkit-linear-gradient(@output3_1, fade(@output3_1, 0%) 52%, fade(@output3_1, 0%) 48%, @output3_1);
+    background: linear-gradient(@output3_1, fade(@output3_1, 0%) 52%, fade(@output3_1, 0%) 48%, @output3_1);
+}
+
+.mbsc-@{theme}.mbsc-fr-top .mbsc-sc-whl-gr-3d .mbsc-sc-whl-c,
+.mbsc-@{theme}.mbsc-fr-bottom .mbsc-sc-whl-gr-3d .mbsc-sc-whl-c {
+    background: @output3_1;
+}
+
+
+/* Inline color theme */
+
+.mbsc-@{theme}.mbsc-fr.mbsc-fr-inline .mbsc-sc-whl-o {
+    background: -webkit-gradient(linear, left bottom, left top, from(@output3_10), color-stop(0.52, fade(@output3_10, 0%), color-stop(0.48, fade(@output3_10, 0%)), to(@output3_10)));
+    background: -webkit-linear-gradient(@output3_10, fade(@output3_10, 0%) 52%, fade(@output3_10, 0%) 48%, @output3_10);
+    background: linear-gradient(@output3_10, fade(@output3_10, 0%) 52%, fade(@output3_10, 0%) 48%, @output3_10);
+}
+
+.mbsc-@{theme}.mbsc-fr.mbsc-fr-inline .mbsc-sc-whl-gr-3d .mbsc-sc-whl-c,
+.mbsc-@{theme}.mbsc-fr-inline .mbsc-fr-w {
+    background: @output3_10;
+}
+
+
+/* 3d scroll */
+
+.mbsc-@{theme} .mbsc-sc-whl-gr-3d .mbsc-sc-whl-c,
+.mbsc-@{theme}.mbsc-calendar .mbsc-sc-whl-gr-3d .mbsc-sc-whl-c {
+    background: @output3_1;
+}
+
+.mbsc-@{theme} .mbsc-sc-whl-gr-3d .mbsc-sc-itm {
+    color: @output4_1;
+}
+
+.mbsc-@{theme} .mbsc-sc-whl-gr-3d .mbsc-sc-itm-3d {
+    color: @output3_8;
+}
+
+
+/* Multiple select */
+
+.mbsc-@{theme}.mbsc-sel-multi .mbsc-sc-itm {
+    color: @output4_1;
+}
+
+.mbsc-@{theme} .mbsc-sc-whl-multi .mbsc-sc-itm-sel {
+    color: @output2_1;
+}
+
+
+/* Select filter */
+
+.mbsc-@{theme} .mbsc-sel-filter-cont.mbsc-input input {
+    background: @output3_10;
+}
+
+.mbsc-@{theme} .mbsc-sel-filter-cont.mbsc-input {
+    background: @output3_13;
+}
+
+.mbsc-@{theme}.mbsc-fr-center .mbsc-sel-filter-cont {
+    background: @output3_14;
+}
+
+.mbsc-@{theme} .mbsc-sel-filter-show-clear {
+    color: @output3_13;
+}
+
+
+/* Calendar */
+
+.mbsc-@{theme}.mbsc-calendar.mbsc-inline .mbsc-fr-popup {
+    border-color: @output3_6;
+}
+
+.mbsc-@{theme} .mbsc-cal-sc-c {
+    background: @output3_1;
+}
+
+.mbsc-@{theme}.mbsc-fr-inline .mbsc-cal-sc-c {
+    background: @output3_10;
+}
+
+.mbsc-@{theme} .mbsc-cal {
+    color: @output4_1;
+}
+
+.mbsc-@{theme} .mbsc-cal-btn-txt,
+.mbsc-@{theme} .mbsc-fr-btn-a .mbsc-cal-btn-txt {
+    color: @output2_1;
+}
+
+.mbsc-@{theme} .mbsc-cal-week-nrs-c {
+    background: @output3_1;
+}
+
+.mbsc-@{theme} .mbsc-cal-day {
+    background: @output3_1;
+    border-color: @output3_7;
+    color: @output4_1;
+}
+
+.mbsc-@{theme} .mbsc-cal-hl-now .mbsc-cal-today {
+    color: @output1_1;
+}
+
+.mbsc-@{theme}.mbsc-no-touch .mbsc-cal-day.mbsc-cal-day-v:hover .mbsc-cal-day-fg,
+.mbsc-@{theme} .mbsc-cal .mbsc-cal-day-sel .mbsc-cal-day-fg {
+    border-color: @output2_1;
+    background: @output2_1;
+    color: @output2_1_text;
+}
+
+.mbsc-@{theme} .mbsc-cal-day-hl .mbsc-cal-day-fg {
+    border-color: @output2_1;
+    color: @output4_1;
+}
+
+.mbsc-@{theme} .mbsc-cal-sc-m-cell {
+    border-color: @output3_7;
+}
+
+.mbsc-@{theme} .mbsc-cal-tab {
+    border-color: @output2_1;
+}
+
+.mbsc-@{theme} .mbsc-cal-tab .mbsc-cal-tab-i {
+    color: @output2_1;
+}
+
+.mbsc-@{theme}.mbsc-no-touch .mbsc-cal-sc .mbsc-cal-sc-cell:not(.mbsc-fr-btn-d):hover .mbsc-cal-sc-tbl,
+.mbsc-@{theme} .mbsc-cal-sc .mbsc-cal-sc-sel .mbsc-cal-sc-cell-i,
+.mbsc-@{theme}.mbsc-fr.mbsc-calendar .mbsc-cal-tabs .mbsc-cal-tab.mbsc-cal-tab-sel .mbsc-cal-tab-i {
+    background: @output2_1;
+    color: @output2_1_text;
+}
+
+.mbsc-@{theme} .mbsc-cal-day-m-c {
+    background: @output3_7;
+}
+
+.mbsc-@{theme} .mbsc-cal-day-txt {
+    background: @output2_2;
+    color: @output4_1;
+}
+
+.mbsc-@{theme} .mbsc-cal-events {
+    background: @output4_1;
+    background: fade(@output4_1, 80%);
+}
+
+.mbsc-@{theme} .mbsc-cal-event {
+    background: @output3_1;
+    border-color: @output3_9;
+    color: @output4_1;
+}
+
+.mbsc-@{theme} .mbsc-cal-event-color {
+    background: @output2_3;
+    border-color: fade(@output4_1, 30%);
+}
+
+.mbsc-@{theme} .mbsc-cal-events-arr {
+    border-color: @output4_1 transparent transparent transparent;
+    border-color: fade(@output4_1, 80%) transparent transparent transparent;
+}
+
+.mbsc-@{theme} .mbsc-cal-events-b .mbsc-cal-events-arr {
+    border-color: transparent transparent @output4_1 transparent;
+    border-color: transparent transparent fade(@output4_1, 80%) transparent;
+}
+
+
+/* Range */
+
+.mbsc-@{theme} .mbsc-range-btn-end,
+.mbsc-@{theme} .mbsc-range-btn-end .mbsc-range-btn:before {
+    border-color: @output3_7;
+}
+
+.mbsc-@{theme} .mbsc-range-btn {
+    background: @output3_1;
+    color: @output4_1;
+}
+
+.mbsc-@{theme} .mbsc-range-btn-sel .mbsc-range-btn .mbsc-range-btn-v {
+    color: @output2_1;
+}
+
+.mbsc-@{theme}.mbsc-range .mbsc-cal .mbsc-cal-day-sel .mbsc-cal-day-fg {
+    color: @output2_1_text;
+}
+
+.mbsc-@{theme}.mbsc-range .mbsc-cal-day-sel .mbsc-cal-day-frame {
+    background: @output2_1;
+}
+
+.mbsc-@{theme}.mbsc-range .mbsc-cal-table .mbsc-cal-day-hl .mbsc-cal-day-i .mbsc-cal-day-fg {
+    background: @output2_1;
+    color: @output2_1_text;
+}
+
+
+/* Rating */
+
+.mbsc-@{theme} .rating-circle {
+    border-color: @output2_1;
+    background: @output2_1;
+    color: @output2_1_text;
+}
+
+.mbsc-@{theme} .mbsc-rating-icon-unf {
+    color: @output3_22;
+}
+
+.mbsc-@{theme} .mbsc-rating-circle {
+    background: @output2_5;
+    color: @output2_1_text;
+}
+
+.mbsc-@{theme} .mbsc-rating-circle-unf {
+    border-color: @output2_5;
+    background: @output3_1;
+}
+
+
+/* Timer, timespan */
+
+.mbsc-@{theme}.mbsc-timer .mbsc-sc-lbl {
+    color: @output2_1;
+}
+
+.mbsc-@{theme}.mbsc-ts .mbsc-sc-lbl {
+    color: @output2_1;
+}
+
+.mbsc-@{theme} .mbsc-color-preview {
+    border-color: @output3_2;
+}
+
+
+/* Menustrip */
+
+.mbsc-@{theme} .mbsc-ms-item-sel,
+.mbsc-@{theme}.mbsc-ms-nosel .mbsc-ms-item {
+    color: @output2_1;
+}
+
+
+/* Numpad */
+
+.mbsc-@{theme} .mbsc-np-btn {
+    border-color: @output3_7;
+}
+
+.mbsc-@{theme} .mbsc-np-btn.mbsc-fr-btn-a,
+.mbsc-@{theme} .mbsc-np-btn-empty {
+    background: @output3_15;
+}
+
+.mbsc-@{theme} .mbsc-np-btn.mbsc-fr-btn-d {
+    color: @output3_22;
+}
+
+
+/* Form elements */
+
+.mbsc-@{theme}.mbsc-page *::-moz-selection {
+    background: @output2_4;
+    color: @output3_11;
+}
+
+.mbsc-@{theme}.mbsc-page *::selection {
+    background: @output2_4;
+    color: @output3_11;
+}
+
+.mbsc-@{theme}.mbsc-page {
+    background: @output3_25;
+    color: @output4_1;
+}
+
+.mbsc-@{theme}.mbsc-form *::-moz-selection {
+    background: @output2_4;
+    color: @output3_11;
+}
+
+.mbsc-@{theme}.mbsc-form *::selection {
+    background: @output2_4;
+    color: @output3_11;
+}
+
+.mbsc-@{theme}.mbsc-form {
+    background: @output3_25;
+    color: @output4_1;
+}
+
+.mbsc-@{theme} .mbsc-input-ic {
+    color: @output4_2;
+}
+
+.mbsc-@{theme} .mbsc-divider,
+.mbsc-@{theme} .mbsc-form-group-title {
+    background: @output3_25;
+    border-color: @output3_7;
+    color: @output3_26;
+}
+
+.mbsc-@{theme} .mbsc-input {
+    background: @output3_10;
+    border-color: @output3_7;
+}
+
+.mbsc-@{theme} .mbsc-control-w:before,
+.mbsc-@{theme} .mbsc-control-w:after {
+    border-color: @output3_7;
+}
+
+.mbsc-@{theme} .mbsc-control-w.mbsc-err:after,
+.mbsc-@{theme} .mbsc-control-w.mbsc-err + .mbsc-err:before,
+.mbsc-@{theme} .mbsc-control-w.mbsc-err + .mbsc-divider {
+    border-top-color: @error;
+}
+
+.mbsc-@{theme} .mbsc-input input::-webkit-input-placeholder,
+.mbsc-@{theme} .mbsc-textarea textarea::-webkit-input-placeholder {
+    color: @output3_11;
+}
+
+.mbsc-@{theme} .mbsc-input input::-ms-input-placeholder,
+.mbsc-@{theme} .mbsc-textarea textarea::-ms-input-placeholder {
+    color: @output3_11;
+}
+
+.mbsc-@{theme} .mbsc-input input::-moz-placeholder,
+.mbsc-@{theme} .mbsc-textarea textarea::-moz-placeholder {
+    color: @output3_11;
+}
+
+.mbsc-@{theme} .mbsc-input .mbsc-label,
+.mbsc-@{theme} .mbsc-input input,
+.mbsc-@{theme} .mbsc-input textarea {
+    color: @output4_1;
+}
+
+.mbsc-@{theme} .mbsc-err-msg {
+    color: @error;
+}
+
+.mbsc-@{theme}.mbsc-form .mbsc-checkbox,
+.mbsc-@{theme}.mbsc-form .mbsc-radio {
+    background: @output3_10;
+    border-color: @output3_7;
+}
+
+.mbsc-@{theme} .mbsc-checkbox-box {
+    border-color: @output2_4;
+}
+
+.mbsc-@{theme} .mbsc-checkbox-box:after {
+    border-color: @output2_4;
+}
+
+.mbsc-@{theme} .mbsc-radio-box:after {
+    border-color: @output2_4;
+}
+
+.mbsc-@{theme} .mbsc-radio input:disabled ~ .mbsc-radio-label {
+    color: @output3_13;
+}
+
+.mbsc-@{theme} .mbsc-btn {
+    color: @output2_1;
+    background: @output3_13;
+}
+
+// .mbsc-@{theme}.mbsc-no-touch .mbsc-btn:not(:disabled):not(.mbsc-active):hover {
+//     background: @output3_16;
+// }
+// .mbsc-@{theme} .mbsc-btn.mbsc-active {
+//     background: @output3_3;
+// }
+.mbsc-@{theme} .mbsc-btn:disabled {
+    background: @output3_12;
+    color: @output3_13;
+}
+
+.mbsc-@{theme} a {
+    color: @output2_1;
+}
+
+.mbsc-@{theme} .mbsc-btn-group,
+.mbsc-@{theme} .mbsc-btn-group-justified,
+.mbsc-@{theme} .mbsc-btn-group-block {
+    background: @output3_25;
+    border-color: @output3_7;
+}
+
+
+/* Progress */
+
+.mbsc-@{theme}.mbsc-progress {
+    border-color: @output3_7;
+    background: @output3_10;
+}
+
+.mbsc-@{theme} .mbsc-progress-track {
+    background: @slider_track_step;
+}
+
+.mbsc-@{theme} .mbsc-progress-bar {
+    background: @output2_1;
+}
+
+.mbsc-@{theme} .mbsc-progress-value {
+    color: @output3_24;
+}
+
+.mbsc-@{theme} .mbsc-progress-step-label {
+    color: @output3_24;
+}
+
+.mbsc-@{theme} .mbsc-input .mbsc-label,
+.mbsc-@{theme} .mbsc-progress .mbsc-label {
+    color: @output4_1;
+}
+
+
+/* Slider */
+
+.mbsc-@{theme} .mbsc-slider-handle {
+    background: #ffffff;
+    box-shadow: 0 0 1em fade(@sw_shadow, 10%), 0 0 .0625em fade(@sw_shadow, 15%), 0 .125em .125em fade(@sw_shadow, 15%);
+}
+
+.mbsc-@{theme} .mbsc-slider-tooltip {
+    color: @output3_24;
+}
+
+.mbsc-@{theme} .mbsc-slider-step {
+    background: @slider_track_step;
+}
+
+
+/* Switch */
+
+.mbsc-@{theme}.mbsc-form .mbsc-switch {
+    background: @output3_10;
+    border-color: @output3_7;
+}
+
+.mbsc-@{theme} .mbsc-switch-track {
+    background: @output3_21;
+    border-color: @sw_track;
+}
+
+.mbsc-@{theme} .mbsc-switch-track:after {
+    background: @output3_10;
+}
+
+.mbsc-@{theme} .mbsc-switch-handle {
+    background: #ffffff;
+    box-shadow: 0 0 1em fade(@sw_shadow, 10%), 0 0 .0625em fade(@sw_shadow, 15%), 0 .125em .125em fade(@sw_shadow, 15%);
+}
+
+.mbsc-@{theme} .mbsc-switch input:checked + .mbsc-switch-track {
+    background: @output2_1;
+    border-color: @output2_1;
+}
+
+
+/* Segmented & Stepper */
+
+.mbsc-@{theme} .mbsc-segmented {
+    background-color: @output3_10;
+}
+
+.mbsc-@{theme} .mbsc-segmented-content {
+    color: @output2_4;
+    border-color: @output2_4;
+    background: @output3_10;
+}
+
+.mbsc-@{theme} .mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control.mbsc-active .mbsc-segmented-content,
+.mbsc-@{theme} .mbsc-segmented .mbsc-segmented-item input:checked + .mbsc-segmented-content {
+    background: @output2_4;
+    color: @output3_10;
+}
+
+.mbsc-@{theme} .mbsc-segmented .mbsc-segmented-item input.mbsc-active + .mbsc-segmented-content {
+    background: fade(@output2_4, 30%);
+    color: @output2_4;
+}
+
+.mbsc-@{theme} .mbsc-stepper-val {
+    color: @output4_1;
+}
+
+.mbsc-@{theme} .mbsc-stepper-cont {
+    background: @output3_10;
+}
+
+.mbsc-@{theme} .mbsc-stepper {
+    right: .75em;
+}
+
+.mbsc-@{theme} .mbsc-segmented input:disabled ~ .mbsc-segmented-item .mbsc-segmented-content,
+.mbsc-@{theme} .mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control.mbsc-step-disabled .mbsc-segmented-content,
+.mbsc-@{theme} .mbsc-segmented .mbsc-segmented-item input:disabled + .mbsc-segmented-content {
+    background: none;
+    color: @output3_13;
+    border-color: @output3_13;
+}
+
+.mbsc-@{theme} .mbsc-stepper input:disabled {
+    color: @output3_13;
+    -webkit-text-fill-color: @output3_13;
+}
+
+.mbsc-@{theme} .mbsc-segmented input:disabled:checked + .mbsc-segmented-content {
+    background: @output3_12;
+}
+
+.mbsc-@{theme} .mbsc-stepper .mbsc-active.mbsc-step-disabled .mbsc-segmented-content {
+    color: @output3_13;
+}
+
+.mbsc-@{theme} .mbsc-stepper input {
+    color: @output4_1;
+}
+
+.mbsc-@{theme}.mbsc-no-touch .mbsc-segmented-item:hover .mbsc-segmented-content {
+    background: fade(@output2_4, 15%);
+}
+
+
+/* Listview */
+
+.mbsc-lv-@{theme} {
+    border-color: @output3_7;
+}
+
+.mbsc-lv-@{theme} .mbsc-lv {
+    background: @output3_6;
+}
+
+.mbsc-lv-@{theme} .mbsc-lv-item {
+    background: @output3_10;
+    border-color: @output3_7;
+    color: @output4_1;
+}
+
+.mbsc-lv-@{theme} .mbsc-lv-item:after,
+.mbsc-lv-@{theme} .mbsc-lv-item:before {
+    border-color: @output3_7;
+}
+
+.mbsc-lv-@{theme} .mbsc-lv-item-hl,
+.mbsc-lv-@{theme} .mbsc-lv .mbsc-lv-item.mbsc-lv-item-active {
+    background: @output3_14;
+    border-color: @output3_14;
+}
+
+.mbsc-lv-@{theme} .mbsc-lv-handle-bar {
+    background: @lv_handle;
+}
+
+.mbsc-lv-@{theme} .mbsc-lv-gr-title {
+    background: @output3_25;
+    color: @output3_26;
+    border-color: @output3_7;
+}
+
+.mbsc-lv-@{theme}.mbsc-lv-has-fixed-header .mbsc-lv-gr-title,
+.mbsc-lv-@{theme}.mbsc-lv-fixed-header .mbsc-lv-gr-title {
+    color: @output4_1;
+}
+
+.mbsc-lv-@{theme} .mbsc-lv-ic-m {
+    color: @output4_1;
+}
+
+.mbsc-lv-@{theme} .mbsc-lv-arr {
+    color: @lv_handle;
+}
+
+.mbsc-lv-@{theme}.mbsc-lv-alt-row .mbsc-lv-item:nth-child(even) {
+    background: @output3_3;
+}
+
+.mbsc-@{theme}.mbsc-ms-c {
+    background: @output3_1;
+    border-color: @output3_7;
+    color: hsl(0, 0%, 53%);
+}
+
+
+/* Snackbar */
+
+.mbsc-@{theme}.mbsc-snackbar .mbsc-snackbar-btn {
+    color: @snackbar_btn;
+}
+
+
+/* Colorpicker */
+
+.mbsc-@{theme} .mbsc-color-active,
+.mbsc-no-touch.mbsc-@{theme} .mbsc-color-item-c:hover {
+    box-shadow: inset 0 0 0 .1875em @output2_1;
+}
+
+.mbsc-@{theme} .mbsc-color-preview-item-empty {
+    border-color: @output3_7;
+}
+
+.mbsc-@{theme} .mbsc-color-preview-cont {
+    border-color: @output3_2;
+}
+
+.mbsc-@{theme}.mbsc-form .mbsc-color-input {
+    color: @output4_1;
+}
+
+.mbsc-@{theme} .mbsc-color-clear-item {
+    background: @colorClearBackground;
+}

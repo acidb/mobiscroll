@@ -1,0 +1,115 @@
+@import "../progress";
+
+/* Progress */
+
+.mbsc-ios.mbsc-progress {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    min-height: 4em;
+    margin-top: -1px;
+    padding: .625em 1em;
+    background: #fff;
+    align-items: center;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.mbsc-ios.mbsc-progress.mbsc-progress-w .mbsc-label {
+    padding: 0;
+}
+
+.mbsc-ios.mbsc-progress .mbsc-input-ic {
+    top: .0625em;
+    margin: 0;
+}
+
+.mbsc-ios.mbsc-progress.mbsc-ic-left .mbsc-left-ic,
+.mbsc-rtl.mbsc-ios.mbsc-progress.mbsc-ic-right .mbsc-right-ic {
+    right: auto;
+    left: -.375em;
+}
+
+.mbsc-ios.mbsc-progress.mbsc-ic-right .mbsc-right-ic,
+.mbsc-rtl.mbsc-ios.mbsc-progress.mbsc-ic-left .mbsc-left-ic {
+    left: auto;
+    right: -.375em;
+}
+
+.mbsc-ios.mbsc-progress .mbsc-input-wrap {
+    position: relative;
+    padding: 0 .75em;
+}
+
+.mbsc-ltr.mbsc-ios.mbsc-progress.mbsc-progress-w.mbsc-ic-left .mbsc-input-wrap,
+.mbsc-rtl.mbsc-ios.mbsc-progress.mbsc-progress-w.mbsc-ic-right .mbsc-input-wrap {
+    padding-left: 2.5em;
+}
+
+.mbsc-ltr.mbsc-ios.mbsc-progress.mbsc-progress-w.mbsc-ic-right .mbsc-input-wrap,
+.mbsc-rtl.mbsc-ios.mbsc-progress.mbsc-progress-w.mbsc-ic-left .mbsc-input-wrap {
+    padding-right: 2.5em;
+}
+
+.mbsc-ltr.mbsc-ios.mbsc-progress.mbsc-progress-value-left .mbsc-input-wrap,
+.mbsc-rtl.mbsc-ios.mbsc-progress.mbsc-progress-value-right .mbsc-input-wrap {
+    padding-left: 3.5em;
+}
+
+.mbsc-ltr.mbsc-ios.mbsc-progress.mbsc-progress-value-right .mbsc-input-wrap,
+.mbsc-rtl.mbsc-ios.mbsc-progress.mbsc-progress-value-left .mbsc-input-wrap {
+    padding-right: 3.5em;
+}
+
+.mbsc-ltr.mbsc-ios.mbsc-progress.mbsc-ic-left.mbsc-progress-value-left .mbsc-input-wrap,
+.mbsc-rtl.mbsc-ios.mbsc-progress.mbsc-ic-right.mbsc-progress-value-right .mbsc-input-wrap {
+    padding-left: 5.5em;
+}
+
+.mbsc-ltr.mbsc-ios.mbsc-progress.mbsc-ic-right.mbsc-progress-value-right .mbsc-input-wrap,
+.mbsc-rtl.mbsc-ios.mbsc-progress.mbsc-ic-left.mbsc-progress-value-left .mbsc-input-wrap {
+    padding-right: 5.5em;
+}
+
+.mbsc-ltr.mbsc-ios.mbsc-progress.mbsc-ic-left.mbsc-progress-value-left .mbsc-progress-value,
+.mbsc-rtl.mbsc-ios.mbsc-progress.mbsc-ic-right.mbsc-progress-value-right .mbsc-progress-value {
+    left: 2.2857em;
+}
+
+.mbsc-ltr.mbsc-ios.mbsc-progress.mbsc-ic-right.mbsc-progress-value-right .mbsc-progress-value,
+.mbsc-rtl.mbsc-ios.mbsc-progress.mbsc-ic-left.mbsc-progress-value-left .mbsc-progress-value {
+    right: 2.2857em;
+}
+
+.mbsc-ios .mbsc-progress-cont {
+    padding: 1em 0;
+}
+
+.mbsc-ios .mbsc-progress-track {
+    background: #dedede;
+    border-radius: 1em;
+    height: .0625em;
+}
+
+.mbsc-ios .mbsc-progress-bar {
+    background: #1272dc;
+    z-index: 1;
+}
+
+.mbsc-ios .mbsc-progress-value {
+    width: 3.715em;
+    font-size: .875em;
+    color: #b6b6b6;
+}
+
+.mbsc-ios .mbsc-progress-step-label {
+    top: 1.333334em;
+    color: #b6b6b6;
+}
+
+.mbsc-ios.mbsc-progress.mbsc-ic-left:before,
+.mbsc-ios.mbsc-progress.mbsc-ic-left:after {
+    left: 1em;
+}

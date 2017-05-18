@@ -1,0 +1,184 @@
+@import "icons";
+
+/* Progress */
+
+.mbsc-progress {
+    position: relative;
+    display: block;
+    margin: 0;
+    z-index: 0;
+    -ms-touch-action: pan-y;
+    touch-action: pan-y;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+}
+
+.mbsc-progress progress {
+    display: none;
+}
+
+.mbsc-progress .mbsc-input-wrap {
+    position: relative;
+    display: block;
+}
+
+.mbsc-progress .mbsc-input-ic {
+    position: absolute;
+    height: 2em;
+    width: 2em;
+    line-height: 2em;
+    text-align: center;
+}
+
+.mbsc-progress-cont {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.mbsc-progress-track {
+    position: relative;
+    display: block;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.mbsc-progress-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+}
+
+.mbsc-rtl .mbsc-progress-bar {
+    left: auto;
+    right: 0;
+}
+
+.mbsc-progress-anim .mbsc-progress-bar {
+    -webkit-transition: width .1s ease-in-out;
+    transition: width .1s ease-in-out;
+}
+
+.mbsc-progress-value {
+    position: absolute;
+    top: 50%;
+    width: 3em;
+    overflow: hidden;
+    margin-top: -.5em;
+    line-height: 1em;
+}
+
+.mbsc-progress-value-right .mbsc-progress-value {
+    right: 0;
+    text-align: right;
+}
+
+.mbsc-rtl.mbsc-progress-value-right .mbsc-progress-value {
+    right: auto;
+    left: 0;
+    text-align: left;
+}
+
+.mbsc-progress-value-left .mbsc-progress-value {
+    left: 0;
+    text-align: left;
+}
+
+.mbsc-rtl.mbsc-progress-value-left .mbsc-progress-value {
+    left: auto;
+    right: 0;
+    text-align: right;
+}
+
+.mbsc-progress-step-label {
+    position: absolute;
+    top: 1em;
+    width: 3.5em;
+    font-size: .75em;
+    text-align: center;
+    overflow: hidden;
+}
+
+.mbsc-ltr .mbsc-progress-step-label {
+    margin-left: -1.75em;
+}
+
+.mbsc-rtl .mbsc-progress-step-label {
+    margin-right: -1.75em;
+}
+
+
+/* Mobiscroll Theme */
+
+.mbsc-mobiscroll.mbsc-progress {
+    padding: 1em;
+}
+
+.mbsc-mobiscroll.mbsc-progress .mbsc-label {
+    font-size: .75em;
+}
+
+.mbsc-mobiscroll.mbsc-progress .mbsc-input-ic {
+    top: .0625em;
+    margin: 0;
+    color: #787878;
+}
+
+.mbsc-ltr.mbsc-mobiscroll.mbsc-progress.mbsc-ic-left,
+.mbsc-rtl.mbsc-mobiscroll.mbsc-progress.mbsc-ic-right {
+    padding-left: 3.25em;
+}
+
+.mbsc-ltr.mbsc-mobiscroll.mbsc-progress.mbsc-ic-right,
+.mbsc-rtl.mbsc-mobiscroll.mbsc-progress.mbsc-ic-left {
+    padding-right: 3.25em;
+}
+
+.mbsc-ltr.mbsc-mobiscroll.mbsc-progress.mbsc-ic-left .mbsc-left-ic,
+.mbsc-rtl.mbsc-mobiscroll.mbsc-progress.mbsc-ic-right .mbsc-right-ic {
+    right: auto;
+    left: -2.625em;
+}
+
+.mbsc-ltr.mbsc-mobiscroll.mbsc-progress.mbsc-ic-right .mbsc-right-ic,
+.mbsc-rtl.mbsc-mobiscroll.mbsc-progress.mbsc-ic-left .mbsc-left-ic {
+    left: auto;
+    right: -2.625em;
+}
+
+.mbsc-mobiscroll .mbsc-progress-cont {
+    padding: 1em 0;
+}
+
+.mbsc-mobiscroll .mbsc-progress-track {
+    background: #dedede;
+    border-radius: 1em;
+    height: .125em;
+}
+
+.mbsc-mobiscroll .mbsc-progress-bar {
+    background: #4eccc4;
+}
+
+.mbsc-mobiscroll .mbsc-progress-value {
+    width: 3.75em;
+    font-size: .875em;
+}
+
+.mbsc-ltr.mbsc-mobiscroll.mbsc-progress.mbsc-progress-value-left .mbsc-input-wrap,
+.mbsc-rtl.mbsc-mobiscroll.mbsc-progress.mbsc-progress-value-right .mbsc-input-wrap {
+    padding-left: 3.5em;
+}
+
+.mbsc-ltr.mbsc-mobiscroll.mbsc-progress.mbsc-progress-value-right .mbsc-input-wrap,
+.mbsc-rtl.mbsc-mobiscroll.mbsc-progress.mbsc-progress-value-left .mbsc-input-wrap {
+    padding-right: 3.5em;
+}

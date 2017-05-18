@@ -1,0 +1,84 @@
+@import "../frame";
+
+/* Frame */
+
+.mbsc-wp .mbsc-fr-w {
+    padding: .625em;
+    background: #1f1f1f;
+    color: #fff;
+    font-size: 16px;
+}
+
+.mbsc-wp .mbsc-fr-hdr {
+    font-size: .75em;
+    padding: .833em;
+    min-height: 14px;
+    padding-top: 0;
+}
+
+.mbsc-wp .mbsc-fr-btn-cont {
+    display: block;
+}
+
+.mbsc-wp .mbsc-fr-btn-w {
+    display: inline-block;
+}
+
+.mbsc-wp .mbsc-fr-btn,
+.mbsc-wp .mbsc-ic:before {
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+}
+
+.mbsc-wp .mbsc-fr-btn {
+    position: relative;
+    top: 0;
+    min-width: 2.9em;
+    display: inline-block;
+    height: 1.818em;
+    padding: 2.636em .455em 0 .455em;
+    color: #fff;
+    line-height: 1.818em;
+    font-size: 0.688em;
+    text-transform: lowercase;
+    -webkit-transition: all .1s linear;
+    transition: all .1s linear;
+}
+
+.mbsc-wp .mbsc-fr-btn:before {
+    position: absolute;
+    top: .3em;
+    left: 50%;
+    width: 2.2em;
+    height: 2.2em;
+    margin: 0 -1.3em;
+    padding: 0;
+    border: 2px solid #fff;
+    line-height: 2.2em;
+    font-size: .909em;
+    text-align: center;
+    border-radius: 1000px;
+}
+
+.mbsc-wp .mbsc-fr-btn-a {
+    top: -.3em;
+}
+
+.mbsc-wp.mbsc-no-touch .mbsc-fr-btn-e:not(.mbsc-fr-btn-d):hover:before,
+.mbsc-wp .mbsc-fr-btn-a:before {
+    background: #1a9fe0;
+    border-color: #1a9fe0;
+    color: #fff;
+}
+
+
+/* Bubble positioning */
+
+.mbsc-wp .mbsc-fr-bubble-bottom .mbsc-fr-arr {
+    border-color: transparent transparent #1f1f1f transparent;
+}
+
+.mbsc-wp .mbsc-fr-bubble-top .mbsc-fr-arr {
+    border-color: #1f1f1f transparent transparent transparent;
+}
