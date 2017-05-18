@@ -1,0 +1,76 @@
+@import "../frame";
+
+/* Frame */
+
+.mbsc-android-holo .mbsc-fr-w {
+    background: #292829;
+    color: #fff;
+    border-radius: .25em;
+    font-size: 16px;
+}
+
+.mbsc-android-holo .mbsc-fr-hdr {
+    color: #31b6e7;
+    padding: 0 .5em;
+    min-height: 2em;
+    line-height: 2em;
+    border-bottom: 2px solid #31b6e7;
+    font-size: 1.125em;
+}
+
+
+/* Buttons */
+
+.mbsc-android-holo .mbsc-fr-btn-cont {
+    border-top: 1px solid #424542;
+}
+
+.mbsc-android-holo .mbsc-fr-btn {
+    height: 2.6em;
+    line-height: 2.6em;
+    color: #fff;
+    font-size: .875em;
+}
+
+.mbsc-android-holo.mbsc-no-touch .mbsc-fr-btn-e:not(.mbsc-fr-btn-d):hover,
+.mbsc-android-holo .mbsc-fr-btn-a {
+    background: rgba(49, 182, 231, .5);
+}
+
+.mbsc-android-holo .mbsc-fr-btn-w .mbsc-fr-btn {
+    border-left: 1px solid #424542;
+}
+
+.mbsc-android-holo .mbsc-ltr .mbsc-fr-btn-w:first-child .mbsc-fr-btn,
+.mbsc-android-holo .mbsc-rtl .mbsc-fr-btn-w:last-child .mbsc-fr-btn {
+    border: 0;
+    border-radius: 0 0 0 .285714em;
+}
+
+.mbsc-android-holo .mbsc-ltr .mbsc-fr-btn-w:last-child .mbsc-fr-btn,
+.mbsc-android-holo .mbsc-rtl .mbsc-fr-btn-w:first-child .mbsc-fr-btn {
+    border-radius: 0 0 .285714em 0;
+}
+
+
+/* Top, bottom mode */
+
+.mbsc-android-holo.mbsc-fr-inline .mbsc-fr-w,
+.mbsc-android-holo.mbsc-fr-top .mbsc-fr-w,
+.mbsc-android-holo.mbsc-fr-bottom .mbsc-fr-w,
+.mbsc-android-holo.mbsc-fr-inline .mbsc-fr-w .mbsc-fr-btn-w .mbsc-fr-btn,
+.mbsc-android-holo.mbsc-fr-top .mbsc-fr-w .mbsc-fr-btn-w .mbsc-fr-btn,
+.mbsc-android-holo.mbsc-fr-bottom .mbsc-fr-w .mbsc-fr-btn-w .mbsc-fr-btn {
+    border-radius: 0;
+}
+
+
+/* Bubble positioning */
+
+.mbsc-android-holo .mbsc-fr-bubble-bottom .mbsc-fr-arr {
+    border-color: transparent transparent #292829 transparent;
+}
+
+.mbsc-android-holo .mbsc-fr-bubble-top .mbsc-fr-arr {
+    border-color: #292829 transparent transparent transparent;
+}

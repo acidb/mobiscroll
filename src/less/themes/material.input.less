@@ -1,0 +1,45 @@
+@import "../input";
+
+/* Input */
+
+.mbsc-material .mbsc-input input,
+.mbsc-material .mbsc-input textarea {
+    height: 2.125em;
+    padding: 0 0 1px 0;
+    background-color: transparent;
+    border-bottom: 1px solid #6d6d6d;
+    font-size: 1em;
+    color: #1f1f1f;
+}
+
+
+/* Textbox, textarea, select */
+
+.mbsc-material .mbsc-input select:disabled ~ input,
+.mbsc-material .mbsc-input textarea:disabled,
+.mbsc-material .mbsc-input input:disabled {
+    border-style: dotted;
+    opacity: .5;
+}
+
+.mbsc-material .mbsc-input textarea:-webkit-autofill,
+.mbsc-material .mbsc-input input:-webkit-autofill {
+    padding: 0 .25em;
+}
+
+.mbsc-material .mbsc-input input:focus,
+.mbsc-material .mbsc-input textarea:focus,
+.mbsc-material .mbsc-input select:focus ~ input {
+    padding-bottom: 0;
+    border-bottom: 2px solid #009688;
+}
+
+.mbsc-material .mbsc-input {
+    padding: .5em 1em;
+}
+
+.mbsc-material .mbsc-input.mbsc-err input,
+.mbsc-material .mbsc-input.mbsc-err textarea {
+    padding: 0;
+    border-bottom: 2px solid #de3226;
+}

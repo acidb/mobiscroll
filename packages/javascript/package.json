@@ -1,0 +1,38 @@
+{
+    "name": "mobiscroll-javascript",
+    "version": "3.2.0",
+    "description": "",
+    "homepage": "https://mobiscroll.com/",
+    "license": "Apache-2.0",
+    "keywords": [
+        "mobile web",
+        "hybrid apps",
+        "javascript",
+        "mobiscroll",
+        "javascript library",
+        "component library",
+        "ui components",
+        "ui kit"
+    ],
+    "author": {
+        "name": "Mobiscroll",
+        "url": "https://mobiscroll.com/"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/acidb/mobiscroll.git"
+    },
+    "bugs": {
+        "url": "https://github.com/acidb/mobiscroll/issues"
+    },
+    "main": "dist/js/mobiscroll.javascript.min.js",
+    "style": "dist/css/mobiscroll.min.css",
+    "files": [
+        "dist/js/mobiscroll.javascript.js",
+        "dist/js/mobiscroll.javascript.min.js",
+        "dist/css/mobiscroll.css",
+        "dist/css/mobiscroll.min.css",
+        "dist/css/icons_mobiscroll.ttf",
+        "dist/css/icons_mobiscroll.woff"
+    ]
+}

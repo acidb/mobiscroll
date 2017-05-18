@@ -1,0 +1,96 @@
+@import "../scroller";
+@import "android-holo.frame.less";
+
+/* Scroller */
+
+.mbsc-android-holo .mbsc-sc-whl-gr {
+    padding: .0625em .625em;
+}
+
+.mbsc-android-holo .mbsc-sc-lbl-v .mbsc-sc-whl-gr {
+    padding: 1.875em .625em .0625em .625em;
+}
+
+.mbsc-android-holo .mbsc-sc-lbl {
+    font-size: .75em;
+    line-height: 2.5em;
+}
+
+.mbsc-android-holo .mbsc-sc-whl-w {
+    margin: 0 .625em;
+}
+
+.mbsc-android-holo .mbsc-sc-whl-o {
+    background: -webkit-gradient(linear, left bottom, left top, from(#282828), color-stop(0.52, rgba(40, 40, 40, 0)), color-stop(0.48, rgba(40, 40, 40, 0)), to(#282828));
+    background: -webkit-linear-gradient(#282828, rgba(40, 40, 40, 0) 52%, rgba(40, 40, 40, 0) 48%, #282828);
+    background: linear-gradient(#282828, rgba(40, 40, 40, 0) 52%, rgba(40, 40, 40, 0) 48%, #282828);
+}
+
+.mbsc-android-holo .mbsc-sc-whl-l {
+    border-top: 2px solid #31b6e7;
+    border-bottom: 2px solid #31b6e7;
+}
+
+.mbsc-android-holo .mbsc-sc-itm {
+    color: #fff;
+    font-size: 1.125em;
+}
+
+.mbsc-android-holo .mbsc-sc-itm.mbsc-btn-a {
+    background: rgba(49, 182, 231, .5);
+}
+
+.mbsc-android-holo .mbsc-sc-btn {
+    color: #7e7e7e;
+    background: #292829;
+}
+
+.mbsc-android-holo.mbsc-no-touch .mbsc-sc-btn:hover,
+.mbsc-android-holo .mbsc-sc-btn-a {
+    background: #292829;
+    color: #319abd;
+}
+
+.mbsc-android-holo .mbsc-sc-btn:before {
+    font-size: 1.625em;
+}
+
+
+/* Multiple select */
+
+.mbsc-android-holo .mbsc-sc-whl-multi .mbsc-sc-whl-o {
+    display: none;
+}
+
+.mbsc-android-holo .mbsc-sc-whl-multi .mbsc-sc-itm {
+    padding: 0 2.25em;
+}
+
+.mbsc-android-holo .mbsc-sc-whl-multi .mbsc-sc-itm:after {
+    content: '';
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    left: auto;
+    right: .625em;
+    width: .875em;
+    height: .875em;
+    margin-top: -.5625em;
+    border: 1px solid #424542;
+}
+
+.mbsc-android-holo .mbsc-sc-itm-ph:after {
+    display: none;
+}
+
+.mbsc-android-holo .mbsc-sc-whl-multi .mbsc-sc-itm-sel:before {
+    z-index: 2;
+    top: 50%;
+    left: auto;
+    right: .625em;
+    width: .875em;
+    color: #31b6e7;
+    margin-top: -.625em;
+    line-height: .875em;
+    text-shadow: 0 0 .375em #29799c;
+}

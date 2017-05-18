@@ -1,25 +1,68 @@
 {
     "name": "mobiscroll",
-    "version": "3.0.0-beta6",
-    "description": "A wheel scroller control optimized for touchscreens to easily enter date/time. It can easily be customized to support any custom values.",
-    "main": "js/mobiscroll.core.js",
+    "version": "3.2.0",
+    "description": "",
+    "homepage": "https://mobiscroll.com/",
+    "license": "Apache-2.0",
     "keywords": [
-        "ui",
-        "input",
-        "form",
-        "html5",
-        "mobile",
-        "list",
-        "hierarchy",
-        "scroller",
-        "clickpick"
+        "mobile web",
+        "hybrid apps",
+        "javascript",
+        "mobiscroll",
+        "jquery",
+        "javascript library",
+        "react",
+        "angular",
+        "knockout",
+        "component library",
+        "ui components",
+        "ui kit",
+        "ionic plugin"
     ],
     "author": {
-        "name": "Acid Media",
-        "url": "http://theacidmedia.net"
+        "name": "Mobiscroll",
+        "url": "https://mobiscroll.com/"
     },
-    "dependencies": {
-        "jquery": ">=1.7"
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/acidb/mobiscroll.git"
     },
-    "homepage": "http://mobiscroll.com/"
+    "bugs": {
+        "url": "https://github.com/acidb/mobiscroll/issues"
+    },
+    "main": "dist/js/mobiscroll.javascript.min.js",
+    "style": "dist/css/mobiscroll.min.css",
+    "files": [
+        "dist/js/mobiscroll.javascript.js",
+        "dist/js/mobiscroll.javascript.min.js",
+        "dist/css/mobiscroll.css",
+        "dist/css/mobiscroll.min.css",
+        "dist/css/icons_mobiscroll.ttf",
+        "dist/css/icons_mobiscroll.woff"
+    ],
+    "devDependencies": {
+        "babel-eslint": "^7.1.1",
+        "babel-helpers": "^6.22.0",
+        "babel-install": "2.1.0",
+        "babel-plugin-external-helpers": "^6.22.0",
+        "babel-plugin-transform-es2015-destructuring": "^6.19.0",
+        "babel-plugin-transform-object-rest-spread": "^6.20.0",
+        "babel-plugin-transform-react-jsx": "^6.8.0",
+        "babel-preset-env": "^1.1.8",
+        "babel-preset-es2015": "^6.18.0",
+        "eslint": "^3.13.1",
+        "eslint-plugin-react": "^6.9.0",
+        "grunt": "^1.0.1",
+        "grunt-babel": "^6.0.0",
+        "grunt-contrib-clean": "^1.0.0",
+        "grunt-contrib-copy": "^1.0.0",
+        "grunt-contrib-jshint": "^1.1.0",
+        "grunt-contrib-less": "^1.4.0",
+        "grunt-eslint": "^19.0.0",
+        "grunt-rollup": "^1.0.1",
+        "less": "^2.7.2",
+        "load-grunt-config": "^0.19.2",
+        "rollup-plugin-babel": "^2.7.1",
+        "rollup-plugin-uglify": "^1.0.1"
+    }
 }

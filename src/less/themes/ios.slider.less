@@ -1,0 +1,47 @@
+@import "../slider";
+@import "ios.progress.less";
+
+/* Slider */
+
+.mbsc-ios .mbsc-slider-handle-cont {
+    top: 0;
+}
+
+.mbsc-ios .mbsc-slider-handle {
+    top: 50%;
+    width: 1.75em;
+    height: 1.75em;
+    margin: -.875em -.875em 0 0;
+    background: #fff;
+    border-radius: 1.25em;
+    box-shadow: 0 0 1em rgba(0, 0, 0, .1), 0 0 .0625em rgba(0, 0, 0, .15), 0 .125em .125em rgba(0, 0, 0, .15);
+}
+
+.mbsc-ios .mbsc-slider-tooltip {
+    font-size: .875em;
+    width: 3em;
+    margin-right: -1.5em;
+    top: -1em;
+    text-align: center;
+    color: #b6b6b6;
+    opacity: 0;
+    -webkit-transition: opacity .2s ease-in-out;
+    transition: opacity .2s ease-in-out;
+}
+
+.mbsc-ios .mbsc-slider-handle:focus ~ .mbsc-slider-tooltip,
+.mbsc-ios .mbsc-active .mbsc-slider-tooltip {
+    opacity: 1;
+}
+
+.mbsc-ios .mbsc-slider-step {
+    height: .5em;
+    width: .0625em;
+    margin-top: -.1875em;
+    margin-left: -.0625em;
+    background: #dedede;
+}
+
+.mbsc-ios.mbsc-slider input:disabled ~ .mbsc-progress-cont .mbsc-progress-track {
+    opacity: .4;
+}

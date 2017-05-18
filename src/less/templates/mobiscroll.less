@@ -1,0 +1,576 @@
+@theme: mobiscroll;
+@input1: #f7f7f7;
+@input2: #454545;
+@input3: #4fccc4;
+@output1_3: @input1;
+@output1_4: hsv(hsvhue(@input1), hsvsaturation(@input1), max(hsvvalue(@input1) - 5%, 0%));
+@output1_5: hsv(hsvhue(@input1), hsvsaturation(@input1), max(hsvvalue(@input1) - 13%, 0%));
+@output1_8: hsv(hsvhue(@input1), hsvsaturation(@input1), max(hsvvalue(@input1) - 8%, 0%));
+@output1_9: hsv(hsvhue(@input1), hsvsaturation(@input1), max(hsvvalue(@input1) - 24%, 30%));
+@output2_5: @input2;
+@output2_6: hsv(hsvhue(@input2), hsvsaturation(@input2), min(hsvvalue(@input2) + 25%, 100%));
+@output2_7: hsv(hsvhue(@input2), hsvsaturation(@input2), min(hsvvalue(@input2) + 20%, 100%));
+@output2_8: hsv(hsvhue(@input2), hsvsaturation(@input2), max(hsvvalue(@input2) - 15%, 0%));
+@output2_9: hsv(hsvhue(@input2), hsvsaturation(@input2), min(hsvvalue(@input2) + 16%, 100%));
+@output3_8: @input3;
+@output3_10: hsv(hsvhue(@input3), max(hsvsaturation(@input3) - 40%, 0%), max(hsvvalue(@input3) - 10%, 0%));
+@output3_11: hsv(hsvhue(@input3), max(hsvsaturation(@input3) - 40%, 0%), min(hsvvalue(@input3) + 10%, 100%));
+@deltainput1: red(@input1)*0.299 + green(@input1)*0.587 + blue(@input1)*0.114;
+@deltainput2: red(@input2)*0.299 + green(@input2)*0.587 + blue(@input2)*0.114;
+.-();
+.-() when (@deltainput1 >=140) {
+    @output1_6: hsv(hsvhue(@input1), hsvsaturation(@input1), max(hsvvalue(@input1) - 10%, 25%));
+    @output1_7: hsv(hsvhue(@input1), hsvsaturation(@input1), max(hsvvalue(@input1) - 19%, 20%));
+}
+
+.-() when (@deltainput1 < 140) {
+    @output1_6: hsl(hue(@input1), saturation(@input1), min(lightness(@input1) + 8%, 100%));
+    @output1_7: hsl(hue(@input1), saturation(@input1), min(lightness(@input1) + 14%, 100%));
+}
+
+.-() when (@deltainput2 >=140) {
+    @colorClearBackground: fade(#dfdede, 30%);
+}
+
+.-() when (@deltainput2 < 140) {
+    @colorClearBackground: fade(#dfdede, 60%);
+}
+
+.mbsc-@{theme} .mbsc-fr-w {
+    background: @output1_3;
+    color: @output2_5;
+}
+
+.mbsc-@{theme} .mbsc-fr-hdr,
+.mbsc-@{theme} .mbsc-sc-lbl {
+    color: @output3_8;
+}
+
+.mbsc-@{theme} .mbsc-sc-whl-l {
+    border-color: @output3_8;
+}
+
+.mbsc-@{theme}.mbsc-no-touch .mbsc-fr-btn-e:not(.mbsc-fr-btn-d):hover,
+.mbsc-@{theme} .mbsc-fr-btn-a {
+    background: fade(@output3_8, 30%);
+}
+
+.mbsc-@{theme} .mbsc-sc-itm.mbsc-btn-a {
+    background: fade(@output3_8, 30%);
+}
+
+.mbsc-@{theme} .mbsc-fr-btn {
+    color: @output3_8;
+}
+
+.mbsc-@{theme} .mbsc-sc-btn {
+    color: @output3_8;
+    background: @output1_3;
+}
+
+.mbsc-@{theme}.mbsc-no-touch .mbsc-sc-btn:hover:before,
+.mbsc-@{theme} .mbsc-sc-btn-a:before {
+    background: fade(@output3_8, 30%);
+}
+
+.mbsc-@{theme} .mbsc-fr-bubble-bottom .mbsc-fr-arr {
+    border-color: transparent transparent @output1_3 transparent;
+}
+
+.mbsc-@{theme} .mbsc-fr-bubble-top .mbsc-fr-arr {
+    border-color: @output1_3 transparent transparent transparent;
+}
+
+.mbsc-@{theme} .mbsc-sc-whl-multi .mbsc-sc-itm-sel:before {
+    color: @output3_8;
+}
+
+
+/* Calendar */
+
+.mbsc-@{theme} .mbsc-cal .mbsc-cal-day-sel .mbsc-cal-day-i,
+.mbsc-@{theme} .mbsc-cal .mbsc-cal-sc-sel .mbsc-cal-sc-cell-i {
+    background: @output3_8;
+    color: @output1_3;
+}
+
+.mbsc-@{theme} .mbsc-cal-hl-now .mbsc-cal-today {
+    color: @output3_8;
+}
+
+.mbsc-@{theme} .mbsc-cal-days {
+    color: @output3_8;
+}
+
+.mbsc-@{theme} .mbsc-cal-days th {
+    border-color: @output3_8;
+}
+
+.mbsc-@{theme} .mbsc-cal-btn-txt {
+    color: @output3_8;
+}
+
+.mbsc-@{theme} .mbsc-cal-event-color {
+    background: @output3_8;
+}
+
+.mbsc-@{theme} .mbsc-cal-events {
+    color: @output1_3;
+    background: @output2_6;
+}
+
+.mbsc-@{theme} .mbsc-cal-events-arr {
+    border-color: @output2_6 transparent transparent transparent;
+}
+
+.mbsc-@{theme} .mbsc-cal-events-b .mbsc-cal-events-arr {
+    border-color: transparent transparent @output2_6 transparent;
+}
+
+.mbsc-@{theme} .mbsc-cal-event-time {
+    color: @output3_10;
+}
+
+.mbsc-@{theme} .mbsc-cal-event-dur {
+    color: @output3_10;
+}
+
+.mbsc-@{theme} .mbsc-cal-day-hl .mbsc-cal-day-i {
+    border-color: @output3_8;
+}
+
+.mbsc-@{theme} .mbsc-cal-week-nrs-c {
+    color: @output3_8;
+    background: @output1_3;
+}
+
+.mbsc-@{theme} .mbsc-cal-day-m-c {
+    background: @output2_5;
+}
+
+.mbsc-@{theme} .mbsc-cal-day-sel .mbsc-cal-day-m-c {
+    background: @output1_3;
+}
+
+.mbsc-@{theme} .mbsc-cal-day-txt {
+    color: @output1_3;
+    background: @output2_5;
+}
+
+.mbsc-@{theme} .mbsc-cal-day-txt {
+    color: @output1_3;
+    background: @output2_5;
+}
+
+.mbsc-@{theme} .mbsc-cal-tab {
+    border-color: @output3_8;
+}
+
+.mbsc-@{theme} .mbsc-cal-tab .mbsc-cal-tab-i {
+    color: @output2_5;
+}
+
+.mbsc-@{theme} .mbsc-cal-tabs .mbsc-cal-tab-sel {
+    background: @output3_8;
+}
+
+.mbsc-@{theme} .mbsc-cal-tabs .mbsc-cal-tab-sel .mbsc-cal-tab-i {
+    color: @output1_3;
+}
+
+.mbsc-@{theme} .mbsc-cal-sc-c {
+    background: @output1_3;
+}
+
+
+/* Range */
+
+.mbsc-@{theme} .mbsc-range-btn {
+    border-color: @output3_8;
+}
+
+.mbsc-@{theme}.mbsc-range .mbsc-range-btn-t .mbsc-range-btn-sel .mbsc-range-btn {
+    background: @output3_8;
+    color: @output1_3;
+}
+
+.mbsc-@{theme}.mbsc-range .mbsc-cal-table .mbsc-cal-day-sel .mbsc-cal-day-i {
+    color: @output2_5;
+    background: fade(@output3_8, 30%);
+}
+
+.mbsc-@{theme}.mbsc-range .mbsc-cal-table .mbsc-cal-day-hl .mbsc-cal-day-i {
+    background: @output3_8;
+    color: @output1_3;
+}
+
+
+/* Rating */
+
+.mbsc-@{theme} .mbsc-rating-icon {
+    color: @output3_8;
+}
+
+.mbsc-@{theme} .mbsc-rating-icon-unf {
+    color: fade(@output3_8, 30%);
+}
+
+.mbsc-@{theme} .mbsc-rating-circle {
+    background: @output3_8;
+    color: @output1_3;
+}
+
+.mbsc-@{theme} .mbsc-rating-circle-unf {
+    background: none;
+    border-color: @output3_8;
+}
+
+
+/* Numpad */
+
+.mbsc-@{theme} .mbsc-np-del {
+    color: @output3_8;
+}
+
+
+/* Colorpicker */
+
+.mbsc-@{theme} .mbsc-color-active,
+.mbsc-no-touch.mbsc-@{theme} .mbsc-color-item-c:hover {
+    box-shadow: inset 0 0 0 .1875em @output3_8;
+}
+
+.mbsc-@{theme} .mbsc-color-preview-item-empty {
+    border-color: @output1_9;
+}
+
+.mbsc-@{theme} .mbsc-color-preview-cont {
+    border-top-color: @output1_7;
+}
+
+.mbsc-@{theme}.mbsc-form .mbsc-color-input {
+    border-bottom: 1px solid @output2_7;
+    color: @output2_8;
+}
+
+.mbsc-@{theme} .mbsc-color-clear-item {
+    background: @colorClearBackground;
+}
+
+
+/* Listview */
+
+.mbsc-lv-@{theme} .mbsc-lv-item {
+    background: @output1_3;
+    color: @output2_5;
+}
+
+.mbsc-lv-@{theme} .mbsc-lv-gr-title {
+    background: @output3_8;
+    color: @output1_3;
+}
+
+.mbsc-lv-@{theme} .mbsc-lv-arr {
+    color: @output3_8;
+}
+
+.mbsc-lv-@{theme} .mbsc-lv-handle-bar {
+    background: @output3_8;
+}
+
+.mbsc-lv-@{theme} .mbsc-lv-item-active::after {
+    background: fade(@output3_8, 30%);
+}
+
+.mbsc-lv-@{theme}.mbsc-lv-alt-row .mbsc-lv-item:nth-child(even) {
+    background: @output1_4;
+}
+
+.mbsc-lv-@{theme} .mbsc-lv-item.mbsc-lv-item-dragging {
+    background: @output3_8;
+    color: @output1_3;
+}
+
+.mbsc-lv-@{theme} .mbsc-lv-item-dragging .mbsc-lv-handle-bar {
+    background: @output1_3;
+}
+
+.mbsc-lv-@{theme} .mbsc-lv-item-dragging .mbsc-lv-arr {
+    color: @output1_3;
+}
+
+
+/* Menustrip */
+
+.mbsc-@{theme}.mbsc-ms-c {
+    color: @output2_5;
+    background: @output1_3;
+}
+
+.mbsc-@{theme} .mbsc-btn-a.mbsc-ms-item {
+    background: fade(@output3_8, 30%);
+}
+
+.mbsc-@{theme}.mbsc-ms-a .mbsc-ms-item-sel.mbsc-ms-item {
+    color: @output3_8;
+}
+
+.mbsc-@{theme}.mbsc-ms-b.mbsc-ms-top {
+    border-color: @output3_8;
+}
+
+.mbsc-@{theme}.mbsc-ms-b.mbsc-ms-bottom {
+    border-color: @output3_8;
+}
+
+.mbsc-@{theme}.mbsc-ms-b .mbsc-ms-item-sel.mbsc-ms-item {
+    border-bottom-color: @output3_8;
+}
+
+.mbsc-@{theme}.mbsc-ms-b.mbsc-ms-bottom .mbsc-ms-item-sel.mbsc-ms-item {
+    border-top-color: @output3_8;
+    border-bottom-color: transparent;
+}
+
+
+/* Progress */
+
+.mbsc-@{theme}.mbsc-progress .mbsc-input-ic {
+    color: @output2_7;
+}
+
+.mbsc-@{theme} .mbsc-progress-track {
+    background: @output1_6;
+}
+
+.mbsc-@{theme} .mbsc-progress-bar {
+    background: @output3_8;
+}
+
+
+/* Slider */
+
+.mbsc-@{theme} .mbsc-slider-step {
+    background: @output1_3;
+}
+
+.mbsc-@{theme} .mbsc-slider-handle {
+    background: @output3_8;
+}
+
+.mbsc-@{theme} .mbsc-slider-tooltip {
+    color: @output1_3;
+    background: @output3_8;
+}
+
+
+/* Form elements */
+
+.mbsc-@{theme}.mbsc-page {
+    background: @output1_3;
+    color: @output2_5;
+}
+
+.mbsc-@{theme}.mbsc-page *::-moz-selection {
+    background: @output3_8;
+}
+
+.mbsc-@{theme}.mbsc-page *::selection {
+    background: @output3_8;
+}
+
+.mbsc-@{theme}.mbsc-form {
+    background: @output1_3;
+    color: @output2_5;
+}
+
+.mbsc-@{theme}.mbsc-form *::-moz-selection {
+    background: @output3_8;
+}
+
+.mbsc-@{theme}.mbsc-form *::selection {
+    background: @output3_8;
+}
+
+.mbsc-@{theme} .mbsc-divider,
+.mbsc-@{theme} .mbsc-form-group-title {
+    color: @output3_8;
+}
+
+.mbsc-@{theme} a {
+    color: @output3_8;
+}
+
+
+/* Textbox */
+
+.mbsc-@{theme} .mbsc-input textarea,
+.mbsc-@{theme} .mbsc-input input {
+    border-bottom: 1px solid @output2_7;
+    color: @output2_8;
+}
+
+.mbsc-@{theme} .mbsc-input select:focus ~ input,
+.mbsc-@{theme} .mbsc-input textarea:focus,
+.mbsc-@{theme} .mbsc-input input:focus {
+    border-color: @output3_8;
+}
+
+.mbsc-@{theme} .mbsc-input-ic {
+    color: @output2_7;
+}
+
+
+/* Checkbox */
+
+.mbsc-@{theme} .mbsc-checkbox-box {
+    background: @output3_8;
+}
+
+.mbsc-@{theme} .mbsc-checkbox-box:after {
+    border: .125em solid @output1_3;
+    border-top: 0;
+    border-right: 0;
+}
+
+.mbsc-@{theme} .mbsc-checkbox input:disabled + .mbsc-checkbox-box {
+    background: @output1_5;
+}
+
+
+/* Radio */
+
+.mbsc-@{theme} .mbsc-radio-box {
+    border: .125em solid @output3_8;
+}
+
+.mbsc-@{theme} .mbsc-radio-box:after {
+    background: @output3_8;
+}
+
+.mbsc-@{theme} .mbsc-radio input:checked + .mbsc-radio-box {
+    background: transparent;
+}
+
+.mbsc-@{theme} .mbsc-radio input:disabled + .mbsc-radio-box {
+    border-color: @output1_5;
+}
+
+.mbsc-@{theme} .mbsc-radio input:disabled + .mbsc-radio-box:after {
+    background: @output1_5;
+}
+
+
+/* Buttons */
+
+.mbsc-@{theme} .mbsc-btn {
+    background: @output3_8;
+    color: @output1_3;
+}
+
+.mbsc-@{theme} .mbsc-btn:disabled {
+    background: @output1_6;
+}
+
+.mbsc-@{theme}.mbsc-no-touch .mbsc-btn-flat:not(:disabled):not(.mbsc-active):hover {
+    background: fade(@output3_8, 10%);
+}
+
+.mbsc-@{theme} .mbsc-btn-flat.mbsc-active {
+    background: fade(@output3_8, 30%);
+}
+
+.mbsc-@{theme} .mbsc-btn-flat {
+    background: transparent;
+    color: @output3_8;
+    border-color: transparent;
+}
+
+.mbsc-@{theme} .mbsc-btn-flat:disabled {
+    background: transparent;
+    color: @output1_7;
+}
+
+
+/* Switch */
+
+.mbsc-@{theme} .mbsc-switch-track {
+    background: @output1_6;
+}
+
+.mbsc-@{theme} .mbsc-switch-handle {
+    background: @output1_7;
+}
+
+.mbsc-@{theme} .mbsc-switch input:checked + .mbsc-switch-track {
+    background: @output3_11;
+}
+
+.mbsc-@{theme} .mbsc-switch input:checked + .mbsc-switch-track .mbsc-switch-handle {
+    background: @output3_8;
+}
+
+.mbsc-@{theme} .mbsc-switch input:disabled + .mbsc-switch-track {
+    background: @output1_5;
+}
+
+.mbsc-@{theme} .mbsc-switch input:disabled + .mbsc-switch-track .mbsc-switch-handle {
+    background: @output1_8;
+}
+
+
+/* Stepper segmented */
+
+.mbsc-@{theme} .mbsc-segmented-content {
+    border-color: @output3_8;
+    color: @output3_8;
+}
+
+.mbsc-@{theme} .mbsc-stepper input {
+    color: @output2_5;
+}
+
+.mbsc-@{theme} .mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control.mbsc-active .mbsc-segmented-content,
+.mbsc-@{theme} .mbsc-segmented .mbsc-segmented-item input:checked + .mbsc-segmented-content {
+    background: @output3_8;
+    color: @output1_3;
+}
+
+.mbsc-@{theme} .mbsc-segmented .mbsc-segmented-item input.mbsc-active + .mbsc-segmented-content {
+    background: fade( @output3_8, 30%);
+}
+
+.mbsc-@{theme} .mbsc-stepper-cont {
+    padding: 1.75em 12.875em 1.75em 1em;
+}
+
+.mbsc-@{theme} .mbsc-stepper {
+    margin-top: -1.25em;
+}
+
+.mbsc-@{theme} .mbsc-segmented input:disabled ~ .mbsc-segmented-item .mbsc-segmented-content,
+.mbsc-@{theme} .mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control.mbsc-step-disabled .mbsc-segmented-content,
+.mbsc-@{theme} .mbsc-segmented .mbsc-segmented-item input:disabled + .mbsc-segmented-content {
+    color: @output1_5;
+    border-color: @output1_5;
+    background: transparent;
+}
+
+.mbsc-@{theme} .mbsc-stepper input:disabled {
+    color: @output1_5;
+    -webkit-text-fill-color: @output1_5;
+}
+
+.mbsc-@{theme} .mbsc-segmented input:disabled:checked + .mbsc-segmented-content {
+    background: @output1_6;
+    border-color: @output1_6;
+    color: @output1_3;
+}
+
+.mbsc-@{theme} .mbsc-stepper .mbsc-active.mbsc-step-disabled .mbsc-segmented-content {
+    color: @output1_5;
+}
+
+.mbsc-@{theme}.mbsc-no-touch .mbsc-segmented-item:hover .mbsc-segmented-content {
+    background: fade( @output3_8, 10%);
+}

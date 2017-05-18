@@ -1,0 +1,42 @@
+{
+    "name": "mobiscroll-knockout",
+    "version": "3.2.0",
+    "description": "",
+    "homepage": "https://mobiscroll.com/",
+    "license": "Apache-2.0",
+    "keywords": [
+        "mobile web",
+        "hybrid apps",
+        "javascript",
+        "mobiscroll",
+        "javascript library",
+        "knockout",
+        "component library",
+        "ui components",
+        "ui kit"
+    ],
+    "author": {
+        "name": "Mobiscroll",
+        "url": "https://mobiscroll.com/"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/acidb/mobiscroll.git"
+    },
+    "bugs": {
+        "url": "https://github.com/acidb/mobiscroll/issues"
+    },
+    "main": "dist/js/mobiscroll.knockout.min.js",
+    "style": "dist/css/mobiscroll.min.css",
+    "files": [
+        "dist/js/mobiscroll.knockout.js",
+        "dist/js/mobiscroll.knockout.min.js",
+        "dist/css/mobiscroll.css",
+        "dist/css/mobiscroll.min.css",
+        "dist/css/icons_mobiscroll.ttf",
+        "dist/css/icons_mobiscroll.woff"
+    ],
+    "dependencies": {
+        "knockout": ">=2.0.0"
+    }
+}

@@ -1,0 +1,25 @@
+.mbsc-material .mbsc-ripple,
+.mbsc-lv-material .mbsc-ripple {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    border-radius: 1000em;
+    background: #000;
+    pointer-events: none;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+    -webkit-transition: -webkit-transform .8s cubic-bezier(0.25, 0.8, 0.25, 1), opacity .8s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition: transform .8s cubic-bezier(0.25, 0.8, 0.25, 1), opacity .8s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.mbsc-material .mbsc-ripple-scaled,
+.mbsc-lv-material .mbsc-ripple-scaled {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+}
+
+.mbsc-material .mbsc-ripple-visible,
+.mbsc-lv-material .mbsc-ripple-visible {
+    opacity: .1;
+}

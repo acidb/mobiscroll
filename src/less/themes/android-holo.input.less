@@ -1,0 +1,59 @@
+@import "../input";
+
+/* Input */
+
+.mbsc-android-holo .mbsc-input {
+    padding: .75em;
+}
+
+.mbsc-android-holo .mbsc-input input,
+.mbsc-android-holo .mbsc-input textarea {
+    height: 2em;
+    padding: 0 .75em;
+    background: #000;
+    border: 0;
+    border-bottom: 5px solid #a9a9a9;
+    outline: 4px solid #000;
+    outline-offset: -5px;
+    color: #fff;
+}
+
+.mbsc-android-holo.mbsc-wdg .mbsc-input textarea,
+.mbsc-android-holo.mbsc-wdg .mbsc-input input,
+.mbsc-lv-android-holo .mbsc-input input,
+.mbsc-lv-android-holo .mbsc-input textarea {
+    background: #292929;
+    outline: 4px solid #292929;
+}
+
+.mbsc-android-holo .mbsc-input textarea {
+    padding: .25em .75em 0 .75em;
+}
+
+.mbsc-android-holo .mbsc-input input:focus,
+.mbsc-android-holo .mbsc-input select:focus + input,
+.mbsc-android-holo .mbsc-input textarea:focus {
+    border-color: #31c6e7;
+}
+
+.mbsc-android-holo .mbsc-input.mbsc-err input,
+.mbsc-android-holo .mbsc-input.mbsc-err textarea {
+    border-color: #f35047;
+}
+
+.mbsc-android-holo .mbsc-input .mbsc-control:focus ~ .mbsc-select-ic {
+    border-color: transparent #31c6e7 #31c6e7 transparent;
+}
+
+.mbsc-android-holo .mbsc-input select:disabled ~ input,
+.mbsc-android-holo .mbsc-input textarea:disabled,
+.mbsc-android-holo .mbsc-input input:disabled {
+    opacity: .4;
+}
+
+.mbsc-android-holo .mbsc-input textarea:-webkit-autofill,
+.mbsc-android-holo .mbsc-input input:-webkit-autofill {
+    border-color: #faffbd;
+    box-shadow: 0 0 0 50em #000 inset;
+    -webkit-text-fill-color: #fff;
+}

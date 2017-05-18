@@ -1,0 +1,53 @@
+@import "../slider";
+@import "wp.progress.less";
+
+/* Slider */
+
+.mbsc-wp.mbsc-slider .mbsc-input-wrap {
+    padding: 0 .3125em;
+}
+
+.mbsc-wp.mbsc-slider .mbsc-input-ic {
+    top: .125em;
+}
+
+.mbsc-wp.mbsc-slider .mbsc-progress-track {
+    height: .75em;
+}
+
+.mbsc-wp .mbsc-slider-handle {
+    top: 50%;
+    width: .625em;
+    height: 1.125em;
+    margin: -.25em -.3125em 0 0;
+    background: #fff;
+}
+
+.mbsc-wp .mbsc-slider-tooltip {
+    height: 2.16665em;
+    width: 3.16665em;
+    margin-right: -1.6666em;
+    top: -2.75em;
+    border: 2px solid #808080;
+    line-height: 2.16665em;
+    background: #fff;
+    text-align: center;
+    font-size: .75em;
+    font-weight: bold;
+    color: #808080;
+    -webkit-transition: opacity .2s ease-in-out;
+    transition: opacity .2s ease-in-out;
+}
+
+.mbsc-wp .mbsc-slider-handle:focus ~ .mbsc-slider-tooltip,
+.mbsc-wp .mbsc-active .mbsc-slider-tooltip {
+    opacity: 1;
+}
+
+.mbsc-wp .mbsc-slider-step {
+    background: #000;
+}
+
+.mbsc-wp .mbsc-slider input:disabled ~ .mbsc-progress-cont .mbsc-progress-track {
+    opacity: .4;
+}

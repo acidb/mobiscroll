@@ -1,0 +1,158 @@
+@import "progress";
+
+/* Slider */
+
+.mbsc-progress.mbsc-slider input {
+    display: none;
+}
+
+.mbsc-ltr .mbsc-progress-anim .mbsc-slider-handle-cont {
+    -webkit-transition: left .1s ease-in-out;
+    transition: left .1s ease-in-out;
+}
+
+.mbsc-rtl .mbsc-progress-anim .mbsc-slider-handle-cont {
+    -webkit-transition: right .1s ease-in-out;
+    transition: right .1s ease-in-out;
+}
+
+.mbsc-slider-handle-cont {
+    position: absolute;
+    width: 2em;
+    height: 2em;
+    top: .0625em;
+    margin-top: -1em;
+    cursor: pointer;
+}
+
+.mbsc-ltr .mbsc-slider-handle-cont {
+    right: -1em;
+}
+
+.mbsc-rtl .mbsc-slider-handle-cont {
+    left: -1em;
+}
+
+.mbsc-ltr .mbsc-slider-handle-cont.mbsc-slider-handle-left {
+    left: 0;
+}
+
+.mbsc-rtl .mbsc-slider-handle-cont.mbsc-slider-handle-left {
+    right: 0;
+}
+
+.mbsc-ltr .mbsc-progress-track .mbsc-slider-handle-cont {
+    margin-left: -1em;
+}
+
+.mbsc-rtl .mbsc-progress-track .mbsc-slider-handle-cont {
+    margin-right: -1em;
+}
+
+.mbsc-slider-handle {
+    position: absolute;
+    top: .125em;
+    right: 50%;
+    margin: -.5em -.5em 0 0;
+    z-index: 2;
+}
+
+.mbsc-slider-handle-cont .mbsc-slider-handle {
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+}
+
+.mbsc-slider .mbsc-slider-handle:focus,
+.mbsc-slider .mbsc-active .mbsc-slider-handle {
+    outline: 0;
+    z-index: 15;
+}
+
+.mbsc-slider .mbsc-handle-curr {
+    z-index: 16;
+}
+
+.mbsc-slider-tooltip {
+    position: absolute;
+    right: 50%;
+    opacity: 0;
+    color: #000;
+}
+
+.mbsc-slider-step {
+    position: absolute;
+    top: 0;
+    width: .125em;
+    height: 100%;
+    margin-left: -.0625em;
+}
+
+
+/* Mobiscroll Theme */
+
+.mbsc-mobiscroll.mbsc-slider .mbsc-input-wrap {
+    padding: 0 .5em;
+}
+
+.mbsc-mobiscroll .mbsc-slider-step {
+    background: #f7f7f7;
+}
+
+.mbsc-mobiscroll .mbsc-slider-handle {
+    top: 50%;
+    width: 1em;
+    height: 1em;
+    border-radius: 1.125em;
+    background: #4eccc4;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    -webkit-transition: -webkit-transform .2s ease-in-out;
+    transition: transform .2s ease-in-out;
+}
+
+.mbsc-mobiscroll .mbsc-slider-handle:focus,
+.mbsc-mobiscroll .mbsc-active .mbsc-slider-handle {
+    -webkit-transform: scale(1.3);
+    transform: scale(1.3);
+}
+
+.mbsc-mobiscroll.mbsc-slider input:disabled ~ .mbsc-progress-cont .mbsc-progress-track {
+    opacity: .4;
+}
+
+.mbsc-mobiscroll.mbsc-slider input:disabled ~ .mbsc-progress-cont .mbsc-slider-handle {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+}
+
+.mbsc-mobiscroll .mbsc-slider-tooltip {
+    top: -1.91666em;
+    width: 2.33333333em;
+    height: 2.33333333em;
+    border-radius: 2em;
+    margin-right: -1.1666em;
+    line-height: 2.33333333em;
+    text-align: center;
+    font-size: .75em;
+    color: #eee;
+    background-color: #4eccc4;
+    z-index: 5;
+    -webkit-transform: scale(.4) translate3d(0, 5em, 0);
+    transform: scale(.4) translate3d(0, 5em, 0);
+    -webkit-transition: -webkit-transform .2s ease-in-out, opacity .2s ease-in-out;
+    transition: transform .2s ease-in-out, opacity .2s ease-in-out;
+}
+
+.mbsc-mobiscroll .mbsc-slider-handle:focus ~ .mbsc-slider-tooltip,
+.mbsc-mobiscroll .mbsc-active .mbsc-slider-tooltip {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0) scale(1);
+    transform: translate3d(0, 0, 0) scale(1);
+}
+
+.mbsc-mobiscroll.mbsc-slider-has-tooltip .mbsc-slider-handle:focus,
+.mbsc-mobiscroll.mbsc-slider-has-tooltip .mbsc-active .mbsc-slider-handle {
+    -webkit-transform: scale(.5);
+    transform: scale(.5);
+}
