@@ -15,7 +15,8 @@ For the complete documentation of Mobiscroll Forms and all products, please visi
 
 Demos and examples
 -----------------
-Over 150 live demos with downloadable code can be found at https://demo.mobiscroll.com
+- Demos for Mobiscroll Froms (FREE) can be forund at https://demo.mobiscroll.com/forms
+- Over 150 live demos with downloadable code can be found at https://demo.mobiscroll.com
 
 Getting help
 -----------------
