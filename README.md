@@ -13,7 +13,7 @@ Elements
 -----------------
 
 Alert
-![Alert](https://github.com/acidb/mobiscroll/blob/master/img/alert.png?raw=true)
+<img src="https://github.com/acidb/mobiscroll/blob/master/img/alert.png?raw=true" width="50%">
 
 Documentation
 -----------------
