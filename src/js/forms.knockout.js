@@ -1,9 +1,9 @@
 import ko from 'knockout';
-import mobiscroll from './frameworks/knockout';
+import mobiscroll, {
+    $
+} from './frameworks/knockout';
 import './page.knockout';
 import './classes/forms';
-
-var $ = mobiscroll.$;
 
 ko.bindingHandlers['mobiscroll.form'] = {
     init: function (element, valueAccessor, allBindingsAccessor, viewModel) {

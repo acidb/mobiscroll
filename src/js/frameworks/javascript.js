@@ -1,12 +1,13 @@
-import mobiscroll from '../core/dom';
+import mobiscroll, {
+    $
+} from '../core/dom';
 
 mobiscroll.presetShort = function (name, className, preset) {
     mobiscroll[name] = function (selector, s) {
         var inst,
             instIds,
             ret = {},
-            options = s || {},
-            $ = mobiscroll.$;
+            options = s || {};
 
         $.extend(options, {
             preset: preset === false ? undefined : name

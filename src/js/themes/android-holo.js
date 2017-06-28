@@ -1,13 +1,14 @@
-import mobiscroll from '../core/core';
+import mobiscroll, {
+    extend
+} from '../core/core';
 
 export default mobiscroll;
 
-var themes = mobiscroll.themes,
-    $ = mobiscroll.$;
+var themes = mobiscroll.themes;
 
 themes.frame['android-holo'] = {};
 
-themes.scroller['android-holo'] = $.extend({}, themes.frame['android-holo'], {
+themes.scroller['android-holo'] = extend({}, themes.frame['android-holo'], {
     dateDisplay: 'Mddyy', // datetime
     rows: 5, // scroller
     minWidth: 76, // scroller

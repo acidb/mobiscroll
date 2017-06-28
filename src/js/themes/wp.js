@@ -1,9 +1,11 @@
-import mobiscroll from '../core/core';
+import mobiscroll, {
+    $,
+    extend
+} from '../core/core';
 
 export default mobiscroll;
 
-var $ = mobiscroll.$,
-    themes = mobiscroll.themes;
+var themes = mobiscroll.themes;
 
 themes.frame.wp = {
     headerText: false,
@@ -21,7 +23,7 @@ themes.frame.wp = {
     btnWidth: false
 };
 
-themes.scroller.wp = $.extend({}, themes.frame.wp, {
+themes.scroller.wp = extend({}, themes.frame.wp, {
     minWidth: 76,
     height: 76,
     dateDisplay: 'mmMMddDDyy',

@@ -1,8 +1,8 @@
-import mobiscroll from '../core/core';
+import mobiscroll, {
+    $
+} from '../core/core';
 import Progress from './progress';
 import SliderBase from './slider-base';
-
-const $ = mobiscroll.$;
 
 const Slider = function (elm, settings, inherit) {
     var $elm,

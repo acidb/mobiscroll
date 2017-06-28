@@ -1,7 +1,8 @@
-import mobiscroll from '../core/core';
+import {
+    $
+} from '../core/core';
 import Input from './input';
 
-const $ = mobiscroll.$;
 const events = ['keydown', 'input', 'scroll'];
 
 let sizeDebounce;

@@ -1,7 +1,8 @@
-import mobiscroll from '../core/core';
+import mobiscroll, {
+    $
+} from '../core/core';
 
-var $ = mobiscroll.$,
-    util = mobiscroll.util,
+var util = mobiscroll.util,
     getCoord = util.getCoord,
     testTouch = util.testTouch;
 

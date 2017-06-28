@@ -29,15 +29,21 @@
     },
     "main": "dist/js/mobiscroll.angular.min.js",
     "style": "dist/css/mobiscroll.min.css",
+    "typings": "dist/js/mobiscroll.angular.min.d.ts",
     "files": [
-        "dist/js/mobiscroll.angular.js",
+        "dist/js/mobiscroll.angular.d.ts",
         "dist/js/mobiscroll.angular.min.js",
+        "dist/js/mobiscroll.angular.min.d.ts",
+        "dist/js/mobiscroll.angular.min.metadata.json",
         "dist/css/mobiscroll.css",
         "dist/css/mobiscroll.min.css",
         "dist/css/icons_mobiscroll.ttf",
-        "dist/css/icons_mobiscroll.woff"
+        "dist/css/icons_mobiscroll.woff",
+        "dist/src/**"
     ],
     "dependencies": {
-        "angular": ">=1.0.8"
+        "@angular/core": ">=2.0.0",
+        "@angular/common": ">=2.0.0",
+        "@angular/forms": ">=2.0.0"
     }
 }

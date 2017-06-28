@@ -1,13 +1,15 @@
 import ko from 'knockout';
 import mobiscroll from '../core/dom';
-import '../core/core';
+import {
+    $,
+    extend
+} from '../core/core';
 
 export default mobiscroll;
 
 mobiscroll.ko = {};
 
-var $ = mobiscroll.$,
-    instances = mobiscroll.instances;
+var instances = mobiscroll.instances;
 
 // the generic event handler for change event
 function genericEventHandler(element, valueAccessor) {
@@ -32,7 +34,7 @@ mobiscroll.ko = {
             formElement = inheritOptions ? $(element).closest('[mbsc-form-opt]') : null,
             inheritedOpt = inheritOptions ? mobiscroll.ko.formOptions[formElement.attr('id')] : {};
 
-        initOptions = $.extend({}, inheritedOpt, initOptions, pres);
+        initOptions = extend({}, inheritedOpt, initOptions, pres);
 
         return initOptions;
     },
@@ -41,7 +43,7 @@ mobiscroll.ko = {
         // initialize mobiscroll on the element
         var initOptions = mobiscroll.ko.getInitObject(allBindingsAccessor, preset, inheritOptions, element);
 
-        $.extend(initOptions, addInitOpt || {});
+        extend(initOptions, addInitOpt || {});
 
         var inst = new mobiscroll.classes[initOptions.component || 'Scroller'](element, initOptions),
             instSet = allBindingsAccessor()['mobiscroll.instance'];
@@ -78,4 +80,9 @@ mobiscroll.ko = {
             inst.setVal(value, true, false);
         }
     }
+};
+
+export {
+    $,
+    extend
 };

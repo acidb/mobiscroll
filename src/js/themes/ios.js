@@ -1,9 +1,10 @@
-import mobiscroll from '../core/core';
+import mobiscroll, {
+    extend
+} from '../core/core';
 
 export default mobiscroll;
 
-var themes = mobiscroll.themes,
-    $ = mobiscroll.$;
+var themes = mobiscroll.themes;
 
 themes.frame.ios = {
     display: 'bottom', // frame
@@ -13,7 +14,7 @@ themes.frame.ios = {
     scroll3d: true
 };
 
-themes.scroller.ios = $.extend({}, themes.frame.ios, {
+themes.scroller.ios = extend({}, themes.frame.ios, {
     rows: 5, // scroller
     height: 34, // scroller
     minWidth: 55, // scroller

@@ -1,4 +1,4 @@
-import { mobiscroll, createReactClass, PropTypes } from './frameworks/react';
+import { extend, mobiscroll, createReactClass, PropTypes } from './frameworks/react';
 import './classes/page';
 
 mobiscroll.Page = createReactClass({
@@ -13,7 +13,7 @@ mobiscroll.Page = createReactClass({
     },
     componentDidMount: function () {
         // get settings from state
-        var settings = mobiscroll.$.extend({}, this.state.options);
+        var settings = extend({}, this.state.options);
         // initialize the mobiscroll
         this.instance = new mobiscroll.classes.Page(ReactDOM.findDOMNode(this), settings);
     },

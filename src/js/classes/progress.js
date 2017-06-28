@@ -1,11 +1,11 @@
-import mobiscroll from '../core/core';
+import mobiscroll, {
+    $
+} from '../core/core';
 import ProgressBase from './progress-base';
 import {
     addIcon,
     wrapLabel
 } from '../util/forms';
-
-const $ = mobiscroll.$;
 
 const Progress = function (elm, settings, inherit) {
     var $display,
@@ -163,12 +163,12 @@ const Progress = function (elm, settings, inherit) {
     that.__destroy = function () {
 
         $parent
+            .removeClass('mbsc-ic-left mbsc-ic-right')
             .find('.mbsc-progress-cont')
             .remove();
 
         $parent
-            .find('.mbsc-input-wrap')
-            .before($elm)
+            .find('.mbsc-input-ic')
             .remove();
 
         $elm

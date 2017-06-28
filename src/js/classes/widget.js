@@ -1,7 +1,8 @@
-import mobiscroll from '../core/core';
+import mobiscroll, {
+    $,
+    extend
+} from '../core/core';
 import Frame from './frame';
-
-const $ = mobiscroll.$;
 
 const Widget = function (el, settings, inherit) {
 
@@ -97,7 +98,7 @@ Widget.prototype = {
     _hasTheme: true,
     _hasContent: true,
     _class: 'widget',
-    _defaults: $.extend({}, Frame.prototype._defaults, {
+    _defaults: extend({}, Frame.prototype._defaults, {
         okText: 'OK',
         headerText: false
     })

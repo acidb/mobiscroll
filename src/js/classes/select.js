@@ -1,7 +1,7 @@
-import mobiscroll from '../core/core';
+import {
+    $
+} from '../core/core';
 import Input from './input';
-
-const $ = mobiscroll.$;
 
 class Select extends Input {
     constructor(elm) {

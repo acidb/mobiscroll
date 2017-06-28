@@ -1,13 +1,14 @@
 import angular from 'angular';
 import mobiscroll from '../core/dom';
-import '../core/core';
+import {
+    $
+} from '../core/core';
 
 export default mobiscroll;
 
 mobiscroll.ng = {};
 
-var $ = mobiscroll.$,
-    instances = mobiscroll.instances;
+var instances = mobiscroll.instances;
 
 mobiscroll.ng = {
     getDDO: function ($parse, attrName, opt, render, read, parse, format, inheritOptions) {
@@ -148,4 +149,8 @@ mobiscroll.ng = {
         });
     },
     formOptions: {}
+};
+
+export {
+    $
 };

@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {
+    $,
+    extend,
     mobiscroll,
     createReactClass,
     PropTypes
@@ -54,7 +56,7 @@ mobiscroll.Form = createReactClass({
     },
     componentDidMount: function () {
         // get settings from state
-        var settings = mobiscroll.$.extend({}, this.state.options);
+        var settings = extend({}, this.state.options);
         // initialize the mobiscroll
         this.instance = new mobiscroll.classes.Form(ReactDOM.findDOMNode(this), settings);
     },
@@ -154,7 +156,7 @@ mobiscroll.Progress = createReactClass({
     },
     componentDidMount: function () {
         // get settings from state
-        var settings = mobiscroll.$.extend({}, this.state.options);
+        var settings = extend({}, this.state.options);
         // initialize the mobiscroll
         this.instance = new mobiscroll.classes.Progress(this.progressNode, settings);
         if (this.state.value !== undefined) {
@@ -207,7 +209,7 @@ mobiscroll.Slider = createReactClass({
     },
     componentDidMount: function () {
         // get settings from state 
-        var settings = mobiscroll.$.extend({}, this.state.options);
+        var settings = extend({}, this.state.options);
         // initialize the mobiscroll
         this.instance = new mobiscroll.classes.Slider(this.firstInput, settings);
 
@@ -216,7 +218,7 @@ mobiscroll.Slider = createReactClass({
         }
         var that = this;
         // our own change handler - to receive the change event
-        mobiscroll.$(this.label).on('change', function () {
+        $(this.label).on('change', function () {
             if (that.props.onChange) {
                 var values = that.instance.getVal();
                 that.props.onChange(values);

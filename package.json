@@ -1,68 +1,82 @@
 {
-    "name": "mobiscroll",
-    "version": "3.2.0",
-    "description": "Cross platform UI controls for progressive web an hybrid apps",
-    "homepage": "https://mobiscroll.com/",
-    "license": "Apache-2.0",
-    "keywords": [
-        "mobile web",
-        "hybrid apps",
-        "javascript",
-        "mobiscroll",
-        "jquery",
-        "javascript library",
-        "react",
-        "angular",
-        "knockout",
-        "component library",
-        "ui components",
-        "ui kit",
-        "ionic plugin"
-    ],
-    "author": {
-        "name": "Mobiscroll",
-        "url": "https://mobiscroll.com/"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/acidb/mobiscroll.git"
-    },
-    "bugs": {
-        "url": "https://github.com/acidb/mobiscroll/issues"
-    },
-    "main": "dist/js/mobiscroll.javascript.min.js",
-    "style": "dist/css/mobiscroll.min.css",
-    "files": [
-        "dist/js/mobiscroll.javascript.js",
-        "dist/js/mobiscroll.javascript.min.js",
-        "dist/css/mobiscroll.css",
-        "dist/css/mobiscroll.min.css",
-        "dist/css/icons_mobiscroll.ttf",
-        "dist/css/icons_mobiscroll.woff"
-    ],
-    "devDependencies": {
-        "babel-eslint": "^7.1.1",
-        "babel-helpers": "^6.22.0",
-        "babel-install": "2.1.0",
-        "babel-plugin-external-helpers": "^6.22.0",
-        "babel-plugin-transform-es2015-destructuring": "^6.19.0",
-        "babel-plugin-transform-object-rest-spread": "^6.20.0",
-        "babel-plugin-transform-react-jsx": "^6.8.0",
-        "babel-preset-env": "^1.1.8",
-        "babel-preset-es2015": "^6.18.0",
-        "eslint": "^3.13.1",
-        "eslint-plugin-react": "^6.9.0",
-        "grunt": "^1.0.1",
-        "grunt-babel": "^6.0.0",
-        "grunt-contrib-clean": "^1.0.0",
-        "grunt-contrib-copy": "^1.0.0",
-        "grunt-contrib-jshint": "^1.1.0",
-        "grunt-contrib-less": "^1.4.0",
-        "grunt-eslint": "^19.0.0",
-        "grunt-rollup": "^1.0.1",
-        "less": "^2.7.2",
-        "load-grunt-config": "^0.19.2",
-        "rollup-plugin-babel": "^2.7.1",
-        "rollup-plugin-uglify": "^1.0.1"
-    }
+  "name": "mobiscroll",
+  "version": "3.2.0",
+  "description": "Cross platform UI controls for progressive web an hybrid apps",
+  "homepage": "https://mobiscroll.com/",
+  "license": "Apache-2.0",
+  "scripts": {
+    "transpile": "ngc"
+  },
+  "keywords": [
+    "mobile web",
+    "hybrid apps",
+    "javascript",
+    "mobiscroll",
+    "jquery",
+    "javascript library",
+    "react",
+    "angular",
+    "knockout",
+    "component library",
+    "ui components",
+    "ui kit",
+    "ionic plugin"
+  ],
+  "author": {
+    "name": "Mobiscroll",
+    "url": "https://mobiscroll.com/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/acidb/mobiscroll.git"
+  },
+  "bugs": {
+    "url": "https://github.com/acidb/mobiscroll/issues"
+  },
+  "main": "dist/js/mobiscroll.javascript.min.js",
+  "style": "dist/css/mobiscroll.min.css",
+  "files": [
+    "dist/js/mobiscroll.javascript.js",
+    "dist/js/mobiscroll.javascript.min.js",
+    "dist/css/mobiscroll.css",
+    "dist/css/mobiscroll.min.css",
+    "dist/css/icons_mobiscroll.ttf",
+    "dist/css/icons_mobiscroll.woff"
+  ],
+  "devDependencies": {
+    "@angular/animations": "^4.2.4",
+    "@angular/common": "^4.2.4",
+    "@angular/compiler": "^4.2.4",
+    "@angular/compiler-cli": "^4.2.4",
+    "@angular/core": "^4.2.4",
+    "@angular/forms": "^4.2.4",
+    "@angular/platform-browser": "^4.2.4",
+    "babel-eslint": "^7.1.1",
+    "babel-helpers": "^6.22.0",
+    "babel-install": "2.1.0",
+    "babel-plugin-external-helpers": "^6.22.0",
+    "babel-plugin-transform-es2015-destructuring": "^6.19.0",
+    "babel-plugin-transform-object-rest-spread": "^6.20.0",
+    "babel-plugin-transform-react-jsx": "^6.8.0",
+    "babel-preset-env": "^1.1.8",
+    "babel-preset-es2015": "^6.18.0",
+    "eslint": "^3.13.1",
+    "eslint-plugin-react": "^6.9.0",
+    "grunt": "^1.0.1",
+    "grunt-babel": "^6.0.0",
+    "grunt-contrib-clean": "^1.0.0",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-jshint": "^1.1.0",
+    "grunt-contrib-less": "^1.4.0",
+    "grunt-eslint": "^19.0.0",
+    "grunt-rollup": "^1.0.1",
+    "grunt-run": "^0.7.0",
+    "less": "^2.7.2",
+    "load-grunt-config": "^0.19.2",
+    "rollup-plugin-babel": "^2.7.1",
+    "rollup-plugin-uglify": "^1.0.1",
+    "rxjs": "^5.4.1",
+    "typescript": "2.3.4",
+    "zone.js": "^0.8.12"
+  }
 }

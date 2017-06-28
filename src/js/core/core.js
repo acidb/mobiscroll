@@ -1,5 +1,5 @@
 /*!
- * Mobiscroll v3.2.0
+ * Mobiscroll v3.2.1
  * http://mobiscroll.com
  *
  * Copyright 2010-2016, Acid Media
@@ -52,7 +52,7 @@ var ms,
 
 ms = extend(mobiscroll, {
     $: $,
-    version: '3.2.0',
+    version: '3.2.1',
     util: {
         prefix: prefix,
         jsPrefix: pr,
@@ -176,7 +176,7 @@ ms = extend(mobiscroll, {
             comps = ['frame', 'scroller', 'listview', 'menustrip', 'form', 'progress'];
 
         for (i = 0; i < comps.length; i++) {
-            themes[comps[i]][name] = mobiscroll.$.extend({}, themes[comps[i]][baseTheme], {
+            themes[comps[i]][name] = extend({}, themes[comps[i]][baseTheme], {
                 baseTheme: baseTheme
             });
         }
@@ -355,4 +355,9 @@ ms.classes.Base = function (el, settings) {
     if (!that.__ready) {
         construct();
     }
+};
+
+export {
+    $,
+    extend
 };

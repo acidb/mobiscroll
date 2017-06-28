@@ -1,7 +1,8 @@
-import mobiscroll from '../core/core';
+import mobiscroll, {
+    $
+} from '../core/core';
 
-var empty = function () {},
-    $ = mobiscroll.$;
+var empty = function () {};
 
 var ProgressBase = function (elm, settings, inherit) {
     var $elm,
@@ -28,7 +29,10 @@ var ProgressBase = function (elm, settings, inherit) {
         // Check if the element was already initialized
         wasInit = !!$parent;
 
-        $parent = that._$parent = wasInit ? $parent : $elm.parent();
+        $parent = $elm.parent();
+        $parent = $parent.hasClass('mbsc-input-wrap') ? $parent.parent() : $parent;
+
+        that._$parent = $parent;
 
         if (cssClass) {
             $parent.removeClass(cssClass);

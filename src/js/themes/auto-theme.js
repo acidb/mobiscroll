@@ -1,10 +1,11 @@
-import mobiscroll from '../core/core';
+import mobiscroll, {
+    $
+} from '../core/core';
 import platform from '../util/platform';
 
 export default mobiscroll;
 
 const themes = mobiscroll.themes;
-const $ = mobiscroll.$;
 
 let theme;
 

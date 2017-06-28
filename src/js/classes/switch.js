@@ -1,8 +1,9 @@
-import mobiscroll from '../core/core';
+import mobiscroll, {
+    $,
+    extend
+} from '../core/core';
 import FormControl from './form-control';
 import SliderBase from './slider-base';
-
-const $ = mobiscroll.$;
 
 const Switch = function (elm, settings) {
     var $elm,
@@ -13,7 +14,7 @@ const Switch = function (elm, settings) {
 
     settings = settings || {};
 
-    $.extend(settings, {
+    extend(settings, {
         changeEvent: 'click',
         round: false
     });

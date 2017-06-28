@@ -3,7 +3,16 @@ node_modules
 
 *.tgz
 
+bundles/*.d.ts
+bundles/*.metadata.json
+
 src/js/frameworks/react.js
+src/js/frameworks/angular.js
+src/js/frameworks/angular.d.ts
+src/js/modules/*.js
+src/js/modules/*.d.ts
+src/js/*.angular.js
+src/js/*.angular.d.ts
 src/js/*.react.js
 src/less/themes/*.css
 

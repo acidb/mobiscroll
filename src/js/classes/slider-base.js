@@ -1,8 +1,9 @@
-import mobiscroll from '../core/core';
+import mobiscroll, {
+    $
+} from '../core/core';
 import ProgressBase from './progress-base';
 
 var empty = function () {},
-    $ = mobiscroll.$,
     util = mobiscroll.util,
     getCoord = util.getCoord,
     testTouch = util.testTouch;
