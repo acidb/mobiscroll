@@ -1,4 +1,6 @@
-import mobiscroll from '../core/core';
+import mobiscroll, {
+    $
+} from '../core/core';
 import './page';
 import '../util/notifications';
 
@@ -24,7 +26,6 @@ import {
 
 let id = 0;
 
-const $ = mobiscroll.$;
 const classes = mobiscroll.classes;
 const instances = mobiscroll.instances;
 

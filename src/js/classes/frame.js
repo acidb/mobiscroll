@@ -1,9 +1,11 @@
-import mobiscroll from '../core/core';
+import mobiscroll, {
+    $,
+    extend
+} from '../core/core';
+import platform from '../util/platform';
 
 var $activeElm,
     preventShow,
-    $ = mobiscroll.$,
-    platform = mobiscroll.platform,
     util = mobiscroll.util,
     classes = mobiscroll.classes,
     themes = mobiscroll.themes,
@@ -12,6 +14,7 @@ var $activeElm,
     getCoord = util.getCoord,
     animEnd = util.animEnd,
     needsFixed = /(iphone|ipod)/i.test(navigator.userAgent) && platform.majorVersion >= 7,
+    isAndroid = platform.name == 'android',
     isIOS8 = platform.name == 'ios' && platform.majorVersion == 8,
     empty = function () {},
     prevdef = function (ev) {
@@ -101,7 +104,7 @@ const Frame = function (el, settings, inherit) {
     }
 
     function onShow(prevFocus) {
-        if (!prevFocus) {
+        if (!prevFocus && !isAndroid) {
             overlay.focus();
         }
         that.ariaMessage(s.ariaMessage);
@@ -155,8 +158,6 @@ const Frame = function (el, settings, inherit) {
             }
         }
 
-        $activeElm = null;
-
         that._isVisible = false;
 
         isInserted = false;
@@ -186,8 +187,8 @@ const Frame = function (el, settings, inherit) {
     }
 
     function onFocus(ev) {
-        if (ev.target.nodeType && !popup.contains(ev.target)) {
-            popup.focus();
+        if (ev.target.nodeType && !overlay.contains(ev.target)) {
+            overlay.focus();
         }
     }
 
@@ -198,10 +199,6 @@ const Frame = function (el, settings, inherit) {
 
         if (that.show() !== false) {
             $activeElm = $elm;
-
-            setTimeout(function () {
-                preventShow = false;
-            }, 300); // With jQuery < 1.9 focus is fired twice in IE
         }
     }
 
@@ -431,6 +428,8 @@ const Frame = function (el, settings, inherit) {
                 $elm.on('focus.mbsc', function () {
                     if (!preventShow) {
                         show(beforeShow, $elm);
+                    } else {
+                        preventShow = false;
                     }
                 });
             }
@@ -547,6 +546,8 @@ const Frame = function (el, settings, inherit) {
         if (trigger('onBeforeShow') === false) {
             return false;
         }
+
+        $activeElm = null;
 
         doAnim = s.animate;
         buttons = s.buttons || [];
@@ -1087,7 +1088,7 @@ Frame.prototype._defaults = {
     maxPopupWidth: 600,
     disabled: false,
     closeOnOverlayTap: true,
-    showOnFocus: false,
+    showOnFocus: isAndroid, // Needed for ion-input
     showOnTap: true,
     display: 'center',
     scroll: true,
@@ -1106,7 +1107,7 @@ themes.frame.mobiscroll = {
     btnWidth: false
 };
 
-themes.scroller.mobiscroll = $.extend({}, themes.frame.mobiscroll, {
+themes.scroller.mobiscroll = extend({}, themes.frame.mobiscroll, {
     rows: 5,
     showLabel: false,
     selectedLineBorder: 1,

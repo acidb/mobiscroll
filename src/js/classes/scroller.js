@@ -1,10 +1,11 @@
-import mobiscroll from '../core/core';
+import mobiscroll, {
+    $,
+    extend
+} from '../core/core';
 import Frame from './frame';
 import ScrollView from './scrollview';
 
-var $ = mobiscroll.$,
-    extend = $.extend,
-    platform = mobiscroll.platform,
+var platform = mobiscroll.platform,
     util = mobiscroll.util,
     pr = util.jsPrefix,
     pref = util.prefix,

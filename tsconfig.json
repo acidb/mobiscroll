@@ -1,0 +1,24 @@
+{
+    "compilerOptions": {
+        "module": "es6",
+        "moduleResolution": "node",
+        "noImplicitAny": true,
+        "removeComments": true,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "target": "es5",
+        "declaration": true,
+        "lib": [
+            "es2015", "dom"
+        ],
+        "baseUrl": "./"
+    },
+    "files": [
+        "bundles/mobiscroll.angular.ts"
+    ],
+    "angularCompilerOptions": {
+        "skipTemplateCodegen": true,
+        "strictMetadataEmit": true,
+        "flatModuleOutFile": "mobiscroll.angular.min"
+    }
+}

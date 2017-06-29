@@ -1,4 +1,7 @@
-import mobiscroll from '../core/core';
+import mobiscroll, {
+    $,
+    extend
+} from '../core/core';
 
 export default mobiscroll;
 
@@ -71,7 +74,6 @@ function initRipple($markup, selector, disabled, nohl) {
 
 var $active,
     $ripple,
-    $ = mobiscroll.$,
     themes = mobiscroll.themes,
     util = mobiscroll.util,
     testTouch = util.testTouch,
@@ -86,7 +88,7 @@ themes.frame.material = {
     }
 };
 
-themes.scroller.material = $.extend({}, themes.frame.material, {
+themes.scroller.material = extend({}, themes.frame.material, {
     showLabel: false,
     selectedLineBorder: 2,
     weekDays: 'min',

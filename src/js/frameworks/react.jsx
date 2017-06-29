@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import mobiscroll from '../core/dom';
-import '../core/core';
+import { $, extend } from '../core/core';
 
 // import createReactClass from 'create-react-class';
 // import PropTypes from 'prop-types';
@@ -62,7 +62,7 @@ mobiscroll.react = {
             },
             // updates mobiscroll with new options
             componentDidUpdate: function () {
-                var settings = mobiscroll.$.extend({}, this.state.options);
+                var settings = extend({}, this.state.options);
                 if (this.optimizeUpdate) {
                     if (this.optimizeUpdate.updateOptions) {
                         this.instance.option(settings);
@@ -107,7 +107,7 @@ mobiscroll.react = {
                     // the priority of the options passed (later will have higher prio): 
                     // 1. options property
                     // 2. individual properties
-                    optionObj = mobiscroll.$.extend({}, optionObj, other);
+                    optionObj = extend({}, optionObj, other);
                 }
                 return optionObj;
             }
@@ -316,7 +316,7 @@ mobiscroll.react = {
             ].concat(addedPropTypes),
             componentDidMount: function () {
                 // get settings from state
-                var settings = mobiscroll.$.extend({}, name, this.state.options);
+                var settings = extend({}, name, this.state.options);
                 // initialize the mobiscroll
                 this.instance = new mobiscroll.classes[name.component || 'Scroller'](ReactDOM.findDOMNode(this), settings);
                 if (this.props.value !== undefined) {
@@ -338,7 +338,7 @@ mobiscroll.react = {
             ].concat(propTypesMixins),
             componentDidMount: function () {
                 // get settings from state
-                var settings = mobiscroll.$.extend({}, name, this.state.options);
+                var settings = extend({}, name, this.state.options);
                 // get the DOM node
                 var DOMNode = ReactDOM.findDOMNode(this);
 
@@ -352,7 +352,7 @@ mobiscroll.react = {
                 // Stop Propagation of click events to avoid the same data-reactid js error when inline mode
                 // the _markup does not exist for components that are not derived from Mobiscroll Frame (listview, menustrip, forms)
                 // we can use the original dom node for these non-frame components, because they dont clone the markup
-                (this.instance._markup || mobiscroll.$(DOMNode)).on('click', function (event) {
+                (this.instance._markup || $(DOMNode)).on('click', function (event) {
                     event.stopPropagation();
                 });
             },
@@ -365,7 +365,7 @@ mobiscroll.react = {
                 // the _markup does not exist for components that are not derived from Mobiscroll Frame (listview, menustrip, forms)
                 // we can use the original dom node for these non-frame components, because they dont clone the markup
                 var DOMNode = ReactDOM.findDOMNode(this);
-                (this.instance._markup || mobiscroll.$(DOMNode)).on('click', function (event) {
+                (this.instance._markup || $(DOMNode)).on('click', function (event) {
                     event.stopPropagation();
                 });
             }
@@ -382,7 +382,7 @@ mobiscroll.react = {
             ].concat(addedPropTypes),
             componentDidMount: function () {
                 // get settings from state
-                var settings = mobiscroll.$.extend({}, name, this.state.options);
+                var settings = extend({}, name, this.state.options);
 
                 // initialize the mobiscroll
                 this.instance = new mobiscroll.classes[name.component || 'Scroller'](this.inputNode, settings);
@@ -392,7 +392,7 @@ mobiscroll.react = {
                 }
 
                 // Add change event listener if handler is passed
-                mobiscroll.$(this.inputNode).on('change', this.props.onChange || (function () { }));
+                $(this.inputNode).on('change', this.props.onChange || (function () { }));
             },
             inputMounted: function (input) {
                 this.inputNode = input;
@@ -529,5 +529,5 @@ mobiscroll.react = {
     }
 };
 
-export { mobiscroll, createReactClass, PropTypes };
+export { $, extend, mobiscroll, createReactClass, PropTypes };
 export default mobiscroll;

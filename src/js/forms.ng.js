@@ -1,6 +1,6 @@
 import angular from 'angular';
-import mobiscroll from './frameworks/angular';
-import './page.angular';
+import mobiscroll from './frameworks/ng';
+import './page.ng';
 import './classes/forms';
 
 var guid = +new Date();

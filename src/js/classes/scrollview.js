@@ -1,7 +1,8 @@
-import mobiscroll from '../core/core';
+import mobiscroll, {
+    $
+} from '../core/core';
 
-var $ = mobiscroll.$,
-    classes = mobiscroll.classes,
+var classes = mobiscroll.classes,
     util = mobiscroll.util,
     constrain = util.constrain,
     pr = util.jsPrefix,

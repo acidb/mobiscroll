@@ -1,10 +1,11 @@
-import mobiscroll from '../core/core';
+import mobiscroll, {
+    $,
+    extend
+} from '../core/core';
 import {
     wrapLabel
 } from '../util/forms';
 
-const $ = mobiscroll.$;
-const extend = $.extend;
 const util = mobiscroll.util;
 const getCoord = util.getCoord;
 const testTouch = util.testTouch;
@@ -38,7 +39,8 @@ class FormControl {
 
         const s = extend({}, defaults, settings);
         const $elm = $(elm);
-        const $parent = $elm.parent();
+        const $p = $elm.parent();
+        const $parent = $p.hasClass('mbsc-input-wrap') ? $p.parent() : $p;
         // Check for inline mobiscroll components
         const $frame = $elm.next().hasClass('mbsc-fr') ? $elm.next() : null;
         const type = getControlType($elm);

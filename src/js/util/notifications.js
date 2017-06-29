@@ -1,12 +1,13 @@
-import mobiscroll from '../core/core';
+import mobiscroll, {
+    $,
+    extend
+} from '../core/core';
 
 import Widget from '../classes/widget';
 
 const hasPromise = !!window.Promise;
 const popupQueue = [];
 const notificationQueue = [];
-const $ = mobiscroll.$;
-const extend = $.extend;
 
 function showPopup(popup) {
     if (!popupQueue.length) {

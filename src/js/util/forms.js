@@ -1,9 +1,12 @@
-import mobiscroll from '../core/core';
+import {
+    $,
+    extend
+} from '../core/core';
 import {
     tap
 } from '../util/tap';
 
-const $ = mobiscroll.$;
+const wrapClass = 'mbsc-input-wrap';
 
 function addIcon($control, ic) {
     var icons = {},
@@ -12,11 +15,15 @@ function addIcon($control, ic) {
         align = $control.attr('data-icon-align') || 'left',
         icon = $control.attr('data-icon');
 
-    // Wrap input
-    $('<span class="mbsc-input-wrap"></span>').insertAfter($control).append($control);
+    if ($parent.hasClass(wrapClass)) {
+        $parent = $parent.parent();
+    } else {
+        // Wrap input
+        $('<span class="' + wrapClass + '"></span>').insertAfter($control).append($control);
+    }
 
     if (errorMsg) {
-        $parent.find('.mbsc-input-wrap').append(errorMsg);
+        $parent.find('.' + wrapClass).append(errorMsg);
     }
 
     if (icon) {
@@ -28,20 +35,19 @@ function addIcon($control, ic) {
     }
 
     if (icon || ic) {
-        $.extend(icons, ic);
+        extend(icons, ic);
 
         $parent
             .addClass((icons.right ? 'mbsc-ic-right ' : '') + (icons.left ? ' mbsc-ic-left' : ''))
-            .find('.mbsc-input-wrap')
+            .find('.' + wrapClass)
             .append(icons.left ? '<span class="mbsc-input-ic mbsc-left-ic mbsc-ic mbsc-ic-' + icons.left + '"></span>' : '')
             .append(icons.right ? '<span class="mbsc-input-ic mbsc-right-ic mbsc-ic mbsc-ic-' + icons.right + '"></span>' : '');
     }
 }
 
-function addIconToggle(that, $control) {
+function addIconToggle(that, $parent, $control) {
     var icons = {},
         control = $control[0],
-        $parent = $control.parent(),
         toggle = $control.attr('data-password-toggle'),
         iconShow = $control.attr('data-icon-show') || 'eye',
         iconHide = $control.attr('data-icon-hide') || 'eye-blocked';

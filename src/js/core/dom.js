@@ -1125,3 +1125,7 @@ $.matches = function (element, selector) {
     return matchesSelector.call(element, selector);
 
 };
+
+export {
+    $
+};
