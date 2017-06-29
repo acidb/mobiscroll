@@ -43,6 +43,13 @@ HTML:
         <button type="submit">Sign In</button>
     </div>
 
+Make sure to load the styles as well. The method of loading css styles may vary depending on the project type and module bundler you use.
+A typical setup is using webpack's [css-loader](https://webpack.js.org/guides/code-splitting-css/#importing-css), optionally combined with the 
+[ExtractTextWebpackPlugin](https://webpack.js.org/plugins/extract-text-webpack-plugin/). With this configuration you can simply import the css
+as well in the js file, where Mobiscroll components are used:
+
+    import 'mobiscroll-javascript/dist/css/mobiscroll.min.css';
+
 Elements
 -----------------
 
