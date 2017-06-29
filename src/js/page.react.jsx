@@ -1,3 +1,5 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
 import { extend, mobiscroll, createReactClass, PropTypes } from './frameworks/react';
 import './classes/page';
 

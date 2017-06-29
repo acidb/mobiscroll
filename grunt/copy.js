@@ -15,27 +15,27 @@ module.exports = {
     dist: {
         files: [{
             expand: true,
-            src: ['dist/**', 'LICENSE', 'README.md'],
+            src: ['dist/**', 'LICENSE'],
             dest: 'packages/angular/'
         }, {
             expand: true,
-            src: ['dist/**', 'LICENSE', 'README.md'],
+            src: ['dist/**', 'LICENSE'],
             dest: 'packages/angularjs/'
         }, {
             expand: true,
-            src: ['dist/**', 'LICENSE', 'README.md'],
+            src: ['dist/**', 'LICENSE'],
             dest: 'packages/javascript/'
         }, {
             expand: true,
-            src: ['dist/**', 'LICENSE', 'README.md'],
+            src: ['dist/**', 'LICENSE'],
             dest: 'packages/jquery/'
         }, {
             expand: true,
-            src: ['dist/**', 'LICENSE', 'README.md'],
+            src: ['dist/**', 'LICENSE'],
             dest: 'packages/knockout/'
         }, {
             expand: true,
-            src: ['dist/**', 'LICENSE', 'README.md'],
+            src: ['dist/**', 'LICENSE'],
             dest: 'packages/react/'
         }]
     }

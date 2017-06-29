@@ -1,6 +1,6 @@
 {
     "name": "mobiscroll-angular",
-    "version": "3.2.0",
+    "version": "3.2.1",
     "description": "Angular UI library for progressive web and hybrid apps",
     "homepage": "https://mobiscroll.com/",
     "license": "Apache-2.0",
@@ -28,8 +28,8 @@
         "url": "https://github.com/acidb/mobiscroll/issues"
     },
     "main": "dist/js/mobiscroll.angular.min.js",
+    "types": "dist/js/mobiscroll.angular.min.d.ts",
     "style": "dist/css/mobiscroll.min.css",
-    "typings": "dist/js/mobiscroll.angular.min.d.ts",
     "files": [
         "dist/js/mobiscroll.angular.d.ts",
         "dist/js/mobiscroll.angular.min.js",

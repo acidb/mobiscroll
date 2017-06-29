@@ -4,9 +4,9 @@ import { MbscForm, MbscInput, MbscDropdown, MbscTextarea, MbscButton, MbscCheckb
 import { MbscPage } from '../page.angular';
 import { MbscScroller } from '../scroller.angular';
 
-
 const directives = [
-    MbscScroller, MbscForm, MbscPage, MbscInput, MbscDropdown, MbscTextarea, MbscButton, MbscCheckbox, MbscSwitch, MbscStepper, MbscProgress, MbscSlider, MbscRadio, MbscRadioGroup, MbscSegmentedGroup, MbscSegmented,
+    MbscForm, MbscPage, MbscInput, MbscDropdown, MbscTextarea, MbscButton, MbscCheckbox, MbscSwitch, MbscStepper, MbscProgress, MbscSlider, MbscRadio, MbscRadioGroup, MbscSegmentedGroup, MbscSegmented,
+    MbscScroller
 ];
 
 @NgModule({
