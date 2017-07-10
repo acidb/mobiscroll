@@ -1,29 +1,43 @@
-var platform,
+var os,
     vers,
+    majorVersion,
+    minorVersion,
     version = [],
-    userAgent = navigator.userAgent,
-    device = userAgent.match(/Android|iPhone|iPad|iPod|Windows Phone|Windows|MSIE/i);
+    isBrowser = typeof window !== 'undefined',
+    userAgent = isBrowser ? navigator.userAgent : '',
+    device = userAgent.match(/Android|iPhone|iPad|iPod|Windows Phone|Windows|MSIE/i),
+    raf = (isBrowser && window.requestAnimationFrame) || function (func) {
+        func();
+    },
+    rafc = (isBrowser && window.cancelAnimationFrame) || function () {};
 
 if (/Android/i.test(device)) {
-    platform = 'android';
-    vers = navigator.userAgent.match(/Android\s+([\d\.]+)/i);
+    os = 'android';
+    vers = userAgent.match(/Android\s+([\d\.]+)/i);
     if (vers) {
         version = vers[0].replace('Android ', '').split('.');
     }
 } else if (/iPhone|iPad|iPod/i.test(device)) {
-    platform = 'ios';
-    vers = navigator.userAgent.match(/OS\s+([\d\_]+)/i);
+    os = 'ios';
+    vers = userAgent.match(/OS\s+([\d\_]+)/i);
     if (vers) {
         version = vers[0].replace(/_/g, '.').replace('OS ', '').split('.');
     }
 } else if (/Windows Phone/i.test(device)) {
-    platform = 'wp';
+    os = 'wp';
 } else if (/Windows|MSIE/i.test(device)) {
-    platform = 'windows';
+    os = 'windows';
 }
 
-export default {
-    name: platform,
-    majorVersion: version[0],
-    minorVersion: version[1]
+majorVersion = version[0];
+minorVersion = version[1];
+
+export {
+    os,
+    majorVersion,
+    minorVersion,
+    isBrowser,
+    userAgent,
+    raf,
+    rafc
 };

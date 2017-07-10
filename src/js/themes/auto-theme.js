@@ -1,7 +1,10 @@
 import mobiscroll, {
     $
 } from '../core/core';
-import platform from '../util/platform';
+import {
+    os,
+    majorVersion
+} from '../util/platform';
 
 export default mobiscroll;
 
@@ -9,11 +12,11 @@ const themes = mobiscroll.themes;
 
 let theme;
 
-if (platform.name == 'android') {
-    theme = platform.majorVersion >= 5 ? 'material' : 'android-holo';
-} else if (platform.name == 'ios') {
+if (os == 'android') {
+    theme = majorVersion >= 5 ? 'material' : 'android-holo';
+} else if (os == 'ios') {
     theme = 'ios';
-} else if (platform.name == 'wp') {
+} else if (os == 'wp') {
     theme = 'wp';
 }
 

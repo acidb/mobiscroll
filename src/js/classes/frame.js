@@ -2,7 +2,12 @@ import mobiscroll, {
     $,
     extend
 } from '../core/core';
-import platform from '../util/platform';
+import {
+    os,
+    majorVersion,
+    isBrowser,
+    userAgent
+} from '../util/platform';
 
 var $activeElm,
     preventShow,
@@ -13,9 +18,10 @@ var $activeElm,
     isString = util.isString,
     getCoord = util.getCoord,
     animEnd = util.animEnd,
-    needsFixed = /(iphone|ipod)/i.test(navigator.userAgent) && platform.majorVersion >= 7,
-    isAndroid = platform.name == 'android',
-    isIOS8 = platform.name == 'ios' && platform.majorVersion == 8,
+    needsFixed = /(iphone|ipod)/i.test(userAgent) && majorVersion >= 7,
+    isAndroid = os == 'android',
+    isIOS = os == 'ios',
+    isIOS8 = isIOS && majorVersion == 8,
     empty = function () {},
     prevdef = function (ev) {
         ev.preventDefault();
@@ -1088,7 +1094,7 @@ Frame.prototype._defaults = {
     maxPopupWidth: 600,
     disabled: false,
     closeOnOverlayTap: true,
-    showOnFocus: isAndroid, // Needed for ion-input
+    showOnFocus: isAndroid || isIOS, // Needed for ion-input
     showOnTap: true,
     display: 'center',
     scroll: true,
@@ -1119,11 +1125,13 @@ themes.scroller.mobiscroll = extend({}, themes.frame.mobiscroll, {
     btnCalNextClass: 'mbsc-ic mbsc-ic-arrow-right5'
 });
 
-// Prevent re-show on window focus
-$(window).on('focus', function () {
-    if ($activeElm) {
-        preventShow = true;
-    }
-});
+if (isBrowser) {
+    // Prevent re-show on window focus
+    $(window).on('focus', function () {
+        if ($activeElm) {
+            preventShow = true;
+        }
+    });
+}
 
 export default Frame;

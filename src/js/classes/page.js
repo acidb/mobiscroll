@@ -1,5 +1,6 @@
 import mobiscroll, {
-    $
+    $,
+    isBrowser
 } from '../core/core';
 
 var classes = mobiscroll.classes;
@@ -86,24 +87,26 @@ mobiscroll.presetShort('page', 'Page');
 // Init mbsc-page elements on page load or when mbsc-enhance event is triggeres
 // ---
 
-$(function () {
+if (isBrowser) {
+    $(function () {
 
-    var selector = '[mbsc-page]';
+        var selector = '[mbsc-page]';
 
-    $(selector).each(function () {
-        new classes.Page(this);
+        $(selector).each(function () {
+            new classes.Page(this);
+        });
+
+        $(document).on('mbsc-enhance', function (ev, settings) {
+            if ($(ev.target).is(selector)) {
+                new classes.Page(ev.target, settings);
+            } else {
+                $(selector, ev.target).each(function () {
+                    new classes.Page(this, settings);
+                });
+            }
+        });
     });
-
-    $(document).on('mbsc-enhance', function (ev, settings) {
-        if ($(ev.target).is(selector)) {
-            new classes.Page(ev.target, settings);
-        } else {
-            $(selector, ev.target).each(function () {
-                new classes.Page(this, settings);
-            });
-        }
-    });
-});
+}
 
 // ---
 // Init end

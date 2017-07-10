@@ -1,5 +1,6 @@
 import {
-    $
+    $,
+    isBrowser
 } from '../core/core';
 import Input from './input';
 
@@ -55,8 +56,10 @@ function scrollTextArea(elm) {
     }
 }
 
-// Set height of textareas on viewport size changes
-$(window).on('resize orientationchange', sizeTextAreas);
+if (isBrowser) {
+    // Set height of textareas on viewport size changes
+    $(window).on('resize orientationchange', sizeTextAreas);
+}
 
 class TextArea extends Input {
     constructor(elm) {

@@ -1,5 +1,5 @@
 /*!
- * Mobiscroll v3.2.1
+ * Mobiscroll v3.2.2
  * http://mobiscroll.com
  *
  * Copyright 2010-2016, Acid Media
@@ -8,7 +8,12 @@
  */
 
 import mobiscroll from './mobiscroll';
-import platform from '../util/platform';
+import {
+    os,
+    majorVersion,
+    minorVersion,
+    isBrowser
+} from '../util/platform';
 import {
     preventClick,
     getCoord,
@@ -39,20 +44,27 @@ function testPrefix() {
     return '';
 }
 
-var ms,
+var animEnd,
+    mod,
+    ms,
+    pr,
+    prefix,
     empty = function () {},
     $ = mobiscroll.$,
     id = +new Date(),
     instances = {},
-    extend = $.extend,
-    mod = document.createElement('modernizr').style,
-    prefix = testPrefix(),
-    pr = prefix.replace(/^\-/, '').replace(/\-$/, '').replace('moz', 'Moz'),
+    extend = $.extend;
+
+if (isBrowser) {
+    mod = document.createElement('modernizr').style;
+    prefix = testPrefix();
+    pr = prefix.replace(/^\-/, '').replace(/\-$/, '').replace('moz', 'Moz');
     animEnd = mod.animation !== undefined ? 'animationend' : 'webkitAnimationEnd';
+}
 
 ms = extend(mobiscroll, {
     $: $,
-    version: '3.2.1',
+    version: '3.2.2',
     util: {
         prefix: prefix,
         jsPrefix: pr,
@@ -161,7 +173,11 @@ ms = extend(mobiscroll, {
         menustrip: {},
         progress: {}
     },
-    platform: platform,
+    platform: {
+        name: os,
+        majorVersion: majorVersion,
+        minorVersion: minorVersion
+    },
     i18n: {},
     instances: instances,
     classes: {},
@@ -359,5 +375,6 @@ ms.classes.Base = function (el, settings) {
 
 export {
     $,
-    extend
+    extend,
+    isBrowser
 };

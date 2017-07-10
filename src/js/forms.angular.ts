@@ -251,7 +251,7 @@ export class MbscInputBase extends MbscFormValueBase {
         <label [class.mbsc-err]="error">
             <ng-content></ng-content>
             <span class="mbsc-input-wrap">
-                <input #initElement [type]="type" [placeholder]="placeholder" [(ngModel)]="innerValue" 
+                <input #initElement [type]="type" [placeholder]="placeholder" [(ngModel)]="innerValue" (blur)="onTouch($event)"
                     [attr.name]="name"
                     [attr.data-icon]="icon ? icon : null"
                     [attr.data-icon-align]="iconAlign ? iconAlign : null"
@@ -287,7 +287,7 @@ export class MbscInput extends MbscInputBase {
         <label [class.mbsc-err]="error">
             <ng-content></ng-content>
             <span class="mbsc-input-wrap">
-                <textarea #initElement [placeholder]="placeholder" [(ngModel)]="innerValue" 
+                <textarea #initElement [placeholder]="placeholder" [(ngModel)]="innerValue" (blur)="onTouch($event)"
                     [attr.name]="name"
                     [attr.data-icon]="icon ? icon : null"
                     [attr.data-icon-align]="iconAlign ? iconAlign : null"
@@ -326,7 +326,8 @@ export class MbscTextarea extends MbscInputBase {
                     [attr.name]="name"
                     [attr.data-icon]="icon ? icon : null"
                     [attr.data-icon-align]="iconAlign ? iconAlign : null"
-                    [disabled]="disabled">
+                    [disabled]="disabled"
+                    (blur)="onTouch($event)">
                     <ng-content></ng-content>
                 </select>
                 <span *ngIf="error && errorMessage" class="mbsc-err-msg">{{errorMessage}}</span>
@@ -451,7 +452,8 @@ export class MbscButton extends MbscFormBase {
                 type="checkbox"
                 [attr.name]="name"
                 [disabled]="disabled"
-                [(ngModel)]="innerValue" />
+                [(ngModel)]="innerValue"
+                (blur)="onTouch($event)" />
             <ng-content></ng-content>
         </label>
     `
@@ -478,7 +480,8 @@ export class MbscCheckbox extends MbscFormValueBase {
                 type="checkbox"
                 data-role="switch"
                 [attr.name]="name"
-                [disabled]="disabled" />
+                [disabled]="disabled"
+                (blur)="onTouch($event)" />
         </label>
     `,
     exportAs: 'mobiscroll'
@@ -760,6 +763,7 @@ export class MbscRadioGroupBase extends MbscFormValueBase {
         super(hostElement, formService, control, null);
         this._radioService.onValueChanged().subscribe(v => {
             this.innerValue = v;
+            this.onTouch();
         });
     }
 
@@ -963,7 +967,8 @@ export class MbscSegmented extends MbscFormBase {
                 [attr.name]="name"
                 [attr.max]="max !== undefined ? max : null"
                 [attr.min]="min !== undefined ? min : null"
-                [attr.step]="step !== undefined ? step : null" />
+                [attr.step]="step !== undefined ? step : null"
+                (blur)="onTouch($event)" />
         </label>
     `,
     exportAs: 'mobiscroll'

@@ -13,11 +13,11 @@ declare namespace mobiscroll {
     let apiUrl: string;
     let uid: string;
 
-    function alert(config: object): Promise<boolean>;
-    function confirm(config: object): Promise<boolean>;
-    function prompt(config: object): Promise<string>;
-    function toast(config: object): Promise<boolean>;
-    function snackbar(config: object): Promise<boolean>;
+    function alert(config: any): Promise<boolean>;
+    function confirm(config: any): Promise<boolean>;
+    function prompt(config: any): Promise<string>;
+    function toast(config: any): Promise<boolean>;
+    function snackbar(config: any): Promise<boolean>;
 
     function customTheme(name: string, baseTheme: string): void;
 }

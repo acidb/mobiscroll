@@ -1,11 +1,12 @@
 import mobiscroll, {
     $,
-    extend
+    extend,
+    isBrowser
 } from '../core/core';
 
 import Widget from '../classes/widget';
 
-const hasPromise = !!window.Promise;
+const hasPromise = isBrowser && !!window.Promise;
 const popupQueue = [];
 const notificationQueue = [];
 

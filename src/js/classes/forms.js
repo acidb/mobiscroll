@@ -1,5 +1,6 @@
 import mobiscroll, {
-    $
+    $,
+    isBrowser
 } from '../core/core';
 import './page';
 import '../util/notifications';
@@ -231,42 +232,44 @@ mobiscroll.presetShort('form', 'Form');
 // Init mbsc-enhance elements on page load
 // ---
 
-$(function () {
+if (isBrowser) {
+    $(function () {
 
-    var selector = '[mbsc-enhance],[mbsc-form]';
+        var selector = '[mbsc-enhance],[mbsc-form]';
 
-    $(selector).each(function () {
-        new Form(this);
-    });
+        $(selector).each(function () {
+            new Form(this);
+        });
 
-    $(document).on('mbsc-enhance', function (ev, settings) {
-        if ($(ev.target).is(selector)) {
-            new Form(ev.target, settings);
-        } else {
-            $(selector, ev.target).each(function () {
-                new Form(this, settings);
-            });
-        }
-    });
-
-    $(document).on('mbsc-refresh', function (ev) {
-        var inst;
-
-        if ($(ev.target).is(selector)) {
-            inst = instances[ev.target.id];
-            if (inst) {
-                inst.refresh();
+        $(document).on('mbsc-enhance', function (ev, settings) {
+            if ($(ev.target).is(selector)) {
+                new Form(ev.target, settings);
+            } else {
+                $(selector, ev.target).each(function () {
+                    new Form(this, settings);
+                });
             }
-        } else {
-            $(selector, ev.target).each(function () {
-                inst = instances[this.id];
+        });
+
+        $(document).on('mbsc-refresh', function (ev) {
+            var inst;
+
+            if ($(ev.target).is(selector)) {
+                inst = instances[ev.target.id];
                 if (inst) {
                     inst.refresh();
                 }
-            });
-        }
+            } else {
+                $(selector, ev.target).each(function () {
+                    inst = instances[this.id];
+                    if (inst) {
+                        inst.refresh();
+                    }
+                });
+            }
+        });
     });
-});
+}
 
 // ---
 // Init end

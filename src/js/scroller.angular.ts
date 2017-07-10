@@ -66,7 +66,7 @@ export class MbscScroller extends MbscControlBase {
     ngAfterViewInit() {
         super.ngAfterViewInit();
 
-        let options = extend({}, this.options);
+        let options = extend({}, this.options, this.optionExtensions);
         this._instance = new Scroller(this.element, options);
 
         // set the initial value - needed when there's no ngModel in use
