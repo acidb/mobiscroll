@@ -2,18 +2,21 @@ import mobiscroll, {
     $,
     extend
 } from '../core/core';
+import {
+    os,
+    isBrowser
+} from '../util/platform';
 import Frame from './frame';
 import ScrollView from './scrollview';
 
-var platform = mobiscroll.platform,
-    util = mobiscroll.util,
+var util = mobiscroll.util,
     pr = util.jsPrefix,
     pref = util.prefix,
     getCoord = util.getCoord,
     testTouch = util.testTouch,
-    css = window.CSS,
+    css = isBrowser ? window.CSS : null,
     has3d = css && css.supports && css.supports("(transform-style: preserve-3d)"),
-    force2D = !has3d || platform.name == 'wp' || platform.name == 'android';
+    force2D = !has3d || os == 'wp' || os == 'android';
 
 mobiscroll.presetShort('scroller', 'Scroller', false);
 

@@ -154,6 +154,22 @@ abstract class MbscValueBase extends MbscBase {
 }
 
 abstract class MbscControlBase extends MbscValueBase implements ControlValueAccessor {
+    /**
+     * Returns an object containing the extensions of the option object 
+     */
+    get optionExtensions(): any {
+        let externalOnClose = this.options && this.options.onClose;
+
+        return {
+            onClose: function (event: any, inst: any) { // Call the onTouch function when the scroller closes - sets the form control touched
+                this.onTouch();
+                if (externalOnClose) {
+                    externalOnClose(event, inst);
+                }
+            }.bind(this)
+        }
+    }
+
     protected _needsTimeout: boolean = true;
     /**
      * This function propagates the value to the model
@@ -182,14 +198,18 @@ abstract class MbscControlBase extends MbscValueBase implements ControlValueAcce
         let that = this;
         $(this.element).on('change', function () {
             that.zone.run(function () {
+                let value = that._instance.getVal();
                 if (that.control) {
-                    that.control.control.patchValue(that._instance.getVal());
+                    that.onChange(value);
+                    that.control.control.patchValue(value);
                 } else {
-                    that.onChangeEmitter.emit(that._instance.getVal());
+                    that.onChangeEmitter.emit(value);
                 }
             })
         });
     }
+
+    protected oldAccessor: any;
 
     /**
      * Constructs the Base Control for value changes
@@ -200,11 +220,19 @@ abstract class MbscControlBase extends MbscValueBase implements ControlValueAcce
     constructor(initialElement: ElementRef, zone: NgZone, protected control: NgControl, protected _inputService: MbscInputService) {
         super(initialElement, zone);
 
-        if (control) {
-            control.valueAccessor = this;
-            if (_inputService) {
-                _inputService.isControlSet = true;
+        this.overwriteAccessor();
+
+        if (_inputService) {
+            _inputService.isControlSet = true;
+        }
+    }
+
+    overwriteAccessor() {
+        if (this.control) {
+            if (this.control.valueAccessor !== this) {
+                this.oldAccessor = this.control.valueAccessor;
             }
+            this.control.valueAccessor = this;
         }
     }
 
@@ -213,10 +241,14 @@ abstract class MbscControlBase extends MbscValueBase implements ControlValueAcce
 
         this.handleChange();
 
-        if (this.control) {
-            this.control.valueAccessor = this;
+        this.overwriteAccessor();
+
+        // Register the control again to overwrite onTouch and onChange
+        if (this.control && (this.control as any)._setUpControl) {
+            (this.control as any)._setUpControl();
         }
     }
+
 
     /* ControlValueAccessor Interface */
 
@@ -236,9 +268,24 @@ abstract class MbscControlBase extends MbscValueBase implements ControlValueAcce
         if (this._needsTimeout) {
             setTimeout(() => {
                 this.setNewValueProxy(v);
+                this.oldAccessorWrite(v); // call the oldAccessor writeValue if it was overwritten
             });
         } else {
             this.setNewValueProxy(v);
+            this.oldAccessorWrite(v); // call the oldAccessor writeValue if it was overwritten
+        }
+    }
+
+    /**
+     * Call the overwritten accessor writeValue
+     */
+    oldAccessorWrite(v: any) {
+        if (this.oldAccessor) {
+            if (this._instance) {
+                this.oldAccessor.writeValue(this._instance._value);
+            } else {
+                this.oldAccessor.writeValue(v);
+            }
         }
     }
 }

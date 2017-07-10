@@ -1,5 +1,9 @@
 import ms from '../core/mobiscroll';
-import platform from './platform';
+import {
+    os,
+    majorVersion,
+    isBrowser
+} from './platform';
 
 let tapped = 0;
 
@@ -101,18 +105,20 @@ function bustClick(ev) {
     }
 }
 
-['mouseover', 'mousedown', 'mouseup', 'click'].forEach((ev) => {
-    document.addEventListener(ev, bustClick, true);
-});
+if (isBrowser) {
+    ['mouseover', 'mousedown', 'mouseup', 'click'].forEach((ev) => {
+        document.addEventListener(ev, bustClick, true);
+    });
 
-if (platform.name == 'android' && platform.majorVersion < 5) {
-    document.addEventListener('change', function (ev) {
-        if (tapped && ev.target.type == 'checkbox' && !ev.target.mbscChange) {
-            ev.stopPropagation();
-            ev.preventDefault();
-        }
-        delete ev.target.mbscChange;
-    }, true);
+    if (os == 'android' && majorVersion < 5) {
+        document.addEventListener('change', function (ev) {
+            if (tapped && ev.target.type == 'checkbox' && !ev.target.mbscChange) {
+                ev.stopPropagation();
+                ev.preventDefault();
+            }
+            delete ev.target.mbscChange;
+        }, true);
+    }
 }
 
 export {

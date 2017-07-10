@@ -1,6 +1,11 @@
 import mobiscroll, {
     $
 } from '../core/core';
+import {
+    os,
+    raf,
+    rafc
+} from '../util/platform';
 
 var classes = mobiscroll.classes,
     util = mobiscroll.util,
@@ -12,13 +17,7 @@ var classes = mobiscroll.classes,
     testTouch = util.testTouch,
     isNumeric = util.isNumeric,
     isString = util.isString,
-    isIOS = /(iphone|ipod|ipad)/i.test(navigator.userAgent),
-    empty = function () {},
-    //transEnd = 'webkitTransitionEnd transitionend',
-    raf = window.requestAnimationFrame || function (x) {
-        x();
-    },
-    rafc = window.cancelAnimationFrame || empty;
+    isIOS = os == 'ios';
 
 const ScrollView = function (el, settings, inherit) {
     var $btn,
