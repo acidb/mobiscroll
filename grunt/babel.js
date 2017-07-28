@@ -1,9 +1,12 @@
 module.exports = {
     options: {
+        babelrc: false,
         plugins: [
             'transform-react-jsx',
             'transform-object-rest-spread',
-            'transform-es2015-destructuring'
+            'transform-es2015-destructuring',
+            "transform-decorators-legacy",
+            "transform-class-properties"
         ]
     },
     dist: {

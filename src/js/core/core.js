@@ -1,5 +1,5 @@
 /*!
- * Mobiscroll v3.2.2
+ * Mobiscroll v3.2.3
  * http://mobiscroll.com
  *
  * Copyright 2010-2016, Acid Media
@@ -64,7 +64,7 @@ if (isBrowser) {
 
 ms = extend(mobiscroll, {
     $: $,
-    version: '3.2.2',
+    version: '3.2.3',
     util: {
         prefix: prefix,
         jsPrefix: pr,

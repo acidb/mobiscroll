@@ -37,7 +37,7 @@ function getRipple(theme) {
 class FormControl {
     constructor(elm, settings) {
 
-        const s = extend({}, defaults, settings);
+        const s = extend({}, defaults, mobiscroll.settings, settings);
         const $elm = $(elm);
         const $p = $elm.parent();
         const $parent = $p.hasClass('mbsc-input-wrap') ? $p.parent() : $p;

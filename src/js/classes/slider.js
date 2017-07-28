@@ -84,6 +84,9 @@ const Slider = function (elm, settings, inherit) {
         if (!multiple && (value[index] != v || refresh)) {
             that._display(v);
         }
+
+        // Return validated value
+        return v;
     };
 
     that._readValue = function ($elm) {
@@ -168,6 +171,7 @@ Slider.prototype = {
     _css: 'mbsc-progress mbsc-slider',
     _hasTheme: true,
     _hasLang: true,
+    _hasDef: true,
     _defaults: {
         changeEvent: 'change',
         stopProp: true,

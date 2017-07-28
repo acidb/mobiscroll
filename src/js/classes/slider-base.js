@@ -30,6 +30,7 @@ const SliderBase = function (elm, settings, inherit) {
         min,
         moved,
         multiple,
+        oldValue,
         step,
         s,
         scale,
@@ -223,7 +224,7 @@ const SliderBase = function (elm, settings, inherit) {
         }
 
         if (that._update) {
-            that._update(v, value, index, percent, multiple, refresh, $handleCont);
+            v = that._update(v, value, index, percent, multiple, refresh, $handleCont);
         } else {
             $handleCont.css({
                 left: isRtl ? 'auto' : (percent || getPercent(v)) + '%',
@@ -238,14 +239,18 @@ const SliderBase = function (elm, settings, inherit) {
         }
 
         // Check if value changed
-        if (fill && value[index] != v) {
+        if (oldValue[index] != v) {
             changed = true;
+
+            oldValue[index] = v;
 
             // Store new value
             value[index] = v;
 
-            // Set new value to the input
-            that._fillValue(v, index, change);
+            if (fill) {
+                // Set new value to the input
+                that._fillValue(v, index, change);
+            }
         }
 
         $handle.attr('aria-valuenow', v);
@@ -288,6 +293,7 @@ const SliderBase = function (elm, settings, inherit) {
         multiple = $elm.length > 1;
         isRtl = s.rtl;
         value = [];
+        oldValue = [];
 
         // Read values
         $elm.each(function (i) {
@@ -356,6 +362,10 @@ const SliderBase = function (elm, settings, inherit) {
         if (!$.isArray(val)) {
             val = [val];
         }
+
+        $.each(val, function (i, v) {
+            value[i] = v;
+        });
 
         $.each(val, function (i, v) {
             updateValue(v, i, true, false, true, change);

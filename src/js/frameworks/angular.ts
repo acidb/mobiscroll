@@ -159,14 +159,25 @@ abstract class MbscControlBase extends MbscValueBase implements ControlValueAcce
      */
     get optionExtensions(): any {
         let externalOnClose = this.options && this.options.onClose;
+        let externalOnFill = this.options && this.options.onFill;
 
         return {
-            onClose: function (event: any, inst: any) { // Call the onTouch function when the scroller closes - sets the form control touched
+            onFill: (event: any, inst: any) => {
+                // call the oldAccessor writeValue if it was overwritten
+                if (this.oldAccessor) {
+                    this.oldAccessor.writeValue(event.valueText);
+                }
+                if (externalOnFill) {
+                    externalOnFill(event, inst);
+                }
+            },
+            onClose: (event: any, inst: any) => {
+                // Call the onTouch function when the scroller closes - sets the form control touched
                 this.onTouch();
                 if (externalOnClose) {
                     externalOnClose(event, inst);
                 }
-            }.bind(this)
+            }
         }
     }
 
@@ -194,9 +205,9 @@ abstract class MbscControlBase extends MbscValueBase implements ControlValueAcce
      * Patches the FormControl value or emits the change emitter depending on
      * whether the FormControl is used or not
      */
-    protected handleChange(): void {
+    protected handleChange(element?: any): void {
         let that = this;
-        $(this.element).on('change', function () {
+        $(element || this.element).on('change', function () {
             that.zone.run(function () {
                 let value = that._instance.getVal();
                 if (that.control) {
@@ -268,24 +279,9 @@ abstract class MbscControlBase extends MbscValueBase implements ControlValueAcce
         if (this._needsTimeout) {
             setTimeout(() => {
                 this.setNewValueProxy(v);
-                this.oldAccessorWrite(v); // call the oldAccessor writeValue if it was overwritten
             });
         } else {
             this.setNewValueProxy(v);
-            this.oldAccessorWrite(v); // call the oldAccessor writeValue if it was overwritten
-        }
-    }
-
-    /**
-     * Call the overwritten accessor writeValue
-     */
-    oldAccessorWrite(v: any) {
-        if (this.oldAccessor) {
-            if (this._instance) {
-                this.oldAccessor.writeValue(this._instance._value);
-            } else {
-                this.oldAccessor.writeValue(v);
-            }
         }
     }
 }

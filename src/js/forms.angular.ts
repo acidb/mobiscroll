@@ -247,6 +247,7 @@ export class MbscInputBase extends MbscFormValueBase {
 
 @Component({
     selector: 'mbsc-input',
+    host: { 'class': 'mbsc-control-ng' },
     template: `
         <label [class.mbsc-err]="error">
             <ng-content></ng-content>
@@ -283,6 +284,7 @@ export class MbscInput extends MbscInputBase {
 
 @Component({
     selector: 'mbsc-textarea',
+    host: { 'class': 'mbsc-control-ng' },
     template: `
         <label [class.mbsc-err]="error">
             <ng-content></ng-content>
@@ -317,6 +319,7 @@ export class MbscTextarea extends MbscInputBase {
 
 @Component({
     selector: 'mbsc-dropdown',
+    host: { 'class': 'mbsc-control-ng' },
     template: `
         <label [class.mbsc-err]="error">
             {{label}}
@@ -446,6 +449,7 @@ export class MbscButton extends MbscFormBase {
 
 @Component({
     selector: 'mbsc-checkbox',
+    host: { 'class': 'mbsc-control-ng' },
     template: `
         <label>
             <input #initElement 
@@ -473,6 +477,7 @@ export class MbscCheckbox extends MbscFormValueBase {
 
 @Component({
     selector: 'mbsc-switch',
+    host: { 'class': 'mbsc-control-ng' },
     template: `
         <label>
             <ng-content></ng-content>
@@ -542,10 +547,14 @@ export class MbscSwitch extends MbscControlBase implements OnInit {
     }
 }
 
+/**
+ * Note on the template: Wrapper needs to be a div (instead of label) - not to fire click events twice
+ */
 @Component({
     selector: 'mbsc-stepper',
+    host: { 'class': 'mbsc-control-ng' },
     template: `
-        <label>
+        <div>
             <ng-content></ng-content>
             <input #initElement
                 data-role="stepper"
@@ -555,7 +564,7 @@ export class MbscSwitch extends MbscControlBase implements OnInit {
                 [attr.step]="step !== undefined ? step : null"
                 [attr.data-val]="val ? val : null"
                 [disabled]="disabled" />
-        </label>
+        </div>
     `,
     exportAs: 'mobiscroll'
 })
@@ -638,6 +647,7 @@ export class MbscStepper extends MbscControlBase implements OnInit {
 
 @Component({
     selector: 'mbsc-progress',
+    host: { 'class': 'mbsc-control-ng' },
     template: `
         <label>
             <ng-content></ng-content>
@@ -803,6 +813,7 @@ export class MbscRadioGroup extends MbscRadioGroupBase {
 
 @Component({
     selector: 'mbsc-radio',
+    host: { 'class': 'mbsc-control-ng' },
     template: `
         <label>
             <input #initElement 
@@ -951,12 +962,14 @@ export class MbscSegmented extends MbscFormBase {
 
 @Component({
     selector: 'mbsc-slider',
+    host: { 'class': 'mbsc-control-ng' },
     template: `
         <label>
             <ng-content></ng-content>
             <input #inputElements *ngFor="let v of dummyArray" 
                 type="range"
                 [disabled]="disabled"
+                [attr.value]="dummyArray.length > 1 ? initialValue[v]: initialValue"
                 [attr.data-step-labels]="stepLabels"
                 [attr.data-template]="valueTemplate"
                 [attr.data-tooltip]="tooltip ? 'true' : null"
@@ -1096,6 +1109,13 @@ export class MbscSlider extends MbscControlBase {
 
     ngAfterViewInit() {
         super.ngAfterViewInit();
+
+        // handle change for each input (when multi value)
+        this.inputElements.forEach((input, index) => {
+            if (index) {
+                this.handleChange(input.nativeElement);
+            }
+        });
 
         let options = extend({}, this._inheritedOptions, this.options);
         this._instance = new Slider(this.inputElements.first.nativeElement, options);

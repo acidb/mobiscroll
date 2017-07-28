@@ -84,6 +84,7 @@ Switch.prototype = {
     _css: 'mbsc-switch',
     _hasTheme: true,
     _hasLang: true,
+    _hasDef: true,
     _defaults: {
         stopProp: true,
         offText: 'Off',

@@ -28,7 +28,8 @@ function showNotification(notification) {
         if (isAny) {
             notificationQueue[0].hide();
         } else {
-            notification.show();
+            // Prevent focus on show for notifications
+            notification.show(false, true);
         }
     }
 }
@@ -43,9 +44,6 @@ function getSettings(queue, settings, resolve, more) {
         context: settings.context,
         theme: settings.theme,
         closeOnOverlayTap: false,
-        // onMarkupReady: function (ev) {
-        //     form = new mobiscroll.classes.Form($('.mbsc-fr-c', ev.target));
-        // },
         onBeforeClose: function () {
             queue.shift();
         },
@@ -70,7 +68,8 @@ function getSettings(queue, settings, resolve, more) {
             if (popupQueue.length) {
                 popupQueue[0].show();
             } else if (notificationQueue.length) {
-                notificationQueue[0].show();
+                // Prevent focus on show for notifications
+                notificationQueue[0].show(false, true);
             }
         }
     }, more);
@@ -121,6 +120,7 @@ function showSnackbar(widget, settings, resolve, cssClass, animation) {
         animate: animation,
         cssClass: cssClass || 'mbsc-snackbar',
         scrollLock: false,
+        focusTrap: false,
         buttons: [],
         onShow: function (ev, inst) {
             if (settings.duration !== false) {
@@ -179,7 +179,7 @@ mobiscroll.prompt = function (settings) {
     widget.innerHTML = getMessage(settings) +
         '<label class="mbsc-input">' +
         (settings.label ? '<span class="mbsc-label">' + settings.label + '</span>' : '') +
-        '<input type="' + (settings.inputType || 'text') + '" placeholder="' + (settings.placeholder || '') + '" value="' + (settings.value || '') + '">' +
+        '<input tabindex="0" type="' + (settings.inputType || 'text') + '" placeholder="' + (settings.placeholder || '') + '" value="' + (settings.value || '') + '">' +
         '</label>';
     return show(showPrompt, widget, settings);
 };

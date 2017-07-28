@@ -1,6 +1,6 @@
 {
     "name": "mobiscroll-react",
-    "version": "3.2.2",
+    "version": "3.2.3",
     "description": "React UI library for progressive web and hybrid apps",
     "homepage": "https://mobiscroll.com/",
     "license": "Apache-2.0",
@@ -37,7 +37,8 @@
         "dist/css/icons_mobiscroll.woff"
     ],
     "dependencies": {
-        "react": ">=0.13.0",
-        "react-dom": ">=0.13.0"
+        "react": ">=15.3.0",
+        "react-dom": ">=15.3.0",
+        "prop-types": ">=15.5.0"
     }
 }

@@ -563,6 +563,8 @@ const Frame = function (el, settings, inherit) {
 
         hasButtons = buttons.length > 0;
 
+        touched = false;
+
         if (doAnim !== false) {
             if (s.display == 'top') {
                 doAnim = doAnim || 'slidedown';

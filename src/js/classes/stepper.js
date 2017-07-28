@@ -227,7 +227,7 @@ const Stepper = function (control, settings) {
         displayValue = $control.attr('data-val') || s.val;
         val = Math.min(max, Math.max(Math.round(+control.value / step) * step || 0, min));
 
-        theme = mobiscroll.themes.form[settings.theme];
+        theme = mobiscroll.themes.form[s.theme];
         ripple = theme && theme.addRipple ? theme : null;
 
         if (!ready) {
@@ -292,6 +292,7 @@ const Stepper = function (control, settings) {
 
 Stepper.prototype = {
     _class: 'stepper',
+    _hasDef: true,
     _defaults: {
         min: 0,
         max: 100,

@@ -4,8 +4,10 @@ import {
     $,
     extend,
     mobiscroll,
-    createReactClass,
-    PropTypes
+    updateCssClasses,
+    PropTypes,
+    MbscOptimized,
+    CorePropTypes
 } from './frameworks/react';
 import './page.react';
 import './classes/forms';
@@ -16,62 +18,61 @@ var reactNumber = PropTypes.number,
     reactBool = PropTypes.bool;
 
 /** PropTypes for Form components */
-mobiscroll.react.mixins.StepperPropTypes = {
-    propTypes: {
-        onInit: reactFunc,
-        onChange: reactFunc,
-        value: reactNumber,
-        disabled: reactBool,
-        min: reactNumber,
-        max: reactNumber,
-        step: reactNumber,
-        val: PropTypes.oneOf(['left', 'right'])
-    }
+const StepperPropTypes = {
+    onInit: reactFunc,
+    onChange: reactFunc,
+    value: reactNumber,
+    disabled: reactBool,
+    min: reactNumber,
+    max: reactNumber,
+    step: reactNumber,
+    val: PropTypes.oneOf(['left', 'right'])
 };
 
-mobiscroll.react.mixins.SwitchPropTypes = {
-    propTypes: {
-        onInit: reactFunc,
-        onChange: reactFunc,
-        checked: reactBool,
-        disabled: reactBool,
-        value: reactBool
-    }
+const SwitchPropTypes = {
+    onInit: reactFunc,
+    onChange: reactFunc,
+    checked: reactBool,
+    disabled: reactBool,
+    value: reactBool
 };
 
-mobiscroll.Form = createReactClass({
-    mixins: [
-        mobiscroll.react.mixins.InitialOptionsMixin,
-        mobiscroll.react.mixins.UpdateOptimizeMixin,
-        mobiscroll.react.mixins.UnmountMixin,
-        mobiscroll.react.mixins.CorePropTypes
-    ],
-    propTypes: {
+
+class MbscForm extends MbscOptimized {
+    constructor(props) {
+        super(props);
+    }
+
+    static defaultProps = {
+        renderForm: true
+    }
+
+    static propTypes = {
+        ...CorePropTypes,
         onInit: reactFunc
-    },
-    getDefaultProps: function () {
-        return {
-            renderForm: true
-        };
-    },
-    componentDidMount: function () {
+    }
+
+    componentDidMount = () => {
         // get settings from state
         var settings = extend({}, this.state.options);
         // initialize the mobiscroll
         this.instance = new mobiscroll.classes.Form(ReactDOM.findDOMNode(this), settings);
-    },
-    componentDidUpdate: function () {
+    }
+
+    componentDidUpdate = () => {
         if (!this.optimizeUpdate.updateOptions && this.optimizeUpdate.updateChildren) {
             this.instance.refresh(true);
         }
-    },
-    checkFormWrapper: function (component) {
+    }
+
+    checkFormWrapper = (component) => {
         if (React.Children.count(component.props.children) == 1) {
             return (component.props.children.type == 'form');
         }
         return false;
-    },
-    render: function () {
+    }
+
+    render = () => {
         // passing through some of the element properties to its children
         var {
             action,
@@ -89,19 +90,24 @@ mobiscroll.Form = createReactClass({
             return <form className={this.initialCssClass} action={action} name={name} target={target} method={method} autoComplete={autoComplete} noValidate={noValidate} onSubmit={onSubmit}>{this.props.children}</form>;
         }
     }
-});
+}
 
-mobiscroll.Form.Label = createReactClass({
-    propTypes: {
-        valid: PropTypes.bool
-    },
-    getInitialState: function () {
+mobiscroll.Form = MbscForm;
+
+class MbscLabel extends React.Component {
+    constructor(props) {
+        super(props);
         this.initialCssClass = (this.props.className || '') + (this.props.valid === undefined || this.props.valid ? '' : ' mbsc-err');
-        return {
+        this.state = {
             cssClasses: this.props.className || ''
         };
-    },
-    render: function () {
+    }
+
+    static propTypes = {
+        valid: PropTypes.bool
+    }
+
+    render = () => {
         /* eslint-disable no-unused-vars */
         // justification: variable 'valid' and 'className' is declared due to object decomposition
         var {
@@ -113,12 +119,13 @@ mobiscroll.Form.Label = createReactClass({
         /* eslint-enable */
 
         return <label className={this.initialCssClass} {...other}>{this.props.children}</label>;
-    },
-    componentWillReceiveProps: function (nextProps) {
+    }
+
+    componentWillReceiveProps = (nextProps) => {
         var currentClasses = (this.state.cssClasses || '') + (this.props.valid === undefined || this.props.valid ? '' : ' mbsc-err'),
             nextClasses = (nextProps.className || '') + (this.props.valid === undefined || nextProps.valid ? '' : ' mbsc-err');
         if (currentClasses != nextClasses || nextProps.valid != this.props.valid) {
-            mobiscroll.react.updateCssClasses.call(this, currentClasses, nextClasses);
+            updateCssClasses.call(this, currentClasses, nextClasses);
         }
         if (this.state.cssClasses !== nextProps.cssClasses) {
             this.setState({
@@ -126,35 +133,111 @@ mobiscroll.Form.Label = createReactClass({
             });
         }
     }
-});
+}
 
+mobiscroll.Form.Label = MbscLabel;
 
-mobiscroll.Switch = mobiscroll.react.createFormComponent({
-    component: 'Switch'
-}, 'checkbox', [mobiscroll.react.mixins.SwitchPropTypes]);
+class MbscFormBase extends MbscOptimized {
+    constructor(props) {
+        super(props);
+    }
 
-mobiscroll.Stepper = mobiscroll.react.createFormComponent({
-    component: 'Stepper'
-}, undefined, [mobiscroll.react.mixins.StepperPropTypes]);
+    static propTypes = {
+        ...CorePropTypes
+    }
+
+    componentDidMount = () => {
+        // get settings from state
+        var settings = extend({}, this.mbscInit, this.state.options);
+
+        // initialize the mobiscroll
+        this.instance = new mobiscroll.classes[this.mbscInit.component || 'Scroller'](this.inputNode, settings);
+
+        if (this.state.value !== undefined) {
+            this.instance.setVal(this.state.value, true);
+        }
+
+        // Add change event listener if handler is passed
+        $(this.inputNode).on('change', this.props.onChange || (function () { }));
+    }
+
+    inputMounted = (input) => {
+        this.inputNode = input;
+    }
+
+    render = () => {
+        /* eslint-disable no-unused-vars */
+        // justification: variables 'value', 'onChange' and 'className' are declared due to object decomposition
+        var {
+                    className,
+            children,
+            value,
+            onChange,
+            ...other
+                } = this.props;
+
+        /* eslint-enable no-unused-vars */
+
+        var type = this.inputType || 'text';
+
+        return <div className={this.initialCssClass}>
+            {children}
+            <input ref={this.inputMounted} type={type} data-role={name} {...other} />
+        </div>;
+    }
+}
+
+class MbscSwitch extends MbscFormBase {
+    constructor(props) {
+        super(props);
+        this.mbscInit = {
+            component: 'Switch'
+        };
+        this.inputType = 'checkbox';
+    }
+}
+
+MbscSwitch.propTypes = {
+    ...MbscSwitch.propTypes,
+    ...SwitchPropTypes
+};
+
+mobiscroll.Switch = MbscSwitch;
+
+class MbscStepper extends MbscFormBase {
+    constructor(props) {
+        super(props);
+        this.mbscInit = {
+            component: 'Stepper'
+        };
+    }
+}
+
+MbscStepper.propTypes = {
+    ...MbscStepper.propTypes,
+    ...StepperPropTypes
+};
+
+mobiscroll.Stepper = MbscStepper;
 
 // progress
 
-mobiscroll.Progress = createReactClass({
-    mixins: [
-        mobiscroll.react.mixins.InitialOptionsMixin,
-        mobiscroll.react.mixins.UpdateOptimizeMixin,
-        mobiscroll.react.mixins.UnmountMixin,
-        mobiscroll.react.mixins.CorePropTypes
-    ],
-    propTypes: {
+class MbscProgress extends MbscOptimized {
+    constructor(props) {
+        super(props);
+    }
+
+    static propTypes = {
+        ...CorePropTypes,
         "data-icon": reactString,
         "data-icon-align": PropTypes.oneOf(['left', 'right']),
         val: PropTypes.oneOf(['left', 'right']),
         disabled: reactBool,
         max: reactNumber,
         value: reactNumber
-    },
-    componentDidMount: function () {
+    }
+
+    componentDidMount = () => {
         // get settings from state
         var settings = extend({}, this.state.options);
         // initialize the mobiscroll
@@ -162,11 +245,13 @@ mobiscroll.Progress = createReactClass({
         if (this.state.value !== undefined) {
             this.instance.setVal(this.state.value, true);
         }
-    },
-    progressMounted: function (progress) {
+    }
+
+    progressMounted = (progress) => {
         this.progressNode = progress;
-    },
-    render: function () {
+    }
+
+    render = () => {
         /* eslint-disable no-unused-vars */
         // justification: variable 'value' and 'className' is defined due to object decomposotion
         var {
@@ -183,18 +268,18 @@ mobiscroll.Progress = createReactClass({
             <progress ref={this.progressMounted} {...other} />
         </div>;
     }
-});
+}
+
+mobiscroll.Progress = MbscProgress;
 
 // slider
+class MbscSlider extends MbscOptimized {
+    constructor(props) {
+        super(props);
+    }
 
-mobiscroll.Slider = createReactClass({
-    mixins: [
-        mobiscroll.react.mixins.InitialOptionsMixin,
-        mobiscroll.react.mixins.UpdateOptimizeMixin,
-        mobiscroll.react.mixins.UnmountMixin,
-        mobiscroll.react.mixins.CorePropTypes
-    ],
-    propTypes: {
+    static propTypes = {
+        ...CorePropTypes,
         highlight: reactBool,
         live: reactBool,
         stepLabels: PropTypes.arrayOf(reactNumber),
@@ -206,8 +291,9 @@ mobiscroll.Slider = createReactClass({
         min: reactNumber,
         step: reactNumber,
         values: reactNumber
-    },
-    componentDidMount: function () {
+    }
+
+    componentDidMount = () => {
         // get settings from state 
         var settings = extend({}, this.state.options);
         // initialize the mobiscroll
@@ -224,18 +310,22 @@ mobiscroll.Slider = createReactClass({
                 that.props.onChange(values);
             }
         });
-    },
-    firstInputMounted: function (input) {
+    }
+
+    firstInputMounted = (input) => {
         this.firstInput = input;
-    },
-    parentMounted: function (label) {
+    }
+
+    parentMounted = (label) => {
         this.label = label;
-    },
-    onValueChanged: function () {
+    }
+
+    onValueChanged = () => {
         // this is not triggered - or the event propagation is stopped somewhere on the line
         // to counter this we attach our own change handler in the `componentDidMount` function 
-    },
-    render: function () {
+    }
+
+    render = () => {
         /* eslint-disable no-unused-vars */
         // justification: variable 'onChange' and 'className' is defined due to object decomposotion
         var {
@@ -259,7 +349,7 @@ mobiscroll.Slider = createReactClass({
 
         return <label ref={this.parentMounted} className={this.initialCssClass}>
             {children}
-            {values.map(function(item, index) {
+            {values.map(function (item, index) {
                 if (index === 0) {
                     return <input ref={this.firstInputMounted} data-icon={icon} data-live={live} key={index} type="range" {...other} />;
                 }
@@ -267,7 +357,8 @@ mobiscroll.Slider = createReactClass({
             }, this)}
         </label>;
     }
-});
+}
+mobiscroll.Slider = MbscSlider;
 
 
 export default mobiscroll;

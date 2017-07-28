@@ -1,27 +1,31 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { extend, mobiscroll, createReactClass, PropTypes } from './frameworks/react';
+import { extend, mobiscroll, PropTypes, MbscOptimized, CorePropTypes } from './frameworks/react';
 import './classes/page';
 
-mobiscroll.Page = createReactClass({
-    mixins: [
-        mobiscroll.react.mixins.InitialOptionsMixin,
-        mobiscroll.react.mixins.UpdateOptimizeMixin,
-        mobiscroll.react.mixins.UnmountMixin,
-        mobiscroll.react.mixins.CorePropTypes
-    ],
-    propTypes: {
-        onInit: PropTypes.func
-    },
-    componentDidMount: function () {
+class MbscPage extends MbscOptimized {
+    constructor(props) {
+        super(props);
+    }
+
+    componentDidMount = () => {
         // get settings from state
         var settings = extend({}, this.state.options);
         // initialize the mobiscroll
         this.instance = new mobiscroll.classes.Page(ReactDOM.findDOMNode(this), settings);
-    },
-    render: function () {
+    }
+
+    render = () => {
         return <div className={this.initialCssClass}>{this.props.children}</div>;
     }
-});
+}
+
+MbscPage.propTypes = {
+    ...MbscPage.propTypes,
+    ...CorePropTypes,
+    onInit: PropTypes.func
+}
+
+mobiscroll.Page = MbscPage
 
 export default mobiscroll;

@@ -1,10 +1,20 @@
-import { mobiscroll } from './frameworks/react';
+import { mobiscroll, ScrollerPropTypes, MbscInputBase } from './frameworks/react';
 import './classes/scroller';
 
-mobiscroll.Scroller = mobiscroll.react.createComponent({
-    component: 'Scroller'
-}, [
-    mobiscroll.react.mixins.ScrollerPropTypes
-]);
+class MbscScroller extends MbscInputBase {
+    constructor(props) {
+        super(props);
+        this.mbscInit = {
+            component: 'Scroller'
+        };
+    }
+}
+
+MbscScroller.propTypes = {
+    ...MbscScroller.propTypes,
+    ...ScrollerPropTypes
+}
+
+mobiscroll.Scroller = MbscScroller;
 
 export default mobiscroll;

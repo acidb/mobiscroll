@@ -69,9 +69,8 @@
 .mbsc-ios .mbsc-form-group-inset .mbsc-form-group-title,
 .mbsc-ios .mbsc-form-group-inset .mbsc-control-w:first-child:before,
 .mbsc-ios .mbsc-form-group-inset .mbsc-control-w:last-child:after {
-    border: 0;
+    border-width: 0;
 }
-
 
 /* Textbox, select, textarea */
 
@@ -281,6 +280,16 @@
     left: 0;
 }
 
+.mbsc-ios .mbsc-control-ng .mbsc-control-w:before,
+.mbsc-ios .mbsc-control-ng .mbsc-control-w:after {
+    left: 1em;
+}
+
+.mbsc-ios .mbsc-control-ng:first-child .mbsc-control-w:before,
+.mbsc-ios .mbsc-control-ng:last-child .mbsc-control-w:after {
+    left: 0;
+}
+
 .mbsc-ios .mbsc-ic-left:before,
 .mbsc-ios .mbsc-ic-left:after {
     left: 3.25em;
@@ -294,6 +303,43 @@
 .mbsc-ios .mbsc-control-w.mbsc-err + .mbsc-err:before,
 .mbsc-ios .mbsc-control-w.mbsc-err + .mbsc-divider {
     border-top-color: #ec2a32;
+}
+
+.mbsc-ios .mbsc-form-group-inset .mbsc-control-ng .mbsc-control-w {
+    border-radius: 0;
+}
+
+.mbsc-ios .mbsc-form-group-inset .mbsc-control-ng .mbsc-control-w:before,
+.mbsc-ios .mbsc-form-group-inset .mbsc-control-ng .mbsc-control-w:after {
+    border-width: 1px;
+}
+
+@media (-webkit-min-device-pixel-ratio: 2),
+(min-resolution: 192dpi) {
+    .mbsc-ios .mbsc-control-w:before,
+    .mbsc-ios .mbsc-control-w:after,
+    .mbsc-ios .mbsc-form-group-inset .mbsc-control-ng .mbsc-control-w:before,
+    .mbsc-ios .mbsc-form-group-inset .mbsc-control-ng .mbsc-control-w:after,
+    .mbsc-ios .mbsc-divider,
+    .mbsc-ios .mbsc-btn-group {
+        border-width: .5px;
+    }
+}
+
+.mbsc-ios .mbsc-form-group-inset .mbsc-control-ng:first-child .mbsc-control-w:before,
+.mbsc-ios .mbsc-form-group-inset .mbsc-control-ng:last-child .mbsc-control-w:after {
+    border-width: 0;
+}
+
+.mbsc-ios .mbsc-form-group-inset .mbsc-form-group-title + .mbsc-control-ng .mbsc-control-w,
+.mbsc-ios .mbsc-form-group-inset .mbsc-control-ng:first-child .mbsc-control-w {
+    border-top-left-radius: .5em;
+    border-top-right-radius: .5em;
+}
+
+.mbsc-ios .mbsc-form-group-inset .mbsc-control-ng:last-child .mbsc-control-w {
+    border-bottom-left-radius: .5em;
+    border-bottom-right-radius: .5em;
 }
 
 
@@ -458,17 +504,6 @@
 .mbsc-ios .mbsc-btn-group-block {
     padding: .5em 1em;
 }
-
-@media (-webkit-min-device-pixel-ratio: 2),
-(min-resolution: 192dpi) {
-    .mbsc-ios .mbsc-control-w:before,
-    .mbsc-ios .mbsc-control-w:after,
-    .mbsc-ios .mbsc-divider,
-    .mbsc-ios .mbsc-btn-group {
-        border-width: .5px;
-    }
-}
-
 
 /* Switch */
 

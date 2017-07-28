@@ -197,6 +197,7 @@ Progress.prototype = {
     _css: 'mbsc-progress',
     _hasTheme: true,
     _hasLang: true,
+    _hasDef: true,
     _defaults: {
         min: 0,
         max: 100,
