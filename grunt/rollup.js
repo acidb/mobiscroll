@@ -17,9 +17,11 @@ var globals = {
     'rxjs/Observable': 'Rx'
 };
 
-var external = ['angular',
+var external = [
+    'angular',
     'jquery',
     'knockout',
+    'prop-types',
     'react',
     'react-dom',
     '@angular/core',
@@ -39,6 +41,11 @@ module.exports = {
             moduleName: 'mobiscroll',
             format: 'umd',
             context: 'this',
+            onwarn(warning) {
+                if (warning.code === 'UNUSED_EXTERNAL_IMPORT') {
+                    return;
+                }
+            },
             plugins: [
                 babel({
                     plugins: ['external-helpers']
@@ -61,6 +68,11 @@ module.exports = {
             moduleName: 'mobiscroll',
             format: 'umd',
             context: 'this',
+            onwarn(warning) {
+                if (warning.code === 'UNUSED_EXTERNAL_IMPORT') {
+                    return;
+                }
+            },
             plugins: [
                 babel({
                     plugins: ['external-helpers']
