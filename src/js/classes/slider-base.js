@@ -239,7 +239,7 @@ const SliderBase = function (elm, settings, inherit) {
         }
 
         // Check if value changed
-        if (oldValue[index] != v) {
+        if (fill && oldValue[index] != v) {
             changed = true;
 
             oldValue[index] = v;
@@ -247,10 +247,8 @@ const SliderBase = function (elm, settings, inherit) {
             // Store new value
             value[index] = v;
 
-            if (fill) {
-                // Set new value to the input
-                that._fillValue(v, index, change);
-            }
+            // Set new value to the input
+            that._fillValue(v, index, change);
         }
 
         $handle.attr('aria-valuenow', v);

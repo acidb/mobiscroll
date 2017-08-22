@@ -95,10 +95,11 @@
 
 .mbsc-sc-whl {
     overflow: hidden;
-    border-radius: 1px;
     /* Forces IE to respect overflow hidden while animating */
-    border-top: 1px solid transparent;
+    /* Looks like this is not needed, also, it brakes rendering on Samsung S5 Mini */
+    /* border-radius: 1px; */
     /* Fixes Firefox rendering issues */
+    border-top: 1px solid transparent;
     border-bottom: 1px solid transparent;
 }
 

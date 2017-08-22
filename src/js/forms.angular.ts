@@ -36,6 +36,11 @@ import Radio from './classes/radio';
 import SegmentedItem from './classes/segmented';
 import Slider from './classes/slider';
 
+import { MbscCoreOptions } from './core/core';
+
+export interface MbscFormOptions extends MbscCoreOptions {}
+
+
 @Injectable()
 export class MbscFormService {
     private _options: any;
@@ -56,7 +61,7 @@ export class MbscFormService {
 })
 export class MbscForm extends MbscBase implements OnInit {
     @Input('options')
-    options: any;
+    options: MbscFormOptions;
 
     @ViewChild('rootElement')
     rootElem: ElementRef;
@@ -85,7 +90,7 @@ export class MbscFormBase extends MbscBase implements OnInit {
      * Input for the control options
      */
     @Input()
-    options: any;
+    options: MbscFormOptions;
 
     /**
      * Input for the disabled state of the control
@@ -132,13 +137,13 @@ export class MbscFormValueBase extends MbscFormBase implements ControlValueAcces
      * This function propagates the value to the model
      * It's overwrittem in registerOnChange (if formControl is used)
      */
-    protected onChange: any = () => { };
+    onChange: any = () => { };
 
     /**
      * This function has to be called when the control is touched, to notify the validators (if formControl is used)
      * It's overwritter in registerOnTouched
      */
-    protected onTouch: any = () => { };
+    onTouch: any = () => { };
 
     /**
      * Input for the value. Used when no ngModel is present.
@@ -494,6 +499,9 @@ export class MbscCheckbox extends MbscFormValueBase {
 export class MbscSwitch extends MbscControlBase implements OnInit {
     protected _inheritedOptions: any;
 
+    @Input('options')
+    options: MbscFormOptions;
+
     @Input()
     disabled: boolean = false;
 
@@ -570,6 +578,9 @@ export class MbscSwitch extends MbscControlBase implements OnInit {
 })
 export class MbscStepper extends MbscControlBase implements OnInit {
     protected _inheritedOptions: any;
+
+    @Input('options')
+    options: MbscFormOptions;
 
     @Input()
     set value(v: number) {
@@ -665,6 +676,9 @@ export class MbscStepper extends MbscControlBase implements OnInit {
 })
 export class MbscProgress extends MbscControlBase implements OnInit {
     protected _inheritedOptions: any;
+
+    @Input('options')
+    options: MbscFormOptions;
 
     @Input()
     set value(v: number) {
@@ -1003,7 +1017,10 @@ export class MbscSlider extends MbscControlBase {
 
     protected _inheritedOptions: any;
 
-    protected _needsTimeout: boolean = false;
+    _needsTimeout: boolean = false;
+
+    @Input('options')
+    options: MbscFormOptions;
 
     @Input()
     tooltip: boolean;

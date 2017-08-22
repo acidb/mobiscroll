@@ -1,18 +1,22 @@
 {
-  "parser": "babel-eslint",
-  "plugins": [
-    "react"
-  ],
-  "extends": ["eslint:recommended", "plugin:react/recommended"],
-  "rules": {
-      "react/no-find-dom-node": 0,
-      "react/prop-types": 0,
-      "react/react-in-jsx-scope": 0,
-      "react/display-name": 0
-  },
-  "globals": {
-      "mobiscroll": true,
-      "React": true,
-      "ReactDOM": true
-  }
+    "parser": "babel-eslint",
+    "plugins": [
+        "react"
+    ],
+    "extends": ["eslint:recommended", "plugin:react/recommended"],
+    "rules": {
+        "react/no-find-dom-node": 0,
+        "react/prop-types": 0,
+        "react/react-in-jsx-scope": 0,
+        "react/display-name": 0
+    },
+    "globals": {
+        "mobiscroll": true,
+        "React": true,
+        "ReactDOM": true
+    },
+    "env": {
+        "browser": true,
+        "node": true
+    }
 }

@@ -10,13 +10,20 @@ import {
 
 import Page from './classes/page';
 
+import { MbscCoreOptions } from './core/core';
+
+export interface MbscPageOptions extends MbscCoreOptions {
+    // Settings
+    context?: string | HTMLElement;
+}
+
 @Component({
     selector: 'mbsc-page',
     template: '<div #initElement><ng-content></ng-content></div>'
 })
 export class MbscPage extends MbscBase {
     @Input()
-    options: any;
+    options: MbscPageOptions;
 
     @ViewChild('initElement')
     initElem: ElementRef;

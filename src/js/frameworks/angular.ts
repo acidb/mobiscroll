@@ -1,5 +1,5 @@
 import mobiscroll from '../core/dom';
-import { $, extend } from '../core/core';
+import { $, extend, MbscCoreOptions, MbscDataControlOptions } from '../core/core';
 
 import {
     Directive,
@@ -60,7 +60,7 @@ class MbscBase implements AfterViewInit, OnDestroy {
      * The mobiscroll settings for the directive are passed through this input.
      */
     @Input('mbsc-options')
-    public options: any = {};
+    public options: MbscCoreOptions = {};
 
     /**
      * Reference to the initialized mobiscroll instance
@@ -158,8 +158,8 @@ abstract class MbscControlBase extends MbscValueBase implements ControlValueAcce
      * Returns an object containing the extensions of the option object 
      */
     get optionExtensions(): any {
-        let externalOnClose = this.options && this.options.onClose;
-        let externalOnFill = this.options && this.options.onFill;
+        let externalOnClose = this.options && (this.options as any).onClose;
+        let externalOnFill = this.options && (this.options as any).onFill;
 
         return {
             onFill: (event: any, inst: any) => {
@@ -181,18 +181,18 @@ abstract class MbscControlBase extends MbscValueBase implements ControlValueAcce
         }
     }
 
-    protected _needsTimeout: boolean = true;
+    _needsTimeout: boolean = true;
     /**
      * This function propagates the value to the model
      * It's overwrittem in registerOnChange (if formControl is used)
      */
-    protected onChange: any = () => { };
+    onChange: any = () => { };
 
     /**
      * This function has to be called when the control is touched, to notify the validators (if formControl is used)
      * It's overwritter in registerOnTouched
      */
-    protected onTouch: any = () => { };
+    onTouch: any = () => { };
 
     /**
      * EventEmitter for the value change
@@ -287,6 +287,12 @@ abstract class MbscControlBase extends MbscValueBase implements ControlValueAcce
 }
 
 abstract class MbscDataControlBase extends MbscControlBase implements OnInit {
+    /**
+     * The mobiscroll settings for the directive are passed through this input.
+     */
+    @Input('mbsc-options')
+    public options: MbscCoreOptions & MbscDataControlOptions = {};
+    
     /**
      * True if multiselection is on
      */

@@ -14,13 +14,19 @@ import {
 } from './frameworks/angular';
 
 import Scroller from './classes/scroller';
-
+import { MbscScrollerOptions } from './core/core';
 
 @Directive({
     selector: '[mbsc-scroller]',
     exportAs: 'mobiscroll'
 })
 export class MbscScroller extends MbscControlBase {
+    /**
+     * The mobiscroll settings for the directive are passed through this input.
+     */
+    @Input('mbsc-options')
+    public options: MbscScrollerOptions = {};
+
     /** 
      * Called when the model changes
      * Used only without FormControl 

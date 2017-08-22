@@ -50,7 +50,7 @@ mobiscroll.i18n.zh = {
     lapText: '圈',
     hideText: '隐藏',
     // Listview
-    backText: '背部',
+    backText: '返回',
     undoText: '复原',
     // Form
     offText: '关闭',
