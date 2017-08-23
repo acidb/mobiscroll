@@ -13,7 +13,8 @@ module.exports = {
         files: {
             'src/js/frameworks/react.js': 'src/js/frameworks/react.jsx',
             'src/js/forms.react.js': 'src/js/forms.react.jsx',
-            'src/js/page.react.js': 'src/js/page.react.jsx'
+            'src/js/page.react.js': 'src/js/page.react.jsx',
+            'src/js/scroller.react.js': 'src/js/scroller.react.jsx'
         }
     }
 };
