@@ -1,7 +1,4 @@
-import mobiscroll, {
-    $,
-    isBrowser
-} from '../core/core';
+import mobiscroll, { $, isBrowser, Base } from '../core/core';
 
 var classes = mobiscroll.classes;
 
@@ -15,7 +12,7 @@ const Page = function (el, settings) {
         s = that.settings;
 
     // Call the parent constructor
-    classes.Base.call(this, el, settings, true);
+    Base.call(this, el, settings, true);
 
     /**
      * Page initialization.

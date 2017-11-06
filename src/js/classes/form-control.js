@@ -1,14 +1,8 @@
-import mobiscroll, {
-    $,
-    extend
-} from '../core/core';
-import {
-    wrapLabel
-} from '../util/forms';
+import mobiscroll, { $, extend } from '../core/core';
+import { wrapLabel } from '../util/forms';
+import { getCoord, preventClick } from '../util/tap';
+import { testTouch } from '../util/dom';
 
-const util = mobiscroll.util;
-const getCoord = util.getCoord;
-const testTouch = util.testTouch;
 const events = ['touchstart', 'touchmove', 'touchend', 'touchcancel', 'mousedown', 'mousemove', 'mouseup', 'mouseleave'];
 const defaults = {
     tap: true
@@ -171,7 +165,7 @@ class FormControl {
                 control.dispatchEvent(evt);
 
                 // Prevent ghost click
-                util.preventClick();
+                preventClick();
             }
         }
 

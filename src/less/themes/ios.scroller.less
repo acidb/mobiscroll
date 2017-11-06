@@ -33,7 +33,6 @@
 
 .mbsc-ios.mbsc-fr-top .mbsc-sc-whl-o,
 .mbsc-ios.mbsc-fr-bottom .mbsc-sc-whl-o {
-    background: -webkit-gradient(linear, left bottom, left top, from(#d1d5db), color-stop(0.52, rgba(209, 213, 219, 0)), color-stop(0.48, rgba(209, 213, 219, 0)), to(#d1d5db));
     background: -webkit-linear-gradient(#d1d5db, rgba(209, 213, 219, 0) 52%, rgba(209, 213, 219, 0) 48%, #d1d5db);
     background: linear-gradient(#d1d5db, rgba(209, 213, 219, 0) 52%, rgba(209, 213, 219, 0) 48%, #d1d5db);
 }
@@ -43,18 +42,10 @@
     background: #d1d5db;
 }
 
-@media (-webkit-min-device-pixel-ratio: 2),
-(min-resolution: 192dpi) {
-    .mbsc-ios.mbsc-calendar .mbsc-fr-popup .mbsc-fr-btn-cont {
-        border-width: .5px;
-    }
-}
-
 
 /* Inline color theme */
 
 .mbsc-ios.mbsc-fr.mbsc-fr-inline .mbsc-sc-whl-o {
-    background: -webkit-gradient(linear, left bottom, left top, from(#fff), color-stop(0.52, rgba(255, 255, 255, 0)), color-stop(0.48, rgba(255, 255, 255, 0)), to(#fff));
     background: -webkit-linear-gradient(#fff, rgba(255, 255, 255, 0) 52%, rgba(255, 255, 255, 0) 48%, #fff);
     background: linear-gradient(#fff, rgba(255, 255, 255, 0) 52%, rgba(255, 255, 255, 0) 48%, #fff);
 }
@@ -102,7 +93,7 @@
 
 .mbsc-ios .mbsc-sc-whl-o,
 .mbsc-ios.mbsc-calendar .mbsc-sc-whl-o {
-    background: -webkit-gradient(linear, left bottom, left top, from(#f7f7f7), color-stop(0.52, rgba(245, 245, 245, 0)), color-stop(0.48, rgba(245, 245, 245, 0)), to(#f7f7f7));
+    display: block;
     background: -webkit-linear-gradient(#f7f7f7, rgba(245, 245, 245, 0) 52%, rgba(245, 245, 245, 0) 48%, #f7f7f7);
     background: linear-gradient(#f7f7f7, rgba(245, 245, 245, 0) 52%, rgba(245, 245, 245, 0) 48%, #f7f7f7);
 }
@@ -123,6 +114,10 @@
 
 
 /* 3D */
+
+.mbsc-ios .mbsc-sc-whl-gr-3d-c .mbsc-sc-whl-l {
+    z-index: 3;
+}
 
 .mbsc-ios .mbsc-sc-whl-gr-3d .mbsc-sc-itm {
     color: #000;
@@ -201,21 +196,4 @@
 
 .mbsc-ios.mbsc-sel-multi .mbsc-sc-whl-gr-3d .mbsc-sc-whl-c {
     visibility: hidden;
-}
-
-
-/* Date & Time */
-
-.mbsc-ios .mbsc-dt-whl-y .mbsc-sc-itm {
-    min-width: 3.8em;
-}
-
-.mbsc-ios .mbsc-dt-whl-m .mbsc-sc-itm {
-    text-align: left;
-}
-
-.mbsc-ios .mbsc-dt-whl-d .mbsc-sc-itm,
-.mbsc-ios .mbsc-dt-whl-h .mbsc-sc-itm,
-.mbsc-ios .mbsc-dt-whl-date .mbsc-sc-itm {
-    text-align: right;
 }

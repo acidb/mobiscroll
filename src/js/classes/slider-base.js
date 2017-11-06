@@ -1,12 +1,8 @@
-import mobiscroll, {
-    $
-} from '../core/core';
+import { $ } from '../core/core';
+import { getCoord, preventClick } from '../util/tap';
+import { testTouch } from '../util/dom';
+import { noop } from '../util/misc';
 import ProgressBase from './progress-base';
-
-var empty = function () {},
-    util = mobiscroll.util,
-    getCoord = util.getCoord,
-    testTouch = util.testTouch;
 
 const SliderBase = function (elm, settings, inherit) {
     var $elm,
@@ -113,7 +109,7 @@ const SliderBase = function (elm, settings, inherit) {
 
                 if (ev.type == 'touchend') {
                     // Prevent ghost click
-                    util.preventClick();
+                    preventClick();
                 }
 
                 that._onTap(value[handleIndex]);
@@ -134,7 +130,8 @@ const SliderBase = function (elm, settings, inherit) {
             i = +$(this).attr('data-index');
 
         if (v !== value[i]) {
-            value[i] = v; // Prevents re-fill to input
+            value[i] = v;
+            oldValue[i] = v;
             updateValue(v, i);
         }
     }
@@ -257,11 +254,11 @@ const SliderBase = function (elm, settings, inherit) {
     // Call the parent constructor
     ProgressBase.call(this, elm, settings, true);
 
-    that._onTap = empty;
+    that._onTap = noop;
 
-    that.___init = empty;
+    that.___init = noop;
 
-    that.___destroy = empty;
+    that.___destroy = noop;
 
     that._attachChange = function () {
         $elm.on(s.changeEvent, onChange);

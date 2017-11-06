@@ -1,8 +1,5 @@
-import mobiscroll, {
-    $
-} from '../core/core';
-
-var empty = function () {};
+import { $, Base } from '../core/core';
+import { noop } from '../util/misc';
 
 var ProgressBase = function (elm, settings, inherit) {
     var $elm,
@@ -12,11 +9,11 @@ var ProgressBase = function (elm, settings, inherit) {
         that = this;
 
     // Call the parent constructor
-    mobiscroll.classes.Base.call(this, elm, settings, true);
+    Base.call(this, elm, settings, true);
 
-    that.__init = empty;
+    that.__init = noop;
 
-    that.__destroy = empty;
+    that.__destroy = noop;
 
     that._init = function (ss) {
 

@@ -140,8 +140,8 @@ export const CalbasePropTypes = {
 
 export function updateCssClasses(currentClasses, nextClasses) {
     var node = ReactDOM.findDOMNode(this);
-    var currentNormal = currentClasses.replace(/\s+/g, ' ');
-    var nextNormal = nextClasses.replace(/\s+/g, ' ');
+    var currentNormal = currentClasses.replace(/\s+/g, ' ').trim();
+    var nextNormal = nextClasses.replace(/\s+/g, ' ').trim();
     if (currentNormal) {
         node.classList.remove.apply(node.classList, currentNormal.split(' '));
     }

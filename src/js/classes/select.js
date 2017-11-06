@@ -4,8 +4,8 @@ import {
 import Input from './input';
 
 class Select extends Input {
-    constructor(elm) {
-        super(elm);
+    constructor(elm, settings) {
+        super(elm, settings);
 
         const $elm = this._$elm;
         const $parent = this._$parent;
@@ -21,7 +21,7 @@ class Select extends Input {
         $input.after('<span class="mbsc-select-ic mbsc-ic mbsc-ic-arrow-down5"></span>');
 
         // Check if select and mobiscroll select was not initialized
-        if (!$input.hasClass('mbsc-comp')) {
+        if (!$elm.hasClass('mbsc-comp')) {
             elm.addEventListener('change', this);
             this._setText();
         }
@@ -43,7 +43,9 @@ class Select extends Input {
 
     _setText() {
         const elm = this._elm;
-        this._$input.val(elm.selectedIndex != -1 ? elm.options[elm.selectedIndex].text : '');
+        if (!this._$elm.hasClass('mbsc-comp')) {
+            this._$input.val(elm.selectedIndex != -1 ? elm.options[elm.selectedIndex].text : '');
+        }
     }
 }
 

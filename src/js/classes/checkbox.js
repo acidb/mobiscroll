@@ -1,8 +1,8 @@
 import FormControl from './form-control';
 
 class CheckBox extends FormControl {
-    constructor(elm) {
-        super(elm);
+    constructor(elm, settings) {
+        super(elm, settings);
 
         this._$parent
             .prepend(this._$elm)

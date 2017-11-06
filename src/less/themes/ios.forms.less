@@ -1,5 +1,6 @@
 @import "../forms";
 @import "ios.page.less";
+@import "ios.borders.less";
 @import "ios.input.less";
 @import "ios.slider.less";
 @import "ios.notifications.less";
@@ -71,6 +72,7 @@
 .mbsc-ios .mbsc-form-group-inset .mbsc-control-w:last-child:after {
     border-width: 0;
 }
+
 
 /* Textbox, select, textarea */
 
@@ -314,20 +316,8 @@
     border-width: 1px;
 }
 
-@media (-webkit-min-device-pixel-ratio: 2),
-(min-resolution: 192dpi) {
-    .mbsc-ios .mbsc-control-w:before,
-    .mbsc-ios .mbsc-control-w:after,
-    .mbsc-ios .mbsc-form-group-inset .mbsc-control-ng .mbsc-control-w:before,
-    .mbsc-ios .mbsc-form-group-inset .mbsc-control-ng .mbsc-control-w:after,
-    .mbsc-ios .mbsc-divider,
-    .mbsc-ios .mbsc-btn-group {
-        border-width: .5px;
-    }
-}
-
-.mbsc-ios .mbsc-form-group-inset .mbsc-control-ng:first-child .mbsc-control-w:before,
-.mbsc-ios .mbsc-form-group-inset .mbsc-control-ng:last-child .mbsc-control-w:after {
+.mbsc-ios.mbsc-form .mbsc-form-group-inset .mbsc-control-ng:first-child .mbsc-control-w:before,
+.mbsc-ios.mbsc-form .mbsc-form-group-inset .mbsc-control-ng:last-child .mbsc-control-w:after {
     border-width: 0;
 }
 
@@ -446,8 +436,7 @@
     background: #fff;
     border: 0;
     border-radius: .25em;
-    color: #1272dc;
-    //-webkit-transition: background-color .2s ease-in-out;
+    color: #1272dc; //-webkit-transition: background-color .2s ease-in-out;
     //transition: background-color .2s ease-in-out;
 }
 
@@ -493,8 +482,7 @@
 .mbsc-ios .mbsc-btn-group-justified,
 .mbsc-ios .mbsc-btn-group-block {
     padding: .5em .75em;
-    background: #efeff4;
-    //z-index: 2;
+    background: #efeff4; //z-index: 2;
     //position: relative;
     //margin-top: -1px;
     //border-top: 1px solid #ccc;
@@ -504,6 +492,7 @@
 .mbsc-ios .mbsc-btn-group-block {
     padding: .5em 1em;
 }
+
 
 /* Switch */
 

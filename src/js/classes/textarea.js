@@ -62,8 +62,8 @@ if (isBrowser) {
 }
 
 class TextArea extends Input {
-    constructor(elm) {
-        super(elm);
+    constructor(elm, settings) {
+        super(elm, settings);
 
         this._$parent.addClass('mbsc-textarea');
 

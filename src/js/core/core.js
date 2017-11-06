@@ -1,5 +1,5 @@
 /*!
- * Mobiscroll v3.2.4
+ * Mobiscroll v3.2.5
  * http://mobiscroll.com
  *
  * Copyright 2010-2016, Acid Media
@@ -8,154 +8,24 @@
  */
 
 import mobiscroll from './mobiscroll';
-import {
-    os,
-    majorVersion,
-    minorVersion,
-    isBrowser
-} from '../util/platform';
-import {
-    preventClick,
-    getCoord,
-    tap
-} from '../util/tap';
+import { os, majorVersion, minorVersion, isBrowser } from '../util/platform';
+import { noop, vibrate } from '../util/misc';
+import { preventClick, tap } from '../util/tap';
 
 export default mobiscroll;
 
-function testProps(props) {
-    var i;
-    for (i in props) {
-        if (mod[props[i]] !== undefined) {
-            return true;
-        }
-    }
-    return false;
-}
-
-function testPrefix() {
-    var prefixes = ['Webkit', 'Moz', 'O', 'ms'],
-        p;
-
-    for (p in prefixes) {
-        if (testProps([prefixes[p] + 'Transform'])) {
-            return '-' + prefixes[p].toLowerCase() + '-';
-        }
-    }
-    return '';
-}
-
-var animEnd,
-    mod,
-    ms,
-    pr,
-    prefix,
-    empty = function () {},
+var ms,
     $ = mobiscroll.$,
     id = +new Date(),
     instances = {},
     extend = $.extend;
 
-if (isBrowser) {
-    mod = document.createElement('modernizr').style;
-    prefix = testPrefix();
-    pr = prefix.replace(/^\-/, '').replace(/\-$/, '').replace('moz', 'Moz');
-    animEnd = mod.animation !== undefined ? 'animationend' : 'webkitAnimationEnd';
-}
-
 ms = extend(mobiscroll, {
     $: $,
-    version: '3.2.4',
+    version: '3.2.5',
     util: {
-        prefix: prefix,
-        jsPrefix: pr,
-        animEnd: animEnd,
         preventClick: preventClick,
-        testTouch: function (e, elm) {
-            if (e.type == 'touchstart') {
-                $(elm).attr('data-touch', '1');
-            } else if ($(elm).attr('data-touch')) {
-                $(elm).removeAttr('data-touch');
-                return false;
-            }
-            return true;
-        },
-        objectToArray: function (obj) {
-            var arr = [],
-                i;
-
-            for (i in obj) {
-                arr.push(obj[i]);
-            }
-
-            return arr;
-        },
-        arrayToObject: function (arr) {
-            var obj = {},
-                i;
-
-            if (arr) {
-                for (i = 0; i < arr.length; i++) {
-                    obj[arr[i]] = arr[i];
-                }
-            }
-
-            return obj;
-        },
-        isNumeric: function (a) {
-            return a - parseFloat(a) >= 0;
-        },
-        isString: function (s) {
-            return typeof s === 'string';
-        },
-        getCoord: getCoord,
-        getPosition: function (t, vertical) {
-            var style = getComputedStyle(t[0]),
-                matrix,
-                px;
-
-            $.each(['t', 'webkitT', 'MozT', 'OT', 'msT'], function (i, v) {
-                if (style[v + 'ransform'] !== undefined) {
-                    matrix = style[v + 'ransform'];
-                    return false;
-                }
-            });
-            matrix = matrix.split(')')[0].split(', ');
-            px = vertical ? (matrix[13] || matrix[5]) : (matrix[12] || matrix[4]);
-
-
-            return px;
-        },
-        constrain: function (val, min, max) {
-            return Math.max(min, Math.min(val, max));
-        },
-        vibrate: function (time) {
-            if ('vibrate' in navigator) {
-                navigator.vibrate(time || 50);
-            }
-        },
-        throttle: function (fn, threshhold) {
-            var last,
-                timer;
-
-            threshhold = threshhold || 100;
-
-            return function () {
-                var context = this,
-                    now = +new Date(),
-                    args = arguments;
-
-                if (last && now < last + threshhold) {
-                    clearTimeout(timer);
-                    timer = setTimeout(function () {
-                        last = now;
-                        fn.apply(context, args);
-                    }, threshhold);
-                } else {
-                    last = now;
-                    fn.apply(context, args);
-                }
-            };
-        }
+        vibrate: vibrate
     },
     autoTheme: 'mobiscroll',
     presets: {
@@ -201,8 +71,7 @@ ms = extend(mobiscroll, {
 
 ms.presetShort = ms.presetShort || function () {};
 
-ms.classes.Base = function (el, settings) {
-
+const Base = function (el, settings) {
     var lang,
         preset,
         s,
@@ -214,11 +83,11 @@ ms.classes.Base = function (el, settings) {
 
     that.settings = {};
 
-    that._init = empty;
+    that._init = noop;
 
-    that._destroy = empty;
+    that._destroy = noop;
 
-    that._processSettings = empty;
+    that._processSettings = noop;
 
     that.init = function (ss) {
         var key;
@@ -376,5 +245,6 @@ ms.classes.Base = function (el, settings) {
 export {
     $,
     extend,
-    isBrowser
+    isBrowser,
+    Base
 };

@@ -68,6 +68,7 @@ module.exports = {
             moduleName: 'mobiscroll',
             format: 'umd',
             context: 'this',
+            banner: '/* eslint-disable */',
             onwarn(warning) {
                 if (warning.code === 'UNUSED_EXTERNAL_IMPORT') {
                     return;
@@ -77,7 +78,11 @@ module.exports = {
                 babel({
                     plugins: ['external-helpers']
                 }),
-                uglify()
+                uglify({
+                    output: {
+                        comments: /eslint-disable/
+                    }
+                })
             ]
         },
         files: {

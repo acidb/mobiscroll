@@ -1,28 +1,18 @@
-import mobiscroll, {
-    $,
-    extend
-} from '../core/core';
-import {
-    os,
-    majorVersion,
-    isBrowser,
-    userAgent
-} from '../util/platform';
+import mobiscroll, { $, extend, Base } from '../core/core';
+import { os, majorVersion, isBrowser, userAgent } from '../util/platform';
+import { animEnd } from '../util/dom';
+import { getCoord, preventClick } from '../util/tap';
+import { constrain, isString, noop } from '../util/misc';
 
 var $activeElm,
     preventShow,
-    util = mobiscroll.util,
     classes = mobiscroll.classes,
     themes = mobiscroll.themes,
-    constrain = util.constrain,
-    isString = util.isString,
-    getCoord = util.getCoord,
-    animEnd = util.animEnd,
     needsFixed = /(iphone|ipod)/i.test(userAgent) && majorVersion >= 7,
     isAndroid = os == 'android',
     isIOS = os == 'ios',
     isIOS8 = isIOS && majorVersion == 8,
-    empty = function () {},
+    halfBorder = isIOS && majorVersion > 7,
     prevdef = function (ev) {
         ev.preventDefault();
     };
@@ -226,7 +216,7 @@ const Frame = function (el, settings, inherit) {
     }
 
     // Call the parent constructor
-    classes.Base.call(this, el, settings, true);
+    Base.call(this, el, settings, true);
 
     /**
      * Positions the scroller on the screen.
@@ -616,6 +606,7 @@ const Frame = function (el, settings, inherit) {
             (s.cssClass || '') + ' ' +
             (s.compClass || '') +
             (that._isLiquid ? ' mbsc-fr-liq' : '') +
+            (halfBorder ? ' mbsc-fr-hb' : '') +
             (needsLock ? ' mbsc-platform-ios' : '') +
             (hasButtons ? (buttons.length >= 3 ? ' mbsc-fr-btn-block ' : '') : ' mbsc-fr-nobtn') + '">' +
             (isModal ? '<div class="mbsc-fr-persp"><div class="mbsc-fr-overlay"></div><div role="dialog" tabindex="-1" class="mbsc-fr-scroll">' : '') + // Overlay
@@ -721,7 +712,7 @@ const Frame = function (el, settings, inherit) {
                         if (target && !moved) {
                             that.cancel();
                             if (ev.type != 'mouseup') {
-                                util.preventClick();
+                                preventClick();
                             }
                         }
                         target = false;
@@ -898,6 +889,9 @@ const Frame = function (el, settings, inherit) {
             callback();
         }
 
+        // For validation
+        $elm.trigger('blur');
+
         trigger('onClose', {
             valueText: that._value
         });
@@ -920,35 +914,35 @@ const Frame = function (el, settings, inherit) {
 
     // Protected functions to override
 
-    that.setVal = empty;
+    that.setVal = noop;
 
-    that.getVal = empty;
+    that.getVal = noop;
 
-    that._generateContent = empty;
+    that._generateContent = noop;
 
-    that._attachEvents = empty;
+    that._attachEvents = noop;
 
-    that._detachEvents = empty;
+    that._detachEvents = noop;
 
-    that._readValue = empty;
+    that._readValue = noop;
 
-    that._clearValue = empty;
+    that._clearValue = noop;
 
-    that._fillValue = empty;
+    that._fillValue = noop;
 
-    that._markupReady = empty;
+    that._markupReady = noop;
 
-    that._markupInserted = empty;
+    that._markupInserted = noop;
 
-    that._markupRemove = empty;
+    that._markupRemove = noop;
 
-    that._position = empty;
+    that._position = noop;
 
-    that.__processSettings = empty;
+    that.__processSettings = noop;
 
-    that.__init = empty;
+    that.__init = noop;
 
-    that.__destroy = empty;
+    that.__destroy = noop;
 
     // Generic frame functions
 

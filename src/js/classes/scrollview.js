@@ -1,22 +1,10 @@
-import mobiscroll, {
-    $
-} from '../core/core';
-import {
-    os,
-    raf,
-    rafc
-} from '../util/platform';
+import mobiscroll, { $, Base } from '../core/core';
+import { os, raf, rafc } from '../util/platform';
+import { getCoord } from '../util/tap';
+import { cssPrefix, jsPrefix, getPosition, testTouch } from '../util/dom';
+import { constrain, isNumeric, isString } from '../util/misc';
 
 var classes = mobiscroll.classes,
-    util = mobiscroll.util,
-    constrain = util.constrain,
-    pr = util.jsPrefix,
-    pref = util.prefix,
-    getCoord = util.getCoord,
-    getCurrentPosition = util.getPosition,
-    testTouch = util.testTouch,
-    isNumeric = util.isNumeric,
-    isString = util.isString,
     isIOS = os == 'ios';
 
 const ScrollView = function (el, settings, inherit) {
@@ -33,7 +21,6 @@ const ScrollView = function (el, settings, inherit) {
         endY,
         eventObj,
         isBtn,
-        lastX,
         maxScroll,
         maxSnapScroll,
         minScroll,
@@ -113,14 +100,14 @@ const ScrollView = function (el, settings, inherit) {
 
             startX = getCoord(ev, 'X');
             startY = getCoord(ev, 'Y');
-            endX = lastX = startX;
+            endX = startX;
             diffX = 0;
             diffY = 0;
             diff = 0;
 
             startTime = new Date();
 
-            startPos = +getCurrentPosition(target, vertical) || 0;
+            startPos = +getPosition(target, vertical) || 0;
 
             // Stop scrolling animation, 1ms is needed for Android 4.0
             if (moving) {
@@ -408,8 +395,8 @@ const ScrollView = function (el, settings, inherit) {
             trigger('onAnimationStart', eventObj);
         }
 
-        style[pr + 'Transition'] = time ? pref + 'transform ' + Math.round(time) + 'ms ' + easing : '';
-        style[pr + 'Transform'] = 'translate3d(' + (vertical ? '0,' + pos + 'px,' : pos + 'px,' + '0,') + '0)';
+        style[jsPrefix + 'Transition'] = time ? cssPrefix + 'transform ' + Math.round(time) + 'ms ' + easing : '';
+        style[jsPrefix + 'Transform'] = 'translate3d(' + (vertical ? '0,' + pos + 'px,' : pos + 'px,' + '0,') + '0)';
 
         if ((!changed && !moving) || !time || time <= 1) {
             done();
@@ -419,7 +406,7 @@ const ScrollView = function (el, settings, inherit) {
             clearInterval(scrollTimer);
             scrollTimer = setInterval(function () {
                 //rafMoveID = raf(function () {
-                var p = +getCurrentPosition(target, vertical) || 0;
+                var p = +getPosition(target, vertical) || 0;
                 eventObj.posX = vertical ? 0 : p;
                 eventObj.posY = vertical ? p : 0;
                 trigger('onMove', eventObj);
@@ -451,7 +438,7 @@ const ScrollView = function (el, settings, inherit) {
     }
 
     // Call the parent constructor
-    classes.Base.call(this, el, settings, true);
+    Base.call(this, el, settings, true);
 
     that.scrolled = false;
 

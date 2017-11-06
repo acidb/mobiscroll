@@ -1,9 +1,5 @@
 import ms from '../core/mobiscroll';
-import {
-    os,
-    majorVersion,
-    isBrowser
-} from './platform';
+import { os, majorVersion, isBrowser } from './platform';
 
 let tapped = 0;
 
@@ -122,7 +118,7 @@ if (isBrowser) {
 }
 
 export {
-    preventClick,
     getCoord,
+    preventClick,
     tap
 };

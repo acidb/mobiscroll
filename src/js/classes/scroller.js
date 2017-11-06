@@ -1,20 +1,12 @@
-import mobiscroll, {
-    $,
-    extend
-} from '../core/core';
-import {
-    os,
-    isBrowser
-} from '../util/platform';
+import mobiscroll, { $, extend } from '../core/core';
+import { os, isBrowser } from '../util/platform';
+import { getCoord } from '../util/tap';
+import { cssPrefix, jsPrefix, testTouch } from '../util/dom';
+import { isNumeric, objectToArray } from '../util/misc';
 import Frame from './frame';
 import ScrollView from './scrollview';
 
-var util = mobiscroll.util,
-    pr = util.jsPrefix,
-    pref = util.prefix,
-    getCoord = util.getCoord,
-    testTouch = util.testTouch,
-    css = isBrowser ? window.CSS : null,
+var css = isBrowser ? window.CSS : null,
     has3d = css && css.supports && css.supports("(transform-style: preserve-3d)"),
     force2D = !has3d || os == 'wp' || os == 'android';
 
@@ -136,7 +128,7 @@ const Scroller = function (el, settings, inherit) {
             idx = $item.attr('data-index'),
             val = getValue(wheel, idx),
             selected = that._tempSelected[i],
-            maxSelect = util.isNumeric(wheel.multiple) ? wheel.multiple : Infinity;
+            maxSelect = isNumeric(wheel.multiple) ? wheel.multiple : Infinity;
 
         if (trigger('onItemTap', {
                 target: $item[0],
@@ -158,7 +150,7 @@ const Scroller = function (el, settings, inherit) {
                             .removeClass(selectedClass)
                             .removeAttr('aria-selected');
                     }
-                    if (util.objectToArray(selected).length < maxSelect) {
+                    if (objectToArray(selected).length < maxSelect) {
                         $item.addClass(selectedClass).attr('aria-selected', 'true');
                         selected[val] = val;
                     }
@@ -328,7 +320,7 @@ const Scroller = function (el, settings, inherit) {
                 (lbl ? ' aria-label="' + lbl + '"' : '') +
                 (selected ? ' aria-selected="true"' : '') +
                 ' style="height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;' +
-                (is3d ? pref + 'transform:rotateX(' + ((wheel._offset - i) * scroll3dAngle % 360) + 'deg) translateZ(' + (itemHeight * s.rows / 2) + 'px);' : '') +
+                (is3d ? cssPrefix + 'transform:rotateX(' + ((wheel._offset - i) * scroll3dAngle % 360) + 'deg) translateZ(' + (itemHeight * s.rows / 2) + 'px);' : '') +
                 '">' +
                 (lines > 1 ? '<div class="mbsc-sc-itm-ml" style="line-height:' + Math.round(itemHeight / lines) + 'px;font-size:' + Math.round(itemHeight / lines * 0.8) + 'px;">' : '') +
                 text +
@@ -615,7 +607,7 @@ const Scroller = function (el, settings, inherit) {
      */
     that.getVal = that._getVal = function (temp) {
         var val = that._hasValue || temp ? that[temp ? '_tempValue' : '_value'] : null;
-        return util.isNumeric(val) ? +val : val;
+        return isNumeric(val) ? +val : val;
     };
 
     /*
@@ -636,9 +628,10 @@ const Scroller = function (el, settings, inherit) {
 
         $.each(whls, function (key, wheel) {
             w = wheelsMap[key];
-            i = w._nr;
             // Check if wheel exists
             if (w) {
+                i = w._nr;
+
                 extend(w, wheel);
 
                 initWheel(w, i, true);
@@ -677,12 +670,14 @@ const Scroller = function (el, settings, inherit) {
         var lbl,
             maxPopupWidth = 0,
             html = '',
-            style = scroll3d ? pref + 'transform: translateZ(' + (itemHeight * s.rows / 2 + 3) + 'px);' : '',
+            style = scroll3d ? cssPrefix + 'transform: translateZ(' + (itemHeight * s.rows / 2 + 3) + 'px);' : '',
             highlight = '<div class="mbsc-sc-whl-l" style="' + style + 'height:' + itemHeight + 'px;margin-top:-' + (itemHeight / 2 + (s.selectedLineBorder || 0)) + 'px;"></div>',
             l = 0;
 
         $.each(s.wheels, function (i, wg) {
-            html += '<div class="mbsc-w-p mbsc-sc-whl-gr-c' + (s.showLabel ? ' mbsc-sc-lbl-v' : '') + '">' + highlight +
+            html += '<div class="mbsc-w-p mbsc-sc-whl-gr-c' +
+                (scroll3d ? ' mbsc-sc-whl-gr-3d-c' : '') +
+                (s.showLabel ? ' mbsc-sc-lbl-v' : '') + '">' + highlight +
                 '<div class="mbsc-sc-whl-gr' +
                 (scroll3d ? ' mbsc-sc-whl-gr-3d' : '') +
                 (showScrollArrows ? ' mbsc-sc-cp' : '') +
@@ -759,7 +754,7 @@ const Scroller = function (el, settings, inherit) {
     that._markupReady = function ($m) {
         $markup = $m;
 
-        $('.mbsc-sc-whl', $markup).each(function (i) {
+        $('.mbsc-sc-whl-w', $markup).each(function (i) {
             var idx,
                 $wh = $(this),
                 wheel = wheels[i],
@@ -785,8 +780,8 @@ const Scroller = function (el, settings, inherit) {
                 easing: 'cubic-bezier(0.190, 1.000, 0.220, 1.000)',
                 sync: function (pos, time, easing) {
                     if (scroll3d) {
-                        wheel._$3d[0].style[pr + 'Transition'] = time ? pref + 'transform ' + Math.round(time) + 'ms ' + easing : '';
-                        wheel._$3d[0].style[pr + 'Transform'] = 'rotateX(' + ((-pos / itemHeight) * scroll3dAngle) + 'deg)';
+                        wheel._$3d[0].style[jsPrefix + 'Transition'] = time ? cssPrefix + 'transform ' + Math.round(time) + 'ms ' + easing : '';
+                        wheel._$3d[0].style[jsPrefix + 'Transform'] = 'rotateX(' + ((-pos / itemHeight) * scroll3dAngle) + 'deg)';
                     }
                 },
                 onStart: function (ev, inst) {

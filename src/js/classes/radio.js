@@ -1,8 +1,8 @@
 import FormControl from './form-control';
 
 class Radio extends FormControl {
-    constructor(elm) {
-        super(elm);
+    constructor(elm, settings) {
+        super(elm, settings);
 
         this._$parent
             .addClass('mbsc-radio mbsc-control-w')

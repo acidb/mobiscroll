@@ -56,7 +56,11 @@ const Switch = function (elm, settings) {
             '</span></span></span></span>'
         );
 
-        formControl = new FormControl(elm);
+        if (formControl) {
+            formControl.destroy();
+        }
+
+        formControl = new FormControl(elm, s);
 
         that._$track = $parent.find('.mbsc-progress-track');
         that._min = 0;

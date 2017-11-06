@@ -1,7 +1,5 @@
-import mobiscroll, {
-    $,
-    isBrowser
-} from '../core/core';
+import mobiscroll, { $, isBrowser, Base } from '../core/core';
+import { os, majorVersion } from '../util/platform';
 import './page';
 import '../util/notifications';
 
@@ -17,23 +15,18 @@ import Switch from './switch';
 import Progress from './progress';
 import Slider from './slider';
 
-import {
-    getControlType
-} from './form-control';
+import { getControlType } from './form-control';
 
-import {
-    sizeTextAreas
-} from './textarea';
+import { sizeTextAreas } from './textarea';
 
 let id = 0;
 
-const classes = mobiscroll.classes;
+const halfBorder = os == 'ios' && majorVersion > 7;
 const instances = mobiscroll.instances;
 
 const Form = function (el, settings) {
 
     var s,
-        trigger,
         cssClass = '',
         $ctx = $(el),
         controls = {},
@@ -44,14 +37,14 @@ const Form = function (el, settings) {
     }
 
     // Call the parent constructor
-    classes.Base.call(this, el, settings, true);
+    Base.call(this, el, settings, true);
 
     /* TRIALFUNC */
 
     that.refresh = function (shallow) {
         $('input,select,textarea,progress,button', $ctx).each(function () {
-
-            var control = this,
+            var inst,
+                control = this,
                 $control = $(control),
                 //$parent = $control.parent(),
                 type = getControlType($control);
@@ -62,8 +55,9 @@ const Form = function (el, settings) {
             if ($control.attr('data-enhance') != 'false' /* TRIALCOND */ ) {
 
                 if ($control.hasClass('mbsc-control')) {
-                    if (controls[control.id]) {
-                        controls[control.id].option({
+                    inst = instances[control.id] || controls[control.id];
+                    if (inst && inst.option) {
+                        inst.option({
                             theme: s.theme,
                             lang: s.lang,
                             rtl: s.rtl,
@@ -91,6 +85,7 @@ const Form = function (el, settings) {
                                 theme: s.theme,
                                 lang: s.lang,
                                 rtl: s.rtl,
+                                tap: s.tap,
                                 onText: s.onText,
                                 offText: s.offText,
                                 stopProp: s.stopProp
@@ -182,7 +177,10 @@ const Form = function (el, settings) {
         }
 
         // --- TRIAL SERVER CODE START ---
-        cssClass = 'mbsc-form mbsc-no-touch mbsc-' + s.theme + (s.baseTheme ? ' mbsc-' + s.baseTheme : '') + (s.rtl ? ' mbsc-rtl' : ' mbsc-ltr');
+        cssClass = 'mbsc-form mbsc-no-touch mbsc-' + s.theme +
+            (halfBorder ? ' mbsc-form-hb' : '') +
+            (s.baseTheme ? ' mbsc-' + s.baseTheme : '') +
+            (s.rtl ? ' mbsc-rtl' : ' mbsc-ltr');
         // --- TRIAL SERVER CODE END ---
 
         $ctx.addClass(cssClass);
@@ -204,7 +202,6 @@ const Form = function (el, settings) {
     // Constructor
 
     s = that.settings;
-    trigger = that.trigger;
 
     that.init(settings);
 };

@@ -4,8 +4,8 @@ import {
 } from '../util/forms';
 
 class Input extends FormControl {
-    constructor(elm) {
-        super(elm);
+    constructor(elm, settings) {
+        super(elm, settings);
 
         addIconToggle(this, this._$parent, this._$elm);
         this._$parent.addClass('mbsc-input');

@@ -1,6 +1,6 @@
 {
   "name": "mobiscroll",
-  "version": "3.2.0",
+  "version": "3.2.5",
   "description": "Cross platform UI controls for progressive web an hybrid apps",
   "homepage": "https://mobiscroll.com/",
   "license": "Apache-2.0",
@@ -66,6 +66,7 @@
     "eslint-plugin-react": "^6.9.0",
     "grunt": "^1.0.1",
     "grunt-babel": "^6.0.0",
+    "grunt-bump": "^0.8.0",
     "grunt-contrib-clean": "^1.0.0",
     "grunt-contrib-copy": "^1.0.0",
     "grunt-contrib-jshint": "^1.1.0",

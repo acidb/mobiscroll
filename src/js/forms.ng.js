@@ -1,13 +1,21 @@
 import angular from 'angular';
-import mobiscroll from './frameworks/ng';
+import mobiscroll, { $ } from './frameworks/ng';
 import './page.ng';
-import './classes/forms';
+import Form from './classes/forms';
+import Switch from './classes/switch';
 
 var guid = +new Date();
 
 angular
     .module('mobiscroll-form', [])
     .directive('mobiscrollForm', ['$parse', function ($parse) {
+        // If ionic detected, disable tap on form elments,
+        // Otherwise checkbox, radio, switch, segmented and buttons will not work properly
+        if (typeof ionic !== 'undefined' || $('ion-content,ion-nav-view').length) {
+            Form.prototype._defaults.tap = false;
+            Switch.prototype._defaults.tap = false;
+        }
+
         return {
             restrict: 'A',
             compile: function () {
@@ -23,13 +31,10 @@ angular
 
                         elm.attr('mbsc-form-opt', '');
 
-                        mobiscroll.ng.formOptions[id] = {
-                            theme: opt.theme,
-                            lang: opt.lang
-                        };
+                        mobiscroll.ng.formOptions[id] = opt;
                     },
                     post: function (scope, element, attrs) {
-                        var inst = new mobiscroll.classes.Form(element[0], mobiscroll.ng.getOpt(scope, attrs, 'mobiscrollForm', true));
+                        var inst = new Form(element[0], mobiscroll.ng.getOpt(scope, attrs, 'mobiscrollForm', true));
 
                         // Add instance to scope if there is an attribute set
                         if (attrs.mobiscrollInstance) {

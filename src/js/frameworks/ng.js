@@ -1,8 +1,6 @@
 import angular from 'angular';
 import mobiscroll from '../core/dom';
-import {
-    $
-} from '../core/core';
+import { $, extend } from '../core/core';
 
 export default mobiscroll;
 
@@ -30,7 +28,7 @@ mobiscroll.ng = {
                 mobiscroll.ng.addWatch($parse, scope, ngModel, $element, attrs, attrName, render, read, parse, format);
 
                 // Initialize mobiscroll on the element
-                inst = new mobiscroll.classes[opt.component || 'Scroller'](element[0], angular.extend(mobiscroll.ng.getOpt(scope, attrs, attrName, ngModel, inheritOptions, $element), opt || {}));
+                inst = new mobiscroll.classes[opt.component || 'Scroller'](element[0], extend(mobiscroll.ng.getOpt(scope, attrs, attrName, ngModel, inheritOptions, $element), opt || {}));
 
                 // Add instance to scope if there is an attribute set
                 if (attrs.mobiscrollInstance) {
@@ -44,12 +42,12 @@ mobiscroll.ng = {
             $formElement = inheritOptions ? $element.closest('[mbsc-form-opt]') : null;
 
         if (inheritOptions) {
-            initOpt = angular.extend({}, mobiscroll.ng.formOptions[$formElement.attr('id')] || {}, initOpt);
+            initOpt = extend({}, mobiscroll.ng.formOptions[$formElement.attr('id')] || {}, initOpt);
         }
 
         if (ngModel) {
             // prepare the initialization object for mobiscroll
-            angular.extend(initOpt, scope.$eval(attrs[attrName] || '{}'));
+            extend(initOpt, scope.$eval(attrs[attrName] || '{}'));
         }
 
         return initOpt;
@@ -151,6 +149,4 @@ mobiscroll.ng = {
     formOptions: {}
 };
 
-export {
-    $
-};
+export { $, extend };

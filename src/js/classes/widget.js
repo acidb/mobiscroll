@@ -97,6 +97,7 @@ Widget.prototype = {
     _hasDef: true,
     _hasTheme: true,
     _hasContent: true,
+    _hasLang: true,
     _class: 'widget',
     _defaults: extend({}, Frame.prototype._defaults, {
         okText: 'OK',

@@ -1,10 +1,6 @@
-import mobiscroll, {
-    $
-} from '../core/core';
-
-var util = mobiscroll.util,
-    getCoord = util.getCoord,
-    testTouch = util.testTouch;
+import mobiscroll, { $, Base } from '../core/core';
+import { getCoord } from '../util/tap';
+import { testTouch } from '../util/dom';
 
 const Stepper = function (control, settings) {
     var $btn,
@@ -200,7 +196,7 @@ const Stepper = function (control, settings) {
     }
 
     // Call the parent constructor
-    mobiscroll.classes.Base.call(this, control, settings, true);
+    Base.call(this, control, settings, true);
 
     /* TRIALFUNC */
 

@@ -1,7 +1,6 @@
-import mobiscroll, {
-    $,
-    extend
-} from '../core/core';
+import mobiscroll, { $, extend } from '../core/core';
+import { getCoord } from '../util/tap';
+import { testTouch } from '../util/dom';
 
 export default mobiscroll;
 
@@ -74,10 +73,7 @@ function initRipple($markup, selector, disabled, nohl) {
 
 var $active,
     $ripple,
-    themes = mobiscroll.themes,
-    util = mobiscroll.util,
-    testTouch = util.testTouch,
-    getCoord = util.getCoord;
+    themes = mobiscroll.themes;
 
 themes.frame.material = {
     headerText: false,

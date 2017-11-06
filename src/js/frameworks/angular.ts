@@ -23,6 +23,11 @@ import {
     QueryList
 } from '@angular/core';
 
+// // angular2 import { trigger, state, animate, transition, style } from '@angular/core'; // Angular 2.x
+// // angular2 /*
+// import { trigger, state, animate, transition, style } from '@angular/animations'; // Angular 4.x
+// // angular2 */
+
 import { CommonModule } from '@angular/common';
 
 import {
@@ -292,7 +297,7 @@ abstract class MbscDataControlBase extends MbscControlBase implements OnInit {
      */
     @Input('mbsc-options')
     public options: MbscCoreOptions & MbscDataControlOptions = {};
-    
+
     /**
      * True if multiselection is on
      */
@@ -431,5 +436,6 @@ export {
     CommonModule,
     Injectable,
     Observable,
-    Subject
+    Subject//,
+    //trigger, state, animate, transition, style
 }
