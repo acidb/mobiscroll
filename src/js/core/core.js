@@ -1,5 +1,5 @@
 /*!
- * Mobiscroll v3.2.5
+ * Mobiscroll v3.2.6
  * http://mobiscroll.com
  *
  * Copyright 2010-2016, Acid Media
@@ -10,7 +10,7 @@
 import mobiscroll from './mobiscroll';
 import { os, majorVersion, minorVersion, isBrowser } from '../util/platform';
 import { noop, vibrate } from '../util/misc';
-import { preventClick, tap } from '../util/tap';
+import { getCoord, preventClick, tap } from '../util/tap';
 
 export default mobiscroll;
 
@@ -22,8 +22,9 @@ var ms,
 
 ms = extend(mobiscroll, {
     $: $,
-    version: '3.2.5',
+    version: '3.2.6',
     util: {
+        getCoord: getCoord,
         preventClick: preventClick,
         vibrate: vibrate
     },

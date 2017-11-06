@@ -109,7 +109,7 @@ function showPrompt(widget, settings, resolve) {
             inst._resolve = input.value;
         }
     }));
-    inst._resolve = '';
+    inst._resolve = null;
     showPopup(inst);
 }
 

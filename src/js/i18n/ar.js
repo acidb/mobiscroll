@@ -11,7 +11,6 @@ mobiscroll.i18n.ar = {
     cancelText: 'إلغاء',
     clearText: 'مسح',
     selectedText: '{count} المحدد',
-    selectedPluralText: '{count} المحدد',
     // Datetime component
     dateFormat: 'dd/mm/yy',
     dayNames: [ 'الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت' ],
