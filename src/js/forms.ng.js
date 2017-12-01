@@ -63,18 +63,12 @@ angular
         return mobiscroll.ng.getDDO($parse, 'mobiscrollStepper', {
             component: 'Stepper'
         });
-    }]);
-
-angular
-    .module('mobiscroll-progress', [])
+    }])
     .directive('mobiscrollProgress', ['$parse', function ($parse) {
         return mobiscroll.ng.getDDO($parse, 'mobiscrollProgress', {
             component: 'Progress'
         }, undefined, undefined, undefined, undefined, true);
-    }]);
-
-angular
-    .module('mobiscroll-slider', [])
+    }])
     .directive('mobiscrollSlider', ['$parse', function ($parse) {
         return mobiscroll.ng.getDDO($parse, 'mobiscrollSlider', {
             component: 'Slider'

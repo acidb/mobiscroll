@@ -121,6 +121,7 @@ export interface MbscCalbaseOptions extends MbscDatetimeOptions {
     tabs?: boolean;
     weekCounter?: 'year' | 'month';
     weekDays?: 'full' | 'short' | 'min';
+    weeks?: number;
     yearChange?: boolean;
 
     // localization

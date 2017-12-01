@@ -1,0 +1,16 @@
+@mobiscroll-accent: #4eccc4;
+@mobiscroll-background: #f7f7f7;
+@mobiscroll-text: #454545;
+
+/* Light/dark versions */
+
+.light-or-dark();
+// Light background 
+.light-or-dark() when (lightness(@mobiscroll-background) > 50%) {
+    @mobiscroll-border: darken(@mobiscroll-background, 17%);
+}
+
+// Dark background 
+.light-or-dark() when (lightness(@mobiscroll-background) <=50%) {
+    @mobiscroll-border: lighten(@mobiscroll-background, 17%);
+}

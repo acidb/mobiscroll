@@ -1,3 +1,24 @@
+@material-background: #eee;
+@material-text: #5b5b5b;
+@material-accent: #009688;
+@material-ripple: contrast(@material-background);
+
+/* Light/dark versions */
+
+.light-or-dark();
+// Light background 
+.light-or-dark() when (lightness(@material-background) > 50%) {
+    @material-border: lighten(@material-text, 40%);
+}
+
+// Dark background 
+.light-or-dark() when (lightness(@material-background) <=50%) {
+    @material-border: darken(@material-text, 40%);
+}
+
+
+/* Ripple effect */
+
 .mbsc-material .mbsc-ripple,
 .mbsc-lv-material .mbsc-ripple {
     position: absolute;
@@ -5,7 +26,7 @@
     left: 0;
     opacity: 0;
     border-radius: 1000em;
-    background: #000;
+    background: @material-ripple;
     pointer-events: none;
     -webkit-transform: scale(0);
     transform: scale(0);

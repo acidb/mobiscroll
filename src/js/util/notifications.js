@@ -86,7 +86,7 @@ function showAlert(widget, settings, resolve) {
 
 function showConfirm(widget, settings, resolve) {
     const inst = new Widget(widget, getSettings(popupQueue, settings, resolve, {
-        buttons: ['ok', 'cancel'],
+        buttons: ['cancel', 'ok'],
         onSet: function () {
             inst._resolve = true;
         }
@@ -98,7 +98,7 @@ function showConfirm(widget, settings, resolve) {
 function showPrompt(widget, settings, resolve) {
     let input;
     const inst = new Widget(widget, getSettings(popupQueue, settings, resolve, {
-        buttons: ['ok', 'cancel'],
+        buttons: ['cancel', 'ok'],
         onShow: function () {
             input = inst._markup.find('input')[0];
             setTimeout(function () {

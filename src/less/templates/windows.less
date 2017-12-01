@@ -1,0 +1,635 @@
+@theme: windows;
+@input1: #1ca1e3;
+@input2: #dedede;
+@input3: #000000;
+
+/* --- New built in parameters --- */
+
+@windows-background: @input2;
+@windows-text: @input3;
+@windows-accent: @input1;
+
+/* --- */
+
+.light-or-dark();
+// Light background 
+.light-or-dark() when (lightness(@windows-background) > 50%) {
+    @windows-background-alt: darken(@windows-background, 18%);
+    @colorClearBackground: #ffffff;
+    @value_isDark2_5: min(hsvvalue(@windows-background) + 13%, 100%);
+    @value_isDark2_6: hsvvalue(@windows-background) - 17%;
+    @value_isDark2_3: max(hsvvalue(@windows-background) - 7%, 0%);
+    @hsvvalue2_4: max(hsvvalue(@windows-background) - 22%, 0%);
+    @windows-progress-bg: hsv(hsvhue(@windows-background), hsvsaturation(@windows-background), min(hsvvalue(@windows-background), 88%));
+    @value_isDark3_2: hsvvalue(@windows-text);
+    @windows-colorprev-border: hsv(hsvhue(@windows-background), hsvsaturation(@windows-background), max(hsvvalue(@windows-background) - 25%, 0%));
+}
+
+// Dark background 
+.light-or-dark() when (lightness(@windows-background) <=50%) {
+    @windows-background-alt: lighten(@windows-background, 18%);
+    @windows-progress-bg: hsv(hsvhue(@windows-background), hsvsaturation(@windows-background), max(hsvvalue(@windows-background), 12%));
+    @windows-colorprev-border: hsv(hsvhue(@windows-background), hsvsaturation(@windows-background), min(hsvvalue(@windows-background) + 60%, 100%));
+    @colorClearBackground: fade(#dfdede, 30%);
+    @value_isDark2_5: max(hsvvalue(@windows-background) - 12%, 0%);
+    @value_isDark2_6: hsvvalue(@windows-background) + 19%;
+    @value_isDark2_3: min(hsvvalue(@windows-background) + 8%, 100%);
+    @value_isDark3_2: 0%;
+    @hsvvalue2_4: min(hsvvalue(@windows-background) + 18%, 100%);
+}
+
+
+/* Light/dark versions */
+
+@windows-accent-alt: contrast(@windows-accent);
+@windows-input-disabled: hsv(hsvhue(@windows-text), hsvsaturation(@windows-text), 31%);
+@windows-segmented-disabled: hsv(hsvhue(@windows-background), hsvsaturation(@windows-background), @value_isDark2_6);
+@windows-form-bg: hsv(hsvhue(@windows-background), hsvsaturation(@windows-background), @value_isDark2_5);
+@windows-np-bg: hsv(hsvhue(@windows-background), hsvsaturation(@windows-background), @value_isDark2_3);
+@windows-background-alt2: hsv(hsvhue(@windows-background), hsvsaturation(@windows-background), max(@hsvvalue2_4, 25%));
+@windows-background-alt2-text: contrast(@windows-background-alt2);
+@windows-input-color: hsv(hsvhue(@windows-text), hsvsaturation(@windows-text), @value_isDark3_2);
+
+/* --- */
+
+.mbsc-@{theme} .mbsc-fr-w,
+.mbsc-@{theme} .mbsc-fr-btn {
+    color: @windows-text;
+}
+
+.mbsc-@{theme} .mbsc-fr-w {
+    background: @windows-background;
+}
+
+.mbsc-@{theme} .mbsc-sc-itm {
+    color: @windows-text;
+}
+
+.mbsc-@{theme} .mbsc-sc-itm:after {
+    border-color: @windows-text;
+}
+
+.mbsc-@{theme} .mbsc-sc-whl .mbsc-sc-itm-sel {
+    color: @windows-accent-alt;
+}
+
+
+/* Clickpick-mode */
+
+.mbsc-@{theme} .mbsc-sc-btn {
+    background: @windows-background;
+}
+
+.mbsc-@{theme} .mbsc-sc-btn:before {
+    color: @windows-text;
+    border-color: @windows-text;
+}
+
+.mbsc-@{theme} .mbsc-sc-itm-sel:after,
+.mbsc-@{theme} .mbsc-sc-itm.mbsc-btn-a:after,
+.mbsc-@{theme} .mbsc-sc-btn-a:before,
+.mbsc-@{theme}.mbsc-no-touch .mbsc-sc-btn:hover:before {
+    background: @windows-accent;
+    border-color: @windows-accent;
+}
+
+.mbsc-@{theme} .mbsc-sc-whl-w:not(.mbsc-sc-whl-multi) .mbsc-sc-whl-anim .mbsc-sc-itm-sel {
+    color: @windows-text;
+}
+
+.mbsc-@{theme} .mbsc-sc-whl-w:not(.mbsc-sc-whl-multi) .mbsc-sc-whl-anim .mbsc-sc-itm-sel:after,
+.mbsc-@{theme} .mbsc-sc-whl-w:not(.mbsc-sc-whl-multi) .mbsc-sc-whl-wpa .mbsc-sc-itm.mbsc-btn-a:after {
+    background: none;
+    border-color: @windows-text;
+}
+
+
+/* Bubble positioning */
+
+.mbsc-@{theme} .mbsc-fr-bubble-bottom .mbsc-fr-arr {
+    border-color: transparent transparent @windows-background transparent;
+}
+
+.mbsc-@{theme} .mbsc-fr-bubble-top .mbsc-fr-arr {
+    border-color: @windows-background transparent transparent transparent;
+}
+
+
+/* Multiple select */
+
+.mbsc-@{theme} .mbsc-sc-whl-multi .mbsc-sc-itm:after {
+    border-color: @windows-text;
+}
+
+.mbsc-@{theme} .mbsc-sc-whl-multi .mbsc-sc-itm-sel:before,
+.mbsc-@{theme} .mbsc-sc-whl-multi .mbsc-sc-itm-sel {
+    color: @windows-text;
+}
+
+.mbsc-@{theme} .mbsc-sel-filter-clear {
+    color: @windows-text;
+}
+
+
+/* Calendar */
+
+.mbsc-@{theme} {
+    .mbsc-cal-picker {
+        background: @windows-background;
+    }
+    .mbsc-cal-today {
+        color: @windows-accent;
+    }
+    /* Selected style */
+    &.mbsc-no-touch .mbsc-cal-tab:hover,
+    &.mbsc-no-touch .mbsc-cal-day:not(.mbsc-btn-d):hover .mbsc-cal-day-i,
+    &.mbsc-no-touch .mbsc-cal-picker .mbsc-cal-cell:not(.mbsc-btn-d):hover,
+    .mbsc-cal-tabs .mbsc-cal-tab.mbsc-selected,
+    .mbsc-cal-day.mbsc-selected .mbsc-cal-day-i,
+    .mbsc-cal-picker .mbsc-cal-cell.mbsc-selected {
+        background: @windows-accent;
+        color: contrast(@windows-accent);
+    }
+    /* Tabs */
+    .mbsc-cal-tabs {
+        .mbsc-cal-tab {
+            border-color: @windows-background-alt;
+        }
+    }
+    /* Marks */
+    .mbsc-cal-mark {
+        background: @windows-text;
+    }
+    .mbsc-cal-txt {
+        color: contrast(@windows-background-alt);
+        background: @windows-background-alt;
+    }
+    .mbsc-cal-events-arr {
+        border-color: @windows-background-alt2;
+    }
+}
+
+.mbsc-@{theme} .mbsc-cal-event {
+    background: @windows-background-alt2;
+    color: @windows-background-alt2-text;
+}
+
+.mbsc-@{theme} .mbsc-cal-events {
+    background: fade(@windows-text, 80%);
+}
+
+.mbsc-@{theme} .mbsc-cal-events-arr {
+    border-color: fade(@windows-text, 80%) transparent transparent;
+}
+
+.mbsc-@{theme} .mbsc-cal-events-b .mbsc-cal-events-arr {
+    border-color: transparent transparent fade(@windows-text, 80%);
+}
+
+.mbsc-@{theme} .mbsc-fr-btn:before {
+    color: @windows-text;
+    border-color: @windows-text;
+}
+
+.mbsc-@{theme}.mbsc-no-touch .mbsc-fr-btn-e:not(.mbsc-fr-btn-d):hover:before,
+.mbsc-@{theme} .mbsc-fr-btn-a:before {
+    background: @windows-accent;
+    border-color: @windows-accent;
+    color: @windows-accent-alt;
+}
+
+
+/* Range */
+
+.mbsc-@{theme} {
+    .mbsc-range-btn {
+        color: @windows-text;
+        border-color: @windows-background-alt;
+    }
+    &.mbsc-no-touch .mbsc-range-btn:hover,
+    .mbsc-range-btn.mbsc-selected {
+        background: @windows-accent;
+        border-color: @windows-accent;
+        color: contrast(@windows-accent);
+    }
+    &.mbsc-range .mbsc-cal .mbsc-cal-day.mbsc-cal-day-hl .mbsc-cal-day-i {
+        // Overrides hover as well
+        background: @windows-text;
+        color: @windows-background;
+    }
+}
+
+
+/* Rating */
+
+.mbsc-@{theme} .mbsc-rating-icon {
+    color: inherit;
+}
+
+.mbsc-@{theme} .mbsc-rating-circle {
+    background: @windows-text;
+    color: @windows-background;
+}
+
+.mbsc-@{theme} .mbsc-rating-circle-unf {
+    background: #646464;
+}
+
+
+/* Timer */
+
+.mbsc-@{theme}.mbsc-ts .mbsc-sc-lbl,
+.mbsc-@{theme}.mbsc-timer .mbsc-sc-lbl {
+    color: @windows-accent-alt;
+}
+
+
+/* Numpad */
+
+.mbsc-@{theme} .mbsc-np-del.mbsc-fr-btn-a:before {
+    color: @windows-text;
+}
+
+.mbsc-@{theme}.mbsc-no-touch .mbsc-fr-c .mbsc-np-del:hover:before {
+    color: @windows-accent;
+    background: transparent;
+}
+
+.mbsc-@{theme} .mbsc-np-btn {
+    background: @windows-np-bg;
+    border: 2px solid @windows-background;
+}
+
+.mbsc-@{theme}.mbsc-no-touch .mbsc-np-btn:not(.mbsc-fr-btn-d):hover {
+    color: @windows-accent;
+}
+
+.mbsc-@{theme}.mbsc-fr .mbsc-fr-w .mbsc-np-btn.mbsc-fr-btn-a {
+    background: @windows-accent;
+    color: @windows-accent-alt;
+}
+
+.mbsc-@{theme} .mbsc-np-btn.mbsc-fr-btn-d {
+    color: @windows-text;
+    opacity: .5;
+}
+
+.mbsc-@{theme} .mbsc-np-btn-empty {
+    background: none;
+}
+
+
+/* Listview */
+
+.mbsc-lv-@{theme} .mbsc-lv-item,
+.mbsc-lv-@{theme} .mbsc-lv-gr-title {
+    background: @windows-background;
+    color: @windows-text;
+}
+
+.mbsc-lv-@{theme}.mbsc-lv-alt-row .mbsc-lv-item:nth-child(even) {
+    background: hsv(hsvhue(@windows-background), hsvsaturation(@windows-background), min(hsvvalue(@windows-background) + 7%, 95%));
+}
+
+
+/* Navigation */
+
+.mbsc-@{theme} {
+    &.mbsc-ms-c {
+        background: @windows-background;
+        color: @windows-text;
+    }
+    .mbsc-ms-item {
+        color: @windows-background-alt;
+    }
+    &.mbsc-ms-icons .mbsc-ms-item {
+        color: @windows-text;
+    }
+    .mbsc-ms-item.mbsc-ms-ic:before {
+        border-color: @windows-text;
+    }
+    &.mbsc-no-touch .mbsc-ms-item:not(.mbsc-btn-d):hover {
+        background: fade(@windows-accent, 20%);
+    }
+    .mbsc-ms-item-sel.mbsc-ms-ic:before,
+    .mbsc-btn-a.mbsc-ms-ic:before {
+        background: @windows-text;
+        color: @windows-background;
+    }
+    .mbsc-ms-item-sel {
+        color: @windows-text;
+    }
+    /* Show more item */
+    .mbsc-ms-item.mbsc-menu-item-ic {
+        padding: .75em 0;
+        min-width: 1.5em;
+        color: @windows-text;
+        &:before {
+            top: 50%;
+            margin-top: -1.333334em;
+        }
+    }
+    &.mbsc-ms-icons .mbsc-ms-item.mbsc-menu-item-ic {
+        min-width: 6em;
+        padding-top: 4em;
+        padding-bottom: .5em;
+        &:before {
+            top: .416667em;
+            margin-top: 0;
+        }
+    }
+    /* Show more bubble */
+    &.mbsc-ms-more {
+        .mbsc-ms-item {
+            color: @windows-text;
+            &.mbsc-ms-item-sel {
+                background: @windows-accent;
+            }
+            &.mbsc-ms-ic {
+                background: none;
+            }
+        }
+    }
+}
+
+
+/* Progress */
+
+.mbsc-@{theme}.mbsc-progress .mbsc-label {
+    color: @windows-text;
+}
+
+.mbsc-@{theme}.mbsc-progress .mbsc-input-ic {
+    color: @windows-text;
+}
+
+.mbsc-@{theme} .mbsc-progress-track {
+    background: @windows-progress-bg;
+}
+
+.mbsc-@{theme} .mbsc-progress-bar {
+    background: @windows-accent;
+}
+
+
+/* Slider */
+
+.mbsc-@{theme} .mbsc-slider-handle {
+    background: @windows-text;
+}
+
+.mbsc-@{theme} .mbsc-slider-tooltip {
+    background: @windows-text;
+    color: @windows-background-alt2;
+    border-color: @windows-background-alt2;
+}
+
+.mbsc-@{theme} .mbsc-slider-step {
+    background: @windows-form-bg;
+}
+
+
+/* Form elements */
+
+.mbsc-@{theme}.mbsc-form {
+    background-color: @windows-form-bg;
+    color: @windows-text;
+}
+
+.mbsc-@{theme}.mbsc-page {
+    background-color: @windows-form-bg;
+    color: @windows-text;
+}
+
+.mbsc-@{theme} .mbsc-input .mbsc-label {
+    color: @windows-text;
+}
+
+.mbsc-@{theme} .mbsc-input-ic {
+    color: @windows-input-color;
+}
+
+.mbsc-@{theme} .mbsc-input select {
+    background: @windows-form-bg;
+    color: @windows-input-color;
+}
+
+.mbsc-@{theme} .mbsc-input select option {
+    color: @windows-text;
+}
+
+.mbsc-@{theme} .mbsc-select .mbsc-input-wrap input {
+    border-color: @windows-text;
+    color: @windows-text;
+}
+
+.mbsc-@{theme} .mbsc-input select.mbsc-active + input {
+    border-color: @windows-text;
+}
+
+.mbsc-@{theme} .mbsc-select .mbsc-input-wrap .mbsc-ic {
+    color: @windows-text;
+}
+
+.mbsc-@{theme} .mbsc-input select:disabled ~ input,
+.mbsc-@{theme} .mbsc-input textarea:disabled,
+.mbsc-@{theme} .mbsc-input input:disabled {
+    background-color: transparent;
+    color: @windows-input-disabled;
+    border-color: @windows-input-disabled;
+}
+
+
+/* Checkbox */
+
+.mbsc-@{theme} .mbsc-checkbox-box {
+    border-color: @windows-text;
+}
+
+.mbsc-@{theme} .mbsc-checkbox-box:after {
+    border-color: @windows-text;
+}
+
+
+/* Radio */
+
+.mbsc-@{theme} .mbsc-radio-box {
+    border-color: @windows-text;
+}
+
+.mbsc-@{theme} .mbsc-radio-box:after {
+    background-color: @windows-text;
+}
+
+
+/* Button */
+
+.mbsc-@{theme} .mbsc-btn {
+    color: @windows-text;
+    border-color: @windows-text;
+}
+
+.mbsc-@{theme} .mbsc-btn-flat,
+.mbsc-@{theme}.mbsc-no-touch .mbsc-btn-flat:not(:disabled):hover,
+.mbsc-@{theme} .mbsc-btn-flat.mbsc-active {
+    color: @windows-text;
+}
+
+.mbsc-@{theme}.mbsc-no-touch .mbsc-btn:not(.mbsc-btn-flat):not(:disabled):hover,
+.mbsc-@{theme} .mbsc-btn.mbsc-active:not(.mbsc-btn-flat) {
+    background: @windows-accent;
+}
+
+.mbsc-@{theme} .mbsc-switch input:checked + .mbsc-switch-track,
+.mbsc-@{theme} .mbsc-radio input.mbsc-active + .mbsc-radio-box:after,
+.mbsc-@{theme} .mbsc-radio input.mbsc-active + .mbsc-radio-box,
+.mbsc-@{theme} .mbsc-checkbox input.mbsc-active + .mbsc-checkbox-box {
+    background: @windows-accent;
+}
+
+.mbsc-@{theme}.mbsc-form *::-moz-selection {
+    color: @windows-form-bg;
+    background: @windows-accent;
+}
+
+.mbsc-@{theme}.mbsc-form *::selection {
+    color: @windows-text;
+    background: @windows-accent;
+}
+
+.mbsc-@{theme} .mbsc-input input:focus,
+.mbsc-@{theme} .mbsc-input select:focus + input,
+.mbsc-@{theme} .mbsc-input textarea:focus {
+    border-color: @windows-accent;
+    color: @windows-input-color;
+}
+
+.mbsc-@{theme} .mbsc-input select.mbsc-active + input {
+    background: @windows-accent;
+    border-color: @windows-accent;
+    color: @windows-accent-alt;
+}
+
+.mbsc-@{theme} .mbsc-input select:focus + input {
+    background: @windows-form-bg;
+    color: @windows-text;
+}
+
+.mbsc-@{theme} .mbsc-select select.mbsc-active ~ .mbsc-ic {
+    color: @windows-accent-alt;
+}
+
+.mbsc-@{theme} .mbsc-select select:focus ~ .mbsc-ic {
+    color: @windows-text;
+}
+
+.mbsc-@{theme} a {
+    color: @windows-accent;
+}
+
+
+/* Switch */
+
+.mbsc-@{theme} .mbsc-switch-track {
+    box-shadow: inset 0 0 0 2px @windows-form-bg, 0 0 0 2px @windows-text;
+}
+
+.mbsc-@{theme} .mbsc-switch-handle {
+    background: @windows-text;
+    border-color: @windows-form-bg;
+}
+
+.mbsc-@{theme} .mbsc-switch input:disabled + .mbsc-switch-track {
+    background: transparent;
+}
+
+.mbsc-@{theme} .mbsc-switch input:checked:disabled + .mbsc-switch-track {
+    background: @windows-text;
+}
+
+
+/* Segmented & Stepper */
+
+.mbsc-@{theme} .mbsc-segmented-content {
+    border-color: @windows-text;
+    color: @windows-text;
+}
+
+.mbsc-@{theme} .mbsc-segmented .mbsc-segmented-item input:checked + .mbsc-segmented-content {
+    background: @windows-text;
+    color: @windows-form-bg;
+}
+
+.mbsc-@{theme} .mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control.mbsc-active .mbsc-segmented-content,
+.mbsc-@{theme} .mbsc-segmented .mbsc-segmented-item input:checked + .mbsc-segmented-content,
+.mbsc-@{theme} .mbsc-segmented .mbsc-segmented-item input.mbsc-active + .mbsc-segmented-content {
+    background: @windows-accent;
+}
+
+.mbsc-@{theme} .mbsc-stepper .mbsc-segmented-item.mbsc-active .mbsc-segmented-content {
+    background: @windows-accent;
+}
+
+.mbsc-@{theme} .mbsc-segmented input:disabled ~ .mbsc-segmented-item .mbsc-segmented-content,
+.mbsc-@{theme} .mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control.mbsc-step-disabled .mbsc-segmented-content,
+.mbsc-@{theme} .mbsc-stepper .mbsc-segmented-item.mbsc-step-disabled .mbsc-segmented-content,
+.mbsc-@{theme} .mbsc-segmented .mbsc-segmented-item input:disabled + .mbsc-segmented-content {
+    color: @windows-segmented-disabled;
+    border-color: @windows-segmented-disabled;
+    background: transparent;
+}
+
+.mbsc-@{theme} .mbsc-stepper input:disabled {
+    color: @windows-segmented-disabled;
+    -webkit-text-fill-color: @windows-segmented-disabled;
+}
+
+.mbsc-@{theme} .mbsc-segmented .mbsc-segmented-item input:disabled:checked + .mbsc-segmented-content {
+    color: @windows-form-bg;
+    background: @windows-segmented-disabled;
+}
+
+.mbsc-@{theme} .mbsc-stepper input {
+    color: @windows-text;
+}
+
+.mbsc-@{theme}.mbsc-no-touch .mbsc-segmented-item:hover .mbsc-segmented-content {
+    background: fade(@windows-accent, 20%);
+}
+
+
+/* Snackbar */
+
+.mbsc-@{theme}.mbsc-snackbar .mbsc-snackbar-cont .mbsc-snackbar-btn {
+    color: @windows-accent;
+}
+
+
+/* Colorpicker */
+
+.mbsc-@{theme} .mbsc-color-active,
+.mbsc-no-touch.mbsc-@{theme} .mbsc-color-item-c:hover {
+    box-shadow: inset 0 0 0 .1875em @windows-accent;
+}
+
+.mbsc-@{theme} .mbsc-color-preview-item-empty {
+    border-color: @windows-colorprev-border;
+}
+
+.mbsc-@{theme} .mbsc-color-preview-cont {
+    border-color: @windows-colorprev-border;
+}
+
+.mbsc-@{theme}.mbsc-color .mbsc-color-slider-cont .mbsc-progress-track {
+    background: @windows-input-disabled;
+}
+
+.mbsc-@{theme}.mbsc-form .mbsc-color-input {
+    background: @windows-form-bg;
+    color: @windows-text;
+    border-color: @windows-text;
+}
+
+.mbsc-@{theme} .mbsc-color-clear-item {
+    background: @colorClearBackground;
+}

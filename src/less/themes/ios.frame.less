@@ -1,4 +1,5 @@
 @import "../frame";
+@import "ios";
 @import "ios.borders.less";
 
 /* Frame */
@@ -66,11 +67,19 @@
     border-bottom: 1px solid #ccc;
 }
 
+.mbsc-ios .mbsc-ltr .mbsc-fr-btn-cont {
+    text-align: right;
+}
+
+.mbsc-ios .mbsc-rtl .mbsc-fr-btn-cont {
+    text-align: left;
+}
+
 .mbsc-ios .mbsc-fr-btn {
     height: 2.75em;
     line-height: 2.75em;
     padding: 0 .625em;
-    display: inline-block;
+    text-align: center;
     color: #007aff;
     font-size: 1.333334em;
 }
@@ -84,12 +93,10 @@
 }
 
 .mbsc-ios .mbsc-fr-btn-w {
-    display: block;
-    float: right;
+    display: inline-block;
 }
 
-.mbsc-ios .mbsc-fr-btn-c,
-.mbsc-ios .mbsc-rtl .mbsc-fr-btn-w {
+.mbsc-ios .mbsc-ltr .mbsc-fr-btn-c {
     float: left;
 }
 
@@ -168,11 +175,6 @@
     bottom: 0;
     border: 0;
     table-layout: fixed;
-}
-
-.mbsc-ios.mbsc-fr-center .mbsc-fr-btn {
-    display: block;
-    font-weight: normal;
 }
 
 .mbsc-ios.mbsc-fr-center .mbsc-fr-btn-w {

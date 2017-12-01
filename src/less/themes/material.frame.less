@@ -1,5 +1,5 @@
 @import "../frame";
-@import "./material";
+@import "material";
 
 /* Frame */
 
@@ -33,17 +33,19 @@
 .mbsc-material .mbsc-fr-btn-cont {
     display: block;
     overflow: hidden;
-    text-align: right;
     padding: 0 .5em .5em .5em;
 }
 
-.mbsc-material .mbsc-fr-btn-w {
-    display: block;
-    float: right;
+.mbsc-material .mbsc-ltr .mbsc-fr-btn-cont {
+    text-align: right;
 }
 
-.mbsc-material .mbsc-rtl .mbsc-fr-btn-w {
-    float: left;
+.mbsc-material .mbsc-rtl .mbsc-fr-btn-cont {
+    text-align: left;
+}
+
+.mbsc-material .mbsc-fr-btn-w {
+    display: inline-block;
 }
 
 .mbsc-material .mbsc-fr-btn {

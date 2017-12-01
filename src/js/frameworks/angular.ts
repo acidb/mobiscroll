@@ -1,5 +1,9 @@
 import mobiscroll from '../core/dom';
-import { $, extend, MbscCoreOptions, MbscDataControlOptions } from '../core/core';
+import { $, extend, 
+    MbscCoreOptions, 
+    MbscFrameOptions,
+    MbscScrollerOptions,
+    MbscDataControlOptions } from '../core/core';
 
 import {
     Directive,
@@ -60,23 +64,65 @@ export class MbscInputService {
     }
 }
 
+@Injectable()
+export class MbscListService {
+    private addRemoveSubject: Subject<any> = new Subject();
+
+    notifyAddRemove(item: any) {
+        this.addRemoveSubject.next(item);
+    }
+
+    onAddRemove(): Observable<any> {
+        return this.addRemoveSubject.asObservable();
+    }
+}
+
 class MbscBase implements AfterViewInit, OnDestroy {
     /**
      * The mobiscroll settings for the directive are passed through this input.
      */
     @Input('mbsc-options')
-    public options: MbscCoreOptions = {};
+    options: MbscCoreOptions = {};
+    @Input()
+    theme: string;
+    @Input()
+    lang: string;
+    @Input()
+    rtl: boolean;
+    @Input()
+    onInit: (event: any, inst: any) => void;
+    @Input()
+    onDestroy: (event:any, inst: any) => void;
+
+    inlineOptions(): MbscCoreOptions {
+        return {
+            theme: this.theme,
+            lang: this.lang,
+            rtl: this.rtl,
+            onInit: this.onInit,
+            onDestroy: this.onDestroy
+        };
+    }
+
+    /**
+     * Used to add theme classes to the host on components - the mbsc-input components need to have a wrapper
+     * with that css classes for the style to work
+     */
+    setThemeClasses() {
+        var themeClass = 'mbsc-control-ng mbsc-' + this._instance.settings.theme + (this._instance.settings._baseTheme ? ' mbsc-' + this._instance.settings._baseTheme : '');
+        $(this.initialElem.nativeElement).addClass(themeClass);
+    }
 
     /**
      * Reference to the initialized mobiscroll instance
      * For internal use only
      */
-    protected _instance: any = null;
+    _instance: any = null;
 
     /**
      * Reference to the html element the mobiscroll is initialized on. 
      */
-    protected element: any = null;
+    element: any = null;
 
     /**
      * Public getter for the mobiscroll instance
@@ -233,7 +279,7 @@ abstract class MbscControlBase extends MbscValueBase implements ControlValueAcce
      * @param zone Reference to the NgZone service
      * @param control Reference to the FormControl if used (ngModel or formControl)
      */
-    constructor(initialElement: ElementRef, zone: NgZone, protected control: NgControl, protected _inputService: MbscInputService) {
+    constructor(initialElement: ElementRef, zone: NgZone, protected control: NgControl, public _inputService: MbscInputService) {
         super(initialElement, zone);
 
         this.overwriteAccessor();
@@ -290,7 +336,98 @@ abstract class MbscControlBase extends MbscValueBase implements ControlValueAcce
         }
     }
 }
+abstract class MbscDataControlMixin implements OnInit {
+    /**
+     * The mobiscroll settings for the directive are passed through this input.
+     */
+    @Input('mbsc-options')
+    public options: MbscCoreOptions & MbscDataControlOptions = {};
 
+    /**
+     * True if multiselection is on
+     */
+    public isMulti: boolean = undefined;
+
+    /**
+     * Array required for data checks
+     * Holds the previous data array against the check is made
+     */
+    public previousData: Array<any> = undefined;
+
+    /**
+     * Disables array checking in DoCheck for the data array
+     */
+    @Input('mbsc-no-data-check')
+    noDataCheck: boolean = false;
+
+    /**
+     * Array for the data
+     */
+    @Input('mbsc-data')
+    data: Array<any> = undefined;
+
+    _instance: any;
+    _inputService: any;
+
+    /**
+     * If the new value differs from the current value
+     * sets the new value to the instance and writes it to the input
+     * @param v The new value to be set
+     */
+    setNewValue(v: any) {
+        if (this._instance) {
+            let changed: boolean;
+            if (this.isMulti) {
+                changed = !deepEqualsArray(v, this._instance.getVal());
+            }
+            else {
+                let innerValue: any = this._instance.getVal();
+                changed = innerValue !== v;
+            }
+
+            // set value to instance if differs from the model
+            if (changed) {
+                this._instance.setVal(v, true, false);
+                if (this._inputService && this._inputService.input) {
+                    this._inputService.input.innerValue = this._instance._value;
+                }
+            }
+        }
+    }
+
+    /**
+     * Creates a one level copy of the data array to the previousData array
+     */
+    cloneData() {
+        this.previousData = this.data ? [] : this.data;
+        if (this.data) {
+            for (let i = 0; i < this.data.length; i++) {
+                this.previousData.push(this.data[i]);
+            }
+        }
+    }
+
+    /* OnInit Interface */
+
+    /**
+     * Runs after the input parameters are settled and before the mobiscroll control is initialized
+     */
+    ngOnInit() {
+        this.isMulti = this.options && this.options.select && this.options.select !== 'single';
+    }
+
+    abstract refreshData(newData: any): void;
+
+    /**
+     * Runs on every change
+     */
+    ngDoCheck() {
+        if (this._instance && this.data !== undefined && !this.noDataCheck && !deepEqualsArray(this.data, this.previousData)) {
+            this.cloneData();
+            this.refreshData(this.data);
+        }
+    }
+}
 abstract class MbscDataControlBase extends MbscControlBase implements OnInit {
     /**
      * The mobiscroll settings for the directive are passed through this input.
@@ -385,6 +522,176 @@ abstract class MbscDataControlBase extends MbscControlBase implements OnInit {
     }
 }
 
+abstract class MbscFrameBase extends MbscControlBase {
+    @Input()
+    options: MbscFrameOptions;
+
+    @Input()
+    anchor: string | HTMLElement;
+    @Input()
+    animate: boolean | 'fade' | 'flip' | 'pop' | 'swing' | 'slidevertical' | 'slidehorizontal' | 'slidedown' | 'slideup';
+    @Input()
+    buttons: Array<any>;
+    @Input()
+    closeOnOverlayTap: boolean;
+    @Input()
+    context: string | HTMLElement;
+    @Input()
+    disabled: boolean;
+    @Input()
+    display: 'top' | 'bottom' | 'bubble' | 'inline' | 'center';
+    @Input()
+    focusOnClose: boolean | string | HTMLElement;
+    @Input()
+    focusTrap: boolean;
+    @Input()
+    headerText: string | boolean | ((formattedValue: string) => string);
+    @Input()
+    showOnFocus: boolean;
+    @Input()
+    showOnTap: boolean;
+    @Input()
+    onBeforeClose: (event: { valueText: string, button: string }, inst: any) => void;
+    @Input()
+    onBeforeShow: (event: any, inst: any) => void;
+    @Input()
+    onCancel: (event: { valuteText: string }, inst: any) => void;
+    @Input()
+    onClose: (event: { valueText: string }, inst: any) => void;
+    @Input()
+    onDestroy: (event: any, inst: any) => void;
+    @Input()
+    onFill: (event: any, inst: any) => void;
+    @Input()
+    onMarkupReady: (event: { target: HTMLElement }, inst: any) => void;
+    @Input()
+    onPosition: (event: { target: HTMLElement, windowWidth: number, windowHeight: number }, inst: any) => void;
+    @Input()
+    onShow: (event: { target: HTMLElement, valueText: string }, inst: any) => void;
+
+    inlineOptions(): MbscFrameOptions {
+        return extend(super.inlineOptions(), {
+            anchor: this.anchor,
+            animate: this.animate,
+            buttons: this.buttons,
+            closeOnOverlayTap: this.closeOnOverlayTap,
+            context: this.context,
+            disabled: this.disabled,
+            display: this.display,
+            focusOnClose: this.focusOnClose,
+            focusTrap: this.focusTrap,
+            headerText: this.headerText,
+            showOnFocus: this.showOnFocus,
+            showOnTap: this.showOnTap,
+            onBeforeClose: this.onBeforeClose,
+            onBeforeShow: this.onBeforeShow,
+            onCancel: this.onCancel,
+            onClose: this.onClose,
+            onDestroy: this.onDestroy,
+            onFill: this.onFill,
+            onMarkupReady: this.onMarkupReady,
+            onPosition: this.onPosition,
+            onShow: this.onShow
+        });
+    }
+
+    get inline(): boolean {
+        return (this.display || this.options.display) === 'inline';
+    }
+
+    constructor(initialElem: ElementRef, zone: NgZone, control: NgControl, _inputService: MbscInputService) {
+        super(initialElem, zone, control, _inputService);
+    }
+}
+
+abstract class MbscScrollerBase extends MbscFrameBase {
+    // settings
+    @Input()
+    circular: boolean | Array<boolean>;
+    @Input()
+    height: number;
+    @Input()
+    layout: 'liquid' | 'fixed';
+    @Input()
+    maxWidth: number | Array<number>;
+    @Input()
+    minWidth: number | Array<number>;
+    @Input()
+    multiline: number;
+    @Input()
+    readOnly: boolean | Array<boolean>;
+    @Input()
+    rows: number;
+    @Input()
+    showLabel: boolean;
+    @Input()
+    showScrollArrows: boolean;
+    @Input()
+    wheels: Array<any>;
+    @Input()
+    width: number;
+    // localization settings
+    @Input()
+    cancelText: string;
+    @Input()
+    clearText: string;
+    @Input()
+    selectedText: string;
+    @Input()
+    setText: string;
+    // event callbacks
+    @Input('onChange')
+    onWheelChange: (event: { valueText?: string }, inst: any) => void;
+    @Input()
+    validate: (data: { values: Array<any>, index: number, direction: number }, inst: any) => (void | { disabled?: Array<any>, valid?: Array<any> });
+    @Input()
+    onSet: (event: { valueText?: string }, inst: any) => void;
+    @Input()
+    onItemTap: (event: any, inst: any) => void;
+    @Input()
+    onClear: (event: any, inst: any) => void;
+
+    inlineOptions() : MbscScrollerOptions {
+        return extend(super.inlineOptions(), {
+            circular: this.circular,
+            height: this.height,
+            layout: this.layout,
+            maxWidth: this.maxWidth,
+            minWidth: this.minWidth,
+            multiline: this.multiline,
+            readOnly: this.readOnly,
+            rows: this.rows,
+            showLabel: this.showLabel,
+            showScrollArrows: this.showScrollArrows,
+            wheels: this.wheels,
+            width: this.width,
+            cancelText: this.cancelText,
+            clearText: this.clearText,
+            selectedText: this.selectedText,
+            setText: this.setText,
+            onChange: this.onWheelChange,
+            validate: this.validate,
+            onSet: this.onSet,
+            onItemTap: this.onItemTap,
+            onClear: this.onClear,
+        });
+    }
+
+    constructor(initialElement: ElementRef, zone: NgZone, control: NgControl, _inputService: MbscInputService) {
+        super(initialElement, zone, control, _inputService);
+    }
+}
+
+function applyMixins(derivedCtor: any, baseCtors: any[]) {
+    baseCtors.forEach(baseCtor => {
+        Object.getOwnPropertyNames(baseCtor.prototype).forEach(name => {
+            if (name !== 'constructor') {
+                derivedCtor.prototype[name] = baseCtor.prototype[name];
+            }
+        });
+    });
+}
+
 function deepEqualsArray(a1: Array<any>, a2: Array<any>): boolean {
     if (a1 === a2) {
         return true;
@@ -400,6 +707,7 @@ function deepEqualsArray(a1: Array<any>, a2: Array<any>): boolean {
     }
 }
 
+const INPUT_TEMPLATE = `<div *ngIf="inline"></div><mbsc-input *ngIf="!inline" [controlNg]="false" [name]="name" [theme]="theme" [disabled]="disabled" [error]="error" [errorMessage]="errorMessage" [icon]="inputIcon" [icon-align]="iconAlign"><ng-content></ng-content></mbsc-input>`;
 export {
     $,
     extend,
@@ -409,8 +717,14 @@ export {
     MbscValueBase,
     MbscControlBase,
     MbscDataControlBase,
+    MbscFrameBase,
+    MbscScrollerBase,
+    MbscDataControlMixin,
 
+    applyMixins,
     deepEqualsArray,
+
+    INPUT_TEMPLATE,
 
     Directive,
     Component,

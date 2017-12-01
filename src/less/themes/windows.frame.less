@@ -1,0 +1,85 @@
+@import "../frame";
+@import "windows";
+
+/* Frame */
+
+.mbsc-windows .mbsc-fr-w {
+    padding: .625em;
+    background: @windows-background;
+    color: @windows-text;
+    font-size: 16px;
+}
+
+.mbsc-windows .mbsc-fr-hdr {
+    font-size: .75em;
+    padding: .833em;
+    min-height: 14px;
+    padding-top: 0;
+}
+
+.mbsc-windows .mbsc-fr-btn-cont {
+    display: block;
+}
+
+.mbsc-windows .mbsc-fr-btn-w {
+    display: inline-block;
+}
+
+.mbsc-windows .mbsc-fr-btn,
+.mbsc-windows .mbsc-ic:before {
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+}
+
+.mbsc-windows .mbsc-fr-btn {
+    position: relative;
+    top: 0;
+    min-width: 2.727273em;
+    display: inline-block;
+    height: 1.818182em;
+    padding: 2.636363em .454545em 0 .454545em;
+    color: @windows-text;
+    line-height: 1.818182em;
+    font-size: 0.6875em;
+    text-transform: lowercase;
+    -webkit-transition: all .1s linear;
+    transition: all .1s linear;
+}
+
+.mbsc-windows .mbsc-fr-btn:before {
+    position: absolute;
+    top: .3em;
+    left: 50%;
+    width: 2.2em;
+    height: 2.2em;
+    margin: 0 -1.3em;
+    padding: 0;
+    border: 2px solid @windows-text;
+    line-height: 2.2em;
+    font-size: .909091em;
+    text-align: center;
+    border-radius: 4em;
+}
+
+.mbsc-windows .mbsc-fr-btn-a {
+    top: -.3em;
+}
+
+.mbsc-windows.mbsc-no-touch .mbsc-fr-btn-e:not(.mbsc-fr-btn-d):hover:before,
+.mbsc-windows .mbsc-fr-btn-a:before {
+    background: @windows-accent;
+    border-color: @windows-accent;
+    color: @windows-accent-alt;
+}
+
+
+/* Bubble positioning */
+
+.mbsc-windows .mbsc-fr-bubble-bottom .mbsc-fr-arr {
+    border-color: transparent transparent @windows-background transparent;
+}
+
+.mbsc-windows .mbsc-fr-bubble-top .mbsc-fr-arr {
+    border-color: @windows-background transparent transparent transparent;
+}

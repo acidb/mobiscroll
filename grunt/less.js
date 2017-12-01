@@ -1,17 +1,4 @@
 module.exports = {
-    androidHoloLight: {
-        options: {
-            modifyVars: {
-                theme: 'android-holo-light',
-                input1: '#31b7e8',
-                input2: '#f5f5f5',
-                input3: '#000000'
-            }
-        },
-        files: {
-            'src/less/themes/android-holo-light.css': 'src/less/templates/android-holo.less'
-        }
-    },
     iosDark: {
         options: {
             modifyVars: {
@@ -52,17 +39,17 @@ module.exports = {
             'src/less/themes/mobiscroll-dark.css': 'src/less/templates/mobiscroll.less'
         }
     },
-    wpLight: {
+    windowsDark: {
         options: {
             modifyVars: {
-                theme: 'wp-light',
+                theme: 'windows-dark',
                 input1: '#1ca1e3',
-                input2: '#dedede',
-                input3: '#000000'
+                input2: '#1f1f1f',
+                input3: '#ffffff'
             }
         },
         files: {
-            'src/less/themes/wp-light.css': 'src/less/templates/wp.less'
+            'src/less/themes/windows-dark.css': 'src/less/templates/windows.less'
         }
     },
     dev: {

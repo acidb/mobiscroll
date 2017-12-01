@@ -51,6 +51,40 @@
 }
 
 
+/* Textbox, textarea, select */
+
+.mbsc-input .mbsc-label {
+    font-size: .875em;
+}
+
+.mbsc-input-ic {
+    position: absolute;
+    height: 2em;
+    width: 2em;
+    line-height: 2em;
+    text-align: center;
+}
+
+.mbsc-input-toggle {
+    cursor: pointer;
+}
+
+.mbsc-ic-right .mbsc-input-ic {
+    right: .5em;
+}
+
+.mbsc-ic-left .mbsc-input-ic {
+    left: .5em;
+}
+
+.mbsc-ic-right input {
+    padding-right: 2.4em;
+}
+
+.mbsc-ic-left input {
+    padding-left: 2.4em;
+}
+
 /* Textbox */
 
 .mbsc-mobiscroll .mbsc-input input,
@@ -89,4 +123,36 @@
 .mbsc-mobiscroll .mbsc-input.mbsc-err textarea {
     padding: 0;
     border-bottom: 1px solid #ec2a32;
+}
+
+.mbsc-mobiscroll .mbsc-input-ic {
+    top: .0625em;
+    margin: -2px 0 0 0;
+    color: #787878;
+}
+
+.mbsc-mobiscroll.mbsc-ltr .mbsc-input.mbsc-ic-left,
+.mbsc-mobiscroll.mbsc-rtl .mbsc-input.mbsc-ic-right {
+    padding-left: 3.25em;
+}
+
+.mbsc-mobiscroll.mbsc-ltr .mbsc-input.mbsc-ic-right,
+.mbsc-mobiscroll.mbsc-rtl .mbsc-input.mbsc-ic-left {
+    padding-right: 3.25em;
+}
+
+.mbsc-mobiscroll.mbsc-ltr .mbsc-ic-left .mbsc-ic.mbsc-left-ic,
+.mbsc-mobiscroll.mbsc-rtl .mbsc-ic-right .mbsc-ic.mbsc-right-ic {
+    right: auto;
+    left: -2.625em;
+}
+
+.mbsc-mobiscroll.mbsc-ltr .mbsc-ic-right .mbsc-ic.mbsc-right-ic,
+.mbsc-mobiscroll.mbsc-rtl .mbsc-ic-left .mbsc-ic.mbsc-left-ic {
+    left: auto;
+    right: -2.625em;
+}
+
+.mbsc-mobiscroll .mbsc-input .mbsc-label {
+    font-size: .75em;
 }

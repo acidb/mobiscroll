@@ -1,0 +1,46 @@
+/* Input parameters */
+
+@windows-background: #dedede;
+@windows-text: #000;
+@windows-accent: #1a9fe0;
+
+/* --- */
+
+.light-or-dark();
+// Light background 
+.light-or-dark() when (lightness(@windows-background) > 50%) {
+    @windows-background-alt: darken(@windows-background, 18%);
+    @colorClearBackground: #ffffff;
+    @value_isDark2_5: min(hsvvalue(@windows-background) + 13%, 100%);
+    @value_isDark2_6: hsvvalue(@windows-background) - 17%;
+    @value_isDark2_3: max(hsvvalue(@windows-background) - 7%, 0%);
+    @hsvvalue2_4: max(hsvvalue(@windows-background) - 22%, 0%);
+    @windows-progress-bg: hsv(hsvhue(@windows-background), hsvsaturation(@windows-background), min(hsvvalue(@windows-background), 88%));
+    @value_isDark3_2: hsvvalue(@windows-text);
+    @windows-colorprev-border: hsv(hsvhue(@windows-background), hsvsaturation(@windows-background), max(hsvvalue(@windows-background) - 25%, 0%));
+}
+
+// Dark background 
+.light-or-dark() when (lightness(@windows-background) <=50%) {
+    @windows-background-alt: lighten(@windows-background, 18%);
+    @windows-progress-bg: hsv(hsvhue(@windows-background), hsvsaturation(@windows-background), max(hsvvalue(@windows-background), 12%));
+    @windows-colorprev-border: hsv(hsvhue(@windows-background), hsvsaturation(@windows-background), min(hsvvalue(@windows-background) + 60%, 100%));
+    @colorClearBackground: fade(#dfdede, 30%);
+    @value_isDark2_5: max(hsvvalue(@windows-background) - 12%, 0%);
+    @value_isDark2_6: hsvvalue(@windows-background) + 19%;
+    @value_isDark2_3: min(hsvvalue(@windows-background) + 8%, 100%);
+    @value_isDark3_2: 0%;
+    @hsvvalue2_4: min(hsvvalue(@windows-background) + 18%, 100%);
+}
+
+
+/* Light/dark versions */
+
+@windows-accent-alt: contrast(@windows-accent);
+@windows-input-disabled: hsv(hsvhue(@windows-text), hsvsaturation(@windows-text), 31%);
+@windows-segmented-disabled: hsv(hsvhue(@windows-background), hsvsaturation(@windows-background), @value_isDark2_6);
+@windows-form-bg: hsv(hsvhue(@windows-background), hsvsaturation(@windows-background), @value_isDark2_5);
+@windows-np-bg: hsv(hsvhue(@windows-background), hsvsaturation(@windows-background), @value_isDark2_3);
+@windows-background-alt2: hsv(hsvhue(@windows-background), hsvsaturation(@windows-background), max(@hsvvalue2_4, 25%));
+@windows-background-alt2-text: contrast(@windows-background-alt2);
+@windows-input-color: hsv(hsvhue(@windows-text), hsvsaturation(@windows-text), @value_isDark3_2);

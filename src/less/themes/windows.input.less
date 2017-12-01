@@ -1,0 +1,131 @@
+@import "../input";
+
+/* Input */
+
+.mbsc-windows .mbsc-input {
+    padding: .75em 1em;
+}
+
+.mbsc-windows .mbsc-input input,
+.mbsc-windows .mbsc-input textarea {
+    height: 2em;
+    padding: 0 .3125em;
+    background: #ccc;
+    border: .125em solid #ccc;
+    font-size: 1em;
+    color: #2b2b2b;
+}
+
+.mbsc-windows .mbsc-input textarea {
+    padding-top: .125em;
+    padding-bottom: .125em;
+}
+
+.mbsc-windows .mbsc-input input::-webkit-input-placeholder {
+    color: #5c5c5c;
+}
+
+.mbsc-windows .mbsc-input input::-ms-input-placeholder {
+    color: #5c5c5c;
+}
+
+.mbsc-windows .mbsc-input input::-moz-placeholder {
+    color: #5c5c5c;
+}
+
+.mbsc-windows .mbsc-input input:focus,
+.mbsc-windows .mbsc-input select:focus + input,
+.mbsc-windows .mbsc-input textarea:focus {
+    background: #fff;
+    border-color: @windows-accent;
+    color:  @windows-text;
+}
+
+.mbsc-windows .mbsc-input select:disabled + input,
+.mbsc-windows .mbsc-input textarea:disabled,
+.mbsc-windows .mbsc-input input:disabled {
+    background: #fff;
+    border-color: @windows-input-disabled;
+    color: @windows-input-disabled; 
+}
+
+.mbsc-windows .mbsc-input.mbsc-err input,
+.mbsc-windows .mbsc-input.mbsc-err textarea {
+    border-color: #d30101;
+}
+
+.mbsc-windows .mbsc-input-ic {
+    top: 0;
+    margin-top: 0;
+    color: @windows-input-color;
+}
+
+.mbsc-windows .mbsc-err-msg {
+    color: #d30101;
+}
+
+
+/* Textbox, textarea, select */
+
+.mbsc-windows .mbsc-input.mbsc-ic-left input,
+.mbsc-windows .mbsc-input.mbsc-ic-left textarea {
+    padding-left: 2.25em;
+}
+
+.mbsc-windows.mbsc-rtl .mbsc-input.mbsc-ic-left input,
+.mbsc-windows.mbsc-rtl .mbsc-input.mbsc-ic-left textarea {
+    padding-right: 2.25em;
+    padding-left: .3125em;
+}
+
+.mbsc-windows.mbsc-ltr .mbsc-input.mbsc-ic-right input,
+.mbsc-windows.mbsc-ltr .mbsc-input.mbsc-ic-right textarea {
+    padding-right: 2.25em;
+}
+
+.mbsc-windows.mbsc-rtl .mbsc-input.mbsc-ic-right input,
+.mbsc-windows.mbsc-rtl .mbsc-input.mbsc-ic-right textarea {
+    padding-left: 2.25em;
+}
+
+.mbsc-windows .mbsc-ic-left .mbsc-left-ic,
+.mbsc-windows.mbsc-rtl .mbsc-ic-right .mbsc-right-ic {
+    right: auto;
+    left: .25em;
+}
+
+.mbsc-windows .mbsc-ic-right .mbsc-right-ic,
+.mbsc-windows.mbsc-rtl .mbsc-ic-left .mbsc-left-ic {
+    left: auto;
+    right: .25em;
+}
+
+.mbsc-windows .mbsc-input .mbsc-label {
+    padding-bottom: .3125em;
+    color: @windows-text;;
+    font-size: .8125em;
+}
+
+.mbsc-windows .mbsc-select .mbsc-input-wrap input {
+    background: transparent;
+    border-color: @windows-text;
+    color: @windows-text;
+}
+
+.mbsc-windows .mbsc-select .mbsc-input-wrap .mbsc-ic {
+    color: @windows-text;
+}
+
+.mbsc-windows .mbsc-input select.mbsc-active + input {
+    background: @windows-accent;
+    border-color: @windows-accent;
+    color: @windows-accent-alt;
+}
+
+.mbsc-windows .mbsc-select select.mbsc-active ~ .mbsc-ic {
+    color: @windows-accent-alt;
+}
+
+.mbsc-windows .mbsc-select select:focus ~ .mbsc-ic {
+    color: @windows-form-bg;
+}

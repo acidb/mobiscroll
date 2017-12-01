@@ -373,8 +373,4 @@ const SliderBase = function (elm, settings, inherit) {
 
 };
 
-SliderBase.prototype = {
-    _class: 'sliderbase'
-};
-
 export default SliderBase;

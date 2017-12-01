@@ -4,12 +4,20 @@ module.exports = {
             expand: true,
             cwd: 'bundles/',
             src: ['*.d.ts', '*.metadata.json'],
-            dest: 'dist/js/',
+            dest: 'dist/js/'
         }, {
             expand: true,
             cwd: 'src/',
             src: ['**/*.d.ts'],
             dest: 'dist/src/'
+        }]
+    },
+    icons: {
+        files: [{
+            expand: true,
+            cwd: 'src/less/',
+            src: ['icons_mobiscroll.ttf', 'icons_mobiscroll.woff'],
+            dest: 'dist/css/'
         }]
     },
     dist: {
@@ -29,10 +37,6 @@ module.exports = {
             expand: true,
             src: ['dist/**', 'LICENSE'],
             dest: 'packages/jquery/'
-        }, {
-            expand: true,
-            src: ['dist/**', 'LICENSE'],
-            dest: 'packages/knockout/'
         }, {
             expand: true,
             src: ['dist/**', 'LICENSE'],

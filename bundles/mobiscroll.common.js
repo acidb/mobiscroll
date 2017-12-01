@@ -35,17 +35,15 @@ import '../src/js/i18n/vi';
 import '../src/js/i18n/zh';
 
 // Themes
-import '../src/js/themes/android-holo';
 import '../src/js/themes/ios';
 import '../src/js/themes/material';
-import '../src/js/themes/wp';
+import '../src/js/themes/windows';
 
 // Custom themes
-import '../src/js/themes/android-holo-light';
 import '../src/js/themes/ios-dark';
 import '../src/js/themes/material-dark';
 import '../src/js/themes/mobiscroll-dark';
-import '../src/js/themes/wp-light';
+import '../src/js/themes/windows-dark';
 
 // Auto Theme
 import '../src/js/themes/auto-theme';

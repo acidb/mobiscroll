@@ -21,7 +21,7 @@ export const CorePropTypes = {
     lang: stringType,
     rtl: boolType,
     context: PropTypes.oneOfType([stringType, objType])
-}
+};
 
 export const FramePropTypes = {
     anchor: PropTypes.oneOfType([stringType, objType]),
@@ -43,7 +43,7 @@ export const FramePropTypes = {
     onMarkupReady: funcType,
     onPosition: funcType,
     onShow: funcType
-}
+};
 
 export const ScrollerPropTypes = {
     circular: PropTypes.oneOfType([
@@ -73,7 +73,7 @@ export const ScrollerPropTypes = {
     clearText: stringType,
     selectedText: stringType,
     setText: stringType
-}
+};
 
 export const DatetimePropTypes = {
     defaultValue: objType,
@@ -86,7 +86,7 @@ export const DatetimePropTypes = {
         second: numType,
         zeroBased: boolType
     }),
-    valid: objType,
+    valid: PropTypes.array,
     ampmText: stringType,
     amText: stringType,
     dateFormat: stringType,
@@ -107,7 +107,7 @@ export const DatetimePropTypes = {
     timeWheels: stringType,
     yearSuffix: stringType,
     yearText: stringType
-}
+};
 
 export const CalbasePropTypes = {
     calendarHeight: numType,
@@ -119,6 +119,7 @@ export const CalbasePropTypes = {
         PropTypes.array
     ]),
     months: numType,
+    weeks: numType,
     outerMonthChange: boolType,
     showOuterDays: boolType,
     tabs: boolType,
@@ -136,7 +137,7 @@ export const CalbasePropTypes = {
     onMonthChange: funcType,
     onMonthLoading: funcType,
     onMonthLoaded: funcType
-}
+};
 
 export function updateCssClasses(currentClasses, nextClasses) {
     var node = ReactDOM.findDOMNode(this);

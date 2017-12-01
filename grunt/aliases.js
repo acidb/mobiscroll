@@ -3,7 +3,8 @@ module.exports = {
         'babel',
         'less',
         'run:transpile',
-        'rollup:dev'
+        'rollup:dev',
+        'copy:icons'
     ],
     build: [
         'babel',
@@ -11,6 +12,7 @@ module.exports = {
         'run:transpile',
         'rollup:dev',
         'rollup:prod',
+        'copy:icons',
         'copy:metadata',
         'copy:dist'
     ]

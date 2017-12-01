@@ -38,3 +38,208 @@
     -ms-flex: 1 auto;
     flex: 1 auto;
 }
+
+
+/* Textbox, select, textarea */
+
+.mbsc-ios .mbsc-input.mbsc-textarea .mbsc-label {
+    margin-bottom: -.625em;
+}
+
+.mbsc-ios .mbsc-input.mbsc-textarea {
+    flex-direction: column;
+}
+
+.mbsc-ios .mbsc-input.mbsc-textarea.mbsc-ic-left .mbsc-label ~ .mbsc-input-wrap {
+    padding-left: 2.25em;
+}
+
+.mbsc-ios .mbsc-textarea textarea {
+    height: 2.75em;
+    padding: 0 1em;
+    background: transparent;
+}
+
+.mbsc-ios .mbsc-textarea textarea::-webkit-input-placeholder {
+    color: #ccc;
+}
+
+.mbsc-ios .mbsc-textarea textarea::-ms-input-placeholder {
+    color: #ccc;
+}
+
+.mbsc-ios .mbsc-textarea textarea::-moz-placeholder {
+    color: #ccc;
+}
+
+.mbsc-ios .mbsc-input .mbsc-label,
+.mbsc-ios .mbsc-progress .mbsc-label {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 auto;
+    -moz-box-flex: 0;
+    -moz-flex: 0 0 auto;
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+    width: 30%;
+    max-width: 12.5em;
+    overflow: hidden;
+    font-size: 1em;
+    line-height: 2.75em;
+    color: #020202;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+}
+
+.mbsc-ios.mbsc-ltr .mbsc-input .mbsc-label {
+    padding-left: 1em;
+}
+
+.mbsc-ios.mbsc-rtl .mbsc-input .mbsc-label {
+    padding-right: 1em;
+}
+
+.mbsc-ios .mbsc-input select:disabled ~ input,
+.mbsc-ios .mbsc-input select:disabled ~ .mbsc-ic,
+.mbsc-ios .mbsc-input input:disabled {
+    opacity: .5;
+}
+
+.mbsc-ios .mbsc-err-msg {
+    padding: .5em 1.3333em;
+    color: #d8332a;
+}
+
+
+/* Icons */
+
+.mbsc-ios .mbsc-input-ic {
+    top: .375em;
+    margin-top: -1px;
+}
+
+.mbsc-ios .mbsc-ic-left {
+    z-index: 1;
+}
+
+.mbsc-ios.mbsc-ltr .mbsc-ic-left .mbsc-input-wrap,
+.mbsc-ios.mbsc-rtl .mbsc-ic-right .mbsc-input-wrap {
+    padding-left: 2.25em;
+}
+
+.mbsc-ios.mbsc-ltr .mbsc-ic-right .mbsc-input-wrap,
+.mbsc-ios.mbsc-rtl .mbsc-ic-left .mbsc-input-wrap {
+    padding-right: 2.25em;
+}
+
+.mbsc-ios.mbsc-ltr .mbsc-ic-left .mbsc-label {
+    padding-left: 3.25em;
+}
+
+.mbsc-ios.mbsc-rtl .mbsc-ic-left .mbsc-label {
+    padding-right: 3.25em;
+}
+
+.mbsc-ios.mbsc-ltr .mbsc-ic-left .mbsc-label ~ .mbsc-input-wrap {
+    padding-left: 0;
+}
+
+.mbsc-ios.mbsc-rtl .mbsc-ic-left .mbsc-label ~ .mbsc-input-wrap {
+    padding-right: 0;
+}
+
+.mbsc-ios .mbsc-ic-left .mbsc-left-ic,
+.mbsc-ios.mbsc-rtl .mbsc-ic-right .mbsc-right-ic {
+    right: auto;
+    left: .625em;
+}
+
+.mbsc-ios .mbsc-ic-right .mbsc-right-ic,
+.mbsc-ios.mbsc-rtl .mbsc-ic-left .mbsc-left-ic {
+    left: auto;
+    right: .625em;
+}
+
+
+/* Row separator */
+
+.mbsc-ios .mbsc-control-w {
+    margin-top: -1px;
+}
+
+.mbsc-ios .mbsc-control-w:before,
+.mbsc-ios .mbsc-control-w:after {
+    border-top: 1px solid #ccc;
+    content: "";
+    position: absolute;
+    right: 0;
+    left: 1em;
+}
+
+.mbsc-ios .mbsc-control-w:before {
+    top: 0;
+}
+
+.mbsc-ios .mbsc-control-w:after {
+    bottom: 0;
+}
+
+.mbsc-ios .mbsc-form-group-title + .mbsc-control-w:before,
+.mbsc-ios .mbsc-control-w:first-child:before,
+.mbsc-ios .mbsc-control-w:last-child:after {
+    left: 0;
+}
+
+.mbsc-ios .mbsc-control-ng .mbsc-control-w:before,
+.mbsc-ios .mbsc-control-ng .mbsc-control-w:after {
+    left: 1em;
+}
+
+.mbsc-ios .mbsc-form-group-title + .mbsc-control-ng .mbsc-control-w:before,
+.mbsc-ios .mbsc-control-ng:first-child .mbsc-control-w:before,
+.mbsc-ios .mbsc-control-ng:last-child .mbsc-control-w:after {
+    left: 0;
+}
+
+.mbsc-ios .mbsc-ic-left:before,
+.mbsc-ios .mbsc-ic-left:after {
+    left: 3.25em;
+}
+
+.mbsc-ios .mbsc-err {
+    z-index: 2;
+}
+
+.mbsc-ios .mbsc-control-w.mbsc-err:after,
+.mbsc-ios .mbsc-control-w.mbsc-err + .mbsc-err:before,
+.mbsc-ios .mbsc-control-w.mbsc-err + .mbsc-divider {
+    border-top-color: #ec2a32;
+}
+
+.mbsc-ios .mbsc-form-group-inset .mbsc-control-ng .mbsc-control-w {
+    border-radius: 0;
+}
+
+.mbsc-ios .mbsc-form-group-inset .mbsc-control-ng .mbsc-control-w:before,
+.mbsc-ios .mbsc-form-group-inset .mbsc-control-ng .mbsc-control-w:after {
+    border-width: 1px;
+}
+
+.mbsc-ios.mbsc-form .mbsc-form-group-inset .mbsc-form-group-title + .mbsc-control-ng .mbsc-control-w:before,
+.mbsc-ios.mbsc-form .mbsc-form-group-inset .mbsc-control-ng:first-child .mbsc-control-w:before,
+.mbsc-ios.mbsc-form .mbsc-form-group-inset .mbsc-control-ng:last-child .mbsc-control-w:after {
+    border-width: 0;
+}
+
+.mbsc-ios .mbsc-form-group-inset .mbsc-form-group-title + .mbsc-control-ng .mbsc-control-w,
+.mbsc-ios .mbsc-form-group-inset .mbsc-control-ng:first-child .mbsc-control-w {
+    border-top-left-radius: .5em;
+    border-top-right-radius: .5em;
+}
+
+.mbsc-ios .mbsc-form-group-inset .mbsc-control-ng:last-child .mbsc-control-w {
+    border-bottom-left-radius: .5em;
+    border-bottom-right-radius: .5em;
+}

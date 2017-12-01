@@ -36,6 +36,4 @@ themes.listview.ios = {
     rightArrowClass: 'mbsc-ic-ion-ios7-arrow-forward'
 };
 
-//themes.menustrip.ios = {};
-
 themes.form.ios = {};

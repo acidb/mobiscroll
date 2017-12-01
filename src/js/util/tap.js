@@ -11,6 +11,20 @@ function preventClick() {
     }, 500);
 }
 
+function triggerClick(ev, control) {
+    var touch = (ev.originalEvent || ev).changedTouches[0],
+        evt = document.createEvent('MouseEvents');
+
+    evt.initMouseEvent('click', true, true, window, 1, touch.screenX, touch.screenY, touch.clientX, touch.clientY, false, false, false, false, 0, null);
+    evt.tap = true;
+
+    control.mbscChange = true;
+    control.dispatchEvent(evt);
+
+    // Prevent ghost click
+    preventClick();
+}
+
 function getCoord(e, c, page) {
     var ev = e.originalEvent || e,
         prop = (page ? 'page' : 'client') + c;
@@ -85,7 +99,9 @@ function tap(that, el, handler, prevent, tolerance, time) {
     }
 
     $elm.on('click.mbsc', function (ev) {
-        ev.preventDefault();
+        if (prevent) {
+            ev.preventDefault();
+        }
         // If handler was not called on touchend, call it on click;
         handler.call(this, ev, that);
     });
@@ -120,5 +136,6 @@ if (isBrowser) {
 export {
     getCoord,
     preventClick,
+    triggerClick,
     tap
 };

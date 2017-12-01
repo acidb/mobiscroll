@@ -1,6 +1,6 @@
 import mobiscroll, { $, extend } from '../core/core';
 import { wrapLabel } from '../util/forms';
-import { getCoord, preventClick } from '../util/tap';
+import { getCoord, triggerClick } from '../util/tap';
 import { testTouch } from '../util/dom';
 
 const events = ['touchstart', 'touchmove', 'touchend', 'touchcancel', 'mousedown', 'mousemove', 'mouseup', 'mouseleave'];
@@ -121,10 +121,6 @@ class FormControl {
                 $active = this._$elm;
                 $active.addClass('mbsc-active');
                 this._addRipple(ev);
-                // trigger('onControlActivate', {
-                //     target: this,
-                //     domEvent: ev
-                // });
             }
         }
     }
@@ -133,10 +129,6 @@ class FormControl {
         // If movement is more than 9px, don't fire the click event handler
         if (this._isActive && Math.abs(getCoord(ev, 'X') - this._startX) > 9 || Math.abs(getCoord(ev, 'Y') - this._startY) > 9) {
             this._$elm.removeClass('mbsc-active');
-            // trigger('onControlDeactivate', {
-            //     target: $control[0],
-            //     domEvent: ev
-            // });
             this._removeRipple();
             this._isActive = false;
         }
@@ -154,18 +146,7 @@ class FormControl {
             }
 
             if (!/select/.test(type)) {
-                var touch = (ev.originalEvent || ev).changedTouches[0],
-                    evt = document.createEvent('MouseEvents');
-
-                evt.initMouseEvent('click', true, true, window, 1, touch.screenX, touch.screenY, touch.clientX, touch.clientY, false, false, false, false, 0, null);
-                evt.tap = true;
-
-                control.mbscChange = true;
-
-                control.dispatchEvent(evt);
-
-                // Prevent ghost click
-                preventClick();
+                triggerClick(ev, control);
             }
         }
 
@@ -173,10 +154,6 @@ class FormControl {
             setTimeout(() => {
                 this._$elm.removeClass('mbsc-active');
                 this._removeRipple();
-                // trigger('onControlDeactivate', {
-                //     target: $control[0],
-                //     domEvent: ev
-                // });
             }, 100);
         }
 

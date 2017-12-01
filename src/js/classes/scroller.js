@@ -4,7 +4,7 @@ import { getCoord } from '../util/tap';
 import { cssPrefix, jsPrefix, testTouch } from '../util/dom';
 import { isNumeric, objectToArray } from '../util/misc';
 import Frame from './frame';
-import ScrollView from './scrollview';
+import ScrollViewBase from './scrollview-base';
 
 var css = isBrowser ? window.CSS : null,
     has3d = css && css.supports && css.supports("(transform-style: preserve-3d)"),
@@ -765,7 +765,7 @@ const Scroller = function (el, settings, inherit) {
             wheel._$scroller = $('.mbsc-sc-whl-sc', this);
             wheel._$3d = $('.mbsc-sc-whl-3d', this);
 
-            wheel._scroller = new ScrollView(this, {
+            wheel._scroller = new ScrollViewBase(this, {
                 mousewheel: s.mousewheel,
                 moveElement: wheel._$scroller,
                 initialPos: (wheel._first - wheel._index) * itemHeight,

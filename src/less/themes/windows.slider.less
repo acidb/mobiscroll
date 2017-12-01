@@ -1,0 +1,53 @@
+@import "../slider";
+@import "windows.progress.less";
+
+/* Slider */
+
+.mbsc-windows.mbsc-slider .mbsc-input-wrap {
+    padding: 0 .3125em;
+}
+
+.mbsc-windows.mbsc-slider .mbsc-input-ic {
+    top: .125em;
+}
+
+.mbsc-windows.mbsc-slider .mbsc-progress-track {
+    height: .75em;
+}
+
+.mbsc-windows .mbsc-slider-handle {
+    top: 50%;
+    width: .625em;
+    height: 1.125em;
+    margin: -.25em -.3125em 0 0;
+    background: @windows-text;
+}
+
+.mbsc-windows .mbsc-slider-tooltip {
+    height: 2.16665em;
+    width: 3.16665em;
+    margin-right: -1.6666em;
+    top: -2.75em;
+    border: 2px solid @windows-background-alt2;
+    line-height: 2.16665em;
+    background: @windows-text;
+    text-align: center;
+    font-size: .75em;
+    font-weight: bold;
+    color: @windows-background-alt2;
+    -webkit-transition: opacity .2s ease-in-out;
+    transition: opacity .2s ease-in-out;
+}
+
+.mbsc-windows .mbsc-slider-handle:focus ~ .mbsc-slider-tooltip,
+.mbsc-windows .mbsc-active .mbsc-slider-tooltip {
+    opacity: 1;
+}
+
+.mbsc-windows .mbsc-slider-step {
+    background: @windows-form-bg;
+}
+
+.mbsc-windows .mbsc-slider input:disabled ~ .mbsc-progress-cont .mbsc-progress-track {
+    opacity: .4;
+}

@@ -65,8 +65,4 @@ var ProgressBase = function (elm, settings, inherit) {
     }
 };
 
-ProgressBase.prototype = {
-    _class: 'progressbase'
-};
-
 export default ProgressBase;

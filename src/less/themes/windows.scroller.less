@@ -1,0 +1,134 @@
+@import "../scroller";
+@import "windows.frame.less";
+
+/* Scroller */
+
+.mbsc-windows .mbsc-sc-itm,
+.mbsc-windows .mbsc-sc-itm:after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.mbsc-windows .mbsc-sc-whl-gr {
+    padding: .1875em;
+}
+
+.mbsc-windows .mbsc-sc-lbl-v .mbsc-sc-whl-gr {
+    padding-top: 1.875em;
+}
+
+.mbsc-windows .mbsc-sc-lbl {
+    font-size: .75em;
+    line-height: 2.5em;
+}
+
+.mbsc-windows .mbsc-sc-btn {
+    background: @windows-background;
+}
+
+.mbsc-windows .mbsc-sc-btn:before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 2.2em;
+    height: 2.2em;
+    margin: -1.3em 0 0 -1.3em;
+    color: @windows-text;
+    line-height: 2.2em;
+    font-size: .625em;
+    text-align: center;
+    border: 2px solid @windows-text;
+    border-radius: 2.2em;
+}
+
+.mbsc-windows .mbsc-sc-itm {
+    opacity: 0;
+    padding: 0 .384615em;
+    font-size: 1.625em;
+    letter-spacing: -.038em;
+    text-align: left;
+}
+
+.mbsc-windows .mbsc-sc-itm:after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    top: .136363em;
+    right: .136363em;
+    bottom: .136363em;
+    left: .136363em;
+    border: 2px solid @windows-text;
+}
+
+.mbsc-windows .mbsc-sc-whl-anim .mbsc-sc-itm,
+.mbsc-windows .mbsc-sc-whl-wpa .mbsc-sc-itm {
+    opacity: 1;
+}
+
+.mbsc-windows .mbsc-sc-whl-anim .mbsc-sc-itm-inv,
+.mbsc-windows .mbsc-sc-whl-wpa .mbsc-sc-itm-inv {
+    opacity: .3;
+}
+
+.mbsc-windows .mbsc-sc-itm-ph:after {
+    display: none;
+}
+
+.mbsc-windows .mbsc-sc-whl .mbsc-sc-itm-sel {
+    color: @windows-accent-alt;
+}
+
+.mbsc-windows .mbsc-sc-whl .mbsc-sc-itm-sel,
+.mbsc-windows .mbsc-sc-whl .mbsc-sc-itm.mbsc-btn-a {
+    opacity: 1;
+}
+
+.mbsc-windows .mbsc-sc-itm-sel:after,
+.mbsc-windows .mbsc-sc-itm.mbsc-btn-a:after,
+.mbsc-windows .mbsc-sc-btn-a:before,
+.mbsc-windows.mbsc-no-touch .mbsc-sc-btn:hover:before {
+    background: @windows-accent;
+    border-color: @windows-accent;
+}
+
+.mbsc-windows .mbsc-sc-whl-w:not(.mbsc-sc-whl-multi) .mbsc-sc-whl-anim .mbsc-sc-itm-sel:after,
+.mbsc-windows .mbsc-sc-whl-w:not(.mbsc-sc-whl-multi) .mbsc-sc-whl-wpa .mbsc-sc-itm.mbsc-btn-a:after {
+    background: none;
+    border-color: @windows-text;
+}
+
+
+/* Multiple select */
+
+.mbsc-windows .mbsc-sc-whl-multi .mbsc-sc-itm {
+    opacity: 1;
+    padding-left: 1.5375em;
+}
+
+.mbsc-windows .mbsc-sc-whl-multi .mbsc-sc-itm-inv {
+    opacity: .3;
+}
+
+.mbsc-windows .mbsc-sc-whl-multi .mbsc-sc-itm:after {
+    content: '';
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    left: .192307em;
+    width: .923076em;
+    height: .923076em;
+    margin-top: -.461538em;
+    border: 2px solid @windows-text;
+}
+
+.mbsc-windows .mbsc-sc-whl-multi .mbsc-sc-itm-sel:before {
+    z-index: 2;
+    top: 50%;
+    left: .3125em;
+    width: 1.375em;
+    margin-top: -.5em;
+    font-size: .615384em;
+    line-height: 1.25em;
+    color: @windows-text;
+}

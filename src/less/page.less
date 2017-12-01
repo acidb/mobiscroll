@@ -1,3 +1,30 @@
+@import "themes/mobiscroll";
+
+/* Base colors */
+
+@primary: #3f97f6;
+@primary-text: #fff;
+@secondary: #90979E;
+@success: #43BE5F;
+@danger: #f5504e;
+@warning: #f8b042;
+@info: #5BB7C5;
+@light: #fff;
+@dark: #47494A;
+
+/* Mobiscroll colors */
+
+@mobiscroll-primary: @primary;
+@mobiscroll-secondary: @secondary;
+@mobiscroll-success: @success;
+@mobiscroll-danger: @danger;
+@mobiscroll-warning: @warning;
+@mobiscroll-info: @info;
+@mobiscroll-light: darken(@light, 10%);
+@mobiscroll-dark: @dark;
+@mobiscroll-dark-text: #000;
+@mobiscroll-light-text: #f7f7f7;
+
 /* Page */
 
 .mbsc-page-ctx {
@@ -28,6 +55,12 @@
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
+}
+
+.mbsc-page:before,
+.mbsc-page:after {
+    content: '';
+    display: table;
 }
 
 
@@ -138,13 +171,68 @@
 }
 
 
-/* Mobiscroll theme */
+/* Note */
 
-.mbsc-mobiscroll.mbsc-page {
-    background: #f7f7f7;
-    color: #454545;
+.mbsc-note {
+    position: relative;
+    padding: .75em 1.25em;
+    margin: 1em;
+    border: 1px solid transparent;
+    font-size: .875em;
 }
 
-.mbsc-mobiscroll a {
-    color: #4ECCC4;
+@media screen and (max-width: 600px) {
+    .mbsc-note {
+        text-align: center;
+    }
+}
+
+
+/* Mobiscroll theme */
+
+.mbsc-mobiscroll {
+    &.mbsc-page {
+        background: @mobiscroll-background;
+        color: @mobiscroll-text;
+    }
+    a {
+        color: @mobiscroll-accent;
+    }
+    /* Note */
+    .mbsc-note {
+        border-radius: .1875em;
+    }
+    .mbsc-note,
+    .mbsc-note-primary {
+        color: darken(@mobiscroll-primary, 30%);
+        background-color: lighten(@mobiscroll-primary, 20%);
+    }
+    .mbsc-note-secondary {
+        color: darken(@mobiscroll-secondary, 30%);
+        background-color: lighten(@mobiscroll-secondary, 20%);
+    }
+    .mbsc-note-success {
+        color: darken(@mobiscroll-success, 30%);
+        background-color: lighten(@mobiscroll-success, 20%);
+    }
+    .mbsc-note-danger {
+        color: darken(@mobiscroll-danger, 30%);
+        background-color: lighten(@mobiscroll-danger, 20%);
+    }
+    .mbsc-note-warning {
+        color: darken(@mobiscroll-warning, 25%);
+        background-color: lighten(@mobiscroll-warning, 20%);
+    }
+    .mbsc-note-info {
+        color: darken(@mobiscroll-info, 30%);
+        background-color: lighten(@mobiscroll-info, 20%);
+    }
+    .mbsc-note-light {
+        color: darken(@mobiscroll-light, 60%);
+        background-color: darken(@mobiscroll-light, 5%);
+    }
+    .mbsc-note-dark {
+        color: darken(@mobiscroll-dark, 30%);
+        background-color: lighten(@mobiscroll-dark, 40%);
+    }
 }

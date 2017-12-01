@@ -117,7 +117,7 @@ export class MbscFormBase extends MbscBase implements OnInit {
 
     ngOnInit() {
         // get inherited options from the parent form
-        this._inheritedOptions = this._formService.options;
+        this._inheritedOptions = this._formService ? this._formService.options : {};
     }
 }
 
@@ -174,7 +174,7 @@ export class MbscFormValueBase extends MbscFormBase implements ControlValueAcces
     valueChangeEmitter: EventEmitter<string> = new EventEmitter<string>();
 
 
-    constructor(hostElem: ElementRef, _formService: MbscFormService, protected _control: NgControl, protected _noOverride: boolean) {
+    constructor(hostElem: ElementRef, @Optional() _formService: MbscFormService, protected _control: NgControl, protected _noOverride: boolean) {
         super(hostElem, _formService);
         if (_control && !_noOverride) {
             _control.valueAccessor = this;
@@ -245,14 +245,14 @@ export class MbscInputBase extends MbscFormValueBase {
     placeholder: string = '';
 
 
-    constructor(initialElem: ElementRef, _formService: MbscFormService, _control: NgControl, noOverride: boolean) {
+    constructor(initialElem: ElementRef, @Optional() _formService: MbscFormService, _control: NgControl, noOverride: boolean) {
         super(initialElem, _formService, _control, noOverride);
     }
 }
 
 @Component({
     selector: 'mbsc-input',
-    host: { 'class': 'mbsc-control-ng' },
+    host: { '[class.mbsc-control-ng]': 'controlNg' },
     template: `
         <label [class.mbsc-err]="error">
             <ng-content></ng-content>
@@ -272,7 +272,10 @@ export class MbscInputBase extends MbscFormValueBase {
     providers: [MbscInputService]
 })
 export class MbscInput extends MbscInputBase {
-    constructor(initialElem: ElementRef, _formService: MbscFormService, protected _inputService: MbscInputService, @Optional() _control: NgControl) {
+    @Input()
+    controlNg: boolean = true;
+    
+    constructor(initialElem: ElementRef, @Optional() _formService: MbscFormService, protected _inputService: MbscInputService, @Optional() _control: NgControl) {
         super(initialElem, _formService, _control, _inputService.isControlSet);
         _inputService.input = this;
     }
@@ -282,7 +285,7 @@ export class MbscInput extends MbscInputBase {
     ngAfterViewInit() {
         super.ngAfterViewInit();
 
-        let options = extend({}, this._inheritedOptions, this.options);
+        let options = extend({}, this._inheritedOptions, this.options, this.inlineOptions());
         this._instance = new FormInput(this._initElem.nativeElement, options);
     }
 }
@@ -306,7 +309,7 @@ export class MbscInput extends MbscInputBase {
     providers: [MbscInputService]
 })
 export class MbscTextarea extends MbscInputBase {
-    constructor(initialElem: ElementRef, _formService: MbscFormService, protected _inputService: MbscInputService, @Optional() _control: NgControl) {
+    constructor(initialElem: ElementRef, @Optional() _formService: MbscFormService, protected _inputService: MbscInputService, @Optional() _control: NgControl) {
         super(initialElem, _formService, _control, _inputService.isControlSet);
         _inputService.input = this;
     }
@@ -364,7 +367,7 @@ export class MbscDropdown extends MbscFormValueBase {
     @Input('icon-align')
     iconAlign: string;
 
-    constructor(hostElem: ElementRef, formService: MbscFormService, protected _inputService: MbscInputService, @Optional() control: NgControl) {
+    constructor(hostElem: ElementRef, @Optional() formService: MbscFormService, protected _inputService: MbscInputService, @Optional() control: NgControl) {
         super(hostElem, formService, control, _inputService.isControlSet);
         _inputService.input = this;
     }
@@ -410,7 +413,7 @@ export class MbscDropdown extends MbscFormValueBase {
     template: `
         <button #initElement 
             [type]="type"
-            [ngClass]="{ 'mbsc-btn-flat': _flat, 'mbsc-btn-block': _block }"
+            [ngClass]="cssClasses"
             [attr.name]="name"
             [attr.data-icon]="icon ? icon : null"
             [disabled]="disabled">
@@ -421,6 +424,24 @@ export class MbscDropdown extends MbscFormValueBase {
 export class MbscButton extends MbscFormBase {
     public _flat: boolean = false;
     public _block: boolean = false;
+    public _outline: boolean = false;
+
+    get cssClasses() {
+        var classesObj: any = { 
+            'mbsc-btn-flat': this._flat, 
+            'mbsc-btn-block': this._block,
+            'mbsc-btn-outline': this._outline
+        };
+
+        if (this.color) {
+            classesObj['mbsc-btn-' + this.color] = true;
+        }
+
+        return  classesObj;
+    }
+
+    @Input()
+    color: string;
 
     @Input()
     type: string = 'button';
@@ -440,7 +461,13 @@ export class MbscButton extends MbscFormBase {
         this._block = (typeof val === 'string' && (val === 'true' || val === '')) || !!val;
     }
 
-    constructor(hostElem: ElementRef, formService: MbscFormService) {
+    @Input()
+    set outline(val: any) {
+        // sets the block setting to true if empty string is provided, aka without value (ex. <mbsc-button block>)
+        this._outline = (typeof val === 'string' && (val === 'true' || val === '')) || !!val;
+    }
+
+    constructor(hostElem: ElementRef, @Optional() formService: MbscFormService) {
         super(hostElem, formService);
     }
 
@@ -468,7 +495,7 @@ export class MbscButton extends MbscFormBase {
     `
 })
 export class MbscCheckbox extends MbscFormValueBase {
-    constructor(hostElem: ElementRef, formService: MbscFormService, @Optional() control: NgControl) {
+    constructor(hostElem: ElementRef, @Optional() formService: MbscFormService, @Optional() control: NgControl) {
         super(hostElem, formService, control, false);
     }
 
@@ -527,7 +554,7 @@ export class MbscSwitch extends MbscControlBase implements OnInit {
     @ViewChild('initElement')
     public _initElem: ElementRef;
 
-    constructor(hostElem: ElementRef, zone: NgZone, protected _formService: MbscFormService, @Optional() control: NgControl) {
+    constructor(hostElem: ElementRef, zone: NgZone, @Optional() protected _formService: MbscFormService, @Optional() control: NgControl) {
         super(hostElem, zone, control, null);
     }
 
@@ -540,7 +567,7 @@ export class MbscSwitch extends MbscControlBase implements OnInit {
     }
 
     ngOnInit() {
-        this._inheritedOptions = this._formService.options;
+        this._inheritedOptions = this._formService ? this._formService.options : {};
     }
 
     ngAfterViewInit() {
@@ -625,7 +652,7 @@ export class MbscStepper extends MbscControlBase implements OnInit {
     @ViewChild('initElement')
     public _initElem: ElementRef;
 
-    constructor(hostElement: ElementRef, zone: NgZone, protected _formService: MbscFormService, @Optional() control: NgControl) {
+    constructor(hostElement: ElementRef, zone: NgZone, @Optional() protected _formService: MbscFormService, @Optional() control: NgControl) {
         super(hostElement, zone, control, null);
     }
 
@@ -638,7 +665,7 @@ export class MbscStepper extends MbscControlBase implements OnInit {
     /* OnInit Interface */
 
     ngOnInit() {
-        this._inheritedOptions = this._formService.options;
+        this._inheritedOptions = this._formService ? this._formService.options : {};
     }
 
     /* AfterViewInit Interface */
@@ -717,7 +744,7 @@ export class MbscProgress extends MbscControlBase implements OnInit {
     @ViewChild('initElement')
     public _initElem: ElementRef;
 
-    constructor(hostElement: ElementRef, zone: NgZone, protected _formService: MbscFormService, @Optional() control: NgControl) {
+    constructor(hostElement: ElementRef, zone: NgZone, @Optional() protected _formService: MbscFormService, @Optional() control: NgControl) {
         super(hostElement, zone, control, null);
     }
 
@@ -730,7 +757,7 @@ export class MbscProgress extends MbscControlBase implements OnInit {
     /* OnInit Interface */
 
     ngOnInit() {
-        this._inheritedOptions = this._formService.options;
+        this._inheritedOptions = this._formService ? this._formService.options : {};
     }
 
     /* AfterViewInit Interface */
@@ -783,7 +810,7 @@ export class MbscRadioGroupBase extends MbscFormValueBase {
     @Input()
     name: string;
 
-    constructor(hostElement: ElementRef, formService: MbscFormService, protected _radioService: MbscRadioService, control: NgControl) {
+    constructor(hostElement: ElementRef, @Optional() formService: MbscFormService, protected _radioService: MbscRadioService, control: NgControl) {
         super(hostElement, formService, control, null);
         this._radioService.onValueChanged().subscribe(v => {
             this.innerValue = v;
@@ -820,7 +847,7 @@ export class MbscRadioGroupBase extends MbscFormValueBase {
     providers: [MbscRadioService]
 })
 export class MbscRadioGroup extends MbscRadioGroupBase {
-    constructor(hostElement: ElementRef, formService: MbscFormService, radioService: MbscRadioService, @Optional() control: NgControl) {
+    constructor(hostElement: ElementRef, @Optional() formService: MbscFormService, radioService: MbscRadioService, @Optional() control: NgControl) {
         super(hostElement, formService, radioService, control);
     }
 }
@@ -857,7 +884,7 @@ export class MbscRadio extends MbscFormBase {
         this._radioService.changeValue(this.value);
     }
 
-    constructor(hostElement: ElementRef, formService: MbscFormService, private _radioService: MbscRadioService) {
+    constructor(hostElement: ElementRef, @Optional() formService: MbscFormService, private _radioService: MbscRadioService) {
         super(hostElement, formService);
         this._radioService.onValueChanged().subscribe(v => {
             this.modelValue = v;
@@ -890,7 +917,7 @@ export class MbscSegmentedGroup extends MbscRadioGroupBase {
         return this.select == 'multiple';
     }
 
-    constructor(hostElement: ElementRef, formService: MbscFormService, radioService: MbscRadioService, @Optional() control: NgControl) {
+    constructor(hostElement: ElementRef, @Optional() formService: MbscFormService, radioService: MbscRadioService, @Optional() control: NgControl) {
         super(hostElement, formService, radioService, control);
     }
 
@@ -953,7 +980,7 @@ export class MbscSegmented extends MbscFormBase {
         }
     }
 
-    constructor(hostElement: ElementRef, formService: MbscFormService, private _radioService: MbscRadioService) {
+    constructor(hostElement: ElementRef, @Optional() formService: MbscFormService, private _radioService: MbscRadioService) {
         super(hostElement, formService);
         this._radioService.onValueChanged().subscribe(v => {
             this.modelValue = v;
@@ -1074,7 +1101,7 @@ export class MbscSlider extends MbscControlBase {
     @ViewChildren('inputElements')
     public inputElements: QueryList<ElementRef>;
 
-    constructor(hostElement: ElementRef, private _formService: MbscFormService, zone: NgZone, @Optional() control: NgControl) {
+    constructor(hostElement: ElementRef, @Optional() private _formService: MbscFormService, zone: NgZone, @Optional() control: NgControl) {
         super(hostElement, zone, control, null);
     }
 
@@ -1119,7 +1146,7 @@ export class MbscSlider extends MbscControlBase {
     /* OnInit Interface */
 
     ngOnInit() {
-        this._inheritedOptions = this._formService.options;
+        this._inheritedOptions = this._formService ? this._formService.options : {};
     }
 
     /* AfterViewInit Interface */

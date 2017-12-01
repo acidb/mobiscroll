@@ -3,6 +3,7 @@
 @import "input";
 @import "slider";
 @import "notifications";
+@import "themes/mobiscroll";
 
 /* Forms */
 
@@ -158,41 +159,6 @@ label.mbsc-input,
     margin: 0;
     font-size: 1em;
     font-weight: normal;
-}
-
-
-/* Textbox, textarea, select */
-
-.mbsc-input .mbsc-label {
-    font-size: .875em;
-}
-
-.mbsc-input-ic {
-    position: absolute;
-    height: 2em;
-    width: 2em;
-    line-height: 2em;
-    text-align: center;
-}
-
-.mbsc-input-toggle {
-    cursor: pointer;
-}
-
-.mbsc-ic-right .mbsc-input-ic {
-    right: .5em;
-}
-
-.mbsc-ic-left .mbsc-input-ic {
-    left: .5em;
-}
-
-.mbsc-ic-right input {
-    padding-right: 2.4em;
-}
-
-.mbsc-ic-left input {
-    padding-left: 2.4em;
 }
 
 
@@ -543,41 +509,6 @@ label.mbsc-input,
 }
 
 
-/* Textbox */
-
-.mbsc-mobiscroll .mbsc-input-ic {
-    top: .0625em;
-    margin: -2px 0 0 0;
-    color: #787878;
-}
-
-.mbsc-mobiscroll.mbsc-ltr .mbsc-input.mbsc-ic-left,
-.mbsc-mobiscroll.mbsc-rtl .mbsc-input.mbsc-ic-right {
-    padding-left: 3.25em;
-}
-
-.mbsc-mobiscroll.mbsc-ltr .mbsc-input.mbsc-ic-right,
-.mbsc-mobiscroll.mbsc-rtl .mbsc-input.mbsc-ic-left {
-    padding-right: 3.25em;
-}
-
-.mbsc-mobiscroll.mbsc-ltr .mbsc-ic-left .mbsc-ic.mbsc-left-ic,
-.mbsc-mobiscroll.mbsc-rtl .mbsc-ic-right .mbsc-ic.mbsc-right-ic {
-    right: auto;
-    left: -2.625em;
-}
-
-.mbsc-mobiscroll.mbsc-ltr .mbsc-ic-right .mbsc-ic.mbsc-right-ic,
-.mbsc-mobiscroll.mbsc-rtl .mbsc-ic-left .mbsc-ic.mbsc-left-ic {
-    left: auto;
-    right: -2.625em;
-}
-
-.mbsc-mobiscroll .mbsc-input .mbsc-label {
-    font-size: .75em;
-}
-
-
 /* Textarea */
 
 .mbsc-mobiscroll .mbsc-input textarea {
@@ -753,6 +684,11 @@ label.mbsc-input,
     background: #dedede;
 }
 
+.mbsc-mobiscroll .mbsc-btn.mbsc-btn-outline:disabled {
+    color: #dedede;
+    border-color: #dedede;
+}
+
 .mbsc-mobiscroll.mbsc-no-touch .mbsc-btn:not(:disabled):not(.mbsc-active):hover {
     opacity: .8;
 }
@@ -789,6 +725,190 @@ label.mbsc-input,
 
 .mbsc-mobiscroll .mbsc-btn-group-block {
     padding: 0 1em;
+}
+
+
+/* Button color presets */
+
+.mbsc-mobiscroll {
+    .mbsc-btn-primary.mbsc-btn {
+        background: @mobiscroll-primary;
+        &.mbsc-btn-flat {
+            color: @mobiscroll-primary;
+            &:not(:disabled):not(.mbsc-active):hover {
+                background: fade(@mobiscroll-primary, 20%);
+            }
+            &.mbsc-active {
+                background: fade(@mobiscroll-primary, 30%);
+            }
+        }
+    }
+    .mbsc-btn-secondary.mbsc-btn {
+        background: @mobiscroll-secondary;
+        &.mbsc-btn-flat {
+            color: @mobiscroll-secondary;
+            &:not(:disabled):not(.mbsc-active):hover {
+                background: fade(@mobiscroll-secondary, 20%);
+            }
+            &.mbsc-active {
+                background: fade(@mobiscroll-secondary, 30%);
+            }
+        }
+    }
+    .mbsc-btn-success.mbsc-btn {
+        background: @mobiscroll-success;
+        &.mbsc-btn-flat {
+            color: @mobiscroll-success;
+            &:not(:disabled):not(.mbsc-active):hover {
+                background: fade(@mobiscroll-success, 20%);
+            }
+            &.mbsc-active {
+                background: fade(@mobiscroll-success, 30%);
+            }
+        }
+    }
+    .mbsc-btn-danger.mbsc-btn {
+        background: @mobiscroll-danger;
+        &.mbsc-btn-flat {
+            color: @mobiscroll-danger;
+            &:not(:disabled):not(.mbsc-active):hover {
+                background: fade(@mobiscroll-danger, 20%);
+            }
+            &.mbsc-active {
+                background: fade(@mobiscroll-danger, 30%);
+            }
+        }
+    }
+    .mbsc-btn-warning.mbsc-btn {
+        background: @mobiscroll-warning;
+        &.mbsc-btn-flat {
+            color: @mobiscroll-warning;
+            &:not(:disabled):not(.mbsc-active):hover {
+                background: fade(@mobiscroll-warning, 20%);
+            }
+            &.mbsc-active {
+                background: fade(@mobiscroll-warning, 30%);
+            }
+        }
+    }
+    .mbsc-btn-info.mbsc-btn {
+        background: @mobiscroll-info;
+        &.mbsc-btn-flat {
+            color: @mobiscroll-info;
+            &:not(:disabled):not(.mbsc-active):hover {
+                background: fade(@mobiscroll-info, 20%);
+            }
+            &.mbsc-active {
+                background: fade(@mobiscroll-info, 30%);
+            }
+        }
+    }
+    .mbsc-btn-light.mbsc-btn {
+        background: @mobiscroll-light;
+        color: @mobiscroll-dark-text;
+        &.mbsc-btn-flat {
+            color: darken(@mobiscroll-light, 25%);
+            &:not(:disabled):not(.mbsc-active):hover {
+                color: darken(@mobiscroll-light, 25%);
+                ;
+                background: fade(darken(@mobiscroll-light, 25%), 20%);
+            }
+            &.mbsc-active {
+                background: fade(darken(@mobiscroll-light, 25%), 30%);
+            }
+        }
+    }
+    .mbsc-btn-dark.mbsc-btn {
+        background: @mobiscroll-dark;
+        &.mbsc-btn-flat {
+            color: @mobiscroll-dark;
+            &:not(:disabled):not(.mbsc-active):hover {
+                background: fade(@mobiscroll-dark, 20%);
+            }
+            &.mbsc-active {
+                background: fade(@mobiscroll-dark, 30%);
+            }
+        }
+    }
+    /* Flat buttons */
+    .mbsc-btn-flat.mbsc-btn {
+        background: transparent;
+    }
+    /* Outline buttons */
+    .mbsc-btn-outline.mbsc-btn {
+        background: transparent;
+        border: 1px solid #4eccc4;
+        color: #4eccc4;
+        &.mbsc-active {
+            background: #4eccc4;
+            color: #f7f7f7;
+            opacity: 1;
+        }
+        &.mbsc-btn-primary {
+            border-color: @mobiscroll-primary;
+            color: @mobiscroll-primary;
+            &.mbsc-active {
+                background: @mobiscroll-primary;
+                color: @mobiscroll-light-text;
+            }
+        }
+        &.mbsc-btn-secondary {
+            border-color: @mobiscroll-secondary;
+            color: @mobiscroll-secondary;
+            &.mbsc-active {
+                background: @mobiscroll-secondary;
+                color: @mobiscroll-light-text;
+            }
+        }
+        &.mbsc-btn-success {
+            border-color: @mobiscroll-success;
+            color: @mobiscroll-success;
+            &.mbsc-active {
+                background: @mobiscroll-success;
+                color: @mobiscroll-light-text;
+            }
+        }
+        &.mbsc-btn-danger {
+            border-color: @mobiscroll-danger;
+            color: @mobiscroll-danger;
+            &.mbsc-active {
+                background: @mobiscroll-danger;
+                color: @mobiscroll-light-text;
+            }
+        }
+        &.mbsc-btn-warning {
+            border-color: @mobiscroll-warning;
+            color: @mobiscroll-warning;
+            &.mbsc-active {
+                background: @mobiscroll-warning;
+                color: @mobiscroll-light-text;
+            }
+        }
+        &.mbsc-btn-info {
+            border-color: @mobiscroll-info;
+            color: @mobiscroll-info;
+            &.mbsc-active {
+                background: @mobiscroll-info;
+                color: @mobiscroll-light-text;
+            }
+        }
+        &.mbsc-btn-light {
+            border-color: darken(@mobiscroll-light, 25%);
+            color: darken(@mobiscroll-light, 25%);
+            &.mbsc-active {
+                background: darken(@mobiscroll-light, 25%);
+                color: @mobiscroll-light;
+            }
+        }
+        &.mbsc-btn-dark {
+            border-color: @mobiscroll-dark;
+            color: @mobiscroll-dark;
+            &.mbsc-active {
+                background: @mobiscroll-dark;
+                color: @mobiscroll-light-text;
+            }
+        }
+    }
 }
 
 

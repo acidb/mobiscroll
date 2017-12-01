@@ -1,0 +1,18 @@
+@import "../notifications";
+@import "windows.widget.less";
+
+/* Toast */
+
+.mbsc-windows.mbsc-toast .mbsc-toast-msg {
+    background: rgba(120, 120, 120, .9);
+    border-radius: .5em;
+    color: @windows-text;
+}
+
+
+/* Snackbar */
+
+.mbsc-windows.mbsc-snackbar .mbsc-snackbar-cont .mbsc-snackbar-btn,
+.mbsc-windows.mbsc-snackbar.mbsc-fr .mbsc-fr-c .mbsc-btn-flat:not(:disabled):hover {
+    color: @windows-accent;
+}

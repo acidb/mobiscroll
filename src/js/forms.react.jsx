@@ -169,10 +169,11 @@ class MbscFormBase extends MbscOptimized {
         /* eslint-disable no-unused-vars */
         // justification: variables 'value', 'onChange' and 'className' are declared due to object decomposition
         var {
-                    className,
+            className,
             children,
             value,
             onChange,
+            name,
             ...other
                 } = this.props;
 
@@ -183,7 +184,7 @@ class MbscFormBase extends MbscOptimized {
         return <div className={this.initialCssClass}>
             {children}
             <input ref={this.inputMounted} type={type} data-role={name} {...other} />
-        </div>;
+        </div>; 
     }
 }
 

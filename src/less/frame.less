@@ -1,5 +1,6 @@
 @import "animation";
 @import "icons";
+@import "themes/mobiscroll";
 
 /* Frame */
 
@@ -192,7 +193,7 @@
 }
 
 .mbsc-fr-bubble .mbsc-fr-arr-i {
-    margin: 0 30px;
+    margin: 0 1.75em;
     position: relative;
     direction: ltr;
 }
@@ -285,58 +286,59 @@
 }
 
 
-/* Default theme */
+/* Mobiscroll theme */
 
-.mbsc-mobiscroll .mbsc-fr-w {
-    min-width: 16em;
-    background: #f7f7f7;
-    color: #454545;
-    font-size: 16px;
-}
-
-.mbsc-mobiscroll .mbsc-fr-hdr {
-    padding: 0 .6666em;
-    padding-top: .6666em;
-    color: #4eccc4;
-    font-size: .75em;
-    text-transform: uppercase;
-    min-height: 2em;
-    line-height: 2em;
-}
-
-.mbsc-mobiscroll .mbsc-fr-btn-cont {
-    display: block;
-    overflow: hidden;
-    text-align: right;
-    padding: 0 .5em .5em .5em;
-}
-
-.mbsc-mobiscroll .mbsc-fr-btn-w {
-    display: block;
-    float: right;
-}
-
-.mbsc-mobiscroll .mbsc-rtl .mbsc-fr-btn-w {
-    float: left;
-}
-
-.mbsc-mobiscroll .mbsc-fr-btn {
-    height: 2.5em;
-    line-height: 2.5em;
-    padding: 0 1em;
-    color: #4eccc4;
-    text-transform: uppercase;
-}
-
-.mbsc-mobiscroll.mbsc-no-touch .mbsc-fr-btn-e:not(.mbsc-fr-btn-d):hover,
-.mbsc-mobiscroll .mbsc-fr-btn-a {
-    background: rgba(78, 204, 196, .3);
-}
-
-.mbsc-mobiscroll .mbsc-fr-bubble-bottom .mbsc-fr-arr {
-    border-color: transparent transparent #f7f7f7 transparent;
-}
-
-.mbsc-mobiscroll .mbsc-fr-bubble-top .mbsc-fr-arr {
-    border-color: #f7f7f7 transparent transparent transparent;
+.mbsc-mobiscroll {
+    .mbsc-fr-w {
+        min-width: 16em;
+        background: @mobiscroll-background;
+        color: @mobiscroll-text;
+        font-size: 16px;
+    }
+    .mbsc-fr-hdr {
+        padding: 0 .6666em;
+        padding-top: .6666em;
+        color: @mobiscroll-accent;
+        font-size: .75em;
+        text-transform: uppercase;
+        min-height: 2em;
+        line-height: 2em;
+    }
+    .mbsc-fr-btn-cont {
+        display: block;
+        overflow: hidden;
+        text-align: right;
+        padding: 0 .5em .5em .5em;
+    }
+    .mbsc-ltr .mbsc-fr-btn-cont {
+        text-align: right;
+    }
+    .mbsc-rtl .mbsc-fr-btn-cont {
+        text-align: left;
+    }
+    .mbsc-fr-btn-w {
+        display: inline-block;
+    }
+    .mbsc-fr-btn {
+        height: 2.5em;
+        line-height: 2.5em;
+        padding: 0 1em;
+        color: @mobiscroll-accent;
+        text-transform: uppercase;
+    }
+    .mbsc-fr-btn-a,
+    &.mbsc-no-touch .mbsc-fr-btn-e:not(.mbsc-fr-btn-d):hover {
+        background: fade(@mobiscroll-accent, 30%);
+    }
+    /* Display modes */
+    &.mbsc-fr-center .mbsc-fr-w,
+    &.mbsc-fr-bubble .mbsc-fr-w {
+        border-radius: .25em;
+    }
+    .mbsc-fr-bubble-bottom .mbsc-fr-arr {
+        border-color: transparent transparent @mobiscroll-background transparent;
+    }
+    .mbsc-fr-bubble-top .mbsc-fr-arr {
+        border-color: @mobiscroll-background transparent transparent transparent;
+    }
 }

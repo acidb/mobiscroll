@@ -1,8 +1,10 @@
 import {
     extend,
     mobiscroll,
-    MbscControlBase,
+    MbscScrollerBase,
     Directive,
+    Component,
+    INPUT_TEMPLATE,
     Input,
     Output,
     EventEmitter,
@@ -20,7 +22,7 @@ import { MbscScrollerOptions } from './core/core';
     selector: '[mbsc-scroller]',
     exportAs: 'mobiscroll'
 })
-export class MbscScroller extends MbscControlBase {
+export class MbscScroller extends MbscScrollerBase {
     /**
      * The mobiscroll settings for the directive are passed through this input.
      */
@@ -72,12 +74,41 @@ export class MbscScroller extends MbscControlBase {
     ngAfterViewInit() {
         super.ngAfterViewInit();
 
-        let options = extend({}, this.options, this.optionExtensions);
+        let options = extend({}, this.options, this.inlineOptions(), this.optionExtensions);
         this._instance = new Scroller(this.element, options);
 
         // set the initial value - needed when there's no ngModel in use
         if (this.initialValue !== undefined) {
             this._instance.setVal(this.initialValue, true, false);
         }
+    }
+}
+
+@Component({
+    selector: 'mbsc-scroller',
+    exportAs: 'mobiscroll',
+    template: INPUT_TEMPLATE
+})
+export class MbscScrollerComponent extends MbscScroller {
+    @Input('icon')
+    inputIcon: string;
+    @Input('icon-align')
+    iconAlign: 'left' | 'right';
+    @Input()
+    name: string;
+    @Input()
+    error: boolean;
+    @Input()
+    errorMessage: string = '';
+    @Input()
+    options: MbscScrollerOptions;
+
+    constructor(initialElem: ElementRef, zone: NgZone, @Optional() control: NgControl, @Optional() inputService: MbscInputService) {
+        super(initialElem, zone, control, inputService);
+    }
+
+    ngAfterViewInit() {
+        super.ngAfterViewInit();
+        this.setThemeClasses();
     }
 }

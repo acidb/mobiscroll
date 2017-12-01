@@ -4,7 +4,6 @@ var uglify = require('rollup-plugin-uglify');
 var globals = {
     angular: 'angular',
     jquery: 'jQuery',
-    knockout: 'ko',
     react: 'React',
     'react-dom': 'ReactDOM',
     'prop-types': 'PropTypes',
@@ -20,7 +19,6 @@ var globals = {
 var external = [
     'angular',
     'jquery',
-    'knockout',
     'prop-types',
     'react',
     'react-dom',
@@ -55,7 +53,6 @@ module.exports = {
         files: {
             'dist/js/mobiscroll.angular.js': 'bundles/mobiscroll.angular.min.js',
             'dist/js/mobiscroll.angularjs.js': 'bundles/mobiscroll.angularjs.js',
-            'dist/js/mobiscroll.knockout.js': 'bundles/mobiscroll.knockout.js',
             'dist/js/mobiscroll.javascript.js': 'bundles/mobiscroll.javascript.js',
             'dist/js/mobiscroll.jquery.js': 'bundles/mobiscroll.jquery.js',
             'dist/js/mobiscroll.react.js': 'bundles/mobiscroll.react.js'
@@ -88,7 +85,6 @@ module.exports = {
         files: {
             'dist/js/mobiscroll.angular.min.js': 'bundles/mobiscroll.angular.min.js',
             'dist/js/mobiscroll.angularjs.min.js': 'bundles/mobiscroll.angularjs.js',
-            'dist/js/mobiscroll.knockout.min.js': 'bundles/mobiscroll.knockout.js',
             'dist/js/mobiscroll.javascript.min.js': 'bundles/mobiscroll.javascript.js',
             'dist/js/mobiscroll.jquery.min.js': 'bundles/mobiscroll.jquery.js',
             'dist/js/mobiscroll.react.min.js': 'bundles/mobiscroll.react.js'

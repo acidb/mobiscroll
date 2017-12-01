@@ -3,6 +3,46 @@
 @input2: hsl(211, 100%, 50%);
 @input3: hsl(0, 0%, 97%);
 @input4: hsl(0, 0%, 0%);
+
+/* --- New built in parameters --- */
+
+@ios-background: @input3;
+@ios-accent: @input1;
+@ios-text: @input4;
+
+/* --- */
+
+@ios-background-limited: hsl(hue(@ios-background), saturation(@ios-background), max(lightness(@ios-background), 3%));
+@ios-background-alt: lighten(@ios-background-limited, 3%);
+
+/* Light/dark versions */
+
+.light-or-dark();
+// Light background 
+.light-or-dark() when (lightness(@ios-background) > 50%) {
+    @ios-border: darken(@ios-background-limited, 17%);
+    @ios-text-alt: lighten(@ios-text, 53%);
+}
+
+// Dark background 
+.light-or-dark() when (lightness(@ios-background) <=50%) {
+    @ios-border: lighten(@ios-background-limited, 17%);
+    @ios-text-alt: darken(@ios-text, 53%);
+}
+
+// Light accent 
+.light-or-dark() when (lightness(@ios-accent) > 50%) {
+    @ios-accent-alt: spin(darken(saturate(@ios-accent, 42%), 35%), -3);
+}
+
+// Dark accent 
+.light-or-dark() when (lightness(@ios-accent) <=50%) {
+    @ios-accent-alt: spin(lighten(desaturate(@ios-accent, 42%), 35%), 3);
+}
+
+
+/* --- */
+
 @minput3: hsl(hue(@input3), saturation(@input3), max(lightness(@input3), 3%));
 @output1_1: @input1;
 @output2_1: @input2;
@@ -12,8 +52,8 @@
 @delta2_1: red(@output2_1)*0.299 + green(@output2_1)*0.587 + blue(@output2_1)*0.114;
 @delta3: red(@input3)*0.299 + green(@input3)*0.587 + blue(@input3)*0.114;
 @delta4: red(@input4)*0.299 + green(@input4)*0.587 + blue(@input4)*0.114;
-.-();
-.-() when (@delta2_1 <=150) {
+.x();
+.x() when (@delta2_1 <=150) {
     @output2_1_text: #fff;
     @output2_2: spin(lighten(desaturate(@input2, 42%), 35%), 3);
     @output2_3: spin(lighten(desaturate(@input2, 48%), 22%), -1);
@@ -23,7 +63,7 @@
     @snackbar_btn: hsl(hue(@input2), saturation(@input2), max(lightness(@input2), 80%));
 }
 
-.-() when (@delta2_1 > 150) {
+.x() when (@delta2_1 > 150) {
     @output2_1_text: #000;
     @output2_2: spin(darken(saturate(@input2, 42%), 35%), -3);
     @output2_3: spin(darken(saturate(@input2, 48%), 22%), 1);
@@ -33,7 +73,7 @@
     @snackbar_btn: @input2;
 }
 
-.-() when (@delta3 <=150) {
+.x() when (@delta3 <=150) {
     @output3_2: lighten(@minput3, 21%);
     @output3_3: lighten(@minput3, 10%);
     @output3_6: lighten(@minput3, 8%);
@@ -63,7 +103,7 @@
     @slider_track_step: lighten(@minput3, 27%);
 }
 
-.-() when (@delta3 > 150) {
+.x() when (@delta3 > 150) {
     @output3_2: darken(@minput3, 21%);
     @output3_3: darken(@minput3, 1%);
     @output3_6: darken(@minput3, 8%);
@@ -269,79 +309,49 @@
 
 /* Calendar */
 
-.mbsc-@{theme}.mbsc-calendar.mbsc-inline .mbsc-fr-popup {
-    border-color: @output3_6;
-}
-
-.mbsc-@{theme} .mbsc-cal-sc-c {
-    background: @output3_1;
-}
-
-.mbsc-@{theme}.mbsc-fr-inline .mbsc-cal-sc-c {
-    background: @output3_10;
-}
-
-.mbsc-@{theme} .mbsc-cal {
-    color: @output4_1;
-}
-
-.mbsc-@{theme} .mbsc-cal-btn-txt,
-.mbsc-@{theme} .mbsc-fr-btn-a .mbsc-cal-btn-txt {
-    color: @output2_1;
-}
-
-.mbsc-@{theme} .mbsc-cal-week-nrs-c {
-    background: @output3_1;
-}
-
-.mbsc-@{theme} .mbsc-cal-day {
-    background: @output3_1;
-    border-color: @output3_7;
-    color: @output4_1;
-}
-
-.mbsc-@{theme} .mbsc-cal-hl-now .mbsc-cal-today {
-    color: @output1_1;
-}
-
-.mbsc-@{theme}.mbsc-no-touch .mbsc-cal-day.mbsc-cal-day-v:hover .mbsc-cal-day-fg,
-.mbsc-@{theme} .mbsc-cal .mbsc-cal-day-sel .mbsc-cal-day-fg {
-    border-color: @output2_1;
-    background: @output2_1;
-    color: @output2_1_text;
-}
-
-.mbsc-@{theme} .mbsc-cal-day-hl .mbsc-cal-day-fg {
-    border-color: @output2_1;
-    color: @output4_1;
-}
-
-.mbsc-@{theme} .mbsc-cal-sc-m-cell {
-    border-color: @output3_7;
-}
-
-.mbsc-@{theme} .mbsc-cal-tab {
-    border-color: @output2_1;
-}
-
-.mbsc-@{theme} .mbsc-cal-tab .mbsc-cal-tab-i {
-    color: @output2_1;
-}
-
-.mbsc-@{theme}.mbsc-no-touch .mbsc-cal-sc .mbsc-cal-sc-cell:not(.mbsc-fr-btn-d):hover .mbsc-cal-sc-tbl,
-.mbsc-@{theme} .mbsc-cal-sc .mbsc-cal-sc-sel .mbsc-cal-sc-cell-i,
-.mbsc-@{theme}.mbsc-fr.mbsc-calendar .mbsc-cal-tabs .mbsc-cal-tab.mbsc-cal-tab-sel .mbsc-cal-tab-i {
-    background: @output2_1;
-    color: @output2_1_text;
-}
-
-.mbsc-@{theme} .mbsc-cal-day-m-c {
-    background: @output3_7;
-}
-
-.mbsc-@{theme} .mbsc-cal-day-txt {
-    background: @output2_2;
-    color: @output4_1;
+.mbsc-@{theme} {
+    .mbsc-cal-picker {
+        background: @ios-background;
+    }
+    .mbsc-cal-cell {
+        border-color: @ios-border;
+    }
+    .mbsc-cal-today {
+        color: @ios-accent;
+    }
+    /* Hover, selected */
+    &.mbsc-no-touch .mbsc-cal-cell:not(.mbsc-btn-d):hover .mbsc-cal-cell-txt,
+    .mbsc-selected .mbsc-cal-cell-txt {
+        border-color: @ios-accent;
+        background: @ios-accent;
+        color: contrast(@ios-accent);
+    }
+    .mbsc-cal-tab {
+        border-color: @ios-accent;
+        color: @ios-accent;
+    }
+    .mbsc-fr-popup .mbsc-fr-w .mbsc-cal-tabs-c .mbsc-cal-tabs .mbsc-cal-tab.mbsc-selected {
+        background: @ios-accent;
+        color: contrast(@ios-accent);
+    }
+    /* Marks */
+    .mbsc-cal-mark {
+        background: @ios-border;
+    }
+    .mbsc-cal-txt {
+        background: @ios-accent-alt;
+        color: contrast(@ios-accent-alt);
+    }
+    /* Inline */
+    &.mbsc-fr-inline .mbsc-cal-picker {
+        background: @ios-background-alt;
+    }
+    /* Full screen */
+    &.mbsc-fr-liq.mbsc-fr-center {
+        .mbsc-fr-btn-cont {
+            border-bottom-color: @ios-border;
+        }
+    }
 }
 
 .mbsc-@{theme} .mbsc-cal-events {
@@ -373,31 +383,24 @@
 
 /* Range */
 
-.mbsc-@{theme} .mbsc-range-btn-end,
-.mbsc-@{theme} .mbsc-range-btn-end .mbsc-range-btn:before {
-    border-color: @output3_7;
-}
-
-.mbsc-@{theme} .mbsc-range-btn {
-    background: @output3_1;
-    color: @output4_1;
-}
-
-.mbsc-@{theme} .mbsc-range-btn-sel .mbsc-range-btn .mbsc-range-btn-v {
-    color: @output2_1;
-}
-
-.mbsc-@{theme}.mbsc-range .mbsc-cal .mbsc-cal-day-sel .mbsc-cal-day-fg {
-    color: @output2_1_text;
-}
-
-.mbsc-@{theme}.mbsc-range .mbsc-cal-day-sel .mbsc-cal-day-frame {
-    background: @output2_1;
-}
-
-.mbsc-@{theme}.mbsc-range .mbsc-cal-table .mbsc-cal-day-hl .mbsc-cal-day-i .mbsc-cal-day-fg {
-    background: @output2_1;
-    color: @output2_1_text;
+.mbsc-@{theme} {
+    .mbsc-range-btn-end {
+        border-color: @ios-border;
+    }
+    .mbsc-range-btn-end .mbsc-range-btn:before {
+        border-color: @ios-border;
+    }
+    .mbsc-range-btn.mbsc-selected .mbsc-range-btn-v {
+        color: @ios-accent;
+    }
+    &.mbsc-range {
+        .mbsc-cal .mbsc-cal-day.mbsc-cal-day-hl .mbsc-cal-day-date {
+            background: @ios-accent;
+        }
+        .mbsc-cal-day.mbsc-selected:after {
+            background: @ios-accent;
+        }
+    }
 }
 
 
@@ -439,11 +442,28 @@
 }
 
 
-/* Menustrip */
+/* Navigation */
 
-.mbsc-@{theme} .mbsc-ms-item-sel,
-.mbsc-@{theme}.mbsc-ms-nosel .mbsc-ms-item {
-    color: @output2_1;
+.mbsc-@{theme} {
+    &.mbsc-ms-c {
+        background: @ios-background;
+        border-color: @ios-border;
+    }
+    .mbsc-ms .mbsc-ms-item {
+        color: @ios-text-alt;
+    }
+    &.mbsc-ms-nosel .mbsc-ms-item,
+    .mbsc-ms .mbsc-ms-item-sel {
+        color: @ios-accent;
+    }
+    &.mbsc-ms-more {
+        .mbsc-ms-item:after {
+            border-color: @ios-border;
+        }
+    }
+    &.mbsc-no-touch .mbsc-ms-item:not(.mbsc-btn-d):hover {
+        background: fade(@ios-accent, 15%);
+    }
 }
 
 
@@ -582,6 +602,11 @@
 // }
 .mbsc-@{theme} .mbsc-btn:disabled {
     background: @output3_12;
+    color: @output3_13;
+}
+
+.mbsc-@{theme} .mbsc-btn.mbsc-btn-outline:disabled {
+    border-color: @output3_13;
     color: @output3_13;
 }
 
@@ -786,12 +811,6 @@
 
 .mbsc-lv-@{theme}.mbsc-lv-alt-row .mbsc-lv-item:nth-child(even) {
     background: @output3_3;
-}
-
-.mbsc-@{theme}.mbsc-ms-c {
-    background: @output3_1;
-    border-color: @output3_7;
-    color: hsl(0, 0%, 53%);
 }
 
 

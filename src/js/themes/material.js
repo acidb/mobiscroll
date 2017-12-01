@@ -123,7 +123,7 @@ themes.listview.material = {
     }
 };
 
-themes.menustrip.material = {
+themes.navigation.material = {
     onInit: function () {
         initRipple($(this), '.mbsc-ms-item.mbsc-btn-e', 'mbsc-btn-d', 'mbsc-btn-nhl');
     },

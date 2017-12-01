@@ -6,7 +6,6 @@ module.exports = {
             'packages/angularjs/package.json',
             'packages/javascript/package.json',
             'packages/jquery/package.json',
-            'packages/knockout/package.json',
             'packages/react/package.json'
         ],
         updateConfigs: [],

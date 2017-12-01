@@ -1,13 +1,12 @@
-import mobiscroll, { $, Base } from '../core/core';
+import mobiscroll, { $, Base } from '../core/core'; // mobiscroll needed for trial
 import { os, raf, rafc } from '../util/platform';
 import { getCoord } from '../util/tap';
 import { cssPrefix, jsPrefix, getPosition, testTouch } from '../util/dom';
 import { constrain, isNumeric, isString } from '../util/misc';
 
-var classes = mobiscroll.classes,
-    isIOS = os == 'ios';
+var isIOS = os == 'ios';
 
-const ScrollView = function (el, settings, inherit) {
+const ScrollViewBase = function (el, settings, inherit) {
     var $btn,
         btnTimer,
         contSize,
@@ -63,7 +62,8 @@ const ScrollView = function (el, settings, inherit) {
             ev.stopPropagation();
         }
 
-        if (s.prevDef || ev.type == 'mousedown') {
+        //if (s.prevDef || ev.type == 'mousedown') {
+        if (s.prevDef) {
             // Prevent touch highlight and focus
             ev.preventDefault();
         }
@@ -217,14 +217,9 @@ const ScrollView = function (el, settings, inherit) {
                 }, 100);
 
                 if (!nativeScroll && !that.scrolled) {
-
-                    // Prevent phantom clicks
-                    //if (ev.type === 'touchend') {
-                    //    util.preventClick();
-                    //}
-
                     trigger('onBtnTap', {
-                        target: $btn[0]
+                        target: $btn[0],
+                        domEvent: ev
                     });
                 }
             }
@@ -563,8 +558,7 @@ const ScrollView = function (el, settings, inherit) {
     }
 };
 
-ScrollView.prototype = {
-    _class: 'scrollview',
+ScrollViewBase.prototype = {
     _defaults: {
         speedUnit: 0.0022,
         //timeUnit: 0.8,
@@ -582,8 +576,4 @@ ScrollView.prototype = {
     }
 };
 
-classes.ScrollView = ScrollView;
-
-mobiscroll.presetShort('scrollview', 'ScrollView', false);
-
-export default ScrollView;
+export default ScrollViewBase;

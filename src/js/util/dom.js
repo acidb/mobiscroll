@@ -49,10 +49,31 @@ function getPosition(t, vertical) {
     return px;
 }
 
+function getTextColor(color) {
+    if (color) {
+        // Cache calculated text colors, because it is slow
+        if (textColors[color]) {
+            return textColors[color];
+        }
+        var $div = $('<div style="background-color:' + color + ';"></div>').appendTo('body'),
+            style = getComputedStyle($div[0]),
+            rgb = style.backgroundColor.replace(/rgb|rgba|\(|\)|\s/g, '').split(','),
+            delta = rgb[0] * 0.299 + rgb[1] * 0.587 + rgb[2] * 0.114,
+            txt = delta > 130 ? '#000' : '#fff';
+
+        $div.remove();
+
+        textColors[color] = txt;
+
+        return txt;
+    }
+}
+
 var animEnd,
     mod,
     cssPrefix,
-    jsPrefix;
+    jsPrefix,
+    textColors = {};
 
 if (isBrowser) {
     mod = document.createElement('modernizr').style;
@@ -66,5 +87,6 @@ export {
     cssPrefix,
     jsPrefix,
     getPosition,
+    getTextColor,
     testTouch
 };

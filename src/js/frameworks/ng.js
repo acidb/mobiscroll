@@ -37,7 +37,7 @@ mobiscroll.ng = {
             }
         };
     },
-    getOpt: function (scope, attrs, attrName, ngModel, inheritOptions, $element) {
+    getOpt: function (scope, attrs, attrName, ngModel, inheritOptions, $element, needModel) {
         var initOpt = scope.$eval(attrs.mobiscrollOptions || '{}'),
             $formElement = inheritOptions ? $element.closest('[mbsc-form-opt]') : null;
 
@@ -45,7 +45,7 @@ mobiscroll.ng = {
             initOpt = extend({}, mobiscroll.ng.formOptions[$formElement.attr('id')] || {}, initOpt);
         }
 
-        if (ngModel) {
+        if (ngModel || (needModel === false)) {
             // prepare the initialization object for mobiscroll
             extend(initOpt, scope.$eval(attrs[attrName] || '{}'));
         }

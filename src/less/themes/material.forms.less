@@ -1,5 +1,5 @@
 @import "../forms";
-@import "./material";
+@import "material";
 @import "material.page.less";
 @import "material.input.less";
 @import "material.slider.less";
@@ -36,56 +36,6 @@
     padding-top: .75em;
     font-size: .75em;
     color: #de3226;
-}
-
-
-/* Textbox */
-
-.mbsc-material .mbsc-input-ic {
-    top: .0625em;
-    margin: -2px 0 0 0;
-}
-
-.mbsc-material .mbsc-input.mbsc-ic-right {
-    padding-right: 3.25em;
-}
-
-.mbsc-material.mbsc-rtl .mbsc-input.mbsc-ic-right {
-    padding-left: 3.25em;
-    padding-right: 1em;
-}
-
-.mbsc-material .mbsc-ic-left .mbsc-input-wrap {
-    padding-left: 2.25em;
-}
-
-.mbsc-material.mbsc-rtl .mbsc-ic-left .mbsc-input-wrap {
-    padding-right: 2.25em;
-    padding-left: 0;
-}
-
-.mbsc-material .mbsc-ic-left .mbsc-left-ic {
-    right: auto;
-    left: -0.375em;
-}
-
-.mbsc-material.mbsc-rtl .mbsc-ic-left .mbsc-left-ic {
-    left: auto;
-    right: -0.375em;
-}
-
-.mbsc-material .mbsc-ic-right .mbsc-right-ic {
-    left: auto;
-    right: -2.625em;
-}
-
-.mbsc-material.mbsc-rtl .mbsc-ic-right .mbsc-right-ic {
-    right: auto;
-    left: -2.625em;
-}
-
-.mbsc-material .mbsc-input .mbsc-label {
-    font-size: .75em;
 }
 
 
@@ -293,8 +243,7 @@
 
 .mbsc-material .mbsc-btn-group,
 .mbsc-material .mbsc-btn-group-justified {
-    padding: 0 .5em;
-    //text-align: right;
+    padding: 0 .5em; //text-align: right;
 }
 
 .mbsc-material .mbsc-btn-group-block {
@@ -304,6 +253,276 @@
 .mbsc-material .mbsc-btn:disabled {
     color: #a6a6a6;
     box-shadow: none;
+}
+
+.mbsc-material .mbsc-btn.mbsc-btn-outline:disabled {
+    color: #a6a6a6;
+    border-color: #a6a6a6;
+}
+
+
+/* Button color presets */
+
+.mbsc-material {
+    .mbsc-btn-primary.mbsc-btn {
+        background: @material-primary;
+        color: @material-light-text;
+        &.mbsc-active {
+            background: darken(@material-primary, 10%);
+        }
+        &.mbsc-btn-flat {
+            color: @material-primary;
+            &.mbsc-active {
+                background: fade(@material-primary, 30%); //background: darken(@material-primary, 10%);
+            }
+        }
+    }
+    .mbsc-btn-secondary.mbsc-btn {
+        background: @material-secondary;
+        color: @material-light-text;
+        &.mbsc-active {
+            background: darken(@material-secondary, 10%);
+        }
+        &.mbsc-btn-flat {
+            color: @material-secondary;
+            &.mbsc-active {
+                background: fade(@material-secondary, 30%);
+            }
+        }
+    }
+    .mbsc-btn-success.mbsc-btn {
+        background: @material-success;
+        color: @material-light-text;
+        &.mbsc-active {
+            background: darken(@material-success, 10%);
+        }
+        &.mbsc-btn-flat {
+            color: @material-success;
+            &.mbsc-active {
+                background: fade(@material-success, 30%);
+            }
+        }
+    }
+    .mbsc-btn-danger.mbsc-btn {
+        background: @material-danger;
+        color: @material-light-text;
+        &.mbsc-active {
+            background: darken(@material-danger, 10%);
+        }
+        &.mbsc-btn-flat {
+            color: @material-danger;
+            &.mbsc-active {
+                background: fade(@material-danger, 30%);
+            }
+        }
+    }
+    .mbsc-btn-warning.mbsc-btn {
+        background: @material-warning;
+        color: @material-light-text;
+        &.mbsc-active {
+            background: darken(@material-warning, 10%);
+        }
+        &.mbsc-btn-flat {
+            color: @material-warning;
+            &.mbsc-active {
+                background: fade(@material-warning, 30%);
+            }
+        }
+    }
+    .mbsc-btn-info.mbsc-btn {
+        background: @material-info;
+        color: @material-light-text;
+        &.mbsc-active {
+            background: darken(@material-info, 10%);
+        }
+        &.mbsc-btn-flat {
+            color: @material-info;
+            &.mbsc-active {
+                background: fade(@material-info, 30%);
+            }
+        }
+    }
+    .mbsc-btn-light.mbsc-btn {
+        background: @material-light;
+        color: @material-dark-text;
+        &.mbsc-active {
+            background: darken(@material-light, 10%);
+        }
+        &.mbsc-btn-flat {
+            color: darken(@material-light-text, 25%);
+            &.mbsc-active {
+                background: fade(@material-light-text, 25%);
+            }
+        }
+    }
+    .mbsc-btn-dark.mbsc-btn {
+        background: @material-dark;
+        color: @material-light-text;
+        &.mbsc-active {
+            background: darken(@material-dark, 10%);
+        }
+        &.mbsc-btn-flat {
+            color: @material-dark;
+            &.mbsc-active {
+                background: fade(@material-dark, 30%);
+            }
+        }
+    }
+    /* Flat buttons */
+    .mbsc-btn-flat.mbsc-btn {
+        background: transparent;
+    }
+    /* Outline buttons */
+    .mbsc-btn-outline.mbsc-btn {
+        background: transparent;
+        border: 1px solid #009688;
+        color: #009688;
+        box-shadow: none;
+        &.mbsc-btn.mbsc-active {
+            background: #009688;
+            color: #eee;
+            opacity: 1;
+        }
+        &.mbsc-btn-primary {
+            border-color: @material-primary;
+            color: @material-primary;
+            &.mbsc-active {
+                background: @material-primary;
+                color: @material-light;
+            }
+        }
+        &.mbsc-btn-secondary {
+            border-color: @material-secondary;
+            color: @material-secondary;
+            &.mbsc-active {
+                background: @material-secondary;
+                color: @material-light;
+            }
+        }
+        &.mbsc-btn-success {
+            border-color: @material-success;
+            color: @material-success;
+            &.mbsc-active {
+                background: @material-success;
+                color: @material-light;
+            }
+        }
+        &.mbsc-btn-danger {
+            border-color: @material-danger;
+            color: @material-danger;
+            &.mbsc-active {
+                background: @material-danger;
+                color: @material-light;
+            }
+        }
+        &.mbsc-btn-warning {
+            border-color: @material-warning;
+            color: @material-warning;
+            &.mbsc-active {
+                background: @material-warning;
+                color: @material-light;
+            }
+        }
+        &.mbsc-btn-info {
+            border-color: @material-info;
+            color: @material-info;
+            &.mbsc-active {
+                background: @material-info;
+                color: @material-light;
+            }
+        }
+        &.mbsc-btn-light {
+            border-color: darken(@material-light, 25%);
+            color: darken(@material-light, 25%);
+            &.mbsc-active {
+                background: darken(@material-light, 25%);
+                color: darken(@material-light, 25%);
+            }
+        }
+        &.mbsc-btn-dark {
+            border-color: @material-dark;
+            color: @material-dark;
+            &.mbsc-active {
+                background: @material-dark;
+                color: @material-light;
+            }
+        }
+    }
+    /* button hover style */
+    &.mbsc-no-touch {
+        .mbsc-btn-outline.mbsc-btn:hover {
+            box-shadow: none;
+        }
+        .mbsc-btn-primary.mbsc-btn {
+            &:not(:disabled):hover {
+                background: darken(@material-primary, 10%);
+                &.mbsc-btn-flat {
+                    background: lighten(@material-primary, 25%);
+                }
+            }
+        }
+        .mbsc-btn-secondary.mbsc-btn {
+            &:not(:disabled):hover {
+                background: darken(@material-secondary, 10%);
+                &.mbsc-btn-flat {
+                    background: lighten(@material-secondary, 25%);
+                }
+            }
+        }
+        .mbsc-btn-success.mbsc-btn {
+            &:not(:disabled):hover {
+                background: darken(@material-success, 10%);
+                &.mbsc-btn-flat {
+                    background: lighten(@material-success, 25%);
+                }
+            }
+        }
+        .mbsc-btn-danger.mbsc-btn {
+            &:not(:disabled):hover {
+                background: darken(@material-danger, 10%);
+                &.mbsc-btn-flat {
+                    background: lighten(@material-danger, 25%);
+                }
+            }
+        }
+        .mbsc-btn-warning.mbsc-btn {
+            &:not(:disabled):hover {
+                background: darken(@material-warning, 10%);
+                &.mbsc-btn-flat {
+                    background: lighten(@material-warning, 25%);
+                }
+            }
+        }
+        .mbsc-btn-info.mbsc-btn {
+            &:not(:disabled):hover {
+                background: darken(@material-info, 10%);
+                &.mbsc-btn-flat {
+                    background: lighten(@material-info, 25%);
+                }
+            }
+        }
+        .mbsc-btn-light.mbsc-btn {
+            &:not(:disabled):hover {
+                background: darken(@material-light, 10%);
+                &.mbsc-btn-flat {
+                    background: lighten(@material-light, 25%);
+                }
+            }
+        }
+        .mbsc-btn-dark.mbsc-btn {
+            &.mbsc-btn:not(:disabled):hover {
+                background: darken(@material-dark, 10%);
+                &.mbsc-btn-flat {
+                    background: lighten(@material-dark, 25%);
+                }
+            }
+        }
+        .mbsc-btn-outline.mbsc-btn {
+            &:not(:disabled):not(.mbsc-active):hover {
+                background: transparent;
+            }
+        }
+    }
 }
 
 

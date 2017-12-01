@@ -42,6 +42,7 @@ const Frame = function (el, settings, inherit) {
         needsLock,
         overlay,
         popup,
+        posDebounce,
         posEvents,
         preventPos,
         s,
@@ -55,8 +56,7 @@ const Frame = function (el, settings, inherit) {
 
         that = this,
         $elm = $(el),
-        elmList = [],
-        posDebounce = {};
+        elmList = [];
 
     function onBtnStart(ev) {
         // Can't call preventDefault here, it kills page scroll
@@ -162,21 +162,13 @@ const Frame = function (el, settings, inherit) {
     }
 
     function onPosition(ev) {
-        clearTimeout(posDebounce[ev.type]);
-        posDebounce[ev.type] = setTimeout(function () {
-            var h,
-                isScroll = ev.type == 'scroll';
-
-            if (isScroll && !scrollLock) {
-                return;
-            }
-
-            that.position(!isScroll);
-
+        clearTimeout(posDebounce);
+        posDebounce = setTimeout(function () {
+            that.position(true);
             if (ev.type == 'orientationchange') {
-                // Trigger reflow
+                // Trigger reflow, needed on iOS9 (only?) for the scroll to work
                 popup.style.display = 'none';
-                h = popup.offsetHeight;
+                popup.offsetHeight;
                 popup.style.display = '';
             }
         }, 200);
@@ -233,6 +225,7 @@ const Frame = function (el, settings, inherit) {
             arrowHeight,
             docHeight,
             docWidth,
+            isWrapped,
             newHeight,
             newWidth,
             width,
@@ -260,27 +253,10 @@ const Frame = function (el, settings, inherit) {
         if (that._isFullScreen || /top|bottom/.test(s.display)) {
             // Set width, if document is larger than viewport, needs to be set before onPosition (for calendar)
             $popup.width(newWidth);
-        } else {
+        } else if (isModal) {
             // Reset width
-            $wrapper.width('');
+            $wrapper.addClass('mbsc-fr-pos').width('');
         }
-
-        if (trigger('onPosition', {
-                target: markup,
-                windowWidth: newWidth,
-                windowHeight: newHeight
-            }) === false || !isModal) {
-            return;
-        }
-
-        // Set / unset liquid layout based on screen width, but only if not set explicitly by the user
-        // if (that._isLiquid && s.layout !== 'liquid') {
-        //     if (newWidth < 415) {
-        //         $markup.addClass('mbsc-fr-liq');
-        //     } else {
-        //         $markup.removeClass('mbsc-fr-liq');
-        //     }
-        // }
 
         // Call position for nested mobiscroll components
         $('.mbsc-comp', $markup).each(function () {
@@ -298,11 +274,32 @@ const Frame = function (el, settings, inherit) {
                 minWidth = (width > minWidth) ? width : minWidth;
             });
 
-            $wrapper.css({
-                'width': that._isLiquid ? Math.min(s.maxPopupWidth, newWidth - 16) : Math.ceil(totalWidth > newWidth ? minWidth : totalWidth),
-                'white-space': totalWidth > newWidth ? '' : 'nowrap'
+            isWrapped = totalWidth > (newWidth - 16) || s.tabs === true;
+
+            $wrapper.removeClass('mbsc-fr-pos').css({
+                'width': that._isLiquid ? Math.min(s.maxPopupWidth, newWidth - 16) : Math.ceil(isWrapped ? minWidth : totalWidth),
+                'white-space': isWrapped ? '' : 'nowrap'
             });
         }
+
+        if (trigger('onPosition', {
+                target: markup,
+                popup: popup,
+                hasTabs: isWrapped,
+                windowWidth: newWidth,
+                windowHeight: newHeight
+            }) === false || !isModal) {
+            return;
+        }
+
+        // Set / unset liquid layout based on screen width, but only if not set explicitly by the user
+        // if (that._isLiquid && s.layout !== 'liquid') {
+        //     if (newWidth < 415) {
+        //         $markup.addClass('mbsc-fr-liq');
+        //     } else {
+        //         $markup.removeClass('mbsc-fr-liq');
+        //     }
+        // }
 
         modalWidth = popup.offsetWidth;
         modalHeight = popup.offsetHeight;
@@ -332,7 +329,7 @@ const Frame = function (el, settings, inherit) {
             arrowHeight = arrow.offsetHeight;
 
             // Horizontal positioning
-            left = constrain(anchorLeft - (modalWidth - anchorWidth) / 2, scrollLeft + 8, scrollLeft + newWidth - modalWidth - 8);
+            left = constrain(anchorLeft - (modalWidth - anchorWidth) / 2, scrollLeft + 3, scrollLeft + newWidth - modalWidth - 3);
 
             // Vertical positioning
             // Above the input
@@ -352,7 +349,8 @@ const Frame = function (el, settings, inherit) {
             });
 
             // Lock scroll only if popup is entirely in the viewport
-            scrollLock = (top > scrollTop) && (left > scrollLeft) && (top + modalHeight <= scrollTop + newHeight) && (left + modalWidth <= scrollLeft + newWidth);
+            scrollLock = (top > scrollTop) && (left > scrollLeft) &&
+                (top + modalHeight <= scrollTop + newHeight) && (left + modalWidth <= scrollLeft + newWidth);
 
         } else {
             left = scrollLeft;
@@ -625,8 +623,15 @@ const Frame = function (el, settings, inherit) {
         html += '</div>';
 
         if (hasButtons) {
+            var b,
+                i,
+                j,
+                l = buttons.length;
+
             html += '<div class="mbsc-fr-btn-cont">';
-            $.each(buttons, function (i, b) {
+            for (i = 0; i < buttons.length; i++) {
+                j = s.btnReverse ? l - i - 1 : i;
+                b = buttons[j];
                 b = isString(b) ? that.buttons[b] : b;
 
                 if (b.handler === 'set') {
@@ -637,8 +642,12 @@ const Frame = function (el, settings, inherit) {
                     b.parentClass = 'mbsc-fr-btn-c';
                 }
 
-                html += '<div' + (s.btnWidth ? ' style="width:' + (100 / buttons.length) + '%"' : '') + ' class="mbsc-fr-btn-w ' + (b.parentClass || '') + '"><div tabindex="0" role="button" class="mbsc-fr-btn' + i + ' mbsc-fr-btn-e ' + (b.cssClass === undefined ? s.btnClass : b.cssClass) + (b.icon ? ' mbsc-ic mbsc-ic-' + b.icon : '') + '">' + (b.text || '') + '</div></div>';
-            });
+                html += '<div' + (s.btnWidth ? ' style="width:' + (100 / buttons.length) + '%"' : '') +
+                    ' class="mbsc-fr-btn-w ' + (b.parentClass || '') + '">' +
+                    '<div tabindex="0" role="button" class="mbsc-fr-btn' + j + ' mbsc-fr-btn-e ' +
+                    (b.cssClass === undefined ? s.btnClass : b.cssClass) +
+                    (b.icon ? ' mbsc-ic mbsc-ic-' + b.icon : '') + '">' + (b.text || '') + '</div></div>';
+            }
             html += '</div>';
         }
         html += '</div></div></div></div>' + (isModal ? '</div></div>' : '');
@@ -719,9 +728,9 @@ const Frame = function (el, settings, inherit) {
                     });
             }
 
-            if (needsDimensions) {
-                posEvents += ' scroll';
-            }
+            // if (needsDimensions) {
+            //     posEvents += ' scroll';
+            // }
         }
 
         // Wait for the toolbar and addressbar to appear on iOS
@@ -972,7 +981,7 @@ const Frame = function (el, settings, inherit) {
         that.__processSettings();
 
         // Add default buttons
-        s.buttons = s.buttons || (s.display !== 'inline' ? ['set', 'cancel'] : []);
+        s.buttons = s.buttons || (s.display !== 'inline' ? ['cancel', 'set'] : []);
 
         // Hide header text in inline mode by default
         s.headerText = s.headerText === undefined ? (s.display !== 'inline' ? '{value}' : false) : s.headerText;
@@ -984,7 +993,7 @@ const Frame = function (el, settings, inherit) {
         $lock = hasContext ? $ctx : $('body,html');
         ctx = $ctx[0];
 
-        that._window = $wnd = $(hasContext ? s.context : window);
+        that._$window = $wnd = $(hasContext ? s.context : window);
         that.live = true;
 
         // If no set button is found, live mode is activated

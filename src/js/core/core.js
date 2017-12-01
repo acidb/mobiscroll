@@ -1,5 +1,5 @@
 /*!
- * Mobiscroll v3.2.6
+ * Mobiscroll v4.0.0-beta
  * http://mobiscroll.com
  *
  * Copyright 2010-2016, Acid Media
@@ -22,7 +22,7 @@ var ms,
 
 ms = extend(mobiscroll, {
     $: $,
-    version: '3.2.6',
+    version: '4.0.0-beta',
     util: {
         getCoord: getCoord,
         preventClick: preventClick,
@@ -31,9 +31,7 @@ ms = extend(mobiscroll, {
     autoTheme: 'mobiscroll',
     presets: {
         scroller: {},
-        numpad: {},
-        listview: {},
-        menustrip: {}
+        numpad: {}
     },
     themes: {
         form: {},
@@ -41,7 +39,7 @@ ms = extend(mobiscroll, {
         frame: {},
         scroller: {},
         listview: {},
-        menustrip: {},
+        navigation: {},
         progress: {}
     },
     platform: {
@@ -60,7 +58,7 @@ ms = extend(mobiscroll, {
     customTheme: function (name, baseTheme) {
         var i,
             themes = mobiscroll.themes,
-            comps = ['frame', 'scroller', 'listview', 'menustrip', 'form', 'progress'];
+            comps = ['frame', 'scroller', 'listview', 'navigation', 'form', 'page', 'progress'];
 
         for (i = 0; i < comps.length; i++) {
             themes[comps[i]][name] = extend({}, themes[comps[i]][baseTheme], {

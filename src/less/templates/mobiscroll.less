@@ -2,6 +2,29 @@
 @input1: #f7f7f7;
 @input2: #454545;
 @input3: #4fccc4;
+
+/* --- New built in parameters --- */
+
+@mobiscroll-accent: @input3;
+@mobiscroll-background: @input1;
+@mobiscroll-text: @input2;
+
+/* Light/dark versions */
+
+.light-or-dark();
+// Light background 
+.light-or-dark() when (lightness(@mobiscroll-background) > 50%) {
+    @mobiscroll-border: darken(@mobiscroll-background, 17%);
+}
+
+// Dark background 
+.light-or-dark() when (lightness(@mobiscroll-background) <=50%) {
+    @mobiscroll-border: lighten(@mobiscroll-background, 17%);
+}
+
+
+/* --- */
+
 @output1_3: @input1;
 @output1_4: hsv(hsvhue(@input1), hsvsaturation(@input1), max(hsvvalue(@input1) - 5%, 0%));
 @output1_5: hsv(hsvhue(@input1), hsvsaturation(@input1), max(hsvvalue(@input1) - 13%, 0%));
@@ -17,22 +40,22 @@
 @output3_11: hsv(hsvhue(@input3), max(hsvsaturation(@input3) - 40%, 0%), min(hsvvalue(@input3) + 10%, 100%));
 @deltainput1: red(@input1)*0.299 + green(@input1)*0.587 + blue(@input1)*0.114;
 @deltainput2: red(@input2)*0.299 + green(@input2)*0.587 + blue(@input2)*0.114;
-.-();
-.-() when (@deltainput1 >=140) {
+.x();
+.x() when (@deltainput1 >=140) {
     @output1_6: hsv(hsvhue(@input1), hsvsaturation(@input1), max(hsvvalue(@input1) - 10%, 25%));
     @output1_7: hsv(hsvhue(@input1), hsvsaturation(@input1), max(hsvvalue(@input1) - 19%, 20%));
 }
 
-.-() when (@deltainput1 < 140) {
+.x() when (@deltainput1 < 140) {
     @output1_6: hsl(hue(@input1), saturation(@input1), min(lightness(@input1) + 8%, 100%));
     @output1_7: hsl(hue(@input1), saturation(@input1), min(lightness(@input1) + 14%, 100%));
 }
 
-.-() when (@deltainput2 >=140) {
+.x() when (@deltainput2 >=140) {
     @colorClearBackground: fade(#dfdede, 30%);
 }
 
-.-() when (@deltainput2 < 140) {
+.x() when (@deltainput2 < 140) {
     @colorClearBackground: fade(#dfdede, 60%);
 }
 
@@ -88,26 +111,47 @@
 
 /* Calendar */
 
-.mbsc-@{theme} .mbsc-cal .mbsc-cal-day-sel .mbsc-cal-day-i,
-.mbsc-@{theme} .mbsc-cal .mbsc-cal-sc-sel .mbsc-cal-sc-cell-i {
-    background: @output3_8;
-    color: @output1_3;
-}
-
-.mbsc-@{theme} .mbsc-cal-hl-now .mbsc-cal-today {
-    color: @output3_8;
-}
-
-.mbsc-@{theme} .mbsc-cal-days {
-    color: @output3_8;
-}
-
-.mbsc-@{theme} .mbsc-cal-days th {
-    border-color: @output3_8;
-}
-
-.mbsc-@{theme} .mbsc-cal-btn-txt {
-    color: @output3_8;
+.mbsc-@{theme} {
+    .mbsc-cal-picker {
+        background: @mobiscroll-background;
+    }
+    .mbsc-cal-days > div {
+        border-bottom-color: @mobiscroll-accent;
+        color: @mobiscroll-accent;
+    }
+    .mbsc-cal-today {
+        color: @mobiscroll-accent;
+    }
+    /* Hover */
+    &.mbsc-no-touch .mbsc-cal-cell:not(.mbsc-btn-d):hover .mbsc-cal-cell-txt {
+        background: fade(@mobiscroll-accent, 30%);
+    }
+    /* Selected */
+    .mbsc-cal-c .mbsc-cal .mbsc-cal-body .mbsc-selected .mbsc-cal-cell-txt {
+        background: @mobiscroll-accent;
+        color: @mobiscroll-background;
+    }
+    /* Week numbers */
+    .mbsc-cal-week-nr {
+        color: @mobiscroll-accent;
+    }
+    /* Tabs */
+    .mbsc-cal-tab {
+        border-color: @mobiscroll-accent;
+        color: @mobiscroll-text;
+    }
+    .mbsc-fr-w .mbsc-cal-tabs-c .mbsc-cal-tabs .mbsc-cal-tab.mbsc-selected {
+        background: @mobiscroll-accent;
+        color: @mobiscroll-background;
+    }
+    /* Marks */
+    .mbsc-cal-mark {
+        background: @mobiscroll-text;
+    }
+    .mbsc-cal-txt {
+        color: @mobiscroll-background;
+        background: @mobiscroll-text;
+    }
 }
 
 .mbsc-@{theme} .mbsc-cal-event-color {
@@ -135,73 +179,30 @@
     color: @output3_10;
 }
 
-.mbsc-@{theme} .mbsc-cal-day-hl .mbsc-cal-day-i {
-    border-color: @output3_8;
-}
-
-.mbsc-@{theme} .mbsc-cal-week-nrs-c {
-    color: @output3_8;
-    background: @output1_3;
-}
-
-.mbsc-@{theme} .mbsc-cal-day-m-c {
-    background: @output2_5;
-}
-
-.mbsc-@{theme} .mbsc-cal-day-sel .mbsc-cal-day-m-c {
-    background: @output1_3;
-}
-
-.mbsc-@{theme} .mbsc-cal-day-txt {
-    color: @output1_3;
-    background: @output2_5;
-}
-
-.mbsc-@{theme} .mbsc-cal-day-txt {
-    color: @output1_3;
-    background: @output2_5;
-}
-
-.mbsc-@{theme} .mbsc-cal-tab {
-    border-color: @output3_8;
-}
-
-.mbsc-@{theme} .mbsc-cal-tab .mbsc-cal-tab-i {
-    color: @output2_5;
-}
-
-.mbsc-@{theme} .mbsc-cal-tabs .mbsc-cal-tab-sel {
-    background: @output3_8;
-}
-
-.mbsc-@{theme} .mbsc-cal-tabs .mbsc-cal-tab-sel .mbsc-cal-tab-i {
-    color: @output1_3;
-}
-
-.mbsc-@{theme} .mbsc-cal-sc-c {
-    background: @output1_3;
-}
-
 
 /* Range */
 
-.mbsc-@{theme} .mbsc-range-btn {
-    border-color: @output3_8;
-}
-
-.mbsc-@{theme}.mbsc-range .mbsc-range-btn-t .mbsc-range-btn-sel .mbsc-range-btn {
-    background: @output3_8;
-    color: @output1_3;
-}
-
-.mbsc-@{theme}.mbsc-range .mbsc-cal-table .mbsc-cal-day-sel .mbsc-cal-day-i {
-    color: @output2_5;
-    background: fade(@output3_8, 30%);
-}
-
-.mbsc-@{theme}.mbsc-range .mbsc-cal-table .mbsc-cal-day-hl .mbsc-cal-day-i {
-    background: @output3_8;
-    color: @output1_3;
+.mbsc-@{theme} {
+    .mbsc-range-btn {
+        border-color: @mobiscroll-accent;
+    }
+    &.mbsc-range {
+        .mbsc-range-btn-t .mbsc-range-btn.mbsc-selected {
+            background: @mobiscroll-accent;
+            color: @mobiscroll-background;
+        }
+        .mbsc-cal .mbsc-cal-day.mbsc-selected .mbsc-cal-day-date {
+            background: none;
+            color: @mobiscroll-text;
+        }
+        .mbsc-cal .mbsc-cal-day.mbsc-cal-day-hl .mbsc-cal-day-date {
+            background: @mobiscroll-accent;
+            color: @mobiscroll-background;
+        }
+        .mbsc-cal-day.mbsc-selected:after {
+            background: fade(@mobiscroll-accent, 30%);
+        }
+    }
 }
 
 
@@ -300,36 +301,47 @@
 }
 
 
-/* Menustrip */
+/* Navigation */
 
-.mbsc-@{theme}.mbsc-ms-c {
-    color: @output2_5;
-    background: @output1_3;
-}
-
-.mbsc-@{theme} .mbsc-btn-a.mbsc-ms-item {
-    background: fade(@output3_8, 30%);
-}
-
-.mbsc-@{theme}.mbsc-ms-a .mbsc-ms-item-sel.mbsc-ms-item {
-    color: @output3_8;
-}
-
-.mbsc-@{theme}.mbsc-ms-b.mbsc-ms-top {
-    border-color: @output3_8;
-}
-
-.mbsc-@{theme}.mbsc-ms-b.mbsc-ms-bottom {
-    border-color: @output3_8;
-}
-
-.mbsc-@{theme}.mbsc-ms-b .mbsc-ms-item-sel.mbsc-ms-item {
-    border-bottom-color: @output3_8;
-}
-
-.mbsc-@{theme}.mbsc-ms-b.mbsc-ms-bottom .mbsc-ms-item-sel.mbsc-ms-item {
-    border-top-color: @output3_8;
-    border-bottom-color: transparent;
+.mbsc-@{theme} {
+    &.mbsc-ms-c {
+        background: @mobiscroll-background;
+    }
+    .mbsc-ms .mbsc-ms-item {
+        color: @mobiscroll-text;
+    }
+    &.mbsc-ms-c .mbsc-scv-sc .mbsc-ms .mbsc-ms-item.mbsc-btn-a {
+        background: fade(@mobiscroll-accent, 30%);
+    }
+    &.mbsc-no-touch .mbsc-ms-item:not(.mbsc-btn-d):hover {
+        background: fade(@mobiscroll-accent, 10%);
+    }
+    &.mbsc-ms-b {
+        .mbsc-ms-item-sel {
+            border-bottom-color: @mobiscroll-accent;
+        }
+        &.mbsc-ms-top {
+            border-color: @mobiscroll-accent;
+        }
+        &.mbsc-ms-bottom {
+            border-color: @mobiscroll-accent;
+            .mbsc-ms-item-sel {
+                border-top-color: @mobiscroll-accent;
+                border-bottom-color: transparent;
+            }
+        }
+    }
+    &.mbsc-ms-a {
+        &.mbsc-ms-top {
+            border-color: @mobiscroll-border;
+        }
+        &.mbsc-ms-bottom {
+            border-color: @mobiscroll-border;
+        }
+        .mbsc-ms-item-sel {
+            color: @mobiscroll-accent;
+        }
+    }
 }
 
 
@@ -470,6 +482,13 @@
 
 .mbsc-@{theme} .mbsc-btn:disabled {
     background: @output1_6;
+}
+
+.mbsc-@{theme} .mbsc-btn.mbsc-btn-outline:disabled {
+    color: @output1_6;
+    ;
+    border-color: @output1_6;
+    ;
 }
 
 .mbsc-@{theme}.mbsc-no-touch .mbsc-btn-flat:not(:disabled):not(.mbsc-active):hover {

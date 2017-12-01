@@ -26,6 +26,27 @@ MbscPage.propTypes = {
     onInit: PropTypes.func
 }
 
-mobiscroll.Page = MbscPage
+class MbscNote extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    static propTypes = {
+        color: PropTypes.string
+    }
+
+    static defaultProps = {
+        color: 'primary'
+    }
+
+    render = () => {
+        var className = 'mbsc-note mbsc-note-' + this.props.color;
+        return <div className={className}>{this.props.children}</div>;
+    }
+}
+
+
+mobiscroll.Page = MbscPage;
+mobiscroll.Note = MbscNote;
 
 export default mobiscroll;

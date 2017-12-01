@@ -39,3 +39,23 @@ export class MbscPage extends MbscBase {
         this._instance = new Page(this.initElem.nativeElement, options);
     }
 }
+
+@Component({
+    selector: 'mbsc-note',
+    template: '<ng-content></ng-content>',
+    host: {
+        '[class]': 'classNames'
+    },
+    styles: [':host { display: block; }']
+})
+export class MbscNote {
+    get classNames(): string {
+        return 'mbsc-note mbsc-note-' + this.color;
+    }
+
+    @Input()
+    color: string = 'primary';
+
+    constructor(public initialElem: ElementRef) {
+    }
+}

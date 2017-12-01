@@ -1,0 +1,35 @@
+/* Input parameters */
+
+@ios-background: #f7f7f7;
+@ios-accent: #007aff;
+@ios-text: #000;
+
+/* Calculations */
+
+@ios-background-limited: hsl(hue(@ios-background), saturation(@ios-background), max(lightness(@ios-background), 3%));
+@ios-background-alt: lighten(@ios-background-limited, 3%);
+
+/* Light/dark versions */
+
+.light-or-dark();
+// Light background 
+.light-or-dark() when (lightness(@ios-background) > 50%) {
+    @ios-border: darken(@ios-background-limited, 17%);
+    @ios-text-alt: lighten(@ios-text, 53%);
+}
+
+// Dark background 
+.light-or-dark() when (lightness(@ios-background) <=50%) {
+    @ios-border: lighten(@ios-background-limited, 17%);
+    @ios-text-alt: darken(@ios-text, 53%);
+}
+
+// Light accent 
+.light-or-dark() when (lightness(@ios-accent) > 50%) {
+    @ios-accent-alt: spin(darken(saturate(@ios-accent, 42%), 35%), -3);
+}
+
+// Dark accent 
+.light-or-dark() when (lightness(@ios-accent) <=50%) {
+    @ios-accent-alt: spin(lighten(desaturate(@ios-accent, 42%), 35%), 3);
+}

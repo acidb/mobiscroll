@@ -1,7 +1,31 @@
 @theme: material;
-@input1: #009687;
-@input2: #ededed;
-@input3: #5c5c5c;
+@input1: #009688;
+@input2: #eee;
+@input3: #5b5b5b;
+
+/* --- New built in parameters --- */
+
+@material-accent: @input1;
+@material-background: @input2;
+@material-text: @input3;
+@material-ripple: contrast(@material-background);
+
+/* Light/dark versions */
+
+.light-or-dark();
+// Light background 
+.light-or-dark() when (lightness(@material-background) > 50%) {
+    @material-border: lighten(@material-text, 40%);
+}
+
+// Dark background 
+.light-or-dark() when (lightness(@material-background) <=50%) {
+    @material-border: darken(@material-text, 40%);
+}
+
+
+/* --- */
+
 @output1_1: @input1;
 @output1_2: hsv(hsvhue(@input1), max(hsvsaturation(@input1)-79%, 10%), @isLight1_2);
 @output2_1: @input2;
@@ -22,8 +46,8 @@
 @output3_7: hsv(hsvhue(@input3), hsvsaturation(@input3), @isLight3_7);
 @deltainput2: red(@input2)*0.299 + green(@input2)*0.587 + blue(@input2)*0.114;
 @snackbar_action: hsl(hue(@input1), saturation(@input1), max(lightness(@input1), 34%));
-.-();
-.-() when (@deltainput2 >=140) {
+.x();
+.x() when (@deltainput2 >=140) {
     @isLight1_2: min(hsvvalue(@input1) + 24%, 100%);
     @isLight2_2: max(hsvvalue(@input2) - 9%, 0%);
     @isLight2_7: max(hsvvalue(@input2) - 19%, 0%);
@@ -34,7 +58,7 @@
     @snackbar_bg: #323232;
 }
 
-.-() when (@deltainput2 < 140) {
+.x() when (@deltainput2 < 140) {
     @isLight1_2: 24%;
     @isLight2_2: min(hsvvalue(@input2) + 17%, 100%);
     @isLight2_7: min(hsvvalue(@input2) + 55%, 100%);
@@ -45,27 +69,27 @@
     @snackbar_bg: #5b5b5b;
 }
 
-.-() when (hsvvalue(@input2) < 17) {
+.x() when (hsvvalue(@input2) < 17) {
     @hsvsaturation_23567: 0;
 }
 
-.-() when (hsvvalue(@input2) >=17) {
+.x() when (hsvvalue(@input2) >=17) {
     @hsvsaturation_23567: hsvsaturation(@input2);
 }
 
-.-() when (hsvvalue(@input2)+25 > 100) {
+.x() when (hsvvalue(@input2)+25 > 100) {
     @hsvvalue2_8: 0%;
 }
 
-.-() when (hsvvalue(@input2)+25 <=100) {
+.x() when (hsvvalue(@input2)+25 <=100) {
     @hsvvalue2_8: 100%;
 }
 
-.-() when (hsvvalue(@input3) < 17) {
+.x() when (hsvvalue(@input3) < 17) {
     @hsvsaturation3_6: 3;
 }
 
-.-() when (hsvvalue(@input3) >=17) {
+.x() when (hsvvalue(@input3) >=17) {
     @hsvsaturation3_6: hsvsaturation(@input3);
 }
 
@@ -159,48 +183,39 @@
 
 /* Calbase */
 
-.mbsc-@{theme} .mbsc-cal-sc-c {
-    background: @output2_1;
-}
-
-.mbsc-@{theme} .mbsc-cal-btn-txt {
-    color: @output1_1;
-}
-
-.mbsc-@{theme} .mbsc-cal-hl-now .mbsc-cal-today {
-    color: @output1_1;
-}
-
-.mbsc-@{theme}.mbsc-no-touch .mbsc-cal-day.mbsc-cal-day-v:hover .mbsc-cal-day-fg,
-.mbsc-@{theme}.mbsc-no-touch .mbsc-cal-sc .mbsc-cal-sc-cell:not(.mbsc-fr-btn-d):hover .mbsc-cal-sc-tbl,
-.mbsc-@{theme} .mbsc-cal .mbsc-cal-day-sel .mbsc-cal-day-fg,
-.mbsc-@{theme} .mbsc-cal-sc .mbsc-cal-sc-sel .mbsc-cal-sc-cell-i {
-    background: fade(@output1_1, 30%);
-}
-
-.mbsc-@{theme} .mbsc-cal-week-nrs-c {
-    color: @output3_1;
-    background: @output2_1;
-}
-
-.mbsc-@{theme} .mbsc-cal-tab .mbsc-cal-tab-i {
-    color: @output3_1;
-}
-
-.mbsc-@{theme} .mbsc-cal-tabs .mbsc-cal-tab-sel .mbsc-cal-tab-i {
-    color: @output1_1;
+.mbsc-@{theme} {
+    .mbsc-cal-picker {
+        background: @material-background;
+    }
+    .mbsc-cal-today {
+        color: @material-accent;
+    }
+    /* Hover */
+    &.mbsc-no-touch .mbsc-cal-cell:not(.mbsc-btn-d):hover .mbsc-cal-cell-txt {
+        background: fade(@material-ripple, 10%);
+    }
+    /* Selected */
+    .mbsc-cal-c .mbsc-cal .mbsc-cal-body .mbsc-selected .mbsc-cal-cell-txt {
+        background: fade(@material-accent, 30%);
+    }
+    /* Tabs */
+    .mbsc-cal-tab {
+        &.mbsc-selected {
+            color: @material-accent;
+        }
+    }
+    /* Marks */
+    .mbsc-cal-mark {
+        background: @material-accent;
+    }
+    .mbsc-cal-txt {
+        color: @material-background;
+        background: lighten(@material-text, 13%);
+    }
 }
 
 
 /* Calendar */
-
-.mbsc-@{theme} .mbsc-cal-day-m-c {
-    background: @output1_1;
-}
-
-.mbsc-@{theme} .mbsc-cal-day-txt {
-    color: @output2_1;
-}
 
 .mbsc-@{theme} .mbsc-cal-events {
     color: @output2_1;
@@ -226,61 +241,88 @@
 
 /* Range */
 
-.mbsc-@{theme} .mbsc-range-btn-t {
-    border-color: @output3_5;
+.mbsc-@{theme} {
+    .mbsc-range-btn-t {
+        border-color: @material-border;
+    }
+    .mbsc-range-btn {
+        color: @material-text;
+        &.mbsc-selected {
+            border-color: @material-accent;
+            color: @material-accent;
+        }
+    }
+    &.mbsc-range {
+        .mbsc-cal .mbsc-cal-day.mbsc-selected .mbsc-cal-day-date {
+            background: none;
+        }
+        .mbsc-cal .mbsc-cal-day.mbsc-cal-day-hl .mbsc-cal-day-date {
+            background: fade(@material-accent, 80%);
+            color: @material-background;
+        }
+        .mbsc-cal-day.mbsc-selected:after {
+            background: fade(@material-accent, 10%);
+        }
+    }
 }
 
-.mbsc-@{theme} .mbsc-range-btn {
-    color: @output3_1;
-}
 
-.mbsc-@{theme} .mbsc-range-btn-sel .mbsc-range-btn {
-    border-color: @output1_1;
-    color: @output1_1;
-}
+/* Navigation */
 
-.mbsc-@{theme}.mbsc-range .mbsc-cal-day-sel .mbsc-cal-day-frame {
-    color: @output3_1;
-    background: fade(@output1_1, 10%);
-}
-
-.mbsc-@{theme}.mbsc-range .mbsc-cal-table .mbsc-cal-day-hl .mbsc-cal-day-i .mbsc-cal-day-fg {
-    color: @output2_1;
-    background: fade(@output1_1, 80%);
-}
-
-
-/* Menustrip */
-
-.mbsc-@{theme}.mbsc-ms-c {
-    background: @output2_1;
-    color: @output3_1;
-}
-
-.mbsc-@{theme} .mbsc-btn-a .mbsc-ms-item {
-    background: fade(@output2_8, 10%);
-}
-
-.mbsc-@{theme}.mbsc-ms-b.mbsc-ms-top {
-    border-bottom: 1px solid @output1_1;
-}
-
-.mbsc-@{theme}.mbsc-ms-b.mbsc-ms-bottom {
-    border-top: 1px solid @output1_1;
-}
-
-.mbsc-@{theme}.mbsc-ms-b .mbsc-ms-item-sel.mbsc-ms-item {
-    border-bottom-color: @output1_1;
-    color: @output1_1;
-}
-
-.mbsc-@{theme}.mbsc-ms-b.mbsc-ms-bottom .mbsc-ms-item-sel.mbsc-ms-item {
-    border-top-color: @output1_1;
-    border-bottom-color: transparent;
-}
-
-.mbsc-@{theme}.mbsc-ms-a .mbsc-ms-item-sel.mbsc-ms-item {
-    color: @output1_1;
+.mbsc-@{theme} {
+    &.mbsc-ms-c {
+        background: @material-background;
+    }
+    .mbsc-ms {
+        .mbsc-ms-item {
+            color: @material-text;
+            /* Selected state */
+            &.mbsc-ms-item-sel {
+                color: @material-accent;
+            }
+            /* Active state */
+            &.mbsc-btn-a {
+                background: fade(@material-ripple, 10%);
+            }
+        }
+    }
+    &.mbsc-no-touch {
+        /* Hover state */
+        .mbsc-ms-item:not(.mbsc-btn-d):hover {
+            background: fade(@material-ripple, 10%);
+        }
+    }
+    &.mbsc-ms-top {
+        border-color: @material-border;
+    }
+    &.mbsc-ms-bottom {
+        border-color: @material-border;
+    }
+    /* Menu styling */
+    &.mbsc-ms-a {
+        .mbsc-ms-item {
+            &.mbsc-ms-item-sel {
+                color: @material-accent;
+            }
+        }
+    }
+    /* Tab styling */
+    &.mbsc-ms-b {
+        &.mbsc-ms-top {
+            .mbsc-ms-item {
+                &.mbsc-ms-item-sel {
+                    border-bottom-color: @material-accent;
+                }
+            }
+        }
+        &.mbsc-ms-bottom {
+            .mbsc-ms-item {
+                &.mbsc-ms-item-sel {
+                    border-top-color: @material-accent;
+                }
+            }
+        }
+    }
 }
 
 
@@ -512,6 +554,11 @@
 
 .mbsc-@{theme} .mbsc-btn:disabled {
     color: @output2_7;
+}
+
+.mbsc-@{theme}.mbsc-btn.mbsc-btn-outline:disabled {
+    color: @output2_7;
+    border-color: @output2_7;
 }
 
 .mbsc-@{theme}.mbsc-no-touch .mbsc-btn-flat:not(:disabled):hover,
