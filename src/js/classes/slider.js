@@ -1,10 +1,9 @@
-import mobiscroll, {
-    $
-} from '../core/core';
-import Progress from './progress';
-import SliderBase from './slider-base';
+import { $, classes } from '../core/core';
+import { Progress } from './progress';
+import { SliderBase } from './slider-base';
+import { getPercent, getBoolAttr } from '../util/misc';
 
-const Slider = function (elm, settings, inherit) {
+export const Slider = function (elm, settings, inherit) {
     var $elm,
         $parent,
         $progress,
@@ -19,15 +18,6 @@ const Slider = function (elm, settings, inherit) {
         step,
         s,
         that = this;
-
-    function getPercent(v) {
-        return (v - min) * 100 / (max - min);
-    }
-
-    function getBoolAttr(attr, def) {
-        var v = $elm.attr(attr);
-        return v === undefined || v === '' ? def : v === 'true';
-    }
 
     // Call the parent constructor
     Progress.call(this, elm, settings, true);
@@ -57,23 +47,23 @@ const Slider = function (elm, settings, inherit) {
             if (index === 0) {
                 v = Math.min(v, value[1]);
                 $progress.css({
-                    width: getPercent(value[1]) - getPercent(v) + '%',
-                    left: isRtl ? 'auto' : getPercent(v) + '%',
-                    right: isRtl ? getPercent(v) + '%' : 'auto'
+                    width: getPercent(value[1], min, max) - getPercent(v, min, max) + '%',
+                    left: isRtl ? 'auto' : getPercent(v, min, max) + '%',
+                    right: isRtl ? getPercent(v, min, max) + '%' : 'auto'
                 });
             } else {
                 v = Math.max(v, value[0]);
                 $progress.css({
-                    width: getPercent(v) - getPercent(value[0]) + '%'
+                    width: getPercent(v, min, max) - getPercent(value[0], min, max) + '%'
                 });
             }
         } else if (multiple || !hasProgress) {
             $handleCont.css({
-                left: isRtl ? 'auto' : (percent || getPercent(v)) + '%',
-                right: isRtl ? (percent || getPercent(v)) + '%' : 'auto'
+                left: isRtl ? 'auto' : (percent || getPercent(v, min, max)) + '%',
+                right: isRtl ? (percent || getPercent(v, min, max)) + '%' : 'auto'
             });
         } else {
-            $progress.css('width', (percent || getPercent(v)) + '%');
+            $progress.css('width', (percent || getPercent(v, min, max)) + '%');
         }
 
         if (hasTooltip) {
@@ -101,31 +91,9 @@ const Slider = function (elm, settings, inherit) {
         }
     };
 
-    that.___init = function (ss) {
+    that._markupReady = function () {
         var i,
             stepNr;
-
-        if ($parent) {
-            $parent.removeClass('mbsc-slider-has-tooltip');
-            if (step != 1) {
-                $('.mbsc-slider-step', $track).remove();
-            }
-        }
-
-        $parent = that._$parent;
-        $track = that._$track;
-        $progress = that._$progress;
-        $elm = $parent.find('input');
-
-        s = that.settings;
-        min = that._min;
-        max = that._max;
-        that._step = step = ss.step === undefined ? +$elm.attr('step') || s.step : ss.step;
-        that._live = getBoolAttr('data-live', s.live);
-        hasTooltip = getBoolAttr('data-tooltip', s.tooltip);
-        hasProgress = getBoolAttr('data-highlight', s.highlight) && $elm.length < 3;
-        isRange = hasProgress && $elm.length == 2;
-        isRtl = s.rtl;
 
         if (hasTooltip) {
             $parent.addClass('mbsc-slider-has-tooltip');
@@ -160,6 +128,32 @@ const Slider = function (elm, settings, inherit) {
         $tooltips = $parent.find('.mbsc-slider-tooltip');
     };
 
+    that.___init = function (ss) {
+        if ($parent) {
+            $parent.removeClass('mbsc-slider-has-tooltip');
+            if (step != 1) {
+                $('.mbsc-slider-step', $track).remove();
+            }
+        }
+
+        $parent = that._$parent;
+        $track = that._$track;
+        $progress = that._$progress;
+        $elm = $parent.find('input');
+
+        s = that.settings;
+        min = that._min;
+        max = that._max;
+        that._step = step = ss.step === undefined ? +$elm.attr('step') || s.step : ss.step;
+        that._live = getBoolAttr('data-live', s.live, $elm);
+        hasTooltip = getBoolAttr('data-tooltip', s.tooltip, $elm);
+        hasProgress = getBoolAttr('data-highlight', s.highlight, $elm) && $elm.length < 3;
+        isRange = hasProgress && $elm.length == 2;
+        isRtl = s.rtl;
+
+        that._markupReady();
+    };
+
     if (!inherit) {
         that.init(settings);
     }
@@ -185,8 +179,4 @@ Slider.prototype = {
     }
 };
 
-mobiscroll.classes.Slider = Slider;
-
-mobiscroll.presetShort('slider', 'Slider');
-
-export default Slider;
+classes.Slider = Slider;

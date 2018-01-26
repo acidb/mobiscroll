@@ -1,4 +1,4 @@
-import mobiscroll from '../core/core';
-export default class CheckBox {
+import { mobiscroll } from '../core/core';
+export class CheckBox {
     constructor(element: any, settings: any);
 }

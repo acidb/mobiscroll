@@ -1,0 +1,51 @@
+<mbsc-page>
+    <mbsc-form>
+        <div class="mbsc-form-group">
+            <div class="mbsc-form-group-title">Account information</div>
+            <mbsc-input [(ngModel)]="firstName" placeholder="What's your first name?">First Name</mbsc-input>
+            <mbsc-input [(ngModel)]="lastName" placeholder="What's your last name?">Last Name</mbsc-input>
+            <mbsc-input [(ngModel)]="email" placeholder="me@domain.com">Email</mbsc-input>
+            <mbsc-input [(ngModel)]="password" placeholder="Minimum 6 characters" type="password" minlength="6" required [password-toggle]="true">Password</mbsc-input>
+            <mbsc-rating [(ngModel)]="rating">Rating</mbsc-rating>
+        </div>
+        <div class="mbsc-form-group">
+            <div class="mbsc-form-group-title">About you</div>
+            <mbsc-segmented-group [(ngModel)]="gender">
+                <mbsc-segmented value="male">Male</mbsc-segmented>
+                <mbsc-segmented value="female">Female</mbsc-segmented>
+            </mbsc-segmented-group>
+            <mbsc-stepper [(ngModel)]="height" min="130" max="220" val="left">Height (cm)</mbsc-stepper>
+            <mbsc-stepper [(ngModel)]="weight" min="30" max="180" val="left">Weight (kg)</mbsc-stepper>
+        </div>
+        <div class="mbsc-form-group">
+            <div class="mbsc-form-group-title">General settings</div>
+            <mbsc-switch [(ngModel)]="indoor">Indoor/Treadmill</mbsc-switch>
+            <mbsc-switch [(ngModel)]="pause">Auto-Pause Run
+                <span class="mbsc-desc">Automatically pause workout when you stop moving. This is useful if you don't want to manually pause and resume.</span>
+            </mbsc-switch>
+        </div>
+        <div class="mbsc-form-group">
+            <div class="mbsc-form-group-title">On screen</div>
+            <mbsc-switch [(ngModel)]="heartRate">Heart Rate</mbsc-switch>
+            <mbsc-switch [(ngModel)]="cheers">Cheers</mbsc-switch>
+            <mbsc-segmented-group [(ngModel)]="pace">
+                <mbsc-segmented value="current">Show current pace</mbsc-segmented>
+                <mbsc-segmented value="average">Show average pace</mbsc-segmented>
+            </mbsc-segmented-group>
+        </div>
+        <div class="mbsc-form-group">
+            <div class="mbsc-form-group-title">Run countdown</div>
+
+            <mbsc-radio-group [(ngModel)]="countdown">
+                <mbsc-radio value="off">Off</mbsc-radio>
+                <mbsc-radio value="3">3 seconds</mbsc-radio>
+                <mbsc-radio value="6">6 seconds</mbsc-radio>
+                <mbsc-radio value="9">9 seconds</mbsc-radio>
+            </mbsc-radio-group>
+        </div>
+
+        <div class="mbsc-btn-group-block">
+            <mbsc-button>Save Settings</mbsc-button>
+        </div>
+    </mbsc-form>
+</mbsc-page>

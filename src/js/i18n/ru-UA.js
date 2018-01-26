@@ -1,6 +1,6 @@
 // Русский (UA)
 
-import mobiscroll from '../core/core';
+import { mobiscroll } from '../core/core';
 
 export default mobiscroll;
 
@@ -33,7 +33,6 @@ mobiscroll.i18n['ru-UA'] = {
     firstDay: 1,
     dateText: 'Дата',
     timeText: 'Время',
-    calendarText: 'Календарь',
     closeText: 'Закрыть',
     // Daterange component
     fromText: 'Начало',

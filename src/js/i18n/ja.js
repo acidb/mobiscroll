@@ -1,6 +1,6 @@
 // Japanese
 
-import mobiscroll from '../core/core';
+import { mobiscroll } from '../core/core';
 
 export default mobiscroll;
 
@@ -34,7 +34,6 @@ mobiscroll.i18n.ja = {
     // Calendar component
     dateText: '日付',
     timeText: '時間',
-    calendarText: 'カレンダー',
     closeText: 'クローズ',
     // Daterange component
     fromText: '開始',

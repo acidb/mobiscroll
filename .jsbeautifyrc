@@ -5,17 +5,18 @@
     "html": {
         "allowed_file_extensions": ["htm", "html", "xhtml", "shtml", "xml", "svg"],
         "space_after_anon_function": true,
-        "end_with_newline": false
+        "end_with_newline": true
     },
     "css": {
         "allowed_file_extensions": ["css", "scss", "sass", "less"],
-        "end_with_newline": false,
+        "end_with_newline": true,
         "space_around_combinator": true
     },
     "js": {
         "allowed_file_extensions": ["js", "jsx", "json", "jshintrc", "jsbeautifyrc"],
+        "brace_style": "collapse,preserve-inline",
         "e4x": true,
         "space_after_anon_function": true,
-        "end_with_newline": false
+        "end_with_newline": true
     }
 }

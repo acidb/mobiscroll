@@ -1,12 +1,6 @@
 import angular from 'angular';
-import mobiscroll from '../core/dom';
-import { $, extend } from '../core/core';
-
-export default mobiscroll;
-
-mobiscroll.ng = {};
-
-var instances = mobiscroll.instances;
+import { mobiscroll } from '../core/dom';
+import { $, extend, instances, classes } from '../core/core';
 
 mobiscroll.ng = {
     getDDO: function ($parse, attrName, opt, render, read, parse, format, inheritOptions) {
@@ -28,7 +22,7 @@ mobiscroll.ng = {
                 mobiscroll.ng.addWatch($parse, scope, ngModel, $element, attrs, attrName, render, read, parse, format);
 
                 // Initialize mobiscroll on the element
-                inst = new mobiscroll.classes[opt.component || 'Scroller'](element[0], extend(mobiscroll.ng.getOpt(scope, attrs, attrName, ngModel, inheritOptions, $element), opt || {}));
+                inst = new classes[opt.component || 'Scroller'](element[0], extend(mobiscroll.ng.getOpt(scope, attrs, attrName, ngModel, inheritOptions, $element), opt || {}));
 
                 // Add instance to scope if there is an attribute set
                 if (attrs.mobiscrollInstance) {
@@ -149,4 +143,5 @@ mobiscroll.ng = {
     formOptions: {}
 };
 
-export { $, extend };
+export { mobiscroll, $, extend };
+export default mobiscroll;

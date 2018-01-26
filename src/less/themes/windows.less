@@ -18,6 +18,7 @@
     @windows-progress-bg: hsv(hsvhue(@windows-background), hsvsaturation(@windows-background), min(hsvvalue(@windows-background), 88%));
     @value_isDark3_2: hsvvalue(@windows-text);
     @windows-colorprev-border: hsv(hsvhue(@windows-background), hsvsaturation(@windows-background), max(hsvvalue(@windows-background) - 25%, 0%));
+    @windows-border-cards: darken(@windows-background, 5%);
 }
 
 // Dark background 
@@ -31,6 +32,7 @@
     @value_isDark2_3: min(hsvvalue(@windows-background) + 8%, 100%);
     @value_isDark3_2: 0%;
     @hsvvalue2_4: min(hsvvalue(@windows-background) + 18%, 100%);
+    @windows-border-cards: lighten(@windows-background, 12%);
 }
 
 

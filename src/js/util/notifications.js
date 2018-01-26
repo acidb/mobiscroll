@@ -1,10 +1,5 @@
-import mobiscroll, {
-    $,
-    extend,
-    isBrowser
-} from '../core/core';
-
-import Widget from '../classes/widget';
+import { $, extend, isBrowser, mobiscroll } from '../core/core';
+import { Widget } from '../classes/widget';
 
 const hasPromise = isBrowser && !!window.Promise;
 const popupQueue = [];

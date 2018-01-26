@@ -3,7 +3,7 @@
  * Translation by: Mikkel Bonde, Apacta A/S <mikbonde@gmail.com>
  */
 
-import mobiscroll from '../core/core';
+import { mobiscroll } from '../core/core';
 
 export default mobiscroll;
 
@@ -36,7 +36,6 @@ mobiscroll.i18n.da = {
     firstDay: 1,
     dateText: 'Dato',
     timeText: 'Tid',
-    calendarText: 'Kalender',
     closeText: 'Luk',
     // Daterange component
     fromText: 'Start',

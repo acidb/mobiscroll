@@ -4,13 +4,17 @@ import {
     $,
     extend,
     mobiscroll,
+    classes,
     updateCssClasses,
     PropTypes,
     MbscOptimized,
     CorePropTypes
 } from './frameworks/react';
+import { Form } from './classes/forms';
+import { Progress } from './classes/progress';
+import { Slider } from './classes/slider';
+import { Rating } from './classes/rating';
 import './page.react';
-import './classes/forms';
 
 var reactNumber = PropTypes.number,
     reactString = PropTypes.string,
@@ -56,7 +60,7 @@ class MbscForm extends MbscOptimized {
         // get settings from state
         var settings = extend({}, this.state.options);
         // initialize the mobiscroll
-        this.instance = new mobiscroll.classes.Form(ReactDOM.findDOMNode(this), settings);
+        this.instance = new Form(ReactDOM.findDOMNode(this), settings);
     }
 
     componentDidUpdate = () => {
@@ -138,12 +142,14 @@ class MbscLabel extends React.Component {
 mobiscroll.Form.Label = MbscLabel;
 
 class MbscFormBase extends MbscOptimized {
-    constructor(props) {
+    constructor(props, presetName) {
         super(props);
+        this.presetName = presetName;
     }
 
     static propTypes = {
-        ...CorePropTypes
+        ...CorePropTypes,
+        color: reactString
     }
 
     componentDidMount = () => {
@@ -151,7 +157,7 @@ class MbscFormBase extends MbscOptimized {
         var settings = extend({}, this.mbscInit, this.state.options);
 
         // initialize the mobiscroll
-        this.instance = new mobiscroll.classes[this.mbscInit.component || 'Scroller'](this.inputNode, settings);
+        this.instance = new classes[this.mbscInit.component || 'Scroller'](this.inputNode, settings);
 
         if (this.state.value !== undefined) {
             this.instance.setVal(this.state.value, true);
@@ -174,23 +180,27 @@ class MbscFormBase extends MbscOptimized {
             value,
             onChange,
             name,
+            color,
             ...other
                 } = this.props;
 
         /* eslint-enable no-unused-vars */
-
+        var presetClass = '';
+        if (color) {
+            presetClass = 'mbsc-' + this.presetName + '-' + color;
+        }
         var type = this.inputType || 'text';
 
-        return <div className={this.initialCssClass}>
+        return <div className={presetClass + (this.initialCssClass ? ' ' + this.initialCssClass : '')}>
             {children}
             <input ref={this.inputMounted} type={type} data-role={name} {...other} />
-        </div>; 
+        </div>;
     }
 }
 
 class MbscSwitch extends MbscFormBase {
     constructor(props) {
-        super(props);
+        super(props, 'switch');
         this.mbscInit = {
             component: 'Switch'
         };
@@ -207,7 +217,7 @@ mobiscroll.Switch = MbscSwitch;
 
 class MbscStepper extends MbscFormBase {
     constructor(props) {
-        super(props);
+        super(props, 'stepper');
         this.mbscInit = {
             component: 'Stepper'
         };
@@ -235,14 +245,15 @@ class MbscProgress extends MbscOptimized {
         val: PropTypes.oneOf(['left', 'right']),
         disabled: reactBool,
         max: reactNumber,
-        value: reactNumber
+        value: reactNumber,
+        color: reactString
     }
 
     componentDidMount = () => {
         // get settings from state
         var settings = extend({}, this.state.options);
         // initialize the mobiscroll
-        this.instance = new mobiscroll.classes.Progress(this.progressNode, settings);
+        this.instance = new Progress(this.progressNode, settings);
         if (this.state.value !== undefined) {
             this.instance.setVal(this.state.value, true);
         }
@@ -259,12 +270,17 @@ class MbscProgress extends MbscOptimized {
             className,
             children,
             value,
+            color,
             ...other
         } = this.props;
 
         /* eslint-enable no-unused-vars */
-
-        return <div className={this.initialCssClass}>
+        var presetClass = '';
+        if (color) {
+            presetClass = 'mbsc-progress-' + color;
+        }
+        var cssClass = presetClass + (this.initialCssClass ? ' ' + this.initialCssClass : '');
+        return <div className={cssClass}>
             {children}
             <progress ref={this.progressMounted} {...other} />
         </div>;
@@ -291,14 +307,15 @@ class MbscSlider extends MbscOptimized {
         max: reactNumber,
         min: reactNumber,
         step: reactNumber,
-        values: reactNumber
+        values: reactNumber,
+        color: reactString
     }
 
     componentDidMount = () => {
         // get settings from state 
         var settings = extend({}, this.state.options);
         // initialize the mobiscroll
-        this.instance = new mobiscroll.classes.Slider(this.firstInput, settings);
+        this.instance = new Slider(this.firstInput, settings);
 
         if (this.state.value !== undefined) {
             this.instance.setVal(this.state.value, true);
@@ -338,6 +355,7 @@ class MbscSlider extends MbscOptimized {
             live,
             stepLabels,
             tooltip,
+            color,
             ...other
         } = this.props,
             values = value || [];
@@ -345,10 +363,17 @@ class MbscSlider extends MbscOptimized {
         icon = icon || this.props['data-icon'];
         /* eslint-enable no-unused-vars */
 
-        if (value !== undefined && !Array.isArray(value))
+        if (value !== undefined && !Array.isArray(value)) {
             values = [value];
+        }
 
-        return <label ref={this.parentMounted} className={this.initialCssClass}>
+        var presetClass = '';
+        if (color) {
+            presetClass = 'mbsc-slider-' + color;
+        }
+        var cssClass = presetClass + (this.initialCssClass ? ' ' + this.initialCssClass : '');
+
+        return <label ref={this.parentMounted} className={cssClass}>
             {children}
             {values.map(function (item, index) {
                 if (index === 0) {
@@ -361,5 +386,79 @@ class MbscSlider extends MbscOptimized {
 }
 mobiscroll.Slider = MbscSlider;
 
+class MbscRating extends MbscOptimized {
+    constructor(props) {
+        super(props);
+    }
+
+    static propTypes = {
+        ...CorePropTypes,
+        val: PropTypes.oneOf(['left', 'right']),
+        disabled: reactBool,
+        max: reactNumber,
+        min: reactNumber,
+        step: reactNumber,
+        template: reactString,
+        empty: reactString,
+        filled: reactString,
+        value: reactNumber,
+        color: reactString
+    }
+
+    componentDidMount = () => {
+        // get settings from state
+        var settings = extend({}, this.state.options);
+        // initialize the mobiscroll
+        this.instance = new Rating(this.inputNode, settings);
+        if (this.state.value !== undefined) {
+            this.instance.setVal(this.state.value, true);
+        }
+
+        $(this.label).on('change', () => {
+            if (this.props.onChange) {
+                var value = this.instance.getVal();
+                this.props.onChange(value);
+            }
+        });
+    }
+
+    inputMounted = (input) => {
+        this.inputNode = input;
+    }
+
+    parentMounted = (label) => {
+        this.label = label;
+    }
+
+    render = () => {
+        /* eslint-disable no-unused-vars */
+        // justification: variable 'value' and 'className' is defined due to object decomposotion
+        var {
+            className,
+            children,
+            onChange,
+            value,
+            empty,
+            filled,
+            template,
+            val,
+            color,
+            ...other
+        } = this.props;
+        /* eslint-enable no-unused-vars */
+
+        var presetClass = '';
+        if (color) {
+            presetClass = 'mbsc-rating-' + color;
+        }
+        var cssClass = presetClass + (this.initialCssClass ? ' ' + this.initialCssClass : '');
+
+        return <label className={cssClass} ref={this.parentMounted}>
+            {children}
+            <input type="rating" data-role="rating" data-val={val} data-template={template} data-empty={empty} data-filled={filled} ref={this.inputMounted} {...other} />
+        </label>;
+    }
+}
+mobiscroll.Rating = MbscRating;
 
 export default mobiscroll;

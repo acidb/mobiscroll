@@ -59,7 +59,7 @@ function getTextColor(color) {
             style = getComputedStyle($div[0]),
             rgb = style.backgroundColor.replace(/rgb|rgba|\(|\)|\s/g, '').split(','),
             delta = rgb[0] * 0.299 + rgb[1] * 0.587 + rgb[2] * 0.114,
-            txt = delta > 130 ? '#000' : '#fff';
+            txt = delta < 130 ? '#fff' : '#000';
 
         $div.remove();
 

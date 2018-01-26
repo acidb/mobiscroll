@@ -1,6 +1,6 @@
 // Korean
 
-import mobiscroll from '../core/core';
+import { mobiscroll } from '../core/core';
 
 export default mobiscroll;
 
@@ -12,15 +12,15 @@ mobiscroll.i18n.ko = {
     selectedText: '{count} 선택된',
     // Datetime component
     dateFormat: 'yy-mm-dd',
-	dayNames: [ '일요일','월요일','화요일','수요일','목요일','금요일','토요일' ],
-	dayNamesShort: [ '일','월','화','수','목','금','토' ],
-	dayNamesMin: [ '일','월','화','수','목','금','토' ],
+    dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
+    dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
+    dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
     dayText: '일',
     delimiter: '-',
     hourText: '시간',
     minuteText: '분',
-	monthNames: [ '1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월' ],
-	monthNamesShort: [ '1월','2월','3월','4월','5월','6월', '7월','8월','9월','10월','11월','12월' ],
+    monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+    monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
     monthText: '달',
     secText: '초',
     timeFormat: 'H:ii',
@@ -32,7 +32,6 @@ mobiscroll.i18n.ko = {
     firstDay: 0,
     dateText: '날짜',
     timeText: '시간',
-    calendarText: '일정',
     todayText: '오늘',
     prevMonthText: '이전 달',
     nextMonthText: '다음 달',

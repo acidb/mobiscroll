@@ -13,7 +13,7 @@ class MbscScroller extends MbscInputBase {
 MbscScroller.propTypes = {
     ...MbscScroller.propTypes,
     ...ScrollerPropTypes
-}
+};
 
 mobiscroll.Scroller = MbscScroller;
 

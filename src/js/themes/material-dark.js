@@ -1,4 +1,4 @@
-import mobiscroll from '../core/core';
+import { mobiscroll } from '../core/core';
 import './material.js';
 
 export default mobiscroll;

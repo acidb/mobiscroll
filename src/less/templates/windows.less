@@ -23,6 +23,7 @@
     @windows-progress-bg: hsv(hsvhue(@windows-background), hsvsaturation(@windows-background), min(hsvvalue(@windows-background), 88%));
     @value_isDark3_2: hsvvalue(@windows-text);
     @windows-colorprev-border: hsv(hsvhue(@windows-background), hsvsaturation(@windows-background), max(hsvvalue(@windows-background) - 25%, 0%));
+    @windows-border-cards: darken(@windows-background, 5%);
 }
 
 // Dark background 
@@ -36,6 +37,7 @@
     @value_isDark2_3: min(hsvvalue(@windows-background) + 8%, 100%);
     @value_isDark3_2: 0%;
     @hsvvalue2_4: min(hsvvalue(@windows-background) + 18%, 100%);
+    @windows-border-cards: lighten(@windows-background, 12%);
 }
 
 
@@ -86,8 +88,8 @@
 }
 
 .mbsc-@{theme} .mbsc-sc-itm-sel:after,
-.mbsc-@{theme} .mbsc-sc-itm.mbsc-btn-a:after,
-.mbsc-@{theme} .mbsc-sc-btn-a:before,
+.mbsc-@{theme} .mbsc-sc-itm.mbsc-active:after,
+.mbsc-@{theme} .mbsc-sc-btn.mbsc-active:before,
 .mbsc-@{theme}.mbsc-no-touch .mbsc-sc-btn:hover:before {
     background: @windows-accent;
     border-color: @windows-accent;
@@ -98,7 +100,7 @@
 }
 
 .mbsc-@{theme} .mbsc-sc-whl-w:not(.mbsc-sc-whl-multi) .mbsc-sc-whl-anim .mbsc-sc-itm-sel:after,
-.mbsc-@{theme} .mbsc-sc-whl-w:not(.mbsc-sc-whl-multi) .mbsc-sc-whl-wpa .mbsc-sc-itm.mbsc-btn-a:after {
+.mbsc-@{theme} .mbsc-sc-whl-w:not(.mbsc-sc-whl-multi) .mbsc-sc-whl-wpa .mbsc-sc-itm.mbsc-active:after {
     background: none;
     border-color: @windows-text;
 }
@@ -140,15 +142,23 @@
     .mbsc-cal-today {
         color: @windows-accent;
     }
+    /* Focus */
+    .mbsc-cal-cell:focus .mbsc-cal-cell-txt {
+        background: fade(@windows-accent, 30%);
+    }
     /* Selected style */
     &.mbsc-no-touch .mbsc-cal-tab:hover,
-    &.mbsc-no-touch .mbsc-cal-day:not(.mbsc-btn-d):hover .mbsc-cal-day-i,
-    &.mbsc-no-touch .mbsc-cal-picker .mbsc-cal-cell:not(.mbsc-btn-d):hover,
+    &.mbsc-no-touch .mbsc-cal-day:not(.mbsc-disabled):hover .mbsc-cal-day-i,
+    &.mbsc-no-touch .mbsc-cal-picker .mbsc-cal-cell:not(.mbsc-disabled):hover,
     .mbsc-cal-tabs .mbsc-cal-tab.mbsc-selected,
     .mbsc-cal-day.mbsc-selected .mbsc-cal-day-i,
     .mbsc-cal-picker .mbsc-cal-cell.mbsc-selected {
         background: @windows-accent;
         color: contrast(@windows-accent);
+    }
+    &.mbsc-no-touch .mbsc-cal-day:not(.mbsc-disabled):hover .mbsc-cal-day-date,
+    .mbsc-cal-day.mbsc-selected .mbsc-cal-day-date {
+        border-color: @windows-accent;
     }
     /* Tabs */
     .mbsc-cal-tabs {
@@ -191,8 +201,8 @@
     border-color: @windows-text;
 }
 
-.mbsc-@{theme}.mbsc-no-touch .mbsc-fr-btn-e:not(.mbsc-fr-btn-d):hover:before,
-.mbsc-@{theme} .mbsc-fr-btn-a:before {
+.mbsc-@{theme}.mbsc-no-touch .mbsc-fr-btn-e:not(.mbsc-disabled):hover:before,
+.mbsc-@{theme} .mbsc-fr-btn.mbsc-active:before {
     background: @windows-accent;
     border-color: @windows-accent;
     color: @windows-accent-alt;
@@ -217,24 +227,10 @@
         background: @windows-text;
         color: @windows-background;
     }
+    &.mbsc-range .mbsc-cal .mbsc-cal-day.mbsc-cal-day-hl .mbsc-cal-day-date {
+        border-color: @windows-text;
+    }
 }
-
-
-/* Rating */
-
-.mbsc-@{theme} .mbsc-rating-icon {
-    color: inherit;
-}
-
-.mbsc-@{theme} .mbsc-rating-circle {
-    background: @windows-text;
-    color: @windows-background;
-}
-
-.mbsc-@{theme} .mbsc-rating-circle-unf {
-    background: #646464;
-}
-
 
 /* Timer */
 
@@ -246,7 +242,7 @@
 
 /* Numpad */
 
-.mbsc-@{theme} .mbsc-np-del.mbsc-fr-btn-a:before {
+.mbsc-@{theme} .mbsc-np-del.mbsc-active:before {
     color: @windows-text;
 }
 
@@ -260,16 +256,16 @@
     border: 2px solid @windows-background;
 }
 
-.mbsc-@{theme}.mbsc-no-touch .mbsc-np-btn:not(.mbsc-fr-btn-d):hover {
+.mbsc-@{theme}.mbsc-no-touch .mbsc-np-btn:not(.mbsc-disabled):hover {
     color: @windows-accent;
 }
 
-.mbsc-@{theme}.mbsc-fr .mbsc-fr-w .mbsc-np-btn.mbsc-fr-btn-a {
+.mbsc-@{theme}.mbsc-fr .mbsc-fr-w .mbsc-np-btn.mbsc-active {
     background: @windows-accent;
     color: @windows-accent-alt;
 }
 
-.mbsc-@{theme} .mbsc-np-btn.mbsc-fr-btn-d {
+.mbsc-@{theme} .mbsc-np-btn.mbsc-disabled {
     color: @windows-text;
     opacity: .5;
 }
@@ -308,11 +304,11 @@
     .mbsc-ms-item.mbsc-ms-ic:before {
         border-color: @windows-text;
     }
-    &.mbsc-no-touch .mbsc-ms-item:not(.mbsc-btn-d):hover {
+    &.mbsc-no-touch .mbsc-ms-item:not(.mbsc-disabled):hover {
         background: fade(@windows-accent, 20%);
     }
     .mbsc-ms-item-sel.mbsc-ms-ic:before,
-    .mbsc-btn-a.mbsc-ms-ic:before {
+    .mbsc-ms-item.mbsc-active.mbsc-ms-ic:before {
         background: @windows-text;
         color: @windows-background;
     }
@@ -388,7 +384,6 @@
     background: @windows-form-bg;
 }
 
-
 /* Form elements */
 
 .mbsc-@{theme}.mbsc-form {
@@ -450,6 +445,14 @@
     border-color: @windows-text;
 }
 
+.mbsc-@{theme} .mbsc-checkbox input.mbsc-active + .mbsc-checkbox-box {
+     border-color: @windows-input-disabled;
+     background: @windows-input-disabled;
+ }
+
+ .mbsc-@{theme} .mbsc-checkbox input.mbsc-active + .mbsc-checkbox-box:after {
+     border-color: @windows-input-disabled;
+}
 
 /* Radio */
 
@@ -458,7 +461,15 @@
 }
 
 .mbsc-@{theme} .mbsc-radio-box:after {
-    background-color: @windows-text;
+    background-color: @windows-accent;
+}
+
+.mbsc-@{theme}  .mbsc-radio input.mbsc-active + .mbsc-radio-box {
+    border-color: darken(@windows-text, 50%);
+}
+
+.mbsc-@{theme}  .mbsc-radio input.mbsc-active + .mbsc-radio-box:after {
+    background: darken(@windows-text, 50%);
 }
 
 
@@ -480,10 +491,7 @@
     background: @windows-accent;
 }
 
-.mbsc-@{theme} .mbsc-switch input:checked + .mbsc-switch-track,
-.mbsc-@{theme} .mbsc-radio input.mbsc-active + .mbsc-radio-box:after,
-.mbsc-@{theme} .mbsc-radio input.mbsc-active + .mbsc-radio-box,
-.mbsc-@{theme} .mbsc-checkbox input.mbsc-active + .mbsc-checkbox-box {
+.mbsc-@{theme} .mbsc-switch input:checked + .mbsc-switch-track {
     background: @windows-accent;
 }
 
@@ -571,8 +579,8 @@
 }
 
 .mbsc-@{theme} .mbsc-segmented input:disabled ~ .mbsc-segmented-item .mbsc-segmented-content,
-.mbsc-@{theme} .mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control.mbsc-step-disabled .mbsc-segmented-content,
-.mbsc-@{theme} .mbsc-stepper .mbsc-segmented-item.mbsc-step-disabled .mbsc-segmented-content,
+.mbsc-@{theme} .mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control.mbsc-disabled .mbsc-segmented-content,
+.mbsc-@{theme} .mbsc-stepper .mbsc-segmented-item.mbsc-disabled .mbsc-segmented-content,
 .mbsc-@{theme} .mbsc-segmented .mbsc-segmented-item input:disabled + .mbsc-segmented-content {
     color: @windows-segmented-disabled;
     border-color: @windows-segmented-disabled;
@@ -595,6 +603,13 @@
 
 .mbsc-@{theme}.mbsc-no-touch .mbsc-segmented-item:hover .mbsc-segmented-content {
     background: fade(@windows-accent, 20%);
+}
+
+
+/* Rating */
+
+.mbsc-@{theme}.mbsc-rating .mbsc-progress-track {
+    color: @windows-accent;
 }
 
 
@@ -632,4 +647,16 @@
 
 .mbsc-@{theme} .mbsc-color-clear-item {
     background: @colorClearBackground;
+}
+
+
+/* Cards */
+
+.mbsc-@{theme} {
+    &.mbsc-card.mbsc-form {
+        background: lighten(@windows-background, 5%);
+    }
+    .mbsc-card-footer {
+        border-color: @windows-border-cards;
+    }
 }

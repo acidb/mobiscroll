@@ -1,6 +1,6 @@
-import FormControl from './form-control';
+import { FormControl } from './form-control';
 
-class Button extends FormControl {
+export class Button extends FormControl {
     constructor(elm, settings) {
         super(elm, settings);
 
@@ -19,5 +19,3 @@ class Button extends FormControl {
         this._$rippleElm = $elm;
     }
 }
-
-export default Button;

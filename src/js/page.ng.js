@@ -1,6 +1,6 @@
 import angular from 'angular';
 import mobiscroll from './frameworks/ng';
-import './classes/page';
+import { Page } from './classes/page';
 
 angular
     .module('mobiscroll-page', [])
@@ -8,7 +8,7 @@ angular
         return {
             restrict: 'A',
             link: function (scope, element, attrs) {
-                var inst = new mobiscroll.classes.Page(element[0], mobiscroll.ng.getOpt(scope, attrs, 'mobiscrollPage', true));
+                var inst = new Page(element[0], mobiscroll.ng.getOpt(scope, attrs, 'mobiscrollPage', true));
 
                 // Add instance to scope if there is an attribute set
                 if (attrs.mobiscrollInstance) {
@@ -20,6 +20,14 @@ angular
                 });
             }
         };
-    }]);
+    }])
+    .directive('mobiscrollAvatar', function () {
+        return {
+            restrict: 'A',
+            link: function (scope, element) {
+                element[0].classList.add('mbsc-avatar');
+            }
+        };
+    });
 
 export default mobiscroll;

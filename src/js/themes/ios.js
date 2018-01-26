@@ -1,6 +1,4 @@
-import mobiscroll, {
-    extend
-} from '../core/core';
+import { extend, mobiscroll } from '../core/core';
 
 export default mobiscroll;
 

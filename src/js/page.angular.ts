@@ -5,10 +5,12 @@ import {
     MbscBase,
     ElementRef,
     ViewChild,
-    Input
+    Input,
+    OnInit,
+    MbscOptionsService
 } from './frameworks/angular';
 
-import Page from './classes/page';
+import { Page } from './classes/page';
 
 import { MbscCoreOptions } from './core/core';
 
@@ -19,23 +21,28 @@ export interface MbscPageOptions extends MbscCoreOptions {
 
 @Component({
     selector: 'mbsc-page',
-    template: '<div #initElement><ng-content></ng-content></div>'
+    template: '<div #initElement><ng-content></ng-content></div>',
+    providers: [MbscOptionsService]
 })
-export class MbscPage extends MbscBase {
+export class MbscPage extends MbscBase implements OnInit {
     @Input()
     options: MbscPageOptions;
 
     @ViewChild('initElement')
     initElem: ElementRef;
 
-    constructor(hostElement: ElementRef) {
+    constructor(hostElement: ElementRef, public optionsService: MbscOptionsService) {
         super(hostElement);
+    }
+
+    ngOnInit() {
+        let optionsObj = extend({}, this.options, this.inlineOptions());
+        this.optionsService.options = optionsObj;
     }
 
     ngAfterViewInit() {
         super.ngAfterViewInit();
-
-        let options = extend({}, this.options);
+        let options = extend({}, this.inlineEvents(), this.options, this.inlineOptions());
         this._instance = new Page(this.initElem.nativeElement, options);
     }
 }
@@ -58,4 +65,15 @@ export class MbscNote {
 
     constructor(public initialElem: ElementRef) {
     }
+}
+
+@Component({
+    selector: 'mbsc-avatar',
+    template: '<img class="mbsc-avatar" [src]="src" [alt]="alt" />'
+})
+export class MbscAvatar {
+    @Input()
+    src: string;
+    @Input()
+    alt: string;
 }

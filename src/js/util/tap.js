@@ -1,4 +1,4 @@
-import ms from '../core/mobiscroll';
+import { mobiscroll } from '../core/mobiscroll';
 import { os, majorVersion, isBrowser } from './platform';
 
 let tapped = 0;
@@ -47,7 +47,7 @@ function tap(that, el, handler, prevent, tolerance, time) {
         target,
         moved,
         startTime,
-        $ = ms.$,
+        $ = mobiscroll.$,
         $elm = $(el);
 
     tolerance = tolerance || 9;

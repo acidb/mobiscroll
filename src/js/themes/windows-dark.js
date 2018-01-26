@@ -1,4 +1,4 @@
-import mobiscroll from '../core/core';
+import { mobiscroll } from '../core/core';
 import './windows.js';
 
 export default mobiscroll;

@@ -1,6 +1,6 @@
 // Serbian
 
-import mobiscroll from '../core/core';
+import { mobiscroll } from '../core/core';
 
 export default mobiscroll;
 
@@ -12,15 +12,15 @@ mobiscroll.i18n.sr = {
     selectedText: '{count} изабрана',
     // Datetime component
     dateFormat: 'dd.mm.yy',
-	dayNames: [ 'Недеља','Понедељак','Уторак','Среда','Четвртак','Петак','Субота' ],
-	dayNamesShort: [ 'Нед','Пон','Уто','Сре','Чет','Пет','Суб' ],
-	dayNamesMin: [ 'Не','По','Ут','Ср','Че','Пе','Су' ],
+    dayNames: ['Недеља', 'Понедељак', 'Уторак', 'Среда', 'Четвртак', 'Петак', 'Субота'],
+    dayNamesShort: ['Нед', 'Пон', 'Уто', 'Сре', 'Чет', 'Пет', 'Суб'],
+    dayNamesMin: ['Не', 'По', 'Ут', 'Ср', 'Че', 'Пе', 'Су'],
     dayText: 'Дан',
     delimiter: '.',
     hourText: 'Час',
     minuteText: 'Минут',
-	monthNames: [ 'Јануар','Фебруар','Март','Април','Мај','Јун','Јул','Август','Септембар','Октобар','Новембар','Децембар' ],
-	monthNamesShort: [ 'Јан','Феб','Мар','Апр','Мај','Јун','Јул','Авг','Сеп','Окт','Нов','Дец' ],
+    monthNames: ['Јануар', 'Фебруар', 'Март', 'Април', 'Мај', 'Јун', 'Јул', 'Август', 'Септембар', 'Октобар', 'Новембар', 'Децембар'],
+    monthNamesShort: ['Јан', 'Феб', 'Мар', 'Апр', 'Мај', 'Јун', 'Јул', 'Авг', 'Сеп', 'Окт', 'Нов', 'Дец'],
     monthText: 'месец',
     secText: 'Секунд',
     timeFormat: 'H:ii',
@@ -32,7 +32,6 @@ mobiscroll.i18n.sr = {
     firstDay: 1,
     dateText: 'Датум',
     timeText: 'време',
-    calendarText: 'Календар',
     todayText: 'Данас',
     prevMonthText: 'Претходни мјесец',
     nextMonthText: 'Следећег месеца',
@@ -46,7 +45,7 @@ mobiscroll.i18n.sr = {
     toText: 'До',
     // Measurement components
     wholeText: 'цео',
-    fractionText: 'Фракција', 
+    fractionText: 'Фракција',
     unitText: 'единица',
     // Time / Timespan component
     labels: ['Године', 'Месеци', 'Дана', 'Сати', 'Минута', 'Секунди', ''],

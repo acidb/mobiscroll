@@ -1,12 +1,12 @@
 import { NgModule, FormsModule, CommonModule, mobiscroll } from '../frameworks/angular';
 
-import { MbscForm, MbscInput, MbscDropdown, MbscTextarea, MbscButton, MbscCheckbox, MbscSwitch, MbscStepper, MbscProgress, MbscSlider, MbscRadio, MbscRadioGroup, MbscSegmentedGroup, MbscSegmented, MbscFormOptions } from '../forms.angular';
-import { MbscPage, MbscPageOptions, MbscNote } from '../page.angular';
+import { MbscForm, MbscRating, MbscInput, MbscDropdown, MbscTextarea, MbscButton, MbscCheckbox, MbscSwitch, MbscStepper, MbscProgress, MbscSlider, MbscRadio, MbscRadioGroup, MbscSegmentedGroup, MbscSegmented, MbscFormOptions } from '../forms.angular';
+import { MbscPage, MbscPageOptions, MbscNote, MbscAvatar } from '../page.angular';
 import { MbscScroller } from '../scroller.angular';
 import { MbscScrollerOptions } from '../core/core';
 
 const directives = [
-    MbscForm, MbscPage, MbscNote, MbscInput, MbscDropdown, MbscTextarea, MbscButton, MbscCheckbox, MbscSwitch, MbscStepper, MbscProgress, MbscSlider, MbscRadio, MbscRadioGroup, MbscSegmentedGroup, MbscSegmented,
+    MbscForm, MbscRating, MbscPage, MbscNote, MbscAvatar, MbscInput, MbscDropdown, MbscTextarea, MbscButton, MbscCheckbox, MbscSwitch, MbscStepper, MbscProgress, MbscSlider, MbscRadio, MbscRadioGroup, MbscSegmentedGroup, MbscSegmented,
     MbscScroller
 ];
 
@@ -19,6 +19,8 @@ class MbscModule { };
 
 export {
     mobiscroll,
+    MbscForm, MbscRating, MbscPage, MbscNote, MbscAvatar, MbscInput, MbscDropdown, MbscTextarea, MbscButton, MbscCheckbox, MbscSwitch, MbscStepper, MbscProgress, MbscSlider, MbscRadio, MbscRadioGroup, MbscSegmentedGroup, MbscSegmented,
+    MbscScroller,
     MbscScrollerOptions,
     MbscPageOptions,
     MbscModule

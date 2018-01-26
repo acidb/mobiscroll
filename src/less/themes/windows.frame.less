@@ -62,12 +62,12 @@
     border-radius: 4em;
 }
 
-.mbsc-windows .mbsc-fr-btn-a {
+.mbsc-windows .mbsc-fr-btn.mbsc-active {
     top: -.3em;
 }
 
-.mbsc-windows.mbsc-no-touch .mbsc-fr-btn-e:not(.mbsc-fr-btn-d):hover:before,
-.mbsc-windows .mbsc-fr-btn-a:before {
+.mbsc-windows.mbsc-no-touch .mbsc-fr-btn-e:not(.mbsc-disabled):hover:before,
+.mbsc-windows .mbsc-fr-btn.mbsc-active:before {
     background: @windows-accent;
     border-color: @windows-accent;
     color: @windows-accent-alt;

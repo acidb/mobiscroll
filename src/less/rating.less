@@ -1,0 +1,83 @@
+@import "progress";
+@import "themes/mobiscroll";
+
+/* Forms rating */
+
+.mbsc-rating {
+    &.mbsc-progress .mbsc-progress-cont {
+        display: inline-block;
+        width: auto;
+        padding: 0 .5em;
+        margin: 0 -.681818em;
+        cursor: pointer;
+    }
+
+    .mbsc-progress-cont .mbsc-progress-track {
+        height: auto;
+        background: none;
+    }
+
+    .mbsc-ic {
+        font-size: 1.375em;
+        margin: 0 0.181818em;
+    }
+
+    &.mbsc-progress input {
+        display: none;
+    }
+    &.mbsc-progress .mbsc-progress-cont .mbsc-slider-handle {
+        display: block;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: none;
+        box-shadow: none;
+        border: 0;
+    }
+
+    .mbsc-progress-cont .mbsc-progress-bar {
+        background: none;
+        overflow: hidden;
+    }
+}
+
+
+/* Mobiscroll Theme */
+
+.mbsc-mobiscroll.mbsc-rating { 
+    .mbsc-label {
+        padding-bottom: .5em;
+    }
+    
+    .mbsc-progress-track {
+        color: @mobiscroll-accent;
+    }
+
+    input:disabled ~ .mbsc-progress-cont .mbsc-progress-track {
+        opacity: .4;
+    }
+
+    /* Color presets */
+    &.mbsc-rating-primary .mbsc-progress-track {
+        color: @mobiscroll-primary;
+    }
+    &.mbsc-rating-secondary .mbsc-progress-track {
+        color: @mobiscroll-secondary;
+    }
+    &.mbsc-rating-success .mbsc-progress-track {
+        color: @mobiscroll-success;
+    }
+    &.mbsc-rating-danger .mbsc-progress-track {
+        color: @mobiscroll-danger;
+    }
+    &.mbsc-rating-warning .mbsc-progress-track {
+        color: @mobiscroll-warning;
+    }
+    &.mbsc-rating-info .mbsc-progress-track {
+        color: @mobiscroll-info;
+    } 
+}

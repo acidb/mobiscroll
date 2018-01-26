@@ -1,6 +1,6 @@
 // English (UK)
 
-import mobiscroll from '../core/core';
+import { mobiscroll } from '../core/core';
 
 export default mobiscroll;
 

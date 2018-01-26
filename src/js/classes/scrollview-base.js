@@ -1,4 +1,6 @@
-import mobiscroll, { $, Base } from '../core/core'; // mobiscroll needed for trial
+/* eslint-disable no-unused-vars */
+import { $, Base, mobiscroll } from '../core/core'; // mobiscroll needed for trial
+/* eslint-enable no-unused-vars */
 import { os, raf, rafc } from '../util/platform';
 import { getCoord } from '../util/tap';
 import { cssPrefix, jsPrefix, getPosition, testTouch } from '../util/dom';
@@ -6,7 +8,7 @@ import { constrain, isNumeric, isString } from '../util/misc';
 
 var isIOS = os == 'ios';
 
-const ScrollViewBase = function (el, settings, inherit) {
+export const ScrollViewBase = function (el, settings, inherit) {
     var $btn,
         btnTimer,
         contSize,
@@ -75,7 +77,7 @@ const ScrollViewBase = function (el, settings, inherit) {
         if (testTouch(ev, this) && !move) {
 
             if ($btn) {
-                $btn.removeClass('mbsc-btn-a');
+                $btn.removeClass('mbsc-active');
             }
 
             // Highlight button
@@ -84,10 +86,10 @@ const ScrollViewBase = function (el, settings, inherit) {
             if (!moving) {
                 $btn = $(ev.target).closest('.mbsc-btn-e', this);
 
-                if ($btn.length && !$btn.hasClass('mbsc-btn-d')) {
+                if ($btn.length && !$btn.hasClass('mbsc-disabled')) {
                     isBtn = true;
                     btnTimer = setTimeout(function () {
-                        $btn.addClass('mbsc-btn-a');
+                        $btn.addClass('mbsc-active');
                     }, 100);
                 }
             }
@@ -134,7 +136,7 @@ const ScrollViewBase = function (el, settings, inherit) {
 
             if (isBtn && (Math.abs(diffY) > s.thresholdY || Math.abs(diffX) > s.thresholdX)) {
                 clearTimeout(btnTimer);
-                $btn.removeClass('mbsc-btn-a');
+                $btn.removeClass('mbsc-active');
                 isBtn = false;
             }
 
@@ -211,9 +213,9 @@ const ScrollViewBase = function (el, settings, inherit) {
 
             if (isBtn) {
                 clearTimeout(btnTimer);
-                $btn.addClass('mbsc-btn-a');
+                $btn.addClass('mbsc-active');
                 setTimeout(function () {
-                    $btn.removeClass('mbsc-btn-a');
+                    $btn.removeClass('mbsc-active');
                 }, 100);
 
                 if (!nativeScroll && !that.scrolled) {
@@ -575,5 +577,3 @@ ScrollViewBase.prototype = {
         elastic: true
     }
 };
-
-export default ScrollViewBase;

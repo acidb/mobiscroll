@@ -1,6 +1,6 @@
 // Lietuvių
 
-import mobiscroll from '../core/core';
+import { mobiscroll } from '../core/core';
 
 export default mobiscroll;
 
@@ -33,7 +33,6 @@ mobiscroll.i18n.lt = {
     firstDay: 1,
     dateText: 'Data',
     timeText: 'Laikas',
-    calendarText: 'Kalendorius',
     closeText: 'Uždaryti',
     // Daterange component
     fromText: 'Nuo',

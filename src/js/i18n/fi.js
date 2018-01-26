@@ -1,6 +1,6 @@
 // Suomi
 
-import mobiscroll from '../core/core';
+import { mobiscroll } from '../core/core';
 
 export default mobiscroll;
 
@@ -32,7 +32,6 @@ mobiscroll.i18n.fi = {
     firstDay: 1,
     dateText: 'Päiväys',
     timeText: 'Aika',
-    calendarText: 'Kalenteri',
     todayText: 'Tänään',
     prevMonthText: 'Edellinen kuukausi',
     nextMonthText: 'Ensi kuussa',
@@ -58,7 +57,7 @@ mobiscroll.i18n.fi = {
     lapText: 'Kierros',
     hideText: 'Vuota',
     // Listview
-    backText: 'Edellinen', 
+    backText: 'Edellinen',
     undoText: 'Kumoa',
     // Form
     offText: 'Pois',

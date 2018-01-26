@@ -1,9 +1,7 @@
-import {
-    $
-} from '../core/core';
-import FormControl from './form-control';
+import { $ } from '../core/core';
+import { FormControl } from './form-control';
 
-class SegmentedItem extends FormControl {
+export class SegmentedItem extends FormControl {
     constructor(elm, settings) {
         super(elm, settings);
 
@@ -35,5 +33,3 @@ class SegmentedItem extends FormControl {
         this._$rippleElm = $elm.next();
     }
 }
-
-export default SegmentedItem;

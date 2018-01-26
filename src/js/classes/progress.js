@@ -1,13 +1,11 @@
-import mobiscroll, {
-    $
-} from '../core/core';
-import ProgressBase from './progress-base';
-import {
-    addIcon,
-    wrapLabel
-} from '../util/forms';
+/* eslint-disable no-unused-vars */
+import { mobiscroll } from '../core/core'; // mobiscroll needed for trial
+/* eslint-enable no-unused-vars */
+import { $, classes } from '../core/core';
+import { ProgressBase } from './progress-base';
+import { addIcon, wrapLabel } from '../util/forms';
 
-const Progress = function (elm, settings, inherit) {
+export const Progress = function (elm, settings, inherit) {
     var $display,
         $elm,
         $parent,
@@ -205,8 +203,4 @@ Progress.prototype = {
     }
 };
 
-mobiscroll.classes.Progress = Progress;
-
-mobiscroll.presetShort('progress', 'Progress');
-
-export default Progress;
+classes.Progress = Progress;

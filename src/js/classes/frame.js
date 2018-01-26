@@ -1,4 +1,4 @@
-import mobiscroll, { $, extend, Base } from '../core/core';
+import { $, extend, Base, mobiscroll, classes, instances } from '../core/core';
 import { os, majorVersion, isBrowser, userAgent } from '../util/platform';
 import { animEnd } from '../util/dom';
 import { getCoord, preventClick } from '../util/tap';
@@ -6,7 +6,6 @@ import { constrain, isString, noop } from '../util/misc';
 
 var $activeElm,
     preventShow,
-    classes = mobiscroll.classes,
     themes = mobiscroll.themes,
     needsFixed = /(iphone|ipod)/i.test(userAgent) && majorVersion >= 7,
     isAndroid = os == 'android',
@@ -17,8 +16,8 @@ var $activeElm,
         ev.preventDefault();
     };
 
-const Frame = function (el, settings, inherit) {
-    var $ariaDiv,
+export const Frame = function (el, settings, inherit) {
+    var //$ariaDiv,
         $ctx,
         $header,
         $lock,
@@ -56,19 +55,20 @@ const Frame = function (el, settings, inherit) {
 
         that = this,
         $elm = $(el),
-        elmList = [];
+        elmList = [],
+        lastFocus = new Date();
 
     function onBtnStart(ev) {
         // Can't call preventDefault here, it kills page scroll
         if (btn) {
-            btn.removeClass('mbsc-fr-btn-a');
+            btn.removeClass('mbsc-active');
         }
 
         btn = $(this);
 
         // Active button
-        if (!btn.hasClass('mbsc-fr-btn-d') && !btn.hasClass('mbsc-fr-btn-nhl')) {
-            btn.addClass('mbsc-fr-btn-a');
+        if (!btn.hasClass('mbsc-disabled') && !btn.hasClass('mbsc-fr-btn-nhl')) {
+            btn.addClass('mbsc-active');
         }
 
         if (ev.type === 'mousedown') {
@@ -80,7 +80,7 @@ const Frame = function (el, settings, inherit) {
 
     function onBtnEnd(ev) {
         if (btn) {
-            btn.removeClass('mbsc-fr-btn-a');
+            btn.removeClass('mbsc-active');
             btn = null;
         }
 
@@ -101,9 +101,10 @@ const Frame = function (el, settings, inherit) {
 
     function onShow(prevFocus) {
         if (!prevFocus && !isAndroid) {
-            overlay.focus();
+            //overlay.focus();
+            that._activeElm.focus();
         }
-        that.ariaMessage(s.ariaMessage);
+        //that.ariaMessage(s.ariaMessage);
     }
 
     function onHide(prevAnim) {
@@ -175,9 +176,132 @@ const Frame = function (el, settings, inherit) {
     }
 
     function onFocus(ev) {
-        if (ev.target.nodeType && !overlay.contains(ev.target)) {
+        if (ev.target.nodeType && !overlay.contains(ev.target) && lastFocus - new Date() > 100) {
             overlay.focus();
+            lastFocus = new Date();
         }
+    }
+
+    function insertMarkup(prevAnim, prevFocus) {
+
+        function onAnimEnd() {
+            $markup
+                .off(animEnd, onAnimEnd)
+                .removeClass('mbsc-anim-in mbsc-anim-trans mbsc-anim-trans-' + doAnim)
+                .find('.mbsc-fr-popup')
+                .removeClass('mbsc-anim-' + doAnim);
+            onShow(prevFocus);
+        }
+
+        // Show
+        if (isModal) {
+            $markup.appendTo($ctx);
+        } else if ($elm.is('div') && !that._hasContent) {
+            // Insert inside the element on which was initialized
+            $elm.empty().append($markup);
+        } else {
+            // Insert after the element
+            if ($elm.hasClass('mbsc-control')) {
+                var $wrap = $elm.closest('.mbsc-control-w');
+                $markup.insertAfter($wrap);
+                if ($wrap.hasClass('mbsc-select')) {
+                    $wrap.addClass('mbsc-select-inline');
+                }
+            } else {
+                $markup.insertAfter($elm);
+            }
+        }
+
+        isInserted = true;
+
+        that._markupInserted($markup);
+
+        trigger('onMarkupInserted', {
+            target: markup
+        });
+
+        $markup
+            .on('selectstart mousedown', prevdef) // Prevents blue highlight on Android and text selection in IE
+            .on('click', '.mbsc-fr-btn-e', prevdef)
+            .on('keydown', '.mbsc-fr-btn-e', function (ev) {
+                if (ev.keyCode == 32) { // Space
+                    ev.preventDefault();
+                    ev.stopPropagation();
+                    this.click();
+                }
+            })
+            .on('keydown', function (ev) { // Trap focus inside modal
+                if (ev.keyCode == 32) { // Space
+                    ev.preventDefault();
+                } else if (ev.keyCode == 9 && isModal && s.focusTrap) { // Tab
+                    var $focusable = $markup.find('[tabindex="0"]').filter(function () {
+                            return this.offsetWidth > 0 || this.offsetHeight > 0;
+                        }),
+                        index = $focusable.index($(':focus', $markup)),
+                        i = $focusable.length - 1,
+                        target = 0;
+
+                    if (ev.shiftKey) {
+                        i = 0;
+                        target = -1;
+                    }
+
+                    if (index === i) {
+                        $focusable.eq(target)[0].focus();
+                        ev.preventDefault();
+                    }
+                }
+            })
+            .on('touchstart mousedown pointerdown', '.mbsc-fr-btn-e', onBtnStart)
+            .on('touchend', '.mbsc-fr-btn-e', onBtnEnd);
+
+        $('input,select,textarea', $markup).on('selectstart mousedown', function (ev) {
+            ev.stopPropagation();
+        }).on('keydown', function (ev) {
+            if (ev.keyCode == 32) { // Space
+                ev.stopPropagation();
+            }
+        });
+
+        // Need event capture for this
+        markup.addEventListener('touchstart', function () {
+            if (!touched) {
+                touched = true;
+                $ctx.find('.mbsc-no-touch').removeClass('mbsc-no-touch');
+            }
+        }, true);
+
+        // Init buttons
+        $.each(buttons, function (i, b) {
+            that.tap($('.mbsc-fr-btn' + i, $markup), function (ev) {
+                b = isString(b) ? that.buttons[b] : b;
+                (isString(b.handler) ? that.handlers[b.handler] : b.handler).call(this, ev, that);
+            }, true);
+        });
+
+        that._attachEvents($markup);
+
+        // Set position
+        that.position();
+
+        $wnd.on(posEvents, onPosition);
+
+        if (isModal) {
+            if (doAnim && !prevAnim) {
+                $markup
+                    .addClass('mbsc-anim-in mbsc-anim-trans mbsc-anim-trans-' + doAnim)
+                    .on(animEnd, onAnimEnd)
+                    .find('.mbsc-fr-popup')
+                    .addClass('mbsc-anim-' + doAnim);
+            } else {
+                onShow(prevFocus);
+            }
+        }
+
+        trigger('onShow', {
+            target: markup,
+            valueText: that._tempValue
+        });
     }
 
     function show(beforeShow, $elm) {
@@ -260,7 +384,7 @@ const Frame = function (el, settings, inherit) {
 
         // Call position for nested mobiscroll components
         $('.mbsc-comp', $markup).each(function () {
-            var inst = mobiscroll.instances[this.id];
+            var inst = instances[this.id];
             if (inst && inst !== that && inst.position) {
                 inst.position();
             }
@@ -517,16 +641,6 @@ const Frame = function (el, settings, inherit) {
      * @param {Boolean} prevFocus - Prevent focusing if true
      */
     that.show = function (prevAnim, prevFocus) {
-
-        function onAnimEnd() {
-            $markup
-                .off(animEnd, onAnimEnd)
-                .removeClass('mbsc-anim-in mbsc-anim-trans mbsc-anim-trans-' + doAnim)
-                .find('.mbsc-fr-popup')
-                .removeClass('mbsc-anim-' + doAnim);
-            onShow(prevFocus);
-        }
-
         var hasButtons,
             html;
 
@@ -614,7 +728,7 @@ const Frame = function (el, settings, inherit) {
             '">' + // Popup
             (s.display === 'bubble' ? '<div class="mbsc-fr-arr-w"><div class="mbsc-fr-arr-i"><div class="mbsc-fr-arr"></div></div></div>' : '') + // Bubble arrow
             '<div class="mbsc-fr-w">' + // Popup content
-            '<div aria-live="assertive" class="mbsc-fr-aria mbsc-fr-hdn"></div>' +
+            //'<div aria-live="assertive" class="mbsc-fr-aria mbsc-fr-hdn"></div>' +
             (s.headerText ? '<div class="mbsc-fr-hdr">' + (isString(s.headerText) ? s.headerText : '') + '</div>' : '') + // Header
             '<div class="mbsc-fr-c">'; // Wheel group container
 
@@ -656,16 +770,16 @@ const Frame = function (el, settings, inherit) {
         $persp = $('.mbsc-fr-persp', $markup);
         $overlay = $('.mbsc-fr-scroll', $markup);
         $wrapper = $('.mbsc-fr-w', $markup);
-        $header = $('.mbsc-fr-hdr', $markup);
         $popup = $('.mbsc-fr-popup', $markup);
-        $ariaDiv = $('.mbsc-fr-aria', $markup);
+        $header = $('.mbsc-fr-hdr', $markup);
+        //$ariaDiv = $('.mbsc-fr-aria', $markup);
 
         markup = $markup[0];
         overlay = $overlay[0];
         popup = $popup[0];
 
+        that._activeElm = overlay;
         that._markup = $markup;
-        that._header = $header;
         that._isVisible = true;
 
         posEvents = 'orientationchange resize';
@@ -727,125 +841,16 @@ const Frame = function (el, settings, inherit) {
                         target = false;
                     });
             }
-
-            // if (needsDimensions) {
-            //     posEvents += ' scroll';
-            // }
         }
 
-        // Wait for the toolbar and addressbar to appear on iOS
-        setTimeout(function () {
-            // Show
-            if (isModal) {
-                $markup.appendTo($ctx);
-            } else if ($elm.is('div') && !that._hasContent) {
-                // Insert inside the element on which was initialized
-                $elm.empty().append($markup);
-            } else {
-                // Insert after the element
-                if ($elm.hasClass('mbsc-control')) {
-                    var $wrap = $elm.closest('.mbsc-control-w');
-                    $markup.insertAfter($wrap);
-                    if ($wrap.hasClass('mbsc-select')) {
-                        $wrap.addClass('mbsc-select-inline');
-                    }
-                } else {
-                    $markup.insertAfter($elm);
-                }
-            }
-
-            isInserted = true;
-
-            that._markupInserted($markup);
-
-            trigger('onMarkupInserted', {
-                target: markup
-            });
-
-            $markup
-                .on('selectstart mousedown', prevdef) // Prevents blue highlight on Android and text selection in IE
-                .on('click', '.mbsc-fr-btn-e', prevdef)
-                .on('keydown', '.mbsc-fr-btn-e', function (ev) {
-                    if (ev.keyCode == 32) { // Space
-                        ev.preventDefault();
-                        ev.stopPropagation();
-                        this.click();
-                    }
-                })
-                .on('keydown', function (ev) { // Trap focus inside modal
-                    if (ev.keyCode == 32) { // Space
-                        ev.preventDefault();
-                    } else if (ev.keyCode == 9 && isModal && s.focusTrap) { // Tab
-                        var $focusable = $markup.find('[tabindex="0"]').filter(function () {
-                                return this.offsetWidth > 0 || this.offsetHeight > 0;
-                            }),
-                            index = $focusable.index($(':focus', $markup)),
-                            i = $focusable.length - 1,
-                            target = 0;
-
-                        if (ev.shiftKey) {
-                            i = 0;
-                            target = -1;
-                        }
-
-                        if (index === i) {
-                            $focusable.eq(target)[0].focus();
-                            ev.preventDefault();
-                        }
-                    }
-                })
-                .on('touchstart mousedown pointerdown', '.mbsc-fr-btn-e', onBtnStart)
-                .on('touchend', '.mbsc-fr-btn-e', onBtnEnd);
-
-            $('input,select,textarea', $markup).on('selectstart mousedown', function (ev) {
-                ev.stopPropagation();
-            }).on('keydown', function (ev) {
-                if (ev.keyCode == 32) { // Space
-                    ev.stopPropagation();
-                }
-            });
-
-            // Need event capture for this
-            markup.addEventListener('touchstart', function () {
-                if (!touched) {
-                    touched = true;
-                    $ctx.find('.mbsc-no-touch').removeClass('mbsc-no-touch');
-                }
-            }, true);
-
-            // Init buttons
-            $.each(buttons, function (i, b) {
-                that.tap($('.mbsc-fr-btn' + i, $markup), function (ev) {
-                    b = isString(b) ? that.buttons[b] : b;
-                    (isString(b.handler) ? that.handlers[b.handler] : b.handler).call(this, ev, that);
-                }, true);
-            });
-
-            that._attachEvents($markup);
-
-            // Set position
-            that.position();
-
-            $wnd.on(posEvents, onPosition);
-
-            if (isModal) {
-                if (doAnim && !prevAnim) {
-                    $markup
-                        .addClass('mbsc-anim-in mbsc-anim-trans mbsc-anim-trans-' + doAnim)
-                        .on(animEnd, onAnimEnd)
-                        .find('.mbsc-fr-popup')
-                        .addClass('mbsc-anim-' + doAnim);
-                } else {
-                    onShow(prevFocus);
-                }
-            }
-
-            trigger('onShow', {
-                target: markup,
-                valueText: that._tempValue
-            });
-
-        }, needsLock ? 100 : 0);
+        if (isModal && needsLock) {
+            // Wait for the toolbar and addressbar to appear on iOS
+            setTimeout(function () {
+                insertMarkup(prevAnim, prevFocus);
+            }, 100);
+        } else {
+            insertMarkup(prevAnim, prevFocus);
+        }
     };
 
     /**
@@ -907,12 +912,12 @@ const Frame = function (el, settings, inherit) {
 
     };
 
-    that.ariaMessage = function (txt) {
-        $ariaDiv.html('');
-        setTimeout(function () {
-            $ariaDiv.html(txt);
-        }, 100);
-    };
+    // that.ariaMessage = function (txt) {
+    //     $ariaDiv.html('');
+    //     setTimeout(function () {
+    //         $ariaDiv.html(txt);
+    //     }, 100);
+    // };
 
     /**
      * Return true if the scroller is currently visible.
@@ -973,6 +978,11 @@ const Frame = function (el, settings, inherit) {
         });
 
         that.__destroy();
+    };
+
+    that._updateHeader = function () {
+        var t = s.headerText;
+        $header.html(t ? (typeof t === 'function' ? t.call(el, that._tempValue) : t.replace(/\{value\}/i, that._tempValue)) : '');
     };
 
     that._processSettings = function () {
@@ -1138,5 +1148,3 @@ if (isBrowser) {
         }
     });
 }
-
-export default Frame;

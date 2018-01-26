@@ -3,6 +3,7 @@
 @import "material.page.less";
 @import "material.input.less";
 @import "material.slider.less";
+@import "material.rating.less";
 @import "material.notifications.less";
 
 /* Form */
@@ -182,6 +183,57 @@
     border-color: #009688;
 }
 
+.mbsc-material {
+    /* Checkbox color presets */
+    .mbsc-checkbox-primary.mbsc-checkbox {
+        input:checked + .mbsc-checkbox-box {
+            background: @material-primary;
+            border-color: @material-primary;
+        }
+    }
+    .mbsc-checkbox-secondary.mbsc-checkbox {
+        input:checked .mbsc-checkbox-box {
+            background: @material-secondary;
+            border-color: @material-secondary;
+        }
+    }
+    .mbsc-checkbox-success.mbsc-checkbox {
+        input:checked + .mbsc-checkbox-box {
+            background: @material-success;
+            border-color: @material-success;
+        }
+    }
+    .mbsc-checkbox-danger.mbsc-checkbox {
+        input:checked + .mbsc-checkbox-box {
+            background: @material-danger;
+            border-color: @material-danger;
+        }
+    }
+    .mbsc-checkbox-warning.mbsc-checkbox {
+        input:checked + .mbsc-checkbox-box {
+            background: @material-warning;
+            border-color: @material-warning;
+        }
+    }
+    .mbsc-checkbox-info.mbsc-checkbox {
+        input:checked + .mbsc-checkbox-box {
+            background: @material-info;
+            border-color: @material-info;
+        }
+    } // .mbsc-checkbox-light.mbsc-checkbox {
+    //     input:checked + .mbsc-checkbox-box {
+    //         background: @material-light;
+    //         border-color: @material-light;
+    //     }
+    // }
+    // .mbsc-checkbox-dark.mbsc-checkbox {
+    //     input:checked + .mbsc-checkbox-box {
+    //         background: @material-dark;
+    //         border-color: @material-dark;
+    //     }
+    // }
+}
+
 
 /* Radio */
 
@@ -197,6 +249,73 @@
 .mbsc-material .mbsc-radio input:checked + .mbsc-radio-box {
     background: transparent;
     border-color: #009688;
+}
+
+.mbsc-material {
+    /* Radio color presets */
+    .mbsc-radio-primary.mbsc-radio input:checked {
+        + .mbsc-radio-box {
+            border-color: @material-primary;
+        }
+        + .mbsc-radio-box:after {
+            background: @material-primary;
+        }
+    }
+    .mbsc-radio-secondary.mbsc-radio input:checked {
+        + .mbsc-radio-box {
+            border-color: @material-secondary;
+        }
+        + .mbsc-radio-box:after {
+            background: @material-secondary;
+        }
+    }
+    .mbsc-radio-success.mbsc-radio input:checked {
+        + .mbsc-radio-box {
+            border-color: @material-success;
+        }
+        + .mbsc-radio-box:after {
+            background: @material-success;
+        }
+    }
+    .mbsc-radio-danger.mbsc-radio input:checked {
+        + .mbsc-radio-box {
+            border-color: @material-danger;
+        }
+        + .mbsc-radio-box:after {
+            background: @material-danger;
+        }
+    }
+    .mbsc-radio-warning.mbsc-radio input:checked {
+        + .mbsc-radio-box {
+            border-color: @material-warning;
+        }
+        + .mbsc-radio-box:after {
+            background: @material-warning;
+        }
+    }
+    .mbsc-radio-info.mbsc-radio input:checked {
+        + .mbsc-radio-box {
+            border-color: @material-info;
+        }
+        + .mbsc-radio-box:after {
+            background: @material-info;
+        }
+    } // .mbsc-radio-light.mbsc-radio input:checked {
+    //     + .mbsc-radio-box {
+    //         border-color: @material-light;
+    //     }
+    //     + .mbsc-radio-box:after {
+    //         background: @material-light;
+    //     }
+    // }
+    // .mbsc-radio-dark.mbsc-radio input:checked {
+    //     + .mbsc-radio-box {
+    //         border-color: @material-dark;
+    //     }
+    //     + .mbsc-radio-box:after {
+    //         background: @material-dark;
+    //     }
+    // }
 }
 
 
@@ -375,11 +494,11 @@
     /* Outline buttons */
     .mbsc-btn-outline.mbsc-btn {
         background: transparent;
-        border: 1px solid #009688;
-        color: #009688;
+        border: 1px solid #6d6d6d;
+        color: #6d6d6d;
         box-shadow: none;
-        &.mbsc-btn.mbsc-active {
-            background: #009688;
+        &.mbsc-active.mbsc-control {
+            background: #6d6d6d;
             color: #eee;
             opacity: 1;
         }
@@ -599,6 +718,73 @@
     background: #b9b9b9;
 }
 
+.mbsc-material {
+    /* Switch color presets */
+    .mbsc-switch.mbsc-switch-primary input:checked {
+        + .mbsc-switch-track {
+            background: lighten(@material-primary, 20%);
+        }
+        + .mbsc-switch-track .mbsc-switch-handle {
+            background: @material-primary;
+        }
+    }
+    .mbsc-switch.mbsc-switch-secondary input:checked {
+        + .mbsc-switch-track {
+            background: lighten(@material-secondary, 20%);
+        }
+        + .mbsc-switch-track .mbsc-switch-handle {
+            background: @material-secondary;
+        }
+    }
+    .mbsc-switch.mbsc-switch-success input:checked {
+        + .mbsc-switch-track {
+            background: lighten(@material-success, 20%);
+        }
+        + .mbsc-switch-track .mbsc-switch-handle {
+            background: @material-success;
+        }
+    }
+    .mbsc-switch.mbsc-switch-danger input:checked {
+        + .mbsc-switch-track {
+            background: lighten(@material-danger, 20%);
+        }
+        + .mbsc-switch-track .mbsc-switch-handle {
+            background: @material-danger;
+        }
+    }
+    .mbsc-switch.mbsc-switch-warning input:checked {
+        + .mbsc-switch-track {
+            background: lighten(@material-warning, 20%);
+        }
+        + .mbsc-switch-track .mbsc-switch-handle {
+            background: @material-warning;
+        }
+    }
+    .mbsc-switch.mbsc-switch-info input:checked {
+        + .mbsc-switch-track {
+            background: lighten(@material-info, 20%);
+        }
+        + .mbsc-switch-track .mbsc-switch-handle {
+            background: @material-info;
+        }
+    } // .mbsc-switch.mbsc-switch-light input:checked {
+    //     + .mbsc-switch-track {
+    //         background: lighten(@material-light, 15%);
+    //     }
+    //     + .mbsc-switch-track .mbsc-switch-handle {
+    //         background: darken(@material-light, 5%);
+    //     }
+    // }
+    // .mbsc-switch.mbsc-switch-dark input:checked {
+    //     + .mbsc-switch-track {
+    //         background: lighten(@material-dark, 30%);
+    //     }
+    //     + .mbsc-switch-track .mbsc-switch-handle {
+    //         background: @material-dark;
+    //     }
+    // }
+}
+
 
 /* Segmented control and Stepper */
 
@@ -684,8 +870,8 @@
 }
 
 .mbsc-material .mbsc-segmented input:disabled ~ .mbsc-segmented-item .mbsc-segmented-content,
-.mbsc-material .mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control.mbsc-step-disabled .mbsc-segmented-content,
-.mbsc-material .mbsc-segmented .mbsc-segmented-item.mbsc-step-disabled .mbsc-segmented-content {
+.mbsc-material .mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control.mbsc-disabled .mbsc-segmented-content,
+.mbsc-material .mbsc-segmented .mbsc-segmented-item.mbsc-disabled .mbsc-segmented-content {
     background: #d6d6d6;
     color: #a6a6a6;
 }
@@ -702,4 +888,148 @@
 .mbsc-material.mbsc-no-touch .mbsc-segmented-item:hover .mbsc-segmented-content {
     background: #cbcbcb;
     color: #000;
+}
+
+.mbsc-material .mbsc-segmented {
+    /* Segmented color presets */
+    .mbsc-segmented-primary {
+        .mbsc-segmented-content {
+            border-color: @material-primary;
+            color: @material-primary;
+        }
+        &.mbsc-segmented-item input:checked + .mbsc-segmented-content {
+            background: @material-primary;
+        }
+    }
+    .mbsc-segmented-secondary {
+        .mbsc-segmented-content {
+            border-color: @material-secondary;
+            color: @material-secondary;
+        }
+        &.mbsc-segmented-item input:checked + .mbsc-segmented-content {
+            background: @material-secondary;
+        }
+    }
+    .mbsc-segmented-success {
+        .mbsc-segmented-content {
+            border-color: @material-success;
+            color: @material-success;
+        }
+        &.mbsc-segmented-item input:checked + .mbsc-segmented-content {
+            background: @material-success;
+        }
+    }
+    .mbsc-segmented-danger {
+        .mbsc-segmented-content {
+            border-color: @material-danger;
+            color: @material-danger;
+        }
+        &.mbsc-segmented-item input:checked + .mbsc-segmented-content {
+            background: @material-danger;
+        }
+    }
+    .mbsc-segmented-warning {
+        .mbsc-segmented-content {
+            border-color: @material-warning;
+            color: @material-warning;
+        }
+        &.mbsc-segmented-item input:checked + .mbsc-segmented-content {
+            background: @material-warning;
+        }
+    }
+    .mbsc-segmented-info {
+        .mbsc-segmented-content {
+            border-color: @material-info;
+            color: @material-info;
+        }
+        &.mbsc-segmented-item input:checked + .mbsc-segmented-content {
+            background: @material-info;
+        }
+    }
+}
+
+.mbsc-material {
+    /* Segmented color presets */
+    .mbsc-stepper-primary.mbsc-stepper-cont {
+        .mbsc-stepper .mbsc-segmented-content {
+            background: @material-primary;
+            color: @material-background;
+            border-color: @material-primary;
+        }
+        .mbsc-stepper .mbsc-stepper-val {
+            background: transparent;
+        }
+    }
+    .mbsc-stepper-secondary.mbsc-stepper-cont {
+        .mbsc-stepper .mbsc-segmented-content {
+            background: @material-secondary;
+            color: @material-background;
+            border-color: @material-secondary;
+        }
+        .mbsc-stepper .mbsc-stepper-val {
+            background: transparent;
+        }
+    }
+    .mbsc-stepper-success.mbsc-stepper-cont {
+        .mbsc-stepper .mbsc-segmented-content {
+            background: @material-success;
+            color: @material-background;
+            border-color: @material-success;
+        }
+        .mbsc-stepper .mbsc-stepper-val {
+            background: transparent;
+        }
+    }
+    .mbsc-stepper-danger.mbsc-stepper-cont {
+        .mbsc-stepper .mbsc-segmented-content {
+            background: @material-danger;
+            color: @material-background;
+            border-color: @material-danger;
+        }
+        .mbsc-stepper .mbsc-stepper-val {
+            background: transparent;
+        }
+    }
+    .mbsc-stepper-warning.mbsc-stepper-cont {
+        .mbsc-stepper .mbsc-segmented-content {
+            background: @material-warning;
+            color: @material-background;
+            border-color: @material-warning;
+        }
+        .mbsc-stepper .mbsc-stepper-val {
+            background: transparent;
+        }
+    }
+    .mbsc-stepper-info.mbsc-stepper-cont {
+        .mbsc-stepper .mbsc-segmented-content {
+            background: @material-info;
+            color: @material-light;
+            border-color: @material-info;
+        }
+        .mbsc-stepper .mbsc-stepper-val {
+            background: transparent;
+        }
+    }
+}
+
+.mbsc-material.mbsc-no-touch {
+    /* Segmented hover color presets */
+    .mbsc-stepper-primary.mbsc-stepper-cont .mbsc-segmented-item:hover .mbsc-segmented-content {
+        background: fade(@material-primary, 70%);
+    }
+    .mbsc-stepper-secondary.mbsc-stepper-cont .mbsc-segmented-item:hover .mbsc-segmented-content {
+        background: fade(@material-secondary, 70%);
+    }
+    .mbsc-stepper-success.mbsc-stepper-cont .mbsc-segmented-item:hover .mbsc-segmented-content {
+        background: fade(@material-success, 70%);
+    }
+    .mbsc-stepper-danger.mbsc-stepper-cont .mbsc-segmented-item:hover .mbsc-segmented-content {
+        background: fade(@material-danger, 70%);
+    }
+    .mbsc-stepper-warning.mbsc-stepper-cont .mbsc-segmented-item:hover .mbsc-segmented-content {
+        background: fade(@material-warning, 70%);
+    }
+    .mbsc-stepper-info.mbsc-stepper-cont .mbsc-segmented-item:hover .mbsc-segmented-content {
+        background: fade(@material-info, 70%);
+    }
 }

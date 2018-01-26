@@ -1,10 +1,7 @@
-import mobiscroll, {
-    $,
-    extend
-} from '../core/core';
-import Frame from './frame';
+import { $, extend, mobiscroll, classes } from '../core/core';
+import { Frame } from './frame';
 
-const Widget = function (el, settings, inherit) {
+export const Widget = function (el, settings, inherit) {
 
     function addContent($m) {
         /* TRIAL */
@@ -105,10 +102,6 @@ Widget.prototype = {
     })
 };
 
-mobiscroll.classes.Widget = Widget;
+classes.Widget = Widget;
 
 mobiscroll.themes.widget = mobiscroll.themes.frame;
-
-mobiscroll.presetShort('widget', 'Widget', false);
-
-export default Widget;

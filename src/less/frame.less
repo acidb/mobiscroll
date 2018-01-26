@@ -254,7 +254,7 @@
     cursor: pointer;
 }
 
-.mbsc-fr-btn-d {
+.mbsc-fr-btn.mbsc-disabled {
     cursor: not-allowed;
 }
 
@@ -267,7 +267,7 @@
     text-align: center;
 }
 
-.mbsc-fr-btn-cont .mbsc-fr-btn-d {
+.mbsc-fr-btn-cont .mbsc-disabled {
     opacity: .3;
 }
 
@@ -326,8 +326,8 @@
         color: @mobiscroll-accent;
         text-transform: uppercase;
     }
-    .mbsc-fr-btn-a,
-    &.mbsc-no-touch .mbsc-fr-btn-e:not(.mbsc-fr-btn-d):hover {
+    .mbsc-fr-btn.mbsc-active,
+    &.mbsc-no-touch .mbsc-fr-btn-e:not(.mbsc-disabled):hover {
         background: fade(@mobiscroll-accent, 30%);
     }
     /* Display modes */

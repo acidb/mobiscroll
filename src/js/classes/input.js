@@ -1,9 +1,7 @@
-import FormControl from './form-control';
-import {
-    addIconToggle
-} from '../util/forms';
+import { FormControl } from './form-control';
+import { addIconToggle } from '../util/forms';
 
-class Input extends FormControl {
+export class Input extends FormControl {
     constructor(elm, settings) {
         super(elm, settings);
 
@@ -19,5 +17,3 @@ class Input extends FormControl {
             .remove();
     }
 }
-
-export default Input;

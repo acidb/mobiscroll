@@ -1,4 +1,4 @@
-import mobiscroll from '../core/core';
-export default class Progress {
+import { mobiscroll } from '../core/core';
+export class Progress {
     constructor(element: any, settings: any);
 }

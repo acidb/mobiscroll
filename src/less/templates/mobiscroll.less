@@ -73,12 +73,12 @@
     border-color: @output3_8;
 }
 
-.mbsc-@{theme}.mbsc-no-touch .mbsc-fr-btn-e:not(.mbsc-fr-btn-d):hover,
-.mbsc-@{theme} .mbsc-fr-btn-a {
+.mbsc-@{theme}.mbsc-no-touch .mbsc-fr-btn-e:not(.mbsc-disabled):hover,
+.mbsc-@{theme} .mbsc-fr-btn.mbsc-active {
     background: fade(@output3_8, 30%);
 }
 
-.mbsc-@{theme} .mbsc-sc-itm.mbsc-btn-a {
+.mbsc-@{theme} .mbsc-sc-itm.mbsc-active {
     background: fade(@output3_8, 30%);
 }
 
@@ -92,7 +92,7 @@
 }
 
 .mbsc-@{theme}.mbsc-no-touch .mbsc-sc-btn:hover:before,
-.mbsc-@{theme} .mbsc-sc-btn-a:before {
+.mbsc-@{theme} .mbsc-sc-btn.mbsc-active:before {
     background: fade(@output3_8, 30%);
 }
 
@@ -122,8 +122,9 @@
     .mbsc-cal-today {
         color: @mobiscroll-accent;
     }
-    /* Hover */
-    &.mbsc-no-touch .mbsc-cal-cell:not(.mbsc-btn-d):hover .mbsc-cal-cell-txt {
+    /* Hover, focus */
+    &.mbsc-no-touch .mbsc-cal-cell:not(.mbsc-disabled):hover .mbsc-cal-cell-txt,
+    .mbsc-cal-cell:focus .mbsc-cal-cell-txt {
         background: fade(@mobiscroll-accent, 30%);
     }
     /* Selected */
@@ -151,6 +152,9 @@
     .mbsc-cal-txt {
         color: @mobiscroll-background;
         background: @mobiscroll-text;
+    }
+    .mbsc-cal-icons {
+        color: @mobiscroll-text;
     }
 }
 
@@ -204,28 +208,6 @@
         }
     }
 }
-
-
-/* Rating */
-
-.mbsc-@{theme} .mbsc-rating-icon {
-    color: @output3_8;
-}
-
-.mbsc-@{theme} .mbsc-rating-icon-unf {
-    color: fade(@output3_8, 30%);
-}
-
-.mbsc-@{theme} .mbsc-rating-circle {
-    background: @output3_8;
-    color: @output1_3;
-}
-
-.mbsc-@{theme} .mbsc-rating-circle-unf {
-    background: none;
-    border-color: @output3_8;
-}
-
 
 /* Numpad */
 
@@ -310,10 +292,10 @@
     .mbsc-ms .mbsc-ms-item {
         color: @mobiscroll-text;
     }
-    &.mbsc-ms-c .mbsc-scv-sc .mbsc-ms .mbsc-ms-item.mbsc-btn-a {
+    &.mbsc-ms-c .mbsc-scv-sc .mbsc-ms .mbsc-ms-item.mbsc-active {
         background: fade(@mobiscroll-accent, 30%);
     }
-    &.mbsc-no-touch .mbsc-ms-item:not(.mbsc-btn-d):hover {
+    &.mbsc-no-touch .mbsc-ms-item:not(.mbsc-disabled):hover {
         background: fade(@mobiscroll-accent, 10%);
     }
     &.mbsc-ms-b {
@@ -374,7 +356,6 @@
     color: @output1_3;
     background: @output3_8;
 }
-
 
 /* Form elements */
 
@@ -568,7 +549,7 @@
 }
 
 .mbsc-@{theme} .mbsc-segmented input:disabled ~ .mbsc-segmented-item .mbsc-segmented-content,
-.mbsc-@{theme} .mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control.mbsc-step-disabled .mbsc-segmented-content,
+.mbsc-@{theme} .mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control.mbsc-disabled .mbsc-segmented-content,
 .mbsc-@{theme} .mbsc-segmented .mbsc-segmented-item input:disabled + .mbsc-segmented-content {
     color: @output1_5;
     border-color: @output1_5;
@@ -586,10 +567,29 @@
     color: @output1_3;
 }
 
-.mbsc-@{theme} .mbsc-stepper .mbsc-active.mbsc-step-disabled .mbsc-segmented-content {
+.mbsc-@{theme} .mbsc-stepper .mbsc-active.mbsc-disabled .mbsc-segmented-content {
     color: @output1_5;
 }
 
 .mbsc-@{theme}.mbsc-no-touch .mbsc-segmented-item:hover .mbsc-segmented-content {
     background: fade( @output3_8, 10%);
+}
+
+
+/* Rating */
+
+.mbsc-@{theme}.mbsc-rating .mbsc-progress-track {
+    color: @output3_8;
+}
+
+
+/* Cards */
+
+.mbsc-@{theme} {
+    &.mbsc-card.mbsc-form {
+        background: lighten(@mobiscroll-background, 4%);
+    }
+    .mbsc-card-footer {
+        border-top: 1px solid @mobiscroll-border;
+    }
 }

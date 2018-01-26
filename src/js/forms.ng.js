@@ -1,8 +1,8 @@
 import angular from 'angular';
-import mobiscroll, { $ } from './frameworks/ng';
+import { $, mobiscroll } from './frameworks/ng';
+import { Form } from './classes/forms';
+import { Switch } from './classes/switch';
 import './page.ng';
-import Form from './classes/forms';
-import Switch from './classes/switch';
 
 var guid = +new Date();
 
@@ -72,6 +72,11 @@ angular
     .directive('mobiscrollSlider', ['$parse', function ($parse) {
         return mobiscroll.ng.getDDO($parse, 'mobiscrollSlider', {
             component: 'Slider'
+        }, undefined, undefined, undefined, undefined, true);
+    }])
+    .directive('mobiscrollRating', ['$parse', function($parse) {
+        return mobiscroll.ng.getDDO($parse, 'mobiscrollRating', {
+            component: 'Rating'
         }, undefined, undefined, undefined, undefined, true);
     }]);
 

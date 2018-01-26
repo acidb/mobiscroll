@@ -20,71 +20,71 @@ import {
     OnInit,
     Subject,
     Observable,
-    MbscInputService
+    MbscInputService,
+    MbscOptionsService
 } from './frameworks/angular';
 
-import Form from './classes/forms';
-import FormInput from './classes/input';
-import TextArea from './classes/textarea';
-import Select from './classes/select';
-import Button from './classes/button';
-import CheckBox from './classes/checkbox';
-import Switch from './classes/switch';
-import Stepper from './classes/stepper';
-import Progress from './classes/progress';
-import Radio from './classes/radio';
-import SegmentedItem from './classes/segmented';
-import Slider from './classes/slider';
+import { Form } from './classes/forms';
+import { Input as FormInput } from './classes/input';
+import { TextArea } from './classes/textarea';
+import { Select } from './classes/select';
+import { Button } from './classes/button';
+import { CheckBox } from './classes/checkbox';
+import { Switch } from './classes/switch';
+import { Stepper } from './classes/stepper';
+import { Progress } from './classes/progress';
+import { Radio } from './classes/radio';
+import { SegmentedItem } from './classes/segmented';
+import { Slider } from './classes/slider';
+import { Rating } from './classes/rating';
 
 import { MbscCoreOptions } from './core/core';
 
-export interface MbscFormOptions extends MbscCoreOptions {}
-
-
-@Injectable()
-export class MbscFormService {
-    private _options: any;
-
-    get options(): any {
-        return this._options;
-    }
-    set options(o: any) {
-        this._options = o;
-    }
-}
+export interface MbscFormOptions extends MbscCoreOptions { }
 
 @Component({
     selector: 'mbsc-form',
     template: `<div #rootElement><ng-content></ng-content></div>`,
-    providers: [MbscFormService],
+    providers: [MbscOptionsService],
     exportAs: 'mobiscroll'
 })
 export class MbscForm extends MbscBase implements OnInit {
+    private optionsObj: MbscFormOptions;
+
     @Input('options')
     options: MbscFormOptions;
 
     @ViewChild('rootElement')
     rootElem: ElementRef;
 
-    constructor(initialElem: ElementRef, private _formService: MbscFormService) {
+    constructor(initialElem: ElementRef, private _formService: MbscOptionsService) {
         super(initialElem);
     }
 
     ngOnInit() {
         // make the options available for the children components
-        this._formService.options = this.options;
+        // Note: inline evens should not be inherited
+        this.optionsObj = extend({}, this.options, this.inlineOptions());
+        this._formService.options = this.optionsObj;
     }
 
     ngAfterViewInit() {
         super.ngAfterViewInit();
 
-        let options = extend({}, this.options);
+        let options = extend({}, this.inlineEvents(), this.options, this.inlineOptions());
         this._instance = new Form(this.rootElem.nativeElement, options);
     }
 }
 
 export class MbscFormBase extends MbscBase implements OnInit {
     protected _inheritedOptions: any;
+
+    /**
+     * Input for the color preset
+     * Inherited by form controls
+     */
+    @Input()
+    color: string;
 
     /**
      * Input for the control options
@@ -108,7 +108,7 @@ export class MbscFormBase extends MbscBase implements OnInit {
     public _initElem: ElementRef;
 
 
-    constructor(hostElem: ElementRef, protected _formService: MbscFormService) {
+    constructor(hostElem: ElementRef, protected _formService: MbscOptionsService) {
         super(hostElem);
     }
 
@@ -174,7 +174,7 @@ export class MbscFormValueBase extends MbscFormBase implements ControlValueAcces
     valueChangeEmitter: EventEmitter<string> = new EventEmitter<string>();
 
 
-    constructor(hostElem: ElementRef, @Optional() _formService: MbscFormService, protected _control: NgControl, protected _noOverride: boolean) {
+    constructor(hostElem: ElementRef, @Optional() _formService: MbscOptionsService, protected _control: NgControl, protected _noOverride: boolean) {
         super(hostElem, _formService);
         if (_control && !_noOverride) {
             _control.valueAccessor = this;
@@ -245,7 +245,7 @@ export class MbscInputBase extends MbscFormValueBase {
     placeholder: string = '';
 
 
-    constructor(initialElem: ElementRef, @Optional() _formService: MbscFormService, _control: NgControl, noOverride: boolean) {
+    constructor(initialElem: ElementRef, @Optional() _formService: MbscOptionsService, _control: NgControl, noOverride: boolean) {
         super(initialElem, _formService, _control, noOverride);
     }
 }
@@ -254,7 +254,7 @@ export class MbscInputBase extends MbscFormValueBase {
     selector: 'mbsc-input',
     host: { '[class.mbsc-control-ng]': 'controlNg' },
     template: `
-        <label [class.mbsc-err]="error">
+        <label [class.mbsc-err]="error" [class.mbsc-select]="dropdown">
             <ng-content></ng-content>
             <span class="mbsc-input-wrap">
                 <input #initElement [type]="type" [placeholder]="placeholder" [(ngModel)]="innerValue" (blur)="onTouch($event)"
@@ -265,6 +265,7 @@ export class MbscInputBase extends MbscFormValueBase {
                     [attr.data-icon-show]="iconShow ? iconShow : null"
                     [attr.data-icon-hide]="iconHide ? iconHide : null"
                     [disabled]="disabled" />
+                <span *ngIf="dropdown" class="mbsc-select-ic mbsc-ic mbsc-ic-arrow-down5"></span>
                 <span *ngIf="error && errorMessage" class="mbsc-err-msg">{{errorMessage}}</span>
             </span>
         </label>
@@ -274,8 +275,11 @@ export class MbscInputBase extends MbscFormValueBase {
 export class MbscInput extends MbscInputBase {
     @Input()
     controlNg: boolean = true;
-    
-    constructor(initialElem: ElementRef, @Optional() _formService: MbscFormService, protected _inputService: MbscInputService, @Optional() _control: NgControl) {
+
+    @Input()
+    dropdown: boolean = false;
+
+    constructor(initialElem: ElementRef, @Optional() _formService: MbscOptionsService, protected _inputService: MbscInputService, @Optional() _control: NgControl) {
         super(initialElem, _formService, _control, _inputService.isControlSet);
         _inputService.input = this;
     }
@@ -285,7 +289,7 @@ export class MbscInput extends MbscInputBase {
     ngAfterViewInit() {
         super.ngAfterViewInit();
 
-        let options = extend({}, this._inheritedOptions, this.options, this.inlineOptions());
+        let options = extend({}, this._inheritedOptions, this.inlineEvents(), this.options, this.inlineOptions());
         this._instance = new FormInput(this._initElem.nativeElement, options);
     }
 }
@@ -309,7 +313,7 @@ export class MbscInput extends MbscInputBase {
     providers: [MbscInputService]
 })
 export class MbscTextarea extends MbscInputBase {
-    constructor(initialElem: ElementRef, @Optional() _formService: MbscFormService, protected _inputService: MbscInputService, @Optional() _control: NgControl) {
+    constructor(initialElem: ElementRef, @Optional() _formService: MbscOptionsService, protected _inputService: MbscInputService, @Optional() _control: NgControl) {
         super(initialElem, _formService, _control, _inputService.isControlSet);
         _inputService.input = this;
     }
@@ -319,7 +323,7 @@ export class MbscTextarea extends MbscInputBase {
     ngAfterViewInit() {
         super.ngAfterViewInit();
 
-        let options = extend({}, this._inheritedOptions, this.options);
+        let options = extend({}, this._inheritedOptions, this.inlineEvents(), this.options, this.inlineOptions());
         this._instance = new TextArea(this._initElem.nativeElement, options);
     }
 }
@@ -367,13 +371,17 @@ export class MbscDropdown extends MbscFormValueBase {
     @Input('icon-align')
     iconAlign: string;
 
-    constructor(hostElem: ElementRef, @Optional() formService: MbscFormService, protected _inputService: MbscInputService, @Optional() control: NgControl) {
-        super(hostElem, formService, control, _inputService.isControlSet);
-        _inputService.input = this;
+    @Input()
+    set value(v: any) {
+        this._value = v;
+        setTimeout(() => {
+            this._instance._setText();
+        });
     }
 
-    ngOnInit() {
-        super.ngOnInit();
+    constructor(hostElem: ElementRef, @Optional() formService: MbscOptionsService, protected _inputService: MbscInputService, @Optional() control: NgControl) {
+        super(hostElem, formService, control, _inputService.isControlSet);
+        _inputService.input = this;
     }
 
     /* AfterViewInit Interface */
@@ -381,7 +389,7 @@ export class MbscDropdown extends MbscFormValueBase {
     ngAfterViewInit() {
         super.ngAfterViewInit();
 
-        let options = extend({}, this._inheritedOptions, this.options);
+        let options = extend({}, this._inheritedOptions, this.inlineEvents(), this.options, this.inlineOptions());
         this._instance = new Select(this._initElem.nativeElement, options);
         let that = this;
         setTimeout(function () { // setTimeout also needed because the inner value is not propagated to the underlying select yet
@@ -427,21 +435,32 @@ export class MbscButton extends MbscFormBase {
     public _outline: boolean = false;
 
     get cssClasses() {
-        var classesObj: any = { 
-            'mbsc-btn-flat': this._flat, 
+        var classesObj: any = {
+            'mbsc-btn-flat': this._flat,
             'mbsc-btn-block': this._block,
             'mbsc-btn-outline': this._outline
         };
+
+        if (this.classes) {
+            let cssClasses = this.classes.split(' ');
+            if (cssClasses.length) {
+                for (let i = 0; i < cssClasses.length; i++) {
+                    if (cssClasses[i]) {
+                        classesObj[cssClasses[i]] = true;
+                    }
+                }
+            }
+        }
 
         if (this.color) {
             classesObj['mbsc-btn-' + this.color] = true;
         }
 
-        return  classesObj;
+        return classesObj;
     }
 
-    @Input()
-    color: string;
+    @Input('class')
+    classes: string;
 
     @Input()
     type: string = 'button';
@@ -463,18 +482,18 @@ export class MbscButton extends MbscFormBase {
 
     @Input()
     set outline(val: any) {
-        // sets the block setting to true if empty string is provided, aka without value (ex. <mbsc-button block>)
+        // sets the outline setting to true if empty string is provided, aka without value (ex. <mbsc-button outline>)
         this._outline = (typeof val === 'string' && (val === 'true' || val === '')) || !!val;
     }
 
-    constructor(hostElem: ElementRef, @Optional() formService: MbscFormService) {
+    constructor(hostElem: ElementRef, @Optional() formService: MbscOptionsService) {
         super(hostElem, formService);
     }
 
     ngAfterViewInit() {
         super.ngAfterViewInit();
 
-        let options = extend({}, this._inheritedOptions, this.options);
+        let options = extend({}, this._inheritedOptions, this.inlineEvents(), this.options, this.inlineOptions());
         this._instance = new Button(this._initElem.nativeElement, options);
     }
 }
@@ -483,7 +502,7 @@ export class MbscButton extends MbscFormBase {
     selector: 'mbsc-checkbox',
     host: { 'class': 'mbsc-control-ng' },
     template: `
-        <label>
+        <label [ngClass]="colorClass">
             <input #initElement 
                 type="checkbox"
                 [attr.name]="name"
@@ -495,14 +514,28 @@ export class MbscButton extends MbscFormBase {
     `
 })
 export class MbscCheckbox extends MbscFormValueBase {
-    constructor(hostElem: ElementRef, @Optional() formService: MbscFormService, @Optional() control: NgControl) {
+    /**
+     * Input for the color preset
+     */
+    @Input()
+    color: string;
+
+    get colorClass(): any {
+        let cl: any = {};
+        if (this.color) {
+            cl['mbsc-checkbox-' + this.color] = true;
+        }
+        return cl;
+    }
+
+    constructor(hostElem: ElementRef, @Optional() formService: MbscOptionsService, @Optional() control: NgControl) {
         super(hostElem, formService, control, false);
     }
 
     ngAfterViewInit() {
         super.ngAfterViewInit();
 
-        let options = extend({}, this._inheritedOptions, this.options);
+        let options = extend({}, this._inheritedOptions, this.inlineEvents(), this.options, this.inlineOptions());
         this._instance = new CheckBox(this._initElem.nativeElement, options);
     }
 }
@@ -511,7 +544,7 @@ export class MbscCheckbox extends MbscFormValueBase {
     selector: 'mbsc-switch',
     host: { 'class': 'mbsc-control-ng' },
     template: `
-        <label>
+        <label [ngClass]="colorClass">
             <ng-content></ng-content>
             <input #initElement 
                 type="checkbox"
@@ -535,6 +568,9 @@ export class MbscSwitch extends MbscControlBase implements OnInit {
     @Input()
     name: string;
 
+    @Input()
+    color: string;
+
     /** 
      * Called when the model changes
      * Used only without FormControl 
@@ -552,9 +588,17 @@ export class MbscSwitch extends MbscControlBase implements OnInit {
     onChangeEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     @ViewChild('initElement')
-    public _initElem: ElementRef;
+    _initElem: ElementRef;
 
-    constructor(hostElem: ElementRef, zone: NgZone, @Optional() protected _formService: MbscFormService, @Optional() control: NgControl) {
+    get colorClass() {
+        let cl: any = {};
+        if (this.color) {
+            cl['mbsc-switch-' + this.color] = true;
+        }
+        return cl;
+    }
+
+    constructor(hostElem: ElementRef, zone: NgZone, @Optional() protected _formService: MbscOptionsService, @Optional() control: NgControl) {
         super(hostElem, zone, control, null);
     }
 
@@ -573,7 +617,7 @@ export class MbscSwitch extends MbscControlBase implements OnInit {
     ngAfterViewInit() {
         super.ngAfterViewInit();
 
-        let options = extend({}, this._inheritedOptions, this.options);
+        let options = extend({}, this._inheritedOptions, this.inlineEvents(), this.options, this.inlineOptions());
         this._instance = new Switch(this._initElem.nativeElement, options);
 
         if (this.initialValue !== undefined) {
@@ -589,7 +633,7 @@ export class MbscSwitch extends MbscControlBase implements OnInit {
     selector: 'mbsc-stepper',
     host: { 'class': 'mbsc-control-ng' },
     template: `
-        <div>
+        <div [ngClass]="colorClass">
             <ng-content></ng-content>
             <input #initElement
                 data-role="stepper"
@@ -639,6 +683,20 @@ export class MbscStepper extends MbscControlBase implements OnInit {
     disabled: boolean = false;
 
     /**
+     * Input for the color preset
+     */
+    @Input()
+    color: string;
+
+    get colorClass(): any {
+        let cl: any = {};
+        if (this.color) {
+            cl['mbsc-stepper-' + this.color] = true;
+        }
+        return cl;
+    }
+
+    /**
      * EventEmitter for the value change
      * Used when no ngModel is specified on the component
      */
@@ -652,7 +710,7 @@ export class MbscStepper extends MbscControlBase implements OnInit {
     @ViewChild('initElement')
     public _initElem: ElementRef;
 
-    constructor(hostElement: ElementRef, zone: NgZone, @Optional() protected _formService: MbscFormService, @Optional() control: NgControl) {
+    constructor(hostElement: ElementRef, zone: NgZone, @Optional() protected _formService: MbscOptionsService, @Optional() control: NgControl) {
         super(hostElement, zone, control, null);
     }
 
@@ -673,7 +731,7 @@ export class MbscStepper extends MbscControlBase implements OnInit {
     ngAfterViewInit() {
         super.ngAfterViewInit();
 
-        let options = extend({}, this._inheritedOptions, this.options);
+        let options = extend({}, this._inheritedOptions, this.inlineEvents(), this.options, this.inlineOptions());
         this._instance = new Stepper(this._initElem.nativeElement, options);
 
         if (this.initialValue !== undefined) {
@@ -687,7 +745,7 @@ export class MbscStepper extends MbscControlBase implements OnInit {
     selector: 'mbsc-progress',
     host: { 'class': 'mbsc-control-ng' },
     template: `
-        <label>
+        <label [ngClass]="colorClass">
             <ng-content></ng-content>
             <progress #initElement
                 [attr.data-step-labels]="stepLabels"
@@ -737,6 +795,17 @@ export class MbscProgress extends MbscControlBase implements OnInit {
     @Input('step-labels')
     stepLabels: Array<number>;
 
+    @Input()
+    color: string;
+
+    get colorClass(): any {
+        let cl: any = {};
+        if (this.color) {
+            cl['mbsc-progress-' + this.color] = true;
+        }
+        return cl;
+    }
+
     /**
      * Reference for the input element in the template.
      * The control is initialized on this element.
@@ -744,7 +813,7 @@ export class MbscProgress extends MbscControlBase implements OnInit {
     @ViewChild('initElement')
     public _initElem: ElementRef;
 
-    constructor(hostElement: ElementRef, zone: NgZone, @Optional() protected _formService: MbscFormService, @Optional() control: NgControl) {
+    constructor(hostElement: ElementRef, zone: NgZone, @Optional() protected _formService: MbscOptionsService, @Optional() control: NgControl) {
         super(hostElement, zone, control, null);
     }
 
@@ -765,7 +834,7 @@ export class MbscProgress extends MbscControlBase implements OnInit {
     ngAfterViewInit() {
         super.ngAfterViewInit();
 
-        let options = extend({}, this._inheritedOptions, this.options);
+        let options = extend({}, this._inheritedOptions, this.inlineEvents(), this.options, this.inlineOptions());
         this._instance = new Progress(this._initElem.nativeElement, options);
 
         if (this.initialValue !== undefined) {
@@ -773,6 +842,7 @@ export class MbscProgress extends MbscControlBase implements OnInit {
         }
     }
 }
+
 let groupName = 1;
 
 @Injectable()
@@ -803,6 +873,14 @@ export class MbscRadioService {
     changeValue(v: any) {
         this._valueSubject.next(v);
     }
+
+    private _color: string;
+    get color(): string {
+        return this._color;
+    }
+    set color(v: string) {
+        this._color = v;
+    }
 }
 
 
@@ -810,7 +888,13 @@ export class MbscRadioGroupBase extends MbscFormValueBase {
     @Input()
     name: string;
 
-    constructor(hostElement: ElementRef, @Optional() formService: MbscFormService, protected _radioService: MbscRadioService, control: NgControl) {
+    @Input()
+    set value(v: any) {
+        this._value = v;
+        this._radioService.changeValue(v);
+    }
+
+    constructor(hostElement: ElementRef, @Optional() formService: MbscOptionsService, protected _radioService: MbscRadioService, control: NgControl) {
         super(hostElement, formService, control, null);
         this._radioService.onValueChanged().subscribe(v => {
             this.innerValue = v;
@@ -824,6 +908,9 @@ export class MbscRadioGroupBase extends MbscFormValueBase {
         super.ngOnInit();
         if (this.name) {
             this._radioService.name = this.name;
+        }
+        if (this.color) {
+            this._radioService.color = this.color;
         }
     }
 
@@ -839,15 +926,11 @@ export class MbscRadioGroupBase extends MbscFormValueBase {
 
 @Component({
     selector: 'mbsc-radio-group',
-    template: `
-        <div>
-            <ng-content></ng-content>
-        </div>
-    `,
+    template: `<ng-content></ng-content>`,
     providers: [MbscRadioService]
 })
 export class MbscRadioGroup extends MbscRadioGroupBase {
-    constructor(hostElement: ElementRef, @Optional() formService: MbscFormService, radioService: MbscRadioService, @Optional() control: NgControl) {
+    constructor(hostElement: ElementRef, @Optional() formService: MbscOptionsService, radioService: MbscRadioService, @Optional() control: NgControl) {
         super(hostElement, formService, radioService, control);
     }
 }
@@ -856,7 +939,7 @@ export class MbscRadioGroup extends MbscRadioGroupBase {
     selector: 'mbsc-radio',
     host: { 'class': 'mbsc-control-ng' },
     template: `
-        <label>
+        <label [ngClass]="colorClass">
             <input #initElement 
                 type="radio" 
                 [attr.name]="name" 
@@ -876,15 +959,24 @@ export class MbscRadio extends MbscFormBase {
 
     name: string;
     modelValue: any;
+    color: string;
 
     @Input()
     value: any;
+
+    get colorClass() {
+        let cl: any = {};
+        if (this.color) {
+            cl['mbsc-radio-' + this.color] = true;
+        }
+        return cl;
+    }
 
     clicked(e: any) {
         this._radioService.changeValue(this.value);
     }
 
-    constructor(hostElement: ElementRef, @Optional() formService: MbscFormService, private _radioService: MbscRadioService) {
+    constructor(hostElement: ElementRef, @Optional() formService: MbscOptionsService, private _radioService: MbscRadioService) {
         super(hostElement, formService);
         this._radioService.onValueChanged().subscribe(v => {
             this.modelValue = v;
@@ -894,13 +986,14 @@ export class MbscRadio extends MbscFormBase {
     ngAfterViewInit() {
         super.ngAfterViewInit();
 
-        let options = extend({}, this._inheritedOptions, this.options);
+        let options = extend({}, this._inheritedOptions, this.inlineEvents(), this.options, this.inlineOptions());
         this._instance = new Radio(this._initElem.nativeElement, options);
     }
 
     ngOnInit() {
         super.ngOnInit();
         this.name = this._radioService.name;
+        this.color = this._radioService.color;
     }
 }
 
@@ -917,20 +1010,23 @@ export class MbscSegmentedGroup extends MbscRadioGroupBase {
         return this.select == 'multiple';
     }
 
-    constructor(hostElement: ElementRef, @Optional() formService: MbscFormService, radioService: MbscRadioService, @Optional() control: NgControl) {
+    constructor(hostElement: ElementRef, @Optional() formService: MbscOptionsService, radioService: MbscRadioService, @Optional() control: NgControl) {
         super(hostElement, formService, radioService, control);
     }
 
     ngOnInit() {
         super.ngOnInit();
         this._radioService.multiSelect = this.multiSelect;
+        if (this.color) {
+            this._radioService.color = this.color;
+        }
     }
 }
 
 
 @Component({
     selector: 'mbsc-segmented',
-    host: { class: 'mbsc-segmented-item' },
+    host: { '[class]': 'cssClass' },
     template: `
         <label class="mbsc-segmented-item-ready">
             <input #initElement 
@@ -980,7 +1076,15 @@ export class MbscSegmented extends MbscFormBase {
         }
     }
 
-    constructor(hostElement: ElementRef, @Optional() formService: MbscFormService, private _radioService: MbscRadioService) {
+    get cssClass(): string {
+        let cl = 'mbsc-segmented-item';
+        if (this.color) {
+            cl += ' mbsc-segmented-' + this.color;
+        }
+        return cl;
+    }
+
+    constructor(hostElement: ElementRef, @Optional() formService: MbscOptionsService, private _radioService: MbscRadioService) {
         super(hostElement, formService);
         this._radioService.onValueChanged().subscribe(v => {
             this.modelValue = v;
@@ -990,7 +1094,7 @@ export class MbscSegmented extends MbscFormBase {
     ngAfterViewInit() {
         super.ngAfterViewInit();
 
-        let options = extend({}, this._inheritedOptions, this.options);
+        let options = extend({}, this._inheritedOptions, this.inlineEvents(), this.options, this.inlineOptions());
         this._instance = new SegmentedItem(this._initElem.nativeElement, options);
     }
 
@@ -998,6 +1102,7 @@ export class MbscSegmented extends MbscFormBase {
         super.ngOnInit();
         this.name = this._radioService.name;
         this.multiSelect = this._radioService.multiSelect;
+        this.color = this._radioService.color;
     }
 }
 
@@ -1005,12 +1110,12 @@ export class MbscSegmented extends MbscFormBase {
     selector: 'mbsc-slider',
     host: { 'class': 'mbsc-control-ng' },
     template: `
-        <label>
+        <label [ngClass]="colorClass">
             <ng-content></ng-content>
             <input #inputElements *ngFor="let v of dummyArray" 
                 type="range"
                 [disabled]="disabled"
-                [attr.value]="dummyArray.length > 1 ? initialValue[v]: initialValue"
+                [attr.value]="dummyArray.length > 1 && initialValue ? initialValue[v]: initialValue"
                 [attr.data-step-labels]="stepLabels"
                 [attr.data-template]="valueTemplate"
                 [attr.data-tooltip]="tooltip ? 'true' : null"
@@ -1092,6 +1197,20 @@ export class MbscSlider extends MbscControlBase {
     }
 
     /**
+     * Input for the color presets
+     */
+    @Input()
+    color: string;
+
+    get colorClass(): any {
+        let cl: any = {};
+        if (this.color) {
+            cl['mbsc-slider-' + this.color] = true;
+        }
+        return cl;
+    }
+
+    /**
      * EventEmitter for the value change
      * Used only without FormControl
      */
@@ -1101,7 +1220,7 @@ export class MbscSlider extends MbscControlBase {
     @ViewChildren('inputElements')
     public inputElements: QueryList<ElementRef>;
 
-    constructor(hostElement: ElementRef, @Optional() private _formService: MbscFormService, zone: NgZone, @Optional() control: NgControl) {
+    constructor(hostElement: ElementRef, @Optional() private _formService: MbscOptionsService, zone: NgZone, @Optional() control: NgControl) {
         super(hostElement, zone, control, null);
     }
 
@@ -1112,8 +1231,12 @@ export class MbscSlider extends MbscControlBase {
     reInitialize() {
         this._instance.destroy();
         this.setElement();
-        this.handleChange();
-        let options = extend({}, this._inheritedOptions, this.options);
+        this.inputElements.forEach((input, index) => {
+            if (index) {
+                this.handleChange(input.nativeElement);
+            }
+        });
+        let options = extend({}, this._inheritedOptions, this.inlineEvents(), this.options, this.inlineOptions());
         this._instance = new Slider(this.inputElements.first.nativeElement, options);
     }
 
@@ -1161,8 +1284,119 @@ export class MbscSlider extends MbscControlBase {
             }
         });
 
-        let options = extend({}, this._inheritedOptions, this.options);
+        let options = extend({}, this._inheritedOptions, this.inlineEvents(), this.options, this.inlineOptions());
         this._instance = new Slider(this.inputElements.first.nativeElement, options);
+
+        if (this.initialValue !== undefined && this.initialValue !== null) {
+            this._instance.setVal(this.initialValue, true, false);
+        }
+    }
+}
+
+@Component({
+    selector: 'mbsc-rating',
+    host: { 'class': 'mbsc-control-ng' },
+    template: `<label [ngClass]="colorClass">
+        <ng-content></ng-content>
+        <input type="rating" data-role="rating" 
+            [attr.name]="name"
+            [attr.min]="min !== undefined ? min : null"
+            [attr.max]="max !== undefined ? max : null"
+            [attr.step]="step !== undefined ? step : null"
+            [attr.data-val]="val ? val : null"
+            [attr.data-template]="template ? template : null"
+            [attr.data-empty]="empty"
+            [attr.data-filled]="filled"
+            [disabled]="disabled"
+            (blur)="onTouch($event)" />
+    </label>`
+})
+export class MbscRating extends MbscControlBase implements OnInit {
+    protected _inheritedOptions: any;
+
+    @Input()
+    options: MbscFormOptions;
+
+    @Input()
+    name: string;
+
+    @Input()
+    min: number = undefined;
+
+    @Input()
+    max: number = undefined;
+
+    @Input()
+    step: number = undefined;
+
+    @Input()
+    disabled: boolean = false;
+    
+    @Input()
+    empty: string;
+
+    @Input()
+    filled: string;
+    
+    /**
+     * Input for the data-val attribute. Can be one of 'left' or 'right'
+     */
+    @Input()
+    val: 'left' | 'right' = undefined;
+
+    @Input()
+    template: string;
+    /** 
+     * Called when the model changes
+     * Used only without FormControl 
+     */
+    @Input('value')
+    set value(v: number) {
+        this.setNewValueProxy(v);
+    }
+
+    /**
+     * EventEmitter for the value change
+     * Used only without FormControl
+     */
+    @Output('valueChange')
+    onChangeEmitter: EventEmitter<number> = new EventEmitter<number>();
+
+    /**
+     * Input for the color presets
+     */
+    @Input()
+    color: string;
+
+    get colorClass(): any {
+        let cl: any = {};
+        if (this.color) {
+            cl['mbsc-rating-' + this.color] = true;
+        }
+        return cl;
+    }
+    
+    constructor(hostElem: ElementRef, zone: NgZone, @Optional() protected formService: MbscOptionsService, @Optional() control: NgControl) {
+        super(hostElem, zone, control, null);       
+    }
+
+    setNewValue(v: number) {
+        if (this._instance) {
+            if (this._instance.getVal() !== v) {
+                this._instance.setVal(v, true, false);
+            }
+        }
+    }
+
+    ngOnInit() {
+        this._inheritedOptions = this.formService ? this.formService.options : {};
+    }
+
+    ngAfterViewInit() {
+        super.ngAfterViewInit();
+
+        let options = extend({}, this._inheritedOptions, this.inlineEvents(), this.options, this.inlineOptions());
+        this._instance = new Rating(this.element, options);
 
         if (this.initialValue !== undefined) {
             this._instance.setVal(this.initialValue, true, false);

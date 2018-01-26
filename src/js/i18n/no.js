@@ -1,6 +1,6 @@
 // Norsk
 
-import mobiscroll from '../core/core';
+import { mobiscroll } from '../core/core';
 
 export default mobiscroll;
 
@@ -33,7 +33,6 @@ mobiscroll.i18n.no = {
     firstDay: 1,
     dateText: 'Dato',
     timeText: 'Tid',
-    calendarText: 'Kalender',
     closeText: 'Lukk',
     // Daterange component
     fromText: 'Start',

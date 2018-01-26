@@ -1,6 +1,6 @@
 // Nederlands
 
-import mobiscroll from '../core/core';
+import { mobiscroll } from '../core/core';
 
 export default mobiscroll;
 
@@ -8,7 +8,7 @@ mobiscroll.i18n.nl = {
     // Core
     setText: 'Instellen',
     cancelText: 'Annuleren',
-    clearText: 'Duidelijk',
+    clearText: 'Leegmaken',
     selectedText: '{count} gekozen',
     // Datetime component
     dateFormat: 'dd-mm-yy',
@@ -32,7 +32,6 @@ mobiscroll.i18n.nl = {
     firstDay: 1,
     dateText: 'Datum',
     timeText: 'Tijd',
-    calendarText: 'Kalender',
     closeText: 'Sluiten',
     // Daterange component
     fromText: 'Start',

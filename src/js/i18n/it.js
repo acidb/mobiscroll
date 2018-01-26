@@ -1,6 +1,6 @@
 // Italiano 
 
-import mobiscroll from '../core/core';
+import { mobiscroll } from '../core/core';
 
 export default mobiscroll;
 
@@ -33,7 +33,6 @@ mobiscroll.i18n.it = {
     firstDay: 1,
     dateText: 'Data',
     timeText: 'Volta',
-    calendarText: 'Calendario',
     closeText: 'Chiudere',
     // Daterange component
     fromText: 'Inizio',

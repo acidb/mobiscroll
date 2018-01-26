@@ -1,6 +1,6 @@
 // Cestina
 
-import mobiscroll from '../core/core';
+import { mobiscroll } from '../core/core';
 
 export default mobiscroll;
 
@@ -32,7 +32,6 @@ mobiscroll.i18n.cs = {
     firstDay: 1,
     dateText: 'Datum',
     timeText: 'Čas',
-    calendarText: 'Kalendář',
     closeText: 'Zavřít',
     // Daterange component
     fromText: 'Začátek',

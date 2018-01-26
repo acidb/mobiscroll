@@ -12,10 +12,11 @@ import {
     NgZone,
     Optional,
     NgControl,
-    MbscInputService
+    MbscInputService,
+    MbscOptionsService
 } from './frameworks/angular';
 
-import Scroller from './classes/scroller';
+import { Scroller } from './classes/scroller';
 import { MbscScrollerOptions } from './core/core';
 
 @Directive({
@@ -45,7 +46,7 @@ export class MbscScroller extends MbscScrollerBase {
     @Output('mbsc-scrollerChange')
     onChangeEmitter: EventEmitter<string> = new EventEmitter<string>();
 
-    constructor(initialElement: ElementRef, zone: NgZone, @Optional() control: NgControl, @Optional() inputService: MbscInputService) {
+    constructor(initialElement: ElementRef, zone: NgZone, @Optional() control: NgControl, @Optional() inputService: MbscInputService, @Optional() public optionService: MbscOptionsService) {
         super(initialElement, zone, control, inputService);
     }
 
@@ -74,7 +75,7 @@ export class MbscScroller extends MbscScrollerBase {
     ngAfterViewInit() {
         super.ngAfterViewInit();
 
-        let options = extend({}, this.options, this.inlineOptions(), this.optionExtensions);
+        let options = extend({}, this.optionService ? this.optionService.options : {}, this.inlineEvents(), this.options, this.inlineOptions(), this.optionExtensions);
         this._instance = new Scroller(this.element, options);
 
         // set the initial value - needed when there's no ngModel in use
@@ -102,9 +103,11 @@ export class MbscScrollerComponent extends MbscScroller {
     errorMessage: string = '';
     @Input()
     options: MbscScrollerOptions;
+    @Input()
+    placeholder: string = '';
 
-    constructor(initialElem: ElementRef, zone: NgZone, @Optional() control: NgControl, @Optional() inputService: MbscInputService) {
-        super(initialElem, zone, control, inputService);
+    constructor(initialElem: ElementRef, zone: NgZone, @Optional() control: NgControl, @Optional() inputService: MbscInputService, @Optional() optionService: MbscOptionsService) {
+        super(initialElem, zone, control, inputService, optionService);
     }
 
     ngAfterViewInit() {

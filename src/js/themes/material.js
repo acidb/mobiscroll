@@ -1,4 +1,4 @@
-import mobiscroll, { $, extend } from '../core/core';
+import { $, extend, mobiscroll } from '../core/core';
 import { getCoord } from '../util/tap';
 import { testTouch } from '../util/dom';
 
@@ -80,7 +80,7 @@ themes.frame.material = {
     btnWidth: false,
     deleteIcon: 'material-backspace',
     onMarkupReady: function (ev) {
-        initRipple($(ev.target), '.mbsc-fr-btn-e', 'mbsc-fr-btn-d', 'mbsc-fr-btn-nhl');
+        initRipple($(ev.target), '.mbsc-fr-btn-e', 'mbsc-disabled', 'mbsc-fr-btn-nhl');
     }
 };
 
@@ -125,7 +125,7 @@ themes.listview.material = {
 
 themes.navigation.material = {
     onInit: function () {
-        initRipple($(this), '.mbsc-ms-item.mbsc-btn-e', 'mbsc-btn-d', 'mbsc-btn-nhl');
+        initRipple($(this), '.mbsc-ms-item.mbsc-btn-e', 'mbsc-disabled', 'mbsc-btn-nhl');
     },
     onMarkupInit: function () {
         $('.mbsc-ripple', this).remove();

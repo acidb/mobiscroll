@@ -1,20 +1,23 @@
-import mobiscroll, { $, extend } from '../core/core';
+/* eslint-disable no-unused-vars */
+import { mobiscroll } from '../core/core'; // mobiscroll needed for trial
+/* eslint-enable no-unused-vars */
+import { $, extend, classes } from '../core/core';
 import { os, isBrowser } from '../util/platform';
-import { getCoord } from '../util/tap';
-import { cssPrefix, jsPrefix, testTouch } from '../util/dom';
+import { cssPrefix, jsPrefix } from '../util/dom';
 import { isNumeric, objectToArray } from '../util/misc';
-import Frame from './frame';
-import ScrollViewBase from './scrollview-base';
+import { createStepper } from '../util/stepper';
+import { Frame } from './frame';
+import { ScrollViewBase } from './scrollview-base';
 
-var css = isBrowser ? window.CSS : null,
+var presets = {},
+    css = isBrowser ? window.CSS : null,
     has3d = css && css.supports && css.supports("(transform-style: preserve-3d)"),
     force2D = !has3d || os == 'wp' || os == 'android';
 
-mobiscroll.presetShort('scroller', 'Scroller', false);
+export { presets };
 
-const Scroller = function (el, settings, inherit) {
+export const Scroller = function (el, settings, inherit) {
     var $markup,
-        $stepBtn,
         batchSize3d,
         batchSize = 40,
         animTime = 1000,
@@ -22,11 +25,7 @@ const Scroller = function (el, settings, inherit) {
         scroll3d,
         selectedClass,
         showScrollArrows,
-        stepTimer,
-        stepRunning,
-        stepSkip,
-        stepBtnX,
-        stepBtnY,
+        stepper,
         tempWheelArray,
         itemHeight,
         itemHeight3d,
@@ -40,56 +39,6 @@ const Scroller = function (el, settings, inherit) {
         $elm = $(el);
 
     // Event handlers
-
-    function onBtnStart(ev) {
-        var i = +$(this).attr('data-index');
-
-        ev.stopPropagation();
-
-        if (ev.type === 'mousedown') {
-            // Prevent focus
-            ev.preventDefault();
-        }
-
-        if (testTouch(ev, this) && !isReadOnly(i)) {
-
-            $stepBtn = $(this).addClass('mbsc-sc-btn-a');
-
-            stepBtnX = getCoord(ev, 'X');
-            stepBtnY = getCoord(ev, 'Y');
-
-            stepRunning = true;
-            stepSkip = false;
-            setTimeout(function () {
-                runStepper(i, $stepBtn.attr('data-dir') == 'inc' ? 1 : -1);
-            }, 100);
-
-            if (ev.type === 'mousedown') {
-                $(document)
-                    .on('mousemove', onBtnMove)
-                    .on('mouseup', onBtnEnd);
-            }
-        }
-    }
-
-    function onBtnMove(ev) {
-        if (Math.abs(stepBtnX - getCoord(ev, 'X')) > 7 || Math.abs(stepBtnY - getCoord(ev, 'Y')) > 7) {
-            stopStepper(true);
-        }
-    }
-
-    function onBtnEnd(ev) {
-        stopStepper();
-
-        // Prevent scroll on double tap on iOS
-        ev.preventDefault();
-
-        if (ev.type === 'mouseup') {
-            $(document)
-                .off('mousemove', onBtnMove)
-                .off('mouseup', onBtnEnd);
-        }
-    }
 
     function onKeyDown(ev) {
         var i = $(this).attr('data-index'),
@@ -111,21 +60,19 @@ const Scroller = function (el, settings, inherit) {
             ev.stopPropagation();
             ev.preventDefault();
 
-            if (direction && !stepRunning) {
-                stepRunning = true;
-                stepSkip = false;
-                runStepper(i, direction);
+            if (direction) {
+                stepper.start(i, direction);
             }
         }
     }
 
     function onKeyUp() {
-        stopStepper();
+        stepper.stop();
     }
 
     function onItemTap(i, $item) {
         var wheel = wheels[i],
-            idx = $item.attr('data-index'),
+            idx = +$item.attr('data-index'),
             val = getValue(wheel, idx),
             selected = that._tempSelected[i],
             maxSelect = isNumeric(wheel.multiple) ? wheel.multiple : Infinity;
@@ -194,29 +141,6 @@ const Scroller = function (el, settings, inherit) {
 
     function getValue(wheel, i) {
         return getItemValue(getItem(wheel, i));
-    }
-
-    function runStepper(index, direction) {
-        if (!stepSkip) {
-            step(index, direction);
-        }
-
-        if (stepRunning) {
-            clearInterval(stepTimer);
-            stepTimer = setInterval(function () {
-                step(index, direction);
-            }, s.delay);
-        }
-    }
-
-    function stopStepper(skip) {
-        clearInterval(stepTimer);
-        stepSkip = skip;
-        stepRunning = false;
-
-        if ($stepBtn) {
-            $stepBtn.removeClass('mbsc-sc-btn-a');
-        }
     }
 
     function step(index, direction) {
@@ -313,8 +237,8 @@ const Scroller = function (el, settings, inherit) {
                 (selected ? 'mbsc-sc-itm-sel ' : '') +
                 (checked[value] ? selectedClass : '') +
                 (value === undefined ? ' mbsc-sc-itm-ph' : ' mbsc-btn-e') +
-                (invalid ? ' mbsc-sc-itm-inv-h mbsc-btn-d' : '') +
-                (disabled[value] ? ' mbsc-sc-itm-inv mbsc-btn-d' : '') +
+                (invalid ? ' mbsc-sc-itm-inv-h mbsc-disabled' : '') +
+                (disabled[value] ? ' mbsc-sc-itm-inv mbsc-disabled' : '') +
                 '" data-index="' + i +
                 '" data-val="' + value + '"' +
                 (lbl ? ' aria-label="' + lbl + '"' : '') +
@@ -329,11 +253,6 @@ const Scroller = function (el, settings, inherit) {
         }
 
         return html;
-    }
-
-    function formatHeader(v) {
-        var t = s.headerText;
-        return t ? (typeof t === 'function' ? t.call(el, v) : t.replace(/\{value\}/i, v)) : '';
     }
 
     function infinite(wheel, i, pos) {
@@ -442,7 +361,7 @@ const Scroller = function (el, settings, inherit) {
             $.each(wheels, function (i, wheel) {
                 if (isVisible) {
                     // Enable all items
-                    wheel._$markup.find('.mbsc-sc-itm-inv').removeClass('mbsc-sc-itm-inv mbsc-btn-d');
+                    wheel._$markup.find('.mbsc-sc-itm-inv').removeClass('mbsc-sc-itm-inv mbsc-disabled');
                 }
                 wheel._disabled = {};
 
@@ -451,7 +370,7 @@ const Scroller = function (el, settings, inherit) {
                     $.each(ret.disabled[i], function (j, v) {
                         wheel._disabled[v] = true;
                         if (isVisible) {
-                            wheel._$markup.find('.mbsc-sc-itm[data-val="' + v + '"]').addClass('mbsc-sc-itm-inv mbsc-btn-d');
+                            wheel._$markup.find('.mbsc-sc-itm[data-val="' + v + '"]').addClass('mbsc-sc-itm-inv mbsc-disabled');
                         }
                     });
                 }
@@ -505,14 +424,13 @@ const Scroller = function (el, settings, inherit) {
             });
         }
 
-        trigger('onValidated');
+        trigger('onValidated', { index: index, time: time });
 
         // Get formatted value
-        that._tempValue = s.formatValue(tempWheelArray, that);
+        that._tempValue = s.formatValue.call(el, tempWheelArray, that);
 
         if (isVisible) {
-            // Update header text
-            that._header.html(formatHeader(that._tempValue));
+            that._updateHeader();
         }
 
         // If in live mode, set and fill value on every move
@@ -542,6 +460,7 @@ const Scroller = function (el, settings, inherit) {
 
             // In case of circular wheels calculate the offset of the current batch
             wheel._batch = wheel._array ? Math.floor(idx / wheel._length) * wheel._length : 0;
+            wheel._index = idx;
 
             setTimeout(function () {
                 scrollToPos(time, i, dir, true, tap, noscroll);
@@ -553,7 +472,7 @@ const Scroller = function (el, settings, inherit) {
         if (!noscroll) {
             scrollToPos(time);
         } else {
-            that._tempValue = s.formatValue(that._tempWheelArray, that);
+            that._tempValue = s.formatValue.call(el, that._tempWheelArray, that);
         }
 
         if (!temp) {
@@ -702,8 +621,8 @@ const Scroller = function (el, settings, inherit) {
                     '<div tabindex="0" aria-live="off" aria-label="' + lbl + '"' + (w.multiple ? ' aria-multiselectable="true"' : '') + ' role="listbox" data-index="' + l + '" class="mbsc-sc-whl"' + ' style="' +
                     'height:' + (s.rows * itemHeight * (scroll3d ? 1.1 : 1)) + 'px;">' +
                     (showScrollArrows ?
-                        '<div data-index="' + l + '" data-dir="inc" class="mbsc-sc-btn mbsc-sc-btn-plus ' + (s.btnPlusClass || '') + '" style="height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;"></div>' + // + button
-                        '<div data-index="' + l + '" data-dir="dec" class="mbsc-sc-btn mbsc-sc-btn-minus ' + (s.btnMinusClass || '') + '" style="height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;"></div>' : '') + // - button
+                        '<div data-index="' + l + '" data-step="1" class="mbsc-sc-btn mbsc-sc-btn-plus ' + (s.btnPlusClass || '') + '" style="height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;"></div>' + // + button
+                        '<div data-index="' + l + '" data-step="-1" class="mbsc-sc-btn mbsc-sc-btn-minus ' + (s.btnMinusClass || '') + '" style="height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;"></div>' : '') + // - button
                     '<div class="mbsc-sc-lbl">' + lbl + '</div>' + // Wheel label
                     '<div class="mbsc-sc-whl-c"' +
                     ' style="height:' + itemHeight3d + 'px;margin-top:-' + (itemHeight3d / 2 + 1) + 'px;' + style + '">' +
@@ -735,10 +654,7 @@ const Scroller = function (el, settings, inherit) {
     };
 
     that._attachEvents = function ($markup) {
-        $('.mbsc-sc-btn', $markup)
-            .on('touchstart mousedown', onBtnStart)
-            .on('touchmove', onBtnMove)
-            .on('touchend touchcancel', onBtnEnd);
+        stepper = createStepper($('.mbsc-sc-btn', $markup), step, s.delay, isReadOnly, true);
 
         $('.mbsc-sc-whl', $markup)
             .on('keydown', onKeyDown)
@@ -869,11 +785,11 @@ const Scroller = function (el, settings, inherit) {
         trigger = that.trigger;
         lines = s.multiline;
         selectedClass = 'mbsc-sc-itm-sel mbsc-ic mbsc-ic-' + s.checkIcon;
-        wheels = [];
-        wheelsMap = {};
     };
 
     that.__init = function () {
+        wheels = [];
+        wheelsMap = {};
         showScrollArrows = s.showScrollArrows;
         scroll3d = s.scroll3d && !force2D && !showScrollArrows;
         itemHeight = s.height;
@@ -906,8 +822,8 @@ Scroller.prototype = {
     _hasDef: true,
     _hasTheme: true,
     _hasLang: true,
-    _hasPreset: true,
     _class: 'scroller',
+    _presets: presets,
     _defaults: extend({}, Frame.prototype._defaults, {
         // Options
         minWidth: 80,
@@ -959,6 +875,4 @@ Scroller.prototype = {
     })
 };
 
-mobiscroll.classes.Scroller = Scroller;
-
-export default Scroller;
+classes.Scroller = Scroller;

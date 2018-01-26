@@ -1,10 +1,10 @@
-import mobiscroll from './mobiscroll';
-export default mobiscroll;
+import { mobiscroll } from './mobiscroll';
+export { mobiscroll };
 export const $: any;
 export const extend: any;
 
 export interface MbscCoreOptions {
-    // Settings
+    // Settingss
     theme?: string;
     lang?: string;
     rtl?: boolean;
@@ -115,6 +115,10 @@ export interface MbscCalbaseOptions extends MbscDatetimeOptions {
     calendarScroll?: 'horizontal' | 'vertical';
     counter?: boolean;
     defaultValue?: Date | Array<Date>;
+    labels?: Array<{ start?: Date, end?: Date, d?: string | Date, text?: string, color?: string, background?: string, cssClass?: string }>;
+    events?: Array<{ start?: Date, end?: Date, d?: string | Date, text?: string, color?: string, background?: string, cssClass?: string }>;
+    marked?: Array<Date | number | string | { d: Date | number | string, color?: string, background?: string, cssClass?: string }>;
+    colors?: Array<{ d: Date | number | string, background?: string, cssClass?: string }>;
     months?: number | 'auto';
     outerMonthChange?: boolean;
     showOuterDays?: boolean;
@@ -125,7 +129,6 @@ export interface MbscCalbaseOptions extends MbscDatetimeOptions {
     yearChange?: boolean;
 
     // localization
-    calendarText?: string;
     dateText?: string;
     dayNamesMin?: Array<string>;
     firstDay?: number;

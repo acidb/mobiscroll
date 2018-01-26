@@ -3,7 +3,7 @@
  * Translation by: Ivan Gomes <contato@ivangomes.com.br>
  */
 
-import mobiscroll from '../core/core';
+import { mobiscroll } from '../core/core';
 
 export default mobiscroll;
 
@@ -35,7 +35,6 @@ mobiscroll.i18n['pt-BR'] = {
     // Calendar component
     dateText: 'Data',
     timeText: 'Tempo',
-    calendarText: 'Calendário',
     closeText: 'Fechar',
     // Daterange component
     fromText: 'In&iacute;cio',

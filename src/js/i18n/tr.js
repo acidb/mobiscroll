@@ -1,6 +1,6 @@
 // Türkçe
 
-import mobiscroll from '../core/core';
+import { mobiscroll } from '../core/core';
 
 export default mobiscroll;
 
@@ -33,7 +33,6 @@ mobiscroll.i18n.tr = {
     firstDay: 1,
     dateText: 'Tarih',
     timeText: 'Zaman',
-    calendarText: 'Takvim',
     closeText: 'Kapatmak',
     // Daterange component
     fromText: 'Başla',

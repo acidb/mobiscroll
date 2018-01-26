@@ -1,7 +1,7 @@
 import { $, Base } from '../core/core';
 import { noop } from '../util/misc';
 
-var ProgressBase = function (elm, settings, inherit) {
+export const ProgressBase = function (elm, settings, inherit) {
     var $elm,
         $parent,
         cssClass,
@@ -64,5 +64,3 @@ var ProgressBase = function (elm, settings, inherit) {
         that.init(settings);
     }
 };
-
-export default ProgressBase;

@@ -1,4 +1,4 @@
-import mobiscroll, { $, extend } from '../core/core';
+import { $, extend, mobiscroll } from '../core/core';
 import { wrapLabel } from '../util/forms';
 import { getCoord, triggerClick } from '../util/tap';
 import { testTouch } from '../util/dom';
@@ -16,7 +16,7 @@ function getControlType($elm) {
 
     let type = $elm.attr('type') || elm.nodeName.toLowerCase();
 
-    if (/(switch|range|segmented|stepper)/.test(role)) {
+    if (/(switch|range|rating|segmented|stepper)/.test(role)) {
         type = role;
     }
 
@@ -28,7 +28,7 @@ function getRipple(theme) {
     return ripple && ripple.addRipple ? ripple : null;
 }
 
-class FormControl {
+export class FormControl {
     constructor(elm, settings) {
 
         const s = extend({}, defaults, mobiscroll.settings, settings);
@@ -162,8 +162,6 @@ class FormControl {
         $active = null;
     }
 }
-
-export default FormControl;
 
 export {
     getControlType

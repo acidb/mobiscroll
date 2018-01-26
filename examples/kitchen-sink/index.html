@@ -34,6 +34,10 @@
                     Password
                     <input type="password" id="password" placeholder="Minimum 6 characters" data-password-toggle="true" />
                 </label>
+                <label>
+                    Rating
+                    <input data-role="rating" value="4" />
+                </label>
             </div>
 
             <div class="mbsc-form-group">
@@ -57,6 +61,7 @@
                     </label>
                 </div>
             </div>
+
             <div class="mbsc-form-group">
                 <div class="mbsc-form-group-title">General settings</div>
                 <label>
@@ -67,6 +72,7 @@
                     <span class="mbsc-desc">Automatically pause workout when you stop moving. This is useful if you don't want to manually pause and resume.</span>
                 </label>
             </div>
+
             <div class="mbsc-form-group">
                 <div class="mbsc-form-group-title">On screen</div>
                 <label>
@@ -87,7 +93,6 @@
 
             <div class="mbsc-form-group">
                 <div class="mbsc-form-group-title">Run countdown</div>
-
                 <label>
                     <input type="radio" name="group"> Off
                 </label>
@@ -109,9 +114,10 @@
     </div>
 
     <script>
-    mobiscroll.settings = {
-        theme: 'auto'
-    };
+        mobiscroll.settings = {
+            theme: 'auto'
+        };
+
     </script>
 
 </body>

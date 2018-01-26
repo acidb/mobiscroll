@@ -1,0 +1,43 @@
+@import "../rating";
+@import "material";
+@import "material.progress.less";
+
+/* Rating */
+
+.mbsc-material.mbsc-rating {
+    .mbsc-progress-track {
+        color: @material-accent;
+    }
+
+    .mbsc-slider-handle:before{
+        display: none;
+    }
+
+    .mbsc-label {
+        padding-bottom: .5em;
+    }
+
+    input:disabled ~ .mbsc-progress-cont .mbsc-progress-track {
+        opacity: .4;
+    }
+
+    /* Color presets */
+    &.mbsc-rating-primary .mbsc-progress-track {
+        color: @material-primary;
+    }
+    &.mbsc-rating-secondary .mbsc-progress-track {
+        color: @material-secondary;
+    }
+    &.mbsc-rating-success .mbsc-progress-track {
+        color: @material-success;
+    }
+    &.mbsc-rating-danger .mbsc-progress-track {
+        color: @material-danger;
+    }
+    &.mbsc-rating-warning .mbsc-progress-track {
+        color: @material-warning;
+    }
+    &.mbsc-rating-info .mbsc-progress-track {
+        color: @material-info;
+    } 
+}

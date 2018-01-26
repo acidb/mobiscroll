@@ -1,6 +1,6 @@
 // Română
 
-import mobiscroll from '../core/core';
+import { mobiscroll } from '../core/core';
 
 export default mobiscroll;
 
@@ -34,7 +34,6 @@ mobiscroll.i18n.ro = {
     firstDay: 1,
     dateText: 'Data',
     timeText: 'Ora',
-    calendarText: 'Calendar',
     closeText: 'Închidere',
     // Daterange component
     fromText: 'Start',

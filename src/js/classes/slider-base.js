@@ -1,10 +1,10 @@
 import { $ } from '../core/core';
 import { getCoord, preventClick } from '../util/tap';
 import { testTouch } from '../util/dom';
-import { noop } from '../util/misc';
-import ProgressBase from './progress-base';
+import { noop, getPercent } from '../util/misc';
+import { ProgressBase } from './progress-base';
 
-const SliderBase = function (elm, settings, inherit) {
+export const SliderBase = function (elm, settings, inherit) {
     var $elm,
         $handle,
         $handleCont,
@@ -13,6 +13,7 @@ const SliderBase = function (elm, settings, inherit) {
         $parent,
         $track,
         action,
+        base,
         changed,
         diffX,
         diffY,
@@ -20,6 +21,8 @@ const SliderBase = function (elm, settings, inherit) {
         endX,
         endY,
         handleIndex,
+        isHover,
+        isPressed,
         isRtl,
         live,
         max,
@@ -40,11 +43,10 @@ const SliderBase = function (elm, settings, inherit) {
         lastUpdate = new Date();
 
     function onStart(ev) {
-        if (testTouch(ev, this) && !action && !elm.disabled /* TRIALCOND */ ) {
+        if (testTouch(ev, this) && (!action || isHover) && !elm.disabled /* TRIALCOND */) {
             if (s.stopProp) {
                 ev.stopPropagation();
             }
-
             action = true;
             moved = false;
             changed = false;
@@ -64,8 +66,15 @@ const SliderBase = function (elm, settings, inherit) {
             diff = $track[0].getBoundingClientRect().left;
 
             if (ev.type === 'mousedown') {
+                isPressed = true;
+                moved = true;
                 ev.preventDefault();
                 $(document).on('mousemove', onMove).on('mouseup', onEnd);
+            }
+            if (ev.type === 'mouseenter') {
+                isHover = true;
+                moved = true;
+                $(document).on('mousemove', onMove);
             }
         }
     }
@@ -83,7 +92,7 @@ const SliderBase = function (elm, settings, inherit) {
 
                 if (Math.abs(lastUpdate - new Date()) > 50) {
                     lastUpdate = new Date();
-                    updateSlider(endX, s.round, live);
+                    updateSlider(endX, s.round, live && (!isHover || isPressed));
                 }
             }
 
@@ -103,7 +112,11 @@ const SliderBase = function (elm, settings, inherit) {
                 $track.addClass('mbsc-progress-anim');
             }
 
-            updateSlider(endX, true, true);
+            if (isHover && !isPressed) {
+                updateValue(value[handleIndex], handleIndex, false, false, true);
+            } else {
+                updateSlider(endX, true, true);
+            }
 
             if (!moved && !changed) {
 
@@ -115,7 +128,17 @@ const SliderBase = function (elm, settings, inherit) {
                 that._onTap(value[handleIndex]);
             }
 
-            cleanUp();
+            if (ev.type == 'mouseup') {
+                isPressed = false;
+            }
+
+            if (ev.type == 'mouseleave') {
+                isHover = false;
+            }
+
+            if (!isHover) {
+                cleanUp();
+            }
         }
     }
 
@@ -187,7 +210,6 @@ const SliderBase = function (elm, settings, inherit) {
 
     function cleanUp() {
         action = false;
-
         $handleCont.removeClass('mbsc-active');
 
         // Detach document events
@@ -196,18 +218,14 @@ const SliderBase = function (elm, settings, inherit) {
 
     function updateSlider(pos, round, fill) {
         var percent = round ?
-            Math.min((Math.round((Math.max((pos - diff) * 100 / totalWidth, 0) / scale) / step) * step) * 100 / (max - min), 100) :
+            Math.min((Math[that._rounding || 'round']((Math.max((pos - diff) * 100 / totalWidth, 0) / scale) / step) * step) * 100 / (max - min + base), 100) :
             Math.max(0, Math.min((pos - diff) * 100 / totalWidth, 100));
 
         if (isRtl) {
             percent = 100 - percent;
         }
 
-        updateValue(Math.round((min + percent / scale) * stepDecimal) / stepDecimal, handleIndex, fill, percent);
-    }
-
-    function getPercent(v) {
-        return (v - min) * 100 / (max - min);
+        updateValue(Math.round((min - base + percent / scale) * stepDecimal) / stepDecimal, handleIndex, fill, percent);
     }
 
     function updateValue(v, index, fill, percent, refresh, change) {
@@ -224,8 +242,8 @@ const SliderBase = function (elm, settings, inherit) {
             v = that._update(v, value, index, percent, multiple, refresh, $handleCont);
         } else {
             $handleCont.css({
-                left: isRtl ? 'auto' : (percent || getPercent(v)) + '%',
-                right: isRtl ? (percent || getPercent(v)) + '%' : 'auto'
+                left: isRtl ? 'auto' : (percent || getPercent(v, min, max)) + '%',
+                right: isRtl ? (percent || getPercent(v, min, max)) + '%' : 'auto'
             });
         }
 
@@ -281,10 +299,11 @@ const SliderBase = function (elm, settings, inherit) {
         s = that.settings;
         min = that._min;
         max = that._max;
+        base = that._base || 0;
         step = that._step;
         live = that._live;
         stepDecimal = step % 1 !== 0 ? (100 / (+(step % 1).toFixed(2) * 100)) : 1;
-        scale = 100 / (max - min) || 100;
+        scale = 100 / (max - min + base) || 100;
         multiple = $elm.length > 1;
         isRtl = s.rtl;
         value = [];
@@ -306,9 +325,9 @@ const SliderBase = function (elm, settings, inherit) {
             .on('blur', onKeyUp);
 
         $listener
-            .on('touchstart mousedown', onStart)
+            .on('touchstart mousedown' + (s.hover ? ' mouseenter' : ''), onStart)
             .on('touchmove', onMove)
-            .on('touchend touchcancel', onEnd)
+            .on('touchend touchcancel' + (s.hover ? ' mouseleave' : ''), onEnd)
             .on('pointercancel', onCancel);
 
         if (!wasInit) {
@@ -335,9 +354,9 @@ const SliderBase = function (elm, settings, inherit) {
             .off('blur', onKeyUp);
 
         $listener
-            .off('touchstart mousedown', onStart)
+            .off('touchstart mousedown mouseenter', onStart)
             .off('touchmove', onMove)
-            .off('touchend touchcancel', onEnd)
+            .off('touchend touchcancel mouseleave', onEnd)
             .off('pointercancel', onCancel);
 
         that.___destroy();
@@ -372,5 +391,3 @@ const SliderBase = function (elm, settings, inherit) {
     }
 
 };
-
-export default SliderBase;

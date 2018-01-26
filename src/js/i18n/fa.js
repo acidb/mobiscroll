@@ -1,6 +1,6 @@
 // فارسی
 
-import mobiscroll from '../core/core';
+import { mobiscroll } from '../core/core';
 
 export default mobiscroll;
 
@@ -186,7 +186,6 @@ mobiscroll.i18n.fa = {
     rtl: true,
     dateText: 'تاریخ ',
     timeText: 'زمان ',
-    calendarText: 'تقویم',
     closeText: 'نزدیک',
     // Daterange component
     fromText: 'شروع ',

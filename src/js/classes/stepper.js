@@ -1,27 +1,17 @@
-import mobiscroll, { $, Base } from '../core/core';
-import { getCoord } from '../util/tap';
-import { testTouch } from '../util/dom';
+import { $, Base, mobiscroll, classes } from '../core/core';
+import { createStepper } from '../util/stepper';
 
-const Stepper = function (control, settings) {
-    var $btn,
-        $btnPlus,
+export const Stepper = function (control, settings) {
+    var $btnPlus,
         $btnMinus,
         $controls,
-        action,
-        changed,
-        diffX,
-        diffY,
         displayValue,
-        eX,
-        eY,
-        interval,
         max,
         min,
         ripple,
         step,
+        stepper,
         s,
-        sX,
-        sY,
         theme,
         val,
         that = this,
@@ -30,84 +20,24 @@ const Stepper = function (control, settings) {
         $parent,
         old = val;
 
-    function onKeyDown(ev) {
-        if (ev.keyCode == 32) {
-            ev.preventDefault();
-            if (!action && !control.disabled) {
-                $btn = $(this).addClass('mbsc-active');
-                updateStepper(ev);
-            }
-        }
-    }
-
-    function onKeyUp(ev) {
-        if (action) {
-            ev.preventDefault();
-            stopStepper(true);
-        }
-    }
-
-    function onStart(ev) {
-        if (testTouch(ev, this) && !control.disabled /* TRIALCOND */ ) {
-
-            $btn = $(this).addClass('mbsc-active').trigger('focus');
-
-            if (ripple && !$btn.hasClass('mbsc-step-disabled')) {
-                ripple.addRipple($btn.find('.mbsc-segmented-content'), ev);
-                // form.trigger('onControlActivate', {
-                //     target: $btn[0],
-                //     domEvent: ev
-                // });
-            }
-
-            updateStepper(ev);
-
-            if (ev.type === 'mousedown') {
-                $(document)
-                    .on('mousemove', onMove)
-                    .on('mouseup', onEnd);
-            }
-        }
-    }
-
-    function onEnd(ev) {
-        if (action) {
-
-            ev.preventDefault();
-
-            stopStepper(true, ev);
-
-            if (ev.type === 'mouseup') {
-                $(document)
-                    .off('mousemove', onMove)
-                    .off('mouseup', onEnd);
-            }
-        }
-    }
-
-    function onMove(ev) {
-        if (action) {
-            eX = getCoord(ev, 'X');
-            eY = getCoord(ev, 'Y');
-            diffX = eX - sX;
-            diffY = eY - sY;
-
-            if (Math.abs(diffX) > 7 || Math.abs(diffY) > 7) {
-                stopStepper();
-            }
-        }
-    }
-
     function onChange() {
         var v;
 
         if (!control.disabled) {
             v = parseFloat($(this).val());
-            moveStepper(isNaN(v) ? val : v);
+            setValue(isNaN(v) ? val : v);
         }
     }
 
-    function moveStepper(v, fill, change) {
+    function checkDisabled() {
+        return control.disabled;
+    }
+
+    function stepValue(index, dir) {
+        setValue(val + dir * step);
+    }
+
+    function setValue(v, fill, change) {
 
         old = val;
 
@@ -119,74 +49,22 @@ const Stepper = function (control, settings) {
             change = fill;
         }
 
-        if (v !== undefined) {
-            val = Math.min(max, Math.max(Math.round(v / step) * step, min));
-        } else {
-            val = Math.min(max, Math.max(val + ($btn.hasClass('mbsc-stepper-minus') ? -step : step), min));
-        }
+        val = Math.min(max, Math.max(Math.round(v / step) * step, min));
 
-        changed = true;
-
-        $controls.removeClass('mbsc-step-disabled');
+        $controls.removeClass('mbsc-disabled');
 
         if (fill) {
             $control.val(val);
         }
 
         if (val == min) {
-            $btnMinus.addClass('mbsc-step-disabled');
+            $btnMinus.addClass('mbsc-disabled');
         } else if (val == max) {
-            $btnPlus.addClass('mbsc-step-disabled');
+            $btnPlus.addClass('mbsc-disabled');
         }
 
         if (val !== old && change) {
             $control.trigger('change');
-        }
-    }
-
-    function updateStepper(ev) {
-        if (!action) {
-
-            action = true;
-            changed = false;
-
-            sX = getCoord(ev, 'X');
-            sY = getCoord(ev, 'Y');
-
-            clearInterval(interval);
-            clearTimeout(interval);
-
-            interval = setTimeout(function () {
-                moveStepper();
-                interval = setInterval(function () {
-                    moveStepper();
-                }, 150);
-            }, 300);
-
-        }
-    }
-
-    function stopStepper(change) {
-        clearInterval(interval);
-        clearTimeout(interval);
-
-        if (!changed && change) {
-            moveStepper();
-        }
-
-        action = false;
-        changed = false;
-
-        $btn.removeClass('mbsc-active');
-
-        if (ripple) {
-            setTimeout(function () {
-                ripple.removeRipple();
-                // form.trigger('onControlDeactivate', {
-                //     target: $btn[0],
-                //     domEvent: ev
-                // });
-            }, 100);
         }
     }
 
@@ -208,7 +86,7 @@ const Stepper = function (control, settings) {
 
     that.setVal = function (v, fill, change) {
         v = parseFloat(v);
-        moveStepper(isNaN(v) ? val : v, fill, change);
+        setValue(isNaN(v) ? val : v, fill, change);
     };
 
     that._init = function (ss) {
@@ -231,13 +109,14 @@ const Stepper = function (control, settings) {
                 .addClass('mbsc-stepper-cont mbsc-control-w')
                 .append('<span class="mbsc-segmented mbsc-stepper"></span>')
                 .find('.mbsc-stepper')
-                .append('<span class="mbsc-segmented-item mbsc-stepper-control mbsc-stepper-minus ' + (val == min ? 'mbsc-step-disabled' : '') + '"  tabindex="0"><span class="mbsc-segmented-content"><span class="mbsc-ic mbsc-ic-minus"></span></span></span>')
-                .append('<span class="mbsc-segmented-item mbsc-stepper-control mbsc-stepper-plus ' + (val == max ? 'mbsc-step-disabled' : '') + '"  tabindex="0"><span class="mbsc-segmented-content"> <span class="mbsc-ic mbsc-ic-plus"></span> </span></span>')
+                .append('<span class="mbsc-segmented-item mbsc-stepper-control mbsc-stepper-minus ' + (val == min ? 'mbsc-disabled' : '') + '" data-step="-1" tabindex="0"><span class="mbsc-segmented-content"><span class="mbsc-ic mbsc-ic-minus"></span></span></span>')
+                .append('<span class="mbsc-segmented-item mbsc-stepper-control mbsc-stepper-plus ' + (val == max ? 'mbsc-disabled' : '') + '"  data-step="1" tabindex="0"><span class="mbsc-segmented-content"> <span class="mbsc-ic mbsc-ic-plus"></span></span></span>')
                 .prepend($control);
         }
 
         $btnMinus = $('.mbsc-stepper-minus', $parent);
         $btnPlus = $('.mbsc-stepper-plus', $parent);
+        $controls = $('.mbsc-stepper-control', $parent);
 
         if (!ready) {
             if (displayValue == 'left') {
@@ -249,6 +128,10 @@ const Stepper = function (control, settings) {
             } else {
                 $btnMinus.after('<span class="mbsc-segmented-item"><span class="mbsc-segmented-content mbsc-stepper-val"></span></span>');
             }
+
+            $control.on('change', onChange);
+
+            stepper = createStepper($controls, stepValue, 150, checkDisabled, false, ripple);
         }
 
         $control
@@ -257,29 +140,12 @@ const Stepper = function (control, settings) {
             .attr('min', min)
             .attr('max', max)
             .attr('step', step)
-            .on('change', onChange);
-
-        $controls = $('.mbsc-stepper-control', $parent)
-            .on('keydown', onKeyDown)
-            .on('keyup', onKeyUp)
-            .on('mousedown touchstart', onStart)
-            .on('touchmove', onMove)
-            .on('touchend touchcancel', onEnd);
-
-        $control.addClass('mbsc-stepper-ready mbsc-control');
-
-        /* TRIAL */
+            .addClass('mbsc-control');
     };
 
     that._destroy = function () {
         $control.removeClass('mbsc-control').off('change', onChange);
-
-        $controls
-            .off('keydown', onKeyDown)
-            .off('keyup', onKeyUp)
-            .off('mousedown touchstart', onStart)
-            .off('touchmove', onMove)
-            .off('touchend touchcancel', onEnd);
+        stepper.destroy();
     };
 
     that.init(settings);
@@ -296,8 +162,4 @@ Stepper.prototype = {
     }
 };
 
-mobiscroll.classes.Stepper = Stepper;
-
-mobiscroll.presetShort('stepper', 'Stepper');
-
-export default Stepper;
+classes.Stepper = Stepper;

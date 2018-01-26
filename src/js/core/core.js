@@ -1,5 +1,5 @@
 /*!
- * Mobiscroll v4.0.0-beta
+ * Mobiscroll v4.0.0-beta3.1.1
  * http://mobiscroll.com
  *
  * Copyright 2010-2016, Acid Media
@@ -7,32 +7,70 @@
  *
  */
 
-import mobiscroll from './mobiscroll';
+import { mobiscroll } from './mobiscroll';
 import { os, majorVersion, minorVersion, isBrowser } from '../util/platform';
 import { noop, vibrate } from '../util/misc';
 import { getCoord, preventClick, tap } from '../util/tap';
 
 export default mobiscroll;
 
+function autoInit(selector, Component, hasRefresh) {
+    if (isBrowser) {
+        $(function () {
+
+            $(selector).each(function () {
+                new Component(this);
+            });
+
+            $(document).on('mbsc-enhance', function (ev, settings) {
+                if ($(ev.target).is(selector)) {
+                    new Component(ev.target, settings);
+                } else {
+                    $(selector, ev.target).each(function () {
+                        new Component(this, settings);
+                    });
+                }
+            });
+
+            if (hasRefresh) {
+                $(document).on('mbsc-refresh', function (ev) {
+                    var inst;
+
+                    if ($(ev.target).is(selector)) {
+                        inst = instances[ev.target.id];
+                        if (inst) {
+                            inst.refresh();
+                        }
+                    } else {
+                        $(selector, ev.target).each(function () {
+                            inst = instances[this.id];
+                            if (inst) {
+                                inst.refresh();
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    }
+}
+
 var ms,
     $ = mobiscroll.$,
     id = +new Date(),
     instances = {},
-    extend = $.extend;
-
-ms = extend(mobiscroll, {
-    $: $,
-    version: '4.0.0-beta',
-    util: {
+    classes = {},
+    util = {
         getCoord: getCoord,
         preventClick: preventClick,
         vibrate: vibrate
     },
+    extend = $.extend;
+
+ms = extend(mobiscroll, {
+    $: $,
+    version: '4.0.0-beta3.1.1',
     autoTheme: 'mobiscroll',
-    presets: {
-        scroller: {},
-        numpad: {}
-    },
     themes: {
         form: {},
         page: {},
@@ -40,7 +78,8 @@ ms = extend(mobiscroll, {
         scroller: {},
         listview: {},
         navigation: {},
-        progress: {}
+        progress: {},
+        card: {}
     },
     platform: {
         name: os,
@@ -49,8 +88,8 @@ ms = extend(mobiscroll, {
     },
     i18n: {},
     instances: instances,
-    classes: {},
-    components: {},
+    classes: classes,
+    util: util,
     settings: {},
     setDefaults: function (o) {
         extend(this.settings, o);
@@ -58,7 +97,7 @@ ms = extend(mobiscroll, {
     customTheme: function (name, baseTheme) {
         var i,
             themes = mobiscroll.themes,
-            comps = ['frame', 'scroller', 'listview', 'navigation', 'form', 'page', 'progress'];
+            comps = ['frame', 'scroller', 'listview', 'navigation', 'form', 'page', 'progress', 'card'];
 
         for (i = 0; i < comps.length; i++) {
             themes[comps[i]][name] = extend({}, themes[comps[i]][baseTheme], {
@@ -67,8 +106,6 @@ ms = extend(mobiscroll, {
         }
     }
 });
-
-ms.presetShort = ms.presetShort || function () {};
 
 const Base = function (el, settings) {
     var lang,
@@ -132,22 +169,15 @@ const Base = function (el, settings) {
             lang = ms.i18n[s.lang];
         }
 
-        if (that._hasTheme) {
-            trigger('onThemeLoad', {
-                lang: lang,
-                settings: settings
-            });
-        }
-
         // Update settings object
         extend(s, theme, lang, defaults, settings);
 
         that._processSettings();
 
         // Load preset settings
-        if (that._hasPreset) {
+        if (that._presets) {
 
-            preset = ms.presets[that._class][s.preset];
+            preset = that._presets[s.preset];
 
             if (preset) {
                 preset = preset.call(el, that);
@@ -202,12 +232,20 @@ const Base = function (el, settings) {
      * Sets one ore more options.
      */
     that.option = function (opt, value) {
-        var obj = {};
+        var obj = {},
+            // preserve settings that are possible to change runtime
+            dynamic = ['data', 'invalid', 'valid', 'marked', 'labels', 'colors', 'readonly'];
+
         if (typeof opt === 'object') {
             obj = opt;
         } else {
             obj[opt] = value;
         }
+
+        dynamic.forEach(function (v) {
+            settings[v] = s[v];
+        });
+
         that.init(obj);
     };
 
@@ -243,7 +281,12 @@ const Base = function (el, settings) {
 
 export {
     $,
+    classes,
     extend,
+    instances,
     isBrowser,
+    mobiscroll,
+    util,
+    autoInit,
     Base
 };

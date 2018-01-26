@@ -4,6 +4,7 @@
 @import "ios.borders.less";
 @import "ios.input.less";
 @import "ios.slider.less";
+@import "ios.rating.less";
 @import "ios.notifications.less";
 
 /* Form */
@@ -51,24 +52,6 @@
 
 .mbsc-ios .mbsc-form-group-title {
     padding: .5em 1.333334em;
-}
-
-.mbsc-ios .mbsc-form-group-inset .mbsc-form-group-title + .mbsc-control-w,
-.mbsc-ios .mbsc-form-group-inset .mbsc-control-w:first-child {
-    border-top-left-radius: .5em;
-    border-top-right-radius: .5em;
-}
-
-.mbsc-ios .mbsc-form-group-inset .mbsc-control-w:last-child {
-    border-bottom-left-radius: .5em;
-    border-bottom-right-radius: .5em;
-}
-
-.mbsc-ios .mbsc-form-group-inset .mbsc-form-group-title,
-.mbsc-ios .mbsc-form-group-inset .mbsc-form-group-title + .mbsc-control-w:before,
-.mbsc-ios .mbsc-form-group-inset .mbsc-control-w:first-child:before,
-.mbsc-ios .mbsc-form-group-inset .mbsc-control-w:last-child:after {
-    border-width: 0;
 }
 
 
@@ -184,6 +167,57 @@
     border-right: 0;
 }
 
+.mbsc-ios {
+    /* checkbox color presets */
+    .mbsc-checkbox-primary {
+        .mbsc-checkbox-box,
+        .mbsc-checkbox-box:after {
+            border-color: @ios-primary;
+        }
+    }
+    .mbsc-checkbox-secondary {
+        .mbsc-checkbox-box,
+        .mbsc-checkbox-box:after {
+            border-color: @ios-secondary;
+        }
+    }
+    .mbsc-checkbox-success {
+        .mbsc-checkbox-box,
+        .mbsc-checkbox-box:after {
+            border-color: @ios-success;
+        }
+    }
+    .mbsc-checkbox-danger {
+        .mbsc-checkbox-box,
+        .mbsc-checkbox-box:after {
+            border-color: @ios-danger;
+        }
+    }
+    .mbsc-checkbox-warning {
+        .mbsc-checkbox-box,
+        .mbsc-checkbox-box:after {
+            border-color: @ios-warning;
+        }
+    }
+    .mbsc-checkbox-info {
+        .mbsc-checkbox-box,
+        .mbsc-checkbox-box:after {
+            border-color: @ios-info;
+        }
+    } // .mbsc-checkbox-light {
+    //     .mbsc-checkbox-box,
+    //     .mbsc-checkbox-box:after {
+    //         border-color: @ios-light;
+    //     }
+    // }
+    // .mbsc-checkbox-dark {
+    //     .mbsc-checkbox-box,
+    //     .mbsc-checkbox-box:after {
+    //         border-color: @ios-dark;
+    //     }
+    // }
+}
+
 
 /* Radio */
 
@@ -214,6 +248,33 @@
 
 .mbsc-ios .mbsc-radio input:disabled ~ .mbsc-radio-label {
     color: #a6a7a6;
+}
+
+.mbsc-ios {
+    /* radio color presets */
+    .mbsc-radio-primary .mbsc-radio-box:after {
+        border-color: @ios-primary;
+    }
+    .mbsc-radio-secondary .mbsc-radio-box:after {
+        border-color: @ios-secondary;
+    }
+    .mbsc-radio-success .mbsc-radio-box:after {
+        border-color: @ios-success;
+    }
+    .mbsc-radio-danger .mbsc-radio-box:after {
+        border-color: @ios-danger;
+    }
+    .mbsc-radio-warning .mbsc-radio-box:after {
+        border-color: @ios-warning;
+    }
+    .mbsc-radio-info .mbsc-radio-box:after {
+        border-color: @ios-info;
+    } // .mbsc-radio-light .mbsc-radio-box:after {
+    //     border-color: @ios-light;
+    // }
+    // .mbsc-radio-dark .mbsc-radio-box:after {
+    //     border-color: @ios-dark;
+    // }
 }
 
 
@@ -507,6 +568,41 @@
     transform: scale(0);
 }
 
+.mbsc-ios {
+    /* swithc color presets */
+    .mbsc-switch-primary.mbsc-switch input:checked + .mbsc-switch-track {
+        border-color: @ios-primary;
+        background: @ios-primary;
+    }
+    .mbsc-switch-secondary.mbsc-switch input:checked + .mbsc-switch-track {
+        border-color: @ios-secondary;
+        background: @ios-secondary;
+    }
+    .mbsc-switch-success.mbsc-switch input:checked + .mbsc-switch-track {
+        border-color: @ios-success;
+        background: @ios-success;
+    }
+    .mbsc-switch-danger.mbsc-switch input:checked + .mbsc-switch-track {
+        border-color: @ios-danger;
+        background: @ios-danger;
+    }
+    .mbsc-switch-warning.mbsc-switch input:checked + .mbsc-switch-track {
+        border-color: @ios-warning;
+        background: @ios-warning;
+    }
+    .mbsc-switch-info.mbsc-switch input:checked + .mbsc-switch-track {
+        border-color: @ios-info;
+        background: @ios-info;
+    } // .mbsc-switch-light.mbsc-switch input:checked + .mbsc-switch-track {
+    //     border-color: @ios-light;
+    //     background: @ios-light;
+    // }
+    // .mbsc-switch-dark.mbsc-switch input:checked + .mbsc-switch-track {
+    //     border-color: @ios-dark;
+    //     background: @ios-dark;
+    // }
+}
+
 
 /* Segmented & Stepper */
 
@@ -582,7 +678,7 @@
 }
 
 .mbsc-ios .mbsc-segmented input:disabled ~ .mbsc-segmented-item .mbsc-segmented-content,
-.mbsc-ios .mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control.mbsc-step-disabled .mbsc-segmented-content,
+.mbsc-ios .mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control.mbsc-disabled .mbsc-segmented-content,
 .mbsc-ios .mbsc-segmented .mbsc-segmented-item input:disabled + .mbsc-segmented-content {
     background: none;
     color: #c4c4c4;
@@ -611,4 +707,209 @@
 
 .mbsc-ios.mbsc-no-touch .mbsc-segmented-item:hover .mbsc-segmented-content {
     background: rgba(18, 114, 220, .15);
+}
+
+.mbsc-ios .mbsc-segmented {
+    /* Stepper color presets */
+    .mbsc-segmented-primary {
+        .mbsc-segmented-content {
+            border-color: @ios-primary;
+            color: @ios-primary;
+        }
+        &.mbsc-segmented-item input.mbsc-active + .mbsc-segmented-content {
+            color: @ios-primary;
+            background: fade(@ios-primary, 45%)
+        }
+        &.mbsc-segmented-item input.mbsc-control:checked + .mbsc-segmented-content {
+            background: @ios-primary;
+        }
+    }
+    .mbsc-segmented-secondary {
+        .mbsc-segmented-content {
+            border-color: @ios-secondary;
+            color: @ios-secondary;
+        }
+        &.mbsc-segmented-item input.mbsc-active + .mbsc-segmented-content {
+            color: @ios-secondary;
+            background: fade(@ios-secondary, 45%)
+        }
+        &.mbsc-segmented-item input.mbsc-control:checked + .mbsc-segmented-content {
+            background: @ios-secondary;
+        }
+    }
+    .mbsc-segmented-success {
+        .mbsc-segmented-content {
+            border-color: @ios-success;
+            color: @ios-success;
+        }
+        &.mbsc-segmented-item input.mbsc-active + .mbsc-segmented-content {
+            color: @ios-success;
+            background: fade(@ios-success, 45%)
+        }
+        &.mbsc-segmented-item input.mbsc-control:checked + .mbsc-segmented-content {
+            background: @ios-success;
+        }
+    }
+    .mbsc-segmented-danger {
+        .mbsc-segmented-content {
+            border-color: @ios-danger;
+            color: @ios-danger;
+        }
+        &.mbsc-segmented-item input.mbsc-active + .mbsc-segmented-content {
+            color: @ios-danger;
+            background: fade(@ios-danger, 45%)
+        }
+        &.mbsc-segmented-item input.mbsc-control:checked + .mbsc-segmented-content {
+            background: @ios-danger;
+        }
+    }
+    .mbsc-segmented-warning {
+        .mbsc-segmented-content {
+            border-color: @ios-warning;
+            color: @ios-warning;
+        }
+        &.mbsc-segmented-item input.mbsc-active + .mbsc-segmented-content {
+            color: @ios-warning;
+            background: fade(@ios-warning, 45%)
+        }
+        &.mbsc-segmented-item input.mbsc-control:checked + .mbsc-segmented-content {
+            background: @ios-warning;
+        }
+    }
+    .mbsc-segmented-info {
+        .mbsc-segmented-content {
+            border-color: @ios-info;
+            color: @ios-info;
+        }
+        &.mbsc-segmented-item input.mbsc-active + .mbsc-segmented-content {
+            color: @ios-info;
+            background: fade(@ios-info, 45%)
+        }
+        &.mbsc-segmented-item input.mbsc-control:checked + .mbsc-segmented-content {
+            background: @ios-info;
+        }
+    }
+}
+
+.mbsc-ios.mbsc-no-touch {
+    /* Segmented hover color presets*/
+    .mbsc-segmented-primary {
+        &.mbsc-segmented-item:hover .mbsc-segmented-content {
+            background: fade(@ios-primary, 15%)
+        }
+    }
+    .mbsc-segmented-secondary {
+        &.mbsc-segmented-item:hover .mbsc-segmented-content {
+            background: fade(@ios-secondary, 15%)
+        }
+    }
+    .mbsc-segmented-success {
+        &.mbsc-segmented-item:hover .mbsc-segmented-content {
+            background: fade(@ios-success, 15%)
+        }
+    }
+    .mbsc-segmented-danger {
+        &.mbsc-segmented-item:hover .mbsc-segmented-content {
+            background: fade(@ios-danger, 15%)
+        }
+    }
+    .mbsc-segmented-warning {
+        &.mbsc-segmented-item:hover .mbsc-segmented-content {
+            background: fade(@ios-warning, 15%)
+        }
+    }
+    .mbsc-segmented-info {
+        &.mbsc-segmented-item:hover .mbsc-segmented-content {
+            background: fade(@ios-info, 15%)
+        }
+    }
+    /* Stepper color presets*/
+    .mbsc-stepper-primary {
+        .mbsc-segmented .mbsc-segmented-item:hover .mbsc-segmented-content {
+            background: fade(@ios-primary, 15%)
+        }
+    }
+    .mbsc-stepper-secondary {
+        .mbsc-segmented .mbsc-segmented-item:hover .mbsc-segmented-content {
+            background: fade(@ios-secondary, 15%)
+        }
+    }
+    .mbsc-stepper-success {
+        .mbsc-segmented .mbsc-segmented-item:hover .mbsc-segmented-content {
+            background: fade(@ios-success, 15%)
+        }
+    }
+    .mbsc-stepper-danger {
+        .mbsc-segmented .mbsc-segmented-item:hover .mbsc-segmented-content {
+            background: fade(@ios-danger, 15%)
+        }
+    }
+    .mbsc-stepper-warning {
+        .mbsc-segmented .mbsc-segmented-item:hover .mbsc-segmented-content {
+            background: fade(@ios-warning, 15%)
+        }
+    }
+    .mbsc-stepper-info {
+        .mbsc-segmented .mbsc-segmented-item:hover .mbsc-segmented-content {
+            background: fade(@ios-info, 15%)
+        }
+    }
+}
+
+.mbsc-ios {
+    /* Stepper color presets */
+    .mbsc-stepper-primary {
+        .mbsc-segmented-content {
+            border-color: @ios-primary;
+            color: @ios-primary;
+        }
+        .mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control.mbsc-active .mbsc-segmented-content {
+            background: @ios-primary;
+        }
+    }
+    .mbsc-stepper-secondary {
+        .mbsc-segmented-content {
+            border-color: @ios-secondary;
+            color: @ios-secondary;
+        }
+        .mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control.mbsc-active .mbsc-segmented-content {
+            background: @ios-secondary;
+        }
+    }
+    .mbsc-stepper-success {
+        .mbsc-segmented-content {
+            border-color: @ios-success;
+            color: @ios-success;
+        }
+        .mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control.mbsc-active .mbsc-segmented-content {
+            background: @ios-success;
+        }
+    }
+    .mbsc-stepper-danger {
+        .mbsc-segmented-content {
+            border-color: @ios-danger;
+            color: @ios-danger;
+        }
+        .mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control.mbsc-active .mbsc-segmented-content {
+            background: @ios-danger;
+        }
+    }
+    .mbsc-stepper-warning {
+        .mbsc-segmented-content {
+            border-color: @ios-warning;
+            color: @ios-warning;
+        }
+        .mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control.mbsc-active .mbsc-segmented-content {
+            background: @ios-warning;
+        }
+    }
+    .mbsc-stepper-info {
+        .mbsc-segmented-content {
+            border-color: @ios-info;
+            color: @ios-info;
+        }
+        .mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control.mbsc-active .mbsc-segmented-content {
+            background: @ios-info;
+        }
+    }
 }

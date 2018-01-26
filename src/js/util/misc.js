@@ -66,6 +66,15 @@ function vibrate(time) {
     }
 }
 
+function getPercent(v, min, max) {
+    return (v - min) * 100 / (max - min);
+}
+
+function getBoolAttr(attr, def, $elm) {
+    var v = $elm.attr(attr);
+    return v === undefined || v === '' ? def : v === 'true';
+}
+
 export {
     arrayToObject,
     constrain,
@@ -74,5 +83,7 @@ export {
     noop,
     objectToArray,
     throttle,
-    vibrate
+    vibrate,
+    getPercent,
+    getBoolAttr
 };

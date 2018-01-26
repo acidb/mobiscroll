@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { extend, mobiscroll, PropTypes, MbscOptimized, CorePropTypes } from './frameworks/react';
-import './classes/page';
+import { Page } from './classes/page';
 
 class MbscPage extends MbscOptimized {
     constructor(props) {
@@ -12,7 +12,7 @@ class MbscPage extends MbscOptimized {
         // get settings from state
         var settings = extend({}, this.state.options);
         // initialize the mobiscroll
-        this.instance = new mobiscroll.classes.Page(ReactDOM.findDOMNode(this), settings);
+        this.instance = new Page(ReactDOM.findDOMNode(this), settings);
     }
 
     render = () => {
@@ -24,7 +24,7 @@ MbscPage.propTypes = {
     ...MbscPage.propTypes,
     ...CorePropTypes,
     onInit: PropTypes.func
-}
+};
 
 class MbscNote extends React.Component {
     constructor(props) {
@@ -45,8 +45,19 @@ class MbscNote extends React.Component {
     }
 }
 
+class MbscAvatar extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render = () => {
+        return <img className="mbsc-avatar" src={this.props.src} alt={this.props.alt} />;
+    }
+}
+
 
 mobiscroll.Page = MbscPage;
 mobiscroll.Note = MbscNote;
+mobiscroll.Avatar = MbscAvatar;
 
 export default mobiscroll;

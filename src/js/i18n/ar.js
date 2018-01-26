@@ -1,6 +1,6 @@
 // Arabic
 
-import mobiscroll from '../core/core';
+import { mobiscroll } from '../core/core';
 
 export default mobiscroll;
 
@@ -13,9 +13,9 @@ mobiscroll.i18n.ar = {
     selectedText: '{count} المحدد',
     // Datetime component
     dateFormat: 'dd/mm/yy',
-    dayNames: [ 'الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت' ],
-	dayNamesShort: [ 'أحد', 'اثنين', 'ثلاثاء', 'أربعاء', 'خميس', 'جمعة', 'سبت' ],
-	dayNamesMin: [ 'ح', 'ن', 'ث', 'ر', 'خ', 'ج', 'س' ],
+    dayNames: ['الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'],
+    dayNamesShort: ['أحد', 'اثنين', 'ثلاثاء', 'أربعاء', 'خميس', 'جمعة', 'سبت'],
+    dayNamesMin: ['ح', 'ن', 'ث', 'ر', 'خ', 'ج', 'س'],
     dayText: 'يوم',
     hourText: 'ساعات',
     minuteText: 'الدقائق',
@@ -32,7 +32,6 @@ mobiscroll.i18n.ar = {
     firstDay: 0,
     dateText: 'تاريخ',
     timeText: 'وقت',
-    calendarText: 'التقويم',
     closeText: 'إغلاق',
     todayText: 'اليوم',
     prevMonthText: 'الشهر السابق',
@@ -56,7 +55,7 @@ mobiscroll.i18n.ar = {
     thousandsSeparator: ',',
     // Timer / Timespan component
     labels: ['سنوات', 'أشهر', 'أيام', 'ساعة', 'دقائق', 'ثواني', ''],
-    labelsShort: ['سنوات', 'أشهر', 'أيام', 'ساعة', 'دقائق', 'ثواني', ''], 
+    labelsShort: ['سنوات', 'أشهر', 'أيام', 'ساعة', 'دقائق', 'ثواني', ''],
     // Timer component
     startText: 'بدء',
     stopText: 'إيقاف',

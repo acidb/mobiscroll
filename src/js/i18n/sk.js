@@ -1,6 +1,6 @@
 // Slovencina
 
-import mobiscroll from '../core/core';
+import { mobiscroll } from '../core/core';
 
 export default mobiscroll;
 
@@ -32,7 +32,6 @@ mobiscroll.i18n.sk = {
     firstDay: 1,
     dateText: 'Datum',
     timeText: 'Čas',
-    calendarText: 'Kalendár',
     closeText: 'Zavrieť',
     // Daterange component
     fromText: 'Začiatok',

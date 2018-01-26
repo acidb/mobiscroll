@@ -114,8 +114,8 @@
     color: @output1_1;
 }
 
-.mbsc-@{theme}.mbsc-no-touch .mbsc-fr-btn-e:not(.mbsc-fr-btn-d):hover,
-.mbsc-@{theme} .mbsc-fr-btn-a {
+.mbsc-@{theme}.mbsc-no-touch .mbsc-fr-btn-e:not(.mbsc-disabled):hover,
+.mbsc-@{theme} .mbsc-fr-btn.mbsc-active {
     background: fade(@output2_8, 10%);
 }
 
@@ -134,7 +134,7 @@
     color: @output1_1;
 }
 
-.mbsc-@{theme} .mbsc-sc-itm.mbsc-btn-a {
+.mbsc-@{theme} .mbsc-sc-itm.mbsc-active {
     background: fade(@output2_8, 10%);
 }
 
@@ -148,31 +148,13 @@
 }
 
 .mbsc-@{theme}.mbsc-no-touch .mbsc-sc-btn:hover,
-.mbsc-@{theme} .mbsc-sc-btn-a {
+.mbsc-@{theme} .mbsc-sc-btn.mbsc-active {
     background: fade(@output2_8, 10%);
 }
 
 .mbsc-@{theme} .mbsc-sc-whl-multi .mbsc-sc-itm-sel:before {
     color: @output1_1;
 }
-
-
-/* Rating */
-
-.mbsc-@{theme} .mbsc-rating-icon {
-    color: @output1_1;
-}
-
-.mbsc-@{theme} .mbsc-rating-circle {
-    background: @output1_1;
-    color: @output2_1;
-}
-
-.mbsc-@{theme} .mbsc-rating-circle-unf {
-    background: none;
-    border-color: @output1_1;
-}
-
 
 /* Numpad */
 
@@ -190,13 +172,17 @@
     .mbsc-cal-today {
         color: @material-accent;
     }
-    /* Hover */
-    &.mbsc-no-touch .mbsc-cal-cell:not(.mbsc-btn-d):hover .mbsc-cal-cell-txt {
+    /* Hover, focus */
+    &.mbsc-no-touch .mbsc-cal-cell:not(.mbsc-disabled):hover .mbsc-cal-cell-txt,
+    .mbsc-cal-cell:focus .mbsc-cal-cell-txt {
         background: fade(@material-ripple, 10%);
     }
     /* Selected */
     .mbsc-cal-c .mbsc-cal .mbsc-cal-body .mbsc-selected .mbsc-cal-cell-txt {
         background: fade(@material-accent, 30%);
+    }
+    .mbsc-cal-c .mbsc-cal-day-colored.mbsc-selected .mbsc-cal-day-date {
+        border-color: @material-accent;
     }
     /* Tabs */
     .mbsc-cal-tab {
@@ -211,6 +197,9 @@
     .mbsc-cal-txt {
         color: @material-background;
         background: lighten(@material-text, 13%);
+    }
+    .mbsc-cal-icons {
+        color: @material-text;
     }
 }
 
@@ -255,9 +244,11 @@
     &.mbsc-range {
         .mbsc-cal .mbsc-cal-day.mbsc-selected .mbsc-cal-day-date {
             background: none;
+            border-color: transparent;
         }
         .mbsc-cal .mbsc-cal-day.mbsc-cal-day-hl .mbsc-cal-day-date {
-            background: fade(@material-accent, 80%);
+            background: @material-accent;
+            border-color: @material-accent;
             color: @material-background;
         }
         .mbsc-cal-day.mbsc-selected:after {
@@ -281,14 +272,14 @@
                 color: @material-accent;
             }
             /* Active state */
-            &.mbsc-btn-a {
+            &.mbsc-active {
                 background: fade(@material-ripple, 10%);
             }
         }
     }
     &.mbsc-no-touch {
         /* Hover state */
-        .mbsc-ms-item:not(.mbsc-btn-d):hover {
+        .mbsc-ms-item:not(.mbsc-disabled):hover {
             background: fade(@material-ripple, 10%);
         }
     }
@@ -308,11 +299,9 @@
     }
     /* Tab styling */
     &.mbsc-ms-b {
-        &.mbsc-ms-top {
-            .mbsc-ms-item {
-                &.mbsc-ms-item-sel {
-                    border-bottom-color: @material-accent;
-                }
+        .mbsc-ms-item {
+            &.mbsc-ms-item-sel {
+                border-bottom-color: @material-accent;
             }
         }
         &.mbsc-ms-bottom {
@@ -423,7 +412,6 @@
     border-color: @output2_2;
     background: @output2_1;
 }
-
 
 /* Form elements */
 
@@ -543,9 +531,18 @@
     color: @output3_6;
 }
 
+.mbsc-@{theme} .mbsc-btn.mbsc-btn-outline {
+    color: @output3_2;
+    border-color: @output3_2;
+}
+
 .mbsc-@{theme}.mbsc-no-touch .mbsc-btn:not(:disabled):hover,
 .mbsc-@{theme} .mbsc-btn.mbsc-active {
     background: @output2_5;
+}
+
+.mbsc-@{theme} .mbsc-btn.mbsc-control.mbsc-btn-outline.mbsc-active {
+    background: darken(@output3_2, 15%);
 }
 
 .mbsc-@{theme} .mbsc-btn-flat {
@@ -638,8 +635,8 @@
 }
 
 .mbsc-@{theme} .mbsc-segmented input:disabled ~ .mbsc-segmented-item .mbsc-segmented-content,
-.mbsc-@{theme} .mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control.mbsc-step-disabled .mbsc-segmented-content,
-.mbsc-@{theme} .mbsc-segmented .mbsc-segmented-item.mbsc-step-disabled .mbsc-segmented-content {
+.mbsc-@{theme} .mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control.mbsc-disabled .mbsc-segmented-content,
+.mbsc-@{theme} .mbsc-segmented .mbsc-segmented-item.mbsc-disabled .mbsc-segmented-content {
     background: @output2_2;
     color: @output2_7;
 }
@@ -659,6 +656,11 @@
     color: @output3_6;
 }
 
+/* Rating */
+
+.mbsc-@{theme}.mbsc-rating .mbsc-progress-track {
+    color: @material-accent;
+}
 
 /* Snackbar */
 
@@ -693,4 +695,19 @@
 
 .mbsc-@{theme} .mbsc-color-clear-item {
     background: @colorClearBackground;
+}
+
+
+/* Cards */
+
+.mbsc-@{theme} {
+    &.mbsc-card.mbsc-form {
+        background: lighten(@material-background, 4.8%);
+    }
+    .mbsc-card-list .mbsc-card {
+        background: lighten(@material-background, 4.8%);
+    }
+    .mbsc-card-footer {
+        border-color: @material-border;
+    }
 }

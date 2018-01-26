@@ -1,7 +1,8 @@
 import jQuery from 'jquery';
-import mobiscroll from '../core/mobiscroll';
+import { mobiscroll } from '../core/mobiscroll';
 
-var extend = jQuery.extend;
+const extend = jQuery.extend;
+const components = {};
 
 function init(that, options, args) {
     var ret = that;
@@ -9,7 +10,7 @@ function init(that, options, args) {
     // Init
     if (typeof options === 'object') {
         return that.each(function () {
-            new mobiscroll.classes[options.component || 'Scroller'](this, options);
+            new options.component(this, options);
         });
     }
 
@@ -32,22 +33,24 @@ function init(that, options, args) {
     return ret;
 }
 
-mobiscroll.presetShort = function (name, className, preset) {
-    mobiscroll.components[name] = function (s) {
+function createComponent(name, Component, preset) {
+    components[name] = function (s) {
         return init(this, extend(s, {
-            component: className,
+            component: Component,
             preset: preset === false ? undefined : name
         }), arguments);
     };
-};
+}
 
 mobiscroll.$ = jQuery;
 
 jQuery.mobiscroll = mobiscroll;
 
 jQuery.fn.mobiscroll = function (method) {
-    extend(this, mobiscroll.components);
+    extend(this, components);
     return init(this, method, arguments);
 };
+
+export { createComponent, mobiscroll };
 
 export default mobiscroll;

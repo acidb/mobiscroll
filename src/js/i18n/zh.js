@@ -1,6 +1,6 @@
 // Chinese
 
-import mobiscroll from '../core/core';
+import { mobiscroll } from '../core/core';
 
 export default mobiscroll;
 
@@ -31,7 +31,6 @@ mobiscroll.i18n.zh = {
     // Calendar component
     dateText: '日',
     timeText: '时间',
-    calendarText: '日历',
     closeText: '关闭',
     // Daterange component
     fromText: '开始时间',

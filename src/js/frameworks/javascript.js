@@ -1,20 +1,18 @@
-import mobiscroll, {
-    $
-} from '../core/dom';
+import { $, mobiscroll } from '../core/dom';
 
-mobiscroll.presetShort = function (name, className, preset) {
+function createComponent(name, Component, preset) {
     mobiscroll[name] = function (selector, s) {
         var inst,
             instIds,
             ret = {},
             options = s || {};
 
-        $.extend(options, {
-            preset: preset === false ? undefined : name
-        });
+        if (preset !== false) {
+            options.preset = name;
+        }
 
         $(selector).each(function () {
-            inst = new mobiscroll.classes[className || 'Scroller'](this, options);
+            inst = new Component(this, options);
             ret[this.id] = inst;
         });
 
@@ -22,6 +20,8 @@ mobiscroll.presetShort = function (name, className, preset) {
 
         return instIds.length == 1 ? ret[instIds[0]] : ret;
     };
-};
+}
+
+export { createComponent, mobiscroll };
 
 export default mobiscroll;

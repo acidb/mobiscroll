@@ -1,6 +1,6 @@
-import FormControl from './form-control';
+import { FormControl } from './form-control';
 
-class Radio extends FormControl {
+export class Radio extends FormControl {
     constructor(elm, settings) {
         super(elm, settings);
 
@@ -11,5 +11,3 @@ class Radio extends FormControl {
         this._$elm.after('<span class="mbsc-radio-box"><span></span></span>');
     }
 }
-
-export default Radio;

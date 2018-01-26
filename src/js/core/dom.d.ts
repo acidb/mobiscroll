@@ -1,2 +1,2 @@
-import mobiscroll from './mobiscroll';
-export default mobiscroll;
+import { mobiscroll } from './mobiscroll';
+export { mobiscroll };

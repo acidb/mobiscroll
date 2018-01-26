@@ -1,6 +1,6 @@
 // Vietnamese 
 
-import mobiscroll from '../core/core';
+import { mobiscroll } from '../core/core';
 
 export default mobiscroll;
 
@@ -12,15 +12,15 @@ mobiscroll.i18n.vi = {
     selectedText: '{count} chọn',
     // Datetime component
     dateFormat: 'dd/mm/yy',
-	dayNames: [ 'Chủ Nhật', 'Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy' ],
-	dayNamesShort: [ 'CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7' ],
-	dayNamesMin: [ 'CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7' ],
+    dayNames: ['Chủ Nhật', 'Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy'],
+    dayNamesShort: ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'],
+    dayNamesMin: ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'],
     dayText: '',
     delimiter: '/',
     hourText: 'Giờ',
     minuteText: 'Phút',
-	monthNames: [ 'Tháng Một', 'Tháng Hai', 'Tháng Ba', 'Tháng Tư', 'Tháng Năm', 'Tháng Sáu','Tháng Bảy', 'Tháng Tám', 'Tháng Chín', 'Tháng Mười', 'Tháng Mười Một', 'Tháng Mười Hai' ],
-	monthNamesShort: [ 'Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6','Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12' ],
+    monthNames: ['Tháng Một', 'Tháng Hai', 'Tháng Ba', 'Tháng Tư', 'Tháng Năm', 'Tháng Sáu', 'Tháng Bảy', 'Tháng Tám', 'Tháng Chín', 'Tháng Mười', 'Tháng Mười Một', 'Tháng Mười Hai'],
+    monthNamesShort: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
     monthText: 'Tháng',
     secText: 'Giây',
     timeFormat: 'H:ii',
@@ -32,7 +32,6 @@ mobiscroll.i18n.vi = {
     firstDay: 0,
     dateText: 'Ngày',
     timeText: 'Hồi',
-    calendarText: 'Lịch',
     todayText: 'Hôm nay',
 
     prevMonthText: 'Tháng trước',

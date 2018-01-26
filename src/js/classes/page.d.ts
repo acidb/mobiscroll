@@ -1,4 +1,4 @@
-import mobiscroll from '../core/core';
-export default class Page {
+import { mobiscroll } from '../core/core';
+export class Page {
     constructor(element: any, settings: any);
 }

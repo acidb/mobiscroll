@@ -14,6 +14,7 @@
 
 @ios-background-limited: hsl(hue(@ios-background), saturation(@ios-background), max(lightness(@ios-background), 3%));
 @ios-background-alt: lighten(@ios-background-limited, 3%);
+@ios-card-shadow: darken(@ios-background-limited, 17%);
 
 /* Light/dark versions */
 
@@ -176,7 +177,7 @@
     color: @output3_5;
 }
 
-.mbsc-@{theme} .mbsc-sc-itm.mbsc-btn-a {
+.mbsc-@{theme} .mbsc-sc-itm.mbsc-active {
     background: fade(@output2_1, 20%);
 }
 
@@ -200,8 +201,8 @@
     border-color: @output3_7;
 }
 
-.mbsc-@{theme}.mbsc-fr-center.mbsc-no-touch .mbsc-fr-btn-e:not(.mbsc-fr-btn-d):hover,
-.mbsc-@{theme}.mbsc-fr-center .mbsc-fr-btn-a {
+.mbsc-@{theme}.mbsc-fr-center.mbsc-no-touch .mbsc-fr-btn-e:not(.mbsc-disabled):hover,
+.mbsc-@{theme}.mbsc-fr-center .mbsc-fr-btn.mbsc-active {
     background: @output3_14;
 }
 
@@ -319,9 +320,13 @@
     .mbsc-cal-today {
         color: @ios-accent;
     }
+    /* Focus */
+    .mbsc-cal-cell:focus .mbsc-cal-cell-txt {
+        background: fade(@ios-accent, 30%);
+    }
     /* Hover, selected */
-    &.mbsc-no-touch .mbsc-cal-cell:not(.mbsc-btn-d):hover .mbsc-cal-cell-txt,
-    .mbsc-selected .mbsc-cal-cell-txt {
+    &.mbsc-no-touch .mbsc-cal-cell:not(.mbsc-disabled):hover .mbsc-cal-cell-txt,
+    .mbsc-cal-cell.mbsc-selected .mbsc-cal-cell-txt {
         border-color: @ios-accent;
         background: @ios-accent;
         color: contrast(@ios-accent);
@@ -404,29 +409,6 @@
 }
 
 
-/* Rating */
-
-.mbsc-@{theme} .rating-circle {
-    border-color: @output2_1;
-    background: @output2_1;
-    color: @output2_1_text;
-}
-
-.mbsc-@{theme} .mbsc-rating-icon-unf {
-    color: @output3_22;
-}
-
-.mbsc-@{theme} .mbsc-rating-circle {
-    background: @output2_5;
-    color: @output2_1_text;
-}
-
-.mbsc-@{theme} .mbsc-rating-circle-unf {
-    border-color: @output2_5;
-    background: @output3_1;
-}
-
-
 /* Timer, timespan */
 
 .mbsc-@{theme}.mbsc-timer .mbsc-sc-lbl {
@@ -461,7 +443,7 @@
             border-color: @ios-border;
         }
     }
-    &.mbsc-no-touch .mbsc-ms-item:not(.mbsc-btn-d):hover {
+    &.mbsc-no-touch .mbsc-ms-item:not(.mbsc-disabled):hover {
         background: fade(@ios-accent, 15%);
     }
 }
@@ -473,12 +455,12 @@
     border-color: @output3_7;
 }
 
-.mbsc-@{theme} .mbsc-np-btn.mbsc-fr-btn-a,
+.mbsc-@{theme} .mbsc-np-btn.mbsc-active,
 .mbsc-@{theme} .mbsc-np-btn-empty {
     background: @output3_15;
 }
 
-.mbsc-@{theme} .mbsc-np-btn.mbsc-fr-btn-d {
+.mbsc-@{theme} .mbsc-np-btn.mbsc-disabled {
     color: @output3_22;
 }
 
@@ -594,6 +576,15 @@
     background: @output3_13;
 }
 
+.mbsc-@{theme} .mbsc-btn-outline.mbsc-btn {
+    color: @output2_1;
+    border-color:  @output2_1;
+}
+
+.mbsc-@{theme} .mbsc-btn-outline.mbsc-btn.mbsc-active {
+    background: @output2_1;
+}
+
 // .mbsc-@{theme}.mbsc-no-touch .mbsc-btn:not(:disabled):not(.mbsc-active):hover {
 //     background: @output3_16;
 // }
@@ -666,7 +657,6 @@
     background: @slider_track_step;
 }
 
-
 /* Switch */
 
 .mbsc-@{theme}.mbsc-form .mbsc-switch {
@@ -730,7 +720,7 @@
 }
 
 .mbsc-@{theme} .mbsc-segmented input:disabled ~ .mbsc-segmented-item .mbsc-segmented-content,
-.mbsc-@{theme} .mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control.mbsc-step-disabled .mbsc-segmented-content,
+.mbsc-@{theme} .mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control.mbsc-disabled .mbsc-segmented-content,
 .mbsc-@{theme} .mbsc-segmented .mbsc-segmented-item input:disabled + .mbsc-segmented-content {
     background: none;
     color: @output3_13;
@@ -746,7 +736,7 @@
     background: @output3_12;
 }
 
-.mbsc-@{theme} .mbsc-stepper .mbsc-active.mbsc-step-disabled .mbsc-segmented-content {
+.mbsc-@{theme} .mbsc-stepper .mbsc-active.mbsc-disabled .mbsc-segmented-content {
     color: @output3_13;
 }
 
@@ -756,6 +746,13 @@
 
 .mbsc-@{theme}.mbsc-no-touch .mbsc-segmented-item:hover .mbsc-segmented-content {
     background: fade(@output2_4, 15%);
+}
+
+
+/* Rating */
+
+.mbsc-@{theme}.mbsc-rating .mbsc-progress-track {
+    color: @output1_1;
 }
 
 
@@ -842,4 +839,17 @@
 
 .mbsc-@{theme} .mbsc-color-clear-item {
     background: @colorClearBackground;
+}
+
+
+/* Cards */
+
+.mbsc-@{theme} {
+    &.mbsc-card.mbsc-form {
+        background: @ios-background-alt;
+        box-shadow: 0 0 1px 1px fade(@ios-card-shadow, 20%);
+    }
+    .mbsc-card-footer {
+        border-color: @ios-border;
+    }
 }

@@ -1,6 +1,6 @@
 // Svenska
 
-import mobiscroll from '../core/core';
+import { mobiscroll } from '../core/core';
 
 export default mobiscroll;
 
@@ -32,7 +32,6 @@ mobiscroll.i18n.sv = {
     firstDay: 1,
     dateText: 'Datum',
     timeText: 'Tid',
-    calendarText: 'Kalender',
     closeText: 'Stäng',
     // Daterange component
     fromText: 'Start',

@@ -1,11 +1,8 @@
-import mobiscroll, {
-    $,
-    extend
-} from '../core/core';
-import FormControl from './form-control';
-import SliderBase from './slider-base';
+import { $, extend, classes } from '../core/core';
+import { FormControl } from './form-control';
+import { SliderBase } from './slider-base';
 
-const Switch = function (elm, settings) {
+export const Switch = function (elm, settings) {
     var $elm,
         $parent,
         s,
@@ -96,8 +93,4 @@ Switch.prototype = {
     }
 };
 
-mobiscroll.classes.Switch = Switch;
-
-mobiscroll.presetShort('switch', 'Switch');
-
-export default Switch;
+classes.Switch = Switch;

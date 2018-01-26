@@ -1,7 +1,5 @@
-import mobiscroll, { $ } from '../core/core';
+import { $, mobiscroll } from '../core/core';
 import { os } from '../util/platform';
-
-export default mobiscroll;
 
 const themes = mobiscroll.themes;
 
@@ -15,16 +13,12 @@ if (os == 'android') {
     theme = 'windows';
 }
 
-mobiscroll.setAutoTheme = function () {
-    $.each(themes.frame, function (key, settings) {
-        // Stop at the first custom theme with the OS base theme
-        if (theme && settings.baseTheme == theme && key != 'material-dark' && key != 'windows-dark' && key != 'ios-dark') {
-            mobiscroll.autoTheme = key;
-            return false;
-        } else if (key == theme) {
-            mobiscroll.autoTheme = key;
-        }
-    });
-};
-
-mobiscroll.setAutoTheme();
+$.each(themes.frame, function (key, settings) {
+    // Stop at the first custom theme with the OS base theme
+    if (theme && settings.baseTheme == theme && key != 'material-dark' && key != 'windows-dark' && key != 'ios-dark') {
+        mobiscroll.autoTheme = key;
+        return false;
+    } else if (key == theme) {
+        mobiscroll.autoTheme = key;
+    }
+});

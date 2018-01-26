@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import mobiscroll from '../core/dom';
-import { $, extend } from '../core/core';
+import { mobiscroll } from '../core/dom';
+import { $, extend, classes } from '../core/core';
 
 import PropTypes from 'prop-types';
 
@@ -118,6 +118,36 @@ export const CalbasePropTypes = {
         objType,
         PropTypes.array
     ]),
+    events: PropTypes.arrayOf(PropTypes.shape({
+        start: objType,
+        end: objType,
+        d: PropTypes.oneOfType([objType, numType, stringType]),
+        text: stringType,
+        color: stringType,
+        background: stringType,
+        cssClass: stringType
+    })),
+    labels: PropTypes.arrayOf(PropTypes.shape({
+        start: objType,
+        end: objType,
+        d: PropTypes.oneOfType([objType, numType, stringType]),
+        text: stringType,
+        color: stringType,
+        background: stringType,
+        cssClass: stringType
+    })),
+    marked: PropTypes.arrayOf(PropTypes.oneOfType([objType, stringType,
+        PropTypes.shape({
+            d: PropTypes.oneOfType([objType, stringType, numType]),
+            color: stringType,
+            background: stringType,
+            cssClass: stringType
+        })])),
+    colors: PropTypes.arrayOf(PropTypes.shape({
+        d: PropTypes.oneOfType([objType, stringType, numType]),
+        background: stringType,
+        cssClass: stringType
+    })),
     months: numType,
     weeks: numType,
     outerMonthChange: boolType,
@@ -126,7 +156,6 @@ export const CalbasePropTypes = {
     weekCounter: PropTypes.oneOf(['year', 'month']),
     weekDays: PropTypes.oneOf(['full', 'short', 'min']),
     yearChange: boolType,
-    calendarText: stringType,
     dateText: stringType,
     dayNames: PropTypes.arrayOf(stringType),
     dayNamesMin: PropTypes.arrayOf(stringType),
@@ -403,7 +432,7 @@ export class MbscInputBase extends MbscOptimized {
         // get settings from state
         var settings = extend({}, this.mbscInit, this.state.options);
         // initialize the mobiscroll
-        this.instance = new mobiscroll.classes[this.mbscInit.component || 'Scroller'](ReactDOM.findDOMNode(this), settings);
+        this.instance = new classes[this.mbscInit.component || 'Scroller'](ReactDOM.findDOMNode(this), settings);
         if (this.props.value !== undefined) {
             this.instance.setVal(this.props.value, true);
         }
@@ -430,7 +459,7 @@ export class MbscListsBase extends MbscOptimized {
         var DOMNode = ReactDOM.findDOMNode(this);
 
         // initialize the mobiscroll
-        this.instance = new mobiscroll.classes[this.mbscInit.component || 'Scroller'](DOMNode, settings);
+        this.instance = new classes[this.mbscInit.component || 'Scroller'](DOMNode, settings);
 
         if (this.props.value !== undefined) {
             this.instance.setVal(this.props.value, true);
@@ -459,5 +488,5 @@ export class MbscListsBase extends MbscOptimized {
     }
 }
 
-export { $, extend, mobiscroll, PropTypes };
+export { $, extend, mobiscroll, classes, PropTypes };
 export default mobiscroll;

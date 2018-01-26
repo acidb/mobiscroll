@@ -1,8 +1,5 @@
-import {
-    $,
-    isBrowser
-} from '../core/core';
-import Input from './input';
+import { $, isBrowser } from '../core/core';
+import { Input } from './input';
 
 const events = ['keydown', 'input', 'scroll'];
 
@@ -61,7 +58,7 @@ if (isBrowser) {
     $(window).on('resize orientationchange', sizeTextAreas);
 }
 
-class TextArea extends Input {
+export class TextArea extends Input {
     constructor(elm, settings) {
         super(elm, settings);
 
@@ -105,5 +102,3 @@ class TextArea extends Input {
 export {
     sizeTextAreas
 };
-
-export default TextArea;

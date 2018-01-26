@@ -1,6 +1,6 @@
 // Català
 
-import mobiscroll from '../core/core';
+import { mobiscroll } from '../core/core';
 
 export default mobiscroll;
 
@@ -33,7 +33,6 @@ mobiscroll.i18n.ca = {
     firstDay: 1,
     dateText: 'Data',
     timeText: 'Temps',
-    calendarText: 'Calendari',
     closeText: 'Tancar',
     // Daterange component
     fromText: 'Iniciar',

@@ -1,9 +1,11 @@
-import mobiscroll from '../core/dom';
-import { $, extend, 
-    MbscCoreOptions, 
+import { mobiscroll } from '../core/dom';
+import {
+    $, extend,
+    MbscCoreOptions,
     MbscFrameOptions,
     MbscScrollerOptions,
-    MbscDataControlOptions } from '../core/core';
+    MbscDataControlOptions
+} from '../core/core';
 
 import {
     Directive,
@@ -44,6 +46,18 @@ import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 
 import { MbscFormValueBase } from '../forms.angular';
+
+@Injectable()
+export class MbscOptionsService {
+    private _options: any;
+
+    get options(): any {
+        return this._options;
+    }
+    set options(o: any) {
+        this._options = o;
+    }
+}
 
 @Injectable()
 export class MbscInputService {
@@ -89,20 +103,32 @@ class MbscBase implements AfterViewInit, OnDestroy {
     lang: string;
     @Input()
     rtl: boolean;
-    @Input()
-    onInit: (event: any, inst: any) => void;
-    @Input()
-    onDestroy: (event:any, inst: any) => void;
+    @Output()
+    onInit: EventEmitter<{ inst: any }> = new EventEmitter();
+    @Output()
+    onDestroy: EventEmitter<{ inst: any }> = new EventEmitter();
 
     inlineOptions(): MbscCoreOptions {
         return {
             theme: this.theme,
             lang: this.lang,
-            rtl: this.rtl,
-            onInit: this.onInit,
-            onDestroy: this.onDestroy
+            rtl: this.rtl
         };
     }
+
+    inlineEvents(): MbscCoreOptions {
+        return {
+            onInit: (event: { inst: any }, inst: any) => {
+                event.inst = inst;
+                this.onInit.emit(event);
+            },
+            onDestroy: (event: { inst: any }, inst: any) => {
+                event.inst = inst;
+                this.onDestroy.emit(event);
+            }
+        }
+    }
+
 
     /**
      * Used to add theme classes to the host on components - the mbsc-input components need to have a wrapper
@@ -211,7 +237,7 @@ abstract class MbscControlBase extends MbscValueBase implements ControlValueAcce
     get optionExtensions(): any {
         let externalOnClose = this.options && (this.options as any).onClose;
         let externalOnFill = this.options && (this.options as any).onFill;
-
+        let onCloseEmitter = (this as any).onClose;
         return {
             onFill: (event: any, inst: any) => {
                 // call the oldAccessor writeValue if it was overwritten
@@ -227,6 +253,11 @@ abstract class MbscControlBase extends MbscValueBase implements ControlValueAcce
                 this.onTouch();
                 if (externalOnClose) {
                     externalOnClose(event, inst);
+                }
+
+                if (onCloseEmitter) {
+                    event.inst = inst;
+                    (onCloseEmitter as EventEmitter<{ inst: any }>).emit(event);
                 }
             }
         }
@@ -527,6 +558,11 @@ abstract class MbscFrameBase extends MbscControlBase {
     options: MbscFrameOptions;
 
     @Input()
+    dropdown: boolean;
+
+    // Settings
+
+    @Input()
     anchor: string | HTMLElement;
     @Input()
     animate: boolean | 'fade' | 'flip' | 'pop' | 'swing' | 'slidevertical' | 'slidehorizontal' | 'slidedown' | 'slideup';
@@ -550,24 +586,25 @@ abstract class MbscFrameBase extends MbscControlBase {
     showOnFocus: boolean;
     @Input()
     showOnTap: boolean;
-    @Input()
-    onBeforeClose: (event: { valueText: string, button: string }, inst: any) => void;
-    @Input()
-    onBeforeShow: (event: any, inst: any) => void;
-    @Input()
-    onCancel: (event: { valuteText: string }, inst: any) => void;
-    @Input()
-    onClose: (event: { valueText: string }, inst: any) => void;
-    @Input()
-    onDestroy: (event: any, inst: any) => void;
-    @Input()
-    onFill: (event: any, inst: any) => void;
-    @Input()
-    onMarkupReady: (event: { target: HTMLElement }, inst: any) => void;
-    @Input()
-    onPosition: (event: { target: HTMLElement, windowWidth: number, windowHeight: number }, inst: any) => void;
-    @Input()
-    onShow: (event: { target: HTMLElement, valueText: string }, inst: any) => void;
+
+    // Events
+
+    @Output()
+    onBeforeClose: EventEmitter<{ valueText: string, button: string, inst: any }> = new EventEmitter();
+    @Output()
+    onBeforeShow: EventEmitter<{ inst: any }> = new EventEmitter();
+    @Output()
+    onCancel: EventEmitter<{ valuteText: string, inst: any }> = new EventEmitter();
+    @Output()
+    onClose: EventEmitter<{ valueText: string, inst: any }> = new EventEmitter();
+    @Output()
+    onFill: EventEmitter<{ inst: any }> = new EventEmitter();
+    @Output()
+    onMarkupReady: EventEmitter<{ target: HTMLElement, inst: any }> = new EventEmitter();
+    @Output()
+    onPosition: EventEmitter<{ target: HTMLElement, windowWidth: number, windowHeight: number, inst: any }> = new EventEmitter();
+    @Output()
+    onShow: EventEmitter<{ target: HTMLElement, valueText: string, inst: any }> = new EventEmitter();
 
     inlineOptions(): MbscFrameOptions {
         return extend(super.inlineOptions(), {
@@ -582,16 +619,44 @@ abstract class MbscFrameBase extends MbscControlBase {
             focusTrap: this.focusTrap,
             headerText: this.headerText,
             showOnFocus: this.showOnFocus,
-            showOnTap: this.showOnTap,
-            onBeforeClose: this.onBeforeClose,
-            onBeforeShow: this.onBeforeShow,
-            onCancel: this.onCancel,
-            onClose: this.onClose,
-            onDestroy: this.onDestroy,
-            onFill: this.onFill,
-            onMarkupReady: this.onMarkupReady,
-            onPosition: this.onPosition,
-            onShow: this.onShow
+            showOnTap: this.showOnTap
+        });
+    }
+
+    inlineEvents(): MbscFrameOptions {
+        return extend(super.inlineEvents(), {
+            onBeforeClose: (event: { valueText: string, button: string, inst: any }, inst: any) => {
+                event.inst = inst;
+                this.onBeforeClose.emit(event);
+            },
+            onBeforeShow: (event: { inst: any }, inst: any) => {
+                event.inst = inst;
+                this.onBeforeShow.emit(event);
+            },
+            onCancel: (event: { valuteText: string, inst: any }, inst: any) => {
+                event.inst = inst;
+                this.onCancel.emit(event);
+            },
+            onClose: (event: { valueText: string, inst: any }, inst: any) => {
+                event.inst = inst;
+                this.onClose.emit(event);
+            },
+            onFill: (event: { inst: any }, inst: any) => {
+                event.inst = inst;
+                this.onFill.emit(event);
+            },
+            onMarkupReady: (event: { target: HTMLElement, inst: any }, inst: any) => {
+                event.inst = inst;
+                this.onMarkupReady.emit(event);
+            },
+            onPosition: (event: { target: HTMLElement, windowWidth: number, windowHeight: number, inst: any }, inst: any) => {
+                event.inst = inst;
+                this.onPosition.emit(event);
+            },
+            onShow: (event: { target: HTMLElement, valueText: string, inst: any }, inst: any) => {
+                event.inst = inst;
+                this.onShow.emit(event);
+            }
         });
     }
 
@@ -605,7 +670,9 @@ abstract class MbscFrameBase extends MbscControlBase {
 }
 
 abstract class MbscScrollerBase extends MbscFrameBase {
-    // settings
+
+    // Settings
+
     @Input()
     circular: boolean | Array<boolean>;
     @Input()
@@ -630,7 +697,15 @@ abstract class MbscScrollerBase extends MbscFrameBase {
     wheels: Array<any>;
     @Input()
     width: number;
-    // localization settings
+
+    /** Special event handler for validation
+     * Needs to support return parameters, so it needs to be an @Input
+     */
+    @Input()
+    validate: (event: { values: Array<any>, index: number, direction: number }, inst: any) => (void | { disabled?: Array<any>, valid?: Array<any> });
+
+    // Localization settings
+
     @Input()
     cancelText: string;
     @Input()
@@ -639,19 +714,19 @@ abstract class MbscScrollerBase extends MbscFrameBase {
     selectedText: string;
     @Input()
     setText: string;
-    // event callbacks
-    @Input('onChange')
-    onWheelChange: (event: { valueText?: string }, inst: any) => void;
-    @Input()
-    validate: (data: { values: Array<any>, index: number, direction: number }, inst: any) => (void | { disabled?: Array<any>, valid?: Array<any> });
-    @Input()
-    onSet: (event: { valueText?: string }, inst: any) => void;
-    @Input()
-    onItemTap: (event: any, inst: any) => void;
-    @Input()
-    onClear: (event: any, inst: any) => void;
 
-    inlineOptions() : MbscScrollerOptions {
+    // Events
+
+    @Output('onChange')
+    onWheelChange: EventEmitter<{ valueText?: string, inst: any }> = new EventEmitter();
+    @Output()
+    onSet: EventEmitter<{ valueText?: string, inst: any }> = new EventEmitter();
+    @Output()
+    onItemTap: EventEmitter<{ inst: any }> = new EventEmitter();
+    @Output()
+    onClear: EventEmitter<{ inst: any }> = new EventEmitter();
+
+    inlineOptions(): MbscScrollerOptions {
         return extend(super.inlineOptions(), {
             circular: this.circular,
             height: this.height,
@@ -669,13 +744,32 @@ abstract class MbscScrollerBase extends MbscFrameBase {
             clearText: this.clearText,
             selectedText: this.selectedText,
             setText: this.setText,
-            onChange: this.onWheelChange,
             validate: this.validate,
-            onSet: this.onSet,
-            onItemTap: this.onItemTap,
-            onClear: this.onClear,
+
         });
     }
+
+    inlineEvents(): MbscScrollerOptions {
+        return extend(super.inlineEvents(), {
+            onChange: (event: { valueText?: string, inst: any }, inst: any) => {
+                event.inst = inst;
+                this.onWheelChange.emit(event);
+            },
+            onSet: (event: { valueText?: string, inst: any }, inst: any) => {
+                event.inst = inst;
+                this.onSet.emit(event);
+            },
+            onItemTap: (event: { inst: any }, inst: any) => {
+                event.inst = inst;
+                this.onItemTap.emit(event);
+            },
+            onClear: (event: { inst: any }, inst: any) => {
+                event.inst = inst;
+                this.onClear.emit(event);
+            }
+        })
+    }
+
 
     constructor(initialElement: ElementRef, zone: NgZone, control: NgControl, _inputService: MbscInputService) {
         super(initialElement, zone, control, _inputService);
@@ -707,7 +801,13 @@ function deepEqualsArray(a1: Array<any>, a2: Array<any>): boolean {
     }
 }
 
-const INPUT_TEMPLATE = `<div *ngIf="inline"></div><mbsc-input *ngIf="!inline" [controlNg]="false" [name]="name" [theme]="theme" [disabled]="disabled" [error]="error" [errorMessage]="errorMessage" [icon]="inputIcon" [icon-align]="iconAlign"><ng-content></ng-content></mbsc-input>`;
+const INPUT_TEMPLATE = `<div *ngIf="inline"></div><mbsc-input *ngIf="!inline" 
+    [controlNg]="false" [name]="name" [theme]="theme" [disabled]="disabled" [dropdown]="dropdown" [placeholder]="placeholder"
+    [error]="error" [errorMessage]="errorMessage" 
+    [icon]="inputIcon" [icon-align]="iconAlign">
+    <ng-content></ng-content>
+</mbsc-input>`;
+
 export {
     $,
     extend,

@@ -1,6 +1,6 @@
 // Hebrew
 
-import mobiscroll from '../core/core';
+import { mobiscroll } from '../core/core';
 
 export default mobiscroll;
 
@@ -34,7 +34,6 @@ mobiscroll.i18n.he = {
     firstDay: 0,
     dateText: 'תאריך',
     timeText: 'זמן',
-    calendarText: 'תאריכון',
     closeText: 'סגירה',
     todayText: 'היום',
     // Event calendar

@@ -1,6 +1,6 @@
 // Magyar
 
-import mobiscroll from '../core/core';
+import { mobiscroll } from '../core/core';
 
 export default mobiscroll;
 
@@ -32,7 +32,6 @@ mobiscroll.i18n.hu = {
     firstDay: 1,
     dateText: 'Dátum',
     timeText: 'Idő',
-    calendarText: 'Naptár',
     todayText: 'Ma',
     prevMonthText: 'Előző hónap',
     nextMonthText: 'Következő hónap',

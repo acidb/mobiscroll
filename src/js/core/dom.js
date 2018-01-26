@@ -1,6 +1,6 @@
-import mobiscroll from './mobiscroll';
+import { mobiscroll } from './mobiscroll';
 
-export default mobiscroll;
+export { mobiscroll };
 
 var cssNumber = {
         'column-count': 1,

@@ -1,9 +1,7 @@
-import {
-    $
-} from '../core/core';
-import Input from './input';
+import { $ } from '../core/core';
+import { Input } from './input';
 
-class Select extends Input {
+export class Select extends Input {
     constructor(elm, settings) {
         super(elm, settings);
 
@@ -48,5 +46,3 @@ class Select extends Input {
         }
     }
 }
-
-export default Select;
