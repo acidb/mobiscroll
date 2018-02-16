@@ -3,11 +3,11 @@ Mobiscroll
 
 What is Mobiscroll?
 -----------------
-Mobiscroll is a UI library of components for progressive webapps and hybrid development. Created with a lot of attention to usability and performance. [Mobiscroll Forms](https://mobiscroll.com/forms) ships with 13 customizable controls that you can use for free that are included in this repository. Use Forms with the premium products that can be found on the [Mobiscroll website](https://mobiscroll.com).
+Mobiscroll is a UI library for progressive webapps and hybrid development. Created with a lot of attention to usability and performance. [Mobiscroll Forms](https://mobiscroll.com/forms) ships with 15 customizable controls that you can use for free that are included in this repository. Use Forms with the premium products that can be found on the [Mobiscroll website](https://mobiscroll.com).
 
 Where can I use Mobiscroll?
 -----------------
-You can use the controls in web and hybrid/native cross-platform apps. At it's core Mobiscroll is framework agnostic, but API variants for jQuery/jQuery Mobile, Angular/Ionic, React and Knockout is available.
+You can use the controls in web and hybrid/native cross-platform apps. At it's core Mobiscroll is framework agnostic, but API variants for jQuery/jQuery Mobile, Angular/Ionic, Angular JS/Ionic 1 and React is available.
 
 Elements
 -----------------
@@ -145,7 +145,7 @@ License Information
 
 This project has been released under the Apache License, version 2.0, the text of which is included below. This license applies ONLY to the source of this repository and does not extend to any other Mobiscroll distribution or variant, or any other 3rd party libraries used in a repository. For licensing information about Mobiscroll, see the [License Agreements page at mobiscroll.com](https://mobiscroll.com/eula).
 
->Copyright © 2017 Mobiscroll
+>Copyright © 2018 Mobiscroll
 
 >Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
 
