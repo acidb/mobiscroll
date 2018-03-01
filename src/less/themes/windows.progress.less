@@ -2,81 +2,81 @@
 
 /* Progress */
 
-.mbsc-windows.mbsc-progress {
-    padding: .75em 1em;
-}
-
-.mbsc-windows.mbsc-progress .mbsc-label {
-    padding-bottom: .3125em;
-    color:  @windows-text;
-    font-size: 1em;
-}
-
-.mbsc-windows.mbsc-progress .mbsc-input-wrap {
-    padding: 0;
-}
-
-.mbsc-windows.mbsc-progress .mbsc-input-ic {
-    color: @windows-text;
-    top: -.1875em;
-}
-
-.mbsc-ltr.mbsc-windows.mbsc-progress.mbsc-ic-right,
-.mbsc-rtl.mbsc-windows.mbsc-progress.mbsc-ic-left {
-    padding-right: 3.25em;
-}
-
-.mbsc-ltr.mbsc-windows.mbsc-progress.mbsc-ic-left,
-.mbsc-rtl.mbsc-windows.mbsc-progress.mbsc-ic-right {
-    padding-left: 3.25em;
-}
-
-.mbsc-windows.mbsc-progress.mbsc-ic-right .mbsc-right-ic,
-.mbsc-rtl.mbsc-windows.mbsc-progress.mbsc-ic-left .mbsc-left-ic {
-    left: auto;
-    right: -2.375em;
-}
-
-.mbsc-windows.mbsc-progress.mbsc-ic-left .mbsc-left-ic,
-.mbsc-rtl.mbsc-windows.mbsc-progress.mbsc-ic-right .mbsc-right-ic {
-    right: auto;
-    left: -2.375em;
-}
-
-.mbsc-ltr.mbsc-windows.mbsc-progress.mbsc-progress-value-left .mbsc-input-wrap,
-.mbsc-rtl.mbsc-windows.mbsc-progress.mbsc-progress-value-right .mbsc-input-wrap {
-    padding-left: 3.5em;
-}
-
-.mbsc-ltr.mbsc-windows.mbsc-progress.mbsc-progress-value-right .mbsc-input-wrap,
-.mbsc-rtl.mbsc-windows.mbsc-progress.mbsc-progress-value-left .mbsc-input-wrap {
-    padding-right: 3.5em;
-}
-
-.mbsc-windows .mbsc-progress-cont {
-    padding: .75em 0;
-}
-
-.mbsc-windows .mbsc-progress-track {
-    background: @windows-progress-bg;
-    height: .125em;
-}
-
-.mbsc-windows .mbsc-progress-bar {
-    background: @windows-accent;
-}
-
-.mbsc-windows .mbsc-progress-value {
-    margin-top: -.4375em;
-    width: 3.5em;
-}
-
-.mbsc-windows .mbsc-progress-step-label {
-    top: auto;
-    bottom: -2em;
-}
-
 .mbsc-windows {
+    &.mbsc-progress {
+        padding: .75em 1em;
+    }
+
+    &.mbsc-progress .mbsc-label {
+        padding-bottom: .3125em;
+        color: @windows-text;
+        font-size: 1em;
+    }
+
+    &.mbsc-progress .mbsc-input-wrap {
+        padding: 0;
+    }
+
+    &.mbsc-progress .mbsc-input-ic {
+        color: @windows-text;
+        top: -.125em;
+    }
+
+    .mbsc-ltr&.mbsc-progress.mbsc-ic-right,
+    .mbsc-rtl&.mbsc-progress.mbsc-ic-left {
+        padding-right: 3.25em;
+    }
+
+    .mbsc-ltr&.mbsc-progress.mbsc-ic-left,
+    .mbsc-rtl&.mbsc-progress.mbsc-ic-right {
+        padding-left: 3.25em;
+    }
+
+    &.mbsc-progress.mbsc-ic-right .mbsc-right-ic,
+    .mbsc-rtl&.mbsc-progress.mbsc-ic-left .mbsc-left-ic {
+        left: auto;
+        right: -2.375em;
+    }
+
+    &.mbsc-progress.mbsc-ic-left .mbsc-left-ic,
+    .mbsc-rtl&.mbsc-progress.mbsc-ic-right .mbsc-right-ic {
+        right: auto;
+        left: -2.375em;
+    }
+
+    .mbsc-ltr&.mbsc-progress.mbsc-progress-value-left .mbsc-input-wrap,
+    .mbsc-rtl&.mbsc-progress.mbsc-progress-value-right .mbsc-input-wrap {
+        padding-left: 3.5em;
+    }
+
+    .mbsc-ltr&.mbsc-progress.mbsc-progress-value-right .mbsc-input-wrap,
+    .mbsc-rtl&.mbsc-progress.mbsc-progress-value-left .mbsc-input-wrap {
+        padding-right: 3.5em;
+    }
+
+    .mbsc-progress-cont {
+        padding: .75em 0;
+    }
+
+    .mbsc-progress-track {
+        background: @windows-progress-bg;
+        height: .25em;
+    }
+
+    .mbsc-progress-bar {
+        background: @windows-accent;
+    }
+
+    .mbsc-progress-value {
+        margin-top: -.4375em;
+        width: 3.5em;
+    }
+
+    .mbsc-progress-step-label {
+        top: auto;
+        bottom: -2em;
+    }
+
     /* Progress color presets */
     .mbsc-progress-primary .mbsc-progress-bar {
         background: @windows-primary;
@@ -95,8 +95,7 @@
     }
     .mbsc-progress-info .mbsc-progress-bar {
         background: @windows-info;
-    }
-    // .mbsc-progress-light .mbsc-progress-bar {
+    } // .mbsc-progress-light .mbsc-progress-bar {
     //     background: @windows-light;
     // }
     // .mbsc-progress-dark .mbsc-progress-bar {

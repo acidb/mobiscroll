@@ -69,9 +69,11 @@ export class MbscNote {
 
 @Component({
     selector: 'mbsc-avatar',
-    template: '<img class="mbsc-avatar" [src]="src" [alt]="alt" />'
+    template: '<img class="mbsc-avatar" [src]="src" [alt]="alt" [draggable]="draggable" />'
 })
 export class MbscAvatar {
+    @Input()
+    draggable: boolean = false;
     @Input()
     src: string;
     @Input()

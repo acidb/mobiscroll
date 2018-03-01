@@ -7,65 +7,34 @@ var themes = mobiscroll.themes;
 themes.frame.windows = {
     headerText: false,
     deleteIcon: 'backspace4',
-    setIcon: 'checkmark',
-    cancelIcon: 'close',
-    closeIcon: 'close',
-    clearIcon: 'close',
-    okIcon: 'checkmark',
-    nowIcon: 'loop2',
-    startIcon: 'play3',
-    stopIcon: 'pause2',
-    resetIcon: 'stop2',
-    lapIcon: 'loop2',
-    btnWidth: false,
+    //setIcon: 'material-check',
+    //cancelIcon: 'material-close',
+    //closeIcon: 'material-close',
+    //clearIcon: 'material-close',
+    //okIcon: 'material-check',
+    //nowIcon: 'loop2',
+    //startIcon: 'play3',
+    //stopIcon: 'pause2',
+    //resetIcon: 'stop2',
+    //lapIcon: 'loop2',
+    //btnWidth: false,
     btnReverse: true
 };
 
 themes.scroller.windows = extend({}, themes.frame.windows, {
-    minWidth: 76,
-    height: 76,
-    dateDisplay: 'mmMMddDDyy',
+    rows: 6, // scroller
+    minWidth: 88,
+    height: 44,
+    btnPlusClass: 'mbsc-ic mbsc-ic-arrow-down5',
+    btnMinusClass: 'mbsc-ic mbsc-ic-arrow-up5',
+    checkIcon: 'material-check',
+    dateDisplay: 'MMdyy', // date
     showLabel: false,
-    icon: {
-        filled: 'star3',
-        empty: 'star'
-    },
-    btnCalPrevClass: 'mbsc-ic mbsc-ic-arrow-left2',
-    btnCalNextClass: 'mbsc-ic mbsc-ic-arrow-right2',
-    btnPlusClass: 'mbsc-ic mbsc-ic-plus',
-    btnMinusClass: 'mbsc-ic mbsc-ic-minus',
-    // onMarkupInserted: function (ev, inst) {
-    //     var click,
-    //         touch,
-    //         active,
-    //         elm = $(ev.target),
-    //         s = inst.settings;
-
-    //     function isReadOnly(i) {
-    //         return $.isArray(s.readonly) ? s.readonly[i] : s.readonly;
-    //     }
-
-    //     $('.mbsc-sc-whl', elm).on('touchstart mousedown wheel mousewheel', function (e) {
-    //         if ((e.type === 'mousedown' && touch) || isReadOnly($(this).attr('data-index'))) {
-    //             return;
-    //         }
-    //         touch = e.type === 'touchstart';
-    //         click = true;
-    //         active = $(this).hasClass('mbsc-sc-whl-wpa');
-    //         $('.mbsc-sc-whl', elm).removeClass('mbsc-sc-whl-wpa');
-    //         $(this).addClass('mbsc-sc-whl-wpa');
-    //     }).on('touchmove mousemove', function () {
-    //         click = false;
-    //     }).on('touchend mouseup', function (e) {
-    //         if (click && active && $(e.target).closest('.mbsc-sc-itm').hasClass('mbsc-sc-itm-sel')) {
-    //             $(this).removeClass('mbsc-sc-whl-wpa');
-    //         }
-    //         if (e.type === 'mouseup') {
-    //             touch = false;
-    //         }
-    //         click = false;
-    //     });
-    // }
+    showScrollArrows: true,
+    btnCalPrevClass: 'mbsc-ic mbsc-ic-arrow-left5', // calendar
+    btnCalNextClass: 'mbsc-ic mbsc-ic-arrow-right5', // calendar
+    dayNamesShort: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+    useShortLabels: true, // timespan/timer
 });
 
 themes.form.windows = {};

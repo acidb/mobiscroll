@@ -1,6 +1,5 @@
 @import "progress";
 @import "themes/mobiscroll";
-
 /* Forms rating */
 
 .mbsc-rating {
@@ -11,17 +10,14 @@
         margin: 0 -.681818em;
         cursor: pointer;
     }
-
     .mbsc-progress-cont .mbsc-progress-track {
         height: auto;
         background: none;
     }
-
     .mbsc-ic {
         font-size: 1.375em;
         margin: 0 0.181818em;
     }
-
     &.mbsc-progress input {
         display: none;
     }
@@ -37,30 +33,27 @@
         background: none;
         box-shadow: none;
         border: 0;
+        -webkit-transform: none;
+        transform: none;
     }
-
     .mbsc-progress-cont .mbsc-progress-bar {
         background: none;
         overflow: hidden;
     }
 }
 
-
 /* Mobiscroll Theme */
 
-.mbsc-mobiscroll.mbsc-rating { 
+.mbsc-mobiscroll.mbsc-rating {
     .mbsc-label {
         padding-bottom: .5em;
     }
-    
     .mbsc-progress-track {
         color: @mobiscroll-accent;
     }
-
     input:disabled ~ .mbsc-progress-cont .mbsc-progress-track {
         opacity: .4;
     }
-
     /* Color presets */
     &.mbsc-rating-primary .mbsc-progress-track {
         color: @mobiscroll-primary;
@@ -79,5 +72,5 @@
     }
     &.mbsc-rating-info .mbsc-progress-track {
         color: @mobiscroll-info;
-    } 
+    }
 }

@@ -42,7 +42,7 @@ export const Page = function (el, settings) {
 
         cssClass = 'mbsc-page mbsc-' + s.theme + (s.baseTheme ? ' mbsc-' + s.baseTheme : '') + (s.rtl ? ' mbsc-rtl' : ' mbsc-ltr');
 
-        $elm.addClass(cssClass).css(css);
+        $elm.addClass(cssClass).removeClass('mbsc-cloak').css(css);
     };
 
     /**

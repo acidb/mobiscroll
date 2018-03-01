@@ -21,6 +21,7 @@ export interface MbscFrameOptions extends MbscCoreOptions {
     buttons?: Array<any>;
     closeOnOverlayTap?: boolean;
     context?: string | HTMLElement;
+    cssClass?: string;
     disabled?: boolean;
     display?: 'top' | 'bottom' | 'bubble' | 'inline' | 'center';
     focusOnClose?: boolean | string | HTMLElement;
@@ -68,6 +69,9 @@ export interface MbscScrollerOptions extends MbscFrameOptions {
     clearText?: string;
     selectedText?: string;
     setText?: string;
+
+    formatValue?(data: Array<any>): string;
+    parseValue?(valueText: string): any;
 }
 
 export interface MbscDataControlOptions {

@@ -94,10 +94,11 @@ function showPrompt(widget, settings, resolve) {
     let input;
     const inst = new Widget(widget, getSettings(popupQueue, settings, resolve, {
         buttons: ['cancel', 'ok'],
-        onShow: function () {
+        onMarkupReady: function (event, inst) {
             input = inst._markup.find('input')[0];
             setTimeout(function () {
                 input.focus();
+                input.setSelectionRange(0, input.value.length);
             }, 300);
         },
         onSet: function () {

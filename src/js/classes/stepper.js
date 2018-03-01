@@ -128,9 +128,10 @@ export const Stepper = function (control, settings) {
             } else {
                 $btnMinus.after('<span class="mbsc-segmented-item"><span class="mbsc-segmented-content mbsc-stepper-val"></span></span>');
             }
+        }
 
+        if (!stepper) {
             $control.on('change', onChange);
-
             stepper = createStepper($controls, stepValue, 150, checkDisabled, false, ripple);
         }
 
@@ -141,11 +142,14 @@ export const Stepper = function (control, settings) {
             .attr('max', max)
             .attr('step', step)
             .addClass('mbsc-control');
+
+        control.mbscInst = that;
     };
 
     that._destroy = function () {
         $control.removeClass('mbsc-control').off('change', onChange);
         stepper.destroy();
+        delete control.mbscInst;
     };
 
     that.init(settings);

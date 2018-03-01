@@ -28,6 +28,7 @@ export const FramePropTypes = {
     animate: PropTypes.oneOfType([boolType, PropTypes.oneOf(['fade', 'flip', 'pop', 'swing', 'slidevertical', 'slidehorizontal', 'slidedown', 'slideup'])]),
     buttons: PropTypes.array,
     closeOnOverlayTap: boolType,
+    cssClass: stringType,
     disabled: boolType,
     display: PropTypes.oneOf(['top', 'bottom', 'bubble', 'inline', 'center']),
     focusOnClose: PropTypes.oneOfType([boolType, stringType, objType]),
@@ -72,7 +73,9 @@ export const ScrollerPropTypes = {
     cancelText: stringType,
     clearText: stringType,
     selectedText: stringType,
-    setText: stringType
+    setText: stringType,
+    formatValue: funcType,
+    parseValue: funcType
 };
 
 export const DatetimePropTypes = {
@@ -165,7 +168,10 @@ export const CalbasePropTypes = {
     onDayChange: funcType,
     onMonthChange: funcType,
     onMonthLoading: funcType,
-    onMonthLoaded: funcType
+    onMonthLoaded: funcType,
+    onPageChange: funcType,
+    onPageLoading: funcType,
+    onPageLoaded: funcType
 };
 
 export function updateCssClasses(currentClasses, nextClasses) {
@@ -278,18 +284,13 @@ export function deepCompare(a, b) {
     return compare2Objects(a, b);
 }
 
-/** The base class for the mobiscroll components
- * Generates the Mobiscroll options object from the react component properties
- * Setting initial state 
- * Updating state based on new props 
- * Updating mobiscroll based on state */
-export class MbscBase extends React.Component {
+export class MbscInit extends React.Component {
     constructor(props) {
         super(props);
 
         // the initial css class will not change this way, and wont trigger any re-render. We will handle the className changes in the componentWillReceive function
         // Note: every render function should use the this.initialCssClass instead of passing through the className prop 
-        this.initialCssClass = this.props.className;
+        this.initialCssClass = this.props.className || '';
 
         // set Initial State
         var options = this.getSettingsFromProps(props);
@@ -320,24 +321,6 @@ export class MbscBase extends React.Component {
         });
     }
 
-    // updates mobiscroll with new options
-    componentDidUpdate = () => {
-        var settings = extend({}, this.state.options);
-        if (this.optimizeUpdate) {
-            if (this.optimizeUpdate.updateOptions) {
-                this.instance.option(settings);
-            }
-            if (this.optimizeUpdate.updateValue && this.state.value !== undefined && !deepCompare(this.state.value, this.instance.getVal())) {
-                this.instance.setVal(this.state.value, true);
-            }
-        } else {
-            this.instance.option(settings);
-            if (this.state.value !== undefined) {
-                this.instance.setVal(this.state.value, true);
-            }
-        }
-    }
-
     // generates the mobiscroll options object based on the props passed
     getSettingsFromProps = (props) => {
         var optionObj = {};
@@ -355,7 +338,7 @@ export class MbscBase extends React.Component {
                 data,
                 className,
                 ...other
-                    } = props;
+            } = props;
 
             /* eslint-enable no-unused-vars */
 
@@ -378,6 +361,35 @@ export class MbscBase extends React.Component {
         this.instance.destroy();
         // Also need to delete reference to the instance
         delete this.instance;
+    }
+}
+
+/** The base class for the mobiscroll components
+ * Generates the Mobiscroll options object from the react component properties
+ * Setting initial state 
+ * Updating state based on new props 
+ * Updating mobiscroll based on state */
+export class MbscBase extends MbscInit {
+    constructor(props) {
+        super(props);
+    }
+
+    // updates mobiscroll with new options
+    componentDidUpdate = () => {
+        var settings = extend({}, this.state.options);
+        if (this.optimizeUpdate) {
+            if (this.optimizeUpdate.updateOptions) {
+                this.instance.option(settings);
+            }
+            if (this.optimizeUpdate.updateValue && this.state.value !== undefined && !deepCompare(this.state.value, this.instance.getVal())) {
+                this.instance.setVal(this.state.value, true);
+            }
+        } else {
+            this.instance.option(settings);
+            if (this.state.value !== undefined) {
+                this.instance.setVal(this.state.value, true);
+            }
+        }
     }
 }
 
@@ -449,7 +461,7 @@ export class MbscListsBase extends MbscOptimized {
     }
 
     render = () => {
-        return <ul className={this.initialCssClass}>{this.props.children}</ul>;
+        return <ul className={this.initialCssClass + ' mbsc-cloak'}>{this.props.children}</ul>;
     }
 
     componentDidMount = () => {

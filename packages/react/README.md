@@ -7,14 +7,14 @@ Mobiscroll is a UI library of components for progressive webapps and hybrid deve
 
 Where can I use Mobiscroll?
 -----------------
-You can use the controls in web and hybrid/native cross-platform apps. At it's core Mobiscroll is framework agnostic, but API variants for jQuery/jQuery Mobile, Angular/Ionic, React and Knockout is available.
+You can use the controls in web and hybrid/native cross-platform apps. At it's core Mobiscroll is framework agnostic, but API variants for jQuery/jQuery Mobile, Angular/Ionic and React are available.
 
 Installation
 -----------------
 
 Mobiscroll Forms for React is available as an npm package.
 
-    npm install mobiscroll-react --save
+    npm install @mobiscroll/react-lite --save
 
 Usage
 -----------------
@@ -23,24 +23,16 @@ A simple usage example using ES2015 class syntax:
 
     import React from 'react';
     import ReactDOM from 'react-dom';
-    import Mobiscroll from 'mobiscroll-react';
+    import mobiscroll from '@mobiscroll/react-lite';
 
     class App extends React.Component {
         render() {
             return (
-                <div>
-                    <Mobiscroll.Form theme="mobiscroll">
-                        <label>
-                            Username
-                            <input name="username" />
-                        </label>
-                        <label>
-                            Password
-                            <input name="password" type="password" />
-                        </label>
-                        <button type="submit">Sign In</button>
-                    </Mobiscroll.Form>
-                </div>
+                <mobiscroll.Form theme="mobiscroll">
+                    <mobiscroll.Input name="username">Username</mobiscroll.Input>
+                    <mobiscroll.Input name="password" type="password">Password</mobiscroll.Input>
+                    <mobiscroll.Button type="submit">Sign In</mobiscroll.Button>
+                </mobiscroll.Form>
             );
         }    
     });
@@ -55,7 +47,7 @@ A typical setup is using webpack's [css-loader](https://webpack.js.org/guides/co
 [ExtractTextWebpackPlugin](https://webpack.js.org/plugins/extract-text-webpack-plugin/). With this configuration you can simply import the css
 as well in the js file, where Mobiscroll components are used:
 
-    import 'mobiscroll-react/dist/css/mobiscroll.min.css';
+    import '@mobiscroll/react-lite/dist/css/mobiscroll.min.css';
 
 Elements
 -----------------

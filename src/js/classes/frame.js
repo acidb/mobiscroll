@@ -561,7 +561,10 @@ export const Frame = function (el, settings, inherit) {
                     }
                 });
 
-                that.tap($elm, function () {
+                that.tap($elm, function (ev) {
+                    if (ev.type == 'touchend') {
+                        touched = true;
+                    }
                     show(beforeShow, $elm);
                 });
 
@@ -665,7 +668,7 @@ export const Frame = function (el, settings, inherit) {
 
         hasButtons = buttons.length > 0;
 
-        touched = false;
+        //touched = false;
 
         if (doAnim !== false) {
             if (s.display == 'top') {
@@ -714,11 +717,12 @@ export const Frame = function (el, settings, inherit) {
         }
 
         // Create wheels containers
-        html = '<div lang="' + s.lang + '" class="mbsc-fr mbsc-no-touch mbsc-' + s.theme + (s.baseTheme ? ' mbsc-' + s.baseTheme : '') + ' mbsc-fr-' + s.display + ' ' +
+        html = '<div lang="' + s.lang + '" class="mbsc-fr mbsc-' + s.theme + (s.baseTheme ? ' mbsc-' + s.baseTheme : '') + ' mbsc-fr-' + s.display + ' ' +
             (s.cssClass || '') + ' ' +
             (s.compClass || '') +
             (that._isLiquid ? ' mbsc-fr-liq' : '') +
             (halfBorder ? ' mbsc-fr-hb' : '') +
+            (touched ? '' : ' mbsc-no-touch') +
             (needsLock ? ' mbsc-platform-ios' : '') +
             (hasButtons ? (buttons.length >= 3 ? ' mbsc-fr-btn-block ' : '') : ' mbsc-fr-nobtn') + '">' +
             (isModal ? '<div class="mbsc-fr-persp"><div class="mbsc-fr-overlay"></div><div role="dialog" tabindex="-1" class="mbsc-fr-scroll">' : '') + // Overlay
@@ -1071,7 +1075,7 @@ export const Frame = function (el, settings, inherit) {
                 that.setVal($elm.val(), true, false);
             }
             that._preventChange = false;
-        });
+        }).removeClass('mbsc-cloak');
     };
 
     that.buttons = {};

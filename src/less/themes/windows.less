@@ -1,8 +1,8 @@
 /* Input parameters */
 
-@windows-background: #dedede;
-@windows-text: #000;
-@windows-accent: #1a9fe0;
+@windows-background: #f2f2f2;
+@windows-text: #262626;
+@windows-accent: #0078d7;
 
 /* --- */
 
@@ -19,6 +19,18 @@
     @value_isDark3_2: hsvvalue(@windows-text);
     @windows-colorprev-border: hsv(hsvhue(@windows-background), hsvsaturation(@windows-background), max(hsvvalue(@windows-background) - 25%, 0%));
     @windows-border-cards: darken(@windows-background, 5%);
+    @windows-cal-day: lighten(@windows-text, 30%);
+    @windows-accent-light: hsv(hsvhue(@windows-accent), max(hsvsaturation(@windows-accent) - 63%, 0%), min(hsvvalue(@windows-accent) + 6%, 100%));
+    @windows-fr-border: darken(@windows-background, 15%);
+    @windows-border: darken(@windows-background, 19%);
+    @windows-btn-border: darken(@windows-background, 45%);
+    @windows-button-hover: darken(@windows-background, 10%);
+    @windows-wheel-button: darken(@windows-background, 5%);
+    @windows-grey: darken(@windows-background, 35%);
+    @windows-dark-grey: darken(@windows-background, 55%);
+    @windows-checkbox: hsv(hsvhue(@windows-accent), max(hsvsaturation(@windows-accent) - 90%, 0%), min(hsvvalue(@windows-accent) + 14%, 100%));
+    @windows-switch-hover: hsv(hsvhue(@windows-accent), max(hsvsaturation(@windows-accent) - 34%, 0%), min(hsvvalue(@windows-accent) + 5%, 100%));
+    @windows-button-border: lighten(@windows-text, 33%);
 }
 
 // Dark background 
@@ -33,16 +45,29 @@
     @value_isDark3_2: 0%;
     @hsvvalue2_4: min(hsvvalue(@windows-background) + 18%, 100%);
     @windows-border-cards: lighten(@windows-background, 12%);
+    @windows-cal-day: darken(@windows-text, 30%);
+    @windows-accent-light: hsv(hsvhue(@windows-accent), max(hsvsaturation(@windows-accent) - 44%, 0%), min(hsvvalue(@windows-accent) + 6%, 100%));
+    @windows-fr-border: lighten(@windows-background, 15%);
+    @windows-border: lighten(@windows-background, 19%);
+    @windows-btn-border: lighten(@windows-background, 45%);
+    @windows-button-hover: lighten(@windows-background, 10%);
+    @windows-wheel-button: lighten(@windows-background, 5%);
+    @windows-grey: lighten(@windows-background, 35%);
+    @windows-dark-grey: lighten(@windows-background, 55%);
+    @windows-checkbox: hsv(hsvhue(@windows-accent), max(hsvsaturation(@windows-accent) - 90%, 0%), min(hsvvalue(@windows-accent) + 14%, 100%));
+    @windows-switch-hover: hsv(hsvhue(@windows-accent), max(hsvsaturation(@windows-accent) - 34%, 0%), min(hsvvalue(@windows-accent) + 5%, 100%));
+    @windows-button-border: darken(@windows-text, 33%);
 }
 
 
 /* Light/dark versions */
 
 @windows-accent-alt: contrast(@windows-accent);
-@windows-input-disabled: hsv(hsvhue(@windows-text), hsvsaturation(@windows-text), 31%);
+@windows-input-disabled: hsv(hsvhue(@windows-text), hsvsaturation(@windows-text), 71%);
 @windows-segmented-disabled: hsv(hsvhue(@windows-background), hsvsaturation(@windows-background), @value_isDark2_6);
 @windows-form-bg: hsv(hsvhue(@windows-background), hsvsaturation(@windows-background), @value_isDark2_5);
 @windows-np-bg: hsv(hsvhue(@windows-background), hsvsaturation(@windows-background), @value_isDark2_3);
 @windows-background-alt2: hsv(hsvhue(@windows-background), hsvsaturation(@windows-background), max(@hsvvalue2_4, 25%));
 @windows-background-alt2-text: contrast(@windows-background-alt2);
 @windows-input-color: hsv(hsvhue(@windows-text), hsvsaturation(@windows-text), @value_isDark3_2);
+@windows-selected-hover: hsv(hsvhue(@windows-accent), max(hsvsaturation(@windows-accent) - 44%, 0%), min(hsvvalue(@windows-accent) + 7%, 100%));

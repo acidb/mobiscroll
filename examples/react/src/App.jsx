@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Page, Form, Rating, Stepper, Switch } from 'mobiscroll-react';
-import 'mobiscroll-react/dist/css/mobiscroll.min.css';
+import { Page, Form, Rating, Stepper, Switch } from '@mobiscroll/react-lite';
+import '@mobiscroll/react-lite/dist/css/mobiscroll.min.css';
 import logo from './logo.svg';
 import './App.css';
 

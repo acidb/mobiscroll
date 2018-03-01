@@ -1033,7 +1033,7 @@ export class MbscSegmentedGroup extends MbscRadioGroupBase {
                 data-role="segmented"
                 [type]="multiSelect ? 'checkbox' : 'radio'" 
                 [value]="value" 
-                [checked]="checked"
+                [checked]="isChecked"
                 [disabled]="disabled"
                 [attr.name]="name" 
                 [attr.value]="value"
@@ -1047,9 +1047,13 @@ export class MbscSegmentedGroup extends MbscRadioGroupBase {
     `
 })
 export class MbscSegmented extends MbscFormBase {
-    get checked(): boolean {
+    get isChecked(): boolean {
         if (this.multiSelect) {
-            return this.value;
+            if (this.checked !== undefined) {
+                return this.checked;
+            } else {
+                return this.modelValue && this.modelValue.includes(this.value);
+            }
         } else {
             return this.value == this.modelValue;
         }
@@ -1065,14 +1069,27 @@ export class MbscSegmented extends MbscFormBase {
     @Input()
     value: any;
 
+    @Input()
+    checked: any;
+
     @Output()
-    valueChange: EventEmitter<any> = new EventEmitter<any>();
+    checkedChange: EventEmitter<any> = new EventEmitter<any>();
 
     clicked(e: any) {
-        if (this.multiSelect) {
-            this.valueChange.emit(!(!!this.value));
+        if (this.multiSelect && this.checked !== undefined) {
+            this.checkedChange.emit(!(!!this.checked));
         } else {
-            this._radioService.changeValue(this.value);
+            if (this.multiSelect) {
+                if (this.modelValue.includes(this.value)) {
+                    let i = this.modelValue.indexOf(this.value);
+                    this.modelValue.splice(i, 1);
+                } else {
+                    this.modelValue.push(this.value);
+                }
+                this._radioService.changeValue(this.modelValue);
+            } else {
+                this._radioService.changeValue(this.value);
+            }
         }
     }
 
@@ -1153,6 +1170,9 @@ export class MbscSlider extends MbscControlBase {
 
     @Input('options')
     options: MbscFormOptions;
+
+    @Input()
+    name: string;
 
     @Input()
     tooltip: boolean;
@@ -1331,13 +1351,13 @@ export class MbscRating extends MbscControlBase implements OnInit {
 
     @Input()
     disabled: boolean = false;
-    
+
     @Input()
     empty: string;
 
     @Input()
     filled: string;
-    
+
     /**
      * Input for the data-val attribute. Can be one of 'left' or 'right'
      */
@@ -1375,9 +1395,9 @@ export class MbscRating extends MbscControlBase implements OnInit {
         }
         return cl;
     }
-    
+
     constructor(hostElem: ElementRef, zone: NgZone, @Optional() protected formService: MbscOptionsService, @Optional() control: NgControl) {
-        super(hostElem, zone, control, null);       
+        super(hostElem, zone, control, null);
     }
 
     setNewValue(v: number) {

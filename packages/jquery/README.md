@@ -7,14 +7,14 @@ Mobiscroll is a UI library of components for progressive webapps and hybrid deve
 
 Where can I use Mobiscroll?
 -----------------
-You can use the controls in web and hybrid/native cross-platform apps. At it's core Mobiscroll is framework agnostic, but API variants for jQuery/jQuery Mobile, Angular/Ionic, React and Knockout is available.
+You can use the controls in web and hybrid/native cross-platform apps. At it's core Mobiscroll is framework agnostic, but API variants for jQuery/jQuery Mobile, Angular/Ionic and React are available.
 
 Installation
 -----------------
 
 Mobiscroll Forms for jQuery is available as an npm package.
 
-    npm install mobiscroll-jquery --save
+    npm install @mobiscroll/jquery-lite --save
 
 Usage
 -----------------
@@ -23,7 +23,7 @@ A simple usage example:
 
 Javascript:
 
-    import mobiscroll from 'mobiscroll-jquery';
+    import mobiscroll from '@mobiscroll/jquery-lite';
 
     mobiscroll.settings = {
         theme: 'mobiscroll'
@@ -48,7 +48,7 @@ A typical setup is using webpack's [css-loader](https://webpack.js.org/guides/co
 [ExtractTextWebpackPlugin](https://webpack.js.org/plugins/extract-text-webpack-plugin/). With this configuration you can simply import the css
 as well in the js file, where Mobiscroll components are used:
 
-    import 'mobiscroll-jquery/dist/css/mobiscroll.min.css';
+    import '@mobiscroll/jquery-lite/dist/css/mobiscroll.min.css';
 
 Elements
 -----------------

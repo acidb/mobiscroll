@@ -2,130 +2,155 @@
 
 /* Input */
 
-.mbsc-windows .mbsc-input {
-    padding: .75em 1em;
-}
+.mbsc-windows {
+    .mbsc-input {
+        padding: .75em 1em;
+    }
 
-.mbsc-windows .mbsc-input input,
-.mbsc-windows .mbsc-input textarea {
-    height: 2em;
-    padding: 0 .3125em;
-    background: #ccc;
-    border: .125em solid #ccc;
-    font-size: 1em;
-    color: #2b2b2b;
-}
+    .mbsc-input input,
+    .mbsc-input textarea,
+    .mbsc-select input {
+        height: 2em;
+        padding: 0 .3125em;
+        border: .125em solid @windows-grey;
+        font-size: 1em;
+        color: @windows-text;
+        background: transparent;
+    }
 
-.mbsc-windows .mbsc-input textarea {
-    padding-top: .125em;
-    padding-bottom: .125em;
-}
+    &.mbsc-ltr .mbsc-select input {
+        padding-right: 1.75em;
+    }
 
-.mbsc-windows .mbsc-input input::-webkit-input-placeholder {
-    color: #5c5c5c;
-}
+    &.mbsc-rtl .mbsc-select input {
+        padding-left: 1.75em;
+    }
 
-.mbsc-windows .mbsc-input input::-ms-input-placeholder {
-    color: #5c5c5c;
-}
+    &.mbsc-no-touch .mbsc-input input:hover,
+    &.mbsc-no-touch .mbsc-input textarea:hover,
+    &.mbsc-no-touch .mbsc-select:hover input {
+        border-color: @windows-dark-grey;
+    }
 
-.mbsc-windows .mbsc-input input::-moz-placeholder {
-    color: #5c5c5c;
-}
+    .mbsc-input textarea {
+        padding-top: .125em;
+        padding-bottom: .125em;
+    }
 
-.mbsc-windows .mbsc-input input:focus,
-.mbsc-windows .mbsc-input select:focus + input,
-.mbsc-windows .mbsc-input textarea:focus {
-    background: #fff;
-    border-color: @windows-accent;
-    color:  @windows-text;
-}
+    .mbsc-input input::-webkit-input-placeholder {
+        color: #5c5c5c;
+    }
 
-.mbsc-windows .mbsc-input select:disabled + input,
-.mbsc-windows .mbsc-input textarea:disabled,
-.mbsc-windows .mbsc-input input:disabled {
-    background: #fff;
-    border-color: @windows-input-disabled;
-    color: @windows-input-disabled; 
-}
+    .mbsc-input input::-ms-input-placeholder {
+        color: #5c5c5c;
+    }
 
-.mbsc-windows .mbsc-input.mbsc-err input,
-.mbsc-windows .mbsc-input.mbsc-err textarea {
-    border-color: #d30101;
-}
+    .mbsc-input input::-moz-placeholder {
+        color: #5c5c5c;
+    }
 
-.mbsc-windows .mbsc-input-ic {
-    top: 0;
-    margin-top: 0;
-    color: @windows-input-color;
-}
+    .mbsc-input .mbsc-input-wrap input:focus,
+    .mbsc-input .mbsc-input-wrap select:focus + input,
+    .mbsc-input .mbsc-input-wrap textarea:focus,
+    &.mbsc-alert .mbsc-input input:focus {
+        background: #fff;
+        border-color: @windows-accent;
+        color: #262626;
 
-.mbsc-windows .mbsc-err-msg {
-    color: #d30101;
-}
+        ~.mbsc-input-ic {
+            color: #262626;
+        }
+    }
+
+    .mbsc-input .mbsc-input-wrap select:disabled + input,
+    .mbsc-input .mbsc-input-wrap textarea:disabled,
+    .mbsc-input .mbsc-input-wrap input:disabled {
+        background: #fff;
+        border-color: @windows-input-disabled;
+        color: @windows-input-disabled; 
+    }
+
+    .mbsc-input.mbsc-err input,
+    .mbsc-input.mbsc-err textarea {
+        border-color: #d30101;
+    }
+
+    .mbsc-input-ic {
+        top: 0;
+        margin-top: 0;
+        color: @windows-text;
+    }
+
+    .mbsc-err-msg {
+        color: #d30101;
+    }
 
 
-/* Textbox, textarea, select */
+    /* Textbox, textarea, select */
 
-.mbsc-windows .mbsc-input.mbsc-ic-left input,
-.mbsc-windows .mbsc-input.mbsc-ic-left textarea {
-    padding-left: 2.25em;
-}
+    .mbsc-input.mbsc-ic-left input,
+    .mbsc-input.mbsc-ic-left textarea {
+        padding-left: 2.25em;
+    }
 
-.mbsc-windows.mbsc-rtl .mbsc-input.mbsc-ic-left input,
-.mbsc-windows.mbsc-rtl .mbsc-input.mbsc-ic-left textarea {
-    padding-right: 2.25em;
-    padding-left: .3125em;
-}
+    &.mbsc-rtl .mbsc-input.mbsc-ic-left input,
+    &.mbsc-rtl .mbsc-input.mbsc-ic-left textarea {
+        padding-right: 2.25em;
+        padding-left: .3125em;
+    }
 
-.mbsc-windows.mbsc-ltr .mbsc-input.mbsc-ic-right input,
-.mbsc-windows.mbsc-ltr .mbsc-input.mbsc-ic-right textarea {
-    padding-right: 2.25em;
-}
+    &.mbsc-ltr .mbsc-input.mbsc-ic-right input,
+    &.mbsc-ltr .mbsc-input.mbsc-ic-right textarea {
+        padding-right: 2.25em;
+    }
 
-.mbsc-windows.mbsc-rtl .mbsc-input.mbsc-ic-right input,
-.mbsc-windows.mbsc-rtl .mbsc-input.mbsc-ic-right textarea {
-    padding-left: 2.25em;
-}
+    &.mbsc-rtl .mbsc-input.mbsc-ic-right input,
+    &.mbsc-rtl .mbsc-input.mbsc-ic-right textarea {
+        padding-left: 2.25em;
+    }
 
-.mbsc-windows .mbsc-ic-left .mbsc-left-ic,
-.mbsc-windows.mbsc-rtl .mbsc-ic-right .mbsc-right-ic {
-    right: auto;
-    left: .25em;
-}
+    .mbsc-ic-left .mbsc-left-ic,
+    &.mbsc-rtl .mbsc-ic-right .mbsc-right-ic {
+        right: auto;
+        left: .25em;
+    }
 
-.mbsc-windows .mbsc-ic-right .mbsc-right-ic,
-.mbsc-windows.mbsc-rtl .mbsc-ic-left .mbsc-left-ic {
-    left: auto;
-    right: .25em;
-}
+    .mbsc-ic-right .mbsc-right-ic,
+    &.mbsc-rtl .mbsc-ic-left .mbsc-left-ic {
+        left: auto;
+        right: .25em;
+    }
 
-.mbsc-windows .mbsc-input .mbsc-label {
-    padding-bottom: .3125em;
-    color: @windows-text;;
-    font-size: .8125em;
-}
+    .mbsc-input .mbsc-label {
+        padding-bottom: .3125em;
+        color: @windows-text;;
+        font-size: .8125em;
+    }
 
-.mbsc-windows .mbsc-select .mbsc-input-wrap input {
-    background: transparent;
-    border-color: @windows-text;
-    color: @windows-text;
-}
+    .mbsc-select .mbsc-input-wrap .mbsc-ic {
+        color: @windows-text;
+    }
 
-.mbsc-windows .mbsc-select .mbsc-input-wrap .mbsc-ic {
-    color: @windows-text;
-}
+    .mbsc-input select.mbsc-active + input {
+        background: fade(@windows-accent, 25%);
+        border-color: @windows-accent;
+    }
 
-.mbsc-windows .mbsc-input select.mbsc-active + input {
-    background: @windows-accent;
-    border-color: @windows-accent;
-    color: @windows-accent-alt;
-}
+    .mbsc-select .mbsc-select-ic {
+        display: block;
+        position: absolute;
+        top: .5em;
+    }
 
-.mbsc-windows .mbsc-select select.mbsc-active ~ .mbsc-ic {
-    color: @windows-accent-alt;
-}
+    &.mbsc-ltr .mbsc-select .mbsc-select-ic {
+        right: .5em;
+    }
 
-.mbsc-windows .mbsc-select select:focus ~ .mbsc-ic {
-    color: @windows-form-bg;
+    &.mbsc-rtl .mbsc-select .mbsc-select-ic {
+        left: .5em;
+    }
+
+    .mbsc-ic-right .mbsc-select-ic {
+        display: none;
+    }
 }

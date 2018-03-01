@@ -27,7 +27,7 @@ export class Select extends Input {
 
     destroy() {
         super.destroy();
-        this._$elm.after(this._$input);
+        this._$parent.find('.mbsc-select-ic').remove();
         this._elm.removeEventListener('change', this);
     }
 

@@ -1,3 +1,4 @@
+@import "common";
 @import "page";
 @import "icons";
 @import "input";
@@ -7,6 +8,11 @@
 @import "themes/mobiscroll";
 
 /* Forms */
+
+[mbsc-form]:not(.mbsc-form) {
+    // Prevent FOUC
+    visibility: hidden;
+}
 
 .mbsc-form {
     font-size: 16px;

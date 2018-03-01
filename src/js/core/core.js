@@ -1,9 +1,8 @@
 /*!
- * Mobiscroll v4.0.0-beta3.1.1
+ * Mobiscroll v4.0.0
  * http://mobiscroll.com
  *
- * Copyright 2010-2016, Acid Media
- * Licensed under the MIT license.
+ * Copyright 2010-2018, Acid Media
  *
  */
 
@@ -69,7 +68,7 @@ var ms,
 
 ms = extend(mobiscroll, {
     $: $,
-    version: '4.0.0-beta3.1.1',
+    version: '4.0.0',
     autoTheme: 'mobiscroll',
     themes: {
         form: {},

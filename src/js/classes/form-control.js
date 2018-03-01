@@ -61,6 +61,8 @@ export class FormControl {
         this._$parent = $parent;
         this._$frame = $frame;
         this._ripple = getRipple(s.theme);
+
+        elm.mbscInst = this;
     }
 
     destroy() {
@@ -68,6 +70,7 @@ export class FormControl {
         events.forEach(ev => {
             this._elm.removeEventListener(ev, this);
         });
+        delete this._elm.mbscInst;
     }
 
     option(s) {

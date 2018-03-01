@@ -21,13 +21,13 @@
     "@angular/platform-browser": "^4.2.4",
     "@angular/platform-browser-dynamic": "^4.2.4",
     "@angular/router": "^4.2.4",
+    "@mobiscroll/angular-lite": "^4.0.0-final",
     "core-js": "^2.4.1",
-    "mobiscroll-angular": "^4.0.0-beta3.1",
     "rxjs": "^5.4.2",
     "zone.js": "^0.8.14"
   },
   "devDependencies": {
-    "@angular/cli": "^1.5.3",
+    "@angular/cli": "^1.7.2",
     "@angular/compiler-cli": "^4.2.4",
     "@angular/language-service": "^4.2.4",
     "@types/jasmine": "~2.5.53",

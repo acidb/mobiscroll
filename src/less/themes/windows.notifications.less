@@ -1,18 +1,24 @@
 @import "../notifications";
 @import "windows.widget.less";
 
-/* Toast */
+/* Notifications */
 
-.mbsc-windows.mbsc-toast .mbsc-toast-msg {
-    background: rgba(120, 120, 120, .9);
-    border-radius: .5em;
-    color: @windows-text;
-}
+.mbsc-windows {
+    /* Toast */
+    &.mbsc-toast .mbsc-toast-msg {
+        background: @windows-dark-grey;
+        color: contrast(@windows-dark-grey);
+    }
 
+    /* Snackbar */
+    &.mbsc-snackbar .mbsc-snackbar-cont .mbsc-snackbar-btn,
+    &.mbsc-snackbar.mbsc-fr .mbsc-fr-c .mbsc-btn-flat:not(:disabled):hover {
+        color: @windows-accent;
+    }
 
-/* Snackbar */
+    &.mbsc-toast .mbsc-fr-w,
+    &.mbsc-snackbar .mbsc-fr-w {
+        border: 0;
+    }
 
-.mbsc-windows.mbsc-snackbar .mbsc-snackbar-cont .mbsc-snackbar-btn,
-.mbsc-windows.mbsc-snackbar.mbsc-fr .mbsc-fr-c .mbsc-btn-flat:not(:disabled):hover {
-    color: @windows-accent;
 }

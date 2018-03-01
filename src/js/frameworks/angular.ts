@@ -453,9 +453,11 @@ abstract class MbscDataControlMixin implements OnInit {
      * Runs on every change
      */
     ngDoCheck() {
-        if (this._instance && this.data !== undefined && !this.noDataCheck && !deepEqualsArray(this.data, this.previousData)) {
+        if (this.data !== undefined && !this.noDataCheck && !deepEqualsArray(this.data, this.previousData)) {
             this.cloneData();
-            this.refreshData(this.data);
+            if (this._instance) {
+                this.refreshData(this.data);
+            }
         }
     }
 }
@@ -573,6 +575,8 @@ abstract class MbscFrameBase extends MbscControlBase {
     @Input()
     context: string | HTMLElement;
     @Input()
+    cssClass: string;
+    @Input()
     disabled: boolean;
     @Input()
     display: 'top' | 'bottom' | 'bubble' | 'inline' | 'center';
@@ -613,6 +617,7 @@ abstract class MbscFrameBase extends MbscControlBase {
             buttons: this.buttons,
             closeOnOverlayTap: this.closeOnOverlayTap,
             context: this.context,
+            cssClass: this.cssClass,
             disabled: this.disabled,
             display: this.display,
             focusOnClose: this.focusOnClose,
@@ -715,6 +720,11 @@ abstract class MbscScrollerBase extends MbscFrameBase {
     @Input()
     setText: string;
 
+    @Input()
+    formatValue: (data: Array<any>) => string;
+    @Input()
+    parseValue: (valueText: string) => any;
+
     // Events
 
     @Output('onChange')
@@ -745,7 +755,8 @@ abstract class MbscScrollerBase extends MbscFrameBase {
             selectedText: this.selectedText,
             setText: this.setText,
             validate: this.validate,
-
+            formatValue: this.formatValue,
+            parseValue: this.parseValue
         });
     }
 

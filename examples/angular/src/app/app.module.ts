@@ -1,8 +1,7 @@
+import { MbscModule } from '@mobiscroll/angular-lite';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
-import { MbscModule } from 'mobiscroll-angular';
-
 import { AppComponent } from './app.component';
 
 @NgModule({
@@ -10,8 +9,8 @@ import { AppComponent } from './app.component';
     AppComponent
   ],
   imports: [
-    BrowserModule,
     MbscModule,
+    BrowserModule,
     FormsModule
   ],
   providers: [],

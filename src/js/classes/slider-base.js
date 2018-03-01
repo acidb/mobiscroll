@@ -43,10 +43,15 @@ export const SliderBase = function (elm, settings, inherit) {
         lastUpdate = new Date();
 
     function onStart(ev) {
-        if (testTouch(ev, this) && (!action || isHover) && !elm.disabled /* TRIALCOND */) {
+        if (ev.type === 'mousedown') {
+            ev.preventDefault();
+        }
+
+        if (testTouch(ev, this) && (!action || isHover) && !elm.disabled && !elm.readOnly /* TRIALCOND */ ) {
             if (s.stopProp) {
                 ev.stopPropagation();
             }
+
             action = true;
             moved = false;
             changed = false;
@@ -56,10 +61,13 @@ export const SliderBase = function (elm, settings, inherit) {
 
             $track.removeClass('mbsc-progress-anim');
             $handle = multiple ? $('.mbsc-slider-handle', this) : $handles;
+
             if ($handleCont) {
                 $handleCont.removeClass('mbsc-handle-curr');
             }
+
             $handleCont = $handle.parent().addClass('mbsc-active mbsc-handle-curr');
+            $elm.addClass('mbsc-active');
 
             handleIndex = +$handle.attr('data-index');
             totalWidth = $track[0].offsetWidth;
@@ -67,13 +75,11 @@ export const SliderBase = function (elm, settings, inherit) {
 
             if (ev.type === 'mousedown') {
                 isPressed = true;
-                moved = true;
-                ev.preventDefault();
                 $(document).on('mousemove', onMove).on('mouseup', onEnd);
             }
+
             if (ev.type === 'mouseenter') {
                 isHover = true;
-                moved = true;
                 $(document).on('mousemove', onMove);
             }
         }
@@ -86,10 +92,11 @@ export const SliderBase = function (elm, settings, inherit) {
             diffX = endX - startX;
             diffY = endY - startY;
 
-            if (Math.abs(diffX) > 5 || moved) {
-
+            if (Math.abs(diffX) > 5) {
                 moved = true;
+            }
 
+            if (moved || isPressed || isHover) {
                 if (Math.abs(lastUpdate - new Date()) > 50) {
                     lastUpdate = new Date();
                     updateSlider(endX, s.round, live && (!isHover || isPressed));
@@ -98,7 +105,7 @@ export const SliderBase = function (elm, settings, inherit) {
 
             if (moved) {
                 ev.preventDefault();
-            } else if (Math.abs(diffY) > 7) {
+            } else if (Math.abs(diffY) > 7 && ev.type == 'touchmove') {
                 cleanUp(ev);
             }
         }
@@ -211,6 +218,7 @@ export const SliderBase = function (elm, settings, inherit) {
     function cleanUp() {
         action = false;
         $handleCont.removeClass('mbsc-active');
+        $elm.removeClass('mbsc-active');
 
         // Detach document events
         $(document).off('mousemove', onMove).off('mouseup', onEnd);

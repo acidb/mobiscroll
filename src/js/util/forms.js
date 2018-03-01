@@ -1,4 +1,4 @@
-import { $, extend, instances } from '../core/core';
+import { $, extend } from '../core/core';
 import { tap } from '../util/tap';
 
 import { Input } from '../classes/input';
@@ -98,8 +98,7 @@ function wrapLabel($parent, type) {
 
 function initControls($ctx, controls, s, shallow) {
     $('input,select,textarea,progress,button', $ctx).each(function () {
-        var inst,
-            control = this,
+        var control = this,
             $control = $(control),
             //$parent = $control.parent(),
             type = getControlType($control);
@@ -108,9 +107,8 @@ function initControls($ctx, controls, s, shallow) {
         if ($control.attr('data-enhance') != 'false' /* TRIALCOND */ ) {
 
             if ($control.hasClass('mbsc-control')) {
-                inst = instances[control.id] || controls[control.id];
-                if (inst && inst.option) {
-                    inst.option({
+                if (control.mbscInst) {
+                    control.mbscInst.option({
                         theme: s.theme,
                         lang: s.lang,
                         rtl: s.rtl,

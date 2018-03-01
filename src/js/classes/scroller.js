@@ -446,6 +446,7 @@ export const Scroller = function (el, settings, inherit) {
 
         if (manual) {
             trigger('onChange', {
+                index: index,
                 valueText: that._tempValue
             });
         }

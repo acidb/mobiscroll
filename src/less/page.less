@@ -1,3 +1,4 @@
+@import "common";
 @import "themes/mobiscroll";
 
 /* Base colors */
@@ -26,6 +27,11 @@
 @mobiscroll-light-text: #f7f7f7;
 
 /* Page */
+
+[mbsc-page]:not(.mbsc-page) {
+    // Prevent FOUC
+    visibility: hidden;
+}
 
 .mbsc-page-ctx {
     margin: 0;
@@ -199,6 +205,7 @@
     padding: 0;
     border-radius: 1.25em;
 }
+
 /* Note */
 
 .mbsc-note {

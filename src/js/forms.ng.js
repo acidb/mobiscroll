@@ -1,5 +1,6 @@
 import angular from 'angular';
-import { $, mobiscroll } from './frameworks/ng';
+import { $, mobiscroll, extend } from './frameworks/ng';
+import { Slider } from './classes/slider';
 import { Form } from './classes/forms';
 import { Switch } from './classes/switch';
 import './page.ng';
@@ -70,11 +71,48 @@ angular
         }, undefined, undefined, undefined, undefined, true);
     }])
     .directive('mobiscrollSlider', ['$parse', function ($parse) {
-        return mobiscroll.ng.getDDO($parse, 'mobiscrollSlider', {
+        var ddo = mobiscroll.ng.getDDO($parse, 'mobiscrollSlider', {
             component: 'Slider'
         }, undefined, undefined, undefined, undefined, true);
+        ddo.link = function (scope, element, attrs, ngModel) {
+            var $element = $(element[0]),
+                inst,
+                read = mobiscroll.ng.read,
+                format = mobiscroll.ng.format,
+                attrName = 'mobiscrollSlider';
+
+            mobiscroll.ng.addWatch($parse, scope, ngModel, $element, attrs, attrName, mobiscroll.ng.render, read, mobiscroll.ng.parse, format);
+
+            var inputs = $element.parent().find('input');
+            inputs.each(function (index) {
+                if (index) {
+                    $(this).on('change', function () {
+                        // We have to check here if we're inside a digest cycle or not
+                        if (!scope.$$phase) {
+                            scope.$apply(function () {
+                                read($parse, attrName, $element, scope, attrs, ngModel, format);
+                            });
+                        } else {
+                            read($parse, attrName, $element, scope, attrs, ngModel, format);
+                        }
+                    });
+                }
+            });
+
+
+            // Initialize mobiscroll on the element
+            inst = new Slider(element[0], extend(mobiscroll.ng.getOpt(scope, attrs, 'mobiscrollSlider', ngModel, true, $element)));
+
+
+
+            // Add instance to scope if there is an attribute set
+            if (attrs.mobiscrollInstance) {
+                $parse(attrs.mobiscrollInstance).assign(scope, inst);
+            }
+        };
+        return ddo;
     }])
-    .directive('mobiscrollRating', ['$parse', function($parse) {
+    .directive('mobiscrollRating', ['$parse', function ($parse) {
         return mobiscroll.ng.getDDO($parse, 'mobiscrollRating', {
             component: 'Rating'
         }, undefined, undefined, undefined, undefined, true);

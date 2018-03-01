@@ -49,6 +49,8 @@ export const ProgressBase = function (elm, settings, inherit) {
 
         // Show initial value
         that.refresh();
+
+        elm.mbscInst = that;
     };
 
     that._destroy = function () {
@@ -58,6 +60,8 @@ export const ProgressBase = function (elm, settings, inherit) {
         $parent.removeClass(cssClass);
 
         $elm.removeClass('mbsc-control');
+
+        delete elm.mbscInst;
     };
 
     if (!inherit) {

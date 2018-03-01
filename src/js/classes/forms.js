@@ -47,7 +47,7 @@ export const Form = function (el, settings) {
             (s.rtl ? ' mbsc-rtl' : ' mbsc-ltr');
         // --- TRIAL SERVER CODE END ---
 
-        $ctx.addClass(cssClass);
+        $ctx.addClass(cssClass).removeClass('mbsc-cloak');
 
         that.refresh();
     };

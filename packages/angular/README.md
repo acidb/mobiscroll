@@ -7,14 +7,14 @@ Mobiscroll is a UI library of components for progressive webapps and hybrid deve
 
 Where can I use Mobiscroll?
 -----------------
-You can use the controls in web and hybrid/native cross-platform apps. At it's core Mobiscroll is framework agnostic, but API variants for jQuery/jQuery Mobile, Angular/Ionic, React and Knockout is available.
+You can use the controls in web and hybrid/native cross-platform apps. At it's core Mobiscroll is framework agnostic, but API variants for jQuery/jQuery Mobile, Angular/Ionic and React are available.
 
 Installation
 -----------------
 
 Mobiscroll Forms for Angular is available as an npm package.
 
-    npm install mobiscroll-angular --save
+    npm install @mobiscroll/angular-lite --save
 
 Usage
 -----------------
@@ -26,7 +26,7 @@ app/app.module.ts
     import { BrowserModule } from '@angular/platform-browser';
     import { NgModule } from '@angular/core';
     import { FormsModule } from '@angular/forms';
-    import { MbscModule } from 'mobiscroll-angular';
+    import { MbscModule } from '@mobiscroll/angular-lite';
 
     import { AppComponent } from './app.component';
 
@@ -72,7 +72,7 @@ A typical setup is using webpack's [css-loader](https://webpack.js.org/guides/co
 [ExtractTextWebpackPlugin](https://webpack.js.org/plugins/extract-text-webpack-plugin/). With this configuration you can simply import the css
 as well in the js file, where Mobiscroll components are used:
 
-    import 'mobiscroll-angular/dist/css/mobiscroll.min.css';
+    import '@mobiscroll/angular-lite/dist/css/mobiscroll.min.css';
 
 Alternatively, if the project was created using `angular-cli`, you can configure what styles needs to be loaded inside `.angular-cli.json`:
 
@@ -83,7 +83,7 @@ Alternatively, if the project was created using `angular-cli`, you can configure
                 ...
                 "styles": [
                     "styles.css",
-                    "../node_modules/mobiscroll-angular/dist/css/mobiscroll.min.css"
+                    "../node_modules/@mobiscroll/angular-lite/dist/css/mobiscroll.min.css"
                 ],
                 ...
             }
