@@ -195,7 +195,7 @@ License Information
 
 This project has been released under the Apache License, version 2.0, the text of which is included below. This license applies ONLY to the source of this repository and does not extend to any other Mobiscroll distribution or variant, or any other 3rd party libraries used in a repository. For licensing information about Mobiscroll, see the [License Agreements page at mobiscroll.com](https://mobiscroll.com/eula).
 
->Copyright © 2017 Mobiscroll
+>Copyright © 2018 Mobiscroll
 
 >Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
 
