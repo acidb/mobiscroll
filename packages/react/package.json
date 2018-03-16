@@ -36,7 +36,7 @@
         "dist/css/icons_mobiscroll.ttf",
         "dist/css/icons_mobiscroll.woff"
     ],
-    "dependencies": {
+    "peerDependencies": {
         "react": ">=15.3.0",
         "react-dom": ">=15.3.0",
         "prop-types": ">=15.5.0"

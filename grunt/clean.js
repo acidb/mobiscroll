@@ -3,5 +3,11 @@ module.exports = {
         src: [
             'dist/*'
         ]
+    },
+    packages: {
+        src: [
+            'packages/**/dist/**',
+            'packages/**/src/**'
+        ]
     }
 };

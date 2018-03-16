@@ -17,3 +17,4 @@ src/js/*.react.js
 src/less/themes/*.css
 
 packages/**/LICENSE
+packages/**/src

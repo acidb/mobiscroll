@@ -1,6 +1,6 @@
 {
   "name": "mobiscroll",
-  "version": "4.0.0-beta3.1",
+  "version": "4.0.0",
   "description": "Cross platform UI controls for progressive web an hybrid apps",
   "homepage": "https://mobiscroll.com/",
   "license": "Apache-2.0",
@@ -77,8 +77,10 @@
     "less": "^2.7.2",
     "load-grunt-config": "^0.19.2",
     "rollup-plugin-babel": "^2.7.1",
-    "rollup-plugin-uglify": "^1.0.1",
+    "rollup-plugin-node-resolve": "^3.2.0",
+    "rollup-plugin-uglify": "^3.0.0",
     "rxjs": "^5.4.1",
+    "tslib": "^1.9.0",
     "typescript": "2.3.4",
     "zone.js": "^0.8.12"
   }
