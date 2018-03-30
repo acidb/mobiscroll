@@ -1,12 +1,10 @@
 import { mobiscroll } from '../core/dom';
 import {
     $, extend,
-    MbscCoreOptions,
-    MbscFrameOptions,
-    MbscScrollerOptions,
-    MbscDataControlOptions
+    MbscCoreOptions
 } from '../core/core';
-
+import { MbscFrameOptions } from '../classes/frame';
+import { MbscScrollerOptions } from '../classes/scroller';
 import {
     Directive,
     Component,
@@ -90,6 +88,13 @@ export class MbscListService {
         return this.addRemoveSubject.asObservable();
     }
 }
+
+export interface MbscDataControlOptions {
+    select?: 'single' | 'multiple' | number;
+}
+
+export type MbscDataFrameOptions = MbscDataControlOptions & MbscFrameOptions;
+
 
 class MbscBase implements AfterViewInit, OnDestroy {
     /**
@@ -351,6 +356,19 @@ abstract class MbscControlBase extends MbscValueBase implements ControlValueAcce
 
     registerOnTouched(fn: any): void {
         this.onTouch = fn;
+    }
+
+    setDisabledState(isDisabled: boolean): void {
+        if (this.oldAccessor !== undefined && this.oldAccessor.setDisabledState !== undefined) {
+            this.oldAccessor.setDisabledState(isDisabled);
+        }
+        if (this.instance) {
+            if (isDisabled) {
+                this.instance.disable();
+            } else {
+                this.instance.enable();
+            }
+        }
     }
 
     /**

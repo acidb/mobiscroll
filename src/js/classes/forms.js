@@ -1,4 +1,5 @@
 import { $, Base, mobiscroll, classes, autoInit } from '../core/core';
+import { hasTouchAction } from '../util/dom';
 import { os, majorVersion } from '../util/platform';
 import { initControls } from '../util/forms';
 import '../util/notifications';
@@ -77,7 +78,7 @@ Form.prototype = {
     _hasLang: true,
     _class: 'form',
     _defaults: {
-        tap: true,
+        tap: !hasTouchAction,
         stopProp: true,
         // Localization
         lang: 'en'

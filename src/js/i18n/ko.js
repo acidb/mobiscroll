@@ -40,6 +40,8 @@ mobiscroll.i18n.ko = {
     closeText: '닫기',
     eventText: '이벤트',
     eventsText: '이벤트',
+    allDayText: '종일',
+    noEventsText: '이벤트 없음',
     // Daterange component
     fromText: '시작',
     toText: '종료',

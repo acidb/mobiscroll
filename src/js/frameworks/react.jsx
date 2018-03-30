@@ -444,7 +444,13 @@ export class MbscInputBase extends MbscOptimized {
         // get settings from state
         var settings = extend({}, this.mbscInit, this.state.options);
         // initialize the mobiscroll
-        this.instance = new classes[this.mbscInit.component || 'Scroller'](ReactDOM.findDOMNode(this), settings);
+        var element = ReactDOM.findDOMNode(this);
+        var input = $(element).find('input');
+        if (input.length) {
+            element = input;
+        }
+
+        this.instance = new classes[this.mbscInit.component || 'Scroller'](element, settings);
         if (this.props.value !== undefined) {
             this.instance.setVal(this.props.value, true);
         }

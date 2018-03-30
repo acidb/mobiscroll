@@ -1,4 +1,8 @@
-import { mobiscroll } from '../core/core';
-export class Stepper {
-    constructor(element: any, settings: any);
+import { Base, MbscCoreOptions } from '../core/core';
+
+export class Stepper  extends Base {
+    constructor(element: any, settings: MbscCoreOptions);
+
+    getVal(): number;
+    setVal(v: number, fill?: boolean, change?: boolean): void;
 }

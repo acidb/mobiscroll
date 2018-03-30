@@ -68,7 +68,6 @@
 /* Light/dark versions */
 
 @windows-accent-alt: contrast(@windows-accent);
-@windows-input-disabled: hsv(hsvhue(@windows-text), hsvsaturation(@windows-text), 71%);
 @windows-segmented-disabled: hsv(hsvhue(@windows-background), hsvsaturation(@windows-background), @value_isDark2_6);
 @windows-form-bg: hsv(hsvhue(@windows-background), hsvsaturation(@windows-background), @value_isDark2_5);
 @windows-np-bg: hsv(hsvhue(@windows-background), hsvsaturation(@windows-background), @value_isDark2_3);
@@ -145,6 +144,7 @@
 .mbsc-@{theme} {
     &.mbsc-card.mbsc-form {
         background: lighten(@windows-background, 2.5%);
+        box-shadow: 0 0 1px 1px @windows-border-cards;
     }
     .mbsc-card h3.mbsc-card-subtitle,
     .mbsc-card-subtitle {
@@ -168,7 +168,7 @@
     }
 
     &.mbsc-color .mbsc-color-slider-cont .mbsc-progress-track {
-        background: @windows-input-disabled;
+        background: @windows-border;
     }
 
     .mbsc-color-preview-item-empty {
@@ -192,7 +192,7 @@
 /* Date & Time */
 
 .mbsc-@{theme} {
-    .mbsc-sc-whl-gr-c {
+    &.mbsc-dt .mbsc-sc-whl-gr-c {
         border-bottom-color: @windows-fr-border;
     }
 }
@@ -208,7 +208,7 @@
     .mbsc-cal-event {
         color: @windows-background-alt2-text;
         background: @windows-background-alt2;
-        border: 1px solid @windows-background-alt2;
+        border-color: @windows-background-alt2;
     }
 
     .mbsc-cal-events-arr {
@@ -221,6 +221,40 @@
 
     .mbsc-cal-event-color {
         background: @windows-text;
+    }
+
+    /* Event listing */
+    .mbsc-event-list .mbsc-lv-item {
+        background: @windows-form-bg;
+    }
+
+    .mbsc-event-list .mbsc-lv-gr-title {
+        background: @windows-form-bg;
+        border-color: @windows-wheel-button;
+    }
+
+    .mbsc-event-list .mbsc-event-empty {
+        color: @windows-cal-day;
+    }
+
+    .mbsc-event-color {
+        background: @windows-accent;
+    }
+
+    /* Desktop grid mode */
+    &.mbsc-ev-cal.mbsc-fr-md {
+        .mbsc-cal-table {
+            border-color: @windows-fr-border;
+        }
+
+        .mbsc-cal-cell {
+            background: @windows-form-bg;
+            border-color: @windows-fr-border;
+        }
+
+        .mbsc-cal-day-diff .mbsc-cal-day-i {
+            background: @windows-background;
+        }
     }
 }
 
@@ -566,7 +600,7 @@
             }
         }
     }
-    
+
     /* button active style */
     .mbsc-btn-primary.mbsc-btn {
         &.mbsc-active:not(.mbsc-btn-flat):not(:disabled) {
@@ -674,7 +708,6 @@
     }
 
     /* Segmented & Stepper */
-
     .mbsc-segmented-content {
         color: @windows-text;
         background: @windows-fr-border;
@@ -691,7 +724,7 @@
 
     &.mbsc-rtl .mbsc-segmented:not(.mbsc-stepper) .mbsc-segmented-item {
         border-left-color: @windows-border;
-    }   
+    }
 
     &.mbsc-ltr .mbsc-segmented .mbsc-stepper-control + .mbsc-stepper-control {
         border-left-color: @windows-border;
@@ -815,49 +848,31 @@
         }
         /* Stepper hover color presets*/
         .mbsc-stepper-primary {
-            .mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control .mbsc-segmented-content {
-                background: @windows-primary;
-            }
             .mbsc-segmented .mbsc-segmented-item:not(.mbsc-disabled):hover .mbsc-segmented-content {
                 background: darken(@windows-primary, 10%)
             }
         }
         .mbsc-stepper-secondary {
-            .mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control .mbsc-segmented-content {
-                background: @windows-secondary;
-            }
             .mbsc-segmented .mbsc-segmented-item:not(.mbsc-disabled):hover .mbsc-segmented-content {
                 background: darken(@windows-secondary, 10%)
             }
         }
         .mbsc-stepper-success {
-            .mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control .mbsc-segmented-content {
-                background: @windows-success;
-            }
             .mbsc-segmented .mbsc-segmented-item:not(.mbsc-disabled):hover .mbsc-segmented-content {
                 background: darken(@windows-success, 10%)
             }
         }
         .mbsc-stepper-danger {
-            .mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control .mbsc-segmented-content {
-                background: @windows-danger;
-            }
             .mbsc-segmented .mbsc-segmented-item:not(.mbsc-disabled):hover .mbsc-segmented-content {
                 background: darken(@windows-danger, 10%)
             }
         }
         .mbsc-stepper-warning {
-            .mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control .mbsc-segmented-content {
-                background: @windows-warning;
-            }
             .mbsc-segmented .mbsc-segmented-item:not(.mbsc-disabled):hover .mbsc-segmented-content {
                 background: darken(@windows-warning, 10%)
             }
         }
         .mbsc-stepper-info {
-            .mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control .mbsc-segmented-content {
-                background: @windows-info;
-            }
             .mbsc-segmented .mbsc-segmented-item:not(.mbsc-disabled):hover .mbsc-segmented-content {
                 background: darken(@windows-info, 10%)
             }
@@ -869,6 +884,9 @@
         .mbsc-segmented-content.mbsc-stepper-val {
             border-color: @windows-primary;
         }
+        .mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control .mbsc-segmented-content {
+            background: @windows-primary;
+        }
         .mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control.mbsc-active:not(.mbsc-disabled) .mbsc-segmented-content {
             background: darken(@windows-primary, 25%);
         }
@@ -876,6 +894,9 @@
     .mbsc-stepper-secondary {
         .mbsc-segmented-content.mbsc-stepper-val {
             border-color: @windows-secondary;
+        }
+        .mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control .mbsc-segmented-content {
+            background: @windows-secondary;
         }
         .mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control.mbsc-active:not(.mbsc-disabled) .mbsc-segmented-content {
             background: darken(@windows-secondary, 25%);
@@ -885,6 +906,9 @@
         .mbsc-segmented-content.mbsc-stepper-val {
             border-color: @windows-success;
         }
+        .mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control .mbsc-segmented-content {
+            background: @windows-success;
+        }
         .mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control.mbsc-active:not(.mbsc-disabled) .mbsc-segmented-content {
             background: darken(@windows-success, 25%);
         }
@@ -892,6 +916,9 @@
     .mbsc-stepper-danger {
         .mbsc-segmented-content.mbsc-stepper-val {
             border-color: @windows-danger;
+        }
+        .mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control .mbsc-segmented-content {
+            background: @windows-danger;
         }
         .mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control.mbsc-active:not(.mbsc-disabled) .mbsc-segmented-content {
             background: darken(@windows-danger, 25%);
@@ -901,6 +928,9 @@
         .mbsc-segmented-content.mbsc-stepper-val {
             border-color: @windows-warning;
         }
+        .mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control .mbsc-segmented-content {
+            background: @windows-warning;
+        }
         .mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control.mbsc-active:not(.mbsc-disabled) .mbsc-segmented-content {
             background: darken(@windows-warning, 25%);
         }
@@ -908,6 +938,9 @@
     .mbsc-stepper-info {
         .mbsc-segmented-content.mbsc-stepper-val {
             border-color: @windows-info;
+        }
+        .mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control .mbsc-segmented-content {
+            background: @windows-info;
         }
         .mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control.mbsc-active:not(.mbsc-disabled) .mbsc-segmented-content {
             background: darken(@windows-info, 25%);
@@ -925,11 +958,11 @@
     }
 
     .mbsc-fr-hdr {
-        border-bottom: 2px solid @windows-border;
+        border-bottom: 2px solid @windows-fr-border;
     }
 
     .mbsc-fr-btn-cont {
-        border-top: 2px solid @windows-border;
+        border-top: 2px solid @windows-fr-border;
     }
 
     .mbsc-fr-btn {
@@ -995,9 +1028,7 @@
     .mbsc-input .mbsc-input-wrap select:disabled + input,
     .mbsc-input .mbsc-input-wrap textarea:disabled,
     .mbsc-input .mbsc-input-wrap input:disabled {
-        background: #fff;
-        border-color: @windows-input-disabled;
-        color: @windows-input-disabled;
+        border-color: @windows-fr-border;
     }
 
     .mbsc-input.mbsc-err input,
@@ -1321,7 +1352,7 @@
 
 .mbsc-@{theme} {
     .mbsc-sc-whl-w {
-        border-right: 2px solid @windows-border;
+        border-right: 2px solid @windows-fr-border;
     }
 
     .mbsc-sc-whl-l {
@@ -1436,7 +1467,7 @@
 
 /* Widget */
 
-.mbsc-@{theme}.mbsc-wdg { 
+.mbsc-@{theme}.mbsc-wdg {
     .mbsc-fr-btn {
         background: @windows-fr-border;
     }

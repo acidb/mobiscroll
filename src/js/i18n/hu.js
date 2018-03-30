@@ -40,6 +40,8 @@ mobiscroll.i18n.hu = {
     closeText: 'Bezár',
     eventText: 'esemény',
     eventsText: 'esemény',
+    allDayText: 'Egész napos',
+    noEventsText: 'Nincs esemény',
     // Daterange component
     fromText: 'Eleje',
     toText: 'Vége',

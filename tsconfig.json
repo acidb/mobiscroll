@@ -7,9 +7,11 @@
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
         "target": "es5",
+        "importHelpers": true,
         "declaration": true,
         "lib": [
-            "es2015", "dom"
+            "es2015",
+            "dom"
         ],
         "baseUrl": "./"
     },
@@ -19,6 +21,7 @@
     "angularCompilerOptions": {
         "skipTemplateCodegen": true,
         "strictMetadataEmit": true,
-        "flatModuleOutFile": "mobiscroll.angular.min"
+        "flatModuleOutFile": "mobiscroll.angular.min",
+        "flatModuleId": "@mobiscroll/angular-lite"
     }
 }

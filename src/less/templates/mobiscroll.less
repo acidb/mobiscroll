@@ -158,29 +158,55 @@
     }
 }
 
-.mbsc-@{theme} .mbsc-cal-event-color {
-    background: @output3_8;
-}
+/* Event Calendar */
 
-.mbsc-@{theme} .mbsc-cal-events {
-    color: @output1_3;
-    background: @output2_6;
-}
+.mbsc-@{theme} {
+    .mbsc-cal-events {
+        color: @mobiscroll-background;
+        background: @output2_6;
+    }
 
-.mbsc-@{theme} .mbsc-cal-events-arr {
-    border-color: @output2_6 transparent transparent transparent;
-}
+    .mbsc-cal-event-color {
+        background: @mobiscroll-accent;
+    }
 
-.mbsc-@{theme} .mbsc-cal-events-b .mbsc-cal-events-arr {
-    border-color: transparent transparent @output2_6 transparent;
-}
+    .mbsc-cal-event-time,
+    .mbsc-cal-event-dur {
+        color: @mobiscroll-accent;
+    }
 
-.mbsc-@{theme} .mbsc-cal-event-time {
-    color: @output3_10;
-}
+    .mbsc-cal-events-arr {
+        border-color: @output2_6 transparent transparent transparent;
+    }
 
-.mbsc-@{theme} .mbsc-cal-event-dur {
-    color: @output3_10;
+    .mbsc-cal-events-b .mbsc-cal-events-arr {
+        border-color: transparent transparent @output2_6 transparent;
+    }
+
+    /* Event listing */
+    .mbsc-event-list .mbsc-lv-gr-title {
+        background: @mobiscroll-background;
+        color: @mobiscroll-accent;
+    }
+
+    .mbsc-event-list .mbsc-event-empty {
+        color: @output2_7;
+    }
+
+    .mbsc-event-color {
+        background: fade(@mobiscroll-text, 30%);
+    }
+
+    /* Desktop grid mode */
+    &.mbsc-ev-cal.mbsc-fr-md {
+        .mbsc-cal-table {
+            border-color: @output1_6;
+        }
+
+        .mbsc-cal-cell {
+            border-color: @output1_6;
+        }
+    }
 }
 
 

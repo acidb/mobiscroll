@@ -16,14 +16,16 @@ import {
     MbscOptionsService
 } from './frameworks/angular';
 
-import { Scroller } from './classes/scroller';
-import { MbscScrollerOptions } from './core/core';
+import { Scroller, MbscScrollerOptions } from './classes/scroller';
+export { MbscScrollerOptions };
 
 @Directive({
     selector: '[mbsc-scroller]',
     exportAs: 'mobiscroll'
 })
 export class MbscScroller extends MbscScrollerBase {
+    _instance: Scroller;
+    
     /**
      * The mobiscroll settings for the directive are passed through this input.
      */

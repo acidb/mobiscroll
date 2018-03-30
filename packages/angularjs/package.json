@@ -37,7 +37,7 @@
         "dist/css/icons_mobiscroll.ttf",
         "dist/css/icons_mobiscroll.woff"
     ],
-    "dependencies": {
+    "peerDependencies": {
         "angular": ">=1.0.8"
     }
 }

@@ -155,8 +155,6 @@ export const Frame = function (el, settings, inherit) {
             }
         }
 
-        that._isVisible = false;
-
         isInserted = false;
 
         trigger('onHide');
@@ -875,12 +873,16 @@ export const Frame = function (el, settings, inherit) {
             return false;
         }
 
+        that._isVisible = false;
+
         if (isModal) {
             if ($(document.activeElement).is('input,textarea') && popup.contains(document.activeElement)) {
                 document.activeElement.blur();
             }
+            if (mobiscroll.activeInstance == that) {
+                delete mobiscroll.activeInstance;
+            }
             $(window).off('keydown', onWndKeyDown);
-            delete mobiscroll.activeInstance;
         }
 
         // Hide wheels and overlay

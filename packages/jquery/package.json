@@ -36,7 +36,7 @@
         "dist/css/icons_mobiscroll.ttf",
         "dist/css/icons_mobiscroll.woff"
     ],
-    "dependencies": {
+    "peerDependencies": {
         "jquery": ">=1.7.0"
     }
 }

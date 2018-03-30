@@ -204,27 +204,44 @@
 }
 
 
-/* Calendar */
+/* Event Calendar */
 
-.mbsc-@{theme} .mbsc-cal-events {
-    color: @output2_1;
-}
+.mbsc-@{theme} {
+    .mbsc-cal-events {
+        color: @material-background;
+    }
 
-.mbsc-@{theme} .mbsc-cal-event-color {
-    background: @output1_1;
-}
+    .mbsc-cal-event-color {
+        background: @material-accent;
+    }
 
-.mbsc-@{theme} .mbsc-cal-event-time,
-.mbsc-@{theme} .mbsc-cal-event-dur {
-    color: @output2_1;
-}
+    .mbsc-cal-event-time,
+    .mbsc-cal-event-dur {
+        color: @material-background;
+    }
 
-.mbsc-@{theme} .mbsc-cal-events-arr {
-    border-color: @output1_1 transparent transparent transparent;
-}
+    .mbsc-cal-events-arr {
+        border-color: @material-accent transparent transparent transparent;
+    }
 
-.mbsc-@{theme} .mbsc-cal-events-b .mbsc-cal-events-arr {
-    border-color: transparent transparent @output1_1 transparent;
+    .mbsc-cal-events-b .mbsc-cal-events-arr {
+        border-color: transparent transparent @material-accent transparent;
+    }
+
+    /* Event listing */
+    .mbsc-event-color {
+        background: @material-accent;
+    }
+    /* Desktop grid mode */
+    &.mbsc-ev-cal.mbsc-fr-md {
+        .mbsc-cal-table {
+            border-color: @output2_2;
+        }
+
+        .mbsc-cal-cell {
+            border-color: @output2_2;
+        }
+    }
 }
 
 

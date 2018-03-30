@@ -33,7 +33,6 @@ mobiscroll.i18n.vi = {
     dateText: 'Ngày',
     timeText: 'Hồi',
     todayText: 'Hôm nay',
-
     prevMonthText: 'Tháng trước',
     nextMonthText: 'Tháng tới',
     prevYearText: 'Măm trước',
@@ -41,6 +40,8 @@ mobiscroll.i18n.vi = {
     closeText: 'Đóng',
     eventText: 'Sự kiện',
     eventsText: 'Sự kiện',
+    allDayText: 'Cả ngày',
+    noEventsText: 'Không có sự kiện',
     // Daterange component
     fromText: 'Từ',
     toText: 'Tới',

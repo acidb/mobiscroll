@@ -27,10 +27,10 @@
 
 // Light accent 
 .light-or-dark() when (lightness(@ios-accent) > 50%) {
-    @ios-accent-alt: spin(darken(saturate(@ios-accent, 42%), 35%), -3);
+    @ios-accent-alt: darken(saturate(@ios-accent, 5%), 42%);
 }
 
 // Dark accent 
 .light-or-dark() when (lightness(@ios-accent) <=50%) {
-    @ios-accent-alt: spin(lighten(desaturate(@ios-accent, 42%), 35%), 3);
+    @ios-accent-alt: lighten(desaturate(@ios-accent, 5%), 42%);
 }

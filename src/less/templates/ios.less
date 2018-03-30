@@ -320,13 +320,13 @@
     .mbsc-cal-today {
         color: @ios-accent;
     }
-    /* Focus */
-    .mbsc-cal-cell:focus .mbsc-cal-cell-txt {
+    /* Hover, focus */
+    .mbsc-cal-cell:focus .mbsc-cal-cell-txt,
+    &.mbsc-no-touch .mbsc-cal-cell:not(.mbsc-disabled):hover .mbsc-cal-cell-txt {
         background: fade(@ios-accent, 30%);
     }
-    /* Hover, selected */
-    &.mbsc-no-touch .mbsc-cal-cell:not(.mbsc-disabled):hover .mbsc-cal-cell-txt,
-    .mbsc-cal-cell.mbsc-selected .mbsc-cal-cell-txt {
+    /* Selected */
+    .mbsc-cal-c .mbsc-cal .mbsc-cal-body .mbsc-selected .mbsc-cal-cell-txt {
         border-color: @ios-accent;
         background: @ios-accent;
         color: contrast(@ios-accent);
@@ -359,30 +359,51 @@
     }
 }
 
-.mbsc-@{theme} .mbsc-cal-events {
-    background: @output4_1;
-    background: fade(@output4_1, 80%);
-}
+/* Event calendar */
 
-.mbsc-@{theme} .mbsc-cal-event {
-    background: @output3_1;
-    border-color: @output3_9;
-    color: @output4_1;
-}
+.mbsc-@{theme} {
+    &.mbsc-ev-cal .mbsc-fr-w {
+        background: @ios-background;
+    }
 
-.mbsc-@{theme} .mbsc-cal-event-color {
-    background: @output2_3;
-    border-color: fade(@output4_1, 30%);
-}
+    &.mbsc-ev-cal.mbsc-fr-inline .mbsc-cal-picker {
+        background: @ios-background;
+    }
 
-.mbsc-@{theme} .mbsc-cal-events-arr {
-    border-color: @output4_1 transparent transparent transparent;
-    border-color: fade(@output4_1, 80%) transparent transparent transparent;
-}
+    &.mbsc-ev-cal.mbsc-fr-inline .mbsc-cal-scroll-c {
+        background: @ios-background-alt;
+    }
 
-.mbsc-@{theme} .mbsc-cal-events-b .mbsc-cal-events-arr {
-    border-color: transparent transparent @output4_1 transparent;
-    border-color: transparent transparent fade(@output4_1, 80%) transparent;
+    .mbsc-cal-events-i {
+        background: @ios-background-alt;
+        box-shadow: 0 0 15em fade(@ios-text, 20%);
+    }
+
+    .mbsc-cal-events-arr {
+        background: @ios-background-alt;
+        box-shadow: 0 0 15em fade(@ios-text, 20%);
+    }
+
+    .mbsc-cal-event-list .mbsc-cal-event:before,
+    .mbsc-cal-event-list .mbsc-cal-event:after {
+        border-color: @ios-border;
+    }
+
+    /* Event listing */
+    .mbsc-event-list .mbsc-lv-gr-title {
+        color: @ios-text;
+    }
+
+    .mbsc-event-color {
+        background: @ios-border;
+    }
+
+    /* Desktop grid mode */
+    &.mbsc-ev-cal.mbsc-fr-md {
+        .mbsc-cal-cell {
+            border-color: @ios-border;
+        }
+    }
 }
 
 
@@ -578,7 +599,7 @@
 
 .mbsc-@{theme} .mbsc-btn-outline.mbsc-btn {
     color: @output2_1;
-    border-color:  @output2_1;
+    border-color: @output2_1;
 }
 
 .mbsc-@{theme} .mbsc-btn-outline.mbsc-btn.mbsc-active {

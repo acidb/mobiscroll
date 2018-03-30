@@ -4,12 +4,12 @@ module.exports = {
             expand: true,
             cwd: 'bundles/',
             src: ['*.d.ts', '*.metadata.json'],
-            dest: 'dist/js/'
+            dest: 'packages/angular/dist/'
         }, {
             expand: true,
             cwd: 'src/',
             src: ['**/*.d.ts'],
-            dest: 'dist/src/'
+            dest: 'packages/angular/src/'
         }]
     },
     icons: {
@@ -23,23 +23,28 @@ module.exports = {
     dist: {
         files: [{
             expand: true,
-            src: ['dist/**', 'LICENSE'],
+            src: [
+                'dist/bundles/*',
+                'dist/esm5/*',
+                'dist/css/*',
+                'LICENSE'
+            ],
             dest: 'packages/angular/'
         }, {
             expand: true,
-            src: ['dist/**', 'LICENSE'],
+            src: ['dist/js/mobiscroll.angularjs.js', 'dist/css/*', 'LICENSE'],
             dest: 'packages/angularjs/'
         }, {
             expand: true,
-            src: ['dist/**', 'LICENSE'],
+            src: ['dist/js/mobiscroll.javascript.js', 'dist/css/*', 'LICENSE'],
             dest: 'packages/javascript/'
         }, {
             expand: true,
-            src: ['dist/**', 'LICENSE'],
+            src: ['dist/js/mobiscroll.jquery.js', 'dist/css/*', 'LICENSE'],
             dest: 'packages/jquery/'
         }, {
             expand: true,
-            src: ['dist/**', 'LICENSE'],
+            src: ['dist/js/mobiscroll.react.js', 'dist/css/*', 'LICENSE'],
             dest: 'packages/react/'
         }]
     }

@@ -1,5 +1,6 @@
 var babel = require('rollup-plugin-babel');
 var uglify = require('rollup-plugin-uglify');
+var resolve = require('rollup-plugin-node-resolve');
 
 var globals = {
     angular: 'angular',
@@ -45,6 +46,7 @@ module.exports = {
                 }
             },
             plugins: [
+                resolve(),
                 babel({
                     plugins: ['external-helpers']
                 })
@@ -64,7 +66,6 @@ module.exports = {
             external: external,
             moduleName: 'mobiscroll',
             format: 'umd',
-            context: 'this',
             banner: '/* eslint-disable */',
             onwarn(warning) {
                 if (warning.code === 'UNUSED_EXTERNAL_IMPORT') {
@@ -72,6 +73,7 @@ module.exports = {
                 }
             },
             plugins: [
+                resolve(),
                 babel({
                     plugins: ['external-helpers']
                 }),
@@ -83,11 +85,39 @@ module.exports = {
             ]
         },
         files: {
-            'dist/js/mobiscroll.angular.min.js': 'bundles/mobiscroll.angular.min.js',
+            'dist/bundles/mobiscroll.angular.min.js': 'bundles/mobiscroll.angular.min.js',
             'dist/js/mobiscroll.angularjs.min.js': 'bundles/mobiscroll.angularjs.js',
             'dist/js/mobiscroll.javascript.min.js': 'bundles/mobiscroll.javascript.js',
             'dist/js/mobiscroll.jquery.min.js': 'bundles/mobiscroll.jquery.js',
             'dist/js/mobiscroll.react.min.js': 'bundles/mobiscroll.react.js'
+        }
+    },
+    esm: {
+        options: {
+            globals: globals,
+            external: external,
+            moduleName: 'mobiscroll',
+            format: 'es',
+            banner: '/* eslint-disable */',
+            onwarn(warning) {
+                if (warning.code === 'UNUSED_EXTERNAL_IMPORT') {
+                    return;
+                }
+            },
+            plugins: [
+                resolve(),
+                babel({
+                    plugins: ['external-helpers']
+                }),
+                uglify({
+                    output: {
+                        comments: /eslint-disable/
+                    }
+                })
+            ]
+        },
+        files: {
+            'dist/esm5/mobiscroll.angular.min.js': 'bundles/mobiscroll.angular.min.js',
         }
     }
 };

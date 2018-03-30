@@ -159,6 +159,7 @@ export const Stepper = function (control, settings) {
 Stepper.prototype = {
     _class: 'stepper',
     _hasDef: true,
+    _hasTheme: true,
     _defaults: {
         min: 0,
         max: 100,
