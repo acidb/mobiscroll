@@ -40,6 +40,8 @@ mobiscroll.i18n.bg = {
     closeText: 'затвори',
     eventText: 'Събитие',
     eventsText: 'Събития',
+    allDayText: 'Цял ден',
+    noEventsText: 'Няма събития',
     // Daterange component
     fromText: 'ОТ',
     toText: 'ДО',

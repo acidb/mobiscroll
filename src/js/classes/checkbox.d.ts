@@ -1,4 +1,6 @@
-import { mobiscroll } from '../core/core';
-export class CheckBox {
-    constructor(element: any, settings: any);
+import { FormControl } from './form-control';
+import { MbscFormOptions } from './forms';
+
+export class CheckBox extends FormControl {
+    constructor(element: any, settings: MbscFormOptions);
 }

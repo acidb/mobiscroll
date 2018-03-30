@@ -1,4 +1,6 @@
-import { mobiscroll } from '../core/core';
-export class TextArea {
-    constructor(element: any, settings: any);
+import { MbscFormOptions } from './forms';
+import { Input } from './input';
+
+export class TextArea extends Input {
+    constructor(element: any, settings: MbscFormOptions);
 }

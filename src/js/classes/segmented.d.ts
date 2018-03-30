@@ -1,4 +1,6 @@
-import { mobiscroll } from '../core/core';
-export class SegmentedItem {
-    constructor(element: any, settings: any);
+import { MbscFormOptions } from './forms';
+import { FormControl } from './form-control';
+
+export class SegmentedItem extends FormControl {
+    constructor(element: any, settings: MbscFormOptions);
 }

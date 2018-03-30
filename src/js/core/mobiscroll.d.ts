@@ -1,12 +1,4 @@
 declare namespace mobiscroll {
-    export interface IInstance<T> {
-        settings: any;
-
-        getVal(temp?: boolean): T;
-        setVal(value: T, fill?: boolean, change?: boolean, temp?: boolean): void;
-        destroy(): void;
-    }
-
     let settings: any;
     let $: any;
     let apiKey: string;

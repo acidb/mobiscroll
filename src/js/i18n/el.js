@@ -40,6 +40,8 @@ mobiscroll.i18n.el = {
     closeText: 'Κλείσιμο',
     eventText: 'Γεγονότα',
     eventsText: 'Γεγονότα',
+    allDayText: 'Ολοήμερο',
+    noEventsText: 'Δεν υπάρχουν γεγονότα',
     // Daterange component
     fromText: 'Αρχή',
     toText: 'Τέλος',

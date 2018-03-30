@@ -35,6 +35,8 @@ mobiscroll.i18n.ja = {
     dateText: '日付',
     timeText: '時間',
     closeText: 'クローズ',
+    allDayText: '終日',
+    noEventsText: 'イベントはありません',
     // Daterange component
     fromText: '開始',
     toText: '終わり',

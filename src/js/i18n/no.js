@@ -34,6 +34,8 @@ mobiscroll.i18n.no = {
     dateText: 'Dato',
     timeText: 'Tid',
     closeText: 'Lukk',
+    allDayText: 'Hele dagen',
+    noEventsText: 'Ingen hendelser',
     // Daterange component
     fromText: 'Start',
     toText: 'End',

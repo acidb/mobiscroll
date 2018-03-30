@@ -36,6 +36,8 @@ mobiscroll.i18n['pt-BR'] = {
     dateText: 'Data',
     timeText: 'Tempo',
     closeText: 'Fechar',
+    allDayText: 'Dia inteiro',
+    noEventsText: 'Nenhum evento',
     // Daterange component
     fromText: 'In&iacute;cio',
     toText: 'Fim',

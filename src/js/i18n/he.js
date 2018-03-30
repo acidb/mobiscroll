@@ -36,6 +36,8 @@ mobiscroll.i18n.he = {
     timeText: 'זמן',
     closeText: 'סגירה',
     todayText: 'היום',
+    allDayText: 'כל היום',
+    noEventsText: 'אין אירועים',
     // Event calendar
     eventText: 'מִקרֶה',
     eventsText: 'מִקרֶה',

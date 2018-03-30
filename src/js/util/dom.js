@@ -72,6 +72,7 @@ function getTextColor(color) {
 var animEnd,
     mod,
     cssPrefix,
+    hasTouchAction,
     jsPrefix,
     textColors = {};
 
@@ -80,6 +81,7 @@ if (isBrowser) {
     cssPrefix = testPrefix();
     jsPrefix = cssPrefix.replace(/^\-/, '').replace(/\-$/, '').replace('moz', 'Moz');
     animEnd = mod.animation !== undefined ? 'animationend' : 'webkitAnimationEnd';
+    hasTouchAction = mod.touchAction !== undefined;
 }
 
 export {
@@ -88,5 +90,6 @@ export {
     jsPrefix,
     getPosition,
     getTextColor,
+    hasTouchAction,
     testTouch
 };

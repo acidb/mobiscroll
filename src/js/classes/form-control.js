@@ -1,11 +1,11 @@
 import { $, extend, mobiscroll } from '../core/core';
 import { wrapLabel } from '../util/forms';
 import { getCoord, triggerClick } from '../util/tap';
-import { testTouch } from '../util/dom';
+import { testTouch, hasTouchAction } from '../util/dom';
 
 const events = ['touchstart', 'touchmove', 'touchend', 'touchcancel', 'mousedown', 'mousemove', 'mouseup', 'mouseleave'];
 const defaults = {
-    tap: true
+    tap: !hasTouchAction
 };
 
 let $active;

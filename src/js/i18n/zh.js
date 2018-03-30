@@ -32,6 +32,8 @@ mobiscroll.i18n.zh = {
     dateText: '日',
     timeText: '时间',
     closeText: '关闭',
+    allDayText: '全天',
+    noEventsText: '无事件',
     // Daterange component
     fromText: '开始时间',
     toText: '结束时间',

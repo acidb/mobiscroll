@@ -38,6 +38,8 @@ mobiscroll.i18n.ar = {
     nextMonthText: 'الشهر القادم',
     prevYearText: 'السنه السابقة',
     nextYearText: 'العام القادم',
+    allDayText: 'اليوم كله',
+    noEventsText: 'لا توجد احداث',
     // Event calendar
     eventText: 'الحدث',
     eventsText: 'أحداث',

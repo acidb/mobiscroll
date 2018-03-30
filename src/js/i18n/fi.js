@@ -40,6 +40,8 @@ mobiscroll.i18n.fi = {
     closeText: 'Sulje',
     eventText: 'Tapahtumia',
     eventsText: 'Tapahtumia',
+    allDayText: 'Koko päivä',
+    noEventsText: 'Ei tapahtumia',
     // Daterange component
     fromText: 'Alkaa',
     toText: 'Päättyy',

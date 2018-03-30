@@ -10,14 +10,8 @@ import {
     MbscOptionsService
 } from './frameworks/angular';
 
-import { Page } from './classes/page';
-
-import { MbscCoreOptions } from './core/core';
-
-export interface MbscPageOptions extends MbscCoreOptions {
-    // Settings
-    context?: string | HTMLElement;
-}
+import { Page, MbscPageOptions } from './classes/page';
+export { MbscPageOptions };
 
 @Component({
     selector: 'mbsc-page',
@@ -25,6 +19,8 @@ export interface MbscPageOptions extends MbscCoreOptions {
     providers: [MbscOptionsService]
 })
 export class MbscPage extends MbscBase implements OnInit {
+    _instance: Page;
+    
     @Input()
     options: MbscPageOptions;
 

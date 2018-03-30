@@ -34,6 +34,8 @@ mobiscroll.i18n.tr = {
     dateText: 'Tarih',
     timeText: 'Zaman',
     closeText: 'Kapatmak',
+    allDayText: 'Tüm gün',
+    noEventsText: 'Etkinlik Yok',
     // Daterange component
     fromText: 'Başla',
     toText: 'Son',

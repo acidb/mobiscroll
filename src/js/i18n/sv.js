@@ -33,6 +33,8 @@ mobiscroll.i18n.sv = {
     dateText: 'Datum',
     timeText: 'Tid',
     closeText: 'Stäng',
+    allDayText: 'Heldag',
+    noEventsText: 'Inga aktiviteter',
     // Daterange component
     fromText: 'Start',
     toText: 'Slut',

@@ -187,6 +187,8 @@ mobiscroll.i18n.fa = {
     dateText: 'تاریخ ',
     timeText: 'زمان ',
     closeText: 'نزدیک',
+    allDayText: 'تمام روز',
+    noEventsText: 'هیچ رویداد',
     // Daterange component
     fromText: 'شروع ',
     toText: 'پایان',

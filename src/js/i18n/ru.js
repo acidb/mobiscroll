@@ -34,6 +34,8 @@ mobiscroll.i18n['ru-RU'] = mobiscroll.i18n.ru = {
     dateText: 'Дата',
     timeText: 'Время',
     closeText: 'Закрыть',
+    allDayText: 'Весь день',
+    noEventsText: 'Нет событий',
     // Daterange component
     fromText: 'Начало',
     toText: 'Конец',

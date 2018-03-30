@@ -34,6 +34,8 @@ mobiscroll.i18n.lt = {
     dateText: 'Data',
     timeText: 'Laikas',
     closeText: 'Uždaryti',
+    allDayText: 'Visą dieną',
+    noEventsText: 'Nėra įvykių',
     // Daterange component
     fromText: 'Nuo',
     toText: 'Iki',
