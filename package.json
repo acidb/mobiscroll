@@ -1,11 +1,12 @@
 {
   "name": "mobiscroll",
-  "version": "4.1.0",
+  "version": "4.1.1",
   "description": "Cross platform UI controls for progressive web an hybrid apps",
   "homepage": "https://mobiscroll.com/",
   "license": "Apache-2.0",
   "scripts": {
-    "transpile": "ngc"
+    "transpile": "ngc",
+    "publish": "cd ./packages/angular && npm publish && cd ../angularjs && npm publish && cd ../javascript && npm publish && cd ../jquery && npm publish && cd ../react && npm publish"
   },
   "keywords": [
     "mobile web",
@@ -44,13 +45,13 @@
     "dist/css/icons_mobiscroll.woff"
   ],
   "devDependencies": {
-    "@angular/animations": "^4.2.4",
-    "@angular/common": "^4.2.4",
-    "@angular/compiler": "^4.2.4",
-    "@angular/compiler-cli": "^4.2.4",
-    "@angular/core": "^4.2.4",
-    "@angular/forms": "^4.2.4",
-    "@angular/platform-browser": "^4.2.4",
+    "@angular/animations": "^4.4.5",
+    "@angular/common": "^4.4.5",
+    "@angular/compiler": "^4.4.5",
+    "@angular/compiler-cli": "^4.4.5",
+    "@angular/core": "^4.4.5",
+    "@angular/forms": "^4.4.5",
+    "@angular/platform-browser": "^4.4.5",
     "babel-eslint": "^7.1.1",
     "babel-helpers": "^6.22.0",
     "babel-install": "2.1.0",

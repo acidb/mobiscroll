@@ -1,5 +1,5 @@
 /*!
- * Mobiscroll v4.1.0
+ * Mobiscroll v4.1.1
  * http://mobiscroll.com
  *
  * Copyright 2010-2018, Acid Media
@@ -68,7 +68,7 @@ var ms,
 
 ms = extend(mobiscroll, {
     $: $,
-    version: '4.1.0',
+    version: '4.1.1',
     autoTheme: 'mobiscroll',
     themes: {
         form: {},
