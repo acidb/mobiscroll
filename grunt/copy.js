@@ -14,12 +14,12 @@ module.exports = {
             expand: true,
             cwd: 'src/',
             src: ['**/*.d.ts', '!**/*.angular.d.ts', '!js/frameworks/*.d.ts', 'js/frameworks/javascript.d.ts'],
-            dest: 'packages/javascript/dist/'
+            dest: 'packages/javascript/dist/src/'
         }, {
             expand: true,
             cwd: 'src/',
             src: ['**/*.d.ts', '!**/*.angular.d.ts', '!js/frameworks/*.d.ts', 'js/frameworks/jquery.d.ts'],
-            dest: 'packages/jquery/dist/'
+            dest: 'packages/jquery/dist/src/'
         }]
     },
     icons: {
