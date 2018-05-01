@@ -621,6 +621,7 @@ export class MbscSwitch extends MbscControlBase implements OnInit {
 
     ngOnInit() {
         this._inheritedOptions = this._formService ? this._formService.options : {};
+        super.ngOnInit();
     }
 
     ngAfterViewInit() {
@@ -734,6 +735,7 @@ export class MbscStepper extends MbscControlBase implements OnInit {
 
     ngOnInit() {
         this._inheritedOptions = this._formService ? this._formService.options : {};
+        super.ngOnInit();
     }
 
     /* AfterViewInit Interface */
@@ -838,6 +840,7 @@ export class MbscProgress extends MbscControlBase implements OnInit {
 
     ngOnInit() {
         this._inheritedOptions = this._formService ? this._formService.options : {};
+        super.ngOnInit();
     }
 
     /* AfterViewInit Interface */
@@ -1306,6 +1309,7 @@ export class MbscSlider extends MbscControlBase {
 
     ngOnInit() {
         this._inheritedOptions = this._formService ? this._formService.options : {};
+        super.ngOnInit();
     }
 
     /* AfterViewInit Interface */
@@ -1427,6 +1431,7 @@ export class MbscRating extends MbscControlBase implements OnInit {
 
     ngOnInit() {
         this._inheritedOptions = this.formService ? this.formService.options : {};
+        super.ngOnInit();
     }
 
     ngAfterViewInit() {

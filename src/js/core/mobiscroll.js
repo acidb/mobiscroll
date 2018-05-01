@@ -1,3 +1,4 @@
-var mobiscroll = mobiscroll || {};
+var mobiscroll = mobiscroll || {},
+    util = {};
 
-export { mobiscroll };
+export { mobiscroll, util };

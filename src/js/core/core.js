@@ -1,12 +1,12 @@
 /*!
- * Mobiscroll v4.1.1
+ * Mobiscroll v4.2.0
  * http://mobiscroll.com
  *
  * Copyright 2010-2018, Acid Media
  *
  */
 
-import { mobiscroll } from './mobiscroll';
+import { mobiscroll, util } from './mobiscroll';
 import { os, majorVersion, minorVersion, isBrowser } from '../util/platform';
 import { noop, vibrate } from '../util/misc';
 import { getCoord, preventClick, tap } from '../util/tap';
@@ -59,16 +59,17 @@ var ms,
     id = +new Date(),
     instances = {},
     classes = {},
-    util = {
-        getCoord: getCoord,
-        preventClick: preventClick,
-        vibrate: vibrate
-    },
     extend = $.extend;
+
+extend(util, {
+    getCoord: getCoord,
+    preventClick: preventClick,
+    vibrate: vibrate
+});
 
 ms = extend(mobiscroll, {
     $: $,
-    version: '4.1.1',
+    version: '4.2.0',
     autoTheme: 'mobiscroll',
     themes: {
         form: {},

@@ -10,6 +10,10 @@ var boolType = PropTypes.bool,
     funcType = PropTypes.func,
     numType = PropTypes.number,
     objType = PropTypes.object,
+    dateType = PropTypes.oneOfType([
+        objType,
+        stringType
+    ]),
     numOrArray = PropTypes.oneOfType([
         numType,
         PropTypes.arrayOf(numType)
@@ -79,10 +83,11 @@ export const ScrollerPropTypes = {
 };
 
 export const DatetimePropTypes = {
-    defaultValue: objType,
+    defaultValue: dateType,
     invalid: PropTypes.array,
-    max: objType,
-    min: objType,
+    max: dateType,
+    min: dateType,
+    returnFormat: PropTypes.oneOf(['iso8601', 'moment', 'locale', 'jsdate']),
     steps: PropTypes.shape({
         hour: numType,
         minute: numType,
@@ -118,12 +123,12 @@ export const CalbasePropTypes = {
     calendarWidth: numType,
     counter: boolType,
     defaultValue: PropTypes.oneOfType([
-        objType,
+        dateType,
         PropTypes.array
     ]),
     events: PropTypes.arrayOf(PropTypes.shape({
-        start: objType,
-        end: objType,
+        start: dateType,
+        end: dateType,
         d: PropTypes.oneOfType([objType, numType, stringType]),
         text: stringType,
         color: stringType,
@@ -131,15 +136,15 @@ export const CalbasePropTypes = {
         cssClass: stringType
     })),
     labels: PropTypes.arrayOf(PropTypes.shape({
-        start: objType,
-        end: objType,
+        start: dateType,
+        end: dateType,
         d: PropTypes.oneOfType([objType, numType, stringType]),
         text: stringType,
         color: stringType,
         background: stringType,
         cssClass: stringType
     })),
-    marked: PropTypes.arrayOf(PropTypes.oneOfType([objType, stringType,
+    marked: PropTypes.arrayOf(PropTypes.oneOfType([objType, numType, stringType,
         PropTypes.shape({
             d: PropTypes.oneOfType([objType, stringType, numType]),
             color: stringType,
@@ -506,5 +511,5 @@ export class MbscListsBase extends MbscOptimized {
     }
 }
 
-export { $, extend, mobiscroll, classes, PropTypes };
+export { $, extend, mobiscroll, classes, dateType, PropTypes };
 export default mobiscroll;

@@ -4,21 +4,73 @@
 /* Notifications */
 
 .mbsc-windows {
+
+    /* Snackbar */
+
+    &.mbsc-snackbar .mbsc-snackbar-btn {
+        color: @windows-accent;
+    }
+
     /* Toast */
+
     &.mbsc-toast .mbsc-toast-msg {
         background: @windows-dark-grey;
         color: contrast(@windows-dark-grey);
     }
 
-    /* Snackbar */
-    &.mbsc-snackbar .mbsc-snackbar-cont .mbsc-snackbar-btn,
-    &.mbsc-snackbar.mbsc-fr .mbsc-fr-c .mbsc-btn-flat:not(:disabled):hover {
-        color: @windows-accent;
-    }
-
     &.mbsc-toast .mbsc-fr-w,
     &.mbsc-snackbar .mbsc-fr-w {
         border: 0;
+    }
+
+    /* Snackbar and Toast color presets */
+
+    &.mbsc-snackbar.mbsc-primary .mbsc-fr-w,
+    &.mbsc-toast.mbsc-primary .mbsc-toast-msg {
+        background: @windows-primary;
+        color: @windows-light-text;
+    }
+
+    &.mbsc-snackbar.mbsc-secondary .mbsc-fr-w,
+    &.mbsc-toast.mbsc-secondary .mbsc-toast-msg {
+        background: @windows-secondary;
+        color: @windows-light-text;
+    }
+
+    &.mbsc-snackbar.mbsc-success .mbsc-fr-w,
+    &.mbsc-toast.mbsc-success .mbsc-toast-msg {
+        background: @windows-success;
+        color: @windows-light-text;
+    }
+
+    &.mbsc-snackbar.mbsc-danger .mbsc-fr-w,
+    &.mbsc-toast.mbsc-danger .mbsc-toast-msg {
+        background: @windows-danger;
+        color: @windows-light-text;
+    }
+
+    &.mbsc-snackbar.mbsc-warning .mbsc-fr-w,
+    &.mbsc-toast.mbsc-warning .mbsc-toast-msg {
+        background: @windows-warning;
+        color: @windows-dark-text;
+    }
+
+    &.mbsc-snackbar.mbsc-info .mbsc-fr-w,
+    &.mbsc-toast.mbsc-info .mbsc-toast-msg {
+        background: @windows-info;
+        color: @windows-light-text;
+    }
+
+    &.mbsc-snackbar.mbsc-primary .mbsc-snackbar-btn,
+    &.mbsc-snackbar.mbsc-secondary .mbsc-snackbar-btn,
+    &.mbsc-snackbar.mbsc-success .mbsc-snackbar-btn,
+    &.mbsc-snackbar.mbsc-danger .mbsc-snackbar-btn,
+    &.mbsc-snackbar.mbsc-info .mbsc-snackbar-btn {
+        color: @windows-light-text;
+    }
+
+    &.mbsc-snackbar.mbsc-warning .mbsc-snackbar-btn {
+        color: @windows-dark-text;
     }
 
 }

@@ -36,6 +36,15 @@ function constrain(val, min, max) {
     return Math.max(min, Math.min(val, max));
 }
 
+function pad(num, size) {
+    num = num + '';
+    size = size || 2;
+    while (num.length < size) {
+        num = '0' + num;
+    }
+    return num;
+}
+
 function throttle(fn, threshhold) {
     var last,
         timer;
@@ -84,6 +93,7 @@ export {
     objectToArray,
     throttle,
     vibrate,
+    pad,
     getPercent,
     getBoolAttr
 };

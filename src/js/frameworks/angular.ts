@@ -24,7 +24,9 @@ import {
     NgModule,
     Injectable,
     ContentChildren,
-    QueryList
+    ContentChild,
+    QueryList,
+    DoCheck
 } from '@angular/core';
 
 // // angular2 import { trigger, state, animate, transition, style } from '@angular/core'; // Angular 2.x
@@ -235,7 +237,63 @@ abstract class MbscValueBase extends MbscBase {
     }
 }
 
-abstract class MbscControlBase extends MbscValueBase implements ControlValueAccessor {
+abstract class MbscCloneBase extends MbscValueBase implements DoCheck, OnInit {
+    constructor(initElem: ElementRef, zone: NgZone) {
+        super(initElem, zone);
+    }
+
+    cloneDictionary: any = {};
+    makeClone(setting: string, value: Array<any>) {
+        this.cloneDictionary[setting] = [];
+        if (value) {
+            for(let i = 0; i < value.length; i++) {
+                this.cloneDictionary[setting].push(value[i]);
+            }
+        }
+    }
+
+    /**
+     * Runs in every cycle and checks if the options changed from a previous value
+     * The previous values are cloned and stored in the cloneDictionary
+     * Checks for options only specified in the cloneDictionary
+     */
+    ngDoCheck() {
+        let changed = false,
+            data = false,
+            invalid = false;
+        
+        for(let key in this.cloneDictionary) {
+            if ((this as any)[key] !== undefined && !deepEqualsArray((this as any)[key], this.cloneDictionary[key])) {
+                this.makeClone(key, (this as any)[key]);
+                this._instance.settings[key] = (this as any)[key];
+                changed = true;
+                if (key == 'invalid') {
+                    invalid = true;   
+                }
+                if (key == 'data') {
+                    data = true;
+                }
+            }
+        }
+        if (changed && this._instance) {
+            if (invalid) {
+                this._instance.option(this.cloneDictionary);
+            } else if (data) {
+                (this as any).refreshData((this as any).data);
+            } else if (this._instance.redraw){
+                this._instance.redraw();
+            }
+        }
+    }
+
+    ngOnInit() {
+        for(let key in this.cloneDictionary) {
+            this.makeClone(key, (this as any)[key]);
+        }
+    }
+}
+
+abstract class MbscControlBase extends MbscCloneBase implements ControlValueAccessor {
     /**
      * Returns an object containing the extensions of the option object 
      */
@@ -359,10 +417,10 @@ abstract class MbscControlBase extends MbscValueBase implements ControlValueAcce
     }
 
     setDisabledState(isDisabled: boolean): void {
-        if (this.oldAccessor !== undefined && this.oldAccessor.setDisabledState !== undefined) {
+        if (this.oldAccessor && this.oldAccessor.setDisabledState) {
             this.oldAccessor.setDisabledState(isDisabled);
         }
-        if (this.instance) {
+        if (this.instance && this.instance.disable && this.instance.enable) {
             if (isDisabled) {
                 this.instance.disable();
             } else {
@@ -385,100 +443,7 @@ abstract class MbscControlBase extends MbscValueBase implements ControlValueAcce
         }
     }
 }
-abstract class MbscDataControlMixin implements OnInit {
-    /**
-     * The mobiscroll settings for the directive are passed through this input.
-     */
-    @Input('mbsc-options')
-    public options: MbscCoreOptions & MbscDataControlOptions = {};
 
-    /**
-     * True if multiselection is on
-     */
-    public isMulti: boolean = undefined;
-
-    /**
-     * Array required for data checks
-     * Holds the previous data array against the check is made
-     */
-    public previousData: Array<any> = undefined;
-
-    /**
-     * Disables array checking in DoCheck for the data array
-     */
-    @Input('mbsc-no-data-check')
-    noDataCheck: boolean = false;
-
-    /**
-     * Array for the data
-     */
-    @Input('mbsc-data')
-    data: Array<any> = undefined;
-
-    _instance: any;
-    _inputService: any;
-
-    /**
-     * If the new value differs from the current value
-     * sets the new value to the instance and writes it to the input
-     * @param v The new value to be set
-     */
-    setNewValue(v: any) {
-        if (this._instance) {
-            let changed: boolean;
-            if (this.isMulti) {
-                changed = !deepEqualsArray(v, this._instance.getVal());
-            }
-            else {
-                let innerValue: any = this._instance.getVal();
-                changed = innerValue !== v;
-            }
-
-            // set value to instance if differs from the model
-            if (changed) {
-                this._instance.setVal(v, true, false);
-                if (this._inputService && this._inputService.input) {
-                    this._inputService.input.innerValue = this._instance._value;
-                }
-            }
-        }
-    }
-
-    /**
-     * Creates a one level copy of the data array to the previousData array
-     */
-    cloneData() {
-        this.previousData = this.data ? [] : this.data;
-        if (this.data) {
-            for (let i = 0; i < this.data.length; i++) {
-                this.previousData.push(this.data[i]);
-            }
-        }
-    }
-
-    /* OnInit Interface */
-
-    /**
-     * Runs after the input parameters are settled and before the mobiscroll control is initialized
-     */
-    ngOnInit() {
-        this.isMulti = this.options && this.options.select && this.options.select !== 'single';
-    }
-
-    abstract refreshData(newData: any): void;
-
-    /**
-     * Runs on every change
-     */
-    ngDoCheck() {
-        if (this.data !== undefined && !this.noDataCheck && !deepEqualsArray(this.data, this.previousData)) {
-            this.cloneData();
-            if (this._instance) {
-                this.refreshData(this.data);
-            }
-        }
-    }
-}
 abstract class MbscDataControlBase extends MbscControlBase implements OnInit {
     /**
      * The mobiscroll settings for the directive are passed through this input.
@@ -573,7 +538,7 @@ abstract class MbscDataControlBase extends MbscControlBase implements OnInit {
     }
 }
 
-abstract class MbscFrameBase extends MbscControlBase {
+abstract class MbscFrameBase extends MbscControlBase implements OnInit {
     @Input()
     options: MbscFrameOptions;
 
@@ -690,6 +655,12 @@ abstract class MbscFrameBase extends MbscControlBase {
     constructor(initialElem: ElementRef, zone: NgZone, control: NgControl, _inputService: MbscInputService) {
         super(initialElem, zone, control, _inputService);
     }
+
+    ngOnInit() {
+        this.cloneDictionary.invalid = [];
+        this.cloneDictionary.valid = [];
+        super.ngOnInit();
+    }
 }
 
 abstract class MbscScrollerBase extends MbscFrameBase {
@@ -805,16 +776,6 @@ abstract class MbscScrollerBase extends MbscFrameBase {
     }
 }
 
-function applyMixins(derivedCtor: any, baseCtors: any[]) {
-    baseCtors.forEach(baseCtor => {
-        Object.getOwnPropertyNames(baseCtor.prototype).forEach(name => {
-            if (name !== 'constructor') {
-                derivedCtor.prototype[name] = baseCtor.prototype[name];
-            }
-        });
-    });
-}
-
 function deepEqualsArray(a1: Array<any>, a2: Array<any>): boolean {
     if (a1 === a2) {
         return true;
@@ -827,6 +788,14 @@ function deepEqualsArray(a1: Array<any>, a2: Array<any>): boolean {
             }
         }
         return true;
+    }
+}
+
+function isDateEqual(d1: any, d2: any): boolean {
+    if ((d1 && !d2) || (d2 && !d1)) { // one of them is truthy and other is not
+        return false;
+    } else {
+        return d1 && d2 && d1.toString() === d2.toString();
     }
 }
 
@@ -844,14 +813,14 @@ export {
 
     MbscBase,
     MbscValueBase,
+    MbscCloneBase,
     MbscControlBase,
     MbscDataControlBase,
     MbscFrameBase,
     MbscScrollerBase,
-    MbscDataControlMixin,
 
-    applyMixins,
     deepEqualsArray,
+    isDateEqual,
 
     INPUT_TEMPLATE,
 
@@ -869,6 +838,7 @@ export {
     ElementRef,
     ViewChild,
     ViewChildren,
+    ContentChild,
     ContentChildren,
     QueryList,
     NgZone,

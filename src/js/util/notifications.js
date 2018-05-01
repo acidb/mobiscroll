@@ -112,9 +112,9 @@ function showPrompt(widget, settings, resolve) {
 function showSnackbar(widget, settings, resolve, cssClass, animation) {
     let notificationTimer;
     const inst = new Widget(widget, getSettings(notificationQueue, settings, resolve, {
-        display: 'bottom',
+        display: settings.display || 'bottom',
         animate: animation,
-        cssClass: cssClass || 'mbsc-snackbar',
+        cssClass: (cssClass || 'mbsc-snackbar') + (settings.color ? ' mbsc-' + settings.color : ''),
         scrollLock: false,
         focusTrap: false,
         buttons: [],
@@ -181,10 +181,12 @@ mobiscroll.prompt = function (settings) {
 };
 
 mobiscroll.snackbar = function (settings) {
-    const widget = document.createElement('div');
+    const widget = document.createElement('div'),
+        btn = settings.button;
     widget.innerHTML = '<div class="mbsc-snackbar-cont"><div class="mbsc-snackbar-msg">' + (settings.message || '') + '</div>' +
-        (settings.button ? '<button class="mbsc-snackbar-btn mbsc-btn mbsc-btn-flat">' + (settings.button.text || '') + '</button>' : '') +
-        '</div>';
+        (btn ? '<button class="mbsc-snackbar-btn mbsc-btn mbsc-btn-flat">' +
+            (btn.icon ? '<span class="mbsc-ic ' + (btn.text ? 'mbsc-btn-ic ' : '') + 'mbsc-ic-' + btn.icon + '"></span>' : '') +
+            (btn.text || '') + '</button>' : '') + '</div>';
     return show(showSnackbar, widget, settings);
 };
 

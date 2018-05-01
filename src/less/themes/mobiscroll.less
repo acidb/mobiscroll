@@ -8,9 +8,17 @@
 // Light background 
 .light-or-dark() when (lightness(@mobiscroll-background) > 50%) {
     @mobiscroll-border: darken(@mobiscroll-background, 17%);
+    @mobiscroll-empty-color: lighten(@mobiscroll-text, 20%);
 }
 
 // Dark background 
 .light-or-dark() when (lightness(@mobiscroll-background) <=50%) {
     @mobiscroll-border: lighten(@mobiscroll-background, 17%);
+    @mobiscroll-empty-color: @mobiscroll-text;
+}
+
+/* Empty view styling */
+
+.mbsc-mobiscroll .mbsc-empty {
+    color: @mobiscroll-empty-color;
 }

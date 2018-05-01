@@ -1,5 +1,5 @@
-import { mobiscroll } from './mobiscroll';
-export { mobiscroll };
+import { mobiscroll, IMobiscroll } from './mobiscroll';
+export { mobiscroll, IMobiscroll };
 export const $: any;
 export const extend: any;
 

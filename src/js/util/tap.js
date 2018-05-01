@@ -16,7 +16,10 @@ function triggerClick(ev, control) {
         evt = document.createEvent('MouseEvents');
 
     evt.initMouseEvent('click', true, true, window, 1, touch.screenX, touch.screenY, touch.clientX, touch.clientY, false, false, false, false, 0, null);
-    evt.tap = true;
+    evt.isMbscTap = true;
+    // Prevent ionic to bust our click
+    // This works for Ionic 1 - 3, not sure about 4
+    evt.isIonicTap = true;
 
     control.mbscChange = true;
     control.dispatchEvent(evt);
@@ -110,7 +113,7 @@ function tap(that, el, handler, prevent, tolerance, time) {
 // Prevent standard behaviour on body click
 function bustClick(ev) {
     // Textarea needs the mousedown event
-    if (tapped && !ev.tap && !(ev.target.nodeName == 'TEXTAREA' && ev.type == 'mousedown')) {
+    if (tapped && !ev.isMbscTap && !(ev.target.nodeName == 'TEXTAREA' && ev.type == 'mousedown')) {
         ev.stopPropagation();
         ev.preventDefault();
         return false;

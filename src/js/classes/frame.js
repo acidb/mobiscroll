@@ -560,7 +560,7 @@ export const Frame = function (el, settings, inherit) {
                 });
 
                 that.tap($elm, function (ev) {
-                    if (ev.type == 'touchend') {
+                    if (ev.isMbscTap) {
                         touched = true;
                     }
                     show(beforeShow, $elm);

@@ -36,6 +36,7 @@
     @windows-checkbox: hsv(hsvhue(@windows-accent), max(hsvsaturation(@windows-accent) - 90%, 0%), min(hsvvalue(@windows-accent) + 14%, 100%));
     @windows-switch-hover: hsv(hsvhue(@windows-accent), max(hsvsaturation(@windows-accent) - 34%, 0%), min(hsvvalue(@windows-accent) + 5%, 100%));
     @windows-button-border: lighten(@windows-text, 33%);
+    @windows-empty-color: lighten(@windows-text, 30%);
 }
 
 // Dark background 
@@ -62,6 +63,7 @@
     @windows-checkbox: hsv(hsvhue(@windows-accent), max(hsvsaturation(@windows-accent) - 90%, 0%), min(hsvvalue(@windows-accent) + 14%, 100%));
     @windows-switch-hover: hsv(hsvhue(@windows-accent), max(hsvsaturation(@windows-accent) - 34%, 0%), min(hsvvalue(@windows-accent) + 5%, 100%));
     @windows-button-border: darken(@windows-text, 33%);
+    @windows-empty-color: darken(@windows-text, 30%);
 }
 
 
@@ -75,6 +77,13 @@
 @windows-background-alt2-text: contrast(@windows-background-alt2);
 @windows-input-color: hsv(hsvhue(@windows-text), hsvsaturation(@windows-text), @value_isDark3_2);
 @windows-selected-hover: hsv(hsvhue(@windows-accent), max(hsvsaturation(@windows-accent) - 44%, 0%), min(hsvvalue(@windows-accent) + 7%, 100%));
+
+
+/* Empty view styling */
+
+.mbsc-@{theme} .mbsc-empty {
+    color: @windows-empty-color;
+}
 
 /* Calendar base */
 
@@ -231,10 +240,6 @@
     .mbsc-event-list .mbsc-lv-gr-title {
         background: @windows-form-bg;
         border-color: @windows-wheel-button;
-    }
-
-    .mbsc-event-list .mbsc-event-empty {
-        color: @windows-cal-day;
     }
 
     .mbsc-event-color {
@@ -1063,7 +1068,7 @@
 
 .mbsc-lv-@{theme} {
     .mbsc-lv {
-        background: #b1b1b1;
+        background: @windows-fr-border;
     }
 
     .mbsc-lv-item {
@@ -1156,8 +1161,7 @@
     }
 
     /* Snackbar */
-    &.mbsc-snackbar .mbsc-snackbar-cont .mbsc-snackbar-btn,
-    &.mbsc-snackbar.mbsc-fr .mbsc-fr-c .mbsc-btn-flat:not(:disabled):hover {
+    &.mbsc-snackbar .mbsc-snackbar-btn {
         color: @windows-accent;
     }
 }

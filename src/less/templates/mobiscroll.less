@@ -15,11 +15,13 @@
 // Light background 
 .light-or-dark() when (lightness(@mobiscroll-background) > 50%) {
     @mobiscroll-border: darken(@mobiscroll-background, 17%);
+    @mobiscroll-empty-color: lighten(@mobiscroll-text, 20%);
 }
 
 // Dark background 
 .light-or-dark() when (lightness(@mobiscroll-background) <=50%) {
     @mobiscroll-border: lighten(@mobiscroll-background, 17%);
+    @mobiscroll-empty-color: @mobiscroll-text;
 }
 
 
@@ -108,6 +110,11 @@
     color: @output3_8;
 }
 
+/* Empty view styling */
+
+.mbsc-@{theme} .mbsc-empty {
+    color: @mobiscroll-empty-color;
+}
 
 /* Calendar */
 
@@ -189,11 +196,7 @@
         color: @mobiscroll-accent;
     }
 
-    .mbsc-event-list .mbsc-event-empty {
-        color: @output2_7;
-    }
-
-    .mbsc-event-color {
+     .mbsc-event-color {
         background: fade(@mobiscroll-text, 30%);
     }
 
@@ -268,6 +271,10 @@
 
 
 /* Listview */
+
+.mbsc-lv-@{theme} .mbsc-lv {
+    background: @output1_7;
+}
 
 .mbsc-lv-@{theme} .mbsc-lv-item {
     background: @output1_3;
@@ -479,7 +486,6 @@
     background: @output1_5;
 }
 
-
 /* Buttons */
 
 .mbsc-@{theme} .mbsc-btn {
@@ -493,9 +499,8 @@
 
 .mbsc-@{theme} .mbsc-btn.mbsc-btn-outline:disabled {
     color: @output1_6;
-    ;
     border-color: @output1_6;
-    ;
+    background: transparent;
 }
 
 .mbsc-@{theme}.mbsc-no-touch .mbsc-btn-flat:not(:disabled):not(.mbsc-active):hover {
@@ -516,7 +521,6 @@
     background: transparent;
     color: @output1_7;
 }
-
 
 /* Switch */
 

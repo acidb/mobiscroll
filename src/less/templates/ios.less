@@ -23,12 +23,14 @@
 .light-or-dark() when (lightness(@ios-background) > 50%) {
     @ios-border: darken(@ios-background-limited, 17%);
     @ios-text-alt: lighten(@ios-text, 53%);
+    @ios-empty-color: lighten(@ios-text, 43%);
 }
 
 // Dark background 
 .light-or-dark() when (lightness(@ios-background) <=50%) {
     @ios-border: lighten(@ios-background-limited, 17%);
     @ios-text-alt: darken(@ios-text, 53%);
+    @ios-empty-color: @ios-text;
 }
 
 // Light accent 
@@ -211,6 +213,20 @@
     border-color: @output3_2;
 }
 
+.mbsc-@{theme}.mbsc-fr-inline .mbsc-fr-w {
+    background: @ios-background-alt;
+}
+
+.mbsc-@{theme}.mbsc-fr-inline .mbsc-fr-c {
+    border-color: @ios-border;
+}
+
+/* Empty view styling */
+
+.mbsc-@{theme} .mbsc-empty {
+    color: @ios-empty-color;
+}
+
 
 /* Top / bottom color theme */
 
@@ -256,8 +272,7 @@
     background: linear-gradient(@output3_10, fade(@output3_10, 0%) 52%, fade(@output3_10, 0%) 48%, @output3_10);
 }
 
-.mbsc-@{theme}.mbsc-fr.mbsc-fr-inline .mbsc-sc-whl-gr-3d .mbsc-sc-whl-c,
-.mbsc-@{theme}.mbsc-fr-inline .mbsc-fr-w {
+.mbsc-@{theme}.mbsc-fr.mbsc-fr-inline .mbsc-sc-whl-gr-3d .mbsc-sc-whl-c {
     background: @output3_10;
 }
 
@@ -784,7 +799,7 @@
 }
 
 .mbsc-lv-@{theme} .mbsc-lv {
-    background: @output3_6;
+    background: @output3_7;
 }
 
 .mbsc-lv-@{theme} .mbsc-lv-item {

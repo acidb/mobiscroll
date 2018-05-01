@@ -1,6 +1,6 @@
 {
     "name": "@mobiscroll/jquery-lite",
-    "version": "4.1.1",
+    "version": "4.2.1",
     "description": "jQuery and jQuery Mobile UI library for progressive web and hybrid apps",
     "homepage": "https://mobiscroll.com/",
     "license": "Apache-2.0",
@@ -27,6 +27,7 @@
         "url": "https://github.com/acidb/mobiscroll/issues"
     },
     "main": "dist/js/mobiscroll.jquery.min.js",
+    "typings": "dist/src/js/frameworks/jquery.d.ts",
     "style": "dist/css/mobiscroll.min.css",
     "files": [
         "dist/js/mobiscroll.jquery.js",
@@ -34,7 +35,8 @@
         "dist/css/mobiscroll.css",
         "dist/css/mobiscroll.min.css",
         "dist/css/icons_mobiscroll.ttf",
-        "dist/css/icons_mobiscroll.woff"
+        "dist/css/icons_mobiscroll.woff",
+        "dist/src/**"
     ],
     "peerDependencies": {
         "jquery": ">=1.7.0"

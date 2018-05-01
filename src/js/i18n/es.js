@@ -13,10 +13,10 @@ mobiscroll.i18n.es = {
     selectedPluralText: '{count} seleccionados',
     // Datetime component
     dateFormat: 'dd/mm/yy',
-    dayNames: ['Domingo', 'Lunes', 'Martes', 'Mi&#xE9;rcoles', 'Jueves', 'Viernes', 'S&#xE1;bado'],
-    dayNamesShort: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'S&#xE1;'],
+    dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+    dayNamesShort: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
     dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
-    dayText: 'D&#237;a',
+    dayText: 'Día',
     hourText: 'Horas',
     minuteText: 'Minutos',
     monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],

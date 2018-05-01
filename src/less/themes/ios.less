@@ -17,12 +17,14 @@
 .light-or-dark() when (lightness(@ios-background) > 50%) {
     @ios-border: darken(@ios-background-limited, 17%);
     @ios-text-alt: lighten(@ios-text, 53%);
+    @ios-empty-color: lighten(@ios-text, 43%);
 }
 
 // Dark background 
 .light-or-dark() when (lightness(@ios-background) <=50%) {
     @ios-border: lighten(@ios-background-limited, 17%);
     @ios-text-alt: darken(@ios-text, 53%);
+    @ios-empty-color: @ios-text;
 }
 
 // Light accent 
@@ -33,4 +35,10 @@
 // Dark accent 
 .light-or-dark() when (lightness(@ios-accent) <=50%) {
     @ios-accent-alt: lighten(desaturate(@ios-accent, 5%), 42%);
+}
+
+/* Empty view styling */
+
+.mbsc-ios .mbsc-empty {
+    color: @ios-empty-color;
 }
