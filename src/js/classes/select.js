@@ -11,6 +11,7 @@ export class Select extends Input {
         const $input = $existing.length ? $existing : $('<input tabindex="-1" class="mbsc-control" readonly>');
 
         this._$input = $input;
+        this._setText = this._setText.bind(this);
 
         $parent.addClass('mbsc-select' + (this._$frame ? ' mbsc-select-inline' : ''));
 
@@ -20,7 +21,7 @@ export class Select extends Input {
 
         // Check if select and mobiscroll select was not initialized
         if (!$elm.hasClass('mbsc-comp')) {
-            elm.addEventListener('change', this);
+            $elm.on('change', this._setText);
             this._setText();
         }
     }
@@ -28,15 +29,7 @@ export class Select extends Input {
     destroy() {
         super.destroy();
         this._$parent.find('.mbsc-select-ic').remove();
-        this._elm.removeEventListener('change', this);
-    }
-
-    handleEvent(ev) {
-        super.handleEvent(ev);
-
-        if (ev.type == 'change') {
-            this._setText();
-        }
+        this._$elm.off('change', this._setText);
     }
 
     _setText() {

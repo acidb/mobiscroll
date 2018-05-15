@@ -123,7 +123,7 @@ export class MbscFormBase extends MbscBase implements OnInit {
 }
 
 export class MbscFormValueBase extends MbscFormBase implements ControlValueAccessor {
-    protected _value: any;
+    _value: any;
 
     set innerValue(v: any) {
         this._value = v;
@@ -908,7 +908,7 @@ export class MbscRadioGroupBase extends MbscFormValueBase {
         this._radioService.changeValue(v);
     }
 
-    constructor(hostElement: ElementRef, @Optional() formService: MbscOptionsService, protected _radioService: MbscRadioService, control: NgControl) {
+    constructor(hostElement: ElementRef, @Optional() formService: MbscOptionsService, public _radioService: MbscRadioService, control: NgControl) {
         super(hostElement, formService, control, null);
         this._radioService.onValueChanged().subscribe(v => {
             this.innerValue = v;

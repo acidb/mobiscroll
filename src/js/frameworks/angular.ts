@@ -177,7 +177,7 @@ class MbscBase implements AfterViewInit, OnDestroy {
         }
     }
 
-    constructor(protected initialElem: ElementRef) { }
+    constructor(public initialElem: ElementRef) { }
 
     /* AfterViewInit Interface */
 

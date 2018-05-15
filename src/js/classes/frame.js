@@ -1,7 +1,6 @@
 import { $, extend, Base, mobiscroll, classes, instances } from '../core/core';
 import { os, majorVersion, isBrowser, userAgent } from '../util/platform';
 import { animEnd } from '../util/dom';
-import { getCoord, preventClick } from '../util/tap';
 import { constrain, isString, noop } from '../util/misc';
 
 var $activeElm,
@@ -221,6 +220,12 @@ export const Frame = function (el, settings, inherit) {
         $markup
             .on('selectstart mousedown', prevdef) // Prevents blue highlight on Android and text selection in IE
             .on('click', '.mbsc-fr-btn-e', prevdef)
+            .on('touchstart mousedown', function (ev) {
+                // Need this to prevent opening of sidemenus or similar
+                if (s.stopProp) {
+                    ev.stopPropagation();
+                }
+            })
             .on('keydown', '.mbsc-fr-btn-e', function (ev) {
                 if (ev.keyCode == 32) { // Space
                     ev.preventDefault();
@@ -811,37 +816,20 @@ export const Frame = function (el, settings, inherit) {
             }
 
             if (s.closeOnOverlayTap) {
-                var moved,
-                    target,
-                    startX,
-                    startY;
+                var target;
 
-                $overlay
-                    .on('touchstart mousedown', function (ev) {
-                        if (!target && ev.target == $overlay[0]) {
-                            target = true;
-                            moved = false;
-                            startX = getCoord(ev, 'X');
-                            startY = getCoord(ev, 'Y');
-                        }
-                    })
-                    .on('touchmove mousemove', function (ev) {
-                        if (target && !moved && (Math.abs(getCoord(ev, 'X') - startX) > 9 || Math.abs(getCoord(ev, 'Y') - startY) > 9)) {
-                            moved = true;
-                        }
-                    })
-                    .on('touchcancel', function () {
-                        target = false;
-                    })
-                    .on('touchend touchcancel mouseup', function (ev) {
-                        if (target && !moved) {
-                            that.cancel();
-                            if (ev.type != 'mouseup') {
-                                preventClick();
-                            }
-                        }
-                        target = false;
-                    });
+                $overlay.on('touchstart mousedown', function (ev) {
+                    target = ev.target == overlay;
+                }).on('mouseup', function (ev) {
+                    target = target && ev.target == overlay;
+                });
+
+                that.tap(overlay, function (ev) {
+                    if (target && ev.target == overlay) {
+                        that.cancel();
+                    }
+                    target = false;
+                });
             }
         }
 

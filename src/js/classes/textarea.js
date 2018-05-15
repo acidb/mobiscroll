@@ -28,7 +28,7 @@ function sizeTextArea(control) {
         lineNr = Math.round(height / 24);
 
         if (lineNr > rowNr) {
-            control.scrollTop = height;
+            //control.scrollTop = height;
             height = 24 * rowNr + (height - lineNr * 24);
             $(control).addClass('mbsc-textarea-scroll');
         } else {
@@ -46,10 +46,14 @@ function scrollTextArea(elm) {
 
     if (!$elm.hasClass('mbsc-textarea-scroll')) {
         let line = elm.scrollHeight - elm.offsetHeight,
-            height = elm.offsetHeight + line;
+            height = elm.offsetHeight + line,
+            lineNr = Math.round(height / 24),
+            rowNr = $elm.attr('rows') || 6;
 
-        elm.scrollTop = 0;
-        elm.style.height = height + 'px';
+        if (lineNr <= rowNr) {
+            elm.scrollTop = 0;
+            elm.style.height = height + 'px';
+        }
     }
 }
 
