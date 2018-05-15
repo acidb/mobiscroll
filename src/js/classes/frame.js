@@ -1,6 +1,7 @@
 import { $, extend, Base, mobiscroll, classes, instances } from '../core/core';
 import { os, majorVersion, isBrowser, userAgent } from '../util/platform';
 import { animEnd } from '../util/dom';
+import { getCoord, preventClick } from '../util/tap';
 import { constrain, isString, noop } from '../util/misc';
 
 var $activeElm,
@@ -816,20 +817,37 @@ export const Frame = function (el, settings, inherit) {
             }
 
             if (s.closeOnOverlayTap) {
-                var target;
+                var moved,
+                    target,
+                    startX,
+                    startY;
 
-                $overlay.on('touchstart mousedown', function (ev) {
-                    target = ev.target == overlay;
-                }).on('mouseup', function (ev) {
-                    target = target && ev.target == overlay;
-                });
-
-                that.tap(overlay, function (ev) {
-                    if (target && ev.target == overlay) {
-                        that.cancel();
-                    }
-                    target = false;
-                });
+                $overlay
+                    .on('touchstart mousedown', function (ev) {
+                        if (!target && ev.target == overlay) {
+                            target = true;
+                            moved = false;
+                            startX = getCoord(ev, 'X');
+                            startY = getCoord(ev, 'Y');
+                        }
+                    })
+                    .on('touchmove mousemove', function (ev) {
+                        if (target && !moved && (Math.abs(getCoord(ev, 'X') - startX) > 9 || Math.abs(getCoord(ev, 'Y') - startY) > 9)) {
+                            moved = true;
+                        }
+                    })
+                    .on('touchcancel', function () {
+                        target = false;
+                    })
+                    .on('touchend click', function (ev) {
+                        if (target && !moved) {
+                            that.cancel();
+                            if (ev.type == 'touchend') {
+                                preventClick();
+                            }
+                        }
+                        target = false;
+                    });
             }
         }
 
