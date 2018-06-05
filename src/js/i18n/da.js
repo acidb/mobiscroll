@@ -39,6 +39,8 @@ mobiscroll.i18n.da = {
     closeText: 'Luk',
     allDayText: 'Hele dagen',
     noEventsText: 'Ingen begivenheder',
+    eventText: 'Begivenheder',
+    eventsText: 'Begivenheder',
     // Daterange component
     fromText: 'Start',
     toText: 'Slut',

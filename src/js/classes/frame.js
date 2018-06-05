@@ -993,8 +993,9 @@ export const Frame = function (el, settings, inherit) {
     };
 
     that._updateHeader = function () {
-        var t = s.headerText;
-        $header.html(t ? (typeof t === 'function' ? t.call(el, that._tempValue) : t.replace(/\{value\}/i, that._tempValue)) : '');
+        var t = s.headerText,
+            txt = t ? (typeof t === 'function' ? t.call(el, that._tempValue) : t.replace(/\{value\}/i, that._tempValue)) : '';
+        $header.html(txt || '&nbsp;');
     };
 
     that._processSettings = function () {
@@ -1078,12 +1079,14 @@ export const Frame = function (el, settings, inherit) {
             that.show();
         }
 
-        $elm.on('change.mbsc', function () {
-            if (!that._preventChange) {
-                that.setVal($elm.val(), true, false);
-            }
-            that._preventChange = false;
-        }).removeClass('mbsc-cloak');
+        $elm.removeClass('mbsc-cloak')
+            .filter('input, select, textarea')
+            .on('change.mbsc', function () {
+                if (!that._preventChange) {
+                    that.setVal($elm.val(), true, false);
+                }
+                that._preventChange = false;
+            });
     };
 
     that.buttons = {};

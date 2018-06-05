@@ -35,6 +35,8 @@ mobiscroll.i18n.sk = {
     closeText: 'Zavrieť',
     allDayText: 'Celý deň',
     noEventsText: 'Žiadne udalosti',
+    eventText: 'Udalostí',
+    eventsText: 'Udalosti',
     // Daterange component
     fromText: 'Začiatok',
     toText: 'Koniec',

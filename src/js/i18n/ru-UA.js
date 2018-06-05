@@ -36,6 +36,8 @@ mobiscroll.i18n['ru-UA'] = {
     closeText: 'Закрыть',
     allDayText: 'Весь день',
     noEventsText: 'Нет событий',
+    eventText: 'Мероприятия',
+    eventsText: 'Мероприятия',
     // Daterange component
     fromText: 'Начало',
     toText: 'Конец',

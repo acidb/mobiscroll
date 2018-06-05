@@ -36,6 +36,8 @@ mobiscroll.i18n.de = {
     closeText: 'Schließen',
     allDayText: 'Ganztägig',
     noEventsText: 'Keine Ereignisse',
+    eventText: 'Ereignis',
+    eventsText: 'Ereignisse',
     // Daterange component
     fromText: 'Von',
     toText: 'Bis',

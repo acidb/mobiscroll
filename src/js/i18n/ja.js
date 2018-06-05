@@ -1,4 +1,4 @@
-// Japanese
+// 日本語 - Japanese
 
 import { mobiscroll } from '../core/core';
 
@@ -37,6 +37,8 @@ mobiscroll.i18n.ja = {
     closeText: 'クローズ',
     allDayText: '終日',
     noEventsText: 'イベントはありません',
+    eventText: 'イベント',
+    eventsText: 'イベント',
     // Daterange component
     fromText: '開始',
     toText: '終わり',

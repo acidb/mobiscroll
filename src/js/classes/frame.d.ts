@@ -26,7 +26,14 @@ export interface MbscFrameOptions extends MbscCoreOptions {
     onMarkupReady?(event: { target: HTMLElement }, inst: any): void;
     onPosition?(event: { target: HTMLElement, windowWidth: number, windowHeight: number }, inst: any): void;
     onShow?(event: { target: HTMLElement, valueText: string }, inst: any): void;
+
 }
+
+export interface MbscDataControlOptions {
+    select?: 'single' | 'multiple' | number;
+}
+
+export type MbscDataFrameOptions = MbscDataControlOptions & MbscFrameOptions;
 
 export class Frame extends Base {
     settings: MbscFrameOptions;

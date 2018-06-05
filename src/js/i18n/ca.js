@@ -36,6 +36,8 @@ mobiscroll.i18n.ca = {
     closeText: 'Tancar',
     allDayText: 'Tot el dia',
     noEventsText: 'Cap esdeveniment',
+    eventText: 'Esdeveniments',
+    eventsText: 'Esdeveniments',
     // Daterange component
     fromText: 'Iniciar',
     toText: 'Final',

@@ -35,6 +35,8 @@ mobiscroll.i18n.cs = {
     closeText: 'Zavřít',
     allDayText: 'Celý den',
     noEventsText: 'Žádné události',
+    eventText: 'Událostí',
+    eventsText: 'Události',
     // Daterange component
     fromText: 'Začátek',
     toText: 'Konec',

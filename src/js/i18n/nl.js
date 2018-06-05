@@ -35,6 +35,8 @@ mobiscroll.i18n.nl = {
     closeText: 'Sluiten',
     allDayText: 'Hele dag',
     noEventsText: 'Geen activiteiten',
+    eventText: 'Activiteit',
+    eventsText: 'Activiteiten',
     // Daterange component
     fromText: 'Start',
     toText: 'Einde',

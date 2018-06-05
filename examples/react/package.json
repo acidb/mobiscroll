@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@mobiscroll/react-lite": "^4.0.0",
+    "@mobiscroll/react-lite": "file:../../packages/react/mobiscroll-react-lite-4.2.4.tgz",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-scripts": "1.1.0"

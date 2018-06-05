@@ -36,6 +36,8 @@ mobiscroll.i18n.es = {
     closeText: 'Cerrar',
     allDayText: 'Todo el día',
     noEventsText: 'No hay eventos',
+    eventText: 'Evento',
+    eventsText: 'Eventos',
     // Daterange component
     fromText: 'Iniciar',
     toText: 'Final',

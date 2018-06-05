@@ -21,7 +21,7 @@
     "@angular/platform-browser": "^4.2.4",
     "@angular/platform-browser-dynamic": "^4.2.4",
     "@angular/router": "^4.2.4",
-    "@mobiscroll/angular-lite": "^4.0.0-final",
+    "@mobiscroll/angular-lite": "file:../../packages/angular/mobiscroll-angular-lite-4.2.4.tgz",
     "core-js": "^2.4.1",
     "rxjs": "^5.4.2",
     "zone.js": "^0.8.14"

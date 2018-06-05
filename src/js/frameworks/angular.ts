@@ -3,7 +3,7 @@ import {
     $, extend,
     MbscCoreOptions
 } from '../core/core';
-import { MbscFrameOptions } from '../classes/frame';
+import { MbscFrameOptions, MbscDataControlOptions } from '../classes/frame';
 import { MbscScrollerOptions } from '../classes/scroller';
 import {
     Directive,
@@ -90,13 +90,6 @@ export class MbscListService {
         return this.addRemoveSubject.asObservable();
     }
 }
-
-export interface MbscDataControlOptions {
-    select?: 'single' | 'multiple' | number;
-}
-
-export type MbscDataFrameOptions = MbscDataControlOptions & MbscFrameOptions;
-
 
 class MbscBase implements AfterViewInit, OnDestroy {
     /**
@@ -246,7 +239,7 @@ abstract class MbscCloneBase extends MbscValueBase implements DoCheck, OnInit {
     makeClone(setting: string, value: Array<any>) {
         this.cloneDictionary[setting] = [];
         if (value) {
-            for(let i = 0; i < value.length; i++) {
+            for (let i = 0; i < value.length; i++) {
                 this.cloneDictionary[setting].push(value[i]);
             }
         }
@@ -261,14 +254,14 @@ abstract class MbscCloneBase extends MbscValueBase implements DoCheck, OnInit {
         let changed = false,
             data = false,
             invalid = false;
-        
-        for(let key in this.cloneDictionary) {
+
+        for (let key in this.cloneDictionary) {
             if ((this as any)[key] !== undefined && !deepEqualsArray((this as any)[key], this.cloneDictionary[key])) {
                 this.makeClone(key, (this as any)[key]);
                 this._instance.settings[key] = (this as any)[key];
                 changed = true;
                 if (key == 'invalid') {
-                    invalid = true;   
+                    invalid = true;
                 }
                 if (key == 'data') {
                     data = true;
@@ -280,14 +273,14 @@ abstract class MbscCloneBase extends MbscValueBase implements DoCheck, OnInit {
                 this._instance.option(this.cloneDictionary);
             } else if (data) {
                 (this as any).refreshData((this as any).data);
-            } else if (this._instance.redraw){
+            } else if (this._instance.redraw) {
                 this._instance.redraw();
             }
         }
     }
 
     ngOnInit() {
-        for(let key in this.cloneDictionary) {
+        for (let key in this.cloneDictionary) {
             this.makeClone(key, (this as any)[key]);
         }
     }
