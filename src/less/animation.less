@@ -188,6 +188,27 @@
     animation-name: mbsc-anim-f-out;
 }
 
+.mbsc-fr-pointer {
+    &.mbsc-anim-in .mbsc-anim-slidedown {
+        -webkit-animation-name: mbsc-anim-sd-in, mbsc-anim-f-in;
+        animation-name: mbsc-anim-sd-in, mbsc-anim-f-in;
+    }
+
+    &.mbsc-anim-out .mbsc-anim-slidedown {
+        -webkit-animation-name: mbsc-anim-sd-out, mbsc-anim-f-out;
+        animation-name: mbsc-anim-sd-out, mbsc-anim-f-out;
+    }
+
+    &.mbsc-anim-in .mbsc-anim-slideup {
+        -webkit-animation-name: mbsc-anim-su-in, mbsc-anim-f-in;
+        animation-name: mbsc-anim-su-in, mbsc-anim-f-in;
+    }
+
+    &.mbsc-anim-out .mbsc-anim-slideup {
+        -webkit-animation-name: mbsc-anim-su-out, mbsc-anim-f-out;
+        animation-name: mbsc-anim-su-out, mbsc-anim-f-out;
+    }
+}
 
 /* Fade in */
 

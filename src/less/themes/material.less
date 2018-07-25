@@ -9,11 +9,13 @@
 // Light background 
 .light-or-dark() when (lightness(@material-background) > 50%) {
     @material-border: lighten(@material-text, 40%);
+    @material-scrollbar-track: rgba(0, 0, 0, .05);
 }
 
 // Dark background 
 .light-or-dark() when (lightness(@material-background) <=50%) {
     @material-border: darken(@material-text, 40%);
+    @material-scrollbar-track: rgba(255, 255, 255, .2);
 }
 
 

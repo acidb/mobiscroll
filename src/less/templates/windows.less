@@ -37,6 +37,7 @@
     @windows-switch-hover: hsv(hsvhue(@windows-accent), max(hsvsaturation(@windows-accent) - 34%, 0%), min(hsvvalue(@windows-accent) + 5%, 100%));
     @windows-button-border: lighten(@windows-text, 33%);
     @windows-empty-color: lighten(@windows-text, 30%);
+    @windows-scrollbar-track: rgba(0, 0, 0, .05);
 }
 
 // Dark background 
@@ -64,6 +65,7 @@
     @windows-switch-hover: hsv(hsvhue(@windows-accent), max(hsvsaturation(@windows-accent) - 34%, 0%), min(hsvvalue(@windows-accent) + 5%, 100%));
     @windows-button-border: darken(@windows-text, 33%);
     @windows-empty-color: darken(@windows-text, 30%);
+    @windows-scrollbar-track: rgba(255, 255, 255, .2);
 }
 
 
@@ -155,6 +157,9 @@
         background: lighten(@windows-background, 2.5%);
         box-shadow: 0 0 1px 1px @windows-border-cards;
     }
+    &.mbsc-card .mbsc-lv-item {
+        background: lighten(@windows-background, 2.5%);
+    }
     .mbsc-card h3.mbsc-card-subtitle,
     .mbsc-card-subtitle {
         color: #7c7c7c; // uncomputed
@@ -196,16 +201,6 @@
         color: @windows-text;
     }
 }
-
-
-/* Date & Time */
-
-.mbsc-@{theme} {
-    &.mbsc-dt .mbsc-sc-whl-gr-c {
-        border-bottom-color: @windows-fr-border;
-    }
-}
-
 
 /* Event calendar */
 
@@ -970,6 +965,10 @@
         border-top: 2px solid @windows-fr-border;
     }
 
+    .mbsc-fr-btn-w {
+        background: @windows-background;
+    }
+
     .mbsc-fr-btn {
         color: @windows-text;
     }
@@ -1056,11 +1055,6 @@
 
     .mbsc-select .mbsc-input-wrap .mbsc-ic {
         color: @windows-text;
-    }
-
-    .mbsc-input select.mbsc-active + input {
-        background: fade(@windows-accent, 25%);
-        border-color: @windows-accent;
     }
 }
 
@@ -1355,8 +1349,20 @@
 /* Scroller */
 
 .mbsc-@{theme} {
+    .mbsc-sc-whl-gr-c {
+        border-color: @windows-fr-border;
+    }
+
     .mbsc-sc-whl-w {
-        border-right: 2px solid @windows-fr-border;
+        border-color: @windows-fr-border;
+    }
+
+    .mbsc-sc-lbl-v .mbsc-sc-whl-w {
+        background: @windows-background;
+    }
+
+    .mbsc-sc-lbl-v {
+        background: @windows-fr-border;
     }
 
     .mbsc-sc-whl-l {
@@ -1380,12 +1386,38 @@
         color: @windows-accent;
     }
 
+    /* Desktop styling */
+    &.mbsc-fr-pointer {
+        &.mbsc-no-touch .mbsc-sc-itm.mbsc-btn-e:hover {
+            background: @windows-button-hover;
+        }
+    }
+
+    /* Scrollbar */
+    .mbsc-sc-bar-c {
+        background: @windows-scrollbar-track;
+    }
 }
+
+/* Select */
 
 .mbsc-@{theme} {
     /* Filter */
     .mbsc-sel-filter-clear {
         color: @windows-text;
+    }
+    /* Desktop styling */
+    &.mbsc-fr-pointer {
+        /* Single select */
+        .mbsc-sel-one {
+            .mbsc-sc-itm-sel {
+                color: @windows-accent;
+            }
+            &.mbsc-sc-whl-multi .mbsc-sc-itm-sel {
+                color: @windows-text;
+                background: fade(@windows-accent, 20%);
+            }
+        }
     }
 }
 

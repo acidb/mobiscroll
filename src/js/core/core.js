@@ -1,5 +1,5 @@
 /*!
- * Mobiscroll v4.2.4
+ * Mobiscroll v4.3.0
  * http://mobiscroll.com
  *
  * Copyright 2010-2018, Acid Media
@@ -59,6 +59,13 @@ var ms,
     id = +new Date(),
     instances = {},
     classes = {},
+    breakpoints = {
+        xsmall: 0,
+        small: 576,
+        medium: 768,
+        large: 992,
+        xlarge: 1200
+    },
     extend = $.extend;
 
 extend(util, {
@@ -69,7 +76,7 @@ extend(util, {
 
 ms = extend(mobiscroll, {
     $: $,
-    version: '4.2.4',
+    version: '4.3.0',
     autoTheme: 'mobiscroll',
     themes: {
         form: {},
@@ -108,8 +115,10 @@ ms = extend(mobiscroll, {
 });
 
 const Base = function (el, settings) {
-    var lang,
+    var ctx,
+        lang,
         preset,
+        resp,
         s,
         theme,
         themeName,
@@ -119,11 +128,20 @@ const Base = function (el, settings) {
 
     that.settings = {};
 
+    that.element = el;
+
     that._init = noop;
 
     that._destroy = noop;
 
     that._processSettings = noop;
+
+    that._checkResp = function (width) {
+        if (that._responsive && resp !== getResponsiveSettings(width)) {
+            that.init();
+            return true;
+        }
+    };
 
     that.init = function (ss) {
         var key;
@@ -172,7 +190,14 @@ const Base = function (el, settings) {
         // Update settings object
         extend(s, theme, lang, defaults, settings);
 
-        that._processSettings();
+        ctx = $(s.context)[0];
+
+        if (that._responsive) {
+            resp = getResponsiveSettings();
+            extend(s, resp);
+        }
+
+        that._processSettings(resp || {});
 
         // Load preset settings
         if (that._presets) {
@@ -181,7 +206,7 @@ const Base = function (el, settings) {
 
             if (preset) {
                 preset = preset.call(el, that, settings);
-                extend(s, preset, settings);
+                extend(s, preset, settings, resp);
             }
         }
 
@@ -258,6 +283,21 @@ const Base = function (el, settings) {
 
     settings = settings || {};
     trigger = that.trigger;
+
+    function getResponsiveSettings(w) {
+        var resp,
+            width;
+
+        if (s.responsive) {
+            width = w || ctx.offsetWidth;
+            $.each(s.responsive, function (key, value) {
+                if (width >= (value.breakpoint || breakpoints[key])) {
+                    resp = value;
+                }
+            });
+        }
+        return resp;
+    }
 
     function construct() {
         $(el).addClass('mbsc-comp');

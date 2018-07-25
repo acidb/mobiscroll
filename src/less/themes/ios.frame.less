@@ -142,7 +142,6 @@
     border-top-right-radius: 6px;
 }
 
-
 /* Top and bottom display */
 
 .mbsc-ios.mbsc-fr-bottom .mbsc-fr-overlay,
@@ -238,10 +237,10 @@
 .mbsc-ios.mbsc-fr-inline .mbsc-fr-w {
     margin-top: -1px;
     background: @ios-background-alt;
+    border-top: 1px solid @ios-border;
 }
 
 .mbsc-ios.mbsc-fr-inline .mbsc-fr-c {
-    border-top: 1px solid @ios-border;
     border-bottom: 1px solid @ios-border;
 }
 
@@ -250,4 +249,25 @@
 
 .mbsc-ios.mbsc-fr-nobtn .mbsc-fr-w {
     padding: 0;
+}
+
+/* Desktop view */
+
+.mbsc-ios.mbsc-fr-pointer {
+    .mbsc-fr-persp .mbsc-fr-popup .mbsc-fr-w,
+    .mbsc-fr-persp .mbsc-cal-picker {
+        background: @ios-background-desktop;
+    }
+    .mbsc-fr-persp .mbsc-fr-w {
+        box-shadow: 0 .25em 1em @ios-popup-shadow;
+        border-radius: 8px;
+    }
+    .mbsc-fr-popup {
+        border: 0;
+    }
+    .mbsc-fr-hdr {
+        border-color: @ios-popup-border;
+        font-size: 1.166667em;
+        line-height: 1.5em;
+    }
 }

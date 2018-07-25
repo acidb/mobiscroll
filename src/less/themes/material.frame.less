@@ -16,7 +16,7 @@
 }
 
 .mbsc-material .mbsc-fr-popup {
-    box-shadow: 0 .5em 1em rgba(0, 0, 0, .2);
+    box-shadow: 0 0.5em 1.5em rgba(0, 0, 0, 0.3);
 }
 
 .mbsc-material .mbsc-fr-hdr {
@@ -98,4 +98,15 @@
 
 .mbsc-material .mbsc-fr-bubble-top .mbsc-fr-arr {
     border-color: #eee transparent transparent transparent;
+}
+
+/* Desktop styling */
+
+.mbsc-material.mbsc-fr-pointer {
+    .mbsc-fr-popup {
+        box-shadow: none;
+    }
+    .mbsc-fr-persp .mbsc-fr-w {
+        box-shadow: 0 0.5em 1.5em rgba(0, 0, 0, 0.3);
+    }
 }

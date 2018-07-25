@@ -22,6 +22,7 @@ import { Button } from './classes/button';
 import { CheckBox } from './classes/checkbox';
 import { Radio } from './classes/radio';
 import { SegmentedItem } from './classes/segmented';
+import { CollapsibleBase } from './util/collapsible-base';
 
 import './page.react';
 
@@ -211,7 +212,7 @@ class MbscInput extends MbscInit {
 
 mobiscroll.Input = MbscInput;
 
-class MbscTextArea extends MbscInit {
+class MbscTextArea extends MbscOptimized {
     constructor(props) {
         super(props);
     }
@@ -223,6 +224,26 @@ class MbscTextArea extends MbscInit {
         icon: PropTypes.string,
         iconAlign: PropTypes.string,
         name: PropTypes.string
+    }
+
+    /**
+     * Override
+     */
+    componentDidUpdate = () => {
+        var settings = extend({}, this.state.options);
+        if (this.optimizeUpdate) {
+            if (this.optimizeUpdate.updateOptions) {
+                this.instance.option(settings);
+            }
+            if (this.optimizeUpdate.updateValue) {
+                this.instance.resize();
+            }
+        } else {
+            this.instance.option(settings);
+            if (this.state.value !== undefined) {
+                this.instance.resize();
+            }
+        }
     }
 
     componentDidMount = () => {
@@ -443,7 +464,7 @@ class MbscSegmented extends MbscInit {
 
     render = () => {
         var { color, children, multiSelect, icon, ...other } = this.props;
-        var type = multiSelect ? 'checkbox' : 'radio'; 
+        var type = multiSelect ? 'checkbox' : 'radio';
         return <MbscLabel color={color} presetName="segmented">
             <input ref={this.inputMounted} type={type} data-icon={icon} data-role="segmented" {...other} />
             {children}
@@ -494,7 +515,7 @@ class MbscFormBase extends MbscOptimized {
             name,
             color,
             ...other
-                } = this.props;
+        } = this.props;
 
         /* eslint-enable no-unused-vars */
         var presetClass = '';
@@ -774,5 +795,86 @@ class MbscRating extends MbscOptimized {
 }
 
 mobiscroll.Rating = MbscRating;
+
+class MbscFormGroup extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    static propTypes = {
+        collapsible: PropTypes.any,
+        open: PropTypes.bool
+    }
+
+    componentDidMount = () => {
+        if (this.props.collapsible !== undefined) {
+            let isOpen = this.props.open || false;
+
+            this.instance = new CollapsibleBase(ReactDOM.findDOMNode(this), { isOpen: isOpen });
+        }
+    }
+
+    componentDidUpdate = (prevProps) => {
+        if (this.props.open !== undefined && (this.props.open != prevProps.open)) {
+            if (this.props.open) {
+                this.instance.show();
+            } else {
+                this.instance.hide();
+            }
+        }
+    }
+
+    render = () => {
+        /* eslint-disable no-unused-vars */
+        let { children, inset, collapsible, ...other } = this.props;
+        let cssClasses = "mbsc-form-group " + (inset !== undefined ? '-inset' : '') + (this.props.className || '');
+
+        return <div className={cssClasses} {...other}>
+            {children}
+        </div>;
+    }
+}
+
+mobiscroll.MbscFormGroup = MbscFormGroup;
+
+class MbscFormGroupTitle extends React.Component {
+    constructor(props) {
+        super(props);
+        this.cssClasses = "mbsc-form-group-title " + (this.props.className || '');
+    }
+
+    render = () => {
+        return <div className={this.cssClasses}>{this.props.children}</div>;
+    }
+}
+
+mobiscroll.MbscFormGroupTitle = MbscFormGroupTitle;
+
+class MbscFormGroupContent extends React.Component {
+    constructor(props) {
+        super(props);
+        this.cssClasses = "mbsc-form-group-content " + (this.props.className || '');
+    }
+
+    render = () => {
+        return <div className={this.cssClasses}>{this.props.children}</div>;
+    }
+}
+
+mobiscroll.MbscFormGroupContent = MbscFormGroupContent;
+
+
+class MbscAccordion extends React.Component {
+    constructor(props) {
+        super(props);
+        this.cssClasses = "mbsc-accordion " + (this.props.className || '');
+    }
+
+    render = () => {
+        return <div className={this.cssClasses}>{this.props.children}</div>;
+    }
+}
+
+mobiscroll.Accordion = MbscAccordion;
 
 export default mobiscroll;

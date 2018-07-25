@@ -24,6 +24,7 @@ export const CorePropTypes = {
     theme: stringType,
     lang: stringType,
     rtl: boolType,
+    responsive: objType,
     context: PropTypes.oneOfType([stringType, objType])
 };
 
@@ -40,6 +41,7 @@ export const FramePropTypes = {
     headerText: PropTypes.oneOfType([boolType, stringType, funcType]),
     showOnFocus: boolType,
     showOnTap: boolType,
+    touchUi: boolType,
     onBeforeClose: funcType,
     onBeforeShow: funcType,
     onCancel: funcType,

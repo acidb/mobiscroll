@@ -31,6 +31,8 @@
     @windows-checkbox: hsv(hsvhue(@windows-accent), max(hsvsaturation(@windows-accent) - 90%, 0%), min(hsvvalue(@windows-accent) + 14%, 100%));
     @windows-switch-hover: hsv(hsvhue(@windows-accent), max(hsvsaturation(@windows-accent) - 34%, 0%), min(hsvvalue(@windows-accent) + 5%, 100%));
     @windows-button-border: lighten(@windows-text, 33%);
+    @windows-empty-color: lighten(@windows-text, 30%);
+    @windows-scrollbar-track: rgba(0, 0, 0, .05);
 }
 
 // Dark background 
@@ -57,8 +59,9 @@
     @windows-checkbox: hsv(hsvhue(@windows-accent), max(hsvsaturation(@windows-accent) - 90%, 0%), min(hsvvalue(@windows-accent) + 14%, 100%));
     @windows-switch-hover: hsv(hsvhue(@windows-accent), max(hsvsaturation(@windows-accent) - 34%, 0%), min(hsvvalue(@windows-accent) + 5%, 100%));
     @windows-button-border: darken(@windows-text, 33%);
+    @windows-empty-color: darken(@windows-text, 30%);
+    @windows-scrollbar-track: rgba(255, 255, 255, .2);
 }
-
 
 /* Light/dark versions */
 

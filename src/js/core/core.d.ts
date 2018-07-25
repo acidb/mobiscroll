@@ -4,10 +4,12 @@ export const $: any;
 export const extend: any;
 
 export interface MbscCoreOptions {
-    // Settingss
+    // Settings
+    cssClass?: string;
     theme?: string;
     lang?: string;
     rtl?: boolean;
+    responsive?: object;
 
     // Events
     onInit?(event: any, inst: any): void;

@@ -73,6 +73,7 @@ var animEnd,
     mod,
     cssPrefix,
     hasTouchAction,
+    hasTransition,
     jsPrefix,
     textColors = {};
 
@@ -82,6 +83,7 @@ if (isBrowser) {
     jsPrefix = cssPrefix.replace(/^\-/, '').replace(/\-$/, '').replace('moz', 'Moz');
     animEnd = mod.animation !== undefined ? 'animationend' : 'webkitAnimationEnd';
     hasTouchAction = mod.touchAction !== undefined;
+    hasTransition = mod.transition !== undefined;
 }
 
 export {
@@ -91,5 +93,6 @@ export {
     getPosition,
     getTextColor,
     hasTouchAction,
+    hasTransition,
     testTouch
 };

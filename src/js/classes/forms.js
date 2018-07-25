@@ -64,6 +64,12 @@ export const Form = function (el, settings) {
         }
     };
 
+    /**
+     * Object with the underlying form control instances
+     * keys are the element id's
+     */
+    that.controls = controls;
+
     // Constructor
 
     s = that.settings;

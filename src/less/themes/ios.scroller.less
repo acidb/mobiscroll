@@ -197,3 +197,53 @@
 .mbsc-ios.mbsc-sel-multi .mbsc-sc-whl-gr-3d .mbsc-sc-whl-c {
     visibility: hidden;
 }
+
+/* Desktop view */
+
+.mbsc-ios.mbsc-fr-pointer {
+    .mbsc-sc-whl-o {
+        display: none;
+    }
+
+    .mbsc-sc-whl-l {
+        border-color: @ios-popup-border;
+    }
+
+    .mbsc-sc-lbl-v {
+        margin-bottom: -2.5em;
+    }
+
+    .mbsc-sc-lbl {
+        padding: 0 1.666667em;
+    }
+
+    .mbsc-sc-itm {
+        font-size: 1.333334em;
+        padding: 0 1.25em;
+        color: #000;
+    }
+
+    &.mbsc-no-touch .mbsc-sc-itm.mbsc-btn-e:hover {
+        background: fade(@ios-accent, 20%);
+    }
+
+    .mbsc-sc-whl-multi .mbsc-sc-itm {
+        padding: 0 2.5em;
+    }
+
+    .mbsc-sc-itm-sel {
+        color: @ios-accent;
+    }
+
+    .mbsc-sc-itm-sel:before {
+        font-size: 2em;
+    }
+
+    .mbsc-ltr .mbsc-sc-itm-sel:before {
+        left: .125em;
+    }
+
+    .mbsc-rtl .mbsc-sc-itm-sel:before {
+        right: .125em;
+    }
+}

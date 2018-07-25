@@ -7,7 +7,6 @@ export interface MbscFrameOptions extends MbscCoreOptions {
     buttons?: Array<any>;
     closeOnOverlayTap?: boolean;
     context?: string | HTMLElement;
-    cssClass?: string;
     disabled?: boolean;
     display?: 'top' | 'bottom' | 'bubble' | 'inline' | 'center';
     focusOnClose?: boolean | string | HTMLElement;
@@ -15,6 +14,7 @@ export interface MbscFrameOptions extends MbscCoreOptions {
     headerText?: string | boolean | ((formattedValue: string) => string);
     showOnFocus?: boolean;
     showOnTap?: boolean;
+    touchUi?: boolean;
 
     // Events
     onBeforeClose?(event: { valueText: string, button: string }, inst: any): void;
@@ -48,7 +48,7 @@ export class Frame extends Base {
     _isVisible: boolean;
 
     constructor(element: any, settings: MbscFrameOptions);
-    
+
     position(check?: boolean): void;
     attachShow(elm: any, beforeShow?: () => void): void;
     select(): void;

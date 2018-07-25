@@ -2,6 +2,7 @@ import { mobiscroll } from '../core/mobiscroll';
 import { os, majorVersion, isBrowser } from './platform';
 
 let tapped = 0;
+let allowQuick;
 
 function preventClick() {
     // Prevent ghost click
@@ -12,6 +13,12 @@ function preventClick() {
 }
 
 function triggerClick(ev, control) {
+    // Prevent duplicate triggers on the same element
+    // e.g. a form checkbox inside a listview item
+    if (control.mbscClick) {
+        return;
+    }
+
     var touch = (ev.originalEvent || ev).changedTouches[0],
         evt = document.createEvent('MouseEvents');
 
@@ -21,11 +28,23 @@ function triggerClick(ev, control) {
     // This works for Ionic 1 - 3, not sure about 4
     evt.isIonicTap = true;
 
+    // This will allow a click fired together with this click
+    // We need this, because clicking on a label will trigger a click
+    // on the associated input as well, which should not be busted
+    allowQuick = true;
+
     control.mbscChange = true;
+    control.mbscClick = true;
     control.dispatchEvent(evt);
+
+    allowQuick = false;
 
     // Prevent ghost click
     preventClick();
+
+    setTimeout(function () {
+        delete control.mbscClick;
+    });
 }
 
 function getCoord(e, c, page) {
@@ -113,7 +132,7 @@ function tap(that, el, handler, prevent, tolerance, time) {
 // Prevent standard behaviour on body click
 function bustClick(ev) {
     // Textarea needs the mousedown event
-    if (tapped && !ev.isMbscTap && !(ev.target.nodeName == 'TEXTAREA' && ev.type == 'mousedown')) {
+    if (tapped && !allowQuick && !ev.isMbscTap && !(ev.target.nodeName == 'TEXTAREA' && ev.type == 'mousedown')) {
         ev.stopPropagation();
         ev.preventDefault();
         return false;

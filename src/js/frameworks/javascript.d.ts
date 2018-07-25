@@ -4,8 +4,10 @@ import { Page, MbscPageOptions } from '../classes/page';
 export { Page, MbscPageOptions };
 import { Scroller, MbscScrollerOptions } from '../classes/scroller';
 export { Scroller, MbscScrollerOptions };
-import { Widget, MbscWidgetOptions } from '../classes/widget';
+import { Widget, MbscWidgetOptions } from '../classes/popup';
 export { Widget, MbscWidgetOptions };
+import { Popup, MbscPopupOptions } from '../classes/popup';
+export { Popup, MbscPopupOptions };
 
 import { IMobiscroll as _IMobiscroll } from '../core/core';
 
@@ -13,6 +15,7 @@ export interface IMobiscroll extends _IMobiscroll {
     form(selector: string, options?: MbscFormOptions): Form;
     page(selector: string, options?: MbscPageOptions): Page;
     scroller(selector: string, options?: MbscScrollerOptions): Scroller;
+    popup(selector: string, options?: MbscPopupOptions): Popup;
     widget(selector: string, options?: MbscWidgetOptions): Widget;
 }
 

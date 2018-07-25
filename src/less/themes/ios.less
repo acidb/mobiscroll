@@ -18,6 +18,11 @@
     @ios-border: darken(@ios-background-limited, 17%);
     @ios-text-alt: lighten(@ios-text, 53%);
     @ios-empty-color: lighten(@ios-text, 43%);
+    @ios-scrollbar-track: rgba(0, 0, 0, .05);
+    @ios-background-desktop: @ios-background-limited;
+    @ios-popup-shadow: rgba(0, 0, 0, .3);
+    @ios-popup-border: @ios-border;
+    @ios-popup-background: @ios-background-alt;
 }
 
 // Dark background 
@@ -25,7 +30,13 @@
     @ios-border: lighten(@ios-background-limited, 17%);
     @ios-text-alt: darken(@ios-text, 53%);
     @ios-empty-color: @ios-text;
+    @ios-scrollbar-track: rgba(255, 255, 255, .2);
+    @ios-background-desktop: lighten(@ios-background-limited, 17%);
+    @ios-popup-shadow: rgba(0, 0, 0, .8);
+    @ios-popup-border: lighten(@ios-border, 13%);
+    @ios-popup-background: @ios-background-desktop;
 }
+
 
 // Light accent 
 .light-or-dark() when (lightness(@ios-accent) > 50%) {

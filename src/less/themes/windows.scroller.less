@@ -4,8 +4,9 @@
 /* Scroller */
 
 .mbsc-windows {
-    .mbsc-sc-whl {
-        border: 0;
+    .mbsc-sc-whl-gr-c {
+        border-bottom: 2px solid @windows-fr-border;
+        margin-bottom: -2px;
     }
 
     .mbsc-sc-whl-w {
@@ -21,7 +22,13 @@
         padding: 1.875em 0;
     }
 
+    .mbsc-sc-lbl-v .mbsc-sc-whl-w {
+        background: @windows-background;
+    }
+
     .mbsc-sc-lbl-v {
+        background: @windows-fr-border;
+        border: 0;
         margin-bottom: -1.875em;
     }
 
@@ -89,5 +96,37 @@
 
     .mbsc-sc-whl-multi .mbsc-sc-itm-sel:before {
         width: 2.5em;
+    }
+
+    /* Desktop styling */
+    &.mbsc-fr-pointer {
+        .mbsc-sc-lbl {
+            padding: 0 1.666667em;
+        }
+
+        .mbsc-sc-itm {
+            padding: 0 1.25em;
+        }
+
+        .mbsc-sc-whl-multi .mbsc-sc-itm {
+            padding: 0 2.5em;
+        }
+
+        &.mbsc-no-touch .mbsc-sc-itm.mbsc-btn-e:hover {
+            background: @windows-button-hover;
+        }
+
+        .mbsc-ltr .mbsc-sc-whl-multi .mbsc-sc-itm-sel:before {
+            left: 0;
+        }
+
+        .mbsc-rtl .mbsc-sc-whl-multi .mbsc-sc-itm-sel:before {
+            right: 0;
+        }
+    }
+
+    /* Scrollbar */
+    .mbsc-sc-bar:after {
+        border-radius: 0;
     }
 }

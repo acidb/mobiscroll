@@ -16,11 +16,13 @@
 // Light background 
 .light-or-dark() when (lightness(@material-background) > 50%) {
     @material-border: lighten(@material-text, 40%);
+    @material-scrollbar-track: rgba(0, 0, 0, .05);
 }
 
 // Dark background 
 .light-or-dark() when (lightness(@material-background) <=50%) {
     @material-border: darken(@material-text, 40%);
+    @material-scrollbar-track: rgba(255, 255, 255, .2);
 }
 
 
@@ -160,6 +162,12 @@
 
 .mbsc-@{theme} .mbsc-sc-whl-multi .mbsc-sc-itm-sel:before {
     color: @output1_1;
+}
+
+/* Scrollbar */
+
+.mbsc-@{theme} .mbsc-sc-bar-c {
+    background: @material-scrollbar-track;
 }
 
 /* Numpad */
@@ -522,6 +530,15 @@
     border-color: @output2_2;
 }
 
+.mbsc-@{theme}.mbsc-fr-pointer {
+    /* Single select */
+    .mbsc-sel-one {
+        .mbsc-sc-itm-sel {
+            color: @material-accent;
+        }
+    }
+}
+
 
 /* Checkbox, radio */
 
@@ -729,6 +746,9 @@
 
 .mbsc-@{theme} {
     &.mbsc-card.mbsc-form {
+        background: lighten(@material-background, 4.8%);
+    }
+    &.mbsc-card .mbsc-lv-item {
         background: lighten(@material-background, 4.8%);
     }
     .mbsc-card-list .mbsc-card {

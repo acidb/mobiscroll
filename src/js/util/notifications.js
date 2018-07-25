@@ -1,5 +1,5 @@
 import { $, extend, isBrowser, mobiscroll } from '../core/core';
-import { Widget } from '../classes/widget';
+import { Popup } from '../classes/popup';
 
 const hasPromise = isBrowser && !!window.Promise;
 const popupQueue = [];
@@ -74,13 +74,13 @@ function getMessage(settings) {
     return (settings.title ? ('<h2>' + settings.title + '</h2>') : '') + '<p>' + (settings.message || '') + '</p>';
 }
 
-function showAlert(widget, settings, resolve) {
-    const inst = new Widget(widget, getSettings(popupQueue, settings, resolve));
+function showAlert(popup, settings, resolve) {
+    const inst = new Popup(popup, getSettings(popupQueue, settings, resolve));
     showPopup(inst);
 }
 
-function showConfirm(widget, settings, resolve) {
-    const inst = new Widget(widget, getSettings(popupQueue, settings, resolve, {
+function showConfirm(popup, settings, resolve) {
+    const inst = new Popup(popup, getSettings(popupQueue, settings, resolve, {
         buttons: ['cancel', 'ok'],
         onSet: function () {
             inst._resolve = true;
@@ -90,9 +90,9 @@ function showConfirm(widget, settings, resolve) {
     showPopup(inst);
 }
 
-function showPrompt(widget, settings, resolve) {
+function showPrompt(popup, settings, resolve) {
     let input;
-    const inst = new Widget(widget, getSettings(popupQueue, settings, resolve, {
+    const inst = new Popup(popup, getSettings(popupQueue, settings, resolve, {
         buttons: ['cancel', 'ok'],
         onMarkupReady: function (event, inst) {
             input = inst._markup.find('input')[0];
@@ -109,9 +109,9 @@ function showPrompt(widget, settings, resolve) {
     showPopup(inst);
 }
 
-function showSnackbar(widget, settings, resolve, cssClass, animation) {
+function showSnackbar(popup, settings, resolve, cssClass, animation) {
     let notificationTimer;
-    const inst = new Widget(widget, getSettings(notificationQueue, settings, resolve, {
+    const inst = new Popup(popup, getSettings(notificationQueue, settings, resolve, {
         display: settings.display || 'bottom',
         animate: animation,
         cssClass: (cssClass || 'mbsc-snackbar') + (settings.color ? ' mbsc-' + settings.color : ''),
@@ -142,56 +142,56 @@ function showSnackbar(widget, settings, resolve, cssClass, animation) {
     showNotification(inst);
 }
 
-function showToast(widget, settings, resolve) {
-    showSnackbar(widget, settings, resolve, 'mbsc-toast', 'fade');
+function showToast(popup, settings, resolve) {
+    showSnackbar(popup, settings, resolve, 'mbsc-toast', 'fade');
 }
 
-function show(func, widget, settings) {
+function show(func, popup, settings) {
     let p;
     if (hasPromise) {
         p = new Promise((resolve) => {
-            func(widget, settings, resolve);
+            func(popup, settings, resolve);
         });
     } else {
-        func(widget, settings);
+        func(popup, settings);
     }
     return p;
 }
 
 mobiscroll.alert = function (settings) {
-    const widget = document.createElement('div');
-    widget.innerHTML = getMessage(settings);
-    return show(showAlert, widget, settings);
+    const popup = document.createElement('div');
+    popup.innerHTML = getMessage(settings);
+    return show(showAlert, popup, settings);
 };
 
 mobiscroll.confirm = function (settings) {
-    const widget = document.createElement('div');
-    widget.innerHTML = getMessage(settings);
-    return show(showConfirm, widget, settings);
+    const popup = document.createElement('div');
+    popup.innerHTML = getMessage(settings);
+    return show(showConfirm, popup, settings);
 };
 
 mobiscroll.prompt = function (settings) {
-    const widget = document.createElement('div');
-    widget.innerHTML = getMessage(settings) +
+    const popup = document.createElement('div');
+    popup.innerHTML = getMessage(settings) +
         '<label class="mbsc-input">' +
         (settings.label ? '<span class="mbsc-label">' + settings.label + '</span>' : '') +
         '<input tabindex="0" type="' + (settings.inputType || 'text') + '" placeholder="' + (settings.placeholder || '') + '" value="' + (settings.value || '') + '">' +
         '</label>';
-    return show(showPrompt, widget, settings);
+    return show(showPrompt, popup, settings);
 };
 
 mobiscroll.snackbar = function (settings) {
-    const widget = document.createElement('div'),
+    const popup = document.createElement('div'),
         btn = settings.button;
-    widget.innerHTML = '<div class="mbsc-snackbar-cont"><div class="mbsc-snackbar-msg">' + (settings.message || '') + '</div>' +
+    popup.innerHTML = '<div class="mbsc-snackbar-cont"><div class="mbsc-snackbar-msg">' + (settings.message || '') + '</div>' +
         (btn ? '<button class="mbsc-snackbar-btn mbsc-btn mbsc-btn-flat">' +
             (btn.icon ? '<span class="mbsc-ic ' + (btn.text ? 'mbsc-btn-ic ' : '') + 'mbsc-ic-' + btn.icon + '"></span>' : '') +
             (btn.text || '') + '</button>' : '') + '</div>';
-    return show(showSnackbar, widget, settings);
+    return show(showSnackbar, popup, settings);
 };
 
 mobiscroll.toast = function (settings) {
-    const widget = document.createElement('div');
-    widget.innerHTML = '<div class="mbsc-toast-msg">' + (settings.message || '') + '</div>';
-    return show(showToast, widget, settings);
+    const popup = document.createElement('div');
+    popup.innerHTML = '<div class="mbsc-toast-msg">' + (settings.message || '') + '</div>';
+    return show(showToast, popup, settings);
 };

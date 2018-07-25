@@ -57,7 +57,7 @@
         border-color: @windows-accent;
         color: #262626;
 
-        ~.mbsc-input-ic {
+        ~ .mbsc-input-ic {
             color: #262626;
         }
     }
@@ -85,7 +85,6 @@
 
 
     /* Textbox, textarea, select */
-
     .mbsc-input.mbsc-ic-left input,
     .mbsc-input.mbsc-ic-left textarea {
         padding-left: 2.25em;
@@ -121,17 +120,12 @@
 
     .mbsc-input .mbsc-label {
         padding-bottom: .3125em;
-        color: @windows-text;;
+        color: @windows-text;
         font-size: .8125em;
     }
 
     .mbsc-select .mbsc-input-wrap .mbsc-ic {
         color: @windows-text;
-    }
-
-    .mbsc-input select.mbsc-active + input {
-        background: fade(@windows-accent, 25%);
-        border-color: @windows-accent;
     }
 
     .mbsc-select .mbsc-select-ic {

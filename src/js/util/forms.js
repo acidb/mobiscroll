@@ -1,4 +1,4 @@
-import { $, extend } from '../core/core';
+import { $, extend, instances } from '../core/core';
 import { tap } from '../util/tap';
 
 import { Input } from '../classes/input';
@@ -16,6 +16,7 @@ import { Rating } from '../classes/rating';
 
 import { getControlType } from '../classes/form-control';
 import { sizeTextAreas } from '../classes/textarea';
+import { CollapsibleBase } from '../util/collapsible-base';
 
 let id = 0;
 
@@ -212,6 +213,19 @@ function initControls($ctx, controls, s, shallow) {
             }
         }
 
+    });
+
+    $('[data-collapsible]:not(.mbsc-collapsible)', $ctx).each(function () {
+        var control = this,
+            $control = $(control),
+            isOpen = $control.attr('data-open');
+
+        if (!control.id) {
+            control.id = 'mbsc-form-control-' + (++id);
+        }
+
+        controls[control.id] = new CollapsibleBase($control, { isOpen: isOpen !== undefined && isOpen != 'false' });
+        instances[control.id] = controls[control.id];
     });
 
     // Set initial height for textareas

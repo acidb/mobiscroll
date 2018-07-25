@@ -3,7 +3,7 @@ import {
     $, extend,
     MbscCoreOptions
 } from '../core/core';
-import { MbscFrameOptions, MbscDataControlOptions } from '../classes/frame';
+import { MbscFrameOptions } from '../classes/frame';
 import { MbscScrollerOptions } from '../classes/scroller';
 import {
     Directive,
@@ -26,7 +26,8 @@ import {
     ContentChildren,
     ContentChild,
     QueryList,
-    DoCheck
+    DoCheck,
+    ViewContainerRef
 } from '@angular/core';
 
 // // angular2 import { trigger, state, animate, transition, style } from '@angular/core'; // Angular 2.x
@@ -98,11 +99,15 @@ class MbscBase implements AfterViewInit, OnDestroy {
     @Input('mbsc-options')
     options: MbscCoreOptions = {};
     @Input()
+    cssClass: string;
+    @Input()
     theme: string;
     @Input()
     lang: string;
     @Input()
     rtl: boolean;
+    @Input()
+    responsive: object;
     @Output()
     onInit: EventEmitter<{ inst: any }> = new EventEmitter();
     @Output()
@@ -110,9 +115,11 @@ class MbscBase implements AfterViewInit, OnDestroy {
 
     inlineOptions(): MbscCoreOptions {
         return {
+            cssClass: this.cssClass,
             theme: this.theme,
             lang: this.lang,
-            rtl: this.rtl
+            rtl: this.rtl,
+            responsive: this.responsive
         };
     }
 
@@ -287,6 +294,15 @@ abstract class MbscCloneBase extends MbscValueBase implements DoCheck, OnInit {
 }
 
 abstract class MbscControlBase extends MbscCloneBase implements ControlValueAccessor {
+
+    /**
+     * Inputs needed for manualy editing the input element
+     */
+    @Input()
+    showOnFocus: boolean;
+    @Input()
+    showOnTap: boolean;
+
     /**
      * Returns an object containing the extensions of the option object 
      */
@@ -299,6 +315,13 @@ abstract class MbscControlBase extends MbscCloneBase implements ControlValueAcce
                 // call the oldAccessor writeValue if it was overwritten
                 if (this.oldAccessor) {
                     this.oldAccessor.writeValue(event.valueText);
+                }
+                else if (this.initialElem.nativeElement.nodeName === "ION-INPUT") {
+                    let v = this._view as any;
+                    let ionInput = v && v._data && v._data.componentView && v._data.componentView.component;
+                    if (ionInput) {
+                        ionInput.value = event.valueText;
+                    }
                 }
                 if (externalOnFill) {
                     externalOnFill(event, inst);
@@ -317,6 +340,12 @@ abstract class MbscControlBase extends MbscCloneBase implements ControlValueAcce
                 }
             }
         }
+    }
+
+    get enableManualEdit(): boolean {
+        var nsf = this.showOnFocus === false || (this.options as any).showOnFocus === false,
+            nst = this.showOnTap === false || (this.options as any).showOnTap === false;
+        return nsf && nst;
     }
 
     _needsTimeout: boolean = true;
@@ -347,12 +376,16 @@ abstract class MbscControlBase extends MbscCloneBase implements ControlValueAcce
         let that = this;
         $(element || this.element).on('change', function () {
             that.zone.run(function () {
-                let value = that._instance.getVal();
-                if (that.control) {
-                    that.onChange(value);
-                    that.control.control.patchValue(value);
+                if (that.element.value !== that._instance._value && that.enableManualEdit) {
+                    that._instance.setVal(that.element.value, true, true);
                 } else {
-                    that.onChangeEmitter.emit(value);
+                    let value = that._instance.getVal();
+                    if (that.control) {
+                        that.onChange(value);
+                        that.control.control.patchValue(value);
+                    } else {
+                        that.onChangeEmitter.emit(value);
+                    }
                 }
             })
         });
@@ -366,7 +399,7 @@ abstract class MbscControlBase extends MbscCloneBase implements ControlValueAcce
      * @param zone Reference to the NgZone service
      * @param control Reference to the FormControl if used (ngModel or formControl)
      */
-    constructor(initialElement: ElementRef, zone: NgZone, protected control: NgControl, public _inputService: MbscInputService) {
+    constructor(initialElement: ElementRef, zone: NgZone, protected control: NgControl, public _inputService: MbscInputService, public _view: ViewContainerRef) {
         super(initialElement, zone);
 
         this.overwriteAccessor();
@@ -437,100 +470,6 @@ abstract class MbscControlBase extends MbscCloneBase implements ControlValueAcce
     }
 }
 
-abstract class MbscDataControlBase extends MbscControlBase implements OnInit {
-    /**
-     * The mobiscroll settings for the directive are passed through this input.
-     */
-    @Input('mbsc-options')
-    public options: MbscCoreOptions & MbscDataControlOptions = {};
-
-    /**
-     * True if multiselection is on
-     */
-    protected isMulti: boolean = undefined;
-
-    /**
-     * Array required for data checks
-     * Holds the previous data array against the check is made
-     */
-    private previousData: Array<any> = undefined;
-
-    /**
-     * Disables array checking in DoCheck for the data array
-     */
-    @Input('mbsc-no-data-check')
-    noDataCheck: boolean = false;
-
-    /**
-     * Array for the data
-     */
-    @Input('mbsc-data')
-    data: Array<any> = undefined;
-
-    constructor(initialElem: ElementRef, zone: NgZone, control: NgControl, inputService: MbscInputService) {
-        super(initialElem, zone, control, inputService);
-    }
-
-    /**
-     * If the new value differs from the current value
-     * sets the new value to the instance and writes it to the input
-     * @param v The new value to be set
-     */
-    setNewValue(v: any) {
-        if (this._instance) {
-            let changed: boolean;
-            if (this.isMulti) {
-                changed = !deepEqualsArray(v, this._instance.getVal());
-            }
-            else {
-                let innerValue: any = this._instance.getVal();
-                changed = innerValue !== v;
-            }
-
-            // set value to instance if differs from the model
-            if (changed) {
-                this._instance.setVal(v, true, false);
-                if (this._inputService && this._inputService.input) {
-                    this._inputService.input.innerValue = this._instance._value;
-                }
-            }
-        }
-    }
-
-    /**
-     * Creates a one level copy of the data array to the previousData array
-     */
-    cloneData() {
-        this.previousData = this.data ? [] : this.data;
-        if (this.data) {
-            for (let i = 0; i < this.data.length; i++) {
-                this.previousData.push(this.data[i]);
-            }
-        }
-    }
-
-    /* OnInit Interface */
-
-    /**
-     * Runs after the input parameters are settled and before the mobiscroll control is initialized
-     */
-    ngOnInit() {
-        this.isMulti = this.options && this.options.select && this.options.select !== 'single';
-    }
-
-    abstract refreshData(newData: any): void;
-
-    /**
-     * Runs on every change
-     */
-    ngDoCheck() {
-        if (this._instance && this.data !== undefined && !this.noDataCheck && !deepEqualsArray(this.data, this.previousData)) {
-            this.cloneData();
-            this.refreshData(this.data);
-        }
-    }
-}
-
 abstract class MbscFrameBase extends MbscControlBase implements OnInit {
     @Input()
     options: MbscFrameOptions;
@@ -551,8 +490,6 @@ abstract class MbscFrameBase extends MbscControlBase implements OnInit {
     @Input()
     context: string | HTMLElement;
     @Input()
-    cssClass: string;
-    @Input()
     disabled: boolean;
     @Input()
     display: 'top' | 'bottom' | 'bubble' | 'inline' | 'center';
@@ -563,9 +500,7 @@ abstract class MbscFrameBase extends MbscControlBase implements OnInit {
     @Input()
     headerText: string | boolean | ((formattedValue: string) => string);
     @Input()
-    showOnFocus: boolean;
-    @Input()
-    showOnTap: boolean;
+    touchUi: boolean;
 
     // Events
 
@@ -593,14 +528,14 @@ abstract class MbscFrameBase extends MbscControlBase implements OnInit {
             buttons: this.buttons,
             closeOnOverlayTap: this.closeOnOverlayTap,
             context: this.context,
-            cssClass: this.cssClass,
             disabled: this.disabled,
             display: this.display,
             focusOnClose: this.focusOnClose,
             focusTrap: this.focusTrap,
             headerText: this.headerText,
             showOnFocus: this.showOnFocus,
-            showOnTap: this.showOnTap
+            showOnTap: this.showOnTap,
+            touchUi: this.touchUi
         });
     }
 
@@ -645,8 +580,8 @@ abstract class MbscFrameBase extends MbscControlBase implements OnInit {
         return (this.display || this.options.display) === 'inline';
     }
 
-    constructor(initialElem: ElementRef, zone: NgZone, control: NgControl, _inputService: MbscInputService) {
-        super(initialElem, zone, control, _inputService);
+    constructor(initialElem: ElementRef, zone: NgZone, control: NgControl, _inputService: MbscInputService, view: ViewContainerRef) {
+        super(initialElem, zone, control, _inputService, view);
     }
 
     ngOnInit() {
@@ -764,8 +699,8 @@ abstract class MbscScrollerBase extends MbscFrameBase {
     }
 
 
-    constructor(initialElement: ElementRef, zone: NgZone, control: NgControl, _inputService: MbscInputService) {
-        super(initialElement, zone, control, _inputService);
+    constructor(initialElement: ElementRef, zone: NgZone, control: NgControl, _inputService: MbscInputService, view: ViewContainerRef) {
+        super(initialElement, zone, control, _inputService, view);
     }
 }
 
@@ -808,7 +743,6 @@ export {
     MbscValueBase,
     MbscCloneBase,
     MbscControlBase,
-    MbscDataControlBase,
     MbscFrameBase,
     MbscScrollerBase,
 
@@ -842,6 +776,7 @@ export {
     CommonModule,
     Injectable,
     Observable,
-    Subject//,
+    Subject,
+    ViewContainerRef//,
     //trigger, state, animate, transition, style
 }

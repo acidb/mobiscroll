@@ -24,6 +24,11 @@
     @ios-border: darken(@ios-background-limited, 17%);
     @ios-text-alt: lighten(@ios-text, 53%);
     @ios-empty-color: lighten(@ios-text, 43%);
+    @ios-scrollbar-track: rgba(0, 0, 0, .05);
+    @ios-background-desktop: @ios-background-limited;
+    @ios-popup-shadow: rgba(0, 0, 0, .3);
+    @ios-popup-border: @ios-border;
+    @ios-popup-background: @ios-background-alt;
 }
 
 // Dark background 
@@ -31,6 +36,11 @@
     @ios-border: lighten(@ios-background-limited, 17%);
     @ios-text-alt: darken(@ios-text, 53%);
     @ios-empty-color: @ios-text;
+    @ios-scrollbar-track: rgba(255, 255, 255, .2);
+    @ios-background-desktop: lighten(@ios-background-limited, 17%);
+    @ios-popup-shadow: rgba(0, 0, 0, .8);
+    @ios-popup-border: lighten(@ios-border, 13%);
+    @ios-popup-background: @ios-background-desktop;
 }
 
 // Light accent 
@@ -215,11 +225,19 @@
 
 .mbsc-@{theme}.mbsc-fr-inline .mbsc-fr-w {
     background: @ios-background-alt;
+    border-color: @ios-border;
 }
 
 .mbsc-@{theme}.mbsc-fr-inline .mbsc-fr-c {
     border-color: @ios-border;
 }
+
+/* Scrollbar */
+
+.mbsc-@{theme} .mbsc-sc-bar-c {
+    background: @ios-scrollbar-track;
+}
+
 
 /* Empty view styling */
 
@@ -303,8 +321,40 @@
     color: @output2_1;
 }
 
+/* Desktop view */
 
-/* Select filter */
+.mbsc-@{theme}.mbsc-fr-pointer {
+    .mbsc-fr-persp .mbsc-fr-popup .mbsc-fr-w,
+    .mbsc-fr-persp .mbsc-cal-picker {
+        background: @ios-background-desktop;
+    }
+
+    .mbsc-fr-persp .mbsc-fr-w {
+        box-shadow: 0 .25em 1em @ios-popup-shadow;
+    }
+
+    .mbsc-fr-hdr {
+        border-color: @ios-popup-border;
+    }
+
+    .mbsc-sc-whl-l {
+        border-color: @ios-popup-border;
+    }
+
+    .mbsc-sc-itm {
+        color: @output4_1;
+    }
+
+    &.mbsc-no-touch .mbsc-sc-itm.mbsc-btn-e:hover {
+        background: fade(@ios-accent, 20%);
+    }
+
+    .mbsc-sc-itm-sel {
+        color: @ios-accent;
+    }
+}
+
+/* Select */
 
 .mbsc-@{theme} .mbsc-sel-filter-cont.mbsc-input input {
     background: @output3_10;
@@ -320,6 +370,21 @@
 
 .mbsc-@{theme} .mbsc-sel-filter-show-clear {
     color: @output3_13;
+}
+
+.mbsc-@{theme}.mbsc-fr-pointer {
+    /* Group headers */
+    .mbsc-sc-whl .mbsc-sel-gr {
+        color: @ios-text;
+    }
+
+    &.mbsc-sel .mbsc-ltr .mbsc-sc-whl-w + .mbsc-sc-whl-w {
+        border-color: @ios-popup-border;
+    }
+
+    &.mbsc-sel .mbsc-rtl .mbsc-sc-whl-w + .mbsc-sc-whl-w {
+        border-color: @ios-popup-border;
+    }
 }
 
 
@@ -390,18 +455,27 @@
     }
 
     .mbsc-cal-events-i {
-        background: @ios-background-alt;
-        box-shadow: 0 0 15em fade(@ios-text, 20%);
+        border-color: @ios-popup-border;
+        box-shadow: 0 .25em 1em @ios-popup-shadow;
+    }
+
+    .mbsc-cal-events-sc {
+        background: @ios-popup-background;
     }
 
     .mbsc-cal-events-arr {
-        background: @ios-background-alt;
-        box-shadow: 0 0 15em fade(@ios-text, 20%);
+        border-color: @ios-popup-border;
+        background: @ios-popup-background;
+        box-shadow: 0 0 1em @ios-popup-shadow;
+    }
+
+    .mbsc-cal-events-b .mbsc-cal-events-arr {
+        border-color: @ios-popup-border;
     }
 
     .mbsc-cal-event-list .mbsc-cal-event:before,
     .mbsc-cal-event-list .mbsc-cal-event:after {
-        border-color: @ios-border;
+        border-color: @ios-popup-border;
     }
 
     /* Event listing */

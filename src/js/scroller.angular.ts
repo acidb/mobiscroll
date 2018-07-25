@@ -1,6 +1,5 @@
 import {
     extend,
-    mobiscroll,
     MbscScrollerBase,
     Directive,
     Component,
@@ -13,7 +12,8 @@ import {
     Optional,
     NgControl,
     MbscInputService,
-    MbscOptionsService
+    MbscOptionsService,
+    ViewContainerRef
 } from './frameworks/angular';
 
 import { Scroller, MbscScrollerOptions } from './classes/scroller';
@@ -25,7 +25,7 @@ export { MbscScrollerOptions };
 })
 export class MbscScroller extends MbscScrollerBase {
     _instance: Scroller;
-    
+
     /**
      * The mobiscroll settings for the directive are passed through this input.
      */
@@ -48,8 +48,8 @@ export class MbscScroller extends MbscScrollerBase {
     @Output('mbsc-scrollerChange')
     onChangeEmitter: EventEmitter<string> = new EventEmitter<string>();
 
-    constructor(initialElement: ElementRef, zone: NgZone, @Optional() control: NgControl, @Optional() inputService: MbscInputService, @Optional() public optionService: MbscOptionsService) {
-        super(initialElement, zone, control, inputService);
+    constructor(initialElement: ElementRef, zone: NgZone, @Optional() control: NgControl, @Optional() inputService: MbscInputService, @Optional() public optionService: MbscOptionsService, view: ViewContainerRef) {
+        super(initialElement, zone, control, inputService, view);
     }
 
     /**
@@ -109,7 +109,7 @@ export class MbscScrollerComponent extends MbscScroller {
     placeholder: string = '';
 
     constructor(initialElem: ElementRef, zone: NgZone, @Optional() control: NgControl, @Optional() inputService: MbscInputService, @Optional() optionService: MbscOptionsService) {
-        super(initialElem, zone, control, inputService, optionService);
+        super(initialElem, zone, control, inputService, optionService, null);
     }
 
     ngAfterViewInit() {

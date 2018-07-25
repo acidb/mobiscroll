@@ -16,14 +16,15 @@
 .light-or-dark() when (lightness(@mobiscroll-background) > 50%) {
     @mobiscroll-border: darken(@mobiscroll-background, 17%);
     @mobiscroll-empty-color: lighten(@mobiscroll-text, 20%);
+    @mobiscroll-scrollbar-track: rgba(0, 0, 0, .05);
 }
 
 // Dark background 
 .light-or-dark() when (lightness(@mobiscroll-background) <=50%) {
     @mobiscroll-border: lighten(@mobiscroll-background, 17%);
     @mobiscroll-empty-color: @mobiscroll-text;
+    @mobiscroll-scrollbar-track: rgba(255, 255, 255, .2);
 }
-
 
 /* --- */
 
@@ -61,18 +62,15 @@
     @colorClearBackground: fade(#dfdede, 60%);
 }
 
+/* Frame */
+
 .mbsc-@{theme} .mbsc-fr-w {
     background: @output1_3;
     color: @output2_5;
 }
 
-.mbsc-@{theme} .mbsc-fr-hdr,
-.mbsc-@{theme} .mbsc-sc-lbl {
+.mbsc-@{theme} .mbsc-fr-hdr {
     color: @output3_8;
-}
-
-.mbsc-@{theme} .mbsc-sc-whl-l {
-    border-color: @output3_8;
 }
 
 .mbsc-@{theme}.mbsc-no-touch .mbsc-fr-btn-e:not(.mbsc-disabled):hover,
@@ -80,22 +78,8 @@
     background: fade(@output3_8, 30%);
 }
 
-.mbsc-@{theme} .mbsc-sc-itm.mbsc-active {
-    background: fade(@output3_8, 30%);
-}
-
 .mbsc-@{theme} .mbsc-fr-btn {
     color: @output3_8;
-}
-
-.mbsc-@{theme} .mbsc-sc-btn {
-    color: @output3_8;
-    background: @output1_3;
-}
-
-.mbsc-@{theme}.mbsc-no-touch .mbsc-sc-btn:hover:before,
-.mbsc-@{theme} .mbsc-sc-btn.mbsc-active:before {
-    background: fade(@output3_8, 30%);
 }
 
 .mbsc-@{theme} .mbsc-fr-bubble-bottom .mbsc-fr-arr {
@@ -106,14 +90,54 @@
     border-color: @output1_3 transparent transparent transparent;
 }
 
-.mbsc-@{theme} .mbsc-sc-whl-multi .mbsc-sc-itm-sel:before {
-    color: @output3_8;
+/* Scroller */
+
+.mbsc-@{theme} {
+    .mbsc-sc-lbl {
+        color: @mobiscroll-accent;
+    }
+
+    .mbsc-sc-whl-l {
+        border-color: @mobiscroll-accent;
+    }
+
+    .mbsc-sc-btn {
+        color: @mobiscroll-accent;
+        background: @mobiscroll-background;
+    }
+
+    &.mbsc-no-touch .mbsc-sc-btn:hover:before,
+    .mbsc-sc-btn.mbsc-active:before,
+    .mbsc-sc-itm.mbsc-active {
+        background: fade(@mobiscroll-accent, 30%);
+    }
+
+    /* Multiple select */
+    .mbsc-sc-whl-multi {
+        .mbsc-sc-itm-sel:before {
+            color: @mobiscroll-accent;
+        }
+    }
+
+    /* Scrollbar */
+    .mbsc-sc-bar-c {
+        background: @mobiscroll-scrollbar-track;
+    }
 }
 
-/* Empty view styling */
+/* Select */
 
-.mbsc-@{theme} .mbsc-empty {
-    color: @mobiscroll-empty-color;
+.mbsc-@{theme}.mbsc-fr-pointer {
+    /* Single select */
+    .mbsc-sel-one {
+        .mbsc-sc-itm-sel {
+            color: @mobiscroll-accent;
+        }
+        &.mbsc-sc-whl-multi .mbsc-sc-itm-sel {
+            color: @mobiscroll-text;
+            background: fade(@mobiscroll-accent, 30%);
+        }
+    }
 }
 
 /* Calendar */
@@ -196,7 +220,7 @@
         color: @mobiscroll-accent;
     }
 
-     .mbsc-event-color {
+    .mbsc-event-color {
         background: fade(@mobiscroll-text, 30%);
     }
 
@@ -619,7 +643,16 @@
     &.mbsc-card.mbsc-form {
         background: lighten(@mobiscroll-background, 4%);
     }
+    &.mbsc-card .mbsc-lv-item {
+        background: lighten(@mobiscroll-background, 4%);
+    }
     .mbsc-card-footer {
         border-top: 1px solid @mobiscroll-border;
     }
+}
+
+/* Empty view styling */
+
+.mbsc-@{theme} .mbsc-empty {
+    color: @mobiscroll-empty-color;
 }

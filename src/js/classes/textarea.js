@@ -101,6 +101,11 @@ export class TextArea extends Input {
             sizeTextArea(this._elm);
         }, 100);
     }
+
+    resize() {
+        clearTimeout(this._debounce);
+        sizeTextArea(this._elm);
+    }
 }
 
 export {

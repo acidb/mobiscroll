@@ -50,11 +50,6 @@
     -webkit-overflow-scrolling: touch;
 }
 
-.mbsc-fr-scroll:focus {
-    outline: none;
-    outline-offset: -2px;
-}
-
 .mbsc-fr-popup {
     max-width: 98%;
     position: absolute;
@@ -242,6 +237,7 @@
 .mbsc-fr-hdr {
     overflow: hidden;
     text-overflow: ellipsis;
+    text-align: center;
 }
 
 
@@ -291,6 +287,51 @@
     padding: .375em;
 }
 
+/* Desktop view */
+
+.mbsc-fr-pointer {
+    /* Embedded components */
+    &.mbsc-fr .mbsc-fr-w .mbsc-fr-inline .mbsc-fr-w {
+        box-shadow: none;
+        border-radius: 0;
+    }
+
+    &.mbsc-fr .mbsc-fr-overlay {
+        background: none;
+    }
+
+    .mbsc-ltr .mbsc-fr-w,
+    .mbsc-ltr .mbsc-sc-whl .mbsc-sel-gr {
+        text-align: left;
+    }
+
+    .mbsc-rtl .mbsc-fr-w,
+    .mbsc-rtl .mbsc-sc-whl .mbsc-sel-gr {
+        text-align: right;
+    }
+
+    &.mbsc-fr-top .mbsc-fr-w,
+    &.mbsc-fr-bottom .mbsc-fr-w {
+        pointer-events: auto;
+        display: inline-block;
+        margin-top: 3em;
+        margin-bottom: 3em;
+    }
+
+    &.mbsc-fr-top .mbsc-fr-popup,
+    &.mbsc-fr-bottom .mbsc-fr-popup {
+        text-align: center;
+        pointer-events: none;
+    }
+
+    &.mbsc-fr-bubble .mbsc-fr-arr-w {
+        display: none;
+    }
+
+    .mbsc-sel-empty {
+        text-align: center;
+    }
+}
 
 /* Mobiscroll theme */
 
@@ -346,5 +387,11 @@
     }
     .mbsc-fr-bubble-top .mbsc-fr-arr {
         border-color: @mobiscroll-background transparent transparent transparent;
+    }
+    /* Desktop style */
+    &.mbsc-fr-pointer {
+        .mbsc-fr-persp .mbsc-fr-w {
+            box-shadow: 0 .25em 1em rgba(0, 0, 0, .3);
+        }
     }
 }

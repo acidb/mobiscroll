@@ -10,6 +10,8 @@ var isIOS = os == 'ios';
 
 export const ScrollViewBase = function (el, settings, inherit) {
     var $btn,
+        $scrollbar,
+        $scrollbarTrack,
         btnTimer,
         contSize,
         diffX,
@@ -22,6 +24,7 @@ export const ScrollViewBase = function (el, settings, inherit) {
         endY,
         eventObj,
         isBtn,
+        isInfinite,
         maxScroll,
         maxSnapScroll,
         minScroll,
@@ -31,8 +34,13 @@ export const ScrollViewBase = function (el, settings, inherit) {
         rafID,
         //rafMoveID,
         rafRunning,
+        scrollbar,
+        scrollbarHeight,
+        scrollbarOffset,
+        scrollbarTrack,
         scrolled,
         scrollDebounce,
+        scrollSnap,
         scrollTimer,
         snap,
         snapPoints,
@@ -55,9 +63,7 @@ export const ScrollViewBase = function (el, settings, inherit) {
 
     function onStart(ev) {
 
-        trigger('onStart', {
-            domEvent: ev
-        });
+        trigger('onStart', { domEvent: ev });
 
         // Better performance if there are tap events on document
         if (s.stopProp) {
@@ -238,48 +244,52 @@ export const ScrollViewBase = function (el, settings, inherit) {
     function onScroll(ev) {
         ev = ev.originalEvent || ev;
 
-        diff = vertical ? ev.deltaY || ev.wheelDelta || ev.detail : ev.deltaX;
+        diff = vertical ? (ev.deltaY == undefined ? ev.wheelDelta || ev.detail : ev.deltaY) : ev.deltaX;
 
-        trigger('onStart', {
-            domEvent: ev
-        });
+        trigger('onStart', { domEvent: ev });
 
         if (s.stopProp) {
             ev.stopPropagation();
         }
 
         if (diff) {
-
             ev.preventDefault();
 
             //diff = diff < 0 ? 20 : -20;
 
             if (ev.deltaMode && ev.deltaMode == 1) {
-                diff *= 5;
+                diff *= 15;
             }
 
-            diff = constrain(-diff, -20, 20);
+            diff = constrain(-diff, -scrollSnap, scrollSnap);
 
             startPos = currPos;
 
-            if (s.readonly || startPos + diff < minScroll || startPos + diff > maxScroll) {
+            if (s.readonly) {
                 return;
             }
 
             if (!scrolled) {
-                eventObj = {
-                    posX: vertical ? 0 : currPos,
-                    posY: vertical ? currPos : 0,
-                    originX: vertical ? 0 : startPos,
-                    originY: vertical ? startPos : 0,
-                    direction: diff > 0 ? (vertical ? 270 : 360) : (vertical ? 90 : 180)
-                };
-                trigger('onGestureStart', eventObj);
+                gestureStart();
+            }
+
+            if (startPos + diff < minScroll) {
+                startPos = minScroll;
+                diff = 0;
+            }
+
+            if (startPos + diff > maxScroll) {
+                startPos = maxScroll;
+                diff = 0;
             }
 
             if (!rafRunning) {
                 rafRunning = true;
                 rafID = raf(onMoving);
+            }
+
+            if (!diff && scrolled) {
+                return;
             }
 
             scrolled = true;
@@ -295,6 +305,68 @@ export const ScrollViewBase = function (el, settings, inherit) {
         }
     }
 
+    function onScrollBarStart(ev) {
+        trigger('onStart', { domEvent: ev });
+
+        if (s.readonly) {
+            return;
+        }
+
+        ev.stopPropagation();
+
+        startPos = currPos;
+        scrolled = false;
+
+        if (ev.target == scrollbar) {
+            startY = getCoord(ev, 'Y', true);
+            $(document)
+                .on('mousemove', onScrollBarMove)
+                .on('mouseup', onScrollBarEnd);
+        } else {
+            startY = $scrollbar.offset().top;
+            onScrollBarMove(ev);
+            onScrollBarEnd();
+        }
+    }
+
+    function onScrollBarMove(ev) {
+        var percent = (getCoord(ev, 'Y', true) - startY) / contSize;
+        if (isInfinite) {
+            diff = -(maxSnapScroll * snap * 2 + contSize) * percent;
+            diff = constrain(diff, -snap * maxSnapScroll, snap * maxSnapScroll);
+        } else {
+            diff = (minScroll - maxScroll - contSize) * percent;
+        }
+        if (!scrolled) {
+            gestureStart();
+        }
+        scrolled = true;
+        scroll(constrain(startPos + diff, minScroll - elastic, maxScroll + elastic));
+    }
+
+    function onScrollBarEnd() {
+        startPos = currPos;
+        finalize(0);
+        $(document)
+            .off('mousemove', onScrollBarMove)
+            .off('mouseup', onScrollBarEnd);
+    }
+
+    function onScrollBarClick(ev) {
+        ev.stopPropagation();
+    }
+
+    function gestureStart() {
+        eventObj = {
+            posX: vertical ? 0 : currPos,
+            posY: vertical ? currPos : 0,
+            originX: vertical ? 0 : startPos,
+            originY: vertical ? startPos : 0,
+            direction: diff > 0 ? (vertical ? 270 : 360) : (vertical ? 90 : 180)
+        };
+        trigger('onGestureStart', eventObj);
+    }
+
     function finalize(diff) {
         var i,
             time,
@@ -307,7 +379,6 @@ export const ScrollViewBase = function (el, settings, inherit) {
 
         // Calculate snap and limit between min and max
         newPos = constrain(Math.round((startPos + diff) / snap) * snap, minScroll, maxScroll);
-        currSnap = Math.round(newPos / snap);
 
         // Snap to nearest element
         if (snapPoints) {
@@ -343,12 +414,14 @@ export const ScrollViewBase = function (el, settings, inherit) {
         trigger('onGestureEnd', eventObj);
 
         // Scroll to the calculated position
-        scroll(newPos, time);
+        that.scroll(newPos, time);
     }
 
     function scroll(pos, time, tap, callback) {
-        var changed = pos != currPos,
+        var percent,
+            changed = pos != currPos,
             anim = time > 1,
+            timing = time ? cssPrefix + 'transform ' + Math.round(time) + 'ms ' + easing : '',
             done = function () {
                 clearInterval(scrollTimer);
                 clearTimeout(transTimer);
@@ -392,8 +465,18 @@ export const ScrollViewBase = function (el, settings, inherit) {
             trigger('onAnimationStart', eventObj);
         }
 
-        style[jsPrefix + 'Transition'] = time ? cssPrefix + 'transform ' + Math.round(time) + 'ms ' + easing : '';
+        style[jsPrefix + 'Transition'] = timing;
         style[jsPrefix + 'Transform'] = 'translate3d(' + (vertical ? '0,' + pos + 'px,' : pos + 'px,' + '0,') + '0)';
+
+        if (scrollbar && scrollbarHeight) {
+            percent = isInfinite ?
+                (scrollbarOffset - pos) / (maxSnapScroll * snap * 2) :
+                (pos - maxScroll) / (minScroll - maxScroll);
+            scrollbar.style[jsPrefix + 'Transition'] = timing;
+            scrollbar.style[jsPrefix + 'Transform'] = 'translate3d(0,' +
+                Math.max(0, Math.min(((contSize - scrollbarHeight) * percent), contSize - scrollbarHeight)) +
+                'px,0)';
+        }
 
         if ((!changed && !moving) || !time || time <= 1) {
             done();
@@ -456,6 +539,8 @@ export const ScrollViewBase = function (el, settings, inherit) {
 
         startPos = currPos;
 
+        scrollbarOffset = maxSnapScroll * snap + pos;
+
         scroll(pos, time, tap, callback);
     };
 
@@ -463,8 +548,8 @@ export const ScrollViewBase = function (el, settings, inherit) {
         var tempScroll;
 
         contSize = s.contSize === undefined ? vertical ? $elm.height() : $elm.width() : s.contSize;
-        minScroll = s.minScroll === undefined ? Math.min(0, vertical ? contSize - target.height() : contSize - target.width()) : s.minScroll;
         maxScroll = s.maxScroll === undefined ? 0 : s.maxScroll;
+        minScroll = Math.min(maxScroll, s.minScroll === undefined ? Math.min(0, vertical ? contSize - target.height() : contSize - target.width()) : s.minScroll);
         snapPoints = null;
 
         if (!vertical && s.rtl) {
@@ -491,6 +576,19 @@ export const ScrollViewBase = function (el, settings, inherit) {
         maxSnapScroll = s.snap ? s.maxSnapScroll : 0;
         easing = s.easing;
         elastic = s.elastic ? (isNumeric(s.snap) ? snap : (isNumeric(s.elastic) ? s.elastic : 0)) : 0; // && s.snap ? snap : 0;
+        scrollSnap = snap;
+
+        while (scrollSnap > 44) {
+            scrollSnap /= 2;
+        }
+        scrollSnap = Math.round(44 / scrollSnap) * scrollSnap;
+
+        if (scrollbar) {
+            isInfinite = minScroll == -Infinity || maxScroll == Infinity;
+            scrollbarHeight = minScroll < maxScroll ? Math.max(20, contSize * contSize / (maxScroll - minScroll + contSize)) : 0;
+            scrollbar.style.height = scrollbarHeight + 'px';
+            scrollbarTrack.style.height = scrollbarHeight ? '' : 0;
+        }
 
         if (currPos === undefined) {
             currPos = s.initialPos;
@@ -508,6 +606,12 @@ export const ScrollViewBase = function (el, settings, inherit) {
         target = s.moveElement || $elm.children().eq(0);
         style = target[0].style;
         threshold = vertical ? s.thresholdY : s.thresholdX;
+        if (s.scrollbar) {
+            $scrollbarTrack = s.scrollbar;
+            $scrollbar = $scrollbarTrack.find('.mbsc-sc-bar');
+            scrollbar = $scrollbar[0];
+            scrollbarTrack = $scrollbarTrack[0];
+        }
     };
 
     that._init = function () {
@@ -519,6 +623,12 @@ export const ScrollViewBase = function (el, settings, inherit) {
 
         if (s.mousewheel) {
             $elm.on('wheel mousewheel', onScroll);
+        }
+
+        if (scrollbar) {
+            $scrollbarTrack
+                .on('mousedown', onScrollBarStart)
+                .on('click', onScrollBarClick);
         }
 
         if (el.addEventListener) {
@@ -548,6 +658,12 @@ export const ScrollViewBase = function (el, settings, inherit) {
             .off('touchmove', onMove)
             .off('touchend touchcancel', onEnd)
             .off('wheel mousewheel', onScroll);
+
+        if (scrollbar) {
+            $scrollbarTrack
+                .off('mousedown', onScrollBarStart)
+                .off('click', onScrollBarClick);
+        }
     };
 
     // Constructor

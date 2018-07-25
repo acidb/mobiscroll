@@ -1,7 +1,6 @@
 import {
     extend,
     Component,
-    mobiscroll,
     MbscBase,
     MbscControlBase,
     deepEqualsArray,
@@ -21,7 +20,8 @@ import {
     Subject,
     Observable,
     MbscInputService,
-    MbscOptionsService
+    MbscOptionsService,
+    AfterViewInit
 } from './frameworks/angular';
 
 import { Form } from './classes/forms';
@@ -41,6 +41,8 @@ import { Rating } from './classes/rating';
 import { MbscFormOptions } from './classes/forms';
 
 export { MbscFormOptions };
+
+import { CollapsibleBase } from './util/collapsible-base.js';
 
 @Component({
     selector: 'mbsc-form',
@@ -306,6 +308,7 @@ export class MbscInput extends MbscInputBase {
             <span class="mbsc-input-wrap">
                 <textarea #initElement [placeholder]="placeholder" [(ngModel)]="innerValue" (blur)="onTouch($event)"
                     [attr.name]="name"
+                    [attr.rows]="rows"
                     [attr.data-icon]="icon ? icon : null"
                     [attr.data-icon-align]="iconAlign ? iconAlign : null"
                     [disabled]="disabled"></textarea>
@@ -318,9 +321,39 @@ export class MbscInput extends MbscInputBase {
 export class MbscTextarea extends MbscInputBase {
     _instance: TextArea;
 
+    @Input()
+    rows: number | string;
+
     constructor(initialElem: ElementRef, @Optional() _formService: MbscOptionsService, protected _inputService: MbscInputService, @Optional() _control: NgControl) {
         super(initialElem, _formService, _control, _inputService.isControlSet);
         _inputService.input = this;
+    }
+
+    /** 
+     * Override
+     * To resize the textarea when programmatically changing it's value
+     */
+    @Input()
+    set value(v: any) {
+        this._value = v;
+        this.resize();
+    }
+
+    /** 
+     * Override
+     * To resize the textarea when programmatically changing it's value
+     */
+    writeValue(v: any) {
+        this._value = v;
+        this.resize();
+    }
+
+    resize() {
+        if (this._instance) {
+            setTimeout(() => {
+                this._instance.resize();
+            });
+        }
     }
 
     /* AfterViewInit Interface */
@@ -608,7 +641,7 @@ export class MbscSwitch extends MbscControlBase implements OnInit {
     }
 
     constructor(hostElem: ElementRef, zone: NgZone, @Optional() protected _formService: MbscOptionsService, @Optional() control: NgControl) {
-        super(hostElem, zone, control, null);
+        super(hostElem, zone, control, null, null);
     }
 
     setNewValue(v: boolean) {
@@ -722,7 +755,7 @@ export class MbscStepper extends MbscControlBase implements OnInit {
     public _initElem: ElementRef;
 
     constructor(hostElement: ElementRef, zone: NgZone, @Optional() protected _formService: MbscOptionsService, @Optional() control: NgControl) {
-        super(hostElement, zone, control, null);
+        super(hostElement, zone, control, null, null);
     }
 
     setNewValue(v: number) {
@@ -827,7 +860,7 @@ export class MbscProgress extends MbscControlBase implements OnInit {
     public _initElem: ElementRef;
 
     constructor(hostElement: ElementRef, zone: NgZone, @Optional() protected _formService: MbscOptionsService, @Optional() control: NgControl) {
-        super(hostElement, zone, control, null);
+        super(hostElement, zone, control, null, null);
     }
 
     setNewValue(v: number) {
@@ -1260,7 +1293,7 @@ export class MbscSlider extends MbscControlBase {
     public inputElements: QueryList<ElementRef>;
 
     constructor(hostElement: ElementRef, @Optional() private _formService: MbscOptionsService, zone: NgZone, @Optional() control: NgControl) {
-        super(hostElement, zone, control, null);
+        super(hostElement, zone, control, null, null);
     }
 
 
@@ -1418,7 +1451,7 @@ export class MbscRating extends MbscControlBase implements OnInit {
     }
 
     constructor(hostElem: ElementRef, zone: NgZone, @Optional() protected formService: MbscOptionsService, @Optional() control: NgControl) {
-        super(hostElem, zone, control, null);
+        super(hostElem, zone, control, null, null);
     }
 
     setNewValue(v: number) {
@@ -1445,3 +1478,98 @@ export class MbscRating extends MbscControlBase implements OnInit {
         }
     }
 }
+
+@Component({
+    selector: 'mbsc-form-group',
+    template: '<ng-content></ng-content>',
+    host: {
+        '[class]': "inset !== undefined ? 'mbsc-form-group-inset' : 'mbsc-form-group'"
+    },
+    styles: [':host { display: block; }']
+})
+export class MbscFormGroup implements AfterViewInit {
+    @Input()
+    collapsible: any = null;
+
+    _open: boolean = false;
+    @Input()
+    set open(v: boolean) {
+        if (this._open != v && this._instance) {
+            if (v) {
+                this._instance.show();
+            } else {
+                this._instance.hide();
+            }
+        }
+        this._open = v;
+    }
+
+    @Input()
+    inset: string;
+
+    /**
+     * Reference to the initialized mobiscroll instance
+     * For internal use only
+     */
+    _instance: any = null;
+
+    /**
+     * Reference to the html element the mobiscroll is initialized on. 
+     */
+    element: any = null;
+
+    /**
+     * Public getter for the mobiscroll instance
+     */
+    get instance(): any {
+        return this._instance;
+    }
+
+    constructor(public initialElem: ElementRef) {
+        this.element = initialElem;
+    }
+
+    /* AfterViewInit Interface */
+    ngAfterViewInit() {
+        if (this.collapsible !== null) {
+            this._instance = new CollapsibleBase(this.element.nativeElement, { isOpen: this._open !== false });
+        }
+    }
+
+    /* OnDestroy Interface */
+    ngOnDestroy() {
+        if (this._instance) {
+            this._instance.destroy();
+        }
+    }
+}
+
+@Component({
+    selector: 'mbsc-form-group-title',
+    template: '<ng-content></ng-content>',
+    host: {
+        'class': 'mbsc-form-group-title'
+    },
+    styles: [':host { display: block; }']
+})
+export class MbscFormGroupTitle { }
+
+@Component({
+    selector: 'mbsc-form-group-content',
+    template: '<ng-content></ng-content>',
+    host: {
+        'class': 'mbsc-form-group-content'
+    },
+    styles: [':host { display: block; }']
+})
+export class MbscFormGroupContent { }
+
+@Component({
+    selector: 'mbsc-accordion',
+    template: '<ng-content></ng-content>',
+    host: {
+        'class': 'mbsc-accordion'
+    },
+    styles: [':host { display: block; }']
+})
+export class MbscAccordion { }

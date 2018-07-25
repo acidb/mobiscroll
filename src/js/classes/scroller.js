@@ -27,8 +27,10 @@ export const Scroller = function (el, settings, inherit) {
         showScrollArrows,
         stepper,
         tempWheelArray,
+        hasScrollbar,
         itemHeight,
         itemHeight3d,
+        isPointer,
         isValidating,
         s,
         trigger,
@@ -41,7 +43,7 @@ export const Scroller = function (el, settings, inherit) {
     // Event handlers
 
     function onKeyDown(ev) {
-        var i = $(this).attr('data-index'),
+        var i = +$(this).attr('data-index'),
             handle,
             direction;
 
@@ -106,18 +108,26 @@ export const Scroller = function (el, settings, inherit) {
 
             setWheelValue(wheel, i, idx, animTime, true, true, wheel.multiple);
 
-            if (that.live && !wheel.multiple && (s.setOnTap === true || s.setOnTap[i])) {
+            if (that.live && (!wheel.multiple || (wheel.multiple === 1 && s.tapSelect)) && (s.setOnTap === true || s.setOnTap[i])) {
                 setTimeout(function () {
                     that.select();
-                }, 200);
+                }, s.tapSelect ? 0 : 200);
             }
         }
     }
 
     // Private functions
 
+    function getMin(wheel) {
+        return -(wheel.max - wheel._offset - (wheel.multiple && !scroll3d ? Math.floor(s.rows / 2) : 0)) * itemHeight;
+    }
+
+    function getMax(wheel) {
+        return -(wheel.min - wheel._offset + (wheel.multiple && !scroll3d ? Math.floor(s.rows / 2) : 0)) * itemHeight;
+    }
+
     function getIndex(wheel, val) {
-        return (wheel._array ? wheel._map[val] : wheel.getIndex(val, that)) || 0;
+        return (wheel._array ? wheel._map[val] : +wheel.getIndex(val, that)) || 0;
     }
 
     function getItem(wheel, i) {
@@ -145,7 +155,7 @@ export const Scroller = function (el, settings, inherit) {
 
     function step(index, direction) {
         var wheel = wheels[index];
-        setWheelValue(wheel, index, wheel._current + direction, animTime, direction == 1 ? 1 : 2);
+        setWheelValue(wheel, index, wheel._current + direction, s.delay + 100, direction == 1 ? 1 : 2);
     }
 
     function isReadOnly(i) {
@@ -193,12 +203,9 @@ export const Scroller = function (el, settings, inherit) {
         }
 
         w._refresh = function (noScroll) {
-            var maxScroll = -(w.min - w._offset + (w.multiple && !scroll3d ? Math.floor(s.rows / 2) : 0)) * itemHeight,
-                minScroll = Math.min(maxScroll, -(w.max - w._offset - (w.multiple && !scroll3d ? Math.floor(s.rows / 2) : 0)) * itemHeight);
-
             extend(w._scroller.settings, {
-                minScroll: minScroll,
-                maxScroll: maxScroll
+                minScroll: getMin(w),
+                maxScroll: getMax(w)
             });
 
             w._scroller.refresh(noScroll);
@@ -618,6 +625,7 @@ export const Scroller = function (el, settings, inherit) {
                     (s.width ? ('width:' + (s.width[l] || s.width) + 'px;') :
                         (s.minWidth ? ('min-width:' + (s.minWidth[l] || s.minWidth) + 'px;') : '') +
                         (s.maxWidth ? ('max-width:' + (s.maxWidth[l] || s.maxWidth) + 'px;') : '')) + '">' +
+                    (hasScrollbar ? '<div class="mbsc-sc-bar-c"><div class="mbsc-sc-bar"></div></div>' : '') + // Scrollbar
                     '<div class="mbsc-sc-whl-o" style="' + style + '"></div>' + highlight +
                     '<div tabindex="0" aria-live="off" aria-label="' + lbl + '"' + (w.multiple ? ' aria-multiselectable="true"' : '') + ' role="listbox" data-index="' + l + '" class="mbsc-sc-whl"' + ' style="' +
                     'height:' + (s.rows * itemHeight * (scroll3d ? 1.1 : 1)) + 'px;">' +
@@ -674,9 +682,7 @@ export const Scroller = function (el, settings, inherit) {
         $('.mbsc-sc-whl-w', $markup).each(function (i) {
             var idx,
                 $wh = $(this),
-                wheel = wheels[i],
-                maxScroll = -(wheel.min - wheel._offset + (wheel.multiple && !scroll3d ? Math.floor(s.rows / 2) : 0)) * itemHeight,
-                minScroll = Math.min(maxScroll, -(wheel.max - wheel._offset - (wheel.multiple && !scroll3d ? Math.floor(s.rows / 2) : 0)) * itemHeight);
+                wheel = wheels[i];
 
             wheel._$markup = $wh;
             wheel._$scroller = $('.mbsc-sc-whl-sc', this);
@@ -685,19 +691,22 @@ export const Scroller = function (el, settings, inherit) {
             wheel._scroller = new ScrollViewBase(this, {
                 mousewheel: s.mousewheel,
                 moveElement: wheel._$scroller,
+                scrollbar: $('.mbsc-sc-bar-c', this),
                 initialPos: (wheel._first - wheel._index) * itemHeight,
-                contSize: 0,
+                contSize: s.rows * itemHeight,
                 snap: itemHeight,
-                minScroll: minScroll,
-                maxScroll: maxScroll,
+                minScroll: getMin(wheel),
+                maxScroll: getMax(wheel),
                 maxSnapScroll: batchSize,
                 prevDef: true,
                 stopProp: true,
                 timeUnit: 3,
                 easing: 'cubic-bezier(0.190, 1.000, 0.220, 1.000)',
                 sync: function (pos, time, easing) {
+                    var timing = time ? cssPrefix + 'transform ' + Math.round(time) + 'ms ' + easing : '';
+
                     if (scroll3d) {
-                        wheel._$3d[0].style[jsPrefix + 'Transition'] = time ? cssPrefix + 'transform ' + Math.round(time) + 'ms ' + easing : '';
+                        wheel._$3d[0].style[jsPrefix + 'Transition'] = timing;
                         wheel._$3d[0].style[jsPrefix + 'Transform'] = 'rotateX(' + ((-pos / itemHeight) * scroll3dAngle) + 'deg)';
                     }
                 },
@@ -781,14 +790,29 @@ export const Scroller = function (el, settings, inherit) {
         trigger('onRead');
     };
 
-    that.__processSettings = function () {
+    that.__processSettings = function (resp) {
         s = that.settings;
         trigger = that.trigger;
         lines = s.multiline;
         selectedClass = 'mbsc-sc-itm-sel mbsc-ic mbsc-ic-' + s.checkIcon;
+        isPointer = !s.touchUi;
+
+        if (isPointer) {
+            // Settings that might be needed by the scroller preset as well
+            s.tapSelect = true;
+            s.circular = false;
+            s.rows = resp.rows || settings.rows || 7;
+        }
     };
 
     that.__init = function () {
+        if (isPointer) {
+            s.scroll3d = false;
+            hasScrollbar = true;
+        } else {
+            hasScrollbar = false;
+        }
+
         wheels = [];
         wheelsMap = {};
         showScrollArrows = s.showScrollArrows;
@@ -802,8 +826,6 @@ export const Scroller = function (el, settings, inherit) {
         if (showScrollArrows) {
             s.rows = Math.max(3, s.rows);
         }
-
-        s.cssClass = (s.cssClass || '') + ' mbsc-sc';
     };
 
     that._getItemValue = getItemValue;
@@ -823,6 +845,7 @@ Scroller.prototype = {
     _hasDef: true,
     _hasTheme: true,
     _hasLang: true,
+    _responsive: true,
     _class: 'scroller',
     _presets: presets,
     _defaults: extend({}, Frame.prototype._defaults, {
@@ -831,7 +854,7 @@ Scroller.prototype = {
         height: 40,
         rows: 3,
         multiline: 1,
-        delay: 300,
+        delay: 200,
         readonly: false,
         showLabel: true,
         setOnTap: false,
@@ -840,6 +863,7 @@ Scroller.prototype = {
         speedUnit: 0.0012,
         timeUnit: 0.08,
         checkIcon: 'checkmark',
+        compClass: 'mbsc-sc',
         validate: function () {},
         formatValue: function (d) {
             return d.join(' ');

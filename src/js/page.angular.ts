@@ -1,7 +1,6 @@
 import {
     extend,
     Component,
-    mobiscroll,
     MbscBase,
     ElementRef,
     ViewChild,
@@ -20,7 +19,7 @@ export { MbscPageOptions };
 })
 export class MbscPage extends MbscBase implements OnInit {
     _instance: Page;
-    
+
     @Input()
     options: MbscPageOptions;
 

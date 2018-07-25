@@ -5,7 +5,6 @@ import {
     ElementRef,
     ViewChild,
     Input,
-    OnInit,
     AfterViewInit,
     MbscOptionsService,
     Optional

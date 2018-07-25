@@ -16,6 +16,9 @@ var $activeElm,
         ev.preventDefault();
     };
 
+const EDITABLE = 'input,select,textarea,button';
+const FOCUSABLE = EDITABLE + ',[tabindex="0"]';
+
 export const Frame = function (el, settings, inherit) {
     var //$ariaDiv,
         $ctx,
@@ -34,6 +37,7 @@ export const Frame = function (el, settings, inherit) {
         hasContext,
         isModal,
         isInserted,
+        isPointer,
         markup,
         modalWidth,
         modalHeight,
@@ -43,7 +47,6 @@ export const Frame = function (el, settings, inherit) {
         popup,
         posDebounce,
         posEvents,
-        preventPos,
         s,
         scrollLeft,
         scrollLock,
@@ -100,7 +103,7 @@ export const Frame = function (el, settings, inherit) {
     }
 
     function onShow(prevFocus) {
-        if (!prevFocus && !isAndroid) {
+        if (!prevFocus && !isAndroid && that._activeElm) {
             //overlay.focus();
             that._activeElm.focus();
         }
@@ -219,8 +222,7 @@ export const Frame = function (el, settings, inherit) {
         });
 
         $markup
-            .on('selectstart mousedown', prevdef) // Prevents blue highlight on Android and text selection in IE
-            .on('click', '.mbsc-fr-btn-e', prevdef)
+            .on('mousedown', '.mbsc-btn-e,.mbsc-fr-btn-e', prevdef)
             .on('touchstart mousedown', function (ev) {
                 // Need this to prevent opening of sidemenus or similar
                 if (s.stopProp) {
@@ -238,7 +240,7 @@ export const Frame = function (el, settings, inherit) {
                 if (ev.keyCode == 32) { // Space
                     ev.preventDefault();
                 } else if (ev.keyCode == 9 && isModal && s.focusTrap) { // Tab
-                    var $focusable = $markup.find('[tabindex="0"]').filter(function () {
+                    var $focusable = $markup.find(FOCUSABLE).filter(function () {
                             return this.offsetWidth > 0 || this.offsetHeight > 0;
                         }),
                         index = $focusable.index($(':focus', $markup)),
@@ -259,10 +261,8 @@ export const Frame = function (el, settings, inherit) {
             .on('touchstart mousedown pointerdown', '.mbsc-fr-btn-e', onBtnStart)
             .on('touchend', '.mbsc-fr-btn-e', onBtnEnd);
 
-        $('input,select,textarea', $markup).on('selectstart mousedown', function (ev) {
-            ev.stopPropagation();
-        }).on('keydown', function (ev) {
-            if (ev.keyCode == 32) { // Space
+        $popup.on('keydown', EDITABLE, function (ev) {
+            if (ev.keyCode == 32 || ev.keyCode == 13) { // Space or Enter
                 ev.stopPropagation();
             }
         });
@@ -365,16 +365,18 @@ export const Frame = function (el, settings, inherit) {
             minWidth = 0,
             totalWidth = 0;
 
-        if (preventPos || !isInserted) {
+        if (!isInserted) {
             return;
         }
-
-        that._position($markup);
 
         newHeight = markup.offsetHeight;
         newWidth = markup.offsetWidth;
 
         if (wndWidth === newWidth && wndHeight === newHeight && check) {
+            return;
+        }
+
+        if (that._checkResp(newWidth)) {
             return;
         }
 
@@ -385,6 +387,8 @@ export const Frame = function (el, settings, inherit) {
             // Reset width
             $wrapper.addClass('mbsc-fr-pos').width('');
         }
+
+        that._position($markup);
 
         // Call position for nested mobiscroll components
         $('.mbsc-comp', $markup).each(function () {
@@ -420,15 +424,6 @@ export const Frame = function (el, settings, inherit) {
             return;
         }
 
-        // Set / unset liquid layout based on screen width, but only if not set explicitly by the user
-        // if (that._isLiquid && s.layout !== 'liquid') {
-        //     if (newWidth < 415) {
-        //         $markup.addClass('mbsc-fr-liq');
-        //     } else {
-        //         $markup.removeClass('mbsc-fr-liq');
-        //     }
-        // }
-
         modalWidth = popup.offsetWidth;
         modalHeight = popup.offsetHeight;
 
@@ -460,15 +455,14 @@ export const Frame = function (el, settings, inherit) {
             left = constrain(anchorLeft - (modalWidth - anchorWidth) / 2, scrollLeft + 3, scrollLeft + newWidth - modalWidth - 3);
 
             // Vertical positioning
-            // Above the input
-            top = anchorTop - modalHeight - arrowHeight / 2;
-            // If doesn't fit above or the input is out of the screen
-            if ((top < scrollTop) || (anchorTop > scrollTop + newHeight)) {
-                $popup.removeClass('mbsc-fr-bubble-top').addClass('mbsc-fr-bubble-bottom');
-                // Below the input
-                top = anchorTop + anchorHeight + arrowHeight / 2;
-            } else {
+            // Below the input
+            top = anchorTop + anchorHeight + arrowHeight / 2;
+            if ((top + modalHeight + 8 > scrollTop + newHeight) && (anchorTop - modalHeight - arrowHeight / 2 > scrollTop)) {
                 $popup.removeClass('mbsc-fr-bubble-bottom').addClass('mbsc-fr-bubble-top');
+                // Above the input
+                top = anchorTop - modalHeight - arrowHeight / 2;
+            } else {
+                $popup.removeClass('mbsc-fr-bubble-top').addClass('mbsc-fr-bubble-bottom');
             }
 
             // Set arrow position
@@ -487,19 +481,15 @@ export const Frame = function (el, settings, inherit) {
 
         if (needsDimensions) {
             // If top + modal height > doc height, increase doc height
+            if (wndWidth) {
+                $persp.css({ width: '', height: '' });
+            }
             docHeight = Math.max(top + modalHeight, hasContext ? ctx.scrollHeight : $(document).height());
             docWidth = Math.max(left + modalWidth, hasContext ? ctx.scrollWidth : $(document).width());
-            $persp.css({
-                width: docWidth,
-                height: docHeight
-            });
+            $persp.css({ width: docWidth, height: docHeight });
 
             // Check if scroll needed
             if (s.scroll && s.display == 'bubble' && ((top + modalHeight + 8 > scrollTop + newHeight) || (anchorTop > scrollTop + newHeight) || (anchorTop + anchorHeight < scrollTop))) {
-                preventPos = true;
-                setTimeout(function () {
-                    preventPos = false;
-                }, 300);
                 $wnd.scrollTop(Math.min(anchorTop, top + modalHeight - newHeight + 8, docHeight - newHeight));
             }
         }
@@ -725,16 +715,18 @@ export const Frame = function (el, settings, inherit) {
             (s.cssClass || '') + ' ' +
             (s.compClass || '') +
             (that._isLiquid ? ' mbsc-fr-liq' : '') +
+            (isPointer ? ' mbsc-fr-pointer' : '') +
             (halfBorder ? ' mbsc-fr-hb' : '') +
             (touched ? '' : ' mbsc-no-touch') +
             (needsLock ? ' mbsc-platform-ios' : '') +
             (hasButtons ? (buttons.length >= 3 ? ' mbsc-fr-btn-block ' : '') : ' mbsc-fr-nobtn') + '">' +
-            (isModal ? '<div class="mbsc-fr-persp"><div class="mbsc-fr-overlay"></div><div role="dialog" tabindex="-1" class="mbsc-fr-scroll">' : '') + // Overlay
+            (isModal ? '<div class="mbsc-fr-persp"><div class="mbsc-fr-overlay"></div><div role="dialog" class="mbsc-fr-scroll">' : '') + // Overlay
             '<div class="mbsc-fr-popup' +
             (s.rtl ? ' mbsc-rtl' : ' mbsc-ltr') +
             (s.headerText ? ' mbsc-fr-has-hdr' : '') +
             '">' + // Popup
             (s.display === 'bubble' ? '<div class="mbsc-fr-arr-w"><div class="mbsc-fr-arr-i"><div class="mbsc-fr-arr"></div></div></div>' : '') + // Bubble arrow
+            (isModal ? '<div class="mbsc-fr-focus" tabindex="-1"></div>' : '') +
             '<div class="mbsc-fr-w">' + // Popup content
             //'<div aria-live="assertive" class="mbsc-fr-aria mbsc-fr-hdn"></div>' +
             (s.headerText ? '<div class="mbsc-fr-hdr">' + (isString(s.headerText) ? s.headerText : '') + '</div>' : '') + // Header
@@ -786,9 +778,10 @@ export const Frame = function (el, settings, inherit) {
         overlay = $overlay[0];
         popup = $popup[0];
 
-        that._activeElm = overlay;
+        that._activeElm = $('.mbsc-fr-focus', $markup)[0];
         that._markup = $markup;
         that._isVisible = true;
+        that.markup = markup;
 
         posEvents = 'orientationchange resize';
 
@@ -998,10 +991,17 @@ export const Frame = function (el, settings, inherit) {
         $header.html(txt || '&nbsp;');
     };
 
-    that._processSettings = function () {
+    that._processSettings = function (resp) {
         var b, i;
 
-        that.__processSettings();
+        that.__processSettings(resp);
+
+        isPointer = !s.touchUi;
+
+        if (isPointer) {
+            s.display = resp.display || settings.display || 'bubble';
+            s.buttons = resp.buttons || settings.buttons || [];
+        }
 
         // Add default buttons
         s.buttons = s.buttons || (s.display !== 'inline' ? ['cancel', 'set'] : []);
@@ -1058,8 +1058,9 @@ export const Frame = function (el, settings, inherit) {
      * Scroller initialization.
      */
     that._init = function () {
+        var wasVisible = that._isVisible;
 
-        if (that._isVisible) {
+        if (wasVisible) {
             that.hide(true, false, true);
         }
 
@@ -1074,6 +1075,9 @@ export const Frame = function (el, settings, inherit) {
             that._readValue();
             if (!that._hasContent) {
                 that.attachShow($elm);
+            }
+            if (wasVisible) {
+                that.show(true);
             }
         } else {
             that.show();
@@ -1130,6 +1134,7 @@ Frame.prototype._defaults = {
     scroll: true,
     scrollLock: true,
     tap: true,
+    touchUi: true,
     btnClass: 'mbsc-fr-btn',
     btnWidth: true,
     focusTrap: true,

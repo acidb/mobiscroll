@@ -19,7 +19,7 @@ export interface MbscScrollerOptions extends MbscFrameOptions {
                 key?: string | number,
                 circular?: boolean,
                 cssClass?: string,
-                data: Array<string | { display: string, value: any }> | ((index: number) => string | { display: string, value: any}),
+                data: Array<string | { display: string, value: any }> | ((index: number) => string | { display: string, value: any }),
                 getIndex?: (value: any) => number
             }
         }
@@ -59,7 +59,7 @@ export class Scroller extends Frame {
                 key?: string | number,
                 circular?: boolean,
                 cssClass?: string,
-                data: Array<string | { display: string, value: any }> | ((index: number) => string | { display: string, value: any}),
+                data: Array<string | { display: string, value: any }> | ((index: number) => string | { display: string, value: any }),
                 getIndex?: (value: any) => number
             },
             [index: string]: {
@@ -67,11 +67,11 @@ export class Scroller extends Frame {
                 key?: string | number,
                 circular?: boolean,
                 cssClass?: string,
-                data: Array<string | { display: string, value: any }> | ((index: number) => string | { display: string, value: any}),
+                data: Array<string | { display: string, value: any }> | ((index: number) => string | { display: string, value: any }),
                 getIndex?: (value: any) => number
             }
-        }, 
-        time: number, 
+        },
+        time: number,
         manual?: boolean): void;
     getValidValue(index?: number, val?: any, dir?: any, dis?: boolean): any;
 }
