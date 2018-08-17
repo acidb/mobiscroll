@@ -38,6 +38,10 @@
     height: auto;
 }
 
+.mbsc-fr-pos {
+    visibility: hidden;
+}
+
 .mbsc-fr-scroll {
     position: relative;
     z-index: 2;
@@ -316,6 +320,7 @@
         display: inline-block;
         margin-top: 3em;
         margin-bottom: 3em;
+        max-width: 98%;
     }
 
     &.mbsc-fr-top .mbsc-fr-popup,
@@ -391,6 +396,7 @@
     /* Desktop style */
     &.mbsc-fr-pointer {
         .mbsc-fr-persp .mbsc-fr-w {
+            border-radius: .25em;
             box-shadow: 0 .25em 1em rgba(0, 0, 0, .3);
         }
     }

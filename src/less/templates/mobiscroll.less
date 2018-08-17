@@ -127,12 +127,15 @@
 
 /* Select */
 
+.mbsc-@{theme} .mbsc-sel-gr-whl {
+    &.mbsc-sel-one .mbsc-sc-itm-sel {
+        color: @mobiscroll-accent;
+    }
+}
+
 .mbsc-@{theme}.mbsc-fr-pointer {
     /* Single select */
     .mbsc-sel-one {
-        .mbsc-sc-itm-sel {
-            color: @mobiscroll-accent;
-        }
         &.mbsc-sc-whl-multi .mbsc-sc-itm-sel {
             color: @mobiscroll-text;
             background: fade(@mobiscroll-accent, 30%);

@@ -1,5 +1,5 @@
 /*!
- * Mobiscroll v4.3.0
+ * Mobiscroll v4.3.2
  * http://mobiscroll.com
  *
  * Copyright 2010-2018, Acid Media
@@ -76,7 +76,7 @@ extend(util, {
 
 ms = extend(mobiscroll, {
     $: $,
-    version: '4.3.0',
+    version: '4.3.2',
     autoTheme: 'mobiscroll',
     themes: {
         form: {},
@@ -138,13 +138,19 @@ const Base = function (el, settings) {
 
     that._checkResp = function (width) {
         if (that._responsive && resp !== getResponsiveSettings(width)) {
-            that.init();
+            that.init({});
             return true;
         }
     };
 
-    that.init = function (ss) {
-        var key;
+    that.init = function (newSettings) {
+        var key,
+            value;
+
+        // In case of settings update save the old value
+        if (newSettings && that.getVal) {
+            value = that.getVal();
+        }
 
         // Reset settings object
         for (key in that.settings) {
@@ -154,7 +160,7 @@ const Base = function (el, settings) {
         s = that.settings;
 
         // Update original user settings
-        extend(settings, ss);
+        extend(settings, newSettings);
 
         // Load user defaults
         if (that._hasDef) {
@@ -210,7 +216,14 @@ const Base = function (el, settings) {
             }
         }
 
-        that._init(ss);
+        that._init(newSettings);
+
+        // In case of settings update reset the value.
+        // This is needed to adapt the value for the updated settings
+        // E.g. min/max, date format, etc.
+        if (newSettings && that.setVal) {
+            that.setVal(value, true);
+        }
 
         trigger('onInit');
     };

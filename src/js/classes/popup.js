@@ -76,7 +76,7 @@ export const Popup = function (el, settings, inherit) {
 
     // Constructor
     if (!inherit) {
-        that.init(settings);
+        that.init();
     }
 };
 

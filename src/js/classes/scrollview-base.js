@@ -672,7 +672,7 @@ export const ScrollViewBase = function (el, settings, inherit) {
     trigger = that.trigger;
 
     if (!inherit) {
-        that.init(settings);
+        that.init();
     }
 };
 

@@ -84,7 +84,9 @@ export class CollapsibleBase {
 
         if (show) {
             if (hasTransition) {
-                this._$content.css('height', this._$content[0].scrollHeight);
+                this._$content
+                    .on('transitionend', removeHeight)
+                    .css('height', this._$content[0].scrollHeight);
             }
             $elm.addClass('mbsc-collapsible-open');
         } else {

@@ -32,9 +32,9 @@ export const Slider = function (elm, settings, inherit) {
 
     // ---
 
-    that.__init = function (ss) {
-        progressInit(ss);
-        sliderInit(ss);
+    that.__init = function () {
+        progressInit();
+        sliderInit();
     };
 
     that.__destroy = function () {
@@ -128,7 +128,7 @@ export const Slider = function (elm, settings, inherit) {
         $tooltips = $parent.find('.mbsc-slider-tooltip');
     };
 
-    that.___init = function (ss) {
+    that.___init = function () {
         if ($parent) {
             $parent.removeClass('mbsc-slider-has-tooltip');
             if (step != 1) {
@@ -144,7 +144,7 @@ export const Slider = function (elm, settings, inherit) {
         s = that.settings;
         min = that._min;
         max = that._max;
-        that._step = step = ss.step === undefined ? +$elm.attr('step') || s.step : ss.step;
+        that._step = step = settings.step === undefined ? +$elm.attr('step') || s.step : settings.step;
         that._live = getBoolAttr('data-live', s.live, $elm);
         hasTooltip = getBoolAttr('data-tooltip', s.tooltip, $elm);
         hasProgress = getBoolAttr('data-highlight', s.highlight, $elm) && $elm.length < 3;
@@ -155,7 +155,7 @@ export const Slider = function (elm, settings, inherit) {
     };
 
     if (!inherit) {
-        that.init(settings);
+        that.init();
     }
 
 };

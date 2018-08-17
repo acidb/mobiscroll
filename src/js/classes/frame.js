@@ -286,7 +286,9 @@ export const Frame = function (el, settings, inherit) {
         that._attachEvents($markup);
 
         // Set position
-        that.position();
+        if (that.position() === false) {
+            return;
+        }
 
         $wnd.on(posEvents, onPosition);
 
@@ -366,7 +368,7 @@ export const Frame = function (el, settings, inherit) {
             totalWidth = 0;
 
         if (!isInserted) {
-            return;
+            return false;
         }
 
         newHeight = markup.offsetHeight;
@@ -377,7 +379,7 @@ export const Frame = function (el, settings, inherit) {
         }
 
         if (that._checkResp(newWidth)) {
-            return;
+            return false;
         }
 
         if (that._isFullScreen || /top|bottom/.test(s.display)) {
@@ -385,7 +387,7 @@ export const Frame = function (el, settings, inherit) {
             $popup.width(newWidth);
         } else if (isModal) {
             // Reset width
-            $wrapper.addClass('mbsc-fr-pos').width('');
+            $wrapper.width('');
         }
 
         that._position($markup);
@@ -408,7 +410,7 @@ export const Frame = function (el, settings, inherit) {
 
             isWrapped = totalWidth > (newWidth - 16) || s.tabs === true;
 
-            $wrapper.removeClass('mbsc-fr-pos').css({
+            $wrapper.css({
                 'width': that._isLiquid ? Math.min(s.maxPopupWidth, newWidth - 16) : Math.ceil(isWrapped ? minWidth : totalWidth),
                 'white-space': isWrapped ? '' : 'nowrap'
             });
@@ -424,15 +426,18 @@ export const Frame = function (el, settings, inherit) {
             return;
         }
 
+        if (needsDimensions) {
+            scrollLeft = $wnd.scrollLeft();
+            scrollTop = $wnd.scrollTop();
+            if (wndWidth) {
+                $persp.css({ width: '', height: '' });
+            }
+        }
+
         modalWidth = popup.offsetWidth;
         modalHeight = popup.offsetHeight;
 
         scrollLock = modalHeight <= newHeight && modalWidth <= newWidth;
-
-        if (needsDimensions) {
-            scrollLeft = $wnd.scrollLeft();
-            scrollTop = $wnd.scrollTop();
-        }
 
         if (s.display == 'center') {
             left = Math.max(0, scrollLeft + (newWidth - modalWidth) / 2);
@@ -481,9 +486,6 @@ export const Frame = function (el, settings, inherit) {
 
         if (needsDimensions) {
             // If top + modal height > doc height, increase doc height
-            if (wndWidth) {
-                $persp.css({ width: '', height: '' });
-            }
             docHeight = Math.max(top + modalHeight, hasContext ? ctx.scrollHeight : $(document).height());
             docWidth = Math.max(left + modalWidth, hasContext ? ctx.scrollWidth : $(document).width());
             $persp.css({ width: docWidth, height: docHeight });
@@ -498,6 +500,7 @@ export const Frame = function (el, settings, inherit) {
         css.left = Math.floor(left);
 
         $popup.css(css);
+        $markup.removeClass('mbsc-fr-pos');
 
         wndWidth = newWidth;
         wndHeight = newHeight;
@@ -532,40 +535,40 @@ export const Frame = function (el, settings, inherit) {
                 }
             }
 
-            if ($elm.is('select')) {
-                return;
-            }
+            if (!$elm.is('select')) {
+                if (s.showOnFocus) {
+                    $elm.on('focus.mbsc', function () {
+                        if (!preventShow) {
+                            show(beforeShow, $elm);
+                        } else {
+                            preventShow = false;
+                        }
+                    });
+                }
 
-            if (s.showOnFocus) {
-                $elm.on('focus.mbsc', function () {
-                    if (!preventShow) {
-                        show(beforeShow, $elm);
-                    } else {
-                        preventShow = false;
-                    }
-                });
-            }
+                if (s.showOnTap) {
+                    $elm.on('keydown.mbsc', function (ev) {
+                        if (ev.keyCode == 32 || ev.keyCode == 13) { // Space or Enter
+                            ev.preventDefault();
+                            ev.stopPropagation();
+                            show(beforeShow, $elm);
+                        }
+                    });
 
-            if (s.showOnTap) {
-                $elm.on('keydown.mbsc', function (ev) {
-                    if (ev.keyCode == 32 || ev.keyCode == 13) { // Space or Enter
-                        ev.preventDefault();
-                        ev.stopPropagation();
-                        show(beforeShow, $elm);
-                    }
-                });
-
-                that.tap($elm, function (ev) {
-                    if (ev.isMbscTap) {
-                        touched = true;
-                    }
-                    show(beforeShow, $elm);
-                });
-
-                if ($label && $label.length) {
-                    that.tap($label, function () {
+                    that.tap($elm, function (ev) {
+                        if (ev.isMbscTap) {
+                            touched = true;
+                        }
                         show(beforeShow, $elm);
                     });
+
+                    if ($label && $label.length) {
+                        that.tap($label, function (ev) {
+                            if (ev.target !== $elm[0]) {
+                                show(beforeShow, $elm);
+                            }
+                        });
+                    }
                 }
             }
 
@@ -617,9 +620,11 @@ export const Frame = function (el, settings, inherit) {
      */
     that.enable = function () {
         s.disabled = false;
-        if (that._isInput) {
-            $elm.prop('disabled', false);
-        }
+        $.each(elmList, function (i, v) {
+            if (v.el.is('input,select')) {
+                v.el[0].disabled = false;
+            }
+        });
     };
 
     /**
@@ -627,9 +632,11 @@ export const Frame = function (el, settings, inherit) {
      */
     that.disable = function () {
         s.disabled = true;
-        if (that._isInput) {
-            $elm.prop('disabled', true);
-        }
+        $.each(elmList, function (i, v) {
+            if (v.el.is('input,select')) {
+                v.el[0].disabled = true;
+            }
+        });
     };
 
     /**
@@ -711,10 +718,12 @@ export const Frame = function (el, settings, inherit) {
         }
 
         // Create wheels containers
-        html = '<div lang="' + s.lang + '" class="mbsc-fr mbsc-' + s.theme + (s.baseTheme ? ' mbsc-' + s.baseTheme : '') + ' mbsc-fr-' + s.display + ' ' +
+        html = '<div lang="' + s.lang + '" class="mbsc-fr mbsc-' + s.theme +
+            (s.baseTheme ? ' mbsc-' + s.baseTheme : '') + ' mbsc-fr-' + s.display + ' ' +
             (s.cssClass || '') + ' ' +
             (s.compClass || '') +
             (that._isLiquid ? ' mbsc-fr-liq' : '') +
+            (isModal ? ' mbsc-fr-pos' : '') +
             (isPointer ? ' mbsc-fr-pointer' : '') +
             (halfBorder ? ' mbsc-fr-hb' : '') +
             (touched ? '' : ' mbsc-no-touch') +
@@ -1057,8 +1066,9 @@ export const Frame = function (el, settings, inherit) {
     /**
      * Scroller initialization.
      */
-    that._init = function () {
-        var wasVisible = that._isVisible;
+    that._init = function (newSettings) {
+        var wasVisible = that._isVisible,
+            wasReady = wasVisible && !$markup.hasClass('mbsc-fr-pos');
 
         if (wasVisible) {
             that.hide(true, false, true);
@@ -1067,17 +1077,17 @@ export const Frame = function (el, settings, inherit) {
         // Unbind all events (if re-init)
         $elm.off('.mbsc');
 
-        that.__init();
+        that.__init(newSettings);
 
         that._isLiquid = s.layout == 'liquid';
 
         if (isModal) {
             that._readValue();
-            if (!that._hasContent) {
+            if (!that._hasContent && !s.skipShow) {
                 that.attachShow($elm);
             }
             if (wasVisible) {
-                that.show(true);
+                that.show(wasReady);
             }
         } else {
             that.show();
@@ -1111,7 +1121,7 @@ export const Frame = function (el, settings, inherit) {
     trigger = that.trigger;
 
     if (!inherit) {
-        that.init(settings);
+        that.init();
     }
 };
 

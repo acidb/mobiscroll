@@ -3,7 +3,7 @@ import { mobiscroll } from '../core/core'; // mobiscroll needed for trial
 /* eslint-enable no-unused-vars */
 import { $, classes } from '../core/core';
 import { ProgressBase } from './progress-base';
-import { addIcon, wrapLabel } from '../util/forms';
+import { addIcon, wrapLabel } from './form-control';
 
 export const Progress = function (elm, settings, inherit) {
     var $display,
@@ -86,7 +86,7 @@ export const Progress = function (elm, settings, inherit) {
         $elm.on('change', onChange);
     };
 
-    that.__init = function (ss) {
+    that.__init = function () {
 
         var displayValue,
             i,
@@ -103,8 +103,8 @@ export const Progress = function (elm, settings, inherit) {
         $parent = that._$parent;
 
         // Read settings from data attributes or settings object
-        min = that._min = ss.min === undefined ? getAttr('min', s.min) : ss.min;
-        max = that._max = ss.max === undefined ? getAttr('max', s.max) : ss.max;
+        min = that._min = settings.min === undefined ? getAttr('min', s.min) : settings.min;
+        max = that._max = settings.max === undefined ? getAttr('max', s.max) : settings.max;
         value = getAttr('value', min);
         displayValue = $elm.attr('data-val') || s.val;
         stepLabels = $elm.attr('data-step-labels');
@@ -186,7 +186,7 @@ export const Progress = function (elm, settings, inherit) {
     };
 
     if (!inherit) {
-        that.init(settings);
+        that.init();
     }
 };
 

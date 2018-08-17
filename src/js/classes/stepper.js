@@ -89,15 +89,15 @@ export const Stepper = function (control, settings) {
         setValue(isNaN(v) ? val : v, fill, change);
     };
 
-    that._init = function (ss) {
+    that._init = function () {
         ready = $control.parent().hasClass('mbsc-stepper');
         $parent = ready ? $control.closest('.mbsc-stepper-cont') : $control.parent();
 
         s = that.settings;
 
-        min = ss.min === undefined ? getAttr('min', s.min) : ss.min;
-        max = ss.max === undefined ? getAttr('max', s.max) : ss.max;
-        step = ss.step === undefined ? getAttr('step', s.step) : ss.step;
+        min = settings.min === undefined ? getAttr('min', s.min) : settings.min;
+        max = settings.max === undefined ? getAttr('max', s.max) : settings.max;
+        step = settings.step === undefined ? getAttr('step', s.step) : settings.step;
         displayValue = $control.attr('data-val') || s.val;
         val = Math.min(max, Math.max(Math.round(+control.value / step) * step || 0, min));
 
@@ -152,7 +152,7 @@ export const Stepper = function (control, settings) {
         delete control.mbscInst;
     };
 
-    that.init(settings);
+    that.init();
 
 };
 

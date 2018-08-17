@@ -74,7 +74,7 @@ export const Form = function (el, settings) {
 
     s = that.settings;
 
-    that.init(settings);
+    that.init();
 };
 
 // Extend defaults

@@ -61,7 +61,7 @@ export const Rating = function (elm, settings, inherit) {
     };
 
     if (!inherit) {
-        that.init(settings);
+        that.init();
     }
 
 };

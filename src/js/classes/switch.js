@@ -77,7 +77,7 @@ export const Switch = function (elm, settings) {
         that._setVal(val ? 1 : 0, fill, change);
     };
 
-    that.init(settings);
+    that.init();
 };
 
 Switch.prototype = {

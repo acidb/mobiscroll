@@ -1,5 +1,4 @@
-import { FormControl } from './form-control';
-import { addIconToggle } from '../util/forms';
+import { FormControl, addIconToggle } from './form-control';
 
 export class Input extends FormControl {
     constructor(elm, settings) {

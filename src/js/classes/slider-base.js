@@ -261,14 +261,14 @@ export const SliderBase = function (elm, settings, inherit) {
             $handleCont.addClass('mbsc-slider-start');
         }
 
+        // Store new value
+        value[index] = v;
+
         // Check if value changed
         if (fill && oldValue[index] != v) {
             changed = true;
 
             oldValue[index] = v;
-
-            // Store new value
-            value[index] = v;
 
             // Set new value to the input
             that._fillValue(v, index, change);
@@ -290,7 +290,7 @@ export const SliderBase = function (elm, settings, inherit) {
         $elm.on(s.changeEvent, onChange);
     };
 
-    that.__init = function (ss) {
+    that.__init = function () {
         var wasInit;
 
         if ($handles) {
@@ -298,7 +298,7 @@ export const SliderBase = function (elm, settings, inherit) {
             $handles.parent().remove();
         }
 
-        that.___init(ss);
+        that.___init();
 
         $parent = that._$parent;
         $track = that._$track;
@@ -395,7 +395,7 @@ export const SliderBase = function (elm, settings, inherit) {
     };
 
     if (!inherit) {
-        that.init(settings);
+        that.init();
     }
 
 };

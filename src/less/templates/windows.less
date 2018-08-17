@@ -1402,6 +1402,11 @@
 /* Select */
 
 .mbsc-@{theme} {
+    .mbsc-sel-gr-whl {
+        &.mbsc-sel-one .mbsc-sc-itm-sel {
+            color: @windows-accent;
+        }
+    }
     /* Filter */
     .mbsc-sel-filter-clear {
         color: @windows-text;
@@ -1410,9 +1415,6 @@
     &.mbsc-fr-pointer {
         /* Single select */
         .mbsc-sel-one {
-            .mbsc-sc-itm-sel {
-                color: @windows-accent;
-            }
             &.mbsc-sc-whl-multi .mbsc-sc-itm-sel {
                 color: @windows-text;
                 background: fade(@windows-accent, 20%);

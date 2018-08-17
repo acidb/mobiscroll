@@ -118,6 +118,11 @@ export const Scroller = function (el, settings, inherit) {
 
     // Private functions
 
+    function shouldSet(i, noscroll) {
+        var wheel = wheels[i];
+        return wheel && (!wheel.multiple || (wheel.multiple !== 1 && noscroll && (s.setOnTap === true || s.setOnTap[i])));
+    }
+
     function getMin(wheel) {
         return -(wheel.max - wheel._offset - (wheel.multiple && !scroll3d ? Math.floor(s.rows / 2) : 0)) * itemHeight;
     }
@@ -441,7 +446,7 @@ export const Scroller = function (el, settings, inherit) {
         }
 
         // If in live mode, set and fill value on every move
-        if (that.live) {
+        if (that.live && shouldSet(index, noscroll)) {
             that._hasValue = manual || that._hasValue;
             setValue(manual, manual, 0, true);
             if (manual) {
@@ -805,7 +810,13 @@ export const Scroller = function (el, settings, inherit) {
         }
     };
 
-    that.__init = function () {
+    that.__init = function (newSettings) {
+        if (newSettings) {
+            // Reset wheel array in case of setting change,
+            // since it might affect the number of wheels
+            that._wheelArray = null;
+        }
+
         if (isPointer) {
             s.scroll3d = false;
             hasScrollbar = true;
@@ -836,7 +847,7 @@ export const Scroller = function (el, settings, inherit) {
 
     // Constructor
     if (!inherit) {
-        that.init(settings);
+        that.init();
     }
 };
 

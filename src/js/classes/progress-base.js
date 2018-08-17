@@ -15,7 +15,7 @@ export const ProgressBase = function (elm, settings, inherit) {
 
     that.__destroy = noop;
 
-    that._init = function (ss) {
+    that._init = function () {
 
         var wasInit;
 
@@ -41,7 +41,7 @@ export const ProgressBase = function (elm, settings, inherit) {
 
         $elm.addClass('mbsc-control');
 
-        that.__init(ss);
+        that.__init();
 
         if (!wasInit) {
             that._attachChange();
@@ -65,6 +65,6 @@ export const ProgressBase = function (elm, settings, inherit) {
     };
 
     if (!inherit) {
-        that.init(settings);
+        that.init();
     }
 };
