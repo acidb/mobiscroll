@@ -17,12 +17,15 @@
 .light-or-dark() when (lightness(@material-background) > 50%) {
     @material-border: lighten(@material-text, 40%);
     @material-scrollbar-track: rgba(0, 0, 0, .05);
+    @material-box-bck: darken(@material-background, 7%);
+
 }
 
 // Dark background 
 .light-or-dark() when (lightness(@material-background) <=50%) {
     @material-border: darken(@material-text, 40%);
     @material-scrollbar-track: rgba(255, 255, 255, .2);
+    @material-box-bck: lighten(@material-background, 7%);
 }
 
 
@@ -48,6 +51,7 @@
 @output3_7: hsv(hsvhue(@input3), hsvsaturation(@input3), @isLight3_7);
 @deltainput2: red(@input2)*0.299 + green(@input2)*0.587 + blue(@input2)*0.114;
 @snackbar_action: hsl(hue(@input1), saturation(@input1), max(lightness(@input1), 34%));
+@error: #de3226;
 .x();
 .x() when (@deltainput2 >=140) {
     @isLight1_2: min(hsvvalue(@input1) + 24%, 100%);
@@ -519,6 +523,45 @@
 }
 
 
+/* Box Input */
+
+.mbsc-@{theme} .mbsc-input-box .mbsc-input-wrap {
+    background: @material-box-bck;
+}
+
+/* Outline Input */
+
+.mbsc-@{theme} .mbsc-input-outline {
+    input,
+    textarea {
+        border-color: @output3_2;
+    }
+    
+    .mbsc-label {
+        background: @material-background;
+    }
+
+    input:focus,
+    select:focus ~ input {
+        border-color: @material-accent;
+    }
+
+    &.mbsc-err input,
+    &.mbsc-err input:focus {
+        border-color: @error;
+    }
+
+    textarea:focus {
+        border-color: @material-accent;
+    }
+
+    &.mbsc-err textarea,
+    &.mbsc-err textarea:focus {
+        border-color: @error;
+    }
+}
+
+
 /* Select */
 
 .mbsc-@{theme} .mbsc-select .mbsc-input-wrap:after {
@@ -762,5 +805,8 @@
     }
     .mbsc-card-footer {
         border-color: @material-border;
+    }
+    &.mbsc-card .mbsc-input-outline .mbsc-label {
+        background: lighten(@material-background, 4.8%);
     }
 }

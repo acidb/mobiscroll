@@ -2,10 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {
     $,
-    extend,
     mobiscroll,
     classes,
-    updateCssClasses,
     PropTypes,
     MbscOptimized,
     CorePropTypes,
@@ -63,33 +61,35 @@ class MbscForm extends MbscOptimized {
 
     static propTypes = {
         ...CorePropTypes,
+        labelStyle: reactString,
+        inputStyle: reactString,
         onInit: reactFunc
     }
 
-    componentDidMount = () => {
+    componentDidMount() {
         // get settings from state
-        var settings = extend({}, this.state.options);
+        var settings = this.getSettingsFromProps(this.props);
         // initialize the mobiscroll
         this.instance = new Form(ReactDOM.findDOMNode(this), settings);
     }
 
-    componentDidUpdate = () => {
+    componentDidUpdate() {
         if (!this.optimizeUpdate.updateOptions && this.optimizeUpdate.updateChildren) {
             this.instance.refresh(true);
         } else if (this.optimizeUpdate.updateOptions) {
-            var settings = extend({}, this.state.options);
+            var settings = this.getSettingsFromProps(this.props);
             this.instance.option(settings);
         }
     }
 
-    checkFormWrapper = (component) => {
+    checkFormWrapper(component) {
         if (React.Children.count(component.props.children) == 1) {
             return (component.props.children.type == 'form');
         }
         return false;
     }
 
-    render = () => {
+    render() {
         // passing through some of the element properties to its children
         var {
             action,
@@ -114,13 +114,10 @@ mobiscroll.Form = MbscForm;
 class MbscLabel extends React.Component {
     constructor(props) {
         super(props);
-        this.initialCssClass = (this.props.className || '') + (this.props.valid === undefined || this.props.valid ? '' : ' mbsc-err');
-        this.state = {
-            cssClasses: this.props.className || ''
-        };
     }
 
     static propTypes = {
+        ...MbscForm.propTypes,
         valid: PropTypes.bool,
         color: PropTypes.string,
         presetName: PropTypes.string
@@ -139,25 +136,22 @@ class MbscLabel extends React.Component {
         } = this.props;
 
         /* eslint-enable */
-        var presetClass = '';
-        if (color) {
-            presetClass = 'mbsc-' + presetName + '-' + color;
-        }
-        var cssClass = presetClass + (this.initialCssClass ? ' ' : '') + this.initialCssClass;
-        return <label className={cssClass} {...other}>{children}</label>;
-    }
+        const cssClasses = [];
 
-    componentWillReceiveProps = (nextProps) => {
-        var currentClasses = (this.state.cssClasses || '') + (this.props.valid === undefined || this.props.valid ? '' : ' mbsc-err'),
-            nextClasses = (nextProps.className || '') + (this.props.valid === undefined || nextProps.valid ? '' : ' mbsc-err');
-        if (currentClasses != nextClasses || nextProps.valid != this.props.valid) {
-            updateCssClasses.call(this, currentClasses, nextClasses);
+        if (color) {
+            cssClasses.push('mbsc-' + presetName + '-' + color);
         }
-        if (this.state.cssClasses !== nextProps.cssClasses) {
-            this.setState({
-                cssClasses: nextProps.className
-            });
+        if (className) {
+            cssClasses.push(className);
         }
+        if (valid !== undefined && !valid) {
+            cssClasses.push('mbsc-err');
+        }
+        var cssClass = '';
+        if (cssClasses.length) {
+            cssClass = cssClasses.reduce((pv, cv) => pv + ' ' + cv).replace(/\s+/g, ' ').trim();
+        }
+        return <label className={cssClass} {...other}>{children}</label>;
     }
 }
 
@@ -167,6 +161,7 @@ mobiscroll.Label = MbscLabel;
 class MbscInput extends MbscInit {
     constructor(props) {
         super(props);
+        this.inputMounted = this.inputMounted.bind(this);
     }
 
     static propTypes = {
@@ -179,31 +174,42 @@ class MbscInput extends MbscInit {
         passwordToggle: PropTypes.bool,
         iconShow: PropTypes.string,
         iconHide: PropTypes.string,
-        name: PropTypes.string
+        name: PropTypes.string,
+        dropdown: PropTypes.bool,
+        inputStyle: PropTypes.string,
+        labelStyle: PropTypes.string
     }
 
-    componentDidMount = () => {
-        var settings = extend({}, this.state.options);
+    componentDidMount() {
+        var settings = this.getSettingsFromProps(this.props);
         this.instance = new Input(this.inputNode, settings);
     }
 
-    inputMounted = (input) => {
+    inputMounted(input) {
         this.inputNode = input;
     }
 
-    render = () => {
-        var { valid, errorMessage, type, icon, iconAlign, passwordToggle, iconShow, iconHide, children, ...other } = this.props;
+    render() {
+        /* eslint-disable no-unused-vars */
+        var { valid, errorMessage, type, icon, iconAlign, passwordToggle, iconShow, iconHide, inputStyle, labelStyle, children, dropdown, ...other } = this.props;
+        /* eslint-enable */
+
         var error = null;
         if (errorMessage && !valid) {
             error = <span className="mbsc-err-msg">{errorMessage}</span>;
         }
+        var drop = null;
+        if (dropdown) {
+            drop = <span className="mbsc-select-ic mbsc-ic mbsc-ic-arrow-down5"></span>;
+        }
 
         type = type || 'text';
 
-        return <MbscLabel valid={valid}>
+        return <MbscLabel valid={valid} className={dropdown ? 'mbsc-select' : ''}>
             {children}
             <span className="mbsc-input-wrap">
                 <input ref={this.inputMounted} type={type} data-icon={icon} data-icon-align={iconAlign} data-password-toggle={passwordToggle} data-icon-show={iconShow} data-icon-hide={iconHide} {...other} />
+                {drop}
                 {error}
             </span>
         </MbscLabel>;
@@ -215,6 +221,7 @@ mobiscroll.Input = MbscInput;
 class MbscTextArea extends MbscOptimized {
     constructor(props) {
         super(props);
+        this.textMounted = this.textMounted.bind(this);
     }
 
     static propTypes = {
@@ -223,14 +230,16 @@ class MbscTextArea extends MbscOptimized {
         errorMessage: PropTypes.string,
         icon: PropTypes.string,
         iconAlign: PropTypes.string,
-        name: PropTypes.string
+        name: PropTypes.string,
+        inputStyle: PropTypes.string,
+        labelStyle: PropTypes.string
     }
 
     /**
      * Override
      */
-    componentDidUpdate = () => {
-        var settings = extend({}, this.state.options);
+    componentDidUpdate() {
+        var settings = this.getSettingsFromProps(this.props);
         if (this.optimizeUpdate) {
             if (this.optimizeUpdate.updateOptions) {
                 this.instance.option(settings);
@@ -240,23 +249,25 @@ class MbscTextArea extends MbscOptimized {
             }
         } else {
             this.instance.option(settings);
-            if (this.state.value !== undefined) {
+            if (this.props.value !== undefined) {
                 this.instance.resize();
             }
         }
     }
 
-    componentDidMount = () => {
-        var settings = extend({}, this.state.options);
+    componentDidMount() {
+        var settings = this.getSettingsFromProps(this.props);
         this.instance = new TextArea(this.inputNode, settings);
     }
 
-    textMounted = (input) => {
+    textMounted(input) {
         this.inputNode = input;
     }
 
-    render = () => {
-        var { valid, errorMessage, icon, iconAlign, children, ...other } = this.props;
+    render() {
+        /* eslint-disable no-unused-vars */
+        var { valid, errorMessage, icon, iconAlign, inputStyle, labelStyle, children, ...other } = this.props;
+        /* eslint-enable */
         var error = null;
         if (errorMessage && !valid) {
             error = <span className="mbsc-err-msg">{errorMessage}</span>;
@@ -277,6 +288,7 @@ mobiscroll.Textarea = MbscTextArea;
 class MbscDropdown extends MbscInit {
     constructor(props) {
         super(props);
+        this.selectMounted = this.selectMounted.bind(this);
     }
 
     static propTypes = {
@@ -286,24 +298,28 @@ class MbscDropdown extends MbscInit {
         errorMessage: PropTypes.string,
         icon: PropTypes.string,
         iconAlign: PropTypes.string,
-        name: PropTypes.string
+        name: PropTypes.string,
+        inputStyle: PropTypes.string,
+        labelStyle: PropTypes.string
     }
 
-    componentDidMount = () => {
-        var settings = extend({}, this.state.options);
+    componentDidMount() {
+        var settings = this.getSettingsFromProps(this.props);
         this.instance = new Select(this.selectNode, settings);
     }
 
-    selectMounted = (select) => {
+    selectMounted(select) {
         this.selectNode = select;
     }
 
-    componentDidUpdate = () => {
+    componentDidUpdate() {
         this.instance._setText();
     }
 
-    render = () => {
-        var { label, valid, errorMessage, icon, iconAlign, children, ...other } = this.props;
+    render() {
+        /* eslint-disable no-unused-vars */
+        var { label, valid, errorMessage, icon, iconAlign, inputStyle, labelStyle, children, ...other } = this.props;
+        /* eslint-enable */
         var error = null;
         if (errorMessage && !valid) {
             error = <span className="mbsc-err-msg">{errorMessage}</span>;
@@ -328,6 +344,7 @@ mobiscroll.Dropdown = MbscDropdown;
 class MbscButton extends MbscInit {
     constructor(props) {
         super(props);
+        this.btnMounted = this.btnMounted.bind(this);
     }
 
     static propTypes = {
@@ -341,16 +358,16 @@ class MbscButton extends MbscInit {
         name: PropTypes.string
     }
 
-    componentDidMount = () => {
-        var settings = extend({}, this.state.options);
+    componentDidMount() {
+        var settings = this.getSettingsFromProps(this.props);
         this.instance = new Button(this.btnNode, settings);
     }
 
-    btnMounted = (btn) => {
+    btnMounted(btn) {
         this.btnNode = btn;
     }
 
-    render = () => {
+    render() {
         var { type, children, color, flat, block, outline, icon, ...other } = this.props;
         type = type || 'button';
 
@@ -381,6 +398,7 @@ mobiscroll.Button = MbscButton;
 class MbscCheckbox extends MbscInit {
     constructor(props) {
         super(props);
+        this.inputMounted = this.inputMounted.bind(this);
     }
 
     static propTypes = {
@@ -389,16 +407,16 @@ class MbscCheckbox extends MbscInit {
         name: PropTypes.string
     }
 
-    componentDidMount = () => {
-        var settings = extend({}, this.state.options);
+    componentDidMount() {
+        var settings = this.getSettingsFromProps(this.props);
         this.instance = new CheckBox(this.inputNode, settings);
     }
 
-    inputMounted = (inp) => {
+    inputMounted(inp) {
         this.inputNode = inp;
     }
 
-    render = () => {
+    render() {
         var { color, children, ...other } = this.props;
         return <MbscLabel color={color} presetName="checkbox">
             <input ref={this.inputMounted} type="checkbox" {...other} />
@@ -412,6 +430,7 @@ mobiscroll.Checkbox = MbscCheckbox;
 class MbscRadio extends MbscInit {
     constructor(props) {
         super(props);
+        this.inputMounted = this.inputMounted.bind(this);
     }
 
     static propTypes = {
@@ -420,16 +439,16 @@ class MbscRadio extends MbscInit {
         disabled: PropTypes.bool
     }
 
-    componentDidMount = () => {
-        var settings = extend({}, this.state.options);
+    componentDidMount() {
+        var settings = this.getSettingsFromProps(this.props);
         this.instance = new Radio(this.inputNode, settings);
     }
 
-    inputMounted = (inp) => {
+    inputMounted(inp) {
         this.inputNode = inp;
     }
 
-    render = () => {
+    render() {
         var { color, children, ...other } = this.props;
         return <MbscLabel color={color} presetName="radio">
             <input ref={this.inputMounted} type="radio" {...other} />
@@ -443,6 +462,7 @@ mobiscroll.Radio = MbscRadio;
 class MbscSegmented extends MbscInit {
     constructor(props) {
         super(props);
+        this.inputMounted = this.inputMounted.bind(this);
     }
 
     static propTypes = {
@@ -453,16 +473,16 @@ class MbscSegmented extends MbscInit {
         icon: PropTypes.string
     }
 
-    componentDidMount = () => {
-        var settings = extend({}, this.state.options);
+    componentDidMount() {
+        var settings = this.getSettingsFromProps(this.props);
         this.instance = new SegmentedItem(this.inputNode, settings);
     }
 
-    inputMounted = (inp) => {
+    inputMounted(inp) {
         this.inputNode = inp;
     }
 
-    render = () => {
+    render() {
         var { color, children, multiSelect, icon, ...other } = this.props;
         var type = multiSelect ? 'checkbox' : 'radio';
         return <MbscLabel color={color} presetName="segmented">
@@ -478,6 +498,7 @@ class MbscFormBase extends MbscOptimized {
     constructor(props, presetName) {
         super(props);
         this.presetName = presetName;
+        this.inputMounted = this.inputMounted.bind(this);
     }
 
     static propTypes = {
@@ -485,26 +506,26 @@ class MbscFormBase extends MbscOptimized {
         color: reactString
     }
 
-    componentDidMount = () => {
+    componentDidMount() {
         // get settings from state
-        var settings = extend({}, this.mbscInit, this.state.options);
+        var settings = this.getSettingsFromProps(this.props, this.mbscInit);
 
         // initialize the mobiscroll
         this.instance = new classes[this.mbscInit.component || 'Scroller'](this.inputNode, settings);
 
-        if (this.state.value !== undefined) {
-            this.instance.setVal(this.state.value, true);
+        if (this.props.value !== undefined) {
+            this.instance.setVal(this.props.value, true);
         }
 
         // Add change event listener if handler is passed
         $(this.inputNode).on('change', this.props.onChange || (function () { }));
     }
 
-    inputMounted = (input) => {
+    inputMounted(input) {
         this.inputNode = input;
     }
 
-    render = () => {
+    render() {
         /* eslint-disable no-unused-vars */
         // justification: variables 'value', 'onChange' and 'className' are declared due to object decomposition
         var {
@@ -569,6 +590,7 @@ mobiscroll.Stepper = MbscStepper;
 class MbscProgress extends MbscOptimized {
     constructor(props) {
         super(props);
+        this.progressMounted = this.progressMounted.bind(this);
     }
 
     static propTypes = {
@@ -582,21 +604,21 @@ class MbscProgress extends MbscOptimized {
         color: reactString
     }
 
-    componentDidMount = () => {
+    componentDidMount() {
         // get settings from state
-        var settings = extend({}, this.state.options);
+        var settings = this.getSettingsFromProps(this.props);
         // initialize the mobiscroll
         this.instance = new Progress(this.progressNode, settings);
-        if (this.state.value !== undefined) {
-            this.instance.setVal(this.state.value, true);
+        if (this.props.value !== undefined) {
+            this.instance.setVal(this.props.value, true);
         }
     }
 
-    progressMounted = (progress) => {
+    progressMounted(progress) {
         this.progressNode = progress;
     }
 
-    render = () => {
+    render() {
         /* eslint-disable no-unused-vars */
         // justification: variable 'value' and 'className' is defined due to object decomposotion
         var {
@@ -626,6 +648,8 @@ mobiscroll.Progress = MbscProgress;
 class MbscSlider extends MbscOptimized {
     constructor(props) {
         super(props);
+        this.firstInputMounted = this.firstInputMounted.bind(this);
+        this.parentMounted = this.parentMounted.bind(this);
     }
 
     static propTypes = {
@@ -644,14 +668,14 @@ class MbscSlider extends MbscOptimized {
         color: reactString
     }
 
-    componentDidMount = () => {
+    componentDidMount() {
         // get settings from state 
-        var settings = extend({}, this.state.options);
+        var settings = this.getSettingsFromProps(this.props);
         // initialize the mobiscroll
         this.instance = new Slider(this.firstInput, settings);
 
-        if (this.state.value !== undefined) {
-            this.instance.setVal(this.state.value, true);
+        if (this.props.value !== undefined) {
+            this.instance.setVal(this.props.value, true);
         }
         var that = this;
         // our own change handler - to receive the change event
@@ -663,20 +687,20 @@ class MbscSlider extends MbscOptimized {
         });
     }
 
-    firstInputMounted = (input) => {
+    firstInputMounted(input) {
         this.firstInput = input;
     }
 
-    parentMounted = (label) => {
+    parentMounted(label) {
         this.label = label;
     }
 
-    onValueChanged = () => {
+    onValueChanged() {
         // this is not triggered - or the event propagation is stopped somewhere on the line
         // to counter this we attach our own change handler in the `componentDidMount` function 
     }
 
-    render = () => {
+    render() {
         /* eslint-disable no-unused-vars */
         // justification: variable 'onChange' and 'className' is defined due to object decomposotion
         var {
@@ -723,6 +747,8 @@ mobiscroll.Slider = MbscSlider;
 class MbscRating extends MbscOptimized {
     constructor(props) {
         super(props);
+        this.inputMounted = this.inputMounted.bind(this);
+        this.parentMounted = this.parentMounted.bind(this);
     }
 
     static propTypes = {
@@ -739,13 +765,13 @@ class MbscRating extends MbscOptimized {
         color: reactString
     }
 
-    componentDidMount = () => {
+    componentDidMount() {
         // get settings from state
-        var settings = extend({}, this.state.options);
+        var settings = this.getSettingsFromProps(this.props);
         // initialize the mobiscroll
         this.instance = new Rating(this.inputNode, settings);
-        if (this.state.value !== undefined) {
-            this.instance.setVal(this.state.value, true);
+        if (this.props.value !== undefined) {
+            this.instance.setVal(this.props.value, true);
         }
 
         $(this.label).on('change', () => {
@@ -756,15 +782,15 @@ class MbscRating extends MbscOptimized {
         });
     }
 
-    inputMounted = (input) => {
+    inputMounted(input) {
         this.inputNode = input;
     }
 
-    parentMounted = (label) => {
+    parentMounted(label) {
         this.label = label;
     }
 
-    render = () => {
+    render() {
         /* eslint-disable no-unused-vars */
         // justification: variable 'value' and 'className' is defined due to object decomposotion
         var {
@@ -806,7 +832,7 @@ class MbscFormGroup extends React.Component {
         open: PropTypes.bool
     }
 
-    componentDidMount = () => {
+    componentDidMount() {
         if (this.props.collapsible !== undefined) {
             let isOpen = this.props.open || false;
 
@@ -814,7 +840,7 @@ class MbscFormGroup extends React.Component {
         }
     }
 
-    componentDidUpdate = (prevProps) => {
+    componentDidUpdate(prevProps) {
         if (this.props.open !== undefined && (this.props.open != prevProps.open)) {
             if (this.props.open) {
                 this.instance.show();
@@ -824,7 +850,7 @@ class MbscFormGroup extends React.Component {
         }
     }
 
-    render = () => {
+    render() {
         /* eslint-disable no-unused-vars */
         let { children, inset, collapsible, ...other } = this.props;
         let cssClasses = "mbsc-form-group " + (inset !== undefined ? '-inset' : '') + (this.props.className || '');
@@ -835,7 +861,8 @@ class MbscFormGroup extends React.Component {
     }
 }
 
-mobiscroll.MbscFormGroup = MbscFormGroup;
+mobiscroll.FormGroup = MbscFormGroup;
+mobiscroll.MbscFormGroup = MbscFormGroup; // deprecated
 
 class MbscFormGroupTitle extends React.Component {
     constructor(props) {
@@ -843,12 +870,13 @@ class MbscFormGroupTitle extends React.Component {
         this.cssClasses = "mbsc-form-group-title " + (this.props.className || '');
     }
 
-    render = () => {
+    render() {
         return <div className={this.cssClasses}>{this.props.children}</div>;
     }
 }
 
-mobiscroll.MbscFormGroupTitle = MbscFormGroupTitle;
+mobiscroll.FormGroupTitle = MbscFormGroupTitle;
+mobiscroll.MbscFormGroupTitle = MbscFormGroupTitle; // deprecated
 
 class MbscFormGroupContent extends React.Component {
     constructor(props) {
@@ -856,12 +884,13 @@ class MbscFormGroupContent extends React.Component {
         this.cssClasses = "mbsc-form-group-content " + (this.props.className || '');
     }
 
-    render = () => {
+    render() {
         return <div className={this.cssClasses}>{this.props.children}</div>;
     }
 }
 
-mobiscroll.MbscFormGroupContent = MbscFormGroupContent;
+mobiscroll.FormGroupContent = MbscFormGroupContent;
+mobiscroll.MbscFormGroupContent = MbscFormGroupContent; // deprecated
 
 
 class MbscAccordion extends React.Component {
@@ -870,7 +899,7 @@ class MbscAccordion extends React.Component {
         this.cssClasses = "mbsc-accordion " + (this.props.className || '');
     }
 
-    render = () => {
+    render() {
         return <div className={this.cssClasses}>{this.props.children}</div>;
     }
 }

@@ -1,21 +1,36 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { extend, mobiscroll, PropTypes, MbscOptimized, CorePropTypes } from './frameworks/react';
+import { extend, mobiscroll, PropTypes, MbscBase, CorePropTypes, deepCompare } from './frameworks/react';
 import { Page } from './classes/page';
 
-class MbscPage extends MbscOptimized {
+
+class MbscPage extends MbscBase {
     constructor(props) {
         super(props);
     }
 
-    componentDidMount = () => {
+    componentDidMount() {
         // get settings from state
-        var settings = extend({}, this.state.options);
+        var settings = this.getSettingsFromProps(this.props);
         // initialize the mobiscroll
         this.instance = new Page(ReactDOM.findDOMNode(this), settings);
     }
 
-    render = () => {
+    shouldComponentUpdate(nextProps) {
+        const thisOptions = this.getSettingsFromProps(this.props);
+        const nextOptions = this.getSettingsFromProps(nextProps);
+        // check if the options or the value changed
+        var updateOptions = !deepCompare(thisOptions, nextOptions);
+
+        // save what should be updated inside mobiscroll
+        this.optimizeUpdate = {
+            updateOptions: updateOptions
+        };
+        // component should update always, since it's a wrapper component, and it should not block any context
+        return true;
+    }
+
+    render() {
         return <div className={this.initialCssClass}>{this.props.children}</div>;
     }
 }
@@ -39,7 +54,7 @@ class MbscNote extends React.Component {
         color: 'primary'
     }
 
-    render = () => {
+    render() {
         var className = 'mbsc-note mbsc-note-' + this.props.color;
         return <div className={className}>{this.props.children}</div>;
     }
@@ -50,7 +65,7 @@ class MbscAvatar extends React.Component {
         super(props);
     }
 
-    render = () => {
+    render() {
         return <img className="mbsc-avatar" src={this.props.src} alt={this.props.alt} />;
     }
 }

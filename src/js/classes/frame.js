@@ -293,6 +293,7 @@ export const Frame = function (el, settings, inherit) {
         $wnd.on(posEvents, onPosition);
 
         if (isModal) {
+            $markup.removeClass('mbsc-fr-pos');
             if (doAnim && !prevAnim) {
                 $markup
                     .addClass('mbsc-anim-in mbsc-anim-trans mbsc-anim-trans-' + doAnim)
@@ -500,7 +501,6 @@ export const Frame = function (el, settings, inherit) {
         css.left = Math.floor(left);
 
         $popup.css(css);
-        $markup.removeClass('mbsc-fr-pos');
 
         wndWidth = newWidth;
         wndHeight = newHeight;

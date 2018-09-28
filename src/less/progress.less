@@ -115,98 +115,153 @@
     margin-right: -1.75em;
 }
 
+/* Inline labels */
+
+.mbsc-label-inline.mbsc-progress.mbsc-control-w {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+
+    .mbsc-input-wrap {
+        -webkit-box-flex: 1;
+        -webkit-flex: 1 auto;
+        -moz-box-flex: 1;
+        -moz-flex: 1 auto;
+        -ms-flex: 1 auto;
+        flex: 1 auto;
+    }
+
+    .mbsc-label {
+        position: static;
+        -webkit-box-flex: 0;
+        -webkit-flex: 0 auto;
+        -moz-box-flex: 0;
+        -moz-flex: 0 0 auto;
+        -ms-flex: 0 0 auto;
+        flex: 0 0 auto;
+        font-size: 1em;
+        line-height: 2.125em;
+        width: 30%;
+        max-width: 12.5em;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+}
 
 /* Mobiscroll Theme */
 
-.mbsc-mobiscroll.mbsc-progress {
-    padding: 1em;
-}
-
-.mbsc-mobiscroll.mbsc-progress .mbsc-label {
-    font-size: .75em;
-}
-
-.mbsc-mobiscroll.mbsc-progress .mbsc-input-ic {
-    top: .0625em;
-    margin: 0;
-    color: #787878;
-}
-
-.mbsc-ltr.mbsc-mobiscroll.mbsc-progress.mbsc-ic-left,
-.mbsc-rtl.mbsc-mobiscroll.mbsc-progress.mbsc-ic-right {
-    padding-left: 3.25em;
-}
-
-.mbsc-ltr.mbsc-mobiscroll.mbsc-progress.mbsc-ic-right,
-.mbsc-rtl.mbsc-mobiscroll.mbsc-progress.mbsc-ic-left {
-    padding-right: 3.25em;
-}
-
-.mbsc-ltr.mbsc-mobiscroll.mbsc-progress.mbsc-ic-left .mbsc-left-ic,
-.mbsc-rtl.mbsc-mobiscroll.mbsc-progress.mbsc-ic-right .mbsc-right-ic {
-    right: auto;
-    left: -2.625em;
-}
-
-.mbsc-ltr.mbsc-mobiscroll.mbsc-progress.mbsc-ic-right .mbsc-right-ic,
-.mbsc-rtl.mbsc-mobiscroll.mbsc-progress.mbsc-ic-left .mbsc-left-ic {
-    left: auto;
-    right: -2.625em;
-}
-
-.mbsc-mobiscroll .mbsc-progress-cont {
-    padding: 1em 0;
-}
-
-.mbsc-mobiscroll .mbsc-progress-track {
-    background: #dedede;
-    border-radius: 1em;
-    height: .125em;
-}
-
-.mbsc-mobiscroll .mbsc-progress-bar {
-    background: #4eccc4;
-}
-
-.mbsc-mobiscroll .mbsc-progress-value {
-    width: 3.75em;
-    font-size: .875em;
-}
-
-.mbsc-ltr.mbsc-mobiscroll.mbsc-progress.mbsc-progress-value-left .mbsc-input-wrap,
-.mbsc-rtl.mbsc-mobiscroll.mbsc-progress.mbsc-progress-value-right .mbsc-input-wrap {
-    padding-left: 3.5em;
-}
-
-.mbsc-ltr.mbsc-mobiscroll.mbsc-progress.mbsc-progress-value-right .mbsc-input-wrap,
-.mbsc-rtl.mbsc-mobiscroll.mbsc-progress.mbsc-progress-value-left .mbsc-input-wrap {
-    padding-right: 3.5em;
-}
-
 .mbsc-mobiscroll {
+    &.mbsc-progress {
+        padding: 1em;
+    }
+
+    &.mbsc-progress .mbsc-label {
+        font-size: .75em;
+    }
+
+    &.mbsc-progress .mbsc-input-ic {
+        top: .0625em;
+        margin: 0;
+        color: #787878;
+    }
+
+    &.mbsc-ltr.mbsc-progress.mbsc-ic-left .mbsc-input-wrap,
+    &.mbsc-rtl.mbsc-progress.mbsc-ic-right .mbsc-input-wrap {
+        padding-left: 2.75em;
+    }
+
+    &.mbsc-ltr.mbsc-progress.mbsc-ic-right .mbsc-input-wrap,
+    &.mbsc-rtl.mbsc-progress.mbsc-ic-left .mbsc-input-wrap {
+        padding-right: 2.75em;
+    }
+
+    &.mbsc-ltr.mbsc-progress.mbsc-ic-left .mbsc-left-ic,
+    &.mbsc-rtl.mbsc-progress.mbsc-ic-right .mbsc-right-ic {
+        right: auto;
+        left: -.375em;
+    }
+
+    &.mbsc-ltr.mbsc-progress.mbsc-ic-right .mbsc-right-ic,
+    &.mbsc-rtl.mbsc-progress.mbsc-ic-left .mbsc-left-ic {
+        left: auto;
+        right: -.375em;
+    }
+
+    .mbsc-progress-cont {
+        padding: 1em 0;
+    }
+
+    .mbsc-progress-track {
+        background: #dedede;
+        border-radius: 1em;
+        height: .125em;
+    }
+
+    .mbsc-progress-bar {
+        background: #4eccc4;
+    }
+
+    .mbsc-progress-value {
+        width: 3.75em;
+        font-size: .875em;
+    }
+
+    &.mbsc-ltr.mbsc-progress.mbsc-progress-value-left .mbsc-input-wrap,
+    &.mbsc-rtl.mbsc-progress.mbsc-progress-value-right .mbsc-input-wrap {
+        padding-left: 3.5em;
+    }
+
+    &.mbsc-ltr.mbsc-progress.mbsc-progress-value-right .mbsc-input-wrap,
+    &.mbsc-rtl.mbsc-progress.mbsc-progress-value-left .mbsc-input-wrap {
+        padding-right: 3.5em;
+    }
+
+    &.mbsc-ltr.mbsc-progress-value-left.mbsc-ic-left .mbsc-input-wrap,
+    &.mbsc-rtl.mbsc-progress-value-right.mbsc-ic-right .mbsc-input-wrap {
+        padding-left: 5.5em;
+    }
+
+    &.mbsc-ltr.mbsc-progress-value-right.mbsc-ic-right .mbsc-input-wrap,
+    &.mbsc-rtl.mbsc-progress-value-left.mbsc-ic-left .mbsc-input-wrap {
+        padding-right: 5.5em;
+    }
+
+    &.mbsc-ltr.mbsc-progress-value-left.mbsc-ic-left .mbsc-progress-value,
+    &.mbsc-rtl.mbsc-progress-value-right.mbsc-ic-right .mbsc-progress-value {
+        left: 2.25em;
+        right: auto;
+    }
+
+    &.mbsc-ltr.mbsc-progress-value-right.mbsc-ic-right .mbsc-progress-value,
+    &.mbsc-rtl.mbsc-progress-value-left.mbsc-ic-left .mbsc-progress-value {
+        left: auto;
+        right: 2.25em;
+    }
+
     /* Progress color presets */
     .mbsc-progress-primary .mbsc-progress-bar {
         background: @mobiscroll-primary;
     }
+
     .mbsc-progress-secondary .mbsc-progress-bar {
         background: @mobiscroll-secondary;
     }
+
     .mbsc-progress-success .mbsc-progress-bar {
         background: @mobiscroll-success;
     }
+
     .mbsc-progress-danger .mbsc-progress-bar {
         background: @mobiscroll-danger;
     }
+
     .mbsc-progress-warning .mbsc-progress-bar {
         background: @mobiscroll-warning;
     }
+
     .mbsc-progress-info .mbsc-progress-bar {
         background: @mobiscroll-info;
     }
-    // .mbsc-progress-light .mbsc-progress-bar {
-    //     background: @mobiscroll-light;
-    // }
-    // .mbsc-progress-dark .mbsc-progress-bar {
-    //     background: @mobiscroll-dark;
-    // }
 }

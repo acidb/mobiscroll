@@ -104,8 +104,14 @@
     font-size: 1.833333em;
 }
 
-.mbsc-ios .mbsc-sc-itm.mbsc-active {
-    background: rgba(0, 122, 255, .2);
+.mbsc-ios.mbsc-no-touch .mbsc-sc-itm.mbsc-btn-e:hover,
+.mbsc-ios .mbsc-sc-itm:focus {
+    outline: 0;
+    background: fade(@ios-accent, 15%);
+}
+
+.mbsc-ios.mbsc-sc .mbsc-sc-whl .mbsc-sc-itm.mbsc-active {
+    background: fade(@ios-accent, 20%);
 }
 
 .mbsc-ios .mbsc-sc-itm-sel {
@@ -221,10 +227,6 @@
         font-size: 1.333334em;
         padding: 0 1.25em;
         color: #000;
-    }
-
-    &.mbsc-no-touch .mbsc-sc-itm.mbsc-btn-e:hover {
-        background: fade(@ios-accent, 20%);
     }
 
     .mbsc-sc-whl-multi .mbsc-sc-itm {

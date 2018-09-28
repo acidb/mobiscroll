@@ -73,11 +73,17 @@ function addIconToggle(that, $parent, $control) {
     }
 }
 
-function wrapLabel($parent, type) {
+function wrapLabel($parent, type, inputStyle, labelStyle, elm) {
     // Wrap non-empty text nodes in span with mbsc-label class
     if (type != 'button' && type != 'submit' && type != 'segmented') {
         $parent
             .addClass('mbsc-control-w')
+            .addClass(inputStyle == 'box' ? 'mbsc-input-box' : '')
+            .addClass(inputStyle == 'outline' ? 'mbsc-input-outline' : '')
+            .addClass(labelStyle == 'inline' ? 'mbsc-label-inline' : '')
+            .addClass(labelStyle == 'stacked' ? 'mbsc-label-stacked' : '')
+            .addClass(labelStyle == 'floating' ? 'mbsc-label-floating' : '')
+            .addClass(labelStyle == 'floating' && elm.value ? 'mbsc-label-floating-active' : '')
             .find('label')
             .addClass('mbsc-label')
             .each(function (i, v) {
@@ -110,9 +116,13 @@ function getRipple(theme) {
     return ripple && ripple.addRipple ? ripple : null;
 }
 
+function getAttr($elm, attr, def) {
+    var v = $elm.attr(attr);
+    return v === undefined || v === '' ? def : v;
+}
+
 export class FormControl {
     constructor(elm, settings) {
-
         const s = extend({}, defaults, mobiscroll.settings, settings);
         const $elm = $(elm);
         const $p = $elm.parent();
@@ -120,12 +130,14 @@ export class FormControl {
         // Check for inline mobiscroll components
         const $frame = $elm.next().hasClass('mbsc-fr') ? $elm.next() : null;
         const type = getControlType($elm);
+        const inputStyle = getAttr($elm, 'data-input-style', s.inputStyle);
+        const labelStyle = getAttr($elm, 'data-label-style', s.labelStyle);
 
         if ($frame) {
             $frame.insertAfter($parent);
         }
 
-        wrapLabel($parent, type);
+        wrapLabel($parent, type, inputStyle, labelStyle, elm);
 
         $elm.addClass('mbsc-control');
 
@@ -143,6 +155,7 @@ export class FormControl {
         this._$parent = $parent;
         this._$frame = $frame;
         this._ripple = getRipple(s.theme);
+        this._isFloating = labelStyle == 'floating' || $parent.hasClass('mbsc-label-floating');
 
         elm.mbscInst = this;
     }
@@ -175,6 +188,7 @@ export class FormControl {
             case 'mouseup':
             case 'mouseleave':
                 this._onEnd(ev);
+                break;
         }
     }
 

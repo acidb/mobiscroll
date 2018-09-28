@@ -16,51 +16,56 @@
 
 /* Page */
 
-.mbsc-ios.mbsc-page {
-    background: #efeff4;
-    color: #000;
-}
-
-.mbsc-ios a {
-    color: #1272dc;
-}
-
-
-/* Note */
-
 .mbsc-ios {
+    &.mbsc-page {
+        background: #efeff4;
+        color: #000;
+    }
+
+    a {
+        color: @ios-accent;
+    }
+
     .mbsc-note {
         border-radius: .25em;
     }
+
     .mbsc-note,
     .mbsc-note-primary {
         color: darken(@ios-primary, 30%);
         background-color: lighten(@ios-primary, 20%);
     }
+
     .mbsc-note-secondary {
         color: darken(@ios-secondary, 30%);
         background-color: lighten(@ios-secondary, 20%);
     }
+
     .mbsc-note-success {
         color: darken(@ios-success, 30%);
         background-color: lighten(@ios-success, 20%);
     }
+
     .mbsc-note-danger {
         color: darken(@ios-danger, 30%);
         background-color: lighten(@ios-danger, 20%);
     }
+
     .mbsc-note-warning {
         color: darken(@ios-warning, 30%);
         background-color: lighten(@ios-warning, 20%);
     }
+
     .mbsc-note-info {
         color: darken(@ios-info, 30%);
         background-color: lighten(@ios-info, 20%);
     }
+
     .mbsc-note-light {
         color: darken(@ios-light, 70%);
         background-color: lighten(@ios-light, 20%);
     }
+
     .mbsc-note-dark {
         color: darken(@ios-dark, 30%);
         background-color: lighten(@ios-dark, 20%);

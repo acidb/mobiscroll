@@ -7,44 +7,48 @@ var nr = 1;
 export class CollapsibleBase {
 
     constructor(elm, settings) {
+        let content;
+        let $header;
+        let $content;
         let $elm = $(elm);
-        this._$elm = $elm;
+
         this.settings = settings;
 
         this._isOpen = settings.isOpen || false;
-        this._$accordionParent = $elm.parent('[mbsc-accordion], mbsc-accordion, .mbsc-accordion');
 
         $elm.addClass('mbsc-collapsible ' + (this._isOpen ? 'mbsc-collapsible-open' : ''));
 
         if ($elm.hasClass('mbsc-card')) {
             // card enhance
-            this._$header = $elm.find('.mbsc-card-header').addClass('mbsc-collapsible-header');
-            this._$content = $elm.find('.mbsc-card-content').addClass('mbsc-collapsible-content');
+            $header = $elm.find('.mbsc-card-header').addClass('mbsc-collapsible-header');
+            $content = $elm.find('.mbsc-card-content').addClass('mbsc-collapsible-content');
         } else if ($elm.hasClass('mbsc-form-group') || $elm.hasClass('mbsc-form-group-inset')) {
             // form group enhance
-            this._$header = $elm.find('.mbsc-form-group-title').addClass('mbsc-collapsible-header');
-            this._$content = $elm.find('.mbsc-form-group-content').addClass('mbsc-collapsible-content');
+            $header = $elm.find('.mbsc-form-group-title').addClass('mbsc-collapsible-header');
+            $content = $elm.find('.mbsc-form-group-content').addClass('mbsc-collapsible-content');
         } else {
             // if it is used independently
-            this._$header = $elm.find('.mbsc-collapsible-header');
-            this._$content = $elm.find('.mbsc-collapsible-content');
+            $header = $elm.find('.mbsc-collapsible-header');
+            $content = $elm.find('.mbsc-collapsible-content');
         }
 
-        if (!this._$content[0].id) {
-            this._$content[0].id = 'mbsc-collapsible-' + nr++;
+        content = $content[0];
+
+        if (content && !content.id) {
+            content.id = 'mbsc-collapsible-' + nr++;
         }
 
-        if (this._$header) {
+        if ($header.length && content) {
             let $collapsibleIcon = $('<span class="mbsc-collapsible-icon mbsc-ic mbsc-ic-arrow-down5"></span>');
 
-            tap(this, this._$header, () => {
+            tap(this, $header, () => {
                 this.collapse();
             });
 
-            this._$header
+            $header
                 .attr('role', 'button')
                 .attr('aria-expanded', this._isOpen)
-                .attr('aria-controls', this._$content[0].id)
+                .attr('aria-controls', content.id)
                 .attr('tabindex', '0')
                 .on('mousedown', (ev) => {
                     // prevent focus on mouse down
@@ -59,7 +63,12 @@ export class CollapsibleBase {
                 .append($collapsibleIcon);
         }
 
-        $elm[0].mbscInst = this;
+        elm.mbscInst = this;
+
+        this._$header = $header;
+        this._$content = $content;
+        this._$elm = $elm;
+        this._$accordionParent = $elm.parent('[mbsc-accordion], mbsc-accordion, .mbsc-accordion');
 
         this.show = this.show.bind(this);
         this.hide = this.hide.bind(this);
@@ -68,8 +77,9 @@ export class CollapsibleBase {
 
     collapse(show) {
         const $elm = this._$elm;
+        const $content = this._$content;
         const removeHeight = () => {
-            this._$content
+            $content
                 .off('transitionend', removeHeight)
                 .css('height', '');
         };
@@ -78,23 +88,23 @@ export class CollapsibleBase {
             show = !this._isOpen;
         }
 
-        if ((show && this._isOpen) || (!show && !this._isOpen)) {
+        if ((show && this._isOpen) || (!show && !this._isOpen) || !$content.length) {
             return;
         }
 
         if (show) {
             if (hasTransition) {
-                this._$content
+                $content
                     .on('transitionend', removeHeight)
-                    .css('height', this._$content[0].scrollHeight);
+                    .css('height', $content[0].scrollHeight);
             }
             $elm.addClass('mbsc-collapsible-open');
         } else {
             if (hasTransition) {
-                this._$content.css('height', getComputedStyle(this._$content[0]).height);
+                $content.css('height', getComputedStyle($content[0]).height);
             }
             setTimeout(() => {
-                this._$content.css('height', 0);
+                $content.css('height', 0);
                 $elm.removeClass('mbsc-collapsible-open');
             });
         }
@@ -124,10 +134,11 @@ export class CollapsibleBase {
     }
 
     destroy() {
-        this._$header.find('mbsc-collapsible-icon').remove();
         this._$elm.removeClass('mbsc-collapsible mbsc-collapsible-open');
-        this._$header.removeClass('mbsc-collapsible-header');
         this._$content.removeClass('mbsc-collapsible-content');
+        this._$header
+            .removeClass('mbsc-collapsible-header')
+            .find('mbsc-collapsible-icon').remove();
     }
 }
 

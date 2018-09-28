@@ -1,6 +1,9 @@
 import { Frame, MbscFrameOptions } from './frame';
 
-export interface MbscPopupOptions extends MbscFrameOptions { }
+export interface MbscPopupOptions extends MbscFrameOptions {
+    okText?: string;
+    onSet?(event: { valueText?: string }, inst: any): void;
+}
 export interface MbscWidgetOptions extends MbscPopupOptions { }
 
 export class Popup extends Frame {

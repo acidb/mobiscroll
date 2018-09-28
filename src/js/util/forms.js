@@ -76,7 +76,8 @@ function initControls($ctx, controls, s, shallow) {
                                 theme: s.theme,
                                 lang: s.lang,
                                 rtl: s.rtl,
-                                stopProp: s.stopProp
+                                stopProp: s.stopProp,
+                                labelStyle: s.labelStyle
                             });
                         }
                         break;
@@ -93,7 +94,8 @@ function initControls($ctx, controls, s, shallow) {
                         controls[control.id] = new Progress(control, {
                             theme: s.theme,
                             lang: s.lang,
-                            rtl: s.rtl
+                            rtl: s.rtl,
+                            labelStyle: s.labelStyle
                         });
                         break;
                     case 'radio':
@@ -105,12 +107,16 @@ function initControls($ctx, controls, s, shallow) {
                     case 'select-one':
                     case 'select-multiple':
                         controls[control.id] = new Select(control, {
-                            tap: s.tap
+                            tap: s.tap,
+                            inputStyle: s.inputStyle,
+                            labelStyle: s.labelStyle
                         });
                         break;
                     case 'textarea':
                         controls[control.id] = new TextArea(control, {
-                            tap: s.tap
+                            tap: s.tap,
+                            inputStyle: s.inputStyle,
+                            labelStyle: s.labelStyle
                         });
                         break;
                     case 'segmented':
@@ -128,7 +134,9 @@ function initControls($ctx, controls, s, shallow) {
                         return;
                     default:
                         controls[control.id] = new Input(control, {
-                            tap: s.tap
+                            tap: s.tap,
+                            inputStyle: s.inputStyle,
+                            labelStyle: s.labelStyle
                         });
                         break;
                 }
@@ -146,7 +154,7 @@ function initControls($ctx, controls, s, shallow) {
             control.id = 'mbsc-form-control-' + (++id);
         }
 
-        controls[control.id] = new CollapsibleBase($control, { isOpen: isOpen !== undefined && isOpen != 'false' });
+        controls[control.id] = new CollapsibleBase(control, { isOpen: isOpen !== undefined && isOpen != 'false' });
         instances[control.id] = controls[control.id];
     });
 

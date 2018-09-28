@@ -1,4 +1,4 @@
-@import "./ios.page.less";
+@import "ios.page.less";
 @import "../slider";
 @import "ios.progress.less";
 
@@ -25,6 +25,7 @@
     top: -1em;
     text-align: center;
     color: #b6b6b6;
+    background: #fff;
     opacity: 0;
     -webkit-transition: opacity .2s ease-in-out;
     transition: opacity .2s ease-in-out;
@@ -51,18 +52,23 @@
     .mbsc-slider-primary .mbsc-progress-bar {
         background: @ios-primary;
     }
+
     .mbsc-slider-secondary .mbsc-progress-bar {
         background: @ios-secondary;
     }
+
     .mbsc-slider-success .mbsc-progress-bar {
         background: @ios-success;
     }
+
     .mbsc-slider-danger .mbsc-progress-bar {
         background: @ios-danger;
     }
+
     .mbsc-slider-warning .mbsc-progress-bar {
         background: @ios-warning;
     }
+
     .mbsc-slider-info .mbsc-progress-bar {
         background: @ios-info;
     }

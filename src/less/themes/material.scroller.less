@@ -34,7 +34,13 @@
     font-size: 1.375em;
 }
 
-.mbsc-material .mbsc-sc-itm.mbsc-active {
+.mbsc-material.mbsc-no-touch .mbsc-sc-itm.mbsc-btn-e:hover,
+.mbsc-material .mbsc-sc-itm:focus {
+    outline: 0;
+    background: rgba(0, 0, 0, .05);
+}
+
+.mbsc-material.mbsc-sc .mbsc-sc-whl .mbsc-sc-itm.mbsc-active {
     background: rgba(0, 0, 0, .1);
     border-radius: 2px;
 }
@@ -100,14 +106,6 @@
 
     .mbsc-sc-whl-multi .mbsc-sc-itm {
         padding: 0 2.5em;
-    }
-
-    &.mbsc-no-touch .mbsc-sc-itm.mbsc-btn-e:hover {
-        background: rgba(0, 0, 0, .05);
-    }
-
-    .mbsc-sc-whl-multi .mbsc-sc-whl .mbsc-sc-itm.mbsc-active {
-        background: rgba(0, 0, 0, .1);
     }
 
     .mbsc-sc-whl-multi .mbsc-sc-itm-sel:before {

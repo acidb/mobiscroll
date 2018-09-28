@@ -4,7 +4,7 @@
 
 .mbsc-windows {
     .mbsc-input {
-        padding: .75em 1em;
+        padding: .5em 1em 1em;
     }
 
     .mbsc-input input,
@@ -81,8 +81,9 @@
 
     .mbsc-err-msg {
         color: #d30101;
+        position: absolute;
+        padding-top: .333334em;
     }
-
 
     /* Textbox, textarea, select */
     .mbsc-input.mbsc-ic-left input,
@@ -144,5 +145,67 @@
 
     .mbsc-ic-right .mbsc-select-ic {
         display: none;
+    }
+
+    /* Inline labels */
+    .mbsc-label-inline.mbsc-input .mbsc-label {
+        line-height: 2em;
+        padding-bottom: 0;
+    }
+
+    /* Floating labels */
+    .mbsc-label-floating.mbsc-input {
+        padding-top: 1.625em;
+
+        .mbsc-label {
+            font-size: 1em;
+            position: absolute;
+            top: 2.0625em;
+        }
+
+        &.mbsc-label-floating-active {
+            .mbsc-label {
+                -webkit-transform: translateY(-1.5em) scale(.75);
+                transform: translateY(-1.5em) scale(.75);
+            }
+        }
+    }
+
+    /* Left to right */
+    &.mbsc-ltr .mbsc-label-floating.mbsc-input {
+        .mbsc-label {
+            left: 1.375em;
+        }
+
+        &.mbsc-label-floating-active .mbsc-label {
+            left: 1em;
+        }
+
+        &.mbsc-ic-left .mbsc-label {
+            left: 3.375em;
+        }
+
+        &.mbsc-label-floating-active.mbsc-ic-left .mbsc-label {
+            left: 1em;
+        }
+    }
+
+    /* Right to left */
+    &.mbsc-rtl .mbsc-label-floating.mbsc-input {
+        .mbsc-label {
+            right: 1.375em;
+        }
+
+        &.mbsc-label-floating-active .mbsc-label {
+            right: 1em;
+        }
+
+        &.mbsc-ic-left .mbsc-label {
+            right: 3.375em;
+        }
+
+        &.mbsc-label-floating-active.mbsc-ic-left .mbsc-label {
+            right: 1em;
+        }
     }
 }

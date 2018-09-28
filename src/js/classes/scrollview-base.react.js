@@ -7,19 +7,20 @@ var reactFunc = PropTypes.func;
 export let MbscScrollViewBase = class MbscScrollViewBase extends MbscBase {
     constructor(props) {
         super(props);
-
-        this.shouldComponentUpdate = (nextProps, nextState) => {
-            this.optimizeUpdate = {
-                updateOptions: !deepCompare(this.state.options, nextState.options),
-                updateChildren: !deepCompare(this.props.children, nextProps.children)
-            };
-            return true;
-        };
     }
 
+    shouldComponentUpdate(nextProps) {
+        const nextOptions = this.getSettingsFromProps(nextProps);
+        const thisOptions = this.getSettingsFromProps(this.props);
+        this.optimizeUpdate = {
+            updateOptions: !deepCompare(thisOptions, nextOptions),
+            updateChildren: !deepCompare(this.props.children, nextProps.children)
+        };
+        return true;
+    }
 };
 
-MbscScrollViewBase.prototypes = _extends({}, CorePropTypes, {
+MbscScrollViewBase.propTypes = _extends({}, CorePropTypes, {
     itemWidth: PropTypes.number,
     layout: PropTypes.oneOf(['liquid', 'fixed']),
     snap: PropTypes.bool,

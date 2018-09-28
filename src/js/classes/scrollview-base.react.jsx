@@ -12,16 +12,18 @@ export class MbscScrollViewBase extends MbscBase {
         super(props);
     }
 
-    shouldComponentUpdate = (nextProps, nextState) => {
+    shouldComponentUpdate(nextProps) {
+        const nextOptions = this.getSettingsFromProps(nextProps);
+        const thisOptions = this.getSettingsFromProps(this.props);
         this.optimizeUpdate = {
-            updateOptions: !deepCompare(this.state.options, nextState.options),
+            updateOptions: !deepCompare(thisOptions, nextOptions),
             updateChildren: !deepCompare(this.props.children, nextProps.children)
         };
         return true;
     }
 }
 
-MbscScrollViewBase.prototypes = {
+MbscScrollViewBase.propTypes = {
     ...CorePropTypes,
     itemWidth: PropTypes.number,
     layout: PropTypes.oneOf(['liquid', 'fixed']),

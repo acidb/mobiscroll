@@ -1,9 +1,11 @@
-@import "./windows.page.less";
+@import "windows.page.less";
 @import "../slider";
 @import "windows.progress.less";
 
+/* Slider */
+
 .mbsc-windows {
-    /* Slider */
+
     &.mbsc-slider .mbsc-input-wrap {
         padding: 0 .3125em;
     }
@@ -35,6 +37,7 @@
 
     &.mbsc-slider .mbsc-active ~ .mbsc-progress-cont .mbsc-progress-track {
         background: @windows-grey;
+
         .mbsc-slider-handle {
             background: @windows-fr-border;
         }
@@ -76,6 +79,7 @@
         top: -7px;
         z-index: -1;
     }
+
     /* fix for first tick */
     .mbsc-progress-bar + .mbsc-slider-step {
         margin: 0;
@@ -90,18 +94,23 @@
     .mbsc-slider-primary .mbsc-progress-bar {
         background: @windows-primary;
     }
+
     .mbsc-slider-secondary .mbsc-progress-bar {
         background: @windows-secondary;
     }
+
     .mbsc-slider-success .mbsc-progress-bar {
         background: @windows-success;
     }
+
     .mbsc-slider-danger .mbsc-progress-bar {
         background: @windows-danger;
     }
+
     .mbsc-slider-warning .mbsc-progress-bar {
         background: @windows-warning;
     }
+
     .mbsc-slider-info .mbsc-progress-bar {
         background: @windows-info;
     }

@@ -17,6 +17,7 @@
     @mobiscroll-border: darken(@mobiscroll-background, 17%);
     @mobiscroll-empty-color: lighten(@mobiscroll-text, 20%);
     @mobiscroll-scrollbar-track: rgba(0, 0, 0, .05);
+    @mobiscroll-box-bck: darken(@mobiscroll-background, 10%);
 }
 
 // Dark background 
@@ -24,6 +25,7 @@
     @mobiscroll-border: lighten(@mobiscroll-background, 17%);
     @mobiscroll-empty-color: @mobiscroll-text;
     @mobiscroll-scrollbar-track: rgba(255, 255, 255, .2);
+    @mobiscroll-box-bck: lighten(@mobiscroll-background, 10%);
 }
 
 /* --- */
@@ -43,6 +45,7 @@
 @output3_11: hsv(hsvhue(@input3), max(hsvsaturation(@input3) - 40%, 0%), min(hsvvalue(@input3) + 10%, 100%));
 @deltainput1: red(@input1)*0.299 + green(@input1)*0.587 + blue(@input1)*0.114;
 @deltainput2: red(@input2)*0.299 + green(@input2)*0.587 + blue(@input2)*0.114;
+@error: #de3226;
 .x();
 .x() when (@deltainput1 >=140) {
     @output1_6: hsv(hsvhue(@input1), hsvsaturation(@input1), max(hsvvalue(@input1) - 10%, 25%));
@@ -106,9 +109,14 @@
         background: @mobiscroll-background;
     }
 
+    &.mbsc-no-touch .mbsc-sc-itm.mbsc-btn-e:hover,
+    .mbsc-sc-itm:focus {
+        background: fade(@mobiscroll-text, 10%);
+    }
+
     &.mbsc-no-touch .mbsc-sc-btn:hover:before,
-    .mbsc-sc-btn.mbsc-active:before,
-    .mbsc-sc-itm.mbsc-active {
+    &.mbsc-sc .mbsc-sc-whl .mbsc-sc-itm.mbsc-active,
+    .mbsc-sc-btn.mbsc-active:before {
         background: fade(@mobiscroll-accent, 30%);
     }
 
@@ -474,6 +482,45 @@
 }
 
 
+/* Box Input */
+
+.mbsc-@{theme} .mbsc-input-box .mbsc-input-wrap {
+    background: @mobiscroll-box-bck;
+}
+
+
+/* Outline Input */
+
+.mbsc-@{theme} .mbsc-input-outline {
+    input,
+    textarea {
+        border-color: @output2_7;
+    }
+    
+    .mbsc-label {
+        background: @mobiscroll-background;
+    }
+
+    input:focus,
+    select:focus ~ input,
+    &.mbsc-err input {
+        border-color: @output3_8;
+    }
+
+    &.mbsc-err input {
+        border-color: @error;
+    }
+
+    textarea:focus {
+        border-color: @output3_8;
+    }
+
+    &.mbsc-err textarea {
+        border-color: @error;
+    }
+}
+
+
 /* Checkbox */
 
 .mbsc-@{theme} .mbsc-checkbox-box {
@@ -651,6 +698,9 @@
     }
     .mbsc-card-footer {
         border-top: 1px solid @mobiscroll-border;
+    }
+    &.mbsc-card .mbsc-input-outline .mbsc-label {
+        background: lighten(@mobiscroll-background, 4%);
     }
 }
 

@@ -8,6 +8,7 @@ function createStepper($elm, action, delay, isReadOnly, stopProp, ripple) {
         changed,
         index,
         running,
+        source,
         startX,
         startY,
         step,
@@ -42,7 +43,7 @@ function createStepper($elm, action, delay, isReadOnly, stopProp, ripple) {
         }
 
         if (!running && proceed && !$btn.hasClass('mbsc-disabled')) {
-            if (start(index, step)) {
+            if (start(index, step, ev)) {
                 $btn.addClass('mbsc-active');
                 if (ripple) {
                     ripple.addRipple($btn.find('.mbsc-segmented-content'), ev);
@@ -92,10 +93,11 @@ function createStepper($elm, action, delay, isReadOnly, stopProp, ripple) {
         }
     }
 
-    function start(i, st) {
+    function start(i, st, ev) {
         if (!running && !check(i)) {
             index = i;
             step = st;
+            source = ev;
             running = true;
             changed = false;
             setTimeout(tick, 100);
@@ -110,12 +112,12 @@ function createStepper($elm, action, delay, isReadOnly, stopProp, ripple) {
         }
         if (running || !changed) {
             changed = true;
-            action(index, step, tick);
+            action(index, step, source, tick);
         }
         if (running && delay) {
             clearInterval(timer);
             timer = setInterval(function () {
-                action(index, step);
+                action(index, step, source);
             }, delay);
         }
     }

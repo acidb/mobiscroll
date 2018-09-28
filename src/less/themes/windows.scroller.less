@@ -51,12 +51,14 @@
         padding: 0 .5em;
     }
 
-    .mbsc-sc-itm.mbsc-active {
-        background: @windows-button-hover;
+    &.mbsc-no-touch .mbsc-sc-itm.mbsc-btn-e:hover,
+    .mbsc-sc-itm:focus {
+        outline: 0;
+        background: fade(@windows-text, 10%);
     }
 
-    .mbsc-sc-itm.mbsc-sc-itm-sel.mbsc-active {
-        background: transparent;
+    &.mbsc-sc .mbsc-sc-whl .mbsc-sc-itm.mbsc-active {
+        background: fade(@windows-text, 20%);
     }
 
     /* Clickpick mode */
@@ -110,10 +112,6 @@
 
         .mbsc-sc-whl-multi .mbsc-sc-itm {
             padding: 0 2.5em;
-        }
-
-        &.mbsc-no-touch .mbsc-sc-itm.mbsc-btn-e:hover {
-            background: @windows-button-hover;
         }
 
         .mbsc-ltr .mbsc-sc-whl-multi .mbsc-sc-itm-sel:before {

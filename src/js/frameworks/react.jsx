@@ -298,38 +298,13 @@ export class MbscInit extends React.Component {
         // the initial css class will not change this way, and wont trigger any re-render. We will handle the className changes in the componentWillReceive function
         // Note: every render function should use the this.initialCssClass instead of passing through the className prop 
         this.initialCssClass = this.props.className || '';
-
-        // set Initial State
-        var options = this.getSettingsFromProps(props);
-        this.state = {
-            options: options,
-            value: props.value,
-            data: props.data,
-            cssClasses: props.className
-        };
     }
 
     // Dummy render function
-    render = () => { return null; }
-
-    // updates the state when new props are received
-    componentWillReceiveProps = (nextProps) => {
-        var options = this.getSettingsFromProps(nextProps);
-
-        if (this.state.cssClasses !== nextProps.className) {
-            updateCssClasses.call(this, this.state.cssClasses, nextProps.className);
-        }
-
-        this.setState({
-            options: options,
-            value: nextProps.value,
-            data: nextProps.data,
-            cssClasses: nextProps.className
-        });
-    }
+    render() { return null; }
 
     // generates the mobiscroll options object based on the props passed
-    getSettingsFromProps = (props) => {
+    getSettingsFromProps(props, extra) {
         var optionObj = {};
         if (props !== undefined) {
             // support individual properties and options object property for settings
@@ -358,13 +333,13 @@ export class MbscInit extends React.Component {
             // the priority of the options passed (later will have higher prio): 
             // 1. options property
             // 2. individual properties
-            optionObj = extend({}, optionObj, other);
+            optionObj = extend({}, optionObj, other, extra || {});
         }
         return optionObj;
     }
 
     // cleans up on unmount
-    componentWillUnmount = () => {
+    componentWillUnmount() {
         this.instance.destroy();
         // Also need to delete reference to the instance
         delete this.instance;
@@ -382,19 +357,19 @@ export class MbscBase extends MbscInit {
     }
 
     // updates mobiscroll with new options
-    componentDidUpdate = () => {
-        var settings = extend({}, this.state.options);
+    componentDidUpdate() {
+        var settings = this.getSettingsFromProps(this.props);
         if (this.optimizeUpdate) {
             if (this.optimizeUpdate.updateOptions) {
                 this.instance.option(settings);
             }
-            if (this.optimizeUpdate.updateValue && this.state.value !== undefined && !deepCompare(this.state.value, this.instance.getVal())) {
-                this.instance.setVal(this.state.value, true);
+            if (this.optimizeUpdate.updateValue && this.props.value !== undefined && !deepCompare(this.props.value, this.instance.getVal())) {
+                this.instance.setVal(this.props.value, true);
             }
         } else {
             this.instance.option(settings);
-            if (this.state.value !== undefined) {
-                this.instance.setVal(this.state.value, true);
+            if (this.props.value !== undefined) {
+                this.instance.setVal(this.props.value, true);
             }
         }
     }
@@ -405,10 +380,12 @@ export class MbscOptimized extends MbscBase {
         super(props);
     }
 
-    shouldComponentUpdate = (nextProps, nextState) => {
+    shouldComponentUpdate(nextProps) {
+        const nextOptions = this.getSettingsFromProps(nextProps);
+        const thisOptions = this.getSettingsFromProps(this.props);
         // check if the options or the value changed
-        var updateOptions = !deepCompare(nextState.options, this.state.options),
-            updateValue = !deepCompare(nextState.value, this.state.value),
+        var updateOptions = !deepCompare(nextOptions, thisOptions),
+            updateValue = !deepCompare(nextProps.value, this.props.value),
             updateChildren = !deepCompare(nextProps.children, this.props.children);
         // save what should be updated inside mobiscroll
         this.optimizeUpdate = {
@@ -417,7 +394,8 @@ export class MbscOptimized extends MbscBase {
             updateChildren: updateChildren
         };
         // component should update if the options or the value changed
-        return updateOptions || updateValue || updateChildren;
+        const shouldUpdate = updateOptions || updateValue || updateChildren;
+        return shouldUpdate;
     }
 }
 
@@ -428,7 +406,7 @@ export class MbscInputBase extends MbscOptimized {
         ...FramePropTypes
     }
 
-    render = () => {
+    render() {
         // passing through some of the element properties to its children
         var {
             type,
@@ -447,9 +425,9 @@ export class MbscInputBase extends MbscOptimized {
         }
     }
 
-    componentDidMount = () => {
+    componentDidMount() {
         // get settings from state
-        var settings = extend({}, this.mbscInit, this.state.options);
+        var settings = this.getSettingsFromProps(this.props, this.mbscInit);
         // initialize the mobiscroll
         var element = ReactDOM.findDOMNode(this);
         var input = $(element).find('input');
@@ -473,13 +451,13 @@ export class MbscListsBase extends MbscOptimized {
         ...ScrollerPropTypes
     }
 
-    render = () => {
+    render() {
         return <ul className={this.initialCssClass + ' mbsc-cloak'}>{this.props.children}</ul>;
     }
 
-    componentDidMount = () => {
+    componentDidMount() {
         // get settings from state
-        var settings = extend({}, this.mbscInit, this.state.options);
+        var settings = this.getSettingsFromProps(this.props, this.mbscInit);
         // get the DOM node
         var DOMNode = ReactDOM.findDOMNode(this);
 
@@ -498,9 +476,9 @@ export class MbscListsBase extends MbscOptimized {
         });
     }
 
-    componentDidUpdate = () => {
+    componentDidUpdate() {
         if (!this.optimizeUpdate.updateOptions && this.optimizeUpdate.updateChildren) {
-            this.instance.option(this.state.options); // the option needs to be called because of the children changes - the list components might need a refresh method
+            this.instance.option(this.getSettingsFromProps(this.props)); // the option needs to be called because of the children changes - the list components might need a refresh method
         }
 
         // Stop Propagation of click events to avoid the same data-reactid js error when inline mode

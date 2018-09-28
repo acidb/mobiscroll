@@ -102,7 +102,8 @@ export class TextArea extends Input {
         }, 100);
     }
 
-    resize() {
+    refresh() {
+        super.refresh();
         clearTimeout(this._debounce);
         sizeTextArea(this._elm);
     }

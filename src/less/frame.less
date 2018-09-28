@@ -124,7 +124,6 @@
 .mbsc-fr-overlay {
     z-index: 1;
     background: rgba(0, 0, 0, .7);
-    -webkit-transform: translateZ(0);
 }
 
 
@@ -294,6 +293,7 @@
 /* Desktop view */
 
 .mbsc-fr-pointer {
+
     /* Embedded components */
     &.mbsc-fr .mbsc-fr-w .mbsc-fr-inline .mbsc-fr-w {
         box-shadow: none;
@@ -347,6 +347,7 @@
         color: @mobiscroll-text;
         font-size: 16px;
     }
+
     .mbsc-fr-hdr {
         padding: 0 .6666em;
         padding-top: .6666em;
@@ -356,21 +357,26 @@
         min-height: 2em;
         line-height: 2em;
     }
+
     .mbsc-fr-btn-cont {
         display: block;
         overflow: hidden;
         text-align: right;
         padding: 0 .5em .5em .5em;
     }
+
     .mbsc-ltr .mbsc-fr-btn-cont {
         text-align: right;
     }
+
     .mbsc-rtl .mbsc-fr-btn-cont {
         text-align: left;
     }
+
     .mbsc-fr-btn-w {
         display: inline-block;
     }
+
     .mbsc-fr-btn {
         height: 2.5em;
         line-height: 2.5em;
@@ -378,21 +384,26 @@
         color: @mobiscroll-accent;
         text-transform: uppercase;
     }
+
     .mbsc-fr-btn.mbsc-active,
     &.mbsc-no-touch .mbsc-fr-btn-e:not(.mbsc-disabled):hover {
         background: fade(@mobiscroll-accent, 30%);
     }
+
     /* Display modes */
     &.mbsc-fr-center .mbsc-fr-w,
     &.mbsc-fr-bubble .mbsc-fr-w {
         border-radius: .25em;
     }
+
     .mbsc-fr-bubble-bottom .mbsc-fr-arr {
         border-color: transparent transparent @mobiscroll-background transparent;
     }
+
     .mbsc-fr-bubble-top .mbsc-fr-arr {
         border-color: @mobiscroll-background transparent transparent transparent;
     }
+
     /* Desktop style */
     &.mbsc-fr-pointer {
         .mbsc-fr-persp .mbsc-fr-w {

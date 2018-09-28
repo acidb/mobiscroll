@@ -262,7 +262,9 @@ export const SliderBase = function (elm, settings, inherit) {
         }
 
         // Store new value
-        value[index] = v;
+        if (fill) {
+            value[index] = v;
+        }
 
         // Check if value changed
         if (fill && oldValue[index] != v) {

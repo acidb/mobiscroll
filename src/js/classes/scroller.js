@@ -55,7 +55,7 @@ export const Scroller = function (el, settings, inherit) {
             direction = 1;
         } else if (ev.keyCode == 32) { // Space
             handle = true;
-            onItemTap(i, wheels[i]._$markup.find('.mbsc-sc-itm[data-val="' + tempWheelArray[i] + '"]'));
+            onItemTap(i, $(ev.target));
         }
 
         if (handle) {
@@ -63,7 +63,7 @@ export const Scroller = function (el, settings, inherit) {
             ev.preventDefault();
 
             if (direction) {
-                stepper.start(i, direction);
+                stepper.start(i, direction, ev);
             }
         }
     }
@@ -80,11 +80,11 @@ export const Scroller = function (el, settings, inherit) {
             maxSelect = isNumeric(wheel.multiple) ? wheel.multiple : Infinity;
 
         if (trigger('onItemTap', {
-                target: $item[0],
-                index: i,
-                value: val,
-                selected: $item.hasClass('mbsc-sc-itm-sel')
-            }) !== false) {
+            target: $item[0],
+            index: i,
+            value: val,
+            selected: $item.hasClass('mbsc-sc-itm-sel')
+        }) !== false) {
 
             // Select item on tap
             if (wheel.multiple && !wheel._disabled[val]) {
@@ -158,9 +158,9 @@ export const Scroller = function (el, settings, inherit) {
         return getItemValue(getItem(wheel, i));
     }
 
-    function step(index, direction) {
+    function step(index, direction, ev) {
         var wheel = wheels[index];
-        setWheelValue(wheel, index, wheel._current + direction, s.delay + 100, direction == 1 ? 1 : 2);
+        setWheelValue(wheel, index, wheel._index + direction, s.delay + 100, direction == 1 ? 1 : 2, false, false, ev.type == 'keydown');
     }
 
     function isReadOnly(i) {
@@ -244,7 +244,7 @@ export const Scroller = function (el, settings, inherit) {
             selected = value !== undefined && value == tempWheelArray[index] && !wheel.multiple;
 
             // TODO: don't generate items with no value (use margin or placeholder instead)
-            html += '<div role="option" aria-selected="' + (checked[value] ? true : false) +
+            html += '<div role="option" tabindex="-1" aria-selected="' + (checked[value] ? true : false) +
                 '" class="mbsc-sc-itm ' + (is3d ? 'mbsc-sc-itm-3d ' : '') + css + ' ' +
                 (selected ? 'mbsc-sc-itm-sel ' : '') +
                 (checked[value] ? selectedClass : '') +
@@ -350,7 +350,7 @@ export const Scroller = function (el, settings, inherit) {
         return val;
     }
 
-    function scrollToPos(time, index, dir, manual, tap, noscroll) {
+    function scrollToPos(time, index, dir, manual, tap, noscroll, shouldFocus) {
         var diff,
             idx,
             offset,
@@ -398,6 +398,20 @@ export const Scroller = function (el, settings, inherit) {
                             .removeAttr('aria-selected');
                     }
 
+                    // Get index of valid value
+                    idx = getIndex(wheel, tempWheelArray[i]);
+
+                    diff = idx - wheel._index + wheel._batch;
+
+                    if (Math.abs(diff) > 2 * batchSize + 1) {
+                        offset = diff + (2 * batchSize + 1) * (diff > 0 ? -1 : 1);
+                        wheel._offset += offset;
+                        wheel._margin -= offset * itemHeight;
+                        wheel._refresh();
+                    }
+
+                    wheel._index = idx + wheel._batch;
+
                     if (wheel.multiple) {
                         // Add selected styling to selected elements in case of multiselect
                         if (index === undefined) {
@@ -416,19 +430,18 @@ export const Scroller = function (el, settings, inherit) {
                             .attr('aria-selected', 'true');
                     }
 
-                    // Get index of valid value
-                    idx = getIndex(wheel, tempWheelArray[i]);
-
-                    diff = idx - wheel._index + wheel._batch;
-
-                    if (Math.abs(diff) > 2 * batchSize + 1) {
-                        offset = diff + (2 * batchSize + 1) * (diff > 0 ? -1 : 1);
-                        wheel._offset += offset;
-                        wheel._margin -= offset * itemHeight;
-                        wheel._refresh();
+                    if (wheel._$active) {
+                        wheel._$active.attr('tabindex', -1);
                     }
 
-                    wheel._index = idx + wheel._batch;
+                    wheel._$active = wheel._$markup
+                        .find('.mbsc-sc-itm[data-index="' + wheel._index + '"]').eq(scroll3d && wheel.multiple ? 1 : 0)
+                        .attr('tabindex', 0);
+
+                    if (shouldFocus && index === i && wheel._$active.length) {
+                        wheel._$active[0].focus();
+                        wheel._$scroller.parent().scrollTop(0);
+                    }
 
                     // Scroll to valid value
                     wheel._scroller.scroll(-(idx - wheel._offset + wheel._batch) * itemHeight, (index === i || index === undefined) ? time : animTime, tap);
@@ -464,7 +477,7 @@ export const Scroller = function (el, settings, inherit) {
         }
     }
 
-    function setWheelValue(wheel, i, idx, time, dir, tap, noscroll) {
+    function setWheelValue(wheel, i, idx, time, dir, tap, noscroll, shouldFocus) {
         // Get the value at the given index
         var value = getValue(wheel, idx);
 
@@ -476,7 +489,7 @@ export const Scroller = function (el, settings, inherit) {
             wheel._index = idx;
 
             setTimeout(function () {
-                scrollToPos(time, i, dir, true, tap, noscroll);
+                scrollToPos(time, i, dir, true, tap, noscroll, shouldFocus);
             }, 10);
         }
     }
@@ -632,7 +645,7 @@ export const Scroller = function (el, settings, inherit) {
                         (s.maxWidth ? ('max-width:' + (s.maxWidth[l] || s.maxWidth) + 'px;') : '')) + '">' +
                     (hasScrollbar ? '<div class="mbsc-sc-bar-c"><div class="mbsc-sc-bar"></div></div>' : '') + // Scrollbar
                     '<div class="mbsc-sc-whl-o" style="' + style + '"></div>' + highlight +
-                    '<div tabindex="0" aria-live="off" aria-label="' + lbl + '"' + (w.multiple ? ' aria-multiselectable="true"' : '') + ' role="listbox" data-index="' + l + '" class="mbsc-sc-whl"' + ' style="' +
+                    '<div aria-live="off" aria-label="' + lbl + '"' + (w.multiple ? ' aria-multiselectable="true"' : '') + ' role="listbox" data-index="' + l + '" class="mbsc-sc-whl"' + ' style="' +
                     'height:' + (s.rows * itemHeight * (scroll3d ? 1.1 : 1)) + 'px;">' +
                     (showScrollArrows ?
                         '<div data-index="' + l + '" data-step="1" class="mbsc-sc-btn mbsc-sc-btn-plus ' + (s.btnPlusClass || '') + '" style="height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;"></div>' + // + button
@@ -676,6 +689,7 @@ export const Scroller = function (el, settings, inherit) {
     };
 
     that._detachEvents = function () {
+        stepper.stop();
         for (var i = 0; i < wheels.length; i++) {
             wheels[i]._scroller.destroy();
         }
@@ -875,7 +889,7 @@ Scroller.prototype = {
         timeUnit: 0.08,
         checkIcon: 'checkmark',
         compClass: 'mbsc-sc',
-        validate: function () {},
+        validate: function () { },
         formatValue: function (d) {
             return d.join(' ');
         },

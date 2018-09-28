@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Page, Form, Rating, Stepper, Switch } from '@mobiscroll/react-lite';
+import { Page, Form, Rating, Stepper, Switch, Input } from '@mobiscroll/react-lite';
 import '@mobiscroll/react-lite/dist/css/mobiscroll.min.css';
 import logo from './logo.svg';
 import './App.css';
@@ -17,22 +17,10 @@ class App extends Component {
         <Form>
           <div className="mbsc-form-group">
             <div className="mbsc-form-group-title">Account information</div>
-            <label>
-              First Name
-              <input type="text" placeholder="What's your first name?" />
-            </label>
-            <label>
-              Last Name
-              <input type="text" placeholder="What's your last name?" />
-            </label>
-            <label>
-              Email
-              <input type="email" placeholder="me@domain.com" />
-            </label>
-            <label>
-              Password
-              <input type="password" placeholder="Minimum 6 characters" data-password-toggle="true" />
-            </label>
+            <Input type="text" placeholder="What's your first name?" labelStyle="floating">First Name</Input>
+            <Input type="text" placeholder="What's your last name?" labelStyle="floating">Last Name</Input>
+            <Input type="email" placeholder="me@domain.com" labelStyle="floating">Email</Input>
+            <Input type="password" placeholder="Minimum 6 characters" labelStyle="floating" passwordToggle={true}>Password</Input>
             <Rating value={4}>
               Rating
             </Rating>

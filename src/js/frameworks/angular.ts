@@ -18,6 +18,7 @@ import {
     Inject,
     Injectable,
     Input,
+    ModuleWithProviders,
     NgModule,
     NgZone,
     OnChanges,
@@ -29,7 +30,8 @@ import {
     SimpleChanges,
     ViewChild,
     ViewChildren,
-    ViewContainerRef
+    ViewContainerRef,
+    Injector,
 } from '@angular/core';
 
 // // angular2 import { trigger, state, animate, transition, style } from '@angular/core'; // Angular 2.x
@@ -767,6 +769,7 @@ export {
     Inject,
     Injectable,
     Input,
+    ModuleWithProviders,
     NgControl,
     NgModule,
     NgZone,
@@ -781,6 +784,7 @@ export {
     Subject,
     ViewChild,
     ViewChildren,
-    ViewContainerRef
+    ViewContainerRef,
+    Injector,
     //trigger, state, animate, transition, style
 }

@@ -57,11 +57,30 @@ export class MbscForm extends MbscBase implements OnInit {
     @Input('options')
     options: MbscFormOptions;
 
+    /**
+     *  Specify the inputStyle.
+    */
+    @Input('input-style')
+    inputStyle: string;
+
+    /**
+     *  Specify the labelStyle.
+    */
+    @Input('label-style')
+    labelStyle: string;
+
     @ViewChild('rootElement')
     rootElem: ElementRef;
 
     constructor(initialElem: ElementRef, private _formService: MbscOptionsService) {
         super(initialElem);
+    }
+
+    inlineOptions(): MbscFormOptions {
+        return extend(super.inlineOptions(), {
+            inputStyle: this.inputStyle,
+            labelStyle: this.labelStyle
+        });
     }
 
     ngOnInit() {
@@ -151,10 +170,12 @@ export class MbscFormValueBase extends MbscFormBase implements ControlValueAcces
     /**
      * Input for the value. Used when no ngModel is present.
      * ex. [value]="myValue"
+     * To resize the textarea when programmatically changing it's value
      */
     @Input()
     set value(v: any) {
         this._value = v;
+        this.refresh();
     }
 
     /**
@@ -197,9 +218,19 @@ export class MbscFormValueBase extends MbscFormBase implements ControlValueAcces
     /**
      * Called when the model changed
      * @param v the new value of the model
+     * To resize the textarea when programmatically changing it's value
      */
-    writeValue(v: any): void {
+    writeValue(v: any) {
         this._value = v;
+        this.refresh();
+    }
+
+    refresh() {
+        if (this._instance && this._instance.refresh) {
+            setTimeout(() => {
+                this._instance.refresh();
+            });
+        }
     }
 }
 
@@ -242,6 +273,18 @@ export class MbscInputBase extends MbscFormValueBase {
     iconHide: string;
 
     /**
+     *  Specify the inputStyle.
+    */
+    @Input('input-style')
+    inputStyle: string;
+
+    /**
+     *  Specify the labelStyle.
+    */
+    @Input('label-style')
+    labelStyle: string;
+
+    /**
      * Placeholder for the control
      */
     @Input()
@@ -257,7 +300,14 @@ export class MbscInputBase extends MbscFormValueBase {
     selector: 'mbsc-input',
     host: { '[class.mbsc-control-ng]': 'controlNg' },
     template: `
-        <label [class.mbsc-err]="error" [class.mbsc-select]="dropdown">
+        <label 
+            [class.mbsc-err]="error" [class.mbsc-select]="dropdown"
+            [class.mbsc-input-box]="inputStyle == 'box'"
+            [class.mbsc-input-outline]="inputStyle == 'outline'"
+            [class.mbsc-label-stacked]="labelStyle == 'stacked'"
+            [class.mbsc-label-inline]="labelStyle == 'inline'"
+            [class.mbsc-label-floating]="labelStyle == 'floating'"
+        >
             <ng-content></ng-content>
             <span class="mbsc-input-wrap">
                 <input #initElement [type]="type" [placeholder]="placeholder" [(ngModel)]="innerValue" (blur)="onTouch($event)"
@@ -303,7 +353,14 @@ export class MbscInput extends MbscInputBase {
     selector: 'mbsc-textarea',
     host: { 'class': 'mbsc-control-ng' },
     template: `
-        <label [class.mbsc-err]="error">
+            <label 
+                [class.mbsc-err]="error"
+                [class.mbsc-input-box]="inputStyle == 'box'"
+                [class.mbsc-input-outline]="inputStyle == 'outline'"
+                [class.mbsc-label-stacked]="labelStyle == 'stacked'"
+                [class.mbsc-label-inline]="labelStyle == 'inline'"
+                [class.mbsc-label-floating]="labelStyle == 'floating'"
+            >
             <ng-content></ng-content>
             <span class="mbsc-input-wrap">
                 <textarea #initElement [placeholder]="placeholder" [(ngModel)]="innerValue" (blur)="onTouch($event)"
@@ -329,33 +386,6 @@ export class MbscTextarea extends MbscInputBase {
         _inputService.input = this;
     }
 
-    /** 
-     * Override
-     * To resize the textarea when programmatically changing it's value
-     */
-    @Input()
-    set value(v: any) {
-        this._value = v;
-        this.resize();
-    }
-
-    /** 
-     * Override
-     * To resize the textarea when programmatically changing it's value
-     */
-    writeValue(v: any) {
-        this._value = v;
-        this.resize();
-    }
-
-    resize() {
-        if (this._instance) {
-            setTimeout(() => {
-                this._instance.resize();
-            });
-        }
-    }
-
     /* AfterViewInit Interface */
 
     ngAfterViewInit() {
@@ -371,7 +401,14 @@ export class MbscTextarea extends MbscInputBase {
     selector: 'mbsc-dropdown',
     host: { 'class': 'mbsc-control-ng' },
     template: `
-        <label [class.mbsc-err]="error">
+            <label 
+                [class.mbsc-err]="error"
+                [class.mbsc-input-box]="inputStyle == 'box'"
+                [class.mbsc-input-outline]="inputStyle == 'outline'"
+                [class.mbsc-label-stacked]="labelStyle == 'stacked'"
+                [class.mbsc-label-inline]="labelStyle == 'inline'"
+                [class.mbsc-label-floating]="labelStyle == 'floating'"
+            >
             {{label}}
             <span class="mbsc-input-wrap">
                 <select #initElement
@@ -417,6 +454,18 @@ export class MbscDropdown extends MbscFormValueBase {
             this._instance._setText();
         });
     }
+
+    /**
+     *  Specify the inputStyle.
+    */
+    @Input('input-style')
+    inputStyle: string;
+
+    /**
+     *  Specify the labelStyle.
+    */
+    @Input('label-style')
+    labelStyle: string;
 
     constructor(hostElem: ElementRef, @Optional() formService: MbscOptionsService, protected _inputService: MbscInputService, @Optional() control: NgControl) {
         super(hostElem, formService, control, _inputService.isControlSet);

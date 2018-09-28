@@ -28,12 +28,11 @@
     .mbsc-divider,
     .mbsc-form-group-title {
         font-size: 1.5em;
-        padding: 0 0.5em;
+        padding: 0 .666667em;
         line-height: 2em;
     }
 
     /* Checkbox, radio */
-
     .mbsc-checkbox-box,
     .mbsc-radio-box {
         margin-top: -.6875em;
@@ -52,9 +51,7 @@
         opacity: .2;
     }
 
-
     /* Checkbox */
-
     &.mbsc-form .mbsc-checkbox {
         padding: 1.125em 1em 1.125em 2.875em;
     }
@@ -94,26 +91,33 @@
         background: @windows-primary;
         border-color: @windows-primary;
     }
+
     .mbsc-checkbox-secondary input:checked + .mbsc-checkbox-box {
         background: @windows-secondary;
         border-color: @windows-secondary;
     }
+
     .mbsc-checkbox-success input:checked + .mbsc-checkbox-box {
         background: @windows-success;
         border-color: @windows-success;
     }
+
     .mbsc-checkbox-danger input:checked + .mbsc-checkbox-box {
         background: @windows-danger;
         border-color: @windows-danger;
     }
+
     .mbsc-checkbox-warning input:checked + .mbsc-checkbox-box {
         background: @windows-warning;
         border-color: @windows-warning;
     }
+
     .mbsc-checkbox-info input:checked + .mbsc-checkbox-box {
         background: @windows-info;
         border-color: @windows-info;
-    } // .mbsc-checkbox-light input:checked + .mbsc-checkbox-box {
+    }
+
+    // .mbsc-checkbox-light input:checked + .mbsc-checkbox-box {
     //     background: @windows-light;
     //     border-color: @windows-light;
     // }
@@ -121,7 +125,6 @@
     //     background: @windows-dark;
     //     border-color: @windows-dark;
     // }
-
     .mbsc-checkbox input.mbsc-active + .mbsc-checkbox-box {
         border-color: @windows-dark-grey;
         background: @windows-dark-grey;
@@ -130,10 +133,7 @@
     /*.mbsc-checkbox input.mbsc-active + .mbsc-checkbox-box:after {
         border-color: @windows-input-disabled;
     }*/
-
-
     /* Radio */
-
     &.mbsc-form .mbsc-radio {
         padding: 1.125em 3.25em 1.125em 1em;
     }
@@ -171,31 +171,34 @@
     .mbsc-radio-primary .mbsc-radio-box:after {
         background: @windows-primary;
     }
+
     .mbsc-radio-secondary .mbsc-radio-box:after {
         background: @windows-secondary;
     }
+
     .mbsc-radio-success .mbsc-radio-box:after {
         background: @windows-success;
     }
+
     .mbsc-radio-danger .mbsc-radio-box:after {
         background: @windows-danger;
     }
+
     .mbsc-radio-warning .mbsc-radio-box:after {
         background: @windows-warning;
     }
+
     .mbsc-radio-info .mbsc-radio-box:after {
         background: @windows-info;
-    } // .mbsc-radio-light .mbsc-radio-box:after {
+    }
+
+    // .mbsc-radio-light .mbsc-radio-box:after {
     //     background: @windows-light;
     // }
     // .mbsc-radio-dark .mbsc-radio-box:after {
     //     background: @windows-dark;
     // }
-
-
-
     /* Buttons */
-
     .mbsc-btn {
         margin: .5em .25em;
         padding: .3125em .5em;
@@ -242,251 +245,299 @@
 
     .mbsc-btn-group,
     .mbsc-btn-group-justified {
-        padding: .25em .75em;
+        padding: .5em .75em;
     }
 
     .mbsc-btn-group-block {
-        padding: .25em 1em;
+        padding: .5em 1em;
     }
 
-
     /* Button color presets*/
-
     .mbsc-btn-primary.mbsc-btn {
         color: contrast(@windows-primary);
         background: @windows-primary;
         border-color: @windows-primary;
+
         &.mbsc-btn-flat {
             color: @windows-primary;
             background: transparent;
             border-color: transparent;
+
             &.mbsc-active {
                 background: fade(@windows-primary, 25%);
             }
         }
     }
+
     .mbsc-btn-secondary.mbsc-btn {
         color: contrast(@windows-secondary);
         background: @windows-secondary;
         border-color: @windows-secondary;
+
         &.mbsc-btn-flat {
             color: @windows-secondary;
             background: transparent;
             border-color: transparent;
+
             &.mbsc-active {
                 background: fade(@windows-secondary, 25%);
             }
         }
     }
+
     .mbsc-btn-success.mbsc-btn {
         color: contrast(@windows-success);
         background: @windows-success;
         border-color: @windows-success;
+
         &.mbsc-btn-flat {
             color: @windows-success;
             background: transparent;
             border-color: transparent;
+
             &.mbsc-active {
                 background: fade(@windows-success, 25%);
             }
         }
     }
+
     .mbsc-btn-danger.mbsc-btn {
         color: contrast(@windows-danger);
         background: @windows-danger;
         border-color: @windows-danger;
+
         &.mbsc-btn-flat {
             color: @windows-danger;
             background: transparent;
             border-color: transparent;
+
             &.mbsc-active {
                 background: fade(@windows-danger, 25%);
             }
         }
     }
+
     .mbsc-btn-warning.mbsc-btn {
         color: contrast(@windows-warning);
         background: @windows-warning;
         border-color: @windows-warning;
+
         &.mbsc-btn-flat {
             color: @windows-warning;
             background: transparent;
             border-color: transparent;
+
             &.mbsc-active {
                 background: fade(@windows-warning, 25%);
             }
         }
     }
+
     .mbsc-btn-info.mbsc-btn {
         color: contrast(@windows-info);
         background: @windows-info;
         border-color: @windows-info;
+
         &.mbsc-btn-flat {
             color: @windows-info;
             background: transparent;
             border-color: transparent;
+
             &.mbsc-active {
                 background: fade(@windows-info, 25%);
             }
         }
     }
+
     .mbsc-btn-light.mbsc-btn {
         color: contrast(@windows-light);
         background: darken(@windows-light, 25%);
         border-color: darken(@windows-light, 25%);
+
         &.mbsc-btn-flat {
             color: darken(@windows-light, 25%);
             background: transparent;
             border-color: transparent;
+
             &.mbsc-active {
                 background: fade(darken(@windows-light, 25%), 25%);
             }
         }
     }
+
     .mbsc-btn-dark.mbsc-btn {
         color: contrast(@windows-dark);
         background: @windows-dark;
         border-color: @windows-dark;
+
         &.mbsc-btn-flat {
             color: @windows-dark;
             background: transparent;
             border-color: transparent;
+
             &.mbsc-active {
                 background: fade(@windows-dark, 25%);
             }
         }
     }
+
     /* Outline buttons */
     .mbsc-btn.mbsc-btn-outline {
         background: transparent;
         border: 0.125em solid @windows-grey;
         color: @windows-grey;
+
         &.mbsc-active {
             background: @windows-btn-border;
             border-color: @windows-btn-border;
             color: contrast(@windows-btn-border);
             opacity: 1;
         }
+
         &.mbsc-btn-primary {
             border-color: @windows-primary;
             color: @windows-primary;
             background: transparent;
+
             &.mbsc-active {
                 background: @windows-primary;
                 color: @windows-light;
             }
         }
+
         &.mbsc-btn-secondary {
             border-color: @windows-secondary;
             color: @windows-secondary;
             background: transparent;
+
             &.mbsc-active {
                 background: @windows-secondary;
                 color: @windows-light;
             }
         }
+
         &.mbsc-btn-success {
             border-color: @windows-success;
             color: @windows-success;
             background: transparent;
+
             &.mbsc-active {
                 background: @windows-success;
                 color: @windows-light;
             }
         }
+
         &.mbsc-btn-danger {
             border-color: @windows-danger;
             color: @windows-danger;
             background: transparent;
+
             &.mbsc-active {
                 background: @windows-danger;
                 color: @windows-light;
             }
         }
+
         &.mbsc-btn-warning {
             border-color: @windows-warning;
             color: @windows-warning;
             background: transparent;
+
             &.mbsc-active {
                 background: @windows-warning;
                 color: @windows-light;
             }
         }
+
         &.mbsc-btn-info {
             border-color: @windows-info;
             color: @windows-info;
             background: transparent;
+
             &.mbsc-active {
                 background: @windows-info;
                 color: @windows-light;
             }
         }
+
         &.mbsc-btn-light {
             border-color: darken(@windows-light, 25%);
             color: darken(@windows-light, 25%);
             background: transparent;
+
             &.mbsc-active {
                 background: darken(@windows-light, 25%);
                 color: @windows-dark;
             }
         }
+
         &.mbsc-btn-dark {
             border-color: @windows-dark;
             color: @windows-dark;
             background: transparent;
+
             &.mbsc-active {
                 background: @windows-dark;
                 color: @windows-light;
             }
         }
     }
+
     /* button hover style */
     &.mbsc-no-touch {
         .mbsc-btn.mbsc-btn-outline:not(:disabled):hover {
             border-color: @windows-btn-border;
         }
+
         .mbsc-btn-primary.mbsc-btn {
             &:not(.mbsc-btn-flat):not(:disabled):hover {
                 border-color: darken(@windows-primary, 20%);
             }
         }
+
         .mbsc-btn-secondary.mbsc-btn {
             &:not(.mbsc-btn-flat):not(:disabled):hover {
                 border-color: darken(@windows-secondary, 20%);
             }
         }
+
         .mbsc-btn-success.mbsc-btn {
             &:not(.mbsc-btn-flat):not(:disabled):hover {
                 border-color: darken(@windows-success, 20%);
             }
         }
+
         .mbsc-btn-danger.mbsc-btn {
             &:not(.mbsc-btn-flat):not(:disabled):hover {
                 border-color: darken(@windows-danger, 20%);
             }
         }
+
         .mbsc-btn-warning.mbsc-btn {
             &:not(.mbsc-btn-flat):not(:disabled):hover {
                 border-color: darken(@windows-warning, 20%);
             }
         }
+
         .mbsc-btn-info.mbsc-btn {
             &:not(.mbsc-btn-flat):not(:disabled):hover {
                 border-color: darken(@windows-info, 20%);
             }
         }
+
         .mbsc-btn-light.mbsc-btn {
             &:not(.mbsc-btn-flat):not(:disabled):hover {
                 border-color: darken(@windows-light, 40%);
             }
         }
+
         .mbsc-btn-dark.mbsc-btn {
             &:not(.mbsc-btn-flat):not(:disabled):hover {
                 border-color: darken(@windows-dark, 30%);
             }
         }
     }
-    
+
     /* button active style */
     .mbsc-btn-primary.mbsc-btn {
         &.mbsc-active:not(.mbsc-btn-flat):not(:disabled) {
@@ -494,42 +545,49 @@
             border-color: darken(@windows-primary, 20%);
         }
     }
+
     .mbsc-btn-secondary.mbsc-btn {
         &.mbsc-active:not(.mbsc-btn-flat):not(:disabled) {
             background: darken(@windows-secondary, 20%);
             border-color: darken(@windows-secondary, 20%);
         }
     }
+
     .mbsc-btn-success.mbsc-btn {
         &.mbsc-active:not(.mbsc-btn-flat):not(:disabled) {
             background: darken(@windows-success, 20%);
             border-color: darken(@windows-success, 20%);
         }
     }
+
     .mbsc-btn-danger.mbsc-btn {
         &.mbsc-active:not(.mbsc-btn-flat):not(:disabled) {
             background: darken(@windows-danger, 20%);
             border-color: darken(@windows-danger, 20%);
         }
     }
+
     .mbsc-btn-warning.mbsc-btn {
         &.mbsc-active:not(.mbsc-btn-flat):not(:disabled) {
             background: darken(@windows-warning, 20%);
             border-color: darken(@windows-warning, 20%);
         }
     }
+
     .mbsc-btn-info.mbsc-btn {
         &.mbsc-active:not(.mbsc-btn-flat):not(:disabled) {
             background: darken(@windows-info, 20%);
             border-color: darken(@windows-info, 20%);
         }
     }
+
     .mbsc-btn-light.mbsc-btn {
         &.mbsc-active:not(.mbsc-btn-flat):not(:disabled) {
             background: darken(@windows-light, 40%);
             border-color: darken(@windows-light, 40%);
         }
     }
+
     .mbsc-btn-dark.mbsc-btn {
         &.mbsc-active:not(.mbsc-btn-flat):not(:disabled) {
             background: darken(@windows-dark, 30%);
@@ -537,7 +595,6 @@
         }
     }
 
-    
     /* Flat buttons */
     .mbsc-btn.mbsc-btn-flat {
         background: transparent;
@@ -545,7 +602,6 @@
     }
 
     /* Switch */
-
     &.mbsc-form .mbsc-switch {
         padding: 1.125em 5.875em 1.125em 1em;
     }
@@ -585,6 +641,7 @@
     .mbsc-switch input:checked + .mbsc-switch-track {
         background: @windows-accent;
         border-color: @windows-accent;
+
         .mbsc-switch-handle {
             background: @windows-background;
         }
@@ -600,35 +657,42 @@
         background: @windows-primary;
         border-color: @windows-primary;
     }
+
     .mbsc-switch-secondary.mbsc-switch input:checked + .mbsc-switch-track {
         background: @windows-secondary;
         border-color: @windows-secondary;
     }
+
     .mbsc-switch-success.mbsc-switch input:checked + .mbsc-switch-track {
         background: @windows-success;
         border-color: @windows-success;
     }
+
     .mbsc-switch-danger.mbsc-switch input:checked + .mbsc-switch-track {
         background: @windows-danger;
         border-color: @windows-danger;
     }
+
     .mbsc-switch-warning.mbsc-switch input:checked + .mbsc-switch-track {
         background: @windows-warning;
         border-color: @windows-warning;
     }
+
     .mbsc-switch-info.mbsc-switch input:checked + .mbsc-switch-track {
         background: @windows-info;
         border-color: @windows-info;
-    } // .mbsc-switchswitch-light.mbsc-switch input:checked + .mbsc-switch-track {
+    }
+
+    // .mbsc-switchswitch-light.mbsc-switch input:checked + .mbsc-switch-track {
     //     background: @windows-light;
     // }
     // .mbsc-switch-dark.mbsc-switch input:checked + .mbsc-switch-track {
     //     background: @windows-dark;
     // }
-
     &.mbsc-form .mbsc-switch input.mbsc-active + .mbsc-switch-track {
         background: @windows-dark-grey;
         border-color: @windows-dark-grey;
+
         .mbsc-switch-handle {
             background: @windows-background;
         }
@@ -662,7 +726,7 @@
 
     &.mbsc-rtl .mbsc-segmented:not(.mbsc-stepper) .mbsc-segmented-item {
         border-left: 1px solid @windows-border;
-    }   
+    }
 
     .mbsc-segmented:not(.mbsc-stepper) .mbsc-segmented-item:last-child,
     .mbsc-segmented .mbsc-segmented-item.mbsc-stepper-plus,
@@ -737,38 +801,50 @@
     }
 
     .mbsc-segmented {
+
         /* Segmented color presets */
         .mbsc-segmented-primary {
+
             &.mbsc-segmented-item input.mbsc-active + .mbsc-segmented-content,
             &.mbsc-segmented-item input.mbsc-control:checked + .mbsc-segmented-content {
                 background: @windows-primary;
             }
         }
+
         .mbsc-segmented-secondary {
+
             &.mbsc-segmented-item input.mbsc-active + .mbsc-segmented-content,
             &.mbsc-segmented-item input.mbsc-control:checked + .mbsc-segmented-content {
                 background: @windows-secondary;
             }
         }
+
         .mbsc-segmented-success {
+
             &.mbsc-segmented-item input.mbsc-active + .mbsc-segmented-content,
             &.mbsc-segmented-item input.mbsc-control:checked + .mbsc-segmented-content {
                 background: @windows-success;
             }
         }
+
         .mbsc-segmented-danger {
+
             &.mbsc-segmented-item input.mbsc-active + .mbsc-segmented-content,
             &.mbsc-segmented-item input.mbsc-control:checked + .mbsc-segmented-content {
                 background: @windows-danger;
             }
         }
+
         .mbsc-segmented-warning {
+
             &.mbsc-segmented-item input.mbsc-active + .mbsc-segmented-content,
             &.mbsc-segmented-item input.mbsc-control:checked + .mbsc-segmented-content {
                 background: @windows-warning;
             }
         }
+
         .mbsc-segmented-info {
+
             &.mbsc-segmented-item input.mbsc-active + .mbsc-segmented-content,
             &.mbsc-segmented-item input.mbsc-control:checked + .mbsc-segmented-content {
                 background: @windows-info;
@@ -777,63 +853,75 @@
     }
 
     &.mbsc-no-touch {
+
         /* Segmented hover color presets*/
         .mbsc-segmented-primary {
             &.mbsc-segmented-item:hover input:not(:disabled):not(.mbsc-active) + .mbsc-segmented-content {
                 background: fade(@windows-primary, 25%)
             }
         }
+
         .mbsc-segmented-secondary {
             &.mbsc-segmented-item:hover input:not(:disabled):not(.mbsc-active) + .mbsc-segmented-content {
                 background: fade(@windows-secondary, 25%)
             }
         }
+
         .mbsc-segmented-success {
             &.mbsc-segmented-item:hover input:not(:disabled):not(.mbsc-active) + .mbsc-segmented-content {
                 background: fade(@windows-success, 25%)
             }
         }
+
         .mbsc-segmented-danger {
             &.mbsc-segmented-item:hover input:not(:disabled):not(.mbsc-active) + .mbsc-segmented-content {
                 background: fade(@windows-danger, 25%)
             }
         }
+
         .mbsc-segmented-warning {
             &.mbsc-segmented-item:hover input:not(:disabled):not(.mbsc-active) + .mbsc-segmented-content {
                 background: fade(@windows-warning, 25%)
             }
         }
+
         .mbsc-segmented-info {
             &.mbsc-segmented-item:hover input:not(:disabled):not(.mbsc-active) + .mbsc-segmented-content {
                 background: fade(@windows-info, 25%)
             }
         }
+
         /* Stepper hover color presets*/
         .mbsc-stepper-primary {
             .mbsc-segmented .mbsc-segmented-item:not(.mbsc-disabled):hover .mbsc-segmented-content {
                 background: darken(@windows-primary, 10%)
             }
         }
+
         .mbsc-stepper-secondary {
             .mbsc-segmented .mbsc-segmented-item:not(.mbsc-disabled):hover .mbsc-segmented-content {
                 background: darken(@windows-secondary, 10%)
             }
         }
+
         .mbsc-stepper-success {
             .mbsc-segmented .mbsc-segmented-item:not(.mbsc-disabled):hover .mbsc-segmented-content {
                 background: darken(@windows-success, 10%)
             }
         }
+
         .mbsc-stepper-danger {
             .mbsc-segmented .mbsc-segmented-item:not(.mbsc-disabled):hover .mbsc-segmented-content {
                 background: darken(@windows-danger, 10%)
             }
         }
+
         .mbsc-stepper-warning {
             .mbsc-segmented .mbsc-segmented-item:not(.mbsc-disabled):hover .mbsc-segmented-content {
                 background: darken(@windows-warning, 10%)
             }
         }
+
         .mbsc-stepper-info {
             .mbsc-segmented .mbsc-segmented-item:not(.mbsc-disabled):hover .mbsc-segmented-content {
                 background: darken(@windows-info, 10%)
@@ -842,69 +930,85 @@
     }
 
     /* Stepper color presets */
-
     .mbsc-stepper-primary {
         .mbsc-segmented-content.mbsc-stepper-val {
             border-color: @windows-primary;
         }
+
         .mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control .mbsc-segmented-content {
             background: @windows-primary;
         }
+
         .mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control.mbsc-active:not(.mbsc-disabled) .mbsc-segmented-content {
             background: darken(@windows-primary, 25%);
         }
     }
+
     .mbsc-stepper-secondary {
         .mbsc-segmented-content.mbsc-stepper-val {
             border-color: @windows-secondary;
         }
+
         .mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control .mbsc-segmented-content {
             background: @windows-secondary;
         }
+
         .mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control.mbsc-active:not(.mbsc-disabled) .mbsc-segmented-content {
             background: darken(@windows-secondary, 25%);
         }
     }
+
     .mbsc-stepper-success {
         .mbsc-segmented-content.mbsc-stepper-val {
             border-color: @windows-success;
         }
+
         .mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control .mbsc-segmented-content {
             background: @windows-success;
         }
+
         .mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control.mbsc-active:not(.mbsc-disabled) .mbsc-segmented-content {
             background: darken(@windows-success, 25%);
         }
     }
+
     .mbsc-stepper-danger {
         .mbsc-segmented-content.mbsc-stepper-val {
             border-color: @windows-danger;
         }
+
         .mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control .mbsc-segmented-content {
             background: @windows-danger;
         }
+
         .mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control.mbsc-active:not(.mbsc-disabled) .mbsc-segmented-content {
             background: darken(@windows-danger, 25%);
         }
     }
+
     .mbsc-stepper-warning {
         .mbsc-segmented-content.mbsc-stepper-val {
             border-color: @windows-warning;
         }
+
         .mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control .mbsc-segmented-content {
             background: @windows-warning;
         }
+
         .mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control.mbsc-active:not(.mbsc-disabled) .mbsc-segmented-content {
             background: darken(@windows-warning, 25%);
         }
     }
+
     .mbsc-stepper-info {
         .mbsc-segmented-content.mbsc-stepper-val {
             border-color: @windows-info;
         }
+
         .mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control .mbsc-segmented-content {
             background: @windows-info;
         }
+
         .mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control.mbsc-active:not(.mbsc-disabled) .mbsc-segmented-content {
             background: darken(@windows-info, 25%);
         }
