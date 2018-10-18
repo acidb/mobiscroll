@@ -45,7 +45,9 @@ export const Form = function (el, settings) {
         cssClass = 'mbsc-form mbsc-no-touch mbsc-' + s.theme +
             (halfBorder ? ' mbsc-form-hb' : '') +
             (s.baseTheme ? ' mbsc-' + s.baseTheme : '') +
-            (s.rtl ? ' mbsc-rtl' : ' mbsc-ltr');
+            (s.rtl ? ' mbsc-rtl' : ' mbsc-ltr') +
+            (s.inputStyle == 'box' ? ' mbsc-form-box' : '') +
+            (s.inputStyle == 'outline' ? ' mbsc-form-outline' : '');
         // --- TRIAL SERVER CODE END ---
 
         $ctx.addClass(cssClass).removeClass('mbsc-cloak');
@@ -86,8 +88,7 @@ Form.prototype = {
     _defaults: {
         tap: !hasTouchAction,
         stopProp: true,
-        // Localization
-        lang: 'en'
+        rtl: false
     }
 };
 

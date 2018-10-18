@@ -7,9 +7,11 @@ var os,
     userAgent = isBrowser ? navigator.userAgent : '',
     device = userAgent.match(/Android|iPhone|iPad|iPod|Windows Phone|Windows|MSIE/i),
     raf = (isBrowser && window.requestAnimationFrame) || function (func) {
-        func();
+        return setTimeout(func, 20);
     },
-    rafc = (isBrowser && window.cancelAnimationFrame) || function () {};
+    rafc = (isBrowser && window.cancelAnimationFrame) || function (id) {
+        clearTimeout(id);
+    };
 
 if (/Android/i.test(device)) {
     os = 'android';

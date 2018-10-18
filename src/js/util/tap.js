@@ -63,6 +63,31 @@ function getCoord(e, c, page) {
     return e[prop];
 }
 
+function getControlType($elm) {
+    const elm = $elm[0];
+    const role = $elm.attr('data-role');
+
+    let type = $elm.attr('type') || elm.nodeName.toLowerCase();
+
+    if (/(switch|range|rating|segmented|stepper)/.test(role)) {
+        type = role;
+    }
+
+    return type;
+}
+
+function activateControl(control, type, ev) {
+    control.focus();
+
+    if (/(button|submit|checkbox|switch|radio)/.test(type)) {
+        ev.preventDefault();
+    }
+
+    if (!/select/.test(type)) {
+        triggerClick(ev, control);
+    }
+}
+
 function tap(that, el, handler, prevent, tolerance, time) {
     var startX,
         startY,
@@ -156,6 +181,8 @@ if (isBrowser) {
 }
 
 export {
+    activateControl,
+    getControlType,
     getCoord,
     preventClick,
     triggerClick,

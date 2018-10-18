@@ -245,12 +245,12 @@ class MbscTextArea extends MbscOptimized {
                 this.instance.option(settings);
             }
             if (this.optimizeUpdate.updateValue) {
-                this.instance.resize();
+                this.instance.refresh();
             }
         } else {
             this.instance.option(settings);
             if (this.props.value !== undefined) {
-                this.instance.resize();
+                this.instance.refresh();
             }
         }
     }
@@ -829,7 +829,8 @@ class MbscFormGroup extends React.Component {
 
     static propTypes = {
         collapsible: PropTypes.any,
-        open: PropTypes.bool
+        open: PropTypes.bool,
+        inset: PropTypes.any
     }
 
     componentDidMount() {
@@ -852,8 +853,8 @@ class MbscFormGroup extends React.Component {
 
     render() {
         /* eslint-disable no-unused-vars */
-        let { children, inset, collapsible, ...other } = this.props;
-        let cssClasses = "mbsc-form-group " + (inset !== undefined ? '-inset' : '') + (this.props.className || '');
+        let { children, inset, collapsible, className, ...other } = this.props;
+        let cssClasses = "mbsc-form-group" + (inset !== undefined ? '-inset' : '') + " " + (className || '');
 
         return <div className={cssClasses} {...other}>
             {children}

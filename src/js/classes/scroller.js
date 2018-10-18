@@ -80,11 +80,11 @@ export const Scroller = function (el, settings, inherit) {
             maxSelect = isNumeric(wheel.multiple) ? wheel.multiple : Infinity;
 
         if (trigger('onItemTap', {
-            target: $item[0],
-            index: i,
-            value: val,
-            selected: $item.hasClass('mbsc-sc-itm-sel')
-        }) !== false) {
+                target: $item[0],
+                index: i,
+                value: val,
+                selected: $item.hasClass('mbsc-sc-itm-sel')
+            }) !== false) {
 
             // Select item on tap
             if (wheel.multiple && !wheel._disabled[val]) {
@@ -106,7 +106,7 @@ export const Scroller = function (el, settings, inherit) {
                 }
             }
 
-            setWheelValue(wheel, i, idx, animTime, true, true, wheel.multiple);
+            setWheelValue(wheel, i, idx, animTime, wheel._index < idx ? 1 : 2, true, wheel.multiple);
 
             if (that.live && (!wheel.multiple || (wheel.multiple === 1 && s.tapSelect)) && (s.setOnTap === true || s.setOnTap[i])) {
                 setTimeout(function () {
@@ -309,19 +309,16 @@ export const Scroller = function (el, settings, inherit) {
         }
     }
 
-    function getValid(index, val, dir, dis) {
+    function getValid(index, v, dir, dis) {
         var counter,
             wheel = wheels[index],
             disabled = dis || wheel._disabled,
-            idx = getIndex(wheel, val),
+            idx = getIndex(wheel, v),
+            val = getValue(wheel, idx),
             v1 = val,
             v2 = val,
             dist1 = 0,
             dist2 = 0;
-
-        if (val === undefined) {
-            val = getValue(wheel, idx);
-        }
 
         // TODO: what if all items are invalid
         if (disabled[val] === true) {
@@ -889,7 +886,7 @@ Scroller.prototype = {
         timeUnit: 0.08,
         checkIcon: 'checkmark',
         compClass: 'mbsc-sc',
-        validate: function () { },
+        validate: function () {},
         formatValue: function (d) {
             return d.join(' ');
         },

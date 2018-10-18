@@ -44,6 +44,16 @@ export { MbscFormOptions };
 
 import { CollapsibleBase } from './util/collapsible-base.js';
 
+/**
+ * Checks if the value passed is empty or the true string.
+ * Used for determining if certain attributes are used on components. 
+ * FYI: when an attribute is used without a value, empty string is provided to this function. Ex. readonly
+ * @param val The value of the attribute.
+ */
+function emptyOrTrue(val: any) {
+    return (typeof(val) === 'string' && (val === 'true' || val === '')) || !!val;
+}
+
 @Component({
     selector: 'mbsc-form',
     template: `<div #rootElement><ng-content></ng-content></div>`,
@@ -145,6 +155,13 @@ export class MbscFormBase extends MbscBase implements OnInit {
 
 export class MbscFormValueBase extends MbscFormBase implements ControlValueAccessor {
     _value: any;
+    _readonly: boolean;
+
+    @Input()
+    set readonly(val: any) {
+        // sets the readonly setting to true if empty string is provided, aka without value (ex. <mbsc-rating readonly>)
+        this._readonly = emptyOrTrue(val);
+    }
 
     set innerValue(v: any) {
         this._value = v;
@@ -317,7 +334,8 @@ export class MbscInputBase extends MbscFormValueBase {
                     [attr.data-password-toggle]="passwordToggle ? 'true': null"
                     [attr.data-icon-show]="iconShow ? iconShow : null"
                     [attr.data-icon-hide]="iconHide ? iconHide : null"
-                    [disabled]="disabled" />
+                    [disabled]="disabled"
+                    [attr.readonly]="_readonly" />
                 <span *ngIf="dropdown" class="mbsc-select-ic mbsc-ic mbsc-ic-arrow-down5"></span>
                 <span *ngIf="error && errorMessage" class="mbsc-err-msg">{{errorMessage}}</span>
             </span>
@@ -368,7 +386,8 @@ export class MbscInput extends MbscInputBase {
                     [attr.rows]="rows"
                     [attr.data-icon]="icon ? icon : null"
                     [attr.data-icon-align]="iconAlign ? iconAlign : null"
-                    [disabled]="disabled"></textarea>
+                    [disabled]="disabled"
+                    [attr.readonly]="_readonly"></textarea>
                 <span *ngIf="error && errorMessage" class="mbsc-err-msg">{{errorMessage}}</span>
             </span>
         </label>
@@ -417,6 +436,7 @@ export class MbscTextarea extends MbscInputBase {
                     [attr.data-icon]="icon ? icon : null"
                     [attr.data-icon-align]="iconAlign ? iconAlign : null"
                     [disabled]="disabled"
+                    [attr.readonly]="_readonly"
                     (blur)="onTouch($event)">
                     <ng-content></ng-content>
                 </select>
@@ -560,19 +580,19 @@ export class MbscButton extends MbscFormBase {
     @Input()
     set flat(val: any) {
         // sets the flat setting to true if empty string is provided, aka without value (ex. <mbsc-button flat>)
-        this._flat = (typeof val === 'string' && (val === 'true' || val === '')) || !!val;
+        this._flat = emptyOrTrue(val);
     }
 
     @Input()
     set block(val: any) {
         // sets the block setting to true if empty string is provided, aka without value (ex. <mbsc-button block>)
-        this._block = (typeof val === 'string' && (val === 'true' || val === '')) || !!val;
+        this._block = emptyOrTrue(val);
     }
 
     @Input()
     set outline(val: any) {
         // sets the outline setting to true if empty string is provided, aka without value (ex. <mbsc-button outline>)
-        this._outline = (typeof val === 'string' && (val === 'true' || val === '')) || !!val;
+        this._outline = emptyOrTrue(val);
     }
 
     constructor(hostElem: ElementRef, @Optional() formService: MbscOptionsService) {
@@ -734,7 +754,8 @@ export class MbscSwitch extends MbscControlBase implements OnInit {
                 [attr.max]="max !== undefined ? max : null"
                 [attr.step]="step !== undefined ? step : null"
                 [attr.data-val]="val ? val : null"
-                [disabled]="disabled" />
+                [disabled]="disabled" 
+                [attr.readonly]="_readonly"/>
         </div>
     `,
     exportAs: 'mobiscroll'
@@ -742,6 +763,13 @@ export class MbscSwitch extends MbscControlBase implements OnInit {
 export class MbscStepper extends MbscControlBase implements OnInit {
     protected _inheritedOptions: any;
     _instance: Stepper;
+    _readonly: boolean;
+    
+    @Input()
+    set readonly(val: any) {
+        // sets the readonly setting to true if empty string is provided, aka without value (ex. <mbsc-rating readonly>)
+        this._readonly = emptyOrTrue(val);
+    }
 
     @Input('options')
     options: MbscFormOptions;
@@ -1430,6 +1458,7 @@ export class MbscSlider extends MbscControlBase {
             [attr.data-empty]="empty"
             [attr.data-filled]="filled"
             [disabled]="disabled"
+            [attr.readonly]="_readonly"
             (blur)="onTouch($event)" />
     </label>`
 })
@@ -1460,6 +1489,13 @@ export class MbscRating extends MbscControlBase implements OnInit {
 
     @Input()
     filled: string;
+
+    _readonly: boolean;
+    @Input()
+    set readonly(val: any) {
+        // sets the readonly setting to true if empty string is provided, aka without value (ex. <mbsc-rating readonly>)
+        this._readonly = emptyOrTrue(val);
+    }
 
     /**
      * Input for the data-val attribute. Can be one of 'left' or 'right'

@@ -16,7 +16,7 @@
     }
 
     /* Textbox, textarea, select */
-    .mbsc-input select:disabled ~ input,
+    .mbsc-input .mbsc-control:disabled ~ input,
     .mbsc-input textarea:disabled,
     .mbsc-input input:disabled {
         border-style: dotted;
@@ -239,12 +239,12 @@
 
     /* Box Input */
     .mbsc-input-box {
-        .mbsc-input-wrap {
+        &.mbsc-input .mbsc-input-wrap {
             background: #ddd;
             border-radius: 4px 4px 0 0;
         }
 
-        input {
+        &.mbsc-input input {
             height: 2.25em;
             padding: .0625em 1em;
         }
@@ -254,7 +254,7 @@
             height: 2.25em;
         }
 
-        .mbsc-label + .mbsc-input-wrap {
+        &.mbsc-input .mbsc-label + .mbsc-input-wrap {
             padding-top: 1.25em;
 
             textarea:focus {
@@ -299,6 +299,10 @@
             .mbsc-label {
                 padding-top: .125em;
                 padding-bottom: .125em;
+            }
+
+            .mbsc-label + .mbsc-input-wrap {
+                padding-top: 0;
             }
 
             .mbsc-label + .mbsc-input-wrap .mbsc-input-ic {
@@ -472,13 +476,13 @@
     /* Outline Input */
     .mbsc-input-outline {
 
-        input,
-        textarea {
+        &.mbsc-input input,
+        &.mbsc-input textarea {
             border: 1px solid #6d6d6d;
             border-radius: 4px;
         }
 
-        input {
+        &.mbsc-input input {
             height: 3.375em;
             padding: .0625em 1em;
         }
@@ -488,7 +492,7 @@
             padding: .875em 1em .4375em 1em;
         }
 
-        .mbsc-label {
+        &.mbsc-input .mbsc-label {
             top: .833334em;
             z-index: 1;
             background: #eee;
@@ -499,7 +503,7 @@
             top: .8125em;
         }
 
-        .mbsc-label + .mbsc-input-wrap {
+        &.mbsc-input .mbsc-label + .mbsc-input-wrap {
             padding-top: 1em;
 
             .mbsc-input-ic {
@@ -507,8 +511,8 @@
             }
         }
 
-        input:focus,
-        select:focus ~ input {
+        &.mbsc-input input:focus,
+        &.mbsc-input select:focus ~ input {
             border: 2px solid #009688;
             padding: 0 .9375em;
         }
@@ -524,7 +528,7 @@
             padding: 0 .9375em;
         }
 
-        textarea:focus {
+        &.mbsc-input textarea:focus {
             border: 2px solid #009688;
             padding: .8125em .9375em .375em .9375em;
         }
@@ -552,6 +556,10 @@
         &.mbsc-label-inline {
             .mbsc-label {
                 line-height: 3.375em;
+            }
+
+            .mbsc-label + .mbsc-input-wrap {
+                padding-top: 0;
             }
 
             .mbsc-label + .mbsc-input-wrap .mbsc-input-ic {

@@ -14,6 +14,7 @@ export const Progress = function (elm, settings, inherit) {
         $track,
         min,
         max,
+        inputStyle,
         labelStyle,
         s,
         template,
@@ -106,6 +107,7 @@ export const Progress = function (elm, settings, inherit) {
         // Read settings from data attributes or settings object
         min = that._min = settings.min === undefined ? getAttr('min', s.min) : settings.min;
         max = that._max = settings.max === undefined ? getAttr('max', s.max) : settings.max;
+        inputStyle = settings.inputStyle === undefined ? getAttr('data-input-style', s.inputStyle, true) : settings.inputStyle;
         labelStyle = settings.labelStyle === undefined ? getAttr('data-label-style', s.labelStyle, true) : settings.labelStyle;
         value = getAttr('value', min);
         displayValue = $elm.attr('data-val') || s.val;
@@ -114,7 +116,7 @@ export const Progress = function (elm, settings, inherit) {
         template = $elm.attr('data-template') || (max == 100 && !s.template ? '{value}%' : s.template);
 
         if (!wasInit) {
-            wrapLabel($parent, null, null, labelStyle, elm);
+            wrapLabel($parent, null, inputStyle, labelStyle, elm);
 
             addIcon($elm);
 

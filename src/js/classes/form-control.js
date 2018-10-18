@@ -1,5 +1,5 @@
 import { $, extend, mobiscroll } from '../core/core';
-import { getCoord, tap, triggerClick } from '../util/tap';
+import { activateControl, getControlType, getCoord, tap } from '../util/tap';
 import { testTouch, hasTouchAction } from '../util/dom';
 
 const wrapClass = 'mbsc-input-wrap';
@@ -96,19 +96,6 @@ function wrapLabel($parent, type, inputStyle, labelStyle, elm) {
             $('<span class="mbsc-label" title="' + this.textContent.trim() + '"></span>').insertAfter(this).append(this);
         });
     }
-}
-
-function getControlType($elm) {
-    const elm = $elm[0];
-    const role = $elm.attr('data-role');
-
-    let type = $elm.attr('type') || elm.nodeName.toLowerCase();
-
-    if (/(switch|range|rating|segmented|stepper)/.test(role)) {
-        type = role;
-    }
-
-    return type;
 }
 
 function getRipple(theme) {
@@ -238,15 +225,7 @@ export class FormControl {
         const type = this._type;
 
         if (this._isActive && this.settings.tap && ev.type == 'touchend' && !control.readOnly) {
-            control.focus();
-
-            if (/(button|submit|checkbox|switch|radio)/.test(type)) {
-                ev.preventDefault();
-            }
-
-            if (!/select/.test(type)) {
-                triggerClick(ev, control);
-            }
+            activateControl(control, type, ev);
         }
 
         if (this._isActive) {
@@ -265,6 +244,5 @@ export class FormControl {
 export {
     addIcon,
     addIconToggle,
-    getControlType,
     wrapLabel
 };

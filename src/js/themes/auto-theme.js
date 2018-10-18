@@ -3,7 +3,7 @@ import { os } from '../util/platform';
 
 const themes = mobiscroll.themes;
 
-let theme;
+let theme = 'mobiscroll';
 
 if (os == 'android') {
     theme = 'material';
@@ -15,7 +15,7 @@ if (os == 'android') {
 
 $.each(themes.frame, function (key, settings) {
     // Stop at the first custom theme with the OS base theme
-    if (theme && settings.baseTheme == theme && key != 'material-dark' && key != 'windows-dark' && key != 'ios-dark') {
+    if (theme && settings.baseTheme == theme && key != 'mobiscroll-dark' && key != 'material-dark' && key != 'windows-dark' && key != 'ios-dark') {
         mobiscroll.autoTheme = key;
         return false;
     } else if (key == theme) {

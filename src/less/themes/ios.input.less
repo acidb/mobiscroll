@@ -76,8 +76,6 @@
         color: #020202;
         white-space: nowrap;
         text-overflow: ellipsis;
-        -webkit-box-sizing: content-box;
-        -moz-box-sizing: content-box;
         box-sizing: content-box;
     }
 
@@ -89,9 +87,10 @@
         padding-right: 1em;
     }
 
-    .mbsc-input select:disabled ~ input,
-    .mbsc-input select:disabled ~ .mbsc-ic,
-    .mbsc-input input:disabled {
+    .mbsc-input input:disabled,
+    .mbsc-input textarea:disabled,
+    .mbsc-input .mbsc-control:disabled ~ input,
+    .mbsc-input .mbsc-control:disabled ~ .mbsc-ic {
         opacity: .5;
     }
 
@@ -543,6 +542,12 @@
     &.mbsc-rtl .mbsc-input-box .mbsc-err-msg,
     &.mbsc-rtl .mbsc-input-outline .mbsc-err-msg {
         right: 1.333334em;
+    }
+
+    /* Box and outline inputs inside form group inset */
+    .mbsc-form-group-inset .mbsc-control-ng .mbsc-control-w.mbsc-input-box,
+    .mbsc-form-group-inset .mbsc-control-ng .mbsc-control-w.mbsc-input-outline {
+        border-radius: .5em;
     }
 
     /* Outline */

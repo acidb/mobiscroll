@@ -8,6 +8,7 @@ export const Stepper = function (control, settings) {
         displayValue,
         max,
         min,
+        inputStyle,
         ripple,
         step,
         stepper,
@@ -68,9 +69,9 @@ export const Stepper = function (control, settings) {
         }
     }
 
-    function getAttr(attr, def) {
+    function getAttr(attr, def, str) {
         var v = $control.attr(attr);
-        return v === undefined || v === '' ? def : +v;
+        return v === undefined || v === '' ? def : (str ? v : +v);
     }
 
     // Call the parent constructor
@@ -98,6 +99,7 @@ export const Stepper = function (control, settings) {
         min = settings.min === undefined ? getAttr('min', s.min) : settings.min;
         max = settings.max === undefined ? getAttr('max', s.max) : settings.max;
         step = settings.step === undefined ? getAttr('step', s.step) : settings.step;
+        inputStyle = settings.inputStyle === undefined ? getAttr('data-input-style', s.inputStyle, true) : settings.inputStyle;
         displayValue = $control.attr('data-val') || s.val;
         val = Math.min(max, Math.max(Math.round(+control.value / step) * step || 0, min));
 
@@ -107,6 +109,8 @@ export const Stepper = function (control, settings) {
         if (!ready) {
             $parent
                 .addClass('mbsc-stepper-cont mbsc-control-w')
+                .addClass(inputStyle == 'box' ? 'mbsc-input-box' : '')
+                .addClass(inputStyle == 'outline' ? 'mbsc-input-outline' : '')
                 .append('<span class="mbsc-segmented mbsc-stepper"></span>')
                 .find('.mbsc-stepper')
                 .append('<span class="mbsc-segmented-item mbsc-stepper-control mbsc-stepper-minus ' + (val == min ? 'mbsc-disabled' : '') + '" data-step="-1" tabindex="0"><span class="mbsc-segmented-content"><span class="mbsc-ic mbsc-ic-minus"></span></span></span>')

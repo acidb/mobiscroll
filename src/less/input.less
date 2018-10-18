@@ -26,8 +26,6 @@
 .mbsc-input-wrap,
 .mbsc-input input,
 .mbsc-input textarea {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
 
@@ -115,8 +113,6 @@
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
-        -webkit-box-sizing: content-box;
-        -moz-box-sizing: content-box;
         box-sizing: content-box;
     }
 }
@@ -227,8 +223,8 @@
 
     .mbsc-input input:disabled,
     .mbsc-input textarea:disabled,
-    .mbsc-input select:disabled ~ input,
-    .mbsc-input select:disabled ~ .mbsc-select-ic {
+    .mbsc-input .mbsc-control:disabled ~ input,
+    .mbsc-input .mbsc-control:disabled ~ .mbsc-select-ic {
         opacity: .4;
     }
 
@@ -443,12 +439,12 @@
 
     /* Box Input */
     .mbsc-input-box {
-        .mbsc-input-wrap {
+        &.mbsc-input .mbsc-input-wrap {
             background: #ddd;
             border-radius: 4px 4px 0 0;
         }
 
-        input {
+        &.mbsc-input input {
             height: 2.25em;
             padding: .0625em 1em;
         }
@@ -458,7 +454,7 @@
             height: 2.25em;
         }
 
-        .mbsc-label + .mbsc-input-wrap {
+        &.mbsc-input .mbsc-label + .mbsc-input-wrap {
             padding-top: 1.25em;
 
             textarea:focus {
@@ -474,9 +470,7 @@
             top: .25em;
         }
 
-        .mbsc-label {
-            position: absolute;
-            top: 0;
+        &.mbsc-input .mbsc-label {
             padding: .666667em 0;
             z-index: 1;
             line-height: normal;
@@ -508,6 +502,10 @@
                 padding-bottom: .125em;
             }
 
+            .mbsc-label + .mbsc-input-wrap {
+                padding-top: 0;
+            }
+
             .mbsc-label + .mbsc-input-wrap .mbsc-input-ic {
                 top: .1875em;
             }
@@ -525,6 +523,7 @@
         &.mbsc-label-floating {
             .mbsc-label {
                 top: .125em;
+                line-height: 2em;
             }
 
             &.mbsc-label-floating-active .mbsc-label {
@@ -688,13 +687,13 @@
     /* Outline Input */
     .mbsc-input-outline {
 
-        input,
-        textarea {
+        &.mbsc-input input,
+        &.mbsc-input textarea {
             border: 1px solid #787878;
             border-radius: 4px;
         }
 
-        input {
+        &.mbsc-input input {
             height: 3.375em;
             padding: .0625em 1em;
         }
@@ -704,8 +703,7 @@
             padding: .875em 1em .4375em 1em;
         }
 
-        .mbsc-label {
-            position: absolute;
+        &.mbsc-input .mbsc-label {
             top: .833334em;
             z-index: 1;
             background: #f7f7f7;
@@ -716,7 +714,7 @@
             top: .8125em;
         }
 
-        .mbsc-label + .mbsc-input-wrap {
+        &.mbsc-input .mbsc-label + .mbsc-input-wrap {
             padding-top: 1em;
 
             .mbsc-input-ic {
@@ -724,8 +722,8 @@
             }
         }
 
-        input:focus,
-        select:focus ~ input,
+        &.mbsc-input input:focus,
+        &.mbsc-input select:focus ~ input,
         &.mbsc-err input {
             border-color: #4eccc4;
             padding-top: 0;
@@ -736,7 +734,7 @@
             border-color: #de3226;
         }
 
-        textarea:focus {
+        &.mbsc-input textarea:focus {
             border-color: #4eccc4;
         }
 
@@ -758,6 +756,10 @@
         &.mbsc-label-inline {
             .mbsc-label {
                 line-height: 3.375em;
+            }
+
+            .mbsc-label + .mbsc-input-wrap {
+                padding-top: 0;
             }
 
             .mbsc-label + .mbsc-input-wrap .mbsc-input-ic {

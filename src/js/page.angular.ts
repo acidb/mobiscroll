@@ -15,7 +15,8 @@ export { MbscPageOptions };
 @Component({
     selector: 'mbsc-page',
     template: '<div #initElement><ng-content></ng-content></div>',
-    providers: [MbscOptionsService]
+    providers: [MbscOptionsService],
+    exportAs: 'mobiscroll'
 })
 export class MbscPage extends MbscBase implements OnInit {
     _instance: Page;

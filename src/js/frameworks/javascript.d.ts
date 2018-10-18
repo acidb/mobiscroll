@@ -12,11 +12,11 @@ export { Popup, MbscPopupOptions };
 import { IMobiscroll as _IMobiscroll } from '../core/core';
 
 export interface IMobiscroll extends _IMobiscroll {
-    form(selector: string, options?: MbscFormOptions): Form;
-    page(selector: string, options?: MbscPageOptions): Page;
-    scroller(selector: string, options?: MbscScrollerOptions): Scroller;
-    popup(selector: string, options?: MbscPopupOptions): Popup;
-    widget(selector: string, options?: MbscWidgetOptions): Widget;
+    form(selector: string | HTMLElement, options?: MbscFormOptions): Form;
+    page(selector: string | HTMLElement, options?: MbscPageOptions): Page;
+    scroller(selector: string | HTMLElement, options?: MbscScrollerOptions): Scroller;
+    popup(selector: string | HTMLElement, options?: MbscPopupOptions): Popup;
+    widget(selector: string | HTMLElement, options?: MbscWidgetOptions): Widget;
 }
 
 export const mobiscroll: IMobiscroll;

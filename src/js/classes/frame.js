@@ -1,8 +1,9 @@
-import { $, extend, Base, mobiscroll, classes, instances } from '../core/core';
+import { $, extend, Base, mobiscroll, classes } from '../core/core';
 import { os, majorVersion, isBrowser, userAgent } from '../util/platform';
 import { animEnd } from '../util/dom';
 import { getCoord, preventClick } from '../util/tap';
 import { constrain, isString, noop } from '../util/misc';
+import { resizeObserver } from '../util/resize-observer';
 
 var $activeElm,
     preventShow,
@@ -34,6 +35,7 @@ export const Frame = function (el, settings, inherit) {
         btn,
         ctx,
         doAnim,
+        firstPosition,
         hasContext,
         isModal,
         isInserted,
@@ -43,10 +45,10 @@ export const Frame = function (el, settings, inherit) {
         modalHeight,
         needsDimensions,
         needsLock,
+        observer,
         overlay,
         popup,
         posDebounce,
-        posEvents,
         s,
         scrollLeft,
         scrollLock,
@@ -95,7 +97,7 @@ export const Frame = function (el, settings, inherit) {
     }
 
     function onWndKeyDown(ev) {
-        if (ev.keyCode == 13) {
+        if (ev.keyCode == 13 && !$(ev.target).is(EDITABLE)) {
             that.select();
         } else if (ev.keyCode == 27) {
             that.cancel();
@@ -163,16 +165,18 @@ export const Frame = function (el, settings, inherit) {
         trigger('onHide');
     }
 
-    function onPosition(ev) {
+    function onPosition() {
+        if (firstPosition) {
+            firstPosition = false;
+            return;
+        }
         clearTimeout(posDebounce);
         posDebounce = setTimeout(function () {
             that.position(true);
-            if (ev.type == 'orientationchange') {
-                // Trigger reflow, needed on iOS9 (only?) for the scroll to work
-                popup.style.display = 'none';
-                popup.offsetHeight;
-                popup.style.display = '';
-            }
+            // Trigger reflow, needed on iOS safari, when orientation is changed
+            popup.style.visibility = 'hidden';
+            popup.offsetHeight;
+            popup.style.visibility = '';
         }, 200);
     }
 
@@ -214,6 +218,7 @@ export const Frame = function (el, settings, inherit) {
         }
 
         isInserted = true;
+        firstPosition = true;
 
         that._markupInserted($markup);
 
@@ -237,7 +242,8 @@ export const Frame = function (el, settings, inherit) {
                 }
             })
             .on('keydown', function (ev) { // Trap focus inside modal
-                if (ev.keyCode == 32) { // Space
+                if (ev.keyCode == 32 && !$(ev.target).is(EDITABLE)) {
+                    // Prevent page scroll on space press
                     ev.preventDefault();
                 } else if (ev.keyCode == 9 && isModal && s.focusTrap) { // Tab
                     var $focusable = $markup.find(FOCUSABLE).filter(function () {
@@ -260,12 +266,6 @@ export const Frame = function (el, settings, inherit) {
             })
             .on('touchstart mousedown pointerdown', '.mbsc-fr-btn-e', onBtnStart)
             .on('touchend', '.mbsc-fr-btn-e', onBtnEnd);
-
-        $popup.on('keydown', EDITABLE, function (ev) {
-            if (ev.keyCode == 32 || ev.keyCode == 13) { // Space or Enter
-                ev.stopPropagation();
-            }
-        });
 
         // Need event capture for this
         markup.addEventListener('touchstart', function () {
@@ -290,7 +290,7 @@ export const Frame = function (el, settings, inherit) {
             return;
         }
 
-        $wnd.on(posEvents, onPosition);
+        observer = resizeObserver(markup, onPosition);
 
         if (isModal) {
             $markup.removeClass('mbsc-fr-pos');
@@ -375,13 +375,17 @@ export const Frame = function (el, settings, inherit) {
         newHeight = markup.offsetHeight;
         newWidth = markup.offsetWidth;
 
-        if (wndWidth === newWidth && wndHeight === newHeight && check) {
+        if (!newWidth || !newHeight || (wndWidth === newWidth && wndHeight === newHeight && check)) {
+            firstPosition = false;
             return;
         }
 
         if (that._checkResp(newWidth)) {
             return false;
         }
+
+        wndWidth = newWidth;
+        wndHeight = newHeight;
 
         if (that._isFullScreen || /top|bottom/.test(s.display)) {
             // Set width, if document is larger than viewport, needs to be set before onPosition (for calendar)
@@ -394,12 +398,12 @@ export const Frame = function (el, settings, inherit) {
         that._position($markup);
 
         // Call position for nested mobiscroll components
-        $('.mbsc-comp', $markup).each(function () {
-            var inst = instances[this.id];
-            if (inst && inst !== that && inst.position) {
-                inst.position();
-            }
-        });
+        // $('.mbsc-comp', $markup).each(function () {
+        //     var inst = instances[this.id];
+        //     if (inst && inst !== that && inst.position) {
+        //         inst.position();
+        //     }
+        // });
 
         if (!that._isFullScreen && /center|bubble/.test(s.display)) {
             $('.mbsc-w-p', $markup).each(function () {
@@ -501,9 +505,6 @@ export const Frame = function (el, settings, inherit) {
         css.left = Math.floor(left);
 
         $popup.css(css);
-
-        wndWidth = newWidth;
-        wndHeight = newHeight;
     };
 
     /**
@@ -513,7 +514,7 @@ export const Frame = function (el, settings, inherit) {
      */
     that.attachShow = function (elm, beforeShow) {
         var $label,
-            $elm = $(elm),
+            $elm = $(elm).off('.mbsc'),
             readOnly = $elm.prop('readonly');
 
         if (s.display !== 'inline') {
@@ -792,8 +793,6 @@ export const Frame = function (el, settings, inherit) {
         that._isVisible = true;
         that.markup = markup;
 
-        posEvents = 'orientationchange resize';
-
         that._markupReady($markup);
 
         trigger('onMarkupReady', {
@@ -883,6 +882,11 @@ export const Frame = function (el, settings, inherit) {
 
         that._isVisible = false;
 
+        if (observer) {
+            observer.detach();
+            observer = null;
+        }
+
         if (isModal) {
             if ($(document.activeElement).is('input,textarea') && popup.contains(document.activeElement)) {
                 document.activeElement.blur();
@@ -908,9 +912,7 @@ export const Frame = function (el, settings, inherit) {
             that._detachEvents($markup);
 
             // Stop positioning on window resize
-            $wnd
-                .off(posEvents, onPosition)
-                .off('focusin', onFocus);
+            $wnd.off('focusin', onFocus);
         }
 
         if (callback) {
@@ -923,7 +925,6 @@ export const Frame = function (el, settings, inherit) {
         trigger('onClose', {
             valueText: that._value
         });
-
     };
 
     // that.ariaMessage = function (txt) {
@@ -1127,7 +1128,6 @@ export const Frame = function (el, settings, inherit) {
 
 Frame.prototype._defaults = {
     // Localization
-    lang: 'en',
     setText: 'Set',
     selectedText: '{count} selected',
     closeText: 'Close',

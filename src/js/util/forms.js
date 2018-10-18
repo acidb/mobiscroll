@@ -13,9 +13,9 @@ import { Progress } from '../classes/progress';
 import { Slider } from '../classes/slider';
 import { Rating } from '../classes/rating';
 
-import { getControlType } from '../classes/form-control';
 import { sizeTextAreas } from '../classes/textarea';
 import { CollapsibleBase } from '../util/collapsible-base';
+import { getControlType } from '../util/tap';
 
 let id = 0;
 
