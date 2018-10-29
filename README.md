@@ -3,7 +3,7 @@ Mobiscroll
 
 What is Mobiscroll?
 -----------------
-Mobiscroll is a UI library for progressive webapps and hybrid development. Created with a lot of attention to usability and performance. [Mobiscroll Forms](https://mobiscroll.com/forms) ships with 15 customizable controls that you can use for free that are included in this repository. Use Forms with the premium products that can be found on the [Mobiscroll website](https://mobiscroll.com).
+Mobiscroll is a UI library for progressive webapps and hybrid development. Created with a lot of attention to usability and performance. [Mobiscroll Forms](https://mobiscroll.com/forms) ships with 16 customizable controls that you can use for free that are included in this repository. Use Forms with the premium products that can be found on the [Mobiscroll website](https://mobiscroll.com).
 
 Where can I use Mobiscroll?
 -----------------
@@ -121,7 +121,7 @@ Getting help
 -----------------
 - Report bugs to the [issues list](https://github.com/acidb/mobiscroll/issues?q=is%3Aopen) for all Mobiscroll products.
 - Browse the [learning section](https://mobiscroll.com/support) and [help center](http://help.mobiscroll.com) for resources and more information on the products.
-- Submit and answer questions on [StackOverflow](http://stackoverflow.com/questions/tagged/mobiscroll) with the 'mobiscroll' tag.
+- Submit and answer questions on the [Community Forum](https://forum.mobiscroll.com) and [StackOverflow](http://stackoverflow.com/questions/tagged/mobiscroll) with the 'mobiscroll' tag.
 
 The Mobiscroll team does not provide technical support for Mobiscroll Forms. To get support please [purchase a license from our website](https://mobiscroll.com/pricing).
 
@@ -136,8 +136,6 @@ Contact https://mobiscroll.com/contact
 Twitter http://twitter.com/mobiscroll
 
 Facebook https://www.facebook.com/mobiscroll
-
-Google+ https://plus.google.com/+MobiscrollUI
 
 
 License Information
