@@ -1,5 +1,5 @@
 import { $, Base, mobiscroll, classes, autoInit } from '../core/core';
-import { hasTouchAction } from '../util/dom';
+import { hasGhostClick } from '../util/dom';
 import { os, majorVersion } from '../util/platform';
 import { initControls } from '../util/forms';
 import '../util/notifications';
@@ -86,7 +86,7 @@ Form.prototype = {
     _hasLang: true,
     _class: 'form',
     _defaults: {
-        tap: !hasTouchAction,
+        tap: hasGhostClick,
         stopProp: true,
         rtl: false
     }

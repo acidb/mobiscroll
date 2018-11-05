@@ -447,6 +447,7 @@
         &.mbsc-input input {
             height: 2.25em;
             padding: .0625em 1em;
+            border-radius: 4px 4px 0 0;
         }
 
         &.mbsc-input textarea {
@@ -455,7 +456,11 @@
         }
 
         &.mbsc-input .mbsc-label + .mbsc-input-wrap {
-            padding-top: 1.25em;
+            padding-top: 0;
+            input {
+                padding-top: 1.25em;
+                height: 3.5em;
+            }
 
             textarea:focus {
                 padding-bottom: 0;
@@ -504,6 +509,11 @@
 
             .mbsc-label + .mbsc-input-wrap {
                 padding-top: 0;
+                
+                input {
+                    height: 2.25em;
+                    padding-top: .0625em;
+                }
             }
 
             .mbsc-label + .mbsc-input-wrap .mbsc-input-ic {

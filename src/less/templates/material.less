@@ -13,6 +13,7 @@
 /* Light/dark versions */
 
 .light-or-dark();
+
 // Light background 
 .light-or-dark() when (lightness(@material-background) > 50%) {
     @material-border: lighten(@material-text, 40%);
@@ -53,6 +54,7 @@
 @snackbar_action: hsl(hue(@input1), saturation(@input1), max(lightness(@input1), 34%));
 @error: #de3226;
 .x();
+
 .x() when (@deltainput2 >=140) {
     @isLight1_2: min(hsvvalue(@input1) + 24%, 100%);
     @isLight2_2: max(hsvvalue(@input2) - 9%, 0%);
@@ -187,35 +189,43 @@
     .mbsc-cal-picker {
         background: @material-background;
     }
+
     .mbsc-cal-today {
         color: @material-accent;
     }
+
     /* Hover, focus */
     &.mbsc-no-touch .mbsc-cal-cell:not(.mbsc-disabled):hover .mbsc-cal-cell-txt,
     .mbsc-cal-cell:focus .mbsc-cal-cell-txt {
         background: fade(@material-ripple, 10%);
     }
+
     /* Selected */
     .mbsc-cal-c .mbsc-cal .mbsc-cal-body .mbsc-selected .mbsc-cal-cell-txt {
         background: fade(@material-accent, 30%);
     }
+
     .mbsc-cal-c .mbsc-cal-day-colored.mbsc-selected .mbsc-cal-day-date {
         border-color: @material-accent;
     }
+
     /* Tabs */
     .mbsc-cal-tab {
         &.mbsc-selected {
             color: @material-accent;
         }
     }
+
     /* Marks */
     .mbsc-cal-mark {
         background: @material-accent;
     }
+
     .mbsc-cal-txt {
         color: @material-background;
         background: lighten(@material-text, 13%);
     }
+
     .mbsc-cal-icons {
         color: @material-text;
     }
@@ -250,6 +260,7 @@
     .mbsc-event-color {
         background: @material-accent;
     }
+
     /* Desktop grid mode */
     &.mbsc-ev-cal.mbsc-fr-md {
         .mbsc-cal-table {
@@ -269,23 +280,28 @@
     .mbsc-range-btn-t {
         border-color: @material-border;
     }
+
     .mbsc-range-btn {
         color: @material-text;
+
         &.mbsc-selected {
             border-color: @material-accent;
             color: @material-accent;
         }
     }
+
     &.mbsc-range {
         .mbsc-cal .mbsc-cal-day.mbsc-selected .mbsc-cal-day-date {
             background: none;
             border-color: transparent;
         }
+
         .mbsc-cal .mbsc-cal-day.mbsc-cal-day-hl .mbsc-cal-day-date {
             background: @material-accent;
             border-color: @material-accent;
             color: @material-background;
         }
+
         .mbsc-cal-day.mbsc-selected:after {
             background: fade(@material-accent, 10%);
         }
@@ -299,31 +315,39 @@
     &.mbsc-ms-c {
         background: @material-background;
     }
+
     .mbsc-ms {
         .mbsc-ms-item {
             color: @material-text;
+
             /* Selected state */
             &.mbsc-ms-item-sel {
                 color: @material-accent;
             }
+
             /* Active state */
             &.mbsc-active {
                 background: fade(@material-ripple, 10%);
             }
         }
     }
+
     &.mbsc-no-touch {
+
         /* Hover state */
         .mbsc-ms-item:not(.mbsc-disabled):hover {
             background: fade(@material-ripple, 10%);
         }
     }
+
     &.mbsc-ms-top {
         border-color: @material-border;
     }
+
     &.mbsc-ms-bottom {
         border-color: @material-border;
     }
+
     /* Menu styling */
     &.mbsc-ms-a {
         .mbsc-ms-item {
@@ -332,6 +356,7 @@
             }
         }
     }
+
     /* Tab styling */
     &.mbsc-ms-b {
         .mbsc-ms-item {
@@ -339,6 +364,7 @@
                 border-bottom-color: @material-accent;
             }
         }
+
         &.mbsc-ms-bottom {
             .mbsc-ms-item {
                 &.mbsc-ms-item-sel {
@@ -525,24 +551,27 @@
 
 /* Box Input */
 
-.mbsc-@{theme} .mbsc-input-box .mbsc-input-wrap {
-    background: @material-box-bck;
+.mbsc-@{theme} .mbsc-input-box {
+    &.mbsc-input .mbsc-input-wrap {
+        background: @material-box-bck;
+    }
 }
 
 /* Outline Input */
 
 .mbsc-@{theme} .mbsc-input-outline {
-    input,
-    textarea {
+
+    &.mbsc-input input,
+    &.mbsc-input textarea {
         border-color: @output3_2;
     }
-    
-    .mbsc-label {
+
+    &.mbsc-input .mbsc-label {
         background: @material-background;
     }
 
-    input:focus,
-    select:focus ~ input {
+    &.mbsc-input input:focus,
+    &.mbsc-input select:focus ~ input {
         border-color: @material-accent;
     }
 
@@ -580,6 +609,7 @@
 }
 
 .mbsc-@{theme}.mbsc-fr-pointer {
+
     /* Single select */
     .mbsc-sel-one {
         .mbsc-sc-itm-sel {
@@ -797,16 +827,20 @@
     &.mbsc-card.mbsc-form {
         background: lighten(@material-background, 4.8%);
     }
+
     &.mbsc-card .mbsc-lv-item {
         background: lighten(@material-background, 4.8%);
     }
+
     .mbsc-card-list .mbsc-card {
         background: lighten(@material-background, 4.8%);
     }
+
     .mbsc-card-footer {
         border-color: @material-border;
     }
-    &.mbsc-card .mbsc-input-outline .mbsc-label {
+
+    &.mbsc-card .mbsc-input.mbsc-input-outline .mbsc-label {
         background: lighten(@material-background, 4.8%);
     }
 }

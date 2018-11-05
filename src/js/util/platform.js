@@ -5,6 +5,7 @@ var os,
     version = [],
     isBrowser = typeof window !== 'undefined',
     userAgent = isBrowser ? navigator.userAgent : '',
+    isSafari = /Safari/.test(userAgent),
     device = userAgent.match(/Android|iPhone|iPad|iPod|Windows Phone|Windows|MSIE/i),
     raf = (isBrowser && window.requestAnimationFrame) || function (func) {
         return setTimeout(func, 20);
@@ -39,6 +40,7 @@ export {
     majorVersion,
     minorVersion,
     isBrowser,
+    isSafari,
     userAgent,
     raf,
     rafc

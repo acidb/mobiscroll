@@ -19,11 +19,6 @@
     -webkit-text-size-adjust: 100%;
 }
 
-.mbsc-fr-lock {
-    -ms-touch-action: none;
-    touch-action: none;
-}
-
 .mbsc-fr-lock-ctx {
     position: relative;
 }
@@ -106,6 +101,11 @@
     right: 0;
 }
 
+.mbsc-fr-lock .mbsc-fr-persp {
+    -ms-touch-action: none;
+    touch-action: none;
+}
+
 .mbsc-fr-lock-ctx > .mbsc-fr,
 .mbsc-fr-lock-ctx .mbsc-fr-persp,
 .mbsc-fr-lock-ctx .mbsc-fr-overlay {
@@ -162,6 +162,7 @@
 .mbsc-fr-inline {
     position: relative;
     pointer-events: auto;
+    z-index: 0;
 }
 
 .mbsc-fr-inline .mbsc-fr-popup {

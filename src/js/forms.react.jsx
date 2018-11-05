@@ -404,7 +404,8 @@ class MbscCheckbox extends MbscInit {
     static propTypes = {
         color: PropTypes.string,
         disabled: PropTypes.bool,
-        name: PropTypes.string
+        name: PropTypes.string,
+        inputStyle: PropTypes.string
     }
 
     componentDidMount() {
@@ -417,7 +418,7 @@ class MbscCheckbox extends MbscInit {
     }
 
     render() {
-        var { color, children, ...other } = this.props;
+        var { color, children, inputStyle, ...other } = this.props;
         return <MbscLabel color={color} presetName="checkbox">
             <input ref={this.inputMounted} type="checkbox" {...other} />
             {children}
@@ -436,7 +437,8 @@ class MbscRadio extends MbscInit {
     static propTypes = {
         color: PropTypes.string,
         name: PropTypes.string,
-        disabled: PropTypes.bool
+        disabled: PropTypes.bool,
+        inputStyle: PropTypes.string
     }
 
     componentDidMount() {
@@ -449,7 +451,7 @@ class MbscRadio extends MbscInit {
     }
 
     render() {
-        var { color, children, ...other } = this.props;
+        var { color, children, inputStyle, ...other } = this.props;
         return <MbscLabel color={color} presetName="radio">
             <input ref={this.inputMounted} type="radio" {...other} />
             {children}
@@ -601,7 +603,8 @@ class MbscProgress extends MbscOptimized {
         disabled: reactBool,
         max: reactNumber,
         value: reactNumber,
-        color: reactString
+        color: reactString,
+        inputStyle: reactString
     }
 
     componentDidMount() {
@@ -626,6 +629,7 @@ class MbscProgress extends MbscOptimized {
             children,
             value,
             color,
+            inputStyle,
             ...other
         } = this.props;
 
@@ -665,7 +669,8 @@ class MbscSlider extends MbscOptimized {
         min: reactNumber,
         step: reactNumber,
         values: reactNumber,
-        color: reactString
+        color: reactString,
+        inputStyle: reactString
     }
 
     componentDidMount() {
@@ -713,6 +718,7 @@ class MbscSlider extends MbscOptimized {
             stepLabels,
             tooltip,
             color,
+            inputStyle,
             ...other
         } = this.props,
             values = value || [];
@@ -762,7 +768,8 @@ class MbscRating extends MbscOptimized {
         empty: reactString,
         filled: reactString,
         value: reactNumber,
-        color: reactString
+        color: reactString,
+        inputStyle: reactString
     }
 
     componentDidMount() {
@@ -803,6 +810,7 @@ class MbscRating extends MbscOptimized {
             template,
             val,
             color,
+            inputStyle,
             ...other
         } = this.props;
         /* eslint-enable no-unused-vars */

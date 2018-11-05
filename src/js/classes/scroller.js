@@ -14,6 +14,10 @@ var presets = {},
     has3d = css && css.supports && css.supports("(transform-style: preserve-3d)"),
     force2D = !has3d || os == 'wp' || os == 'android';
 
+function sanitize(str) {
+    return (str + '').replace('"', '___');
+}
+
 export { presets };
 
 export const Scroller = function (el, settings, inherit) {
@@ -252,7 +256,7 @@ export const Scroller = function (el, settings, inherit) {
                 (invalid ? ' mbsc-sc-itm-inv-h mbsc-disabled' : '') +
                 (disabled[value] ? ' mbsc-sc-itm-inv mbsc-disabled' : '') +
                 '" data-index="' + i +
-                '" data-val="' + value + '"' +
+                '" data-val="' + sanitize(value) + '"' +
                 (lbl ? ' aria-label="' + lbl + '"' : '') +
                 (selected ? ' aria-selected="true"' : '') +
                 ' style="height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;' +
@@ -379,7 +383,7 @@ export const Scroller = function (el, settings, inherit) {
                     $.each(ret.disabled[i], function (j, v) {
                         wheel._disabled[v] = true;
                         if (isVisible) {
-                            wheel._$markup.find('.mbsc-sc-itm[data-val="' + v + '"]').addClass('mbsc-sc-itm-inv mbsc-disabled');
+                            wheel._$markup.find('.mbsc-sc-itm[data-val="' + sanitize(v) + '"]').addClass('mbsc-sc-itm-inv mbsc-disabled');
                         }
                     });
                 }
@@ -414,7 +418,7 @@ export const Scroller = function (el, settings, inherit) {
                         if (index === undefined) {
                             for (var v in that._tempSelected[i]) {
                                 wheel._$markup
-                                    .find('.mbsc-sc-itm[data-val="' + v + '"]')
+                                    .find('.mbsc-sc-itm[data-val="' + sanitize(v) + '"]')
                                     .addClass(selectedClass)
                                     .attr('aria-selected', 'true');
                             }
@@ -422,7 +426,7 @@ export const Scroller = function (el, settings, inherit) {
                     } else {
                         // Mark element as aria selected
                         wheel._$markup
-                            .find('.mbsc-sc-itm[data-val="' + tempWheelArray[i] + '"]')
+                            .find('.mbsc-sc-itm[data-val="' + sanitize(tempWheelArray[i]) + '"]')
                             .addClass('mbsc-sc-itm-sel')
                             .attr('aria-selected', 'true');
                     }

@@ -14,6 +14,14 @@ export class Input extends FormControl {
         events.forEach(ev => {
             elm.addEventListener(ev, this);
         });
+
+        setTimeout(() => {
+            // if label is floating and input is autofill, add floating active class
+            // input has no value yet
+            if (this._isFloating && this._$elm.is("*:-webkit-autofill")) {
+                this._$parent.addClass('mbsc-label-floating-active');
+            }
+        });
     }
 
     handleEvent(ev) {

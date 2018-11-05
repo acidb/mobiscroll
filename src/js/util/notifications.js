@@ -42,12 +42,6 @@ function getSettings(queue, settings, resolve, more) {
         onBeforeClose: function () {
             queue.shift();
         },
-        onBeforeShow: function () {
-            // If there's an active mobiscroll picker on screen,
-            // prevent from being hidden when 
-            // popup is shown
-            mobiscroll.activeInstance = null;
-        },
         onHide: function (ev, inst) {
             //mobiscroll.activeInstance = active;
             if (resolve) {

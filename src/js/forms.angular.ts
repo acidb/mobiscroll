@@ -1568,7 +1568,8 @@ export class MbscRating extends MbscControlBase implements OnInit {
     selector: 'mbsc-form-group',
     template: '<ng-content></ng-content>',
     host: {
-        '[class]': "inset !== undefined ? 'mbsc-form-group-inset' : 'mbsc-form-group'"
+        '[class.mbsc-form-group-inset]': 'inset !== undefined',
+        '[class.mbsc-form-group]': 'inset === undefined'
     },
     styles: [':host { display: block; }']
 })
@@ -1589,6 +1590,7 @@ export class MbscFormGroup implements AfterViewInit {
         this._open = v;
     }
 
+    /** Note on type: using as attribute without a value (empty string) */
     @Input()
     inset: string;
 
@@ -1633,7 +1635,7 @@ export class MbscFormGroup implements AfterViewInit {
     selector: 'mbsc-form-group-title',
     template: '<ng-content></ng-content>',
     host: {
-        'class': 'mbsc-form-group-title'
+        '[class.mbsc-form-group-title]': 'true'
     },
     styles: [':host { display: block; }']
 })
@@ -1643,7 +1645,7 @@ export class MbscFormGroupTitle { }
     selector: 'mbsc-form-group-content',
     template: '<ng-content></ng-content>',
     host: {
-        'class': 'mbsc-form-group-content'
+        '[class.mbsc-form-group-content]': 'true'
     },
     styles: [':host { display: block; }']
 })
@@ -1653,7 +1655,7 @@ export class MbscFormGroupContent { }
     selector: 'mbsc-accordion',
     template: '<ng-content></ng-content>',
     host: {
-        'class': 'mbsc-accordion'
+        '[class.mbsc-accordion]': 'true'
     },
     styles: [':host { display: block; }']
 })

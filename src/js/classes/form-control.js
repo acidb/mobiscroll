@@ -1,11 +1,11 @@
 import { $, extend, mobiscroll } from '../core/core';
 import { activateControl, getControlType, getCoord, tap } from '../util/tap';
-import { testTouch, hasTouchAction } from '../util/dom';
+import { testTouch, hasGhostClick } from '../util/dom';
 
 const wrapClass = 'mbsc-input-wrap';
 const events = ['touchstart', 'touchmove', 'touchend', 'touchcancel', 'mousedown', 'mousemove', 'mouseup', 'mouseleave'];
 const defaults = {
-    tap: !hasTouchAction
+    tap: hasGhostClick
 };
 
 let $active;
@@ -42,6 +42,7 @@ function addIcon($control, ic) {
         $parent
             .addClass((icons.right ? 'mbsc-ic-right ' : '') + (icons.left ? ' mbsc-ic-left' : ''))
             .find('.' + wrapClass)
+            .append('<span class="mbsc-input-fill"></span>')
             .append(icons.left ? '<span class="mbsc-input-ic mbsc-left-ic mbsc-ic mbsc-ic-' + icons.left + '"></span>' : '')
             .append(icons.right ? '<span class="mbsc-input-ic mbsc-right-ic mbsc-ic mbsc-ic-' + icons.right + '"></span>' : '');
     }

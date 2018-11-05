@@ -20,16 +20,16 @@ export class CollapsibleBase {
 
         if ($elm.hasClass('mbsc-card')) {
             // card enhance
-            $header = $elm.find('.mbsc-card-header').addClass('mbsc-collapsible-header');
-            $content = $elm.find('.mbsc-card-content').addClass('mbsc-collapsible-content');
+            $header = $elm.find('.mbsc-card-header').eq(0).addClass('mbsc-collapsible-header');
+            $content = $elm.find('.mbsc-card-content').eq(0).addClass('mbsc-collapsible-content');
         } else if ($elm.hasClass('mbsc-form-group') || $elm.hasClass('mbsc-form-group-inset')) {
             // form group enhance
-            $header = $elm.find('.mbsc-form-group-title').addClass('mbsc-collapsible-header');
-            $content = $elm.find('.mbsc-form-group-content').addClass('mbsc-collapsible-content');
+            $header = $elm.find('.mbsc-form-group-title').eq(0).addClass('mbsc-collapsible-header');
+            $content = $elm.find('.mbsc-form-group-content').eq(0).addClass('mbsc-collapsible-content');
         } else {
             // if it is used independently
-            $header = $elm.find('.mbsc-collapsible-header');
-            $content = $elm.find('.mbsc-collapsible-content');
+            $header = $elm.find('.mbsc-collapsible-header').eq(0);
+            $content = $elm.find('.mbsc-collapsible-content').eq(0);
         }
 
         content = $content[0];

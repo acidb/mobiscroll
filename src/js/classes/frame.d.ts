@@ -12,6 +12,7 @@ export interface MbscFrameOptions extends MbscCoreOptions {
     focusOnClose?: boolean | string | HTMLElement;
     focusTrap?: boolean;
     headerText?: string | boolean | ((formattedValue: string) => string);
+    scrollLock?: boolean;
     showOnFocus?: boolean;
     showOnTap?: boolean;
     touchUi?: boolean;

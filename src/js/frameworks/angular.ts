@@ -504,6 +504,8 @@ abstract class MbscFrameBase extends MbscControlBase implements OnInit {
     @Input()
     headerText: string | boolean | ((formattedValue: string) => string);
     @Input()
+    scrollLock: boolean;
+    @Input()
     touchUi: boolean;
 
     // Events
@@ -537,6 +539,7 @@ abstract class MbscFrameBase extends MbscControlBase implements OnInit {
             focusOnClose: this.focusOnClose,
             focusTrap: this.focusTrap,
             headerText: this.headerText,
+            scrollLock: this.scrollLock,
             showOnFocus: this.showOnFocus,
             showOnTap: this.showOnTap,
             touchUi: this.touchUi

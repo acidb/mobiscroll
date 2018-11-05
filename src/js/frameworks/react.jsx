@@ -39,6 +39,7 @@ export const FramePropTypes = {
     focusOnClose: PropTypes.oneOfType([boolType, stringType, objType]),
     focusTrap: boolType,
     headerText: PropTypes.oneOfType([boolType, stringType, funcType]),
+    scrollLock: boolType,
     showOnFocus: boolType,
     showOnTap: boolType,
     touchUi: boolType,

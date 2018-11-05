@@ -18,6 +18,7 @@ var $activeElm,
     };
 
 const EDITABLE = 'input,select,textarea,button';
+const ALLOW_ENTER = 'textarea,button,input[type="button"],input[type="submit"]';
 const FOCUSABLE = EDITABLE + ',[tabindex="0"]';
 
 export const Frame = function (el, settings, inherit) {
@@ -49,6 +50,7 @@ export const Frame = function (el, settings, inherit) {
         overlay,
         popup,
         posDebounce,
+        prevInst,
         s,
         scrollLeft,
         scrollLock,
@@ -97,10 +99,12 @@ export const Frame = function (el, settings, inherit) {
     }
 
     function onWndKeyDown(ev) {
-        if (ev.keyCode == 13 && !$(ev.target).is(EDITABLE)) {
-            that.select();
-        } else if (ev.keyCode == 27) {
-            that.cancel();
+        if (mobiscroll.activeInstance == that) {
+            if (ev.keyCode == 13 && (!$(ev.target).is(ALLOW_ENTER) || ev.shiftKey)) {
+                that.select();
+            } else if (ev.keyCode == 27) {
+                that.cancel();
+            }
         }
     }
 
@@ -143,6 +147,9 @@ export const Frame = function (el, settings, inherit) {
                     $wnd.scrollLeft(scrollLeft);
                     $wnd.scrollTop(scrollTop);
                 }
+            }
+
+            if (!ctx.mbscModals || prevInst) {
                 // Put focus back to the last active element
                 if (!prevAnim) {
                     if (!$activeEl) {
@@ -160,6 +167,7 @@ export const Frame = function (el, settings, inherit) {
             }
         }
 
+        prevInst = undefined;
         isInserted = false;
 
         trigger('onHide');
@@ -181,8 +189,8 @@ export const Frame = function (el, settings, inherit) {
     }
 
     function onFocus(ev) {
-        if (ev.target.nodeType && !overlay.contains(ev.target) && lastFocus - new Date() > 100) {
-            overlay.focus();
+        if (mobiscroll.activeInstance == that && ev.target.nodeType && !overlay.contains(ev.target) && new Date() - lastFocus > 100) {
+            that._activeElm.focus();
             lastFocus = new Date();
         }
     }
@@ -703,10 +711,8 @@ export const Frame = function (el, settings, inherit) {
                 document.activeElement.blur();
             }
 
-            // Hide active instance
-            if (mobiscroll.activeInstance) {
-                mobiscroll.activeInstance.hide();
-            }
+            // Save active instance to previous
+            prevInst = mobiscroll.activeInstance;
 
             // Set active instance
             mobiscroll.activeInstance = that;
@@ -892,7 +898,7 @@ export const Frame = function (el, settings, inherit) {
                 document.activeElement.blur();
             }
             if (mobiscroll.activeInstance == that) {
-                delete mobiscroll.activeInstance;
+                mobiscroll.activeInstance = prevInst;
             }
             $(window).off('keydown', onWndKeyDown);
         }

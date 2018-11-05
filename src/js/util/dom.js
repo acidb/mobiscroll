@@ -1,4 +1,5 @@
 import { $, isBrowser } from '../core/core';
+import { os, isSafari } from './platform';
 
 function testProps(props) {
     var i;
@@ -72,7 +73,7 @@ function getTextColor(color) {
 var animEnd,
     mod,
     cssPrefix,
-    hasTouchAction,
+    hasGhostClick,
     hasTransition,
     jsPrefix,
     textColors = {};
@@ -82,8 +83,10 @@ if (isBrowser) {
     cssPrefix = testPrefix();
     jsPrefix = cssPrefix.replace(/^\-/, '').replace(/\-$/, '').replace('moz', 'Moz');
     animEnd = mod.animation !== undefined ? 'animationend' : 'webkitAnimationEnd';
-    hasTouchAction = mod.touchAction !== undefined;
     hasTransition = mod.transition !== undefined;
+    // UIWebView on iOS still has the ghost click, 
+    // and it does not have Safari in the userAgent string
+    hasGhostClick = mod.touchAction === undefined || (os == 'ios' && !isSafari);
 }
 
 export {
@@ -92,7 +95,7 @@ export {
     jsPrefix,
     getPosition,
     getTextColor,
-    hasTouchAction,
+    hasGhostClick,
     hasTransition,
     testTouch
 };

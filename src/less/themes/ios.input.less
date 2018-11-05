@@ -41,6 +41,23 @@
         flex: 1 auto;
     }
 
+    .mbsc-input-wrap .mbsc-input-fill {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: -1;
+    }
+
+     .mbsc-input-wrap input:-webkit-autofill~.mbsc-input-fill {
+         background: #FAFFBA;
+     }
+
+    .mbsc-input-wrap input:-webkit-autofill {
+        box-shadow: 0 0 0px 1000px #FAFFBA inset;
+    }
+
     /* Textbox, select, textarea */
     .mbsc-textarea textarea {
         height: 3em;
@@ -461,6 +478,10 @@
             margin: 1.5em 1em;
             border-radius: 8px;
             border: 1px solid transparent;
+
+            input {
+                border-radius: 8px;
+            }
         }
 
         &.mbsc-control-w:before,
