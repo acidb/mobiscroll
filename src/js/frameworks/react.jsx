@@ -179,7 +179,8 @@ export const CalbasePropTypes = {
     onMonthLoaded: funcType,
     onPageChange: funcType,
     onPageLoading: funcType,
-    onPageLoaded: funcType
+    onPageLoaded: funcType,
+    onSetDate: funcType
 };
 
 export function updateCssClasses(currentClasses, nextClasses) {

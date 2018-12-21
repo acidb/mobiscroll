@@ -21,7 +21,8 @@ import {
     Observable,
     MbscInputService,
     MbscOptionsService,
-    AfterViewInit
+    AfterViewInit,
+    ChangeDetectionStrategy
 } from './frameworks/angular';
 
 import { Form } from './classes/forms';
@@ -51,7 +52,7 @@ import { CollapsibleBase } from './util/collapsible-base.js';
  * @param val The value of the attribute.
  */
 function emptyOrTrue(val: any) {
-    return (typeof(val) === 'string' && (val === 'true' || val === '')) || !!val;
+    return (typeof (val) === 'string' && (val === 'true' || val === '')) || !!val;
 }
 
 @Component({
@@ -535,7 +536,8 @@ export class MbscDropdown extends MbscFormValueBase {
             [disabled]="disabled">
             <ng-content></ng-content>
         </button>
-    `
+    `,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MbscButton extends MbscFormBase {
     _instance: Button;
@@ -543,29 +545,29 @@ export class MbscButton extends MbscFormBase {
     _block: boolean = false;
     _outline: boolean = false;
 
+    _classesObj: any = {};
     get cssClasses() {
-        var classesObj: any = {
-            'mbsc-btn-flat': this._flat,
-            'mbsc-btn-block': this._block,
-            'mbsc-btn-outline': this._outline
-        };
+        for (var k in this._classesObj) { delete this._classesObj[k] };
+        this._classesObj['mbsc-btn-flat'] = this._flat;
+        this._classesObj['mbsc-btn-block'] = this._block;
+        this._classesObj['mbsc-btn-outline'] = this._outline;
 
         if (this.classes) {
             let cssClasses = this.classes.split(' ');
             if (cssClasses.length) {
                 for (let i = 0; i < cssClasses.length; i++) {
                     if (cssClasses[i]) {
-                        classesObj[cssClasses[i]] = true;
+                        this._classesObj[cssClasses[i]] = true;
                     }
                 }
             }
         }
 
         if (this.color) {
-            classesObj['mbsc-btn-' + this.color] = true;
+            this._classesObj['mbsc-btn-' + this.color] = true;
         }
 
-        return classesObj;
+        return this._classesObj;
     }
 
     @Input('class')
@@ -620,7 +622,8 @@ export class MbscButton extends MbscFormBase {
                 (blur)="onTouch($event)" />
             <ng-content></ng-content>
         </label>
-    `
+    `,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MbscCheckbox extends MbscFormValueBase {
     _instance: CheckBox;
@@ -630,12 +633,13 @@ export class MbscCheckbox extends MbscFormValueBase {
     @Input()
     color: string;
 
+    _colorClass: any = {};
     get colorClass(): any {
-        let cl: any = {};
+        for (var k in this._colorClass) { delete this._colorClass[k]; }
         if (this.color) {
-            cl['mbsc-checkbox-' + this.color] = true;
+            this._colorClass['mbsc-checkbox-' + this.color] = true;
         }
-        return cl;
+        return this._colorClass;
     }
 
     constructor(hostElem: ElementRef, @Optional() formService: MbscOptionsService, @Optional() control: NgControl) {
@@ -664,7 +668,8 @@ export class MbscCheckbox extends MbscFormValueBase {
                 (blur)="onTouch($event)" />
         </label>
     `,
-    exportAs: 'mobiscroll'
+    exportAs: 'mobiscroll',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MbscSwitch extends MbscControlBase implements OnInit {
     protected _inheritedOptions: any;
@@ -701,12 +706,13 @@ export class MbscSwitch extends MbscControlBase implements OnInit {
     @ViewChild('initElement')
     _initElem: ElementRef;
 
+    _colorClass: any = {};
     get colorClass() {
-        let cl: any = {};
+        for (var k in this._colorClass) { delete this._colorClass[k] };
         if (this.color) {
-            cl['mbsc-switch-' + this.color] = true;
+            this._colorClass['mbsc-switch-' + this.color] = true;
         }
-        return cl;
+        return this._colorClass;
     }
 
     constructor(hostElem: ElementRef, zone: NgZone, @Optional() protected _formService: MbscOptionsService, @Optional() control: NgControl) {
@@ -758,13 +764,14 @@ export class MbscSwitch extends MbscControlBase implements OnInit {
                 [attr.readonly]="_readonly"/>
         </div>
     `,
-    exportAs: 'mobiscroll'
+    exportAs: 'mobiscroll',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MbscStepper extends MbscControlBase implements OnInit {
     protected _inheritedOptions: any;
     _instance: Stepper;
     _readonly: boolean;
-    
+
     @Input()
     set readonly(val: any) {
         // sets the readonly setting to true if empty string is provided, aka without value (ex. <mbsc-rating readonly>)
@@ -809,12 +816,13 @@ export class MbscStepper extends MbscControlBase implements OnInit {
     @Input()
     color: string;
 
+    _colorClass: any = {};
     get colorClass(): any {
-        let cl: any = {};
+        for (var k in this._colorClass) { delete this._colorClass[k]; }
         if (this.color) {
-            cl['mbsc-stepper-' + this.color] = true;
+            this._colorClass['mbsc-stepper-' + this.color] = true;
         }
-        return cl;
+        return this._colorClass;
     }
 
     /**
@@ -879,7 +887,8 @@ export class MbscStepper extends MbscControlBase implements OnInit {
             </progress>
         </label>
     `,
-    exportAs: 'mobiscroll'
+    exportAs: 'mobiscroll',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MbscProgress extends MbscControlBase implements OnInit {
     protected _inheritedOptions: any;
@@ -921,12 +930,13 @@ export class MbscProgress extends MbscControlBase implements OnInit {
     @Input()
     color: string;
 
+    _colorClass: any = {};
     get colorClass(): any {
-        let cl: any = {};
+        for (var k in this._colorClass) { delete this._colorClass[k]; }
         if (this.color) {
-            cl['mbsc-progress-' + this.color] = true;
+            this._colorClass['mbsc-progress-' + this.color] = true;
         }
-        return cl;
+        return this._colorClass;
     }
 
     /**
@@ -1090,12 +1100,13 @@ export class MbscRadio extends MbscFormBase {
     @Input()
     value: any;
 
+    _colorClass: any = {};
     get colorClass() {
-        let cl: any = {};
+        for (var k in this._colorClass) { delete this._colorClass[k]; }
         if (this.color) {
-            cl['mbsc-radio-' + this.color] = true;
+            this._colorClass['mbsc-radio-' + this.color] = true;
         }
-        return cl;
+        return this._colorClass;
     }
 
     clicked(e: any) {
@@ -1351,12 +1362,13 @@ export class MbscSlider extends MbscControlBase {
     @Input()
     color: string;
 
+    _colorClass: any = {};
     get colorClass(): any {
-        let cl: any = {};
+        for (var k in this._colorClass) { delete this._colorClass[k]; }
         if (this.color) {
-            cl['mbsc-slider-' + this.color] = true;
+            this._colorClass['mbsc-slider-' + this.color] = true;
         }
-        return cl;
+        return this._colorClass;
     }
 
     /**
@@ -1527,12 +1539,13 @@ export class MbscRating extends MbscControlBase implements OnInit {
     @Input()
     color: string;
 
+    _colorClass: any = {};
     get colorClass(): any {
-        let cl: any = {};
+        for (var k in this._colorClass) { delete this._colorClass[k]; }
         if (this.color) {
-            cl['mbsc-rating-' + this.color] = true;
+            this._colorClass['mbsc-rating-' + this.color] = true;
         }
-        return cl;
+        return this._colorClass;
     }
 
     constructor(hostElem: ElementRef, zone: NgZone, @Optional() protected formService: MbscOptionsService, @Optional() control: NgControl) {

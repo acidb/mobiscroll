@@ -19,15 +19,15 @@
         background: transparent;
     }
 
-    .mbsc-input input::-webkit-input-placeholder {
+    .mbsc-input .mbsc-control::-webkit-input-placeholder {
         color: #ccc;
     }
 
-    .mbsc-input input::-ms-input-placeholder {
+    .mbsc-input .mbsc-control::-ms-input-placeholder {
         color: #ccc;
     }
 
-    .mbsc-input input::-moz-placeholder {
+    .mbsc-input .mbsc-control::-moz-placeholder {
         color: #ccc;
     }
 
@@ -48,11 +48,12 @@
         left: 0;
         right: 0;
         z-index: -1;
+        border-radius: 8px;
     }
 
-     .mbsc-input-wrap input:-webkit-autofill~.mbsc-input-fill {
-         background: #FAFFBA;
-     }
+    .mbsc-input-wrap input:-webkit-autofill ~ .mbsc-input-fill {
+        background: #FAFFBA;
+    }
 
     .mbsc-input-wrap input:-webkit-autofill {
         box-shadow: 0 0 0px 1000px #FAFFBA inset;
@@ -63,18 +64,6 @@
         height: 3em;
         padding: 0 1em;
         background: transparent;
-    }
-
-    .mbsc-textarea textarea::-webkit-input-placeholder {
-        color: #ccc;
-    }
-
-    .mbsc-textarea textarea::-ms-input-placeholder {
-        color: #ccc;
-    }
-
-    .mbsc-textarea textarea::-moz-placeholder {
-        color: #ccc;
     }
 
     .mbsc-input .mbsc-label,
@@ -321,7 +310,7 @@
             width: auto;
         }
 
-        .mbsc-label + .mbsc-input-wrap {
+        .mbsc-label ~ .mbsc-input-wrap {
             input {
                 height: 3.75em;
                 padding-top: 1.5em;
@@ -332,11 +321,11 @@
             }
         }
 
-        &.mbsc-textarea .mbsc-label + .mbsc-input-wrap {
+        &.mbsc-textarea .mbsc-label ~ .mbsc-input-wrap {
             padding-top: 1.625em;
         }
 
-        &.mbsc-select .mbsc-label + .mbsc-input-wrap .mbsc-select-ic {
+        &.mbsc-select .mbsc-label ~ .mbsc-input-wrap .mbsc-select-ic {
             top: 1.4375em;
         }
     }
@@ -398,7 +387,7 @@
             top: 1.625em;
         }
 
-        .mbsc-label + .mbsc-input-wrap {
+        .mbsc-label ~ .mbsc-input-wrap {
             input {
                 height: 3.75em;
                 padding-top: 1.5em;
@@ -409,11 +398,11 @@
             }
         }
 
-        &.mbsc-textarea .mbsc-label + .mbsc-input-wrap {
+        &.mbsc-textarea .mbsc-label ~ .mbsc-input-wrap {
             padding-top: 1.625em;
         }
 
-        &.mbsc-select .mbsc-label + .mbsc-input-wrap .mbsc-select-ic {
+        &.mbsc-select .mbsc-label ~ .mbsc-input-wrap .mbsc-select-ic {
             top: 1.4375em;
         }
 
@@ -509,7 +498,7 @@
                 top: .75em;
             }
 
-            .mbsc-label + .mbsc-input-wrap {
+            .mbsc-label ~ .mbsc-input-wrap {
                 input {
                     height: 3.375em;
                     padding-top: 1.25em;
@@ -520,11 +509,11 @@
                 }
             }
 
-            &.mbsc-textarea .mbsc-label + .mbsc-input-wrap {
+            &.mbsc-textarea .mbsc-label ~ .mbsc-input-wrap {
                 padding-top: 1.75em;
             }
 
-            &.mbsc-select .mbsc-label + .mbsc-input-wrap .mbsc-select-ic {
+            &.mbsc-select .mbsc-label ~ .mbsc-input-wrap .mbsc-select-ic {
                 top: 1.25em;
             }
         }
@@ -535,7 +524,7 @@
                 top: .6875em;
             }
 
-            .mbsc-label + .mbsc-input-wrap {
+            .mbsc-label ~ .mbsc-input-wrap {
                 input {
                     height: 3.375em;
                     padding-top: 1.25em;
@@ -583,7 +572,7 @@
             border-color: #d8332a;
         }
 
-        &.mbsc-select .mbsc-label + .mbsc-input-wrap .mbsc-select-ic {
+        &.mbsc-select .mbsc-label ~ .mbsc-input-wrap .mbsc-select-ic {
             top: .875em;
         }
     }

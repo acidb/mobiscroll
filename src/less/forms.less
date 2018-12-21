@@ -471,6 +471,15 @@ input:disabled + span .mbsc-slider-handle-cont {
     cursor: not-allowed;
 }
 
+/* Form in grid */
+
+.mbsc-form .mbsc-form-grid .mbsc-form-group-title {
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+}
+
 /* Mobiscroll theme */
 
 .mbsc-mobiscroll {
@@ -491,7 +500,7 @@ input:disabled + span .mbsc-slider-handle-cont {
 
     .mbsc-divider,
     .mbsc-form-group-title {
-        padding: 1.5em 1em .5em 1em;
+        padding: .5em 1em;
         color: #4eccc4;
     }
 
@@ -504,6 +513,18 @@ input:disabled + span .mbsc-slider-handle-cont {
 
     .mbsc-err .mbsc-label {
         color: #de3226;
+    }
+
+    /* Form grid */
+
+    .mbsc-form-grid {
+        margin-top: .75em;
+        margin-bottom: .75em;
+    }
+
+    .mbsc-form-grid .mbsc-input-box,
+    .mbsc-form-grid .mbsc-input-outline {
+        margin: .75em 1em;
     }
 
     /* Checkbox */
@@ -756,11 +777,11 @@ input:disabled + span .mbsc-slider-handle-cont {
 
     .mbsc-btn-group,
     .mbsc-btn-group-justified {
-        padding: .5em;
+        margin: .5em;
     }
 
     .mbsc-btn-group-block {
-        padding: .5em 1em;
+        margin: .5em 1em;
     }
 
     /* Button color presets */

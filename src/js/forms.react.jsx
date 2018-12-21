@@ -7,7 +7,8 @@ import {
     PropTypes,
     MbscOptimized,
     CorePropTypes,
-    MbscInit
+    MbscInit,
+    updateCssClasses
 } from './frameworks/react';
 import { Form } from './classes/forms';
 import { Progress } from './classes/progress';
@@ -123,17 +124,39 @@ class MbscLabel extends React.Component {
         presetName: PropTypes.string
     }
 
-    render = () => {
+    componentDidMount() {
+        updateCssClasses.call(this, '', this.getClasses(this.props));
+    }
+
+    componentDidUpdate() {
+        if (this.cssClassUpdate) {
+            updateCssClasses.call(this, this.cssClassUpdate.prev, this.cssClassUpdate.next);
+        }
+    }
+
+    shouldComponentUpdate(nextProps) {
+        const nextClasses = this.getClasses(nextProps);
+        const thisClasses = this.getClasses(this.props);
+        if (thisClasses !== nextClasses) {
+            this.cssClassUpdate = {
+                prev: thisClasses,
+                next: nextClasses
+            };
+        } else {
+            this.cssClassUpdate = null;
+        }
+        return true;
+    }
+    
+    getClasses(props) {
         /* eslint-disable no-unused-vars */
         // justification: variable 'valid' and 'className' is declared due to object decomposition
         var {
             valid,
             className,
             color,
-            children,
-            presetName,
-            ...other
-        } = this.props;
+            presetName
+        } = props;
 
         /* eslint-enable */
         const cssClasses = [];
@@ -151,7 +174,24 @@ class MbscLabel extends React.Component {
         if (cssClasses.length) {
             cssClass = cssClasses.reduce((pv, cv) => pv + ' ' + cv).replace(/\s+/g, ' ').trim();
         }
-        return <label className={cssClass} {...other}>{children}</label>;
+        return cssClass;
+    }
+
+    render = () => {
+        /* eslint-disable no-unused-vars */
+        // justification: variable 'valid' and 'className' is declared due to object decomposition
+        var {
+            valid,
+            className,
+            color,
+            children,
+            presetName,
+            ...other
+        } = this.props;
+
+        /* eslint-enable */
+        
+        return <label {...other}>{children}</label>;
     }
 }
 

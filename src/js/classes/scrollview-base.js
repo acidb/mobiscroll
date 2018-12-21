@@ -170,7 +170,7 @@ export const ScrollViewBase = function (el, settings, inherit) {
                 } else if (Math.abs(diffY) > 7) {
                     nativeScroll = true;
                     that.scrolled = true;
-                    $elm.trigger('touchend');
+                    onEnd();
                 }
             }
         }
@@ -199,7 +199,7 @@ export const ScrollViewBase = function (el, settings, inherit) {
                 time = new Date() - startTime;
 
             // Better performance if there are tap events on document
-            if (s.stopProp) {
+            if (s.stopProp && ev) {
                 ev.stopPropagation();
             }
 
@@ -233,7 +233,7 @@ export const ScrollViewBase = function (el, settings, inherit) {
             }
 
             // Detach document events
-            if (ev.type == 'mouseup') {
+            if (ev && ev.type == 'mouseup') {
                 $(document).off('mousemove', onMove).off('mouseup', onEnd);
             }
 

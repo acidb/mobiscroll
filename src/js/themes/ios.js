@@ -1,4 +1,5 @@
 import { extend, mobiscroll } from '../core/core';
+import { os, majorVersion } from '../util/platform';
 
 export default mobiscroll;
 
@@ -9,7 +10,7 @@ themes.frame.ios = {
     headerText: false, // frame
     btnWidth: false, // frame
     deleteIcon: 'ios-backspace', // numpad
-    scroll3d: true
+    scroll3d: os != 'wp' && (os != 'android' || majorVersion > 7)
 };
 
 themes.scroller.ios = extend({}, themes.frame.ios, {

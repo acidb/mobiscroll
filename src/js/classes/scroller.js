@@ -2,17 +2,16 @@
 import { mobiscroll } from '../core/core'; // mobiscroll needed for trial
 /* eslint-enable no-unused-vars */
 import { $, extend, classes } from '../core/core';
-import { os, isBrowser } from '../util/platform';
 import { cssPrefix, jsPrefix } from '../util/dom';
 import { isNumeric, objectToArray } from '../util/misc';
+import { isBrowser } from '../util/platform';
 import { createStepper } from '../util/stepper';
 import { Frame } from './frame';
 import { ScrollViewBase } from './scrollview-base';
 
 var presets = {},
     css = isBrowser ? window.CSS : null,
-    has3d = css && css.supports && css.supports("(transform-style: preserve-3d)"),
-    force2D = !has3d || os == 'wp' || os == 'android';
+    has3d = css && css.supports && css.supports("(transform-style: preserve-3d)");
 
 function sanitize(str) {
     return (str + '').replace('"', '___');
@@ -31,7 +30,6 @@ export const Scroller = function (el, settings, inherit) {
         showScrollArrows,
         stepper,
         tempWheelArray,
-        hasScrollbar,
         itemHeight,
         itemHeight3d,
         isPointer,
@@ -506,7 +504,7 @@ export const Scroller = function (el, settings, inherit) {
             that._wheelArray = [];
             for (var i = 0; i < tempWheelArray.length; i++) {
                 // In case of multiple select wheel take the first selected value,
-                that._wheelArray[i] = wheels[i] && wheels[i].multiple ? Object.keys(that._tempSelected[i])[0] : tempWheelArray[i];
+                that._wheelArray[i] = wheels[i] && wheels[i].multiple ? Object.keys(that._tempSelected[i] || {})[0] : tempWheelArray[i];
             }
             that._value = that._hasValue ? that._tempValue : null;
             that._selected = extend(true, {}, that._tempSelected);
@@ -644,7 +642,7 @@ export const Scroller = function (el, settings, inherit) {
                     (s.width ? ('width:' + (s.width[l] || s.width) + 'px;') :
                         (s.minWidth ? ('min-width:' + (s.minWidth[l] || s.minWidth) + 'px;') : '') +
                         (s.maxWidth ? ('max-width:' + (s.maxWidth[l] || s.maxWidth) + 'px;') : '')) + '">' +
-                    (hasScrollbar ? '<div class="mbsc-sc-bar-c"><div class="mbsc-sc-bar"></div></div>' : '') + // Scrollbar
+                    (isPointer ? '<div class="mbsc-sc-bar-c"><div class="mbsc-sc-bar"></div></div>' : '') + // Scrollbar
                     '<div class="mbsc-sc-whl-o" style="' + style + '"></div>' + highlight +
                     '<div aria-live="off" aria-label="' + lbl + '"' + (w.multiple ? ' aria-multiselectable="true"' : '') + ' role="listbox" data-index="' + l + '" class="mbsc-sc-whl"' + ' style="' +
                     'height:' + (s.rows * itemHeight * (scroll3d ? 1.1 : 1)) + 'px;">' +
@@ -832,17 +830,10 @@ export const Scroller = function (el, settings, inherit) {
             that._wheelArray = null;
         }
 
-        if (isPointer) {
-            s.scroll3d = false;
-            hasScrollbar = true;
-        } else {
-            hasScrollbar = false;
-        }
-
         wheels = [];
         wheelsMap = {};
         showScrollArrows = s.showScrollArrows;
-        scroll3d = s.scroll3d && !force2D && !showScrollArrows;
+        scroll3d = s.scroll3d && has3d && !showScrollArrows && !isPointer && (s.theme == 'ios' || s.baseTheme == 'ios');
         itemHeight = s.height;
         itemHeight3d = scroll3d ? Math.round((itemHeight - (itemHeight * s.rows / 2 + 3) * 0.03) / 2) * 2 : itemHeight;
         batchSize3d = Math.round(s.rows * 1.8);

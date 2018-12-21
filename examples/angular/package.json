@@ -21,7 +21,7 @@
         "@angular/platform-browser": "^5.2.11",
         "@angular/platform-browser-dynamic": "^5.2.11",
         "@angular/router": "^5.2.11",
-        "@mobiscroll/angular-lite": "^4.4.2",
+        "@mobiscroll/angular-lite": "^4.4.3",
         "core-js": "^2.5.7",
         "rxjs": "^5.5.11",
         "zone.js": "^0.8.26"

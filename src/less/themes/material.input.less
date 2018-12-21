@@ -32,9 +32,9 @@
 
     /* Input */
     .mbsc-input {
-        margin: .75em 1em 1.5em 1em;
+        margin: 1.5em 1em;
 
-        .mbsc-label + .mbsc-input-wrap {
+        .mbsc-label ~ .mbsc-input-wrap {
             padding-top: .875em;
 
             .mbsc-input-ic {
@@ -75,7 +75,7 @@
         border-color: #6d6d6d transparent transparent transparent;
     }
 
-    .mbsc-select .mbsc-label + .mbsc-input-wrap:after {
+    .mbsc-select .mbsc-label ~ .mbsc-input-wrap:after {
         top: 1.75em;
     }
 
@@ -200,7 +200,7 @@
             line-height: 2em;
         }
 
-        .mbsc-label + .mbsc-input-wrap {
+        .mbsc-label ~ .mbsc-input-wrap {
             padding-top: 0;
 
             .mbsc-input-ic {
@@ -208,7 +208,7 @@
             }
         }
 
-        &.mbsc-select .mbsc-label + .mbsc-input-wrap:after {
+        &.mbsc-select .mbsc-label ~ .mbsc-input-wrap:after {
             top: 1em;
         }
     }
@@ -249,7 +249,7 @@
             padding: .0625em 1em;
             border-radius: 4px 4px 0 0;
         }
-        
+
         &.mbsc-input input:focus,
         &.mbsc-input textarea:focus,
         &.mbsc-input select:focus ~ input {
@@ -261,8 +261,9 @@
             height: 2.25em;
         }
 
-        &.mbsc-input .mbsc-label + .mbsc-input-wrap {
+        &.mbsc-input .mbsc-label ~ .mbsc-input-wrap {
             padding-top: 0;
+
             input {
                 padding-top: 1.25em;
                 height: 3.5em;
@@ -286,7 +287,7 @@
             z-index: 1;
         }
 
-        &.mbsc-textarea .mbsc-label + .mbsc-input-wrap {
+        &.mbsc-textarea .mbsc-label ~ .mbsc-input-wrap {
             padding-top: 1.625em;
 
             textarea {
@@ -300,7 +301,7 @@
                 top: 1em;
             }
 
-            .mbsc-label + .mbsc-input-wrap:after {
+            .mbsc-label ~ .mbsc-input-wrap:after {
                 top: 1.625em;
             }
         }
@@ -312,7 +313,7 @@
                 padding-bottom: .125em;
             }
 
-            .mbsc-label + .mbsc-input-wrap {
+            .mbsc-label ~ .mbsc-input-wrap {
                 padding-top: 0;
 
                 input {
@@ -321,11 +322,11 @@
                 }
             }
 
-            .mbsc-label + .mbsc-input-wrap .mbsc-input-ic {
+            .mbsc-label ~ .mbsc-input-wrap .mbsc-input-ic {
                 top: .1875em;
             }
 
-            &.mbsc-textarea .mbsc-label + .mbsc-input-wrap {
+            &.mbsc-textarea .mbsc-label ~ .mbsc-input-wrap {
                 padding-top: .375em;
             }
         }
@@ -509,7 +510,7 @@
         }
 
         &.mbsc-input .mbsc-label {
-            top: .833334em;
+            top: -.166667em;
             z-index: 1;
             background: #eee;
             padding: 0 .333334em;
@@ -519,11 +520,11 @@
             top: .8125em;
         }
 
-        &.mbsc-input .mbsc-label + .mbsc-input-wrap {
-            padding-top: 1em;
+        &.mbsc-input .mbsc-label ~ .mbsc-input-wrap {
+            padding-top: .25em;
 
             .mbsc-input-ic {
-                top: 1.8125em;
+                top: 1.0625em;
             }
         }
 
@@ -563,8 +564,8 @@
                 top: 1.5em;
             }
 
-            .mbsc-label + .mbsc-input-wrap:after {
-                top: 2.5em;
+            .mbsc-label ~ .mbsc-input-wrap:after {
+                top: 1.75em;
             }
         }
 
@@ -574,15 +575,15 @@
                 line-height: 3.375em;
             }
 
-            .mbsc-label + .mbsc-input-wrap {
+            .mbsc-label ~ .mbsc-input-wrap {
                 padding-top: 0;
             }
 
-            .mbsc-label + .mbsc-input-wrap .mbsc-input-ic {
+            .mbsc-label ~ .mbsc-input-wrap .mbsc-input-ic {
                 top: .8125em;
             }
 
-            &.mbsc-select .mbsc-label + .mbsc-input-wrap:after {
+            &.mbsc-select .mbsc-label ~ .mbsc-input-wrap:after {
                 top: 1.5em;
             }
         }
@@ -590,7 +591,7 @@
         /* Floating labels */
         &.mbsc-label-floating.mbsc-input {
             .mbsc-label {
-                top: 1.6875em;
+                top: .9375em;
                 padding: 0;
             }
 

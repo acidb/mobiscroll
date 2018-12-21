@@ -7,54 +7,37 @@ export class Input extends FormControl {
         super(elm, settings);
 
         addIconToggle(this, this._$parent, this._$elm);
+
         this._$parent.addClass('mbsc-input');
+        this.checkLabel = this.checkLabel.bind(this);
 
         // Attach events
-        // Prevent 300ms click latency
         events.forEach(ev => {
-            elm.addEventListener(ev, this);
+            this._$elm.on(ev, this.checkLabel);
         });
 
         setTimeout(() => {
             // if label is floating and input is autofill, add floating active class
             // input has no value yet
-            if (this._isFloating && this._$elm.is("*:-webkit-autofill")) {
+            if (this._isFloating && this._$elm.is('*:-webkit-autofill')) {
                 this._$parent.addClass('mbsc-label-floating-active');
             }
         });
     }
 
-    handleEvent(ev) {
-        super.handleEvent(ev);
-        switch (ev.type) {
-            case 'focus':
-                this.onFocus();
-                break;
-            case 'change':
-            case 'blur':
-                this.onChange();
-                break;
-        }
-    }
 
-    refresh() {
-        this.onChange();
-    }
-
-    onChange() {
+    checkLabel(ev) {
         if (this._isFloating) {
-            if (!this._elm.value) {
-                this._$parent.removeClass('mbsc-label-floating-active');
-            } else {
+            if (this._elm.value || (ev && ev.type == 'focus')) {
                 this._$parent.addClass('mbsc-label-floating-active');
+            } else {
+                this._$parent.removeClass('mbsc-label-floating-active');
             }
         }
     }
 
-    onFocus() {
-        if (this._isFloating) {
-            this._$parent.addClass('mbsc-label-floating-active');
-        }
+    refresh() {
+        this.checkLabel();
     }
 
     destroy() {
@@ -65,7 +48,7 @@ export class Input extends FormControl {
             .remove();
 
         events.forEach(ev => {
-            this._elm.removeEventListener(ev, this);
+            this._$elm.off(ev, this.checkLabel);
         });
     }
 }

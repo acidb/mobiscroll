@@ -57,11 +57,23 @@
         padding: .5em 1.333334em;
     }
 
-    .mbsc-form-outline .mbsc-divider,
-    .mbsc-form-outline .mbsc-form-group-title,
-    .mbsc-form-box .mbsc-divider,
-    .mbsc-form-box .mbsc-form-group-title {
+    &.mbsc-form-outline .mbsc-divider,
+    &.mbsc-form-outline .mbsc-form-group-title,
+    &.mbsc-form-box .mbsc-divider,
+    &.mbsc-form-box .mbsc-form-group-title {
         border: 0;
+    }
+
+    /* Form grid */
+
+    .mbsc-form-grid {
+        margin-top: .75em;
+        margin-bottom: .75em;
+    }
+
+    .mbsc-form-grid .mbsc-input-box.mbsc-control-w,
+    .mbsc-form-grid .mbsc-input-outline.mbsc-control-w {
+        margin: .75em 1em;
     }
 
     /* Checkbox, radio */
@@ -278,12 +290,12 @@
     .mbsc-btn-group,
     .mbsc-btn-group-justified,
     .mbsc-btn-group-block {
-        padding: .5em .75em;
+        margin: .5em .75em;
         background: #efeff4;
     }
 
     .mbsc-btn-group-block {
-        padding: .5em 1em;
+        margin: .5em 1em;
     }
 
     /* Button color presets */

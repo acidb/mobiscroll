@@ -125,67 +125,51 @@
         transition: transform .2s;
     }
 
-    .mbsc-label + .mbsc-input-wrap {
+    .mbsc-label ~ .mbsc-input-wrap {
 
         /* WebKit browsers */
-        input::-webkit-input-placeholder,
-        textarea::-webkit-input-placeholder,
-        select::-webkit-input-placeholder {
+        .mbsc-control::-webkit-input-placeholder {
             opacity: 0;
         }
 
         /* Mozilla Firefox 4 to 18 */
-        input:-moz-placeholder,
-        textarea:-moz-placeholder,
-        select:-moz-placeholder {
+        .mbsc-control:-moz-placeholder {
             opacity: 0;
         }
 
         /* Mozilla Firefox 19+ */
-        input::-moz-placeholder,
-        textarea::-moz-placeholder,
-        select::-moz-placeholder {
+        .mbsc-control::-moz-placeholder {
             opacity: 0;
         }
 
         /* Internet Explorer 10+ */
-        input:-ms-input-placeholder,
-        textarea:-ms-input-placeholder,
-        select:-ms-input-placeholder {
+        .mbsc-control:-ms-input-placeholder {
             opacity: 0;
         }
     }
 
-    &.mbsc-label-floating-active .mbsc-label + .mbsc-input-wrap {
+    &.mbsc-label-floating-active .mbsc-label ~ .mbsc-input-wrap {
 
         /* WebKit browsers */
-        input::-webkit-input-placeholder,
-        textarea::-webkit-input-placeholder,
-        select::-webkit-input-placeholder {
+        .mbsc-control::-webkit-input-placeholder {
             opacity: 1;
             transition: opacity .2s;
         }
 
         /* Mozilla Firefox 4 to 18 */
-        input:-moz-placeholder,
-        textarea:-moz-placeholder,
-        select:-moz-placeholder {
+        .mbsc-control:-moz-placeholder {
             opacity: 1;
             transition: opacity .2s;
         }
 
         /* Mozilla Firefox 19+ */
-        input::-moz-placeholder,
-        textarea::-moz-placeholder,
-        select::-moz-placeholder {
+        .mbsc-control::-moz-placeholder {
             opacity: 1;
             transition: opacity .2s;
         }
 
         /* Internet Explorer 10+ */
-        input:-ms-input-placeholder,
-        textarea:-ms-input-placeholder,
-        select:-ms-input-placeholder {
+        .mbsc-control:-ms-input-placeholder {
             opacity: 1;
             transition: opacity .2s;
         }
@@ -230,9 +214,9 @@
 
     /* Input */
     .mbsc-input {
-        margin: .875em 1em 1.75em 1em;
+        margin: 1.5em 1em;
 
-        .mbsc-label + .mbsc-input-wrap {
+        .mbsc-label ~ .mbsc-input-wrap {
             padding-top: .875em;
 
             .mbsc-input-ic {
@@ -277,7 +261,7 @@
         left: .6875em;
     }
 
-    .mbsc-label + .mbsc-input-wrap .mbsc-select-ic {
+    .mbsc-label ~ .mbsc-input-wrap .mbsc-select-ic {
         top: 1.4375em;
     }
 
@@ -410,7 +394,7 @@
             }
         }
 
-        &.mbsc-select .mbsc-label + .mbsc-input-wrap .mbsc-select-ic {
+        &.mbsc-select .mbsc-label ~ .mbsc-input-wrap .mbsc-select-ic {
             top: .5625em;
         }
     }
@@ -455,8 +439,9 @@
             height: 2.25em;
         }
 
-        &.mbsc-input .mbsc-label + .mbsc-input-wrap {
+        &.mbsc-input .mbsc-label ~ .mbsc-input-wrap {
             padding-top: 0;
+
             input {
                 padding-top: 1.25em;
                 height: 3.5em;
@@ -481,7 +466,7 @@
             line-height: normal;
         }
 
-        &.mbsc-textarea .mbsc-label + .mbsc-input-wrap {
+        &.mbsc-textarea .mbsc-label ~ .mbsc-input-wrap {
             padding-top: 1.625em;
 
             textarea {
@@ -495,7 +480,7 @@
                 top: .625em;
             }
 
-            .mbsc-label + .mbsc-input-wrap .mbsc-select-ic {
+            .mbsc-label ~ .mbsc-input-wrap .mbsc-select-ic {
                 top: 1.375em;
             }
         }
@@ -505,26 +490,27 @@
             .mbsc-label {
                 padding-top: .125em;
                 padding-bottom: .125em;
+                line-height: 2em;
             }
 
-            .mbsc-label + .mbsc-input-wrap {
+            .mbsc-label ~ .mbsc-input-wrap {
                 padding-top: 0;
-                
+
                 input {
                     height: 2.25em;
                     padding-top: .0625em;
                 }
             }
 
-            .mbsc-label + .mbsc-input-wrap .mbsc-input-ic {
+            .mbsc-label ~ .mbsc-input-wrap .mbsc-input-ic {
                 top: .1875em;
             }
 
-            &.mbsc-textarea .mbsc-label + .mbsc-input-wrap {
+            &.mbsc-textarea .mbsc-label ~ .mbsc-input-wrap {
                 padding-top: .375em;
             }
 
-            &.mbsc-select .mbsc-label + .mbsc-input-wrap .mbsc-select-ic {
+            &.mbsc-select .mbsc-label ~ .mbsc-input-wrap .mbsc-select-ic {
                 top: .625em;
             }
         }
@@ -714,7 +700,7 @@
         }
 
         &.mbsc-input .mbsc-label {
-            top: .833334em;
+            top: .166667em;
             z-index: 1;
             background: #f7f7f7;
             padding: 0 .333334em;
@@ -724,11 +710,11 @@
             top: .8125em;
         }
 
-        &.mbsc-input .mbsc-label + .mbsc-input-wrap {
-            padding-top: 1em;
+        &.mbsc-input .mbsc-label ~ .mbsc-input-wrap {
+            padding-top: .25em;
 
             .mbsc-input-ic {
-                top: 1.8125em;
+                top: 1.0625em;
             }
         }
 
@@ -757,8 +743,8 @@
                 top: 1.3125em;
             }
 
-            .mbsc-label + .mbsc-input-wrap .mbsc-select-ic {
-                top: 2.3125em;
+            .mbsc-label ~ .mbsc-input-wrap .mbsc-select-ic {
+                top: 1.5625em;
             }
         }
 
@@ -768,15 +754,15 @@
                 line-height: 3.375em;
             }
 
-            .mbsc-label + .mbsc-input-wrap {
+            .mbsc-label ~ .mbsc-input-wrap {
                 padding-top: 0;
             }
 
-            .mbsc-label + .mbsc-input-wrap .mbsc-input-ic {
+            .mbsc-label ~ .mbsc-input-wrap .mbsc-input-ic {
                 top: .8125em;
             }
 
-            &.mbsc-select .mbsc-label + .mbsc-input-wrap .mbsc-select-ic {
+            &.mbsc-select .mbsc-label ~ .mbsc-input-wrap .mbsc-select-ic {
                 top: 1.3125em;
             }
         }
@@ -784,7 +770,7 @@
         /* Floating labels */
         &.mbsc-label-floating.mbsc-input {
             .mbsc-label {
-                top: 1.6875em;
+                top: .9375em;
                 padding: 0;
             }
 

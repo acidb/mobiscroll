@@ -32,6 +32,7 @@ import {
     ViewChildren,
     ViewContainerRef,
     Injector,
+    ChangeDetectionStrategy
 } from '@angular/core';
 
 // // angular2 import { trigger, state, animate, transition, style } from '@angular/core'; // Angular 2.x
@@ -51,6 +52,8 @@ import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 
 import { MbscFormValueBase } from '../forms.angular';
+
+export class MbscRouterToken { }
 
 @Injectable()
 export class MbscOptionsService {
@@ -789,5 +792,6 @@ export {
     ViewChildren,
     ViewContainerRef,
     Injector,
+    ChangeDetectionStrategy
     //trigger, state, animate, transition, style
 }
