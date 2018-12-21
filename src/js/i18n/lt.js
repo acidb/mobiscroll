@@ -38,6 +38,7 @@ mobiscroll.i18n.lt = {
     noEventsText: 'Nėra įvykių',
     eventText: 'Įvykių',
     eventsText: 'Įvykiai',
+    moreEventsText: 'Dar {count}',
     // Daterange component
     fromText: 'Nuo',
     toText: 'Iki',

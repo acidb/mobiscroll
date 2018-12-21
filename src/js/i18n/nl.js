@@ -37,6 +37,7 @@ mobiscroll.i18n.nl = {
     noEventsText: 'Geen activiteiten',
     eventText: 'Activiteit',
     eventsText: 'Activiteiten',
+    moreEventsText: 'nog {count}',
     // Daterange component
     fromText: 'Start',
     toText: 'Einde',

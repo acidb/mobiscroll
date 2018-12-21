@@ -1,5 +1,5 @@
 /*!
- * Mobiscroll v4.4.3
+ * Mobiscroll v4.5.0
  * http://mobiscroll.com
  *
  * Copyright 2010-2018, Acid Media
@@ -76,7 +76,7 @@ extend(util, {
 
 ms = extend(mobiscroll, {
     $: $,
-    version: '4.4.3',
+    version: '4.5.0',
     autoTheme: 'mobiscroll',
     themes: {
         form: {},
@@ -137,7 +137,7 @@ const Base = function (el, settings) {
     that._processSettings = noop;
 
     that._checkResp = function (width) {
-        if (that._responsive) {
+        if (that && that._responsive) {
             var newResp = getResponsiveSettings(width);
             if (resp !== newResp) {
                 resp = newResp;

@@ -42,6 +42,7 @@ mobiscroll.i18n.hr = {
     eventsText: 'događaja',
     allDayText: 'Cijeli dan',
     noEventsText: 'Bez događaja',
+    moreEventsText: 'Još {count}',
     // Daterange component
     fromText: 'Počinje',
     toText: 'Završava',

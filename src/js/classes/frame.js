@@ -1134,6 +1134,7 @@ export const Frame = function (el, settings, inherit) {
 
 Frame.prototype._defaults = {
     // Localization
+    lang: 'en',
     setText: 'Set',
     selectedText: '{count} selected',
     closeText: 'Close',

@@ -47,6 +47,10 @@ export class Input extends FormControl {
             .find('.mbsc-input-ic')
             .remove();
 
+        this._$parent
+            .find('.mbsc-input-fill')
+            .remove();
+
         events.forEach(ev => {
             this._$elm.off(ev, this.checkLabel);
         });

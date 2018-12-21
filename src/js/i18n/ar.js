@@ -1,6 +1,7 @@
 // Arabic
 
 import { mobiscroll } from '../core/core';
+import './hijri';
 
 export default mobiscroll;
 
@@ -43,6 +44,8 @@ mobiscroll.i18n.ar = {
     // Event calendar
     eventText: 'الحدث',
     eventsText: 'أحداث',
+    moreEventsText: 'واحد آخر',
+    moreEventsPluralText: 'اثنان آخران {count}',
     // Daterange component
     fromText: 'يبدا',
     toText: 'ينتهي',

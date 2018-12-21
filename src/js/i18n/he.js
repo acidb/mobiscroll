@@ -41,6 +41,8 @@ mobiscroll.i18n.he = {
     // Event calendar
     eventText: 'מִקרֶה',
     eventsText: 'מִקרֶה',
+    moreEventsText: 'אירוע אחד נוסף',
+    moreEventsPluralText: '{count} אירועים נוספים',
     // Daterange component
     fromText: 'התחלה',
     toText: 'סיום',

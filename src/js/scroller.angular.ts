@@ -13,10 +13,13 @@ import {
     NgControl,
     MbscInputService,
     MbscOptionsService,
-    ViewContainerRef
+    ViewContainerRef,
+    NgModule,
+    CommonModule
 } from './frameworks/angular';
 
 import { Scroller, MbscScrollerOptions } from './classes/scroller';
+import { MbscInputModule } from './input.angular';
 export { MbscScrollerOptions };
 
 @Directive({
@@ -117,3 +120,10 @@ export class MbscScrollerComponent extends MbscScroller {
         this.setThemeClasses();
     }
 }
+
+@NgModule({
+    imports: [CommonModule, MbscInputModule],
+    declarations: [MbscScroller, MbscScrollerComponent],
+    exports: [MbscScroller, MbscScrollerComponent]
+})
+export class MbscScrollerModule {}

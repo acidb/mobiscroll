@@ -38,6 +38,7 @@ mobiscroll.i18n.tr = {
     noEventsText: 'Etkinlik Yok',
     eventText: 'Etkinlik',
     eventsText: 'Etkinlikler',
+    moreEventsText: '{count} tane daha',
     // Daterange component
     fromText: 'Başla',
     toText: 'Son',

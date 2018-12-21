@@ -42,6 +42,7 @@ mobiscroll.i18n.hi = {
     eventsText: 'इवेट३',
     allDayText: 'पूरे दिन',
     noEventsText: 'Ei tapahtumia',
+    moreEventsText: '{count} और',
     // Daterange component
     fromText: 'से',
     toText: 'तक',

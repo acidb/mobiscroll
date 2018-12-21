@@ -35,7 +35,7 @@
 // Dark background 
 .light-or-dark() when (lightness(@ios-background) <=50%) {
     @ios-border: lighten(@ios-background-limited, 17%);
-    @ios-text-alt: darken(@ios-text, 53%);
+    @ios-text-alt: darken(@ios-text, 33%);
     @ios-empty-color: @ios-text;
     @ios-scrollbar-track: rgba(255, 255, 255, .2);
     @ios-background-desktop: lighten(@ios-background-limited, 17%);
@@ -98,6 +98,7 @@
     @output3_10: lighten(@minput3, 3%);
     @output3_12: lighten(@minput3, 10%);
     @output3_13: lighten(@minput3, 20%);
+    @ios-btn-background: lighten(@minput3, 20%);
     @output3_14: lighten(@minput3, 12%);
     @output3_15: spin(lighten(desaturate(@input3, 12%), 14%), 218);
     @output3_16: lighten(@minput3, 10%);
@@ -128,6 +129,7 @@
     @output3_10: lighten(@minput3, 3%);
     @output3_12: darken(@minput3, 10%);
     @output3_13: darken(@minput3, 20%);
+    @ios-btn-background: lighten(@minput3, 10%);
     @output3_14: darken(@minput3, 5%);
     @output3_15: spin(darken(saturate(@input3, 12%), 14%), 218);
     @output3_16: @output3_1;
@@ -411,12 +413,13 @@
 
     /* Hover, focus */
     .mbsc-cal-cell:focus .mbsc-cal-cell-txt,
-    &.mbsc-no-touch .mbsc-cal-cell:not(.mbsc-disabled):hover .mbsc-cal-cell-txt {
+    &.mbsc-no-touch:not(.mbsc-ev-cal) .mbsc-cal-cell:not(.mbsc-disabled):hover .mbsc-cal-cell-txt,
+    &.mbsc-no-touch .mbsc-cal-day:not(.mbsc-disabled) .mbsc-cal-day-date:hover {
         background: fade(@ios-accent, 30%);
     }
 
     /* Selected */
-    .mbsc-cal-c .mbsc-cal .mbsc-cal-body .mbsc-selected .mbsc-cal-cell-txt {
+    .mbsc-cal-c .mbsc-cal .mbsc-cal-body .mbsc-cal-row .mbsc-selected .mbsc-cal-cell-txt {
         border-color: @ios-accent;
         background: @ios-accent;
         color: contrast(@ios-accent);
@@ -485,8 +488,8 @@
         border-color: @ios-popup-border;
     }
 
-    .mbsc-cal-event-list .mbsc-cal-event:before,
-    .mbsc-cal-event-list .mbsc-cal-event:after {
+    .mbsc-cal-event:before,
+    .mbsc-cal-event:after {
         border-color: @ios-popup-border;
     }
 
@@ -715,7 +718,7 @@
 
 .mbsc-@{theme} .mbsc-btn {
     color: @output2_1;
-    background: @output3_13;
+    background: @ios-btn-background;
 }
 
 .mbsc-@{theme} .mbsc-btn-outline.mbsc-btn {
@@ -727,7 +730,7 @@
     background: @output2_1;
 }
 
-.mbsc-@{theme} .mbsc-btn:disabled {
+.mbsc-@{theme} .mbsc-btn:not(.mbsc-btn-flat):disabled {
     background: @output3_12;
     color: @output3_13;
 }
@@ -735,6 +738,7 @@
 .mbsc-@{theme} .mbsc-btn.mbsc-btn-outline:disabled {
     border-color: @output3_13;
     color: @output3_13;
+    background: transparent;
 }
 
 .mbsc-@{theme} .mbsc-btn-group,

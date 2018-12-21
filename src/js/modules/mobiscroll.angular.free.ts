@@ -1,7 +1,7 @@
 import { NgModule, FormsModule, CommonModule, mobiscroll } from '../frameworks/angular';
 
-import { MbscForm, MbscRating, MbscInput, MbscDropdown, MbscTextarea, MbscButton, MbscCheckbox, MbscSwitch, MbscStepper, MbscProgress, MbscSlider, MbscRadio, MbscRadioGroup, MbscSegmentedGroup, MbscSegmented, MbscFormOptions, MbscFormGroup, MbscFormGroupTitle, MbscFormGroupContent } from '../forms.angular';
-import { MbscPage, MbscPageOptions, MbscNote, MbscAvatar } from '../page.angular';
+import { MbscFormsModule, MbscForm, MbscRating, MbscInput, MbscDropdown, MbscTextarea, MbscButton, MbscCheckbox, MbscSwitch, MbscStepper, MbscProgress, MbscSlider, MbscRadio, MbscRadioGroup, MbscSegmentedGroup, MbscSegmented, MbscFormOptions, MbscFormGroup, MbscFormGroupTitle, MbscFormGroupContent } from '../forms.angular';
+import { MbscPageModule, MbscPage, MbscPageOptions, MbscNote, MbscAvatar } from '../page.angular';
 import { MbscCommercialComponent } from '../mobiscroll.commercial';
 
 const directives = [
@@ -10,9 +10,9 @@ const directives = [
 ];
 
 @NgModule({
-    imports: [FormsModule, CommonModule],
-    declarations: [directives],
-    exports: [directives]
+    imports: [FormsModule, CommonModule, MbscFormsModule, MbscPageModule],
+    declarations: [MbscCommercialComponent],
+    exports: [directives, MbscCommercialComponent, MbscFormsModule, MbscPageModule]
 })
 class MbscModule { };
 
@@ -21,5 +21,7 @@ export {
     MbscForm, MbscRating, MbscPage, MbscNote, MbscAvatar, MbscInput, MbscDropdown, MbscTextarea, MbscButton, MbscCheckbox, MbscSwitch, MbscStepper, MbscProgress, MbscSlider, MbscRadio, MbscRadioGroup, MbscSegmentedGroup, MbscSegmented,
     MbscCommercialComponent,
     MbscPageOptions,
-    MbscModule
+    MbscModule,
+    MbscFormsModule,
+    MbscPageModule
 }

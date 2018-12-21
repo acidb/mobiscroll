@@ -38,6 +38,8 @@ mobiscroll.i18n.fr = {
     noEventsText: 'Aucun événement',
     eventText: 'Événement',
     eventsText: 'Événements',
+    moreEventsText: '{count} autre',
+    moreEventsPluralText: '{count} autres',
     // Daterange component
     fromText: 'Démarrer',
     toText: 'Fin',

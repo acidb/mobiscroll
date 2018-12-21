@@ -51,7 +51,7 @@ import {
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 
-import { MbscFormValueBase } from '../forms.angular';
+import { MbscFormValueBase } from '../input.angular';
 
 export class MbscRouterToken { }
 
@@ -737,6 +737,16 @@ function isDateEqual(d1: any, d2: any): boolean {
     }
 }
 
+/**
+ * Checks if the value passed is empty or the true string.
+ * Used for determining if certain attributes are used on components. 
+ * FYI: when an attribute is used without a value, empty string is provided to this function. Ex. readonly
+ * @param val The value of the attribute.
+ */
+function emptyOrTrue(val: any) {
+    return (typeof (val) === 'string' && (val === 'true' || val === '')) || !!val;
+}
+
 const INPUT_TEMPLATE = `<div *ngIf="inline"></div><mbsc-input *ngIf="!inline" 
     [controlNg]="false" [name]="name" [theme]="theme" [disabled]="disabled" [dropdown]="dropdown" [placeholder]="placeholder"
     [error]="error" [errorMessage]="errorMessage" 
@@ -750,6 +760,7 @@ export {
     mobiscroll,
     deepEqualsArray,
     isDateEqual,
+    emptyOrTrue,
 
     INPUT_TEMPLATE,
 

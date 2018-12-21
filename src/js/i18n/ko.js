@@ -11,7 +11,7 @@ mobiscroll.i18n.ko = {
     clearText: '삭제',
     selectedText: '{count} 선택된',
     // Datetime component
-    dateFormat: 'yy-mm-dd',
+    dateFormat: 'yy년mm월dd일',
     dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
     dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
     dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
@@ -28,6 +28,9 @@ mobiscroll.i18n.ko = {
     nowText: '지금',
     pmText: '오후',
     amText: '오전',
+    yearSuffix: '년',
+    monthSuffix: '월',
+    daySuffix: '일',
     // Calendar component
     firstDay: 0,
     dateText: '날짜',
@@ -42,6 +45,7 @@ mobiscroll.i18n.ko = {
     eventsText: '이벤트',
     allDayText: '종일',
     noEventsText: '이벤트 없음',
+    moreEventsText: '{count}개 더보기',
     // Daterange component
     fromText: '시작',
     toText: '종료',

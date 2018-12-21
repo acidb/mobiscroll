@@ -39,6 +39,7 @@ mobiscroll.i18n.ja = {
     noEventsText: 'イベントはありません',
     eventText: 'イベント',
     eventsText: 'イベント',
+    moreEventsText: '他 {count} 件',
     // Daterange component
     fromText: '開始',
     toText: '終わり',

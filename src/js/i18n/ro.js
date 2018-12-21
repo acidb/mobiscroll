@@ -38,6 +38,8 @@ mobiscroll.i18n.ro = {
     eventsText: 'Evenimente',
     allDayText: 'Toată ziua',
     noEventsText: 'Niciun eveniment',
+    moreEventsText: 'Încă unul',
+    moreEventsPluralText: 'Încă {count}',
     // Calendar component
     firstDay: 1,
     dateText: 'Data',

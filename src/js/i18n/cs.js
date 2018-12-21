@@ -37,6 +37,7 @@ mobiscroll.i18n.cs = {
     noEventsText: 'Žádné události',
     eventText: 'Událostí',
     eventsText: 'Události',
+    moreEventsText: '{count} další',
     // Daterange component
     fromText: 'Začátek',
     toText: 'Konec',

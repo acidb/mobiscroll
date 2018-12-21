@@ -147,7 +147,7 @@ class MbscLabel extends React.Component {
         }
         return true;
     }
-    
+
     getClasses(props) {
         /* eslint-disable no-unused-vars */
         // justification: variable 'valid' and 'className' is declared due to object decomposition
@@ -190,7 +190,7 @@ class MbscLabel extends React.Component {
         } = this.props;
 
         /* eslint-enable */
-        
+
         return <label {...other}>{children}</label>;
     }
 }
@@ -401,35 +401,67 @@ class MbscButton extends MbscInit {
     componentDidMount() {
         var settings = this.getSettingsFromProps(this.props);
         this.instance = new Button(this.btnNode, settings);
+        updateCssClasses.call(this, '', this.getCssClasses(this.props));
+    }
+
+    componentDidUpdate() {
+        if (this.cssClassUpdate) {
+            updateCssClasses.call(this, this.cssClassUpdate.prev, this.cssClassUpdate.next);
+        }
+    }
+
+    shouldComponentUpdate(nextProps) {
+        const nextClasses = this.getCssClasses(nextProps);
+        const thisClasses = this.getCssClasses(this.props);
+        if (thisClasses !== nextClasses) {
+            this.cssClassUpdate = {
+                prev: thisClasses,
+                next: nextClasses
+            };
+        } else {
+            this.cssClassUpdate = null;
+        }
+        return true;
     }
 
     btnMounted(btn) {
         this.btnNode = btn;
     }
 
-    render() {
-        var { type, children, color, flat, block, outline, icon, ...other } = this.props;
-        type = type || 'button';
+    getCssClasses(props) {
+        const { className, color, flat, block, outline } = props;
+        const cssClasses = [];
 
-        var cssClass = '';
         if (flat) {
-            cssClass += ' mbsc-btn-flat';
+            cssClasses.push('mbsc-btn-flat');
         }
         if (block) {
-            cssClass += ' mbsc-btn-block';
+            cssClasses.push('mbsc-btn-block');
         }
         if (outline) {
-            cssClass += ' mbsc-btn-outline';
+            cssClasses.push('mbsc-btn-outline');
         }
         if (color) {
-            cssClass += ' mbsc-btn-' + color;
+            cssClasses.push('mbsc-btn-' + color);
         }
-        if (this.initialCssClass) {
-            cssClass += ' ' + this.initialCssClass;
+        if (className) {
+            cssClasses.push(className);
         }
-        cssClass = cssClass.trim();
+        var cssClass = '';
+        if (cssClasses.length) {
+            cssClass = cssClasses.reduce((pv, cv) => pv + ' ' + cv).replace(/\s+/g, ' ').trim();
+        }
+        return cssClass;
+    }
 
-        return <button className={cssClass} ref={this.btnMounted} type={type} data-icon={icon} {...other}>{children}</button>;
+    render() {
+        /* eslint-disable no-unused-vars */
+        // justification: variables 'className', 'color', 'flat', 'block', 'outline' are declared due to object decomposition
+        var { type, children, className, color, flat, block, outline, icon, ...other } = this.props;
+        /* eslint-enable */
+        type = type || 'button';
+
+        return <button ref={this.btnMounted} type={type} data-icon={icon} {...other}>{children}</button>;
     }
 }
 
@@ -458,7 +490,9 @@ class MbscCheckbox extends MbscInit {
     }
 
     render() {
+        /* eslint-disable no-unused-vars */
         var { color, children, inputStyle, ...other } = this.props;
+        /* eslint-enable */
         return <MbscLabel color={color} presetName="checkbox">
             <input ref={this.inputMounted} type="checkbox" {...other} />
             {children}
@@ -491,7 +525,9 @@ class MbscRadio extends MbscInit {
     }
 
     render() {
+        /* eslint-disable no-unused-vars */
         var { color, children, inputStyle, ...other } = this.props;
+        /* eslint-enable */
         return <MbscLabel color={color} presetName="radio">
             <input ref={this.inputMounted} type="radio" {...other} />
             {children}
@@ -561,10 +597,50 @@ class MbscFormBase extends MbscOptimized {
 
         // Add change event listener if handler is passed
         $(this.inputNode).on('change', this.props.onChange || (function () { }));
+
+        // sets the initial css classes on the element
+        updateCssClasses.call(this, '', this.getCssClasses(this.props));
+    }
+
+    shouldComponentUpdate(nextProps) {
+        const nextClasses = this.getCssClasses(nextProps);
+        const thisClasses = this.getCssClasses(this.props);
+        if (thisClasses !== nextClasses) {
+            this.cssClassUpdate = {
+                prev: thisClasses,
+                next: nextClasses
+            };
+        } else {
+            this.cssClassUpdate = null;
+        }
+        return super.shouldComponentUpdate(nextProps) || this.cssClassUpdate;
+    }
+
+    componentDidUpdate() {
+        if (this.cssClassUpdate) {
+            updateCssClasses.call(this, this.cssClassUpdate.prev, this.cssClassUpdate.next);
+        }
     }
 
     inputMounted(input) {
         this.inputNode = input;
+    }
+
+    getCssClasses(props) {
+        const { className, color } = props,
+            cssClasses = [];
+
+        if (color) {
+            cssClasses.push('mbsc-' + this.presetName + '-' + color);
+        }
+        if (className) {
+            cssClasses.push(className);
+        }
+        if (cssClasses.length) {
+            return cssClasses.reduce((pv, cv) => pv + ' ' + cv).replace(/\s+/g, ' ').trim();
+        } else {
+            return '';
+        }
     }
 
     render() {
@@ -581,13 +657,9 @@ class MbscFormBase extends MbscOptimized {
         } = this.props;
 
         /* eslint-enable no-unused-vars */
-        var presetClass = '';
-        if (color) {
-            presetClass = 'mbsc-' + this.presetName + '-' + color;
-        }
         var type = this.inputType || 'text';
 
-        return <div className={presetClass + (this.initialCssClass ? ' ' + this.initialCssClass : '')}>
+        return <div>
             {children}
             <input ref={this.inputMounted} type={type} data-role={name} {...other} />
         </div>;
@@ -629,9 +701,61 @@ mobiscroll.Stepper = MbscStepper;
 
 // progress
 
-class MbscProgress extends MbscOptimized {
+class MbscColored extends MbscOptimized {
     constructor(props) {
         super(props);
+    }
+
+    componentDidMount() {
+        updateCssClasses.call(this, '', this.getCssClasses(this.props));
+    }
+
+    componentDidUpdate() {
+        super.componentDidUpdate();
+        if (this.cssClassUpdate) {
+            updateCssClasses.call(this, this.cssClassUpdate.prev, this.cssClassUpdate.next);
+        }
+    }
+
+    shouldComponentUpdate(nextProps) {
+        const nextClasses = this.getCssClasses(nextProps);
+        const thisClasses = this.getCssClasses(this.props);
+        if (thisClasses !== nextClasses) {
+            this.cssClassUpdate = {
+                prev: thisClasses,
+                next: nextClasses
+            };
+        } else {
+            this.cssClassUpdate = null;
+        }
+        return super.shouldComponentUpdate(nextProps) || this.cssClassUpdate;
+    }
+
+    getCssClasses(props) {
+        const { className, color } = props;
+        const cssClasses = [];
+
+        if (color) {
+            cssClasses.push('mbsc-' + this.presetName + '-' + color);
+        }
+
+        if (className) {
+            cssClasses.push(className);
+        }
+
+        if (cssClasses.length) {
+            return cssClasses.reduce((pv, cv) => pv + ' ' + cv).replace(/\s+/g, ' ').trim();
+        }
+        else {
+            return '';
+        }
+    }
+}
+
+class MbscProgress extends MbscColored {
+    constructor(props) {
+        super(props);
+        this.presetName = 'progress';
         this.progressMounted = this.progressMounted.bind(this);
     }
 
@@ -655,6 +779,7 @@ class MbscProgress extends MbscOptimized {
         if (this.props.value !== undefined) {
             this.instance.setVal(this.props.value, true);
         }
+        super.componentDidMount();
     }
 
     progressMounted(progress) {
@@ -674,12 +799,7 @@ class MbscProgress extends MbscOptimized {
         } = this.props;
 
         /* eslint-enable no-unused-vars */
-        var presetClass = '';
-        if (color) {
-            presetClass = 'mbsc-progress-' + color;
-        }
-        var cssClass = presetClass + (this.initialCssClass ? ' ' + this.initialCssClass : '');
-        return <div className={cssClass}>
+        return <div>
             {children}
             <progress ref={this.progressMounted} {...other} />
         </div>;
@@ -689,9 +809,10 @@ class MbscProgress extends MbscOptimized {
 mobiscroll.Progress = MbscProgress;
 
 // slider
-class MbscSlider extends MbscOptimized {
+class MbscSlider extends MbscColored {
     constructor(props) {
         super(props);
+        this.presetName = 'slider';
         this.firstInputMounted = this.firstInputMounted.bind(this);
         this.parentMounted = this.parentMounted.bind(this);
     }
@@ -730,6 +851,8 @@ class MbscSlider extends MbscOptimized {
                 that.props.onChange(values);
             }
         });
+
+        super.componentDidMount();
     }
 
     firstInputMounted(input) {
@@ -770,13 +893,7 @@ class MbscSlider extends MbscOptimized {
             values = [value];
         }
 
-        var presetClass = '';
-        if (color) {
-            presetClass = 'mbsc-slider-' + color;
-        }
-        var cssClass = presetClass + (this.initialCssClass ? ' ' + this.initialCssClass : '');
-
-        return <label ref={this.parentMounted} className={cssClass}>
+        return <label ref={this.parentMounted}>
             {children}
             {values.map(function (item, index) {
                 if (index === 0) {
@@ -790,9 +907,10 @@ class MbscSlider extends MbscOptimized {
 
 mobiscroll.Slider = MbscSlider;
 
-class MbscRating extends MbscOptimized {
+class MbscRating extends MbscColored {
     constructor(props) {
         super(props);
+        this.presetName = 'rating';
         this.inputMounted = this.inputMounted.bind(this);
         this.parentMounted = this.parentMounted.bind(this);
     }
@@ -827,6 +945,8 @@ class MbscRating extends MbscOptimized {
                 this.props.onChange(value);
             }
         });
+
+        super.componentDidMount();
     }
 
     inputMounted(input) {
@@ -855,13 +975,7 @@ class MbscRating extends MbscOptimized {
         } = this.props;
         /* eslint-enable no-unused-vars */
 
-        var presetClass = '';
-        if (color) {
-            presetClass = 'mbsc-rating-' + color;
-        }
-        var cssClass = presetClass + (this.initialCssClass ? ' ' + this.initialCssClass : '');
-
-        return <label className={cssClass} ref={this.parentMounted}>
+        return <label ref={this.parentMounted}>
             {children}
             <input type="rating" data-role="rating" data-val={val} data-template={template} data-empty={empty} data-filled={filled} ref={this.inputMounted} {...other} />
         </label>;

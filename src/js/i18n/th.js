@@ -42,6 +42,7 @@ mobiscroll.i18n.th = {
     eventsText: 'เหตุการณ์',
     allDayText: 'ตลอดวัน',
     noEventsText: 'ไม่มีกิจกรรม',
+    moreEventsText: 'อีก {count} กิจกรรม',
     // Daterange component
     fromText: 'จาก',
     toText: 'ถึง',

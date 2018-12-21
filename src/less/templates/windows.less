@@ -113,14 +113,14 @@
     }
 
     /* Hover style */
-    &.mbsc-no-touch .mbsc-cal-day:not(.mbsc-disabled):hover .mbsc-cal-day-i,
+    &.mbsc-no-touch:not(.mbsc-ev-cal) .mbsc-cal-day:not(.mbsc-disabled):hover .mbsc-cal-day-i,
     &.mbsc-no-touch .mbsc-cal-picker .mbsc-cal-cell:not(.mbsc-disabled):hover {
         background: @windows-button-hover;
     }
 
     /* Selected style */
-    .mbsc-selected.mbsc-cal-day:not(.mbsc-disabled) .mbsc-cal-cell-i.mbsc-cal-day-i,
-    .mbsc-cal-picker .mbsc-cal-cell.mbsc-selected,
+    .mbsc-cal .mbsc-cal-day.mbsc-selected:not(.mbsc-disabled) .mbsc-cal-cell-i.mbsc-cal-day-i,
+    .mbsc-cal .mbsc-cal-picker .mbsc-cal-cell.mbsc-selected,
     &.mbsc-no-touch .mbsc-cal-picker .mbsc-cal-cell.mbsc-selected:hover {
         background: fade(@windows-accent, 25%);
     }

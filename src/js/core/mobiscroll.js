@@ -1,4 +1,5 @@
 var mobiscroll = mobiscroll || {},
-    util = {};
+    util = {},
+    calendars = {};
 
-export { mobiscroll, util };
+export { mobiscroll, util, calendars };

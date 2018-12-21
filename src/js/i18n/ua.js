@@ -42,6 +42,7 @@ mobiscroll.i18n.ua = {
     eventsText: 'події',
     allDayText: 'Увесь день',
     noEventsText: 'Жодної події',
+    moreEventsText: 'та ще {count}',
     // Daterange component
     fromText: 'від',
     toText: 'кінець',

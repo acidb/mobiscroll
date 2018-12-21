@@ -41,6 +41,7 @@ mobiscroll.i18n.da = {
     noEventsText: 'Ingen begivenheder',
     eventText: 'Begivenheder',
     eventsText: 'Begivenheder',
+    moreEventsText: '{count} mere',
     // Daterange component
     fromText: 'Start',
     toText: 'Slut',

@@ -38,6 +38,7 @@ mobiscroll.i18n['ru-RU'] = mobiscroll.i18n.ru = {
     noEventsText: 'Нет событий',
     eventText: 'Мероприятия',
     eventsText: 'Мероприятия',
+    moreEventsText: 'Ещё {count}',
     // Daterange component
     fromText: 'Начало',
     toText: 'Конец',

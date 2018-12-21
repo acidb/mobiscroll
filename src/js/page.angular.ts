@@ -6,7 +6,8 @@ import {
     ViewChild,
     Input,
     OnInit,
-    MbscOptionsService
+    MbscOptionsService,
+    NgModule
 } from './frameworks/angular';
 
 import { Page, MbscPageOptions } from './classes/page';
@@ -75,3 +76,9 @@ export class MbscAvatar {
     @Input()
     alt: string;
 }
+
+@NgModule({
+    declarations: [MbscPage, MbscNote, MbscAvatar],
+    exports: [MbscPage, MbscNote, MbscAvatar]
+})
+export class MbscPageModule {}

@@ -37,6 +37,8 @@ mobiscroll.i18n.sk = {
     noEventsText: 'Žiadne udalosti',
     eventText: 'Udalostí',
     eventsText: 'Udalosti',
+    moreEventsText: '{count} ďalšia',
+    moreEventsPluralText: '{count} ďalšie',
     // Daterange component
     fromText: 'Začiatok',
     toText: 'Koniec',

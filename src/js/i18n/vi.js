@@ -42,6 +42,7 @@ mobiscroll.i18n.vi = {
     eventsText: 'Sự kiện',
     allDayText: 'Cả ngày',
     noEventsText: 'Không có sự kiện',
+    moreEventsText: '{count} thẻ khác',
     // Daterange component
     fromText: 'Từ',
     toText: 'Tới',

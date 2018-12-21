@@ -195,13 +195,14 @@
     }
 
     /* Hover, focus */
-    &.mbsc-no-touch .mbsc-cal-cell:not(.mbsc-disabled):hover .mbsc-cal-cell-txt,
+    &.mbsc-no-touch:not(.mbsc-ev-cal) .mbsc-cal-cell:not(.mbsc-disabled):hover .mbsc-cal-cell-txt,
+    &.mbsc-no-touch .mbsc-cal-day:not(.mbsc-disabled) .mbsc-cal-day-date:hover,
     .mbsc-cal-cell:focus .mbsc-cal-cell-txt {
         background: fade(@material-ripple, 10%);
     }
 
     /* Selected */
-    .mbsc-cal-c .mbsc-cal .mbsc-cal-body .mbsc-selected .mbsc-cal-cell-txt {
+    .mbsc-cal-c .mbsc-cal .mbsc-cal-body .mbsc-cal-row .mbsc-selected .mbsc-cal-cell-txt {
         background: fade(@material-accent, 30%);
     }
 

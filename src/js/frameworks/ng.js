@@ -93,6 +93,17 @@ mobiscroll.ng = {
         parse = parse || mobiscroll.ng.parse;
         format = format || mobiscroll.ng.format;
 
+        function onChange() {
+            // We have to check here if we're inside a digest cycle or not
+            if (!scope.$$phase) {
+                scope.$apply(function () {
+                    read($parse, attrName, $element, scope, attrs, ngModel, format);
+                });
+            } else {
+                read($parse, attrName, $element, scope, attrs, ngModel, format);
+            }
+        }
+
         if (ngModel) {
             // Pass an empty function to the render, as
             // the watch will take care of the rendering.
@@ -124,21 +135,13 @@ mobiscroll.ng = {
             if (inst) {
                 inst.destroy();
             }
+            $element.off('change', onChange);
         });
 
         // Listen to the change event
         // ngModel also listenes to it, but updates the viewValue
         // with the input value which is not what we want
-        $element.on('change', function () {
-            // We have to check here if we're inside a digest cycle or not
-            if (!scope.$$phase) {
-                scope.$apply(function () {
-                    read($parse, attrName, $element, scope, attrs, ngModel, format);
-                });
-            } else {
-                read($parse, attrName, $element, scope, attrs, ngModel, format);
-            }
-        });
+        $element.on('change', onChange);
     },
     formOptions: {}
 };
