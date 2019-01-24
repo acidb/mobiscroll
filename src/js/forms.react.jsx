@@ -155,7 +155,9 @@ class MbscLabel extends React.Component {
             valid,
             className,
             color,
-            presetName
+            presetName,
+            inputStyle,
+            labelStyle
         } = props;
 
         /* eslint-enable */
@@ -166,6 +168,12 @@ class MbscLabel extends React.Component {
         }
         if (className) {
             cssClasses.push(className);
+        }
+        if (inputStyle) {
+            cssClasses.push('mbsc-input-' + inputStyle);
+        }
+        if (labelStyle) {
+            cssClasses.push('mbsc-label-' + labelStyle);
         }
         if (valid !== undefined && !valid) {
             cssClasses.push('mbsc-err');
@@ -186,6 +194,8 @@ class MbscLabel extends React.Component {
             color,
             children,
             presetName,
+            inputStyle,
+            labelStyle,
             ...other
         } = this.props;
 
@@ -245,7 +255,7 @@ class MbscInput extends MbscInit {
 
         type = type || 'text';
 
-        return <MbscLabel valid={valid} className={dropdown ? 'mbsc-select' : ''}>
+        return <MbscLabel valid={valid} inputStyle={inputStyle} labelStyle={labelStyle} className={dropdown ? 'mbsc-select' : ''}>
             {children}
             <span className="mbsc-input-wrap">
                 <input ref={this.inputMounted} type={type} data-icon={icon} data-icon-align={iconAlign} data-password-toggle={passwordToggle} data-icon-show={iconShow} data-icon-hide={iconHide} {...other} />

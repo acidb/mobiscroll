@@ -22,6 +22,7 @@ import {
     MbscOptionsService,
     AfterViewInit,
     ChangeDetectionStrategy,
+    ChangeDetectorRef,
     NgModule,
     CommonModule,
     emptyOrTrue
@@ -379,7 +380,7 @@ export class MbscCheckbox extends MbscFormValueBase {
         return this._colorClass;
     }
 
-    constructor(hostElem: ElementRef, @Optional() formService: MbscOptionsService, @Optional() control: NgControl) {
+    constructor(hostElem: ElementRef, public cdr: ChangeDetectorRef, @Optional() formService: MbscOptionsService, @Optional() control: NgControl) {
         super(hostElem, formService, control, false);
     }
 
@@ -388,6 +389,14 @@ export class MbscCheckbox extends MbscFormValueBase {
 
         let options = extend({}, this._inheritedOptions, this.inlineEvents(), this.options, this.inlineOptions());
         this._instance = new CheckBox(this._initElem.nativeElement, options);
+    }
+
+    /** Overwritten to work with onPush change detection strategy 
+     * When using the onPush changedetection strategy and the value is set from the model, 
+     * the UI doesn't change (because there is no input change) unless we trigger a change manually */
+    writeValue(v: any) {
+        this._value = v;
+        this.cdr.detectChanges();
     }
 }
 

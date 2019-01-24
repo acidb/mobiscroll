@@ -32,7 +32,8 @@ import {
     ViewChildren,
     ViewContainerRef,
     Injector,
-    ChangeDetectionStrategy
+    ChangeDetectionStrategy,
+    ChangeDetectorRef
 } from '@angular/core';
 
 // // angular2 import { trigger, state, animate, transition, style } from '@angular/core'; // Angular 2.x
@@ -511,6 +512,14 @@ abstract class MbscFrameBase extends MbscControlBase implements OnInit {
     @Input()
     touchUi: boolean;
 
+    // Not part of settings 
+
+    @Input()
+    labelStyle: 'stacked' | 'inline' | 'floating';
+    @Input()
+    inputStyle: 'underline' | 'box' | 'outline';
+
+
     // Events
 
     @Output()
@@ -748,7 +757,7 @@ function emptyOrTrue(val: any) {
 }
 
 const INPUT_TEMPLATE = `<div *ngIf="inline"></div><mbsc-input *ngIf="!inline" 
-    [controlNg]="false" [name]="name" [theme]="theme" [disabled]="disabled" [dropdown]="dropdown" [placeholder]="placeholder"
+    [controlNg]="false" [name]="name" [theme]="theme" [label-style]="labelStyle" [input-style]="inputStyle" [disabled]="disabled" [dropdown]="dropdown" [placeholder]="placeholder"
     [error]="error" [errorMessage]="errorMessage" 
     [icon]="inputIcon" [icon-align]="iconAlign">
     <ng-content></ng-content>
@@ -803,6 +812,7 @@ export {
     ViewChildren,
     ViewContainerRef,
     Injector,
-    ChangeDetectionStrategy
+    ChangeDetectionStrategy,
+    ChangeDetectorRef
     //trigger, state, animate, transition, style
 }

@@ -4,7 +4,6 @@ export interface MbscScrollerOptions extends MbscFrameOptions {
     // Settings
     circular?: boolean | Array<boolean>;
     height?: number;
-    layout?: 'liquid' | 'fixed';
     maxWidth?: number | Array<number>;
     minWidth?: number | Array<number>;
     multiline?: number;

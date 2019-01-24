@@ -1,3 +1,13 @@
+@keyframes autofill {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
 .mbsc-input {
     position: relative;
     display: block;
@@ -7,6 +17,10 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+}
+
+.mbsc-input .mbsc-control:-webkit-autofill {
+    animation-name: autofill;
 }
 
 .mbsc-input input,
@@ -177,10 +191,12 @@
 }
 
 &.mbsc-ltr .mbsc-label-floating.mbsc-input .mbsc-label {
+    -webkit-transform-origin: top left;
     transform-origin: top left;
 }
 
 &.mbsc-rtl .mbsc-label-floating.mbsc-input .mbsc-label {
+    -webkit-transform-origin: top right;
     transform-origin: top right;
 }
 

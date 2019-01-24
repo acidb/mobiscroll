@@ -1,4 +1,4 @@
-import { 
+import {
     extend,
     MbscBase,
     ViewChild,
@@ -286,4 +286,4 @@ export class MbscInput extends MbscInputBase {
     declarations: [MbscInput],
     exports: [MbscInput]
 })
-export class MbscInputModule {}
+export class MbscInputModule { }

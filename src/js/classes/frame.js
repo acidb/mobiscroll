@@ -36,7 +36,6 @@ export const Frame = function (el, settings, inherit) {
         btn,
         ctx,
         doAnim,
-        firstPosition,
         hasContext,
         isModal,
         isInserted,
@@ -111,6 +110,7 @@ export const Frame = function (el, settings, inherit) {
     function onShow(prevFocus) {
         if (!prevFocus && !isAndroid && that._activeElm) {
             //overlay.focus();
+            lastFocus = new Date();
             that._activeElm.focus();
         }
         //that.ariaMessage(s.ariaMessage);
@@ -174,24 +174,21 @@ export const Frame = function (el, settings, inherit) {
     }
 
     function onPosition() {
-        if (firstPosition) {
-            firstPosition = false;
-            return;
-        }
         clearTimeout(posDebounce);
         posDebounce = setTimeout(function () {
-            that.position(true);
-            // Trigger reflow, needed on iOS safari, when orientation is changed
-            popup.style.visibility = 'hidden';
-            popup.offsetHeight;
-            popup.style.visibility = '';
+            if (that.position(true)) {
+                // Trigger reflow, needed on iOS safari, when orientation is changed
+                popup.style.visibility = 'hidden';
+                popup.offsetHeight;
+                popup.style.visibility = '';
+            }
         }, 200);
     }
 
     function onFocus(ev) {
         if (mobiscroll.activeInstance == that && ev.target.nodeType && !overlay.contains(ev.target) && new Date() - lastFocus > 100) {
-            that._activeElm.focus();
             lastFocus = new Date();
+            that._activeElm.focus();
         }
     }
 
@@ -226,7 +223,6 @@ export const Frame = function (el, settings, inherit) {
         }
 
         isInserted = true;
-        firstPosition = true;
 
         that._markupInserted($markup);
 
@@ -320,6 +316,10 @@ export const Frame = function (el, settings, inherit) {
     }
 
     function show(beforeShow, $elm) {
+        if (that._isVisible) {
+            return;
+        }
+
         if (beforeShow) {
             beforeShow();
         }
@@ -367,6 +367,8 @@ export const Frame = function (el, settings, inherit) {
             isWrapped,
             newHeight,
             newWidth,
+            oldHeight,
+            oldWidth,
             width,
             top,
             left,
@@ -380,11 +382,12 @@ export const Frame = function (el, settings, inherit) {
             return false;
         }
 
+        oldWidth = wndWidth;
+        oldHeight = wndHeight;
         newHeight = markup.offsetHeight;
         newWidth = markup.offsetWidth;
 
         if (!newWidth || !newHeight || (wndWidth === newWidth && wndHeight === newHeight && check)) {
-            firstPosition = false;
             return;
         }
 
@@ -433,6 +436,8 @@ export const Frame = function (el, settings, inherit) {
                 target: markup,
                 popup: popup,
                 hasTabs: isWrapped,
+                oldWidth: oldWidth,
+                oldHeight: oldHeight,
                 windowWidth: newWidth,
                 windowHeight: newHeight
             }) === false || !isModal) {
@@ -513,6 +518,8 @@ export const Frame = function (el, settings, inherit) {
         css.left = Math.floor(left);
 
         $popup.css(css);
+
+        return true;
     };
 
     /**
@@ -901,6 +908,7 @@ export const Frame = function (el, settings, inherit) {
                 mobiscroll.activeInstance = prevInst;
             }
             $(window).off('keydown', onWndKeyDown);
+            $wnd.off('focusin', onFocus);
         }
 
         // Hide wheels and overlay
@@ -916,9 +924,6 @@ export const Frame = function (el, settings, inherit) {
             }
 
             that._detachEvents($markup);
-
-            // Stop positioning on window resize
-            $wnd.off('focusin', onFocus);
         }
 
         if (callback) {

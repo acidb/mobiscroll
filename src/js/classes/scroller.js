@@ -647,8 +647,8 @@ export const Scroller = function (el, settings, inherit) {
                     '<div aria-live="off" aria-label="' + lbl + '"' + (w.multiple ? ' aria-multiselectable="true"' : '') + ' role="listbox" data-index="' + l + '" class="mbsc-sc-whl"' + ' style="' +
                     'height:' + (s.rows * itemHeight * (scroll3d ? 1.1 : 1)) + 'px;">' +
                     (showScrollArrows ?
-                        '<div data-index="' + l + '" data-step="1" class="mbsc-sc-btn mbsc-sc-btn-plus ' + (s.btnPlusClass || '') + '" style="height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;"></div>' + // + button
-                        '<div data-index="' + l + '" data-step="-1" class="mbsc-sc-btn mbsc-sc-btn-minus ' + (s.btnMinusClass || '') + '" style="height:' + itemHeight + 'px;line-height:' + itemHeight + 'px;"></div>' : '') + // - button
+                        '<div data-index="' + l + '" data-step="1" class="mbsc-sc-btn mbsc-sc-btn-plus ' + (s.btnPlusClass || '') + '"></div>' + // + button
+                        '<div data-index="' + l + '" data-step="-1" class="mbsc-sc-btn mbsc-sc-btn-minus ' + (s.btnMinusClass || '') + '"></div>' : '') + // - button
                     '<div class="mbsc-sc-lbl">' + lbl + '</div>' + // Wheel label
                     '<div class="mbsc-sc-whl-c"' +
                     ' style="height:' + itemHeight3d + 'px;margin-top:-' + (itemHeight3d / 2 + 1) + 'px;' + style + '">' +

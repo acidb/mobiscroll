@@ -1,6 +1,6 @@
 import { FormControl, addIconToggle } from './form-control';
 
-const events = ['focus', 'change', 'blur'];
+const events = ['focus', 'change', 'blur', 'animationstart'];
 
 export class Input extends FormControl {
     constructor(elm, settings) {
@@ -15,20 +15,14 @@ export class Input extends FormControl {
         events.forEach(ev => {
             this._$elm.on(ev, this.checkLabel);
         });
-
-        setTimeout(() => {
-            // if label is floating and input is autofill, add floating active class
-            // input has no value yet
-            if (this._isFloating && this._$elm.is('*:-webkit-autofill')) {
-                this._$parent.addClass('mbsc-label-floating-active');
-            }
-        });
     }
-
 
     checkLabel(ev) {
         if (this._isFloating) {
-            if (this._elm.value || (ev && ev.type == 'focus')) {
+            // In case of autofill in webkit browsers the animationstart event will fire 
+            // due to the empty animation added in the css,
+            // because there's no other event in case of the initial autofill
+            if (this._elm.value || (ev && (ev.type == 'focus' || (ev.type == 'animationstart' && this._$elm.is('*:-webkit-autofill'))))) {
                 this._$parent.addClass('mbsc-label-floating-active');
             } else {
                 this._$parent.removeClass('mbsc-label-floating-active');

@@ -39,6 +39,7 @@ export const FramePropTypes = {
     focusOnClose: PropTypes.oneOfType([boolType, stringType, objType]),
     focusTrap: boolType,
     headerText: PropTypes.oneOfType([boolType, stringType, funcType]),
+    layout: PropTypes.oneOf(['liquid', 'fixed']),
     scrollLock: boolType,
     showOnFocus: boolType,
     showOnTap: boolType,
@@ -59,7 +60,6 @@ export const ScrollerPropTypes = {
         PropTypes.arrayOf(boolType)
     ]),
     height: numType,
-    layout: PropTypes.oneOf(['liquid', 'fixed']),
     maxWidth: numOrArray,
     minWidth: numOrArray,
     multiline: numType,
@@ -217,13 +217,14 @@ export function deepCompare(a, b) {
         // Especially useful on step when comparing prototypes
         if (x === y) {
             return true;
+        } else if (typeof x === 'function' && typeof y === 'function') {
+            return false;
         }
 
         // Works in case when functions are created in constructor.
         // Comparing dates is a common scenario. Another built-ins?
         // We can even handle functions passed across iframes
-        if ((typeof x === 'function' && typeof y === 'function') ||
-            (x instanceof Date && y instanceof Date) ||
+        if ((x instanceof Date && y instanceof Date) ||
             (x instanceof RegExp && y instanceof RegExp) ||
             (x instanceof String && y instanceof String) ||
             (x instanceof Number && y instanceof Number)) {

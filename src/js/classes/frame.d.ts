@@ -12,10 +12,13 @@ export interface MbscFrameOptions extends MbscCoreOptions {
     focusOnClose?: boolean | string | HTMLElement;
     focusTrap?: boolean;
     headerText?: string | boolean | ((formattedValue: string) => string);
+    layout?: 'liquid' | 'fixed';
     scrollLock?: boolean;
     showOnFocus?: boolean;
     showOnTap?: boolean;
     touchUi?: boolean;
+    labelStyle?: 'stacked' | 'inline' | 'floating';
+    inputStyle?: 'underline' | 'box' | 'outline';
 
     // Events
     onBeforeClose?(event: { valueText: string, button: string }, inst: any): void;

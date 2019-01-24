@@ -20,8 +20,10 @@ import { MbscScrollViewOptions } from './scrollview';
 export class MbscNotifyItemService {
     private _instanceSubject: Subject<any> = new Subject();
     private _addRemoveSubject: Subject<any> = new Subject();
+    public inst: any = null;
 
     notifyInstanceReady(instance: any) {
+        this.inst = instance;
         this._instanceSubject.next(instance);
     }
 
@@ -58,6 +60,9 @@ export class MbscScrollItemBase implements AfterViewInit, OnDestroy {
         this.notifyItemService.onInstanceReady().subscribe((instance: any) => {
             this._instance = instance;
         });
+        if (notifyItemService.inst) {
+            this._instance = notifyItemService.inst;
+        }
     }
 
     ngAfterViewInit() {
