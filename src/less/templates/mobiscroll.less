@@ -217,9 +217,21 @@
 /* Event Calendar */
 
 .mbsc-@{theme} {
-    .mbsc-cal-events {
-        color: @mobiscroll-background;
-        background: @output2_6;
+
+    /* Event Popup */
+    &.mbsc-cal-events-popup {
+        .mbsc-fr-w {
+            border-color: @output2_6;
+        }
+
+        .mbsc-fr-arr {
+            border-bottom-color: @output2_6;
+        }
+
+        .mbsc-fr-bubble-top .mbsc-fr-arr {
+            border-bottom-color: transparent;
+            border-top-color: @output2_6;
+        }
     }
 
     .mbsc-cal-event-color {
@@ -231,12 +243,13 @@
         color: @mobiscroll-accent;
     }
 
-    .mbsc-cal-events-arr {
-        border-color: @output2_6 transparent transparent transparent;
+    .mbsc-cal-event-color {
+        background: @mobiscroll-accent;
     }
 
-    .mbsc-cal-events-b .mbsc-cal-events-arr {
-        border-color: transparent transparent @output2_6 transparent;
+    .mbsc-cal-event-time,
+    .mbsc-cal-event-dur {
+        color: @mobiscroll-accent;
     }
 
     /* Event listing */
@@ -322,50 +335,84 @@
     background: @colorClearBackground;
 }
 
+/* Cards */
+
+.mbsc-@{theme} {
+    &.mbsc-card.mbsc-form {
+        background: lighten(@mobiscroll-background, 4%);
+    }
+
+    &.mbsc-card .mbsc-lv-item {
+        background: lighten(@mobiscroll-background, 4%);
+    }
+
+    .mbsc-card-footer {
+        border-top: 1px solid @mobiscroll-border;
+    }
+
+    &.mbsc-card .mbsc-input.mbsc-input-outline .mbsc-label {
+        background: lighten(@mobiscroll-background, 4%);
+    }
+}
+
 
 /* Listview */
+.mbsc-@{theme} {
+    .mbsc-lv {
+        background: @output1_7;
+    }
 
-.mbsc-lv-@{theme} .mbsc-lv {
-    background: @output1_7;
-}
+    .mbsc-lv-item {
+        background: @output1_3;
+        color: @output2_5;
+    }
 
-.mbsc-lv-@{theme} .mbsc-lv-item {
-    background: @output1_3;
-    color: @output2_5;
-}
+    .mbsc-lv-gr-title {
+        background: @output3_8;
+        color: @output1_3;
+    }
 
-.mbsc-lv-@{theme} .mbsc-lv-gr-title {
-    background: @output3_8;
-    color: @output1_3;
-}
+    &.mbsc-no-touch .mbsc-lv-item-actionable:hover:before,
+    .mbsc-lv-item-active.mbsc-lv-item-actionable:before {
+        background: fade(@output3_8, 15%);
+    }
 
-.mbsc-lv-@{theme} .mbsc-lv-arr {
-    color: @output3_8;
-}
+    &.mbsc-lv-alt-row .mbsc-lv-item:nth-child(even) {
+        background: @output1_4;
+    }
 
-.mbsc-lv-@{theme} .mbsc-lv-handle-bar {
-    background: @output3_8;
-}
+    .mbsc-lv-item-hl:before {
+        background: fade(@output3_8, 15%);
+    }
 
-.mbsc-lv-@{theme} .mbsc-lv-item-active::after {
-    background: fade(@output3_8, 30%);
-}
+    .mbsc-lv-arr {
+        color: @output3_8;
+    }
 
-.mbsc-lv-@{theme}.mbsc-lv-alt-row .mbsc-lv-item:nth-child(even) {
-    background: @output1_4;
-}
+    .mbsc-lv-handle-bar {
+        background: @output3_8;
+    }
 
-.mbsc-lv-@{theme} .mbsc-lv-item.mbsc-lv-item-dragging {
-    background: @output3_8;
-    color: @output1_3;
-}
+    .mbsc-lv-item.mbsc-lv-item-dragging {
+        background: @output3_8;
+        color: @output1_3;
+    }
 
-.mbsc-lv-@{theme} .mbsc-lv-item-dragging .mbsc-lv-handle-bar {
-    background: @output1_3;
-}
+    .mbsc-lv-item-dragging .mbsc-lv-handle-bar {
+        background: @output1_3;
+    }
 
-.mbsc-lv-@{theme} .mbsc-lv-item-dragging .mbsc-lv-arr {
-    color: @output1_3;
+    .mbsc-lv-item-dragging .mbsc-lv-arr {
+        color: @output1_3;
+    }
+
+    .mbsc-lv-loading .mbsc-ic {
+        color: @mobiscroll-text;
+    }
+
+    &.mbsc-lv-cont .mbsc-lv-item.mbsc-selected:before {
+        background: fade(@mobiscroll-accent, 30%);
+    }
 }
 
 
@@ -715,27 +762,6 @@
 
 .mbsc-@{theme}.mbsc-rating .mbsc-progress-track {
     color: @output3_8;
-}
-
-
-/* Cards */
-
-.mbsc-@{theme} {
-    &.mbsc-card.mbsc-form {
-        background: lighten(@mobiscroll-background, 4%);
-    }
-
-    &.mbsc-card .mbsc-lv-item {
-        background: lighten(@mobiscroll-background, 4%);
-    }
-
-    .mbsc-card-footer {
-        border-top: 1px solid @mobiscroll-border;
-    }
-
-    &.mbsc-card .mbsc-input.mbsc-input-outline .mbsc-label {
-        background: lighten(@mobiscroll-background, 4%);
-    }
 }
 
 /* Empty view styling */

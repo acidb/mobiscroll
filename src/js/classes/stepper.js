@@ -10,6 +10,7 @@ export const Stepper = function (control, settings) {
         min,
         inputStyle,
         ripple,
+        scale,
         step,
         stepper,
         s,
@@ -50,7 +51,7 @@ export const Stepper = function (control, settings) {
             change = fill;
         }
 
-        val = Math.min(max, Math.max(Math.round(v / step) * step, min));
+        val = round(v);
 
         $controls.removeClass('mbsc-disabled');
 
@@ -74,6 +75,10 @@ export const Stepper = function (control, settings) {
         return v === undefined || v === '' ? def : (str ? v : +v);
     }
 
+    function round(v) {
+        return +Math.min(max, Math.max(Math.round(v / step) * step, min)).toFixed(scale);
+    }
+
     // Call the parent constructor
     Base.call(this, control, settings, true);
 
@@ -82,7 +87,7 @@ export const Stepper = function (control, settings) {
     that.getVal = function () {
         var v = parseFloat($control.val());
         v = isNaN(v) ? val : v;
-        return Math.min(max, Math.max(Math.round(v / step) * step, min));
+        return round(v);
     };
 
     that.setVal = function (v, fill, change) {
@@ -99,9 +104,10 @@ export const Stepper = function (control, settings) {
         min = settings.min === undefined ? getAttr('min', s.min) : settings.min;
         max = settings.max === undefined ? getAttr('max', s.max) : settings.max;
         step = settings.step === undefined ? getAttr('step', s.step) : settings.step;
+        scale = Math.abs(step) < 1 ? (step + '').split('.')[1].length : 0;
         inputStyle = settings.inputStyle === undefined ? getAttr('data-input-style', s.inputStyle, true) : settings.inputStyle;
         displayValue = $control.attr('data-val') || s.val;
-        val = Math.min(max, Math.max(Math.round(+control.value / step) * step || 0, min));
+        val = round(+control.value || 0);
 
         theme = mobiscroll.themes.form[s.theme];
         ripple = theme && theme.addRipple ? theme : null;

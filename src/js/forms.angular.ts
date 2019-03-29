@@ -98,9 +98,7 @@ export class MbscForm extends MbscBase implements OnInit {
         this._formService.options = this.optionsObj;
     }
 
-    ngAfterViewInit() {
-        super.ngAfterViewInit();
-
+    initControl() {
         let options = extend({}, this.inlineEvents(), this.options, this.inlineOptions());
         this._instance = new Form(this.rootElem.nativeElement, options);
     }
@@ -144,11 +142,7 @@ export class MbscTextarea extends MbscInputBase {
         _inputService.input = this;
     }
 
-    /* AfterViewInit Interface */
-
-    ngAfterViewInit() {
-        super.ngAfterViewInit();
-
+    initControl() {
         let options = extend({}, this._inheritedOptions, this.inlineEvents(), this.options, this.inlineOptions());
         this._instance = new TextArea(this._initElem.nativeElement, options);
     }
@@ -231,11 +225,7 @@ export class MbscDropdown extends MbscFormValueBase {
         _inputService.input = this;
     }
 
-    /* AfterViewInit Interface */
-
-    ngAfterViewInit() {
-        super.ngAfterViewInit();
-
+    initControl() {
         let options = extend({}, this._inheritedOptions, this.inlineEvents(), this.options, this.inlineOptions());
         this._instance = new Select(this._initElem.nativeElement, options);
         let that = this;
@@ -339,9 +329,7 @@ export class MbscButton extends MbscFormBase {
         super(hostElem, formService);
     }
 
-    ngAfterViewInit() {
-        super.ngAfterViewInit();
-
+    initControl() {
         let options = extend({}, this._inheritedOptions, this.inlineEvents(), this.options, this.inlineOptions());
         this._instance = new Button(this._initElem.nativeElement, options);
     }
@@ -384,9 +372,7 @@ export class MbscCheckbox extends MbscFormValueBase {
         super(hostElem, formService, control, false);
     }
 
-    ngAfterViewInit() {
-        super.ngAfterViewInit();
-
+    initControl() {
         let options = extend({}, this._inheritedOptions, this.inlineEvents(), this.options, this.inlineOptions());
         this._instance = new CheckBox(this._initElem.nativeElement, options);
     }
@@ -410,6 +396,8 @@ export class MbscCheckbox extends MbscFormValueBase {
                 type="checkbox"
                 data-role="switch"
                 [attr.name]="name"
+                [attr.data-label-style]="labelStyle"
+                [attr.data-input-style]="inputStyle"
                 [disabled]="disabled"
                 (blur)="onTouch($event)" />
         </label>
@@ -478,9 +466,7 @@ export class MbscSwitch extends MbscControlBase implements OnInit {
         super.ngOnInit();
     }
 
-    ngAfterViewInit() {
-        super.ngAfterViewInit();
-
+    initControl() {
         let options = extend({}, this._inheritedOptions, this.inlineEvents(), this.options, this.inlineOptions());
         this._instance = new Switch(this._initElem.nativeElement, options);
 
@@ -506,6 +492,8 @@ export class MbscSwitch extends MbscControlBase implements OnInit {
                 [attr.max]="max !== undefined ? max : null"
                 [attr.step]="step !== undefined ? step : null"
                 [attr.data-val]="val ? val : null"
+                [attr.data-label-style]="labelStyle"
+                [attr.data-input-style]="inputStyle"
                 [disabled]="disabled" 
                 [attr.readonly]="_readonly"/>
         </div>
@@ -602,11 +590,7 @@ export class MbscStepper extends MbscControlBase implements OnInit {
         super.ngOnInit();
     }
 
-    /* AfterViewInit Interface */
-
-    ngAfterViewInit() {
-        super.ngAfterViewInit();
-
+    initControl() {
         let options = extend({}, this._inheritedOptions, this.inlineEvents(), this.options, this.inlineOptions());
         this._instance = new Stepper(this._initElem.nativeElement, options);
 
@@ -627,6 +611,8 @@ export class MbscStepper extends MbscControlBase implements OnInit {
                 [attr.data-step-labels]="stepLabels"
                 [attr.data-icon]="icon ? icon : null"
                 [attr.data-icon-align]="iconAlign ? iconAlign : null"
+                [attr.data-label-style]="labelStyle"
+                [attr.data-input-style]="inputStyle"
                 [attr.max]="max !== undefined ? max : null"
                 [attr.data-val]="val !== undefined ? val : null"
             >
@@ -709,11 +695,7 @@ export class MbscProgress extends MbscControlBase implements OnInit {
         super.ngOnInit();
     }
 
-    /* AfterViewInit Interface */
-
-    ngAfterViewInit() {
-        super.ngAfterViewInit();
-
+    initControl() {
         let options = extend({}, this._inheritedOptions, this.inlineEvents(), this.options, this.inlineOptions());
         this._instance = new Progress(this._initElem.nativeElement, options);
 
@@ -802,6 +784,9 @@ export class MbscRadioGroupBase extends MbscFormValueBase {
         this._value = v;
         this._radioService.changeValue(v);
     }
+
+    /** Overriden for there is no instance tied to this component */
+    updateOptions() { }
 }
 
 @Component({
@@ -866,9 +851,7 @@ export class MbscRadio extends MbscFormBase {
         });
     }
 
-    ngAfterViewInit() {
-        super.ngAfterViewInit();
-
+    initControl() {
         let options = extend({}, this._inheritedOptions, this.inlineEvents(), this.options, this.inlineOptions());
         this._instance = new Radio(this._initElem.nativeElement, options);
     }
@@ -993,9 +976,7 @@ export class MbscSegmented extends MbscFormBase {
         });
     }
 
-    ngAfterViewInit() {
-        super.ngAfterViewInit();
-
+    initControl() {
         let options = extend({}, this._inheritedOptions, this.inlineEvents(), this.options, this.inlineOptions());
         this._instance = new SegmentedItem(this._initElem.nativeElement, options);
     }
@@ -1025,6 +1006,8 @@ export class MbscSegmented extends MbscFormBase {
                 [attr.data-live]="live"
                 [attr.data-icon]="icon ? icon : null"
                 [attr.data-val]="val ? val : null"
+                [attr.data-label-style]="labelStyle"
+                [attr.data-input-style]="inputStyle"
                 [attr.name]="name"
                 [attr.max]="max !== undefined ? max : null"
                 [attr.min]="min !== undefined ? min : null"
@@ -1182,9 +1165,7 @@ export class MbscSlider extends MbscControlBase {
 
     /* AfterViewInit Interface */
 
-    ngAfterViewInit() {
-        super.ngAfterViewInit();
-
+    initControl() {
         // handle change for each input (when multi value)
         this.inputElements.forEach((input, index) => {
             if (index) {
@@ -1215,6 +1196,8 @@ export class MbscSlider extends MbscControlBase {
             [attr.data-template]="template ? template : null"
             [attr.data-empty]="empty"
             [attr.data-filled]="filled"
+            [attr.data-label-style]="labelStyle"
+            [attr.data-input-style]="inputStyle"
             [disabled]="disabled"
             [attr.readonly]="_readonly"
             (blur)="onTouch($event)" />
@@ -1311,9 +1294,7 @@ export class MbscRating extends MbscControlBase implements OnInit {
         super.ngOnInit();
     }
 
-    ngAfterViewInit() {
-        super.ngAfterViewInit();
-
+    initControl() {
         let options = extend({}, this._inheritedOptions, this.inlineEvents(), this.options, this.inlineOptions());
         this._instance = new Rating(this.element, options);
 

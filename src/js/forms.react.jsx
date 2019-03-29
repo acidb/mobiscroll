@@ -118,10 +118,11 @@ class MbscLabel extends React.Component {
     }
 
     static propTypes = {
-        ...MbscForm.propTypes,
         valid: PropTypes.bool,
         color: PropTypes.string,
-        presetName: PropTypes.string
+        presetName: PropTypes.string,
+        inputStyle: PropTypes.string,
+        labelStyle: PropTypes.string
     }
 
     componentDidMount() {
@@ -147,6 +148,7 @@ class MbscLabel extends React.Component {
         }
         return true;
     }
+
 
     getClasses(props) {
         /* eslint-disable no-unused-vars */
@@ -591,7 +593,9 @@ class MbscFormBase extends MbscOptimized {
 
     static propTypes = {
         ...CorePropTypes,
-        color: reactString
+        color: reactString,
+        labelStyle: reactString,
+        inputStyle: reactString
     }
 
     componentDidMount() {
@@ -663,16 +667,18 @@ class MbscFormBase extends MbscOptimized {
             onChange,
             name,
             color,
+            labelStyle,
+            inputStyle,
             ...other
         } = this.props;
 
         /* eslint-enable no-unused-vars */
         var type = this.inputType || 'text';
 
-        return <div>
+        return <MbscLabel inputStyle={inputStyle} labelStyle={labelStyle}>
             {children}
             <input ref={this.inputMounted} type={type} data-role={name} {...other} />
-        </div>;
+        </MbscLabel>;
     }
 }
 
@@ -778,7 +784,8 @@ class MbscProgress extends MbscColored {
         max: reactNumber,
         value: reactNumber,
         color: reactString,
-        inputStyle: reactString
+        inputStyle: reactString,
+        labelStyle: reactString
     }
 
     componentDidMount() {
@@ -805,14 +812,15 @@ class MbscProgress extends MbscColored {
             value,
             color,
             inputStyle,
+            labelStyle,
             ...other
         } = this.props;
 
         /* eslint-enable no-unused-vars */
-        return <div>
+        return <MbscLabel labelStyle={labelStyle} inputStyle={inputStyle}>
             {children}
             <progress ref={this.progressMounted} {...other} />
-        </div>;
+        </MbscLabel>;
     }
 }
 
@@ -839,9 +847,13 @@ class MbscSlider extends MbscColored {
         max: reactNumber,
         min: reactNumber,
         step: reactNumber,
-        values: reactNumber,
+        value: PropTypes.oneOfType([
+            reactNumber,
+            PropTypes.arrayOf(reactNumber)
+        ]),
         color: reactString,
-        inputStyle: reactString
+        inputStyle: reactString,
+        labelStyle: reactString
     }
 
     componentDidMount() {
@@ -892,6 +904,7 @@ class MbscSlider extends MbscColored {
             tooltip,
             color,
             inputStyle,
+            labelStyle,
             ...other
         } = this.props,
             values = value || [];
@@ -903,15 +916,15 @@ class MbscSlider extends MbscColored {
             values = [value];
         }
 
-        return <label ref={this.parentMounted}>
+        return <MbscLabel ref={this.parentMounted} labelStyle={labelStyle} inputStyle={inputStyle}>
             {children}
             {values.map(function (item, index) {
                 if (index === 0) {
-                    return <input ref={this.firstInputMounted} data-icon={icon} data-live={live} key={index} type="range" {...other} />;
+                    return <input ref={this.firstInputMounted} data-label-style={labelStyle} data-input-style={inputStyle} data-icon={icon} data-live={live} key={index} type="range" {...other} />;
                 }
-                return <input key={index} type="range" data-live={live} data-index={index} />;
+                return <input key={index} type="range" data-live={live} data-index={index} data-label-style={labelStyle} data-input-style={inputStyle} />;
             }, this)}
-        </label>;
+        </MbscLabel>;
     }
 }
 
@@ -937,7 +950,8 @@ class MbscRating extends MbscColored {
         filled: reactString,
         value: reactNumber,
         color: reactString,
-        inputStyle: reactString
+        inputStyle: reactString,
+        labelStyle: reactString
     }
 
     componentDidMount() {
@@ -981,14 +995,15 @@ class MbscRating extends MbscColored {
             val,
             color,
             inputStyle,
+            labelStyle,
             ...other
         } = this.props;
         /* eslint-enable no-unused-vars */
 
-        return <label ref={this.parentMounted}>
+        return <MbscLabel ref={this.parentMounted} labelStyle={labelStyle} inputStyle={inputStyle}>
             {children}
             <input type="rating" data-role="rating" data-val={val} data-template={template} data-empty={empty} data-filled={filled} ref={this.inputMounted} {...other} />
-        </label>;
+        </MbscLabel>;
     }
 }
 
@@ -1000,7 +1015,7 @@ class MbscFormGroup extends React.Component {
     }
 
     static propTypes = {
-        collapsible: PropTypes.any,
+        collapsible: PropTypes.bool,
         open: PropTypes.bool,
         inset: PropTypes.any
     }

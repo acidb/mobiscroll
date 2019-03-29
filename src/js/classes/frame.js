@@ -51,9 +51,7 @@ export const Frame = function (el, settings, inherit) {
         posDebounce,
         prevInst,
         s,
-        scrollLeft,
         scrollLock,
-        scrollTop,
         touched,
         trigger,
         wndWidth,
@@ -135,18 +133,20 @@ export const Frame = function (el, settings, inherit) {
                 $lock.removeClass('mbsc-fr-lock');
             }
 
+            if (needsLock) {
+                ctx.mbscIOSLock--;
+                if (!ctx.mbscIOSLock) {
+                    $lock.removeClass('mbsc-fr-lock-ios');
+                    $ctx.css({ top: '', left: '' });
+                    $wnd.scrollLeft(ctx.mbscScrollLeft);
+                    $wnd.scrollTop(ctx.mbscScrollTop);
+                }
+            }
+
             // The follwing should be done only if no other
             // instance was opened during the hide animation
             if (!ctx.mbscModals) {
-                $lock.removeClass('mbsc-fr-lock-ios mbsc-fr-lock-ctx');
-                if (needsLock) {
-                    $ctx.css({
-                        top: '',
-                        left: ''
-                    });
-                    $wnd.scrollLeft(scrollLeft);
-                    $wnd.scrollTop(scrollTop);
-                }
+                $lock.removeClass('mbsc-fr-lock-ctx');
             }
 
             if (!ctx.mbscModals || prevInst) {
@@ -580,6 +580,7 @@ export const Frame = function (el, settings, inherit) {
 
                     if ($label && $label.length) {
                         that.tap($label, function (ev) {
+                            ev.preventDefault();
                             if (ev.target !== $elm[0]) {
                                 show(beforeShow, $elm);
                             }
@@ -662,7 +663,9 @@ export const Frame = function (el, settings, inherit) {
      */
     that.show = function (prevAnim, prevFocus) {
         var hasButtons,
-            html;
+            html,
+            scrollLeft,
+            scrollTop;
 
         if (s.disabled || that._isVisible) {
             return;
@@ -698,13 +701,13 @@ export const Frame = function (el, settings, inherit) {
         }
 
         if (isModal) {
-            scrollTop = Math.max(0, $wnd.scrollTop());
-            scrollLeft = Math.max(0, $wnd.scrollLeft());
             wndWidth = 0;
             wndHeight = 0;
 
             if (needsLock && !$lock.hasClass('mbsc-fr-lock-ios')) {
                 //$lock.scrollTop(0);
+                ctx.mbscScrollTop = scrollTop = Math.max(0, $wnd.scrollTop());
+                ctx.mbscScrollLeft = scrollLeft = Math.max(0, $wnd.scrollLeft());
                 $ctx.css({
                     top: -scrollTop + 'px',
                     left: -scrollLeft + 'px'
@@ -723,11 +726,14 @@ export const Frame = function (el, settings, inherit) {
 
             // Set active instance
             mobiscroll.activeInstance = that;
-            ctx.mbscModals = ctx.mbscModals || 0;
-            ctx.mbscLock = ctx.mbscLock || 0;
-            ctx.mbscModals++;
+
+            // Keep track of modals opened per context
+            ctx.mbscModals = (ctx.mbscModals || 0) + 1;
+            if (needsLock) {
+                ctx.mbscIOSLock = (ctx.mbscIOSLock || 0) + 1;
+            }
             if (s.scrollLock) {
-                ctx.mbscLock++;
+                ctx.mbscLock = (ctx.mbscLock || 0) + 1;
             }
         }
 

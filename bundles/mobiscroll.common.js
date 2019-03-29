@@ -6,7 +6,7 @@ import '../src/js/i18n/cs';
 import '../src/js/i18n/da';
 import '../src/js/i18n/de';
 import '../src/js/i18n/el';
-import '../src/js/i18n/en-UK';
+import '../src/js/i18n/en-GB';
 import '../src/js/i18n/es';
 import '../src/js/i18n/fa';
 import '../src/js/i18n/fi';

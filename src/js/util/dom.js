@@ -1,5 +1,5 @@
 import { $, isBrowser } from '../core/core';
-import { os, isSafari } from './platform';
+import { os, isSafari, raf } from './platform';
 
 function testProps(props) {
     var i;
@@ -70,6 +70,34 @@ function getTextColor(color) {
     }
 }
 
+function scrollStep($el, startTime, from, to, callback) {
+    var elapsed = Math.min(1, (new Date() - startTime) / 468),
+        eased = 0.5 * (1 - Math.cos(Math.PI * elapsed)),
+        current = from + (to - from) * eased;
+
+    $el.scrollTop(current);
+
+    if (current !== to) {
+        raf(function () {
+            scrollStep($el, startTime, from, to, callback);
+        });
+    } else if (callback) {
+        callback();
+    }
+}
+
+function smoothScroll(el, to, prevAnim, callback) {
+    var $el = $(el);
+    if (prevAnim) {
+        $el.scrollTop(to);
+        if (callback) {
+            callback();
+        }
+    } else {
+        scrollStep($el, new Date(), $el.scrollTop(), to, callback);
+    }
+}
+
 var animEnd,
     mod,
     cssPrefix,
@@ -97,5 +125,6 @@ export {
     getTextColor,
     hasGhostClick,
     hasTransition,
+    smoothScroll,
     testTouch
 };

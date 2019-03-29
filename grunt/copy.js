@@ -20,6 +20,11 @@ module.exports = {
             cwd: 'src/',
             src: ['**/*.d.ts', '!**/*.angular.d.ts', '!js/frameworks/*.d.ts', 'js/frameworks/jquery.d.ts'],
             dest: 'packages/jquery/dist/src/'
+        }, {
+            expand: true,
+            cwd: 'src/',
+            src: ['**/*.d.ts', '!**/*.angular.d.ts', '!js/frameworks/*.d.ts', 'js/frameworks/react.d.ts'],
+            dest: 'packages/react/dist/src/'
         }]
     },
     icons: {

@@ -10,6 +10,8 @@ import {
     Optional
 } from './frameworks/angular';
 
+import './util/notifications';
+
 import { MbscCoreOptions } from './core/core';
 
 @Component({

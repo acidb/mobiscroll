@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { extend, mobiscroll, PropTypes, MbscBase, CorePropTypes, deepCompare } from './frameworks/react';
+import { mobiscroll, PropTypes, MbscBase, CorePropTypes, deepCompare } from './frameworks/react';
 import { Page } from './classes/page';
 
 

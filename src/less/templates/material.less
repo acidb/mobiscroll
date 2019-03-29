@@ -36,6 +36,7 @@
 @output1_2: hsv(hsvhue(@input1), max(hsvsaturation(@input1)-79%, 10%), @isLight1_2);
 @output2_1: @input2;
 @output2_2: hsv(hsvhue(@input2), @hsvsaturation_23567, @isLight2_2);
+@material-lv-bck: hsv(hsvhue(@input2), @hsvsaturation_23567, @isLight2_3);
 @output2_3: hsv(hsvhue(@input2), @hsvsaturation_23567, max(hsvvalue(@input2) + 5%, 72%));
 @output2_4: hsv(hsvhue(@input2), hsvsaturation(@input2), max(hsvvalue(@input2) - 9%, 0%));
 @output2_5: hsv(hsvhue(@input2), @hsvsaturation_23567, max(hsvvalue(@input2) - 13%, 45%));
@@ -58,6 +59,7 @@
 .x() when (@deltainput2 >=140) {
     @isLight1_2: min(hsvvalue(@input1) + 24%, 100%);
     @isLight2_2: max(hsvvalue(@input2) - 9%, 0%);
+    @isLight2_3: max(hsvvalue(@input2) - 24%, 0%);
     @isLight2_7: max(hsvvalue(@input2) - 19%, 0%);
     @isLight2_9: 6%;
     @isLight3_6: max(hsvvalue(@input3) - 36%, 0%);
@@ -69,6 +71,7 @@
 .x() when (@deltainput2 < 140) {
     @isLight1_2: 24%;
     @isLight2_2: min(hsvvalue(@input2) + 17%, 100%);
+    @isLight2_3: min(hsvvalue(@input2) + 17%, 100%);
     @isLight2_7: min(hsvvalue(@input2) + 55%, 100%);
     @isLight2_9: 3%;
     @isLight3_6: min(hsvvalue(@input3) + 24%, 100%);
@@ -133,12 +136,8 @@
     background: fade(@output2_8, 10%);
 }
 
-.mbsc-@{theme} .mbsc-fr-bubble-bottom .mbsc-fr-arr {
-    border-color: transparent transparent @output2_1 transparent;
-}
-
-.mbsc-@{theme} .mbsc-fr-bubble-top .mbsc-fr-arr {
-    border-color: @output2_1 transparent transparent transparent;
+.mbsc-@{theme} .mbsc-fr-arr {
+    background: @output2_1;
 }
 
 
@@ -236,25 +235,10 @@
 /* Event Calendar */
 
 .mbsc-@{theme} {
-    .mbsc-cal-events {
-        color: @material-background;
-    }
 
+    /* Event Popup */
     .mbsc-cal-event-color {
         background: @material-accent;
-    }
-
-    .mbsc-cal-event-time,
-    .mbsc-cal-event-dur {
-        color: @material-background;
-    }
-
-    .mbsc-cal-events-arr {
-        border-color: @material-accent transparent transparent transparent;
-    }
-
-    .mbsc-cal-events-b .mbsc-cal-events-arr {
-        border-color: transparent transparent @material-accent transparent;
     }
 
     /* Event listing */
@@ -376,45 +360,77 @@
     }
 }
 
+/* Cards */
+
+.mbsc-@{theme} {
+    &.mbsc-card.mbsc-form {
+        background: lighten(@material-background, 4.8%);
+    }
+
+    &.mbsc-card .mbsc-lv-item {
+        background: lighten(@material-background, 4.8%);
+    }
+
+    .mbsc-card-list .mbsc-card {
+        background: lighten(@material-background, 4.8%);
+    }
+
+    .mbsc-card-footer {
+        border-color: @material-border;
+    }
+
+    &.mbsc-card .mbsc-input.mbsc-input-outline .mbsc-label {
+        background: lighten(@material-background, 4.8%);
+    }
+}
 
 /* Listview */
+.mbsc-@{theme} {
+    .mbsc-lv {
+        background: @material-lv-bck;
+    }
 
-.mbsc-lv-@{theme} .mbsc-lv {
-    background: @output2_2;
+    .mbsc-lv-item {
+        background: @output2_1;
+        color: @output3_1;
+    }
+
+    .mbsc-lv-gr-title {
+        background: @output2_1;
+        color: @output1_1;
+    }
+
+    &.mbsc-no-touch .mbsc-lv-item-actionable:hover:before,
+    .mbsc-lv-item-actionable.mbsc-lv-item-active:before,
+    .mbsc-lv-item-hl:before,
+    .mbsc-lv-item-dragging:before {
+        background: fade(@output2_8, 5%);
+    }
+
+    &.mbsc-lv-alt-row .mbsc-lv-item:nth-child(even) {
+        background: @output2_9;
+    }
+
+    .mbsc-lv-arr {
+        color: @output1_1;
+    }
+
+    .mbsc-lv-handle-bar {
+        background: @output1_1;
+    }
+
+    p.mbsc-lv-txt {
+        color: @output3_4;
+    }
+
+    .mbsc-lv-loading .mbsc-ic {
+        color: @material-text;
+    }
+
+    &.mbsc-lv-cont .mbsc-lv-item.mbsc-selected:before {
+        background: fade(@output2_8, 10%);
+    }
 }
-
-.mbsc-lv-@{theme} .mbsc-lv-item {
-    background: @output2_1;
-    color: @output3_1;
-}
-
-.mbsc-lv-@{theme} .mbsc-lv-item-hl:after,
-.mbsc-lv-@{theme} .mbsc-lv-item-active::after,
-.mbsc-lv-@{theme} .mbsc-lv-item-dragging:after {
-    background: fade(@output2_8, 10%);
-}
-
-.mbsc-lv-@{theme}.mbsc-lv-alt-row .mbsc-lv-item:nth-child(even) {
-    background: @output2_9;
-}
-
-.mbsc-lv-@{theme} .mbsc-lv-gr-title {
-    background: @output2_1;
-    color: @output1_1;
-}
-
-.mbsc-lv-@{theme} .mbsc-lv-arr {
-    color: @output1_1;
-}
-
-.mbsc-lv-@{theme} .mbsc-lv-handle-bar {
-    background: @output1_1;
-}
-
-.mbsc-lv-@{theme} p.mbsc-lv-txt {
-    color: @output3_4;
-}
-
 
 /* Progress */
 
@@ -819,29 +835,4 @@
 
 .mbsc-@{theme} .mbsc-color-clear-item {
     background: @colorClearBackground;
-}
-
-
-/* Cards */
-
-.mbsc-@{theme} {
-    &.mbsc-card.mbsc-form {
-        background: lighten(@material-background, 4.8%);
-    }
-
-    &.mbsc-card .mbsc-lv-item {
-        background: lighten(@material-background, 4.8%);
-    }
-
-    .mbsc-card-list .mbsc-card {
-        background: lighten(@material-background, 4.8%);
-    }
-
-    .mbsc-card-footer {
-        border-color: @material-border;
-    }
-
-    &.mbsc-card .mbsc-input.mbsc-input-outline .mbsc-label {
-        background: lighten(@material-background, 4.8%);
-    }
 }

@@ -1,4 +1,5 @@
 import { Base, MbscCoreOptions } from '../core/core';
+import '../util/notifications';
 
 export interface MbscFormOptions extends MbscCoreOptions {
     inputStyle?: string;

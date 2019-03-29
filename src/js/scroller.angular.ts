@@ -73,13 +73,7 @@ export class MbscScroller extends MbscScrollerBase {
         }
     }
 
-    /**
-     * Called after the view is initialized.
-     * All the elements are in the DOM and ready for the initialization of the mobiscroll.
-     */
-    ngAfterViewInit() {
-        super.ngAfterViewInit();
-
+    initControl() {
         let options = extend({}, this.optionService ? this.optionService.options : {}, this.inlineEvents(), this.options, this.inlineOptions(), this.optionExtensions);
         this._instance = new Scroller(this.element, options);
 

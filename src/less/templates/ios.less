@@ -30,6 +30,9 @@
     @ios-popup-shadow: rgba(0, 0, 0, .3);
     @ios-popup-border: @ios-border;
     @ios-popup-background: @ios-background-alt;
+    @ios-item-hover: rgba(0, 0, 0, .05);
+    @ios-item-active: rgba(0, 0, 0, .15);
+    @ios-item-selected: fade(@ios-accent, 10%);
 }
 
 // Dark background 
@@ -42,6 +45,9 @@
     @ios-popup-shadow: rgba(0, 0, 0, .8);
     @ios-popup-border: lighten(@ios-border, 13%);
     @ios-popup-background: @ios-background-desktop;
+    @ios-item-hover: rgba(255, 255, 255, .05);
+    @ios-item-active: rgba(255, 255, 255, .15);
+    @ios-item-selected: fade(@ios-accent, 30%);
 }
 
 // Light accent 
@@ -100,6 +106,7 @@
     @output3_13: lighten(@minput3, 20%);
     @ios-btn-background: lighten(@minput3, 20%);
     @output3_14: lighten(@minput3, 12%);
+    @ios-hl: lighten(@minput3, 12%);
     @output3_15: spin(lighten(desaturate(@input3, 12%), 14%), 218);
     @output3_16: lighten(@minput3, 10%);
     @lv_handle: lighten(@minput3, 40%);
@@ -131,6 +138,7 @@
     @output3_13: darken(@minput3, 20%);
     @ios-btn-background: lighten(@minput3, 10%);
     @output3_14: darken(@minput3, 5%);
+    @ios-hl: darken(@minput3, 12%);
     @output3_15: spin(darken(saturate(@input3, 12%), 14%), 218);
     @output3_16: @output3_1;
     @lv_handle: darken(@minput3, 17%);
@@ -473,29 +481,32 @@
         background: @ios-background-alt;
     }
 
+    /* Event Popup */
+
+    &.mbsc-cal-events-popup {
+        .mbsc-fr-popup {
+            border-color: @ios-popup-border;
+            box-shadow: 0 .25em 1em @ios-popup-shadow;
+        }
+
+        .mbsc-fr-arr {
+            background: @output3_10;
+            border-color: @ios-popup-border;
+        }
+    }
+
     .mbsc-cal-events-i {
-        border-color: @ios-popup-border;
-        box-shadow: 0 .25em 1em @ios-popup-shadow;
         background: @ios-popup-background;
-    }
-
-    .mbsc-cal-events-arr {
-        border-color: @ios-popup-border;
-        background: @ios-popup-background;
-    }
-
-    .mbsc-cal-events-b .mbsc-cal-events-arr {
-        border-color: @ios-popup-border;
-    }
-
-    .mbsc-cal-event:before,
-    .mbsc-cal-event:after {
-        border-color: @ios-popup-border;
     }
 
     /* Event listing */
-    .mbsc-event-list .mbsc-lv-gr-title {
+    .mbsc-event-list {
+        background: @output3_25;
+    }
+
+    .mbsc-event-list .mbsc-event-day {
         color: @ios-text;
+        font-weight: bold;
     }
 
     .mbsc-event-color {
@@ -893,60 +904,89 @@
 }
 
 
+/* Cards */
+
+.mbsc-@{theme} {
+    &.mbsc-card.mbsc-form {
+        background: @ios-background-alt;
+        box-shadow: 0 0 1px 1px fade(@ios-card-shadow, 20%);
+    }
+
+    .mbsc-card-footer {
+        border-color: @ios-border;
+    }
+}
+
+
 /* Listview */
+.mbsc-@{theme} {
+    .mbsc-lv {
+        background: @output3_7;
+    }
 
-.mbsc-lv-@{theme} {
-    border-color: @output3_7;
+    .mbsc-lv-item {
+        background: @output3_10;
+        border-color: @output3_7;
+        color: @output4_1;
+    }
+
+    .mbsc-lv-item:before,
+    .mbsc-lv-item:after {
+        border-color: @output3_7;
+    }
+
+    .mbsc-lv-gr-title {
+        background: @output3_25;
+        color: @output3_26;
+        border-color: @output3_7;
+    }
+
+    &.mbsc-no-touch .mbsc-lv-item-actionable:hover:before {
+        background: @ios-item-hover;
+    }
+
+    .mbsc-lv-item-actionable.mbsc-lv-item-active:before {
+        background: @ios-item-active;
+    }
+
+    &.mbsc-lv-alt-row .mbsc-lv-item:nth-child(even) {
+        background: @output3_3;
+    }
+
+    .mbsc-lv-item-hl,
+    .mbsc-lv .mbsc-lv-item.mbsc-lv-item-active {
+        background: @ios-hl;
+    }
+
+    .mbsc-lv-item-hl {
+        background: @ios-hl;
+    }
+
+    .mbsc-lv-handle-bar {
+        background: @lv_handle;
+    }
+
+    &.mbsc-lv-has-fixed-header .mbsc-lv-gr-title,
+    &.mbsc-lv-fixed-header .mbsc-lv-gr-title {
+        color: @output4_1;
+    }
+
+    .mbsc-lv-ic-m {
+        color: @output4_1;
+    }
+
+    .mbsc-lv-arr {
+        color: @lv_handle;
+    }
+
+    .mbsc-lv-loading .mbsc-ic {
+        color: @ios-text;
+    }
+
+    &.mbsc-lv-cont .mbsc-lv-item.mbsc-selected:before {
+        background: @ios-item-selected;
+    }
 }
-
-.mbsc-lv-@{theme} .mbsc-lv {
-    background: @output3_7;
-}
-
-.mbsc-lv-@{theme} .mbsc-lv-item {
-    background: @output3_10;
-    border-color: @output3_7;
-    color: @output4_1;
-}
-
-.mbsc-lv-@{theme} .mbsc-lv-item:after,
-.mbsc-lv-@{theme} .mbsc-lv-item:before {
-    border-color: @output3_7;
-}
-
-.mbsc-lv-@{theme} .mbsc-lv-item-hl,
-.mbsc-lv-@{theme} .mbsc-lv .mbsc-lv-item.mbsc-lv-item-active {
-    background: @output3_14;
-    border-color: @output3_14;
-}
-
-.mbsc-lv-@{theme} .mbsc-lv-handle-bar {
-    background: @lv_handle;
-}
-
-.mbsc-lv-@{theme} .mbsc-lv-gr-title {
-    background: @output3_25;
-    color: @output3_26;
-    border-color: @output3_7;
-}
-
-.mbsc-lv-@{theme}.mbsc-lv-has-fixed-header .mbsc-lv-gr-title,
-.mbsc-lv-@{theme}.mbsc-lv-fixed-header .mbsc-lv-gr-title {
-    color: @output4_1;
-}
-
-.mbsc-lv-@{theme} .mbsc-lv-ic-m {
-    color: @output4_1;
-}
-
-.mbsc-lv-@{theme} .mbsc-lv-arr {
-    color: @lv_handle;
-}
-
-.mbsc-lv-@{theme}.mbsc-lv-alt-row .mbsc-lv-item:nth-child(even) {
-    background: @output3_3;
-}
-
 
 /* Snackbar */
 
@@ -976,18 +1016,4 @@
 
 .mbsc-@{theme} .mbsc-color-clear-item {
     background: @colorClearBackground;
-}
-
-
-/* Cards */
-
-.mbsc-@{theme} {
-    &.mbsc-card.mbsc-form {
-        background: @ios-background-alt;
-        box-shadow: 0 0 1px 1px fade(@ios-card-shadow, 20%);
-    }
-
-    .mbsc-card-footer {
-        border-color: @ios-border;
-    }
 }

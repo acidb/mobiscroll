@@ -12,7 +12,7 @@ mobiscroll.i18n.nl = {
     selectedText: '{count} gekozen',
     // Datetime component
     dateFormat: 'dd-mm-yy',
-    dayNames: ['zondag', 'maandag', 'Dinsdag', 'Woensdag', 'Donderdag', 'Vrijdag', 'Zaterdag'],
+    dayNames: ['Zondag', 'Maandag', 'Dinsdag', 'Woensdag', 'Donderdag', 'Vrijdag', 'Zaterdag'],
     dayNamesShort: ['zo', 'ma', 'di', 'wo', 'do', 'vr', 'za'],
     dayNamesMin: ['z', 'm', 'd', 'w', 'd', 'v', 'z'],
     dayText: 'Dag',

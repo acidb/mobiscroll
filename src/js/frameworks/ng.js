@@ -71,12 +71,16 @@ mobiscroll.ng = {
             inst.setVal(v, true, false);
         }
     },
-    parse: function ($element) {
+    parse: function ($element, viewValue) {
         var v,
             inst = instances[$element.attr('id')];
 
         if (inst) {
             v = inst.getVal();
+            if (inst._value != viewValue && inst.settings.showOnFocus === false && inst.settings.showOnTap === false) {
+                inst.setVal(viewValue, false, false);
+                v = inst.getVal();
+            }
         }
 
         return $.isArray(v) && !v.length ? null : v;

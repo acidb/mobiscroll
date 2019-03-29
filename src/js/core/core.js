@@ -1,5 +1,5 @@
 /*!
- * Mobiscroll v4.5.2
+ * Mobiscroll v4.6.1
  * http://mobiscroll.com
  *
  * Copyright 2010-2018, Acid Media
@@ -76,7 +76,7 @@ extend(util, {
 
 ms = extend(mobiscroll, {
     $: $,
-    version: '4.5.2',
+    version: '4.6.1',
     autoTheme: 'mobiscroll',
     themes: {
         form: {},
@@ -278,7 +278,11 @@ const Base = function (el, settings) {
     that.option = function (opt, value) {
         var obj = {},
             // preserve settings that are possible to change runtime
-            dynamic = ['data', 'invalid', 'valid', 'marked', 'labels', 'colors', 'readonly'];
+            dynamic = ['data', 'invalid', 'valid', 'readonly'];
+
+        if (/calendar|eventcalendar|range/.test(s.preset)) {
+            dynamic.push('marked', 'labels', 'colors');
+        }
 
         if (typeof opt === 'object') {
             obj = opt;

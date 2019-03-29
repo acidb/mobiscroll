@@ -96,14 +96,7 @@ themes.scroller.material = extend({}, themes.frame.material, {
     btnPlusClass: 'mbsc-ic mbsc-ic-material-keyboard-arrow-down',
     btnMinusClass: 'mbsc-ic mbsc-ic-material-keyboard-arrow-up',
     btnCalPrevClass: 'mbsc-ic mbsc-ic-material-keyboard-arrow-left',
-    btnCalNextClass: 'mbsc-ic mbsc-ic-material-keyboard-arrow-right',
-    onEventBubbleShow: function (ev) {
-        var $events = $(ev.eventList),
-            bottom = $(ev.target).closest('.mbsc-cal-row').index() < 2,
-            color = $('.mbsc-cal-event-color', $events).eq(bottom ? 0 : -1).css('background-color');
-
-        $('.mbsc-cal-events-arr', $events).css('border-color', bottom ? 'transparent transparent ' + color + ' transparent' : color + 'transparent transparent transparent');
-    }
+    btnCalNextClass: 'mbsc-ic mbsc-ic-material-keyboard-arrow-right'
 });
 
 themes.listview.material = {

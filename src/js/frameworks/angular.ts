@@ -149,9 +149,17 @@ class MbscBase implements AfterViewInit, OnDestroy {
      * Used to add theme classes to the host on components - the mbsc-input components need to have a wrapper
      * with that css classes for the style to work
      */
+    themeClassesSet = false;
     setThemeClasses() {
-        var themeClass = 'mbsc-control-ng mbsc-' + this._instance.settings.theme + (this._instance.settings._baseTheme ? ' mbsc-' + this._instance.settings._baseTheme : '');
-        $(this.initialElem.nativeElement).addClass(themeClass);
+        $(this.initialElem.nativeElement).addClass(this.getThemeClasses());
+        this.themeClassesSet = true;
+    }
+    clearThemeClasses() {
+        $(this.initialElem.nativeElement).removeClass(this.getThemeClasses());
+    }
+    getThemeClasses() {
+        let s = this._instance.settings;
+        return 'mbsc-control-ng mbsc-' + s.theme + (s.baseTheme ? ' mbsc-' + s.baseTheme : '');
     }
 
     /**
@@ -195,14 +203,88 @@ class MbscBase implements AfterViewInit, OnDestroy {
      */
     ngAfterViewInit() {
         this.setElement();
+        this.startInit();
     }
 
+    startInit() {
+        let ionInput = this.getIonInput();
+        if (ionInput && ionInput.getInputElement && this.element.nodeName !== 'INPUT') {
+            ionInput.getInputElement().then((inp: any) => {
+                this.setElement();
+                this.initControl();
+            });
+        } else if (!this._instance) {
+            this.initControl();
+        }
+    }
+
+    getIonInput() {
+        let v = (this as any)._view;
+        return this.initialElem.nativeElement.nodeName === "ION-INPUT" && v && v._data && v._data.componentView && v._data.componentView.component;
+    }
+
+    initControl() { }
 
     /* OnDestroy Interface */
 
     ngOnDestroy() {
         if (this._instance) {
             this._instance.destroy();
+        }
+    }
+
+    updateOptions(newOptions: any, optionChanged: boolean, invalidChanged: boolean, dataChanged: boolean) {
+        if (optionChanged || invalidChanged) {
+            setTimeout(() => {
+                if (newOptions.theme && this.themeClassesSet) {
+                    this.clearThemeClasses();
+                }
+                this._instance.option(newOptions);
+                if (newOptions.theme && this.themeClassesSet) {
+                    this.setThemeClasses();
+                }
+            });
+        } else if (dataChanged) {
+            (this as any).refreshData((this as any).data);
+        } else if (this._instance.redraw) {
+            this._instance.redraw();
+        }
+    }
+
+    ngOnChanges(changes: SimpleChanges) {
+        var optionChange = false,
+            cloneChange = false,
+            invalidChange = false,
+            dataChange = false,
+            newOptions: any = {};
+        for (var prop in changes) {
+            if (!changes[prop].firstChange && prop !== 'options' && prop !== 'value') {
+                if ((this as any).cloneDictionary && (this as any).cloneDictionary[prop]) {
+                    (this as any).makeClone(prop, changes[prop].currentValue);
+                    if (this._instance) { // do we need this check?
+                        this._instance.settings[prop] = changes[prop].currentValue;
+                    }
+                    if (prop == 'invalid') {
+                        invalidChange = true;
+                    }
+                    if (prop == 'data') {
+                        dataChange = true;
+                    }
+                    cloneChange = true;
+                } else {
+                    newOptions[prop] = changes[prop].currentValue;
+                    optionChange = true;
+                }
+            } else if (!changes[prop].firstChange && prop !== 'value') {
+                newOptions = extend(changes[prop].currentValue, newOptions);
+                optionChange = true;
+            }
+        }
+        if (cloneChange) {
+            extend(newOptions, (this as any).cloneDictionary);
+        }
+        if (optionChange || cloneChange) {
+            this.updateOptions(newOptions, optionChange, invalidChange, dataChange);
         }
     }
 }
@@ -284,13 +366,7 @@ abstract class MbscCloneBase extends MbscValueBase implements DoCheck, OnInit {
             }
         }
         if (changed && this._instance) {
-            if (invalid) {
-                this._instance.option(this.cloneDictionary);
-            } else if (data) {
-                (this as any).refreshData((this as any).data);
-            } else if (this._instance.redraw) {
-                this._instance.redraw();
-            }
+            this.updateOptions(this.cloneDictionary, false, invalid, data);
         }
     }
 
@@ -302,6 +378,13 @@ abstract class MbscCloneBase extends MbscValueBase implements DoCheck, OnInit {
 }
 
 abstract class MbscControlBase extends MbscCloneBase implements ControlValueAccessor {
+
+    // Not part of settings 
+
+    @Input('label-style')
+    labelStyle: 'stacked' | 'inline' | 'floating';
+    @Input('input-style')
+    inputStyle: 'underline' | 'box' | 'outline';
 
     /**
      * Inputs needed for manualy editing the input element
@@ -324,9 +407,8 @@ abstract class MbscControlBase extends MbscCloneBase implements ControlValueAcce
                 if (this.oldAccessor) {
                     this.oldAccessor.writeValue(event.valueText);
                 }
-                else if (this.initialElem.nativeElement.nodeName === "ION-INPUT") {
-                    let v = this._view as any;
-                    let ionInput = v && v._data && v._data.componentView && v._data.componentView.component;
+                else {
+                    let ionInput = this.getIonInput();
                     if (ionInput) {
                         ionInput.value = event.valueText;
                     }
@@ -389,14 +471,25 @@ abstract class MbscControlBase extends MbscCloneBase implements ControlValueAcce
                 } else {
                     let value = that._instance.getVal();
                     if (that.control) {
-                        that.onChange(value);
-                        that.control.control.patchValue(value);
+                        if (!valueEquals(value, (that.control as any).model)) {
+                            that.onChange(value);
+                            that.control.control.patchValue(value);
+                        }
                     } else {
                         that.onChangeEmitter.emit(value);
                     }
                 }
             })
         });
+        function valueEquals(v1: any, v2: any) {
+            if (v1 === v2) {
+                return true;
+            }
+            if (v1 instanceof Date && v2 instanceof Date) {
+                return (+v1) === (+v2);
+            }
+            return false;
+        }
     }
 
     protected oldAccessor: any;
@@ -511,14 +604,6 @@ abstract class MbscFrameBase extends MbscControlBase implements OnInit {
     scrollLock: boolean;
     @Input()
     touchUi: boolean;
-
-    // Not part of settings 
-
-    @Input()
-    labelStyle: 'stacked' | 'inline' | 'floating';
-    @Input()
-    inputStyle: 'underline' | 'box' | 'outline';
-
 
     // Events
 

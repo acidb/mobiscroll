@@ -37,8 +37,7 @@ export class MbscPage extends MbscBase implements OnInit {
         this.optionsService.options = optionsObj;
     }
 
-    ngAfterViewInit() {
-        super.ngAfterViewInit();
+    initControl() {
         let options = extend({}, this.inlineEvents(), this.options, this.inlineOptions());
         this._instance = new Page(this.initElem.nativeElement, options);
     }

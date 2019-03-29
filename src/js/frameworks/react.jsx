@@ -410,7 +410,9 @@ export class MbscOptimized extends MbscBase {
 export class MbscInputBase extends MbscOptimized {
     static propTypes = {
         ...CorePropTypes,
-        ...FramePropTypes
+        ...FramePropTypes,
+        type: PropTypes.string,
+        placeholder: PropTypes.string
     }
 
     render() {

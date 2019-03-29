@@ -631,15 +631,13 @@ export const ScrollViewBase = function (el, settings, inherit) {
                 .on('click', onScrollBarClick);
         }
 
-        if (el.addEventListener) {
-            el.addEventListener('click', function (ev) {
-                if (that.scrolled) {
-                    that.scrolled = false;
-                    ev.stopPropagation();
-                    ev.preventDefault();
-                }
-            }, true);
-        }
+        el.addEventListener('click', function (ev) {
+            if (that.scrolled) {
+                that.scrolled = false;
+                ev.stopPropagation();
+                ev.preventDefault();
+            }
+        }, true);
 
         //el.addEventListener('touchend', function (ev) {
         //    if (scrolled) {

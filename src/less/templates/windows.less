@@ -33,6 +33,7 @@
     @windows-button-hover: darken(@windows-background, 10%);
     @windows-wheel-button: darken(@windows-background, 5%);
     @windows-grey: darken(@windows-background, 35%);
+    @windows-lv-bck: darken(@windows-background, 34%);
     @windows-dark-grey: darken(@windows-background, 55%);
     @windows-checkbox: hsv(hsvhue(@windows-accent), max(hsvsaturation(@windows-accent) - 90%, 0%), min(hsvvalue(@windows-accent) + 14%, 100%));
     @windows-switch-hover: hsv(hsvhue(@windows-accent), max(hsvsaturation(@windows-accent) - 34%, 0%), min(hsvvalue(@windows-accent) + 5%, 100%));
@@ -61,6 +62,7 @@
     @windows-button-hover: lighten(@windows-background, 10%);
     @windows-wheel-button: lighten(@windows-background, 5%);
     @windows-grey: lighten(@windows-background, 35%);
+    @windows-lv-bck: lighten(@windows-background, 24%);
     @windows-dark-grey: lighten(@windows-background, 55%);
     @windows-checkbox: hsv(hsvhue(@windows-accent), max(hsvsaturation(@windows-accent) - 90%, 0%), min(hsvvalue(@windows-accent) + 14%, 100%));
     @windows-switch-hover: hsv(hsvhue(@windows-accent), max(hsvsaturation(@windows-accent) - 34%, 0%), min(hsvvalue(@windows-accent) + 5%, 100%));
@@ -154,24 +156,6 @@
     }
 }
 
-
-/* Cards */
-
-.mbsc-@{theme} {
-    &.mbsc-card.mbsc-form {
-        background: lighten(@windows-background, 2.5%);
-        box-shadow: 0 0 1px 1px @windows-border-cards;
-    }
-
-    &.mbsc-card .mbsc-lv-item {
-        background: lighten(@windows-background, 2.5%);
-    }
-
-    .mbsc-card-footer {
-        border-color: @windows-border-cards;
-    }
-}
-
 /* Color */
 
 .mbsc-@{theme} {
@@ -209,22 +193,25 @@
 /* Event calendar */
 
 .mbsc-@{theme} {
+
+    /* Event Popup */
+    &.mbsc-cal-events-popup {
+        .mbsc-fr-w {
+            border-color: fade(@windows-text, 80%);
+        }
+
+        .mbsc-fr-bubble-bottom .mbsc-fr-arr {
+            border-bottom-color: fade(@windows-text, 80%);
+        }
+
+        .mbsc-fr-bubble-top .mbsc-fr-arr {
+            border-bottom-color: transparent;
+            border-top-color: fade(@windows-text, 80%);
+        }
+    }
+
     .mbsc-cal-events {
         background: fade(@windows-text, 80%);
-    }
-
-    .mbsc-cal-event {
-        color: @windows-background-alt2-text;
-        background: @windows-background-alt2;
-        border-color: @windows-background-alt2;
-    }
-
-    .mbsc-cal-events-arr {
-        border-color: fade(@windows-text, 80%) transparent transparent;
-    }
-
-    .mbsc-cal-events-b .mbsc-cal-events-arr {
-        border-color: transparent transparent fade(@windows-text, 80%);
     }
 
     .mbsc-cal-event-color {
@@ -236,9 +223,12 @@
         background: @windows-form-bg;
     }
 
+    .mbsc-event-list .mbsc-lv-item:last-child {
+        border-color: @windows-wheel-button;
+    }
+
     .mbsc-event-list .mbsc-lv-gr-title {
         background: @windows-form-bg;
-        border-color: @windows-wheel-button;
     }
 
     .mbsc-event-color {
@@ -1177,11 +1167,28 @@
     }
 }
 
+/* Cards */
+
+.mbsc-@{theme} {
+    &.mbsc-card.mbsc-form {
+        background: lighten(@windows-background, 2.5%);
+        box-shadow: 0 0 1px 1px @windows-border-cards;
+    }
+
+    &.mbsc-card .mbsc-lv-item {
+        background: lighten(@windows-background, 2.5%);
+    }
+
+    .mbsc-card-footer {
+        border-color: @windows-border-cards;
+    }
+}
+
 /* Listview */
 
-.mbsc-lv-@{theme} {
+.mbsc-@{theme} {
     .mbsc-lv {
-        background: @windows-fr-border;
+        background: @windows-lv-bck;
     }
 
     .mbsc-lv-item {
@@ -1189,17 +1196,14 @@
         color: @windows-text;
     }
 
-    .mbsc-lv-fill-item {
-        background: rgba(255, 255, 255, .5);
-    }
-
-    .mbsc-lv-handle-bar {
-        background: #888;
-    }
-
     .mbsc-lv-gr-title {
         background: @windows-background;
         color: @windows-text;
+    }
+
+    &.mbsc-no-touch .mbsc-lv-item-actionable:hover:before,
+    .mbsc-lv-item-actionable.mbsc-lv-item-active:before {
+        background: @windows-scrollbar-track;
     }
 
     .mbsc-lv-ic-m {
@@ -1210,9 +1214,16 @@
         background: @windows-border-cards;
     }
 
-    .mbsc-lv-item-hl,
-    .mbsc-lv .mbsc-lv-item.mbsc-lv-item-active {
+    .mbsc-lv-item.mbsc-lv-item-hl {
         background: @windows-fr-border;
+    }
+
+    .mbsc-lv-loading .mbsc-ic {
+        color: @windows-text;
+    }
+
+    &.mbsc-lv-cont .mbsc-lv-item.mbsc-selected:before {
+        background: fade(@windows-accent, 20%);
     }
 }
 

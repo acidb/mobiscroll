@@ -123,13 +123,14 @@ function tap(that, el, handler, prevent, tolerance, time) {
     function onEnd(ev) {
         if (target) {
             if ((time && new Date() - startTime < 100) || !moved) {
-                ev.preventDefault();
-                handler.call(target, ev, that);
+                // ev.preventDefault();
+                // handler.call(target, ev, that);
+                triggerClick(ev, ev.target);
+            } else {
+                preventClick();
             }
 
             target = false;
-
-            preventClick();
         }
     }
 

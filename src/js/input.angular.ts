@@ -271,11 +271,7 @@ export class MbscInput extends MbscInputBase {
         _inputService.input = this;
     }
 
-    /* AfterViewInit Interface */
-
-    ngAfterViewInit() {
-        super.ngAfterViewInit();
-
+    initControl() {
         let options = extend({}, this._inheritedOptions, this.inlineEvents(), this.options, this.inlineOptions());
         this._instance = new FormInput(this._initElem.nativeElement, options);
     }

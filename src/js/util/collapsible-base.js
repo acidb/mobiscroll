@@ -138,7 +138,7 @@ export class CollapsibleBase {
         this._$content.removeClass('mbsc-collapsible-content');
         this._$header
             .removeClass('mbsc-collapsible-header')
-            .find('mbsc-collapsible-icon').remove();
+            .find('.mbsc-collapsible-icon').remove();
     }
 }
 

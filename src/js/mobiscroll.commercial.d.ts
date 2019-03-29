@@ -1,4 +1,5 @@
 import { MbscBase, ElementRef, AfterViewInit, MbscOptionsService } from './frameworks/angular';
+import './util/notifications';
 import { MbscCoreOptions } from './core/core';
 export declare class MbscCommercialComponent extends MbscBase implements AfterViewInit {
     optionsService: MbscOptionsService;
