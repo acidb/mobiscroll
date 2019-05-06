@@ -1,5 +1,5 @@
 import { $, isBrowser } from '../core/core';
-import { os, isSafari, raf } from './platform';
+import { os, isSafari, raf, majorVersion, minorVersion } from './platform';
 
 function testProps(props) {
     var i;
@@ -113,8 +113,11 @@ if (isBrowser) {
     animEnd = mod.animation !== undefined ? 'animationend' : 'webkitAnimationEnd';
     hasTransition = mod.transition !== undefined;
     // UIWebView on iOS still has the ghost click, 
-    // and it does not have Safari in the userAgent string
-    hasGhostClick = mod.touchAction === undefined || (os == 'ios' && !isSafari);
+    // and it does not have Safari in the userAgent string, 
+    // seems like it's fixed from 12.2, where the tap focus does not work
+    // (keyboard appears, but text is not entered)
+    hasGhostClick = mod.touchAction === undefined || (os == 'ios' &&
+        (!isSafari && (majorVersion < 12 || (majorVersion == 12 && minorVersion < 2))));
 }
 
 export {

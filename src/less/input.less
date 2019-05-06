@@ -66,6 +66,7 @@
 
 .mbsc-input .mbsc-label {
     font-size: .875em;
+    white-space: nowrap;
 }
 
 .mbsc-input-ic {
@@ -125,7 +126,6 @@
         width: 30%;
         max-width: 12.5em;
         overflow: hidden;
-        white-space: nowrap;
         text-overflow: ellipsis;
         box-sizing: content-box;
     }
@@ -190,12 +190,12 @@
     }
 }
 
-&.mbsc-ltr .mbsc-label-floating.mbsc-input .mbsc-label {
+.mbsc-ltr .mbsc-label-floating.mbsc-input .mbsc-label {
     -webkit-transform-origin: top left;
     transform-origin: top left;
 }
 
-&.mbsc-rtl .mbsc-label-floating.mbsc-input .mbsc-label {
+.mbsc-rtl .mbsc-label-floating.mbsc-input .mbsc-label {
     -webkit-transform-origin: top right;
     transform-origin: top right;
 }

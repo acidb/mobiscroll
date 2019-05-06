@@ -43,6 +43,7 @@ export const FramePropTypes = {
     scrollLock: boolType,
     showOnFocus: boolType,
     showOnTap: boolType,
+    showOnOverlay: boolType,
     touchUi: boolType,
     onBeforeClose: funcType,
     onBeforeShow: funcType,
@@ -161,6 +162,7 @@ export const CalbasePropTypes = {
         cssClass: stringType
     })),
     months: numType,
+    mousewheel: boolType,
     weeks: numType,
     outerMonthChange: boolType,
     showOuterDays: boolType,
@@ -361,6 +363,22 @@ export class MbscInit extends React.Component {
 export class MbscBase extends MbscInit {
     constructor(props) {
         super(props);
+        this.updateForIonInput = this.updateForIonInput.bind(this);
+    }
+
+    updateForIonInput() {
+        if (this.valueState) {
+            this.optimizeUpdate = null;
+            this.forceUpdate();
+        }
+    }
+
+    isIonInput(children) {
+        return children &&
+            React.Children.count(children) == 1 &&
+            children.type &&
+            children.type.render &&
+            children.type.render.displayName === 'IonInput';
     }
 
     // updates mobiscroll with new options
@@ -373,12 +391,14 @@ export class MbscBase extends MbscInit {
             if (this.optimizeUpdate.updateValue && this.props.value !== undefined && !deepCompare(this.props.value, this.instance.getVal())) {
                 this.instance.setVal(this.props.value, true);
             }
-        } else {
+            this.updateForIonInput();
+        } else if (this.optimizeUpdate !== null) {
             this.instance.option(settings);
             if (this.props.value !== undefined) {
                 this.instance.setVal(this.props.value, true);
             }
         }
+
     }
 }
 
@@ -421,13 +441,21 @@ export class MbscInputBase extends MbscOptimized {
             type,
             readOnly,
             disabled,
-            placeholder
+            placeholder,
+            children
         } = this.props;
 
         // default input type if there are no children components
         type = type || "text";
+
+        if (this.isIonInput(children)) {
+            this.valueState = true;
+            let val = this.instance ? this.instance._value : '';
+            return React.cloneElement(children, { value: val, ...children.props });
+        }
+
         // default to input if there are no childrens
-        if (this.props.children) {
+        if (children) {
             return this.props.children;
         } else {
             return <input className={this.initialCssClass} type={type} readOnly={readOnly} disabled={disabled} placeholder={placeholder} />;
@@ -447,6 +475,7 @@ export class MbscInputBase extends MbscOptimized {
         this.instance = new classes[this.mbscInit.component || 'Scroller'](element, settings);
         if (this.props.value !== undefined) {
             this.instance.setVal(this.props.value, true);
+            this.updateForIonInput();
         }
     }
 }

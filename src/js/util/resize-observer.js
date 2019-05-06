@@ -6,7 +6,7 @@ const markup =
     '<div style="' + style + '"><div style="' + innerStyle + '"></div></div>' +
     '<div style="' + style + '"><div style="' + innerStyle + 'width:200%;height:200%;"></div></div>';
 
-export function resizeObserver(el, callback) {
+export function resizeObserver(el, callback, zone) {
 
     function reset() {
         expandChild.style.width = '100000px';
@@ -22,7 +22,6 @@ export function resizeObserver(el, callback) {
     function checkHidden() {
         var now = new Date();
         hiddenRafId = 0;
-        //if (isHidden) {
         if (!stopCheck) {
             if (now - lastCheck > 200 && !expand.scrollTop && !expand.scrollLeft) {
                 lastCheck = now;
@@ -32,10 +31,6 @@ export function resizeObserver(el, callback) {
                 hiddenRafId = raf(checkHidden);
             }
         }
-        // } else {
-        //     isHidden = false;
-        // }
-        //}
     }
 
     function onScroll() {
@@ -72,7 +67,13 @@ export function resizeObserver(el, callback) {
     expand.addEventListener('scroll', onScroll);
     shrink.addEventListener('scroll', onScroll);
 
-    raf(checkHidden);
+    if (zone) {
+        zone.runOutsideAngular(function () {
+            raf(checkHidden);
+        });
+    } else {
+        raf(checkHidden);
+    }
 
     return {
         detach: function () {

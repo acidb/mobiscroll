@@ -1,10 +1,9 @@
 import * as tslib_1 from "tslib";
-import { Component, mobiscroll, MbscBase, ElementRef, ViewChild, Input, MbscOptionsService, Optional } from './frameworks/angular';
-import './util/notifications';
+import { Component, mobiscroll, MbscBase, ElementRef, ViewChild, Input, MbscOptionsService, Optional, NgZone } from './frameworks/angular';
 var MbscCommercialComponent = (function (_super) {
     tslib_1.__extends(MbscCommercialComponent, _super);
-    function MbscCommercialComponent(hostElement, optionsService) {
-        var _this = _super.call(this, hostElement) || this;
+    function MbscCommercialComponent(hostElement, optionsService, zone) {
+        var _this = _super.call(this, hostElement, zone) || this;
         _this.optionsService = optionsService;
         _this.mbscOptions = {};
         _this.options = {};
@@ -40,6 +39,7 @@ MbscCommercialComponent.decorators = [
 MbscCommercialComponent.ctorParameters = function () { return [
     { type: ElementRef, },
     { type: MbscOptionsService, decorators: [{ type: Optional },] },
+    { type: NgZone, },
 ]; };
 MbscCommercialComponent.propDecorators = {
     'mbscOptions': [{ type: Input, args: ['mbsc-options',] },],

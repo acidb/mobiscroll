@@ -4,6 +4,7 @@ import { Popup } from '../classes/popup';
 const hasPromise = isBrowser && !!window.Promise;
 const popupQueue = [];
 const notificationQueue = [];
+let activeNotification;
 
 function showPopup(popup) {
     if (!popupQueue.length) {
@@ -113,6 +114,7 @@ function showSnackbar(popup, settings, resolve, cssClass, animation) {
         focusTrap: false,
         buttons: [],
         onShow: function (ev, inst) {
+            activeNotification = inst;
             if (settings.duration !== false) {
                 notificationTimer = setTimeout(function () {
                     if (inst) {
@@ -130,6 +132,7 @@ function showSnackbar(popup, settings, resolve, cssClass, animation) {
             }
         },
         onClose: function () {
+            activeNotification = null;
             clearTimeout(notificationTimer);
         }
     }));
@@ -188,4 +191,12 @@ mobiscroll.toast = function (settings) {
     const popup = document.createElement('div');
     popup.innerHTML = '<div class="mbsc-toast-msg">' + (settings.message || '') + '</div>';
     return show(showToast, popup, settings);
+};
+
+mobiscroll.notification = {
+    dismiss: function () {
+        if (activeNotification) {
+            activeNotification.hide();
+        }
+    }
 };

@@ -69,7 +69,7 @@ function getControlType($elm) {
 
     let type = $elm.attr('type') || elm.nodeName.toLowerCase();
 
-    if (/(switch|range|rating|segmented|stepper)/.test(role)) {
+    if (/(switch|range|rating|segmented|stepper|select)/.test(role)) {
         type = role;
     }
 

@@ -28,6 +28,7 @@
     @ios-scrollbar-track: rgba(0, 0, 0, .05);
     @ios-background-desktop: @ios-background-limited;
     @ios-popup-shadow: rgba(0, 0, 0, .3);
+    @ios-popup-arrow-shadow: rgba(0, 0, 0, .2);
     @ios-popup-border: @ios-border;
     @ios-popup-background: @ios-background-alt;
     @ios-item-hover: rgba(0, 0, 0, .05);
@@ -43,6 +44,7 @@
     @ios-scrollbar-track: rgba(255, 255, 255, .2);
     @ios-background-desktop: lighten(@ios-background-limited, 17%);
     @ios-popup-shadow: rgba(0, 0, 0, .8);
+    @ios-popup-arrow-shadow: rgba(0, 0, 0, .8);
     @ios-popup-border: lighten(@ios-border, 13%);
     @ios-popup-background: @ios-background-desktop;
     @ios-item-hover: rgba(255, 255, 255, .05);
@@ -271,10 +273,9 @@
     background: @output3_6;
 }
 
+.mbsc-@{theme} .mbsc-fr-arr,
 .mbsc-@{theme}.mbsc-sc.mbsc-fr-top .mbsc-fr-w,
 .mbsc-@{theme}.mbsc-sc.mbsc-fr-bottom .mbsc-fr-w,
-.mbsc-@{theme} .mbsc-fr-bubble-top .mbsc-fr-arr,
-.mbsc-@{theme} .mbsc-fr-bubble-bottom .mbsc-fr-arr,
 .mbsc-@{theme}.mbsc-calendar .mbsc-fr-persp .mbsc-fr-w {
     background: @output3_1;
 }
@@ -339,6 +340,18 @@
     color: @output2_1;
 }
 
+/* No overlay */
+
+.mbsc-@{theme}.mbsc-fr-no-overlay {
+    .mbsc-fr-arr {
+        box-shadow: 0 0 1em @ios-popup-arrow-shadow;
+    }
+
+    .mbsc-fr-w {
+        box-shadow: 0 .125em 1em @ios-popup-shadow;
+    }
+}
+
 /* Desktop view */
 
 .mbsc-@{theme}.mbsc-fr-pointer {
@@ -346,10 +359,6 @@
     .mbsc-fr-persp .mbsc-fr-popup .mbsc-fr-w,
     .mbsc-fr-persp .mbsc-cal-picker {
         background: @ios-background-desktop;
-    }
-
-    .mbsc-fr-persp .mbsc-fr-w {
-        box-shadow: 0 .25em 1em @ios-popup-shadow;
     }
 
     .mbsc-fr-hdr {
@@ -484,13 +493,12 @@
     /* Event Popup */
 
     &.mbsc-cal-events-popup {
-        .mbsc-fr-popup {
+        .mbsc-fr-w {
             border-color: @ios-popup-border;
-            box-shadow: 0 .25em 1em @ios-popup-shadow;
         }
 
         .mbsc-fr-arr {
-            background: @output3_10;
+            background: @ios-popup-background;
             border-color: @ios-popup-border;
         }
     }
@@ -655,7 +663,6 @@
 
 .mbsc-@{theme} .mbsc-divider,
 .mbsc-@{theme} .mbsc-form-group-title {
-    background: @output3_25;
     border-color: @output3_7;
     color: @output3_26;
 }
@@ -751,14 +758,6 @@
     color: @output3_13;
     background: transparent;
 }
-
-.mbsc-@{theme} .mbsc-btn-group,
-.mbsc-@{theme} .mbsc-btn-group-justified,
-.mbsc-@{theme} .mbsc-btn-group-block {
-    background: @output3_25;
-    border-color: @output3_7;
-}
-
 
 /* Progress */
 

@@ -13,10 +13,7 @@
         color: #5b5b5b;
         min-width: 15em;
         font-size: 16px;
-    }
-
-    .mbsc-fr-popup {
-        box-shadow: 0 0.5em 1.5em rgba(0, 0, 0, 0.3);
+        box-shadow: 0 0.25em 1.5em rgba(0, 0, 0, 0.3);
     }
 
     .mbsc-fr-hdr {
@@ -75,7 +72,7 @@
 
     /* Inline mode */
 
-    &.mbsc-fr-inline .mbsc-fr-popup {
+    &.mbsc-fr-inline .mbsc-fr-w {
         box-shadow: none;
     }
 
@@ -91,39 +88,8 @@
 
     /* Bubble mode */
 
-    .mbsc-fr-arr-w {
-        z-index: 0;
-    }
-
     .mbsc-fr-arr {
-        width: 2em;
-        height: 2em;
         background: #eee;
-        border: 0;
-        -webkit-transform: rotate(-45deg);
-        transform: rotate(-45deg);
-        margin-left: -1em;
-        box-shadow: 0 0 1.5em rgba(0, 0, 0, 0.3);
-    }
-
-    .mbsc-fr-bubble-top .mbsc-fr-arr {
-        top: -1.333334em;
-    }
-
-    .mbsc-fr-bubble-bottom .mbsc-fr-arr {
-        top: 1.333334em;
-    }
-
-    /* Desktop styling */
-
-    &.mbsc-fr-pointer {
-        .mbsc-fr-popup {
-            box-shadow: none;
-        }
-
-        .mbsc-fr-persp .mbsc-fr-w {
-            border-radius: .1875em;
-            box-shadow: 0 0.5em 1.5em rgba(0, 0, 0, 0.3);
-        }
+        box-shadow: 0 0 1.5em rgba(0, 0, 0, 0.2);
     }
 }

@@ -73,7 +73,8 @@
 /* Box sizing */
 
 .mbsc-fr-popup,
-.mbsc-fr-btn-cont {
+.mbsc-fr-btn-cont,
+.mbsc-fr-arr {
     box-sizing: border-box;
 }
 
@@ -184,6 +185,7 @@
     z-index: 1;
     left: 0;
     width: 100%;
+    overflow: hidden;
 }
 
 .mbsc-fr-bubble-top .mbsc-fr-arr-w {
@@ -208,19 +210,19 @@
     display: none;
     position: relative;
     left: 0;
-    width: 0;
-    height: 0;
-    border-width: 18px 18px;
-    border-style: solid;
-    margin-left: -18px;
+    width: 2em;
+    height: 2em;
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    margin-left: -1em;
 }
 
 .mbsc-fr-bubble-bottom .mbsc-fr-arr {
-    bottom: 0;
+    top: 1.333334em;
 }
 
 .mbsc-fr-bubble-top .mbsc-fr-arr {
-    top: 0;
+    top: -1.333334em;
 }
 
 .mbsc-fr-hdn {
@@ -297,10 +299,6 @@
     &.mbsc-fr .mbsc-fr-w .mbsc-fr-inline .mbsc-fr-w {
         box-shadow: none;
         border-radius: 0;
-    }
-
-    &.mbsc-fr .mbsc-fr-overlay {
-        background: none;
     }
 
     .mbsc-ltr .mbsc-fr-w,
@@ -395,19 +393,21 @@
         border-radius: .25em;
     }
 
-    .mbsc-fr-bubble-bottom .mbsc-fr-arr {
-        border-color: transparent transparent @mobiscroll-background transparent;
+    .mbsc-fr-arr {
+        background: @mobiscroll-background;
     }
 
-    .mbsc-fr-bubble-top .mbsc-fr-arr {
-        border-color: @mobiscroll-background transparent transparent transparent;
-    }
+    &.mbsc-fr-no-overlay {
+        .mbsc-fr-arr {
+            box-shadow: 0 0 1em rgba(0, 0, 0, .2);
+        }
 
-    /* Desktop style */
-    &.mbsc-fr-pointer {
-        .mbsc-fr-persp .mbsc-fr-w {
+        .mbsc-fr-w {
+            box-shadow: 0 .125em 1em rgba(0, 0, 0, .3);
+        }
+
+        &.mbsc-fr-bubble .mbsc-fr-w {
             border-radius: .25em;
-            box-shadow: 0 .25em 1em rgba(0, 0, 0, .3);
         }
     }
 }

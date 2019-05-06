@@ -441,7 +441,8 @@ label.mbsc-input,
 .mbsc-btn-group,
 .mbsc-btn-group-block,
 .mbsc-btn-group-justified {
-    overflow: hidden;
+    // Prevent margin collision
+    border: 1px solid transparent;
 }
 
 .mbsc-btn-group-block .mbsc-btn,

@@ -23,7 +23,7 @@ export interface MbscScrollerOptions extends MbscFrameOptions {
             }
         }
     };
-    width?: number;
+    width?: number | Array<number>;
 
     // Events
     onChange?(event: { valueText?: string }, inst: any): void;

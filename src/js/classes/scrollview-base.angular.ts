@@ -85,6 +85,8 @@ export class MbscScrollViewBase extends MbscBase {
     @Input()
     layout: 'liquid' | 'fixed';
     @Input()
+    mousewheel: boolean;
+    @Input()
     snap: boolean;
     @Input()
     threshold: number;
@@ -113,6 +115,7 @@ export class MbscScrollViewBase extends MbscBase {
             context: this.context,
             itemWidth: this.itemWidth,
             layout: this.layout,
+            mousewheel: this.mousewheel,
             snap: this.snap,
             threshold: this.threshold,
             paging: this.paging
@@ -152,7 +155,7 @@ export class MbscScrollViewBase extends MbscBase {
         });
     }
 
-    constructor(initialElem: ElementRef, public zone: NgZone, public notifyItemService: MbscNotifyItemService) {
-        super(initialElem);
+    constructor(initialElem: ElementRef, zone: NgZone, public notifyItemService: MbscNotifyItemService) {
+        super(initialElem, zone);
     }
 }

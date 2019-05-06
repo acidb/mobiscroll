@@ -127,8 +127,9 @@ class MbscBase implements AfterViewInit, OnDestroy {
             theme: this.theme,
             lang: this.lang,
             rtl: this.rtl,
-            responsive: this.responsive
-        };
+            responsive: this.responsive,
+            zone: this.zone
+        } as any;
     }
 
     inlineEvents(): MbscCoreOptions {
@@ -193,7 +194,7 @@ class MbscBase implements AfterViewInit, OnDestroy {
         }
     }
 
-    constructor(public initialElem: ElementRef) { }
+    constructor(public initialElem: ElementRef, protected zone: NgZone) { }
 
     /* AfterViewInit Interface */
 
@@ -303,8 +304,8 @@ abstract class MbscValueBase extends MbscBase {
      * @param initialElem Reference to the initial element the directive is put on
      * @param zone Reference to the NgZone service
      */
-    constructor(initialElem: ElementRef, protected zone: NgZone) {
-        super(initialElem);
+    constructor(initialElem: ElementRef, zone: NgZone) {
+        super(initialElem, zone);
     }
 
     /**
@@ -603,6 +604,8 @@ abstract class MbscFrameBase extends MbscControlBase implements OnInit {
     @Input()
     scrollLock: boolean;
     @Input()
+    showOverlay: boolean;
+    @Input()
     touchUi: boolean;
 
     // Events
@@ -639,6 +642,7 @@ abstract class MbscFrameBase extends MbscControlBase implements OnInit {
             scrollLock: this.scrollLock,
             showOnFocus: this.showOnFocus,
             showOnTap: this.showOnTap,
+            showOverlay: this.showOverlay,
             touchUi: this.touchUi
         });
     }
@@ -722,7 +726,7 @@ abstract class MbscScrollerBase extends MbscFrameBase {
     @Input()
     wheels: Array<any>;
     @Input()
-    width: number;
+    width: number | Array<number>;
 
     /** Special event handler for validation
      * Needs to support return parameters, so it needs to be an @Input

@@ -196,17 +196,13 @@
 
     /* Event Popup */
     &.mbsc-cal-events-popup {
+
         .mbsc-fr-w {
-            border-color: fade(@windows-text, 80%);
+            border-color: fade(@windows-text, 80%)
         }
 
-        .mbsc-fr-bubble-bottom .mbsc-fr-arr {
-            border-bottom-color: fade(@windows-text, 80%);
-        }
-
-        .mbsc-fr-bubble-top .mbsc-fr-arr {
-            border-bottom-color: transparent;
-            border-top-color: fade(@windows-text, 80%);
+        .mbsc-fr-arr {
+            background: fade(@windows-text, 80%);
         }
     }
 
@@ -1087,12 +1083,9 @@
     }
 
     /* Bubble positioning */
-    .mbsc-fr-bubble-bottom .mbsc-fr-arr {
-        border-color: transparent transparent @windows-background transparent;
-    }
-
-    .mbsc-fr-bubble-top .mbsc-fr-arr {
-        border-color: @windows-background transparent transparent transparent;
+    .mbsc-fr-arr {
+        background: @windows-background;
+        border-color: @windows-fr-border;
     }
 }
 

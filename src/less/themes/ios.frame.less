@@ -121,29 +121,9 @@
 
 /* Bubble arrow */
 
-.mbsc-ios .mbsc-fr-arr-w {
-    z-index: 0;
-}
-
 .mbsc-ios .mbsc-fr-arr {
-    position: relative;
-    width: 26px;
-    height: 26px;
     background: #f7f7f7;
-    border: 0;
-    -webkit-transform: rotate(-45deg);
-    transform: rotate(-45deg);
-    margin-left: -13px;
-}
-
-.mbsc-ios .mbsc-fr-bubble-top .mbsc-fr-arr {
-    top: -17px;
-    border-bottom-left-radius: 6px;
-}
-
-.mbsc-ios .mbsc-fr-bubble-bottom .mbsc-fr-arr {
-    top: 17px;
-    border-top-right-radius: 6px;
+    border-radius: 6px;
 }
 
 /* Top and bottom display */
@@ -260,6 +240,16 @@
     padding-bottom: env(safe-area-inset-bottom);
 }
 
+.mbsc-ios.mbsc-fr-no-overlay {
+    .mbsc-fr-arr {
+        box-shadow: 0 0 1em @ios-popup-arrow-shadow;
+    }
+
+    .mbsc-fr-w {
+        box-shadow: 0 .125em 1em @ios-popup-shadow;
+    }
+}
+
 /* Desktop view */
 
 .mbsc-ios.mbsc-fr-pointer {
@@ -267,11 +257,6 @@
     .mbsc-fr-persp .mbsc-fr-popup .mbsc-fr-w,
     .mbsc-fr-persp .mbsc-cal-picker {
         background: @ios-background-desktop;
-    }
-
-    .mbsc-fr-persp .mbsc-fr-w {
-        box-shadow: 0 .25em 1em @ios-popup-shadow;
-        border-radius: 8px;
     }
 
     .mbsc-fr-popup {

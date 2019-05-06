@@ -16,6 +16,7 @@ export interface MbscFrameOptions extends MbscCoreOptions {
     scrollLock?: boolean;
     showOnFocus?: boolean;
     showOnTap?: boolean;
+    showOverlay?: boolean;
     touchUi?: boolean;
     labelStyle?: 'stacked' | 'inline' | 'floating';
     inputStyle?: 'underline' | 'box' | 'outline';

@@ -23,6 +23,7 @@ export let MbscScrollViewBase = class MbscScrollViewBase extends MbscBase {
 MbscScrollViewBase.propTypes = _extends({}, CorePropTypes, {
     itemWidth: PropTypes.number,
     layout: PropTypes.oneOf(['liquid', 'fixed']),
+    mousewheel: PropTypes.bool,
     snap: PropTypes.bool,
     threshold: PropTypes.number,
     paging: PropTypes.bool,

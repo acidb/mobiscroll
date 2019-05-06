@@ -6,5 +6,8 @@ declare module '../core/mobiscroll' {
         prompt: (config: any) => Promise<string>;
         toast: (config: any) => Promise<boolean>;
         snackbar: (config: any) => Promise<boolean>;
+        notification: {
+            dismiss: () => void;
+        };
     }
 }

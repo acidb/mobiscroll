@@ -294,7 +294,9 @@ export const Frame = function (el, settings, inherit) {
             return;
         }
 
-        observer = resizeObserver(markup, onPosition);
+        if (isModal || that._checkSize) {
+            observer = resizeObserver(markup, onPosition, s.zone);
+        }
 
         if (isModal) {
             $markup.removeClass('mbsc-fr-pos');
@@ -743,13 +745,15 @@ export const Frame = function (el, settings, inherit) {
             (s.cssClass || '') + ' ' +
             (s.compClass || '') +
             (that._isLiquid ? ' mbsc-fr-liq' : '') +
-            (isModal ? ' mbsc-fr-pos' : '') +
+            (isModal ? ' mbsc-fr-pos' + ((s.showOverlay ? '' : ' mbsc-fr-no-overlay')) : '') +
             (isPointer ? ' mbsc-fr-pointer' : '') +
             (halfBorder ? ' mbsc-fr-hb' : '') +
             (touched ? '' : ' mbsc-no-touch') +
             (needsLock ? ' mbsc-platform-ios' : '') +
             (hasButtons ? (buttons.length >= 3 ? ' mbsc-fr-btn-block ' : '') : ' mbsc-fr-nobtn') + '">' +
-            (isModal ? '<div class="mbsc-fr-persp"><div class="mbsc-fr-overlay"></div><div role="dialog" class="mbsc-fr-scroll">' : '') + // Overlay
+            (isModal ? '<div class="mbsc-fr-persp">' +
+                (s.showOverlay ? '<div class="mbsc-fr-overlay"></div>' : '') + // Overlay
+                '<div role="dialog" class="mbsc-fr-scroll">' : '') +
             '<div class="mbsc-fr-popup' +
             (s.rtl ? ' mbsc-rtl' : ' mbsc-ltr') +
             (s.headerText ? ' mbsc-fr-has-hdr' : '') +
@@ -1028,6 +1032,7 @@ export const Frame = function (el, settings, inherit) {
         if (isPointer) {
             s.display = resp.display || settings.display || 'bubble';
             s.buttons = resp.buttons || settings.buttons || [];
+            s.showOverlay = resp.showOverlay || settings.showOverlay || false;
         }
 
         // Add default buttons
@@ -1161,6 +1166,7 @@ Frame.prototype._defaults = {
     display: 'center',
     scroll: true,
     scrollLock: true,
+    showOverlay: true,
     tap: true,
     touchUi: true,
     btnClass: 'mbsc-fr-btn',

@@ -7,7 +7,8 @@ import {
     Input,
     OnInit,
     MbscOptionsService,
-    NgModule
+    NgModule,
+    NgZone
 } from './frameworks/angular';
 
 import { Page, MbscPageOptions } from './classes/page';
@@ -28,8 +29,8 @@ export class MbscPage extends MbscBase implements OnInit {
     @ViewChild('initElement')
     initElem: ElementRef;
 
-    constructor(hostElement: ElementRef, public optionsService: MbscOptionsService) {
-        super(hostElement);
+    constructor(hostElement: ElementRef, public optionsService: MbscOptionsService, zone: NgZone) {
+        super(hostElement, zone);
     }
 
     ngOnInit() {

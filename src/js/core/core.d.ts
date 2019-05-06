@@ -10,6 +10,7 @@ export interface MbscCoreOptions {
     lang?: string;
     rtl?: boolean;
     responsive?: object;
+    tap?: boolean;
 
     // Events
     onInit?(event: any, inst: any): void;

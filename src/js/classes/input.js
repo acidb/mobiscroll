@@ -19,10 +19,12 @@ export class Input extends FormControl {
 
     checkLabel(ev) {
         if (this._isFloating) {
+            // In case of select we need to check the dummy element
+            const elm = this._delm || this._elm;
             // In case of autofill in webkit browsers the animationstart event will fire 
             // due to the empty animation added in the css,
             // because there's no other event in case of the initial autofill
-            if (this._elm.value || (ev && (ev.type == 'focus' || (ev.type == 'animationstart' && this._$elm.is('*:-webkit-autofill'))))) {
+            if (elm.value || (ev && (ev.type == 'focus' || (ev.type == 'animationstart' && this._$elm.is('*:-webkit-autofill'))))) {
                 this._$parent.addClass('mbsc-label-floating-active');
             } else {
                 this._$parent.removeClass('mbsc-label-floating-active');

@@ -1,5 +1,4 @@
-import { MbscBase, ElementRef, AfterViewInit, MbscOptionsService } from './frameworks/angular';
-import './util/notifications';
+import { MbscBase, ElementRef, AfterViewInit, MbscOptionsService, NgZone } from './frameworks/angular';
 import { MbscCoreOptions } from './core/core';
 export declare class MbscCommercialComponent extends MbscBase implements AfterViewInit {
     optionsService: MbscOptionsService;
@@ -8,6 +7,6 @@ export declare class MbscCommercialComponent extends MbscBase implements AfterVi
     data: any;
     mbscData: any;
     initElem: ElementRef;
-    constructor(hostElement: ElementRef, optionsService: MbscOptionsService);
+    constructor(hostElement: ElementRef, optionsService: MbscOptionsService, zone: NgZone);
     ngAfterViewInit(): void;
 }

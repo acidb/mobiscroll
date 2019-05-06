@@ -7,10 +7,9 @@ import {
     Input,
     AfterViewInit,
     MbscOptionsService,
-    Optional
+    Optional,
+    NgZone
 } from './frameworks/angular';
-
-import './util/notifications';
 
 import { MbscCoreOptions } from './core/core';
 
@@ -60,8 +59,8 @@ export class MbscCommercialComponent extends MbscBase implements AfterViewInit {
     @ViewChild('initElement')
     initElem: ElementRef;
 
-    constructor(hostElement: ElementRef, @Optional() public optionsService: MbscOptionsService) {
-        super(hostElement);
+    constructor(hostElement: ElementRef, @Optional() public optionsService: MbscOptionsService, zone: NgZone) {
+        super(hostElement, zone);
     }
 
     ngAfterViewInit() {

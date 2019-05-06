@@ -11,6 +11,7 @@ export class Select extends Input {
         const $input = $existing.length ? $existing : $('<input tabindex="-1" class="mbsc-control" readonly>');
 
         this._$input = $input;
+        this._delm = $input[0];
         this._setText = this._setText.bind(this);
 
         $parent.addClass('mbsc-select' + (this._$frame ? ' mbsc-select-inline' : ''));
@@ -19,11 +20,9 @@ export class Select extends Input {
 
         $input.after('<span class="mbsc-select-ic mbsc-ic mbsc-ic-arrow-down5"></span>');
 
-        // Check if select and mobiscroll select was not initialized
-        if (!$elm.hasClass('mbsc-comp')) {
-            $elm.on('change', this._setText);
-            this._setText();
-        }
+        // Update dummy input text on change
+        $elm.on('change', this._setText);
+        this._setText();
     }
 
     destroy() {
@@ -34,8 +33,12 @@ export class Select extends Input {
 
     _setText() {
         const elm = this._elm;
-        if (!this._$elm.hasClass('mbsc-comp')) {
+        const $elm = $(elm);
+        // Check if select and mobiscroll select was not initialized
+        if ($elm.is('select') && !$elm.hasClass('mbsc-comp')) {
             this._$input.val(elm.selectedIndex != -1 ? elm.options[elm.selectedIndex].text : '');
         }
+        // Check floating label
+        this.refresh();
     }
 }
