@@ -1,0 +1,140 @@
+$mbsc-windows-accent: #0078d7 !default;
+$mbsc-windows-background: #f2f2f2 !default;
+$mbsc-windows-text: #262626 !default;
+
+$mbsc-windows-dark-accent: #0078d7 !default;
+$mbsc-windows-dark-background: #1a1a1a !default;
+$mbsc-windows-dark-text: #ffffff !default;
+
+/* Base colors */
+$mbsc-windows-primary: #3f97f6 !default;
+$mbsc-windows-secondary: #90979E !default;
+$mbsc-windows-success: #43BE5F !default;
+$mbsc-windows-danger: #f5504e !default;
+$mbsc-windows-warning: #f8b042 !default;
+$mbsc-windows-info: #5BB7C5 !default;
+$mbsc-windows-light: #fff !default;
+$mbsc-windows-dark: #47494A !default;
+
+@function mbsc-windows-colors($params) {
+  $background: map-get($params, background);
+  $text: map-get($params, text);
+  $accent: map-get($params, accent);
+
+  $frame-border: '';
+  $form-background: '';
+  $checkbox-border: '';
+  $button-border: '';
+  $input-hover: '';
+  $border-color: '';
+  $empty-color: '';
+  $input-border: '';
+  $button-background: '';
+  $segmented-disabled: '';
+  $button-hover: '';
+  $progress-background: '';
+  $cards-border: '';
+  $wheel-button: '';
+  $alt-background: '';
+  $color-item: '';
+  $color-preview-border: '';
+  $lv-background: '';
+  $scrollbar-track: '';
+  $calendar-day: '';
+
+  // Light background 
+  @if (lightness($background) > 50%) {
+    $frame-border: darken($background, 15%);
+    $form-background: lighten($background, 13%);
+    $checkbox-border: desaturate(lighten($accent, 52%), 24%);
+    $button-border: lighten($text, 33%);
+    $input-hover: darken($background, 55%);
+    $border-color: darken($background, 19%);
+    $empty-color: lighten($text, 30%);
+    $input-border: darken($background, 35%);
+    $button-background: darken($background, 45%);
+    $segmented-disabled: darken($background, 17%);
+    $button-hover: darken($background, 10%);
+    $progress-background: hsl(hue($background), saturation($background), min(lightness($background), 80%));
+    $cards-border: darken($background, 5%);
+    $wheel-button: darken($background, 5%);
+    $alt-background: darken($background, 18%);
+    $color-item: #ffffff;
+    $color-preview-border: darken($background, 25%);
+    $lv-background: darken($background, 34%);
+    $scrollbar-track: rgba(0, 0, 0, .05);
+    $calendar-day: lighten($text, 30%);
+  }
+
+  // Dark background 
+  @else {
+    $frame-border: lighten($background, 15%);
+    $form-background: darken($background, 12%);
+    $checkbox-border: saturate(darken($accent, 52%), 24%);
+    $button-border: darken($text, 33%);
+    $input-hover: lighten($background, 55%);
+    $border-color: lighten($background, 19%);
+    $empty-color: darken($text, 30%);
+    $input-border: lighten($background, 35%);
+    $button-background: lighten($background, 45%);
+    $segmented-disabled: lighten($background, 19%);
+    $button-hover: lighten($background, 10%);
+    $progress-background: hsl(hue($background), saturation($background), max(lightness($background), 12%));
+    $cards-border: lighten($background, 12%);
+    $wheel-button: lighten($background, 5%);
+    $alt-background: lighten($background, 18%);
+    $color-item: fade(#dfdede, 30%);
+    $color-preview-border: lighten($background, 60%);
+    $lv-background: darken($background, 34%);
+    $scrollbar-track: rgba(255, 255, 255, .2);
+    $calendar-day: darken($text, 30%);
+  }
+
+  @return (frame-border: $frame-border,
+  form-background: $form-background,
+  checkbox-border: $checkbox-border,
+  button-border: $button-border,
+  input-hover: $input-hover,
+  border-color: $border-color,
+  empty-color: $empty-color,
+  input-border: $input-border,
+  button-background: $button-background,
+  segmented-disabled: $segmented-disabled,
+  button-hover: $button-hover,
+  progress-background: $progress-background,
+  cards-border: $cards-border,
+  wheel-button: $wheel-button,
+  alt-background: $alt-background,
+  color-item: $color-item,
+  color-preview-border: $color-preview-border,
+  lv-background: $lv-background,
+  scrollbar-track: $scrollbar-track,
+  calendar-day: $calendar-day,
+  /* static colors */
+  dark-text: darken($mbsc-windows-dark, 30%),
+  light-text: #efeff4,
+  error: #d30101);
+}
+
+@function get-contrast-color($color) {
+  @if (lightness($color) > 65%) {
+    @return #000;
+  }
+
+  @else {
+    @return #fff;
+  }
+}
+
+@mixin mbsc-windows-common($theme, $params) {
+  @include exports("common.#{$theme}.colors") {
+    $colors: mbsc-windows-colors($params);
+    $empty-color: map-get($colors, empty-color);
+
+    .mbsc-#{$theme} {
+      .mbsc-empty {
+        color: $empty-color;
+      }
+    }
+  }
+}

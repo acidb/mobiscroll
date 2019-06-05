@@ -1,0 +1,103 @@
+@import "../core/exports";
+@import "../frame/frame.windows";
+@import "./scroller.windows.colors";
+@import "./scroller";
+
+@include exports("scroller.windows") {
+  .mbsc-windows {
+    .mbsc-sc-whl-gr-c {
+      margin-bottom: -2px;
+    }
+
+    .mbsc-ltr .mbsc-sc-whl-w:last-child,
+    .mbsc-rtl .mbsc-sc-whl-w:first-child {
+      border-right: 0;
+    }
+
+    .mbsc-sc-lbl-v .mbsc-sc-whl-gr {
+      padding: 1.875em 0;
+    }
+
+    .mbsc-sc-lbl-v {
+      border: 0;
+      margin-bottom: -1.875em;
+    }
+
+    .mbsc-sc-lbl {
+      font-size: .75em;
+      line-height: 2.5em;
+    }
+
+    .mbsc-sc-whl-l {
+      display: block;
+      z-index: 1;
+    }
+
+    .mbsc-sc-whl-w .mbsc-sc-whl-l {
+      display: none;
+    }
+
+    .mbsc-sc-itm {
+      padding: 0 .5em;
+    }
+
+    /* Clickpick mode */
+    .mbsc-sc-btn {
+      opacity: 0;
+      height: 1.375em;
+      line-height: 1.375em;
+      overflow: hidden;
+    }
+
+    &.mbsc-no-touch .mbsc-sc-whl-w:hover .mbsc-sc-btn {
+      opacity: 1;
+    }
+
+    /* Multiple select */
+    &.mbsc-sel-multi .mbsc-sc-whl-l {
+      display: none;
+    }
+
+    .mbsc-sc-whl-multi .mbsc-sc-itm {
+      padding: 0 2.5em;
+    }
+
+    .mbsc-sc-whl-multi .mbsc-sc-btn {
+      display: none;
+    }
+
+    .mbsc-sc-whl-multi .mbsc-sc-itm-sel:before {
+      width: 2.5em;
+    }
+
+    /* Desktop styling */
+    &.mbsc-fr-pointer {
+      .mbsc-sc-lbl {
+        padding: 0 1.666667em;
+      }
+
+      .mbsc-sc-itm {
+        padding: 0 1.25em;
+      }
+
+      .mbsc-sc-whl-multi .mbsc-sc-itm {
+        padding: 0 2.5em;
+      }
+
+      .mbsc-ltr .mbsc-sc-whl-multi .mbsc-sc-itm-sel:before {
+        left: 0;
+      }
+
+      .mbsc-rtl .mbsc-sc-whl-multi .mbsc-sc-itm-sel:before {
+        right: 0;
+      }
+    }
+
+    /* Scrollbar */
+    .mbsc-sc-bar:after {
+      border-radius: 0;
+    }
+  }
+
+  @include mbsc-windows-scroller(windows, (background: $mbsc-windows-background, text: $mbsc-windows-text, accent: $mbsc-windows-accent));
+}

@@ -1,0 +1,64 @@
+@import "../core/exports";
+@import "../core/windows";
+@import "../frame/frame.windows.colors";
+
+@mixin mbsc-windows-scroller($theme, $params) {
+  @include exports("scroller.#{$theme}.colors") {
+
+    @include mbsc-windows-frame($theme, $params);
+
+    $background: map-get($params, background);
+    $accent: map-get($params, accent);
+    $text: map-get($params, text);
+
+    $colors: mbsc-windows-colors($params);
+    $frame-border: map-get($colors, frame-border);
+    $wheel-button: map-get($colors, wheel-button);
+    $button-hover: map-get($colors, button-hover);
+
+    .mbsc-#{$theme} {
+      .mbsc-sc-whl-gr-c {
+        border-bottom: 2px solid $frame-border;
+      }
+
+      .mbsc-sc-whl-w {
+        border-right: 2px solid $frame-border;
+      }
+
+      .mbsc-sc-lbl-v .mbsc-sc-whl-w {
+        background: $background;
+      }
+
+      .mbsc-sc-lbl-v {
+        background: $frame-border;
+      }
+
+      .mbsc-sc-whl-l {
+        background: rgba($accent, .4);
+      }
+
+      &.mbsc-no-touch .mbsc-sc-itm.mbsc-btn-e:hover,
+      .mbsc-sc-itm:focus {
+        background: rgba($text, .10);
+      }
+
+      &.mbsc-sc .mbsc-sc-whl .mbsc-sc-itm.mbsc-active {
+        background: rgba($text, .20);
+      }
+
+      /* Clickpick mode */
+      .mbsc-sc-btn {
+        background: $wheel-button;
+      }
+
+      &.mbsc-no-touch .mbsc-sc-btn:hover,
+      .mbsc-sc-btn.mbsc-active {
+        background: $button-hover;
+      }
+
+      .mbsc-sc-whl-multi .mbsc-sc-itm-sel {
+        color: $accent;
+      }
+    }
+  }
+}

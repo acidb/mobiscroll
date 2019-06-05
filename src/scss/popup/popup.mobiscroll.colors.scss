@@ -1,0 +1,10 @@
+@import "../core/exports";
+@import "../core/mobiscroll";
+@import "../frame/frame.mobiscroll.colors";
+
+@mixin mbsc-mobiscroll-popup($theme, $params) {
+  @include exports("popup.#{$theme}.colors") {
+
+    @include mbsc-mobiscroll-frame($theme, $params);
+  }
+}

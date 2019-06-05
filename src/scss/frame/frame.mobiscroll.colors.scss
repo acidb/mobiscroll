@@ -1,0 +1,32 @@
+@import "../core/exports";
+@import "../core/mobiscroll";
+
+@mixin mbsc-mobiscroll-frame($theme, $params) {
+  @include exports("frame.#{$theme}.colors") {
+
+    $background: map-get($params, background);
+    $text: map-get($params, text);
+    $accent: map-get($params, accent);
+
+    .mbsc-#{$theme} {
+      .mbsc-fr-w {
+        background: $background;
+        color: $text;
+      }
+
+      .mbsc-fr-hdr,
+      .mbsc-fr-btn {
+        color: $accent;
+      }
+
+      .mbsc-fr-btn.mbsc-active,
+      &.mbsc-no-touch .mbsc-fr-btn-e:not(.mbsc-disabled):hover {
+        background: rgba($accent, .3);
+      }
+
+      .mbsc-fr-arr {
+        background: $background;
+      }
+    }
+  }
+}

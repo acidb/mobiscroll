@@ -1,5 +1,5 @@
 /*!
- * Mobiscroll v4.6.3
+ * Mobiscroll v4.7.2
  * http://mobiscroll.com
  *
  * Copyright 2010-2018, Acid Media
@@ -76,7 +76,7 @@ extend(util, {
 
 ms = extend(mobiscroll, {
     $: $,
-    version: '4.6.3',
+    version: '4.7.2',
     autoTheme: 'mobiscroll',
     themes: {
         form: {},
@@ -147,7 +147,7 @@ const Base = function (el, settings) {
         }
     };
 
-    that.init = function (newSettings) {
+    that.init = function (newSettings, newValue) {
         var key,
             value;
 
@@ -228,7 +228,7 @@ const Base = function (el, settings) {
         // This is needed to adapt the value for the updated settings
         // E.g. min/max, date format, etc.
         if (newSettings && that.setVal) {
-            that.setVal(value, true);
+            that.setVal(newValue === undefined ? value : newValue, true);
         }
 
         trigger('onInit');
@@ -275,7 +275,7 @@ const Base = function (el, settings) {
     /**
      * Sets one ore more options.
      */
-    that.option = function (opt, value) {
+    that.option = function (opt, value, newValue) {
         var obj = {},
             // preserve settings that are possible to change runtime
             dynamic = ['data', 'invalid', 'valid', 'readonly'];
@@ -294,7 +294,7 @@ const Base = function (el, settings) {
             settings[v] = s[v];
         });
 
-        that.init(obj);
+        that.init(obj, newValue);
     };
 
     /**

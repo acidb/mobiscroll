@@ -1,0 +1,53 @@
+@import "../core/exports";
+@import "../core/common";
+@import "./page.windows.colors";
+@import "./page";
+
+@include exports("page.windows") {
+  .mbsc-windows {
+
+    /* Note */
+    .mbsc-note,
+    .mbsc-note-primary {
+      color: darken($mbsc-windows-primary, 30%);
+      background-color: lighten($mbsc-windows-primary, 10%);
+    }
+
+    .mbsc-note-secondary {
+      color: darken($mbsc-windows-secondary, 30%);
+      background-color: lighten($mbsc-windows-secondary, 20%);
+    }
+
+    .mbsc-note-success {
+      color: darken($mbsc-windows-success, 30%);
+      background-color: lighten($mbsc-windows-success, 20%);
+    }
+
+    .mbsc-note-danger {
+      color: darken($mbsc-windows-danger, 40%);
+      background-color: lighten($mbsc-windows-danger, 10%);
+    }
+
+    .mbsc-note-warning {
+      color: darken($mbsc-windows-warning, 35%);
+      background-color: lighten($mbsc-windows-warning, 5%);
+    }
+
+    .mbsc-note-info {
+      color: darken($mbsc-windows-info, 30%);
+      background-color: lighten($mbsc-windows-info, 20%);
+    }
+
+    .mbsc-note-light {
+      color: darken($mbsc-windows-light, 70%);
+      background-color: lighten($mbsc-windows-light, 10%);
+    }
+
+    .mbsc-note-dark {
+      color: darken($mbsc-windows-dark, 30%);
+      background-color: lighten($mbsc-windows-dark, 10%);
+    }
+  }
+
+  @include mbsc-windows-page(windows, (background: $mbsc-windows-background, text: $mbsc-windows-text, accent: $mbsc-windows-accent));
+}

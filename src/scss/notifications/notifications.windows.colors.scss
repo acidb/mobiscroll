@@ -1,0 +1,57 @@
+@import "../core/exports";
+@import "../core/windows";
+@import "../popup/popup.windows.colors";
+
+@mixin mbsc-windows-notifications($theme, $params) {
+  @include exports("notifications.#{$theme}.colors") {
+
+    @include mbsc-windows-popup($theme, $params);
+
+    $accent: map-get($params, accent);
+
+    $colors: mbsc-windows-colors($params);
+    $dark-text: map-get($colors, dark-text);
+    $light-text: map-get($colors, light-text);
+    $input-hover: map-get($colors, input-hover);
+
+    .mbsc-#{$theme} {
+
+      /* Snackbar */
+      &.mbsc-snackbar .mbsc-snackbar-btn {
+        color: $accent;
+      }
+
+      /* Toast */
+      &.mbsc-toast .mbsc-toast-msg {
+        background: $input-hover;
+        color: get-contrast-color($input-hover);
+      }
+
+      /* Snackbar and Toast color presets */
+
+      &.mbsc-snackbar.mbsc-primary .mbsc-fr-w,
+      &.mbsc-toast.mbsc-primary .mbsc-toast-msg,
+      &.mbsc-snackbar.mbsc-secondary .mbsc-fr-w,
+      &.mbsc-toast.mbsc-secondary .mbsc-toast-msg,
+      &.mbsc-snackbar.mbsc-success .mbsc-fr-w,
+      &.mbsc-toast.mbsc-success .mbsc-toast-msg,
+      &.mbsc-snackbar.mbsc-danger .mbsc-fr-w,
+      &.mbsc-toast.mbsc-danger .mbsc-toast-msg,
+      &.mbsc-snackbar.mbsc-warning .mbsc-fr-w,
+      &.mbsc-toast.mbsc-warning .mbsc-toast-msg,
+      &.mbsc-snackbar.mbsc-info .mbsc-fr-w,
+      &.mbsc-toast.mbsc-info .mbsc-toast-msg,
+      &.mbsc-snackbar.mbsc-primary .mbsc-snackbar-btn,
+      &.mbsc-snackbar.mbsc-secondary .mbsc-snackbar-btn,
+      &.mbsc-snackbar.mbsc-success .mbsc-snackbar-btn,
+      &.mbsc-snackbar.mbsc-danger .mbsc-snackbar-btn,
+      &.mbsc-snackbar.mbsc-info .mbsc-snackbar-btn {
+        color: $light-text;
+      }
+
+      &.mbsc-snackbar.mbsc-warning .mbsc-snackbar-btn {
+        color: $dark-text;
+      }
+    }
+  }
+}

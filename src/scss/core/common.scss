@@ -1,0 +1,31 @@
+@import "./exports";
+
+@include exports("common") {
+  .mbsc-cloak {
+    visibility: hidden !important;
+  }
+
+  /* Empty view */
+
+  .mbsc-empty {
+    text-align: center;
+    margin: 3em;
+    color: inherit;
+  }
+
+  .mbsc-empty h3 {
+    margin: .666666em 0;
+    padding: 0;
+    color: inherit;
+    font-size: 1.5em;
+    font-weight: normal;
+    font-family: inherit;
+  }
+
+  .mbsc-empty p {
+    margin: 1em 0;
+    padding: 0;
+    font-size: 1em;
+    line-height: 1.5;
+  }
+}

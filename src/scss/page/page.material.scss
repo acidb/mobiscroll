@@ -1,0 +1,56 @@
+@import "../core/exports";
+@import "../core/common";
+@import "./page.material.colors";
+@import "./page";
+
+@include exports("page.material") {
+  .mbsc-material {
+    .mbsc-note {
+      border-radius: .1875em;
+    }
+
+    /* Note */
+    .mbsc-note,
+    .mbsc-note-primary {
+      color: darken($mbsc-material-primary, 30%);
+      background-color: lighten($mbsc-material-primary, 15%);
+    }
+
+    .mbsc-note-secondary {
+      color: darken($mbsc-material-secondary, 30%);
+      background-color: lighten($mbsc-material-secondary, 15%);
+    }
+
+    .mbsc-note-success {
+      color: darken($mbsc-material-success, 30%);
+      background-color: lighten($mbsc-material-success, 15%);
+    }
+
+    .mbsc-note-danger {
+      color: darken($mbsc-material-danger, 30%);
+      background-color: lighten($mbsc-material-danger, 15%);
+    }
+
+    .mbsc-note-warning {
+      color: darken($mbsc-material-warning, 30%);
+      background-color: lighten($mbsc-material-warning, 15%);
+    }
+
+    .mbsc-note-info {
+      color: darken($mbsc-material-info, 30%);
+      background-color: lighten($mbsc-material-info, 15%);
+    }
+
+    .mbsc-note-light {
+      color: darken($mbsc-material-light, 60%);
+      background-color: lighten($mbsc-material-light, 10%);
+    }
+
+    .mbsc-note-dark {
+      color: darken($mbsc-material-dark, 30%);
+      background-color: lighten($mbsc-material-dark, 20%);
+    }
+  }
+
+  @include mbsc-material-page(material, (background: $mbsc-material-background, text: $mbsc-material-text, accent: $mbsc-material-accent));
+}

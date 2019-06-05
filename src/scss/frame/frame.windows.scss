@@ -1,0 +1,41 @@
+@import "../core/exports";
+@import "./frame.windows.colors";
+@import "./frame";
+
+@include exports("frame.windows") {
+  .mbsc-windows {
+    .mbsc-fr-w {
+      font-size: 16px;
+    }
+
+    .mbsc-ltr .mbsc-fr-btn-w .mbsc-fr-btn:before {
+      padding: 0 .375em 0 0;
+    }
+
+    .mbsc-rtl .mbsc-fr-btn-w .mbsc-fr-btn:before {
+      padding: 0 0 0 .375em;
+    }
+
+    &.mbsc-fr-inline .mbsc-fr-w {
+      border: 0;
+    }
+
+    .mbsc-fr-hdr {
+      padding: .5em;
+      font-weight: bold;
+    }
+
+    .mbsc-fr-btn {
+      height: 2.5em;
+      line-height: 2.5em;
+      text-align: center;
+      padding: 0 .375em;
+    }
+
+    .mbsc-fr-arr-w {
+      margin: -1px 0;
+    }
+  }
+
+  @include mbsc-windows-frame(windows, (background: $mbsc-windows-background, text: $mbsc-windows-text, accent: $mbsc-windows-accent));
+}

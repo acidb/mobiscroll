@@ -1,0 +1,46 @@
+@import "../core/exports";
+@import "../progress/progress.material";
+@import "./rating.material.colors";
+@import "./rating";
+
+@include exports("rating.material") {
+  .mbsc-material.mbsc-rating {
+    .mbsc-slider-handle:before {
+      display: none;
+    }
+
+    .mbsc-label {
+      padding-bottom: .5em;
+    }
+
+    input:disabled ~ .mbsc-progress-cont .mbsc-progress-track {
+      opacity: .4;
+    }
+
+    &.mbsc-rating-primary .mbsc-progress-track {
+      color: $mbsc-material-primary;
+    }
+
+    &.mbsc-rating-secondary .mbsc-progress-track {
+      color: $mbsc-material-secondary;
+    }
+
+    &.mbsc-rating-success .mbsc-progress-track {
+      color: $mbsc-material-success;
+    }
+
+    &.mbsc-rating-danger .mbsc-progress-track {
+      color: $mbsc-material-danger;
+    }
+
+    &.mbsc-rating-warning .mbsc-progress-track {
+      color: $mbsc-material-warning;
+    }
+
+    &.mbsc-rating-info .mbsc-progress-track {
+      color: $mbsc-material-info;
+    }
+  }
+
+  @include mbsc-material-rating(material, (background: $mbsc-material-background, text: $mbsc-material-text, accent: $mbsc-material-accent));
+}

@@ -21,7 +21,7 @@ export { MbscPageOptions };
     exportAs: 'mobiscroll'
 })
 export class MbscPage extends MbscBase implements OnInit {
-    _instance: Page;
+    instance: Page;
 
     @Input()
     options: MbscPageOptions;
@@ -34,13 +34,13 @@ export class MbscPage extends MbscBase implements OnInit {
     }
 
     ngOnInit() {
-        let optionsObj = extend({}, this.options, this.inlineOptions());
+        let optionsObj = extend({}, this.options, this.inlineOptionsObj);
         this.optionsService.options = optionsObj;
     }
 
     initControl() {
-        let options = extend({}, this.inlineEvents(), this.options, this.inlineOptions());
-        this._instance = new Page(this.initElem.nativeElement, options);
+        let options = extend({}, this.options, this.inlineOptionsObj);
+        this.instance = new Page(this.initElem.nativeElement, options);
     }
 }
 

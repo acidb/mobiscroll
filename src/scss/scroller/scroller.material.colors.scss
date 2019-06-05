@@ -1,0 +1,51 @@
+@import "../core/exports";
+@import "../core/material";
+@import "../frame/frame.material.colors";
+
+@mixin mbsc-material-scroller($theme, $params) {
+  @include exports("scroller.#{$theme}.colors") {
+
+    @include mbsc-material-frame($theme, $params);
+
+    $background: map-get($params, background);
+    $accent: map-get($params, accent);
+
+    .mbsc-#{$theme} {
+      .mbsc-sc-lbl {
+        color: $accent;
+      }
+
+      &.mbsc-no-touch .mbsc-sc-itm.mbsc-btn-e:hover,
+      .mbsc-sc-itm:focus {
+        background: rgba(0, 0, 0, .05);
+      }
+
+      &.mbsc-sc .mbsc-sc-whl .mbsc-sc-itm.mbsc-active {
+        background: rgba(0, 0, 0, .1);
+      }
+
+      .mbsc-sc-whl-l {
+        border-top: 2px solid $accent;
+        border-bottom: 2px solid $accent;
+      }
+
+      /* Clickpick mode */
+
+      .mbsc-sc-btn {
+        color: $accent;
+        background: $background;
+      }
+
+      &.mbsc-no-touch .mbsc-sc-btn:hover,
+      .mbsc-sc-btn.mbsc-active {
+        background: rgba(0, 0, 0, .1);
+      }
+
+      /* Multiple select */
+
+      .mbsc-sc-whl-multi .mbsc-sc-itm-sel:before {
+        color: $accent;
+      }
+    }
+  }
+}

@@ -1,0 +1,48 @@
+@import "../core/exports";
+@import "../popup/popup.windows";
+@import "./notifications.windows.colors";
+@import "./notifications";
+
+@include exports("notifications.windows") {
+  .mbsc-windows {
+
+    /* Toast */
+    &.mbsc-toast .mbsc-fr-w,
+    &.mbsc-snackbar .mbsc-fr-w {
+      border: 0;
+    }
+
+    /* Snackbar and Toast color presets */
+    &.mbsc-snackbar.mbsc-primary .mbsc-fr-w,
+    &.mbsc-toast.mbsc-primary .mbsc-toast-msg {
+      background: $mbsc-windows-primary;
+    }
+
+    &.mbsc-snackbar.mbsc-secondary .mbsc-fr-w,
+    &.mbsc-toast.mbsc-secondary .mbsc-toast-msg {
+      background: $mbsc-windows-secondary;
+    }
+
+    &.mbsc-snackbar.mbsc-success .mbsc-fr-w,
+    &.mbsc-toast.mbsc-success .mbsc-toast-msg {
+      background: $mbsc-windows-success;
+    }
+
+    &.mbsc-snackbar.mbsc-danger .mbsc-fr-w,
+    &.mbsc-toast.mbsc-danger .mbsc-toast-msg {
+      background: $mbsc-windows-danger;
+    }
+
+    &.mbsc-snackbar.mbsc-warning .mbsc-fr-w,
+    &.mbsc-toast.mbsc-warning .mbsc-toast-msg {
+      background: $mbsc-windows-warning;
+    }
+
+    &.mbsc-snackbar.mbsc-info .mbsc-fr-w,
+    &.mbsc-toast.mbsc-info .mbsc-toast-msg {
+      background: $mbsc-windows-info;
+    }
+  }
+
+  @include mbsc-windows-notifications(windows, (background: $mbsc-windows-background, text: $mbsc-windows-text, accent: $mbsc-windows-accent));
+}

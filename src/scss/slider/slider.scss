@@ -1,0 +1,87 @@
+@import "../core/exports";
+@import "../page/page";
+@import "../progress/progress";
+
+@include exports("slider") {
+  .mbsc-progress.mbsc-slider input {
+    display: none;
+  }
+
+  .mbsc-ltr .mbsc-progress-anim .mbsc-slider-handle-cont {
+    transition: left .1s ease-in-out;
+  }
+
+  .mbsc-rtl .mbsc-progress-anim .mbsc-slider-handle-cont {
+    transition: right .1s ease-in-out;
+  }
+
+  .mbsc-slider-handle-cont {
+    position: absolute;
+    width: 2em;
+    height: 2em;
+    top: .0625em;
+    margin-top: -1em;
+    cursor: pointer;
+  }
+
+  .mbsc-ltr .mbsc-slider-handle-cont {
+    right: -1em;
+  }
+
+  .mbsc-rtl .mbsc-slider-handle-cont {
+    left: -1em;
+  }
+
+  .mbsc-ltr .mbsc-slider-handle-cont.mbsc-slider-handle-left {
+    left: 0;
+  }
+
+  .mbsc-rtl .mbsc-slider-handle-cont.mbsc-slider-handle-left {
+    right: 0;
+  }
+
+  .mbsc-ltr .mbsc-progress-track .mbsc-slider-handle-cont {
+    margin-left: -1em;
+  }
+
+  .mbsc-rtl .mbsc-progress-track .mbsc-slider-handle-cont {
+    margin-right: -1em;
+  }
+
+  .mbsc-slider-handle {
+    position: absolute;
+    top: .125em;
+    right: 50%;
+    margin: -.5em -.5em 0 0;
+    z-index: 2;
+  }
+
+  .mbsc-slider-handle-cont .mbsc-slider-handle {
+    box-sizing: content-box;
+  }
+
+  .mbsc-slider .mbsc-slider-handle:focus,
+  .mbsc-slider .mbsc-active .mbsc-slider-handle {
+    outline: 0;
+    z-index: 15;
+  }
+
+  .mbsc-slider .mbsc-handle-curr {
+    z-index: 16;
+  }
+
+  .mbsc-slider-tooltip {
+    position: absolute;
+    right: 50%;
+    opacity: 0;
+    color: #000;
+  }
+
+  .mbsc-slider-step {
+    position: absolute;
+    top: 0;
+    width: .125em;
+    height: 100%;
+    margin-left: -.0625em;
+  }
+}

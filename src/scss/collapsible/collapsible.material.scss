@@ -1,0 +1,15 @@
+@import "../core/exports";
+@import "../core/material";
+@import "./collapsible";
+
+@include exports("collapsible.material") {
+  .mbsc-material .mbsc-collapsible {
+    .mbsc-form-group-title {
+      padding: 1em;
+    }
+
+    .mbsc-collapsible-header {
+      padding-right: 3em;
+    }
+  }
+}

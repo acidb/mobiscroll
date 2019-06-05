@@ -60,7 +60,7 @@ export { MbscInput };
 })
 export class MbscForm extends MbscBase implements OnInit {
     private optionsObj: MbscFormOptions;
-    _instance: Form;
+    instance: Form;
 
     @Input('options')
     options: MbscFormOptions;
@@ -84,23 +84,16 @@ export class MbscForm extends MbscBase implements OnInit {
         super(initialElem, zone);
     }
 
-    inlineOptions(): MbscFormOptions {
-        return extend(super.inlineOptions(), {
-            inputStyle: this.inputStyle,
-            labelStyle: this.labelStyle
-        });
-    }
-
     ngOnInit() {
         // make the options available for the children components
         // Note: inline evens should not be inherited
-        this.optionsObj = extend({}, this.options, this.inlineOptions());
+        this.optionsObj = extend({}, this.options, this.inlineOptionsObj);
         this._formService.options = this.optionsObj;
     }
 
     initControl() {
-        let options = extend({}, this.inlineEvents(), this.options, this.inlineOptions());
-        this._instance = new Form(this.rootElem.nativeElement, options);
+        let options = extend({}, this.options, this.inlineOptionsObj);
+        this.instance = new Form(this.rootElem.nativeElement, options);
     }
 }
 
@@ -132,7 +125,7 @@ export class MbscForm extends MbscBase implements OnInit {
     providers: [MbscInputService]
 })
 export class MbscTextarea extends MbscInputBase {
-    _instance: TextArea;
+    instance: TextArea;
 
     @Input()
     rows: number | string;
@@ -143,8 +136,8 @@ export class MbscTextarea extends MbscInputBase {
     }
 
     initControl() {
-        let options = extend({}, this._inheritedOptions, this.inlineEvents(), this.options, this.inlineOptions());
-        this._instance = new TextArea(this._initElem.nativeElement, options);
+        let options = extend({}, this._inheritedOptions, this.options, this.inlineOptionsObj);
+        this.instance = new TextArea(this._initElem.nativeElement, options);
     }
 }
 
@@ -180,7 +173,7 @@ export class MbscTextarea extends MbscInputBase {
     providers: [MbscInputService]
 })
 export class MbscDropdown extends MbscFormValueBase {
-    _instance: Select;
+    instance: Select;
     /**
      * Input for the label
      */
@@ -204,7 +197,7 @@ export class MbscDropdown extends MbscFormValueBase {
     set value(v: any) {
         this._value = v;
         setTimeout(() => {
-            this._instance._setText();
+            this.instance._setText();
         });
     }
 
@@ -226,12 +219,12 @@ export class MbscDropdown extends MbscFormValueBase {
     }
 
     initControl() {
-        let options = extend({}, this._inheritedOptions, this.inlineEvents(), this.options, this.inlineOptions());
-        this._instance = new Select(this._initElem.nativeElement, options);
+        let options = extend({}, this._inheritedOptions, this.options, this.inlineOptionsObj);
+        this.instance = new Select(this._initElem.nativeElement, options);
         let that = this;
         setTimeout(function () { // setTimeout also needed because the inner value is not propagated to the underlying select yet
             // Needed when using reactive forms, because the writeValue is called before the instance is initialized
-            that._instance._setText();
+            that.instance._setText();
         });
     }
 
@@ -244,10 +237,10 @@ export class MbscDropdown extends MbscFormValueBase {
      */
     writeValue(v: any): void {
         this._value = v;
-        if (this._instance) {
+        if (this.instance) {
             let that = this;
             setTimeout(function () {
-                that._instance._setText();
+                that.instance._setText();
             });
         }
     }
@@ -268,7 +261,7 @@ export class MbscDropdown extends MbscFormValueBase {
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MbscButton extends MbscFormBase {
-    _instance: Button;
+    instance: Button;
     _flat: boolean = false;
     _block: boolean = false;
     _outline: boolean = false;
@@ -330,8 +323,8 @@ export class MbscButton extends MbscFormBase {
     }
 
     initControl() {
-        let options = extend({}, this._inheritedOptions, this.inlineEvents(), this.options, this.inlineOptions());
-        this._instance = new Button(this._initElem.nativeElement, options);
+        let options = extend({}, this._inheritedOptions, this.options, this.inlineOptionsObj);
+        this.instance = new Button(this._initElem.nativeElement, options);
     }
 }
 
@@ -352,7 +345,7 @@ export class MbscButton extends MbscFormBase {
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MbscCheckbox extends MbscFormValueBase {
-    _instance: CheckBox;
+    instance: CheckBox;
     /**
      * Input for the color preset
      */
@@ -373,8 +366,8 @@ export class MbscCheckbox extends MbscFormValueBase {
     }
 
     initControl() {
-        let options = extend({}, this._inheritedOptions, this.inlineEvents(), this.options, this.inlineOptions());
-        this._instance = new CheckBox(this._initElem.nativeElement, options);
+        let options = extend({}, this._inheritedOptions, this.options, this.inlineOptionsObj);
+        this.instance = new CheckBox(this._initElem.nativeElement, options);
     }
 
     /** Overwritten to work with onPush change detection strategy 
@@ -407,7 +400,7 @@ export class MbscCheckbox extends MbscFormValueBase {
 })
 export class MbscSwitch extends MbscControlBase implements OnInit {
     protected _inheritedOptions: any;
-    _instance: Switch;
+    instance: Switch;
 
     @Input('options')
     options: MbscFormOptions;
@@ -454,9 +447,9 @@ export class MbscSwitch extends MbscControlBase implements OnInit {
     }
 
     setNewValue(v: boolean) {
-        if (this._instance) {
-            if (this._instance.getVal() !== v) {
-                this._instance.setVal(v, true, false);
+        if (this.instance) {
+            if (this.instance.getVal() !== v) {
+                this.instance.setVal(v, true, false);
             }
         }
     }
@@ -467,11 +460,11 @@ export class MbscSwitch extends MbscControlBase implements OnInit {
     }
 
     initControl() {
-        let options = extend({}, this._inheritedOptions, this.inlineEvents(), this.options, this.inlineOptions());
-        this._instance = new Switch(this._initElem.nativeElement, options);
+        let options = extend({}, this._inheritedOptions, this.options, this.inlineOptionsObj);
+        this.instance = new Switch(this._initElem.nativeElement, options);
 
         if (this.initialValue !== undefined) {
-            this._instance.setVal(this.initialValue, true, false);
+            this.instance.setVal(this.initialValue, true, false);
         }
     }
 }
@@ -503,7 +496,7 @@ export class MbscSwitch extends MbscControlBase implements OnInit {
 })
 export class MbscStepper extends MbscControlBase implements OnInit {
     protected _inheritedOptions: any;
-    _instance: Stepper;
+    instance: Stepper;
     _readonly: boolean;
 
     @Input()
@@ -578,8 +571,8 @@ export class MbscStepper extends MbscControlBase implements OnInit {
     }
 
     setNewValue(v: number) {
-        if (this._instance && this._instance.getVal() !== v) {
-            this._instance.setVal(v, true, false);
+        if (this.instance && this.instance.getVal() !== v) {
+            this.instance.setVal(v, true, false);
         }
     }
 
@@ -591,11 +584,11 @@ export class MbscStepper extends MbscControlBase implements OnInit {
     }
 
     initControl() {
-        let options = extend({}, this._inheritedOptions, this.inlineEvents(), this.options, this.inlineOptions());
-        this._instance = new Stepper(this._initElem.nativeElement, options);
+        let options = extend({}, this._inheritedOptions, this.options, this.inlineOptionsObj);
+        this.instance = new Stepper(this._initElem.nativeElement, options);
 
         if (this.initialValue !== undefined) {
-            this._instance.setVal(this.initialValue, true, false);
+            this.instance.setVal(this.initialValue, true, false);
         }
     }
 
@@ -624,7 +617,7 @@ export class MbscStepper extends MbscControlBase implements OnInit {
 })
 export class MbscProgress extends MbscControlBase implements OnInit {
     protected _inheritedOptions: any;
-    _instance: Progress;
+    instance: Progress;
 
     @Input('options')
     options: MbscFormOptions;
@@ -683,8 +676,8 @@ export class MbscProgress extends MbscControlBase implements OnInit {
     }
 
     setNewValue(v: number) {
-        if (this._instance && this._instance.getVal() !== v) {
-            this._instance.setVal(v, true, false);
+        if (this.instance && this.instance.getVal() !== v) {
+            this.instance.setVal(v, true, false);
         }
     }
 
@@ -696,11 +689,11 @@ export class MbscProgress extends MbscControlBase implements OnInit {
     }
 
     initControl() {
-        let options = extend({}, this._inheritedOptions, this.inlineEvents(), this.options, this.inlineOptions());
-        this._instance = new Progress(this._initElem.nativeElement, options);
+        let options = extend({}, this._inheritedOptions, this.options, this.inlineOptionsObj);
+        this.instance = new Progress(this._initElem.nativeElement, options);
 
         if (this.initialValue !== undefined) {
-            this._instance.setVal(this.initialValue, true, false);
+            this.instance.setVal(this.initialValue, true, false);
         }
     }
 }
@@ -818,7 +811,7 @@ export class MbscRadioGroup extends MbscRadioGroupBase {
     `
 })
 export class MbscRadio extends MbscFormBase {
-    _instance: Radio;
+    instance: Radio;
 
     get checked(): boolean {
         return this.value == this.modelValue;
@@ -852,8 +845,8 @@ export class MbscRadio extends MbscFormBase {
     }
 
     initControl() {
-        let options = extend({}, this._inheritedOptions, this.inlineEvents(), this.options, this.inlineOptions());
-        this._instance = new Radio(this._initElem.nativeElement, options);
+        let options = extend({}, this._inheritedOptions, this.options, this.inlineOptionsObj);
+        this.instance = new Radio(this._initElem.nativeElement, options);
     }
 
     ngOnInit() {
@@ -913,7 +906,7 @@ export class MbscSegmentedGroup extends MbscRadioGroupBase {
     `
 })
 export class MbscSegmented extends MbscFormBase {
-    _instance: SegmentedItem;
+    instance: SegmentedItem;
 
     get isChecked(): boolean {
         if (this.multiSelect) {
@@ -977,8 +970,8 @@ export class MbscSegmented extends MbscFormBase {
     }
 
     initControl() {
-        let options = extend({}, this._inheritedOptions, this.inlineEvents(), this.options, this.inlineOptions());
-        this._instance = new SegmentedItem(this._initElem.nativeElement, options);
+        let options = extend({}, this._inheritedOptions, this.options, this.inlineOptionsObj);
+        this.instance = new SegmentedItem(this._initElem.nativeElement, options);
     }
 
     ngOnInit() {
@@ -1018,7 +1011,7 @@ export class MbscSegmented extends MbscFormBase {
     exportAs: 'mobiscroll'
 })
 export class MbscSlider extends MbscControlBase {
-    _instance: Slider;
+    instance: Slider;
     _lastValue: any;
     _dummy: Array<number> = undefined;
 
@@ -1119,15 +1112,15 @@ export class MbscSlider extends MbscControlBase {
      * Reinitializes the slider control
      */
     reInitialize() {
-        this._instance.destroy();
+        this.instance.destroy();
         this.setElement();
         this.inputElements.forEach((input, index) => {
             if (index) {
                 this.handleChange(input.nativeElement);
             }
         });
-        let options = extend({}, this._inheritedOptions, this.inlineEvents(), this.options, this.inlineOptions());
-        this._instance = new Slider(this.inputElements.first.nativeElement, options);
+        let options = extend({}, this._inheritedOptions, this.options, this.inlineOptionsObj);
+        this.instance = new Slider(this.inputElements.first.nativeElement, options);
     }
 
     /**
@@ -1138,19 +1131,19 @@ export class MbscSlider extends MbscControlBase {
      */
     setNewValue(v: any) {
         this._lastValue = v;
-        if (this._instance) {
-            let innerValue = this._instance.getVal();
+        if (this.instance) {
+            let innerValue = this.instance.getVal();
             // check if last value type differs from the current value
             if (this.isMulti && (!innerValue || (innerValue as Array<number>).length != v.length)) {
                 // reinitialize in the next cycle - new input elements should be generated by ngFor
                 setTimeout(() => {
                     this.reInitialize();
-                    this._instance.setVal(this._lastValue, true, false);
+                    this.instance.setVal(this._lastValue, true, false);
                 });
             } else {
                 let changed = (this.isMulti && !deepEqualsArray(innerValue as Array<number>, v)) || (!this.isMulti && innerValue !== v);
                 if (changed) {
-                    this._instance.setVal(v, true, false);
+                    this.instance.setVal(v, true, false);
                 }
             }
         }
@@ -1173,11 +1166,11 @@ export class MbscSlider extends MbscControlBase {
             }
         });
 
-        let options = extend({}, this._inheritedOptions, this.inlineEvents(), this.options, this.inlineOptions());
-        this._instance = new Slider(this.inputElements.first.nativeElement, options);
+        let options = extend({}, this._inheritedOptions, this.options, this.inlineOptionsObj);
+        this.instance = new Slider(this.inputElements.first.nativeElement, options);
 
         if (this.initialValue !== undefined && this.initialValue !== null) {
-            this._instance.setVal(this.initialValue, true, false);
+            this.instance.setVal(this.initialValue, true, false);
         }
     }
 }
@@ -1205,7 +1198,7 @@ export class MbscSlider extends MbscControlBase {
 })
 export class MbscRating extends MbscControlBase implements OnInit {
     _inheritedOptions: any;
-    _instance: Rating;
+    instance: Rating;
 
     @Input()
     options: MbscFormOptions;
@@ -1282,9 +1275,9 @@ export class MbscRating extends MbscControlBase implements OnInit {
     }
 
     setNewValue(v: number) {
-        if (this._instance) {
-            if (this._instance.getVal() !== v) {
-                this._instance.setVal(v, true, false);
+        if (this.instance) {
+            if (this.instance.getVal() !== v) {
+                this.instance.setVal(v, true, false);
             }
         }
     }
@@ -1295,11 +1288,11 @@ export class MbscRating extends MbscControlBase implements OnInit {
     }
 
     initControl() {
-        let options = extend({}, this._inheritedOptions, this.inlineEvents(), this.options, this.inlineOptions());
-        this._instance = new Rating(this.element, options);
+        let options = extend({}, this._inheritedOptions, this.options, this.inlineOptionsObj);
+        this.instance = new Rating(this.element, options);
 
         if (this.initialValue !== undefined) {
-            this._instance.setVal(this.initialValue, true, false);
+            this.instance.setVal(this.initialValue, true, false);
         }
     }
 }
@@ -1308,8 +1301,8 @@ export class MbscRating extends MbscControlBase implements OnInit {
     selector: 'mbsc-form-group',
     template: '<ng-content></ng-content>',
     host: {
-        '[class.mbsc-form-group-inset]': 'inset !== undefined',
-        '[class.mbsc-form-group]': 'inset === undefined'
+        '[class.mbsc-form-group-inset]': 'emptyOrTrue(inset)',
+        '[class.mbsc-form-group]': '!emptyOrTrue(inset)'
     },
     styles: [':host { display: block; }']
 })
@@ -1320,11 +1313,11 @@ export class MbscFormGroup implements AfterViewInit {
     _open: boolean = false;
     @Input()
     set open(v: boolean) {
-        if (this._open != v && this._instance) {
+        if (this._open != v && this.instance) {
             if (v) {
-                this._instance.show();
+                this.instance.show();
             } else {
-                this._instance.hide();
+                this.instance.hide();
             }
         }
         this._open = v;
@@ -1335,38 +1328,38 @@ export class MbscFormGroup implements AfterViewInit {
     inset: string;
 
     /**
-     * Reference to the initialized mobiscroll instance
-     * For internal use only
+     * Reference to the initialized collapsible instance
      */
-    _instance: any = null;
+    instance: any = null;
 
     /**
      * Reference to the html element the mobiscroll is initialized on. 
      */
     element: any = null;
 
-    /**
-     * Public getter for the mobiscroll instance
-     */
-    get instance(): any {
-        return this._instance;
-    }
-
     constructor(public initialElem: ElementRef) {
         this.element = initialElem;
+    }
+
+    /**
+     * Checks if the value passed is empty or the true string. Used for determining if certain attributes are used on components
+     * @param v The value
+     */
+    emptyOrTrue(v: any): boolean {
+        return emptyOrTrue(v);
     }
 
     /* AfterViewInit Interface */
     ngAfterViewInit() {
         if (this.collapsible !== null) {
-            this._instance = new CollapsibleBase(this.element.nativeElement, { isOpen: this._open !== false });
+            this.instance = new CollapsibleBase(this.element.nativeElement, { isOpen: this._open !== false });
         }
     }
 
     /* OnDestroy Interface */
     ngOnDestroy() {
-        if (this._instance) {
-            this._instance.destroy();
+        if (this.instance) {
+            this.instance.destroy();
         }
     }
 }

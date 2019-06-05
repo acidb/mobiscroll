@@ -1,0 +1,48 @@
+@import "../core/exports";
+@import "../core/mobiscroll";
+@import "../frame/frame.mobiscroll.colors";
+
+@mixin mbsc-mobiscroll-scroller($theme, $params) {
+  @include exports("scroller.#{$theme}.colors") {
+
+    @include mbsc-mobiscroll-frame($theme, $params);
+
+    $background: map-get($params, background);
+    $accent: map-get($params, accent);
+    $text: map-get($params, text);
+
+    .mbsc-#{$theme} {
+      .mbsc-sc-lbl {
+        color: $accent;
+      }
+
+      .mbsc-sc-whl-l {
+        border-top: 1px solid $accent;
+        border-bottom: 1px solid $accent;
+      }
+
+      .mbsc-sc-btn {
+        color: $accent;
+        background: $background;
+      }
+
+      &.mbsc-no-touch .mbsc-sc-itm.mbsc-btn-e:hover,
+      .mbsc-sc-itm:focus {
+        background: rgba($text, .1);
+      }
+
+      &.mbsc-no-touch .mbsc-sc-btn:hover:before,
+      &.mbsc-sc .mbsc-sc-whl .mbsc-sc-itm.mbsc-active,
+      .mbsc-sc-btn.mbsc-active:before {
+        background: rgba($accent, .3);
+      }
+
+      /* Multiple select */
+      .mbsc-sc-whl-multi {
+        .mbsc-sc-itm-sel:before {
+          color: $accent;
+        }
+      }
+    }
+  }
+}

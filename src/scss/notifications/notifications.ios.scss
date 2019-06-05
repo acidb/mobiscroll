@@ -1,0 +1,74 @@
+@import "../core/exports";
+@import "../popup/popup.ios";
+@import "./notifications.ios.colors";
+@import "./notifications";
+
+@include exports("notifications.ios") {
+  .mbsc-ios {
+    &.mbsc-alert .mbsc-fr-c.mbsc-wdg-c {
+      padding: 1.142857em;
+      line-height: 1.285714;
+      text-align: center;
+    }
+
+    &.mbsc-alert h2 {
+      margin: 0.277778em 0;
+      font-size: 1.285715em;
+    }
+
+    &.mbsc-alert p {
+      margin: 0.357143em 0;
+    }
+
+    &.mbsc-alert .mbsc-input {
+      margin-top: 1.142857em;
+      border-radius: 0;
+    }
+
+    &.mbsc-alert .mbsc-input input {
+      height: 1.714286em;
+      padding: 0 0.357143em;
+    }
+
+    /* Toast */
+
+    &.mbsc-toast .mbsc-toast-msg {
+      border-radius: .5em;
+      opacity: .9;
+    }
+
+    /* Snackbar and Toast color presets */
+
+    &.mbsc-snackbar.mbsc-primary .mbsc-fr-w,
+    &.mbsc-toast.mbsc-primary .mbsc-toast-msg {
+      background: $mbsc-ios-primary;
+    }
+
+    &.mbsc-snackbar.mbsc-secondary .mbsc-fr-w,
+    &.mbsc-toast.mbsc-secondary .mbsc-toast-msg {
+      background: $mbsc-ios-secondary;
+    }
+
+    &.mbsc-snackbar.mbsc-success .mbsc-fr-w,
+    &.mbsc-toast.mbsc-success .mbsc-toast-msg {
+      background: $mbsc-ios-success;
+    }
+
+    &.mbsc-snackbar.mbsc-danger .mbsc-fr-w,
+    &.mbsc-toast.mbsc-danger .mbsc-toast-msg {
+      background: $mbsc-ios-danger;
+    }
+
+    &.mbsc-snackbar.mbsc-warning .mbsc-fr-w,
+    &.mbsc-toast.mbsc-warning .mbsc-toast-msg {
+      background: $mbsc-ios-warning;
+    }
+
+    &.mbsc-snackbar.mbsc-info .mbsc-fr-w,
+    &.mbsc-toast.mbsc-info .mbsc-toast-msg {
+      background: $mbsc-ios-info;
+    }
+  }
+
+  @include mbsc-ios-notifications(ios, (background: $mbsc-ios-background, text: $mbsc-ios-text, accent: $mbsc-ios-accent));
+}

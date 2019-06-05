@@ -1,0 +1,98 @@
+@import "../core/exports";
+@import "../frame/frame.mobiscroll";
+@import "./scroller.mobiscroll.colors";
+@import "./scroller";
+
+@include exports("scroller.mobiscroll") {
+  .mbsc-mobiscroll {
+    .mbsc-sc-whl-gr {
+      padding: .5em .25em;
+    }
+
+    .mbsc-sc-whl-w {
+      margin: 0 .25em;
+    }
+
+    .mbsc-sc-lbl-v .mbsc-sc-whl-w {
+      margin-top: 1.875em;
+    }
+
+    .mbsc-sc-lbl {
+      font-size: .75em;
+      line-height: 2.5em;
+      text-transform: uppercase;
+    }
+
+    .mbsc-sc-cp .mbsc-sc-whl-w {
+      padding: 2em 0;
+    }
+
+    .mbsc-sc-btn {
+      height: 2em;
+      line-height: 2em;
+    }
+
+    .mbsc-sc-btn:before {
+      font-size: 1.5em;
+    }
+
+    .mbsc-sc-itm {
+      padding: 0 .25em;
+      font-size: 1.375em;
+    }
+
+    &.mbsc-no-touch .mbsc-sc-itm.mbsc-btn-e:hover,
+    .mbsc-sc-itm:focus {
+      outline: 0;
+    }
+
+    /* Multiple select */
+    .mbsc-sc-whl-multi {
+      .mbsc-sc-itm {
+        padding: 0 1.818181em;
+      }
+
+      .mbsc-sc-itm-sel:before {
+        font-size: 1.818181em;
+      }
+    }
+
+    /* Desktop view */
+    &.mbsc-fr-pointer {
+      .mbsc-sc-lbl {
+        padding-left: 1.666667em;
+        padding-right: 1.666667em;
+      }
+
+      .mbsc-sc-whl-w {
+        margin-left: 0;
+        margin-right: 0;
+      }
+
+      .mbsc-sc-itm {
+        font-size: 1em;
+        padding: 0 1.25em;
+      }
+
+      .mbsc-sc-whl-multi {
+        .mbsc-sc-itm {
+          padding: 0 2.5em;
+        }
+
+        .mbsc-sc-itm-sel:before {
+          font-size: 2em;
+        }
+      }
+
+      .mbsc-ltr .mbsc-sc-whl-multi .mbsc-sc-itm-sel:before {
+        left: .125em;
+      }
+
+      .mbsc-rtl .mbsc-sc-whl-multi .mbsc-sc-itm-sel:before {
+        right: .125em;
+      }
+    }
+  }
+
+  @include mbsc-mobiscroll-scroller(mobiscroll, (background: $mbsc-mobiscroll-background, text: $mbsc-mobiscroll-text, accent: $mbsc-mobiscroll-accent));
+}

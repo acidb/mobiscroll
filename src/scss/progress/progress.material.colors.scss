@@ -1,0 +1,22 @@
+@import "../core/exports";
+@import "../core/material";
+
+@mixin mbsc-material-progress($theme, $params) {
+  @include exports("progress.#{$theme}.colors") {
+
+    $accent: map-get($params, accent);
+
+    $colors: mbsc-material-colors($params);
+    $gray-background: map-get($colors, gray-background);
+
+    .mbsc-#{$theme} {
+      .mbsc-progress-track {
+        background: $gray-background;
+      }
+
+      .mbsc-progress-bar {
+        background: $accent;
+      }
+    }
+  }
+}

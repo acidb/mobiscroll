@@ -1,0 +1,131 @@
+@import "../core/exports";
+@import "../core/icons";
+@import "./progress.windows.colors";
+@import "./progress";
+
+@include exports("progress.windows") {
+  .mbsc-windows {
+    &.mbsc-progress {
+      padding: .75em 1em;
+    }
+
+    &.mbsc-progress .mbsc-label {
+      padding-bottom: .3125em;
+      font-size: 1em;
+    }
+
+    &.mbsc-progress .mbsc-input-wrap {
+      padding: 0;
+    }
+
+    &.mbsc-progress .mbsc-input-ic {
+      top: -.125em;
+    }
+
+    &.mbsc-ltr.mbsc-progress.mbsc-ic-left .mbsc-input-wrap,
+    &.mbsc-rtl.mbsc-progress.mbsc-ic-right .mbsc-input-wrap {
+      padding-left: 2.25em;
+    }
+
+    &.mbsc-ltr.mbsc-progress.mbsc-ic-right .mbsc-input-wrap,
+    &.mbsc-rtl.mbsc-progress.mbsc-ic-left .mbsc-input-wrap {
+      padding-right: 2.25em;
+    }
+
+    &.mbsc-ltr.mbsc-progress.mbsc-ic-left .mbsc-left-ic,
+    &.mbsc-rtl.mbsc-progress.mbsc-ic-right .mbsc-right-ic {
+      right: auto;
+      left: -0.375em;
+    }
+
+    &.mbsc-ltr.mbsc-progress.mbsc-ic-right .mbsc-right-ic,
+    &.mbsc-rtl.mbsc-progress.mbsc-ic-left .mbsc-left-ic {
+      left: auto;
+      right: -0.375em;
+    }
+
+    &.mbsc-ltr.mbsc-progress.mbsc-progress-value-right .mbsc-input-wrap,
+    &.mbsc-rtl.mbsc-progress.mbsc-progress-value-left .mbsc-input-wrap {
+      padding-right: 3.75em;
+    }
+
+    &.mbsc-ltr.mbsc-progress.mbsc-progress-value-left .mbsc-input-wrap,
+    &.mbsc-rtl.mbsc-progress.mbsc-progress-value-right .mbsc-input-wrap {
+      padding-left: 3.75em;
+    }
+
+    &.mbsc-ltr.mbsc-progress-value-left.mbsc-ic-left .mbsc-input-wrap,
+    &.mbsc-rtl.mbsc-progress-value-right.mbsc-ic-right .mbsc-input-wrap {
+      padding-left: 5.75em;
+    }
+
+    &.mbsc-ltr.mbsc-progress-value-right.mbsc-ic-right .mbsc-input-wrap,
+    &.mbsc-rtl.mbsc-progress-value-left.mbsc-ic-left .mbsc-input-wrap {
+      padding-right: 5.75em;
+    }
+
+    &.mbsc-ltr.mbsc-progress-value-left.mbsc-ic-left .mbsc-progress-value,
+    &.mbsc-rtl.mbsc-progress-value-right.mbsc-ic-right .mbsc-progress-value {
+      left: 1.875em;
+      right: auto;
+    }
+
+    &.mbsc-ltr.mbsc-progress-value-right.mbsc-ic-right .mbsc-progress-value,
+    &.mbsc-rtl.mbsc-progress-value-left.mbsc-ic-left .mbsc-progress-value {
+      left: auto;
+      right: 1.875em;
+    }
+
+    .mbsc-progress-cont {
+      padding: .75em 0;
+    }
+
+    .mbsc-progress-track {
+      height: .25em;
+    }
+
+    .mbsc-progress-value {
+      margin-top: -.4375em;
+      width: 3.5em;
+    }
+
+    .mbsc-progress-step-label {
+      top: auto;
+      bottom: -2em;
+      line-height: normal;
+    }
+
+    /* Inline labels */
+    .mbsc-label-inline.mbsc-progress.mbsc-control-w .mbsc-label {
+      line-height: 1.875em;
+      padding-bottom: 0;
+    }
+
+    /* Progress color presets */
+    .mbsc-progress-primary .mbsc-progress-bar {
+      background: $mbsc-windows-primary;
+    }
+
+    .mbsc-progress-secondary .mbsc-progress-bar {
+      background: $mbsc-windows-secondary;
+    }
+
+    .mbsc-progress-success .mbsc-progress-bar {
+      background: $mbsc-windows-success;
+    }
+
+    .mbsc-progress-danger .mbsc-progress-bar {
+      background: $mbsc-windows-danger;
+    }
+
+    .mbsc-progress-warning .mbsc-progress-bar {
+      background: $mbsc-windows-warning;
+    }
+
+    .mbsc-progress-info .mbsc-progress-bar {
+      background: $mbsc-windows-info;
+    }
+  }
+
+  @include mbsc-windows-progress(windows, (background: $mbsc-windows-background, text: $mbsc-windows-text, accent: $mbsc-windows-accent));
+}

@@ -1,0 +1,27 @@
+@import "../core/exports";
+@import "../core/material";
+
+@mixin mbsc-material-page($theme, $params) {
+  @include exports("page.#{$theme}.colors") {
+    @include mbsc-material-common($theme, $params);
+
+    $background: map-get($params, background);
+    $accent: map-get($params, accent);
+
+    $colors: mbsc-material-colors($params);
+    $form-text: map-get($colors, form-text);
+
+    .mbsc-#{$theme} {
+      /* Page */
+
+      &.mbsc-page {
+        background-color: $background;
+        color: $form-text;
+      }
+
+      a {
+        color: $accent;
+      }
+    }
+  }
+}

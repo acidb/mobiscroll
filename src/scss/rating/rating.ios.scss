@@ -1,0 +1,43 @@
+@import "../core/exports";
+@import "../progress/progress.ios";
+@import "./rating.ios.colors";
+@import "./rating";
+
+@include exports("rating.ios") {
+  .mbsc-ios.mbsc-rating {
+    &.mbsc-progress .mbsc-input-wrap {
+      padding: 0;
+    }
+
+    input:disabled ~ .mbsc-progress-cont .mbsc-progress-track {
+      opacity: .4;
+    }
+
+    /* Color presets */
+    &.mbsc-rating-primary .mbsc-progress-track {
+      color: $mbsc-ios-primary;
+    }
+
+    &.mbsc-rating-secondary .mbsc-progress-track {
+      color: $mbsc-ios-secondary;
+    }
+
+    &.mbsc-rating-success .mbsc-progress-track {
+      color: $mbsc-ios-success;
+    }
+
+    &.mbsc-rating-danger .mbsc-progress-track {
+      color: $mbsc-ios-danger;
+    }
+
+    &.mbsc-rating-warning .mbsc-progress-track {
+      color: $mbsc-ios-warning;
+    }
+
+    &.mbsc-rating-info .mbsc-progress-track {
+      color: $mbsc-ios-info;
+    }
+  }
+
+  @include mbsc-ios-rating(ios, (background: $mbsc-ios-background, text: $mbsc-ios-text, accent: $mbsc-ios-accent));
+}

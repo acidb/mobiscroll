@@ -1,0 +1,154 @@
+@import "../core/exports";
+@import "../core/ios";
+@import "../frame/frame.ios.colors";
+
+@mixin mbsc-ios-scroller($theme, $params) {
+  @include exports("scroller.#{$theme}.colors") {
+
+    @include mbsc-ios-frame($theme, $params);
+
+    $text: map-get($params, text);
+    $accent: map-get($params, accent);
+
+    $colors: mbsc-ios-colors($params);
+    $button: map-get($colors, button);
+    $background-limited: map-get($colors, background-limited);
+    $cont-background: map-get($colors, cont-background);
+    $border-color: map-get($colors, border-color);
+    $item-3d: map-get($colors, item-3d);
+    $item-color: map-get($colors, item-color);
+    $popup-border: map-get($colors, popup-border);
+    $label-text: map-get($colors, label-text);
+    $button-active: map-get($colors, button-active);
+    $top-bottom-frame: map-get($colors, top-bottom-frame);
+    $top-bottom-wheel-border: map-get($colors, top-bottom-wheel-border);
+
+    .mbsc-#{$theme} {
+      /* Scroller */
+
+      &.mbsc-sc.mbsc-fr-top .mbsc-fr-w,
+      &.mbsc-sc.mbsc-fr-bottom .mbsc-fr-w {
+        background: $top-bottom-frame;
+      }
+
+      &.mbsc-calendar .mbsc-fr-persp .mbsc-fr-w {
+        background: $background-limited;
+      }
+
+      &.mbsc-calendar.mbsc-fr-top .mbsc-fr-btn-cont,
+      &.mbsc-calendar.mbsc-fr-bottom .mbsc-fr-btn-cont {
+        border-bottom: 1px solid $border-color;
+      }
+
+      /* Top / bottom color theme */
+
+      &.mbsc-fr-top .mbsc-sc-whl-l,
+      &.mbsc-fr-bottom .mbsc-sc-whl-l {
+        border-top: 1px solid $top-bottom-wheel-border;
+        border-bottom: 1px solid $top-bottom-wheel-border;
+      }
+
+      .mbsc-sc-whl-l,
+      &.mbsc-calendar .mbsc-sc-whl-l {
+        border-top: 1px solid $border-color;
+        border-bottom: 1px solid $border-color;
+      }
+
+      &.mbsc-fr-top .mbsc-sc-whl-o,
+      &.mbsc-fr-bottom .mbsc-sc-whl-o {
+        background: -webkit-linear-gradient($top-bottom-frame, rgba($top-bottom-frame, 0) 52%, rgba($top-bottom-frame, 0) 48%, $top-bottom-frame);
+        background: linear-gradient($top-bottom-frame, rgba($top-bottom-frame, 0) 52%, rgba($top-bottom-frame, 0) 48%, $top-bottom-frame);
+      }
+
+      .mbsc-sc-whl-o,
+      &.mbsc-calendar .mbsc-sc-whl-o {
+        background: -webkit-linear-gradient($background-limited, rgba($background-limited, 0) 52%, rgba($background-limited, 0) 48%, $background-limited);
+        background: linear-gradient($background-limited, rgba($background-limited, 0) 52%, rgba($background-limited, 0) 48%, $background-limited);
+      }
+
+      &.mbsc-fr-top .mbsc-sc-whl-gr-3d .mbsc-sc-whl-c,
+      &.mbsc-fr-bottom .mbsc-sc-whl-gr-3d .mbsc-sc-whl-c {
+        background: $top-bottom-frame;
+      }
+
+      /* Inline color theme */
+
+      &.mbsc-fr.mbsc-fr-inline .mbsc-sc-whl-o {
+        background: -webkit-linear-gradient($cont-background, rgba($cont-background, 0) 52%, rgba($cont-background, 0) 48%, $cont-background);
+        background: linear-gradient($cont-background, rgba($cont-background, 0) 52%, rgba($cont-background, 0) 48%, $cont-background);
+      }
+
+      &.mbsc-fr.mbsc-fr-inline .mbsc-sc-whl-gr-3d .mbsc-sc-whl-c {
+        background: $cont-background;
+      }
+
+      /* Wheel label */
+
+      .mbsc-sc-lbl {
+        color: $label-text;
+      }
+
+      .mbsc-sc-itm {
+        color: $item-color;
+      }
+
+      &.mbsc-no-touch .mbsc-sc-itm.mbsc-btn-e:hover,
+      .mbsc-sc-itm:focus {
+        background: rgba($button, .15);
+      }
+
+      &.mbsc-sc .mbsc-sc-whl .mbsc-sc-itm.mbsc-active {
+        background: rgba($button, .2);
+      }
+
+      .mbsc-sc-itm-sel,
+      .mbsc-sc-whl-gr-3d .mbsc-sc-itm {
+        color: $text;
+      }
+
+
+      /* 3D */
+
+      .mbsc-sc-whl-gr-3d .mbsc-sc-whl-c,
+      &.mbsc-calendar .mbsc-sc-whl-gr-3d .mbsc-sc-whl-c {
+        background: $background-limited;
+      }
+
+      .mbsc-sc-whl-gr-3d .mbsc-sc-itm-3d {
+        color: $item-3d;
+      }
+
+      /* Clickpick mode */
+
+      .mbsc-sc-btn {
+        color: $button;
+      }
+
+      /* Multiple select */
+
+      &.mbsc-sel-multi .mbsc-sc-itm {
+        color: $text;
+      }
+
+      .mbsc-sc-whl-multi .mbsc-sc-itm-sel {
+        color: $accent;
+      }
+
+      /* Desktop view */
+
+      &.mbsc-fr-pointer {
+        .mbsc-sc-whl-l {
+          border-color: $popup-border;
+        }
+
+        .mbsc-sc-itm {
+          color: $text;
+        }
+
+        .mbsc-sc-itm-sel {
+          color: $accent;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,65 @@
+@import "../core/exports";
+@import "../core/windows";
+@import "../page/page.windows.colors";
+@import "../progress/progress.windows.colors";
+
+@mixin mbsc-windows-slider($theme, $params) {
+  @include exports("slider.#{$theme}.colors") {
+
+    @include mbsc-windows-page($theme, $params);
+    @include mbsc-windows-progress($theme, $params);
+
+    $background: map-get($params, background);
+    $accent: map-get($params, accent);
+    $text: map-get($params, text);
+
+    $colors: mbsc-windows-colors($params);
+    $form-background: map-get($colors, form-background);
+    $input-hover: map-get($colors, input-hover);
+    $input-border: map-get($colors, input-border);
+    $frame-border: map-get($colors, frame-border);
+
+    .mbsc-#{$theme} {
+      &.mbsc-slider .mbsc-progress-track {
+        background: $input-border;
+        border-top: 2px solid $background;
+        border-bottom: 2px solid $background;
+      }
+
+      &.mbsc-form .mbsc-slider .mbsc-progress-track {
+        border-top-color: $form-background;
+        border-bottom-color: $form-background;
+      }
+
+      &.mbsc-slider:hover .mbsc-progress-track {
+        background: $input-hover;
+
+        .mbsc-slider-handle {
+          background: $text;
+        }
+      }
+
+      &.mbsc-slider .mbsc-active ~ .mbsc-progress-cont .mbsc-progress-track {
+        background: $input-border;
+
+        .mbsc-slider-handle {
+          background: $frame-border;
+        }
+      }
+
+      .mbsc-slider-handle {
+        background: $accent;
+      }
+
+      .mbsc-slider-tooltip {
+        border: 1px solid $frame-border;
+        background: $background;
+        color: $text;
+      }
+
+      .mbsc-slider-step {
+        background: $input-border;
+      }
+    }
+  }
+}

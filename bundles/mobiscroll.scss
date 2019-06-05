@@ -1,0 +1,52 @@
+// Forms
+@import "../src/scss/forms/forms";
+@import "../src/scss/forms/forms.bootstrap";
+@import "../src/scss/forms/forms.ios";
+@import "../src/scss/forms/forms.material";
+@import "../src/scss/forms/forms.mobiscroll";
+@import "../src/scss/forms/forms.windows";
+
+// Grid Layout
+@import "../src/scss/grid-layout/grid-layout";
+
+// Create theme builder functions
+
+@mixin mbsc-ios-theme($theme, $params) {
+  @include mbsc-ios-forms($theme, $params);
+}
+
+@mixin mbsc-material-theme($theme, $params) {
+  @include mbsc-material-forms($theme, $params);
+}
+
+@mixin mbsc-mobiscroll-theme($theme, $params) {
+  @include mbsc-mobiscroll-forms($theme, $params);
+}
+
+@mixin mbsc-windows-theme($theme, $params) {
+  @include mbsc-windows-forms($theme, $params);
+}
+
+@mixin mbsc-custom-theme($theme, $base-theme, $colors) {
+  @if $base-theme=='ios' {
+    @include mbsc-ios-theme($theme, $colors);
+  }
+
+  @else if $base-theme=='material' {
+    @include mbsc-material-theme($theme, $colors);
+  }
+
+  @else if $base-theme=='mobiscroll' {
+    @include mbsc-mobiscroll-theme($theme, $colors);
+  }
+
+  @else if $base-theme=='windows' {
+    @include mbsc-windows-theme($theme, $colors);
+  }
+}
+
+// Create dark theme variants
+@include mbsc-ios-theme('ios-dark', ('background': $mbsc-ios-dark-background, 'text': $mbsc-ios-dark-text, 'accent': $mbsc-ios-dark-accent));
+@include mbsc-material-theme('material-dark', ('background': $mbsc-material-dark-background, 'text': $mbsc-material-dark-text, 'accent': $mbsc-material-dark-accent));
+@include mbsc-mobiscroll-theme('mobiscroll-dark', ('background': $mbsc-mobiscroll-dark-background, 'text': $mbsc-mobiscroll-dark-text, 'accent': $mbsc-mobiscroll-dark-accent));
+@include mbsc-windows-theme('windows-dark', ('background': $mbsc-windows-dark-background, 'text': $mbsc-windows-dark-text, 'accent': $mbsc-windows-dark-accent));

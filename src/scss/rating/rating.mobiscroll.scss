@@ -1,0 +1,42 @@
+@import "../core/exports";
+@import "../progress/progress.mobiscroll";
+@import "./rating.mobiscroll.colors";
+@import "./rating";
+
+@include exports("rating.mobiscroll") {
+  .mbsc-mobiscroll.mbsc-rating {
+    .mbsc-label {
+      padding-bottom: .5em;
+    }
+
+    input:disabled ~ .mbsc-progress-cont .mbsc-progress-track {
+      opacity: .4;
+    }
+
+    &.mbsc-rating-primary .mbsc-progress-track {
+      color: $mbsc-mobiscroll-primary;
+    }
+
+    &.mbsc-rating-secondary .mbsc-progress-track {
+      color: $mbsc-mobiscroll-secondary;
+    }
+
+    &.mbsc-rating-success .mbsc-progress-track {
+      color: $mbsc-mobiscroll-success;
+    }
+
+    &.mbsc-rating-danger .mbsc-progress-track {
+      color: $mbsc-mobiscroll-danger;
+    }
+
+    &.mbsc-rating-warning .mbsc-progress-track {
+      color: $mbsc-mobiscroll-warning;
+    }
+
+    &.mbsc-rating-info .mbsc-progress-track {
+      color: $mbsc-mobiscroll-info;
+    }
+  }
+
+  @include mbsc-mobiscroll-rating(mobiscroll, (background: $mbsc-mobiscroll-background, text: $mbsc-mobiscroll-text, accent: $mbsc-mobiscroll-accent));
+}

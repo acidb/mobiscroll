@@ -1,0 +1,205 @@
+@import "../core/exports";
+
+@include exports("input") {
+  @keyframes autofill {
+    from {
+      opacity: 1;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+
+  .mbsc-input {
+    position: relative;
+    display: block;
+    margin: 0;
+    z-index: 0;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  .mbsc-input .mbsc-control:-webkit-autofill {
+    animation-name: autofill;
+  }
+
+  .mbsc-input input,
+  .mbsc-input select,
+  .mbsc-input textarea {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    outline: 0;
+    font-family: inherit;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+
+  .mbsc-input-wrap,
+  .mbsc-input input,
+  .mbsc-input textarea {
+    box-sizing: border-box;
+  }
+
+  .mbsc-input input,
+  .mbsc-input select,
+  .mbsc-input textarea {
+    display: block;
+    width: 100%;
+    font-size: 1em;
+  }
+
+  .mbsc-input input:focus,
+  .mbsc-input select:focus,
+  .mbsc-input textarea:focus {
+    outline: 0;
+  }
+
+  .mbsc-input-wrap {
+    position: relative;
+    display: block;
+  }
+
+  /* Textbox, textarea, select */
+
+  .mbsc-input .mbsc-label {
+    font-size: .875em;
+    white-space: nowrap;
+  }
+
+  .mbsc-input-ic {
+    position: absolute;
+    height: 2em;
+    width: 2em;
+    line-height: 2em;
+    text-align: center;
+  }
+
+  .mbsc-input-toggle {
+    cursor: pointer;
+  }
+
+  .mbsc-ic-right .mbsc-input-ic {
+    right: .5em;
+  }
+
+  .mbsc-ic-left .mbsc-input-ic {
+    left: .5em;
+  }
+
+  .mbsc-ic-right input {
+    padding-right: 2.4em;
+  }
+
+  .mbsc-ic-left input {
+    padding-left: 2.4em;
+  }
+
+  /* Inline labels */
+
+  .mbsc-label-inline.mbsc-input.mbsc-control-w {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+
+    .mbsc-input-wrap {
+      -webkit-box-flex: 1;
+      -webkit-flex: 1 auto;
+      -moz-box-flex: 1;
+      -moz-flex: 1 auto;
+      -ms-flex: 1 auto;
+      flex: 1 auto;
+    }
+
+    .mbsc-label {
+      position: static;
+      -webkit-box-flex: 0;
+      -webkit-flex: 0 auto;
+      -moz-box-flex: 0;
+      -moz-flex: 0 0 auto;
+      -ms-flex: 0 0 auto;
+      flex: 0 0 auto;
+      font-size: 1em;
+      width: 30%;
+      max-width: 12.5em;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      box-sizing: content-box;
+    }
+  }
+
+  /* Floating labels */
+
+  .mbsc-label-floating.mbsc-input {
+    .mbsc-label {
+      pointer-events: none;
+      transition: transform .2s;
+    }
+
+    .mbsc-label ~ .mbsc-input-wrap {
+
+      /* WebKit browsers */
+      .mbsc-control::-webkit-input-placeholder {
+        opacity: 0;
+      }
+
+      /* Mozilla Firefox 4 to 18 */
+      .mbsc-control:-moz-placeholder {
+        opacity: 0;
+      }
+
+      /* Mozilla Firefox 19+ */
+      .mbsc-control::-moz-placeholder {
+        opacity: 0;
+      }
+
+      /* Internet Explorer 10+ */
+      .mbsc-control:-ms-input-placeholder {
+        opacity: 0;
+      }
+    }
+
+    &.mbsc-label-floating-active .mbsc-label ~ .mbsc-input-wrap {
+
+      /* WebKit browsers */
+      .mbsc-control::-webkit-input-placeholder {
+        opacity: 1;
+        transition: opacity .2s;
+      }
+
+      /* Mozilla Firefox 4 to 18 */
+      .mbsc-control:-moz-placeholder {
+        opacity: 1;
+        transition: opacity .2s;
+      }
+
+      /* Mozilla Firefox 19+ */
+      .mbsc-control::-moz-placeholder {
+        opacity: 1;
+        transition: opacity .2s;
+      }
+
+      /* Internet Explorer 10+ */
+      .mbsc-control:-ms-input-placeholder {
+        opacity: 1;
+        transition: opacity .2s;
+      }
+    }
+  }
+
+  .mbsc-ltr .mbsc-label-floating.mbsc-input .mbsc-label {
+    -webkit-transform-origin: top left;
+    transform-origin: top left;
+  }
+
+  .mbsc-rtl .mbsc-label-floating.mbsc-input .mbsc-label {
+    -webkit-transform-origin: top right;
+    transform-origin: top right;
+  }
+}

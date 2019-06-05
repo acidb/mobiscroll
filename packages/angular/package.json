@@ -1,6 +1,6 @@
 {
     "name": "@mobiscroll/angular-lite",
-    "version": "4.6.3",
+    "version": "4.7.2",
     "description": "Angular UI library for progressive web and hybrid apps",
     "homepage": "https://mobiscroll.com/",
     "license": "Apache-2.0",
@@ -38,6 +38,7 @@
         "dist/bundles/mobiscroll.angular.min.js",
         "dist/esm5/mobiscroll.angular.min.js",
         "dist/css/mobiscroll.css",
+        "dist/css/mobiscroll.scss",
         "dist/css/mobiscroll.min.css",
         "dist/css/icons_mobiscroll.ttf",
         "dist/css/icons_mobiscroll.woff",

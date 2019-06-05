@@ -1,7 +1,7 @@
 module.exports = {
     default: [
         'babel',
-        'less',
+        'sass',
         'run:transpile',
         'rollup:dev',
         'copy:icons'
@@ -9,8 +9,9 @@ module.exports = {
     build: [
         'clean:packages',
         'babel',
-        'less',
+        'sass',
         'run:transpile',
+        'run:scss',
         'rollup:dev',
         'rollup:prod',
         'rollup:esm',

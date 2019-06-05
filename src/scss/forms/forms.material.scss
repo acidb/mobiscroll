@@ -1,0 +1,975 @@
+@import "../core/exports";
+@import "../collapsible/collapsible.material";
+@import "../page/page.material";
+@import "../input/input.material";
+@import "../slider/slider.material";
+@import "../rating/rating.material";
+@import "../notifications/notifications.material";
+@import "./forms.material.colors";
+@import "../core/material.ripple";
+@import "./forms";
+
+@include exports("forms.material") {
+  .mbsc-material {
+    .mbsc-desc {
+      opacity: .7;
+    }
+
+    .mbsc-divider,
+    .mbsc-form-group-title {
+      padding: .5em 1em;
+    }
+
+    .mbsc-err-msg {
+      position: absolute;
+      padding-top: .333334em;
+      font-size: .75em;
+    }
+
+    &.mbsc-ltr .mbsc-err-msg {
+      left: 0;
+    }
+
+    &.mbsc-rtl .mbsc-err-msg {
+      right: 0;
+    }
+
+    /* Form grid */
+
+    .mbsc-form-grid {
+      margin-top: .75em;
+      margin-bottom: .75em;
+    }
+
+    .mbsc-form-grid .mbsc-input-box,
+    .mbsc-form-grid .mbsc-input-outline {
+      margin: .75em 1em;
+    }
+
+    /* Checkbox, radio */
+    &.mbsc-form .mbsc-checkbox,
+    &.mbsc-form .mbsc-radio {
+      padding: .9375em 3.5em .9375em 1em;
+      line-height: 1.25em;
+    }
+
+    &.mbsc-rtl .mbsc-checkbox,
+    &.mbsc-rtl .mbsc-radio {
+      padding: .9375em 1em .9375em 3.5em;
+    }
+
+    .mbsc-checkbox-box,
+    .mbsc-radio-box {
+      right: 1.25em;
+      width: 1.125em;
+      height: 1.125em;
+      margin-top: -.5625em;
+      background: transparent;
+      -webkit-transition: background-color .1s ease-out;
+      transition: background-color .1s ease-out;
+    }
+
+    &.mbsc-rtl .mbsc-checkbox-box,
+    &.mbsc-rtl .mbsc-radio-box {
+      right: auto;
+      left: 1.25em;
+    }
+
+    .mbsc-checkbox-box:after,
+    .mbsc-radio-box:after {
+      opacity: 1;
+      -webkit-transform: scale(0) rotate(-45deg);
+      transform: scale(0) rotate(-45deg);
+      -webkit-transition: -webkit-transform .1s ease-out;
+      transition: transform .1s ease-out;
+    }
+
+    .mbsc-checkbox input:checked + .mbsc-checkbox-box:after,
+    .mbsc-radio input:checked + .mbsc-radio-box:after {
+      -webkit-transform: scale(1) rotate(-45deg);
+      transform: scale(1) rotate(-45deg);
+    }
+
+    .mbsc-checkbox-box:before,
+    .mbsc-radio-box:before {
+      content: '';
+      position: absolute;
+      top: -1em;
+      left: -1em;
+      z-index: -1;
+      width: 2.875em;
+      height: 2.875em;
+      opacity: 0;
+      border-radius: 2.875em;
+      -webkit-transition: opacity .2s ease-in-out;
+      transition: opacity .2s ease-in-out;
+    }
+
+    .mbsc-checkbox input:disabled + .mbsc-checkbox-box,
+    .mbsc-checkbox input:disabled ~ .mbsc-label,
+    .mbsc-checkbox input:disabled ~ .mbsc-desc,
+    .mbsc-radio input:disabled + .mbsc-radio-box,
+    .mbsc-radio input:disabled ~ .mbsc-label,
+    .mbsc-radio input:disabled ~ .mbsc-desc,
+    .mbsc-switch input:disabled ~ .mbsc-label,
+    .mbsc-switch input:disabled ~ .mbsc-desc {
+      opacity: .3;
+    }
+
+    .mbsc-checkbox input.mbsc-active + .mbsc-checkbox-box:before,
+    .mbsc-radio input.mbsc-active + .mbsc-radio-box:before,
+    .mbsc-switch input.mbsc-active + .mbsc-switch-track .mbsc-switch-handle:before {
+      opacity: 1;
+    }
+
+    /* Checkbox */
+    .mbsc-checkbox-box {
+      border-radius: .1875em;
+    }
+
+    .mbsc-checkbox-box:after {
+      top: .125em;
+      left: .0625em;
+      width: .8125em;
+      height: .4375em;
+    }
+
+    /* Checkbox color presets */
+    .mbsc-checkbox-primary.mbsc-checkbox {
+      input:checked + .mbsc-checkbox-box {
+        background: $mbsc-material-primary;
+        border-color: $mbsc-material-primary;
+      }
+    }
+
+    .mbsc-checkbox-secondary.mbsc-checkbox {
+      input:checked .mbsc-checkbox-box {
+        background: $mbsc-material-secondary;
+        border-color: $mbsc-material-secondary;
+      }
+    }
+
+    .mbsc-checkbox-success.mbsc-checkbox {
+      input:checked + .mbsc-checkbox-box {
+        background: $mbsc-material-success;
+        border-color: $mbsc-material-success;
+      }
+    }
+
+    .mbsc-checkbox-danger.mbsc-checkbox {
+      input:checked + .mbsc-checkbox-box {
+        background: $mbsc-material-danger;
+        border-color: $mbsc-material-danger;
+      }
+    }
+
+    .mbsc-checkbox-warning.mbsc-checkbox {
+      input:checked + .mbsc-checkbox-box {
+        background: $mbsc-material-warning;
+        border-color: $mbsc-material-warning;
+      }
+    }
+
+    .mbsc-checkbox-info.mbsc-checkbox {
+      input:checked + .mbsc-checkbox-box {
+        background: $mbsc-material-info;
+        border-color: $mbsc-material-info;
+      }
+    }
+
+    /* Radio */
+    .mbsc-radio-box:after {
+      width: .625em;
+      height: .625em;
+      margin-top: -.3125em;
+      margin-left: -.3125em;
+      border-radius: .625em;
+    }
+
+    /* Radio color presets */
+    .mbsc-radio-primary.mbsc-radio input:checked {
+      + .mbsc-radio-box {
+        border-color: $mbsc-material-primary;
+      }
+
+      + .mbsc-radio-box:after {
+        background: $mbsc-material-primary;
+      }
+    }
+
+    .mbsc-radio-secondary.mbsc-radio input:checked {
+      + .mbsc-radio-box {
+        border-color: $mbsc-material-secondary;
+      }
+
+      + .mbsc-radio-box:after {
+        background: $mbsc-material-secondary;
+      }
+    }
+
+    .mbsc-radio-success.mbsc-radio input:checked {
+      + .mbsc-radio-box {
+        border-color: $mbsc-material-success;
+      }
+
+      + .mbsc-radio-box:after {
+        background: $mbsc-material-success;
+      }
+    }
+
+    .mbsc-radio-danger.mbsc-radio input:checked {
+      + .mbsc-radio-box {
+        border-color: $mbsc-material-danger;
+      }
+
+      + .mbsc-radio-box:after {
+        background: $mbsc-material-danger;
+      }
+    }
+
+    .mbsc-radio-warning.mbsc-radio input:checked {
+      + .mbsc-radio-box {
+        border-color: $mbsc-material-warning;
+      }
+
+      + .mbsc-radio-box:after {
+        background: $mbsc-material-warning;
+      }
+    }
+
+    .mbsc-radio-info.mbsc-radio input:checked {
+      + .mbsc-radio-box {
+        border-color: $mbsc-material-info;
+      }
+
+      + .mbsc-radio-box:after {
+        background: $mbsc-material-info;
+      }
+    }
+
+    /* Button */
+    .mbsc-btn {
+      margin: .5em;
+      padding: .7143em;
+      border-radius: .2143em;
+      font-size: .875em;
+      font-weight: bold;
+      text-transform: uppercase;
+      transition: box-shadow .2s ease-out, background-color .2s ease-out;
+    }
+
+    .mbsc-btn-ic {
+      padding: 0 .5em 0 0;
+    }
+
+    .mbsc-btn-icon-only .mbsc-btn-ic {
+      padding: 0 .5em;
+    }
+
+    .mbsc-btn-group,
+    .mbsc-btn-group-justified {
+      margin: .5em;
+    }
+
+    .mbsc-btn-group-block {
+      margin: .5em 1em;
+    }
+
+    .mbsc-btn:disabled {
+      box-shadow: none;
+    }
+
+    /* Button color presets */
+    .mbsc-btn-primary.mbsc-btn {
+      background: $mbsc-material-primary;
+      color: $mbsc-material-light;
+
+      &.mbsc-active {
+        background: darken($mbsc-material-primary, 10%);
+      }
+
+      &.mbsc-btn-flat {
+        color: $mbsc-material-primary;
+
+        &.mbsc-active {
+          background: rgba($mbsc-material-primary, .3);
+        }
+      }
+    }
+
+    .mbsc-btn-secondary.mbsc-btn {
+      background: $mbsc-material-secondary;
+      color: $mbsc-material-light;
+
+      &.mbsc-active {
+        background: darken($mbsc-material-secondary, 10%);
+      }
+
+      &.mbsc-btn-flat {
+        color: $mbsc-material-secondary;
+
+        &.mbsc-active {
+          background: rgba($mbsc-material-secondary, .3);
+        }
+      }
+    }
+
+    .mbsc-btn-success.mbsc-btn {
+      background: $mbsc-material-success;
+      color: $mbsc-material-light;
+
+      &.mbsc-active {
+        background: darken($mbsc-material-success, 10%);
+      }
+
+      &.mbsc-btn-flat {
+        color: $mbsc-material-success;
+
+        &.mbsc-active {
+          background: rgba($mbsc-material-success, .3);
+        }
+      }
+    }
+
+    .mbsc-btn-danger.mbsc-btn {
+      background: $mbsc-material-danger;
+      color: $mbsc-material-light;
+
+      &.mbsc-active {
+        background: darken($mbsc-material-danger, 10%);
+      }
+
+      &.mbsc-btn-flat {
+        color: $mbsc-material-danger;
+
+        &.mbsc-active {
+          background: rgba($mbsc-material-danger, .3);
+        }
+      }
+    }
+
+    .mbsc-btn-warning.mbsc-btn {
+      background: $mbsc-material-warning;
+      color: $mbsc-material-light;
+
+      &.mbsc-active {
+        background: darken($mbsc-material-warning, 10%);
+      }
+
+      &.mbsc-btn-flat {
+        color: $mbsc-material-warning;
+
+        &.mbsc-active {
+          background: rgba($mbsc-material-warning, .3);
+        }
+      }
+    }
+
+    .mbsc-btn-info.mbsc-btn {
+      background: $mbsc-material-info;
+      color: $mbsc-material-light;
+
+      &.mbsc-active {
+        background: darken($mbsc-material-info, 10%);
+      }
+
+      &.mbsc-btn-flat {
+        color: $mbsc-material-info;
+
+        &.mbsc-active {
+          background: rgba($mbsc-material-info, .3);
+        }
+      }
+    }
+
+    .mbsc-btn-light.mbsc-btn {
+      background: $mbsc-material-light;
+
+      &.mbsc-active {
+        background: darken($mbsc-material-light, 10%);
+      }
+
+      &.mbsc-btn-flat {
+        color: darken($mbsc-material-light, 25%);
+
+        &.mbsc-active {
+          background: rgba($mbsc-material-light, .25);
+        }
+      }
+    }
+
+    .mbsc-btn-dark.mbsc-btn {
+      background: $mbsc-material-dark;
+
+      &.mbsc-active {
+        background: darken($mbsc-material-dark, 10%);
+      }
+
+      &.mbsc-btn-flat {
+        color: $mbsc-material-dark;
+
+        &.mbsc-active {
+          background: rgba($mbsc-material-dark, .3);
+        }
+      }
+    }
+
+    /* Outline buttons */
+    .mbsc-btn-outline.mbsc-btn {
+      box-shadow: none;
+    }
+
+    /* Outline buttons */
+    .mbsc-btn-outline.mbsc-btn {
+      &.mbsc-btn-primary {
+        border-color: $mbsc-material-primary;
+        color: $mbsc-material-primary;
+
+        &.mbsc-active {
+          background: $mbsc-material-primary;
+          color: $mbsc-material-light;
+        }
+      }
+
+      &.mbsc-btn-secondary {
+        border-color: $mbsc-material-secondary;
+        color: $mbsc-material-secondary;
+
+        &.mbsc-active {
+          background: $mbsc-material-secondary;
+          color: $mbsc-material-light;
+        }
+      }
+
+      &.mbsc-btn-success {
+        border-color: $mbsc-material-success;
+        color: $mbsc-material-success;
+
+        &.mbsc-active {
+          background: $mbsc-material-success;
+          color: $mbsc-material-light;
+        }
+      }
+
+      &.mbsc-btn-danger {
+        border-color: $mbsc-material-danger;
+        color: $mbsc-material-danger;
+
+        &.mbsc-active {
+          background: $mbsc-material-danger;
+          color: $mbsc-material-light;
+        }
+      }
+
+      &.mbsc-btn-warning {
+        border-color: $mbsc-material-warning;
+        color: $mbsc-material-warning;
+
+        &.mbsc-active {
+          background: $mbsc-material-warning;
+          color: $mbsc-material-light;
+        }
+      }
+
+      &.mbsc-btn-info {
+        border-color: $mbsc-material-info;
+        color: $mbsc-material-info;
+
+        &.mbsc-active {
+          background: $mbsc-material-info;
+          color: $mbsc-material-light;
+        }
+      }
+
+      &.mbsc-btn-light {
+        border-color: darken($mbsc-material-light, 25%);
+        color: darken($mbsc-material-light, 25%);
+
+        &.mbsc-active {
+          background: darken($mbsc-material-light, 25%);
+          color: darken($mbsc-material-light, 25%);
+        }
+      }
+
+      &.mbsc-btn-dark {
+        border-color: $mbsc-material-dark;
+        color: $mbsc-material-dark;
+
+        &.mbsc-active {
+          background: $mbsc-material-dark;
+          color: $mbsc-material-light;
+        }
+      }
+    }
+
+    /* button hover style */
+    &.mbsc-no-touch {
+      .mbsc-btn-outline.mbsc-btn:not(:disabled):hover {
+        box-shadow: none;
+      }
+
+      .mbsc-btn-primary.mbsc-btn {
+        &:not(:disabled):hover {
+          background: darken($mbsc-material-primary, 10%);
+
+          &.mbsc-btn-flat {
+            background: lighten($mbsc-material-primary, 25%);
+          }
+        }
+      }
+
+      .mbsc-btn-secondary.mbsc-btn {
+        &:not(:disabled):hover {
+          background: darken($mbsc-material-secondary, 10%);
+
+          &.mbsc-btn-flat {
+            background: lighten($mbsc-material-secondary, 25%);
+          }
+        }
+      }
+
+      .mbsc-btn-success.mbsc-btn {
+        &:not(:disabled):hover {
+          background: darken($mbsc-material-success, 10%);
+
+          &.mbsc-btn-flat {
+            background: lighten($mbsc-material-success, 25%);
+          }
+        }
+      }
+
+      .mbsc-btn-danger.mbsc-btn {
+        &:not(:disabled):hover {
+          background: darken($mbsc-material-danger, 10%);
+
+          &.mbsc-btn-flat {
+            background: lighten($mbsc-material-danger, 25%);
+          }
+        }
+      }
+
+      .mbsc-btn-warning.mbsc-btn {
+        &:not(:disabled):hover {
+          background: darken($mbsc-material-warning, 10%);
+
+          &.mbsc-btn-flat {
+            background: lighten($mbsc-material-warning, 25%);
+          }
+        }
+      }
+
+      .mbsc-btn-info.mbsc-btn {
+        &:not(:disabled):hover {
+          background: darken($mbsc-material-info, 10%);
+
+          &.mbsc-btn-flat {
+            background: lighten($mbsc-material-info, 25%);
+          }
+        }
+      }
+
+      .mbsc-btn-light.mbsc-btn {
+        &:not(:disabled):hover {
+          background: darken($mbsc-material-light, 10%);
+
+          &.mbsc-btn-flat {
+            background: lighten($mbsc-material-light, 25%);
+          }
+        }
+      }
+
+      .mbsc-btn-dark.mbsc-btn {
+        &.mbsc-btn:not(:disabled):hover {
+          background: darken($mbsc-material-dark, 10%);
+
+          &.mbsc-btn-flat {
+            background: lighten($mbsc-material-dark, 25%);
+          }
+        }
+      }
+
+      .mbsc-btn-outline.mbsc-btn {
+        &:not(:disabled):not(.mbsc-active):hover {
+          background: transparent;
+        }
+      }
+    }
+
+    &.mbsc-active.mbsc-control {
+      opacity: 1;
+    }
+
+    /* Switch */
+    &.mbsc-form .mbsc-switch {
+      padding: .9375em 4em .9375em 1em;
+      line-height: 1.25em;
+    }
+
+    &.mbsc-rtl .mbsc-switch {
+      padding: .9375em 1em .9375em 4em;
+    }
+
+    .mbsc-switch-track {
+      right: 1.25em;
+      width: 1.75em;
+      height: .875em;
+      padding: 0 .25em;
+      margin-top: -.4375em;
+      border-radius: 1.25em;
+    }
+
+    &.mbsc-rtl .mbsc-switch-track {
+      right: auto;
+      left: 1.25em;
+    }
+
+    .mbsc-switch .mbsc-switch-handle {
+      z-index: auto;
+      top: .375em;
+      left: .375em;
+      width: 1.25em;
+      height: 1.25em;
+      margin: 0;
+      border: 0;
+      border-radius: 1.25em;
+    }
+
+    &.mbsc-rtl .mbsc-switch .mbsc-switch-handle {
+      left: auto;
+      right: .375em;
+    }
+
+    .mbsc-switch-handle:before {
+      top: -.625em;
+      left: -.625em;
+      width: 2.5em;
+      height: 2.5em;
+    }
+
+    .mbsc-switch-handle,
+    .mbsc-active .mbsc-switch-handle {
+      -webkit-transform: none;
+      transform: none;
+    }
+
+    /* Switch color presets */
+    .mbsc-switch.mbsc-switch-primary input:checked {
+      + .mbsc-switch-track {
+        background: lighten($mbsc-material-primary, 20%);
+      }
+
+      + .mbsc-switch-track .mbsc-switch-handle {
+        background: $mbsc-material-primary;
+      }
+    }
+
+    .mbsc-switch.mbsc-switch-secondary input:checked {
+      + .mbsc-switch-track {
+        background: lighten($mbsc-material-secondary, 20%);
+      }
+
+      + .mbsc-switch-track .mbsc-switch-handle {
+        background: $mbsc-material-secondary;
+      }
+    }
+
+    .mbsc-switch.mbsc-switch-success input:checked {
+      + .mbsc-switch-track {
+        background: lighten($mbsc-material-success, 20%);
+      }
+
+      + .mbsc-switch-track .mbsc-switch-handle {
+        background: $mbsc-material-success;
+      }
+    }
+
+    .mbsc-switch.mbsc-switch-danger input:checked {
+      + .mbsc-switch-track {
+        background: lighten($mbsc-material-danger, 20%);
+      }
+
+      + .mbsc-switch-track .mbsc-switch-handle {
+        background: $mbsc-material-danger;
+      }
+    }
+
+    .mbsc-switch.mbsc-switch-warning input:checked {
+      + .mbsc-switch-track {
+        background: lighten($mbsc-material-warning, 20%);
+      }
+
+      + .mbsc-switch-track .mbsc-switch-handle {
+        background: $mbsc-material-warning;
+      }
+    }
+
+    .mbsc-switch.mbsc-switch-info input:checked {
+      + .mbsc-switch-track {
+        background: lighten($mbsc-material-info, 20%);
+      }
+
+      + .mbsc-switch-track .mbsc-switch-handle {
+        background: $mbsc-material-info;
+      }
+    }
+
+    /* Segmented control and Stepper */
+    .mbsc-segmented {
+      padding: .75em;
+    }
+
+    .mbsc-segmented-content {
+      height: 2.2857145em;
+      margin: 0 -.07142857em;
+      line-height: 2.2857145em;
+      padding: 0 .428571em;
+      text-transform: capitalize;
+      -webkit-backface-visibility: hidden;
+      /* fix android 4.1 flickering */
+    }
+
+    &.mbsc-ltr .mbsc-segmented-item:first-child .mbsc-segmented-content,
+    &.mbsc-ltr .mbsc-stepper-minus .mbsc-segmented-content,
+    &.mbsc-rtl .mbsc-stepper-plus .mbsc-segmented-content,
+    &.mbsc-rtl .mbsc-segmented-item:last-child .mbsc-segmented-content {
+      border-top-left-radius: .214286em;
+      border-bottom-left-radius: .214286em;
+    }
+
+    &.mbsc-ltr .mbsc-stepper-plus .mbsc-segmented-content,
+    &.mbsc-ltr .mbsc-segmented-item:last-child .mbsc-segmented-content,
+    &.mbsc-rtl .mbsc-segmented-item:first-child .mbsc-segmented-content,
+    &.mbsc-rtl .mbsc-stepper-minus .mbsc-segmented-content {
+      border-top-right-radius: .214286em;
+      border-bottom-right-radius: .214286em;
+    }
+
+    .mbsc-stepper-cont {
+      padding: 1.75em 12.875em 1.75em 1em;
+    }
+
+    &.mbsc-rtl .mbsc-stepper-cont {
+      padding: 1.75em 1em 1.75em 12.875em;
+    }
+
+    .mbsc-stepper {
+      margin-top: -1.125em;
+    }
+
+    .mbsc-stepper .mbsc-segmented-content {
+      border-left: 0;
+      border-right: 0;
+    }
+
+    .mbsc-stepper-control .mbsc-segmented-content {
+      border: 0;
+      height: 2.5714285em;
+      line-height: 2.5714285em;
+    }
+
+    /* Segmented color presets */
+    .mbsc-segmented-primary {
+      &.mbsc-segmented-item input:checked + .mbsc-segmented-content {
+        background: $mbsc-material-primary;
+      }
+    }
+
+    .mbsc-segmented-secondary {
+      .mbsc-segmented-content {
+        border-color: $mbsc-material-secondary;
+        color: $mbsc-material-secondary;
+      }
+
+      &.mbsc-segmented-item input:checked + .mbsc-segmented-content {
+        background: $mbsc-material-secondary;
+      }
+    }
+
+    .mbsc-segmented-success {
+      .mbsc-segmented-content {
+        border-color: $mbsc-material-success;
+        color: $mbsc-material-success;
+      }
+
+      &.mbsc-segmented-item input:checked + .mbsc-segmented-content {
+        background: $mbsc-material-success;
+      }
+    }
+
+    .mbsc-segmented-danger {
+      .mbsc-segmented-content {
+        border-color: $mbsc-material-danger;
+        color: $mbsc-material-danger;
+      }
+
+      &.mbsc-segmented-item input:checked + .mbsc-segmented-content {
+        background: $mbsc-material-danger;
+      }
+    }
+
+    .mbsc-segmented-warning {
+      .mbsc-segmented-content {
+        border-color: $mbsc-material-warning;
+        color: $mbsc-material-warning;
+      }
+
+      &.mbsc-segmented-item input:checked + .mbsc-segmented-content {
+        background: $mbsc-material-warning;
+      }
+    }
+
+    .mbsc-segmented-info {
+      .mbsc-segmented-content {
+        border-color: $mbsc-material-info;
+        color: $mbsc-material-info;
+      }
+
+      &.mbsc-segmented-item input:checked + .mbsc-segmented-content {
+        background: $mbsc-material-info;
+      }
+    }
+
+    /* Segmented color presets */
+    .mbsc-segmented {
+      .mbsc-segmented-primary {
+        .mbsc-segmented-content {
+          border-color: $mbsc-material-primary;
+          color: $mbsc-material-primary;
+        }
+
+        &.mbsc-segmented-item input:checked + .mbsc-segmented-content {
+          background: $mbsc-material-primary;
+        }
+      }
+
+      .mbsc-segmented-secondary {
+        .mbsc-segmented-content {
+          border-color: $mbsc-material-secondary;
+          color: $mbsc-material-secondary;
+        }
+
+        &.mbsc-segmented-item input:checked + .mbsc-segmented-content {
+          background: $mbsc-material-secondary;
+        }
+      }
+
+      .mbsc-segmented-success {
+        .mbsc-segmented-content {
+          border-color: $mbsc-material-success;
+          color: $mbsc-material-success;
+        }
+
+        &.mbsc-segmented-item input:checked + .mbsc-segmented-content {
+          background: $mbsc-material-success;
+        }
+      }
+
+      .mbsc-segmented-danger {
+        .mbsc-segmented-content {
+          border-color: $mbsc-material-danger;
+          color: $mbsc-material-danger;
+        }
+
+        &.mbsc-segmented-item input:checked + .mbsc-segmented-content {
+          background: $mbsc-material-danger;
+        }
+      }
+
+      .mbsc-segmented-warning {
+        .mbsc-segmented-content {
+          border-color: $mbsc-material-warning;
+          color: $mbsc-material-warning;
+        }
+
+        &.mbsc-segmented-item input:checked + .mbsc-segmented-content {
+          background: $mbsc-material-warning;
+        }
+      }
+
+      .mbsc-segmented-info {
+        .mbsc-segmented-content {
+          border-color: $mbsc-material-info;
+          color: $mbsc-material-info;
+        }
+
+        &.mbsc-segmented-item input:checked + .mbsc-segmented-content {
+          background: $mbsc-material-info;
+        }
+      }
+    }
+
+    /* Segmented color presets */
+    .mbsc-stepper-primary.mbsc-stepper-cont {
+      .mbsc-stepper .mbsc-segmented-content {
+        background: $mbsc-material-primary;
+        border-color: $mbsc-material-primary;
+      }
+    }
+
+    .mbsc-stepper-secondary.mbsc-stepper-cont {
+      .mbsc-stepper .mbsc-segmented-content {
+        background: $mbsc-material-secondary;
+        border-color: $mbsc-material-secondary;
+      }
+    }
+
+    .mbsc-stepper-success.mbsc-stepper-cont {
+      .mbsc-stepper .mbsc-segmented-content {
+        background: $mbsc-material-success;
+        border-color: $mbsc-material-success;
+      }
+    }
+
+    .mbsc-stepper-danger.mbsc-stepper-cont {
+      .mbsc-stepper .mbsc-segmented-content {
+        background: $mbsc-material-danger;
+        border-color: $mbsc-material-danger;
+      }
+    }
+
+    .mbsc-stepper-warning.mbsc-stepper-cont {
+      .mbsc-stepper .mbsc-segmented-content {
+        background: $mbsc-material-warning;
+        border-color: $mbsc-material-warning;
+      }
+    }
+
+    .mbsc-stepper-info.mbsc-stepper-cont {
+      .mbsc-stepper .mbsc-segmented-content {
+        background: $mbsc-material-info;
+        color: $mbsc-material-light;
+        border-color: $mbsc-material-info;
+      }
+    }
+
+    &.mbsc-no-touch {
+
+      /* Segmented hover color presets */
+      .mbsc-stepper-primary.mbsc-stepper-cont .mbsc-segmented-item:hover .mbsc-segmented-content {
+        background: rgba($mbsc-material-primary, .7);
+      }
+
+      .mbsc-stepper-secondary.mbsc-stepper-cont .mbsc-segmented-item:hover .mbsc-segmented-content {
+        background: rgba($mbsc-material-secondary, .7);
+      }
+
+      .mbsc-stepper-success.mbsc-stepper-cont .mbsc-segmented-item:hover .mbsc-segmented-content {
+        background: rgba($mbsc-material-success, .7);
+      }
+
+      .mbsc-stepper-danger.mbsc-stepper-cont .mbsc-segmented-item:hover .mbsc-segmented-content {
+        background: rgba($mbsc-material-danger, .7);
+      }
+
+      .mbsc-stepper-warning.mbsc-stepper-cont .mbsc-segmented-item:hover .mbsc-segmented-content {
+        background: rgba($mbsc-material-warning, .7);
+      }
+
+      .mbsc-stepper-info.mbsc-stepper-cont .mbsc-segmented-item:hover .mbsc-segmented-content {
+        background: rgba($mbsc-material-info, .7);
+      }
+    }
+  }
+
+  @include mbsc-material-forms(material, (background: $mbsc-material-background, text: $mbsc-material-text, accent: $mbsc-material-accent));
+}

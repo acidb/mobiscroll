@@ -1,0 +1,47 @@
+@import "../core/exports";
+@import "../popup/popup.material";
+@import "./notifications.material.colors";
+@import "./notifications";
+
+@include exports("notifications.material") {
+  .mbsc-material {
+    &.mbsc-toast .mbsc-toast-msg {
+      opacity: .9;
+      border-radius: 1.571429em;
+    }
+
+    /* Snackbar and Toast color presets */
+
+    &.mbsc-snackbar.mbsc-primary .mbsc-fr-w,
+    &.mbsc-toast.mbsc-primary .mbsc-toast-msg {
+      background: $mbsc-material-primary;
+    }
+
+    &.mbsc-snackbar.mbsc-secondary .mbsc-fr-w,
+    &.mbsc-toast.mbsc-secondary .mbsc-toast-msg {
+      background: $mbsc-material-secondary;
+    }
+
+    &.mbsc-snackbar.mbsc-success .mbsc-fr-w,
+    &.mbsc-toast.mbsc-success .mbsc-toast-msg {
+      background: $mbsc-material-success;
+    }
+
+    &.mbsc-snackbar.mbsc-danger .mbsc-fr-w,
+    &.mbsc-toast.mbsc-danger .mbsc-toast-msg {
+      background: $mbsc-material-danger;
+    }
+
+    &.mbsc-snackbar.mbsc-warning .mbsc-fr-w,
+    &.mbsc-toast.mbsc-warning .mbsc-toast-msg {
+      background: $mbsc-material-warning;
+    }
+
+    &.mbsc-snackbar.mbsc-info .mbsc-fr-w,
+    &.mbsc-toast.mbsc-info .mbsc-toast-msg {
+      background: $mbsc-material-info;
+    }
+  }
+
+  @include mbsc-material-notifications(material, (background: $mbsc-material-background, text: $mbsc-material-text, accent: $mbsc-material-accent));
+}

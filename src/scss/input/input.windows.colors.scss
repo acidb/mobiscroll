@@ -1,0 +1,78 @@
+@import "../core/exports";
+@import "../core/windows";
+
+@mixin mbsc-windows-input($theme, $params) {
+  @include exports("input.#{$theme}.colors") {
+
+    $text: map-get($params, text);
+    $accent: map-get($params, accent);
+
+    $colors: mbsc-windows-colors($params);
+    $error: map-get($colors, error);
+    $input-border: map-get($colors, input-border);
+    $input-hover: map-get($colors, input-hover);
+    $frame-border: map-get($colors, frame-border);
+
+    .mbsc-#{$theme} {
+
+      .mbsc-input input,
+      .mbsc-input textarea,
+      .mbsc-select input {
+        border: .125em solid $input-border;
+        color: $text;
+      }
+
+      &.mbsc-no-touch .mbsc-input input:hover,
+      &.mbsc-no-touch .mbsc-input textarea:hover,
+      &.mbsc-no-touch .mbsc-select:hover input {
+        border-color: $input-hover;
+      }
+
+      .mbsc-input input::-webkit-input-placeholder {
+        color: #5c5c5c;
+      }
+
+      .mbsc-input input::-ms-input-placeholder {
+        color: #5c5c5c;
+      }
+
+      .mbsc-input input::-moz-placeholder {
+        color: #5c5c5c;
+      }
+
+      .mbsc-input .mbsc-input-wrap input:focus,
+      .mbsc-input .mbsc-input-wrap select:focus + input,
+      .mbsc-input .mbsc-input-wrap textarea:focus,
+      &.mbsc-alert .mbsc-input input:focus {
+        background: #fff;
+        border-color: $accent;
+        color: #262626;
+
+        ~ .mbsc-input-ic {
+          color: #262626;
+        }
+      }
+
+      .mbsc-input .mbsc-input-wrap .mbsc-control:disabled + input,
+      .mbsc-input .mbsc-input-wrap textarea:disabled,
+      .mbsc-input .mbsc-input-wrap input:disabled {
+        border-color: $frame-border;
+      }
+
+      .mbsc-input.mbsc-err input,
+      .mbsc-input.mbsc-err textarea {
+        border-color: $error;
+      }
+
+      .mbsc-input-ic,
+      .mbsc-input .mbsc-label,
+      .mbsc-select .mbsc-input-wrap .mbsc-ic {
+        color: $text;
+      }
+
+      .mbsc-err-msg {
+        color: $error;
+      }
+    }
+  }
+}

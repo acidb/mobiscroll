@@ -1,0 +1,55 @@
+@import "../core/exports";
+@import "../core/common";
+@import "./page.ios.colors";
+@import "./page";
+
+@include exports("page.ios") {
+  .mbsc-ios {
+    .mbsc-note {
+      border-radius: .25em;
+    }
+
+    .mbsc-note,
+    .mbsc-note-primary {
+      color: darken($mbsc-ios-primary, 30%);
+      background-color: lighten($mbsc-ios-primary, 20%);
+    }
+
+    .mbsc-note-secondary {
+      color: darken($mbsc-ios-secondary, 30%);
+      background-color: lighten($mbsc-ios-secondary, 20%);
+    }
+
+    .mbsc-note-success {
+      color: darken($mbsc-ios-success, 30%);
+      background-color: lighten($mbsc-ios-success, 20%);
+    }
+
+    .mbsc-note-danger {
+      color: darken($mbsc-ios-danger, 30%);
+      background-color: lighten($mbsc-ios-danger, 20%);
+    }
+
+    .mbsc-note-warning {
+      color: darken($mbsc-ios-warning, 30%);
+      background-color: lighten($mbsc-ios-warning, 20%);
+    }
+
+    .mbsc-note-info {
+      color: darken($mbsc-ios-info, 30%);
+      background-color: lighten($mbsc-ios-info, 20%);
+    }
+
+    .mbsc-note-light {
+      color: darken($mbsc-ios-light, 70%);
+      background-color: lighten($mbsc-ios-light, 20%);
+    }
+
+    .mbsc-note-dark {
+      color: darken($mbsc-ios-dark, 30%);
+      background-color: lighten($mbsc-ios-dark, 20%);
+    }
+  }
+
+  @include mbsc-ios-page(ios, (background: $mbsc-ios-background, text: $mbsc-ios-text, accent: $mbsc-ios-accent));
+}

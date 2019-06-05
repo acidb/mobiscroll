@@ -1,0 +1,65 @@
+@import "../core/exports";
+@import "../core/material";
+@import "../page/page.material.colors";
+@import "../progress/progress.material.colors";
+
+@mixin mbsc-material-slider($theme, $params) {
+  @include exports("slider.#{$theme}.colors") {
+
+    @include mbsc-material-page($theme, $params);
+    @include mbsc-material-progress($theme, $params);
+
+    $background: map-get($params, background);
+    $accent: map-get($params, accent);
+
+    $colors: mbsc-material-colors($params);
+    $tooltip: map-get($colors, tooltip);
+    $background-contrast: map-get($colors, background-contrast);
+    $gray-background: map-get($colors, gray-background);
+
+    .mbsc-#{$theme} {
+      .mbsc-slider-step {
+        background: $background-contrast;
+      }
+
+      .mbsc-slider-handle {
+        border: 2px solid $accent;
+        background: $accent;
+      }
+
+      .mbsc-slider-start .mbsc-slider-handle {
+        border-color: $gray-background;
+        background: $background;
+      }
+
+      .mbsc-slider-tooltip {
+        color: $background;
+        background-color: $accent;
+      }
+
+      .mbsc-slider-tooltip:before {
+        border-top: 1em solid $accent;
+      }
+
+      &.mbsc-slider-has-tooltip .mbsc-slider-start .mbsc-slider-tooltip,
+      &.mbsc-slider input:disabled ~ .mbsc-progress-cont .mbsc-progress-bar {
+        background: $gray-background;
+      }
+
+      &.mbsc-slider-has-tooltip .mbsc-slider-start .mbsc-slider-tooltip:before {
+        border-top-color: $gray-background;
+      }
+
+      &.mbsc-slider input:disabled ~ .mbsc-progress-cont .mbsc-slider-handle {
+        background: $gray-background;
+        border-color: $gray-background;
+        box-shadow: 0 0 0 .3125em $background;
+      }
+
+      &.mbsc-slider input:disabled ~ .mbsc-progress-cont .mbsc-slider-start .mbsc-slider-handle {
+        border-color: $gray-background;
+        background: $background;
+      }
+    }
+  }
+}

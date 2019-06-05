@@ -1,0 +1,43 @@
+@import "../core/exports";
+@import "../core/material";
+
+@mixin mbsc-material-frame($theme, $params) {
+  @include exports("frame.#{$theme}.colors") {
+    $colors: mbsc-material-colors($params);
+    $background-contrast: map-get($colors, background-contrast);
+
+    $background: map-get($params, background);
+    $text: map-get($params, text);
+    $accent: map-get($params, accent);
+
+    .mbsc-#{$theme} {
+      .mbsc-fr-overlay {
+        background: rgba(0, 0, 0, .6);
+      }
+
+      .mbsc-fr-w {
+        background: $background;
+        color: $text;
+        box-shadow: 0 0.25em 1.5em rgba(0, 0, 0, 0.3);
+      }
+
+      .mbsc-fr-hdr {
+        color: $accent;
+      }
+
+      .mbsc-fr-btn {
+        color: $accent;
+      }
+
+      &.mbsc-no-touch .mbsc-fr-btn-e:not(.mbsc-disabled):hover,
+      .mbsc-fr-btn.mbsc-active {
+        background: rgba($background-contrast, .1);
+      }
+
+      .mbsc-fr-arr {
+        box-shadow: 0 0 1.5em rgba(0, 0, 0, 0.2);
+        background: $background;
+      }
+    }
+  }
+}

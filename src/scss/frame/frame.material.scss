@@ -1,0 +1,77 @@
+@import "../core/exports";
+@import "./frame.material.colors";
+@import "../core/material.ripple";
+@import "./frame";
+
+@include exports("frame.material") {
+  .mbsc-material {
+    .mbsc-fr-w {
+      border-radius: .1875em;
+      min-width: 15em;
+      font-size: 16px;
+    }
+
+    .mbsc-fr-hdr {
+      padding: 0 .6666em;
+      padding-top: .6666em;
+      font-size: .75em;
+      font-weight: bold;
+      text-transform: uppercase;
+      min-height: 2em;
+      line-height: 2em;
+    }
+
+    .mbsc-fr-btn-cont {
+      display: block;
+      overflow: hidden;
+      padding: 0 .5em .5em .5em;
+    }
+
+    .mbsc-ltr .mbsc-fr-btn-cont {
+      text-align: right;
+    }
+
+    .mbsc-rtl .mbsc-fr-btn-cont {
+      text-align: left;
+    }
+
+    .mbsc-fr-btn-w {
+      display: inline-block;
+    }
+
+    .mbsc-fr-btn {
+      position: relative;
+      height: 2.4em;
+      line-height: 2.4em;
+      padding: 0 1em;
+      border-radius: 2px;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    .mbsc-fr-btn-cont .mbsc-fr-btn {
+      font-size: .9375em;
+    }
+
+    .mbsc-fr-btn-e {
+      transition: background-color .2s ease-out;
+    }
+
+    /* Inline mode */
+
+    &.mbsc-fr-inline .mbsc-fr-w {
+      box-shadow: none;
+    }
+
+
+    /* Top, bottom mode */
+
+    &.mbsc-fr-inline .mbsc-fr-w,
+    &.mbsc-fr-top .mbsc-fr-w,
+    &.mbsc-fr-bottom .mbsc-fr-w {
+      border-radius: 0;
+    }
+  }
+
+  @include mbsc-material-frame(material, (background: $mbsc-material-background, text: $mbsc-material-text, accent: $mbsc-material-accent));
+}

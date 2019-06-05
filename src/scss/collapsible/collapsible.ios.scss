@@ -1,0 +1,20 @@
+@import "../core/exports";
+@import "../core/ios";
+@import "./collapsible";
+
+@include exports("collapsible.ios") {
+  .mbsc-ios .mbsc-collapsible {
+    .mbsc-collapsible-header {
+      padding-right: 3em;
+    }
+
+    .mbsc-form-group-title {
+      padding-top: 2.5em;
+      margin: 0;
+
+      .mbsc-collapsible-icon {
+        margin-top: .5em;
+      }
+    }
+  }
+}

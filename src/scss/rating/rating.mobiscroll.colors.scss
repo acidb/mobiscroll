@@ -1,0 +1,18 @@
+@import "../core/exports";
+@import "../core/mobiscroll";
+@import "../progress/progress.mobiscroll.colors";
+
+@mixin mbsc-mobiscroll-rating($theme, $params) {
+  @include exports("rating.#{$theme}.colors") {
+
+    @include mbsc-mobiscroll-progress($theme, $params);
+
+    $accent: map-get($params, accent);
+
+    .mbsc-#{$theme}.mbsc-rating {
+      .mbsc-progress-track {
+        color: $accent;
+      }
+    }
+  }
+}

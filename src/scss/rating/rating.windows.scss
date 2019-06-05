@@ -1,0 +1,39 @@
+@import "../core/exports";
+@import "../progress/progress.windows";
+@import "./rating.windows.colors";
+@import "./rating";
+
+@include exports("rating.windows") {
+  .mbsc-windows.mbsc-rating {
+    input:disabled ~ .mbsc-progress-cont .mbsc-progress-track {
+      opacity: .4;
+    }
+
+    /* Color presets */
+    &.mbsc-rating-primary .mbsc-progress-track {
+      color: $mbsc-windows-primary;
+    }
+
+    &.mbsc-rating-secondary .mbsc-progress-track {
+      color: $mbsc-windows-secondary;
+    }
+
+    &.mbsc-rating-success .mbsc-progress-track {
+      color: $mbsc-windows-success;
+    }
+
+    &.mbsc-rating-danger .mbsc-progress-track {
+      color: $mbsc-windows-danger;
+    }
+
+    &.mbsc-rating-warning .mbsc-progress-track {
+      color: $mbsc-windows-warning;
+    }
+
+    &.mbsc-rating-info .mbsc-progress-track {
+      color: $mbsc-windows-info;
+    }
+  }
+
+  @include mbsc-windows-rating(windows, (background: $mbsc-windows-background, text: $mbsc-windows-text, accent: $mbsc-windows-accent));
+}

@@ -1,0 +1,10 @@
+@import "../core/exports";
+@import "../core/ios";
+@import "../frame/frame.ios.colors";
+
+@mixin mbsc-ios-popup($theme, $params) {
+  @include exports("popup.#{$theme}.colors") {
+
+    @include mbsc-ios-frame($theme, $params);
+  }
+}

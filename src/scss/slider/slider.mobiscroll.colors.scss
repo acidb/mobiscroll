@@ -1,0 +1,33 @@
+@import "../core/exports";
+@import "../core/mobiscroll";
+@import "../page/page.mobiscroll.colors";
+@import "../progress/progress.mobiscroll.colors";
+
+@mixin mbsc-mobiscroll-slider($theme, $params) {
+  @include exports("slider.#{$theme}.colors") {
+
+    @include mbsc-mobiscroll-page($theme, $params);
+    @include mbsc-mobiscroll-progress($theme, $params);
+
+    $background: map-get($params, background);
+    $accent: map-get($params, accent);
+
+    $colors: mbsc-mobiscroll-colors($params);
+    $tooltip: map-get($colors, tooltip);
+
+    .mbsc-#{$theme} {
+      .mbsc-slider-step {
+        background: $background;
+      }
+
+      .mbsc-slider-handle {
+        background: $accent;
+      }
+
+      .mbsc-slider-tooltip {
+        color: $tooltip;
+        background-color: $accent;
+      }
+    }
+  }
+}

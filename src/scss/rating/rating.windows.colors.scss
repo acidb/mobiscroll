@@ -1,0 +1,18 @@
+@import "../core/exports";
+@import "../core/windows";
+@import "../progress/progress.windows.colors";
+
+@mixin mbsc-windows-rating($theme, $params) {
+  @include exports("rating.#{$theme}.colors") {
+
+    @include mbsc-windows-progress($theme, $params);
+
+    $accent: map-get($params, accent);
+
+    .mbsc-#{$theme}.mbsc-rating {
+      .mbsc-progress-track {
+        color: $accent;
+      }
+    }
+  }
+}

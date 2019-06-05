@@ -178,7 +178,7 @@ interface PopupProps extends ClassNameProp {
  * ---------------------
  */
 
-export interface FormComponent extends MbscComponent<MbscFormOptions, React.HTMLAttributes<HTMLElement>> { }
+export interface FormComponent extends MbscComponent<MbscFormOptions, React.FormHTMLAttributes<HTMLFormElement>> { }
 export interface LabelComponent extends MbscComponent<LabelProps> { }
 export interface InputComponent extends MbscComponent<MbscFormOptions, InputProps> { }
 export interface TextAreaComponent extends MbscComponent<MbscFormOptions, TextAreaProps> { }

@@ -1,0 +1,47 @@
+@import "../core/exports";
+@import "../core/windows";
+
+@mixin mbsc-windows-frame($theme, $params) {
+  @include exports("frame.#{$theme}.colors") {
+    $colors: mbsc-windows-colors($params);
+    $frame-border: map-get($colors, frame-border);
+    $button-hover: map-get($colors, button-hover);
+
+    $background: map-get($params, background);
+    $text: map-get($params, text);
+
+    .mbsc-#{$theme} {
+      .mbsc-fr-w {
+        background: $background;
+        color: $text;
+        border: 1px solid $frame-border;
+      }
+
+      .mbsc-fr-hdr {
+        border-bottom: 2px solid $frame-border;
+      }
+
+      .mbsc-fr-btn-cont {
+        border-top: 2px solid $frame-border;
+      }
+
+      .mbsc-fr-btn-w {
+        background: $background;
+      }
+
+      .mbsc-fr-btn {
+        color: $text;
+      }
+
+      &.mbsc-no-touch .mbsc-fr-btn-e:not(.mbsc-disabled):hover,
+      .mbsc-fr-btn.mbsc-active {
+        background: $button-hover;
+      }
+
+      .mbsc-fr-arr {
+        background: $background;
+        border: 1px solid $frame-border;
+      }
+    }
+  }
+}

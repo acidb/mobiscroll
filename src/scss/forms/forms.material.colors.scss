@@ -1,0 +1,300 @@
+@import "../core/exports";
+@import "../core/material";
+@import "../page/page.material.colors";
+@import "../input/input.material.colors";
+@import "../slider/slider.material.colors";
+@import "../rating/rating.material.colors";
+@import "../notifications/notifications.material.colors";
+
+@mixin mbsc-material-forms($theme, $params) {
+  @include exports("forms.#{$theme}.colors") {
+
+    @include mbsc-material-page($theme, $params);
+    @include mbsc-material-input($theme, $params);
+    @include mbsc-material-slider($theme, $params);
+    @include mbsc-material-rating($theme, $params);
+    @include mbsc-material-notifications($theme, $params);
+
+    $background: map-get($params, background);
+    $text: map-get($params, text);
+    $accent: map-get($params, accent);
+
+    $colors: mbsc-material-colors($params);
+    $form-text: map-get($colors, form-text);
+    $white-text: map-get($colors, white-text);
+    $dark-text: map-get($colors, dark-text);
+    $light-text: map-get($colors, light-text);
+    $error: map-get($colors, error);
+    $checkbox: map-get($colors, checkbox);
+    $gray-background: map-get($colors, gray-background);
+    $button-background: map-get($colors, button-background);
+    $button-color: map-get($colors, button-color);
+    $button-active: map-get($colors, button-active);
+    $input-color: map-get($colors, input-color);
+    $switch-disabled: map-get($colors, switch-disabled);
+    $switch: map-get($colors, switch);
+
+    .mbsc-#{$theme} {
+      &.mbsc-form {
+        background-color: $background;
+        color: $form-text;
+      }
+
+      &.mbsc-form *::-moz-selection,
+      &.mbsc-form *::selection {
+        color: $white-text;
+        background: $accent;
+      }
+
+      .mbsc-divider,
+      .mbsc-form-group-title {
+        color: $accent;
+      }
+
+      .mbsc-err-msg,
+      .mbsc-err .mbsc-label {
+        color: $error;
+      }
+
+      /* Checkbox, radio */
+      .mbsc-checkbox-box,
+      .mbsc-radio-box {
+        border: .125em solid $form-text;
+      }
+
+
+      .mbsc-checkbox-box:before,
+      .mbsc-radio-box:before {
+        background: rgba(0, 0, 0, .1);
+      }
+
+      /* Checkbox */
+      .mbsc-checkbox-box:after {
+        border: .125em solid $checkbox;
+        border-top: 0;
+        border-right: 0;
+      }
+
+      .mbsc-checkbox input:checked + .mbsc-checkbox-box {
+        background: $accent;
+        border-color: $accent;
+      }
+
+      /* Radio */
+      .mbsc-radio-box:after {
+        background: $accent;
+      }
+
+      .mbsc-radio input:checked + .mbsc-radio-box {
+        border-color: $accent;
+      }
+
+      /* Button */
+      .mbsc-btn {
+        background: $button-background;
+        color: $button-color;
+        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .25);
+      }
+
+      &.mbsc-no-touch .mbsc-btn:not(:disabled):hover,
+      .mbsc-btn.mbsc-active {
+        background: $button-active;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
+      }
+
+
+      &.mbsc-no-touch .mbsc-btn-flat:not(:disabled):hover,
+      .mbsc-btn-flat.mbsc-active {
+        background-color: $gray-background;
+      }
+
+      .mbsc-btn:disabled {
+        color: $input-color;
+      }
+
+      .mbsc-btn.mbsc-btn-outline:disabled {
+        color: $input-color;
+        border-color: $input-color;
+      }
+
+      .mbsc-btn-light.mbsc-btn {
+        color: $dark-text;
+      }
+
+      .mbsc-btn-dark.mbsc-btn {
+        color: $light-text;
+      }
+
+      /* Flat buttons */
+      .mbsc-btn-flat.mbsc-btn {
+        background: transparent;
+        box-shadow: none;
+      }
+
+      &.mbsc-no-touch .mbsc-btn-flat:not(:disabled):hover,
+      .mbsc-btn-flat.mbsc-active {
+        box-shadow: none;
+      }
+
+      /* Outline buttons */
+      .mbsc-btn-outline.mbsc-btn {
+        background: transparent;
+        border: 1px solid $form-text;
+        color: $form-text;
+        box-shadow: none;
+
+        &.mbsc-active.mbsc-control {
+          background: $form-text;
+          color: $background;
+          opacity: 1;
+        }
+      }
+
+      /* Switchteszt */
+      .mbsc-switch-track {
+        background: $gray-background;
+      }
+
+      .mbsc-switch .mbsc-switch-handle {
+        background: $switch;
+        box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+      }
+
+      .mbsc-switch input:checked + .mbsc-switch-track {
+        background-color: rgba($accent, .3);
+      }
+
+      .mbsc-switch input:checked + .mbsc-switch-track .mbsc-switch-handle {
+        background: $accent;
+      }
+
+      .mbsc-switch input:disabled + .mbsc-switch-track {
+        background: $button-background;
+      }
+
+      .mbsc-switch input:disabled + .mbsc-switch-track .mbsc-switch-handle {
+        background: $switch-disabled;
+      }
+
+      /* Segmented control and Stepper */
+      .mbsc-segmented-content {
+        border: .142858em solid $accent;
+        color: $button-color;
+      }
+
+      .mbsc-segmented .mbsc-segmented-item input:checked + .mbsc-segmented-content,
+      .mbsc-segmented .mbsc-segmented-item input:checked ~ .mbsc-segmented-content {
+        background: $accent;
+        color: $background;
+      }
+
+      .mbsc-segmented .mbsc-segmented-item input.mbsc-active + .mbsc-segmented-content,
+      .mbsc-segmented .mbsc-segmented-item .mbsc-active .mbsc-segmented-content {
+        background: $button-active;
+        color: $button-color;
+      }
+
+      .mbsc-segmented .mbsc-segmented-item input:disabled + .mbsc-segmented-content {
+        color: $input-color;
+        border-color: $gray-background;
+        background: transparent;
+      }
+
+      .mbsc-segmented .mbsc-segmented-item input:disabled:checked + .mbsc-segmented-content {
+        background: $button-background;
+        color: $input-color;
+        border-color: $button-background;
+      }
+
+      .mbsc-stepper .mbsc-segmented-content {
+        border-color: $button-background;
+      }
+
+      .mbsc-stepper-control .mbsc-segmented-content {
+        background: $button-background;
+      }
+
+      .mbsc-segmented input:disabled ~ .mbsc-segmented-item .mbsc-segmented-content,
+      .mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control.mbsc-disabled .mbsc-segmented-content,
+      .mbsc-segmented .mbsc-segmented-item.mbsc-disabled .mbsc-segmented-content {
+        background: $button-background;
+        color: $input-color;
+      }
+
+      .mbsc-segmented .mbsc-segmented-item input:disabled ~ .mbsc-segmented-item .mbsc-stepper-val {
+        background: $background;
+      }
+
+      .mbsc-stepper input:disabled {
+        color: $input-color;
+        -webkit-text-fill-color: $input-color;
+      }
+
+      &.mbsc-no-touch .mbsc-segmented-item:hover .mbsc-segmented-content {
+        background: $button-active;
+        color: $button-color;
+      }
+
+      /* Segmented color presets */
+      .mbsc-stepper-primary.mbsc-stepper-cont {
+        .mbsc-stepper .mbsc-segmented-content {
+          color: $background;
+        }
+
+        .mbsc-stepper .mbsc-stepper-val {
+          background: transparent;
+        }
+      }
+
+      .mbsc-stepper-secondary.mbsc-stepper-cont {
+        .mbsc-stepper .mbsc-segmented-content {
+          color: $background;
+        }
+
+        .mbsc-stepper .mbsc-stepper-val {
+          background: transparent;
+        }
+      }
+
+      .mbsc-stepper-success.mbsc-stepper-cont {
+        .mbsc-stepper .mbsc-segmented-content {
+          color: $background;
+        }
+
+        .mbsc-stepper .mbsc-stepper-val {
+          background: transparent;
+        }
+      }
+
+      .mbsc-stepper-danger.mbsc-stepper-cont {
+        .mbsc-stepper .mbsc-segmented-content {
+          color: $background;
+        }
+
+        .mbsc-stepper .mbsc-stepper-val {
+          background: transparent;
+        }
+      }
+
+      .mbsc-stepper-warning.mbsc-stepper-cont {
+        .mbsc-stepper .mbsc-segmented-content {
+          color: $background;
+        }
+
+        .mbsc-stepper .mbsc-stepper-val {
+          background: transparent;
+        }
+      }
+
+      .mbsc-stepper-info.mbsc-stepper-cont {
+        .mbsc-stepper .mbsc-segmented-content {
+          color: $background;
+        }
+
+        .mbsc-stepper .mbsc-stepper-val {
+          background: transparent;
+        }
+      }
+    }
+  }
+}

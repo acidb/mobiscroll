@@ -27,7 +27,7 @@ export { MbscScrollerOptions };
     exportAs: 'mobiscroll'
 })
 export class MbscScroller extends MbscScrollerBase {
-    _instance: Scroller;
+    instance: Scroller;
 
     /**
      * The mobiscroll settings for the directive are passed through this input.
@@ -61,25 +61,25 @@ export class MbscScroller extends MbscScrollerBase {
      * @param v The new value to be set
      */
     setNewValue(v: string) {
-        if (this._instance) {
-            let innerValue: string = this._instance.getVal();
+        if (this.instance) {
+            let innerValue: string = this.instance.getVal();
             // set value to instance if differs from the model
             if (innerValue !== v) {
-                this._instance.setVal(v, true, false);
+                this.instance.setVal(v, true, false);
                 if (this._inputService && this._inputService.input) {
-                    this._inputService.input.innerValue = this._instance._value;
+                    this._inputService.input.innerValue = this.instance._value;
                 }
             }
         }
     }
 
     initControl() {
-        let options = extend({}, this.optionService ? this.optionService.options : {}, this.inlineEvents(), this.options, this.inlineOptions(), this.optionExtensions);
-        this._instance = new Scroller(this.element, options);
+        let options = extend({}, this.optionService ? this.optionService.options : {}, this.options, this.inlineOptionsObj, this.optionExtensions);
+        this.instance = new Scroller(this.element, options);
 
         // set the initial value - needed when there's no ngModel in use
         if (this.initialValue !== undefined) {
-            this._instance.setVal(this.initialValue, true, false);
+            this.instance.setVal(this.initialValue, true, false);
         }
     }
 }

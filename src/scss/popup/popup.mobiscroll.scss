@@ -1,0 +1,8 @@
+@import "../core/exports";
+@import "../frame/frame.mobiscroll";
+@import "./popup.mobiscroll.colors";
+@import "./popup";
+
+@include exports("popup.mobiscroll") {
+  @include mbsc-mobiscroll-popup(mobiscroll, (background: $mbsc-mobiscroll-background, text: $mbsc-mobiscroll-text, accent: $mbsc-mobiscroll-accent));
+}

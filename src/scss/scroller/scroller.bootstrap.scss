@@ -1,0 +1,82 @@
+@import "../core/exports";
+@import "../frame/frame.bootstrap";
+@import "./scroller";
+
+/* Scroller */
+.mbsc-bootstrap {
+  .mbsc-sc-whl-gr-c {
+    overflow: visible;
+  }
+
+  .mbsc-sc-whl-gr {
+    padding: 4px 2px;
+  }
+
+  .mbsc-sc-lbl-v .mbsc-sc-whl-gr {
+    padding-top: 30px;
+  }
+
+  .mbsc-sc-lbl {
+    line-height: 30px;
+  }
+
+  .mbsc-sc-whl-w {
+    margin: 0 2px;
+  }
+
+  .mbsc-sc-whl-l {
+    margin: 0 -2px;
+    background: rgba(0, 0, 0, .2);
+  }
+
+  .mbsc-ltr .mbsc-sc-whl-w:first-child .mbsc-sc-whl-l,
+  .mbsc-rtl .mbsc-sc-whl-w:last-child .mbsc-sc-whl-l {
+    margin-left: -4px;
+  }
+
+  .mbsc-ltr .mbsc-sc-whl-w:last-child .mbsc-sc-whl-l,
+  .mbsc-rtl .mbsc-sc-whl-w:first-child .mbsc-sc-whl-l {
+    margin-right: -4px;
+  }
+
+  .mbsc-sc-itm {
+    padding: 0 5px;
+    font-size: 18px;
+  }
+
+  .mbsc-sc-itm.mbsc-active {
+    background: rgba(0, 0, 0, .1);
+  }
+
+
+  /* Clickpick mode */
+
+  .mbsc-sc-cp .mbsc-sc-whl-w {
+    padding: 30px 0;
+  }
+
+  .mbsc-sc-btn {
+    height: 30px !important;
+    line-height: 30px !important;
+  }
+
+  .mbsc-sc-btn-plus {
+    top: auto;
+  }
+
+  .mbsc-sc-btn.mbsc-active {
+    background: rgba(0, 0, 0, .1);
+  }
+
+
+  /* Multiple select */
+
+  .mbsc-sc-whl-multi .mbsc-sc-itm {
+    padding: 0 40px;
+  }
+
+  .mbsc-sc-whl-multi .mbsc-sc-itm-sel:before {
+    width: 40px;
+    font-size: 16px;
+  }
+}

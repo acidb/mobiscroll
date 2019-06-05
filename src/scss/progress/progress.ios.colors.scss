@@ -1,0 +1,33 @@
+@import "../core/exports";
+@import "../core/ios";
+
+@mixin mbsc-ios-progress($theme, $params) {
+  @include exports("progress.#{$theme}.colors") {
+
+    $accent: map-get($params, accent);
+
+    $colors: mbsc-ios-colors($params);
+    $cont-background: map-get($colors, cont-background);
+    $slider-track-step: map-get($colors, slider-track-step);
+    $slider-tooltip: map-get($colors, slider-tooltip);
+
+    .mbsc-#{$theme} {
+      &.mbsc-progress {
+        background: $cont-background;
+      }
+
+      .mbsc-progress-track {
+        background: $slider-track-step;
+      }
+
+      .mbsc-progress-bar {
+        background: $accent;
+      }
+
+      .mbsc-progress-value,
+      .mbsc-progress-step-label {
+        color: $slider-tooltip;
+      }
+    }
+  }
+}

@@ -1,0 +1,23 @@
+@import "../core/exports";
+@import "../core/mobiscroll";
+
+@mixin mbsc-mobiscroll-page($theme, $params) {
+  @include exports("page.#{$theme}.colors") {
+    @include mbsc-mobiscroll-common($theme, $params);
+
+    $text: map-get($params, text);
+    $accent: map-get($params, accent);
+    $background: map-get($params, background);
+
+    .mbsc-#{$theme} {
+      &.mbsc-page {
+        background: $background;
+        color: $text;
+      }
+
+      a {
+        color: $accent;
+      }
+    }
+  }
+}

@@ -1,0 +1,90 @@
+@import "../core/exports";
+@import "../core/material";
+
+@mixin mbsc-material-input($theme, $params) {
+  @include exports("input.#{$theme}.colors") {
+
+    $background: map-get($params, background);
+    $accent: map-get($params, accent);
+
+    $colors: mbsc-material-colors($params);
+    $error: map-get($colors, error);
+    $box-input: map-get($colors, box-input);
+    $input-text: map-get($colors, input-text);
+    $form-text: map-get($colors, form-text);
+
+    .mbsc-#{$theme} {
+
+      /* Textbox */
+      .mbsc-input input,
+      .mbsc-input textarea {
+        border-bottom: 1px solid $form-text;
+        color: $input-text;
+      }
+
+      /* Textbox, textarea, select */
+      .mbsc-input input:focus,
+      .mbsc-input textarea:focus,
+      .mbsc-input select:focus ~ input {
+        border-bottom: 2px solid $accent;
+      }
+
+      /* Input */
+      .mbsc-input.mbsc-err input,
+      .mbsc-input.mbsc-err textarea {
+        border-bottom: 1px solid $error;
+      }
+
+      /* Select */
+      .mbsc-select .mbsc-input-wrap:after {
+        border: 5px solid $form-text;
+        border-color: $form-text transparent transparent transparent;
+      }
+
+      /* Box Input color */
+      .mbsc-input-box {
+        &.mbsc-input .mbsc-input-wrap {
+          background: $box-input;
+        }
+      }
+
+      /* Outline Input */
+      .mbsc-input-outline {
+
+        &.mbsc-input input,
+        &.mbsc-input textarea {
+          border: 1px solid $form-text;
+        }
+
+        &.mbsc-input .mbsc-label {
+          background: $background;
+        }
+
+        &.mbsc-input input:focus,
+        &.mbsc-input select:focus ~ input {
+          border: 2px solid $accent;
+        }
+
+        &.mbsc-err input {
+          border: 1px solid $error;
+        }
+
+        &.mbsc-err input:focus {
+          border: 2px solid $error;
+        }
+
+        &.mbsc-input textarea:focus {
+          border: 2px solid $accent;
+        }
+
+        &.mbsc-err textarea {
+          border: 1px solid $error;
+        }
+
+        &.mbsc-err textarea:focus {
+          border: 2px solid $error;
+        }
+      }
+    }
+  }
+}

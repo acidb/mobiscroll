@@ -1,0 +1,61 @@
+@import "../core/exports";
+@import "../core/material";
+@import "../popup/popup.material.colors";
+
+@mixin mbsc-material-notifications($theme, $params) {
+  @include exports("notifications.#{$theme}.colors") {
+
+    @include mbsc-material-popup($theme, $params);
+
+    $accent: map-get($params, accent);
+
+    $colors: mbsc-material-colors($params);
+    $white-text: map-get($colors, white-text);
+    $light-text: map-get($colors, light-text);
+    $snackbar: map-get($colors, snackbar);
+    $snackbar-btn: map-get($colors, snackbar-btn);
+
+    .mbsc-#{$theme} {
+
+      /* Snackbar */
+
+      &.mbsc-snackbar .mbsc-fr-w {
+        background: $snackbar;
+        color: $white-text;
+      }
+
+      &.mbsc-snackbar .mbsc-snackbar-btn {
+        color: $snackbar-btn;
+      }
+
+      /* Toast */
+
+      &.mbsc-toast .mbsc-toast-msg {
+        background: #505050;
+        color: $white-text;
+      }
+
+      /* Snackbar and Toast color presets */
+      &.mbsc-snackbar.mbsc-primary .mbsc-fr-w,
+      &.mbsc-toast.mbsc-primary .mbsc-toast-msg,
+      &.mbsc-snackbar.mbsc-secondary .mbsc-fr-w,
+      &.mbsc-toast.mbsc-secondary .mbsc-toast-msg,
+      &.mbsc-snackbar.mbsc-success .mbsc-fr-w,
+      &.mbsc-toast.mbsc-success .mbsc-toast-msg,
+      &.mbsc-snackbar.mbsc-danger .mbsc-fr-w,
+      &.mbsc-toast.mbsc-danger .mbsc-toast-msg,
+      &.mbsc-snackbar.mbsc-warning .mbsc-fr-w,
+      &.mbsc-toast.mbsc-warning .mbsc-toast-msg,
+      &.mbsc-snackbar.mbsc-info .mbsc-fr-w,
+      &.mbsc-toast.mbsc-info .mbsc-toast-msg,
+      &.mbsc-snackbar.mbsc-primary .mbsc-snackbar-btn,
+      &.mbsc-snackbar.mbsc-secondary .mbsc-snackbar-btn,
+      &.mbsc-snackbar.mbsc-success .mbsc-snackbar-btn,
+      &.mbsc-snackbar.mbsc-danger .mbsc-snackbar-btn,
+      &.mbsc-snackbar.mbsc-warning .mbsc-snackbar-btn,
+      &.mbsc-snackbar.mbsc-info .mbsc-snackbar-btn {
+        color: $light-text;
+      }
+    }
+  }
+}

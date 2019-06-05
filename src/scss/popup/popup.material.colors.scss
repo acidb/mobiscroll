@@ -1,0 +1,10 @@
+@import "../core/exports";
+@import "../core/material";
+@import "../frame/frame.material.colors";
+
+@mixin mbsc-material-popup($theme, $params) {
+  @include exports("popup.#{$theme}.colors") {
+
+    @include mbsc-material-frame($theme, $params);
+  }
+}

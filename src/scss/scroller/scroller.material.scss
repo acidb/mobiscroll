@@ -1,0 +1,110 @@
+@import "../core/exports";
+@import "../frame/frame.material";
+@import "./scroller.material.colors";
+@import "./scroller";
+
+@include exports("scroller.material") {
+  .mbsc-material {
+    .mbsc-sc-whl-gr {
+      padding: 2em .25em;
+    }
+
+    .mbsc-sc-cp {
+      padding: .5em .25em;
+    }
+
+    .mbsc-sc-lbl-v .mbsc-sc-whl-gr {
+      padding-top: 2.5em;
+      padding-bottom: 0;
+    }
+
+    .mbsc-sc-lbl {
+      line-height: 2.666666em;
+      font-size: .75em;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    .mbsc-sc-whl-w {
+      margin: 0 .25em;
+      padding: .5em 0;
+    }
+
+    .mbsc-sc-itm {
+      padding: 0 .272727em;
+      font-size: 1.375em;
+    }
+
+    &.mbsc-no-touch .mbsc-sc-itm.mbsc-btn-e:hover,
+    .mbsc-sc-itm:focus {
+      outline: 0;
+    }
+
+    &.mbsc-sc .mbsc-sc-whl .mbsc-sc-itm.mbsc-active {
+      border-radius: 2px;
+    }
+
+    /* Clickpick mode */
+
+    .mbsc-sc-cp .mbsc-sc-whl-w {
+      padding: 2em 0;
+    }
+
+    .mbsc-sc-btn {
+      height: 2em;
+      line-height: 2em;
+      overflow: hidden;
+    }
+
+    .mbsc-sc-btn:before {
+      font-size: 1.5em;
+    }
+
+    /* Multiple select */
+
+    .mbsc-sc-whl-multi .mbsc-sc-itm {
+      padding: 0 1.818181em;
+    }
+
+    .mbsc-sc-whl-multi .mbsc-sc-itm-sel:before {
+      width: 1.818181em;
+    }
+
+    /* Desktop styling */
+
+    &.mbsc-fr-pointer {
+      .mbsc-sc-lbl {
+        padding-left: 1.666667em;
+        padding-right: 1.666667em;
+      }
+
+      .mbsc-sc-whl-w {
+        margin: 0;
+        padding: 0;
+      }
+
+      .mbsc-sc-itm {
+        font-size: 1em;
+        padding: 0 1.25em;
+      }
+
+      .mbsc-sc-whl-multi .mbsc-sc-itm {
+        padding: 0 2.5em;
+      }
+
+      .mbsc-sc-whl-multi .mbsc-sc-itm-sel:before {
+        width: 2em;
+      }
+
+      .mbsc-ltr .mbsc-sc-whl-multi .mbsc-sc-itm-sel:before {
+        left: .25em;
+      }
+
+      .mbsc-rtl .mbsc-sc-whl-multi .mbsc-sc-itm-sel:before {
+        right: .25em;
+      }
+    }
+  }
+
+  @include mbsc-material-scroller(material, (background: $mbsc-material-background, text: $mbsc-material-text, accent: $mbsc-material-accent));
+}

@@ -1,0 +1,27 @@
+@import "../core/exports";
+@import "../core/mobiscroll";
+
+@mixin mbsc-mobiscroll-progress($theme, $params) {
+  @include exports("progress.#{$theme}.colors") {
+
+    $accent: map-get($params, accent);
+
+    $colors: mbsc-mobiscroll-colors($params);
+    $input-icon: map-get($colors, input-icon);
+    $btn-disabled: map-get($colors, btn-disabled);
+
+    .mbsc-#{$theme} {
+      &.mbsc-progress .mbsc-input-ic {
+        color: $input-icon;
+      }
+
+      .mbsc-progress-track {
+        background: $btn-disabled;
+      }
+
+      .mbsc-progress-bar {
+        background: $accent;
+      }
+    }
+  }
+}

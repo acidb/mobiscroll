@@ -1,0 +1,8 @@
+@import "../core/exports";
+@import "../frame/frame.material";
+@import "./popup.material.colors";
+@import "./popup";
+
+@include exports("popup.material") {
+  @include mbsc-material-popup(material, (background: $mbsc-material-background, text: $mbsc-material-text, accent: $mbsc-material-accent));
+}

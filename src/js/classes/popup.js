@@ -85,6 +85,7 @@ Popup.prototype = {
     _hasTheme: true,
     _hasContent: true,
     _hasLang: true,
+    _responsive: true,
     _class: 'popup',
     _defaults: extend({}, Frame.prototype._defaults, {
         compClass: 'mbsc-wdg',

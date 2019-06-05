@@ -1,0 +1,531 @@
+@import "../core/exports";
+@import "./input.ios.colors";
+@import "./input";
+
+@include exports("input.ios") {
+  .mbsc-ios {
+    .mbsc-input {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      padding: 0;
+    }
+
+    .mbsc-input input {
+      height: 2.75em;
+      padding: 0 1em;
+      background: transparent;
+    }
+
+    .mbsc-input-wrap {
+      position: static;
+      -webkit-box-flex: 1;
+      -webkit-flex: 1 auto;
+      -moz-box-flex: 1;
+      -moz-flex: 1 auto;
+      -ms-flex: 1 auto;
+      flex: 1 auto;
+    }
+
+    .mbsc-input-wrap .mbsc-input-fill {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: -1;
+      border-radius: 8px;
+    }
+
+    /* Textbox, select, textarea */
+    .mbsc-textarea textarea {
+      height: 3em;
+      padding: 0 1em;
+      background: transparent;
+    }
+
+    .mbsc-input .mbsc-label,
+    .mbsc-progress .mbsc-label {
+      -webkit-box-flex: 0;
+      -webkit-flex: 0 auto;
+      -moz-box-flex: 0;
+      -moz-flex: 0 0 auto;
+      -ms-flex: 0 0 auto;
+      flex: 0 0 auto;
+      width: 30%;
+      max-width: 12.5em;
+      overflow: hidden;
+      font-size: 1em;
+      line-height: 2.75em;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      box-sizing: content-box;
+    }
+
+    &.mbsc-ltr .mbsc-input .mbsc-label {
+      padding-left: 1em;
+    }
+
+    &.mbsc-rtl .mbsc-input .mbsc-label {
+      padding-right: 1em;
+    }
+
+    .mbsc-input input:disabled,
+    .mbsc-input textarea:disabled,
+    .mbsc-input .mbsc-control:disabled ~ input,
+    .mbsc-input .mbsc-control:disabled ~ .mbsc-ic {
+      opacity: .5;
+    }
+
+    .mbsc-err-msg {
+      padding: .5em 1.3333em;
+    }
+
+    /* Select */
+    &.mbsc-ltr .mbsc-select input {
+      padding-right: 2.25em;
+    }
+
+    &.mbsc-rtl .mbsc-select input {
+      padding-left: 2.25em;
+    }
+
+    .mbsc-select-ic {
+      position: absolute;
+      display: block;
+      height: 1.25em;
+      width: 1.25em;
+      top: .875em;
+      right: 1em;
+      text-align: center;
+    }
+
+    &.mbsc-rtl .mbsc-select-ic {
+      right: auto;
+      left: 1em;
+    }
+
+    .mbsc-ic-right .mbsc-select-ic {
+      right: 3.4em;
+    }
+
+    &.mbsc-rtl .mbsc-ic-right .mbsc-select-ic {
+      right: auto;
+      left: 3.4em;
+    }
+
+    /* Select inline */
+    .mbsc-select-inline .mbsc-select-ic {
+      display: none;
+    }
+
+    /* Textarea */
+    .mbsc-textarea .mbsc-input-wrap {
+      padding: .625em 0;
+    }
+
+    /* Icons */
+    .mbsc-input-ic {
+      top: .375em;
+      margin-top: -1px;
+    }
+
+    .mbsc-ic-left {
+      z-index: 1;
+    }
+
+    &.mbsc-ltr .mbsc-ic-left .mbsc-input-wrap,
+    &.mbsc-rtl .mbsc-ic-right .mbsc-input-wrap {
+      padding-left: 2.25em;
+    }
+
+    &.mbsc-ltr .mbsc-ic-right .mbsc-input-wrap,
+    &.mbsc-rtl .mbsc-ic-left .mbsc-input-wrap {
+      padding-right: 2.25em;
+    }
+
+    &.mbsc-ltr .mbsc-ic-left .mbsc-label {
+      padding-left: 3.25em;
+    }
+
+    &.mbsc-rtl .mbsc-ic-left .mbsc-label {
+      padding-right: 3.25em;
+    }
+
+    &.mbsc-ltr .mbsc-ic-left .mbsc-label ~ .mbsc-input-wrap {
+      padding-left: 0;
+    }
+
+    &.mbsc-rtl .mbsc-ic-left .mbsc-label ~ .mbsc-input-wrap {
+      padding-right: 0;
+    }
+
+    .mbsc-ic-left .mbsc-left-ic,
+    &.mbsc-rtl .mbsc-ic-right .mbsc-right-ic {
+      right: auto;
+      left: .625em;
+    }
+
+    .mbsc-ic-right .mbsc-right-ic,
+    &.mbsc-rtl .mbsc-ic-left .mbsc-left-ic {
+      left: auto;
+      right: .625em;
+    }
+
+    /* Row separator */
+    .mbsc-control-w {
+      margin-top: -1px;
+    }
+
+    .mbsc-control-w:before,
+    .mbsc-control-w:after {
+      content: "";
+      position: absolute;
+      right: 0;
+      left: 1em;
+    }
+
+    .mbsc-control-w:before {
+      top: 0;
+    }
+
+    .mbsc-control-w:after {
+      bottom: 0;
+    }
+
+    .mbsc-form-group-title + .mbsc-control-w:before,
+    .mbsc-control-w:first-child:before,
+    .mbsc-control-w:last-child:after {
+      left: 0;
+    }
+
+    .mbsc-control-ng .mbsc-control-w:before,
+    .mbsc-control-ng .mbsc-control-w:after {
+      left: 1em;
+    }
+
+    .mbsc-form-group-title + .mbsc-control-ng .mbsc-control-w:before,
+    .mbsc-control-ng:first-child .mbsc-control-w:before,
+    .mbsc-control-ng:last-child .mbsc-control-w:after {
+      left: 0;
+    }
+
+    .mbsc-ic-left:before,
+    .mbsc-ic-left:after {
+      left: 3.25em;
+    }
+
+    .mbsc-err {
+      z-index: 2;
+    }
+
+    .mbsc-form-group-inset .mbsc-form-group-title + .mbsc-control-w,
+    .mbsc-form-group-inset .mbsc-control-w:first-child {
+      border-top-left-radius: .5em;
+      border-top-right-radius: .5em;
+    }
+
+    .mbsc-form-group-inset .mbsc-control-w:last-child {
+      border-bottom-left-radius: .5em;
+      border-bottom-right-radius: .5em;
+    }
+
+    .mbsc-form-group-inset .mbsc-form-group-title,
+    .mbsc-form-group-inset .mbsc-form-group-title + .mbsc-control-w:before,
+    .mbsc-form-group-inset .mbsc-control-w:first-child:before,
+    .mbsc-form-group-inset .mbsc-control-w:last-child:after {
+      border-width: 0;
+    }
+
+    .mbsc-form-group-inset .mbsc-control-ng .mbsc-control-w {
+      border-radius: 0;
+    }
+
+    .mbsc-form-group-inset .mbsc-control-ng .mbsc-control-w:before,
+    .mbsc-form-group-inset .mbsc-control-ng .mbsc-control-w:after {
+      border-width: 1px;
+    }
+
+    &.mbsc-form .mbsc-form-group-inset .mbsc-form-group-title + .mbsc-control-ng .mbsc-control-w:before,
+    &.mbsc-form .mbsc-form-group-inset .mbsc-control-ng:first-child .mbsc-control-w:before,
+    &.mbsc-form .mbsc-form-group-inset .mbsc-control-ng:last-child .mbsc-control-w:after {
+      border-width: 0;
+    }
+
+    .mbsc-form-group-inset .mbsc-form-group-title + .mbsc-control-ng .mbsc-control-w,
+    .mbsc-form-group-inset .mbsc-control-ng:first-child .mbsc-control-w {
+      border-top-left-radius: .5em;
+      border-top-right-radius: .5em;
+    }
+
+    .mbsc-form-group-inset .mbsc-control-ng:last-child .mbsc-control-w {
+      border-bottom-left-radius: .5em;
+      border-bottom-right-radius: .5em;
+    }
+
+    /* Stacked label */
+    .mbsc-label-stacked.mbsc-input {
+      .mbsc-label {
+        font-size: .75em;
+        position: absolute;
+        top: 1em;
+        line-height: 1em;
+        padding: 0;
+        width: auto;
+        max-width: none;
+      }
+
+      .mbsc-label ~ .mbsc-input-wrap {
+        input {
+          height: 3.75em;
+          padding-top: 1.5em;
+        }
+
+        .mbsc-input-ic {
+          top: 1.625em;
+        }
+      }
+
+      &.mbsc-textarea .mbsc-label ~ .mbsc-input-wrap {
+        padding-top: 1.625em;
+      }
+
+      &.mbsc-select .mbsc-label ~ .mbsc-input-wrap .mbsc-select-ic {
+        top: 1.4375em;
+      }
+    }
+
+    &.mbsc-ltr .mbsc-label-stacked.mbsc-input {
+      .mbsc-label {
+        left: 1.333334em;
+        right: auto;
+      }
+
+      &.mbsc-ic-left {
+        .mbsc-input-wrap {
+          padding-left: 2.375em;
+        }
+
+        .mbsc-label {
+          left: 4.5em;
+        }
+      }
+    }
+
+    &.mbsc-rtl .mbsc-label-stacked.mbsc-input {
+      .mbsc-label {
+        left: auto;
+        right: 1.333334em;
+      }
+
+      &.mbsc-ic-left {
+        .mbsc-input-wrap {
+          padding-right: 2.375em;
+        }
+
+        .mbsc-label {
+          right: 4.5em;
+        }
+      }
+
+      &.mbsc-control-w:before,
+      &.mbsc-control-w:after {
+        right: 0;
+      }
+    }
+
+    /* Floating label */
+    .mbsc-label-floating.mbsc-input {
+      .mbsc-label {
+        position: absolute;
+        padding: 0;
+        font-size: 1em;
+        line-height: 2em;
+        top: .875em;
+        width: auto;
+        transform-origin: 0 0;
+        transition: transform .2s;
+      }
+
+      &.mbsc-ic-left .mbsc-label,
+      &.mbsc-ic-right .mbsc-label {
+        top: 1.625em;
+      }
+
+      .mbsc-label ~ .mbsc-input-wrap {
+        input {
+          height: 3.75em;
+          padding-top: 1.5em;
+        }
+
+        .mbsc-input-ic {
+          top: 1.625em;
+        }
+      }
+
+      &.mbsc-textarea .mbsc-label ~ .mbsc-input-wrap {
+        padding-top: 1.625em;
+      }
+
+      &.mbsc-select .mbsc-label ~ .mbsc-input-wrap .mbsc-select-ic {
+        top: 1.4375em;
+      }
+
+      &.mbsc-label-floating-active {
+        .mbsc-label {
+          -webkit-transform: translateY(-.5em) scale(.75);
+          transform: translateY(-.5em) scale(.75);
+        }
+
+        &.mbsc-ic-left .mbsc-label,
+        &.mbsc-ic-right .mbsc-label {
+          -webkit-transform: translateY(-1.25em) scale(.75);
+          transform: translateY(-1.25em) scale(.75);
+        }
+      }
+    }
+
+    &.mbsc-ltr .mbsc-label-floating.mbsc-input {
+      .mbsc-label {
+        left: 1em;
+      }
+
+      &.mbsc-ic-left {
+        .mbsc-input-wrap {
+          padding-left: 2.375em;
+        }
+
+        .mbsc-label {
+          left: 3.375em;
+        }
+      }
+    }
+
+    &.mbsc-rtl .mbsc-label-floating.mbsc-input {
+      .mbsc-label {
+        right: 1em;
+      }
+
+      &.mbsc-ic-left {
+        .mbsc-input-wrap {
+          padding-right: 2.375em;
+        }
+
+        .mbsc-label {
+          right: 3.375em;
+        }
+      }
+
+      &.mbsc-control-w:before,
+      &.mbsc-control-w:after {
+        right: 0;
+      }
+    }
+
+    /* Box Input and Outline */
+    .mbsc-input-box,
+    .mbsc-input-outline {
+
+      /* Row separator */
+      &.mbsc-control-w {
+        margin-top: -1px;
+        margin: 1.5em 1em;
+        border-radius: 8px;
+        border: 1px solid transparent;
+
+        input {
+          border-radius: 8px;
+        }
+      }
+
+      &.mbsc-control-w:before,
+      &.mbsc-control-w:after {
+        border-top: 0;
+      }
+
+      .mbsc-err-msg {
+        position: absolute;
+        bottom: -1.5em;
+        padding: 0;
+      }
+
+      &.mbsc-control-w.mbsc-err + .mbsc-divider {
+        border-top: 0;
+      }
+
+      &.mbsc-label-stacked.mbsc-input {
+        .mbsc-label {
+          top: .75em;
+        }
+
+        .mbsc-label ~ .mbsc-input-wrap {
+          input {
+            height: 3.375em;
+            padding-top: 1.25em;
+          }
+
+          .mbsc-input-ic {
+            top: .75em;
+          }
+        }
+
+        &.mbsc-textarea .mbsc-label ~ .mbsc-input-wrap {
+          padding-top: 1.75em;
+        }
+
+        &.mbsc-select .mbsc-label ~ .mbsc-input-wrap .mbsc-select-ic {
+          top: 1.25em;
+        }
+      }
+
+      /* Floating labels */
+      &.mbsc-label-floating.mbsc-input {
+        .mbsc-label {
+          top: .6875em;
+        }
+
+        .mbsc-label ~ .mbsc-input-wrap {
+          input {
+            height: 3.375em;
+            padding-top: 1.25em;
+          }
+
+          .mbsc-input-ic {
+            top: .75em;
+          }
+        }
+
+        &.mbsc-label-floating-active {
+          .mbsc-label {
+            -webkit-transform: translateY(-.5em) scale(.75);
+            transform: translateY(-.5em) scale(.75);
+          }
+        }
+      }
+    }
+
+    &.mbsc-ltr .mbsc-input-box .mbsc-err-msg,
+    &.mbsc-ltr .mbsc-input-outline .mbsc-err-msg {
+      left: 1.333334em;
+    }
+
+    &.mbsc-rtl .mbsc-input-box .mbsc-err-msg,
+    &.mbsc-rtl .mbsc-input-outline .mbsc-err-msg {
+      right: 1.333334em;
+    }
+
+    /* Box and outline inputs inside form group inset */
+    .mbsc-form-group-inset .mbsc-control-ng .mbsc-control-w.mbsc-input-box,
+    .mbsc-form-group-inset .mbsc-control-ng .mbsc-control-w.mbsc-input-outline {
+      border-radius: .5em;
+    }
+
+    /* Outline */
+    .mbsc-input-outline.mbsc-select .mbsc-label ~ .mbsc-input-wrap .mbsc-select-ic {
+      top: .875em;
+    }
+  }
+
+  @include mbsc-ios-input(ios, (background: $mbsc-ios-background, text: $mbsc-ios-text, accent: $mbsc-ios-accent));
+}

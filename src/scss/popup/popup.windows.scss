@@ -1,0 +1,21 @@
+@import "../core/exports";
+@import "../frame/frame.windows";
+@import "./popup.windows.colors";
+@import "./popup";
+
+@include exports("popup.windows") {
+  .mbsc-windows.mbsc-wdg {
+    .mbsc-fr-btn-cont {
+      padding: 1em .875em;
+      border-top: 0;
+    }
+
+    .mbsc-fr-btn {
+      margin: 0 .125em;
+      height: 2em;
+      line-height: 2em;
+    }
+  }
+
+  @include mbsc-windows-popup(windows, (background: $mbsc-windows-background, text: $mbsc-windows-text, accent: $mbsc-windows-accent));
+}

@@ -158,9 +158,9 @@ export class MbscFormValueBase extends MbscFormBase implements ControlValueAcces
     }
 
     refresh() {
-        if (this._instance && this._instance.refresh) {
+        if (this.instance && this.instance.refresh) {
             setTimeout(() => {
-                this._instance.refresh();
+                this.instance.refresh();
             });
         }
     }
@@ -259,7 +259,7 @@ export class MbscInputBase extends MbscFormValueBase {
     providers: [MbscInputService]
 })
 export class MbscInput extends MbscInputBase {
-    _instance: FormInput;
+    instance: FormInput;
 
     @Input()
     controlNg: boolean = true;
@@ -273,8 +273,11 @@ export class MbscInput extends MbscInputBase {
     }
 
     initControl() {
-        let options = extend({}, this._inheritedOptions, this.inlineEvents(), this.options, this.inlineOptions());
-        this._instance = new FormInput(this._initElem.nativeElement, options);
+        let options = extend({}, this._inheritedOptions, this.options, this.inlineOptionsObj);
+        this.instance = new FormInput(this._initElem.nativeElement, options);
+        setTimeout(() => {
+            this.instance.refresh(); // needed to check for floating labels when using reactive forms
+        });
     }
 }
 

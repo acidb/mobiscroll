@@ -1,0 +1,16 @@
+@import "../core/exports";
+@import "../core/windows";
+@import "./collapsible";
+
+@include exports("collapsible.windows") {
+  .mbsc-windows .mbsc-collapsible {
+    .mbsc-form-group-title.mbsc-collapsible-header {
+      padding-left: .666667em;
+      padding-right: 2em;
+    }
+
+    .mbsc-form-group-title .mbsc-collapsible-icon {
+      font-size: .666667em;
+    }
+  }
+}

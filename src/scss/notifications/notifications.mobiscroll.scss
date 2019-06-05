@@ -1,0 +1,46 @@
+@import "../core/exports";
+@import "../popup/popup.mobiscroll";
+@import "./notifications.mobiscroll.colors";
+@import "./notifications";
+
+@include exports("notifications.mobiscroll") {
+  .mbsc-mobiscroll {
+    &.mbsc-toast .mbsc-toast-msg {
+      opacity: .9;
+      border-radius: .5em;
+    }
+
+    /* Snackbar and Toast color presets */
+    &.mbsc-snackbar.mbsc-primary .mbsc-fr-w,
+    &.mbsc-toast.mbsc-primary .mbsc-toast-msg {
+      background: $mbsc-mobiscroll-primary;
+    }
+
+    &.mbsc-snackbar.mbsc-secondary .mbsc-fr-w,
+    &.mbsc-toast.mbsc-secondary .mbsc-toast-msg {
+      background: $mbsc-mobiscroll-secondary;
+    }
+
+    &.mbsc-snackbar.mbsc-success .mbsc-fr-w,
+    &.mbsc-toast.mbsc-success .mbsc-toast-msg {
+      background: $mbsc-mobiscroll-success;
+    }
+
+    &.mbsc-snackbar.mbsc-danger .mbsc-fr-w,
+    &.mbsc-toast.mbsc-danger .mbsc-toast-msg {
+      background: $mbsc-mobiscroll-danger;
+    }
+
+    &.mbsc-snackbar.mbsc-warning .mbsc-fr-w,
+    &.mbsc-toast.mbsc-warning .mbsc-toast-msg {
+      background: $mbsc-mobiscroll-warning;
+    }
+
+    &.mbsc-snackbar.mbsc-info .mbsc-fr-w,
+    &.mbsc-toast.mbsc-info .mbsc-toast-msg {
+      background: $mbsc-mobiscroll-info;
+    }
+  }
+
+  @include mbsc-mobiscroll-notifications(mobiscroll, (background: $mbsc-mobiscroll-background, text: $mbsc-mobiscroll-text, accent: $mbsc-mobiscroll-accent));
+}

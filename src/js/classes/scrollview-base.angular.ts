@@ -110,51 +110,6 @@ export class MbscScrollViewBase extends MbscBase {
     @Output()
     onGestureEnd: EventEmitter<{ inst: any }> = new EventEmitter();
 
-    inlineOptions(): MbscScrollViewOptions {
-        return extend(super.inlineOptions(), {
-            context: this.context,
-            itemWidth: this.itemWidth,
-            layout: this.layout,
-            mousewheel: this.mousewheel,
-            snap: this.snap,
-            threshold: this.threshold,
-            paging: this.paging
-        });
-    }
-
-    inlineEvents(): MbscScrollViewOptions {
-        return extend(super.inlineEvents(), {
-            onItemTap: (event: { target: HTMLElement, inst: any }, inst: any) => {
-                event.inst = inst;
-                this.onItemTap.emit(event);
-            },
-            onMarkupReady: (event: { target: HTMLElement, inst: any }, inst: any) => {
-                event.inst = inst;
-                this.onMarkupReady.emit(event);
-            },
-            onAnimationStart: (event: { inst: any }, inst: any) => {
-                event.inst = inst;
-                this.onAnimationStart.emit(event);
-            },
-            onAnimationEnd: (event: { inst: any }, inst: any) => {
-                event.inst = inst;
-                this.onAnimationEnd.emit(event);
-            },
-            onMove: (event: { inst: any }, inst: any) => {
-                event.inst = inst;
-                this.onMove.emit(event);
-            },
-            onGestureStart: (event: { inst: any }, inst: any) => {
-                event.inst = inst;
-                this.onGestureStart.emit(event);
-            },
-            onGestureEnd: (event: { inst: any }, inst: any) => {
-                event.inst = inst;
-                this.onGestureEnd.emit(event);
-            }
-        });
-    }
-
     constructor(initialElem: ElementRef, zone: NgZone, public notifyItemService: MbscNotifyItemService) {
         super(initialElem, zone);
     }

@@ -1,0 +1,15 @@
+@import "../core/exports";
+@import "../core/mobiscroll";
+@import "./collapsible";
+
+@include exports("collapsible.mobiscroll") {
+  .mbsc-mobiscroll .mbsc-collapsible {
+    .mbsc-form-group-title {
+      padding: 1em;
+    }
+
+    .mbsc-collapsible-header {
+      padding-right: 3em;
+    }
+  }
+}

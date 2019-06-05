@@ -1,0 +1,24 @@
+@import "../core/exports";
+@import "../core/ios";
+
+@mixin mbsc-ios-page($theme, $params) {
+  @include exports("page.#{$theme}.colors") {
+
+    $text: map-get($params, text);
+
+    $colors: mbsc-ios-colors($params);
+    $button: map-get($colors, button);
+    $form-background: map-get($colors, form-background);
+
+    .mbsc-#{$theme} {
+      &.mbsc-page {
+        background: $form-background;
+        color: $text;
+      }
+
+      a {
+        color: $button;
+      }
+    }
+  }
+}

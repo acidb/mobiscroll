@@ -547,9 +547,9 @@ export const ScrollViewBase = function (el, settings, inherit) {
     that.refresh = function (noScroll) {
         var tempScroll;
 
-        contSize = s.contSize === undefined ? vertical ? $elm.height() : $elm.width() : s.contSize;
-        maxScroll = s.maxScroll === undefined ? 0 : s.maxScroll;
-        minScroll = Math.min(maxScroll, s.minScroll === undefined ? Math.min(0, vertical ? contSize - target.height() : contSize - target.width()) : s.minScroll);
+        contSize = (s.contSize === undefined ? vertical ? $elm.height() : $elm.width() : s.contSize) || 0;
+        maxScroll = (s.maxScroll === undefined ? 0 : s.maxScroll) || 0;
+        minScroll = (Math.min(maxScroll, s.minScroll === undefined ? Math.min(0, vertical ? contSize - target.height() : contSize - target.width()) : s.minScroll)) || 0;
         snapPoints = null;
 
         if (!vertical && s.rtl) {

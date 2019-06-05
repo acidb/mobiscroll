@@ -1,0 +1,120 @@
+$mbsc-material-accent: #009688 !default;
+$mbsc-material-background: #eee !default;
+$mbsc-material-text: #5b5b5b !default;
+
+$mbsc-material-dark-accent: #81ccc4 !default;
+$mbsc-material-dark-background: #303030 !default;
+$mbsc-material-dark-text: #c2c2c2 !default;
+
+/* Base colors */
+$mbsc-material-primary: #3f97f6 !default;
+$mbsc-material-secondary: #90979E !default;
+$mbsc-material-success: #43BE5F !default;
+$mbsc-material-danger: #f5504e !default;
+$mbsc-material-warning: #f8b042 !default;
+$mbsc-material-info: #5BB7C5 !default;
+$mbsc-material-light: #fff !default;
+$mbsc-material-dark: #47494A !default;
+
+@function mbsc-material-colors($params) {
+  $background: map-get($params, background);
+  $text: map-get($params, text);
+  $accent: map-get($params, accent);
+
+  $light-background: lighten($background, 4.8%);
+  $form-text: lighten($text, 7%);
+  $button-active: darken($background, 13%);
+  $input-text: darken($text, 24%);
+  $lv-text: lighten($text, 10%);
+  $snackbar-btn: hsl(hue($accent), saturation($accent), max(lightness($accent), 34%));
+
+  $border: '';
+  $checkbox: '';
+  $gray-background: '';
+  $button-background: '';
+  $button-color: '';
+  $input-color: '';
+  $snackbar: '';
+  $background-contrast: '';
+  $box-input: '';
+  $ripple: '';
+  $switch: '';
+  $switch-disabled: '';
+  $lv-item: '';
+
+  // Light background 
+  @if (lightness($background) > 50%) {
+    $border: lighten($text, 40%);
+    $checkbox: lighten($background, 7%);
+    $gray-background: darken($background, 23%);
+    $button-background: darken($background, 9%);
+    $button-color: darken($text, 36%);
+    $input-color: lighten($text, 29%);
+    $box-input: darken($background, 7%);
+    $switch: lighten($background, 5%);
+    $switch-disabled: darken($background, 20%);
+    $snackbar: #323232;
+    $background-contrast: #000;
+    $lv-item: lighten($background, 4%);
+  }
+
+  // Dark background 
+  @else {
+    $border: darken($text, 40%);
+    $checkbox: $background;
+    $gray-background: lighten($background, 17%);
+    $button-background: lighten($background, 17%);
+    $button-color: lighten($text, 24%);
+    $input-color: darken($text, 19%);
+    $box-input: lighten($background, 7%);
+    $switch: lighten($background, 53%);
+    $switch-disabled: lighten($background, 16%);
+    $snackbar: #5b5b5b;
+    $background-contrast: #fff;
+    $lv-item: lighten($background, 3%);
+  }
+
+  @return (ripple: $background-contrast,
+    border: $border,
+    form-text: $form-text,
+    light-background: $light-background,
+    checkbox: $checkbox,
+    gray-background: $gray-background,
+    button-background: $button-background,
+    button-color: $button-color,
+    button-active: $button-active,
+    input-color: $input-color,
+    switch: $switch,
+    switch-disabled: $switch-disabled,
+    input-text: $input-text,
+    lv-text: $lv-text,
+    background-contrast: $background-contrast,
+    box-input: $box-input,
+    snackbar: $snackbar,
+    snackbar-btn: $snackbar-btn,
+    lv-item: $lv-item,
+    /* static colors */
+    white-text: #fff,
+    dark-text: #000,
+    light-text: #eee,
+    error: #de3226);
+}
+
+@mixin mbsc-material-common($theme, $params) {
+  @include exports("common.#{$theme}.colors") {
+
+    $text: map-get($params, text);
+    $colors: mbsc-material-colors($params);
+    $ripple: map-get($colors, ripple);
+
+    .mbsc-#{$theme} {
+      .mbsc-ripple {
+        background: $ripple;
+      }
+
+      .mbsc-empty {
+        color: $text;
+      }
+    }
+  }
+}

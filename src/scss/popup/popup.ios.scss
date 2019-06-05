@@ -1,0 +1,8 @@
+@import "../core/exports";
+@import "../frame/frame.ios";
+@import "./popup.ios.colors";
+@import "./popup";
+
+@include exports("popup.ios") {
+  @include mbsc-ios-popup(ios, (background: $mbsc-ios-background, text: $mbsc-ios-text, accent: $mbsc-ios-accent));
+}

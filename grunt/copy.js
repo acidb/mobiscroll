@@ -30,7 +30,7 @@ module.exports = {
     icons: {
         files: [{
             expand: true,
-            cwd: 'src/less/',
+            cwd: 'src/scss/core',
             src: ['icons_mobiscroll.ttf', 'icons_mobiscroll.woff'],
             dest: 'dist/css/'
         }]

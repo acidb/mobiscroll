@@ -1,0 +1,229 @@
+@import "../core/exports";
+@import "../core/mobiscroll";
+@import "../page/page.mobiscroll.colors";
+@import "../input/input.mobiscroll.colors";
+@import "../slider/slider.mobiscroll.colors";
+@import "../rating/rating.mobiscroll.colors";
+@import "../notifications/notifications.mobiscroll.colors";
+
+@mixin mbsc-mobiscroll-forms($theme, $params) {
+  @include exports("forms.#{$theme}.colors") {
+
+    @include mbsc-mobiscroll-page($theme, $params);
+    @include mbsc-mobiscroll-input($theme, $params);
+    @include mbsc-mobiscroll-slider($theme, $params);
+    @include mbsc-mobiscroll-rating($theme, $params);
+    @include mbsc-mobiscroll-notifications($theme, $params);
+
+    $background: map-get($params, background);
+    $text: map-get($params, text);
+    $accent: map-get($params, accent);
+
+    $colors: mbsc-mobiscroll-colors($params);
+    $input-disabled: map-get($colors, input-disabled);
+    $btn-light: map-get($colors, btn-light);
+    $btn-disabled: map-get($colors, btn-disabled);
+    $switch: map-get($colors, switch);
+    $checked: map-get($colors, checked);
+    $handle: map-get($colors, handle);
+    $mbsc-mobiscroll-dark-text: map-get($colors, dark-text);
+    $white-text: map-get($colors, light);
+    $error: map-get($colors, error);
+    $checkbox: map-get($colors, checkbox);
+
+    .mbsc-#{$theme} {
+      &.mbsc-form {
+        background: $background;
+        color: $text;
+      }
+
+      &.mbsc-form *::-moz-selection {
+        color: $white-text;
+        background: $accent;
+      }
+
+      &.mbsc-form *::selection {
+        color: $white-text;
+        background: $accent;
+      }
+
+      .mbsc-divider,
+      .mbsc-form-group-title {
+        background: $background;
+        color: $accent;
+      }
+
+      .mbsc-err-msg,
+      .mbsc-err .mbsc-label {
+        color: $error;
+      }
+
+      /* Form grid */
+      .mbsc-checkbox-box {
+        background: $accent;
+      }
+
+      .mbsc-checkbox-box:after {
+        border-bottom: .125em solid $checkbox;
+        border-left: .125em solid $checkbox;
+      }
+
+      .mbsc-checkbox input:disabled + .mbsc-checkbox-box {
+        background: $input-disabled;
+      }
+
+      /* Radio */
+      .mbsc-radio-box {
+        border: .125em solid $accent;
+      }
+
+      .mbsc-radio-box:after {
+        background: $accent;
+      }
+
+      .mbsc-radio input:checked + .mbsc-radio-box {
+        background: transparent;
+      }
+
+      .mbsc-radio input:disabled + .mbsc-radio-box {
+        border-color: $input-disabled;
+      }
+
+      .mbsc-radio input:disabled + .mbsc-radio-box:after {
+        background: $input-disabled;
+      }
+
+      /* Buttons */
+      .mbsc-btn {
+        background: $accent;
+        color: $btn-light;
+      }
+
+      .mbsc-btn:disabled {
+        background: $btn-disabled;
+      }
+
+      &.mbsc-no-touch .mbsc-btn-flat:not(:disabled):not(.mbsc-active):hover {
+        background: rgba($background, .1);
+      }
+
+      .mbsc-btn-flat {
+        background: transparent;
+        color: $accent;
+        border-color: transparent;
+      }
+
+      .mbsc-btn-flat.mbsc-btn.mbsc-active {
+        background: rgba(78, 204, 196, .3)
+      }
+
+      .mbsc-btn-flat:disabled {
+        color: $switch;
+        background: transparent;
+      }
+
+      .mbsc-btn-light.mbsc-btn {
+        color: $mbsc-mobiscroll-dark-text;
+      }
+
+      /* Outline buttons */
+      .mbsc-btn-outline.mbsc-btn {
+        border: 1px solid $accent;
+        color: $accent;
+
+        &.mbsc-active {
+          background: $accent;
+          color: $background;
+        }
+
+        &.mbsc-btn-primary.mbsc-active,
+        &.mbsc-btn-secondary.mbsc-active,
+        &.mbsc-btn-success.mbsc-active,
+        &.mbsc-btn-danger.mbsc-active,
+        &.mbsc-btn-warning.mbsc-active,
+        &.mbsc-btn-info.mbsc-active,
+        &.mbsc-btn-dark.mbsc-active {
+          color: $background;
+        }
+      }
+
+      .mbsc-btn.mbsc-btn-outline:disabled {
+        color: $btn-disabled;
+        border-color: $btn-disabled;
+        background: transparent;
+      }
+
+      /* Switch */
+      .mbsc-switch-track {
+        background: $btn-disabled;
+      }
+
+      .mbsc-switch-handle {
+        background: $switch;
+      }
+
+      .mbsc-switch input:checked + .mbsc-switch-track {
+        background: $checked;
+      }
+
+      .mbsc-switch input:checked + .mbsc-switch-track .mbsc-switch-handle {
+        background: $accent;
+      }
+
+      .mbsc-switch input:disabled + .mbsc-switch-track {
+        background: $input-disabled;
+      }
+
+      .mbsc-switch input:disabled + .mbsc-switch-track .mbsc-switch-handle {
+        background: $handle;
+      }
+
+      /* Stepper and Segmented */
+      .mbsc-segmented-content {
+        border: .142857em solid $accent;
+        color: $accent;
+      }
+
+      .mbsc-stepper input {
+        color: $text;
+      }
+
+      .mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control.mbsc-active .mbsc-segmented-content,
+      .mbsc-segmented .mbsc-segmented-item input:checked + .mbsc-segmented-content {
+        background: $accent;
+        color: $background;
+      }
+
+      .mbsc-segmented .mbsc-segmented-item input.mbsc-active + .mbsc-segmented-content {
+        background: rgba($accent, .3);
+      }
+
+      .mbsc-segmented input:disabled ~ .mbsc-segmented-item .mbsc-segmented-content,
+      .mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control.mbsc-disabled .mbsc-segmented-content,
+      .mbsc-segmented .mbsc-segmented-item input:disabled + .mbsc-segmented-content {
+        color: $input-disabled;
+        border-color: $input-disabled;
+      }
+
+      .mbsc-stepper input:disabled {
+        color: $input-disabled;
+        -webkit-text-fill-color: $input-disabled;
+      }
+
+      .mbsc-segmented input:disabled:checked + .mbsc-segmented-content {
+        border-color: $btn-disabled;
+        background: $btn-disabled;
+        color: $btn-light;
+      }
+
+      .mbsc-stepper .mbsc-active.mbsc-disabled .mbsc-segmented-content {
+        background: transparent;
+        color: $input-disabled;
+      }
+
+      &.mbsc-no-touch .mbsc-segmented-item:hover .mbsc-segmented-content {
+        background: rgba($accent, .1)
+      }
+    }
+  }
+}

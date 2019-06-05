@@ -1,6 +1,6 @@
 {
     "name": "@mobiscroll/jquery-lite",
-    "version": "4.6.3",
+    "version": "4.7.2",
     "description": "jQuery and jQuery Mobile UI library for progressive web and hybrid apps",
     "homepage": "https://mobiscroll.com/",
     "license": "Apache-2.0",
@@ -33,6 +33,7 @@
         "dist/js/mobiscroll.jquery.js",
         "dist/js/mobiscroll.jquery.min.js",
         "dist/css/mobiscroll.css",
+        "dist/css/mobiscroll.scss",
         "dist/css/mobiscroll.min.css",
         "dist/css/icons_mobiscroll.ttf",
         "dist/css/icons_mobiscroll.woff",

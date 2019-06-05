@@ -1,0 +1,18 @@
+@import "../core/exports";
+@import "../core/windows";
+@import "../frame/frame.windows.colors";
+
+@mixin mbsc-windows-popup($theme, $params) {
+  @include exports("popup.#{$theme}.colors") {
+
+    @include mbsc-windows-frame($theme, $params);
+    $colors: mbsc-windows-colors($params);
+    $frame-border: map-get($colors, frame-border);
+
+    .mbsc-#{$theme} {
+      &.mbsc-wdg.mbsc-fr-btn {
+        background: $frame-border;
+      }
+    }
+  }
+}

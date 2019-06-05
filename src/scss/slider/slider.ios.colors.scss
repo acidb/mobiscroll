@@ -1,0 +1,32 @@
+@import "../core/exports";
+@import "../core/ios";
+@import "../page/page.ios.colors";
+@import "../progress/progress.ios.colors";
+
+@mixin mbsc-ios-slider($theme, $params) {
+  @include exports("slider.#{$theme}.colors") {
+
+    @include mbsc-ios-page($theme, $params);
+    @include mbsc-ios-progress($theme, $params);
+
+    $colors: mbsc-ios-colors($params);
+    $slider-tooltip: map-get($colors, slider-tooltip);
+    $slider-track-step: map-get($colors, slider-track-step);
+    $cont-background: map-get($colors, cont-background);
+
+    .mbsc-#{$theme} {
+      .mbsc-slider-handle {
+        background: #fff;
+      }
+
+      .mbsc-slider-tooltip {
+        color: $slider-tooltip;
+        background: $cont-background;
+      }
+
+      .mbsc-slider-step {
+        background: $slider-track-step;
+      }
+    }
+  }
+}

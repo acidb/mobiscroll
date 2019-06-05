@@ -1,0 +1,115 @@
+@import "../core/exports";
+@import "../core/icons";
+@import "./progress.mobiscroll.colors";
+@import "./progress";
+
+@include exports("progress.mobiscroll") {
+  .mbsc-mobiscroll {
+    &.mbsc-progress {
+      padding: 1em;
+    }
+
+    &.mbsc-progress .mbsc-label {
+      font-size: .75em;
+    }
+
+    &.mbsc-progress .mbsc-input-ic {
+      top: .0625em;
+      margin: 0;
+    }
+
+    &.mbsc-ltr.mbsc-progress.mbsc-ic-left .mbsc-input-wrap,
+    &.mbsc-rtl.mbsc-progress.mbsc-ic-right .mbsc-input-wrap {
+      padding-left: 2.75em;
+    }
+
+    &.mbsc-ltr.mbsc-progress.mbsc-ic-right .mbsc-input-wrap,
+    &.mbsc-rtl.mbsc-progress.mbsc-ic-left .mbsc-input-wrap {
+      padding-right: 2.75em;
+    }
+
+    &.mbsc-ltr.mbsc-progress.mbsc-ic-left .mbsc-left-ic,
+    &.mbsc-rtl.mbsc-progress.mbsc-ic-right .mbsc-right-ic {
+      right: auto;
+      left: -.375em;
+    }
+
+    &.mbsc-ltr.mbsc-progress.mbsc-ic-right .mbsc-right-ic,
+    &.mbsc-rtl.mbsc-progress.mbsc-ic-left .mbsc-left-ic {
+      left: auto;
+      right: -.375em;
+    }
+
+    .mbsc-progress-cont {
+      padding: 1em 0;
+    }
+
+    .mbsc-progress-track {
+      border-radius: 1em;
+      height: .125em;
+    }
+
+    .mbsc-progress-value {
+      width: 3.75em;
+      font-size: .875em;
+    }
+
+    &.mbsc-ltr.mbsc-progress.mbsc-progress-value-left .mbsc-input-wrap,
+    &.mbsc-rtl.mbsc-progress.mbsc-progress-value-right .mbsc-input-wrap {
+      padding-left: 3.5em;
+    }
+
+    &.mbsc-ltr.mbsc-progress.mbsc-progress-value-right .mbsc-input-wrap,
+    &.mbsc-rtl.mbsc-progress.mbsc-progress-value-left .mbsc-input-wrap {
+      padding-right: 3.5em;
+    }
+
+    &.mbsc-ltr.mbsc-progress-value-left.mbsc-ic-left .mbsc-input-wrap,
+    &.mbsc-rtl.mbsc-progress-value-right.mbsc-ic-right .mbsc-input-wrap {
+      padding-left: 5.5em;
+    }
+
+    &.mbsc-ltr.mbsc-progress-value-right.mbsc-ic-right .mbsc-input-wrap,
+    &.mbsc-rtl.mbsc-progress-value-left.mbsc-ic-left .mbsc-input-wrap {
+      padding-right: 5.5em;
+    }
+
+    &.mbsc-ltr.mbsc-progress-value-left.mbsc-ic-left .mbsc-progress-value,
+    &.mbsc-rtl.mbsc-progress-value-right.mbsc-ic-right .mbsc-progress-value {
+      left: 2.25em;
+      right: auto;
+    }
+
+    &.mbsc-ltr.mbsc-progress-value-right.mbsc-ic-right .mbsc-progress-value,
+    &.mbsc-rtl.mbsc-progress-value-left.mbsc-ic-left .mbsc-progress-value {
+      left: auto;
+      right: 2.25em;
+    }
+
+    .mbsc-progress-primary .mbsc-progress-bar {
+      background: $mbsc-mobiscroll-primary;
+    }
+
+    .mbsc-progress-secondary .mbsc-progress-bar {
+      background: $mbsc-mobiscroll-secondary;
+    }
+
+    .mbsc-progress-success .mbsc-progress-bar {
+      background: $mbsc-mobiscroll-success;
+    }
+
+    .mbsc-progress-danger .mbsc-progress-bar {
+      background: $mbsc-mobiscroll-danger;
+    }
+
+    .mbsc-progress-warning .mbsc-progress-bar {
+      background: $mbsc-mobiscroll-warning;
+    }
+
+    .mbsc-progress-info .mbsc-progress-bar {
+      background: $mbsc-mobiscroll-info;
+    }
+  }
+
+  @include mbsc-mobiscroll-progress(mobiscroll, (background: $mbsc-mobiscroll-background, text: $mbsc-mobiscroll-text, accent: $mbsc-mobiscroll-accent));
+}

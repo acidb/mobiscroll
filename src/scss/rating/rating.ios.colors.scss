@@ -1,0 +1,18 @@
+@import "../core/exports";
+@import "../core/ios";
+@import "../progress/progress.ios.colors";
+
+@mixin mbsc-ios-rating($theme, $params) {
+  @include exports("rating.#{$theme}.colors") {
+
+    @include mbsc-ios-progress($theme, $params);
+
+    $accent: map-get($params, accent);
+
+    .mbsc-#{$theme}.mbsc-rating {
+      .mbsc-progress-track {
+        color: $accent;
+      }
+    }
+  }
+}

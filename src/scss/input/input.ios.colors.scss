@@ -1,0 +1,88 @@
+@import "../core/exports";
+@import "../core/ios";
+
+@mixin mbsc-ios-input($theme, $params) {
+  @include exports("input.#{$theme}.colors") {
+
+    $text: map-get($params, text);
+
+    $colors: mbsc-ios-colors($params);
+    $error: map-get($colors, error);
+    $cont-background: map-get($colors, cont-background);
+    $border-color: map-get($colors, border-color);
+    $form-text: map-get($colors, form-text);
+
+    .mbsc-#{$theme} {
+      .mbsc-input {
+        background: $cont-background;
+      }
+
+      .mbsc-input .mbsc-control::-webkit-input-placeholder {
+        color: $form-text;
+      }
+
+      .mbsc-input .mbsc-control::-ms-input-placeholder {
+        color: $form-text;
+      }
+
+      .mbsc-input .mbsc-control::-moz-placeholder {
+        color: $form-text;
+      }
+
+      .mbsc-input-wrap input:-webkit-autofill ~ .mbsc-input-fill {
+        background: #e8f0fe;
+      }
+
+      .mbsc-input-wrap input:-webkit-autofill {
+        box-shadow: 0 0 0px 1000px #e8f0fe inset;
+      }
+
+      .mbsc-input .mbsc-label,
+      .mbsc-progress .mbsc-label,
+      .mbsc-input input,
+      .mbsc-input textarea {
+        color: $text;
+      }
+
+      .mbsc-err-msg {
+        color: $error;
+      }
+
+      .mbsc-control-w:before,
+      .mbsc-control-w:after {
+        border-top: 1px solid $border-color;
+      }
+
+      .mbsc-control-w.mbsc-err:after,
+      .mbsc-control-w.mbsc-err + .mbsc-err:before,
+      .mbsc-control-w.mbsc-err + .mbsc-divider {
+        border-top-color: $error;
+      }
+
+      /* Box Input and Outline */
+      .mbsc-input-box,
+      .mbsc-input-outline {
+        &.mbsc-err {
+          border-color: $error;
+        }
+
+        .mbsc-err-msg {
+          color: $error;
+        }
+      }
+
+      /* Outline */
+      .mbsc-input-outline {
+
+        /* Row separator */
+        &.mbsc-control-w {
+          border: 1px solid $border-color;
+        }
+
+        &.mbsc-err.mbsc-control-w {
+          border-color: $error;
+        }
+      }
+    }
+  }
+}

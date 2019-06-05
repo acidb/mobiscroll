@@ -205,7 +205,7 @@ export function deepCompare(a, b) {
     var leftChain = [],
         rightChain = [];
 
-    function compare2Objects(x, y) {
+    function compare2Objects(x, y, reactElement) {
         var p;
 
         // remember that NaN === NaN returns false
@@ -265,7 +265,15 @@ export function deepCompare(a, b) {
             }
         }
 
-        for (p in x) {
+        const elementProps = {
+            '$$typeof': 1, 
+            'key': 1, 
+            'props': 1, 
+            'ref': 1,
+            'type': 1
+        };
+        const props = reactElement ? elementProps : x;
+        for (p in props) {
             if (y.hasOwnProperty(p) !== x.hasOwnProperty(p)) {
                 return false;
             } else if (typeof y[p] !== typeof x[p]) {
@@ -275,11 +283,10 @@ export function deepCompare(a, b) {
             switch (typeof (x[p])) {
                 case 'object':
                 case 'function':
-
                     leftChain.push(x);
                     rightChain.push(y);
 
-                    if (!compare2Objects(x[p], y[p])) {
+                    if (!compare2Objects(x[p], y[p], x[p] && x[p].$$typeof !== undefined)) {
                         return false;
                     }
 
@@ -326,6 +333,7 @@ export class MbscInit extends React.Component {
                 options,
                 children,
                 value,
+                checked,
                 data,
                 className,
                 ...other

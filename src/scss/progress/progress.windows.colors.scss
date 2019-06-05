@@ -1,0 +1,30 @@
+@import "../core/exports";
+@import "../core/windows";
+
+@mixin mbsc-windows-progress($theme, $params) {
+  @include exports("progress.#{$theme}.colors") {
+
+    $text: map-get($params, text);
+    $accent: map-get($params, accent);
+
+    $colors: mbsc-windows-colors($params);
+    $gray-background: map-get($colors, gray-background);
+    $progress-background: map-get($colors, progress-background);
+
+    .mbsc-#{$theme} {
+
+      &.mbsc-progress .mbsc-label,
+      &.mbsc-progress .mbsc-input-ic {
+        color: $text;
+      }
+
+      .mbsc-progress-track {
+        background: $progress-background;
+      }
+
+      .mbsc-progress-bar {
+        background: $accent;
+      }
+    }
+  }
+}

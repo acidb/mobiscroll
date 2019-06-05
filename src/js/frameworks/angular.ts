@@ -121,30 +121,19 @@ class MbscBase implements AfterViewInit, OnDestroy {
     @Output()
     onDestroy: EventEmitter<{ inst: any }> = new EventEmitter();
 
-    inlineOptions(): MbscCoreOptions {
-        return {
-            cssClass: this.cssClass,
-            theme: this.theme,
-            lang: this.lang,
-            rtl: this.rtl,
-            responsive: this.responsive,
-            zone: this.zone
-        } as any;
-    }
+    inlineOptionsObj: any = {};
+    pendingValue: any = undefined;
 
-    inlineEvents(): MbscCoreOptions {
-        return {
-            onInit: (event: { inst: any }, inst: any) => {
-                event.inst = inst;
-                this.onInit.emit(event);
-            },
-            onDestroy: (event: { inst: any }, inst: any) => {
-                event.inst = inst;
-                this.onDestroy.emit(event);
+    getInlineEvents() {
+        for (let prop in this) {
+            if ((this[prop] as any) instanceof (EventEmitter) && (!this.options || !((this.options as any)[prop]))) {
+                this.inlineOptionsObj[prop] = (event: any, inst: any) => {
+                    event.inst = inst;
+                    (this[prop] as any).emit(event);
+                };
             }
         }
     }
-
 
     /**
      * Used to add theme classes to the host on components - the mbsc-input components need to have a wrapper
@@ -159,27 +148,19 @@ class MbscBase implements AfterViewInit, OnDestroy {
         $(this.initialElem.nativeElement).removeClass(this.getThemeClasses());
     }
     getThemeClasses() {
-        let s = this._instance.settings;
+        let s = this.instance.settings;
         return 'mbsc-control-ng mbsc-' + s.theme + (s.baseTheme ? ' mbsc-' + s.baseTheme : '');
     }
 
     /**
      * Reference to the initialized mobiscroll instance
-     * For internal use only
      */
-    _instance: any = null;
+    instance: any = null;
 
     /**
      * Reference to the html element the mobiscroll is initialized on. 
      */
     element: any = null;
-
-    /**
-     * Public getter for the mobiscroll instance
-     */
-    get instance(): any {
-        return this._instance;
-    }
 
     /**
      * Sets the element, the mobiscroll should be initialized on
@@ -194,7 +175,10 @@ class MbscBase implements AfterViewInit, OnDestroy {
         }
     }
 
-    constructor(public initialElem: ElementRef, protected zone: NgZone) { }
+
+    constructor(public initialElem: ElementRef, protected zone: NgZone) {
+        this.inlineOptionsObj.zone = zone;
+    }
 
     /* AfterViewInit Interface */
 
@@ -208,13 +192,14 @@ class MbscBase implements AfterViewInit, OnDestroy {
     }
 
     startInit() {
+        this.getInlineEvents();
         let ionInput = this.getIonInput();
         if (ionInput && ionInput.getInputElement && this.element.nodeName !== 'INPUT') {
             ionInput.getInputElement().then((inp: any) => {
                 this.setElement();
                 this.initControl();
             });
-        } else if (!this._instance) {
+        } else if (!this.instance) {
             this.initControl();
         }
     }
@@ -229,8 +214,8 @@ class MbscBase implements AfterViewInit, OnDestroy {
     /* OnDestroy Interface */
 
     ngOnDestroy() {
-        if (this._instance) {
-            this._instance.destroy();
+        if (this.instance) {
+            this.instance.destroy();
         }
     }
 
@@ -240,15 +225,15 @@ class MbscBase implements AfterViewInit, OnDestroy {
                 if (newOptions.theme && this.themeClassesSet) {
                     this.clearThemeClasses();
                 }
-                this._instance.option(newOptions);
+                this.instance.option(newOptions, undefined, this.pendingValue);
                 if (newOptions.theme && this.themeClassesSet) {
                     this.setThemeClasses();
                 }
             });
         } else if (dataChanged) {
             (this as any).refreshData((this as any).data);
-        } else if (this._instance.redraw) {
-            this._instance.redraw();
+        } else if (this.instance.redraw) {
+            this.instance.redraw();
         }
     }
 
@@ -262,8 +247,8 @@ class MbscBase implements AfterViewInit, OnDestroy {
             if (!changes[prop].firstChange && prop !== 'options' && prop !== 'value') {
                 if ((this as any).cloneDictionary && (this as any).cloneDictionary[prop]) {
                     (this as any).makeClone(prop, changes[prop].currentValue);
-                    if (this._instance) { // do we need this check?
-                        this._instance.settings[prop] = changes[prop].currentValue;
+                    if (this.instance) { // do we need this check?
+                        this.instance.settings[prop] = changes[prop].currentValue;
                     }
                     if (prop == 'invalid') {
                         invalidChange = true;
@@ -279,6 +264,10 @@ class MbscBase implements AfterViewInit, OnDestroy {
             } else if (!changes[prop].firstChange && prop !== 'value') {
                 newOptions = extend(changes[prop].currentValue, newOptions);
                 optionChange = true;
+            } else if (changes[prop].firstChange) {
+                if (prop !== 'options' && prop !== 'value') {
+                    this.inlineOptionsObj[prop] = changes[prop].currentValue;
+                }
             }
         }
         if (cloneChange) {
@@ -321,7 +310,7 @@ abstract class MbscValueBase extends MbscBase {
      * @param v The new value to set (it comes from the model)
      */
     protected setNewValueProxy(v: any) {
-        if (!this._instance) {
+        if (!this.instance) {
             this.initialValue = v;
         }
         this.setNewValue(v);
@@ -356,7 +345,7 @@ abstract class MbscCloneBase extends MbscValueBase implements DoCheck, OnInit {
         for (let key in this.cloneDictionary) {
             if ((this as any)[key] !== undefined && !deepEqualsArray((this as any)[key], this.cloneDictionary[key])) {
                 this.makeClone(key, (this as any)[key]);
-                this._instance.settings[key] = (this as any)[key];
+                this.instance.settings[key] = (this as any)[key];
                 changed = true;
                 if (key == 'invalid') {
                     invalid = true;
@@ -366,7 +355,7 @@ abstract class MbscCloneBase extends MbscValueBase implements DoCheck, OnInit {
                 }
             }
         }
-        if (changed && this._instance) {
+        if (changed && this.instance) {
             this.updateOptions(this.cloneDictionary, false, invalid, data);
         }
     }
@@ -467,10 +456,10 @@ abstract class MbscControlBase extends MbscCloneBase implements ControlValueAcce
         let that = this;
         $(element || this.element).on('change', function () {
             that.zone.run(function () {
-                if (that.element.value !== that._instance._value && that.enableManualEdit) {
-                    that._instance.setVal(that.element.value, true, true);
+                if (that.element.value !== that.instance._value && that.enableManualEdit) {
+                    that.instance.setVal(that.element.value, true, true);
                 } else {
-                    let value = that._instance.getVal();
+                    let value = that.instance.getVal();
                     if (that.control) {
                         if (!valueEquals(value, (that.control as any).model)) {
                             that.onChange(value);
@@ -563,7 +552,9 @@ abstract class MbscControlBase extends MbscCloneBase implements ControlValueAcce
      */
     writeValue(v: any): void {
         if (this._needsTimeout) {
+            this.pendingValue = v;
             setTimeout(() => {
+                this.pendingValue = undefined;
                 this.setNewValueProxy(v);
             });
         } else {
@@ -604,8 +595,6 @@ abstract class MbscFrameBase extends MbscControlBase implements OnInit {
     @Input()
     scrollLock: boolean;
     @Input()
-    showOverlay: boolean;
-    @Input()
     touchUi: boolean;
 
     // Events
@@ -626,63 +615,6 @@ abstract class MbscFrameBase extends MbscControlBase implements OnInit {
     onPosition: EventEmitter<{ target: HTMLElement, windowWidth: number, windowHeight: number, inst: any }> = new EventEmitter();
     @Output()
     onShow: EventEmitter<{ target: HTMLElement, valueText: string, inst: any }> = new EventEmitter();
-
-    inlineOptions(): MbscFrameOptions {
-        return extend(super.inlineOptions(), {
-            anchor: this.anchor,
-            animate: this.animate,
-            buttons: this.buttons,
-            closeOnOverlayTap: this.closeOnOverlayTap,
-            context: this.context,
-            disabled: this.disabled,
-            display: this.display,
-            focusOnClose: this.focusOnClose,
-            focusTrap: this.focusTrap,
-            headerText: this.headerText,
-            scrollLock: this.scrollLock,
-            showOnFocus: this.showOnFocus,
-            showOnTap: this.showOnTap,
-            showOverlay: this.showOverlay,
-            touchUi: this.touchUi
-        });
-    }
-
-    inlineEvents(): MbscFrameOptions {
-        return extend(super.inlineEvents(), {
-            onBeforeClose: (event: { valueText: string, button: string, inst: any }, inst: any) => {
-                event.inst = inst;
-                this.onBeforeClose.emit(event);
-            },
-            onBeforeShow: (event: { inst: any }, inst: any) => {
-                event.inst = inst;
-                this.onBeforeShow.emit(event);
-            },
-            onCancel: (event: { valuteText: string, inst: any }, inst: any) => {
-                event.inst = inst;
-                this.onCancel.emit(event);
-            },
-            onClose: (event: { valueText: string, inst: any }, inst: any) => {
-                event.inst = inst;
-                this.onClose.emit(event);
-            },
-            onFill: (event: { inst: any }, inst: any) => {
-                event.inst = inst;
-                this.onFill.emit(event);
-            },
-            onMarkupReady: (event: { target: HTMLElement, inst: any }, inst: any) => {
-                event.inst = inst;
-                this.onMarkupReady.emit(event);
-            },
-            onPosition: (event: { target: HTMLElement, windowWidth: number, windowHeight: number, inst: any }, inst: any) => {
-                event.inst = inst;
-                this.onPosition.emit(event);
-            },
-            onShow: (event: { target: HTMLElement, valueText: string, inst: any }, inst: any) => {
-                event.inst = inst;
-                this.onShow.emit(event);
-            }
-        });
-    }
 
     get inline(): boolean {
         return (this.display || this.options.display) === 'inline';
@@ -760,52 +692,6 @@ abstract class MbscScrollerBase extends MbscFrameBase {
     onItemTap: EventEmitter<{ inst: any }> = new EventEmitter();
     @Output()
     onClear: EventEmitter<{ inst: any }> = new EventEmitter();
-
-    inlineOptions(): MbscScrollerOptions {
-        return extend(super.inlineOptions(), {
-            circular: this.circular,
-            height: this.height,
-            layout: this.layout,
-            maxWidth: this.maxWidth,
-            minWidth: this.minWidth,
-            multiline: this.multiline,
-            readOnly: this.readOnly,
-            rows: this.rows,
-            showLabel: this.showLabel,
-            showScrollArrows: this.showScrollArrows,
-            wheels: this.wheels,
-            width: this.width,
-            cancelText: this.cancelText,
-            clearText: this.clearText,
-            selectedText: this.selectedText,
-            setText: this.setText,
-            validate: this.validate,
-            formatValue: this.formatValue,
-            parseValue: this.parseValue
-        });
-    }
-
-    inlineEvents(): MbscScrollerOptions {
-        return extend(super.inlineEvents(), {
-            onChange: (event: { valueText?: string, inst: any }, inst: any) => {
-                event.inst = inst;
-                this.onWheelChange.emit(event);
-            },
-            onSet: (event: { valueText?: string, inst: any }, inst: any) => {
-                event.inst = inst;
-                this.onSet.emit(event);
-            },
-            onItemTap: (event: { inst: any }, inst: any) => {
-                event.inst = inst;
-                this.onItemTap.emit(event);
-            },
-            onClear: (event: { inst: any }, inst: any) => {
-                event.inst = inst;
-                this.onClear.emit(event);
-            }
-        })
-    }
-
 
     constructor(initialElement: ElementRef, zone: NgZone, control: NgControl, _inputService: MbscInputService, view: ViewContainerRef) {
         super(initialElement, zone, control, _inputService, view);

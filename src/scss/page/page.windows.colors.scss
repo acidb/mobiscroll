@@ -1,0 +1,25 @@
+@import "../core/exports";
+@import "../core/windows";
+
+@mixin mbsc-windows-page($theme, $params) {
+  @include exports("page.#{$theme}.colors") {
+    @include mbsc-windows-common($theme, $params);
+
+    $text: map-get($params, text);
+    $accent: map-get($params, accent);
+
+    $colors: mbsc-windows-colors($params);
+    $form-background: map-get($colors, form-background);
+
+    .mbsc-#{$theme} {
+      &.mbsc-page {
+        background-color: $form-background;
+        color: $text;
+      }
+
+      a {
+        color: $accent;
+      }
+    }
+  }
+}

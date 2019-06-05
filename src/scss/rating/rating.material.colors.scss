@@ -1,0 +1,18 @@
+@import "../core/exports";
+@import "../core/material";
+@import "../progress/progress.material.colors";
+
+@mixin mbsc-material-rating($theme, $params) {
+  @include exports("rating.#{$theme}.colors") {
+
+    @include mbsc-material-progress($theme, $params);
+
+    $accent: map-get($params, accent);
+
+    .mbsc-#{$theme}.mbsc-rating {
+      .mbsc-progress-track {
+        color: $accent;
+      }
+    }
+  }
+}

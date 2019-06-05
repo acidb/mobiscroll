@@ -1,0 +1,60 @@
+@import "../core/exports";
+
+@include exports("collapsible") {
+  .mbsc-collapsible.mbsc-form-group {
+    margin: 0;
+  }
+
+  .mbsc-collapsible-header {
+    position: relative;
+    padding-right: 3em;
+  }
+
+  .mbsc-collapsible .mbsc-collapsible-icon {
+    position: absolute;
+    width: 1em;
+    height: 1em;
+    top: 50%;
+    right: 1em;
+    margin-top: -.5em;
+    line-height: 1em;
+    font-size: 1em;
+    transition: transform .125s ease-out;
+  }
+
+  .mbsc-collapsible .mbsc-collapsible-content {
+    overflow: hidden;
+    transition: height .125s ease;
+    box-sizing: content-box;
+  }
+
+  .mbsc-collapsible:not(.mbsc-collapsible-open) .mbsc-collapsible-content {
+    height: 0;
+    padding-bottom: 0;
+  }
+
+  .mbsc-collapsible-open > .mbsc-collapsible-header .mbsc-collapsible-icon {
+    -webkit-transform: rotateX(180deg);
+    transform: rotateX(180deg);
+  }
+
+  /* Collapsible rtl */
+
+  .mbsc-rtl {
+
+    .mbsc-collapsible.mbsc-form-group,
+    .mbsc-collapsible.mbsc-card {
+
+      .mbsc-collapsible-header,
+      .mbsc-collapsible-header.mbsc-form-group-title {
+        padding-right: 1em;
+        padding-left: 3em;
+
+        .mbsc-collapsible-icon {
+          right: auto;
+          left: 1em;
+        }
+      }
+    }
+  }
+}

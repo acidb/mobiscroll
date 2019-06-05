@@ -1,0 +1,123 @@
+@import "../core/exports";
+@import "../core/ios";
+
+@mixin mbsc-ios-frame($theme, $params) {
+  @include exports("frame.#{$theme}.colors") {
+
+    $text: map-get($params, text);
+    $accent: map-get($params, accent);
+
+    $colors: mbsc-ios-colors($params);
+    $button: map-get($colors, button);
+    $cont-background: map-get($colors, cont-background);
+    $btn-cont-background: map-get($colors, btn-cont-background);
+    $border-color: map-get($colors, border-color);
+    $top-bottom-border: map-get($colors, top-bottom-border);
+    $button-active: map-get($colors, button-active);
+    $background-alt: map-get($colors, background-alt);
+    $background-desktop: map-get($colors, background-desktop);
+    $background-limited: map-get($colors, background-limited);
+    $popup-shadow: map-get($colors, popup-shadow);
+    $popup-arrow-shadow: map-get($colors, popup-arrow-shadow);
+    $popup-border: map-get($colors, popup-border);
+    $background-overlay: map-get($colors, background-overlay);
+
+    .mbsc-#{$theme} {
+
+      &.mbsc-fr-top .mbsc-fr-btn-cont,
+      &.mbsc-fr-bottom .mbsc-fr-btn-cont {
+        background: $btn-cont-background;
+      }
+
+      .mbsc-fr-overlay {
+        background: $background-overlay;
+      }
+
+      .mbsc-fr-w {
+        background: $background-limited;
+        color: $text;
+      }
+
+      .mbsc-fr-hdr {
+        color: $text;
+      }
+
+      &.mbsc-fr-nobtn .mbsc-fr-hdr,
+      &.mbsc-fr-center:not(.mbsc-cal-liq) .mbsc-fr-hdr,
+      .mbsc-fr-btn-cont {
+        border-bottom: 1px solid $border-color;
+      }
+
+      .mbsc-fr-btn {
+        color: $button;
+      }
+
+      /* Bubble arrow */
+
+      .mbsc-fr-arr {
+        background: $background-limited;
+      }
+
+      /* Top and bottom display */
+
+      &.mbsc-fr-bottom .mbsc-fr-popup {
+        border-top: 1px solid $top-bottom-border;
+      }
+
+      &.mbsc-fr-top .mbsc-fr-popup {
+        border-bottom: 1px solid $top-bottom-border;
+      }
+
+      /* Center display button  */
+
+      &.mbsc-fr-center .mbsc-fr-btn-w {
+        border-top: 1px solid $border-color;
+        border-left: 1px solid $border-color;
+      }
+
+      &.mbsc-fr-center .mbsc-rtl .mbsc-fr-btn-w {
+        border-right: 1px solid $border-color;
+      }
+
+      &.mbsc-fr-center.mbsc-no-touch .mbsc-fr-btn-e:not(.mbsc-disabled):hover,
+      &.mbsc-fr-center .mbsc-fr-btn.mbsc-active {
+        background: $button-active;
+      }
+
+      /* Inline display */
+
+      &.mbsc-fr-inline .mbsc-fr-w {
+        background: $background-alt;
+        border-top: 1px solid $border-color;
+      }
+
+      &.mbsc-fr-inline .mbsc-fr-c {
+        border-bottom: 1px solid $border-color;
+      }
+
+      &.mbsc-fr-no-overlay {
+        .mbsc-fr-arr {
+          box-shadow: 0 0 1em $popup-arrow-shadow;
+        }
+
+        .mbsc-fr-w {
+          box-shadow: 0 .125em 1em $popup-arrow-shadow;
+        }
+      }
+
+      /* Desktop view */
+
+      &.mbsc-fr-pointer {
+
+        .mbsc-fr-persp .mbsc-fr-popup .mbsc-fr-w,
+        .mbsc-fr-persp .mbsc-cal-picker {
+          background: $background-desktop;
+        }
+
+        .mbsc-fr-hdr {
+          border-color: $popup-border;
+        }
+      }
+    }
+  }
+}

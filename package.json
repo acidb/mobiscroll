@@ -1,6 +1,6 @@
 {
   "name": "mobiscroll",
-  "version": "4.6.3",
+  "version": "4.7.2",
   "description": "Cross platform UI controls for progressive web an hybrid apps",
   "homepage": "https://mobiscroll.com/",
   "license": "Apache-2.0",
@@ -71,18 +71,19 @@
     "grunt-contrib-clean": "^1.0.0",
     "grunt-contrib-copy": "^1.0.0",
     "grunt-contrib-jshint": "^1.1.0",
-    "grunt-contrib-less": "^2.0.0",
     "grunt-eslint": "^19.0.0",
     "grunt-rollup": "^2.0.1",
     "grunt-run": "^0.8.1",
-    "less": "^3.8.0",
+    "grunt-sass": "^3.0.2",
     "load-grunt-config": "^1.0.2",
+    "node-sass": "^4.12.0",
     "rollup-plugin-babel": "^2.7.1",
     "rollup-plugin-node-resolve": "^3.3.0",
     "rollup-plugin-uglify": "^3.0.0",
     "rxjs": "^5.5.11",
+    "scss-bundle": "^2.5.1",
     "tslib": "^1.9.3",
-    "typescript": "2.3.4",
+    "typescript": "2.9.2",
     "zone.js": "^0.8.26"
   }
 }

@@ -1,0 +1,57 @@
+@import "../core/exports";
+@import "../core/common";
+@import "./page.mobiscroll.colors";
+@import "./page";
+
+@include exports("page.mobiscroll") {
+  .mbsc-mobiscroll {
+
+    /* Note */
+    .mbsc-note {
+      border-radius: .1875em;
+    }
+
+    .mbsc-note,
+    .mbsc-note-primary {
+      color: darken($mbsc-mobiscroll-primary, 30%);
+      background-color: lighten($mbsc-mobiscroll-primary, 20%);
+    }
+
+    .mbsc-note-secondary {
+      color: darken($mbsc-mobiscroll-secondary, 30%);
+      background-color: lighten($mbsc-mobiscroll-secondary, 20%);
+    }
+
+    .mbsc-note-success {
+      color: darken($mbsc-mobiscroll-success, 30%);
+      background-color: lighten($mbsc-mobiscroll-success, 20%);
+    }
+
+    .mbsc-note-danger {
+      color: darken($mbsc-mobiscroll-danger, 30%);
+      background-color: lighten($mbsc-mobiscroll-danger, 20%);
+    }
+
+    .mbsc-note-warning {
+      color: darken($mbsc-mobiscroll-warning, 25%);
+      background-color: lighten($mbsc-mobiscroll-warning, 20%);
+    }
+
+    .mbsc-note-info {
+      color: darken($mbsc-mobiscroll-info, 30%);
+      background-color: lighten($mbsc-mobiscroll-info, 20%);
+    }
+
+    .mbsc-note-light {
+      color: darken($mbsc-mobiscroll-light, 60%);
+      background-color: darken($mbsc-mobiscroll-light, 5%);
+    }
+
+    .mbsc-note-dark {
+      color: darken($mbsc-mobiscroll-dark, 30%);
+      background-color: lighten($mbsc-mobiscroll-dark, 40%);
+    }
+  }
+
+  @include mbsc-mobiscroll-page(mobiscroll, (background: $mbsc-mobiscroll-background, text: $mbsc-mobiscroll-text, accent: $mbsc-mobiscroll-accent));
+}

@@ -24,6 +24,7 @@ import { SegmentedItem } from './classes/segmented';
 import { CollapsibleBase } from './util/collapsible-base';
 
 import './page.react';
+import { deepCompare } from './frameworks/react';
 
 var reactNumber = PropTypes.number,
     reactString = PropTypes.string,
@@ -146,7 +147,8 @@ class MbscLabel extends React.Component {
         } else {
             this.cssClassUpdate = null;
         }
-        return true;
+        const update = !deepCompare(this.props, nextProps);
+        return update;
     }
 
 
@@ -605,10 +607,6 @@ class MbscFormBase extends MbscOptimized {
         // initialize the mobiscroll
         this.instance = new classes[this.mbscInit.component || 'Scroller'](this.inputNode, settings);
 
-        if (this.props.value !== undefined) {
-            this.instance.setVal(this.props.value, true);
-        }
-
         // Add change event listener if handler is passed
         $(this.inputNode).on('change', this.props.onChange || (function () { }));
 
@@ -633,6 +631,10 @@ class MbscFormBase extends MbscOptimized {
     componentDidUpdate() {
         if (this.cssClassUpdate) {
             updateCssClasses.call(this, this.cssClassUpdate.prev, this.cssClassUpdate.next);
+        }
+        if (this.optimizeUpdate.updateOptions) {
+            const settings = this.getSettingsFromProps(this.props);
+            this.instance.option(settings);
         }
     }
 
@@ -659,11 +661,12 @@ class MbscFormBase extends MbscOptimized {
 
     render() {
         /* eslint-disable no-unused-vars */
-        // justification: variables 'value', 'onChange' and 'className' are declared due to object decomposition
+        // justification: variables 'value', 'checked', 'onChange' and 'className' are declared due to object decomposition
         var {
             className,
             children,
             value,
+            checked,
             onChange,
             name,
             color,
@@ -674,10 +677,9 @@ class MbscFormBase extends MbscOptimized {
 
         /* eslint-enable no-unused-vars */
         var type = this.inputType || 'text';
-
         return <MbscLabel inputStyle={inputStyle} labelStyle={labelStyle}>
             {children}
-            <input ref={this.inputMounted} type={type} data-role={name} {...other} />
+            <input ref={this.inputMounted} type={type} data-role={name} data-enhance="false" {...other} />
         </MbscLabel>;
     }
 }
@@ -689,6 +691,26 @@ class MbscSwitch extends MbscFormBase {
             component: 'Switch'
         };
         this.inputType = 'checkbox';
+    }
+
+    componentDidMount() {
+        super.componentDidMount();
+        if (this.props.checked !== undefined) {
+            this.instance.setVal(this.props.checked, true, false);
+        }
+    }
+
+    shouldComponentUpdate(nextProps) {
+        const otherChange = super.shouldComponentUpdate(nextProps);
+        const checkedChange = this.optimizeUpdate.updateChecked = !deepCompare(nextProps.checked, this.props.checked);
+        return otherChange || checkedChange;
+    }
+
+    componentDidUpdate() {
+        super.componentDidUpdate();
+        if (this.optimizeUpdate.updateChecked && !deepCompare(this.instance.getVal(), this.props.checked)) {
+            this.instance.setVal(this.props.checked);
+        }
     }
 }
 
@@ -705,6 +727,20 @@ class MbscStepper extends MbscFormBase {
         this.mbscInit = {
             component: 'Stepper'
         };
+    }
+
+    componentDidMount() {
+        super.componentDidMount();
+        if (this.props.value !== undefined) {
+            this.instance.setVal(this.props.value, true, false);
+        }
+    }
+
+    componentDidUpdate() {
+        super.componentDidUpdate();
+        if (this.optimizeUpdate.updateValue && !deepCompare(this.props.value, this.instance.getVal())) {
+            this.instance.setVal(this.props.value);
+        }
     }
 }
 
@@ -882,7 +918,7 @@ class MbscSlider extends MbscColored {
     }
 
     parentMounted(label) {
-        this.label = label;
+        this.label = ReactDOM.findDOMNode(label);
     }
 
     onValueChanged() {
