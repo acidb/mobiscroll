@@ -7,8 +7,8 @@ export class Select extends Input {
 
         const $elm = this._$elm;
         const $parent = this._$parent;
-        const $existing = $parent.find('input.mbsc-control');
-        const $input = $existing.length ? $existing : $('<input tabindex="-1" class="mbsc-control" readonly>');
+        const $existing = $parent.find('.mbsc-select-input');
+        const $input = $existing.length ? $existing : $('<input tabindex="-1" class="mbsc-select-input mbsc-control" readonly>');
 
         this._$input = $input;
         this._delm = $input[0];

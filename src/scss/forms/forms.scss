@@ -315,6 +315,12 @@
     z-index: 2;
   }
 
+  // Angular + Bootstrap compatibility
+  .mbsc-segmented-item label {
+    display: block;
+    margin: 0;
+  }
+
   .mbsc-segmented input:disabled ~ .mbsc-segmented-item .mbsc-segmented-content,
   .mbsc-disabled .mbsc-segmented-content,
   .mbsc-segmented input:disabled + .mbsc-segmented-content {

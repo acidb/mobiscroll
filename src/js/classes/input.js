@@ -1,3 +1,4 @@
+import { $ } from '../core/core';
 import { FormControl, addIconToggle } from './form-control';
 
 const events = ['focus', 'change', 'blur', 'animationstart'];
@@ -6,15 +7,45 @@ export class Input extends FormControl {
     constructor(elm, settings) {
         super(elm, settings);
 
-        addIconToggle(this, this._$parent, this._$elm);
+        const $elm = this._$elm;
+        const $dummy = this._$parent.find('.mbsc-select-input');
+
+        addIconToggle(this, this._$parent, $elm);
+
+        if (elm.type == 'file') {
+            // Copy attributes and create dummy input
+            var $inp = $('<input type="text" class="' +
+                ($elm.attr('class') || '') + '" placeholder="' +
+                ($elm.attr('placeholder') || '') +
+                '"/>').insertAfter($elm);
+
+            // Copy value on file upload
+            $elm.on('change', function (ev) {
+                var files = ev.target.files,
+                    names = [];
+
+                for (var i = 0; i < files.length; ++i) {
+                    names.push(files[i].name);
+                }
+                names.join(', ');
+                $inp.val(names);
+            });
+        }
 
         this._$parent.addClass('mbsc-input');
         this.checkLabel = this.checkLabel.bind(this);
 
         // Attach events
         events.forEach(ev => {
-            this._$elm.on(ev, this.checkLabel);
+            $elm.on(ev, this.checkLabel);
         });
+
+        // Move the dummy input after the element for correct styling
+        if ($dummy.length) {
+            $elm.after($dummy);
+            this._delm = $dummy[0];
+            this.refresh();
+        }
     }
 
     checkLabel(ev) {

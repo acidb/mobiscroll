@@ -228,6 +228,7 @@ class MbscInput extends MbscInit {
         passwordToggle: PropTypes.bool,
         iconShow: PropTypes.string,
         iconHide: PropTypes.string,
+        iconUpload: PropTypes.string,
         name: PropTypes.string,
         dropdown: PropTypes.bool,
         inputStyle: PropTypes.string,
@@ -245,7 +246,7 @@ class MbscInput extends MbscInit {
 
     render() {
         /* eslint-disable no-unused-vars */
-        var { valid, errorMessage, type, icon, iconAlign, passwordToggle, iconShow, iconHide, inputStyle, labelStyle, children, dropdown, ...other } = this.props;
+        var { valid, errorMessage, type, icon, iconAlign, passwordToggle, iconShow, iconHide, iconUpload, inputStyle, labelStyle, children, dropdown, ...other } = this.props;
         /* eslint-enable */
 
         var error = null;
@@ -262,7 +263,7 @@ class MbscInput extends MbscInit {
         return <MbscLabel valid={valid} inputStyle={inputStyle} labelStyle={labelStyle} className={dropdown ? 'mbsc-select' : ''}>
             {children}
             <span className="mbsc-input-wrap">
-                <input ref={this.inputMounted} type={type} data-icon={icon} data-icon-align={iconAlign} data-password-toggle={passwordToggle} data-icon-show={iconShow} data-icon-hide={iconHide} {...other} />
+                <input ref={this.inputMounted} type={type} data-icon={icon} data-icon-align={iconAlign} data-password-toggle={passwordToggle} data-icon-show={iconShow} data-icon-hide={iconHide} data-icon-upload={iconUpload} {...other} />
                 {drop}
                 {error}
             </span>

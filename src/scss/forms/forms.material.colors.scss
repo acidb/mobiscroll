@@ -225,6 +225,10 @@
         background: $background;
       }
 
+      .mbsc-stepper input {
+        color: $text;
+      }
+
       .mbsc-stepper input:disabled {
         color: $input-color;
         -webkit-text-fill-color: $input-color;

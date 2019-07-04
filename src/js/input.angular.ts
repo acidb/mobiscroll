@@ -205,6 +205,12 @@ export class MbscInputBase extends MbscFormValueBase {
     iconHide: string;
 
     /**
+     *  Specify the upload icon.
+     */
+    @Input('icon-upload')
+    iconUpload: boolean;
+
+    /**
      *  Specify the inputStyle.
     */
     @Input('input-style')
@@ -249,6 +255,21 @@ export class MbscInputBase extends MbscFormValueBase {
                     [attr.data-password-toggle]="passwordToggle ? 'true': null"
                     [attr.data-icon-show]="iconShow ? iconShow : null"
                     [attr.data-icon-hide]="iconHide ? iconHide : null"
+                    [attr.data-icon-upload]="iconUpload ? iconUpload : null"
+                    [attr.min]="min"
+                    [attr.max]="max"
+                    [attr.minlength]="minlength"
+                    [attr.maxlength]="maxlength"
+                    [attr.autocomplete]="autocomplete" 
+                    [attr.autocapitalize]="autocapitalize"
+                    [attr.autocorrect]="autocorrect"
+                    [attr.spellcheck]="spellcheck"
+                    [attr.autofocus]="autofocus"
+                    [attr.step]="step"
+                    [attr.pattern]="pattern"
+                    [attr.required]="required"
+                    [attr.accept]="accept"
+                    [attr.multiple]="multiple"
                     [disabled]="disabled"
                     [attr.readonly]="_readonly" />
                 <span *ngIf="dropdown" class="mbsc-select-ic mbsc-ic mbsc-ic-arrow-down5"></span>
@@ -260,6 +281,36 @@ export class MbscInputBase extends MbscFormValueBase {
 })
 export class MbscInput extends MbscInputBase {
     instance: FormInput;
+
+    @Input()
+    min: number;
+    @Input()
+    max: number;
+    @Input()
+    minlength: number;
+    @Input()
+    maxlength: number;
+
+    @Input()
+    autocomplete: 'on' | 'off';
+    @Input()
+    autocapitalize: string;
+    @Input()
+    autocorrect: string;
+    @Input()
+    spellcheck: string;
+    @Input()
+    autofocus: string;
+    @Input()
+    step: number;
+    @Input()
+    pattern: string;
+    @Input()
+    required: string;
+    @Input()
+    accept: string;
+    @Input()
+    multiple: string;
 
     @Input()
     controlNg: boolean = true;

@@ -56,8 +56,8 @@ $mbsc-mobiscroll-dark: #47494A !default;
   @else {
     $border: lighten($background, 17%);
     $empty-color: $text;
-    $input-disabled: darken($background, 17%);
-    $handle: darken($background, 7%);
+    $input-disabled: lighten($background, 17%);
+    $handle: lighten($background, 7%);
     $btn-disabled: lighten($background, 8%);
     $switch: lighten($background, 14%);
     $btn-light: $background;

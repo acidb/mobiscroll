@@ -202,4 +202,10 @@
     -webkit-transform-origin: top right;
     transform-origin: top right;
   }
+
+  /* file type */
+  .mbsc-input-wrap .mbsc-control[type="file"] {
+    position: absolute;
+    opacity: 0;
+  }
 }

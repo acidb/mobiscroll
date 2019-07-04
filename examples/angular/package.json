@@ -19,7 +19,7 @@
     "@angular/platform-browser": "~8.0.0",
     "@angular/platform-browser-dynamic": "~8.0.0",
     "@angular/router": "~8.0.0",
-    "@mobiscroll/angular-lite": "4.7.2",
+    "@mobiscroll/angular-lite": "4.7.3",
     "rxjs": "~6.4.0",
     "rxjs-compat": "^6.5.2",
     "tslib": "^1.9.0",

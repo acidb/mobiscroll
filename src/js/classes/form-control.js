@@ -12,6 +12,7 @@ let $active;
 
 function addIcon($control, ic) {
     var icons = {},
+        control = $control[0],
         $parent = $control.parent(),
         errorMsg = $parent.find('.mbsc-err-msg'),
         align = $control.attr('data-icon-align') || 'left',
@@ -34,6 +35,11 @@ function addIcon($control, ic) {
         } else {
             icons[align] = icon;
         }
+    }
+
+    if (control.type == 'file') {
+        // Set icon
+        icons.right = $control.attr('data-icon-upload') || 'upload';
     }
 
     if (icon || ic) {

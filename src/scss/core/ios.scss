@@ -120,6 +120,7 @@ $mbsc-ios-dark: #47494A !default;
     $empty-color: lighten($text, 43%);
     $btn-cont-background: darken($background, 3%);
     $background-contrast: #000;
+    $snackbar-button: hsl(hue($button), saturation($button), max(lightness($button), 80%));
   }
 
   // Dark background 
@@ -161,6 +162,7 @@ $mbsc-ios-dark: #47494A !default;
     $empty-color: $text;
     $btn-cont-background: lighten($background-limited, 8%);
     $background-contrast: #fff;
+    $snackbar-button: $button;
   }
 
   // Light button 
@@ -168,7 +170,6 @@ $mbsc-ios-dark: #47494A !default;
     $button-contrast: #000;
     $cal-text: lighten(saturate($button, 5%), 42%);
     $form-selection: lighten(saturate($accent, 15%), 3%);
-    $snackbar-button: hsl(hue($button), saturation($button), max(lightness($button), 80%));
   }
 
   // Dark button 
@@ -176,7 +177,6 @@ $mbsc-ios-dark: #47494A !default;
     $button-contrast: #fff;
     $cal-text: adjust-hue(lighten(desaturate($button, 42%), 35%), 3%);
     $form-selection: darken(desaturate($accent, 15%), 3%);
-    $snackbar-button: $button;
   }
 
   // Light button 

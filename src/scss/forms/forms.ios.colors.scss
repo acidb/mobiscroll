@@ -190,7 +190,7 @@
       }
 
       .mbsc-segmented .mbsc-segmented-item input.mbsc-active + .mbsc-segmented-content {
-        background: rgba(18, 114, 220, .3);
+        background: rgba($accent, .3);
         color: $form-selection;
       }
 
