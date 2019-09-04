@@ -6,25 +6,27 @@
 
     $background: map-get($params, background);
     $accent: map-get($params, accent);
+    $text: map-get($params, text);
 
     $colors: mbsc-mobiscroll-colors($params);
     $input-icon: map-get($colors, input-icon);
     $input-box: map-get($colors, input-box);
     $error: map-get($colors, error);
     $color-input: map-get($colors, color-input);
+    $white-text: map-get($colors, light);
 
     .mbsc-#{$theme} {
 
       /* Textbox */
-      .mbsc-input input,
-      .mbsc-input textarea {
+      &.mbsc-input input,
+      &.mbsc-input textarea {
         border-bottom: 1px solid $input-icon;
         color: $color-input;
       }
 
-      .mbsc-input input:focus,
-      .mbsc-input select:focus ~ input .mbsc-input textarea:focus,
-      .mbsc-input textarea:focus {
+      &.mbsc-input input:focus,
+      &.mbsc-input select:focus~input .mbsc-input textarea:focus,
+      &.mbsc-input textarea:focus {
         border-color: $accent;
       }
 
@@ -33,14 +35,14 @@
       }
 
       /* Box Input */
-      .mbsc-input-box {
+      &.mbsc-input-box {
         &.mbsc-input .mbsc-input-wrap {
           background: $input-box;
         }
       }
 
       /* Outline Input */
-      .mbsc-input-outline {
+      &.mbsc-input-outline {
 
         &.mbsc-input input,
         &.mbsc-input textarea {
@@ -51,8 +53,13 @@
           background: $background;
         }
 
+        &.mbsc-label-inline.mbsc-input .mbsc-label,
+        &.mbsc-label-floating:not(.mbsc-label-floating-active).mbsc-input .mbsc-label {
+          background: none;
+        }
+
         &.mbsc-input input:focus,
-        &.mbsc-input select:focus ~ input,
+        &.mbsc-input select:focus~input,
         &.mbsc-err input {
           border-color: $accent;
         }
@@ -62,8 +69,8 @@
         }
       }
 
-      .mbsc-input.mbsc-err input,
-      .mbsc-input.mbsc-err textarea {
+      &.mbsc-input.mbsc-err input,
+      &.mbsc-input.mbsc-err textarea {
         border-color: $error;
       }
     }

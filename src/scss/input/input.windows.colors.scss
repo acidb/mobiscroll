@@ -15,9 +15,9 @@
 
     .mbsc-#{$theme} {
 
-      .mbsc-input input,
-      .mbsc-input textarea,
-      .mbsc-select input {
+      &.mbsc-input input,
+      &.mbsc-input textarea,
+      &.mbsc-select input {
         border: .125em solid $input-border;
         color: $text;
       }
@@ -28,45 +28,45 @@
         border-color: $input-hover;
       }
 
-      .mbsc-input input::-webkit-input-placeholder {
+      &.mbsc-input input::-webkit-input-placeholder {
         color: #5c5c5c;
       }
 
-      .mbsc-input input::-ms-input-placeholder {
+      &.mbsc-input input::-ms-input-placeholder {
         color: #5c5c5c;
       }
 
-      .mbsc-input input::-moz-placeholder {
+      &.mbsc-input input::-moz-placeholder {
         color: #5c5c5c;
       }
 
-      .mbsc-input .mbsc-input-wrap input:focus,
-      .mbsc-input .mbsc-input-wrap select:focus + input,
-      .mbsc-input .mbsc-input-wrap textarea:focus,
-      &.mbsc-alert .mbsc-input input:focus {
+      &.mbsc-input .mbsc-input-wrap input:focus,
+      &.mbsc-input .mbsc-input-wrap select:focus+input,
+      &.mbsc-input .mbsc-input-wrap textarea:focus,
+      &.mbsc-alert.mbsc-input input:focus {
         background: #fff;
         border-color: $accent;
         color: #262626;
 
-        ~ .mbsc-input-ic {
+        ~.mbsc-input-ic {
           color: #262626;
         }
       }
 
-      .mbsc-input .mbsc-input-wrap .mbsc-control:disabled + input,
-      .mbsc-input .mbsc-input-wrap textarea:disabled,
-      .mbsc-input .mbsc-input-wrap input:disabled {
+      &.mbsc-input .mbsc-input-wrap .mbsc-control:disabled+input,
+      &.mbsc-input .mbsc-input-wrap textarea:disabled,
+      &.mbsc-input .mbsc-input-wrap input:disabled {
         border-color: $frame-border;
       }
 
-      .mbsc-input.mbsc-err input,
-      .mbsc-input.mbsc-err textarea {
+      &.mbsc-input.mbsc-err input,
+      &.mbsc-input.mbsc-err textarea {
         border-color: $error;
       }
 
       .mbsc-input-ic,
-      .mbsc-input .mbsc-label,
-      .mbsc-select .mbsc-input-wrap .mbsc-ic {
+      &.mbsc-input .mbsc-label,
+      &.mbsc-select .mbsc-input-wrap .mbsc-ic {
         color: $text;
       }
 

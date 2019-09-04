@@ -1,4 +1,4 @@
-import { $ } from '../core/core';
+import { $, autoInit } from '../core/core';
 import { FormControl } from './form-control';
 
 export class SegmentedItem extends FormControl {
@@ -10,9 +10,10 @@ export class SegmentedItem extends FormControl {
 
         const $elm = this._$elm;
         const $parent = this._$parent;
+        const s = this.settings;
 
         if (!$parent.hasClass('mbsc-segmented-item-ready')) {
-            $segmentCont = $('<div class="mbsc-segmented"></div>');
+            $segmentCont = $('<div class="mbsc-segmented mbsc-no-touch"></div>');
 
             $parent.after($segmentCont);
             $parent.parent().find('input[name="' + $elm.attr('name') + '"]').each(function () {
@@ -32,4 +33,12 @@ export class SegmentedItem extends FormControl {
 
         this._$rippleElm = $elm.next();
     }
+
+    getClassElm() {
+        return this._$elm.closest('.mbsc-segmented');
+    }
 }
+
+
+// Init mbsc-segmented elements on page load
+autoInit('[mbsc-segmented]', SegmentedItem);

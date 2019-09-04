@@ -1,4 +1,4 @@
-import { $, isBrowser } from '../core/core';
+import { $, isBrowser, autoInit } from '../core/core';
 import { Input } from './input';
 
 const events = ['keydown', 'input', 'scroll'];
@@ -112,3 +112,6 @@ export class TextArea extends Input {
 export {
     sizeTextAreas
 };
+
+// Init mbsc-textarea elements on page load
+autoInit('[mbsc-textarea]', TextArea);

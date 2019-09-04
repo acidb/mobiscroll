@@ -1,4 +1,4 @@
-import { MbscFormOptions } from './forms';
+import { MbscFormOptions } from './input';
 
 export class FormControl {
     settings: MbscFormOptions;

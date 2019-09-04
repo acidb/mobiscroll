@@ -26,7 +26,7 @@ export class MbscPage extends MbscBase implements OnInit {
     @Input()
     options: MbscPageOptions;
 
-    @ViewChild('initElement')
+    @ViewChild('initElement', { static: false } as any)
     initElem: ElementRef;
 
     constructor(hostElement: ElementRef, public optionsService: MbscOptionsService, zone: NgZone) {

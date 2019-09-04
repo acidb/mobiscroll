@@ -4,7 +4,6 @@ import {
     MbscCoreOptions
 } from '../core/core';
 import { MbscFrameOptions } from '../classes/frame';
-import { MbscScrollerOptions } from '../classes/scroller';
 import {
     AfterViewInit,
     Component,
@@ -300,7 +299,7 @@ abstract class MbscValueBase extends MbscBase {
     /**
      * Used to store the initial value of the model, until the mobiscroll instance is ready to take it
      */
-    protected initialValue: any = undefined;
+    initialValue: any = undefined;
 
     /**
      * Saves the initial value when the instance is not ready yet.

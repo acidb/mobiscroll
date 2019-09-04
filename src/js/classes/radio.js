@@ -1,4 +1,5 @@
 import { FormControl } from './form-control';
+import { autoInit } from '../core/core';
 
 export class Radio extends FormControl {
     constructor(elm, settings) {
@@ -11,3 +12,6 @@ export class Radio extends FormControl {
         this._$elm.after('<span class="mbsc-radio-box"><span></span></span>');
     }
 }
+
+// Init mbsc-radio elements on page load
+autoInit('[mbsc-radio]', Radio);

@@ -1,4 +1,4 @@
-import { $, classes } from '../core/core';
+import { $, classes, autoInit } from '../core/core';
 import { getPercent } from '../util/misc';
 import { Slider } from './slider';
 
@@ -89,3 +89,6 @@ Rating.prototype = {
 };
 
 classes.Rating = Rating;
+
+// Init mbsc-rating elements on page load
+autoInit('[mbsc-rating]', Rating);

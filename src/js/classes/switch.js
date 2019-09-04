@@ -1,4 +1,4 @@
-import { $, extend, classes } from '../core/core';
+import { $, extend, classes, autoInit } from '../core/core';
 import { FormControl } from './form-control';
 import { SliderBase } from './slider-base';
 
@@ -94,3 +94,6 @@ Switch.prototype = {
 };
 
 classes.Switch = Switch;
+
+// Init mbsc-switch elements on page load
+autoInit('[mbsc-switch]', Switch);

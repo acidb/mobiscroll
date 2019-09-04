@@ -16,14 +16,17 @@
     visibility: hidden;
   }
 
-  .mbsc-form {
+  .mbsc-form,
+  .mbsc-control-w,
+  .mbsc-btn,
+  .mbsc-segmented {
     font-size: 16px;
     font-family: arial, verdana, sans-serif;
+    -webkit-text-size-adjust: 100%;
     -webkit-font-smoothing: antialiased;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     -webkit-tap-highlight-color: transparent;
     -webkit-touch-callout: none;
-    -webkit-text-size-adjust: 100%;
     -ms-touch-action: manipulation;
     touch-action: manipulation;
   }
@@ -376,21 +379,21 @@
     margin: 0;
   }
 
-  .mbsc-form .mbsc-stepper-val-right .mbsc-stepper input {
+  .mbsc-ltr.mbsc-stepper-val-right .mbsc-stepper input {
     left: auto;
     right: 0;
   }
 
-  .mbsc-form.mbsc-rtl .mbsc-stepper-val-right .mbsc-stepper input {
+  .mbsc-rtl.mbsc-stepper-val-right .mbsc-stepper input {
     right: auto;
     left: 0;
   }
 
-  .mbsc-form .mbsc-stepper-val-left .mbsc-stepper input {
+  .mbsc-ltr.mbsc-stepper-val-left .mbsc-stepper input {
     left: 0;
   }
 
-  .mbsc-form.mbsc-rtl .mbsc-stepper-val-left .mbsc-stepper input {
+  .mbsc-rtl.mbsc-stepper-val-left .mbsc-stepper input {
     right: 0;
   }
 
@@ -405,7 +408,7 @@
     background: transparent;
   }
 
-  .mbsc-form .mbsc-stepper-cont .mbsc-stepper {
+  .mbsc-control-w.mbsc-stepper-cont .mbsc-stepper {
     padding: 0;
   }
 
@@ -430,6 +433,7 @@
     text-align: center;
     text-overflow: ellipsis;
     font-size: 1em;
+    font-family: arial, verdana, sans-serif;
     cursor: pointer;
   }
 

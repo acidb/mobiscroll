@@ -6,8 +6,8 @@
   .mbsc-material {
 
     /* Textbox */
-    .mbsc-input input,
-    .mbsc-input textarea {
+    &.mbsc-input input,
+    &.mbsc-input textarea {
       height: 2.125em;
       padding: 0 0 1px 0;
       background-color: transparent;
@@ -16,24 +16,24 @@
     }
 
     /* Textbox, textarea, select */
-    .mbsc-input .mbsc-control:disabled ~ input,
-    .mbsc-input textarea:disabled,
-    .mbsc-input input:disabled {
+    &.mbsc-input .mbsc-control:disabled~input,
+    &.mbsc-input textarea:disabled,
+    &.mbsc-input input:disabled {
       border-style: dotted;
       opacity: .5;
     }
 
-    .mbsc-input input:focus,
-    .mbsc-input textarea:focus,
-    .mbsc-input select:focus ~ input {
+    &.mbsc-input input:focus,
+    &.mbsc-input textarea:focus,
+    &.mbsc-input select:focus~input {
       padding-bottom: 0;
     }
 
     /* Input */
-    .mbsc-input {
+    &.mbsc-input {
       margin: 1.5em 1em;
 
-      .mbsc-label ~ .mbsc-input-wrap {
+      .mbsc-label~.mbsc-input-wrap {
         padding-top: .875em;
 
         .mbsc-input-ic {
@@ -42,8 +42,8 @@
       }
     }
 
-    .mbsc-input.mbsc-err input:focus,
-    .mbsc-input.mbsc-err textarea:focus {
+    &.mbsc-input.mbsc-err input:focus,
+    &.mbsc-input.mbsc-err textarea:focus {
       padding-bottom: 0;
       border-width: 2px;
     }
@@ -54,12 +54,12 @@
     }
 
     /* Textarea */
-    .mbsc-input textarea {
+    &.mbsc-input textarea {
       padding-top: .25em;
     }
 
     /* Select */
-    .mbsc-select .mbsc-input-wrap:after {
+    &.mbsc-select .mbsc-input-wrap:after {
       content: '';
       position: absolute;
       height: 0;
@@ -67,11 +67,11 @@
       top: .875em;
     }
 
-    .mbsc-select .mbsc-label ~ .mbsc-input-wrap:after {
+    &.mbsc-select .mbsc-label~.mbsc-input-wrap:after {
       top: 1.75em;
     }
 
-    &.mbsc-ltr .mbsc-select {
+    &.mbsc-ltr.mbsc-select {
       input {
         padding-right: 1em;
       }
@@ -90,7 +90,7 @@
       }
     }
 
-    &.mbsc-rtl .mbsc-select {
+    &.mbsc-rtl.mbsc-select {
       input {
         padding-left: 1em;
       }
@@ -115,7 +115,7 @@
     }
 
     /* LTR left icon */
-    &.mbsc-ltr .mbsc-input.mbsc-ic-left {
+    &.mbsc-ltr.mbsc-input.mbsc-ic-left {
 
       input,
       textarea {
@@ -134,7 +134,7 @@
     }
 
     /* LTR right icon */
-    &.mbsc-ltr .mbsc-input.mbsc-ic-right {
+    &.mbsc-ltr.mbsc-input.mbsc-ic-right {
 
       input,
       textarea {
@@ -148,7 +148,7 @@
     }
 
     /* RTL left icon */
-    &.mbsc-rtl .mbsc-input.mbsc-ic-left {
+    &.mbsc-rtl.mbsc-input.mbsc-ic-left {
 
       input,
       textarea {
@@ -167,7 +167,7 @@
     }
 
     /* RTL right icon */
-    &.mbsc-rtl .mbsc-input.mbsc-ic-right {
+    &.mbsc-rtl.mbsc-input.mbsc-ic-right {
 
       input,
       textarea {
@@ -180,19 +180,19 @@
       }
     }
 
-    .mbsc-input .mbsc-label {
+    &.mbsc-input .mbsc-label {
       position: absolute;
       top: 0;
       font-size: .75em;
     }
 
     /* Inline labels */
-    .mbsc-label-inline.mbsc-input {
+    &.mbsc-label-inline.mbsc-input {
       .mbsc-label {
         line-height: 2em;
       }
 
-      .mbsc-label ~ .mbsc-input-wrap {
+      .mbsc-label~.mbsc-input-wrap {
         padding-top: 0;
 
         .mbsc-input-ic {
@@ -200,13 +200,13 @@
         }
       }
 
-      &.mbsc-select .mbsc-label ~ .mbsc-input-wrap:after {
+      &.mbsc-select .mbsc-label~.mbsc-input-wrap:after {
         top: 1em;
       }
     }
 
     /* Floating labels */
-    .mbsc-label-floating.mbsc-input {
+    &.mbsc-label-floating.mbsc-input {
       .mbsc-label {
         font-size: 1em;
         line-height: 2em;
@@ -221,16 +221,16 @@
       }
     }
 
-    &.mbsc-ltr .mbsc-label-floating.mbsc-input.mbsc-ic-left .mbsc-label {
+    &.mbsc-ltr.mbsc-label-floating.mbsc-input.mbsc-ic-left .mbsc-label {
       left: 1.625em;
     }
 
-    &.mbsc-rtl .mbsc-label-floating.mbsc-input.mbsc-ic-left .mbsc-label {
+    &.mbsc-rtl.mbsc-label-floating.mbsc-input.mbsc-ic-left .mbsc-label {
       right: 1.625em;
     }
 
     /* Box Input */
-    .mbsc-input-box {
+    &.mbsc-input-box {
       &.mbsc-input .mbsc-input-wrap {
         border-radius: 4px 4px 0 0;
       }
@@ -243,7 +243,7 @@
 
       &.mbsc-input input:focus,
       &.mbsc-input textarea:focus,
-      &.mbsc-input select:focus ~ input {
+      &.mbsc-input select:focus~input {
         padding-bottom: 0;
       }
 
@@ -252,7 +252,7 @@
         height: 2.25em;
       }
 
-      &.mbsc-input .mbsc-label ~ .mbsc-input-wrap {
+      &.mbsc-input .mbsc-label~.mbsc-input-wrap {
         padding-top: 0;
 
         input {
@@ -278,7 +278,7 @@
         z-index: 1;
       }
 
-      &.mbsc-textarea .mbsc-label ~ .mbsc-input-wrap {
+      &.mbsc-textarea .mbsc-label~.mbsc-input-wrap {
         padding-top: 1.625em;
 
         textarea {
@@ -292,7 +292,7 @@
           top: 1em;
         }
 
-        .mbsc-label ~ .mbsc-input-wrap:after {
+        .mbsc-label~.mbsc-input-wrap:after {
           top: 1.625em;
         }
       }
@@ -304,7 +304,7 @@
           padding-bottom: .125em;
         }
 
-        .mbsc-label ~ .mbsc-input-wrap {
+        .mbsc-label~.mbsc-input-wrap {
           padding-top: 0;
 
           input {
@@ -313,11 +313,11 @@
           }
         }
 
-        .mbsc-label ~ .mbsc-input-wrap .mbsc-input-ic {
+        .mbsc-label~.mbsc-input-wrap .mbsc-input-ic {
           top: .1875em;
         }
 
-        &.mbsc-textarea .mbsc-label ~ .mbsc-input-wrap {
+        &.mbsc-textarea .mbsc-label~.mbsc-input-wrap {
           padding-top: .375em;
         }
       }
@@ -331,7 +331,7 @@
       }
     }
 
-    &.mbsc-ltr .mbsc-input-box {
+    &.mbsc-ltr.mbsc-input-box {
       .mbsc-err-msg {
         left: 1.333334em;
       }
@@ -406,7 +406,7 @@
       }
     }
 
-    &.mbsc-rtl .mbsc-input-box {
+    &.mbsc-rtl.mbsc-input-box {
       .mbsc-err-msg {
         right: 1.333334em;
       }
@@ -482,7 +482,7 @@
     }
 
     /* Outline Input */
-    .mbsc-input-outline {
+    &.mbsc-input-outline {
 
       &.mbsc-input input,
       &.mbsc-input textarea {
@@ -509,7 +509,7 @@
         top: .8125em;
       }
 
-      &.mbsc-input .mbsc-label ~ .mbsc-input-wrap {
+      &.mbsc-input .mbsc-label~.mbsc-input-wrap {
         padding-top: .25em;
 
         .mbsc-input-ic {
@@ -518,7 +518,7 @@
       }
 
       &.mbsc-input input:focus,
-      &.mbsc-input select:focus ~ input {
+      &.mbsc-input select:focus~input {
         padding: 0 .9375em;
       }
 
@@ -544,7 +544,7 @@
           top: 1.5em;
         }
 
-        .mbsc-label ~ .mbsc-input-wrap:after {
+        .mbsc-label~.mbsc-input-wrap:after {
           top: 1.75em;
         }
       }
@@ -555,15 +555,15 @@
           line-height: 3.375em;
         }
 
-        .mbsc-label ~ .mbsc-input-wrap {
+        .mbsc-label~.mbsc-input-wrap {
           padding-top: 0;
         }
 
-        .mbsc-label ~ .mbsc-input-wrap .mbsc-input-ic {
+        .mbsc-label~.mbsc-input-wrap .mbsc-input-ic {
           top: .8125em;
         }
 
-        &.mbsc-select .mbsc-label ~ .mbsc-input-wrap:after {
+        &.mbsc-select .mbsc-label~.mbsc-input-wrap:after {
           top: 1.5em;
         }
       }
@@ -583,7 +583,7 @@
       }
     }
 
-    &.mbsc-ltr .mbsc-input-outline {
+    &.mbsc-ltr.mbsc-input-outline {
       .mbsc-err-msg {
         left: 1.416667em;
       }
@@ -640,7 +640,7 @@
           padding-right: 2em;
         }
 
-        select:focus ~ input {
+        select:focus~input {
           padding-right: 1.9375em;
         }
 
@@ -653,7 +653,7 @@
             padding-right: 4em;
           }
 
-          select:focus ~ input {
+          select:focus~input {
             padding-right: 3.9375em;
           }
 
@@ -662,7 +662,7 @@
           }
         }
 
-        &.mbsc-ic-left select:focus ~ input {
+        &.mbsc-ic-left select:focus~input {
           padding-left: 2.9375em;
         }
       }
@@ -685,7 +685,7 @@
       }
     }
 
-    &.mbsc-rtl .mbsc-input-outline {
+    &.mbsc-rtl.mbsc-input-outline {
       .mbsc-err-msg {
         right: 1.416667em;
       }
@@ -742,7 +742,7 @@
           padding-left: 2em;
         }
 
-        select:focus ~ input {
+        select:focus~input {
           padding-left: 1.9375em;
         }
 
@@ -755,7 +755,7 @@
             padding-left: 4em;
           }
 
-          select:focus ~ input {
+          select:focus~input {
             padding-left: 3.9375em;
           }
 
@@ -764,7 +764,7 @@
           }
         }
 
-        &.mbsc-ic-left select:focus ~ input {
+        &.mbsc-ic-left select:focus~input {
           padding-right: 2.9375em;
         }
       }

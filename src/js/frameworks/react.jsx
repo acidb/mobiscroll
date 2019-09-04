@@ -266,9 +266,9 @@ export function deepCompare(a, b) {
         }
 
         const elementProps = {
-            '$$typeof': 1, 
-            'key': 1, 
-            'props': 1, 
+            '$$typeof': 1,
+            'key': 1,
+            'props': 1,
             'ref': 1,
             'type': 1
         };

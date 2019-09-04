@@ -37,13 +37,16 @@
     $switch-track: map-get($colors, switch-track);
 
     .mbsc-#{$theme} {
+
       &.mbsc-form {
         background: $form-background;
         color: $text;
       }
 
       &.mbsc-form *::-moz-selection,
-      &.mbsc-form *::selection {
+      &.mbsc-control-w *::-moz-selection,
+      &.mbsc-form *::selection,
+      &.mbsc-control-w *::selection {
         color: $form-text;
         background: $form-selection;
       }
@@ -62,9 +65,20 @@
         border-top: 1px solid $border-color;
       }
 
-      /* Checkbox, radio */
+      /* Backgrounds */
       &.mbsc-form .mbsc-checkbox,
-      &.mbsc-form .mbsc-radio {
+      &.mbsc-form .mbsc-radio,
+      &.mbsc-form .mbsc-switch,
+      &.mbsc-form .mbsc-segmented,
+      &.mbsc-form .mbsc-stepper-cont,
+      &.mbsc-input-box.mbsc-checkbox,
+      &.mbsc-input-box.mbsc-radio,
+      &.mbsc-input-box.mbsc-switch,
+      &.mbsc-input-box.mbsc-stepper-cont,
+      &.mbsc-input-outline.mbsc-checkbox,
+      &.mbsc-input-outline.mbsc-radio,
+      &.mbsc-input-outline.mbsc-switch,
+      &.mbsc-input-outline.mbsc-stepper-cont {
         background: $cont-background;
       }
 
@@ -86,53 +100,53 @@
         border-right: 0;
       }
 
-      .mbsc-radio input:disabled ~ .mbsc-radio-label {
+      &.mbsc-radio input:disabled ~ .mbsc-radio-label {
         color: $disabled-color;
       }
 
       /* Buttons */
-      .mbsc-btn {
+      &.mbsc-btn {
         background: $button-background;
         color: $accent;
       }
 
-      .mbsc-btn:not(.mbsc-btn-flat):disabled {
+      &.mbsc-btn:not(.mbsc-btn-flat):disabled {
         background: $disabled-background;
         color: $disabled-color;
       }
 
-      .mbsc-btn.mbsc-btn-flat {
+      &.mbsc-btn.mbsc-btn-flat {
         background: transparent;
         border-color: transparent;
       }
 
-      .mbsc-btn-flat:disabled {
+      &.mbsc-btn-flat:disabled {
         background: transparent;
         color: $disabled-color;
       }
 
       /* Button color presets */
-      .mbsc-btn-primary.mbsc-btn,
-      .mbsc-btn-secondary.mbsc-btn,
-      .mbsc-btn-success.mbsc-btn,
-      .mbsc-btn-danger.mbsc-btn,
-      .mbsc-btn-warning.mbsc-btn,
-      .mbsc-btn-info.mbsc-btn,
-      .mbsc-btn-dark.mbsc-btn {
+      &.mbsc-btn-primary.mbsc-btn,
+      &.mbsc-btn-secondary.mbsc-btn,
+      &.mbsc-btn-success.mbsc-btn,
+      &.mbsc-btn-danger.mbsc-btn,
+      &.mbsc-btn-warning.mbsc-btn,
+      &.mbsc-btn-info.mbsc-btn,
+      &.mbsc-btn-dark.mbsc-btn {
         color: $light-text;
       }
 
-      .mbsc-btn-light.mbsc-btn {
+      &.mbsc-btn-light.mbsc-btn {
         color: $dark-text;
       }
 
       /* Flat buttons */
-      .mbsc-btn-flat.mbsc-btn {
+      &.mbsc-btn-flat.mbsc-btn {
         background: transparent;
       }
 
       /* Outline buttons */
-      .mbsc-btn-outline.mbsc-btn {
+      &.mbsc-btn-outline.mbsc-btn {
         background: transparent;
         border: 1px solid $form-selection;
         color: $form-selection;
@@ -143,17 +157,13 @@
         }
       }
 
-      .mbsc-btn.mbsc-btn-outline:disabled {
+      &.mbsc-btn.mbsc-btn-outline:disabled {
         color: $disabled-color;
         border-color: $disabled-color;
         background: transparent;
       }
 
       /* Switch */
-      &.mbsc-form .mbsc-switch {
-        background: $cont-background;
-      }
-
       .mbsc-switch-track {
         background: $track-background;
         border: .0625em solid $track-border;
@@ -167,40 +177,32 @@
         background: $white-text;
       }
 
-      .mbsc-switch input:checked + .mbsc-switch-track {
+      &.mbsc-switch input:checked + .mbsc-switch-track {
         background: $switch-track;
         border-color: $switch-track;
       }
 
       /* Segmented & Stepper */
-      .mbsc-segmented {
-        background-color: $cont-background;
-      }
-
       .mbsc-segmented-content {
         color: $form-selection;
         border: .07142857em solid $form-selection;
         background: $cont-background;
       }
 
-      .mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control.mbsc-active .mbsc-segmented-content,
-      .mbsc-segmented .mbsc-segmented-item input:checked + .mbsc-segmented-content {
+      &.mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control.mbsc-active .mbsc-segmented-content,
+      &.mbsc-segmented .mbsc-segmented-item input:checked + .mbsc-segmented-content {
         background: $form-selection;
         color: $cont-background;
       }
 
-      .mbsc-segmented .mbsc-segmented-item input.mbsc-active + .mbsc-segmented-content {
+      &.mbsc-segmented .mbsc-segmented-item input.mbsc-active + .mbsc-segmented-content {
         background: rgba($accent, .3);
         color: $form-selection;
       }
 
-      .mbsc-stepper-cont {
-        background: $cont-background;
-      }
-
-      .mbsc-segmented input:disabled ~ .mbsc-segmented-item .mbsc-segmented-content,
-      .mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control.mbsc-disabled .mbsc-segmented-content,
-      .mbsc-segmented .mbsc-segmented-item input:disabled + .mbsc-segmented-content {
+      &.mbsc-segmented input:disabled ~ .mbsc-segmented-item .mbsc-segmented-content,
+      &.mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control.mbsc-disabled .mbsc-segmented-content,
+      &.mbsc-segmented .mbsc-segmented-item input:disabled + .mbsc-segmented-content {
         color: $disabled-color;
         border-color: $disabled-color;
       }
@@ -210,7 +212,7 @@
         -webkit-text-fill-color: $disabled-color;
       }
 
-      .mbsc-segmented input:disabled:checked + .mbsc-segmented-content {
+      &.mbsc-segmented input:disabled:checked + .mbsc-segmented-content {
         background: $disabled-background;
       }
 

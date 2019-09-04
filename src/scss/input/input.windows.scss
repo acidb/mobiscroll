@@ -4,28 +4,28 @@
 
 @include exports("input.windows") {
   .mbsc-windows {
-    .mbsc-input {
+    &.mbsc-input {
       padding: .5em 1em 1em;
     }
 
-    .mbsc-input input,
-    .mbsc-input textarea,
-    .mbsc-select input {
+    &.mbsc-input input,
+    &.mbsc-input textarea,
+    &.mbsc-select input {
       height: 2em;
       padding: 0 .3125em;
       font-size: 1em;
       background: transparent;
     }
 
-    &.mbsc-ltr .mbsc-select input {
+    &.mbsc-ltr.mbsc-select input {
       padding-right: 1.75em;
     }
 
-    &.mbsc-rtl .mbsc-select input {
+    &.mbsc-rtl.mbsc-select input {
       padding-left: 1.75em;
     }
 
-    .mbsc-input textarea {
+    &.mbsc-input textarea {
       padding-top: .125em;
       padding-bottom: .125em;
     }
@@ -41,70 +41,70 @@
     }
 
     /* Textbox, textarea, select */
-    .mbsc-input.mbsc-ic-left input,
-    .mbsc-input.mbsc-ic-left textarea {
+    &.mbsc-input.mbsc-ic-left input,
+    &.mbsc-input.mbsc-ic-left textarea {
       padding-left: 2.25em;
     }
 
-    &.mbsc-rtl .mbsc-input.mbsc-ic-left input,
-    &.mbsc-rtl .mbsc-input.mbsc-ic-left textarea {
+    &.mbsc-rtl.mbsc-input.mbsc-ic-left input,
+    &.mbsc-rtl.mbsc-input.mbsc-ic-left textarea {
       padding-right: 2.25em;
       padding-left: .3125em;
     }
 
-    &.mbsc-ltr .mbsc-input.mbsc-ic-right input,
-    &.mbsc-ltr .mbsc-input.mbsc-ic-right textarea {
+    &.mbsc-ltr.mbsc-input.mbsc-ic-right input,
+    &.mbsc-ltr.mbsc-input.mbsc-ic-right textarea {
       padding-right: 2.25em;
     }
 
-    &.mbsc-rtl .mbsc-input.mbsc-ic-right input,
-    &.mbsc-rtl .mbsc-input.mbsc-ic-right textarea {
+    &.mbsc-rtl.mbsc-input.mbsc-ic-right input,
+    &.mbsc-rtl.mbsc-input.mbsc-ic-right textarea {
       padding-left: 2.25em;
     }
 
-    .mbsc-ic-left .mbsc-left-ic,
-    &.mbsc-rtl .mbsc-ic-right .mbsc-right-ic {
+    &.mbsc-ltr.mbsc-ic-left .mbsc-left-ic,
+    &.mbsc-rtl.mbsc-ic-right .mbsc-right-ic {
       right: auto;
       left: .25em;
     }
 
-    .mbsc-ic-right .mbsc-right-ic,
-    &.mbsc-rtl .mbsc-ic-left .mbsc-left-ic {
+    &.mbsc-ltr.mbsc-ic-right .mbsc-right-ic,
+    &.mbsc-rtl.mbsc-ic-left .mbsc-left-ic {
       left: auto;
       right: .25em;
     }
 
-    .mbsc-input .mbsc-label {
+    &.mbsc-input .mbsc-label {
       padding-bottom: .3125em;
       font-size: .8125em;
     }
 
-    .mbsc-select .mbsc-select-ic {
+    &.mbsc-select .mbsc-select-ic {
       display: block;
       position: absolute;
       top: .5em;
     }
 
-    &.mbsc-ltr .mbsc-select .mbsc-select-ic {
+    &.mbsc-ltr.mbsc-select .mbsc-select-ic {
       right: .5em;
     }
 
-    &.mbsc-rtl .mbsc-select .mbsc-select-ic {
+    &.mbsc-rtl.mbsc-select .mbsc-select-ic {
       left: .5em;
     }
 
-    .mbsc-ic-right .mbsc-select-ic {
+    &.mbsc-ic-right .mbsc-select-ic {
       display: none;
     }
 
     /* Inline labels */
-    .mbsc-label-inline.mbsc-input .mbsc-label {
+    &.mbsc-label-inline.mbsc-input .mbsc-label {
       line-height: 2em;
       padding-bottom: 0;
     }
 
     /* Floating labels */
-    .mbsc-label-floating.mbsc-input {
+    &.mbsc-label-floating.mbsc-input {
       padding-top: 1.625em;
 
       .mbsc-label {
@@ -122,7 +122,7 @@
     }
 
     /* Left to right */
-    &.mbsc-ltr .mbsc-label-floating.mbsc-input {
+    &.mbsc-ltr.mbsc-label-floating.mbsc-input {
       .mbsc-label {
         left: 1.375em;
       }
@@ -141,7 +141,7 @@
     }
 
     /* Right to left */
-    &.mbsc-rtl .mbsc-label-floating.mbsc-input {
+    &.mbsc-rtl.mbsc-label-floating.mbsc-input {
       .mbsc-label {
         right: 1.375em;
       }

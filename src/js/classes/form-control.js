@@ -115,6 +115,11 @@ function getAttr($elm, attr, def) {
     return v === undefined || v === '' ? def : v;
 }
 
+function getCssClass(s) {
+    s.baseTheme = mobiscroll.themes.form[s.theme].baseTheme;
+    return 'mbsc-' + s.theme + (s.baseTheme ? ' mbsc-' + s.baseTheme : '') + (s.rtl ? ' mbsc-rtl' : ' mbsc-ltr');
+}
+
 export class FormControl {
     constructor(elm, settings) {
         const s = extend({}, defaults, mobiscroll.settings, settings);
@@ -129,6 +134,20 @@ export class FormControl {
 
         if ($frame) {
             $frame.insertAfter($parent);
+        }
+
+        var themeName;
+
+        themeName = s.theme;
+
+        if (themeName == 'auto' || !themeName) {
+            themeName = mobiscroll.autoTheme;
+        }
+
+        s.theme = themeName;
+
+        if (s.rtl === undefined && s.lang && mobiscroll.i18n[s.lang]) {
+            s.rtl = mobiscroll.i18n[s.lang].rtl;
         }
 
         wrapLabel($parent, type, inputStyle, labelStyle, elm);
@@ -151,7 +170,14 @@ export class FormControl {
         this._ripple = getRipple(s.theme);
         this._isFloating = labelStyle == 'floating' || $parent.hasClass('mbsc-label-floating');
 
+        this.cssClass = getCssClass(s);
+        this.getClassElm().addClass(this.cssClass);
+
         elm.mbscInst = this;
+    }
+
+    getClassElm() {
+        return this._$parent;
     }
 
     destroy() {
@@ -164,6 +190,15 @@ export class FormControl {
 
     option(s) {
         extend(this.settings, s);
+
+        const classElm = this.getClassElm();
+
+        if (this.cssClass) {
+            classElm.removeClass(this.cssClass);
+        }
+
+        this.cssClass = getCssClass(this.settings);
+        classElm.addClass(this.cssClass);
         this._ripple = getRipple(this.settings.theme);
     }
 
@@ -215,6 +250,10 @@ export class FormControl {
                 $active.addClass('mbsc-active');
                 this._addRipple(ev);
             }
+        }
+
+        if (ev.type == 'touchstart') {
+            this._$elm.closest('.mbsc-no-touch').removeClass('mbsc-no-touch');
         }
     }
 

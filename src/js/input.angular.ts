@@ -20,8 +20,7 @@ import {
     CommonModule
 } from './frameworks/angular';
 
-import { MbscFormOptions } from './classes/forms';
-import { Input as FormInput } from './classes/input';
+import { Input as FormInput, MbscFormOptions } from './classes/input';
 
 export class MbscFormBase extends MbscBase implements OnInit {
     protected _inheritedOptions: any;
@@ -51,7 +50,7 @@ export class MbscFormBase extends MbscBase implements OnInit {
     /**
      * Reference to the native element the controls is initialized on
      */
-    @ViewChild('initElement')
+    @ViewChild('initElement', { static: false } as any)
     public _initElem: ElementRef;
 
 
@@ -147,6 +146,10 @@ export class MbscFormValueBase extends MbscFormBase implements ControlValueAcces
         this.onTouch = fn;
     }
 
+    setDisabledState(isDisabled: boolean) {
+        this.disabled = isDisabled;
+    }
+
     /**
      * Called when the model changed
      * @param v the new value of the model
@@ -167,6 +170,24 @@ export class MbscFormValueBase extends MbscFormBase implements ControlValueAcces
 }
 
 export class MbscInputBase extends MbscFormValueBase {
+    @Input()
+    autocomplete: 'on' | 'off';
+    @Input()
+    autocapitalize: string;
+    @Input()
+    autocorrect: string;
+    @Input()
+    spellcheck: string;
+    @Input()
+    autofocus: string;
+
+    @Input()
+    minlength: number;
+    @Input()
+    maxlength: number;
+    @Input()
+    required: string;
+
     /**
      * Input for the icon
      */
@@ -286,27 +307,12 @@ export class MbscInput extends MbscInputBase {
     min: number;
     @Input()
     max: number;
-    @Input()
-    minlength: number;
-    @Input()
-    maxlength: number;
-
-    @Input()
-    autocomplete: 'on' | 'off';
-    @Input()
-    autocapitalize: string;
-    @Input()
-    autocorrect: string;
-    @Input()
-    spellcheck: string;
-    @Input()
-    autofocus: string;
+    
     @Input()
     step: number;
     @Input()
     pattern: string;
-    @Input()
-    required: string;
+    
     @Input()
     accept: string;
     @Input()

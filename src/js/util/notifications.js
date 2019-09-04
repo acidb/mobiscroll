@@ -86,10 +86,13 @@ function showConfirm(popup, settings, resolve) {
 }
 
 function showPrompt(popup, settings, resolve) {
-    let input;
+    let input, label;
     const inst = new Popup(popup, getSettings(popupQueue, settings, resolve, {
         buttons: ['cancel', 'ok'],
         onMarkupReady: function (event, inst) {
+            let s = inst.settings;
+            label = inst._markup.find('label');
+            label.addClass('mbsc-' + s.theme + (s.baseTheme ? ' mbsc-' + s.baseTheme : ''));
             input = inst._markup.find('input')[0];
             setTimeout(function () {
                 input.focus();
@@ -113,6 +116,11 @@ function showSnackbar(popup, settings, resolve, cssClass, animation) {
         scrollLock: false,
         focusTrap: false,
         buttons: [],
+        onMarkupReady: function (event, inst) {
+            let s = inst.settings;
+            let button = inst._markup.find('button');
+            button.addClass('mbsc-' + s.theme + (s.baseTheme ? ' mbsc-' + s.baseTheme : ''));
+        },
         onShow: function (ev, inst) {
             activeNotification = inst;
             if (settings.duration !== false) {

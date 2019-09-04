@@ -1,4 +1,4 @@
-import { $, classes } from '../core/core';
+import { $, classes, autoInit } from '../core/core';
 import { Progress } from './progress';
 import { SliderBase } from './slider-base';
 import { getPercent, getBoolAttr } from '../util/misc';
@@ -180,3 +180,6 @@ Slider.prototype = {
 };
 
 classes.Slider = Slider;
+
+// Init mbsc-slider elements on page load
+autoInit('[mbsc-slider]', Slider);

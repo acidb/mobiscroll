@@ -1,6 +1,7 @@
 /*!
- * Mobiscroll v4.7.3
+ * Mobiscroll v4.8.1
  * http://mobiscroll.com
+ * 
  *
  * Copyright 2010-2018, Acid Media
  *
@@ -18,15 +19,15 @@ function autoInit(selector, Component, hasRefresh) {
         $(function () {
 
             $(selector).each(function () {
-                new Component(this);
+                new Component(this, {});
             });
 
             $(document).on('mbsc-enhance', function (ev, settings) {
                 if ($(ev.target).is(selector)) {
-                    new Component(ev.target, settings);
+                    new Component(ev.target, settings || {});
                 } else {
                     $(selector, ev.target).each(function () {
-                        new Component(this, settings);
+                        new Component(this, settings || {});
                     });
                 }
             });
@@ -76,7 +77,7 @@ extend(util, {
 
 ms = extend(mobiscroll, {
     $: $,
-    version: '4.7.3',
+    version: '4.8.1',
     autoTheme: 'mobiscroll',
     themes: {
         form: {},
@@ -351,5 +352,6 @@ export {
     mobiscroll,
     util,
     autoInit,
-    Base
+    Base,
+    ms
 };

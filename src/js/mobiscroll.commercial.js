@@ -43,7 +43,7 @@ var MbscCommercialComponent = (function (_super) {
         'options': [{ type: Input },],
         'data': [{ type: Input },],
         'mbscData': [{ type: Input, args: ['mbsc-data',] },],
-        'initElem': [{ type: ViewChild, args: ['initElement',] },],
+        'initElem': [{ type: ViewChild, args: ['initElement', { static: false },] },],
     };
     return MbscCommercialComponent;
 }(MbscBase));

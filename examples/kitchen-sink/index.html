@@ -22,28 +22,32 @@
                         <div class="mbsc-col-sm-6">
                             <label>
                                 First Name
-                                <input type="text" id="first" data-label-style="floating" placeholder="What's your first name?" />
+                                <input mbsc-input type="text" id="first" data-label-style="floating"
+                                    placeholder="What's your first name?" />
                             </label>
                             <label>
                                 Last Name
-                                <input type="text" id="last" data-label-style="floating" placeholder="What's your last name?" />
+                                <input mbsc-input type="text" id="last" data-label-style="floating"
+                                    placeholder="What's your last name?" />
                             </label>
                         </div>
                         <div class="mbsc-col-sm-6">
                             <label>
                                 Email
-                                <input type="email" id="email" data-label-style="floating" placeholder="me@domain.com" />
+                                <input mbsc-input type="email" id="email" data-label-style="floating"
+                                    placeholder="me@domain.com" />
                             </label>
                             <label>
                                 Password
-                                <input type="password" id="password" data-label-style="floating" placeholder="Minimum 6 characters" data-password-toggle="true" />
+                                <input mbsc-input type="password" id="password" data-label-style="floating"
+                                    placeholder="Minimum 6 characters" data-password-toggle="true" />
                             </label>
                         </div>
                     </div>
                 </div>
                 <label>
                     Rating
-                    <input data-role="rating" value="4" />
+                    <input mbsc-rating value="4" />
                 </label>
             </div>
 
@@ -52,21 +56,21 @@
                 <div class="mbsc-form-group-content">
                     <label>
                         Male
-                        <input type="radio" data-role="segmented" name="gender" checked>
+                        <input mbsc-segmented type="radio" name="gender" checked>
                     </label>
                     <label>
                         Female
-                        <input type="radio" data-role="segmented" name="gender">
+                        <input mbsc-segmented type="radio" name="gender">
                     </label>
                     <div>
                         <label for="height">Height (cm)</label>
-                        <input id="height" type="number" data-role="stepper" data-val="left" min="130" max="220" step="1" value="170" />
+                        <input mbsc-stepper id="height" type="number" data-val="left" min="130" max="220" step="1"
+                            value="170" />
                     </div>
                     <div>
-                        <label>
-                            Weight (kg)
-                            <input id="weight" type="number" data-role="stepper" data-val="left" min="30" max="180" step="1" value="85" />
-                        </label>
+                        <label for="weight">Weight (kg)</label>
+                        <input mbsc-stepper id="weight" type="number" data-val="left" min="30" max="180" step="1"
+                            value="85" />
                     </div>
                 </div>
             </div>
@@ -75,11 +79,12 @@
                 <div class="mbsc-form-group-title">General settings</div>
                 <div class="mbsc-form-group-content">
                     <label>
-                        <input data-role="switch" type="checkbox"> Indoor/Treadmill
+                        <input mbsc-switch type="checkbox"> Indoor/Treadmill
                     </label>
                     <label>
-                        <input data-role="switch" type="checkbox" checked> Auto-Pause Run
-                        <span class="mbsc-desc">Automatically pause workout when you stop moving. This is useful if you don't want to manually pause and resume.</span>
+                        <input mbsc-switch type="checkbox" checked> Auto-Pause Run
+                        <span class="mbsc-desc">Automatically pause workout when you stop moving. This is useful if you
+                            don't want to manually pause and resume.</span>
                     </label>
                 </div>
             </div>
@@ -88,18 +93,18 @@
                 <div class="mbsc-form-group-title">On screen</div>
                 <div class="mbsc-form-group-content">
                     <label>
-                        <input data-role="switch" type="checkbox" checked> Heart Rate
+                        <input mbsc-switch type="checkbox" checked> Heart Rate
                     </label>
                     <label>
-                        <input data-role="switch" type="checkbox"> Cheers
+                        <input mbsc-switch type="checkbox"> Cheers
                     </label>
                     <label>
                         Show current pace
-                        <input type="radio" data-role="segmented" name="pace" checked>
+                        <input mbsc-segmented type="radio" name="pace" checked>
                     </label>
                     <label>
                         Show average pace
-                        <input type="radio" data-role="segmented" name="pace">
+                        <input mbsc-segmented type="radio" name="pace">
                     </label>
                 </div>
             </div>
@@ -108,32 +113,25 @@
                 <div class="mbsc-form-group-title">Run countdown</div>
                 <div class="mbsc-form-group-content">
                     <label>
-                        <input type="radio" name="group"> Off
+                        <input mbsc-radio type="radio" name="group"> Off
                     </label>
                     <label>
-                        <input type="radio" name="group" checked> 3 seconds
+                        <input mbsc-radio type="radio" name="group" checked> 3 seconds
                     </label>
                     <label>
-                        <input type="radio" name="group"> 6 seconds
+                        <input mbsc-radio type="radio" name="group"> 6 seconds
                     </label>
                     <label>
-                        <input type="radio" name="group"> 9 seconds
+                        <input mbsc-radio type="radio" name="group"> 9 seconds
                     </label>
                 </div>
             </div>
 
             <div class="mbsc-btn-group-block">
-                <button>Save Settings</button>
+                <button mbsc-button>Save Settings</button>
             </div>
         </div>
     </div>
-
-    <script>
-        mobiscroll.settings = {
-            theme: 'auto'
-        };
-
-    </script>
 
 </body>
 

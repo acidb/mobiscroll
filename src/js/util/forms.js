@@ -27,7 +27,7 @@ function initControls($ctx, controls, s, shallow) {
             type = getControlType($control);
 
         // Skip elements with data-enhance="false"
-        if ($control.attr('data-enhance') != 'false' /* TRIALCOND */ ) {
+        if ($control.attr('data-enhance') != 'false' /* TRIALCOND */) {
 
             if ($control.hasClass('mbsc-control')) {
                 if (control.mbscInst) {
@@ -51,6 +51,7 @@ function initControls($ctx, controls, s, shallow) {
                     case 'submit':
                         controls[control.id] = new Button(control, {
                             theme: s.theme,
+                            rtl: s.rtl,
                             tap: s.tap
                         });
                         break;
@@ -67,7 +68,9 @@ function initControls($ctx, controls, s, shallow) {
                         break;
                     case 'checkbox':
                         controls[control.id] = new CheckBox(control, {
-                            tap: s.tap
+                            tap: s.tap,
+                            theme: s.theme,
+                            rtl: s.rtl
                         });
                         break;
                     case 'range':
@@ -89,7 +92,6 @@ function initControls($ctx, controls, s, shallow) {
                             stopProp: s.stopProp
                         });
                         break;
-
                     case 'progress':
                         controls[control.id] = new Progress(control, {
                             theme: s.theme,
@@ -100,7 +102,9 @@ function initControls($ctx, controls, s, shallow) {
                         break;
                     case 'radio':
                         controls[control.id] = new Radio(control, {
-                            tap: s.tap
+                            tap: s.tap,
+                            theme: s.theme,
+                            rtl: s.rtl
                         });
                         break;
                     case 'select':
@@ -109,25 +113,31 @@ function initControls($ctx, controls, s, shallow) {
                         controls[control.id] = new Select(control, {
                             tap: s.tap,
                             inputStyle: s.inputStyle,
-                            labelStyle: s.labelStyle
+                            labelStyle: s.labelStyle,
+                            theme: s.theme,
+                            rtl: s.rtl
                         });
                         break;
                     case 'textarea':
                         controls[control.id] = new TextArea(control, {
                             tap: s.tap,
                             inputStyle: s.inputStyle,
-                            labelStyle: s.labelStyle
+                            labelStyle: s.labelStyle,
+                            theme: s.theme,
+                            rtl: s.rtl
                         });
                         break;
                     case 'segmented':
                         controls[control.id] = new SegmentedItem(control, {
                             theme: s.theme,
+                            rtl: s.rtl,
                             tap: s.tap
                         });
                         break;
                     case 'stepper':
                         controls[control.id] = new Stepper(control, {
-                            theme: s.theme
+                            theme: s.theme,
+                            rtl: s.rtl
                         });
                         break;
                     case 'hidden':
@@ -136,7 +146,9 @@ function initControls($ctx, controls, s, shallow) {
                         controls[control.id] = new Input(control, {
                             tap: s.tap,
                             inputStyle: s.inputStyle,
-                            labelStyle: s.labelStyle
+                            labelStyle: s.labelStyle,
+                            theme: s.theme,
+                            rtl: s.rtl
                         });
                         break;
                 }

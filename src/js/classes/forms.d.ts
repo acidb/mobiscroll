@@ -1,10 +1,8 @@
-import { Base, MbscCoreOptions } from '../core/core';
+import { Base } from '../core/core';
+import { MbscFormOptions } from './input';
 import '../util/notifications';
 
-export interface MbscFormOptions extends MbscCoreOptions {
-    inputStyle?: string;
-    labelStyle?: string;
-}
+export { MbscFormOptions };
 
 export class Form extends Base {
     settings: MbscFormOptions;

@@ -12,7 +12,10 @@
     $slider-tooltip: map-get($colors, slider-tooltip);
 
     .mbsc-#{$theme} {
-      &.mbsc-progress {
+
+      &.mbsc-form .mbsc-progress,
+      &.mbsc-input-box.mbsc-progress,
+      &.mbsc-input-outline.mbsc-progress {
         background: $cont-background;
       }
 

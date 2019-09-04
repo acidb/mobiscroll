@@ -56,7 +56,7 @@ export class MbscCommercialComponent extends MbscBase implements AfterViewInit {
     @Input('mbsc-data')
     mbscData: any;
 
-    @ViewChild('initElement')
+    @ViewChild('initElement', { static: false } as any)
     initElem: ElementRef;
 
     constructor(hostElement: ElementRef, @Optional() public optionsService: MbscOptionsService, zone: NgZone) {

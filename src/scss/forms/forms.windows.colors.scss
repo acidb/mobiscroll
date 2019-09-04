@@ -32,13 +32,20 @@
     $button-hover: map-get($colors, button-hover);
 
     .mbsc-#{$theme} {
+
       &.mbsc-form {
         background-color: $form-background;
         color: $text;
       }
 
+      &.mbsc-control-w {
+        color: $text;
+      }
+
       &.mbsc-form *::-moz-selection,
-      &.mbsc-form *::selection {
+      &.mbsc-control-w *::-moz-selection,
+      &.mbsc-form *::selection,
+      &.mbsc-control-w *::selection {
         color: get-contrast-color($accent);
         background: rgba($accent, .9);
       }
@@ -55,12 +62,12 @@
         border-right: 0;
       }
 
-      .mbsc-checkbox input:checked + .mbsc-checkbox-box {
+      &.mbsc-checkbox input:checked+.mbsc-checkbox-box {
         background: $accent;
         border-color: $accent;
       }
 
-      .mbsc-checkbox input.mbsc-active + .mbsc-checkbox-box {
+      &.mbsc-checkbox input.mbsc-active+.mbsc-checkbox-box {
         border-color: $input-hover;
         background: $input-hover;
       }
@@ -70,45 +77,45 @@
         background: $text;
       }
 
-      .mbsc-radio input:checked + .mbsc-radio-box {
+      &.mbsc-radio input:checked+.mbsc-radio-box {
         border-color: $accent;
       }
 
-      .mbsc-radio input.mbsc-active + .mbsc-radio-box {
+      &.mbsc-radio input.mbsc-active+.mbsc-radio-box {
         border-color: rgba($text, .6);
       }
 
-      .mbsc-radio input.mbsc-active + .mbsc-radio-box:after {
+      &.mbsc-radio input.mbsc-active+.mbsc-radio-box:after {
         background: rgba($text, .6);
       }
 
       /* Buttons */
-      .mbsc-btn {
+      &.mbsc-btn {
         background: $frame-border;
         border: .125em solid $frame-border;
         color: $text;
       }
 
-      &.mbsc-no-touch .mbsc-btn:not(.mbsc-btn-flat):not(:disabled):hover {
+      &.mbsc-no-touch.mbsc-btn:not(.mbsc-btn-flat):not(:disabled):hover {
         border-color: $button-border;
       }
 
-      .mbsc-btn.mbsc-active {
+      &.mbsc-btn.mbsc-active {
         border-color: $button-border;
         background: $button-border;
       }
 
-      &.mbsc-no-touch .mbsc-btn-flat:not(:disabled):hover {
+      &.mbsc-no-touch.mbsc-btn-flat:not(:disabled):hover {
         background: transparent;
         border-color: transparent;
       }
 
-      .mbsc-btn.mbsc-btn-flat.mbsc-active:not(:disabled) {
+      &.mbsc-btn.mbsc-btn-flat.mbsc-active:not(:disabled) {
         background: rgba($frame-border, .25);
       }
 
       /* Outline buttons */
-      .mbsc-btn.mbsc-btn-outline {
+      &.mbsc-btn.mbsc-btn-outline {
         background: transparent;
         border: 0.125em solid $input-border;
         color: $input-border;
@@ -121,10 +128,8 @@
       }
 
       /* button hover style */
-      &.mbsc-no-touch {
-        .mbsc-btn.mbsc-btn-outline:not(:disabled):hover {
-          border-color: $button-background;
-        }
+      &.mbsc-no-touch.mbsc-btn.mbsc-btn-outline:not(:disabled):hover {
+        border-color: $button-background;
       }
 
       .mbsc-switch-track {
@@ -135,7 +140,7 @@
         background: $text;
       }
 
-      .mbsc-switch input:checked + .mbsc-switch-track {
+      &.mbsc-switch input:checked+.mbsc-switch-track {
         background: $accent;
         border-color: $accent;
 
@@ -144,12 +149,12 @@
         }
       }
 
-      .mbsc-switch input:checked:disabled + .mbsc-switch-track {
+      &.mbsc-switch input:checked:disabled+.mbsc-switch-track {
         background: $text;
         border-color: $text;
       }
 
-      &.mbsc-form .mbsc-switch input.mbsc-active + .mbsc-switch-track {
+      &.mbsc-form .mbsc-switch input.mbsc-active+.mbsc-switch-track {
         background: $input-hover;
         border-color: $input-hover;
 
@@ -170,37 +175,37 @@
         border-bottom: 2px solid $frame-border;
       }
 
-      &.mbsc-ltr .mbsc-segmented:not(.mbsc-stepper) .mbsc-segmented-item {
+      &.mbsc-ltr.mbsc-segmented:not(.mbsc-stepper) .mbsc-segmented-item {
         border-right: 1px solid $border-color;
       }
 
-      &.mbsc-rtl .mbsc-segmented:not(.mbsc-stepper) .mbsc-segmented-item {
+      &.mbsc-rtl.mbsc-segmented:not(.mbsc-stepper) .mbsc-segmented-item {
         border-left: 1px solid $border-color;
       }
 
-      .mbsc-segmented:not(.mbsc-stepper) .mbsc-segmented-item:last-child,
-      .mbsc-segmented .mbsc-segmented-item.mbsc-stepper-plus,
-      .mbsc-stepper-val-left .mbsc-segmented input + .mbsc-segmented-item,
-      .mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control {
+      &.mbsc-segmented:not(.mbsc-stepper) .mbsc-segmented-item:last-child,
+      &.mbsc-segmented .mbsc-segmented-item.mbsc-stepper-plus,
+      &.mbsc-stepper-val-left .mbsc-segmented input+.mbsc-segmented-item,
+      &.mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control {
         border: 0;
       }
 
-      &.mbsc-ltr .mbsc-segmented .mbsc-stepper-control + .mbsc-stepper-control {
+      &.mbsc-ltr.mbsc-segmented .mbsc-stepper-control+.mbsc-stepper-control {
         border-left: 1px solid $border-color;
       }
 
-      &.mbsc-rtl .mbsc-segmented .mbsc-stepper-control + .mbsc-stepper-control {
+      &.mbsc-rtl.mbsc-segmented .mbsc-stepper-control+.mbsc-stepper-control {
         border-right: 1px solid $border-color;
       }
 
-      .mbsc-segmented .mbsc-segmented-item input:checked + .mbsc-segmented-content {
+      &.mbsc-segmented .mbsc-segmented-item input:checked+.mbsc-segmented-content {
         background: $text;
         color: $form-background;
       }
 
-      .mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control.mbsc-active .mbsc-segmented-content,
-      .mbsc-segmented .mbsc-segmented-item input:checked + .mbsc-segmented-content,
-      .mbsc-segmented .mbsc-segmented-item input.mbsc-active + .mbsc-segmented-content {
+      &.mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control.mbsc-active .mbsc-segmented-content,
+      &.mbsc-segmented .mbsc-segmented-item input:checked+.mbsc-segmented-content,
+      &.mbsc-segmented .mbsc-segmented-item input.mbsc-active+.mbsc-segmented-content {
         background: $button-border;
       }
 
@@ -208,10 +213,10 @@
         background: $button-border;
       }
 
-      .mbsc-segmented input:disabled ~ .mbsc-segmented-item .mbsc-segmented-content,
-      .mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control.mbsc-disabled .mbsc-segmented-content,
+      &.mbsc-segmented input:disabled~.mbsc-segmented-item .mbsc-segmented-content,
+      &.mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control.mbsc-disabled .mbsc-segmented-content,
       .mbsc-stepper .mbsc-segmented-item.mbsc-disabled .mbsc-segmented-content,
-      .mbsc-segmented .mbsc-segmented-item input:disabled + .mbsc-segmented-content {
+      &.mbsc-segmented .mbsc-segmented-item input:disabled+.mbsc-segmented-content {
         background: $frame-border;
       }
 
@@ -220,7 +225,7 @@
         -webkit-text-fill-color: $segmented-disabled;
       }
 
-      .mbsc-segmented .mbsc-segmented-item input:disabled:checked + .mbsc-segmented-content {
+      &.mbsc-segmented .mbsc-segmented-item input:disabled:checked+.mbsc-segmented-content {
         color: $form-background;
         background: $segmented-disabled;
       }

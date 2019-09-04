@@ -26,7 +26,7 @@
         border-bottom: 2px solid $background;
       }
 
-      &.mbsc-form .mbsc-slider .mbsc-progress-track {
+      &.mbsc-slider .mbsc-progress-track {
         border-top-color: $form-background;
         border-bottom-color: $form-background;
       }
@@ -39,7 +39,7 @@
         }
       }
 
-      &.mbsc-slider .mbsc-active ~ .mbsc-progress-cont .mbsc-progress-track {
+      &.mbsc-slider .mbsc-active~.mbsc-progress-cont .mbsc-progress-track {
         background: $input-border;
 
         .mbsc-slider-handle {

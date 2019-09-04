@@ -16,40 +16,40 @@
     .mbsc-#{$theme} {
 
       /* Textbox */
-      .mbsc-input input,
-      .mbsc-input textarea {
+      &.mbsc-input input,
+      &.mbsc-input textarea {
         border-bottom: 1px solid $form-text;
         color: $input-text;
       }
 
       /* Textbox, textarea, select */
-      .mbsc-input input:focus,
-      .mbsc-input textarea:focus,
-      .mbsc-input select:focus ~ input {
+      &.mbsc-input input:focus,
+      &.mbsc-input textarea:focus,
+      &.mbsc-input select:focus~input {
         border-bottom: 2px solid $accent;
       }
 
       /* Input */
-      .mbsc-input.mbsc-err input,
-      .mbsc-input.mbsc-err textarea {
+      &.mbsc-input.mbsc-err input,
+      &.mbsc-input.mbsc-err textarea {
         border-bottom: 1px solid $error;
       }
 
       /* Select */
-      .mbsc-select .mbsc-input-wrap:after {
+      &.mbsc-select .mbsc-input-wrap:after {
         border: 5px solid $form-text;
         border-color: $form-text transparent transparent transparent;
       }
 
       /* Box Input color */
-      .mbsc-input-box {
+      &.mbsc-input-box {
         &.mbsc-input .mbsc-input-wrap {
           background: $box-input;
         }
       }
 
       /* Outline Input */
-      .mbsc-input-outline {
+      &.mbsc-input-outline {
 
         &.mbsc-input input,
         &.mbsc-input textarea {
@@ -60,8 +60,13 @@
           background: $background;
         }
 
+        &.mbsc-label-inline.mbsc-input .mbsc-label,
+        &.mbsc-label-floating:not(.mbsc-label-floating-active).mbsc-input .mbsc-label {
+          background: none;
+        }
+
         &.mbsc-input input:focus,
-        &.mbsc-input select:focus ~ input {
+        &.mbsc-input select:focus~input {
           border: 2px solid $accent;
         }
 

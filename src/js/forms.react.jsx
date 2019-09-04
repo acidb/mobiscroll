@@ -63,6 +63,7 @@ class MbscForm extends MbscOptimized {
 
     static propTypes = {
         ...CorePropTypes,
+        enhance: reactBool,
         labelStyle: reactString,
         inputStyle: reactString,
         onInit: reactFunc

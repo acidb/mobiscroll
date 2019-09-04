@@ -1,10 +1,11 @@
-import { $, Base, mobiscroll, classes } from '../core/core';
+import { $, Base, mobiscroll, classes, autoInit } from '../core/core';
 import { createStepper } from '../util/stepper';
 
 export const Stepper = function (control, settings) {
     var $btnPlus,
         $btnMinus,
         $controls,
+        cssClass = '',
         displayValue,
         max,
         min,
@@ -114,15 +115,25 @@ export const Stepper = function (control, settings) {
 
         if (!ready) {
             $parent
-                .addClass('mbsc-stepper-cont mbsc-control-w')
+                .addClass('mbsc-stepper-cont mbsc-no-touch mbsc-control-w')
                 .addClass(inputStyle == 'box' ? 'mbsc-input-box' : '')
                 .addClass(inputStyle == 'outline' ? 'mbsc-input-outline' : '')
-                .append('<span class="mbsc-segmented mbsc-stepper"></span>')
+                .append('<span class="mbsc-segmented mbsc-stepper' + '"></span>')
                 .find('.mbsc-stepper')
                 .append('<span class="mbsc-segmented-item mbsc-stepper-control mbsc-stepper-minus ' + (val == min ? 'mbsc-disabled' : '') + '" data-step="-1" tabindex="0"><span class="mbsc-segmented-content"><span class="mbsc-ic mbsc-ic-minus"></span></span></span>')
                 .append('<span class="mbsc-segmented-item mbsc-stepper-control mbsc-stepper-plus ' + (val == max ? 'mbsc-disabled' : '') + '"  data-step="1" tabindex="0"><span class="mbsc-segmented-content"> <span class="mbsc-ic mbsc-ic-plus"></span></span></span>')
                 .prepend($control);
         }
+
+        if (cssClass) {
+            $parent.removeClass(cssClass)
+            $parent.find('.mbsc-segmented').removeClass(cssClass);
+        }
+
+        cssClass = 'mbsc-' + s.theme + (theme.baseTheme ? ' mbsc-' + theme.baseTheme : '') + (s.rtl ? ' mbsc-rtl' : ' mbsc-ltr');
+
+        $parent.addClass(cssClass)
+        $parent.find('.mbsc-segmented').addClass(cssClass);
 
         $btnMinus = $('.mbsc-stepper-minus', $parent);
         $btnPlus = $('.mbsc-stepper-plus', $parent);
@@ -170,6 +181,7 @@ Stepper.prototype = {
     _class: 'stepper',
     _hasDef: true,
     _hasTheme: true,
+    _hasLang: true,
     _defaults: {
         min: 0,
         max: 100,
@@ -178,3 +190,6 @@ Stepper.prototype = {
 };
 
 classes.Stepper = Stepper;
+
+// Init mbsc-stepper elements on page load
+autoInit('[mbsc-stepper]', Stepper);

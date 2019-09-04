@@ -65,6 +65,9 @@ export class MbscForm extends MbscBase implements OnInit {
     @Input('options')
     options: MbscFormOptions;
 
+    @Input()
+    enhance: boolean = false;
+
     /**
      *  Specify the inputStyle.
     */
@@ -77,7 +80,7 @@ export class MbscForm extends MbscBase implements OnInit {
     @Input('label-style')
     labelStyle: string;
 
-    @ViewChild('rootElement')
+    @ViewChild('rootElement', { static: false } as any)
     rootElem: ElementRef;
 
     constructor(initialElem: ElementRef, private _formService: MbscOptionsService, zone: NgZone) {
@@ -92,6 +95,9 @@ export class MbscForm extends MbscBase implements OnInit {
     }
 
     initControl() {
+        if (this.options.enhance === undefined) {
+            this.options.enhance = false;
+        }
         let options = extend({}, this.options, this.inlineOptionsObj);
         this.instance = new Form(this.rootElem.nativeElement, options);
     }
@@ -114,6 +120,15 @@ export class MbscForm extends MbscBase implements OnInit {
                 <textarea #initElement [placeholder]="placeholder" [(ngModel)]="innerValue" (blur)="onTouch($event)"
                     [attr.name]="name"
                     [attr.rows]="rows"
+                    [attr.wrap]="wrap"
+                    [attr.minlength]="minlength"
+                    [attr.maxlength]="maxlength"
+                    [attr.autocomplete]="autocomplete" 
+                    [attr.autocapitalize]="autocapitalize"
+                    [attr.autocorrect]="autocorrect"
+                    [attr.spellcheck]="spellcheck"
+                    [attr.autofocus]="autofocus"
+                    [attr.required]="required"
                     [attr.data-icon]="icon ? icon : null"
                     [attr.data-icon-align]="iconAlign ? iconAlign : null"
                     [disabled]="disabled"
@@ -129,6 +144,8 @@ export class MbscTextarea extends MbscInputBase {
 
     @Input()
     rows: number | string;
+    @Input()
+    wrap: 'hard' | 'soft' | 'off';
 
     constructor(initialElem: ElementRef, @Optional() _formService: MbscOptionsService, protected _inputService: MbscInputService, @Optional() _control: NgControl, zone: NgZone) {
         super(initialElem, _formService, _control, _inputService.isControlSet, zone);
@@ -430,7 +447,7 @@ export class MbscSwitch extends MbscControlBase implements OnInit {
     @Output('valueChange')
     onChangeEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-    @ViewChild('initElement')
+    @ViewChild('initElement', { static: false } as any)
     _initElem: ElementRef;
 
     _colorClass: any = {};
@@ -563,7 +580,7 @@ export class MbscStepper extends MbscControlBase implements OnInit {
      * Reference for the input element in the template.
      * The control is initialized on this element.
      */
-    @ViewChild('initElement')
+    @ViewChild('initElement', { static: false } as any)
     public _initElem: ElementRef;
 
     constructor(hostElement: ElementRef, zone: NgZone, @Optional() protected _formService: MbscOptionsService, @Optional() control: NgControl) {
@@ -668,7 +685,7 @@ export class MbscProgress extends MbscControlBase implements OnInit {
      * Reference for the input element in the template.
      * The control is initialized on this element.
      */
-    @ViewChild('initElement')
+    @ViewChild('initElement', { static: false } as any)
     public _initElem: ElementRef;
 
     constructor(hostElement: ElementRef, zone: NgZone, @Optional() protected _formService: MbscOptionsService, @Optional() control: NgControl) {
@@ -1420,4 +1437,4 @@ const comp = [
     declarations: comp,
     exports: [comp, MbscInputModule, MbscInput]
 })
-export class MbscFormsModule {}
+export class MbscFormsModule { }

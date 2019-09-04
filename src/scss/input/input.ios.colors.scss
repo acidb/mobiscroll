@@ -13,19 +13,19 @@
     $form-text: map-get($colors, form-text);
 
     .mbsc-#{$theme} {
-      .mbsc-input {
+      &.mbsc-input {
         background: $cont-background;
       }
 
-      .mbsc-input .mbsc-control::-webkit-input-placeholder {
+      &.mbsc-input .mbsc-control::-webkit-input-placeholder {
         color: $form-text;
       }
 
-      .mbsc-input .mbsc-control::-ms-input-placeholder {
+      &.mbsc-input .mbsc-control::-ms-input-placeholder {
         color: $form-text;
       }
 
-      .mbsc-input .mbsc-control::-moz-placeholder {
+      &.mbsc-input .mbsc-control::-moz-placeholder {
         color: $form-text;
       }
 
@@ -37,10 +37,10 @@
         box-shadow: 0 0 0px 1000px #e8f0fe inset;
       }
 
-      .mbsc-input .mbsc-label,
-      .mbsc-progress .mbsc-label,
-      .mbsc-input input,
-      .mbsc-input textarea {
+      &.mbsc-input .mbsc-label,
+      &.mbsc-progress .mbsc-label,
+      &.mbsc-input input,
+      &.mbsc-input textarea {
         color: $text;
       }
 
@@ -48,20 +48,22 @@
         color: $error;
       }
 
-      .mbsc-control-w:before,
-      .mbsc-control-w:after {
-        border-top: 1px solid $border-color;
+      &.mbsc-input:before,
+      &.mbsc-input:after,
+      &.mbsc-form .mbsc-control-w:before,
+      &.mbsc-form .mbsc-control-w:after {
+        border-color: $border-color;
       }
 
-      .mbsc-control-w.mbsc-err:after,
-      .mbsc-control-w.mbsc-err + .mbsc-err:before,
-      .mbsc-control-w.mbsc-err + .mbsc-divider {
+      &.mbsc-control-w.mbsc-err:after,
+      &.mbsc-control-w.mbsc-err + .mbsc-err:before,
+      &.mbsc-control-w.mbsc-err + .mbsc-divider {
         border-top-color: $error;
       }
 
       /* Box Input and Outline */
-      .mbsc-input-box,
-      .mbsc-input-outline {
+      &.mbsc-input-box,
+      &.mbsc-input-outline {
         &.mbsc-err {
           border-color: $error;
         }
@@ -72,7 +74,7 @@
       }
 
       /* Outline */
-      .mbsc-input-outline {
+      &.mbsc-input-outline {
 
         /* Row separator */
         &.mbsc-control-w {

@@ -28,6 +28,10 @@ function createStepper($elm, action, delay, isReadOnly, stopProp, ripple) {
             ev.stopPropagation();
         }
 
+        if (ev.type == 'touchstart') {
+            $btn.closest('.mbsc-no-touch').removeClass('mbsc-no-touch');
+        }
+
         if (ev.type == 'mousedown') {
             // Prevent focus
             ev.preventDefault();

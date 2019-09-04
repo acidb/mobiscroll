@@ -83,7 +83,7 @@ export class MbscScrollViewBase extends MbscBase {
     @Input()
     itemWidth: number;
     @Input()
-    layout: 'liquid' | 'fixed';
+    layout: 'liquid' | 'fixed' | number;
     @Input()
     mousewheel: boolean;
     @Input()

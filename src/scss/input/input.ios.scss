@@ -4,7 +4,7 @@
 
 @include exports("input.ios") {
   .mbsc-ios {
-    .mbsc-input {
+    &.mbsc-input {
       display: -webkit-box;
       display: -webkit-flex;
       display: -ms-flexbox;
@@ -12,7 +12,7 @@
       padding: 0;
     }
 
-    .mbsc-input input {
+    &.mbsc-input input {
       height: 2.75em;
       padding: 0 1em;
       background: transparent;
@@ -35,18 +35,17 @@
       left: 0;
       right: 0;
       z-index: -1;
-      border-radius: 8px;
     }
 
     /* Textbox, select, textarea */
-    .mbsc-textarea textarea {
+    &.mbsc-textarea textarea {
       height: 3em;
       padding: 0 1em;
       background: transparent;
     }
 
-    .mbsc-input .mbsc-label,
-    .mbsc-progress .mbsc-label {
+    &.mbsc-input .mbsc-label,
+    &.mbsc-progress .mbsc-label {
       -webkit-box-flex: 0;
       -webkit-flex: 0 auto;
       -moz-box-flex: 0;
@@ -63,18 +62,18 @@
       box-sizing: content-box;
     }
 
-    &.mbsc-ltr .mbsc-input .mbsc-label {
+    &.mbsc-ltr.mbsc-input .mbsc-label {
       padding-left: 1em;
     }
 
-    &.mbsc-rtl .mbsc-input .mbsc-label {
+    &.mbsc-rtl.mbsc-input .mbsc-label {
       padding-right: 1em;
     }
 
-    .mbsc-input input:disabled,
-    .mbsc-input textarea:disabled,
-    .mbsc-input .mbsc-control:disabled ~ input,
-    .mbsc-input .mbsc-control:disabled ~ .mbsc-ic {
+    &.mbsc-input input:disabled,
+    &.mbsc-input textarea:disabled,
+    &.mbsc-input .mbsc-control:disabled ~ input,
+    &.mbsc-input .mbsc-control:disabled ~ .mbsc-ic {
       opacity: .5;
     }
 
@@ -83,11 +82,11 @@
     }
 
     /* Select */
-    &.mbsc-ltr .mbsc-select input {
+    &.mbsc-ltr.mbsc-select input {
       padding-right: 2.25em;
     }
 
-    &.mbsc-rtl .mbsc-select input {
+    &.mbsc-rtl.mbsc-select input {
       padding-left: 2.25em;
     }
 
@@ -106,7 +105,7 @@
       left: 1em;
     }
 
-    .mbsc-ic-right .mbsc-select-ic {
+    &.mbsc-ic-right .mbsc-select-ic {
       right: 3.4em;
     }
 
@@ -116,12 +115,12 @@
     }
 
     /* Select inline */
-    .mbsc-select-inline .mbsc-select-ic {
+    &.mbsc-select-inline .mbsc-select-ic {
       display: none;
     }
 
     /* Textarea */
-    .mbsc-textarea .mbsc-input-wrap {
+    &.mbsc-textarea .mbsc-input-wrap {
       padding: .625em 0;
     }
 
@@ -131,66 +130,67 @@
       margin-top: -1px;
     }
 
-    .mbsc-ic-left {
+    &.mbsc-ic-left {
       z-index: 1;
     }
 
-    &.mbsc-ltr .mbsc-ic-left .mbsc-input-wrap,
-    &.mbsc-rtl .mbsc-ic-right .mbsc-input-wrap {
+    &.mbsc-ltr.mbsc-ic-left .mbsc-input-wrap,
+    &.mbsc-rtl.mbsc-ic-right .mbsc-input-wrap {
       padding-left: 2.25em;
     }
 
-    &.mbsc-ltr .mbsc-ic-right .mbsc-input-wrap,
-    &.mbsc-rtl .mbsc-ic-left .mbsc-input-wrap {
+    &.mbsc-ltr.mbsc-ic-right .mbsc-input-wrap,
+    &.mbsc-rtl.mbsc-ic-left .mbsc-input-wrap {
       padding-right: 2.25em;
     }
 
-    &.mbsc-ltr .mbsc-ic-left .mbsc-label {
+    &.mbsc-ltr.mbsc-ic-left .mbsc-label {
       padding-left: 3.25em;
     }
 
-    &.mbsc-rtl .mbsc-ic-left .mbsc-label {
+    &.mbsc-rtl.mbsc-ic-left .mbsc-label {
       padding-right: 3.25em;
     }
 
-    &.mbsc-ltr .mbsc-ic-left .mbsc-label ~ .mbsc-input-wrap {
+    &.mbsc-ltr.mbsc-ic-left .mbsc-label ~ .mbsc-input-wrap {
       padding-left: 0;
     }
 
-    &.mbsc-rtl .mbsc-ic-left .mbsc-label ~ .mbsc-input-wrap {
+    &.mbsc-rtl.mbsc-ic-left .mbsc-label ~ .mbsc-input-wrap {
       padding-right: 0;
     }
 
-    .mbsc-ic-left .mbsc-left-ic,
-    &.mbsc-rtl .mbsc-ic-right .mbsc-right-ic {
+    &.mbsc-ic-left .mbsc-left-ic,
+    &.mbsc-rtl.mbsc-ic-right .mbsc-right-ic {
       right: auto;
       left: .625em;
     }
 
-    .mbsc-ic-right .mbsc-right-ic,
-    &.mbsc-rtl .mbsc-ic-left .mbsc-left-ic {
+    &.mbsc-ic-right .mbsc-right-ic,
+    &.mbsc-rtl.mbsc-ic-left .mbsc-left-ic {
       left: auto;
       right: .625em;
     }
 
     /* Row separator */
-    .mbsc-control-w {
+    &.mbsc-control-w {
       margin-top: -1px;
     }
 
-    .mbsc-control-w:before,
-    .mbsc-control-w:after {
+    &.mbsc-control-w:before,
+    &.mbsc-control-w:after {
       content: "";
       position: absolute;
       right: 0;
       left: 1em;
+      border-top: 1px solid transparent;
     }
 
-    .mbsc-control-w:before {
+    &.mbsc-control-w:before {
       top: 0;
     }
 
-    .mbsc-control-w:after {
+    &.mbsc-control-w:after {
       bottom: 0;
     }
 
@@ -211,8 +211,8 @@
       left: 0;
     }
 
-    .mbsc-ic-left:before,
-    .mbsc-ic-left:after {
+    &.mbsc-ic-left:before,
+    &.mbsc-ic-left:after {
       left: 3.25em;
     }
 
@@ -265,7 +265,7 @@
     }
 
     /* Stacked label */
-    .mbsc-label-stacked.mbsc-input {
+    &.mbsc-label-stacked.mbsc-input {
       .mbsc-label {
         font-size: .75em;
         position: absolute;
@@ -296,7 +296,7 @@
       }
     }
 
-    &.mbsc-ltr .mbsc-label-stacked.mbsc-input {
+    &.mbsc-ltr.mbsc-label-stacked.mbsc-input {
       .mbsc-label {
         left: 1.333334em;
         right: auto;
@@ -313,7 +313,7 @@
       }
     }
 
-    &.mbsc-rtl .mbsc-label-stacked.mbsc-input {
+    &.mbsc-rtl.mbsc-label-stacked.mbsc-input {
       .mbsc-label {
         left: auto;
         right: 1.333334em;
@@ -336,7 +336,7 @@
     }
 
     /* Floating label */
-    .mbsc-label-floating.mbsc-input {
+    &.mbsc-label-floating.mbsc-input {
       .mbsc-label {
         position: absolute;
         padding: 0;
@@ -386,7 +386,7 @@
       }
     }
 
-    &.mbsc-ltr .mbsc-label-floating.mbsc-input {
+    &.mbsc-ltr.mbsc-label-floating.mbsc-input {
       .mbsc-label {
         left: 1em;
       }
@@ -402,7 +402,7 @@
       }
     }
 
-    &.mbsc-rtl .mbsc-label-floating.mbsc-input {
+    &.mbsc-rtl.mbsc-label-floating.mbsc-input {
       .mbsc-label {
         right: 1em;
       }
@@ -424,8 +424,8 @@
     }
 
     /* Box Input and Outline */
-    .mbsc-input-box,
-    .mbsc-input-outline {
+    &.mbsc-input-box,
+    &.mbsc-input-outline {
 
       /* Row separator */
       &.mbsc-control-w {
@@ -503,15 +503,19 @@
           }
         }
       }
+
+      .mbsc-input-wrap .mbsc-input-fill {
+        border-radius: 8px;
+      }
     }
 
-    &.mbsc-ltr .mbsc-input-box .mbsc-err-msg,
-    &.mbsc-ltr .mbsc-input-outline .mbsc-err-msg {
+    &.mbsc-ltr.mbsc-input-box .mbsc-err-msg,
+    &.mbsc-ltr.mbsc-input-outline .mbsc-err-msg {
       left: 1.333334em;
     }
 
-    &.mbsc-rtl .mbsc-input-box .mbsc-err-msg,
-    &.mbsc-rtl .mbsc-input-outline .mbsc-err-msg {
+    &.mbsc-rtl.mbsc-input-box .mbsc-err-msg,
+    &.mbsc-rtl.mbsc-input-outline .mbsc-err-msg {
       right: 1.333334em;
     }
 
@@ -522,7 +526,7 @@
     }
 
     /* Outline */
-    .mbsc-input-outline.mbsc-select .mbsc-label ~ .mbsc-input-wrap .mbsc-select-ic {
+    &.mbsc-input-outline.mbsc-select .mbsc-label ~ .mbsc-input-wrap .mbsc-select-ic {
       top: .875em;
     }
   }

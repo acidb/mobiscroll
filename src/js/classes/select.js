@@ -1,4 +1,4 @@
-import { $ } from '../core/core';
+import { $, autoInit } from '../core/core';
 import { Input } from './input';
 
 export class Select extends Input {
@@ -42,3 +42,6 @@ export class Select extends Input {
         this.refresh();
     }
 }
+
+// Init mbsc-select elements on page load
+autoInit('[mbsc-dropdown]', Select);

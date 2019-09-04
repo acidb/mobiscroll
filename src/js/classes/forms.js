@@ -22,7 +22,9 @@ export const Form = function (el, settings) {
     Base.call(this, el, settings, true);
 
     that.refresh = function (shallow) {
-        initControls($ctx, controls, s, shallow);
+        if (s.enhance) {
+            initControls($ctx, controls, s, shallow);
+        }
     };
 
     /**
@@ -88,7 +90,8 @@ Form.prototype = {
     _defaults: {
         tap: hasGhostClick,
         stopProp: true,
-        rtl: false
+        rtl: false,
+        enhance: true
     }
 };
 

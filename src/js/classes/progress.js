@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { mobiscroll } from '../core/core'; // mobiscroll needed for trial
 /* eslint-enable no-unused-vars */
-import { $, classes } from '../core/core';
+import { $, classes, autoInit } from '../core/core';
 import { ProgressBase } from './progress-base';
 import { addIcon, wrapLabel } from './form-control';
 
@@ -208,3 +208,6 @@ Progress.prototype = {
 };
 
 classes.Progress = Progress;
+
+// Init mbsc-progress elements on page load
+autoInit('[mbsc-progress]', Progress);

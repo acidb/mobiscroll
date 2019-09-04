@@ -1,4 +1,4 @@
-import { $ } from '../core/core';
+import { $, autoInit } from '../core/core';
 import { FormControl, addIconToggle } from './form-control';
 
 const events = ['focus', 'change', 'blur', 'animationstart'];
@@ -83,3 +83,6 @@ export class Input extends FormControl {
         });
     }
 }
+
+// Init mbsc-input elements on page load
+autoInit('[mbsc-input]', Input);
