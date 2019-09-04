@@ -19,15 +19,15 @@
     "@angular/platform-browser": "~8.2.4",
     "@angular/platform-browser-dynamic": "~8.2.4",
     "@angular/router": "~8.2.4",
-    "@mobiscroll/angular-lite": "4.7.3",
+    "@mobiscroll/angular-lite": "4.8.1",
     "rxjs": "~6.5.3",
     "rxjs-compat": "^6.5.2",
     "tslib": "^1.9.0",
     "zone.js": "~0.9.1"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.800.0",
-    "@angular/cli": "~8.0.1",
+    "@angular-devkit/build-angular": "~0.803.2",
+    "@angular/cli": "~8.3.2",
     "@angular/compiler-cli": "~8.2.4",
     "@angular/language-service": "~8.2.4",
     "@types/node": "~8.9.4",
