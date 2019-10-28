@@ -4,8 +4,6 @@ import '../util/notifications';
 
 export { MbscFormOptions };
 
-export class Form extends Base {
-    settings: MbscFormOptions;
-    constructor(element: any, settings: MbscFormOptions);
+export class Form extends Base<MbscFormOptions> {
     refresh(shallow?: boolean): void;
 }

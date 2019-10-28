@@ -5,6 +5,7 @@ export interface MbscFormOptions extends MbscCoreOptions {
     inputStyle?: string;
     labelStyle?: string;
     enhance?: boolean;
+    context?: string | HTMLElement;
 }
 
 export class Input extends FormControl {

@@ -18,21 +18,28 @@
       line-height: 2em;
     }
 
+    /* Checkbox, switch */
+    &.mbsc-checkbox .mbsc-err-msg,
+    &.mbsc-switch .mbsc-err-msg,
+    &.mbsc-radio .mbsc-err-msg {
+      padding-top: 0;
+    }
+
     /* Checkbox, radio */
     .mbsc-checkbox-box,
     .mbsc-radio-box {
       margin-top: -.6875em;
     }
 
-    &.mbsc-checkbox input:disabled+.mbsc-checkbox-box,
-    &.mbsc-checkbox input:disabled~.mbsc-label,
-    &.mbsc-checkbox input:disabled~.mbsc-desc,
-    &.mbsc-radio input:disabled+.mbsc-radio-box,
-    &.mbsc-radio input:disabled~.mbsc-label,
-    &.mbsc-radio input:disabled~.mbsc-desc,
-    &.mbsc-switch input:disabled+.mbsc-switch-track,
-    &.mbsc-switch input:disabled~.mbsc-label,
-    &.mbsc-switch input:disabled~.mbsc-desc {
+    &.mbsc-checkbox input:disabled + .mbsc-checkbox-box,
+    &.mbsc-checkbox input:disabled ~ .mbsc-label,
+    &.mbsc-checkbox input:disabled ~ .mbsc-desc,
+    &.mbsc-radio input:disabled + .mbsc-radio-box,
+    &.mbsc-radio input:disabled ~ .mbsc-label,
+    &.mbsc-radio input:disabled ~ .mbsc-desc,
+    &.mbsc-switch input:disabled + .mbsc-switch-track,
+    &.mbsc-switch input:disabled ~ .mbsc-label,
+    &.mbsc-switch input:disabled ~ .mbsc-desc {
       opacity: .2;
     }
 
@@ -64,32 +71,32 @@
     }
 
     /* Checkbox color presets */
-    &.mbsc-checkbox-primary input:checked+.mbsc-checkbox-box {
+    &.mbsc-checkbox-primary.mbsc-checkbox input:checked + .mbsc-checkbox-box {
       background: $mbsc-windows-primary;
       border-color: $mbsc-windows-primary;
     }
 
-    &.mbsc-checkbox-secondary input:checked+.mbsc-checkbox-box {
+    &.mbsc-checkbox-secondary.mbsc-checkbox input:checked + .mbsc-checkbox-box {
       background: $mbsc-windows-secondary;
       border-color: $mbsc-windows-secondary;
     }
 
-    &.mbsc-checkbox-success input:checked+.mbsc-checkbox-box {
+    &.mbsc-checkbox-success.mbsc-checkbox input:checked + .mbsc-checkbox-box {
       background: $mbsc-windows-success;
       border-color: $mbsc-windows-success;
     }
 
-    &.mbsc-checkbox-danger input:checked+.mbsc-checkbox-box {
+    &.mbsc-checkbox-danger.mbsc-checkbox input:checked + .mbsc-checkbox-box {
       background: $mbsc-windows-danger;
       border-color: $mbsc-windows-danger;
     }
 
-    &.mbsc-checkbox-warning input:checked+.mbsc-checkbox-box {
+    &.mbsc-checkbox-warning.mbsc-checkbox input:checked + .mbsc-checkbox-box {
       background: $mbsc-windows-warning;
       border-color: $mbsc-windows-warning;
     }
 
-    &.mbsc-checkbox-info input:checked+.mbsc-checkbox-box {
+    &.mbsc-checkbox-info.mbsc-checkbox input:checked + .mbsc-checkbox-box {
       background: $mbsc-windows-info;
       border-color: $mbsc-windows-info;
     }
@@ -547,32 +554,32 @@
     }
 
     /* Checkbox color presets */
-    &.mbsc-switch-primary.mbsc-switch input:checked+.mbsc-switch-track {
+    &.mbsc-switch-primary.mbsc-switch input:checked + .mbsc-switch-track {
       background: $mbsc-windows-primary;
       border-color: $mbsc-windows-primary;
     }
 
-    &.mbsc-switch-secondary.mbsc-switch input:checked+.mbsc-switch-track {
+    &.mbsc-switch-secondary.mbsc-switch input:checked + .mbsc-switch-track {
       background: $mbsc-windows-secondary;
       border-color: $mbsc-windows-secondary;
     }
 
-    &.mbsc-switch-success.mbsc-switch input:checked+.mbsc-switch-track {
+    &.mbsc-switch-success.mbsc-switch input:checked + .mbsc-switch-track {
       background: $mbsc-windows-success;
       border-color: $mbsc-windows-success;
     }
 
-    &.mbsc-switch-danger.mbsc-switch input:checked+.mbsc-switch-track {
+    &.mbsc-switch-danger.mbsc-switch input:checked + .mbsc-switch-track {
       background: $mbsc-windows-danger;
       border-color: $mbsc-windows-danger;
     }
 
-    &.mbsc-switch-warning.mbsc-switch input:checked+.mbsc-switch-track {
+    &.mbsc-switch-warning.mbsc-switch input:checked + .mbsc-switch-track {
       background: $mbsc-windows-warning;
       border-color: $mbsc-windows-warning;
     }
 
-    &.mbsc-switch-info.mbsc-switch input:checked+.mbsc-switch-track {
+    &.mbsc-switch-info.mbsc-switch input:checked + .mbsc-switch-track {
       background: $mbsc-windows-info;
       border-color: $mbsc-windows-info;
     }
@@ -594,7 +601,7 @@
 
     &.mbsc-segmented:not(.mbsc-stepper) .mbsc-segmented-item:last-child,
     &.mbsc-segmented .mbsc-segmented-item.mbsc-stepper-plus,
-    &.mbsc-stepper-val-left .mbsc-segmented input+.mbsc-segmented-item,
+    &.mbsc-stepper-val-left .mbsc-segmented input + .mbsc-segmented-item,
     &.mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control {
       border: 0;
     }
@@ -611,10 +618,10 @@
       padding: 1.75em 1em 1.75em 13em;
     }
 
-    &.mbsc-segmented input:disabled~.mbsc-segmented-item .mbsc-segmented-content,
+    &.mbsc-segmented input:disabled ~ .mbsc-segmented-item .mbsc-segmented-content,
     &.mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control.mbsc-disabled .mbsc-segmented-content,
     &.mbsc-stepper .mbsc-segmented-item.mbsc-disabled .mbsc-segmented-content,
-    &.mbsc-segmented .mbsc-segmented-item input:disabled+.mbsc-segmented-content {
+    &.mbsc-segmented .mbsc-segmented-item input:disabled + .mbsc-segmented-content {
       opacity: .3;
     }
 
@@ -623,48 +630,48 @@
       /* Segmented color presets */
       .mbsc-segmented-primary {
 
-        &.mbsc-segmented-item input.mbsc-active+.mbsc-segmented-content,
-        &.mbsc-segmented-item input.mbsc-control:checked+.mbsc-segmented-content {
+        &.mbsc-segmented-item input.mbsc-active + .mbsc-segmented-content,
+        &.mbsc-segmented-item input.mbsc-control:checked + .mbsc-segmented-content {
           background: $mbsc-windows-primary;
         }
       }
 
       .mbsc-segmented-secondary {
 
-        &.mbsc-segmented-item input.mbsc-active+.mbsc-segmented-content,
-        &.mbsc-segmented-item input.mbsc-control:checked+.mbsc-segmented-content {
+        &.mbsc-segmented-item input.mbsc-active + .mbsc-segmented-content,
+        &.mbsc-segmented-item input.mbsc-control:checked + .mbsc-segmented-content {
           background: $mbsc-windows-secondary;
         }
       }
 
       .mbsc-segmented-success {
 
-        &.mbsc-segmented-item input.mbsc-active+.mbsc-segmented-content,
-        &.mbsc-segmented-item input.mbsc-control:checked+.mbsc-segmented-content {
+        &.mbsc-segmented-item input.mbsc-active + .mbsc-segmented-content,
+        &.mbsc-segmented-item input.mbsc-control:checked + .mbsc-segmented-content {
           background: $mbsc-windows-success;
         }
       }
 
       .mbsc-segmented-danger {
 
-        &.mbsc-segmented-item input.mbsc-active+.mbsc-segmented-content,
-        &.mbsc-segmented-item input.mbsc-control:checked+.mbsc-segmented-content {
+        &.mbsc-segmented-item input.mbsc-active + .mbsc-segmented-content,
+        &.mbsc-segmented-item input.mbsc-control:checked + .mbsc-segmented-content {
           background: $mbsc-windows-danger;
         }
       }
 
       .mbsc-segmented-warning {
 
-        &.mbsc-segmented-item input.mbsc-active+.mbsc-segmented-content,
-        &.mbsc-segmented-item input.mbsc-control:checked+.mbsc-segmented-content {
+        &.mbsc-segmented-item input.mbsc-active + .mbsc-segmented-content,
+        &.mbsc-segmented-item input.mbsc-control:checked + .mbsc-segmented-content {
           background: $mbsc-windows-warning;
         }
       }
 
       .mbsc-segmented-info {
 
-        &.mbsc-segmented-item input.mbsc-active+.mbsc-segmented-content,
-        &.mbsc-segmented-item input.mbsc-control:checked+.mbsc-segmented-content {
+        &.mbsc-segmented-item input.mbsc-active + .mbsc-segmented-content,
+        &.mbsc-segmented-item input.mbsc-control:checked + .mbsc-segmented-content {
           background: $mbsc-windows-info;
         }
       }
@@ -674,37 +681,37 @@
 
       /* Segmented hover color presets*/
       &.mbsc-segmented-primary {
-        &.mbsc-segmented-item:hover input:not(:disabled):not(.mbsc-active)+.mbsc-segmented-content {
+        &.mbsc-segmented-item:hover input:not(:disabled):not(.mbsc-active) + .mbsc-segmented-content {
           background: rgba($mbsc-windows-primary, .25);
         }
       }
 
       &.mbsc-segmented-secondary {
-        &.mbsc-segmented-item:hover input:not(:disabled):not(.mbsc-active)+.mbsc-segmented-content {
+        &.mbsc-segmented-item:hover input:not(:disabled):not(.mbsc-active) + .mbsc-segmented-content {
           background: rgba($mbsc-windows-secondary, .25);
         }
       }
 
       &.mbsc-segmented-success {
-        &.mbsc-segmented-item:hover input:not(:disabled):not(.mbsc-active)+.mbsc-segmented-content {
+        &.mbsc-segmented-item:hover input:not(:disabled):not(.mbsc-active) + .mbsc-segmented-content {
           background: rgba($mbsc-windows-success, .25);
         }
       }
 
       &.mbsc-segmented-danger {
-        &.mbsc-segmented-item:hover input:not(:disabled):not(.mbsc-active)+.mbsc-segmented-content {
+        &.mbsc-segmented-item:hover input:not(:disabled):not(.mbsc-active) + .mbsc-segmented-content {
           background: rgba($mbsc-windows-danger, .25);
         }
       }
 
       &.mbsc-segmented-warning {
-        &.mbsc-segmented-item:hover input:not(:disabled):not(.mbsc-active)+.mbsc-segmented-content {
+        &.mbsc-segmented-item:hover input:not(:disabled):not(.mbsc-active) + .mbsc-segmented-content {
           background: rgba($mbsc-windows-warning, .25);
         }
       }
 
       &.mbsc-segmented-info {
-        &.mbsc-segmented-item:hover input:not(:disabled):not(.mbsc-active)+.mbsc-segmented-content {
+        &.mbsc-segmented-item:hover input:not(:disabled):not(.mbsc-active) + .mbsc-segmented-content {
           background: rgba($mbsc-windows-info, .25);
         }
       }

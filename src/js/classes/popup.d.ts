@@ -6,9 +6,7 @@ export interface MbscPopupOptions extends MbscFrameOptions {
 }
 export interface MbscWidgetOptions extends MbscPopupOptions { }
 
-export class Popup extends Frame {
-    settings: MbscPopupOptions;
-    constructor(element: any, settings: MbscPopupOptions);
+export class Popup extends Frame<MbscPopupOptions> {
 }
 
 export class Widget extends Popup {

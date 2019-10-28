@@ -7,7 +7,6 @@ import {
     ElementRef,
     NgZone,
     Injectable,
-    Subject,
     Observable,
     AfterViewInit,
     OnDestroy
@@ -18,25 +17,25 @@ import { MbscScrollViewOptions } from './scrollview';
 
 @Injectable()
 export class MbscNotifyItemService {
-    private _instanceSubject: Subject<any> = new Subject();
-    private _addRemoveSubject: Subject<any> = new Subject();
+    private _instanceObservable: Observable<any> = new Observable();
+    private _addRemoveObservable: Observable<any> = new Observable();
     public inst: any = null;
 
     notifyInstanceReady(instance: any) {
         this.inst = instance;
-        this._instanceSubject.next(instance);
+        this._instanceObservable.next(instance);
     }
 
     notifyAddRemove(item: any) {
-        this._addRemoveSubject.next(item);
+        this._addRemoveObservable.next(item);
     }
 
     onInstanceReady(): Observable<any> {
-        return this._instanceSubject.asObservable();
+        return this._instanceObservable;
     }
 
     onAddRemove(): Observable<any> {
-        return this._addRemoveSubject.asObservable();
+        return this._addRemoveObservable;
     }
 }
 
@@ -55,9 +54,9 @@ export class MbscScrollItemBase implements AfterViewInit, OnDestroy {
     get nativeElement(): any {
         return this._elem.nativeElement;
     }
-
+    instanceObserver: number;
     constructor(public notifyItemService: MbscNotifyItemService, public _elem: ElementRef) {
-        this.notifyItemService.onInstanceReady().subscribe((instance: any) => {
+        this.instanceObserver = this.notifyItemService.onInstanceReady().subscribe((instance: any) => {
             this._instance = instance;
         });
         if (notifyItemService.inst) {
@@ -70,6 +69,7 @@ export class MbscScrollItemBase implements AfterViewInit, OnDestroy {
     }
 
     ngOnDestroy() {
+        this.notifyItemService.onInstanceReady().unsubscribe(this.instanceObserver);
         this.notifyItemService.notifyAddRemove(this);
     }
 }

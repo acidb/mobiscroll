@@ -1,7 +1,7 @@
 import { $, isBrowser, autoInit } from '../core/core';
 import { Input } from './input';
 
-const events = ['keydown', 'input', 'scroll'];
+const events = ['change', 'keydown', 'input', 'scroll'];
 
 let sizeDebounce;
 
@@ -69,7 +69,7 @@ export class TextArea extends Input {
         this._$parent.addClass('mbsc-textarea');
 
         events.forEach(ev => {
-            this._elm.addEventListener(ev, this);
+            this._$elm.on(ev, this._handle);
         });
 
         sizeTextArea(elm);
@@ -78,14 +78,23 @@ export class TextArea extends Input {
     destroy() {
         super.destroy();
         events.forEach(ev => {
-            this._elm.removeEventListener(ev, this);
+            this._$elm.off(ev, this._handle);
         });
     }
 
-    handleEvent(ev) {
-        super.handleEvent(ev);
+    refresh() {
+        super.refresh();
+        clearTimeout(this._debounce);
+        sizeTextArea(this._elm);
+    }
+
+    _handle(ev) {
+        super._handle(ev);
 
         switch (ev.type) {
+            case 'change':
+                sizeTextArea(this._elm);
+                break;
             case 'keydown':
             case 'input':
                 this._onInput(ev);
@@ -100,12 +109,6 @@ export class TextArea extends Input {
         this._debounce = setTimeout(() => {
             sizeTextArea(this._elm);
         }, 100);
-    }
-
-    refresh() {
-        super.refresh();
-        clearTimeout(this._debounce);
-        sizeTextArea(this._elm);
     }
 }
 

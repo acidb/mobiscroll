@@ -42,11 +42,7 @@ export interface MbscScrollerOptions extends MbscFrameOptions {
     parseValue?(valueText: string): any;
 }
 
-export class Scroller extends Frame {
-    settings: MbscScrollerOptions;
-
-    constructor(element: any, settings: MbscScrollerOptions);
-
+export class Scroller<T extends MbscScrollerOptions = MbscScrollerOptions> extends Frame<T> {
     setVal(value: any, fill?: boolean, change?: boolean, temp?: boolean, time?: number): void;
     getVal(temp?: boolean): any;
     setArrayVal(value: any, fill?: boolean, change?: boolean, temp?: boolean, time?: number): void;

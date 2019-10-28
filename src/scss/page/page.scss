@@ -56,7 +56,13 @@
   .mbsc-page h3,
   .mbsc-page h4,
   .mbsc-page h5,
-  .mbsc-page h6 {
+  .mbsc-page h6,
+  .mbsc-h1,
+  .mbsc-h2,
+  .mbsc-h3,
+  .mbsc-h4,
+  .mbsc-h5,
+  .mbsc-h6 {
     margin: 0;
     padding: 0;
     color: inherit;
@@ -64,50 +70,60 @@
     font-family: inherit;
   }
 
-  .mbsc-page p {
+  .mbsc-page p,
+  .mbsc-p {
     margin: 1em 0;
     padding: 0;
     line-height: 1.5;
   }
 
-  .mbsc-page a {
+  .mbsc-page a,
+  .mbsc-a {
     text-decoration: none;
   }
 
-  .mbsc-page a:hover {
+  .mbsc-page a:hover,
+  .mbsc-a:hover {
     text-decoration: underline;
   }
 
-  .mbsc-page a.mbsc-btn:hover {
+  .mbsc-page a.mbsc-btn:hover,
+  .mbsc-a.mbsc-btn:hover {
     text-decoration: none;
   }
 
-  .mbsc-page h1 {
+  .mbsc-page h1,
+  .mbsc-h1 {
     margin: .347826em 0;
     font-size: 2.875em;
   }
 
-  .mbsc-page h2 {
+  .mbsc-page h2,
+  .mbsc-h2 {
     margin: .470588em 0;
     font-size: 2.125em;
   }
 
-  .mbsc-page h3 {
+  .mbsc-page h3,
+  .mbsc-h3 {
     margin: .666666em 0;
     font-size: 1.5em;
   }
 
-  .mbsc-page h4 {
+  .mbsc-page h4,
+  .mbsc-h4 {
     margin: .8em 0;
     font-size: 1.25em;
   }
 
-  .mbsc-page h5 {
+  .mbsc-page h5,
+  .mbsc-h5 {
     margin: 1.066666em 0;
     font-size: .9375em;
   }
 
-  .mbsc-page h6 {
+  .mbsc-page h6,
+  .mbsc-h6 {
     margin: 1.333333em 0;
     font-size: .75em;
   }
@@ -140,19 +156,20 @@
 
   /* Lists */
 
-  .mbsc-page {
+  .mbsc-page ul,
+  .mbsc-page ol,
+  .mbsc-ul,
+  .mbsc-ol {
+    padding: 0;
+    margin: 1em 0 1em 1.25em;
+    line-height: 1.5;
+  }
 
-    ul,
-    ol {
-      padding: 0;
-      margin: 1em 0 1em 1.25em;
-      line-height: 1.5;
-    }
-
-    ul ul,
-    ol ol {
-      margin: 0 0 0 1.25em;
-    }
+  .mbsc-page ul ul,
+  .mbsc-page ol ol,
+  .mbsc-ul .mbsc-ul,
+  .mbsc-ol .mbsc-ol {
+    margin: 0 0 0 1.25em;
   }
 
   /* Font sizes */
@@ -179,6 +196,27 @@
 
   .mbsc-txt-muted {
     opacity: .6;
+  }
+
+  /* Line heights */
+  .mbsc-line-height-xs {
+    line-height: 1;
+  }
+
+  .mbsc-line-height-s {
+    line-height: 1.25;
+  }
+
+  .mbsc-line-height-m {
+    line-height: 1.5;
+  }
+
+  .mbsc-line-height-l {
+    line-height: 1.75;
+  }
+
+  .mbsc-line-height-xl {
+    line-height: 2;
   }
 
   /* Font weights */

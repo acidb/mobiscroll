@@ -19,9 +19,8 @@
     "@angular/platform-browser": "~8.2.4",
     "@angular/platform-browser-dynamic": "~8.2.4",
     "@angular/router": "~8.2.4",
-    "@mobiscroll/angular-lite": "4.8.1",
+    "@mobiscroll/angular-lite": "4.8.4",
     "rxjs": "~6.5.3",
-    "rxjs-compat": "^6.5.2",
     "tslib": "^1.9.0",
     "zone.js": "~0.9.1"
   },

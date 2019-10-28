@@ -95,8 +95,6 @@ Form.prototype = {
     }
 };
 
-mobiscroll.themes.form.mobiscroll = {};
-
 classes.Form = Form;
 
 // Init mbsc-form elements on page load

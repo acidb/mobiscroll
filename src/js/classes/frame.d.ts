@@ -40,8 +40,7 @@ export interface MbscDataControlOptions {
 
 export type MbscDataFrameOptions = MbscDataControlOptions & MbscFrameOptions;
 
-export class Frame extends Base {
-    settings: MbscFrameOptions;
+export class Frame<T extends MbscFrameOptions> extends Base<T> {
     buttons: object;
     handlers: {
         set: () => void,
@@ -51,8 +50,6 @@ export class Frame extends Base {
     _value: any;
     _isValid: boolean;
     _isVisible: boolean;
-
-    constructor(element: any, settings: MbscFrameOptions);
 
     position(check?: boolean): void;
     attachShow(elm: any, beforeShow?: () => void): void;
@@ -64,7 +61,4 @@ export class Frame extends Base {
     show(prevAnim?: boolean, prevFocus?: boolean): void;
     hide(prevAnim?: boolean, btn?: string, force?: boolean, callback?: () => void): void;
     isVisible(): boolean;
-
-    // type overrides
-    option(options: string | MbscFrameOptions, value?: any): void;
 }

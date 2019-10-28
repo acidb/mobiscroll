@@ -477,7 +477,7 @@ export class MbscInputBase extends MbscOptimized {
         var element = ReactDOM.findDOMNode(this);
         var input = $(element).find('input');
         if (input.length) {
-            element = input;
+            element = input[0];
         }
 
         this.instance = new classes[this.mbscInit.component || 'Scroller'](element, settings);

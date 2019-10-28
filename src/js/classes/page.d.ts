@@ -5,7 +5,4 @@ export interface MbscPageOptions extends MbscCoreOptions {
     context?: string | HTMLElement;
 }
 
-export class Page extends Base {
-    settings: MbscPageOptions;
-    constructor(element: any, settings: MbscPageOptions);
-}
+export class Page extends Base<MbscPageOptions> { }

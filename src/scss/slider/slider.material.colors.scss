@@ -27,6 +27,10 @@
         background: $accent;
       }
 
+      .mbsc-slider-handle:before {
+        background: rgba($background-contrast, .1);
+      }
+
       .mbsc-slider-start .mbsc-slider-handle {
         border-color: $gray-background;
         background: $background;

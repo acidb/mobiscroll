@@ -95,7 +95,7 @@
     }
 
     /* color presets */
-    .mbsc-slider-primary {
+    &.mbsc-slider-primary {
 
       .mbsc-slider-tooltip,
       .mbsc-slider-handle {
@@ -112,7 +112,7 @@
       }
     }
 
-    .mbsc-slider-secondary {
+    &.mbsc-slider-secondary {
 
       .mbsc-slider-tooltip,
       .mbsc-slider-handle {
@@ -129,7 +129,7 @@
       }
     }
 
-    .mbsc-slider-success {
+    &.mbsc-slider-success {
 
       .mbsc-slider-tooltip,
       .mbsc-slider-handle {
@@ -146,7 +146,7 @@
       }
     }
 
-    .mbsc-slider-danger {
+    &.mbsc-slider-danger {
 
       .mbsc-slider-tooltip,
       .mbsc-slider-handle {
@@ -163,7 +163,7 @@
       }
     }
 
-    .mbsc-slider-warning {
+    &.mbsc-slider-warning {
 
       .mbsc-slider-tooltip,
       .mbsc-slider-handle {
@@ -180,7 +180,7 @@
       }
     }
 
-    .mbsc-slider-info {
+    &.mbsc-slider-info {
 
       .mbsc-slider-tooltip,
       .mbsc-slider-handle {

@@ -1,5 +1,3 @@
 import { Base, MbscCoreOptions } from '../core/core';
 
-export class ProgressBase extends Base {
-    constructor(element: any, settings: MbscCoreOptions);
-}
+export class ProgressBase<T extends MbscCoreOptions> extends Base<T> { }

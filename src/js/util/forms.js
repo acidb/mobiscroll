@@ -131,7 +131,8 @@ function initControls($ctx, controls, s, shallow) {
                         controls[control.id] = new SegmentedItem(control, {
                             theme: s.theme,
                             rtl: s.rtl,
-                            tap: s.tap
+                            tap: s.tap,
+                            inputStyle: s.inputStyle
                         });
                         break;
                     case 'stepper':

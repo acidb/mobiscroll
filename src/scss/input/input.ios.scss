@@ -277,7 +277,9 @@
       }
 
       .mbsc-label ~ .mbsc-input-wrap {
-        input {
+
+        input,
+        .mbsc-color-input {
           height: 3.75em;
           padding-top: 1.5em;
         }
@@ -354,7 +356,9 @@
       }
 
       .mbsc-label ~ .mbsc-input-wrap {
-        input {
+
+        input,
+        .mbsc-color-input {
           height: 3.75em;
           padding-top: 1.5em;
         }
@@ -460,7 +464,9 @@
         }
 
         .mbsc-label ~ .mbsc-input-wrap {
-          input {
+
+          input,
+          .mbsc-color-input {
             height: 3.375em;
             padding-top: 1.25em;
           }
@@ -486,7 +492,9 @@
         }
 
         .mbsc-label ~ .mbsc-input-wrap {
-          input {
+
+          input,
+          .mbsc-color-input {
             height: 3.375em;
             padding-top: 1.25em;
           }

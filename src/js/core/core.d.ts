@@ -17,17 +17,17 @@ export interface MbscCoreOptions {
     onDestroy?(event: any, inst: any): void;
 }
 
-export class Base {
-    settings: MbscCoreOptions;
+export class Base<T extends MbscCoreOptions> {
+    settings: T;
 
-    constructor(element: any, settings: MbscCoreOptions);
+    constructor(element: any, settings: T);
 
-    init(settings?: MbscCoreOptions): void;
+    init(settings?: T): void;
     destroy(): void;
     tap(el: any, handler: (ev?: any, inst?: any) => void, prevent?: boolean, tolerance?: number, time?: any): void;
     trigger(name: string, event?: any): any;
-    option(options: string | MbscCoreOptions, value?: any): void;
-    getInst(): Base;
+    option(options: string | T, value?: any): void;
+    getInst(): Base<T>;
 }
 
 

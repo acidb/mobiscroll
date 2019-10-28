@@ -90,13 +90,13 @@ export class MbscFormValueBase extends MbscFormBase implements ControlValueAcces
      * This function propagates the value to the model
      * It's overwrittem in registerOnChange (if formControl is used)
      */
-    onChange: any = () => { };
+    onChange: (value: any) => any = () => { };
 
     /**
      * This function has to be called when the control is touched, to notify the validators (if formControl is used)
      * It's overwritter in registerOnTouched
      */
-    onTouch: any = () => { };
+    onTouch: (ev?: any) => any = () => { };
 
     /**
      * Input for the value. Used when no ngModel is present.
@@ -132,7 +132,11 @@ export class MbscFormValueBase extends MbscFormBase implements ControlValueAcces
     constructor(hostElem: ElementRef, @Optional() _formService: MbscOptionsService, protected _control: NgControl, protected _noOverride: boolean, zone: NgZone) {
         super(hostElem, _formService, zone);
         if (_control && !_noOverride) {
-            _control.valueAccessor = this;
+            if (_control.valueAccessor && (_control.valueAccessor as any).oldAccessor !== undefined) {
+                (_control.valueAccessor as any).oldAccessor = this;
+            } else {
+                _control.valueAccessor = this;
+            }
         }
     }
 
@@ -292,7 +296,7 @@ export class MbscInputBase extends MbscFormValueBase {
                     [attr.accept]="accept"
                     [attr.multiple]="multiple"
                     [disabled]="disabled"
-                    [attr.readonly]="_readonly" />
+                    [readonly]="_readonly" />
                 <span *ngIf="dropdown" class="mbsc-select-ic mbsc-ic mbsc-ic-arrow-down5"></span>
                 <span *ngIf="error && errorMessage" class="mbsc-err-msg">{{errorMessage}}</span>
             </span>

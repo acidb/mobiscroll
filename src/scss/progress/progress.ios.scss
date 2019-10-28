@@ -89,11 +89,12 @@
 
     .mbsc-progress-track {
       border-radius: 1em;
-      height: .0625em;
+      height: .125em;
     }
 
     .mbsc-progress-bar {
       z-index: 1;
+      border-radius: 1em;
     }
 
     .mbsc-progress-value {
@@ -111,7 +112,8 @@
     }
 
     /* Stacked label */
-    .mbsc-label-stacked.mbsc-progress.mbsc-control-w {
+    .mbsc-label-stacked.mbsc-progress.mbsc-control-w,
+    .mbsc-label-floating.mbsc-progress.mbsc-control-w {
       .mbsc-label {
         font-size: .75em;
         position: absolute;
@@ -131,7 +133,7 @@
         padding-bottom: 1em;
 
         .mbsc-input-ic {
-          top: 1em;
+          top: 1.0625em;
         }
       }
 

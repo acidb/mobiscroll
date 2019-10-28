@@ -35,6 +35,13 @@
       margin: .75em 1em;
     }
 
+    /* Checkbox, switch, radio */
+    &.mbsc-checkbox .mbsc-err-msg,
+    &.mbsc-switch .mbsc-err-msg,
+    &.mbsc-radio .mbsc-err-msg {
+      padding-top: 0;
+    }
+
     /* Checkbox */
     &.mbsc-checkbox {
       padding: 1em 3.125em 1em 1em;

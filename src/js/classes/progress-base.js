@@ -1,5 +1,6 @@
 import { $, Base } from '../core/core';
 import { noop } from '../util/misc';
+import { getCssClass } from './form-control';
 
 export const ProgressBase = function (elm, settings, inherit) {
     var $elm,
@@ -35,7 +36,7 @@ export const ProgressBase = function (elm, settings, inherit) {
             $parent.removeClass(cssClass);
         }
 
-        cssClass = that._css + ' mbsc-progress-w mbsc-control-w mbsc-' + s.theme + (s.baseTheme ? ' mbsc-' + s.baseTheme : '') + (s.rtl ? ' mbsc-rtl' : ' mbsc-ltr');
+        cssClass = that._css + ' mbsc-progress-w mbsc-control-w ' + getCssClass(s);
 
         $parent.addClass(cssClass);
 

@@ -7,7 +7,8 @@
 
     /* Textbox */
     &.mbsc-input input,
-    &.mbsc-input textarea {
+    &.mbsc-input textarea,
+    &.mbsc-color-input {
       height: 2.125em;
       padding: 0 0 1px 0;
       background: transparent;
@@ -16,8 +17,9 @@
 
     &.mbsc-input input:disabled,
     &.mbsc-input textarea:disabled,
-    &.mbsc-input .mbsc-control:disabled~input,
-    &.mbsc-input .mbsc-control:disabled~.mbsc-select-ic {
+    &.mbsc-input input:disabled ~ .mbsc-color-input,
+    &.mbsc-input .mbsc-control:disabled ~ input,
+    &.mbsc-input .mbsc-control:disabled ~ .mbsc-select-ic {
       opacity: .4;
     }
 
@@ -25,7 +27,7 @@
     &.mbsc-input {
       margin: 1.5em 1em;
 
-      .mbsc-label~.mbsc-input-wrap {
+      .mbsc-label ~ .mbsc-input-wrap {
         padding-top: .875em;
 
         .mbsc-input-ic {
@@ -64,7 +66,7 @@
       left: .6875em;
     }
 
-    .mbsc-label~.mbsc-input-wrap .mbsc-select-ic {
+    .mbsc-label ~ .mbsc-input-wrap .mbsc-select-ic {
       top: 1.4375em;
     }
 
@@ -189,7 +191,7 @@
         line-height: 2em;
       }
 
-      .mbsc-label+.mbsc-input-wrap {
+      .mbsc-label + .mbsc-input-wrap {
         padding-top: 0;
 
         .mbsc-input-ic {
@@ -197,7 +199,7 @@
         }
       }
 
-      &.mbsc-select .mbsc-label~.mbsc-input-wrap .mbsc-select-ic {
+      &.mbsc-select .mbsc-label ~ .mbsc-input-wrap .mbsc-select-ic {
         top: .5625em;
       }
     }
@@ -230,7 +232,8 @@
         border-radius: 4px 4px 0 0;
       }
 
-      &.mbsc-input input {
+      &.mbsc-input input,
+      &.mbsc-input .mbsc-color-input {
         height: 2.25em;
         padding: .0625em 1em;
         border-radius: 4px 4px 0 0;
@@ -241,10 +244,11 @@
         height: 2.25em;
       }
 
-      &.mbsc-input .mbsc-label~.mbsc-input-wrap {
+      &.mbsc-input .mbsc-label ~ .mbsc-input-wrap {
         padding-top: 0;
 
-        input {
+        input,
+        .mbsc-color-input {
           padding-top: 1.25em;
           height: 3.5em;
         }
@@ -268,7 +272,7 @@
         line-height: normal;
       }
 
-      &.mbsc-textarea .mbsc-label~.mbsc-input-wrap {
+      &.mbsc-textarea .mbsc-label ~ .mbsc-input-wrap {
         padding-top: 1.625em;
 
         textarea {
@@ -282,7 +286,7 @@
           top: .625em;
         }
 
-        .mbsc-label~.mbsc-input-wrap .mbsc-select-ic {
+        .mbsc-label ~ .mbsc-input-wrap .mbsc-select-ic {
           top: 1.375em;
         }
       }
@@ -295,24 +299,25 @@
           line-height: 2em;
         }
 
-        .mbsc-label~.mbsc-input-wrap {
+        .mbsc-label ~ .mbsc-input-wrap {
           padding-top: 0;
 
-          input {
+          input,
+          .mbsc-color-input {
             height: 2.25em;
             padding-top: .0625em;
           }
         }
 
-        .mbsc-label~.mbsc-input-wrap .mbsc-input-ic {
+        .mbsc-label ~ .mbsc-input-wrap .mbsc-input-ic {
           top: .1875em;
         }
 
-        &.mbsc-textarea .mbsc-label~.mbsc-input-wrap {
+        &.mbsc-textarea .mbsc-label ~ .mbsc-input-wrap {
           padding-top: .375em;
         }
 
-        &.mbsc-select .mbsc-label~.mbsc-input-wrap .mbsc-select-ic {
+        &.mbsc-select .mbsc-label ~ .mbsc-input-wrap .mbsc-select-ic {
           top: .625em;
         }
       }
@@ -486,17 +491,18 @@
     &.mbsc-input-outline {
 
       &.mbsc-input input,
-      &.mbsc-input textarea {
+      &.mbsc-input textarea,
+      &.mbsc-input .mbsc-color-input {
         border-radius: 4px;
+        height: 3.375em;
       }
 
-      &.mbsc-input input {
-        height: 3.375em;
+      &.mbsc-input input,
+      &.mbsc-input .mbsc-color-input {
         padding: .0625em 1em;
       }
 
       &.mbsc-input textarea {
-        height: 3.375em;
         padding: .875em 1em .4375em 1em;
       }
 
@@ -510,7 +516,7 @@
         top: .8125em;
       }
 
-      &.mbsc-input .mbsc-label~.mbsc-input-wrap {
+      &.mbsc-input .mbsc-label ~ .mbsc-input-wrap {
         padding-top: .25em;
 
         .mbsc-input-ic {
@@ -519,7 +525,7 @@
       }
 
       &.mbsc-input input:focus,
-      &.mbsc-input select:focus~input,
+      &.mbsc-input select:focus ~ input,
       &.mbsc-err input {
         padding-top: 0;
         padding-bottom: 0;
@@ -535,7 +541,7 @@
           top: 1.3125em;
         }
 
-        .mbsc-label~.mbsc-input-wrap .mbsc-select-ic {
+        .mbsc-label ~ .mbsc-input-wrap .mbsc-select-ic {
           top: 1.5625em;
         }
       }
@@ -546,15 +552,15 @@
           line-height: 3.375em;
         }
 
-        .mbsc-label~.mbsc-input-wrap {
+        .mbsc-label ~ .mbsc-input-wrap {
           padding-top: 0;
         }
 
-        .mbsc-label~.mbsc-input-wrap .mbsc-input-ic {
+        .mbsc-label ~ .mbsc-input-wrap .mbsc-input-ic {
           top: .8125em;
         }
 
-        &.mbsc-select .mbsc-label~.mbsc-input-wrap .mbsc-select-ic {
+        &.mbsc-select .mbsc-label ~ .mbsc-input-wrap .mbsc-select-ic {
           top: 1.3125em;
         }
       }
@@ -563,13 +569,12 @@
       &.mbsc-label-floating.mbsc-input {
         .mbsc-label {
           top: .9375em;
-          padding: 0;
+          padding: 0 .25em;
         }
 
         &.mbsc-label-floating-active .mbsc-label {
           -webkit-transform: translateY(-1.375em) scale(.75);
           transform: translateY(-1.375em) scale(.75);
-          padding: 0 .25em;
         }
       }
     }
@@ -637,18 +642,10 @@
 
       /* Floating labels */
       &.mbsc-label-floating.mbsc-input .mbsc-label {
-        left: 1em;
-      }
-
-      &.mbsc-label-floating.mbsc-input.mbsc-label-floating-active .mbsc-label {
         left: .875em;
       }
 
       &.mbsc-label-floating.mbsc-input.mbsc-ic-left .mbsc-label {
-        left: 3em;
-      }
-
-      &.mbsc-label-floating.mbsc-input.mbsc-ic-left.mbsc-label-floating-active .mbsc-label {
         left: 2.875em;
       }
     }
@@ -716,18 +713,10 @@
 
       /* Floating labels */
       &.mbsc-label-floating.mbsc-input .mbsc-label {
-        right: 1em;
-      }
-
-      &.mbsc-label-floating.mbsc-input.mbsc-label-floating-active .mbsc-label {
         right: .875em;
       }
 
       &.mbsc-label-floating.mbsc-input.mbsc-ic-left .mbsc-label {
-        right: 3em;
-      }
-
-      &.mbsc-label-floating.mbsc-input.mbsc-ic-left.mbsc-label-floating-active .mbsc-label {
         right: 2.875em;
       }
     }

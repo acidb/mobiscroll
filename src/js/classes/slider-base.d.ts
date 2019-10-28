@@ -1,8 +1,7 @@
 import { ProgressBase } from './progress-base';
-import { MbscCoreOptions } from '../core/core';
+import { MbscFormOptions } from './forms';
 
-export class SliderBase extends ProgressBase {
-    constructor(element: any, settings: MbscCoreOptions);
+export class SliderBase extends ProgressBase<MbscFormOptions> {
     refresh(): void;
     getVal(): any;
     setVal(val: any, fill?: boolean, change?: boolean): void;

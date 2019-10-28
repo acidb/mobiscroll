@@ -46,6 +46,25 @@
       margin: .75em 1em;
     }
 
+    /* Checkbox, switch, radio */
+    &.mbsc-checkbox .mbsc-err-msg,
+    &.mbsc-switch .mbsc-err-msg,
+    &.mbsc-radio .mbsc-err-msg {
+      padding-top: 0;
+    }
+
+    &.mbsc-ltr.mbsc-checkbox .mbsc-err-msg,
+    &.mbsc-ltr.mbsc-switch .mbsc-err-msg,
+    &.mbsc-ltr.mbsc-radio .mbsc-err-msg {
+      left: 1.3333em;
+    }
+
+    &.mbsc-rtl.mbsc-checkbox .mbsc-err-msg,
+    &.mbsc-rtl.mbsc-switch .mbsc-err-msg,
+    &.mbsc-rtl.mbsc-radio .mbsc-err-msg {
+      right: 1.3333em;
+    }
+
     /* Checkbox, radio */
     &.mbsc-ltr.mbsc-checkbox,
     &.mbsc-ltr.mbsc-radio {
@@ -84,8 +103,8 @@
       transition: transform .1s ease-out;
     }
 
-    &.mbsc-checkbox input:checked+.mbsc-checkbox-box:after,
-    &.mbsc-radio input:checked+.mbsc-radio-box:after {
+    &.mbsc-checkbox input:checked + .mbsc-checkbox-box:after,
+    &.mbsc-radio input:checked + .mbsc-radio-box:after {
       -webkit-transform: scale(1) rotate(-45deg);
       transform: scale(1) rotate(-45deg);
     }
@@ -105,20 +124,20 @@
       transition: opacity .2s ease-in-out;
     }
 
-    &.mbsc-checkbox input:disabled+.mbsc-checkbox-box,
-    &.mbsc-checkbox input:disabled~.mbsc-label,
-    &.mbsc-checkbox input:disabled~.mbsc-desc,
-    &.mbsc-radio input:disabled+.mbsc-radio-box,
-    &.mbsc-radio input:disabled~.mbsc-label,
-    &.mbsc-radio input:disabled~.mbsc-desc,
-    &.mbsc-switch input:disabled~.mbsc-label,
-    &.mbsc-switch input:disabled~.mbsc-desc {
+    &.mbsc-checkbox input:disabled + .mbsc-checkbox-box,
+    &.mbsc-checkbox input:disabled ~ .mbsc-label,
+    &.mbsc-checkbox input:disabled ~ .mbsc-desc,
+    &.mbsc-radio input:disabled + .mbsc-radio-box,
+    &.mbsc-radio input:disabled ~ .mbsc-label,
+    &.mbsc-radio input:disabled ~ .mbsc-desc,
+    &.mbsc-switch input:disabled ~ .mbsc-label,
+    &.mbsc-switch input:disabled ~ .mbsc-desc {
       opacity: .3;
     }
 
-    &.mbsc-checkbox input.mbsc-active+.mbsc-checkbox-box:before,
-    &.mbsc-radio input.mbsc-active+.mbsc-radio-box:before,
-    &.mbsc-switch input.mbsc-active+.mbsc-switch-track .mbsc-switch-handle:before {
+    &.mbsc-checkbox input.mbsc-active + .mbsc-checkbox-box:before,
+    &.mbsc-radio input.mbsc-active + .mbsc-radio-box:before,
+    &.mbsc-switch input.mbsc-active + .mbsc-switch-track .mbsc-switch-handle:before {
       opacity: 1;
     }
 
@@ -136,7 +155,7 @@
 
     /* Checkbox color presets */
     &.mbsc-checkbox-primary.mbsc-checkbox {
-      input:checked+.mbsc-checkbox-box {
+      input:checked + .mbsc-checkbox-box {
         background: $mbsc-material-primary;
         border-color: $mbsc-material-primary;
       }
@@ -150,28 +169,28 @@
     }
 
     &.mbsc-checkbox-success.mbsc-checkbox {
-      input:checked+.mbsc-checkbox-box {
+      input:checked + .mbsc-checkbox-box {
         background: $mbsc-material-success;
         border-color: $mbsc-material-success;
       }
     }
 
     &.mbsc-checkbox-danger.mbsc-checkbox {
-      input:checked+.mbsc-checkbox-box {
+      input:checked + .mbsc-checkbox-box {
         background: $mbsc-material-danger;
         border-color: $mbsc-material-danger;
       }
     }
 
     &.mbsc-checkbox-warning.mbsc-checkbox {
-      input:checked+.mbsc-checkbox-box {
+      input:checked + .mbsc-checkbox-box {
         background: $mbsc-material-warning;
         border-color: $mbsc-material-warning;
       }
     }
 
     &.mbsc-checkbox-info.mbsc-checkbox {
-      input:checked+.mbsc-checkbox-box {
+      input:checked + .mbsc-checkbox-box {
         background: $mbsc-material-info;
         border-color: $mbsc-material-info;
       }
@@ -188,61 +207,61 @@
 
     /* Radio color presets */
     &.mbsc-radio-primary.mbsc-radio input:checked {
-      +.mbsc-radio-box {
+      + .mbsc-radio-box {
         border-color: $mbsc-material-primary;
       }
 
-      +.mbsc-radio-box:after {
+      + .mbsc-radio-box:after {
         background: $mbsc-material-primary;
       }
     }
 
     &.mbsc-radio-secondary.mbsc-radio input:checked {
-      +.mbsc-radio-box {
+      + .mbsc-radio-box {
         border-color: $mbsc-material-secondary;
       }
 
-      +.mbsc-radio-box:after {
+      + .mbsc-radio-box:after {
         background: $mbsc-material-secondary;
       }
     }
 
     &.mbsc-radio-success.mbsc-radio input:checked {
-      +.mbsc-radio-box {
+      + .mbsc-radio-box {
         border-color: $mbsc-material-success;
       }
 
-      +.mbsc-radio-box:after {
+      + .mbsc-radio-box:after {
         background: $mbsc-material-success;
       }
     }
 
     &.mbsc-radio-danger.mbsc-radio input:checked {
-      +.mbsc-radio-box {
+      + .mbsc-radio-box {
         border-color: $mbsc-material-danger;
       }
 
-      +.mbsc-radio-box:after {
+      + .mbsc-radio-box:after {
         background: $mbsc-material-danger;
       }
     }
 
     &.mbsc-radio-warning.mbsc-radio input:checked {
-      +.mbsc-radio-box {
+      + .mbsc-radio-box {
         border-color: $mbsc-material-warning;
       }
 
-      +.mbsc-radio-box:after {
+      + .mbsc-radio-box:after {
         background: $mbsc-material-warning;
       }
     }
 
     &.mbsc-radio-info.mbsc-radio input:checked {
-      +.mbsc-radio-box {
+      + .mbsc-radio-box {
         border-color: $mbsc-material-info;
       }
 
-      +.mbsc-radio-box:after {
+      + .mbsc-radio-box:after {
         background: $mbsc-material-info;
       }
     }
@@ -654,61 +673,61 @@
 
     /* Switch color presets */
     &.mbsc-switch.mbsc-switch-primary input:checked {
-      +.mbsc-switch-track {
+      + .mbsc-switch-track {
         background: lighten($mbsc-material-primary, 20%);
       }
 
-      +.mbsc-switch-track .mbsc-switch-handle {
+      + .mbsc-switch-track .mbsc-switch-handle {
         background: $mbsc-material-primary;
       }
     }
 
     &.mbsc-switch.mbsc-switch-secondary input:checked {
-      +.mbsc-switch-track {
+      + .mbsc-switch-track {
         background: lighten($mbsc-material-secondary, 20%);
       }
 
-      +.mbsc-switch-track .mbsc-switch-handle {
+      + .mbsc-switch-track .mbsc-switch-handle {
         background: $mbsc-material-secondary;
       }
     }
 
     &.mbsc-switch.mbsc-switch-success input:checked {
-      +.mbsc-switch-track {
+      + .mbsc-switch-track {
         background: lighten($mbsc-material-success, 20%);
       }
 
-      +.mbsc-switch-track .mbsc-switch-handle {
+      + .mbsc-switch-track .mbsc-switch-handle {
         background: $mbsc-material-success;
       }
     }
 
     &.mbsc-switch.mbsc-switch-danger input:checked {
-      +.mbsc-switch-track {
+      + .mbsc-switch-track {
         background: lighten($mbsc-material-danger, 20%);
       }
 
-      +.mbsc-switch-track .mbsc-switch-handle {
+      + .mbsc-switch-track .mbsc-switch-handle {
         background: $mbsc-material-danger;
       }
     }
 
     &.mbsc-switch.mbsc-switch-warning input:checked {
-      +.mbsc-switch-track {
+      + .mbsc-switch-track {
         background: lighten($mbsc-material-warning, 20%);
       }
 
-      +.mbsc-switch-track .mbsc-switch-handle {
+      + .mbsc-switch-track .mbsc-switch-handle {
         background: $mbsc-material-warning;
       }
     }
 
     &.mbsc-switch.mbsc-switch-info input:checked {
-      +.mbsc-switch-track {
+      + .mbsc-switch-track {
         background: lighten($mbsc-material-info, 20%);
       }
 
-      +.mbsc-switch-track .mbsc-switch-handle {
+      + .mbsc-switch-track .mbsc-switch-handle {
         background: $mbsc-material-info;
       }
     }
@@ -768,7 +787,7 @@
 
     /* Segmented color presets */
     .mbsc-segmented-primary {
-      &.mbsc-segmented-item input:checked+.mbsc-segmented-content {
+      &.mbsc-segmented-item input:checked + .mbsc-segmented-content {
         background: $mbsc-material-primary;
       }
     }
@@ -779,7 +798,7 @@
         color: $mbsc-material-secondary;
       }
 
-      &.mbsc-segmented-item input:checked+.mbsc-segmented-content {
+      &.mbsc-segmented-item input:checked + .mbsc-segmented-content {
         background: $mbsc-material-secondary;
       }
     }
@@ -790,7 +809,7 @@
         color: $mbsc-material-success;
       }
 
-      &.mbsc-segmented-item input:checked+.mbsc-segmented-content {
+      &.mbsc-segmented-item input:checked + .mbsc-segmented-content {
         background: $mbsc-material-success;
       }
     }
@@ -801,7 +820,7 @@
         color: $mbsc-material-danger;
       }
 
-      &.mbsc-segmented-item input:checked+.mbsc-segmented-content {
+      &.mbsc-segmented-item input:checked + .mbsc-segmented-content {
         background: $mbsc-material-danger;
       }
     }
@@ -812,7 +831,7 @@
         color: $mbsc-material-warning;
       }
 
-      &.mbsc-segmented-item input:checked+.mbsc-segmented-content {
+      &.mbsc-segmented-item input:checked + .mbsc-segmented-content {
         background: $mbsc-material-warning;
       }
     }
@@ -823,7 +842,7 @@
         color: $mbsc-material-info;
       }
 
-      &.mbsc-segmented-item input:checked+.mbsc-segmented-content {
+      &.mbsc-segmented-item input:checked + .mbsc-segmented-content {
         background: $mbsc-material-info;
       }
     }
@@ -836,7 +855,7 @@
           color: $mbsc-material-primary;
         }
 
-        &.mbsc-segmented-item input:checked+.mbsc-segmented-content {
+        &.mbsc-segmented-item input:checked + .mbsc-segmented-content {
           background: $mbsc-material-primary;
         }
       }
@@ -847,7 +866,7 @@
           color: $mbsc-material-secondary;
         }
 
-        &.mbsc-segmented-item input:checked+.mbsc-segmented-content {
+        &.mbsc-segmented-item input:checked + .mbsc-segmented-content {
           background: $mbsc-material-secondary;
         }
       }
@@ -858,7 +877,7 @@
           color: $mbsc-material-success;
         }
 
-        &.mbsc-segmented-item input:checked+.mbsc-segmented-content {
+        &.mbsc-segmented-item input:checked + .mbsc-segmented-content {
           background: $mbsc-material-success;
         }
       }
@@ -869,7 +888,7 @@
           color: $mbsc-material-danger;
         }
 
-        &.mbsc-segmented-item input:checked+.mbsc-segmented-content {
+        &.mbsc-segmented-item input:checked + .mbsc-segmented-content {
           background: $mbsc-material-danger;
         }
       }
@@ -880,7 +899,7 @@
           color: $mbsc-material-warning;
         }
 
-        &.mbsc-segmented-item input:checked+.mbsc-segmented-content {
+        &.mbsc-segmented-item input:checked + .mbsc-segmented-content {
           background: $mbsc-material-warning;
         }
       }
@@ -891,49 +910,49 @@
           color: $mbsc-material-info;
         }
 
-        &.mbsc-segmented-item input:checked+.mbsc-segmented-content {
+        &.mbsc-segmented-item input:checked + .mbsc-segmented-content {
           background: $mbsc-material-info;
         }
       }
     }
 
     /* Segmented color presets */
-    .mbsc-stepper-primary.mbsc-stepper-cont {
+    &.mbsc-stepper-primary.mbsc-stepper-cont {
       .mbsc-stepper .mbsc-segmented-content {
         background: $mbsc-material-primary;
         border-color: $mbsc-material-primary;
       }
     }
 
-    .mbsc-stepper-secondary.mbsc-stepper-cont {
+    &.mbsc-stepper-secondary.mbsc-stepper-cont {
       .mbsc-stepper .mbsc-segmented-content {
         background: $mbsc-material-secondary;
         border-color: $mbsc-material-secondary;
       }
     }
 
-    .mbsc-stepper-success.mbsc-stepper-cont {
+    &.mbsc-stepper-success.mbsc-stepper-cont {
       .mbsc-stepper .mbsc-segmented-content {
         background: $mbsc-material-success;
         border-color: $mbsc-material-success;
       }
     }
 
-    .mbsc-stepper-danger.mbsc-stepper-cont {
+    &.mbsc-stepper-danger.mbsc-stepper-cont {
       .mbsc-stepper .mbsc-segmented-content {
         background: $mbsc-material-danger;
         border-color: $mbsc-material-danger;
       }
     }
 
-    .mbsc-stepper-warning.mbsc-stepper-cont {
+    &.mbsc-stepper-warning.mbsc-stepper-cont {
       .mbsc-stepper .mbsc-segmented-content {
         background: $mbsc-material-warning;
         border-color: $mbsc-material-warning;
       }
     }
 
-    .mbsc-stepper-info.mbsc-stepper-cont {
+    &.mbsc-stepper-info.mbsc-stepper-cont {
       .mbsc-stepper .mbsc-segmented-content {
         background: $mbsc-material-info;
         color: $mbsc-material-light;

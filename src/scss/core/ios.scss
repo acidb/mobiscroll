@@ -239,8 +239,7 @@ $mbsc-ios-dark: #47494A !default;
     /* static colors */
     error: #d8332a,
     white-text: #fff,
-    dark-text: #000,
-    light-text: #eee);
+    dark-text: #000);
 }
 
 @mixin mbsc-ios-common($theme, $params) {

@@ -33,6 +33,7 @@
     $input-color: map-get($colors, input-color);
     $switch-disabled: map-get($colors, switch-disabled);
     $switch: map-get($colors, switch);
+    $background-contrast: map-get($colors, background-contrast);
 
     .mbsc-#{$theme} {
 
@@ -72,7 +73,7 @@
 
       .mbsc-checkbox-box:before,
       .mbsc-radio-box:before {
-        background: rgba(0, 0, 0, .1);
+        background: rgba($background-contrast, .1);
       }
 
       /* Checkbox */
@@ -82,7 +83,7 @@
         border-right: 0;
       }
 
-      &.mbsc-checkbox input:checked+.mbsc-checkbox-box {
+      &.mbsc-checkbox input:checked + .mbsc-checkbox-box {
         background: $accent;
         border-color: $accent;
       }
@@ -92,7 +93,7 @@
         background: $accent;
       }
 
-      &.mbsc-radio input:checked+.mbsc-radio-box {
+      &.mbsc-radio input:checked + .mbsc-radio-box {
         border-color: $accent;
       }
 
@@ -164,22 +165,22 @@
 
       &.mbsc-switch .mbsc-switch-handle {
         background: $switch;
-        box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+        box-shadow: 0 3px 1px -2px rgba($background-contrast, 0.2), 0 1px 5px 0 rgba($background-contrast, 0.12);
       }
 
-      &.mbsc-switch input:checked+.mbsc-switch-track {
+      &.mbsc-switch input:checked + .mbsc-switch-track {
         background-color: rgba($accent, .3);
       }
 
-      &.mbsc-switch input:checked+.mbsc-switch-track .mbsc-switch-handle {
+      &.mbsc-switch input:checked + .mbsc-switch-track .mbsc-switch-handle {
         background: $accent;
       }
 
-      &.mbsc-switch input:disabled+.mbsc-switch-track {
+      &.mbsc-switch input:disabled + .mbsc-switch-track {
         background: $button-background;
       }
 
-      &.mbsc-switch input:disabled+.mbsc-switch-track .mbsc-switch-handle {
+      &.mbsc-switch input:disabled + .mbsc-switch-track .mbsc-switch-handle {
         background: $switch-disabled;
       }
 
@@ -189,25 +190,25 @@
         color: $button-color;
       }
 
-      &.mbsc-segmented .mbsc-segmented-item input:checked+.mbsc-segmented-content,
-      &.mbsc-segmented .mbsc-segmented-item input:checked~.mbsc-segmented-content {
+      &.mbsc-segmented .mbsc-segmented-item input:checked + .mbsc-segmented-content,
+      &.mbsc-segmented .mbsc-segmented-item input:checked ~ .mbsc-segmented-content {
         background: $accent;
         color: $background;
       }
 
-      &.mbsc-segmented .mbsc-segmented-item input.mbsc-active+.mbsc-segmented-content,
+      &.mbsc-segmented .mbsc-segmented-item input.mbsc-active + .mbsc-segmented-content,
       &.mbsc-segmented .mbsc-segmented-item .mbsc-active .mbsc-segmented-content {
         background: $button-active;
         color: $button-color;
       }
 
-      &.mbsc-segmented .mbsc-segmented-item input:disabled+.mbsc-segmented-content {
+      &.mbsc-segmented .mbsc-segmented-item input:disabled + .mbsc-segmented-content {
         color: $input-color;
         border-color: $gray-background;
         background: transparent;
       }
 
-      &.mbsc-segmented .mbsc-segmented-item input:disabled:checked+.mbsc-segmented-content {
+      &.mbsc-segmented .mbsc-segmented-item input:disabled:checked + .mbsc-segmented-content {
         background: $button-background;
         color: $input-color;
         border-color: $button-background;
@@ -221,14 +222,14 @@
         background: $button-background;
       }
 
-      &.mbsc-segmented input:disabled~.mbsc-segmented-item .mbsc-segmented-content,
+      &.mbsc-segmented input:disabled ~ .mbsc-segmented-item .mbsc-segmented-content,
       &.mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control.mbsc-disabled .mbsc-segmented-content,
       &.mbsc-segmented .mbsc-segmented-item.mbsc-disabled .mbsc-segmented-content {
         background: $button-background;
         color: $input-color;
       }
 
-      &.mbsc-segmented .mbsc-segmented-item input:disabled~.mbsc-segmented-item .mbsc-stepper-val {
+      &.mbsc-segmented .mbsc-segmented-item input:disabled ~ .mbsc-segmented-item .mbsc-stepper-val {
         background: $background;
       }
 

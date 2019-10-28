@@ -64,6 +64,7 @@ function getCoord(e, c, page) {
 }
 
 function getControlType($elm) {
+    const attrs = ['switch', 'range', 'rating', 'segmented', 'stepper'];
     const elm = $elm[0];
     const role = $elm.attr('data-role');
 
@@ -71,6 +72,12 @@ function getControlType($elm) {
 
     if (/(switch|range|rating|segmented|stepper|select)/.test(role)) {
         type = role;
+    } else {
+        for (let i = 0; i < attrs.length; i++) {
+            if ($elm.is('[mbsc-' + attrs[i] + ']')) {
+                type = attrs[i];
+            }
+        }
     }
 
     return type;

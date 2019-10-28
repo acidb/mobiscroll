@@ -32,7 +32,6 @@
     $track-background: map-get($colors, track-background);
     $track-border: map-get($colors, track-border);
     $white-text: map-get($colors, white-text);
-    $light-text: map-get($colors, light-text);
     $dark-text: map-get($colors, dark-text);
     $switch-track: map-get($colors, switch-track);
 
@@ -80,6 +79,11 @@
       &.mbsc-input-outline.mbsc-switch,
       &.mbsc-input-outline.mbsc-stepper-cont {
         background: $cont-background;
+      }
+
+      &.mbsc-form .mbsc-input-box.mbsc-segmented,
+      &.mbsc-form .mbsc-input-box.mbsc-segmented {
+        background: transparent;
       }
 
       /* Checkbox */
@@ -133,7 +137,7 @@
       &.mbsc-btn-warning.mbsc-btn,
       &.mbsc-btn-info.mbsc-btn,
       &.mbsc-btn-dark.mbsc-btn {
-        color: $light-text;
+        color: $white-text;
       }
 
       &.mbsc-btn-light.mbsc-btn {

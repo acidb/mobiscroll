@@ -230,6 +230,40 @@ export const Frame = function (el, settings, inherit) {
             target: markup
         });
 
+        if (isModal && s.closeOnOverlayTap) {
+            var moved,
+                target,
+                startX,
+                startY;
+
+            $overlay
+                .on('touchstart mousedown', function (ev) {
+                    if (!target && ev.target == overlay) {
+                        target = true;
+                        moved = false;
+                        startX = getCoord(ev, 'X');
+                        startY = getCoord(ev, 'Y');
+                    }
+                })
+                .on('touchmove mousemove', function (ev) {
+                    if (target && !moved && (Math.abs(getCoord(ev, 'X') - startX) > 9 || Math.abs(getCoord(ev, 'Y') - startY) > 9)) {
+                        moved = true;
+                    }
+                })
+                .on('touchcancel', function () {
+                    target = false;
+                })
+                .on('touchend click', function (ev) {
+                    if (target && !moved) {
+                        that.cancel();
+                        if (ev.type == 'touchend') {
+                            preventClick();
+                        }
+                    }
+                    target = false;
+                });
+        }
+
         $markup
             .on('mousedown', '.mbsc-btn-e,.mbsc-fr-btn-e', prevdef)
             .on('touchstart mousedown', function (ev) {
@@ -839,47 +873,13 @@ export const Frame = function (el, settings, inherit) {
             if (s.focusTrap) {
                 $wnd.on('focusin', onFocus);
             }
-
-            if (s.closeOnOverlayTap) {
-                var moved,
-                    target,
-                    startX,
-                    startY;
-
-                $overlay
-                    .on('touchstart mousedown', function (ev) {
-                        if (!target && ev.target == overlay) {
-                            target = true;
-                            moved = false;
-                            startX = getCoord(ev, 'X');
-                            startY = getCoord(ev, 'Y');
-                        }
-                    })
-                    .on('touchmove mousemove', function (ev) {
-                        if (target && !moved && (Math.abs(getCoord(ev, 'X') - startX) > 9 || Math.abs(getCoord(ev, 'Y') - startY) > 9)) {
-                            moved = true;
-                        }
-                    })
-                    .on('touchcancel', function () {
-                        target = false;
-                    })
-                    .on('touchend click', function (ev) {
-                        if (target && !moved) {
-                            that.cancel();
-                            if (ev.type == 'touchend') {
-                                preventClick();
-                            }
-                        }
-                        target = false;
-                    });
-            }
         }
 
-        if (isModal && needsLock) {
+        if (isModal) {
             // Wait for the toolbar and addressbar to appear on iOS
             setTimeout(function () {
                 insertMarkup(prevAnim, prevFocus);
-            }, 100);
+            }, needsLock ? 100 : 0);
         } else {
             insertMarkup(prevAnim, prevFocus);
         }

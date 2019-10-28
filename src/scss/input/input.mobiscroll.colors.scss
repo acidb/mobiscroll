@@ -18,15 +18,13 @@
     .mbsc-#{$theme} {
 
       /* Textbox */
-      &.mbsc-input input,
-      &.mbsc-input textarea {
+      &.mbsc-input .mbsc-control {
         border-bottom: 1px solid $input-icon;
         color: $color-input;
       }
 
-      &.mbsc-input input:focus,
-      &.mbsc-input select:focus~input .mbsc-input textarea:focus,
-      &.mbsc-input textarea:focus {
+      &.mbsc-input .mbsc-control:focus,
+      &.mbsc-input select:focus ~ input .mbsc-input textarea:focus {
         border-color: $accent;
       }
 
@@ -44,8 +42,7 @@
       /* Outline Input */
       &.mbsc-input-outline {
 
-        &.mbsc-input input,
-        &.mbsc-input textarea {
+        &.mbsc-input .mbsc-control {
           border: 1px solid $input-icon;
         }
 
@@ -58,8 +55,8 @@
           background: none;
         }
 
-        &.mbsc-input input:focus,
-        &.mbsc-input select:focus~input,
+        &.mbsc-input .mbsc-control:focus,
+        &.mbsc-input select:focus ~ input,
         &.mbsc-err input {
           border-color: $accent;
         }

@@ -16,7 +16,6 @@ import {
     QueryList,
     Injectable,
     OnInit,
-    Subject,
     Observable,
     MbscInputService,
     MbscOptionsService,
@@ -67,6 +66,9 @@ export class MbscForm extends MbscBase implements OnInit {
 
     @Input()
     enhance: boolean = false;
+
+    @Input()
+    context: string | HTMLElement;
 
     /**
      *  Specify the inputStyle.
@@ -132,7 +134,7 @@ export class MbscForm extends MbscBase implements OnInit {
                     [attr.data-icon]="icon ? icon : null"
                     [attr.data-icon-align]="iconAlign ? iconAlign : null"
                     [disabled]="disabled"
-                    [attr.readonly]="_readonly"></textarea>
+                    [readonly]="_readonly"></textarea>
                 <span *ngIf="error && errorMessage" class="mbsc-err-msg">{{errorMessage}}</span>
             </span>
         </label>
@@ -179,7 +181,6 @@ export class MbscTextarea extends MbscInputBase {
                     [attr.data-icon]="icon ? icon : null"
                     [attr.data-icon-align]="iconAlign ? iconAlign : null"
                     [disabled]="disabled"
-                    [attr.readonly]="_readonly"
                     (blur)="onTouch($event)">
                     <ng-content></ng-content>
                 </select>
@@ -354,9 +355,12 @@ export class MbscButton extends MbscFormBase {
                 type="checkbox"
                 [attr.name]="name"
                 [disabled]="disabled"
+                [attr.data-label-style]="labelStyle"
+                [attr.data-input-style]="inputStyle"
                 [(ngModel)]="innerValue"
                 (blur)="onTouch($event)" />
             <ng-content></ng-content>
+            <span *ngIf="error && errorMessage" class="mbsc-err-msg">{{errorMessage}}</span>
         </label>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush
@@ -369,11 +373,26 @@ export class MbscCheckbox extends MbscFormValueBase {
     @Input()
     color: string;
 
+    /**
+     *  Specify the inputStyle.
+    */
+    @Input('input-style')
+    inputStyle: string;
+
+    /**
+     *  Specify the labelStyle.
+    */
+    @Input('label-style')
+    labelStyle: string;
+
     _colorClass: any = {};
     get colorClass(): any {
         for (var k in this._colorClass) { delete this._colorClass[k]; }
         if (this.color) {
             this._colorClass['mbsc-checkbox-' + this.color] = true;
+        }
+        if (this.error) {
+            this._colorClass['mbsc-err'] = true;
         }
         return this._colorClass;
     }
@@ -402,6 +421,7 @@ export class MbscCheckbox extends MbscFormValueBase {
     template: `
         <label [ngClass]="colorClass">
             <ng-content></ng-content>
+            <span *ngIf="error && errorMessage" class="mbsc-err-msg">{{errorMessage}}</span>
             <input #initElement 
                 type="checkbox"
                 data-role="switch"
@@ -431,6 +451,11 @@ export class MbscSwitch extends MbscControlBase implements OnInit {
     @Input()
     color: string;
 
+    @Input()
+    error: boolean;
+    @Input()
+    errorMessage: string;
+
     /** 
      * Called when the model changes
      * Used only without FormControl 
@@ -455,6 +480,9 @@ export class MbscSwitch extends MbscControlBase implements OnInit {
         for (var k in this._colorClass) { delete this._colorClass[k] };
         if (this.color) {
             this._colorClass['mbsc-switch-' + this.color] = true;
+        }
+        if (this.error) {
+            this._colorClass['mbsc-err'] = true;
         }
         return this._colorClass;
     }
@@ -505,7 +533,7 @@ export class MbscSwitch extends MbscControlBase implements OnInit {
                 [attr.data-label-style]="labelStyle"
                 [attr.data-input-style]="inputStyle"
                 [disabled]="disabled" 
-                [attr.readonly]="_readonly"/>
+                [readonly]="_readonly"/>
         </div>
     `,
     exportAs: 'mobiscroll',
@@ -618,7 +646,7 @@ export class MbscStepper extends MbscControlBase implements OnInit {
         <label [ngClass]="colorClass">
             <ng-content></ng-content>
             <progress #initElement
-                [attr.data-step-labels]="stepLabels"
+                [attr.data-step-labels]="dataStepLabels"
                 [attr.data-icon]="icon ? icon : null"
                 [attr.data-icon-align]="iconAlign ? iconAlign : null"
                 [attr.data-label-style]="labelStyle"
@@ -668,6 +696,14 @@ export class MbscProgress extends MbscControlBase implements OnInit {
 
     @Input('step-labels')
     stepLabels: Array<number>;
+
+    get dataStepLabels(): string | null {
+        if (typeof (this.stepLabels) === 'string') {
+            return this.stepLabels;
+        } else {
+            return null;
+        }
+    }
 
     @Input()
     color: string;
@@ -738,12 +774,12 @@ export class MbscRadioService {
         this._multiSelect = v;
     }
 
-    private _valueSubject: Subject<any> = new Subject<any>();
+    private _valueObservable: Observable<any> = new Observable<any>();
     onValueChanged(): Observable<any> {
-        return this._valueSubject.asObservable();
+        return this._valueObservable;
     }
     changeValue(v: any) {
-        this._valueSubject.next(v);
+        this._valueObservable.next(v);
     }
 
     private _color: string;
@@ -766,9 +802,10 @@ export class MbscRadioGroupBase extends MbscFormValueBase {
         this._radioService.changeValue(v);
     }
 
+    valueObserver: number;
     constructor(hostElement: ElementRef, @Optional() formService: MbscOptionsService, public _radioService: MbscRadioService, control: NgControl, zone: NgZone) {
         super(hostElement, formService, control, null, zone);
-        this._radioService.onValueChanged().subscribe(v => {
+        this.valueObserver = this._radioService.onValueChanged().subscribe((v: any) => {
             this.innerValue = v;
             this.onTouch();
         });
@@ -797,6 +834,11 @@ export class MbscRadioGroupBase extends MbscFormValueBase {
 
     /** Overriden for there is no instance tied to this component */
     updateOptions() { }
+
+    ngOnDestroy() {
+        this._radioService.onValueChanged().unsubscribe(this.valueObserver);
+        super.ngOnDestroy();
+    }
 }
 
 @Component({
@@ -824,6 +866,7 @@ export class MbscRadioGroup extends MbscRadioGroupBase {
                 [disabled]="disabled"
                 (click)="clicked($event)" />
             <ng-content></ng-content>
+            <span *ngIf="error && errorMessage" class="mbsc-err-msg">{{errorMessage}}</span>
         </label>
     `
 })
@@ -840,12 +883,19 @@ export class MbscRadio extends MbscFormBase {
 
     @Input()
     value: any;
+    @Input()
+    error: boolean;
+    @Input()
+    errorMessage: string;
 
     _colorClass: any = {};
     get colorClass() {
         for (var k in this._colorClass) { delete this._colorClass[k]; }
         if (this.color) {
             this._colorClass['mbsc-radio-' + this.color] = true;
+        }
+        if (this.error) {
+            this._colorClass['mbsc-err'] = true;
         }
         return this._colorClass;
     }
@@ -854,9 +904,11 @@ export class MbscRadio extends MbscFormBase {
         this._radioService.changeValue(this.value);
     }
 
+    valueObserver: number;
+
     constructor(hostElement: ElementRef, @Optional() formService: MbscOptionsService, private _radioService: MbscRadioService, zone: NgZone) {
         super(hostElement, formService, zone);
-        this._radioService.onValueChanged().subscribe(v => {
+        this.valueObserver = this._radioService.onValueChanged().subscribe((v: any) => {
             this.modelValue = v;
         });
     }
@@ -870,6 +922,11 @@ export class MbscRadio extends MbscFormBase {
         super.ngOnInit();
         this.name = this._radioService.name;
         this.color = this._radioService.color;
+    }
+
+    ngOnDestroy() {
+        this._radioService.onValueChanged().unsubscribe(this.valueObserver);
+        super.ngOnDestroy();
     }
 }
 
@@ -979,9 +1036,10 @@ export class MbscSegmented extends MbscFormBase {
         return cl;
     }
 
+    valueObserver: number;
     constructor(hostElement: ElementRef, @Optional() formService: MbscOptionsService, private _radioService: MbscRadioService, zone: NgZone) {
         super(hostElement, formService, zone);
-        this._radioService.onValueChanged().subscribe(v => {
+        this.valueObserver = this._radioService.onValueChanged().subscribe((v: any) => {
             this.modelValue = v;
         });
     }
@@ -997,6 +1055,11 @@ export class MbscSegmented extends MbscFormBase {
         this.multiSelect = this._radioService.multiSelect;
         this.color = this._radioService.color;
     }
+
+    ngOnDestroy() {
+        this._radioService.onValueChanged().unsubscribe(this.valueObserver);
+        super.ngOnDestroy();
+    }
 }
 
 @Component({
@@ -1009,7 +1072,7 @@ export class MbscSegmented extends MbscFormBase {
                 type="range"
                 [disabled]="disabled"
                 [attr.value]="dummyArray.length > 1 && initialValue ? initialValue[v]: initialValue"
-                [attr.data-step-labels]="stepLabels"
+                [attr.data-step-labels]="dataStepLabels"
                 [attr.data-template]="valueTemplate"
                 [attr.data-tooltip]="tooltip ? 'true' : null"
                 [attr.data-highlight]="highlight"
@@ -1084,7 +1147,15 @@ export class MbscSlider extends MbscControlBase {
     disabled: boolean = false;
 
     @Input('step-labels')
-    stepLabels: Array<number>;
+    stepLabels: string | Array<number>;
+
+    get dataStepLabels(): string | null {
+        if (typeof (this.stepLabels) === 'string') {
+            return this.stepLabels;
+        } else {
+            return null;
+        }
+    }
 
     /** 
      * Called when the model changes
@@ -1209,7 +1280,7 @@ export class MbscSlider extends MbscControlBase {
             [attr.data-label-style]="labelStyle"
             [attr.data-input-style]="inputStyle"
             [disabled]="disabled"
-            [attr.readonly]="_readonly"
+            [readonly]="_readonly"
             (blur)="onTouch($event)" />
     </label>`
 })

@@ -48,8 +48,7 @@ import {
     FormsModule
 } from '@angular/forms';
 
-import { Subject } from 'rxjs/Subject';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from '../util/observable';
 
 import { MbscFormValueBase } from '../input.angular';
 
@@ -88,14 +87,14 @@ export class MbscInputService {
 
 @Injectable()
 export class MbscListService {
-    private addRemoveSubject: Subject<any> = new Subject();
+    private addRemoveObservable: Observable<any> = new Observable();
 
     notifyAddRemove(item: any) {
-        this.addRemoveSubject.next(item);
+        this.addRemoveObservable.next(item);
     }
 
     onAddRemove(): Observable<any> {
-        return this.addRemoveSubject.asObservable();
+        return this.addRemoveObservable;
     }
 }
 
@@ -323,11 +322,13 @@ abstract class MbscCloneBase extends MbscValueBase implements DoCheck, OnInit {
 
     cloneDictionary: any = {};
     makeClone(setting: string, value: Array<any>) {
-        this.cloneDictionary[setting] = [];
         if (value) {
+            this.cloneDictionary[setting] = [];
             for (let i = 0; i < value.length; i++) {
                 this.cloneDictionary[setting].push(value[i]);
             }
+        } else {
+            this.cloneDictionary[setting] = value;
         }
     }
 
@@ -384,6 +385,12 @@ abstract class MbscControlBase extends MbscCloneBase implements ControlValueAcce
     showOnTap: boolean;
 
     /**
+     * Used to disable the control state in components
+     */
+    @Input()
+    disabled: boolean;
+
+    /**
      * Returns an object containing the extensions of the option object 
      */
     get optionExtensions(): any {
@@ -432,13 +439,13 @@ abstract class MbscControlBase extends MbscCloneBase implements ControlValueAcce
      * This function propagates the value to the model
      * It's overwrittem in registerOnChange (if formControl is used)
      */
-    onChange: any = () => { };
+    onChange: (value: any) => any = () => { };
 
     /**
      * This function has to be called when the control is touched, to notify the validators (if formControl is used)
      * It's overwritter in registerOnTouched
      */
-    onTouch: any = () => { };
+    onTouch: (ev?: any) => any = () => { };
 
     /**
      * EventEmitter for the value change
@@ -481,7 +488,7 @@ abstract class MbscControlBase extends MbscCloneBase implements ControlValueAcce
         }
     }
 
-    protected oldAccessor: any;
+    public oldAccessor: any = null;
 
     /**
      * Constructs the Base Control for value changes
@@ -533,6 +540,7 @@ abstract class MbscControlBase extends MbscCloneBase implements ControlValueAcce
     }
 
     setDisabledState(isDisabled: boolean): void {
+        this.disabled = isDisabled;
         if (this.oldAccessor && this.oldAccessor.setDisabledState) {
             this.oldAccessor.setDisabledState(isDisabled);
         }
@@ -582,9 +590,9 @@ abstract class MbscFrameBase extends MbscControlBase implements OnInit {
     @Input()
     context: string | HTMLElement;
     @Input()
-    disabled: boolean;
-    @Input()
     display: 'top' | 'bottom' | 'bubble' | 'inline' | 'center';
+    @Input()
+    showInput: boolean;
     @Input()
     focusOnClose: boolean | string | HTMLElement;
     @Input()
@@ -616,7 +624,7 @@ abstract class MbscFrameBase extends MbscControlBase implements OnInit {
     onShow: EventEmitter<{ target: HTMLElement, valueText: string, inst: any }> = new EventEmitter();
 
     get inline(): boolean {
-        return (this.display || this.options.display) === 'inline';
+        return (this.display || (this.options && this.options.display)) === 'inline';
     }
 
     constructor(initialElem: ElementRef, zone: NgZone, control: NgControl, _inputService: MbscInputService, view: ViewContainerRef) {
@@ -730,7 +738,7 @@ function emptyOrTrue(val: any) {
     return (typeof (val) === 'string' && (val === 'true' || val === '')) || !!val;
 }
 
-const INPUT_TEMPLATE = `<div *ngIf="inline"></div><mbsc-input *ngIf="!inline" 
+const INPUT_TEMPLATE = `<mbsc-input *ngIf="!inline || showInput" 
     [controlNg]="false" [name]="name" [theme]="theme" [label-style]="labelStyle" [input-style]="inputStyle" [disabled]="disabled" [dropdown]="dropdown" [placeholder]="placeholder"
     [error]="error" [errorMessage]="errorMessage" 
     [icon]="inputIcon" [icon-align]="iconAlign">
@@ -781,7 +789,6 @@ export {
     Output,
     QueryList,
     SimpleChanges,
-    Subject,
     ViewChild,
     ViewChildren,
     ViewContainerRef,

@@ -26,6 +26,9 @@ export class MbscPage extends MbscBase implements OnInit {
     @Input()
     options: MbscPageOptions;
 
+    @Input()
+    context: string | HTMLElement;
+
     @ViewChild('initElement', { static: false } as any)
     initElem: ElementRef;
 

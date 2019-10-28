@@ -492,6 +492,8 @@ class MbscCheckbox extends MbscInit {
     static propTypes = {
         color: PropTypes.string,
         disabled: PropTypes.bool,
+        valid: PropTypes.bool,
+        errorMessage: PropTypes.string,
         name: PropTypes.string,
         inputStyle: PropTypes.string
     }
@@ -507,11 +509,16 @@ class MbscCheckbox extends MbscInit {
 
     render() {
         /* eslint-disable no-unused-vars */
-        var { color, children, inputStyle, ...other } = this.props;
+        var { color, children, errorMessage, inputStyle, valid, ...other } = this.props;
         /* eslint-enable */
-        return <MbscLabel color={color} presetName="checkbox">
+        var error = null;
+        if (errorMessage && !valid) {
+            error = <span className="mbsc-err-msg">{errorMessage}</span>;
+        }
+        return <MbscLabel valid={valid} color={color} presetName="checkbox">
             <input ref={this.inputMounted} type="checkbox" {...other} />
             {children}
+            {error}
         </MbscLabel>;
     }
 }
@@ -528,7 +535,9 @@ class MbscRadio extends MbscInit {
         color: PropTypes.string,
         name: PropTypes.string,
         disabled: PropTypes.bool,
-        inputStyle: PropTypes.string
+        inputStyle: PropTypes.string,
+        valid: PropTypes.bool,
+        errorMessage: PropTypes.string
     }
 
     componentDidMount() {
@@ -542,11 +551,16 @@ class MbscRadio extends MbscInit {
 
     render() {
         /* eslint-disable no-unused-vars */
-        var { color, children, inputStyle, ...other } = this.props;
+        var { color, children, inputStyle, valid, errorMessage, ...other } = this.props;
         /* eslint-enable */
-        return <MbscLabel color={color} presetName="radio">
+        var error = null;
+        if (errorMessage && !valid) {
+            error = <span className="mbsc-err-msg">{errorMessage}</span>;
+        }
+        return <MbscLabel valid={valid} color={color} presetName="radio">
             <input ref={this.inputMounted} type="radio" {...other} />
             {children}
+            {error}
         </MbscLabel>;
     }
 }
@@ -668,6 +682,8 @@ class MbscFormBase extends MbscOptimized {
             className,
             children,
             value,
+            valid,
+            errorMessage,
             checked,
             onChange,
             name,
@@ -678,10 +694,17 @@ class MbscFormBase extends MbscOptimized {
         } = this.props;
 
         /* eslint-enable no-unused-vars */
+
+        var error = null;
+        if (errorMessage && !valid) {
+            error = <span className="mbsc-err-msg">{errorMessage}</span>;
+        }
+
         var type = this.inputType || 'text';
-        return <MbscLabel inputStyle={inputStyle} labelStyle={labelStyle}>
+        return <MbscLabel valid={valid} inputStyle={inputStyle} labelStyle={labelStyle}>
             {children}
             <input ref={this.inputMounted} type={type} data-role={name} data-enhance="false" {...other} />
+            {error}
         </MbscLabel>;
     }
 }

@@ -6,9 +6,6 @@
 
 @include exports("slider.ios") {
   .mbsc-ios {
-    .mbsc-slider-handle-cont {
-      top: 0;
-    }
 
     .mbsc-slider-handle {
       top: 50%;
@@ -45,27 +42,27 @@
       opacity: .4;
     }
 
-    .mbsc-slider-primary .mbsc-progress-bar {
+    &.mbsc-slider-primary .mbsc-progress-bar {
       background: $mbsc-ios-primary;
     }
 
-    .mbsc-slider-secondary .mbsc-progress-bar {
+    &.mbsc-slider-secondary .mbsc-progress-bar {
       background: $mbsc-ios-secondary;
     }
 
-    .mbsc-slider-success .mbsc-progress-bar {
+    &.mbsc-slider-success .mbsc-progress-bar {
       background: $mbsc-ios-success;
     }
 
-    .mbsc-slider-danger .mbsc-progress-bar {
+    &.mbsc-slider-danger .mbsc-progress-bar {
       background: $mbsc-ios-danger;
     }
 
-    .mbsc-slider-warning .mbsc-progress-bar {
+    &.mbsc-slider-warning .mbsc-progress-bar {
       background: $mbsc-ios-warning;
     }
 
-    .mbsc-slider-info .mbsc-progress-bar {
+    &.mbsc-slider-info .mbsc-progress-bar {
       background: $mbsc-ios-info;
     }
   }

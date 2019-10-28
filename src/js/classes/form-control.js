@@ -82,7 +82,11 @@ function addIconToggle(that, $parent, $control) {
 
 function wrapLabel($parent, type, inputStyle, labelStyle, elm) {
     // Wrap non-empty text nodes in span with mbsc-label class
-    if (type != 'button' && type != 'submit' && type != 'segmented') {
+    if (type == 'segmented') {
+        $parent.closest('.mbsc-segmented')
+            .addClass(inputStyle == 'box' ? 'mbsc-input-box' : '')
+            .addClass(inputStyle == 'outline' ? 'mbsc-input-outline' : '');
+    } else if (type != 'button' && type != 'submit') {
         $parent
             .addClass('mbsc-control-w')
             .addClass(inputStyle == 'box' ? 'mbsc-input-box' : '')
@@ -132,6 +136,10 @@ export class FormControl {
         const inputStyle = getAttr($elm, 'data-input-style', s.inputStyle);
         const labelStyle = getAttr($elm, 'data-label-style', s.labelStyle);
 
+        if (elm.mbscInst) {
+            elm.mbscInst.destroy();
+        }
+
         if ($frame) {
             $frame.insertAfter($parent);
         }
@@ -155,9 +163,10 @@ export class FormControl {
         $elm.addClass('mbsc-control');
 
         // Attach events
+        this._handle = this._handle.bind(this);
         // Prevent 300ms click latency
         events.forEach(ev => {
-            elm.addEventListener(ev, this);
+            $elm.on(ev, this._handle);
         });
 
         this.settings = s;
@@ -182,8 +191,9 @@ export class FormControl {
 
     destroy() {
         this._$elm.removeClass('mbsc-control');
+        this.getClassElm().removeClass(this.cssClass);
         events.forEach(ev => {
-            this._elm.removeEventListener(ev, this);
+            this._$elm.off(ev, this._handle);
         });
         delete this._elm.mbscInst;
     }
@@ -202,7 +212,7 @@ export class FormControl {
         this._ripple = getRipple(this.settings.theme);
     }
 
-    handleEvent(ev) {
+    _handle(ev) {
         switch (ev.type) {
             case 'touchstart':
             case 'mousedown':
@@ -287,8 +297,11 @@ export class FormControl {
     }
 }
 
+mobiscroll.themes.form.mobiscroll = {};
+
 export {
     addIcon,
     addIconToggle,
+    getCssClass,
     wrapLabel
 };

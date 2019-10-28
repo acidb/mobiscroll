@@ -52,6 +52,14 @@
       margin: .75em 1em;
     }
 
+    /* Checkbox, switch */
+    &.mbsc-checkbox .mbsc-err-msg,
+    &.mbsc-switch .mbsc-err-msg,
+    &.mbsc-radio .mbsc-err-msg {
+      padding: 0;
+      margin-bottom: -1em;
+    }
+
     /* Checkbox, radio */
     &.mbsc-ltr.mbsc-checkbox,
     &.mbsc-ltr.mbsc-radio {
@@ -63,15 +71,15 @@
       padding: .875em 1em .875em 3.75em;
     }
 
-    &.mbsc-checkbox input:disabled+.mbsc-checkbox-box,
-    &.mbsc-checkbox input:disabled~.mbsc-label,
-    &.mbsc-checkbox input:disabled~.mbsc-desc,
-    &.mbsc-radio input:disabled+.mbsc-radio-box,
-    &.mbsc-radio input:disabled~.mbsc-label,
-    &.mbsc-radio input:disabled~.mbsc-desc,
-    &.mbsc-switch input:disabled+.mbsc-switch-track,
-    &.mbsc-switch input:disabled~.mbsc-label,
-    &.mbsc-switch input:disabled~.mbsc-desc {
+    &.mbsc-checkbox input:disabled + .mbsc-checkbox-box,
+    &.mbsc-checkbox input:disabled ~ .mbsc-label,
+    &.mbsc-checkbox input:disabled ~ .mbsc-desc,
+    &.mbsc-radio input:disabled + .mbsc-radio-box,
+    &.mbsc-radio input:disabled ~ .mbsc-label,
+    &.mbsc-radio input:disabled ~ .mbsc-desc,
+    &.mbsc-switch input:disabled + .mbsc-switch-track,
+    &.mbsc-switch input:disabled ~ .mbsc-label,
+    &.mbsc-switch input:disabled ~ .mbsc-desc {
       opacity: .3;
     }
 
@@ -457,38 +465,38 @@
       margin: -.875em -.875em 0 0;
     }
 
-    &.mbsc-switch input:checked+.mbsc-switch-track:after {
+    &.mbsc-switch input:checked + .mbsc-switch-track:after {
       -webkit-transform: scale(0);
       transform: scale(0);
     }
 
     /* swithc color presets */
-    &.mbsc-switch-primary.mbsc-switch input:checked+.mbsc-switch-track {
+    &.mbsc-switch-primary.mbsc-switch input:checked + .mbsc-switch-track {
       border-color: $mbsc-ios-primary;
       background: $mbsc-ios-primary;
     }
 
-    &.mbsc-switch-secondary.mbsc-switch input:checked+.mbsc-switch-track {
+    &.mbsc-switch-secondary.mbsc-switch input:checked + .mbsc-switch-track {
       border-color: $mbsc-ios-secondary;
       background: $mbsc-ios-secondary;
     }
 
-    &.mbsc-switch-success.mbsc-switch input:checked+.mbsc-switch-track {
+    &.mbsc-switch-success.mbsc-switch input:checked + .mbsc-switch-track {
       border-color: $mbsc-ios-success;
       background: $mbsc-ios-success;
     }
 
-    &.mbsc-switch-danger.mbsc-switch input:checked+.mbsc-switch-track {
+    &.mbsc-switch-danger.mbsc-switch input:checked + .mbsc-switch-track {
       border-color: $mbsc-ios-danger;
       background: $mbsc-ios-danger;
     }
 
-    &.mbsc-switch-warning.mbsc-switch input:checked+.mbsc-switch-track {
+    &.mbsc-switch-warning.mbsc-switch input:checked + .mbsc-switch-track {
       border-color: $mbsc-ios-warning;
       background: $mbsc-ios-warning;
     }
 
-    &.mbsc-switch-info.mbsc-switch input:checked+.mbsc-switch-track {
+    &.mbsc-switch-info.mbsc-switch input:checked + .mbsc-switch-track {
       border-color: $mbsc-ios-info;
       background: $mbsc-ios-info;
     }
@@ -548,9 +556,9 @@
       left: 1em;
     }
 
-    &.mbsc-segmented input:disabled~.mbsc-segmented-item .mbsc-segmented-content,
+    &.mbsc-segmented input:disabled ~ .mbsc-segmented-item .mbsc-segmented-content,
     &.mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control.mbsc-disabled .mbsc-segmented-content,
-    &.mbsc-segmented .mbsc-segmented-item input:disabled+.mbsc-segmented-content {
+    &.mbsc-segmented .mbsc-segmented-item input:disabled + .mbsc-segmented-content {
       background: none;
     }
 
@@ -573,11 +581,11 @@
           color: $mbsc-ios-primary;
         }
 
-        &.mbsc-segmented-item input:checked+.mbsc-segmented-content {
+        &.mbsc-segmented-item input:checked + .mbsc-segmented-content {
           background: $mbsc-ios-primary;
         }
 
-        &.mbsc-segmented-item input.mbsc-active+.mbsc-segmented-content {
+        &.mbsc-segmented-item input.mbsc-active + .mbsc-segmented-content {
           color: $mbsc-ios-primary;
           background: rgba($mbsc-ios-primary, .45);
         }
@@ -589,11 +597,11 @@
           color: $mbsc-ios-secondary;
         }
 
-        &.mbsc-segmented-item input:checked+.mbsc-segmented-content {
+        &.mbsc-segmented-item input:checked + .mbsc-segmented-content {
           background: $mbsc-ios-secondary;
         }
 
-        &.mbsc-segmented-item input.mbsc-active+.mbsc-segmented-content {
+        &.mbsc-segmented-item input.mbsc-active + .mbsc-segmented-content {
           color: $mbsc-ios-secondary;
           background: rgba($mbsc-ios-secondary, .45);
         }
@@ -605,11 +613,11 @@
           color: $mbsc-ios-success;
         }
 
-        &.mbsc-segmented-item input:checked+.mbsc-segmented-content {
+        &.mbsc-segmented-item input:checked + .mbsc-segmented-content {
           background: $mbsc-ios-success;
         }
 
-        &.mbsc-segmented-item input.mbsc-active+.mbsc-segmented-content {
+        &.mbsc-segmented-item input.mbsc-active + .mbsc-segmented-content {
           color: $mbsc-ios-success;
           background: rgba($mbsc-ios-success, .45);
         }
@@ -621,11 +629,11 @@
           color: $mbsc-ios-danger;
         }
 
-        &.mbsc-segmented-item input:checked+.mbsc-segmented-content {
+        &.mbsc-segmented-item input:checked + .mbsc-segmented-content {
           background: $mbsc-ios-danger;
         }
 
-        &.mbsc-segmented-item input.mbsc-active+.mbsc-segmented-content {
+        &.mbsc-segmented-item input.mbsc-active + .mbsc-segmented-content {
           color: $mbsc-ios-danger;
           background: rgba($mbsc-ios-danger, .45);
         }
@@ -637,11 +645,11 @@
           color: $mbsc-ios-warning;
         }
 
-        &.mbsc-segmented-item input:checked+.mbsc-segmented-content {
+        &.mbsc-segmented-item input:checked + .mbsc-segmented-content {
           background: $mbsc-ios-warning;
         }
 
-        &.mbsc-segmented-item input.mbsc-active+.mbsc-segmented-content {
+        &.mbsc-segmented-item input.mbsc-active + .mbsc-segmented-content {
           color: $mbsc-ios-warning;
           background: rgba($mbsc-ios-warning, .45);
         }
@@ -653,11 +661,11 @@
           color: $mbsc-ios-info;
         }
 
-        &.mbsc-segmented-item input:checked+.mbsc-segmented-content {
+        &.mbsc-segmented-item input:checked + .mbsc-segmented-content {
           background: $mbsc-ios-info;
         }
 
-        &.mbsc-segmented-item input.mbsc-active+.mbsc-segmented-content {
+        &.mbsc-segmented-item input.mbsc-active + .mbsc-segmented-content {
           color: $mbsc-ios-info;
           background: rgba($mbsc-ios-info, .45);
         }
@@ -742,7 +750,7 @@
     }
 
     /* Stepper color presets */
-    .mbsc-stepper-primary {
+    &.mbsc-stepper-primary {
       .mbsc-segmented-content {
         border-color: $mbsc-ios-primary;
         color: $mbsc-ios-primary;
@@ -753,7 +761,7 @@
       }
     }
 
-    .mbsc-stepper-secondary {
+    &.mbsc-stepper-secondary {
       .mbsc-segmented-content {
         border-color: $mbsc-ios-secondary;
         color: $mbsc-ios-secondary;
@@ -764,7 +772,7 @@
       }
     }
 
-    .mbsc-stepper-success {
+    &.mbsc-stepper-success {
       .mbsc-segmented-content {
         border-color: $mbsc-ios-success;
         color: $mbsc-ios-success;
@@ -775,7 +783,7 @@
       }
     }
 
-    .mbsc-stepper-danger {
+    &.mbsc-stepper-danger {
       .mbsc-segmented-content {
         border-color: $mbsc-ios-danger;
         color: $mbsc-ios-danger;
@@ -786,7 +794,7 @@
       }
     }
 
-    .mbsc-stepper-warning {
+    &.mbsc-stepper-warning {
       .mbsc-segmented-content {
         border-color: $mbsc-ios-warning;
         color: $mbsc-ios-warning;
@@ -797,7 +805,7 @@
       }
     }
 
-    .mbsc-stepper-info {
+    &.mbsc-stepper-info {
       .mbsc-segmented-content {
         border-color: $mbsc-ios-info;
         color: $mbsc-ios-info;
