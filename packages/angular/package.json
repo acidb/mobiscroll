@@ -29,7 +29,9 @@
     },
     "main": "dist/bundles/mobiscroll.angular.min.js",
     "module": "dist/esm5/mobiscroll.angular.min.js",
+    "metadata": "dist/mobiscroll.angular.min.metadata.json",
     "types": "dist/mobiscroll.angular.min.d.ts",
+    "sideEffects": false,
     "style": "dist/css/mobiscroll.min.css",
     "files": [
         "dist/mobiscroll.angular.d.ts",

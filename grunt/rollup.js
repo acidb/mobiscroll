@@ -13,10 +13,7 @@ var globals = {
     'create-react-class': 'createReactClass',
     '@angular/core': 'ng.core',
     '@angular/forms': 'ng.forms',
-    '@angular/common': 'ng.common',
-    '@angular/animations': 'ng.animations',
-    'rxjs/Subject': 'Rx',
-    'rxjs/Observable': 'Rx'
+    '@angular/common': 'ng.common'
 };
 
 var external = [
@@ -27,10 +24,7 @@ var external = [
     'react-dom',
     '@angular/core',
     '@angular/forms',
-    '@angular/common',
-    '@angular/animations',
-    'rxjs/Subject',
-    'rxjs/Observable'
+    '@angular/common'
 ];
 
 module.exports = {
