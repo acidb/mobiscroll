@@ -97,10 +97,11 @@ export class MbscForm extends MbscBase implements OnInit {
     }
 
     initControl() {
-        if (this.options.enhance === undefined) {
-            this.options.enhance = false;
+        const opt = this.options;
+        if (opt && opt.enhance === undefined) {
+            opt.enhance = false;
         }
-        let options = extend({}, this.options, this.inlineOptionsObj);
+        const options = extend({}, opt, this.inlineOptionsObj);
         this.instance = new Form(this.rootElem.nativeElement, options);
     }
 }
@@ -774,12 +775,20 @@ export class MbscRadioService {
         this._multiSelect = v;
     }
 
+    private _lastValue: any = null;
     private _valueObservable: Observable<any> = new Observable<any>();
     onValueChanged(): Observable<any> {
         return this._valueObservable;
     }
     changeValue(v: any) {
         this._valueObservable.next(v);
+        this._lastValue = v;
+    }
+    /**
+     * Returns the last value that was set to the Radio/Segmented
+     */
+    get getLastValue(): any {
+        return this._lastValue;
     }
 
     private _color: string;
@@ -906,8 +915,20 @@ export class MbscRadio extends MbscFormBase {
 
     valueObserver: number;
 
+    /**
+     * Constructor
+     * Subscribes to the parent group for value changes.
+     * When generated dynamically (ex. *ngFor), the value is set before the components are created so
+     * it is needed to get the last value and set it as initial
+     */
     constructor(hostElement: ElementRef, @Optional() formService: MbscOptionsService, private _radioService: MbscRadioService, zone: NgZone) {
         super(hostElement, formService, zone);
+        // get the initial value
+        const v = this._radioService.getLastValue;
+        if (v !== null) { // if there is an initial value, set it
+            this.modelValue = v;
+        }
+        // subscribe to parent group for value changes
         this.valueObserver = this._radioService.onValueChanged().subscribe((v: any) => {
             this.modelValue = v;
         });
@@ -932,7 +953,7 @@ export class MbscRadio extends MbscFormBase {
 
 @Component({
     selector: 'mbsc-segmented-group',
-    template: `<div class="mbsc-segmented"><ng-content></ng-content></div>`,
+    template: `<div class="mbsc-segmented mbsc-no-touch"><ng-content></ng-content></div>`,
     providers: [MbscRadioService]
 })
 export class MbscSegmentedGroup extends MbscRadioGroupBase {
@@ -1039,6 +1060,10 @@ export class MbscSegmented extends MbscFormBase {
     valueObserver: number;
     constructor(hostElement: ElementRef, @Optional() formService: MbscOptionsService, private _radioService: MbscRadioService, zone: NgZone) {
         super(hostElement, formService, zone);
+        const v = this._radioService.getLastValue;
+        if (v !== null) {
+            this.modelValue = v;
+        }
         this.valueObserver = this._radioService.onValueChanged().subscribe((v: any) => {
             this.modelValue = v;
         });

@@ -1,6 +1,8 @@
 var babel = require('rollup-plugin-babel');
-var uglify = require('rollup-plugin-uglify');
+var uglify = require('rollup-plugin-uglify').uglify;
 var resolve = require('rollup-plugin-node-resolve');
+var terser = require('rollup-plugin-terser').terser;
+var postprocess = require('rollup-plugin-postprocess');
 
 var globals = {
     angular: 'angular',
@@ -34,10 +36,10 @@ var external = [
 module.exports = {
     dev: {
         options: {
-            sourceMap: true,
+            sourcemap: true,
             globals: globals,
             external: external,
-            moduleName: 'mobiscroll',
+            name: 'mobiscroll',
             format: 'umd',
             context: 'this',
             onwarn(warning) {
@@ -47,9 +49,7 @@ module.exports = {
             },
             plugins: [
                 resolve(),
-                babel({
-                    plugins: ['external-helpers']
-                })
+                babel()
             ]
         },
         files: {
@@ -64,7 +64,7 @@ module.exports = {
         options: {
             globals: globals,
             external: external,
-            moduleName: 'mobiscroll',
+            name: 'mobiscroll',
             format: 'umd',
             banner: '/* eslint-disable */',
             onwarn(warning) {
@@ -74,9 +74,7 @@ module.exports = {
             },
             plugins: [
                 resolve(),
-                babel({
-                    plugins: ['external-helpers']
-                }),
+                babel(),
                 uglify({
                     output: {
                         comments: /eslint-disable/
@@ -96,7 +94,7 @@ module.exports = {
         options: {
             globals: globals,
             external: external,
-            moduleName: 'mobiscroll',
+            name: 'mobiscroll',
             format: 'es',
             banner: '/* eslint-disable */',
             onwarn(warning) {
@@ -107,13 +105,27 @@ module.exports = {
             plugins: [
                 resolve(),
                 babel({
-                    plugins: ['external-helpers']
+                    exclude: ['**/*.angular.js', '**/angular.js']
                 }),
-                uglify({
+                terser({
+                    mangle: {
+                        keep_fnames: /^Mbsc/,
+                        module: false,
+                        reserved: ['_super'],
+                        toplevel: false,
+                    },
+                    compress: {
+                        join_vars: false,
+                        reduce_vars: false,
+                        sequences: false,
+                    },
                     output: {
-                        comments: /eslint-disable/
+                        wrap_iife: true,
                     }
-                })
+                }),
+                postprocess([
+                    [/}\)\(\);/, '}());']
+                ])
             ]
         },
         files: {

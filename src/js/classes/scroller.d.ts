@@ -7,7 +7,7 @@ export interface MbscScrollerOptions extends MbscFrameOptions {
     maxWidth?: number | Array<number>;
     minWidth?: number | Array<number>;
     multiline?: number;
-    readOnly?: boolean | Array<boolean>;
+    readonly?: boolean | Array<boolean>;
     rows?: number;
     showLabel?: boolean;
     showScrollArrows?: boolean;

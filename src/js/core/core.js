@@ -1,5 +1,5 @@
 /*!
- * Mobiscroll v4.8.4
+ * Mobiscroll v4.9.0
  * http://mobiscroll.com
  * 
  *
@@ -8,11 +8,37 @@
  */
 
 import { mobiscroll, util } from './mobiscroll';
-import { os, majorVersion, minorVersion, isBrowser } from '../util/platform';
+import { os, majorVersion, minorVersion, isBrowser, isDark } from '../util/platform';
 import { noop, vibrate } from '../util/misc';
 import { getCoord, preventClick, tap } from '../util/tap';
 
 export default mobiscroll;
+
+function getWidth(el) {
+    return el[0].innerWidth || el.innerWidth();
+}
+
+function getThemeName(s) {
+    var themeName = s.theme,
+        themeVariant = s.themeVariant;
+
+    if (themeName == 'auto' || !themeName) {
+        themeName = ms.autoTheme;
+    }
+
+    if (themeName == 'default') {
+        themeName = 'mobiscroll';
+    }
+
+    if (
+        (themeVariant === 'dark' || (isDark && themeVariant === 'auto')) &&
+        ms.themes.form[themeName + '-dark']
+    ) {
+        themeName = themeName + '-dark';
+    }
+
+    return themeName;
+}
 
 function autoInit(selector, Component, hasRefresh) {
     if (isBrowser) {
@@ -60,6 +86,7 @@ var ms,
     id = +new Date(),
     instances = {},
     classes = {},
+    empty = {},
     breakpoints = {
         xsmall: 0,
         small: 576,
@@ -77,7 +104,7 @@ extend(util, {
 
 ms = extend(mobiscroll, {
     $: $,
-    version: '4.8.4',
+    version: '4.9.0',
     autoTheme: 'mobiscroll',
     themes: {
         form: {},
@@ -148,6 +175,10 @@ const Base = function (el, settings) {
         }
     };
 
+    that._getRespCont = function () {
+        return $(s.context)[0];
+    };
+
     that.init = function (newSettings, newValue) {
         var key,
             value;
@@ -178,15 +209,7 @@ const Base = function (el, settings) {
         // Get theme defaults
         if (that._hasTheme) {
 
-            themeName = s.theme;
-
-            if (themeName == 'auto' || !themeName) {
-                themeName = ms.autoTheme;
-            }
-
-            if (themeName == 'default') {
-                themeName = 'mobiscroll';
-            }
+            themeName = getThemeName(s);
 
             settings.theme = themeName;
 
@@ -201,7 +224,7 @@ const Base = function (el, settings) {
         // Update settings object
         extend(s, theme, lang, defaults, settings);
 
-        ctx = $(s.context)[0];
+        ctx = that._getRespCont();
 
         if (that._responsive) {
             if (!resp) {
@@ -309,18 +332,18 @@ const Base = function (el, settings) {
     trigger = that.trigger;
 
     function getResponsiveSettings(w) {
-        var resp,
+        var result = empty,
             width;
 
         if (s.responsive) {
-            width = w || ctx.offsetWidth;
+            width = w || getWidth(ctx);
             $.each(s.responsive, function (key, value) {
                 if (width >= (value.breakpoint || breakpoints[key])) {
-                    resp = value;
+                    result = value;
                 }
             });
         }
-        return resp;
+        return result;
     }
 
     function construct() {
@@ -347,6 +370,8 @@ export {
     $,
     classes,
     extend,
+    getThemeName,
+    getWidth,
     instances,
     isBrowser,
     mobiscroll,

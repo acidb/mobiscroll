@@ -106,7 +106,7 @@ export class CollapsibleBase {
             setTimeout(() => {
                 $content.css('height', 0);
                 $elm.removeClass('mbsc-collapsible-open');
-            });
+            }, 50);
         }
 
         if (show && this._$accordionParent) {

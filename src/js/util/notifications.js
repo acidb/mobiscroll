@@ -180,7 +180,7 @@ mobiscroll.prompt = function (settings) {
     popup.innerHTML = getMessage(settings) +
         '<label class="mbsc-input">' +
         (settings.label ? '<span class="mbsc-label">' + settings.label + '</span>' : '') +
-        '<input tabindex="0" type="' + (settings.inputType || 'text') + '" placeholder="' + (settings.placeholder || '') + '" value="' + (settings.value || '') + '">' +
+        '<input class="mbsc-control" tabindex="0" type="' + (settings.inputType || 'text') + '" placeholder="' + (settings.placeholder || '') + '" value="' + (settings.value || '') + '">' +
         '</label>';
     return show(showPrompt, popup, settings);
 };

@@ -104,18 +104,28 @@ class MbscBase implements AfterViewInit, OnDestroy {
      */
     @Input('mbsc-options')
     options: MbscCoreOptions = {};
+
     @Input()
     cssClass: string;
+
     @Input()
     theme: string;
+
+    @Input()
+    themeVariant: 'auto' | 'dark' | 'light';
+
     @Input()
     lang: string;
+
     @Input()
     rtl: boolean;
+
     @Input()
     responsive: object;
+
     @Output()
     onInit: EventEmitter<{ inst: any }> = new EventEmitter();
+
     @Output()
     onDestroy: EventEmitter<{ inst: any }> = new EventEmitter();
 
@@ -655,7 +665,7 @@ abstract class MbscScrollerBase extends MbscFrameBase {
     @Input()
     multiline: number;
     @Input()
-    readOnly: boolean | Array<boolean>;
+    readonly: boolean | Array<boolean>;
     @Input()
     rows: number;
     @Input()

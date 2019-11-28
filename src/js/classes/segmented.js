@@ -10,7 +10,6 @@ export class SegmentedItem extends FormControl {
 
         const $elm = this._$elm;
         const $parent = this._$parent;
-        const s = this.settings;
 
         if (!$parent.hasClass('mbsc-segmented-item-ready')) {
             $segmentCont = $('<div class="mbsc-segmented mbsc-no-touch"></div>');

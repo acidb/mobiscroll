@@ -7,6 +7,7 @@ export interface MbscCoreOptions {
     // Settings
     cssClass?: string;
     theme?: string;
+    themeVariant?: 'auto' | 'dark' | 'light';
     lang?: string;
     rtl?: boolean;
     responsive?: object;

@@ -76,6 +76,7 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     passwordToggle?: boolean;
     iconShow?: string;
     iconHide?: string;
+    iconUpload?: string;
     dropdown?: boolean;
     inputStyle?: string;
     labelStyle?: string;

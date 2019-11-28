@@ -1022,6 +1022,12 @@ export const Frame = function (el, settings, inherit) {
         $header.html(txt || '&nbsp;');
     };
 
+    that._getRespCont = function () {
+        hasContext = s.context != 'body';
+        $wnd = $(hasContext ? s.context : window);
+        return s.display == 'inline' ? ($elm.is('div') ? $elm : $elm.parent()) : $wnd;
+    };
+
     that._processSettings = function (resp) {
         var b, i;
 
@@ -1043,12 +1049,10 @@ export const Frame = function (el, settings, inherit) {
 
         buttons = s.buttons || [];
         isModal = s.display !== 'inline';
-        hasContext = s.context != 'body';
         $ctx = $(s.context);
         $lock = hasContext ? $ctx : $('body,html');
         ctx = $ctx[0];
 
-        that._$window = $wnd = $(hasContext ? s.context : window);
         that.live = true;
 
         // If no set button is found, live mode is activated

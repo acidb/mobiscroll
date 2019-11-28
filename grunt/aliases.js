@@ -1,6 +1,5 @@
 module.exports = {
     default: [
-        'babel',
         'sass',
         'run:transpile',
         'rollup:dev',
@@ -8,7 +7,6 @@ module.exports = {
     ],
     build: [
         'clean:packages',
-        'babel',
         'sass',
         'run:transpile',
         'run:scss',

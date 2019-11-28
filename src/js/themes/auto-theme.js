@@ -15,7 +15,7 @@ if (os == 'android') {
 
 $.each(themes.frame, function (key, settings) {
     // Stop at the first custom theme with the OS base theme
-    if (theme && settings.baseTheme == theme && key != 'mobiscroll-dark' && key != 'material-dark' && key != 'windows-dark' && key != 'ios-dark') {
+    if (theme && settings.baseTheme == theme && key != (theme + '-dark')) {
         mobiscroll.autoTheme = key;
         return false;
     } else if (key == theme) {

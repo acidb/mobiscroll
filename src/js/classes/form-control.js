@@ -1,4 +1,4 @@
-import { $, extend, mobiscroll } from '../core/core';
+import { $, extend, getThemeName, mobiscroll } from '../core/core';
 import { activateControl, getControlType, getCoord, tap } from '../util/tap';
 import { testTouch, hasGhostClick } from '../util/dom';
 
@@ -120,8 +120,8 @@ function getAttr($elm, attr, def) {
 }
 
 function getCssClass(s) {
-    s.baseTheme = mobiscroll.themes.form[s.theme].baseTheme;
-    return 'mbsc-' + s.theme + (s.baseTheme ? ' mbsc-' + s.baseTheme : '') + (s.rtl ? ' mbsc-rtl' : ' mbsc-ltr');
+    const baseTheme = mobiscroll.themes.form[s.theme].baseTheme;
+    return 'mbsc-' + s.theme + (baseTheme ? ' mbsc-' + baseTheme : '') + (s.rtl ? ' mbsc-rtl' : ' mbsc-ltr');
 }
 
 export class FormControl {
@@ -144,15 +144,7 @@ export class FormControl {
             $frame.insertAfter($parent);
         }
 
-        var themeName;
-
-        themeName = s.theme;
-
-        if (themeName == 'auto' || !themeName) {
-            themeName = mobiscroll.autoTheme;
-        }
-
-        s.theme = themeName;
+        s.theme = getThemeName(s);
 
         if (s.rtl === undefined && s.lang && mobiscroll.i18n[s.lang]) {
             s.rtl = mobiscroll.i18n[s.lang].rtl;

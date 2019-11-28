@@ -22,6 +22,7 @@ var boolType = PropTypes.bool,
 /** Mixin for enumerating the core PropTypes */
 export const CorePropTypes = {
     theme: stringType,
+    themeVariant: PropTypes.oneOf(['auto', 'dark', 'light']),
     lang: stringType,
     rtl: boolType,
     responsive: objType,
@@ -64,7 +65,7 @@ export const ScrollerPropTypes = {
     maxWidth: numOrArray,
     minWidth: numOrArray,
     multiline: numType,
-    readOnly: PropTypes.oneOfType([
+    readonly: PropTypes.oneOfType([
         boolType,
         PropTypes.arrayOf(boolType)
     ]),
@@ -471,16 +472,53 @@ export class MbscInputBase extends MbscOptimized {
     }
 
     componentDidMount() {
-        // get settings from state
-        var settings = this.getSettingsFromProps(this.props, this.mbscInit);
-        // initialize the mobiscroll
-        var element = ReactDOM.findDOMNode(this);
-        var input = $(element).find('input');
+        this.startInit();
+    }
+
+    element = null; // it will hold the html element, that the mobiscroll will be initialized on
+    inputCheckCount = 0; // counts how many times a search for an input element was done
+
+    /**
+     * In the case of IonInputs, checks for a native input element in every 30ms and when it becomes
+     * available, it initializes the Mobiscroll component on it. After 17 checks (~500ms) it will 
+     * initialize the component anyways on the DOM node available.
+     * 
+     * Why:
+     * When not initializing on the native input element, on iOS the component will need two taps on
+     * the input to pop up the Mobiscroll.
+     * 
+     * In Ionic 4, the native input element used by the ionInput components becomes available 
+     * in the lifecycle later than the componentDidMount. The IonInput component has a method 
+     * that subscribes to the creation of the native input, but there are no way to get a reference
+     * from our components to the child component. So we can not call that method.
+     */
+    startInit = () => {
+
+        // checking whether a native input element is available as a child element
+
+        this.element = ReactDOM.findDOMNode(this);
+        const input = $(this.element).find('input');
         if (input.length) {
-            element = input[0];
+            this.element = input[0];
         }
 
-        this.instance = new classes[this.mbscInit.component || 'Scroller'](element, settings);
+        this.inputCheckCount++;
+
+        // postponing initialization required only for IonInputs in some cases. Read description above.
+        const ionInput = this.isIonInput(this.props.children);
+        if (!ionInput || input.length || this.inputCheckCount > 17) {
+            this.initInstance(); // initialize the Mobiscroll component
+        } else {
+            setTimeout(this.startInit, 30);
+        }
+    }
+
+    /**
+     * Initializez the Mobiscroll component on the element
+     */
+    initInstance = () => {
+        var settings = this.getSettingsFromProps(this.props, this.mbscInit);
+        this.instance = new classes[this.mbscInit.component || 'Scroller'](this.element, settings);
         if (this.props.value !== undefined) {
             this.instance.setVal(this.props.value, true);
             this.updateForIonInput();
