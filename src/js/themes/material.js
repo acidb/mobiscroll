@@ -7,16 +7,18 @@ export default mobiscroll;
 function addRipple($control, ev) {
     var x = getCoord(ev, 'X', true),
         y = getCoord(ev, 'Y', true),
+        control = $control[0],
         rect = $control.offset(),
         left = x - rect.left,
         top = y - rect.top,
-        width = Math.max(left, $control[0].offsetWidth - left),
-        height = Math.max(top, $control[0].offsetHeight - top),
+        width = Math.max(left, control.offsetWidth - left),
+        height = Math.max(top, control.offsetHeight - top),
         size = 2 * Math.sqrt(Math.pow(width, 2) + Math.pow(height, 2));
 
     removeRipple($ripple);
 
     $ripple = $('<span class="mbsc-ripple"></span>').css({
+        backgroundColor: getComputedStyle(control).color,
         width: size,
         height: size,
         top: y - rect.top - size / 2,

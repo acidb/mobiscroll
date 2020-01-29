@@ -99,5 +99,5 @@
     }
   }
 
-  @include mbsc-windows-scroller(windows, (background: $mbsc-windows-background, text: $mbsc-windows-text, accent: $mbsc-windows-accent));
+  @include mbsc-windows-scroller(windows, $mbsc-windows-colors);
 }

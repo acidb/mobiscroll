@@ -7,21 +7,57 @@
 
     @include mbsc-ios-frame($theme, $params);
 
-    $text: map-get($params, text);
-    $accent: map-get($params, accent);
+    $text: map-get($params, 'text');
+    $accent: map-get($params, 'accent');
+    $background: map-get($params, 'background');
 
-    $colors: mbsc-ios-colors($params);
-    $button: map-get($colors, button);
-    $background-limited: map-get($colors, background-limited);
-    $cont-background: map-get($colors, cont-background);
-    $border-color: map-get($colors, border-color);
-    $item-3d: map-get($colors, item-3d);
-    $item-color: map-get($colors, item-color);
-    $popup-border: map-get($colors, popup-border);
-    $label-text: map-get($colors, label-text);
-    $button-active: map-get($colors, button-active);
-    $top-bottom-frame: map-get($colors, top-bottom-frame);
-    $top-bottom-wheel-border: map-get($colors, top-bottom-wheel-border);
+    $button: '';
+    @if (map-get($params, 'button')) {
+      $button: map-get($params, 'button');
+    }
+    @else {
+      $button: $accent;
+    }
+
+    $background-param: map-get($params, 'frame-background');
+    $text-param: map-get($params, 'frame-text');
+    $accent-param: map-get($params, 'frame-accent');
+
+    $background: if($background-param, $background-param, $background);
+    $text: if($text-param, $text-param, if($background-param, get-contrast-color($background-param), $text));
+    $accent: if($accent-param, $accent-param, $accent);
+
+    // calculated colors
+    $background-limited: hsl(hue($background), saturation($background), max(lightness($background), 3%));
+    $background-alt: lighten($background-limited, 3%);
+    $cont-background: lighten($background, 6%);
+    $item-color: hsl(hue($text), saturation($text), 62%);
+
+    $top-bottom-frame: '';
+    $border-color: '';
+    $item-3d: '';
+    $popup-border: '';
+    $label-text: '';
+    $button-active: '';
+    $top-bottom-wheel-border: '';
+    @if (lightness($background) > 50%) {
+      $top-bottom-frame: adjust-hue(darken(saturate($background, 12%), 13%), 216%);
+      $border-color: darken($background-limited, 17%);
+      $item-3d: darken($background-limited, 33%);
+      $popup-border: $border-color;
+      $label-text: lighten($text, 67%);
+      $button-active: darken($background, 5%);
+      $top-bottom-wheel-border: darken($background-limited, 30%);
+    }
+    @else {
+      $top-bottom-frame: $background-limited;
+      $border-color: lighten($background, 20%);
+      $item-3d: lighten($background-limited, 40%);
+      $popup-border: lighten($border-color, 13%);
+      $label-text: $text;
+      $button-active: lighten($background, 12%);
+      $top-bottom-wheel-border: $border-color;
+    }
 
     .mbsc-#{$theme} {
       /* Scroller */
@@ -74,12 +110,12 @@
       /* Inline color theme */
 
       &.mbsc-fr.mbsc-fr-inline .mbsc-sc-whl-o {
-        background: -webkit-linear-gradient($cont-background, rgba($cont-background, 0) 52%, rgba($cont-background, 0) 48%, $cont-background);
-        background: linear-gradient($cont-background, rgba($cont-background, 0) 52%, rgba($cont-background, 0) 48%, $cont-background);
+        background: -webkit-linear-gradient($background-alt, rgba($background-alt, 0) 52%, rgba($background-alt, 0) 48%, $background-alt);
+        background: linear-gradient($background-alt, rgba($background-alt, 0) 52%, rgba($background-alt, 0) 48%, $background-alt);
       }
 
       &.mbsc-fr.mbsc-fr-inline .mbsc-sc-whl-gr-3d .mbsc-sc-whl-c {
-        background: $cont-background;
+        background: $background-alt;
       }
 
       /* Wheel label */

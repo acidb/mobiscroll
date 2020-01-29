@@ -1,20 +1,70 @@
 @import "../core/exports";
 @import "../core/ios";
 
+// Theme specific variables - inherited from global variables
+
+// Background
+$mbsc-ios-input-background: $mbsc-input-background-light !default;
+$mbsc-ios-dark-input-background: $mbsc-input-background-dark !default;
+// Border
+$mbsc-ios-input-border: $mbsc-input-border-light !default;
+$mbsc-ios-dark-input-border: $mbsc-input-border-dark !default;
+// Text
+$mbsc-ios-input-text: $mbsc-input-text-light !default;
+$mbsc-ios-dark-input-text: $mbsc-input-text-dark !default;
+// Error
+$mbsc-ios-input-error: $mbsc-input-error-light !default;
+$mbsc-ios-dark-input-error: $mbsc-input-error-dark !default;
+
+$mbsc-ios-colors: map-merge($mbsc-ios-colors, (
+  'input-background': $mbsc-ios-input-background,
+  'input-border': $mbsc-ios-input-border,
+  'input-text': $mbsc-ios-input-text,
+  'input-error': $mbsc-ios-input-error,
+));
+$mbsc-ios-dark-colors: map-merge($mbsc-ios-dark-colors, (
+  'input-background': $mbsc-ios-dark-input-background,
+  'input-border': $mbsc-ios-dark-input-border,
+  'input-text': $mbsc-ios-dark-input-text,
+  'input-error': $mbsc-ios-dark-input-error,
+));
+
 @mixin mbsc-ios-input($theme, $params) {
   @include exports("input.#{$theme}.colors") {
 
-    $text: map-get($params, text);
-
+    $background: map-get($params, 'background');
+    $text: map-get($params, 'text');
+    // get custom params
+    $input-background-param: map-get($params, 'input-background');
+    $input-border-param: map-get($params, 'input-border');
+    $input-text-param: map-get($params, 'input-text');
+    $input-error-param: map-get($params, 'input-error');
+    // static colors
     $colors: mbsc-ios-colors($params);
     $error: map-get($colors, error);
-    $cont-background: map-get($colors, cont-background);
-    $border-color: map-get($colors, border-color);
-    $form-text: map-get($colors, form-text);
+    // overwrite colors with custom colors
+    $text: if($input-text-param, $input-text-param, $text);
+    $border-origin: if($input-background-param, $input-background-param, $background);
+    $background: if($input-background-param, $input-background-param, lighten($background, 6%));
+    $error: if($input-error-param, $input-error-param, $error);
+    // calculated colors
+    $background-limited: hsl(hue($border-origin), saturation($border-origin), max(lightness($border-origin), 3%));
+    $form-text: '';
+    $border-color: '';
+    @if (lightness($background) > 50%) {
+      $form-text: hsl(hue($text), saturation($text), max(lightness($text), 80%));
+      $border-color: darken($background-limited, 17%);
+    }
+    @else {
+      $form-text: hsl(hue($text), saturation($text), min(lightness($text), 80%));
+      $border-color: lighten($border-origin, 20%);
+    }
+    // overwrite colors with custom ones if provided
+    $border-color:if($input-border-param, $input-border-param, $border-color);
 
     .mbsc-#{$theme} {
       &.mbsc-input {
-        background: $cont-background;
+        background: $background;
       }
 
       &.mbsc-input .mbsc-control::-webkit-input-placeholder {
@@ -57,7 +107,8 @@
 
       &.mbsc-control-w.mbsc-err:after,
       &.mbsc-control-w.mbsc-err + .mbsc-err:before,
-      &.mbsc-control-w.mbsc-err + .mbsc-divider {
+      &.mbsc-control-w.mbsc-err + .mbsc-divider,
+      mbsc-input.mbsc-err + mbsc-input &.mbsc-err:before {
         border-top-color: $error;
       }
 

@@ -302,44 +302,41 @@ var Dom = (function () {
         },
         //Events
         on: function (eventName, targetSelector, listener, capture) {
-            var events = eventName.split(' '),
+            var boundListener,
+                elm,
+                event,
+                events = eventName.split(' '),
                 i, j;
 
             function handleLiveEvent(e) {
-                var k,
-                    parents,
-                    target = e.target;
-
-                if ($(target).is(targetSelector)) {
-                    listener.call(target, e);
-                } else {
-                    parents = $(target).parents();
-                    for (k = 0; k < parents.length; k++) {
-                        if ($(parents[k]).is(targetSelector)) {
-                            listener.call(parents[k], e);
-                        }
+                var target = e.target;
+                while (target) {
+                    if ($(target).is(targetSelector)) {
+                        listener.call(target, e);
                     }
+                    target = target !== this ? target.parentNode : null;
                 }
             }
 
-            function handleNamespaces(elm, name, listener, capture) {
+            function handleNamespaces(el, name, listener, capture) {
                 var namespace = name.split('.');
 
-                if (!elm.DomNameSpaces) {
-                    elm.DomNameSpaces = [];
+                if (!el.DomNameSpaces) {
+                    el.DomNameSpaces = [];
                 }
 
-                elm.DomNameSpaces.push({
+                el.DomNameSpaces.push({
                     namespace: namespace[1],
                     event: namespace[0],
                     listener: listener,
                     capture: capture
                 });
 
-                elm.addEventListener(namespace[0], listener, capture);
+                el.addEventListener(namespace[0], listener, capture);
             }
 
             for (i = 0; i < this.length; i++) {
+                elm = this[i];
                 if (isFunction(targetSelector) || targetSelector === false) {
                     // Usual events
                     if (isFunction(targetSelector)) {
@@ -347,29 +344,33 @@ var Dom = (function () {
                         listener = targetSelector;
                     }
                     for (j = 0; j < events.length; j++) {
+                        event = events[j];
                         // check for namespaces
-                        if (events[j].indexOf('.') != -1) {
-                            handleNamespaces(this[i], events[j], listener, capture);
+                        if (event.indexOf('.') != -1) {
+                            handleNamespaces(elm, event, listener, capture);
                         } else {
-                            this[i].addEventListener(events[j], listener, capture);
+                            elm.addEventListener(event, listener, capture);
                         }
                     }
                 } else {
                     // Live events
+                    boundListener = handleLiveEvent.bind(elm);
                     for (j = 0; j < events.length; j++) {
-                        if (!this[i].DomLiveListeners) {
-                            this[i].DomLiveListeners = [];
+                        event = events[j];
+
+                        if (!elm.DomLiveListeners) {
+                            elm.DomLiveListeners = [];
                         }
 
-                        this[i].DomLiveListeners.push({
+                        elm.DomLiveListeners.push({
                             listener: listener,
-                            liveListener: handleLiveEvent
+                            liveListener: boundListener
                         });
 
-                        if (events[j].indexOf('.') != -1) {
-                            handleNamespaces(this[i], events[j], handleLiveEvent, capture);
+                        if (event.indexOf('.') != -1) {
+                            handleNamespaces(elm, event, boundListener, capture);
                         } else {
-                            this[i].addEventListener(events[j], handleLiveEvent, capture);
+                            elm.addEventListener(event, boundListener, capture);
                         }
                     }
                 }
@@ -377,31 +378,37 @@ var Dom = (function () {
             return this;
         },
         off: function (eventName, targetSelector, listener, capture) {
-            var events,
+            var elm,
+                event,
+                events,
                 i, j, k,
+                liveListeners,
                 that = this;
 
             function removeEvents(event) {
-                var i, j,
+                var el,
+                    i, j,
                     item,
+                    nameSpaces,
                     parts = event.split('.'),
                     name = parts[0],
                     ns = parts[1];
 
                 for (i = 0; i < that.length; ++i) {
-                    if (that[i].DomNameSpaces) {
-                        for (j = 0; j < that[i].DomNameSpaces.length; ++j) {
-                            item = that[i].DomNameSpaces[j];
-
+                    el = that[i];
+                    nameSpaces = el.DomNameSpaces;
+                    if (nameSpaces) {
+                        for (j = 0; j < nameSpaces.length; ++j) {
+                            item = nameSpaces[j];
                             if (item.namespace == ns && (item.event == name || !name)) {
-                                that[i].removeEventListener(item.event, item.listener, item.capture);
+                                el.removeEventListener(item.event, item.listener, item.capture);
                                 item.removed = true;
                             }
                         }
                         // remove the events from the DomNameSpaces array
-                        for (j = that[i].DomNameSpaces.length - 1; j >= 0; --j) {
-                            if (that[i].DomNameSpaces[j].removed) {
-                                that[i].DomNameSpaces.splice(j, 1);
+                        for (j = nameSpaces.length - 1; j >= 0; --j) {
+                            if (nameSpaces[j].removed) {
+                                nameSpaces.splice(j, 1);
                             }
                         }
                     }
@@ -411,7 +418,10 @@ var Dom = (function () {
             events = eventName.split(' ');
 
             for (i = 0; i < events.length; i++) {
+                event = events[i];
                 for (j = 0; j < this.length; j++) {
+                    elm = this[j];
+                    liveListeners = elm.DomLiveListeners;
                     if (isFunction(targetSelector) || targetSelector === false) {
                         // Usual events
                         if (isFunction(targetSelector)) {
@@ -419,22 +429,22 @@ var Dom = (function () {
                             listener = targetSelector;
                         }
 
-                        if (events[i].indexOf('.') === 0) { // remove namespace events
-                            removeEvents(events[i].substr(1), listener, capture);
+                        if (event.indexOf('.') === 0) { // remove namespace events
+                            removeEvents(event.substr(1), listener, capture);
                         } else {
-                            this[j].removeEventListener(events[i], listener, capture);
+                            elm.removeEventListener(event, listener, capture);
                         }
                     } else {
                         // Live event
-                        if (this[j].DomLiveListeners) {
-                            for (k = 0; k < this[j].DomLiveListeners.length; k++) {
-                                if (this[j].DomLiveListeners[k].listener === listener) {
-                                    this[j].removeEventListener(events[i], this[j].DomLiveListeners[k].liveListener, capture);
+                        if (liveListeners) {
+                            for (k = 0; k < liveListeners.length; k++) {
+                                if (liveListeners[k].listener === listener) {
+                                    elm.removeEventListener(event, liveListeners[k].liveListener, capture);
                                 }
                             }
                         }
-                        if (this[j].DomNameSpaces && this[j].DomNameSpaces.length && events[i]) {
-                            removeEvents(events[i]);
+                        if (elm.DomNameSpaces && elm.DomNameSpaces.length && event) {
+                            removeEvents(event);
                         }
                     }
                 }
@@ -1072,6 +1082,7 @@ $.each = function (obj, callback) {
     } else {
         // Object
         for (prop in obj) {
+            // eslint-disable-next-line no-prototype-builtins
             if (obj.hasOwnProperty(prop) && prop !== 'length') {
                 if (callback.call(obj[prop], prop, obj[prop]) === false) {
                     break;

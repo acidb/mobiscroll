@@ -51,5 +51,5 @@
     }
   }
 
-  @include mbsc-ios-page(ios, (background: $mbsc-ios-background, text: $mbsc-ios-text, accent: $mbsc-ios-accent));
+  @include mbsc-ios-page(ios, $mbsc-ios-colors);
 }

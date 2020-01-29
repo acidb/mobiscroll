@@ -7,12 +7,19 @@
 
     @include mbsc-windows-popup($theme, $params);
 
-    $accent: map-get($params, accent);
+    $background: map-get($params, 'background');
+    $accent: map-get($params, 'accent');
 
     $colors: mbsc-windows-colors($params);
-    $dark-text: map-get($colors, dark-text);
-    $light-text: map-get($colors, light-text);
-    $input-hover: map-get($colors, input-hover);
+    $dark-text: map-get($colors, 'dark-text');
+    $light-text: map-get($colors, 'light-text');
+    $input-hover: '';
+    @if (lightness($background) > 50%) {
+      $input-hover: darken($background, 55%);
+    }
+    @else {
+      $input-hover: lighten($background, 55%);
+    }
 
     .mbsc-#{$theme} {
 

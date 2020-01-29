@@ -989,5 +989,5 @@
     }
   }
 
-  @include mbsc-material-forms(material, (background: $mbsc-material-background, text: $mbsc-material-text, accent: $mbsc-material-accent));
+  @include mbsc-material-forms('material', $mbsc-material-colors);
 }

@@ -1,18 +1,52 @@
 @import "../core/exports";
 @import "../core/ios";
 
+// Theme specific variables - inherited from global variables
+
+// background
+$mbsc-ios-page-background: $mbsc-page-background-light !default;
+$mbsc-ios-dark-page-background: $mbsc-page-background-dark !default;
+
+// text
+$mbsc-ios-page-text: $mbsc-page-text-light !default;
+$mbsc-ios-dark-page-text: $mbsc-page-text-dark !default;
+
+// add variables to color maps
+$mbsc-ios-colors: map-merge($mbsc-ios-colors, (
+  'page-background': $mbsc-ios-page-background,
+  'page-text': $mbsc-ios-page-text,
+));
+$mbsc-ios-dark-colors: map-merge($mbsc-ios-dark-colors, (
+  'page-background': $mbsc-ios-dark-page-background,
+  'page-text': $mbsc-ios-dark-page-text,
+));
+
 @mixin mbsc-ios-page($theme, $params) {
   @include exports("page.#{$theme}.colors") {
 
-    $text: map-get($params, text);
+    $background: map-get($params, 'background');
+    $text: map-get($params, 'text');
 
     $colors: mbsc-ios-colors($params);
-    $button: map-get($colors, button);
-    $form-background: map-get($colors, form-background);
+    $button: map-get($colors, 'button');
+
+    @if (lightness($background) > 50%) {
+      $background: adjust-hue(darken(saturate($background, 19%), 2%), 240%);
+    }
+    @else {
+      $background: adjust-hue(lighten(desaturate($background, 19%), 10%), 240%);
+    }
+
+    // get custom params
+    $text-param: map-get($params, 'page-text');
+    $background-param: map-get($params, 'page-background');
+    // overwrite params with custom variables
+    $background: if($background-param, $background-param, $background);
+    $text: if($text-param, $text-param, if($background-param, get-contrast-color($background-param), $text));
 
     .mbsc-#{$theme} {
       &.mbsc-page {
-        background: $form-background;
+        background: $background;
         color: $text;
       }
 

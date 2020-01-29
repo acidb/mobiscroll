@@ -184,6 +184,12 @@
     overflow: hidden;
   }
 
+  .mbsc-sc-whl-gr-3d .mbsc-sc-whl-w,
+  .mbsc-sc-whl-gr-3d .mbsc-sc-whl {
+    /* For Edge and Firefox */
+    transform-style: preserve-3d;
+  }
+
   .mbsc-sc-whl-3d {
     position: absolute;
     top: 50%;

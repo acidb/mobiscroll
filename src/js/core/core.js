@@ -1,5 +1,5 @@
 /*!
- * Mobiscroll v4.9.0
+ * Mobiscroll v4.10.2
  * http://mobiscroll.com
  * 
  *
@@ -104,7 +104,7 @@ extend(util, {
 
 ms = extend(mobiscroll, {
     $: $,
-    version: '4.9.0',
+    version: '4.10.2',
     autoTheme: 'mobiscroll',
     themes: {
         form: {},

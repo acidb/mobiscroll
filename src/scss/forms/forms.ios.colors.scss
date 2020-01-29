@@ -6,6 +6,50 @@
 @import "../rating/rating.ios.colors";
 @import "../notifications/notifications.ios.colors";
 
+// Theme specific variables - inherited from global variables
+
+// General colors for the form
+// Background
+$mbsc-ios-form-background: $mbsc-form-background-light !default;
+$mbsc-ios-dark-form-background: $mbsc-form-background-dark !default;
+// Text
+$mbsc-ios-form-text: $mbsc-form-text-light !default;
+$mbsc-ios-dark-form-text: $mbsc-form-text-dark !default;
+// Accent
+$mbsc-ios-form-accent: $mbsc-form-accent-light !default;
+$mbsc-ios-dark-form-accent: $mbsc-form-accent-dark !default;
+
+// Button
+// button background
+$mbsc-ios-button-color: $mbsc-button-color-light !default;
+$mbsc-ios-dark-button-color: $mbsc-button-color-dark !default;
+// button text
+$mbsc-ios-button-text: $mbsc-button-text-light !default;
+$mbsc-ios-dark-button-text: $mbsc-button-text-dark !default;
+
+// Form Group
+// text
+$mbsc-ios-form-group-title-text: $mbsc-form-group-title-text-light !default;
+$mbsc-ios-dark-form-group-title-text: $mbsc-form-group-title-text-dark !default;
+
+// add variables to light and dark color maps
+$mbsc-ios-colors: map-merge($mbsc-ios-colors, (
+  'form-background': $mbsc-ios-form-background,
+  'form-text': $mbsc-ios-form-text,
+  'form-accent': $mbsc-ios-form-accent,
+  'button-color': $mbsc-ios-button-color,
+  'button-text': $mbsc-ios-button-text,
+  'form-group-title-text': $mbsc-ios-form-group-title-text,
+));
+$mbsc-ios-dark-colors: map-merge($mbsc-ios-dark-colors, (
+  'form-background': $mbsc-ios-dark-form-background,
+  'form-text': $mbsc-ios-dark-form-text,
+  'form-accent': $mbsc-ios-dark-form-accent,
+  'button-color': $mbsc-ios-dark-button-color,
+  'button-text': $mbsc-ios-dark-button-text,
+  'form-group-title-text': $mbsc-ios-dark-form-group-title-text,
+));
+
 @mixin mbsc-ios-forms($theme, $params) {
   @include exports("forms.#{$theme}.colors") {
 
@@ -15,30 +59,96 @@
     @include mbsc-ios-rating($theme, $params);
     @include mbsc-ios-notifications($theme, $params);
 
-    $text: map-get($params, text);
-    $accent: map-get($params, accent);
+    $background: map-get($params, 'background');
+    $text: map-get($params, 'text');
+    $accent: map-get($params, 'accent');
+    // Generic
+    $background-param: map-get($params, 'form-background');
+    $text-param: map-get($params, 'form-text');
+    $accent-param: map-get($params, 'form-accent');
+    // Button custom variables
+    $button-background-param: map-get($params, 'button-color');
+    $button-text-param: map-get($params, 'button-text');
+    // Form Group custom variables
+    $group-title-param: map-get($params, 'form-group-title-text');
+
+
+    // default background color
+    @if (lightness($background) > 50%) {
+      $background: adjust-hue(darken(saturate($background, 19%), 2%), 240%);
+    }
+    @else {
+      $background: adjust-hue(lighten(desaturate($background, 19%), 10%), 240%);
+    }
+
+    // overwrite custom variables
+    $background: if($background-param, $background-param, $background);
+    $text: if($text-param, $text-param, if($background-param, get-contrast-color($background-param), $text));
+    $accent: if($accent-param, $accent-param, $accent);
+
+    $button: '';
+    @if (map-get($params, 'button')) {
+      $button: map-get($params, 'button');
+    }
+    @else {
+      $button: $accent;
+    }
 
     $colors: mbsc-ios-colors($params);
-    $form-background: map-get($colors, form-background);
-    $form-selection: map-get($colors, form-selection);
-    $form-text: map-get($colors, form-text);
-    $icon-color: map-get($colors, icon-color);
-    $border-color: map-get($colors, border-color);
-    $title-color: map-get($colors, title-color);
-    $cont-background: map-get($colors, cont-background);
-    $disabled-color: map-get($colors, disabled-color);
-    $button-background: map-get($colors, button-background);
-    $disabled-background: map-get($colors, disabled-background);
-    $track-background: map-get($colors, track-background);
-    $track-border: map-get($colors, track-border);
-    $white-text: map-get($colors, white-text);
-    $dark-text: map-get($colors, dark-text);
-    $switch-track: map-get($colors, switch-track);
+    $dark-text: map-get($colors, 'dark-text');
+    $white-text: map-get($colors, 'white-text');
+
+    $cont-background: lighten($background, 6%);
+    $form-selection: '';
+    @if (lightness($button) > 50%) {
+      $form-selection: lighten(saturate($accent, 15%), 3%);
+    }
+    @else {
+      $form-selection: darken(desaturate($accent, 15%), 3%);
+    }
+    $background-limited: hsl(hue($background), saturation($background), max(lightness($background), 3%));
+    $border-color: '';
+    $button-background: '';
+    $disabled-background: '';
+    $disabled-color: '';
+    $form-text: '';
+    $icon-color: lighten(saturate($text, 10%), 55%);
+    $switch-track: #4cd764;
+    $title-color: '';
+    $track-background: '';
+    $track-border: '';
+    @if (lightness($background) > 50%) {
+      $border-color: darken($background-limited, 17%);
+      $button-background: lighten($background, 10%);
+      $disabled-background: darken($background, 10%);
+      $disabled-color: darken($background, 20%);
+      $form-text: hsl(hue($text), saturation($text), max(lightness($text), 80%));
+      $title-color: lighten(saturate($text, 2%), 44%);
+      $track-background: darken($background, 7%);
+      $track-border: darken($background, 7%);
+    }
+    @else {
+      $border-color: lighten($background, 20%);
+      $button-background: lighten($background, 23%);
+      $disabled-background: lighten($background, 13%);
+      $disabled-color: lighten($background, 23%);
+      $form-text: hsl(hue($text), saturation($text), min(lightness($text), 80%));
+      $switch-track: $accent;
+      $title-color: darken(desaturate($text, 2%), 44%);
+      $track-background: #fff;
+      $track-border: lighten($background, 17%);
+    }
+
+    // overwrite button color variables
+    $button-background: if($button-background-param, $button-background-param, $button-background);
+    $button-text: if($button-text-param, $button-text-param, if($button-background-param, get-contrast-color($button-background-param), $accent));
+    $title-color: if($group-title-param, $group-title-param, $title-color);
 
     .mbsc-#{$theme} {
 
+
       &.mbsc-form {
-        background: $form-background;
+        background: $background;
         color: $text;
       }
 
@@ -111,7 +221,7 @@
       /* Buttons */
       &.mbsc-btn {
         background: $button-background;
-        color: $accent;
+        color: $button-text;
       }
 
       &.mbsc-btn:not(.mbsc-btn-flat):disabled {
@@ -152,12 +262,12 @@
       /* Outline buttons */
       &.mbsc-btn-outline.mbsc-btn {
         background: transparent;
-        border: 1px solid $form-selection;
-        color: $form-selection;
+        border: 1px solid $button-text;
+        color: $button-text;
 
         &.mbsc-active {
-          background: $form-selection;
-          color: $form-background;
+          background: $button-text;
+          color: $button-background;
         }
       }
 

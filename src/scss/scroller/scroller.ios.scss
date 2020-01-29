@@ -19,6 +19,10 @@
     }
 
     .mbsc-sc-whl-gr-c {
+      padding: 0 .833333em;
+    }
+
+    &.mbsc-fr-liq .mbsc-sc-whl-gr-3d-c {
       padding: 0 3%;
     }
 
@@ -164,5 +168,5 @@
     }
   }
 
-  @include mbsc-ios-scroller(ios, (background: $mbsc-ios-background, text: $mbsc-ios-text, accent: $mbsc-ios-accent));
+  @include mbsc-ios-scroller(ios, $mbsc-ios-colors);
 }

@@ -1,3 +1,5 @@
+@import './base.scss';
+
 $mbsc-ios-button: #007bff !default;
 $mbsc-ios-accent: #007bff !default;
 $mbsc-ios-background: #f7f7f7 !default;
@@ -18,228 +20,105 @@ $mbsc-ios-info: #5BB7C5 !default;
 $mbsc-ios-light: #fff !default;
 $mbsc-ios-dark: #47494A !default;
 
+$mbsc-ios-colors: ( // Colors map
+  'background': $mbsc-ios-background,
+  'text': $mbsc-ios-text,
+  'accent': $mbsc-ios-accent,
+);
+$mbsc-ios-dark-colors: ( // Colors map
+  'background': $mbsc-ios-dark-background,
+  'text': $mbsc-ios-dark-text,
+  'accent': $mbsc-ios-dark-accent,
+);
+
 @function mbsc-ios-colors($params) {
-  $background: map-get($params, background);
-  $text: map-get($params, text);
-  $accent: map-get($params, accent);
+  $background: map-get($params, 'background');
+  $text: map-get($params, 'text');
+  $accent: map-get($params, 'accent');
 
   $button: '';
 
-  @if (map-get($params, button)) {
-    $button: map-get($params, button);
+  @if (map-get($params, 'button')) {
+    $button: map-get($params, 'button');
   }
 
   @else {
-    $button: map-get($params, accent);
+    $button: map-get($params, 'accent');
   }
 
   $background-limited: hsl(hue($background), saturation($background), max(lightness($background), 3%));
   $background-alt: lighten($background-limited, 3%);
   $card-shadow: darken($background, 17%);
-  $item-color: hsl(hue($text), saturation($text), 62%);
   $cont-background: lighten($background, 6%);
 
   $border-color: '';
-  $top-bottom-border: '';
-  $top-bottom-wheel-border: '';
-  $button-active: '';
-  $popup-shadow: '';
-  $popup-arrow-shadow: '';
   $popup-border: '';
-  $item-3d: '';
-  $background-desktop: '';
-  $cal-text: '';
-  $button-contrast: '';
   $label-text: '';
   $button-disabled: '';
-  $form-background: '';
-  $form-selection: '';
-  $form-text: '';
-  $icon-color: '';
-  $title-color: '';
-  $disabled-color: '';
-  $button-background: '';
-  $disabled-background: '';
   $switch-background: '';
-  $track-background: '';
-  $track-border: '';
   $snackbar-button: '';
   $slider-tooltip: '';
   $slider-track-step: '';
-  $item-active: '';
-  $lv_handle: '';
-  $lv-item: '';
-  $lv-icon: '';
   $text-alt: '';
-  $popup-background: '';
-  $cal-text-contrast: '';
   $background-overlay: '';
-  $item-selected: '';
-  $switch-track: '';
   $empty-color: '';
   $btn-cont-background: '';
-  $background-contrast: '';
-  $top-bottom-frame: '';
 
-  // Light background 
+  // Light background
   @if (lightness($background) > 50%) {
     $border-color: darken($background-limited, 17%);
-    $top-bottom-border: darken($background, 41%);
-    $top-bottom-wheel-border: darken($background-limited, 30%);
-    $button-active: darken($background, 5%);
-    $background-desktop: $background-limited;
-    $popup-shadow: rgba(0, 0, 0, .3);
-    $popup-arrow-shadow: rgba(0, 0, 0, .2);
     $popup-border: $border-color;
-    $item-3d: darken($background-limited, 33%);
     $label-text: lighten($text, 67%);
     $button-disabled: darken($background, 13%);
-    $top-bottom-frame: adjust-hue(darken(saturate($background, 12%), 13%), 216%);
-    //$button-active: adjust-hue(darken(saturate($background, 12%), 14%), 218%);
-    $form-background: adjust-hue(darken(saturate($background, 19%), 2%), 240%);
-    $form-text: hsl(hue($text), saturation($text), max(lightness($text), 80%));
-    $icon-color: adjust-hue(lighten(saturate($text, 10%), 55%), 220%);
-    $title-color: adjust-hue(lighten(saturate($text, 2%), 44%), 240%);
-    $disabled-color: darken($background, 20%);
-    $button-background: lighten($background, 10%);
-    $disabled-background: darken($background, 10%);
     $switch-background: darken($background, 7%);
-    $track-background: darken($background, 7%);
-    $track-border: darken($background, 7%);
     $slider-tooltip: darken($background, 26%);
     $slider-track-step: darken($background, 10%);
-    $item-active: darken($background, 12%);
-    $lv_handle: darken($background, 17%);
-    $lv-item: darken($background, 1%);
-    $lv-icon: lighten($text, 47%);
     $text-alt: lighten($text, 53%);
-    $popup-background: $background-alt;
     $background-overlay: rgba(#000, .2);
-    $item-selected: rgba($accent, .1);
-    $switch-track: #4cd764;
     $empty-color: lighten($text, 43%);
     $btn-cont-background: darken($background, 3%);
-    $background-contrast: #000;
     $snackbar-button: hsl(hue($button), saturation($button), max(lightness($button), 80%));
   }
 
-  // Dark background 
+  // Dark background
   @else {
     $border-color: lighten($background, 20%);
-    $top-bottom-border: lighten($background, 21%);
-    $top-bottom-wheel-border: $border-color;
-    $button-active: lighten($background, 12%);
-    $background-desktop: lighten($background-limited, 17%);
-    $popup-shadow: rgba(0, 0, 0, .8);
-    $popup-arrow-shadow: rgba(0, 0, 0, .8);
     $popup-border: lighten($border-color, 13%);
-    $item-3d: lighten($background-limited, 40%);
     $label-text: $text;
     $button-disabled: lighten($background, 13%);
-    $top-bottom-frame: $background-limited;
-    //$button-active: adjust-hue(lighten(desaturate($background, 12%), 14%), 218%);
-    $form-background: adjust-hue(lighten(desaturate($background, 19%), 10%), 240%);
-    $form-text: hsl(hue($text), saturation($text), min(lightness($text), 80%));
-    $icon-color: adjust-hue(lighten(saturate($text, 10%), 55%), 220%);
-    $title-color: adjust-hue(darken(desaturate($text, 2%), 44%), 240%);
-    $disabled-color: lighten($background, 23%);
-    $button-background: lighten($background, 23%);
-    $disabled-background: lighten($background, 13%);
     $switch-background: #fff;
-    $track-background: #fff;
-    $track-border: lighten($background, 17%);
     $slider-tooltip: lighten($background, 70%);
     $slider-track-step: lighten($background, 27%);
-    $item-active: lighten($background, 12%);
-    $lv_handle: lighten($background, 43%);
-    $lv-item: lighten($background, 13%);
-    $lv-icon: $text;
     $text-alt: darken($text, 33%);
-    $popup-background: $background-desktop;
     $background-overlay: rgba(#fff, .1);
-    $item-selected: rgba($accent, .3);
-    $switch-track: $accent;
     $empty-color: $text;
     $btn-cont-background: lighten($background-limited, 8%);
-    $background-contrast: #fff;
     $snackbar-button: $button;
   }
 
-  // Light button 
-  @if (lightness($button) > 50%) {
-    $button-contrast: #000;
-    $cal-text: lighten(saturate($button, 5%), 42%);
-    $form-selection: lighten(saturate($accent, 15%), 3%);
-  }
 
-  // Dark button 
-  @else {
-    $button-contrast: #fff;
-    $cal-text: adjust-hue(lighten(desaturate($button, 42%), 35%), 3%);
-    $form-selection: darken(desaturate($accent, 15%), 3%);
-  }
 
-  // Light button 
-  @if (lightness($cal-text) > 50%) {
-    $cal-text-contrast: #000;
-  }
-
-  // Dark button 
-  @else {
-    $cal-text-contrast: #fff;
-  }
-
-  @return (cont-background: $cont-background,
-    border-color: $border-color,
-    top-bottom-border: $top-bottom-border,
-    top-bottom-wheel-border: $top-bottom-wheel-border,
-    button-active: $button-active,
-    background-alt: $background-alt,
-    background-desktop: $background-desktop,
-    popup-shadow: $popup-shadow,
-    popup-arrow-shadow: $popup-arrow-shadow,
-    card-shadow: $card-shadow,
-    popup-border: $popup-border,
-    background-limited: $background-limited,
-    item-color: $item-color,
-    item-3d: $item-3d,
-    cal-text: $cal-text,
-    button-contrast: $button-contrast,
-    label-text: $label-text,
-    button-disabled: $button-disabled,
-    form-background: $form-background,
-    form-selection: $form-selection,
-    form-text: $form-text,
-    icon-color: $icon-color,
-    title-color: $title-color,
-    disabled-color: $disabled-color,
-    button-background: $button-background,
-    disabled-background: $disabled-background,
-    switch-background: $switch-background,
-    track-background: $track-background,
-    track-border: $track-border,
-    snackbar-button: $snackbar-button,
-    slider-tooltip: $slider-tooltip,
-    slider-track-step: $slider-track-step,
-    item-active: $item-active,
-    lv_handle: $lv_handle,
-    lv-item: $lv-item,
-    lv-icon: $lv-icon,
-    text-alt: $text-alt,
-    popup-background: $popup-background,
-    cal-text-contrast: $cal-text-contrast,
-    background-overlay: $background-overlay,
-    item-selected: $item-selected,
-    empty-color: $empty-color,
-    btn-cont-background: $btn-cont-background,
-    background-contrast: $background-contrast,
-    switch-track: $switch-track,
-    top-bottom-frame: $top-bottom-frame,
-    button: $button,
+  @return ('cont-background': $cont-background,
+    'border-color': $border-color,
+    'background-alt': $background-alt,
+    'card-shadow': $card-shadow,
+    'popup-border': $popup-border,
+    'background-limited': $background-limited,
+    'label-text': $label-text,
+    'button-disabled': $button-disabled,
+    'switch-background': $switch-background,
+    'snackbar-button': $snackbar-button,
+    'slider-tooltip': $slider-tooltip,
+    'slider-track-step': $slider-track-step,
+    'text-alt': $text-alt,
+    'background-overlay': $background-overlay,
+    'empty-color': $empty-color,
+    'btn-cont-background': $btn-cont-background,
+    'button': $button,
     /* static colors */
-    error: #d8332a,
-    white-text: #fff,
-    dark-text: #000);
+    'error': #d8332a,
+    'white-text': #fff,
+    'dark-text': #000);
 }
 
 @mixin mbsc-ios-common($theme, $params) {

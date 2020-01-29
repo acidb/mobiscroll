@@ -1,6 +1,5 @@
-/* eslint-disable no-unused-vars */
+// eslint-disable-next-line no-unused-vars
 import { $, Base, mobiscroll } from '../core/core'; // mobiscroll needed for trial
-/* eslint-enable no-unused-vars */
 import { os, raf, rafc } from '../util/platform';
 import { getCoord } from '../util/tap';
 import { cssPrefix, jsPrefix, getPosition, testTouch } from '../util/dom';

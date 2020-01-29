@@ -37,5 +37,5 @@
     }
   }
 
-  @include mbsc-windows-frame(windows, (background: $mbsc-windows-background, text: $mbsc-windows-text, accent: $mbsc-windows-accent));
+  @include mbsc-windows-frame(windows, $mbsc-windows-colors);
 }

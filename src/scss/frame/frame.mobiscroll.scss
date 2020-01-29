@@ -65,5 +65,5 @@
     }
   }
 
-  @include mbsc-mobiscroll-frame(mobiscroll, (background: $mbsc-mobiscroll-background, text: $mbsc-mobiscroll-text, accent: $mbsc-mobiscroll-accent));
+  @include mbsc-mobiscroll-frame(mobiscroll, $mbsc-mobiscroll-colors);
 }

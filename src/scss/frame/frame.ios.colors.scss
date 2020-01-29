@@ -1,26 +1,97 @@
 @import "../core/exports";
 @import "../core/ios";
 
+// Theme specific variables - inherited from global variables
+
+// Background
+$mbsc-ios-frame-background: $mbsc-frame-background-light !default;
+$mbsc-ios-dark-frame-background: $mbsc-frame-background-dark !default;
+// Text
+$mbsc-ios-frame-text: $mbsc-frame-text-light !default;
+$mbsc-ios-dark-frame-text: $mbsc-frame-text-dark !default;
+// Accent
+$mbsc-ios-frame-accent: $mbsc-frame-accent-light !default;
+$mbsc-ios-dark-frame-accent: $mbsc-frame-accent-dark !default;
+// Overlay
+$mbsc-ios-frame-overlay: $mbsc-frame-overlay-light !default;
+$mbsc-ios-dark-frame-overlay: $mbsc-frame-overlay-dark !default;
+
+$mbsc-ios-colors: map-merge($mbsc-ios-colors, (
+  'frame-background': $mbsc-ios-frame-background,
+  'frame-text': $mbsc-ios-frame-text,
+  'frame-accent': $mbsc-ios-frame-accent,
+  'frame-overlay': $mbsc-ios-frame-overlay,
+));
+
+$mbsc-ios-dark-colors: map-merge($mbsc-ios-dark-colors, (
+  'frame-background': $mbsc-ios-dark-frame-background,
+  'frame-text': $mbsc-ios-dark-frame-text,
+  'frame-accent': $mbsc-ios-dark-frame-accent,
+  'frame-overlay': $mbsc-ios-dark-frame-overlay,
+));
+
 @mixin mbsc-ios-frame($theme, $params) {
   @include exports("frame.#{$theme}.colors") {
 
-    $text: map-get($params, text);
-    $accent: map-get($params, accent);
+    $background:map-get($params, 'background');
+    $text: map-get($params, 'text');
+    $accent: map-get($params, 'accent');
 
-    $colors: mbsc-ios-colors($params);
-    $button: map-get($colors, button);
-    $cont-background: map-get($colors, cont-background);
-    $btn-cont-background: map-get($colors, btn-cont-background);
-    $border-color: map-get($colors, border-color);
-    $top-bottom-border: map-get($colors, top-bottom-border);
-    $button-active: map-get($colors, button-active);
-    $background-alt: map-get($colors, background-alt);
-    $background-desktop: map-get($colors, background-desktop);
-    $background-limited: map-get($colors, background-limited);
-    $popup-shadow: map-get($colors, popup-shadow);
-    $popup-arrow-shadow: map-get($colors, popup-arrow-shadow);
-    $popup-border: map-get($colors, popup-border);
-    $background-overlay: map-get($colors, background-overlay);
+    $overlay-param: map-get($params, 'frame-overlay');
+    $background-param: map-get($params, 'frame-background');
+    $text-param: map-get($params, 'frame-text');
+    $accent-param: map-get($params, 'frame-accent');
+
+    $background: if($background-param, $background-param, $background);
+    $text: if($text-param, $text-param, if($background-param, get-contrast-color($background-param), $text));
+    $accent: if($accent-param, $accent-param, $accent);
+
+    $button: '';
+    @if (map-get($params, 'button')) {
+      $button: map-get($params, 'button');
+    }
+    @else {
+      $button: $accent;
+    }
+
+    $background-limited: hsl(hue($background), saturation($background), max(lightness($background), 3%));
+    $cont-background: lighten($background, 6%);
+    $background-alt: lighten($background-limited, 3%);
+
+    $background-overlay: '';
+    $btn-cont-background: '';
+    $border-color: '';
+    $top-bottom-border: '';
+    $button-active: '';
+    $background-desktop: '';
+    $popup-shadow: '';
+    $popup-arrow-shadow: '';
+    $popup-border: '';
+    @if (lightness($background) > 50%) {
+      $background-overlay: rgba(#000, .2);
+      $btn-cont-background: darken($background, 3%);
+      $border-color: darken($background-limited, 17%);
+      $top-bottom-border: darken($background, 41%);
+      $button-active: darken($background, 5%);
+      $background-desktop: $background-limited;
+      $popup-shadow: rgba(0, 0, 0, .3);
+      $popup-arrow-shadow: rgba(0, 0, 0, .2);
+      $popup-border: darken($background-limited, 17%);
+    }
+    @else {
+      $background-overlay: rgba(#fff, .1);
+      $btn-cont-background: lighten($background-limited, 8%);
+      $border-color: lighten($background, 20%);
+      $top-bottom-border: lighten($background, 21%);
+      $button-active: lighten($background, 12%);
+      $background-desktop: lighten($background-limited, 17%);
+      $popup-shadow: rgba(0, 0, 0, .8);
+      $popup-arrow-shadow: rgba(0, 0, 0, .8);
+      $border-color: lighten($background, 20%);
+      $popup-border: lighten($border-color, 13%);
+    }
+
+    $background-overlay: if($overlay-param, $overlay-param, $background-overlay);
 
     .mbsc-#{$theme} {
 

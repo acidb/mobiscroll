@@ -106,5 +106,5 @@
     }
   }
 
-  @include mbsc-material-scroller(material, (background: $mbsc-material-background, text: $mbsc-material-text, accent: $mbsc-material-accent));
+  @include mbsc-material-scroller(material, $mbsc-material-colors);
 }

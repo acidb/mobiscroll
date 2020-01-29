@@ -1,6 +1,5 @@
-/* eslint-disable no-unused-vars */
+// eslint-disable-next-line no-unused-vars
 import { mobiscroll } from '../core/core'; // mobiscroll needed for trial
-/* eslint-enable no-unused-vars */
 import { $, classes, autoInit } from '../core/core';
 import { ProgressBase } from './progress-base';
 import { addIcon, wrapLabel } from './form-control';

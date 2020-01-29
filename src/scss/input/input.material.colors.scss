@@ -1,23 +1,76 @@
 @import "../core/exports";
 @import "../core/material";
 
+// Theme specific variables - inherited from global variables
+
+// Background
+$mbsc-material-input-background: $mbsc-input-background-light !default;
+$mbsc-material-dark-input-background: $mbsc-input-background-dark !default;
+// Border
+$mbsc-material-input-border: $mbsc-input-border-light !default;
+$mbsc-material-dark-input-border: $mbsc-input-border-dark !default;
+// Text
+$mbsc-material-input-text: $mbsc-input-text-light !default;
+$mbsc-material-dark-input-text: $mbsc-input-text-dark !default;
+// Accent
+$mbsc-material-input-accent: $mbsc-input-accent-light !default;
+$mbsc-material-dark-input-accent: $mbsc-input-accent-dark !default;
+// Error
+$mbsc-material-input-error: $mbsc-input-error-light !default;
+$mbsc-material-dark-input-error: $mbsc-input-error-dark !default;
+
+$mbsc-material-colors: map-merge($mbsc-material-colors, (
+  'input-background': $mbsc-material-input-background,
+  'input-border': $mbsc-material-input-border,
+  'input-text': $mbsc-material-input-text,
+  'input-accent': $mbsc-material-input-accent,
+  'input-error': $mbsc-material-input-error,
+));
+$mbsc-material-dark-colors: map-merge($mbsc-material-dark-colors, (
+  'input-background': $mbsc-material-dark-input-background,
+  'input-border': $mbsc-material-dark-input-border,
+  'input-text': $mbsc-material-dark-input-text,
+  'input-accent': $mbsc-material-dark-input-accent,
+  'input-error': $mbsc-material-dark-input-error,
+));
+
 @mixin mbsc-material-input($theme, $params) {
   @include exports("input.#{$theme}.colors") {
 
-    $background: map-get($params, background);
-    $accent: map-get($params, accent);
+    $background: map-get($params, 'background');
+    $accent: map-get($params, 'accent');
+    $text: map-get($params, 'text');
+    // custom colors
+    $input-background-param: map-get($params, 'input-background');
+    $input-border-param: map-get($params, 'input-border');
+    $input-text-param: map-get($params, 'input-text');
+    $input-accent-param: map-get($params, 'input-accent');
+    $input-error-param: map-get($params, 'input-error');
 
+    // overwrite colors with custom ones
+    $background: if($input-background-param, $input-background-param, $background);
+    $text: if($input-text-param, $input-text-param, $text);
+    $accent: if($input-accent-param, $input-accent-param, $accent);
+
+    $box-input: '';
+    @if (lightness($background) > 50%) {
+      $box-input: darken($background, 7%);
+    }
+    @else {
+      $box-input: lighten($background, 7%);
+    }
+
+    // derived colors
     $colors: mbsc-material-colors($params);
     $error: map-get($colors, error);
-    $box-input: map-get($colors, box-input);
-    $input-text: map-get($colors, input-text);
-    $form-text: map-get($colors, form-text);
-
+    $border: if($input-border-param, $input-border-param, lighten($text, 7%));
+    $error: if($input-error-param, $input-error-param, $error);
+    $input-text: darken($text, 24%);
     .mbsc-#{$theme} {
 
       /* Textbox */
       &.mbsc-input .mbsc-control {
-        border-bottom: 1px solid $form-text;
+        border-bottom: 1px solid $border;
         color: $input-text;
       }
 
@@ -35,8 +88,8 @@
 
       /* Select */
       &.mbsc-select .mbsc-input-wrap:after {
-        border: 5px solid $form-text;
-        border-color: $form-text transparent transparent transparent;
+        border: 5px solid $border;
+        border-color: $border transparent transparent transparent;
       }
 
       /* Box Input color */
@@ -50,7 +103,7 @@
       &.mbsc-input-outline {
 
         &.mbsc-input .mbsc-control {
-          border: 1px solid $form-text;
+          border: 1px solid $border;
         }
 
         &.mbsc-input .mbsc-label {

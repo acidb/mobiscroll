@@ -6,6 +6,51 @@
 @import "../rating/rating.material.colors";
 @import "../notifications/notifications.material.colors";
 
+// Theme specific variables - inherited from global variables
+
+// General colors for the form
+// Background
+$mbsc-material-form-background: $mbsc-form-background-light !default;
+$mbsc-material-dark-form-background: $mbsc-form-background-dark !default;
+// Text
+$mbsc-material-form-text: $mbsc-form-text-light !default;
+$mbsc-material-dark-form-text: $mbsc-form-text-dark !default;
+// Accent
+$mbsc-material-form-accent: $mbsc-form-accent-light !default;
+$mbsc-material-dark-form-accent: $mbsc-form-accent-dark !default;
+
+// Button
+// button background
+$mbsc-material-button-color: $mbsc-button-color-light !default;
+$mbsc-material-dark-button-color: $mbsc-button-color-dark !default;
+// button text
+$mbsc-material-button-text: $mbsc-button-text-light !default;
+$mbsc-material-dark-button-text: $mbsc-button-text-dark !default;
+
+// Form Group
+// text
+$mbsc-material-form-group-title-text: $mbsc-form-group-title-text-light !default;
+$mbsc-material-dark-form-group-title-text: $mbsc-form-group-title-text-dark !default;
+
+
+// add variables to light and dark color maps
+$mbsc-material-colors: map-merge($mbsc-material-colors, (
+  'form-background': $mbsc-material-form-background,
+  'form-text': $mbsc-material-form-text,
+  'form-accent': $mbsc-material-form-accent,
+  'button-color': $mbsc-material-button-color,
+  'button-text': $mbsc-material-button-text,
+  'form-group-title-text': $mbsc-material-form-group-title-text,
+));
+$mbsc-material-dark-colors: map-merge($mbsc-material-dark-colors, (
+  'form-background': $mbsc-material-dark-form-background,
+  'form-text': $mbsc-material-dark-form-text,
+  'form-accent': $mbsc-material-dark-form-accent,
+  'button-color': $mbsc-material-dark-button-color,
+  'button-text': $mbsc-material-dark-button-text,
+  'form-group-title-text': $mbsc-material-dark-form-group-title-text,
+));
+
 @mixin mbsc-material-forms($theme, $params) {
   @include exports("forms.#{$theme}.colors") {
 
@@ -15,25 +60,75 @@
     @include mbsc-material-rating($theme, $params);
     @include mbsc-material-notifications($theme, $params);
 
-    $background: map-get($params, background);
-    $text: map-get($params, text);
-    $accent: map-get($params, accent);
+    $background: map-get($params, 'background');
+    $text: map-get($params, 'text');
+    $accent: map-get($params, 'accent');
+    // Generic
+    $background-param: map-get($params, 'form-background');
+    $text-param: map-get($params, 'form-text');
+    $accent-param: map-get($params, 'form-accent');
+    // Button
+    $button-background-param: map-get($params, 'button-color');
+    $button-text-param: map-get($params, 'button-text');
+    // Group Title
+    $group-title-param: map-get($params, 'form-group-title-text');
 
     $colors: mbsc-material-colors($params);
-    $form-text: map-get($colors, form-text);
-    $white-text: map-get($colors, white-text);
-    $dark-text: map-get($colors, dark-text);
-    $light-text: map-get($colors, light-text);
-    $error: map-get($colors, error);
-    $checkbox: map-get($colors, checkbox);
-    $gray-background: map-get($colors, gray-background);
-    $button-background: map-get($colors, button-background);
-    $button-color: map-get($colors, button-color);
-    $button-active: map-get($colors, button-active);
-    $input-color: map-get($colors, input-color);
-    $switch-disabled: map-get($colors, switch-disabled);
-    $switch: map-get($colors, switch);
-    $background-contrast: map-get($colors, background-contrast);
+    // stati colors
+    $white-text: map-get($colors, 'white-text');
+    $dark-text: map-get($colors, 'dark-text');
+    $light-text: map-get($colors, 'light-text');
+    $error: map-get($colors, 'error');
+    $background-contrast: map-get($colors, 'background-contrast');
+
+    // overwrite custom variables
+    $background: if($background-param, $background-param, $background);
+    $text: if($text-param, $text-param, if($background-param, get-contrast-color($background-param), $text));
+    $accent: if($accent-param, $accent-param, $accent);
+
+    // derived variables
+    $form-text: lighten($text, 7%);
+    $checkbox: $background;
+    $gray-background: '';
+    $input-color: '';
+    $switch-disabled: '';
+    $switch: '';
+    $button-background: '';
+    $button-text: '';
+    @if (lightness($background) > 50%) {
+      $checkbox: lighten($background, 7%);
+      $gray-background: darken($background, 23%);
+      $input-color: lighten($text, 29%);
+      $switch-disabled: darken($background, 20%);
+      $switch: lighten($background, 5%);
+      $button-background: darken($background, 9%);
+      $button-text: darken($text, 36%);
+    }
+    @else {
+      $gray-background: lighten($background, 17%);
+      $input-color: darken($text, 19%);
+      $switch-disabled: lighten($background, 16%);
+      $switch: lighten($background, 53%);
+      $button-background: lighten($background, 17%);
+      $button-text: lighten($text, 24%);
+    }
+
+    // Switch
+    $switch-track-disabled: $button-background;
+    // Segmented
+    $segmented-background-disabled: $button-background;
+    $segmented-text: $button-text;
+    $segmented-active: darken($button-background, 4%);
+    // Stepper
+    $stepper-background: $button-background;
+
+    // Button specific vars overwritten
+    $button-background: if($button-background-param, $button-background-param, $button-background);
+    $button-text: if($button-text-param, $button-text-param, if($button-background-param, get-contrast-color($button-background-param), $button-text));
+    $button-active: darken($button-background, 4%);
+
+    // Group title
+    $group-title: if($group-title-param, $group-title-param, $accent);
 
     .mbsc-#{$theme} {
 
@@ -56,7 +151,7 @@
 
       .mbsc-divider,
       .mbsc-form-group-title {
-        color: $accent;
+        color: $group-title;
       }
 
       .mbsc-err-msg,
@@ -100,7 +195,7 @@
       /* Button */
       &.mbsc-btn {
         background: $button-background;
-        color: $button-color;
+        color: $button-text;
         box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .25);
       }
 
@@ -177,7 +272,7 @@
       }
 
       &.mbsc-switch input:disabled + .mbsc-switch-track {
-        background: $button-background;
+        background: $switch-track-disabled;
       }
 
       &.mbsc-switch input:disabled + .mbsc-switch-track .mbsc-switch-handle {
@@ -187,7 +282,7 @@
       /* Segmented control and Stepper */
       .mbsc-segmented-content {
         border: .142858em solid $accent;
-        color: $button-color;
+        color: $segmented-text;
       }
 
       &.mbsc-segmented .mbsc-segmented-item input:checked + .mbsc-segmented-content,
@@ -198,8 +293,8 @@
 
       &.mbsc-segmented .mbsc-segmented-item input.mbsc-active + .mbsc-segmented-content,
       &.mbsc-segmented .mbsc-segmented-item .mbsc-active .mbsc-segmented-content {
-        background: $button-active;
-        color: $button-color;
+        background: $segmented-active;
+        color: $segmented-text;
       }
 
       &.mbsc-segmented .mbsc-segmented-item input:disabled + .mbsc-segmented-content {
@@ -209,23 +304,23 @@
       }
 
       &.mbsc-segmented .mbsc-segmented-item input:disabled:checked + .mbsc-segmented-content {
-        background: $button-background;
+        background: $segmented-background-disabled;
         color: $input-color;
-        border-color: $button-background;
+        border-color: $segmented-background-disabled;
       }
 
       .mbsc-stepper .mbsc-segmented-content {
-        border-color: $button-background;
+        border-color: $stepper-background;
       }
 
       .mbsc-stepper-control .mbsc-segmented-content {
-        background: $button-background;
+        background: $stepper-background;
       }
 
       &.mbsc-segmented input:disabled ~ .mbsc-segmented-item .mbsc-segmented-content,
       &.mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control.mbsc-disabled .mbsc-segmented-content,
       &.mbsc-segmented .mbsc-segmented-item.mbsc-disabled .mbsc-segmented-content {
-        background: $button-background;
+        background: $segmented-background-disabled;
         color: $input-color;
       }
 
@@ -243,8 +338,8 @@
       }
 
       &.mbsc-no-touch .mbsc-segmented-item:hover .mbsc-segmented-content {
-        background: $button-active;
-        color: $button-color;
+        background: $segmented-active;
+        color: $segmented-text;
       }
 
       /* Segmented color presets */

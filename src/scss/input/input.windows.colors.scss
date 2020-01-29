@@ -1,17 +1,77 @@
 @import "../core/exports";
 @import "../core/windows";
 
+// Theme specific variables - inherited from global variables
+
+// Background
+$mbsc-windows-input-background: $mbsc-input-background-light !default;
+$mbsc-windows-dark-input-background: $mbsc-input-background-dark !default;
+// Border
+$mbsc-windows-input-border: $mbsc-input-border-light !default;
+$mbsc-windows-dark-input-border: $mbsc-input-border-dark !default;
+// Text
+$mbsc-windows-input-text: $mbsc-input-text-light !default;
+$mbsc-windows-dark-input-text: $mbsc-input-text-dark !default;
+// Accent
+$mbsc-windows-input-accent: $mbsc-input-accent-light !default;
+$mbsc-windows-dark-input-accent: $mbsc-input-accent-dark !default;
+// Error
+$mbsc-windows-input-error: $mbsc-input-error-light !default;
+$mbsc-windows-dark-input-error: $mbsc-input-error-dark !default;
+
+$mbsc-windows-colors: map-merge($mbsc-windows-colors, (
+  'input-background': $mbsc-windows-input-background,
+  'input-border': $mbsc-windows-input-border,
+  'input-text': $mbsc-windows-input-text,
+  'input-accent': $mbsc-windows-input-accent,
+  'input-error': $mbsc-windows-input-error,
+));
+$mbsc-windows-dark-colors: map-merge($mbsc-windows-dark-colors, (
+  'input-background': $mbsc-windows-dark-input-background,
+  'input-border': $mbsc-windows-dark-input-border,
+  'input-text': $mbsc-windows-dark-input-text,
+  'input-accent': $mbsc-windows-dark-input-accent,
+  'input-error': $mbsc-windows-dark-input-error,
+));
+
 @mixin mbsc-windows-input($theme, $params) {
   @include exports("input.#{$theme}.colors") {
 
-    $text: map-get($params, text);
-    $accent: map-get($params, accent);
+    $background: map-get($params, 'background');
+    $text: map-get($params, 'text');
+    $accent: map-get($params, 'accent');
 
+    // custom colors
+    $input-background-param: map-get($params, 'input-background');
+    $input-border-param: map-get($params, 'input-border');
+    $input-text-param: map-get($params, 'input-text');
+    $input-accent-param: map-get($params, 'input-accent');
+    $input-error-param: map-get($params, 'input-error');
+
+    // overwrite basic colors with custom ones
+    $background: if($input-background-param, $input-background-param, $background);
+    $accent: if($input-accent-param, $input-accent-param, $accent);
+
+    $input-border: '';
+    $input-hover: '';
+    $frame-border: '';
+    @if (lightness($background) > 50%) {
+      $frame-border: darken($background, 15%);
+      $input-border: darken($background, 35%);
+      $input-hover: darken($background, 55%);
+    }
+    @else {
+      $frame-border: lighten($background, 15%);
+      $input-border: lighten($background, 35%);
+      $input-hover: lighten($background, 55%);
+    }
+
+    // static colors
     $colors: mbsc-windows-colors($params);
     $error: map-get($colors, error);
-    $input-border: map-get($colors, input-border);
-    $input-hover: map-get($colors, input-hover);
-    $frame-border: map-get($colors, frame-border);
+    // overwrite colors with custom ones
+    $input-border: if($input-border-param, $input-border-param, $input-border);
+    $error: if($input-error-param, $input-error-param, $error);
 
     .mbsc-#{$theme} {
 

@@ -1,16 +1,65 @@
 @import "../core/exports";
 @import "../core/windows";
 
+// Theme specific variables - inherited from global variables
+
+// Background
+$mbsc-windows-frame-background: $mbsc-frame-background-light !default;
+$mbsc-windows-dark-frame-background: $mbsc-frame-background-dark !default;
+// Text
+$mbsc-windows-frame-text: $mbsc-frame-text-light !default;
+$mbsc-windows-dark-frame-text: $mbsc-frame-text-dark !default;
+// Accent
+$mbsc-windows-frame-accent: $mbsc-frame-accent-light !default;
+$mbsc-windows-dark-frame-accent: $mbsc-frame-accent-dark !default;
+// Overlay
+$mbsc-windows-frame-overlay: $mbsc-frame-overlay-light !default;
+$mbsc-windows-dark-frame-overlay: $mbsc-frame-overlay-dark !default;
+
+$mbsc-windows-colors: map-merge($mbsc-windows-colors, (
+  'frame-background': $mbsc-windows-frame-background,
+  'frame-text': $mbsc-windows-frame-text,
+  'frame-accent': $mbsc-windows-frame-accent,
+  'frame-overlay': $mbsc-windows-frame-overlay,
+));
+
+$mbsc-windows-dark-colors: map-merge($mbsc-windows-dark-colors, (
+  'frame-background': $mbsc-windows-dark-frame-background,
+  'frame-text': $mbsc-windows-dark-frame-text,
+  'frame-accent': $mbsc-windows-dark-frame-accent,
+  'frame-overlay': $mbsc-windows-dark-frame-overlay,
+));
+
 @mixin mbsc-windows-frame($theme, $params) {
   @include exports("frame.#{$theme}.colors") {
-    $colors: mbsc-windows-colors($params);
-    $frame-border: map-get($colors, frame-border);
-    $button-hover: map-get($colors, button-hover);
 
-    $background: map-get($params, background);
-    $text: map-get($params, text);
+    $background: map-get($params, 'background');
+    $text: map-get($params, 'text');
+
+    $overlay-param: map-get($params, 'frame-overlay');
+    $background-param: map-get($params, 'frame-background');
+    $text-param: map-get($params, 'frame-text');
+
+    $background: if($background-param, $background-param, $background);
+    $text: if($text-param, $text-param, $text);
+    $overlay: if($overlay-param, $overlay-param, rgba(0, 0, 0, .7));
+
+    $button-hover: '';
+    $frame-border: '';
+    @if(lightness($background) > 50%) {
+      $button-hover: darken($background, 10%);
+      $frame-border: darken($background, 15%);
+    }
+    @else {
+      $button-hover: lighten($background, 10%);
+      $frame-border: lighten($background, 15%);
+    }
 
     .mbsc-#{$theme} {
+      .mbsc-fr-overlay {
+        background: $overlay;
+      }
+
       .mbsc-fr-w {
         background: $background;
         color: $text;

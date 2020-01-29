@@ -1,19 +1,66 @@
 @import "../core/exports";
 @import "../core/mobiscroll";
 
+// Theme specific variables - inherited from global variables
+
+// Background
+$mbsc-mobiscroll-input-background: $mbsc-input-background-light !default;
+$mbsc-mobiscroll-dark-input-background: $mbsc-input-background-dark !default;
+// Text
+$mbsc-mobiscroll-input-text: $mbsc-input-text-light !default;
+$mbsc-mobiscroll-dark-input-text: $mbsc-input-text-dark !default;
+// Accent
+$mbsc-mobiscroll-input-accent: $mbsc-input-accent-light !default;
+$mbsc-mobiscroll-dark-input-accent: $mbsc-input-accent-dark !default;
+// Error
+$mbsc-mobiscroll-input-error: $mbsc-input-error-light !default;
+$mbsc-mobiscroll-dark-input-error: $mbsc-input-error-dark !default;
+
+$mbsc-mobiscroll-colors: map-merge($mbsc-mobiscroll-colors, (
+  'input-background': $mbsc-mobiscroll-input-background,
+  'input-text': $mbsc-mobiscroll-input-text,
+  'input-accent': $mbsc-mobiscroll-input-accent,
+  'input-error': $mbsc-mobiscroll-input-error,
+));
+$mbsc-mobiscroll-dark-colors: map-merge($mbsc-mobiscroll-dark-colors, (
+  'input-background': $mbsc-mobiscroll-dark-input-background,
+  'input-text': $mbsc-mobiscroll-dark-input-text,
+  'input-accent': $mbsc-mobiscroll-dark-input-accent,
+  'input-error': $mbsc-mobiscroll-dark-input-error,
+));
+
 @mixin mbsc-mobiscroll-input($theme, $params) {
   @include exports("input.#{$theme}.colors") {
 
-    $background: map-get($params, background);
-    $accent: map-get($params, accent);
-    $text: map-get($params, text);
+    $background: map-get($params, 'background');
+    $accent: map-get($params, 'accent');
+    $text: map-get($params, 'text');
+    // get custom params
+    $input-background-param: map-get($params, 'input-background');
+    $input-text-param: map-get($params, 'input-text');
+    $input-accent-param: map-get($params, 'input-accent');
+    $input-error-param: map-get($params, 'input-error');
+
+    $text: if($input-text-param, $input-text-param, $text);
+    $accent: if($input-accent-param, $input-accent-param, $accent);
+
+    $input-box: '';
+    @if (lightness($background) > 50%) {
+      $input-box: darken($background, 10%);
+    }
+    @else {
+      $input-box: lighten($background, 10%);
+    }
+
 
     $colors: mbsc-mobiscroll-colors($params);
-    $input-icon: map-get($colors, input-icon);
-    $input-box: map-get($colors, input-box);
     $error: map-get($colors, error);
-    $color-input: map-get($colors, color-input);
-    $white-text: map-get($colors, light);
+    $white-text: map-get($colors, 'white-text');
+    $input-icon: lighten($text, 20%);
+    $color-input: darken($text, 15%);
+
+    $input-box: if($input-background-param, $input-background-param, $input-box);
+    $error: if($input-error-param, $input-error-param, $error);
 
     .mbsc-#{$theme} {
 

@@ -43,7 +43,7 @@
     }
 
     /* Checkbox */
-    &.mbsc-checkbox {
+    &.mbsc-ltr.mbsc-checkbox {
       padding: 1em 3.125em 1em 1em;
     }
 
@@ -125,7 +125,7 @@
       border-radius: .625em;
     }
 
-    &.mbsc-radio input:checked+.mbsc-radio-box {
+    &.mbsc-radio input:checked + .mbsc-radio-box {
       background: transparent;
     }
 
@@ -191,12 +191,12 @@
     }
 
     /* Checkbox, Switch, Radio */
-    &.mbsc-checkbox input:disabled~.mbsc-label,
-    &.mbsc-checkbox input:disabled~.mbsc-desc,
-    &.mbsc-radio input:disabled~.mbsc-label,
-    &.mbsc-radio input:disabled~.mbsc-desc,
-    &.mbsc-switch input:disabled~.mbsc-label,
-    &.mbsc-switch input:disabled~.mbsc-desc {
+    &.mbsc-checkbox input:disabled ~ .mbsc-label,
+    &.mbsc-checkbox input:disabled ~ .mbsc-desc,
+    &.mbsc-radio input:disabled ~ .mbsc-label,
+    &.mbsc-radio input:disabled ~ .mbsc-desc,
+    &.mbsc-switch input:disabled ~ .mbsc-label,
+    &.mbsc-switch input:disabled ~ .mbsc-desc {
       opacity: .4;
     }
 
@@ -208,8 +208,8 @@
       transition: transform .1s ease-out;
     }
 
-    &.mbsc-checkbox input:checked+.mbsc-checkbox-box:after,
-    &.mbsc-radio input:checked+.mbsc-radio-box:after {
+    &.mbsc-checkbox input:checked + .mbsc-checkbox-box:after,
+    &.mbsc-radio input:checked + .mbsc-radio-box:after {
       opacity: 1;
       -webkit-transform: scale(1) rotate(-45deg);
       transform: scale(1) rotate(-45deg);
@@ -522,67 +522,67 @@
       transform: scale(1);
     }
 
-    &.mbsc-switch input:disabled+.mbsc-switch-track {
+    &.mbsc-switch input:disabled + .mbsc-switch-track {
       opacity: .7;
     }
 
     /* Switch color presets */
     &.mbsc-switch.mbsc-switch-primary input:checked {
-      +.mbsc-switch-track {
+      + .mbsc-switch-track {
         background: lighten($mbsc-mobiscroll-primary, 20%);
       }
 
-      +.mbsc-switch-track .mbsc-switch-handle {
+      + .mbsc-switch-track .mbsc-switch-handle {
         background: $mbsc-mobiscroll-primary;
       }
     }
 
     &.mbsc-switch.mbsc-switch-secondary input:checked {
-      +.mbsc-switch-track {
+      + .mbsc-switch-track {
         background: lighten($mbsc-mobiscroll-secondary, 20%);
       }
 
-      +.mbsc-switch-track .mbsc-switch-handle {
+      + .mbsc-switch-track .mbsc-switch-handle {
         background: $mbsc-mobiscroll-secondary;
       }
     }
 
     &.mbsc-switch.mbsc-switch-success input:checked {
-      +.mbsc-switch-track {
+      + .mbsc-switch-track {
         background: lighten($mbsc-mobiscroll-success, 20%);
       }
 
-      +.mbsc-switch-track .mbsc-switch-handle {
+      + .mbsc-switch-track .mbsc-switch-handle {
         background: $mbsc-mobiscroll-success;
       }
     }
 
     &.mbsc-switch.mbsc-switch-danger input:checked {
-      +.mbsc-switch-track {
+      + .mbsc-switch-track {
         background: lighten($mbsc-mobiscroll-danger, 20%);
       }
 
-      +.mbsc-switch-track .mbsc-switch-handle {
+      + .mbsc-switch-track .mbsc-switch-handle {
         background: $mbsc-mobiscroll-danger;
       }
     }
 
     &.mbsc-switch.mbsc-switch-warning input:checked {
-      +.mbsc-switch-track {
+      + .mbsc-switch-track {
         background: lighten($mbsc-mobiscroll-warning, 20%);
       }
 
-      +.mbsc-switch-track .mbsc-switch-handle {
+      + .mbsc-switch-track .mbsc-switch-handle {
         background: $mbsc-mobiscroll-warning;
       }
     }
 
     &.mbsc-switch.mbsc-switch-info input:checked {
-      +.mbsc-switch-track {
+      + .mbsc-switch-track {
         background: lighten($mbsc-mobiscroll-info, 20%);
       }
 
-      +.mbsc-switch-track .mbsc-switch-handle {
+      + .mbsc-switch-track .mbsc-switch-handle {
         background: $mbsc-mobiscroll-info;
       }
     }
@@ -612,9 +612,9 @@
       margin-top: -1.125em;
     }
 
-    &.mbsc-segmented input:disabled~.mbsc-segmented-item .mbsc-segmented-content,
+    &.mbsc-segmented input:disabled ~ .mbsc-segmented-item .mbsc-segmented-content,
     &.mbsc-segmented .mbsc-segmented-item.mbsc-stepper-control.mbsc-disabled .mbsc-segmented-content,
-    &.mbsc-segmented .mbsc-segmented-item input:disabled+.mbsc-segmented-content {
+    &.mbsc-segmented .mbsc-segmented-item input:disabled + .mbsc-segmented-content {
       background: transparent;
     }
 
@@ -625,11 +625,11 @@
         color: $mbsc-mobiscroll-primary;
       }
 
-      &.mbsc-segmented-item input.mbsc-control:checked+.mbsc-segmented-content {
+      &.mbsc-segmented-item input.mbsc-control:checked + .mbsc-segmented-content {
         background: $mbsc-mobiscroll-primary;
       }
 
-      &.mbsc-segmented-item input.mbsc-active+.mbsc-segmented-content {
+      &.mbsc-segmented-item input.mbsc-active + .mbsc-segmented-content {
         background: rgba($mbsc-mobiscroll-primary, .35)
       }
     }
@@ -640,11 +640,11 @@
         color: $mbsc-mobiscroll-secondary;
       }
 
-      &.mbsc-segmented-item input.mbsc-control:checked+.mbsc-segmented-content {
+      &.mbsc-segmented-item input.mbsc-control:checked + .mbsc-segmented-content {
         background: $mbsc-mobiscroll-secondary;
       }
 
-      &.mbsc-segmented-item input.mbsc-active+.mbsc-segmented-content {
+      &.mbsc-segmented-item input.mbsc-active + .mbsc-segmented-content {
         background: rgba($mbsc-mobiscroll-secondary, .35)
       }
     }
@@ -655,11 +655,11 @@
         color: $mbsc-mobiscroll-success;
       }
 
-      &.mbsc-segmented-item input.mbsc-control:checked+.mbsc-segmented-content {
+      &.mbsc-segmented-item input.mbsc-control:checked + .mbsc-segmented-content {
         background: $mbsc-mobiscroll-success;
       }
 
-      &.mbsc-segmented-item input.mbsc-active+.mbsc-segmented-content {
+      &.mbsc-segmented-item input.mbsc-active + .mbsc-segmented-content {
         background: rgba($mbsc-mobiscroll-success, .35)
       }
     }
@@ -670,11 +670,11 @@
         color: $mbsc-mobiscroll-danger;
       }
 
-      &.mbsc-segmented-item input.mbsc-control:checked+.mbsc-segmented-content {
+      &.mbsc-segmented-item input.mbsc-control:checked + .mbsc-segmented-content {
         background: $mbsc-mobiscroll-danger;
       }
 
-      &.mbsc-segmented-item input.mbsc-active+.mbsc-segmented-content {
+      &.mbsc-segmented-item input.mbsc-active + .mbsc-segmented-content {
         background: rgba($mbsc-mobiscroll-danger, .35)
       }
     }
@@ -685,11 +685,11 @@
         color: $mbsc-mobiscroll-warning;
       }
 
-      &.mbsc-segmented-item input.mbsc-control:checked+.mbsc-segmented-content {
+      &.mbsc-segmented-item input.mbsc-control:checked + .mbsc-segmented-content {
         background: $mbsc-mobiscroll-warning;
       }
 
-      &.mbsc-segmented-item input.mbsc-active+.mbsc-segmented-content {
+      &.mbsc-segmented-item input.mbsc-active + .mbsc-segmented-content {
         background: rgba($mbsc-mobiscroll-warning, .35)
       }
     }
@@ -700,11 +700,11 @@
         color: $mbsc-mobiscroll-info;
       }
 
-      &.mbsc-segmented-item input.mbsc-control:checked+.mbsc-segmented-content {
+      &.mbsc-segmented-item input.mbsc-control:checked + .mbsc-segmented-content {
         background: $mbsc-mobiscroll-info;
       }
 
-      &.mbsc-segmented-item input.mbsc-active+.mbsc-segmented-content {
+      &.mbsc-segmented-item input.mbsc-active + .mbsc-segmented-content {
         background: rgba($mbsc-mobiscroll-info, .35)
       }
     }
@@ -854,5 +854,5 @@
     }
   }
 
-  @include mbsc-mobiscroll-forms(mobiscroll, (background: $mbsc-mobiscroll-background, text: $mbsc-mobiscroll-text, accent: $mbsc-mobiscroll-accent));
+  @include mbsc-mobiscroll-forms(mobiscroll, $mbsc-mobiscroll-colors);
 }

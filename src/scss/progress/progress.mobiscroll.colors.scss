@@ -4,11 +4,21 @@
 @mixin mbsc-mobiscroll-progress($theme, $params) {
   @include exports("progress.#{$theme}.colors") {
 
-    $accent: map-get($params, accent);
+    $background: map-get($params, 'background');
+    $accent: map-get($params, 'accent');
+    $text: map-get($params, 'text');
+    // derived colors
+    $input-icon: lighten($text, 20%);
 
-    $colors: mbsc-mobiscroll-colors($params);
-    $input-icon: map-get($colors, input-icon);
-    $btn-disabled: map-get($colors, btn-disabled);
+    $track: '';
+    // Light background
+    @if (lightness($background) > 50%) {
+      $track: darken($background, 10%);
+    }
+    // Dark background
+    @else {
+      $track: lighten($background, 8%);
+    }
 
     .mbsc-#{$theme} {
       &.mbsc-progress .mbsc-input-ic {
@@ -16,7 +26,7 @@
       }
 
       .mbsc-progress-track {
-        background: $btn-disabled;
+        background: $track;
       }
 
       .mbsc-progress-bar {

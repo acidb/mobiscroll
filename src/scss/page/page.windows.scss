@@ -49,5 +49,5 @@
     }
   }
 
-  @include mbsc-windows-page(windows, (background: $mbsc-windows-background, text: $mbsc-windows-text, accent: $mbsc-windows-accent));
+  @include mbsc-windows-page(windows, $mbsc-windows-colors);
 }

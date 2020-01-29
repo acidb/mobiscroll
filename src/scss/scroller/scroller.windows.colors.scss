@@ -7,14 +7,31 @@
 
     @include mbsc-windows-frame($theme, $params);
 
-    $background: map-get($params, background);
-    $accent: map-get($params, accent);
-    $text: map-get($params, text);
+    $background: map-get($params, 'background');
+    $accent: map-get($params, 'accent');
+    $text: map-get($params, 'text');
 
-    $colors: mbsc-windows-colors($params);
-    $frame-border: map-get($colors, frame-border);
-    $wheel-button: map-get($colors, wheel-button);
-    $button-hover: map-get($colors, button-hover);
+    $background-param: map-get($params, 'frame-background');
+    $accent-param: map-get($params, 'frame-accent');
+    $text-param: map-get($params, 'frame-text');
+
+    $background: if($background-param, $background-param, $background);
+    $accent: if($accent-param, $accent-param, $accent);
+    $text: if($text-param, $text-param, if($background-param, get-contrast-color($background-param), $text));
+
+    $button-hover: '';
+    $frame-border: '';
+    $wheel-button: '';
+    @if(lightness($background) > 50%) {
+      $button-hover: darken($background, 10%);
+      $frame-border: darken($background, 15%);
+      $wheel-button: darken($background, 5%);
+    }
+    @else {
+      $button-hover: lighten($background, 10%);
+      $frame-border: lighten($background, 15%);
+      $wheel-button: lighten($background, 5%);
+    }
 
     .mbsc-#{$theme} {
       .mbsc-sc-whl-gr-c {

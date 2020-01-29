@@ -7,8 +7,14 @@
 
     @include mbsc-material-frame($theme, $params);
 
-    $background: map-get($params, background);
-    $accent: map-get($params, accent);
+    $background: map-get($params, 'background');
+    $accent: map-get($params, 'accent');
+
+    $background-param: map-get($params, 'frame-background');
+    $accent-param: map-get($params, 'frame-accent');
+
+    $background: if($background-param, $background-param, $background);
+    $accent: if($accent-param, $accent-param, $accent);
 
     .mbsc-#{$theme} {
       .mbsc-sc-lbl {

@@ -126,14 +126,16 @@ export const Stepper = function (control, settings) {
         }
 
         if (cssClass) {
-            $parent.removeClass(cssClass)
-            $parent.find('.mbsc-segmented').removeClass(cssClass);
+            $parent
+                .removeClass(cssClass)
+                .find('.mbsc-segmented').removeClass(cssClass);
         }
 
         cssClass = 'mbsc-' + s.theme + (theme.baseTheme ? ' mbsc-' + theme.baseTheme : '') + (s.rtl ? ' mbsc-rtl' : ' mbsc-ltr');
 
-        $parent.addClass(cssClass)
-        $parent.find('.mbsc-segmented').addClass(cssClass);
+        $parent
+            .addClass(cssClass)
+            .find('.mbsc-segmented').addClass(cssClass);
 
         $btnMinus = $('.mbsc-stepper-minus', $parent);
         $btnPlus = $('.mbsc-stepper-plus', $parent);

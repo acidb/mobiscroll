@@ -9,15 +9,24 @@
     @include mbsc-windows-page($theme, $params);
     @include mbsc-windows-progress($theme, $params);
 
-    $background: map-get($params, background);
-    $accent: map-get($params, accent);
-    $text: map-get($params, text);
+    $background: map-get($params, 'background');
+    $accent: map-get($params, 'accent');
+    $text: map-get($params, 'text');
 
     $colors: mbsc-windows-colors($params);
-    $form-background: map-get($colors, form-background);
-    $input-hover: map-get($colors, input-hover);
-    $input-border: map-get($colors, input-border);
-    $frame-border: map-get($colors, frame-border);
+    $input-border: map-get($colors, 'input-border');
+    $frame-border: map-get($colors, 'frame-border');
+
+    $form-background: '';
+    $input-hover: '';
+    @if (lightness($background) > 50%) {
+      $form-background: lighten($background, 13%);
+      $input-hover: darken($background, 55%);
+    }
+    @else {
+      $form-background: darken($background, 12%);
+      $input-hover: lighten($background, 55%);
+    }
 
     .mbsc-#{$theme} {
       &.mbsc-slider .mbsc-progress-track {

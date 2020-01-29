@@ -1,3 +1,5 @@
+@import './base';
+
 $mbsc-mobiscroll-accent: #4eccc4 !default;
 $mbsc-mobiscroll-background: #f7f7f7 !default;
 $mbsc-mobiscroll-text: #454545 !default;
@@ -16,77 +18,58 @@ $mbsc-mobiscroll-info: #5BB7C5 !default;
 $mbsc-mobiscroll-light: darken(#fff, 10%) !default;
 $mbsc-mobiscroll-dark: #47494A !default;
 
-@function mbsc-mobiscroll-colors($params) {
-  $background: map-get($params, background);
-  $text: map-get($params, text);
-  $accent: map-get($params, accent);
+$mbsc-mobiscroll-colors: ( // Colors map
+  'background': $mbsc-mobiscroll-background,
+  'text': $mbsc-mobiscroll-text,
+  'accent': $mbsc-mobiscroll-accent,
+);
+$mbsc-mobiscroll-dark-colors: ( // Colors map
+  'background': $mbsc-mobiscroll-dark-background,
+  'text': $mbsc-mobiscroll-dark-text,
+  'accent': $mbsc-mobiscroll-dark-accent,
+);
 
-  $input-icon: lighten($text, 20%);
-  $color-input: darken($text, 15%);
-  $event-border: lighten($text, 25%);
-  $lv-item: darken($background, 4%);
-  $checked: desaturate(lighten($accent, 25%), 6%);
+@function mbsc-mobiscroll-colors($params) {
+  $background: map-get($params, 'background');
+  $text: map-get($params, 'text');
+  $accent: map-get($params, 'accent');
+
   $border: '';
   $empty-color: '';
   $input-disabled: '';
-  $handle: '';
-  $btn-disabled: '';
-  $switch: '';
-  $btn-light: '';
   $input-box: '';
   $tooltip: '';
-  $checkbox: '';
   $empty-color: '';
 
-  // Light background 
+  // Light background
   @if (lightness($background) > 50%) {
     $border: darken($background, 17%);
     $empty-color: lighten($text, 20%);
     $input-disabled: darken($background, 13%);
-    $handle: darken($background, 8%);
-    $btn-disabled: darken($background, 10%);
-    $switch: darken($background, 19%);
-    $btn-light: darken($background, 3%);
     $input-box: darken($background, 10%);
     $tooltip: darken($background, 4%);
-    $checkbox: lighten($background, 3%);
   }
 
-  // Dark background 
+  // Dark background
   @else {
     $border: lighten($background, 17%);
     $empty-color: $text;
     $input-disabled: lighten($background, 17%);
-    $handle: lighten($background, 7%);
-    $btn-disabled: lighten($background, 8%);
-    $switch: lighten($background, 14%);
-    $btn-light: $background;
     $input-box: lighten($background, 10%);
     $tooltip: $background;
-    $checkbox: $background;
   }
 
-  @return (border: $border,
-  empty-color: $empty-color,
-  input-disabled: $input-disabled,
-  btn-light: $btn-light,
-  btn-disabled: $btn-disabled,
-  switch: $switch,
-  checked: $checked,
-  handle: $handle,
-  input-icon: $input-icon,
-  input-box: $input-box,
-  tooltip: $tooltip,
-  color-input: $color-input,
-  event-border: $event-border,
-  lv-item: $lv-item,
-  checkbox: $checkbox,
+  @return ('border': $border,
+  'empty-color': $empty-color,
+  'input-disabled': $input-disabled,
+  'input-box': $input-box,
+  'tooltip': $tooltip,
   /* static colors */
-  textarea: #1f1f1f,
-  notification: #787878,
-  white-text: #ffffff,
-  error: #de3226,
-  dark-text: #000);
+  'textarea': #1f1f1f,
+  'notification': #787878,
+  'white-text': #ffffff,
+  'error': #de3226,
+  'dark-text': #000);
 }
 
 @mixin mbsc-mobiscroll-common($theme, $params) {

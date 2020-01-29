@@ -439,6 +439,11 @@
 
   .mbsc-btn:disabled {
     cursor: not-allowed;
+
+    * {
+      /* Prevents click event firing for the Angular mbsc-button component, when disabled */
+      pointer-events: none;
+    }
   }
 
   .mbsc-btn:focus {

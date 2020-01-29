@@ -6,6 +6,50 @@
 @import "../rating/rating.windows.colors";
 @import "../notifications/notifications.windows.colors";
 
+// Theme specific variables - inherited from global variables
+
+// General colors for the form
+// Background
+$mbsc-windows-form-background: $mbsc-form-background-light !default;
+$mbsc-windows-dark-form-background: $mbsc-form-background-dark !default;
+// Text
+$mbsc-windows-form-text: $mbsc-form-text-light !default;
+$mbsc-windows-dark-form-text: $mbsc-form-text-dark !default;
+// Accent
+$mbsc-windows-form-accent: $mbsc-form-accent-light !default;
+$mbsc-windows-dark-form-accent: $mbsc-form-accent-dark !default;
+
+// Button
+// button background
+$mbsc-windows-button-color: $mbsc-button-color-light !default;
+$mbsc-windows-dark-button-color: $mbsc-button-color-dark !default;
+// button text
+$mbsc-windows-button-text: $mbsc-button-text-light !default;
+$mbsc-windows-dark-button-text: $mbsc-button-text-dark !default;
+
+// Form Group
+// text
+$mbsc-windows-form-group-title-text: $mbsc-form-group-title-text-light !default;
+$mbsc-windows-dark-form-group-title-text: $mbsc-form-group-title-text-dark !default;
+
+// add variables to light and dark color maps
+$mbsc-windows-colors: map-merge($mbsc-windows-colors, (
+  'form-background': $mbsc-windows-form-background,
+  'form-text': $mbsc-windows-form-text,
+  'form-accent': $mbsc-windows-form-accent,
+  'button-color': $mbsc-windows-button-color,
+  'button-text': $mbsc-windows-button-text,
+  'form-group-title-text': $mbsc-windows-form-group-title-text,
+));
+$mbsc-windows-dark-colors: map-merge($mbsc-windows-dark-colors, (
+  'form-background': $mbsc-windows-dark-form-background,
+  'form-text': $mbsc-windows-dark-form-text,
+  'form-accent': $mbsc-windows-dark-form-accent,
+  'button-color': $mbsc-windows-dark-button-color,
+  'button-text': $mbsc-windows-dark-button-text,
+  'form-group-title-text': $mbsc-windows-dark-form-group-title-text,
+));
+
 @mixin mbsc-windows-forms($theme, $params) {
   @include exports("forms.#{$theme}.colors") {
 
@@ -15,21 +59,63 @@
     @include mbsc-windows-rating($theme, $params);
     @include mbsc-windows-notifications($theme, $params);
 
-    $background: map-get($params, background);
-    $text: map-get($params, text);
-    $accent: map-get($params, accent);
+    $background: map-get($params, 'background');
+    $text: map-get($params, 'text');
+    $accent: map-get($params, 'accent');
+    // form specific
+    $background-param: map-get($params, 'form-background');
+    $text-param: map-get($params, 'form-text');
+    $accent-param: map-get($params, 'form-accent');
+    // form component specific
+    $button-text-param: map-get($params, 'button-text');
+    $button-background-param: map-get($params, 'button-color');
+    $group-title-param: map-get($params, 'form-group-title-text');
+    // overwrite custom variables
+    $background: if($background-param, $background-param, $background);
+    $text: if($text-param, $text-param, if($background-param, get-contrast-color($background-param), $text));
+    $accent: if($accent-param, $accent-param, $accent);
 
-    $colors: mbsc-windows-colors($params);
-    $form-background: map-get($colors, form-background);
-    $checkbox-border: map-get($colors, checkbox-border);
-    $button-border: map-get($colors, button-border);
-    $frame-border: map-get($colors, frame-border);
-    $input-border: map-get($colors, input-border);
-    $input-hover: map-get($colors, input-hover);
-    $button-background: map-get($colors, button-background);
-    $border-color: map-get($colors, border-color);
-    $segmented-disabled: map-get($colors, segmented-disabled);
-    $button-hover: map-get($colors, button-hover);
+    $form-background: '';
+    $checkbox-border: '';
+    $button-border: '';
+    $frame-border: '';
+    $input-border: '';
+    $input-hover: '';
+    $border-color: '';
+    $segmented-disabled: '';
+    $button-active: '';
+    $button-hover: '';
+    @if (lightness($background) > 50%) {
+      $form-background: lighten($background, 13%);
+      $checkbox-border: desaturate(lighten($accent, 52%), 24%);
+      $button-border: lighten($text, 33%);
+      $frame-border: darken($background, 15%);
+      $input-border: darken($background, 35%);
+      $input-hover: darken($background, 55%);
+      $border-color: darken($background, 19%);
+      $segmented-disabled: darken($background, 17%);
+      $button-active: darken($background, 45%);
+      $button-hover: darken($background, 10%);
+    }
+    @else {
+      $form-background: darken($background, 12%);
+      $checkbox-border: saturate(darken($accent, 52%), 24%);
+      $button-border: darken($text, 33%);
+      $frame-border: lighten($background, 15%);
+      $input-border: lighten($background, 35%);
+      $input-hover: lighten($background, 55%);
+      $border-color: lighten($background, 19%);
+      $segmented-disabled: lighten($background, 19%);
+      $button-active: lighten($background, 45%);
+      $button-hover: lighten($background, 10%);
+    }
+
+
+    // overwrite custom variables
+    $button-background: if($button-background-param, $button-background-param, $frame-border);
+    $button-text: if($button-text-param, $button-text-param, if($button-background-param, get-contrast-color($button-background-param), $text));
+    $button-active: if($button-background-param, $button-background-param, $button-active);
+    $group-title: if($group-title-param, $group-title-param, $text);
 
     .mbsc-#{$theme} {
 
@@ -48,6 +134,10 @@
       &.mbsc-control-w *::selection {
         color: get-contrast-color($accent);
         background: rgba($accent, .9);
+      }
+
+      .mbsc-form-group-title {
+        color: $group-title;
       }
 
       /* Checkbox, radio */
@@ -91,9 +181,9 @@
 
       /* Buttons */
       &.mbsc-btn {
-        background: $frame-border;
-        border: .125em solid $frame-border;
-        color: $text;
+        background: $button-background; // $frame-border;
+        border: .125em solid $button-background; // .125em solid $frame-border;
+        color: $button-text;
       }
 
       &.mbsc-no-touch.mbsc-btn:not(.mbsc-btn-flat):not(:disabled):hover {
@@ -111,7 +201,7 @@
       }
 
       &.mbsc-btn.mbsc-btn-flat.mbsc-active:not(:disabled) {
-        background: rgba($frame-border, .25);
+        background: rgba($button-background, .25); // rgba($frame-border, .25);
       }
 
       /* Outline buttons */
@@ -121,15 +211,15 @@
         color: $input-border;
 
         &.mbsc-active {
-          background: $button-background;
-          border-color: $button-background;
-          color: get-contrast-color($button-background);
+          background: $button-active;
+          border-color: $button-active;
+          color: $button-text;
         }
       }
 
       /* button hover style */
       &.mbsc-no-touch.mbsc-btn.mbsc-btn-outline:not(:disabled):hover {
-        border-color: $button-background;
+        border-color: $button-active;
       }
 
       .mbsc-switch-track {

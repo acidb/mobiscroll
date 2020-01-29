@@ -6,6 +6,50 @@
 @import "../rating/rating.mobiscroll.colors";
 @import "../notifications/notifications.mobiscroll.colors";
 
+// Theme specific variables - inherited from global variables
+
+// General colors for the form
+// Background
+$mbsc-mobiscroll-form-background: $mbsc-form-background-light !default;
+$mbsc-mobiscroll-dark-form-background: $mbsc-form-background-dark !default;
+// Text
+$mbsc-mobiscroll-form-text: $mbsc-form-text-light !default;
+$mbsc-mobiscroll-dark-form-text: $mbsc-form-text-dark !default;
+// Accent
+$mbsc-mobiscroll-form-accent: $mbsc-form-accent-light !default;
+$mbsc-mobiscroll-dark-form-accent: $mbsc-form-accent-dark !default;
+
+// Button
+// Button background
+$mbsc-mobiscroll-button-color: $mbsc-button-color-light !default;
+$mbsc-mobiscroll-dark-button-color: $mbsc-button-color-dark !default;
+// Button text
+$mbsc-mobiscroll-button-text: $mbsc-button-text-light !default;
+$mbsc-mobiscroll-dark-button-text: $mbsc-button-text-dark !default;
+
+// Form Group
+// text
+$mbsc-mobiscroll-form-group-title-text: $mbsc-form-group-title-text-light !default;
+$mbsc-mobiscroll-dark-form-group-title-text: $mbsc-form-group-title-text-dark !default;
+
+// add variables to light and dark color maps
+$mbsc-mobiscroll-colors: map-merge($mbsc-mobiscroll-colors, (
+  'form-background': $mbsc-mobiscroll-form-background,
+  'form-text': $mbsc-mobiscroll-form-text,
+  'form-accent': $mbsc-mobiscroll-form-accent,
+  'button-color': $mbsc-mobiscroll-button-color,
+  'button-text': $mbsc-mobiscroll-button-text,
+  'form-group-title-text': $mbsc-mobiscroll-form-group-title-text,
+));
+$mbsc-mobiscroll-dark-colors: map-merge($mbsc-mobiscroll-dark-colors, (
+  'form-background': $mbsc-mobiscroll-dark-form-background,
+  'form-text': $mbsc-mobiscroll-dark-form-text,
+  'form-accent': $mbsc-mobiscroll-dark-form-accent,
+  'button-color': $mbsc-mobiscroll-dark-button-color,
+  'button-text': $mbsc-mobiscroll-dark-button-text,
+  'form-group-title-text': $mbsc-mobiscroll-dark-form-group-title-text,
+));
+
 @mixin mbsc-mobiscroll-forms($theme, $params) {
   @include exports("forms.#{$theme}.colors") {
 
@@ -15,21 +59,59 @@
     @include mbsc-mobiscroll-rating($theme, $params);
     @include mbsc-mobiscroll-notifications($theme, $params);
 
-    $background: map-get($params, background);
-    $text: map-get($params, text);
-    $accent: map-get($params, accent);
+    $background: map-get($params, 'background');
+    $text: map-get($params, 'text');
+    $accent: map-get($params, 'accent');
+    // Generic
+    $background-param: map-get($params, 'form-background');
+    $text-param: map-get($params, 'form-text');
+    $accent-param: map-get($params, 'form-accent');
+    // Button
+    $button-background-param: map-get($params, 'button-color');
+    $button-text-param: map-get($params, 'button-text');
+    // Form group
+    $group-title-param: map-get($params, 'form-group-title-text');
 
     $colors: mbsc-mobiscroll-colors($params);
-    $input-disabled: map-get($colors, input-disabled);
-    $btn-light: map-get($colors, btn-light);
-    $btn-disabled: map-get($colors, btn-disabled);
-    $switch: map-get($colors, switch);
-    $checked: map-get($colors, checked);
-    $handle: map-get($colors, handle);
-    $mbsc-mobiscroll-dark-text: map-get($colors, dark-text);
-    $white-text: map-get($colors, light);
-    $error: map-get($colors, error);
-    $checkbox: map-get($colors, checkbox);
+    $input-disabled: map-get($colors, 'input-disabled');
+    // static colors
+    $white-text: map-get($colors, 'white-text');
+    $dark-text: map-get($colors, 'dark-text');
+    $error: map-get($colors, 'error');
+
+    // overwrite custom variables
+    $background: if($background-param, $background-param, $background);
+    $text: if($text-param, $text-param, if($background-param, get-contrast-color($background-param), $text));
+    $accent: if($accent-param, $accent-param, $accent);
+
+    // derived colors
+    $btn-light: '';
+    $btn-disabled: '';
+    $switch: '';
+    $handle: '';
+    $checkbox: '';
+    $checked: desaturate(lighten($accent, 25%), 6%);
+    // Light background
+    @if (lightness($background) > 50%) {
+      $btn-light: darken($background, 3%);
+      $btn-disabled: darken($background, 10%);
+      $switch: darken($background, 19%);
+      $handle: darken($background, 8%);
+      $checkbox: lighten($background, 3%);
+    }
+    // Dark background
+    @else {
+      $btn-light: $background;
+      $btn-disabled: lighten($background, 8%);
+      $switch: lighten($background, 14%);
+      $handle: lighten($background, 7%);
+      $checkbox: $background;
+    }
+
+    $button-background: if($button-background-param, $button-background-param, $accent);
+    $button-text: if($button-text-param, $button-text-param, if($button-background-param, get-contrast-color($button-background-param), $btn-light));
+    $button-active: darken($button-background, 4%);
+    $group-title: if($group-title-param, $group-title-param, $accent);
 
     .mbsc-#{$theme} {
 
@@ -38,12 +120,15 @@
         color: $text;
       }
 
-      &.mbsc-form *::-moz-selection {
-        color: $white-text;
-        background: $accent;
+      // when controls are outside of form
+      &.mbsc-control-w {
+        color: $text;
       }
 
-      &.mbsc-form *::selection {
+      &.mbsc-form *::-moz-selection,
+      &.mbsc-control-w *::-moz-selection,
+      &.mbsc-form *::selection,
+      &.mbsc-control-w *::selection {
         color: $white-text;
         background: $accent;
       }
@@ -51,7 +136,7 @@
       .mbsc-divider,
       .mbsc-form-group-title {
         background: $background;
-        color: $accent;
+        color: $group-title;
       }
 
       .mbsc-err-msg,
@@ -96,8 +181,8 @@
 
       /* Buttons */
       &.mbsc-btn {
-        background: $accent;
-        color: $btn-light;
+        background: $button-background;
+        color: $button-text;
       }
 
       &.mbsc-btn:disabled {
@@ -110,12 +195,12 @@
 
       &.mbsc-btn-flat {
         background: transparent;
-        color: $accent;
+        color: $button-background;
         border-color: transparent;
       }
 
       &.mbsc-btn-flat.mbsc-btn.mbsc-active {
-        background: rgba($accent, .3)
+        background: rgba($button-background, .3)
       }
 
       &.mbsc-btn-flat:disabled {
@@ -124,16 +209,16 @@
       }
 
       &.mbsc-btn-light.mbsc-btn {
-        color: $mbsc-mobiscroll-dark-text;
+        color: $dark-text;
       }
 
       /* Outline buttons */
       &.mbsc-btn-outline.mbsc-btn {
-        border: 1px solid $accent;
-        color: $accent;
+        border: 1px solid $button-background;
+        color: $button-background;
 
         &.mbsc-active {
-          background: $accent;
+          background: $button-background;
           color: $background;
         }
 

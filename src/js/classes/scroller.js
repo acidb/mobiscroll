@@ -1,6 +1,5 @@
-/* eslint-disable no-unused-vars */
+// eslint-disable-next-line no-unused-vars
 import { mobiscroll } from '../core/core'; // mobiscroll needed for trial
-/* eslint-enable no-unused-vars */
 import { $, extend, classes } from '../core/core';
 import { cssPrefix, jsPrefix } from '../util/dom';
 import { isNumeric, objectToArray } from '../util/misc';

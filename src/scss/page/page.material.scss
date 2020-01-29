@@ -52,5 +52,5 @@
     }
   }
 
-  @include mbsc-material-page(material, (background: $mbsc-material-background, text: $mbsc-material-text, accent: $mbsc-material-accent));
+  @include mbsc-material-page(material, $mbsc-material-colors);
 }

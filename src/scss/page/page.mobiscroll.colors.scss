@@ -1,13 +1,39 @@
 @import "../core/exports";
 @import "../core/mobiscroll";
 
+// Theme specific variables - inherited from global variables
+
+// background
+$mbsc-mobiscroll-page-background: $mbsc-page-background-light !default;
+$mbsc-mobiscroll-dark-page-background: $mbsc-page-background-dark !default;
+
+// text
+$mbsc-mobiscroll-page-text: $mbsc-page-text-light !default;
+$mbsc-mobiscroll-dark-page-text: $mbsc-page-text-dark !default;
+
+// add variables to color maps
+$mbsc-mobiscroll-colors: map-merge($mbsc-mobiscroll-colors, (
+  'page-background': $mbsc-mobiscroll-page-background,
+  'page-text': $mbsc-mobiscroll-page-text,
+));
+$mbsc-mobiscroll-dark-colors: map-merge($mbsc-mobiscroll-dark-colors, (
+  'page-background': $mbsc-mobiscroll-dark-page-background,
+  'page-text': $mbsc-mobiscroll-dark-page-text,
+));
+
 @mixin mbsc-mobiscroll-page($theme, $params) {
   @include exports("page.#{$theme}.colors") {
     @include mbsc-mobiscroll-common($theme, $params);
 
-    $text: map-get($params, text);
-    $accent: map-get($params, accent);
-    $background: map-get($params, background);
+    $text: map-get($params, 'text');
+    $accent: map-get($params, 'accent');
+    $background: map-get($params, 'background');
+    // get custom params
+    $text-param: map-get($params, 'page-text');
+    $background-param: map-get($params, 'page-background');
+    // overwrite params with custom variables
+    $background: if($background-param, $background-param, $background);
+    $text: if($text-param, $text-param, if($background-param, get-contrast-color($background-param), $text));
 
     .mbsc-#{$theme} {
       &.mbsc-page {

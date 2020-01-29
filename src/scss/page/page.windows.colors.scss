@@ -1,19 +1,52 @@
 @import "../core/exports";
 @import "../core/windows";
 
+// Theme specific variables - inherited from global variables
+
+// background
+$mbsc-windows-page-background: $mbsc-page-background-light !default;
+$mbsc-windows-dark-page-background: $mbsc-page-background-dark !default;
+
+// text
+$mbsc-windows-page-text: $mbsc-page-text-light !default;
+$mbsc-windows-dark-page-text: $mbsc-page-text-dark !default;
+
+// add variables to color maps
+$mbsc-windows-colors: map-merge($mbsc-windows-colors, (
+  'page-background': $mbsc-windows-page-background,
+  'page-text': $mbsc-windows-page-text,
+));
+$mbsc-windows-dark-colors: map-merge($mbsc-windows-dark-colors, (
+  'page-background': $mbsc-windows-dark-page-background,
+  'page-text': $mbsc-windows-dark-page-text,
+));
+
 @mixin mbsc-windows-page($theme, $params) {
   @include exports("page.#{$theme}.colors") {
     @include mbsc-windows-common($theme, $params);
 
-    $text: map-get($params, text);
-    $accent: map-get($params, accent);
+    $background: map-get($params, 'background');
+    $text: map-get($params, 'text');
+    $accent: map-get($params, 'accent');
 
-    $colors: mbsc-windows-colors($params);
-    $form-background: map-get($colors, form-background);
+    @if (lightness($background) > 50%) {
+      $background: lighten($background, 13%);
+    }
+    @else {
+      $background: darken($background, 12%);
+    }
+
+
+    // get custom params
+    $text-param: map-get($params, 'page-text');
+    $background-param: map-get($params, 'page-background');
+    // overwrite params with custom variables
+    $background: if($background-param, $background-param, $background);
+    $text: if($text-param, $text-param, if($background-param, get-contrast-color($background-param), $text));
 
     .mbsc-#{$theme} {
       &.mbsc-page {
-        background-color: $form-background;
+        background-color: $background;
         color: $text;
       }
 

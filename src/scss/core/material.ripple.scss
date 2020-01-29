@@ -11,8 +11,8 @@
       pointer-events: none;
       -webkit-transform: scale(0);
       transform: scale(0);
-      -webkit-transition: -webkit-transform .8s cubic-bezier(0.25, 0.8, 0.25, 1), opacity .8s cubic-bezier(0.25, 0.8, 0.25, 1);
-      transition: transform .8s cubic-bezier(0.25, 0.8, 0.25, 1), opacity .8s cubic-bezier(0.25, 0.8, 0.25, 1);
+      -webkit-transition: -webkit-transform cubic-bezier(0, 0, 0.2, 1) .4s, opacity linear .1s;
+      transition: transform cubic-bezier(0, 0, 0.2, 1) .4s, opacity linear .1s;
     }
 
     .mbsc-ripple-scaled {
@@ -21,7 +21,7 @@
     }
 
     .mbsc-ripple-visible {
-      opacity: .1;
+      opacity: .15;
     }
   }
 }

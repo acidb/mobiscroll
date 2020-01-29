@@ -1,14 +1,57 @@
 @import "../core/exports";
 @import "../core/mobiscroll";
 
+// Theme specific variables - inherited from global variables
+
+// Background
+$mbsc-mobiscroll-frame-background: $mbsc-frame-background-light !default;
+$mbsc-mobiscroll-dark-frame-background: $mbsc-frame-background-dark !default;
+// Text
+$mbsc-mobiscroll-frame-text: $mbsc-frame-text-light !default;
+$mbsc-mobiscroll-dark-frame-text: $mbsc-frame-text-dark !default;
+// Accent
+$mbsc-mobiscroll-frame-accent: $mbsc-frame-accent-light !default;
+$mbsc-mobiscroll-dark-frame-accent: $mbsc-frame-accent-dark !default;
+// Overlay
+$mbsc-mobiscroll-frame-overlay: $mbsc-frame-overlay-light !default;
+$mbsc-mobiscroll-dark-frame-overlay: $mbsc-frame-overlay-dark !default;
+
+$mbsc-mobiscroll-colors: map-merge($mbsc-mobiscroll-colors, (
+  'frame-background': $mbsc-mobiscroll-frame-background,
+  'frame-text': $mbsc-mobiscroll-frame-text,
+  'frame-accent': $mbsc-mobiscroll-frame-accent,
+  'frame-overlay': $mbsc-mobiscroll-frame-overlay,
+));
+
+$mbsc-mobiscroll-dark-colors: map-merge($mbsc-mobiscroll-dark-colors, (
+  'frame-background': $mbsc-mobiscroll-dark-frame-background,
+  'frame-text': $mbsc-mobiscroll-dark-frame-text,
+  'frame-accent': $mbsc-mobiscroll-dark-frame-accent,
+  'frame-overlay': $mbsc-mobiscroll-dark-frame-overlay,
+));
+
 @mixin mbsc-mobiscroll-frame($theme, $params) {
   @include exports("frame.#{$theme}.colors") {
 
-    $background: map-get($params, background);
-    $text: map-get($params, text);
-    $accent: map-get($params, accent);
+    $background: map-get($params, 'background');
+    $text: map-get($params, 'text');
+    $accent: map-get($params, 'accent');
+
+    $overlay-param: map-get($params, 'frame-overlay');
+    $background-param: map-get($params, 'frame-background');
+    $text-param: map-get($params, 'frame-text');
+    $accent-param: map-get($params, 'frame-accent');
+
+    $background: if($background-param, $background-param, $background);
+    $text: if($text-param, $text-param, if($background-param, get-contrast-color($background-param), $text));
+    $accent: if($accent-param, $accent-param, $accent);
+    $overlay: if($overlay-param, $overlay-param, rgba(0, 0, 0, .7));
 
     .mbsc-#{$theme} {
+      .mbsc-fr-overlay {
+        background: $overlay;
+      }
+
       .mbsc-fr-w {
         background: $background;
         color: $text;

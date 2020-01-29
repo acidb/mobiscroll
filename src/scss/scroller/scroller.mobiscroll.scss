@@ -94,5 +94,5 @@
     }
   }
 
-  @include mbsc-mobiscroll-scroller(mobiscroll, (background: $mbsc-mobiscroll-background, text: $mbsc-mobiscroll-text, accent: $mbsc-mobiscroll-accent));
+  @include mbsc-mobiscroll-scroller(mobiscroll, $mbsc-mobiscroll-colors);
 }

@@ -179,6 +179,8 @@ export const CalbasePropTypes = {
     moreEventsPluralText: stringType,
     moreEventsText: stringType,
     onTabChange: funcType,
+    onCellHoverIn: funcType,
+    onCellHoverOut: funcType,
     onDayChange: funcType,
     onLabelTap: funcType,
     onMonthChange: funcType,
@@ -239,6 +241,7 @@ export function deepCompare(a, b) {
             return false;
         }
 
+        // eslint-disable-next-line no-prototype-builtins
         if (x.isPrototypeOf(y) || y.isPrototypeOf(x)) {
             return false;
         }
@@ -259,6 +262,7 @@ export function deepCompare(a, b) {
         // Quick checking of one object beeing a subset of another.
         // todo: cache the structure of arguments[0] for performance
         for (p in y) {
+            // eslint-disable-next-line no-prototype-builtins
             if (y.hasOwnProperty(p) !== x.hasOwnProperty(p)) {
                 return false;
             } else if (typeof y[p] !== typeof x[p]) {
@@ -275,6 +279,7 @@ export function deepCompare(a, b) {
         };
         const props = reactElement ? elementProps : x;
         for (p in props) {
+            // eslint-disable-next-line no-prototype-builtins
             if (y.hasOwnProperty(p) !== x.hasOwnProperty(p)) {
                 return false;
             } else if (typeof y[p] !== typeof x[p]) {

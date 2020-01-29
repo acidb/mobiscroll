@@ -1,0 +1,88 @@
+// Button color variables
+
+$mbsc-button-color-light: null !default;
+$mbsc-button-color-dark: null !default;
+$mbsc-button-text-light: null !default;
+$mbsc-button-text-dark: null !default;
+
+// Forms color variables
+
+$mbsc-form-background-light: null !default;
+$mbsc-form-background-dark: null !default;
+$mbsc-form-text-light: null !default;
+$mbsc-form-text-dark: null !default;
+$mbsc-form-accent-light: null !default;
+$mbsc-form-accent-dark: null !default;
+
+$mbsc-form-group-title-text-light: null !default;
+$mbsc-form-group-title-text-dark: null !default;
+
+// Input color variables
+
+$mbsc-input-background-light: null !default;
+$mbsc-input-background-dark: null !default;
+$mbsc-input-border-light: null !default;
+$mbsc-input-border-dark: null !default;
+$mbsc-input-text-light: null !default;
+$mbsc-input-text-dark: null !default;
+$mbsc-input-accent-light: null !default;
+$mbsc-input-accent-dark: null !default;
+$mbsc-input-error-light: null !default;
+$mbsc-input-error-dark: null !default;
+
+// Navigation color variables
+
+$mbsc-nav-background-light: null !default;
+$mbsc-nav-background-dark: null !default;
+$mbsc-nav-text-light: null !default;
+$mbsc-nav-text-dark: null !default;
+$mbsc-nav-accent-light: null !default;
+$mbsc-nav-accent-dark: null !default;
+
+// Card color variables
+
+$mbsc-card-background-light: null !default;
+$mbsc-card-background-dark: null !default;
+$mbsc-card-text-light: null !default;
+$mbsc-card-text-dark: null !default;
+
+// Page color variables
+
+$mbsc-page-background-light: null !default;
+$mbsc-page-background-dark: null !default;
+$mbsc-page-text-light: null !default;
+$mbsc-page-text-dark: null !default;
+
+// Listview color variables
+
+$mbsc-listview-background-light: null !default;
+$mbsc-listview-background-dark: null !default;
+$mbsc-listview-text-light: null !default;
+$mbsc-listview-text-dark: null !default;
+$mbsc-listview-accent-light: null !default;
+$mbsc-listview-accent-dark: null !default;
+$mbsc-listview-header-background-light: null !default;
+$mbsc-listview-header-background-dark: null !default;
+$mbsc-listview-header-text-light: null !default;
+$mbsc-listview-header-text-dark: null !default;
+
+// Frame color variables
+
+$mbsc-frame-background-light: null !default;
+$mbsc-frame-background-dark: null !default;
+$mbsc-frame-text-light: null !default;
+$mbsc-frame-text-dark: null !default;
+$mbsc-frame-accent-light: null !default;
+$mbsc-frame-accent-dark: null !default;
+$mbsc-frame-overlay-light: null !default;
+$mbsc-frame-overlay-dark: null !default;
+
+@function get-contrast-color($color) {
+  @if (lightness($color) > 65%) {
+    @return #000;
+  }
+
+  @else {
+    @return #fff;
+  }
+}

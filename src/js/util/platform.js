@@ -4,7 +4,7 @@ var os,
     minorVersion,
     version = [],
     isBrowser = typeof window !== 'undefined',
-    isDark = isBrowser && matchMedia('(prefers-color-scheme:dark)').matches,
+    isDark = isBrowser && window.matchMedia && window.matchMedia('(prefers-color-scheme:dark)').matches,
     userAgent = isBrowser ? navigator.userAgent : '',
     platform = isBrowser ? navigator.platform : '',
     maxTouchPoints = isBrowser ? navigator.maxTouchPoints : 0,
@@ -19,7 +19,7 @@ var os,
 
 if (/Android/i.test(device)) {
     os = 'android';
-    vers = userAgent.match(/Android\s+([\d\.]+)/i);
+    vers = userAgent.match(/Android\s+([\d.]+)/i);
     if (vers) {
         version = vers[0].replace('Android ', '').split('.');
     }
@@ -29,7 +29,7 @@ if (/Android/i.test(device)) {
     // In this case we check `navigator.platform` and `navigator.maxTouchPoints`.
     // maxTouchPoints is needed to exclude desktop Mac OS X.
     os = 'ios';
-    vers = userAgent.match(/OS\s+([\d\_]+)/i);
+    vers = userAgent.match(/OS\s+([\d_]+)/i);
     if (vers) {
         version = vers[0].replace(/_/g, '.').replace('OS ', '').split('.');
     }

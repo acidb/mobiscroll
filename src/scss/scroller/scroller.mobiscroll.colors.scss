@@ -7,9 +7,17 @@
 
     @include mbsc-mobiscroll-frame($theme, $params);
 
-    $background: map-get($params, background);
-    $accent: map-get($params, accent);
-    $text: map-get($params, text);
+    $background: map-get($params, 'background');
+    $accent: map-get($params, 'accent');
+    $text: map-get($params, 'text');
+
+    $background-param: map-get($params, 'frame-background');
+    $text-param: map-get($params, 'frame-text');
+    $accent-param: map-get($params, 'frame-accent');
+
+    $background: if($background-param, $background-param, $background);
+    $text: if($text-param, $text-param, if($background-param, get-contrast-color($background-param), $text));
+    $accent: if($accent-param, $accent-param, $accent);
 
     .mbsc-#{$theme} {
       .mbsc-sc-lbl {

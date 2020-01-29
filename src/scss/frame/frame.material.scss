@@ -73,5 +73,5 @@
     }
   }
 
-  @include mbsc-material-frame(material, (background: $mbsc-material-background, text: $mbsc-material-text, accent: $mbsc-material-accent));
+  @include mbsc-material-frame(material, $mbsc-material-colors);
 }

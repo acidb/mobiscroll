@@ -6,6 +6,9 @@ const markup =
     '<div style="' + style + '"><div style="' + innerStyle + '"></div></div>' +
     '<div style="' + style + '"><div style="' + innerStyle + 'width:200%;height:200%;"></div></div>';
 
+let observer;
+let count = 0;
+
 export function resizeObserver(el, callback, zone) {
 
     function reset() {
@@ -47,6 +50,7 @@ export function resizeObserver(el, callback, zone) {
 
     let expand;
     let expandChild;
+    let helper;
     let hiddenRafId;
     let rafId;
     let shrink;
@@ -54,31 +58,51 @@ export function resizeObserver(el, callback, zone) {
     let lastCheck = 0;
     //let isHidden = true;
 
-    const helper = document.createElement('div');
-
-    helper.innerHTML = markup;
-    helper.dir = 'ltr'; // Need this to work in rtl as well;
-    shrink = helper.childNodes[1];
-    expand = helper.childNodes[0];
-    expandChild = expand.childNodes[0];
-
-    el.appendChild(helper);
-
-    expand.addEventListener('scroll', onScroll);
-    shrink.addEventListener('scroll', onScroll);
-
-    if (zone) {
-        zone.runOutsideAngular(function () {
-            raf(checkHidden);
-        });
+    if (window.ResizeObserver) {
+        if (!observer) {
+            observer = new ResizeObserver((entries) => {
+                for (let entry of entries) {
+                    entry.target.__mbscResize();
+                }
+            });
+        }
+        count++;
+        el.__mbscResize = callback;
+        observer.observe(el);
     } else {
-        raf(checkHidden);
+        helper = document.createElement('div');
+        helper.innerHTML = markup;
+        helper.dir = 'ltr'; // Need this to work in rtl as well;
+        shrink = helper.childNodes[1];
+        expand = helper.childNodes[0];
+        expandChild = expand.childNodes[0];
+
+        el.appendChild(helper);
+
+        expand.addEventListener('scroll', onScroll);
+        shrink.addEventListener('scroll', onScroll);
+
+        if (zone) {
+            zone.runOutsideAngular(function () {
+                raf(checkHidden);
+            });
+        } else {
+            raf(checkHidden);
+        }
     }
 
     return {
         detach: function () {
-            el.removeChild(helper);
-            stopCheck = true;
+            if (observer) {
+                count--;
+                observer.unobserve(el);
+                if (!count) {
+                    observer = null;
+                }
+            } else {
+                el.removeChild(helper);
+                stopCheck = true;
+            }
         }
     };
 }

@@ -840,5 +840,5 @@
     }
   }
 
-  @include mbsc-windows-forms(windows, (background: $mbsc-windows-background, text: $mbsc-windows-text, accent: $mbsc-windows-accent));
+  @include mbsc-windows-forms(windows, $mbsc-windows-colors);
 }

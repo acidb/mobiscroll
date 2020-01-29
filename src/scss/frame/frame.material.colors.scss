@@ -1,18 +1,62 @@
 @import "../core/exports";
 @import "../core/material";
 
+// Theme specific variables - inherited from global variables
+
+// Background
+$mbsc-material-frame-background: $mbsc-frame-background-light !default;
+$mbsc-material-dark-frame-background: $mbsc-frame-background-dark !default;
+// Text
+$mbsc-material-frame-text: $mbsc-frame-text-light !default;
+$mbsc-material-dark-frame-text: $mbsc-frame-text-dark !default;
+// Accent
+$mbsc-material-frame-accent: $mbsc-frame-accent-light !default;
+$mbsc-material-dark-frame-accent: $mbsc-frame-accent-dark !default;
+// Overlay
+$mbsc-material-frame-overlay: $mbsc-frame-overlay-light !default;
+$mbsc-material-dark-frame-overlay: $mbsc-frame-overlay-dark !default;
+
+$mbsc-material-colors: map-merge($mbsc-material-colors, (
+  'frame-background': $mbsc-material-frame-background,
+  'frame-text': $mbsc-material-frame-text,
+  'frame-accent': $mbsc-material-frame-accent,
+  'frame-overlay': $mbsc-material-frame-overlay,
+));
+
+$mbsc-material-dark-colors: map-merge($mbsc-material-dark-colors, (
+  'frame-background': $mbsc-material-dark-frame-background,
+  'frame-text': $mbsc-material-dark-frame-text,
+  'frame-accent': $mbsc-material-dark-frame-accent,
+  'frame-overlay': $mbsc-material-dark-frame-overlay,
+));
+
 @mixin mbsc-material-frame($theme, $params) {
   @include exports("frame.#{$theme}.colors") {
-    $colors: mbsc-material-colors($params);
-    $background-contrast: map-get($colors, background-contrast);
+    $background: map-get($params, 'background');
+    $text: map-get($params, 'text');
+    $accent: map-get($params, 'accent');
 
-    $background: map-get($params, background);
-    $text: map-get($params, text);
-    $accent: map-get($params, accent);
+    $overlay-param: map-get($params, 'frame-overlay');
+    $background-param: map-get($params, 'frame-background');
+    $text-param: map-get($params, 'frame-text');
+    $accent-param: map-get($params, 'frame-accent');
+
+    $background: if($background-param, $background-param, $background);
+    $text: if($text-param, $text-param, if($background-param, get-contrast-color($background-param), $text));
+    $accent: if($accent-param, $accent-param, $accent);
+    $overlay: if($overlay-param, $overlay-param, rgba(0, 0, 0, .6));
+
+    $background-contrast: '';
+    @if (lightness($background) > 50%) {
+      $background-contrast: #000;
+    }
+    @else {
+      $background-contrast: #fff;
+    }
 
     .mbsc-#{$theme} {
       .mbsc-fr-overlay {
-        background: rgba(0, 0, 0, .6);
+        background: $overlay;
       }
 
       .mbsc-fr-w {

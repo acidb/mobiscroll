@@ -261,9 +261,12 @@ export class MbscInputBase extends MbscFormValueBase {
 
 @Component({
     selector: 'mbsc-input',
-    host: { '[class.mbsc-control-ng]': 'controlNg' },
+    host: {
+        '[class.mbsc-control-ng]': 'controlNg',
+        '[class.mbsc-err]': 'error'
+    },
     template: `
-        <label 
+        <label
             [class.mbsc-err]="error" [class.mbsc-select]="dropdown"
             [class.mbsc-input-box]="inputStyle == 'box'"
             [class.mbsc-input-outline]="inputStyle == 'outline'"
@@ -285,7 +288,7 @@ export class MbscInputBase extends MbscFormValueBase {
                     [attr.max]="max"
                     [attr.minlength]="minlength"
                     [attr.maxlength]="maxlength"
-                    [attr.autocomplete]="autocomplete" 
+                    [attr.autocomplete]="autocomplete"
                     [attr.autocapitalize]="autocapitalize"
                     [attr.autocorrect]="autocorrect"
                     [attr.spellcheck]="spellcheck"
@@ -311,12 +314,12 @@ export class MbscInput extends MbscInputBase {
     min: number;
     @Input()
     max: number;
-    
+
     @Input()
     step: number;
     @Input()
     pattern: string;
-    
+
     @Input()
     accept: string;
     @Input()

@@ -190,7 +190,7 @@ class MbscLabel extends React.Component {
         return cssClass;
     }
 
-    render = () => {
+    render() {
         /* eslint-disable no-unused-vars */
         // justification: variable 'valid' and 'className' is declared due to object decomposition
         var {

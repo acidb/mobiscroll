@@ -98,6 +98,44 @@ function smoothScroll(el, to, prevAnim, callback) {
     }
 }
 
+function listen(el, event, handler, opt) {
+    if (el) {
+        el.addEventListener(event, handler, opt);
+    }
+}
+
+function unlisten(el, event, handler) {
+    if (el) {
+        el.removeEventListener(event, handler);
+    }
+}
+
+function setFocusInvisible() {
+    win.__mbscFocusVisible = false;
+}
+
+function setFocusVisible() {
+    win.__mbscFocusVisible = true;
+}
+
+function addWindowFocus() {
+    let focusCount = win.__mbscFocusCount || 0;
+    if (focusCount === 0) {
+        listen(win, 'mousedown', setFocusInvisible, true);
+        listen(win, 'keydown', setFocusVisible, true);
+    }
+    win.__mbscFocusCount = ++focusCount;
+}
+
+function removeWindowFocus() {
+    let focusCount = win.__mbscFocusCount || 0;
+    win.__mbscFocusCount = --focusCount;
+    if (win.__mbscFocusCount === 0) {
+        unlisten(win, 'mousedown', setFocusInvisible);
+        unlisten(win, 'keydown', setFocusVisible);
+    }
+}
+
 var animEnd,
     mod,
     cssPrefix,
@@ -106,12 +144,14 @@ var animEnd,
     isWebView,
     isWkWebView,
     jsPrefix,
+    win,
     textColors = {};
 
 if (isBrowser) {
+    win = window;
     mod = document.createElement('modernizr').style;
     cssPrefix = testPrefix();
-    jsPrefix = cssPrefix.replace(/^\-/, '').replace(/\-$/, '').replace('moz', 'Moz');
+    jsPrefix = cssPrefix.replace(/^-/, '').replace(/-$/, '').replace('moz', 'Moz');
     animEnd = mod.animation !== undefined ? 'animationend' : 'webkitAnimationEnd';
     hasTransition = mod.transition !== undefined;
     // UIWebView on iOS still has the ghost click, 
@@ -119,18 +159,22 @@ if (isBrowser) {
     // In addition in iOS 12.2 if we enable tap handling, it brakes the form inputs
     // (keyboard appears, but the cursor is not in the input).
     isWebView = os === 'ios' && !isSafari;
-    isWkWebView = isWebView && window.webkit && window.webkit.messageHandlers;
+    isWkWebView = isWebView && win.webkit && win.webkit.messageHandlers;
     hasGhostClick = mod.touchAction === undefined || (isWebView && !isWkWebView);
 }
 
 export {
+    addWindowFocus,
     animEnd,
     cssPrefix,
     jsPrefix,
+    listen,
     getPosition,
     getTextColor,
     hasGhostClick,
     hasTransition,
+    removeWindowFocus,
     smoothScroll,
-    testTouch
+    testTouch,
+    unlisten
 };
