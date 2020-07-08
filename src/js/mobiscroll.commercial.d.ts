@@ -1,4 +1,5 @@
-import { MbscBase, ElementRef, AfterViewInit, MbscOptionsService, NgZone } from './frameworks/angular';
+import { AfterViewInit, ElementRef, NgZone } from '@angular/core';
+import { MbscBase, MbscOptionsService } from './frameworks/angular';
 import { MbscCoreOptions } from './core/core';
 export declare class MbscCommercialComponent extends MbscBase implements AfterViewInit {
     optionsService: MbscOptionsService;

@@ -1,8 +1,8 @@
 var babel = require('rollup-plugin-babel');
 var uglify = require('rollup-plugin-uglify').uglify;
 var resolve = require('rollup-plugin-node-resolve');
-var terser = require('rollup-plugin-terser').terser;
-var postprocess = require('rollup-plugin-postprocess');
+// var terser = require('rollup-plugin-terser').terser;
+// var postprocess = require('rollup-plugin-postprocess');
 
 var globals = {
     angular: 'angular',
@@ -61,11 +61,6 @@ module.exports = {
             name: 'mobiscroll',
             format: 'umd',
             banner: '/* eslint-disable */',
-            onwarn(warning) {
-                if (warning.code === 'UNUSED_EXTERNAL_IMPORT') {
-                    return;
-                }
-            },
             plugins: [
                 resolve(),
                 babel(),
@@ -77,7 +72,6 @@ module.exports = {
             ]
         },
         files: {
-            'dist/bundles/mobiscroll.angular.min.js': 'bundles/mobiscroll.angular.min.js',
             'dist/js/mobiscroll.angularjs.min.js': 'bundles/mobiscroll.angularjs.js',
             'dist/js/mobiscroll.javascript.min.js': 'bundles/mobiscroll.javascript.js',
             'dist/js/mobiscroll.jquery.min.js': 'bundles/mobiscroll.jquery.js',
@@ -90,6 +84,7 @@ module.exports = {
             external: external,
             name: 'mobiscroll',
             format: 'es',
+            context: 'this',
             banner: '/* eslint-disable */',
             onwarn(warning) {
                 if (warning.code === 'UNUSED_EXTERNAL_IMPORT') {
@@ -101,29 +96,42 @@ module.exports = {
                 babel({
                     exclude: ['**/*.angular.js', '**/angular.js']
                 }),
-                terser({
-                    mangle: {
-                        keep_fnames: /^Mbsc/,
-                        module: false,
-                        reserved: ['_super'],
-                        toplevel: false,
-                    },
-                    compress: {
-                        join_vars: false,
-                        reduce_vars: false,
-                        sequences: false,
-                    },
-                    output: {
-                        wrap_iife: true,
-                    }
-                }),
-                postprocess([
-                    [/}\)\(\);/, '}());']
-                ])
+                // terser({
+                //     mangle: {
+                //         keep_fnames: /^Mbsc/,
+                //         module: false,
+                //         reserved: ['_super'],
+                //         toplevel: false,
+                //     },
+                //     compress: {
+                //         join_vars: false,
+                //         reduce_vars: false,
+                //         sequences: false,
+                //     },
+                //     output: {
+                //         wrap_iife: true,
+                //     }
+                // }),
+                // postprocess([
+                //     [/}\)\(\);/, '}());']
+                // ])
             ]
         },
         files: {
             'dist/esm5/mobiscroll.angular.min.js': 'bundles/mobiscroll.angular.min.js',
+        }
+    },
+    angular: {
+        options: {
+            globals: globals,
+            external: external,
+            name: 'mobiscroll',
+            format: 'umd',
+            context: 'this',
+            banner: '/* eslint-disable */',
+        },
+        files: {
+            'dist/bundles/mobiscroll.angular.min.js': 'dist/esm5/mobiscroll.angular.min.js',
         }
     }
 };

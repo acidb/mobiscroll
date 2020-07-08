@@ -85,7 +85,7 @@ export const Scroller = function (el, settings, inherit) {
                 index: i,
                 value: val,
                 selected: $item.hasClass('mbsc-sc-itm-sel')
-            }) !== false) {
+            }) !== false && !that._prevItemTap) {
 
             // Select item on tap
             if (wheel.multiple && !wheel._disabled[val]) {
@@ -115,6 +115,8 @@ export const Scroller = function (el, settings, inherit) {
                 }, s.tapSelect ? 0 : 200);
             }
         }
+
+        that._prevItemTap = false;
     }
 
     // Private functions
@@ -168,7 +170,9 @@ export const Scroller = function (el, settings, inherit) {
         return $.isArray(s.readonly) ? s.readonly[i] : s.readonly;
     }
 
-    function initWheel(w, l, keep) {
+    function initWheel(ww, l, keep) {
+        // Create a copy of the wheel, in case if same option object is used for multiple scroller instances
+        var w = extend(wheels[l] || {}, ww);
         var index = w._index - w._batch;
 
         w.data = w.data || [];
@@ -567,17 +571,16 @@ export const Scroller = function (el, settings, inherit) {
 
     that.changeWheel = function (whls, time, manual) {
         var i,
-            w;
+            w,
+            ww;
 
         $.each(whls, function (key, wheel) {
-            w = wheelsMap[key];
+            ww = wheelsMap[key];
             // Check if wheel exists
-            if (w) {
-                i = w._nr;
+            if (ww) {
+                i = ww._nr;
 
-                extend(w, wheel);
-
-                initWheel(w, i, true);
+                w = initWheel(wheel, i, true);
 
                 if (that._isVisible) {
                     if (scroll3d) {
@@ -626,12 +629,12 @@ export const Scroller = function (el, settings, inherit) {
                 (showScrollArrows ? ' mbsc-sc-cp' : '') +
                 (s.width || s.maxWidth ? '"' : '" style="max-width:' + s.maxPopupWidth + 'px;"') + '>';
 
-            $.each(wg, function (j, w) { // Wheels
-
+            $.each(wg, function (j, ww) { // Wheels
                 that._tempSelected[l] = extend({}, that._selected[l]);
 
                 // TODO: this should be done on initialization, not on show
-                wheels[l] = initWheel(w, l);
+                var w = initWheel(ww, l);
+                wheels[l] = w;
 
                 maxPopupWidth += s.maxWidth ? (s.maxWidth[l] || s.maxWidth) : (s.width ? (s.width[l] || s.width) : 0);
 

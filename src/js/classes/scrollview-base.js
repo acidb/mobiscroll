@@ -2,7 +2,7 @@
 import { $, Base, mobiscroll } from '../core/core'; // mobiscroll needed for trial
 import { os, raf, rafc } from '../util/platform';
 import { getCoord } from '../util/tap';
-import { cssPrefix, jsPrefix, getPosition, testTouch } from '../util/dom';
+import { cssPrefix, jsPrefix, getPosition, listen, testTouch, unlisten } from '../util/dom';
 import { constrain, isNumeric, isString } from '../util/misc';
 
 var isIOS = os == 'ios';
@@ -70,7 +70,7 @@ export const ScrollViewBase = function (el, settings, inherit) {
         }
 
         //if (s.prevDef || ev.type == 'mousedown') {
-        if (s.prevDef) {
+        if (s.prevDef && ev.type == 'mousedown') {
             // Prevent touch highlight and focus
             ev.preventDefault();
         }
@@ -240,7 +240,19 @@ export const ScrollViewBase = function (el, settings, inherit) {
         }
     }
 
+    function onClick(ev) {
+        if (that.scrolled) {
+            that.scrolled = false;
+            ev.stopPropagation();
+            ev.preventDefault();
+        }
+    }
+
     function onScroll(ev) {
+        if (!el.contains(ev.target)) {
+            return;
+        }
+
         ev = ev.originalEvent || ev;
 
         diff = vertical ? (ev.deltaY == undefined ? ev.wheelDelta || ev.detail : ev.deltaY) : ev.deltaX;
@@ -595,7 +607,7 @@ export const ScrollViewBase = function (el, settings, inherit) {
         }
 
         if (!noScroll) {
-            that.scroll(s.snap ? (snapPoints ? snapPoints[currSnap]['snap' + currSnapDir] : (currSnap * snap)) : currPos);
+            that.scroll(s.snap ? (snapPoints && snapPoints[currSnap] ? snapPoints[currSnap]['snap' + currSnapDir] : (currSnap * snap)) : currPos);
         }
     };
 
@@ -616,12 +628,17 @@ export const ScrollViewBase = function (el, settings, inherit) {
     that._init = function () {
         that.refresh();
 
-        $elm.on('touchstart mousedown', onStart)
-            .on('touchmove', onMove)
-            .on('touchend touchcancel', onEnd);
+        listen(el, 'mousedown', onStart);
+        listen(el, 'touchstart', onStart, { passive: true });
+        listen(el, 'touchend', onEnd);
+        listen(el, 'touchcancel', onEnd);
+        listen(el, 'click', onClick, true);
+
+        listen(document, 'touchmove', onMove, { passive: false });
 
         if (s.mousewheel) {
-            $elm.on('wheel mousewheel', onScroll);
+            listen(document, 'wheel', onScroll, { passive: false, capture: true });
+            listen(document, 'mousewheel', onScroll, { passive: false, capture: true });
         }
 
         if (scrollbar) {
@@ -629,14 +646,6 @@ export const ScrollViewBase = function (el, settings, inherit) {
                 .on('mousedown', onScrollBarStart)
                 .on('click', onScrollBarClick);
         }
-
-        el.addEventListener('click', function (ev) {
-            if (that.scrolled) {
-                that.scrolled = false;
-                ev.stopPropagation();
-                ev.preventDefault();
-            }
-        }, true);
 
         //el.addEventListener('touchend', function (ev) {
         //    if (scrolled) {
@@ -651,10 +660,15 @@ export const ScrollViewBase = function (el, settings, inherit) {
     that._destroy = function () {
         clearInterval(scrollTimer);
 
-        $elm.off('touchstart mousedown', onStart)
-            .off('touchmove', onMove)
-            .off('touchend touchcancel', onEnd)
-            .off('wheel mousewheel', onScroll);
+        unlisten(el, 'mousedown', onStart);
+        unlisten(el, 'touchstart', onStart, { passive: true });
+        unlisten(el, 'touchend', onEnd);
+        unlisten(el, 'touchcancel', onEnd);
+        unlisten(el, 'click', onClick, true);
+
+        unlisten(document, 'touchmove', onMove, { passive: false });
+        unlisten(document, 'wheel', onScroll, { passive: false, capture: true });
+        unlisten(document, 'mousewheel', onScroll, { passive: false, capture: true });
 
         if (scrollbar) {
             $scrollbarTrack

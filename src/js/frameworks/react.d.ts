@@ -6,6 +6,11 @@ import { MbscPageOptions } from '../classes/page';
 import { MbscPopupOptions } from '../classes/popup';
 import { MbscScrollerOptions } from '../classes/scroller';
 
+export { MbscFormOptions };
+export { MbscPageOptions };
+export { MbscPopupOptions };
+export { MbscScrollerOptions };
+
 /**
  * Generic base types for use later
  * --------------------------------

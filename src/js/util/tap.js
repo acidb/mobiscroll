@@ -1,4 +1,5 @@
 import { mobiscroll } from '../core/mobiscroll';
+import { listen, unlisten } from './dom';
 import { os, majorVersion, isBrowser } from './platform';
 
 let tapped = 0;
@@ -109,9 +110,9 @@ function tap(that, el, handler, prevent, tolerance, time) {
     function onStart(ev) {
         if (!target) {
             // Can't always call preventDefault here, it kills page scroll
-            if (prevent) {
-                ev.preventDefault();
-            }
+            // if (prevent) {
+            //     ev.preventDefault();
+            // }
             target = this;
             startX = getCoord(ev, 'X');
             startY = getCoord(ev, 'Y');
@@ -141,25 +142,41 @@ function tap(that, el, handler, prevent, tolerance, time) {
         }
     }
 
-    function onCancel() {
-        target = false;
-    }
-
-    if (that.settings.tap) {
-        $elm
-            .on('touchstart.mbsc', onStart)
-            .on('touchcancel.mbsc', onCancel)
-            .on('touchmove.mbsc', onMove)
-            .on('touchend.mbsc', onEnd);
-    }
-
-    $elm.on('click.mbsc', function (ev) {
+    function onClick(ev) {
         if (prevent) {
             ev.preventDefault();
         }
         // If handler was not called on touchend, call it on click;
         handler.call(this, ev, that);
+    }
+
+    function onCancel() {
+        target = false;
+    }
+
+    $elm.each(function (i, elm) {
+        if (that.settings.tap) {
+            listen(elm, 'touchstart', onStart, { passive: true });
+            listen(elm, 'touchcancel', onCancel);
+            listen(elm, 'touchmove', onMove, { passive: true });
+            listen(elm, 'touchend', onEnd);
+        }
+        listen(elm, 'click', onClick);
+        elm.__mbscOff = function () {
+            unlisten(elm, 'touchstart', onStart, { passive: true });
+            unlisten(elm, 'touchcancel', onCancel);
+            unlisten(elm, 'touchmove', onMove, { passive: true });
+            unlisten(elm, 'touchend', onEnd);
+            unlisten(elm, 'click', onClick);
+            delete elm.__mbscOff;
+        };
     });
+}
+
+function tapOff($elm) {
+    if ($elm && $elm[0] && $elm[0].__mbscOff) {
+        $elm[0].__mbscOff();
+    }
 }
 
 // Prevent standard behaviour on body click
@@ -194,5 +211,6 @@ export {
     getCoord,
     preventClick,
     triggerClick,
-    tap
+    tap,
+    tapOff
 };

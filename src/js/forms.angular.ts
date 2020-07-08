@@ -1,29 +1,33 @@
 import {
-    extend,
+    Directive,
     Component,
-    MbscBase,
-    MbscControlBase,
-    deepEqualsArray,
-    NgZone,
-    NgControl,
-    Optional,
-    ElementRef,
     Input,
     Output,
     EventEmitter,
-    ViewChild,
-    ViewChildren,
+    ElementRef,
+    NgZone,
+    Optional,
     QueryList,
     Injectable,
     OnInit,
-    Observable,
-    MbscInputService,
-    MbscOptionsService,
     AfterViewInit,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
+    ViewChild,
+    ViewChildren,
     NgModule,
-    CommonModule,
+} from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { NgControl } from '@angular/forms';
+import {
+    extend,
+    MbscBase,
+    MbscBaseModule,
+    MbscControlBase,
+    deepEqualsArray,
+    Observable,
+    MbscInputService,
+    MbscOptionsService,
     emptyOrTrue
 } from './frameworks/angular';
 
@@ -151,7 +155,7 @@ export class MbscTextarea extends MbscInputBase {
     wrap: 'hard' | 'soft' | 'off';
 
     constructor(initialElem: ElementRef, @Optional() _formService: MbscOptionsService, protected _inputService: MbscInputService, @Optional() _control: NgControl, zone: NgZone) {
-        super(initialElem, _formService, _control, _inputService.isControlSet, zone);
+        super(initialElem, _formService, _inputService, _control, zone);
         _inputService.input = this;
     }
 
@@ -233,7 +237,7 @@ export class MbscDropdown extends MbscFormValueBase {
     labelStyle: string;
 
     constructor(hostElem: ElementRef, @Optional() formService: MbscOptionsService, protected _inputService: MbscInputService, @Optional() control: NgControl, zone: NgZone) {
-        super(hostElem, formService, control, _inputService.isControlSet, zone);
+        super(hostElem, formService, _inputService, control, zone);
         _inputService.input = this;
     }
 
@@ -398,8 +402,8 @@ export class MbscCheckbox extends MbscFormValueBase {
         return this._colorClass;
     }
 
-    constructor(hostElem: ElementRef, public cdr: ChangeDetectorRef, @Optional() formService: MbscOptionsService, @Optional() control: NgControl, zone: NgZone) {
-        super(hostElem, formService, control, false, zone);
+    constructor(hostElem: ElementRef, public cdr: ChangeDetectorRef, @Optional() formService: MbscOptionsService, @Optional() _inputService: MbscInputService, @Optional() control: NgControl, zone: NgZone) {
+        super(hostElem, formService, _inputService, control, zone);
     }
 
     initControl() {
@@ -800,7 +804,7 @@ export class MbscRadioService {
     }
 }
 
-
+@Directive({ selector: '[mbsc-rg-b]' })
 export class MbscRadioGroupBase extends MbscFormValueBase {
     @Input()
     name: string;
@@ -812,8 +816,8 @@ export class MbscRadioGroupBase extends MbscFormValueBase {
     }
 
     valueObserver: number;
-    constructor(hostElement: ElementRef, @Optional() formService: MbscOptionsService, public _radioService: MbscRadioService, control: NgControl, zone: NgZone) {
-        super(hostElement, formService, control, null, zone);
+    constructor(hostElement: ElementRef, @Optional() formService: MbscOptionsService, @Optional() _inputService: MbscInputService, public _radioService: MbscRadioService, control: NgControl, zone: NgZone) {
+        super(hostElement, formService, _inputService, control, zone);
         this.valueObserver = this._radioService.onValueChanged().subscribe((v: any) => {
             this.innerValue = v;
             this.onTouch();
@@ -856,8 +860,8 @@ export class MbscRadioGroupBase extends MbscFormValueBase {
     providers: [MbscRadioService]
 })
 export class MbscRadioGroup extends MbscRadioGroupBase {
-    constructor(hostElement: ElementRef, @Optional() formService: MbscOptionsService, radioService: MbscRadioService, @Optional() control: NgControl, zone: NgZone) {
-        super(hostElement, formService, radioService, control, zone);
+    constructor(hostElement: ElementRef, @Optional() formService: MbscOptionsService, @Optional() _inputService: MbscInputService, radioService: MbscRadioService, @Optional() control: NgControl, zone: NgZone) {
+        super(hostElement, formService, _inputService, radioService, control, zone);
     }
 }
 
@@ -964,8 +968,8 @@ export class MbscSegmentedGroup extends MbscRadioGroupBase {
         return this.select == 'multiple';
     }
 
-    constructor(hostElement: ElementRef, @Optional() formService: MbscOptionsService, radioService: MbscRadioService, @Optional() control: NgControl, zone: NgZone) {
-        super(hostElement, formService, radioService, control, zone);
+    constructor(hostElement: ElementRef, @Optional() formService: MbscOptionsService, @Optional() _inputService: MbscInputService, radioService: MbscRadioService, @Optional() control: NgControl, zone: NgZone) {
+        super(hostElement, formService, _inputService, radioService, control, zone);
     }
 
     ngOnInit() {
@@ -1517,6 +1521,7 @@ const comp = [
     MbscStepper,
     MbscProgress,
     MbscRadioGroup,
+    MbscRadioGroupBase,
     MbscRadio,
     MbscSegmentedGroup,
     MbscSegmented,
@@ -1529,7 +1534,7 @@ const comp = [
 ];
 
 @NgModule({
-    imports: [FormsModule, CommonModule, MbscInputModule],
+    imports: [FormsModule, CommonModule, MbscBaseModule, MbscInputModule],
     declarations: comp,
     exports: [comp, MbscInputModule, MbscInput]
 })

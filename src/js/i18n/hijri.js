@@ -94,7 +94,7 @@ calendars.hijri = {
     getDate: function (y, m, d, h, i, s, u) {
         if (m < 0) {
             y += Math.floor(m / 12);
-            m = 12 + m % 12;
+            m = m % 12 ? 12 + m % 12 : 0;
         }
         if (m > 11) {
             y += Math.floor(m / 12);
@@ -106,6 +106,15 @@ calendars.hijri = {
         return new Date(gregorianDate[0], gregorianDate[1] - 1, gregorianDate[2], h || 0, i || 0, s || 0, u || 0);
     },
     getMaxDayOfMonth: function (hY, hM) {
+        if (hM < 0) {
+            hY += Math.floor(hM / 12);
+            hM = hM % 12 ? 12 + hM % 12 : 0;
+        }
+        if (hM > 11) {
+            hY += Math.floor(hM / 12);
+            hM = hM % 12;
+        }
+
         var daysPerMonth = [30, 29, 30, 29, 30, 29, 30, 29, 30, 29, 30, 29],
             leapYear = (hY * 11 + 14) % 30 < 11;
 

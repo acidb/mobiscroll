@@ -1,5 +1,5 @@
 import { $, Base, mobiscroll, classes, autoInit } from '../core/core';
-import { hasGhostClick } from '../util/dom';
+import { hasGhostClick, listen, unlisten } from '../util/dom';
 import { os, majorVersion } from '../util/platform';
 import { initControls } from '../util/forms';
 import '../util/notifications';
@@ -36,7 +36,8 @@ export const Form = function (el, settings) {
         }
 
         if (!$ctx.hasClass('mbsc-form')) {
-            $ctx.on('touchstart', touched).show();
+            $ctx.show();
+            listen($ctx[0], 'touchstart', touched, { passive: true });
         }
 
         if (cssClass) {
@@ -61,7 +62,8 @@ export const Form = function (el, settings) {
      * Destroys the mobiscroll instance.
      */
     that._destroy = function () {
-        $ctx.removeClass(cssClass).off('touchstart', touched);
+        $ctx.removeClass(cssClass);
+        unlisten($ctx[0], 'touchstart', touched, { passive: true });
 
         for (var id in controls) {
             controls[id].destroy();

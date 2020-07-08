@@ -1,14 +1,18 @@
+
+import {
+    Component,
+    Input,
+    ElementRef,
+    NgZone,
+    OnInit,
+    ViewChild,
+    NgModule,
+} from '@angular/core';
 import {
     extend,
-    Component,
     MbscBase,
-    ElementRef,
-    ViewChild,
-    Input,
-    OnInit,
+    MbscBaseModule,
     MbscOptionsService,
-    NgModule,
-    NgZone
 } from './frameworks/angular';
 
 import { Page, MbscPageOptions } from './classes/page';
@@ -81,7 +85,8 @@ export class MbscAvatar {
 }
 
 @NgModule({
+    imports: [MbscBaseModule],
     declarations: [MbscPage, MbscNote, MbscAvatar],
     exports: [MbscPage, MbscNote, MbscAvatar]
 })
-export class MbscPageModule {}
+export class MbscPageModule { }

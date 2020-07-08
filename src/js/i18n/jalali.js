@@ -125,7 +125,7 @@ calendars.jalali = {
     getDate: function (y, m, d, h, i, s, u) {
         if (m < 0) {
             y += Math.floor(m / 12);
-            m = 12 + m % 12;
+            m = m % 12 ? 12 + m % 12 : 0;
         }
         if (m > 11) {
             y += Math.floor(m / 12);
@@ -137,6 +137,14 @@ calendars.jalali = {
     },
     getMaxDayOfMonth: function (y, m) {
         var maxdays = 31;
+        if (m < 0) {
+            y += Math.floor(m / 12);
+            m = m % 12 ? 12 + m % 12 : 0;
+        }
+        if (m > 11) {
+            y += Math.floor(m / 12);
+            m = m % 12;
+        }
         while (checkDate(y, m + 1, maxdays) === false) {
             maxdays--;
         }

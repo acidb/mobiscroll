@@ -1,7 +1,7 @@
 import { $, extend, Base, mobiscroll, classes } from '../core/core';
 import { os, majorVersion, isBrowser, userAgent } from '../util/platform';
-import { animEnd } from '../util/dom';
-import { getCoord, preventClick } from '../util/tap';
+import { animEnd, closest, listen, unlisten } from '../util/dom';
+import { getCoord, preventClick, tapOff } from '../util/tap';
 import { constrain, isString, noop } from '../util/misc';
 import { resizeObserver } from '../util/resize-observer';
 
@@ -63,12 +63,23 @@ export const Frame = function (el, settings, inherit) {
         lastFocus = new Date();
 
     function onBtnStart(ev) {
+        // Need this to prevent opening of sidemenus or similar
+        if (s.stopProp) {
+            ev.stopPropagation();
+        }
+
+        var b = closest(this, ev.target, '.mbsc-fr-btn-e');
+
+        if (!b) {
+            return;
+        }
+
         // Can't call preventDefault here, it kills page scroll
         if (btn) {
             btn.removeClass('mbsc-active');
         }
 
-        btn = $(this);
+        btn = $(b);
 
         // Active button
         if (!btn.hasClass('mbsc-disabled') && !btn.hasClass('mbsc-fr-btn-nhl')) {
@@ -77,8 +88,6 @@ export const Frame = function (el, settings, inherit) {
 
         if (ev.type === 'mousedown') {
             $(document).on('mouseup', onBtnEnd);
-        } else if (ev.type === 'pointerdown') {
-            $(document).on('pointerup', onBtnEnd);
         }
     }
 
@@ -90,8 +99,12 @@ export const Frame = function (el, settings, inherit) {
 
         if (ev.type === 'mouseup') {
             $(document).off('mouseup', onBtnEnd);
-        } else if (ev.type === 'pointerup') {
-            $(document).off('pointerup', onBtnEnd);
+        }
+    }
+
+    function onScroll(ev) {
+        if (scrollLock && markup.contains(ev.target)) {
+            ev.preventDefault();
         }
     }
 
@@ -203,6 +216,26 @@ export const Frame = function (el, settings, inherit) {
             onShow(prevFocus);
         }
 
+        function onOverlayStart(ev) {
+            if (!target && ev.target == overlay) {
+                target = true;
+                moved = false;
+                startX = getCoord(ev, 'X');
+                startY = getCoord(ev, 'Y');
+            }
+        }
+
+        function onOverlayMove(ev) {
+            if (target && !moved && (Math.abs(getCoord(ev, 'X') - startX) > 9 || Math.abs(getCoord(ev, 'Y') - startY) > 9)) {
+                moved = true;
+            }
+        }
+
+        // Might be not visible if immediately hidden
+        if (!that._isVisible) {
+            return;
+        }
+
         // Show
         if (isModal) {
             $markup.appendTo($ctx);
@@ -236,20 +269,12 @@ export const Frame = function (el, settings, inherit) {
                 startX,
                 startY;
 
+            listen(overlay, 'touchstart', onOverlayStart, { passive: true });
+            listen(overlay, 'touchmove', onOverlayMove, { passive: true });
+
             $overlay
-                .on('touchstart mousedown', function (ev) {
-                    if (!target && ev.target == overlay) {
-                        target = true;
-                        moved = false;
-                        startX = getCoord(ev, 'X');
-                        startY = getCoord(ev, 'Y');
-                    }
-                })
-                .on('touchmove mousemove', function (ev) {
-                    if (target && !moved && (Math.abs(getCoord(ev, 'X') - startX) > 9 || Math.abs(getCoord(ev, 'Y') - startY) > 9)) {
-                        moved = true;
-                    }
-                })
+                .on('mousedown', onOverlayStart)
+                .on('mousemove', onOverlayMove)
                 .on('touchcancel', function () {
                     target = false;
                 })
@@ -266,12 +291,6 @@ export const Frame = function (el, settings, inherit) {
 
         $markup
             .on('mousedown', '.mbsc-btn-e,.mbsc-fr-btn-e', prevdef)
-            .on('touchstart mousedown', function (ev) {
-                // Need this to prevent opening of sidemenus or similar
-                if (s.stopProp) {
-                    ev.stopPropagation();
-                }
-            })
             .on('keydown', '.mbsc-fr-btn-e', function (ev) {
                 if (ev.keyCode == 32) { // Space
                     ev.preventDefault();
@@ -302,16 +321,18 @@ export const Frame = function (el, settings, inherit) {
                     }
                 }
             })
-            .on('touchstart mousedown pointerdown', '.mbsc-fr-btn-e', onBtnStart)
             .on('touchend', '.mbsc-fr-btn-e', onBtnEnd);
 
+        listen(markup, 'touchstart', onBtnStart, { passive: true });
+        listen(markup, 'mousedown', onBtnStart);
+
         // Need event capture for this
-        markup.addEventListener('touchstart', function () {
+        listen(markup, 'touchstart', function () {
             if (!touched) {
                 touched = true;
                 $ctx.find('.mbsc-no-touch').removeClass('mbsc-no-touch');
             }
-        }, true);
+        }, { passive: true, capture: true });
 
         // Init buttons
         $.each(buttons, function (i, b) {
@@ -420,8 +441,8 @@ export const Frame = function (el, settings, inherit) {
 
         oldWidth = wndWidth;
         oldHeight = wndHeight;
-        newHeight = markup.offsetHeight;
-        newWidth = markup.offsetWidth;
+        newHeight = Math.min(markup.offsetHeight, hasContext ? Infinity : window.innerHeight);
+        newWidth = Math.min(markup.offsetWidth, hasContext ? Infinity : window.innerWidth);
 
         if (!newWidth || !newHeight || (wndWidth === newWidth && wndHeight === newHeight && check)) {
             return;
@@ -567,6 +588,8 @@ export const Frame = function (el, settings, inherit) {
         var $label,
             $elm = $(elm).off('.mbsc'),
             readOnly = $elm.prop('readonly');
+
+        tapOff($elm);
 
         if (s.display !== 'inline') {
             if ((s.showOnFocus || s.showOnTap) && $elm.is('input,select')) {
@@ -863,11 +886,9 @@ export const Frame = function (el, settings, inherit) {
 
             // Prevent scroll if not specified otherwise
             if (s.scrollLock) {
-                $markup.on('touchmove mousewheel wheel', function (ev) {
-                    if (scrollLock) {
-                        ev.preventDefault();
-                    }
-                });
+                listen(document, 'touchmove', onScroll, { passive: false });
+                listen(document, 'mousewheel', onScroll, { passive: false });
+                listen(document, 'wheel', onScroll, { passive: false });
             }
 
             if (s.focusTrap) {
@@ -919,6 +940,9 @@ export const Frame = function (el, settings, inherit) {
             }
             $(window).off('keydown', onWndKeyDown);
             $wnd.off('focusin', onFocus);
+            unlisten(document, 'touchmove', onScroll, { passive: false });
+            unlisten(document, 'mousewheel', onScroll, { passive: false });
+            unlisten(document, 'wheel', onScroll, { passive: false });
         }
 
         // Hide wheels and overlay
@@ -1005,11 +1029,15 @@ export const Frame = function (el, settings, inherit) {
 
         $elm.off('.mbsc');
 
+        tapOff($elm);
+
         // Remove all events from elements
         $.each(elmList, function (i, v) {
             v.el.off('.mbsc').prop('readonly', v.readOnly);
+            tapOff(v.el);
             if (v.lbl) {
                 v.lbl.off('.mbsc');
+                tapOff(v.lbl);
             }
         });
 
@@ -1103,6 +1131,7 @@ export const Frame = function (el, settings, inherit) {
 
         // Unbind all events (if re-init)
         $elm.off('.mbsc');
+        tapOff($elm);
 
         that.__init(newSettings);
 

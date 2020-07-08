@@ -26,7 +26,7 @@ export class MbscScrollViewBase extends MbscBase {
 MbscScrollViewBase.propTypes = {
     ...CorePropTypes,
     itemWidth: PropTypes.number,
-    layout: PropTypes.oneOf(['liquid', 'fixed']),
+    layout: PropTypes.oneOfType([PropTypes.number, PropTypes.oneOf(['liquid', 'fixed'])]),
     mousewheel: PropTypes.bool,
     snap: PropTypes.bool,
     threshold: PropTypes.number,

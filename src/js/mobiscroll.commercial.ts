@@ -1,14 +1,16 @@
 import {
+    AfterViewInit,
     Component,
+    Input,
+    ElementRef,
+    NgZone,
+    Optional,
+    ViewChild,
+} from '@angular/core';
+import {
     mobiscroll,
     MbscBase,
-    ElementRef,
-    ViewChild,
-    Input,
-    AfterViewInit,
     MbscOptionsService,
-    Optional,
-    NgZone
 } from './frameworks/angular';
 
 import { MbscCoreOptions } from './core/core';

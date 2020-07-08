@@ -1,19 +1,18 @@
 import {
-    MbscBase,
-    extend,
+    Directive,
     Input,
     Output,
     EventEmitter,
     ElementRef,
+    NgModule,
     NgZone,
     Injectable,
-    Observable,
     AfterViewInit,
     OnDestroy
-} from '../frameworks/angular';
+} from '@angular/core';
+import { CommonModule } from '@angular/common';
 
-import { MbscScrollViewOptions } from './scrollview';
-
+import { MbscBase, MbscBaseModule, Observable } from '../frameworks/angular';
 
 @Injectable()
 export class MbscNotifyItemService {
@@ -39,6 +38,7 @@ export class MbscNotifyItemService {
     }
 }
 
+@Directive({ selector: '[mbsc-si-b' })
 export class MbscScrollItemBase implements AfterViewInit, OnDestroy {
     @Input()
     id: string;
@@ -74,6 +74,7 @@ export class MbscScrollItemBase implements AfterViewInit, OnDestroy {
     }
 }
 
+@Directive({ selector: '[mbsc-s-b' })
 export class MbscScrollViewBase extends MbscBase {
 
     // Settings
@@ -114,3 +115,9 @@ export class MbscScrollViewBase extends MbscBase {
         super(initialElem, zone);
     }
 }
+
+@NgModule({
+    imports: [CommonModule, MbscBaseModule],
+    declarations: [MbscScrollItemBase, MbscScrollViewBase],
+})
+export class MbscScrollViewBaseModule { }

@@ -1,6 +1,6 @@
 import { $, extend, mobiscroll } from '../core/core';
 import { getCoord } from '../util/tap';
-import { testTouch } from '../util/dom';
+import { closest, testTouch, listen, unlisten } from '../util/dom';
 
 export default mobiscroll;
 
@@ -43,14 +43,16 @@ function removeRipple($r) {
 
 function initRipple($markup, selector, disabled, nohl) {
     var startX,
-        startY;
+        startY,
+        markup = $markup[0];
 
-    $markup.off('.mbsc-ripple').on('touchstart.mbsc-ripple mousedown.mbsc-ripple', selector, function (ev) {
-        if (testTouch(ev, this)) {
+    function onStart(ev) {
+        var target = closest(markup, ev.target, selector);
+        if (target && testTouch(ev, target)) {
             startX = getCoord(ev, 'X');
             startY = getCoord(ev, 'Y');
 
-            $active = $(this);
+            $active = $(target);
 
             if (!$active.hasClass(disabled) && !$active.hasClass(nohl)) {
                 addRipple($active, ev);
@@ -58,19 +60,49 @@ function initRipple($markup, selector, disabled, nohl) {
                 $active = null;
             }
         }
-    }).on('touchmove.mbsc-ripple mousemove.mbsc-ripple', selector, function (ev) {
+    }
+
+    function onMove(ev) {
         if ($active && Math.abs(getCoord(ev, 'X') - startX) > 9 || Math.abs(getCoord(ev, 'Y') - startY) > 9) {
             removeRipple($ripple);
             $active = null;
         }
-    }).on('touchend.mbsc-ripple touchcancel.mbsc-ripple mouseleave.mbsc-ripple mouseup.mbsc-ripple', selector, function () {
+    }
+
+    function onEnd() {
         if ($active) {
             setTimeout(function () {
                 removeRipple($ripple);
             }, 100);
             $active = null;
         }
-    });
+    }
+
+    if (markup) {
+        if (markup.__mbscRippleOff) {
+            markup.__mbscRippleOff();
+        }
+        listen(markup, 'touchstart', onStart, { passive: true });
+        listen(markup, 'mousedown', onStart);
+        listen(markup, 'touchmove', onMove, { passive: true });
+        listen(markup, 'mousemove', onMove);
+        listen(markup, 'touchend', onEnd);
+        listen(markup, 'touchcancel', onEnd);
+        listen(markup, 'mouseleave', onEnd);
+        listen(markup, 'mouseup', onEnd);
+
+        markup.__mbscRippleOff = function () {
+            unlisten(markup, 'touchstart', onStart, { passive: true });
+            unlisten(markup, 'mousedown', onStart);
+            unlisten(markup, 'touchmove', onMove, { passive: true });
+            unlisten(markup, 'mousemove', onMove);
+            unlisten(markup, 'touchend', onEnd);
+            unlisten(markup, 'touchcancel', onEnd);
+            unlisten(markup, 'mouseleave', onEnd);
+            unlisten(markup, 'mouseup', onEnd);
+            delete markup.__mbscRippleOff;
+        };
+    }
 }
 
 var $active,
@@ -126,7 +158,9 @@ themes.navigation.material = {
         $('.mbsc-ripple', this).remove();
     },
     onDestroy: function () {
-        $(this).off('.mbsc-ripple');
+        if (this.__mbscRippleOff) {
+            this.__mbscRippleOff();
+        }
     }
 };
 

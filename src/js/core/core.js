@@ -1,7 +1,7 @@
 /*!
- * Mobiscroll v4.10.2
+ * Mobiscroll v4.10.6
  * http://mobiscroll.com
- * 
+ *
  *
  * Copyright 2010-2018, Acid Media
  *
@@ -35,6 +35,8 @@ function getThemeName(s) {
         ms.themes.form[themeName + '-dark']
     ) {
         themeName = themeName + '-dark';
+    } else if (themeVariant === 'light' && /.+-dark$/.test(themeName)) {
+        themeName = themeName.replace(/-dark$/, '');
     }
 
     return themeName;
@@ -104,7 +106,7 @@ extend(util, {
 
 ms = extend(mobiscroll, {
     $: $,
-    version: '4.10.2',
+    version: '4.10.6',
     autoTheme: 'mobiscroll',
     themes: {
         form: {},
@@ -176,7 +178,7 @@ const Base = function (el, settings) {
     };
 
     that._getRespCont = function () {
-        return $(s.context)[0];
+        return $(s.context == 'body' ? window : s.context);
     };
 
     that.init = function (newSettings, newValue) {

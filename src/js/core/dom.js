@@ -1,4 +1,5 @@
 import { mobiscroll } from './mobiscroll';
+import { matches, trigger } from '../util/dom';
 
 export { mobiscroll };
 
@@ -227,7 +228,7 @@ var Dom = (function () {
             if (isObject(selector)) {
                 collection = $(selector);
             }
-            while (node && !(collection ? collection.indexOf(node) >= 0 : $.matches(node, selector))) {
+            while (node && !(collection ? collection.indexOf(node) >= 0 : matches(node, selector))) {
                 node = node !== context && node.nodeType !== node.DOCUMENT_NODE && node.parentNode;
             }
 
@@ -456,19 +457,7 @@ var Dom = (function () {
             var events = eventName.split(' ');
             for (var i = 0; i < events.length; i++) {
                 for (var j = 0; j < this.length; j++) {
-                    var evt;
-                    try {
-                        evt = new CustomEvent(events[i], {
-                            detail: eventData,
-                            bubbles: true,
-                            cancelable: true
-                        });
-                    } catch (e) {
-                        evt = document.createEvent('Event');
-                        evt.initEvent(events[i], true, true);
-                        evt.detail = eventData;
-                    }
-                    this[j].dispatchEvent(evt);
+                    trigger(this[j], events[i], eventData);
                 }
             }
             return this;
@@ -630,7 +619,7 @@ var Dom = (function () {
                     if (callback.call(this[i], i, this[i])) {
                         matchedItems.push(this[i]);
                     }
-                } else if ($.matches(this[i], callback)) {
+                } else if (matches(this[i], callback)) {
                     matchedItems.push(this[i]);
                 }
             }
@@ -659,7 +648,7 @@ var Dom = (function () {
             }
         },
         is: function (selector) {
-            return this.length > 0 && $.matches(this[0], selector);
+            return this.length > 0 && matches(this[0], selector);
         },
         not: function (selector) {
             var nodes = [];
@@ -1124,17 +1113,6 @@ $.map = function (elements, callback) {
     }
 
     return values.length > 0 ? $.fn.concat.apply([], values) : values;
-};
-
-$.matches = function (element, selector) {
-    if (!selector || !element || element.nodeType !== 1) {
-        return false;
-    }
-
-    var matchesSelector = element.matchesSelector || element.webkitMatchesSelector || element.mozMatchesSelector || element.msMatchesSelector;
-
-    return matchesSelector.call(element, selector);
-
 };
 
 export {

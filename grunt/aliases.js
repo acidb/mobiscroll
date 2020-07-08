@@ -13,6 +13,7 @@ module.exports = {
         'rollup:dev',
         'rollup:prod',
         'rollup:esm',
+        'rollup:angular',
         'copy:icons',
         'copy:metadata',
         'copy:dist'

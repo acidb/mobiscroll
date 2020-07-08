@@ -1,5 +1,6 @@
 import * as tslib_1 from "tslib";
-import { Component, mobiscroll, MbscBase, ElementRef, ViewChild, Input, MbscOptionsService, Optional, NgZone } from './frameworks/angular';
+import { Component, Input, ElementRef, NgZone, Optional, ViewChild, } from '@angular/core';
+import { mobiscroll, MbscBase, MbscOptionsService, } from './frameworks/angular';
 var MbscCommercialComponent = (function (_super) {
     tslib_1.__extends(MbscCommercialComponent, _super);
     function MbscCommercialComponent(hostElement, optionsService, zone) {

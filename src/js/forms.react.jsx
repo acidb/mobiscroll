@@ -902,6 +902,7 @@ class MbscSlider extends MbscColored {
         live: reactBool,
         stepLabels: PropTypes.arrayOf(reactNumber),
         "data-icon": reactString,
+        icon: reactString,
         tooltip: reactBool,
         val: PropTypes.oneOf(['left', 'right']),
         disabled: reactBool,
@@ -918,7 +919,7 @@ class MbscSlider extends MbscColored {
     }
 
     componentDidMount() {
-        // get settings from state 
+        // get settings from state
         var settings = this.getSettingsFromProps(this.props);
         // initialize the mobiscroll
         this.instance = new Slider(this.firstInput, settings);
@@ -948,7 +949,7 @@ class MbscSlider extends MbscColored {
 
     onValueChanged() {
         // this is not triggered - or the event propagation is stopped somewhere on the line
-        // to counter this we attach our own change handler in the `componentDidMount` function 
+        // to counter this we attach our own change handler in the `componentDidMount` function
     }
 
     render() {
@@ -1039,7 +1040,7 @@ class MbscRating extends MbscColored {
     }
 
     parentMounted(label) {
-        this.label = label;
+        this.label = ReactDOM.findDOMNode(label);
     }
 
     render() {
