@@ -57,15 +57,13 @@ as well in the js file, where Mobiscroll components are used:
 Elements
 -----------------
 
-#### Single and multiline text
+#### Single and multiline text ([live example](https://demo.mobiscroll.com/react/inputs-fields))
 
 Text fields are the backbone of every form. Use it to capture a wide range of properties from plain text to passwords.
 
 Use labels, icons, placeholders or a combination of them to help users get meaning at a glance. Show/hide functionality built in for password fields.
 
 <img src="https://github.com/acidb/mobiscroll/blob/master/img/text-input.png?raw=true" width="50%">
-
-See [live examples for single and multiline text](https://demo.mobiscroll.com/react/inputs-fields).
 
 #### Select styling
 
