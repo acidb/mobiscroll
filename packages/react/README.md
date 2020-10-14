@@ -190,11 +190,11 @@ Commercial Components
 
 Documentation
 -----------------
-For the complete documentation of Mobiscroll Forms and all products, please visit https://docs.mobiscroll.com
+For the complete documentation of Mobiscroll Forms and all products, please visit https://docs.mobiscroll.com/react
 
 Demos and examples
 -----------------
-- Demos for Mobiscroll Froms (FREE) can be found at https://demo.mobiscroll.com/forms
+- Demos for Mobiscroll Froms (FREE) can be found at https://demo.mobiscroll.com/react/forms
 - Over 250 live demos with downloadable code can be found at https://demo.mobiscroll.com
 
 Getting help
