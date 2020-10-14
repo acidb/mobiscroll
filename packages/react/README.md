@@ -3,11 +3,16 @@ Mobiscroll
 
 What is Mobiscroll?
 -----------------
-Mobiscroll is a UI library of components for progressive webapps and hybrid development. Created with a lot of attention to usability and performance. [Mobiscroll Forms](https://mobiscroll.com/forms) ships with 15 customizable controls that you can use for free that are included in this repository. Use Forms with the premium products that can be found on the [Mobiscroll website](https://mobiscroll.com).
+Mobiscroll is a UI library for progressive webapps and hybrid development. Created with a lot of attention to usability and performance. [Mobiscroll Forms](https://mobiscroll.com/forms) ships with 15 customizable controls that you can use for free that are included in this repository. For advanced functionality use Froms with:
+
+* [Event calendar & Scheduler](https://mobiscroll.com/event-calendar-scheduler)
+* [Datetime pickers & Calendars](https://mobiscroll.com/date-time-picker-calendar)
+* [Select, pickers & dropdowns](https://mobiscroll.com/select-pickers-scroller-dropdown)
+* [Listview & card layout](https://mobiscroll.com/listview-with-cards-gestures)
 
 Where can I use Mobiscroll?
 -----------------
-You can use the controls in web and hybrid/native cross-platform apps. At it's core Mobiscroll is framework agnostic, but API variants for jQuery/jQuery Mobile, Angular/Ionic and React are available.
+You can use the controls in mobile/desktop web and hybrid cross-platform apps. Use it with React and frameworks like Ionic for React.
 
 Installation
 -----------------
@@ -148,6 +153,41 @@ Choose to provide an action with the message, like UNDO or RETRY, something that
 
 <img src="https://github.com/acidb/mobiscroll/blob/master/img/notifications.png?raw=true" width="50%">
 
+Commercial Components
+-----------------
+
+#### Date & time pickes
+
+* [Calendar](https://demo.mobiscroll.com/react/calendar)
+* [Date & Time](https://demo.mobiscroll.com/react/datetime)
+* [Range](https://demo.mobiscroll.com/react/range)
+* [Timespan](https://demo.mobiscroll.com/react/timespan)
+
+#### Event calendar & scheduler
+
+* [Event calendar](https://demo.mobiscroll.com/react/eventcalendar)
+
+#### Pickers & dropdowns
+
+* [Select](https://demo.mobiscroll.com/react/select)
+* [Scroller](https://demo.mobiscroll.com/react/scroller)
+* [Treelist](https://demo.mobiscroll.com/react/list)
+* [Image](https://demo.mobiscroll.com/react/image)
+* [Color](https://demo.mobiscroll.com/react/color)
+* [Optionlist](https://demo.mobiscroll.com/react/optionlist)
+
+#### Pickers & dropdowns
+
+* [Numpad](https://demo.mobiscroll.com/react/numpad)
+* [Number](https://demo.mobiscroll.com/react/number)
+* [Measurement](https://demo.mobiscroll.com/react/measurement)
+
+#### Gesture enabled responsive list
+
+* [Listview](https://demo.mobiscroll.com/react/listview)
+* [Scrollview](https://demo.mobiscroll.com/react/scrollview)
+* [Cards](https://demo.mobiscroll.com/react/cards)
+
 Documentation
 -----------------
 For the complete documentation of Mobiscroll Forms and all products, please visit https://docs.mobiscroll.com
@@ -155,15 +195,16 @@ For the complete documentation of Mobiscroll Forms and all products, please visi
 Demos and examples
 -----------------
 - Demos for Mobiscroll Froms (FREE) can be found at https://demo.mobiscroll.com/forms
-- Over 150 live demos with downloadable code can be found at https://demo.mobiscroll.com
+- Over 250 live demos with downloadable code can be found at https://demo.mobiscroll.com
 
 Getting help
 -----------------
 - Report bugs to the [issues list](https://github.com/acidb/mobiscroll/issues?q=is%3Aopen) for all Mobiscroll products.
 - Browse the [learning section](https://mobiscroll.com/support) and [help center](http://help.mobiscroll.com) for resources and more information on the products.
 - Submit and answer questions on [StackOverflow](http://stackoverflow.com/questions/tagged/mobiscroll) with the 'mobiscroll' tag.
+- Join the [community forum](https://forum.mobiscroll.com).
 
-The Mobiscroll team does not provide technical support for Mobiscroll Forms. To get support please [purchase a license from our website](https://mobiscroll.com/pricing).
+The Mobiscroll team does not provide technical support for Mobiscroll Lite. To get support from the team [purchase a license](https://mobiscroll.com/pricing) or join the [community forums](https://forum.mobiscroll.com)
 
 Release notes
 -----------------
@@ -177,15 +218,12 @@ Twitter http://twitter.com/mobiscroll
 
 Facebook https://www.facebook.com/mobiscroll
 
-Google+ https://plus.google.com/+MobiscrollUI
-
-
 License Information
 -----------------
 
 This project has been released under the Apache License, version 2.0, the text of which is included below. This license applies ONLY to the source of this repository and does not extend to any other Mobiscroll distribution or variant, or any other 3rd party libraries used in a repository. For licensing information about Mobiscroll, see the [License Agreements page at mobiscroll.com](https://mobiscroll.com/eula).
 
->Copyright © 2018 Mobiscroll
+>Copyright © 2020 Mobiscroll
 
 >Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
 
