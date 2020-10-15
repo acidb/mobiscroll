@@ -65,15 +65,13 @@ Use labels, icons, placeholders or a combination of them to help users get meani
 
 <img src="https://github.com/acidb/mobiscroll/blob/master/img/text-input.png?raw=true" width="50%">
 
-#### Select styling
+#### Select styling ([live example](https://demo.mobiscroll.com/react/inputs-fields/select))
 
 Similar to the single line input styling, it features a chevron/dropdown arrow to clearly signal the difference between select and text input.
 
 <img src="https://github.com/acidb/mobiscroll/blob/master/img/select-styling.png?raw=true" width="50%">
 
-See [live examples for select & dropdown fields](https://demo.mobiscroll.com/react/inputs-fields/select).
-
-#### Buttons
+#### Buttons ([live example](https://demo.mobiscroll.com/react/buttons))
 
 Buttons with different states, styles and alignments. Inline or raised, left aligned, right aligned, centered or justified. Full-width buttons supported as well.
 
@@ -81,17 +79,13 @@ Use it with or without icons.
 
 <img src="https://github.com/acidb/mobiscroll/blob/master/img/buttons.png?raw=true" width="50%">
 
-See [live examples for buttons](https://demo.mobiscroll.com/react/buttons).
-
-#### Segmented control
+#### Segmented control ([live example](https://demo.mobiscroll.com/react/buttons/segmented))
 
 Easily lay out two to five options for single and multiple select. Making all options instantly visible lets users make selections with a single interaction instead of at least 3 (tap to open select, do the select, hit set - like for the traditional dropdown).
 
 <img src="https://github.com/acidb/mobiscroll/blob/master/img/segmented.png?raw=true" width="50%">
 
-See [live examples for segmented buttons](https://demo.mobiscroll.com/react/buttons/segmented).
-
-#### Checkbox and checklist
+#### Checkbox and checklist ([live example](https://demo.mobiscroll.com/react/toggle-radio))
 
 Similar to the native checkbox in functionality but a look and feel that fits with the overall user experience and theme. Features description text, checkbox list and disabled styling.
 
@@ -99,9 +93,7 @@ Excellent choice for inline multi-select lists.
 
 <img src="https://github.com/acidb/mobiscroll/blob/master/img/checkbox.png?raw=true" width="50%">
 
-See [live examples for checkbox](https://demo.mobiscroll.com/react/toggle-radio).
-
-#### Radio button list
+#### Radio button list ([live example](https://demo.mobiscroll.com/react/toggle-radio/radio-button))
 
 Single select for a list of options. Use it instead of the segmented control if there are more items that would fit in a single line.
 
@@ -109,9 +101,7 @@ Usually a good choice for five options and above. Features disabled styling and 
 
 <img src="https://github.com/acidb/mobiscroll/blob/master/img/radio.png?raw=true" width="50%">
 
-See [live examples for radio buttons](https://demo.mobiscroll.com/react/toggle-radio/radio-button).
-
-#### Switch
+#### Switch ([live example](https://demo.mobiscroll.com/react/toggle-radio/switch))
 
 Just like the checkbox, the switch lets users turn options on/off. Can be rendered as a list of fields, like the checkbox list or as a stand-alone control.
 
@@ -119,25 +109,19 @@ Features optional description and disabled styling.
 
 <img src="https://github.com/acidb/mobiscroll/blob/master/img/switch.png?raw=true" width="50%">
 
-See [live examples for the switch](https://demo.mobiscroll.com/react/toggle-radio/switch).
-
-#### Stepper
+#### Stepper ([live example](https://demo.mobiscroll.com/react/buttons/stepper))
 
 When users need to make small adjustments to values by increasing or decreasing it avoid free-form input and dropdowns. Steppers help in minimizing mistakes, and reduce the number of taps for getting the values right.
 
 <img src="https://github.com/acidb/mobiscroll/blob/master/img/stepper.png?raw=true" width="50%">
 
-See [live examples for the stepper](https://demo.mobiscroll.com/react/buttons/stepper).
-
-#### Page and typography
+#### Page and typography ([live example](https://demo.mobiscroll.com/react/styling))
 
 Takes care of setting the background colors, spacing and typographic styling. It makes sure that the content you add shows up nicely on any screen-size.
 
 <img src="https://github.com/acidb/mobiscroll/blob/master/img/typography.png?raw=true" width="50%">
 
-See [live examples for page & typography](https://demo.mobiscroll.com/react/styling).
-
-#### Slider
+#### Slider ([live example](https://demo.mobiscroll.com/react/slider-progress))
 
 Work your way from a monotone, dropdown heavy form to an easily scannable page by switching controls. Consider using sliders for selecting one or multiple values from a range.
 
@@ -145,10 +129,7 @@ Continuous ranges, steps, floating value display, disabled styling and usage wit
 
 <img src="https://github.com/acidb/mobiscroll/blob/master/img/slider.png?raw=true" width="50%">
 
-
-See [live examples for the slider](https://demo.mobiscroll.com/react/slider-progress).
-
-#### Progress
+#### Progress ([live example](https://demo.mobiscroll.com/react/slider-progress/progress))
 
 Provide visual feedback to the user. Reduce anxiety and help people understand progress with the control. You can also use it as a completness meter to show how the user does on completing a purchase.
 
@@ -156,9 +137,7 @@ With a powerful API control the state, value programtically and restart, pause i
 
 <img src="https://github.com/acidb/mobiscroll/blob/master/img/progress.png?raw=true" width="50%">
 
-See [live examples for progress control](https://demo.mobiscroll.com/react/slider-progress/progress).
-
-#### Alert, confirm and prompt
+#### Alert, confirm and prompt ([live example](https://demo.mobiscroll.com/react/alerts-notifications))
 
 Show alert messages, confirmation dialogs and prompt for focused value entry. Supporting platform specific look & feel, make your users feel at home and communicate what they actually need to see.
 
@@ -166,18 +145,13 @@ These controls cannot be dismissed by pressing the overlay, avoiding closing it 
 
 <img src="https://github.com/acidb/mobiscroll/blob/master/img/alert.png?raw=true" width="50%">
 
-
-See [live examples for alerts & notifications](https://demo.mobiscroll.com/react/alerts-notifications).
-
-#### Toast and snackbar
+#### Toast and snackbar ([live example](https://demo.mobiscroll.com/react/alerts-notifications/notifications))
 
 Keep your users up to date with notifications. Either in form of a toast or a snackbar.
 
 Choose to provide an action with the message, like UNDO or RETRY, something that helps the user make progress faster towards their desired goal.
 
 <img src="https://github.com/acidb/mobiscroll/blob/master/img/notifications.png?raw=true" width="50%">
-
-See [live examples for toast & snackbar](https://demo.mobiscroll.com/react/alerts-notifications/notifications).
 
 Commercial Components
 -----------------
