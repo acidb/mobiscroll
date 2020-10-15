@@ -3,7 +3,7 @@ Mobiscroll
 
 What is Mobiscroll?
 -----------------
-Mobiscroll is a UI library for progressive webapps and hybrid development. Created with a lot of attention to usability and performance. [Mobiscroll Forms](https://mobiscroll.com/forms) ships with 15 customizable controls that you can use for free that are included in this repository. For advanced functionality use Froms with:
+Mobiscroll is a UI library for progressive webapps and hybrid development. Created with a lot of attention to usability and performance. [Mobiscroll Forms](https://mobiscroll.com/forms) ships with 15 customizable controls that you can use for free that are included in this repository. For advanced functionality use Forms with:
 
 * [Event calendar & Scheduler](https://mobiscroll.com/event-calendar-scheduler)
 * [Datetime pickers & Calendars](https://mobiscroll.com/date-time-picker-calendar)
@@ -12,7 +12,7 @@ Mobiscroll is a UI library for progressive webapps and hybrid development. Creat
 
 Where can I use Mobiscroll?
 -----------------
-You can use the controls in mobile/desktop web and hybrid cross-platform apps. Use it with AngularJS.
+You can use the controls in mobile/desktop web and hybrid cross-platform apps. Use it with AngularJS and frameworks like Ionic for AngularJS.
 
 Installation
 -----------------
