@@ -161,6 +161,12 @@
     font-weight: normal;
   }
 
+  .mbsc-control-w .mbsc-label {
+    // v5 compatibility
+    position: static;
+    line-height: normal;
+  }
+
   /* Textarea */
 
   .mbsc-input textarea {
@@ -330,12 +336,14 @@
     z-index: 0;
   }
 
-  .mbsc-stepper {
+  .mbsc-stepper.mbsc-segmented {
     position: absolute;
     display: block;
     width: auto;
     right: 1em;
     top: 50%;
+    // v5 compatibility
+    overflow: visible;
   }
 
   .mbsc-rtl .mbsc-stepper {

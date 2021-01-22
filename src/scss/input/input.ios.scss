@@ -9,6 +9,10 @@
       display: -webkit-flex;
       display: -ms-flexbox;
       display: flex;
+    }
+
+    &.mbsc-input.mbsc-control-w.mbsc-label-inline {
+      // v5 compatibility
       padding: 0;
     }
 

@@ -42,8 +42,12 @@ module.exports = {
                 }
             },
             plugins: [
-                resolve(),
-                babel()
+                resolve({
+                    extensions: ['.js', '.jsx']
+                }),
+                babel({
+                    exclude: ['**/*.angular.js', '**/angular.js']
+                }),
             ]
         },
         files: {
@@ -62,7 +66,9 @@ module.exports = {
             format: 'umd',
             banner: '/* eslint-disable */',
             plugins: [
-                resolve(),
+                resolve({
+                    extensions: ['.js', '.jsx']
+                }),
                 babel(),
                 uglify({
                     output: {

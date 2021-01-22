@@ -18,10 +18,10 @@ export { MbscScrollerOptions };
 
 /**
  * Base type for the Components
- * Enabes to define an interface property as "new"-able.
+ * Enables to define an interface property as "new"-able.
  */
-interface MbscComponent<BaseOptionType, AdditionalPropTypes = {}> extends Component<BaseOptionType | AdditionalPropTypes> {
-    new(): Component<BaseOptionType | AdditionalPropTypes>;
+interface MbscComponent<BaseOptionType, AdditionalPropTypes = {}> extends Component<BaseOptionType & AdditionalPropTypes> {
+    new(): Component<BaseOptionType & AdditionalPropTypes>;
 }
 
 interface InputPassThroughProps {
@@ -30,25 +30,25 @@ interface InputPassThroughProps {
     type?: string;
 }
 
-interface InputBaseComponent<BaseOptionType, AdditionalPropTypes = {}> extends MbscComponent<BaseOptionType | InputPassThroughProps, AdditionalPropTypes> { }
+interface InputBaseComponent<BaseOptionType, AdditionalPropTypes = {}> extends MbscComponent<BaseOptionType & InputPassThroughProps, AdditionalPropTypes> { }
 
 /**
  * Base prop-type for a generic value
  */
 type ValuePropType<V> = { value?: V };
 
-/** 
+/**
  * Prop type for components that accept date as value prop
  */
-type MbscDateType = string | Date | object;
+type MbscDateType = string | Date | object | null;
 type DateValueProp = ValuePropType<MbscDateType>;
 
-/** 
+/**
  * Prop type for components that accept number as value prop
  */
 type NumberValueType = ValuePropType<number>;
 
-/** 
+/**
  * Prop type for components that accept anything as value prop
  */
 type AnyValueProp = ValuePropType<any>;
@@ -150,6 +150,7 @@ interface SliderProps extends React.InputHTMLAttributes<HTMLInputElement> {
     live?: boolean;
     stepLabels?: Array<number>;
     'data-icon'?: string;
+    icon?: string;
     tooltip?: boolean;
     val?: 'left' | 'right';
     // value?: number | Array<number>;

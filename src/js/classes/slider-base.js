@@ -9,6 +9,7 @@ export const SliderBase = function (elm, settings, inherit) {
         $handle,
         $handleCont,
         $handles,
+        $listeners,
         $parent,
         $track,
         action,
@@ -23,7 +24,6 @@ export const SliderBase = function (elm, settings, inherit) {
         isHover,
         isPressed,
         isRtl,
-        listener,
         live,
         max,
         min,
@@ -326,7 +326,7 @@ export const SliderBase = function (elm, settings, inherit) {
         });
 
         $handles = $parent.find('.mbsc-slider-handle');
-        listener = $parent.find(multiple ? '.mbsc-slider-handle-cont' : '.mbsc-progress-cont')[0];
+        $listeners = $parent.find(multiple ? '.mbsc-slider-handle-cont' : '.mbsc-progress-cont');
 
         // Attach events
         $handles
@@ -334,16 +334,17 @@ export const SliderBase = function (elm, settings, inherit) {
             .on('keyup', onKeyUp)
             .on('blur', onKeyUp);
 
-        listen(listener, 'touchstart', onStart, { passive: true });
-        listen(listener, 'mousedown', onStart);
-        listen(listener, 'touchend', onEnd);
-        listen(listener, 'touchcancel', onEnd);
-        listen(listener, 'pointercancel', onCancel);
-
-        if (s.hover) {
-            listen(listener, 'mouseenter', onStart);
-            listen(listener, 'mouseleave', onEnd);
-        }
+        $listeners.each(function (i, listener) {
+            listen(listener, 'touchstart', onStart, { passive: true });
+            listen(listener, 'mousedown', onStart);
+            listen(listener, 'touchend', onEnd);
+            listen(listener, 'touchcancel', onEnd);
+            listen(listener, 'pointercancel', onCancel);
+            if (s.hover) {
+                listen(listener, 'mouseenter', onStart);
+                listen(listener, 'mouseleave', onEnd);
+            }
+        });
 
         if (!wasInit) {
             $elm.on('click', onClick);
@@ -367,14 +368,16 @@ export const SliderBase = function (elm, settings, inherit) {
             .off('keyup', onKeyUp)
             .off('blur', onKeyUp);
 
-        unlisten(listener, 'touchstart', onStart, { passive: true });
-        unlisten(listener, 'mousedown', onStart);
-        unlisten(listener, 'touchend', onEnd);
-        unlisten(listener, 'touchcancel', onEnd);
-        unlisten(listener, 'pointercancel', onCancel);
-        unlisten(listener, 'mouseenter', onStart);
-        unlisten(listener, 'mouseleave', onEnd);
-        unlisten(document, 'touchmove', onMove, { passive: false });
+        $listeners.each(function (i, listener) {
+            unlisten(listener, 'touchstart', onStart, { passive: true });
+            unlisten(listener, 'mousedown', onStart);
+            unlisten(listener, 'touchend', onEnd);
+            unlisten(listener, 'touchcancel', onEnd);
+            unlisten(listener, 'pointercancel', onCancel);
+            unlisten(listener, 'mouseenter', onStart);
+            unlisten(listener, 'mouseleave', onEnd);
+            unlisten(document, 'touchmove', onMove, { passive: false });
+        });
 
         that.___destroy();
     };

@@ -141,6 +141,7 @@ export const CalbasePropTypes = {
         background: stringType,
         cssClass: stringType
     })),
+    eventOrder: funcType,
     labels: PropTypes.arrayOf(PropTypes.shape({
         start: dateType,
         end: dateType,

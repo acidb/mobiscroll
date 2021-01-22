@@ -108,17 +108,21 @@ export const Slider = function (elm, settings, inherit) {
         }
 
         // Generate slider handles
-        $elm.each(function (i) {
-            if (this.type == 'range') {
+        $elm.each(function (i, elm) {
+            var value = +elm.value;
+
+            if (elm.type == 'range') {
                 // Set min / max / step properties for all inputs
-                $(this)
+                $(elm)
                     .attr('min', min)
                     .attr('max', max)
                     .attr('step', step);
             }
 
             (hasProgress ? $progress : $track).append(
-                '<span class="mbsc-slider-handle-cont' + (isRange && !i ? ' mbsc-slider-handle-left' : '') + '">' +
+                '<span class="mbsc-slider-handle-cont' + 
+                (isRange && !i ? ' mbsc-slider-handle-left' : '') +
+                (isRange && !i && value > ((max - min) / 2) ? ' mbsc-handle-curr' : '') + '">' +
                 '<span tabindex="0" class="mbsc-slider-handle" aria-valuemin="' + min + '" aria-valuemax="' + max + '" data-index="' + i + '"></span>' +
                 (hasTooltip ? '<span class="mbsc-slider-tooltip"></span>' : '') +
                 '</span>'

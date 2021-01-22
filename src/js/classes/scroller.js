@@ -13,7 +13,7 @@ var presets = {},
     has3d = css && css.supports && css.supports("(transform-style: preserve-3d)");
 
 function sanitize(str) {
-    return (str + '').replace('"', '___');
+    return (str + '').replace(/"/g, '___');
 }
 
 export { presets };
@@ -690,7 +690,9 @@ export const Scroller = function (el, settings, inherit) {
     };
 
     that._detachEvents = function () {
-        stepper.stop();
+        if (stepper) {
+            stepper.stop();
+        }
         for (var i = 0; i < wheels.length; i++) {
             wheels[i]._scroller.destroy();
         }

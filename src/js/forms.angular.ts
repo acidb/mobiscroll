@@ -957,7 +957,7 @@ export class MbscRadio extends MbscFormBase {
 
 @Component({
     selector: 'mbsc-segmented-group',
-    template: `<div class="mbsc-segmented mbsc-no-touch"><ng-content></ng-content></div>`,
+    template: `<div class="mbsc-segmented mbsc-segmented-group mbsc-no-touch"><ng-content></ng-content></div>`,
     providers: [MbscRadioService]
 })
 export class MbscSegmentedGroup extends MbscRadioGroupBase {

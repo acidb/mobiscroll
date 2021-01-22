@@ -191,6 +191,11 @@
 
     /* Inline labels */
     &.mbsc-label-inline.mbsc-input {
+      &.mbsc-control-w {
+        // v5 compatibility
+        padding: 0;
+      }
+
       .mbsc-label {
         line-height: 2em;
       }

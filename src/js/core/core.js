@@ -1,5 +1,5 @@
 /*!
- * Mobiscroll v4.10.6
+ * Mobiscroll v4.10.8
  * http://mobiscroll.com
  *
  *
@@ -106,7 +106,7 @@ extend(util, {
 
 ms = extend(mobiscroll, {
     $: $,
-    version: '4.10.6',
+    version: '4.10.8',
     autoTheme: 'mobiscroll',
     themes: {
         form: {},
@@ -208,6 +208,15 @@ const Base = function (el, settings) {
         // Create settings object
         extend(s, that._defaults, defaults, settings);
 
+        ctx = that._getRespCont();
+
+        if (that._responsive) {
+            if (!resp) {
+                resp = getResponsiveSettings();
+            }
+            extend(s, resp);
+        }
+
         // Get theme defaults
         if (that._hasTheme) {
 
@@ -224,16 +233,7 @@ const Base = function (el, settings) {
         }
 
         // Update settings object
-        extend(s, theme, lang, defaults, settings);
-
-        ctx = that._getRespCont();
-
-        if (that._responsive) {
-            if (!resp) {
-                resp = getResponsiveSettings();
-            }
-            extend(s, resp);
-        }
+        extend(s, theme, lang, defaults, settings, resp);
 
         that._processSettings(resp || {});
 

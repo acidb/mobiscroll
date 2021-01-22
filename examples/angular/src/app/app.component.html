@@ -1,12 +1,18 @@
 <mbsc-page>
     <mbsc-form label-style="floating">
-        <mbsc-form-group collapsible open>
+        <mbsc-form-group collapsible [open]="true">
             <mbsc-form-group-title>Account information</mbsc-form-group-title>
             <mbsc-form-group-content>
-                <mbsc-input [(ngModel)]="firstName" placeholder="What's your first name?">First Name</mbsc-input>
-                <mbsc-input [(ngModel)]="lastName" placeholder="What's your last name?">Last Name</mbsc-input>
-                <mbsc-input [(ngModel)]="email" placeholder="me@domain.com">Email</mbsc-input>
-                <mbsc-input [(ngModel)]="password" placeholder="Minimum 6 characters" type="password" minlength="6" required [password-toggle]="true">Password</mbsc-input>
+                <mbsc-input [(ngModel)]="firstName" placeholder="What's your first name?">First
+                    Name</mbsc-input>
+                <mbsc-input [(ngModel)]="lastName" placeholder="What's your last name?">Last Name
+                </mbsc-input>
+                <mbsc-input [(ngModel)]="email" placeholder="me@domain.com">
+                    Email
+                </mbsc-input>
+                <mbsc-input [(ngModel)]="password" placeholder="Minimum 6 characters" type="password" [minlength]="6"
+                    required [password-toggle]="true">
+                    Password</mbsc-input>
                 <mbsc-rating [(ngModel)]="rating">Rating</mbsc-rating>
             </mbsc-form-group-content>
         </mbsc-form-group>
@@ -17,8 +23,8 @@
                     <mbsc-segmented value="male">Male</mbsc-segmented>
                     <mbsc-segmented value="female">Female</mbsc-segmented>
                 </mbsc-segmented-group>
-                <mbsc-stepper [(ngModel)]="height" min="130" max="220" val="left">Height (cm)</mbsc-stepper>
-                <mbsc-stepper [(ngModel)]="weight" min="30" max="180" val="left">Weight (kg)</mbsc-stepper>
+                <mbsc-stepper [(ngModel)]="height" [min]="130" [max]="220" val="left">Height (cm)</mbsc-stepper>
+                <mbsc-stepper [(ngModel)]="weight" [min]="30" [max]="180" val="left">Weight (kg)</mbsc-stepper>
             </mbsc-form-group-content>
         </mbsc-form-group>
         <mbsc-form-group collapsible>
@@ -26,7 +32,8 @@
             <mbsc-form-group-content>
                 <mbsc-switch [(ngModel)]="indoor">Indoor/Treadmill</mbsc-switch>
                 <mbsc-switch [(ngModel)]="pause">Auto-Pause Run
-                    <span class="mbsc-desc">Automatically pause workout when you stop moving. This is useful if you don't want to manually pause and resume.</span>
+                    <span class="mbsc-desc">Automatically pause workout when you stop moving. This is useful if you
+                        don't want to manually pause and resume.</span>
                 </mbsc-switch>
             </mbsc-form-group-content>
         </mbsc-form-group>

@@ -947,7 +947,7 @@ export const Frame = function (el, settings, inherit) {
 
         // Hide wheels and overlay
         if ($markup) {
-            if (isModal && doAnim && !prevAnim) {
+            if (isModal && isInserted && doAnim && !prevAnim) {
                 $markup
                     .addClass('mbsc-anim-out mbsc-anim-trans mbsc-anim-trans-' + doAnim)
                     .on(animEnd, onAnimEnd)

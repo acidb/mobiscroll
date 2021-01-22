@@ -18,7 +18,7 @@ function createStepper($elm, action, delay, isReadOnly, stopProp, ripple) {
     function onBtnStart(ev) {
         var proceed;
 
-        $btn = $(this);
+        $btn = $(ev.currentTarget);
 
         step = +$btn.attr('data-step');
         index = +$btn.attr('data-index');

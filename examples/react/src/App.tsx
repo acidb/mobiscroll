@@ -12,8 +12,8 @@ class App extends Component {
                         <FormGroupContent>
                             <Input type="text" placeholder="What's your first name?" labelStyle="floating">First Name</Input>
                             <Input type="text" placeholder="What's your last name?" labelStyle="floating">Last Name</Input>
-                            <Input type="email" placeholder="me@domain.com" labelStyle="floating">Email</Input>
-                            <Input type="password" placeholder="Minimum 6 characters" labelStyle="floating" passwordToggle={true}>Password</Input>
+                            <Input type="email" placeholder="me@domain.com" autoComplete="username" labelStyle="floating">Email</Input>
+                            <Input type="password" placeholder="Minimum 6 characters" autoComplete="new-password" labelStyle="floating" passwordToggle={true}>Password</Input>
                             <Rating value={4}>
                                 Rating
                             </Rating>

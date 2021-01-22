@@ -74,6 +74,7 @@ export class MbscFormBase extends MbscBase implements OnInit {
 export class MbscFormValueBase extends MbscFormBase implements ControlValueAccessor {
     _value: any;
     _readonly: boolean;
+    _needRefresh: any;
 
     @Input()
     set readonly(val: any) {
@@ -172,6 +173,15 @@ export class MbscFormValueBase extends MbscFormBase implements ControlValueAcces
             setTimeout(() => {
                 this.instance.refresh();
             });
+        } else { // if the instance is not ready yet, we make the refresh call later after the view was initialized
+            this._needRefresh = true;
+        }
+    }
+
+    ngAfterViewInit() {
+        super.ngAfterViewInit();
+        if (this._needRefresh) {
+            this.refresh();
         }
     }
 }

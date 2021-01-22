@@ -6,16 +6,16 @@ import { Component } from '@angular/core';
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-    firstName: string;
-    lastName: string;
-    email: string;
-    password: string;
+    firstName = '';
+    lastName = '';
+    email = '';
+    password = '';
     rating = 4;
     gender = 'male';
     height = 170;
     weight = 85;
-    indoor: boolean;
-    cheers: boolean;
+    indoor = false;
+    cheers = false;
     pause = true;
     heartRate = true;
     pace = 'current';
