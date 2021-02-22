@@ -157,16 +157,18 @@ Choose to provide an action with the message, like UNDO or RETRY, something that
 Commercial Components
 -----------------
 
-#### Date & time pickes
+#### Date & time pickers
 
 * [Calendar](https://demo.mobiscroll.com/javascript/calendar)
 * [Date & Time](https://demo.mobiscroll.com/javascript/datetime)
 * [Range](https://demo.mobiscroll.com/javascript/range)
 * [Timespan](https://demo.mobiscroll.com/javascript/timespan)
 
-#### Event calendar & scheduler
+#### Event calendar
 
-* [Event calendar](https://demo.mobiscroll.com/javascript/eventcalendar)
+* [Agenda](https://demo.mobiscroll.com/javascript/agenda)
+* [Calendar view](https://demo.mobiscroll.com/javascript/eventcalendar)
+* [Scheduler](https://demo.mobiscroll.com/javascript/scheduler)
 
 #### Pickers & dropdowns
 
@@ -224,7 +226,7 @@ License Information
 
 This project has been released under the Apache License, version 2.0, the text of which is included below. This license applies ONLY to the source of this repository and does not extend to any other Mobiscroll distribution or variant, or any other 3rd party libraries used in a repository. For licensing information about Mobiscroll, see the [License Agreements page at mobiscroll.com](https://mobiscroll.com/eula).
 
->Copyright © 2020 Mobiscroll
+>Copyright © 2021 Mobiscroll
 
 >Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
 
