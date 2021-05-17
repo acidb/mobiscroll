@@ -638,6 +638,7 @@ export const Frame = function (el, settings, inherit) {
                     });
 
                     if ($label && $label.length) {
+                        tapOff($label);
                         that.tap($label, function (ev) {
                             ev.preventDefault();
                             if (ev.target !== $elm[0]) {

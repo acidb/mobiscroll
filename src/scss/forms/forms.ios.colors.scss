@@ -75,10 +75,10 @@ $mbsc-ios-dark-colors: map-merge($mbsc-ios-dark-colors, (
 
     // default background color
     @if (lightness($background) > 50%) {
-      $background: adjust-hue(darken(saturate($background, 19%), 2%), 240%);
+      $background: adjust-hue(darken(saturate($background, 19%), 2%), 240deg);
     }
     @else {
-      $background: adjust-hue(lighten(desaturate($background, 19%), 10%), 240%);
+      $background: adjust-hue(lighten(desaturate($background, 19%), 10%), 240deg);
     }
 
     // overwrite custom variables

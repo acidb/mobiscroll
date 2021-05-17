@@ -1,5 +1,5 @@
 /*!
- * Mobiscroll v4.10.8
+ * Mobiscroll v4.10.9
  * http://mobiscroll.com
  *
  *
@@ -106,7 +106,7 @@ extend(util, {
 
 ms = extend(mobiscroll, {
     $: $,
-    version: '4.10.8',
+    version: '4.10.9',
     autoTheme: 'mobiscroll',
     themes: {
         form: {},
@@ -243,7 +243,7 @@ const Base = function (el, settings) {
             preset = that._presets[s.preset];
 
             if (preset) {
-                preset = preset.call(el, that, settings);
+                preset = preset.call(el, that, settings, resp);
                 extend(s, preset, settings, resp);
             }
         }

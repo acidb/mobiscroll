@@ -81,11 +81,11 @@ export const Scroller = function (el, settings, inherit) {
             maxSelect = isNumeric(wheel.multiple) ? wheel.multiple : Infinity;
 
         if (trigger('onItemTap', {
-                target: $item[0],
-                index: i,
-                value: val,
-                selected: $item.hasClass('mbsc-sc-itm-sel')
-            }) !== false && !that._prevItemTap) {
+            target: $item[0],
+            index: i,
+            value: val,
+            selected: $item.hasClass('mbsc-sc-itm-sel')
+        }) !== false && !that._prevItemTap) {
 
             // Select item on tap
             if (wheel.multiple && !wheel._disabled[val]) {
@@ -634,6 +634,7 @@ export const Scroller = function (el, settings, inherit) {
 
                 // TODO: this should be done on initialization, not on show
                 var w = initWheel(ww, l);
+                var topMargin = !isPointer || (s.rows % 2) ? itemHeight3d / 2 : 0;
                 wheels[l] = w;
 
                 maxPopupWidth += s.maxWidth ? (s.maxWidth[l] || s.maxWidth) : (s.width ? (s.width[l] || s.width) : 0);
@@ -653,7 +654,7 @@ export const Scroller = function (el, settings, inherit) {
                         '<div data-index="' + l + '" data-step="-1" class="mbsc-sc-btn mbsc-sc-btn-minus ' + (s.btnMinusClass || '') + '"></div>' : '') + // - button
                     '<div class="mbsc-sc-lbl">' + lbl + '</div>' + // Wheel label
                     '<div class="mbsc-sc-whl-c"' +
-                    ' style="height:' + itemHeight3d + 'px;margin-top:-' + (itemHeight3d / 2 + 1) + 'px;' + style + '">' +
+                    ' style="height:' + itemHeight3d + 'px;margin-top:-' + (topMargin + 1) + 'px;' + style + '">' +
                     '<div class="mbsc-sc-whl-sc" style="top:' + ((itemHeight3d - itemHeight) / 2) + 'px;">';
 
                 // Create wheel values
@@ -885,7 +886,7 @@ Scroller.prototype = {
         timeUnit: 0.08,
         checkIcon: 'checkmark',
         compClass: 'mbsc-sc',
-        validate: function () {},
+        validate: function () { },
         formatValue: function (d) {
             return d.join(' ');
         },

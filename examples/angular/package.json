@@ -19,28 +19,28 @@
     "@angular/platform-browser": "~11.0.6",
     "@angular/platform-browser-dynamic": "~11.0.6",
     "@angular/router": "~11.0.6",
-    "@mobiscroll/angular-lite": "^4.10.8",
-    "rxjs": "~6.6.0",
-    "tslib": "^2.0.0",
+    "@mobiscroll/angular-lite": "file:mobiscroll-angular-lite-4.10.9.tgz",
+    "rxjs": "^6.6.7",
+    "tslib": "^2.2.0",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.1100.6",
     "@angular/cli": "~11.0.6",
     "@angular/compiler-cli": "~11.0.6",
-    "@types/jasmine": "~3.6.0",
-    "@types/node": "^12.11.1",
-    "codelyzer": "^6.0.0",
+    "@types/jasmine": "^3.6.11",
+    "@types/node": "^12.20.13",
+    "codelyzer": "^6.0.2",
     "jasmine-core": "~3.6.0",
     "jasmine-spec-reporter": "~5.0.0",
     "karma": "~5.1.0",
     "karma-chrome-launcher": "~3.1.0",
     "karma-coverage": "~2.0.3",
     "karma-jasmine": "~4.0.0",
-    "karma-jasmine-html-reporter": "^1.5.0",
+    "karma-jasmine-html-reporter": "^1.6.0",
     "protractor": "~7.0.0",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
-    "typescript": "~4.0.2"
+    "typescript": "^4.0.7"
   }
 }

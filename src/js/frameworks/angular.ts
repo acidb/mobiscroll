@@ -497,8 +497,15 @@ export class MbscControlBase extends MbscCloneBase implements ControlValueAccess
         let that = this;
         $(element || this.element).on('change', function () {
             that.zone.run(function () {
-                if (that.element.value !== that.instance._value && that.enableManualEdit) {
-                    that.instance.setVal(that.element.value, true, true);
+                const elmValue = that.element.value;
+                const instValue = that.instance._value;
+                // the element's value cannot be null, if the element is empty, it will be an empty string
+                // also the instance _value cannot be an empty string, bc. if the value is empty, under the hood
+                // the _value will be set to null
+                // SO the null and '' values are treated as equal, and there should not be a setVal call when these are to be used,
+                // otherwise it will be an infinite loop.
+                if (elmValue !== instValue && (instValue !== null || elmValue !== '') && that.enableManualEdit) {
+                    that.instance.setVal(elmValue, true, true);
                 } else {
                     let value = that.instance.getVal();
                     if (that.control) {
