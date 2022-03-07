@@ -12,14 +12,14 @@ Mobiscroll is a UI library for progressive webapps and hybrid development. Creat
 
 Where can I use Mobiscroll?
 -----------------
-You can use the controls in web and hybrid/native cross-platform apps. At it's core Mobiscroll is framework agnostic, but API variants for jQuery/jQuery Mobile, Angular/Ionic, Angular JS/Ionic 1 and React is available.
+You can use the controls in web and hybrid/native cross-platform apps. At its core Mobiscroll is framework agnostic, but API variants for jQuery/jQuery Mobile, Angular/Ionic, Angular JS/Ionic 1 and React is available.
 
 Elements
 -----------------
 
 #### Single and multiline text ([live example](https://demo.mobiscroll.com/inputs-fields))
 
-Text fields are the backbone of every form. Use it to capture a wide range of properties from plain text to passwords.
+Text fields are the backbone of every form. Use them to capture a wide range of properties from plain text to passwords.
 
 Use labels, icons, placeholders or a combination of them to help users get meaning at a glance. Show/hide functionality built in for password fields.
 
@@ -47,7 +47,7 @@ Easily lay out two to five options for single and multiple select. Making all op
 
 #### Checkbox and checklist ([live example](https://demo.mobiscroll.com/toggle-radio))
 
-Similar to the native checkbox in functionality but a look and feel that fits with the overall user experience and theme. Features description text, checkbox list and disabled styling.
+Similar to the native checkbox in functionality, but with a look and feel that fits with the overall user experience and theme. Features description text, checkbox list and disabled styling.
 
 Excellent choice for inline multi-select lists.
 
@@ -99,7 +99,7 @@ With a powerful API control the state, value programtically and restart, pause i
 
 #### Alert, confirm and prompt ([live example](https://demo.mobiscroll.com/alerts-notifications))
 
-Show alert messages, confirmation dialogs and prompt for focused value entry. Supporting platform specific look & feel, make your users feel at home and communicate what they actually need to see.
+Show alert messages, confirmation dialogs and prompt for focused value entry. With a platform-specific look and feel, you can make your users feel at home and communicate what they actually need to see.
 
 These controls cannot be dismissed by pressing the overlay, avoiding closing it by mistake.
 
@@ -109,7 +109,7 @@ These controls cannot be dismissed by pressing the overlay, avoiding closing it 
 
 Keep your users up to date with notifications. Either in form of a toast or a snackbar.
 
-Choose to provide an action with the message, like UNDO or RETRY, something that helps the user make progress faster towards their desired goal.
+You can optionally provide an action with the message - such as UNDO or RETRY - which will help the user make progress faster towards their goal.
 
 <img src="https://github.com/acidb/mobiscroll/blob/master/img/notifications.png?raw=true" width="50%">
 
@@ -170,7 +170,7 @@ The Mobiscroll team does not provide technical support for Mobiscroll Lite. To g
 
 Release notes
 -----------------
-For the complete release history and changelog visit https://mobiscroll.com/releases
+For the complete release history and changelog, visit https://mobiscroll.com/releases
 
 Get in touch
 -----------------
