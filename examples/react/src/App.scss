@@ -3,3 +3,9 @@ $mbsc-material-accent: #e61d2a;
 $mbsc-mobiscroll-accent: #e61d2a;
 
 @import '~@mobiscroll/react-lite/dist/css/mobiscroll.scss';
+
+body,
+html,
+#root {
+    height: 100%;
+}

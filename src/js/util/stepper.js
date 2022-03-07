@@ -1,6 +1,6 @@
 import { $ } from '../core/core';
 import { noop } from './misc';
-import { testTouch } from './dom';
+import { listen, testTouch, unlisten } from './dom';
 import { getCoord } from './tap';
 
 function createStepper($elm, action, delay, isReadOnly, stopProp, ripple) {
@@ -18,7 +18,7 @@ function createStepper($elm, action, delay, isReadOnly, stopProp, ripple) {
     function onBtnStart(ev) {
         var proceed;
 
-        $btn = $(this);
+        $btn = $(ev.currentTarget);
 
         step = +$btn.attr('data-step');
         index = +$btn.attr('data-index');
@@ -127,16 +127,26 @@ function createStepper($elm, action, delay, isReadOnly, stopProp, ripple) {
     }
 
     function destroy() {
-        $elm
-            .off('touchstart mousedown keydown', onBtnStart)
-            .off('touchmove', onBtnMove)
-            .off('touchend touchcancel keyup', onBtnEnd);
+        $elm.each(function (i, el) {
+            unlisten(el, 'touchstart', onBtnStart, { passive: true });
+            unlisten(el, 'mousedown', onBtnStart);
+            unlisten(el, 'keydown', onBtnStart);
+            unlisten(el, 'touchmove', onBtnMove, { passive: true });
+            unlisten(el, 'touchend', onBtnEnd);
+            unlisten(el, 'touchcancel', onBtnEnd);
+            unlisten(el, 'keyup', onBtnEnd);
+        });
     }
 
-    $elm
-        .on('touchstart mousedown keydown', onBtnStart)
-        .on('touchmove', onBtnMove)
-        .on('touchend touchcancel keyup', onBtnEnd);
+    $elm.each(function (i, el) {
+        listen(el, 'touchstart', onBtnStart, { passive: true });
+        listen(el, 'mousedown', onBtnStart);
+        listen(el, 'keydown', onBtnStart);
+        listen(el, 'touchmove', onBtnMove, { passive: true });
+        listen(el, 'touchend', onBtnEnd);
+        listen(el, 'touchcancel', onBtnEnd);
+        listen(el, 'keyup', onBtnEnd);
+    });
 
     return {
         start: start,

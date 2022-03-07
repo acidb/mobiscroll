@@ -1,27 +1,30 @@
 import {
-    extend,
-    MbscBase,
     ViewChild,
     OnInit,
-    emptyOrTrue,
-    ControlValueAccessor,
     Component,
+    Directive,
     Input,
     Output,
     EventEmitter,
-    NgControl,
     ElementRef,
     Optional,
-    MbscOptionsService,
-    MbscInputService,
     NgModule,
     NgZone,
-    FormsModule,
-    CommonModule
+} from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ControlValueAccessor, NgControl, FormsModule } from '@angular/forms';
+import {
+    extend,
+    MbscOptionsService,
+    MbscInputService,
+    MbscBase,
+    MbscBaseModule,
+    emptyOrTrue,
 } from './frameworks/angular';
 
 import { Input as FormInput, MbscFormOptions } from './classes/input';
 
+@Directive({ selector: '[mbsc-f-b]' })
 export class MbscFormBase extends MbscBase implements OnInit {
     protected _inheritedOptions: any;
 
@@ -67,9 +70,11 @@ export class MbscFormBase extends MbscBase implements OnInit {
     }
 }
 
+@Directive({ selector: '[mbsc-fv-b]' })
 export class MbscFormValueBase extends MbscFormBase implements ControlValueAccessor {
     _value: any;
     _readonly: boolean;
+    _needRefresh: any;
 
     @Input()
     set readonly(val: any) {
@@ -128,10 +133,9 @@ export class MbscFormValueBase extends MbscFormBase implements ControlValueAcces
     @Output('valueChange')
     valueChangeEmitter: EventEmitter<string> = new EventEmitter<string>();
 
-
-    constructor(hostElem: ElementRef, @Optional() _formService: MbscOptionsService, protected _control: NgControl, protected _noOverride: boolean, zone: NgZone) {
+    constructor(hostElem: ElementRef, @Optional() _formService: MbscOptionsService, @Optional() _inputService: MbscInputService, protected _control: NgControl, zone: NgZone) {
         super(hostElem, _formService, zone);
-        if (_control && !_noOverride) {
+        if (_control && (!_inputService || !_inputService.isControlSet)) {
             if (_control.valueAccessor && (_control.valueAccessor as any).oldAccessor !== undefined) {
                 (_control.valueAccessor as any).oldAccessor = this;
             } else {
@@ -169,10 +173,20 @@ export class MbscFormValueBase extends MbscFormBase implements ControlValueAcces
             setTimeout(() => {
                 this.instance.refresh();
             });
+        } else { // if the instance is not ready yet, we make the refresh call later after the view was initialized
+            this._needRefresh = true;
+        }
+    }
+
+    ngAfterViewInit() {
+        super.ngAfterViewInit();
+        if (this._needRefresh) {
+            this.refresh();
         }
     }
 }
 
+@Directive({ selector: '[mbsc-i-b]' })
 export class MbscInputBase extends MbscFormValueBase {
     @Input()
     autocomplete: 'on' | 'off';
@@ -254,8 +268,8 @@ export class MbscInputBase extends MbscFormValueBase {
     placeholder: string = '';
 
 
-    constructor(initialElem: ElementRef, @Optional() _formService: MbscOptionsService, _control: NgControl, noOverride: boolean, zone: NgZone) {
-        super(initialElem, _formService, _control, noOverride, zone);
+    constructor(initialElem: ElementRef, @Optional() _formService: MbscOptionsService, @Optional() _inputService: MbscInputService, _control: NgControl, zone: NgZone) {
+        super(initialElem, _formService, _inputService, _control, zone);
     }
 }
 
@@ -332,7 +346,7 @@ export class MbscInput extends MbscInputBase {
     dropdown: boolean = false;
 
     constructor(initialElem: ElementRef, @Optional() _formService: MbscOptionsService, protected _inputService: MbscInputService, @Optional() _control: NgControl, zone: NgZone) {
-        super(initialElem, _formService, _control, _inputService.isControlSet, zone);
+        super(initialElem, _formService, _inputService, _control, zone);
         _inputService.input = this;
     }
 
@@ -346,8 +360,8 @@ export class MbscInput extends MbscInputBase {
 }
 
 @NgModule({
-    imports: [FormsModule, CommonModule],
-    declarations: [MbscInput],
+    imports: [FormsModule, CommonModule, MbscBaseModule],
+    declarations: [MbscInput, MbscInputBase, MbscFormBase, MbscFormValueBase],
     exports: [MbscInput]
 })
 export class MbscInputModule { }

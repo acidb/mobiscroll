@@ -1,9 +1,9 @@
 import { $, extend, getThemeName, mobiscroll } from '../core/core';
 import { activateControl, getControlType, getCoord, tap } from '../util/tap';
-import { testTouch, hasGhostClick } from '../util/dom';
+import { testTouch, hasGhostClick, listen, unlisten } from '../util/dom';
 
 const wrapClass = 'mbsc-input-wrap';
-const events = ['touchstart', 'touchmove', 'touchend', 'touchcancel', 'mousedown', 'mousemove', 'mouseup', 'mouseleave'];
+const events = ['touchend', 'touchcancel', 'mousedown', 'mousemove', 'mouseup', 'mouseleave'];
 const defaults = {
     tap: hasGhostClick
 };
@@ -120,8 +120,9 @@ function getAttr($elm, attr, def) {
 }
 
 function getCssClass(s) {
-    const baseTheme = mobiscroll.themes.form[s.theme].baseTheme;
-    return 'mbsc-' + s.theme + (baseTheme ? ' mbsc-' + baseTheme : '') + (s.rtl ? ' mbsc-rtl' : ' mbsc-ltr');
+    const theme = getThemeName(s);
+    const baseTheme = mobiscroll.themes.form[theme].baseTheme;
+    return 'mbsc-' + theme + (baseTheme ? ' mbsc-' + baseTheme : '') + (s.rtl ? ' mbsc-rtl' : ' mbsc-ltr');
 }
 
 export class FormControl {
@@ -160,6 +161,9 @@ export class FormControl {
         events.forEach(ev => {
             $elm.on(ev, this._handle);
         });
+        // Touch events are added separately, needs to be passive listener
+        listen(elm, 'touchstart', this._handle, { passive: true });
+        listen(elm, 'touchmove', this._handle, { passive: true });
 
         this.settings = s;
 
@@ -182,12 +186,16 @@ export class FormControl {
     }
 
     destroy() {
-        this._$elm.removeClass('mbsc-control');
+        const $elm = this._$elm;
+        const elm = this._elm;
+        $elm.removeClass('mbsc-control');
         this.getClassElm().removeClass(this.cssClass);
         events.forEach(ev => {
-            this._$elm.off(ev, this._handle);
+            $elm.off(ev, this._handle);
         });
-        delete this._elm.mbscInst;
+        unlisten(elm, 'touchstart', this._handle, { passive: true });
+        unlisten(elm, 'touchmove', this._handle, { passive: true });
+        delete elm.mbscInst;
     }
 
     option(s) {

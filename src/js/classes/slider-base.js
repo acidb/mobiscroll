@@ -1,6 +1,6 @@
 import { $ } from '../core/core';
 import { getCoord, preventClick } from '../util/tap';
-import { testTouch } from '../util/dom';
+import { testTouch, listen, unlisten } from '../util/dom';
 import { noop, getPercent } from '../util/misc';
 import { ProgressBase } from './progress-base';
 
@@ -9,7 +9,7 @@ export const SliderBase = function (elm, settings, inherit) {
         $handle,
         $handleCont,
         $handles,
-        $listener,
+        $listeners,
         $parent,
         $track,
         action,
@@ -326,7 +326,7 @@ export const SliderBase = function (elm, settings, inherit) {
         });
 
         $handles = $parent.find('.mbsc-slider-handle');
-        $listener = $parent.find(multiple ? '.mbsc-slider-handle-cont' : '.mbsc-progress-cont');
+        $listeners = $parent.find(multiple ? '.mbsc-slider-handle-cont' : '.mbsc-progress-cont');
 
         // Attach events
         $handles
@@ -334,18 +334,23 @@ export const SliderBase = function (elm, settings, inherit) {
             .on('keyup', onKeyUp)
             .on('blur', onKeyUp);
 
-        $listener
-            .on('touchstart mousedown' + (s.hover ? ' mouseenter' : ''), onStart)
-            .on('touchmove', onMove)
-            .on('touchend touchcancel' + (s.hover ? ' mouseleave' : ''), onEnd)
-            .on('pointercancel', onCancel);
+        $listeners.each(function (i, listener) {
+            listen(listener, 'touchstart', onStart, { passive: true });
+            listen(listener, 'mousedown', onStart);
+            listen(listener, 'touchend', onEnd);
+            listen(listener, 'touchcancel', onEnd);
+            listen(listener, 'pointercancel', onCancel);
+            if (s.hover) {
+                listen(listener, 'mouseenter', onStart);
+                listen(listener, 'mouseleave', onEnd);
+            }
+        });
 
         if (!wasInit) {
-            $elm
-                .on('click', onClick);
-
-            $parent
-                .on('click', onLabelClick);
+            $elm.on('click', onClick);
+            $parent.on('click', onLabelClick);
+            // Attach to document to avoid non-passive listener warnings
+            listen(document, 'touchmove', onMove, { passive: false });
         }
 
     };
@@ -363,11 +368,16 @@ export const SliderBase = function (elm, settings, inherit) {
             .off('keyup', onKeyUp)
             .off('blur', onKeyUp);
 
-        $listener
-            .off('touchstart mousedown mouseenter', onStart)
-            .off('touchmove', onMove)
-            .off('touchend touchcancel mouseleave', onEnd)
-            .off('pointercancel', onCancel);
+        $listeners.each(function (i, listener) {
+            unlisten(listener, 'touchstart', onStart, { passive: true });
+            unlisten(listener, 'mousedown', onStart);
+            unlisten(listener, 'touchend', onEnd);
+            unlisten(listener, 'touchcancel', onEnd);
+            unlisten(listener, 'pointercancel', onCancel);
+            unlisten(listener, 'mouseenter', onStart);
+            unlisten(listener, 'mouseleave', onEnd);
+            unlisten(document, 'touchmove', onMove, { passive: false });
+        });
 
         that.___destroy();
     };

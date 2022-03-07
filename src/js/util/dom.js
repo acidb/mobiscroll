@@ -1,5 +1,4 @@
-import { $, isBrowser } from '../core/core';
-import { os, isSafari, raf } from './platform';
+import { os, isBrowser, isSafari, raf } from './platform';
 
 function testProps(props) {
     var i;
@@ -25,25 +24,30 @@ function testPrefix() {
 
 function testTouch(e, elm) {
     if (e.type == 'touchstart') {
-        $(elm).attr('data-touch', '1');
-    } else if ($(elm).attr('data-touch')) {
-        $(elm).removeAttr('data-touch');
+        elm.__mbscTouched = 1;
+    } else if (elm.__mbscTouched) {
+        delete elm.__mbscTouched;
         return false;
     }
     return true;
 }
 
 function getPosition(t, vertical) {
-    var style = getComputedStyle(t[0]),
+    var prefixes = ['t', 'webkitT', 'MozT', 'OT', 'msT'],
+        style = getComputedStyle(t[0]),
+        i = 0,
         matrix,
-        px;
+        px,
+        v;
 
-    $.each(['t', 'webkitT', 'MozT', 'OT', 'msT'], function (i, v) {
+    while (!matrix && i < prefixes.length) {
+        v = prefixes[i];
         if (style[v + 'ransform'] !== undefined) {
             matrix = style[v + 'ransform'];
-            return false;
         }
-    });
+        i++;
+    }
+
     matrix = matrix.split(')')[0].split(', ');
     px = vertical ? (matrix[13] || matrix[5]) : (matrix[12] || matrix[4]);
 
@@ -56,30 +60,37 @@ function getTextColor(color) {
         if (textColors[color]) {
             return textColors[color];
         }
-        var $div = $('<div style="background-color:' + color + ';"></div>').appendTo('body'),
-            style = getComputedStyle($div[0]),
-            rgb = style.backgroundColor.replace(/rgb|rgba|\(|\)|\s/g, '').split(','),
-            delta = rgb[0] * 0.299 + rgb[1] * 0.587 + rgb[2] * 0.114,
-            txt = delta < 130 ? '#fff' : '#000';
 
-        $div.remove();
+        var ctx = canvas && canvas.getContext('2d');
 
-        textColors[color] = txt;
+        if (!ctx) {
+            return '#fff';
+        }
 
-        return txt;
+        // Use canvas element, since it does not require DOM append
+        ctx.fillStyle = color;
+        ctx.fillRect(0, 0, 1, 1);
+
+        var rgb = ctx.getImageData(0, 0, 1, 1).data;
+        var delta = +rgb[0] * 0.299 + +rgb[1] * 0.587 + +rgb[2] * 0.114;
+        var textColor = delta < 130 ? '#fff' : '#000';
+
+        textColors[color] = textColor;
+
+        return textColor;
     }
 }
 
-function scrollStep($el, startTime, from, to, callback) {
+function scrollStep(el, startTime, from, to, callback) {
     var elapsed = Math.min(1, (new Date() - startTime) / 468),
         eased = 0.5 * (1 - Math.cos(Math.PI * elapsed)),
         current = from + (to - from) * eased;
 
-    $el.scrollTop(current);
+    el.scrollTop = current;
 
     if (current !== to) {
         raf(function () {
-            scrollStep($el, startTime, from, to, callback);
+            scrollStep(el, startTime, from, to, callback);
         });
     } else if (callback) {
         callback();
@@ -87,14 +98,13 @@ function scrollStep($el, startTime, from, to, callback) {
 }
 
 function smoothScroll(el, to, prevAnim, callback) {
-    var $el = $(el);
     if (prevAnim) {
-        $el.scrollTop(to);
+        el.scrollTop = to;
         if (callback) {
             callback();
         }
     } else {
-        scrollStep($el, new Date(), $el.scrollTop(), to, callback);
+        scrollStep(el, new Date(), el.scrollTop, to, callback);
     }
 }
 
@@ -104,10 +114,44 @@ function listen(el, event, handler, opt) {
     }
 }
 
-function unlisten(el, event, handler) {
+function unlisten(el, event, handler, opt) {
     if (el) {
-        el.removeEventListener(event, handler);
+        el.removeEventListener(event, handler, opt);
     }
+}
+
+function matches(element, selector) {
+    if (!selector || !element || element.nodeType !== 1) {
+        return false;
+    }
+    var matchesSelector = element.matches || element.matchesSelector || element.webkitMatchesSelector || element.mozMatchesSelector || element.msMatchesSelector;
+    return matchesSelector.call(element, selector);
+}
+
+function closest(el, target, selector) {
+    while (target) {
+        if (matches(target, selector)) {
+            return target;
+        }
+        target = target !== el ? target.parentNode : null;
+    }
+    return null;
+}
+
+function trigger(elm, name, data) {
+    var evt;
+    try {
+        evt = new CustomEvent(name, {
+            detail: data,
+            bubbles: true,
+            cancelable: true
+        });
+    } catch (e) {
+        evt = document.createEvent('Event');
+        evt.initEvent(name, true, true);
+        evt.detail = data;
+    }
+    elm.dispatchEvent(evt);
 }
 
 function setFocusInvisible() {
@@ -137,6 +181,7 @@ function removeWindowFocus() {
 }
 
 var animEnd,
+    canvas,
     mod,
     cssPrefix,
     hasGhostClick,
@@ -149,6 +194,7 @@ var animEnd,
 
 if (isBrowser) {
     win = window;
+    canvas = document.createElement('canvas');
     mod = document.createElement('modernizr').style;
     cssPrefix = testPrefix();
     jsPrefix = cssPrefix.replace(/^-/, '').replace(/-$/, '').replace('moz', 'Moz');
@@ -166,9 +212,11 @@ if (isBrowser) {
 export {
     addWindowFocus,
     animEnd,
+    closest,
     cssPrefix,
     jsPrefix,
     listen,
+    matches,
     getPosition,
     getTextColor,
     hasGhostClick,
@@ -176,5 +224,6 @@ export {
     removeWindowFocus,
     smoothScroll,
     testTouch,
+    trigger,
     unlisten
 };

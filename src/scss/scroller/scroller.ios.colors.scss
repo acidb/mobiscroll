@@ -41,7 +41,7 @@
     $button-active: '';
     $top-bottom-wheel-border: '';
     @if (lightness($background) > 50%) {
-      $top-bottom-frame: adjust-hue(darken(saturate($background, 12%), 13%), 216%);
+      $top-bottom-frame: adjust-hue(darken(saturate($background, 12%), 13%), 216deg);
       $border-color: darken($background-limited, 17%);
       $item-3d: darken($background-limited, 33%);
       $popup-border: $border-color;

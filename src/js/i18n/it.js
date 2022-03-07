@@ -13,7 +13,7 @@ mobiscroll.i18n.it = {
     selectedPluralText: '{count} selezionati',
     // Datetime component
     dateFormat: 'dd/mm/yy',
-    dayNames: ['Domenica', 'Lunedì', 'Mertedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'],
+    dayNames: ['Domenica', 'Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'],
     dayNamesShort: ['Do', 'Lu', 'Ma', 'Me', 'Gi', 'Ve', 'Sa'],
     dayNamesMin: ['D', 'L', 'M', 'M', 'G', 'V', 'S'],
     dayText: 'Giorno',

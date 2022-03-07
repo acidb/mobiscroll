@@ -12,7 +12,7 @@ export class SegmentedItem extends FormControl {
         const $parent = this._$parent;
 
         if (!$parent.hasClass('mbsc-segmented-item-ready')) {
-            $segmentCont = $('<div class="mbsc-segmented mbsc-no-touch"></div>');
+            $segmentCont = $('<div class="mbsc-segmented mbsc-segmented-group mbsc-no-touch"></div>');
 
             $parent.after($segmentCont);
             $parent.parent().find('input[name="' + $elm.attr('name') + '"]').each(function () {

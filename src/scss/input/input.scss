@@ -12,7 +12,6 @@
   }
 
   .mbsc-input {
-    position: relative;
     display: block;
     margin: 0;
     z-index: 0;
@@ -20,6 +19,27 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+  }
+
+  .mbsc-input.mbsc-control-w.mbsc-ltr,
+  .mbsc-input.mbsc-control-w.mbsc-rtl {
+    // v5 compatibility
+    width: auto;
+    font-size: 1em;
+    line-height: normal;
+    max-width: none;
+    position: relative;
+  }
+
+  .mbsc-input.mbsc-label-floating.mbsc-control-w.mbsc-ltr,
+  .mbsc-input.mbsc-label-floating.mbsc-control-w.mbsc-rtl,
+  .mbsc-input.mbsc-label-stacked.mbsc-control-w.mbsc-ltr,
+  .mbsc-input.mbsc-label-stacked.mbsc-control-w.mbsc-rtl {
+    // v5 compatibility
+    top: 0;
+    left: 0;
+    right: 0;
+    transform: none;
   }
 
   .mbsc-input .mbsc-control:-webkit-autofill {

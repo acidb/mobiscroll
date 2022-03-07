@@ -502,12 +502,20 @@
     }
 
     /* Segmented & Stepper */
-    &.mbsc-segmented {
+    &.mbsc-segmented.mbsc-segmented-group {
       padding: .75em;
+      // v5 compatibility
+      margin: 0;
+      border-radius: 0;
     }
 
-    .mbsc-stepper {
+    &.mbsc-segmented.mbsc-stepper {
+      position: absolute;
       display: block;
+      margin-top: -1em;
+      // v5 compatibility
+      background: none;
+      border-radius: 0;
     }
 
     .mbsc-segmented-content {
@@ -546,13 +554,11 @@
       padding: 1.5em 1em 1.5em 11.75em;
     }
 
-    .mbsc-stepper {
+    &.mbsc-ltr .mbsc-stepper {
       right: 1em;
-      margin-top: -1em;
     }
 
     &.mbsc-rtl .mbsc-stepper {
-      right: auto;
       left: 1em;
     }
 

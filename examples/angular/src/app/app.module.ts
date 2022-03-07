@@ -7,20 +7,20 @@ import { MbscModule, mobiscroll } from '@mobiscroll/angular-lite';
 import { AppComponent } from './app.component';
 
 mobiscroll.settings = {
-  theme: 'auto',
-  themeVariant: 'auto'
+    theme: 'auto',
+    themeVariant: 'auto'
 };
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    MbscModule,
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent
+    ],
+    imports: [
+        BrowserModule,
+        FormsModule,
+        MbscModule,
+    ],
+    providers: [],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,21 +1,24 @@
 import {
-    extend,
-    MbscScrollerBase,
     Directive,
     Component,
-    INPUT_TEMPLATE,
     Input,
     Output,
     EventEmitter,
     ElementRef,
     NgZone,
     Optional,
-    NgControl,
-    MbscInputService,
-    MbscOptionsService,
     ViewContainerRef,
     NgModule,
-    CommonModule
+} from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { NgControl } from '@angular/forms';
+import {
+    extend,
+    MbscScrollerBase,
+    MbscScrollerBaseModule,
+    INPUT_TEMPLATE,
+    MbscInputService,
+    MbscOptionsService,
 } from './frameworks/angular';
 
 import { Scroller, MbscScrollerOptions } from './classes/scroller';
@@ -116,8 +119,8 @@ export class MbscScrollerComponent extends MbscScroller {
 }
 
 @NgModule({
-    imports: [CommonModule, MbscInputModule],
+    imports: [CommonModule, MbscScrollerBaseModule, MbscInputModule],
     declarations: [MbscScroller, MbscScrollerComponent],
     exports: [MbscScroller, MbscScrollerComponent]
 })
-export class MbscScrollerModule {}
+export class MbscScrollerModule { }

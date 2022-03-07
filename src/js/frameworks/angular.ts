@@ -6,33 +6,33 @@ import {
 import { MbscFrameOptions } from '../classes/frame';
 import {
     AfterViewInit,
-    Component,
-    ContentChild,
-    ContentChildren,
+    // Component,
+    // ContentChild,
+    // ContentChildren,
     Directive,
     DoCheck,
     ElementRef,
     EventEmitter,
-    forwardRef,
-    Inject,
+    // forwardRef,
+    // Inject,
     Injectable,
     Input,
-    ModuleWithProviders,
+    // ModuleWithProviders,
     NgModule,
     NgZone,
-    OnChanges,
+    // OnChanges,
     OnDestroy,
     OnInit,
-    Optional,
+    // Optional,
     Output,
-    QueryList,
+    // QueryList,
     SimpleChanges,
-    ViewChild,
-    ViewChildren,
+    // ViewChild,
+    // ViewChildren,
     ViewContainerRef,
-    Injector,
-    ChangeDetectionStrategy,
-    ChangeDetectorRef
+    // Injector,
+    // ChangeDetectionStrategy,
+    // ChangeDetectorRef
 } from '@angular/core';
 
 // // angular2 import { trigger, state, animate, transition, style } from '@angular/core'; // Angular 2.x
@@ -45,7 +45,7 @@ import { CommonModule } from '@angular/common';
 import {
     NgControl,
     ControlValueAccessor,
-    FormsModule
+    // FormsModule
 } from '@angular/forms';
 
 import { Observable } from '../util/observable';
@@ -98,7 +98,8 @@ export class MbscListService {
     }
 }
 
-class MbscBase implements AfterViewInit, OnDestroy {
+@Directive({ selector: '[mbsc-b]' })
+export class MbscBase implements AfterViewInit, OnDestroy {
     /**
      * The mobiscroll settings for the directive are passed through this input.
      */
@@ -166,7 +167,7 @@ class MbscBase implements AfterViewInit, OnDestroy {
     instance: any = null;
 
     /**
-     * Reference to the html element the mobiscroll is initialized on. 
+     * Reference to the html element the mobiscroll is initialized on.
      */
     element: any = null;
 
@@ -202,19 +203,40 @@ class MbscBase implements AfterViewInit, OnDestroy {
     startInit() {
         this.getInlineEvents();
         let ionInput = this.getIonInput();
-        if (ionInput && ionInput.getInputElement && this.element.nodeName !== 'INPUT') {
-            ionInput.getInputElement().then((inp: any) => {
-                this.setElement();
-                this.initControl();
-            });
+        if (ionInput && (ionInput.getInputElement || ionInput.then) && this.element.nodeName !== "INPUT") {
+            if (ionInput.getInputElement) {
+                ionInput.getInputElement().then((inp: any) => {
+                    this.setElement();
+                    this.initControl();
+                });
+            } else { // in the case of angular 9 the `ionInput` will be a promise that resolve with the ion-input instance
+                ionInput.then((ionInpComponent: any) => {
+                    ionInpComponent
+                        .getInputElement()
+                        .then((inp: any) => {
+                            this.setElement();
+                            this.initControl();
+                        });
+                });
+            }
         } else if (!this.instance) {
             this.initControl();
         }
     }
 
+    /**
+     * Returns either the ion input component, or a promise that resolves with it or falsy if there's no ion-input
+     *
+     * NOTE: Starting from Angular 9, the ViewContainerRef no longer has the reference to the component. The component
+     * instance in these cases can be aquired (not officially) from the nativeElement like below (componentOnReady fn.).
+     */
     getIonInput() {
-        let v = (this as any)._view;
-        return this.initialElem.nativeElement.nodeName === "ION-INPUT" && v && v._data && v._data.componentView && v._data.componentView.component;
+        const v = (this as any)._view;
+        const native = this.initialElem.nativeElement;
+        const ionInputNode = native.nodeName === "ION-INPUT";
+        const inp1 = ionInputNode && v && v._data && v._data.componentView && v._data.componentView.component;
+        const inp2 = ionInputNode && native.componentOnReady && native.componentOnReady();
+        return inp1 || inp2;
     }
 
     initControl() { }
@@ -287,14 +309,15 @@ class MbscBase implements AfterViewInit, OnDestroy {
     }
 }
 
-abstract class MbscValueBase extends MbscBase {
+@Directive({ selector: '[mbsc-v-b]' })
+export class MbscValueBase extends MbscBase {
     /**
      * This method is called when the model changes, and the new value should propagate
      * to mobiscroll instance.
      * Should be implemented by the decendant classes
      * @param v The new value to be set
      */
-    abstract setNewValue(v: any): void;
+    setNewValue(v: any): void { };
 
     /**
      * Constructor for the base mobiscroll control
@@ -312,9 +335,9 @@ abstract class MbscValueBase extends MbscBase {
 
     /**
      * Saves the initial value when the instance is not ready yet.
-     * In some cases the initial value is set when there is no view yet. 
+     * In some cases the initial value is set when there is no view yet.
      * This proxy function saves the initial value and calls the appropriate setNewValue.
-     * NOTE: after the instance is created, a setVal should be called to set the initial value to the instance 
+     * NOTE: after the instance is created, a setVal should be called to set the initial value to the instance
      * @param v The new value to set (it comes from the model)
      */
     protected setNewValueProxy(v: any) {
@@ -325,7 +348,8 @@ abstract class MbscValueBase extends MbscBase {
     }
 }
 
-abstract class MbscCloneBase extends MbscValueBase implements DoCheck, OnInit {
+@Directive({ selector: '[mbsc-c-b]' })
+export class MbscCloneBase extends MbscValueBase implements DoCheck, OnInit {
     constructor(initElem: ElementRef, zone: NgZone) {
         super(initElem, zone);
     }
@@ -377,9 +401,10 @@ abstract class MbscCloneBase extends MbscValueBase implements DoCheck, OnInit {
     }
 }
 
-abstract class MbscControlBase extends MbscCloneBase implements ControlValueAccessor {
+@Directive({ selector: '[mbsc-cc-b]' })
+export class MbscControlBase extends MbscCloneBase implements ControlValueAccessor {
 
-    // Not part of settings 
+    // Not part of settings
 
     @Input('label-style')
     labelStyle: 'stacked' | 'inline' | 'floating';
@@ -401,7 +426,7 @@ abstract class MbscControlBase extends MbscCloneBase implements ControlValueAcce
     disabled: boolean;
 
     /**
-     * Returns an object containing the extensions of the option object 
+     * Returns an object containing the extensions of the option object
      */
     get optionExtensions(): any {
         let externalOnClose = this.options && (this.options as any).onClose;
@@ -472,8 +497,15 @@ abstract class MbscControlBase extends MbscCloneBase implements ControlValueAcce
         let that = this;
         $(element || this.element).on('change', function () {
             that.zone.run(function () {
-                if (that.element.value !== that.instance._value && that.enableManualEdit) {
-                    that.instance.setVal(that.element.value, true, true);
+                const elmValue = that.element.value;
+                const instValue = that.instance._value;
+                // the element's value cannot be null, if the element is empty, it will be an empty string
+                // also the instance _value cannot be an empty string, bc. if the value is empty, under the hood
+                // the _value will be set to null
+                // SO the null and '' values are treated as equal, and there should not be a setVal call when these are to be used,
+                // otherwise it will be an infinite loop.
+                if (elmValue !== instValue && (instValue !== null || elmValue !== '') && that.enableManualEdit) {
+                    that.instance.setVal(elmValue, true, true);
                 } else {
                     let value = that.instance.getVal();
                     if (that.control) {
@@ -580,7 +612,8 @@ abstract class MbscControlBase extends MbscCloneBase implements ControlValueAcce
     }
 }
 
-abstract class MbscFrameBase extends MbscControlBase implements OnInit {
+@Directive({ selector: '[mbsc-fr-b]' })
+export class MbscFrameBase extends MbscControlBase implements OnInit {
     @Input()
     options: MbscFrameOptions;
 
@@ -648,7 +681,8 @@ abstract class MbscFrameBase extends MbscControlBase implements OnInit {
     }
 }
 
-abstract class MbscScrollerBase extends MbscFrameBase {
+@Directive({ selector: '[mbsc-s-b]' })
+export class MbscScrollerBase extends MbscFrameBase {
 
     // Settings
 
@@ -715,6 +749,24 @@ abstract class MbscScrollerBase extends MbscFrameBase {
     }
 }
 
+@NgModule({
+    imports: [CommonModule],
+    declarations: [MbscBase, MbscValueBase, MbscCloneBase, MbscControlBase],
+})
+export class MbscBaseModule { }
+
+@NgModule({
+    imports: [CommonModule, MbscBaseModule],
+    declarations: [MbscFrameBase],
+})
+export class MbscFrameBaseModule { }
+
+@NgModule({
+    imports: [CommonModule, MbscFrameBaseModule],
+    declarations: [MbscScrollerBase],
+})
+export class MbscScrollerBaseModule { }
+
 function deepEqualsArray(a1: Array<any>, a2: Array<any>): boolean {
     if (a1 === a2) {
         return true;
@@ -733,6 +785,8 @@ function deepEqualsArray(a1: Array<any>, a2: Array<any>): boolean {
 function isDateEqual(d1: any, d2: any): boolean {
     if ((d1 && !d2) || (d2 && !d1)) { // one of them is truthy and other is not
         return false;
+    } else if (!d1 && !d2) {
+        return true; // both of them are falsy
     } else {
         return d1 && d2 && d1.toString() === d2.toString();
     }
@@ -740,7 +794,7 @@ function isDateEqual(d1: any, d2: any): boolean {
 
 /**
  * Checks if the value passed is empty or the true string.
- * Used for determining if certain attributes are used on components. 
+ * Used for determining if certain attributes are used on components.
  * FYI: when an attribute is used without a value, empty string is provided to this function. Ex. readonly
  * @param val The value of the attribute.
  */
@@ -748,9 +802,9 @@ function emptyOrTrue(val: any) {
     return (typeof (val) === 'string' && (val === 'true' || val === '')) || !!val;
 }
 
-const INPUT_TEMPLATE = `<mbsc-input *ngIf="!inline || showInput" 
-    [controlNg]="false" [name]="name" [theme]="theme" [label-style]="labelStyle" [input-style]="inputStyle" [disabled]="disabled" [dropdown]="dropdown" [placeholder]="placeholder"
-    [error]="error" [errorMessage]="errorMessage" 
+const INPUT_TEMPLATE = `<mbsc-input *ngIf="!inline || showInput"
+    [controlNg]="false" [name]="name" [theme]="theme" [themeVariant]="themeVariant" [label-style]="labelStyle" [input-style]="inputStyle" [disabled]="disabled" [dropdown]="dropdown" [placeholder]="placeholder"
+    [error]="error" [errorMessage]="errorMessage"
     [icon]="inputIcon" [icon-align]="iconAlign">
     <ng-content></ng-content>
 </mbsc-input>`;
@@ -765,45 +819,38 @@ export {
 
     INPUT_TEMPLATE,
 
-    MbscBase,
-    MbscValueBase,
-    MbscCloneBase,
-    MbscControlBase,
-    MbscFrameBase,
-    MbscScrollerBase,
-
-    AfterViewInit,
-    CommonModule,
-    Component,
-    ContentChild,
-    ContentChildren,
-    ControlValueAccessor,
-    Directive,
-    DoCheck,
-    ElementRef,
-    EventEmitter,
-    FormsModule,
-    forwardRef,
-    Inject,
-    Injectable,
-    Input,
-    ModuleWithProviders,
-    NgControl,
-    NgModule,
-    NgZone,
+    // AfterViewInit,
+    // CommonModule,
+    // Component,
+    // ContentChild,
+    // ContentChildren,
+    // ControlValueAccessor,
+    // Directive,
+    // DoCheck,
+    // ElementRef,
+    // EventEmitter,
+    // FormsModule,
+    // forwardRef,
+    // Inject,
+    // Injectable,
+    // Input,
+    // ModuleWithProviders,
+    // NgControl,
+    // NgModule,
+    // NgZone,
     Observable,
-    OnChanges,
-    OnDestroy,
-    OnInit,
-    Optional,
-    Output,
-    QueryList,
-    SimpleChanges,
-    ViewChild,
-    ViewChildren,
-    ViewContainerRef,
-    Injector,
-    ChangeDetectionStrategy,
-    ChangeDetectorRef
+    // OnChanges,
+    // OnDestroy,
+    // OnInit,
+    // Optional,
+    // Output,
+    // QueryList,
+    // SimpleChanges,
+    // ViewChild,
+    // ViewChildren,
+    // ViewContainerRef,
+    // Injector,
+    // ChangeDetectionStrategy,
+    // ChangeDetectorRef,
     //trigger, state, animate, transition, style
 }

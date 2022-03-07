@@ -1,7 +1,7 @@
 /*!
- * Mobiscroll v4.10.2
+ * Mobiscroll v4.10.9
  * http://mobiscroll.com
- * 
+ *
  *
  * Copyright 2010-2018, Acid Media
  *
@@ -35,6 +35,8 @@ function getThemeName(s) {
         ms.themes.form[themeName + '-dark']
     ) {
         themeName = themeName + '-dark';
+    } else if (themeVariant === 'light' && /.+-dark$/.test(themeName)) {
+        themeName = themeName.replace(/-dark$/, '');
     }
 
     return themeName;
@@ -104,7 +106,7 @@ extend(util, {
 
 ms = extend(mobiscroll, {
     $: $,
-    version: '4.10.2',
+    version: '4.10.9',
     autoTheme: 'mobiscroll',
     themes: {
         form: {},
@@ -176,7 +178,7 @@ const Base = function (el, settings) {
     };
 
     that._getRespCont = function () {
-        return $(s.context)[0];
+        return $(s.context == 'body' ? window : s.context);
     };
 
     that.init = function (newSettings, newValue) {
@@ -206,6 +208,15 @@ const Base = function (el, settings) {
         // Create settings object
         extend(s, that._defaults, defaults, settings);
 
+        ctx = that._getRespCont();
+
+        if (that._responsive) {
+            if (!resp) {
+                resp = getResponsiveSettings();
+            }
+            extend(s, resp);
+        }
+
         // Get theme defaults
         if (that._hasTheme) {
 
@@ -222,16 +233,7 @@ const Base = function (el, settings) {
         }
 
         // Update settings object
-        extend(s, theme, lang, defaults, settings);
-
-        ctx = that._getRespCont();
-
-        if (that._responsive) {
-            if (!resp) {
-                resp = getResponsiveSettings();
-            }
-            extend(s, resp);
-        }
+        extend(s, theme, lang, defaults, settings, resp);
 
         that._processSettings(resp || {});
 
@@ -241,7 +243,7 @@ const Base = function (el, settings) {
             preset = that._presets[s.preset];
 
             if (preset) {
-                preset = preset.call(el, that, settings);
+                preset = preset.call(el, that, settings, resp);
                 extend(s, preset, settings, resp);
             }
         }

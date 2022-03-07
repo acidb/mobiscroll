@@ -1,5 +1,5 @@
 import { $, classes } from '../core/core';
-import { tap } from '../util/tap';
+import { tap, tapOff } from '../util/tap';
 import { hasTransition } from './dom.js';
 
 var nr = 1;
@@ -50,16 +50,8 @@ export class CollapsibleBase {
                 .attr('aria-expanded', this._isOpen)
                 .attr('aria-controls', content.id)
                 .attr('tabindex', '0')
-                .on('mousedown', (ev) => {
-                    // prevent focus on mouse down
-                    ev.preventDefault();
-                })
-                .on('keydown', (ev) => {
-                    if (ev.which === 32 || ev.keyCode == 13) { //space or enter 
-                        ev.preventDefault();
-                        this.collapse();
-                    }
-                })
+                .on('mousedown', this.onMouseDown)
+                .on('keydown', this.onKeyDown)
                 .append($collapsibleIcon);
         }
 
@@ -73,6 +65,8 @@ export class CollapsibleBase {
         this.show = this.show.bind(this);
         this.hide = this.hide.bind(this);
         this.toggle = this.toggle.bind(this);
+        this.onKeyDown = this.onKeyDown.bind(this);
+        this.onMouseDown = this.onMouseDown.bind(this);
     }
 
     collapse(show) {
@@ -138,7 +132,22 @@ export class CollapsibleBase {
         this._$content.removeClass('mbsc-collapsible-content');
         this._$header
             .removeClass('mbsc-collapsible-header')
+            .off('mousedown', this.onMouseDown)
+            .off('keydown', this.onKeyDown)
             .find('.mbsc-collapsible-icon').remove();
+        tapOff(this._$header);
+    }
+
+    onKeyDown(ev) {
+        if (ev.which === 32 || ev.keyCode == 13) { //space or enter 
+            ev.preventDefault();
+            this.collapse();
+        }
+    }
+
+    onMouseDown(ev) {
+        // prevent focus on mouse down
+        ev.preventDefault();
     }
 }
 

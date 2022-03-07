@@ -62,7 +62,9 @@ export const Stepper = function (control, settings) {
 
         if (val == min) {
             $btnMinus.addClass('mbsc-disabled');
-        } else if (val == max) {
+        }
+
+        if (val == max) {
             $btnPlus.addClass('mbsc-disabled');
         }
 
