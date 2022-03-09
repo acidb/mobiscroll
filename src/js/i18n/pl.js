@@ -9,7 +9,7 @@ mobiscroll.i18n.pl = {
     setText: 'Zestaw',
     cancelText: 'Anuluj',
     clearText: 'Oczyścić',
-    selectedText: 'Wybór: {count}',
+    selectedText: 'Wybrano: {count}',
     // Datetime component
     dateFormat: 'yy-mm-dd',
     dayNames: ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'],
