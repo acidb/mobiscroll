@@ -11,7 +11,7 @@ mobiscroll.i18n['pt-BR'] = {
     // Core
     setText: 'Selecionar',
     cancelText: 'Cancelar',
-    clearText: 'Claro',
+    clearText: 'Apagar',
     selectedText: '{count} selecionado',
     selectedPluralText: '{count} selecionados',
     // Datetime component
