@@ -1,0 +1,51 @@
+{
+  "name": "@mobiscroll/vue-lite",
+  "version": "6.1.3",
+  "description": "Vue UI library for progressive web and hybrid apps",
+  "homepage": "https://mobiscroll.com/",
+  "license": "Apache-2.0",
+  "keywords": [
+    "mobile web",
+    "hybrid apps",
+    "javascript",
+    "mobiscroll",
+    "javascript library",
+    "vue",
+    "component library",
+    "ui components",
+    "ui kit"
+  ],
+  "author": {
+    "name": "Mobiscroll",
+    "url": "https://mobiscroll.com/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/acidb/mobiscroll.git"
+  },
+  "bugs": {
+    "url": "https://github.com/acidb/mobiscroll/issues"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/esm5/mobiscroll.vue.min.d.ts",
+      "import": "./dist/esm5/mobiscroll.vue.min.mjs",
+      "require": "./dist/js/mobiscroll.vue.min.cjs"
+    },
+    "./dist/css/*": "./dist/css/*",
+    "./dist/src/*": "./dist/src/*"
+  },
+  "main": "dist/js/mobiscroll.vue.min.cjs",
+  "module": "dist/esm5/mobiscroll.vue.min.mjs",
+  "types": "dist/src/vue/bundle.d.ts",
+  "style": "dist/css/mobiscroll.min.css",
+  "files": [
+    "dist/js/*",
+    "dist/esm5/*",
+    "dist/css/*",
+    "dist/src/**"
+  ],
+  "peerDependencies": {
+    "vue": ">=3.0.0"
+  }
+}

@@ -1,0 +1,10 @@
+@mixin mbsc-windows-radio($theme, $params) {
+  .mbsc-#{$theme} {
+    &.mbsc-radio-box {
+      --mbsc-radio-border-color: var(--mbsc-#{$theme}-radio-border-color, var(--mbsc-#{$theme}-border-strong));
+      --mbsc-radio-border-hover: var(--mbsc-#{$theme}-radio-border-hover, var(--mbsc-#{$theme}-border-strong-hover));
+      --mbsc-radio-selected-color: var(--mbsc-#{$theme}-radio-selected-color, var(--mbsc-#{$theme}-accent));
+      --mbsc-radio-focus: var(--mbsc-#{$theme}-radio-focus, var(--mbsc-#{$theme}-text));
+    }
+  }
+}

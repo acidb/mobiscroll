@@ -1,0 +1,71 @@
+@use '../../themes/common';
+@use '../../themes/ios-legacy';
+@use './button.ios-legacy.colors' as colors;
+
+@if (common.$mbsc-ios-theme and common.$mbsc-button) {
+  .mbsc-ios-legacy {
+    &.mbsc-button {
+      padding: 0 0.5em;
+      margin: 0.5em 0.25em;
+      line-height: 2.25em;
+      border-radius: 0.25em;
+      transition: opacity 0.1s ease-out, background-color 0.1s ease-out;
+    }
+
+    &.mbsc-icon-button {
+      padding: 0.5em;
+      line-height: normal;
+      border-radius: 4em;
+    }
+
+    &.mbsc-button.mbsc-hover {
+      opacity: 0.7;
+    }
+
+    &.mbsc-button.mbsc-active {
+      opacity: 0.5;
+    }
+
+    &.mbsc-button:disabled,
+    &.mbsc-button.mbsc-disabled {
+      opacity: 0.2;
+    }
+
+    &.mbsc-button-outline.mbsc-active {
+      opacity: 1;
+    }
+
+    &.mbsc-ltr {
+      &.mbsc-button-icon-start {
+        padding-right: 0.375em;
+      }
+
+      &.mbsc-button-icon-end {
+        padding-left: 0.375em;
+      }
+    }
+
+    &.mbsc-rtl {
+      &.mbsc-button-icon-start {
+        padding-left: 0.375em;
+      }
+
+      &.mbsc-button-icon-end {
+        padding-right: 0.375em;
+      }
+    }
+
+    .mbsc-button-group,
+    .mbsc-button-group-justified,
+    .mbsc-button-group-block {
+      margin: 0.5em 0.75em;
+    }
+
+    .mbsc-button-group-block {
+      margin: 0.5em 1em;
+    }
+  }
+
+  @include colors.mbsc-ios-legacy-button('ios-legacy', ios-legacy.$mbsc-ios-colors);
+  @include colors.mbsc-ios-legacy-button('ios-legacy-dark', ios-legacy.$mbsc-ios-dark-colors);
+}

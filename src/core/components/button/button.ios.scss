@@ -1,0 +1,143 @@
+@use '../../themes/common';
+@use '../../themes/ios';
+@use './button.ios.colors' as colors;
+
+@if (common.$mbsc-ios-theme and common.$mbsc-button) {
+  .mbsc-ios {
+    &.mbsc-button {
+      padding: 0.25em 1em;
+      margin: 0.5em 0.25em;
+      line-height: 2.25em;
+      border-radius: 2em;
+
+      &::after {
+        transition: opacity 0.1s ease-out;
+      }
+
+      &.mbsc-focus {
+        outline-offset: -2px;
+        outline: 2px solid var(--mbsc-button-focus);
+      }
+
+      &.mbsc-hover .mbsc-button-txt {
+        opacity: 0.8;
+      }
+
+      &.mbsc-active::after {
+        opacity: 0.15;
+      }
+
+      &:disabled .mbsc-button-bg,
+      &.mbsc-disabled .mbsc-button-bg {
+        opacity: 0.38;
+      }
+
+      &:disabled .mbsc-button-txt,
+      &.mbsc-disabled .mbsc-button-txt {
+        color: var(--mbsc-button-disabled-text);
+        opacity: 0.38;
+      }
+    }
+
+    &.mbsc-button-bg {
+      border-radius: 2em;
+    }
+
+    &.mbsc-button-txt {
+      transition: opacity 0.1s ease-out;
+    }
+
+    &.mbsc-button-icon {
+      line-height: 1.5em;
+    }
+
+    /* Icon only button */
+
+    &.mbsc-icon-button {
+      width: 2.75em;
+      height: 2.75em;
+      padding: 0.5em;
+      line-height: normal;
+      border-radius: 4em;
+    }
+
+    /* Standard button */
+
+    &.mbsc-button-standard {
+      color: var(--mbsc-button-standard-text-color);
+    }
+
+    &.mbsc-button-standard-bg {
+      background: var(--mbsc-button-standard-bg-color);
+    }
+
+    &.mbsc-button-standard:disabled .mbsc-button-bg,
+    &.mbsc-button-standard.mbsc-disabled .mbsc-button-bg {
+      background: var(--mbsc-button-disabled-bg);
+    }
+
+    /* Outline button */
+
+    &.mbsc-button-outline {
+      color: var(--mbsc-button-outline-text-color);
+    }
+
+    &.mbsc-button-outline-bg {
+      border: 1px solid var(--mbsc-button-outline-border-color);
+    }
+
+    &.mbsc-button-outline:disabled .mbsc-button-bg,
+    &.mbsc-button-outline.mbsc-disabled .mbsc-button-bg {
+      border-color: var(--mbsc-button-disabled-bg);
+    }
+
+    /* Flat button */
+
+    &.mbsc-button-flat {
+      color: var(--mbsc-button-flat-text-color);
+    }
+
+    /* Icons */
+
+    &.mbsc-button-icon-start.mbsc-ltr,
+    &.mbsc-button-icon-end.mbsc-rtl {
+      padding-right: 0.375em;
+    }
+
+    &.mbsc-button-icon-end.mbsc-ltr,
+    &.mbsc-button-icon-start.mbsc-rtl {
+      padding-left: 0.375em;
+    }
+
+    /* Groups */
+
+    .mbsc-button-group,
+    .mbsc-button-group-justified,
+    .mbsc-button-group-block {
+      margin: 0.5em 0.75em;
+    }
+
+    .mbsc-button-group-block {
+      margin: 0.5em 1em;
+    }
+
+    /* Color presets */
+
+    @each $name in common.$mbsc-color-variants {
+      &.mbsc-button.mbsc-button-#{$name} {
+        --mbsc-button-standard-bg-color: var(--mbsc-ios-#{$name});
+        --mbsc-button-standard-text-color: var(--mbsc-ios-on-#{$name});
+        --mbsc-button-outline-border-color: var(--mbsc-ios-#{$name});
+        --mbsc-button-outline-text-color: var(--mbsc-ios-#{$name});
+        --mbsc-button-flat-text-color: var(--mbsc-ios-#{$name});
+      }
+
+      &.mbsc-button-flat.mbsc-button-#{$name} {
+        --mbsc-button-focus: var(--mbsc-ios-#{$name});
+      }
+    }
+  }
+
+  @include colors.mbsc-ios-button('ios', ios.$mbsc-ios-colors);
+  @include colors.mbsc-ios-button('ios-dark', ios.$mbsc-ios-dark-colors);
+}

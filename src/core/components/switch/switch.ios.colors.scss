@@ -1,0 +1,11 @@
+@mixin mbsc-ios-switch($theme, $params) {
+  .mbsc-#{$theme} {
+    &.mbsc-switch {
+      --mbsc-switch-handle-color: var(--mbsc-#{$theme}-switch-handle-color, var(--mbsc-#{$theme}-surface-2));
+      --mbsc-switch-track-color: var(--mbsc-#{$theme}-switch-track-color, var(--mbsc-#{$theme}-surface-5));
+      --mbsc-switch-selected-handle-color: var(--mbsc-#{$theme}-switch-selected-handle-color, var(--mbsc-#{$theme}-background));
+      --mbsc-switch-selected-track-color: var(--mbsc-#{$theme}-switch-selected-track-color, var(--mbsc-#{$theme}-action-success));
+      --mbsc-switch-focus: var(--mbsc-#{$theme}-switch-focus, var(--mbsc-#{$theme}-focus));
+    }
+  }
+}

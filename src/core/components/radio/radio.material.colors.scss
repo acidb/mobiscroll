@@ -1,0 +1,9 @@
+@mixin mbsc-material-radio($theme, $params) {
+  .mbsc-#{$theme} {
+    &.mbsc-radio {
+      --mbsc-radio-border-color: var(--mbsc-#{$theme}-radio-border-color, var(--mbsc-#{$theme}-on-surface-variant));
+      --mbsc-radio-selected-color: var(--mbsc-#{$theme}-radio-selected-color, var(--mbsc-#{$theme}-accent));
+      --mbsc-radio-focus: var(--mbsc-#{$theme}-focus, var(--mbsc-#{$theme}-secondary-accent));
+    }
+  }
+}

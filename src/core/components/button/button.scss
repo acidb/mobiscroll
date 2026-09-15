@@ -1,0 +1,116 @@
+@use '../../themes/common';
+@use './button.ios' as ios;
+@use './button.material' as material;
+@use './button.windows' as windows;
+
+@if common.$mbsc-button {
+  .mbsc-button {
+    position: relative;
+    z-index: 1;
+    vertical-align: middle;
+    display: inline-flex;
+    justify-content: center;
+    overflow: hidden;
+    text-align: center;
+    text-overflow: ellipsis;
+    // font-size: 1em;
+    box-sizing: border-box;
+    touch-action: manipulation;
+    user-select: none;
+    white-space: nowrap;
+    will-change: opacity;
+    cursor: pointer;
+  }
+
+  .mbsc-button-bg {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: -1;
+    box-sizing: border-box;
+  }
+
+  .mbsc-button-txt {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .mbsc-button::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    background: currentColor;
+    transition: opacity 0.2s;
+    z-index: -1;
+  }
+
+  .mbsc-button.mbsc-hover::after {
+    opacity: 0.08;
+  }
+
+  .mbsc-button:disabled,
+  .mbsc-button.mbsc-disabled {
+    cursor: not-allowed;
+  }
+
+  /* Button icons */
+
+  .mbsc-button-icon {
+    box-sizing: content-box;
+  }
+
+  .mbsc-button-icon > *,
+  .mbsc-button-icon > * > * {
+    // For custom icon markup
+    height: 100%;
+    line-height: inherit;
+  }
+
+  .mbsc-button-icon-end {
+    // Needed by javascript/jQuery component, where end icon is before the button text in the markup
+    order: 1;
+  }
+
+  /* Icon only button */
+
+  .mbsc-icon-button {
+    width: 2.5em;
+    height: 2.5em;
+    padding: 0.5em;
+    flex: none;
+  }
+
+  /* Button groups */
+
+  .mbsc-button-group,
+  .mbsc-button-group-block,
+  .mbsc-button-group-justified {
+    // Prevent margin collision
+    border: 1px solid transparent;
+  }
+
+  .mbsc-button-group-block .mbsc-button,
+  .mbsc-button-block {
+    display: block;
+    width: 100%;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  .mbsc-button-group-justified {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .mbsc-button-group-justified .mbsc-button,
+  .mbsc-button-group-justified mbsc-button {
+    flex: 1 auto;
+  }
+}

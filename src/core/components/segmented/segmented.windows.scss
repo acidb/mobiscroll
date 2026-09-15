@@ -1,0 +1,53 @@
+@use '../../themes/common';
+@use '../../themes/windows';
+@use './segmented.windows.colors' as colors;
+
+@if (common.$mbsc-windows-theme and common.$mbsc-segmented) {
+  .mbsc-windows {
+    &.mbsc-segmented-button.mbsc-button {
+      margin: 0;
+      border-radius: 0;
+      border: 1px solid var(--mbsc-segmented-border-color);
+      border-right-width: 0;
+      background: var(--mbsc-segmented-bg-color);
+      color: var(--mbsc-segmented-text-color);
+
+      &.mbsc-selected {
+        color: var(--mbsc-segmented-selected-text-color);
+        background: var(--mbsc-segmented-selected-bg-color);
+      }
+
+      &.mbsc-focus {
+        outline: 2px solid var(--mbsc-segmented-focus);
+        outline-offset: -1px;
+        z-index: 2;
+      }
+
+      &.mbsc-disabled.mbsc-selected {
+        background: var(--mbsc-segmented-border-color);
+      }
+    }
+
+    &.mbsc-segmented-item:first-child .mbsc-segmented-button.mbsc-ltr,
+    &.mbsc-segmented-item:last-child .mbsc-segmented-button.mbsc-rtl {
+      border-radius: 0.2em 0 0 0.2em;
+    }
+
+    &.mbsc-segmented-item:last-child .mbsc-segmented-button.mbsc-ltr,
+    &.mbsc-segmented-item:first-child .mbsc-segmented-button.mbsc-rtl {
+      border-radius: 0 0.2em 0.2em 0;
+      border-right-width: 1px;
+    }
+
+    /* Color presets */
+    @each $name in common.$mbsc-color-variants {
+      &.mbsc-button-#{$name} {
+        --mbsc-segmented-selected-bg-color: var(--mbsc-windows-#{$name});
+        --mbsc-segmented-selected-text-color: var(--mbsc-windows-on-#{$name});
+      }
+    }
+  }
+
+  @include colors.mbsc-windows-segmented('windows', windows.$mbsc-windows-colors);
+  @include colors.mbsc-windows-segmented('windows-dark', windows.$mbsc-windows-dark-colors);
+}

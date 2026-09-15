@@ -1,0 +1,70 @@
+@use '../../themes/common';
+@use '../../themes/windows-legacy';
+@use './radio.windows-legacy.colors' as colors;
+
+@if (common.$mbsc-windows-theme and common.$mbsc-forms) {
+  .mbsc-windows-legacy {
+    &.mbsc-radio-left {
+      padding: 1.125em 1em 1.125em 3.25em;
+    }
+
+    &.mbsc-radio-right {
+      padding: 1.125em 3.25em 1.125em 1em;
+    }
+
+    &.mbsc-radio-box-left {
+      left: 1em;
+    }
+
+    &.mbsc-radio-box-right {
+      right: 1em;
+    }
+
+    &.mbsc-radio-box:before {
+      content: '';
+      position: absolute;
+      top: -0.75em;
+      left: -0.75em;
+      z-index: -1;
+      width: 2.5em;
+      height: 2.5em;
+      opacity: 0;
+      border-radius: 2.5em;
+      transition: opacity 0.2s ease-in-out;
+      background: #ccc;
+    }
+
+    &.mbsc-radio-box.mbsc-focus:before {
+      opacity: 0.12;
+    }
+
+    /* Color presets */
+
+    &.mbsc-radio-box.mbsc-radio-box-primary.mbsc-checked {
+      border-color: windows-legacy.$mbsc-windows-primary;
+    }
+
+    &.mbsc-radio-box.mbsc-radio-box-secondary.mbsc-checked {
+      border-color: windows-legacy.$mbsc-windows-secondary;
+    }
+
+    &.mbsc-radio-box.mbsc-radio-box-success.mbsc-checked {
+      border-color: windows-legacy.$mbsc-windows-success;
+    }
+
+    &.mbsc-radio-box.mbsc-radio-box-danger.mbsc-checked {
+      border-color: windows-legacy.$mbsc-windows-danger;
+    }
+
+    &.mbsc-radio-box.mbsc-radio-box-warning.mbsc-checked {
+      border-color: windows-legacy.$mbsc-windows-warning;
+    }
+
+    &.mbsc-radio-box.mbsc-radio-box-info.mbsc-checked {
+      border-color: windows-legacy.$mbsc-windows-info;
+    }
+  }
+
+  @include colors.mbsc-windows-legacy-radio('windows-legacy', windows-legacy.$mbsc-windows-colors);
+  @include colors.mbsc-windows-legacy-radio('windows-legacy-dark', windows-legacy.$mbsc-windows-dark-colors);
+}

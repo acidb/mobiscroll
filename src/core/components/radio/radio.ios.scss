@@ -1,0 +1,64 @@
+@use '../../themes/common';
+@use '../../themes/ios';
+@use './radio.ios.colors' as colors;
+
+@if (common.$mbsc-ios-theme and common.$mbsc-forms) {
+  .mbsc-ios {
+    &.mbsc-radio-left {
+      padding: 1em 1em 1em 3.375em;
+    }
+
+    &.mbsc-radio-right {
+      padding: 1em 3.375em 1em 1em;
+    }
+
+    &.mbsc-radio-box {
+      width: 1.375em;
+      height: 1.375em;
+      margin-top: -0.6875em;
+      border: 0.125em solid var(--mbsc-radio-border-color);
+
+      &::after {
+        width: 0.875em;
+        height: 0.375em;
+        top: 0.3125em;
+        left: 0.125em;
+        margin: 0;
+        border: 0.125em solid var(--mbsc-radio-selected-color);
+        border-top: 0;
+        border-right: 0;
+        border-radius: 0;
+        transform: rotate(-45deg);
+        transition: opacity 0.2s ease-in-out;
+      }
+
+      &.mbsc-focus {
+        outline: 2px solid var(--mbsc-radio-focus);
+        outline-offset: 2px;
+      }
+
+      &.mbsc-disabled::after {
+        border-color: var(--mbsc-radio-disabled);
+      }
+    }
+
+    &.mbsc-radio-box-left {
+      left: 1em;
+    }
+
+    &.mbsc-radio-box-right {
+      right: 1em;
+    }
+
+    /* Color presets */
+
+    @each $name in common.$mbsc-color-variants {
+      &.mbsc-radio-box-#{$name} {
+        --mbsc-radio-selected-color: var(--mbsc-ios-#{$name});
+      }
+    }
+  }
+
+  @include colors.mbsc-ios-radio('ios', ios.$mbsc-ios-colors);
+  @include colors.mbsc-ios-radio('ios-dark', ios.$mbsc-ios-dark-colors);
+}

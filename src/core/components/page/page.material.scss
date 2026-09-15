@@ -1,0 +1,16 @@
+@use '../../themes/common';
+@use '../../themes/material';
+@use './page.material.colors' as colors;
+
+@if (common.$mbsc-material-theme and common.$mbsc-forms) {
+  .mbsc-material {
+    .mbsc-block-title,
+    .mbsc-form-group-title {
+      padding: 0.666667em 1.333334em;
+      font-size: 0.75em;
+    }
+  }
+
+  @include colors.mbsc-material-page('material', material.$mbsc-material-colors);
+  @include colors.mbsc-material-page('material-dark', material.$mbsc-material-dark-colors);
+}

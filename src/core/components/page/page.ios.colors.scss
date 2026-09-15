@@ -1,0 +1,11 @@
+@mixin mbsc-ios-page($theme, $params) {
+  .mbsc-#{$theme} {
+    &.mbsc-page {
+      --mbsc-page-accent: var(--mbsc-#{$theme}-page-accent, var(--mbsc-#{$theme}-accent));
+      --mbsc-page-bg-color: var(--mbsc-#{$theme}-page-bg-color, var(--mbsc-#{$theme}-background-alt));
+      --mbsc-page-border-color: var(--mbsc-#{$theme}-page-border-color, var(--mbsc-#{$theme}-border));
+      --mbsc-page-text-color: var(--mbsc-#{$theme}-page-text-color, var(--mbsc-#{$theme}-text));
+      --mbsc-page-title-text-color: var(--mbsc-#{$theme}-page-title-text-color, var(--mbsc-#{$theme}-text-soft));
+    }
+  }
+}

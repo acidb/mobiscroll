@@ -1,0 +1,15 @@
+@mixin mbsc-windows-button($theme, $params) {
+  .mbsc-#{$theme} {
+    &.mbsc-button {
+      --mbsc-button-standard-bg-color: var(--mbsc-#{$theme}-button-standard-bg-color, var(--mbsc-#{$theme}-background));
+      --mbsc-button-standard-text-color: var(--mbsc-#{$theme}-button-standard-text-color, var(--mbsc-#{$theme}-text));
+      --mbsc-button-outline-border-color: var(--mbsc-#{$theme}-button-outline-border-color, var(--mbsc-#{$theme}-border));
+      --mbsc-button-outline-text-color: var(--mbsc-#{$theme}-button-outline-text-color, var(--mbsc-#{$theme}-text));
+      --mbsc-button-flat-text-color: var(--mbsc-#{$theme}-button-flat-text-color, var(--mbsc-#{$theme}-text));
+      --mbsc-button-focus: var(--mbsc-#{$theme}-button-focus, var(--mbsc-#{$theme}-text));
+      --mbsc-button-focus-contrast: var(--mbsc-#{$theme}-button-focus-contrast, var(--mbsc-#{$theme}-background));
+      --mbsc-button-disabled-bg: var(--mbsc-#{$theme}-button-disabled-bg, var(--mbsc-#{$theme}-text));
+      --mbsc-button-disabled-text: var(--mbsc-#{$theme}-button-disabled-text, var(--mbsc-#{$theme}-text));
+    }
+  }
+}

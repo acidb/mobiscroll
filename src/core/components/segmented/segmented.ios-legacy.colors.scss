@@ -1,0 +1,104 @@
+@use 'sass:map';
+@use 'sass:color';
+@use '../../themes/common';
+@use '../../themes/ios-legacy';
+
+@mixin mbsc-ios-legacy-segmented($theme, $params) {
+  $background: map.get($params, 'background');
+  $accent: map.get($params, 'accent');
+
+  $bg-param: map.get($params, 'form-background');
+  $acc-param: map.get($params, 'form-accent');
+
+  $background: common.choose($bg-param, $bg-param, $background);
+  $accent: common.choose($acc-param, $acc-param, $accent);
+
+  $is-dark: false;
+  $selectbox: '';
+  $selectbox-contrast: '';
+  $button-background: '';
+  $shadow: '';
+
+  @if (color.channel($background, 'lightness', $space: hsl) > 50%) {
+    $button-background: color.adjust($background, $lightness: -10%);
+    $selectbox: #fff;
+    $selectbox-contrast: #000;
+    $shadow: color.adjust($background, $lightness: -24%);
+  } @else {
+    $is-dark: true;
+    $button-background: color.adjust($background, $lightness: 11%);
+    $selectbox: #5a5a5a;
+    $selectbox-contrast: #fff;
+    $shadow: $background;
+  }
+
+  .mbsc-#{$theme} {
+    &.mbsc-segmented {
+      background: $button-background;
+    }
+
+    &.mbsc-segmented-item:before {
+      border-color: rgba($selectbox-contrast, 0.2);
+    }
+
+    &.mbsc-segmented-item.mbsc-focus .mbsc-segmented-selectbox {
+      box-shadow: 0 0 0 0.0625em rgba($selectbox-contrast, 0.5) inset;
+    }
+
+    &.mbsc-segmented-selectbox-inner {
+      background: $selectbox;
+
+      &.mbsc-selected {
+        box-shadow: $shadow 3px 3px 8px -4px;
+      }
+    }
+
+    &.mbsc-segmented-button.mbsc-button {
+      background: transparent;
+      color: $selectbox-contrast;
+    }
+
+    /* Inside popup and calendar header */
+    @if ($is-dark) {
+      &.mbsc-datepicker .mbsc-segmented,
+      &.mbsc-popup &.mbsc-segmented,
+      &.mbsc-calendar-header &.mbsc-segmented {
+        background: color.adjust($background, $lightness: 17%);
+      }
+    }
+
+    /* Color presets */
+
+    &.mbsc-segmented-primary {
+      background: ios-legacy.$mbsc-ios-primary;
+    }
+
+    &.mbsc-segmented-secondary {
+      background: ios-legacy.$mbsc-ios-secondary;
+    }
+
+    &.mbsc-segmented-success {
+      background: ios-legacy.$mbsc-ios-success;
+    }
+
+    &.mbsc-segmented-warning {
+      background: ios-legacy.$mbsc-ios-warning;
+    }
+
+    &.mbsc-segmented-danger {
+      background: ios-legacy.$mbsc-ios-danger;
+    }
+
+    &.mbsc-segmented-info {
+      background: ios-legacy.$mbsc-ios-info;
+    }
+
+    &.mbsc-segmented-light {
+      background: ios-legacy.$mbsc-ios-light;
+    }
+
+    &.mbsc-segmented-dark {
+      background: ios-legacy.$mbsc-ios-dark;
+    }
+  }
+}

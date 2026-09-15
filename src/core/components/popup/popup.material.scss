@@ -1,0 +1,58 @@
+@use '../../themes/common';
+@use '../../themes/material';
+@use './popup.material.colors' as colors;
+
+@if (common.$mbsc-material-theme and common.$mbsc-popup) {
+  .mbsc-material {
+    &.mbsc-popup-wrapper-bottom-full {
+      padding-top: 1em;
+    }
+
+    &.mbsc-popup-wrapper-top-full {
+      padding-bottom: 1em;
+    }
+
+    &.mbsc-popup-body {
+      box-shadow: 0px 11px 15px -7px rgba(0, 0, 0, 0.2), 0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);
+    }
+
+    &.mbsc-popup-body-center,
+    &.mbsc-popup-body-anchored,
+    &.mbsc-popup-body-round {
+      border-radius: 1.75em;
+    }
+
+    &.mbsc-popup-body-bottom-full {
+      border-radius: 0.75em 0.75em 0 0;
+    }
+
+    &.mbsc-popup-body-top-full {
+      border-radius: 0 0 0.75em 0.75em;
+    }
+
+    &.mbsc-popup-header {
+      font-size: 1.5em;
+      font-weight: 400;
+      padding: 1em 1em 0 1em;
+      line-height: 1.333334em;
+    }
+
+    &.mbsc-popup-padding {
+      padding: 1em 1.5em;
+    }
+
+    &.mbsc-popup-buttons {
+      display: block;
+      padding: 0 1.25em 1.5em 1.25em;
+      text-align: end;
+    }
+
+    &.mbsc-popup-button.mbsc-font {
+      margin: 0 0.25em;
+      padding: 0.625em 0.75em;
+    }
+  }
+
+  @include colors.mbsc-material-popup('material', material.$mbsc-material-colors);
+  @include colors.mbsc-material-popup('material-dark', material.$mbsc-material-dark-colors);
+}

@@ -1,0 +1,17 @@
+@use '../../themes/common';
+@use '../../themes/windows-legacy';
+@use './page.windows-legacy.colors' as colors;
+
+@if (common.$mbsc-windows-theme and common.$mbsc-forms) {
+  .mbsc-windows-legacy {
+    .mbsc-block-title,
+    .mbsc-form-group-title {
+      font-size: 1.5em;
+      padding: 0 0.666667em;
+      line-height: 2em;
+    }
+  }
+
+  @include colors.mbsc-windows-legacy-page('windows-legacy', windows-legacy.$mbsc-windows-colors);
+  @include colors.mbsc-windows-legacy-page('windows-legacy-dark', windows-legacy.$mbsc-windows-dark-colors);
+}

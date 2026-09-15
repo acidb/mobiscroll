@@ -1,0 +1,120 @@
+@use 'sass:color';
+@use '../../themes/common';
+@use '../../themes/material-legacy';
+@use './switch.material-legacy.colors' as colors;
+
+@if (common.$mbsc-material-theme and common.$mbsc-forms) {
+  .mbsc-material-legacy {
+    &.mbsc-switch-right {
+      padding: 0.9375em 4em 0.9375em 1em;
+    }
+
+    &.mbsc-switch-left {
+      padding: 0.9375em 1em 0.9375em 4em;
+    }
+
+    // Track
+
+    &.mbsc-switch-track {
+      width: 1.75em;
+      height: 0.875em;
+      padding: 0 0.25em;
+      margin-top: -0.4375em;
+      border-radius: 1.25em;
+    }
+
+    &.mbsc-switch-track-left {
+      left: 1.25em;
+    }
+
+    &.mbsc-switch-track-right {
+      right: 1.25em;
+    }
+
+    // Handle
+
+    &.mbsc-switch-handle {
+      width: 1.25em;
+      height: 1.25em;
+      border-radius: 1.25em;
+      top: 50%;
+      margin-left: -0.625em;
+      margin-top: -0.625em;
+    }
+
+    &.mbsc-switch-handle:before {
+      content: '';
+      display: block;
+      position: absolute;
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.2s ease-in-out;
+      border-radius: 2.875em;
+      top: -0.625em;
+      left: -0.625em;
+      width: 2.5em;
+      height: 2.5em;
+    }
+
+    &.mbsc-switch-handle.mbsc-focus:before {
+      opacity: 0.5;
+    }
+
+    &.mbsc-switch-handle.mbsc-active:before {
+      opacity: 1;
+    }
+
+    /* Color presets */
+
+    &.mbsc-switch-handle.mbsc-switch-primary.mbsc-checked {
+      background: material-legacy.$mbsc-material-primary;
+    }
+
+    &.mbsc-switch-track.mbsc-switch-primary.mbsc-checked {
+      background: color.adjust(material-legacy.$mbsc-material-primary, $lightness: 20%);
+    }
+
+    &.mbsc-switch-handle.mbsc-switch-secondary.mbsc-checked {
+      background: material-legacy.$mbsc-material-secondary;
+    }
+
+    &.mbsc-switch-track.mbsc-switch-secondary.mbsc-checked {
+      background: color.adjust(material-legacy.$mbsc-material-secondary, $lightness: 20%);
+    }
+
+    &.mbsc-switch-handle.mbsc-switch-success.mbsc-checked {
+      background: material-legacy.$mbsc-material-success;
+    }
+
+    &.mbsc-switch-track.mbsc-switch-success.mbsc-checked {
+      background: color.adjust(material-legacy.$mbsc-material-success, $lightness: 20%);
+    }
+
+    &.mbsc-switch-handle.mbsc-switch-danger.mbsc-checked {
+      background: material-legacy.$mbsc-material-danger;
+    }
+
+    &.mbsc-switch-track.mbsc-switch-danger.mbsc-checked {
+      background: color.adjust(material-legacy.$mbsc-material-danger, $lightness: 20%);
+    }
+
+    &.mbsc-switch-handle.mbsc-switch-warning.mbsc-checked {
+      background: material-legacy.$mbsc-material-warning;
+    }
+
+    &.mbsc-switch-track.mbsc-switch-warning.mbsc-checked {
+      background: color.adjust(material-legacy.$mbsc-material-warning, $lightness: 20%);
+    }
+
+    &.mbsc-switch-handle.mbsc-switch-info.mbsc-checked {
+      background: material-legacy.$mbsc-material-info;
+    }
+
+    &.mbsc-switch-track.mbsc-switch-info.mbsc-checked {
+      background: color.adjust(material-legacy.$mbsc-material-info, $lightness: 20%);
+    }
+  }
+
+  @include colors.mbsc-material-legacy-switch('material-legacy', material-legacy.$mbsc-material-colors);
+  @include colors.mbsc-material-legacy-switch('material-legacy-dark', material-legacy.$mbsc-material-dark-colors);
+}

@@ -1,0 +1,14 @@
+@mixin mbsc-material-input($theme, $params) {
+  .mbsc-#{$theme} {
+    &.mbsc-textfield-wrapper {
+      --mbsc-textfield-bg-color: var(--mbsc-#{$theme}-textfield-bg-color, var(--mbsc-#{$theme}-surface-container-highest));
+      --mbsc-textfield-text-color: var(--mbsc-#{$theme}-textfield-text-color, var(--mbsc-#{$theme}-text));
+      --mbsc-textfield-label-color: var(--mbsc-#{$theme}-textfield-label-color, var(--mbsc-#{$theme}-on-surface-variant));
+      --mbsc-textfield-icon-color: var(--mbsc-#{$theme}-textfield-icon-color, var(--mbsc-#{$theme}-on-surface-variant));
+      --mbsc-textfield-border-color: var(--mbsc-#{$theme}-textfield-border-color, var(--mbsc-#{$theme}-on-surface-variant));
+      --mbsc-textfield-outline-border-color: var(--mbsc-#{$theme}-textfield-outline-border-color, var(--mbsc-#{$theme}-outline));
+      --mbsc-textfield-focus: var(--mbsc-#{$theme}-textfield-focus, var(--mbsc-#{$theme}-accent));
+      --mbsc-textfield-error: var(--mbsc-#{$theme}-textfield-error, var(--mbsc-#{$theme}-action-error));
+    }
+  }
+}

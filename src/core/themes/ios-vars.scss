@@ -1,0 +1,27 @@
+@use './common';
+@use './ios';
+
+@if (common.$mbsc-ios-theme) {
+  :root {
+    --mbsc-ios-primary: #{ios.$mbsc-ios-primary};
+    --mbsc-ios-secondary: #{ios.$mbsc-ios-secondary};
+    --mbsc-ios-success: #{ios.$mbsc-ios-success};
+    --mbsc-ios-danger: #{ios.$mbsc-ios-danger};
+    --mbsc-ios-warning: #{ios.$mbsc-ios-warning};
+    --mbsc-ios-info: #{ios.$mbsc-ios-info};
+    --mbsc-ios-light: #{ios.$mbsc-ios-light};
+    --mbsc-ios-dark: #{ios.$mbsc-ios-dark};
+
+    --mbsc-ios-on-primary: #{common.color-contrast(ios.$mbsc-ios-primary)};
+    --mbsc-ios-on-secondary: #{common.color-contrast(ios.$mbsc-ios-secondary)};
+    --mbsc-ios-on-success: #{common.color-contrast(ios.$mbsc-ios-success)};
+    --mbsc-ios-on-danger: #{common.color-contrast(ios.$mbsc-ios-danger)};
+    --mbsc-ios-on-warning: #{common.color-contrast(ios.$mbsc-ios-warning)};
+    --mbsc-ios-on-info: #{common.color-contrast(ios.$mbsc-ios-info)};
+    --mbsc-ios-on-light: #{common.color-contrast(ios.$mbsc-ios-light)};
+    --mbsc-ios-on-dark: #{common.color-contrast(ios.$mbsc-ios-dark)};
+  }
+
+  @include ios.mbsc-ios-vars('ios', ios.$mbsc-ios-colors);
+  @include ios.mbsc-ios-vars('ios-dark', ios.$mbsc-ios-dark-colors);
+}

@@ -1,0 +1,11 @@
+@mixin mbsc-ios-checkbox($theme, $params) {
+  .mbsc-#{$theme} {
+    &.mbsc-checkbox {
+      --mbsc-checkbox-border-color: var(--mbsc-#{$theme}-checkbox-border-color, var(--mbsc-#{$theme}-accent));
+      --mbsc-checkbox-selected-color: var(--mbsc-#{$theme}-checkbox-selected-color, var(--mbsc-#{$theme}-accent));
+      --mbsc-checkbox-checkmark-color: var(--mbsc-#{$theme}-checkbox-checkmark-color, var(--mbsc-#{$theme}-background));
+      --mbsc-checkbox-focus: var(--mbsc-#{$theme}-checkbox-focus, var(--mbsc-#{$theme}-focus));
+      --mbsc-checkbox-disabled: var(--mbsc-#{$theme}-checkbox-disabled, var(--mbsc-#{$theme}-surface-5));
+    }
+  }
+}

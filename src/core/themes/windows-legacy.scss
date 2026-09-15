@@ -1,0 +1,95 @@
+@use 'sass:map';
+@use './common';
+
+$mbsc-windows-accent: #0078d7 !default;
+$mbsc-windows-background: #ffffff !default;
+$mbsc-windows-text: #333333 !default;
+
+$mbsc-windows-dark-accent: #0078d7 !default;
+$mbsc-windows-dark-background: #1a1a1a !default;
+$mbsc-windows-dark-text: #ffffff !default;
+
+/* Base colors */
+$mbsc-windows-primary: #3f97f6 !default;
+$mbsc-windows-secondary: #90979e !default;
+$mbsc-windows-success: #43be5f !default;
+$mbsc-windows-danger: #f5504e !default;
+$mbsc-windows-warning: #f8b042 !default;
+$mbsc-windows-info: #5bb7c5 !default;
+$mbsc-windows-light: #fff !default;
+$mbsc-windows-dark: #47494a !default;
+
+$mbsc-windows-error: #a4262c;
+
+/* Form colors */
+
+$mbsc-windows-form-background: common.$mbsc-form-background-light !default;
+$mbsc-windows-dark-form-background: common.$mbsc-form-background-dark !default;
+$mbsc-windows-form-text: common.$mbsc-form-text-light !default;
+$mbsc-windows-dark-form-text: common.$mbsc-form-text-dark !default;
+$mbsc-windows-form-accent: common.$mbsc-form-accent-light !default;
+$mbsc-windows-dark-form-accent: common.$mbsc-form-accent-dark !default;
+$mbsc-windows-form-error: common.$mbsc-form-error-light !default;
+$mbsc-windows-dark-form-error: common.$mbsc-form-error-dark !default;
+
+/* Calendar colors (will be used by eventcalendar, calendar, range) */
+
+$mbsc-windows-calendar-background: common.$mbsc-calendar-background-light !default;
+$mbsc-windows-calendar-text: common.$mbsc-calendar-text-light !default;
+$mbsc-windows-calendar-accent: common.$mbsc-calendar-accent-light !default;
+$mbsc-windows-calendar-border: common.$mbsc-calendar-border-light !default;
+$mbsc-windows-calendar-mark: common.$mbsc-calendar-mark-light !default;
+$mbsc-windows-calendar-event: common.$mbsc-calendar-event-light !default;
+
+$mbsc-windows-dark-calendar-background: common.$mbsc-calendar-background-dark !default;
+$mbsc-windows-dark-calendar-text: common.$mbsc-calendar-text-dark !default;
+$mbsc-windows-dark-calendar-accent: common.$mbsc-calendar-accent-dark !default;
+$mbsc-windows-dark-calendar-border: common.$mbsc-calendar-border-dark !default;
+$mbsc-windows-dark-calendar-mark: common.$mbsc-calendar-mark-dark !default;
+$mbsc-windows-dark-calendar-event: common.$mbsc-calendar-event-dark !default;
+
+$mbsc-windows-colors: (
+  // Colors map
+  'background': $mbsc-windows-background,
+  'text': $mbsc-windows-text,
+  'accent': $mbsc-windows-accent,
+
+  'calendar-background': $mbsc-windows-calendar-background,
+  'calendar-text': $mbsc-windows-calendar-text,
+  'calendar-accent': $mbsc-windows-calendar-accent,
+  'calendar-border': $mbsc-windows-calendar-border,
+  'calendar-mark': $mbsc-windows-calendar-mark,
+  'calendar-event': $mbsc-windows-calendar-event,
+
+  'form-background': $mbsc-windows-form-background,
+  'form-text': $mbsc-windows-form-text,
+  'form-accent': $mbsc-windows-form-accent,
+  'form-error': $mbsc-windows-form-error
+);
+
+$mbsc-windows-dark-colors: (
+  // Colors map
+  'background': $mbsc-windows-dark-background,
+  'text': $mbsc-windows-dark-text,
+  'accent': $mbsc-windows-dark-accent,
+
+  'calendar-background': $mbsc-windows-dark-calendar-background,
+  'calendar-text': $mbsc-windows-dark-calendar-text,
+  'calendar-accent': $mbsc-windows-dark-calendar-accent,
+  'calendar-border': $mbsc-windows-dark-calendar-border,
+  'calendar-mark': $mbsc-windows-dark-calendar-mark,
+  'calendar-event': $mbsc-windows-dark-calendar-event,
+
+  'form-background': $mbsc-windows-dark-form-background,
+  'form-text': $mbsc-windows-dark-form-text,
+  'form-accent': $mbsc-windows-dark-form-accent,
+  'form-error': $mbsc-windows-dark-form-error
+);
+
+@function mbsc-windows-colors($params) {
+  $background: map.get($params, 'background');
+  $text: map.get($params, 'text');
+  $accent: map.get($params, 'accent');
+
+  @return ();
+}

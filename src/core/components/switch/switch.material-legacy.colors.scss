@@ -1,0 +1,65 @@
+@use 'sass:map';
+@use 'sass:color';
+@use '../../themes/common';
+
+@mixin mbsc-material-legacy-switch($theme, $params) {
+  $background: map.get($params, 'background');
+  $accent: map.get($params, 'accent');
+
+  $bg-param: map.get($params, 'form-background');
+  $ac-param: map.get($params, 'form-accent');
+
+  $background: common.choose($bg-param, $bg-param, $background);
+  $accent: common.choose($ac-param, $ac-param, $accent);
+
+  $track: '';
+  $track-disabled: '';
+  $handle-disabled: '';
+  $handle: '';
+  $bg-contrast: '';
+
+  @if (color.channel($background, 'lightness', $space: hsl) > 50%) {
+    $track: color.adjust($background, $lightness: -23%);
+    $track-disabled: color.adjust($background, $lightness: -9%);
+    $handle-disabled: color.adjust($background, $lightness: -20%);
+    $handle: color.adjust($background, $lightness: 5%);
+    $bg-contrast: #000;
+  } @else {
+    $track: color.adjust($background, $lightness: 17%);
+    $track-disabled: color.adjust($background, $lightness: 17%);
+    $handle-disabled: color.adjust($background, $lightness: 16%);
+    $handle: color.adjust($background, $lightness: 53%);
+    $bg-contrast: #fff;
+  }
+
+  .mbsc-#{$theme} {
+    &.mbsc-switch-track {
+      background: $track;
+
+      &.mbsc-checked {
+        background: color.change($accent, $alpha: 0.3);
+      }
+
+      &.mbsc-disabled {
+        background: $track-disabled;
+      }
+    }
+
+    &.mbsc-switch-handle {
+      background: $handle;
+      box-shadow: 0 3px 1px -2px color.change($bg-contrast, $alpha: 0.2), 0 1px 5px 0 color.change($bg-contrast, $alpha: 0.12);
+
+      &.mbsc-checked {
+        background: $accent;
+      }
+
+      &.mbsc-disabled {
+        background: $handle-disabled;
+      }
+    }
+
+    &.mbsc-switch-handle:before {
+      background: color.change($bg-contrast, $alpha: 0.1);
+    }
+  }
+}

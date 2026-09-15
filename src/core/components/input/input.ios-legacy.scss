@@ -1,0 +1,375 @@
+@use '../../themes/common';
+@use '../../themes/ios-legacy';
+@use './input.ios-legacy.colors' as colors;
+
+@if (common.$mbsc-ios-theme and common.$mbsc-input) {
+  .mbsc-ios-legacy {
+    /* Wrapper */
+
+    &.mbsc-textfield-wrapper-has-icon-right.mbsc-rtl,
+    &.mbsc-textfield-wrapper-has-icon-left.mbsc-ltr {
+      z-index: 1;
+    }
+
+    &.mbsc-textfield-wrapper-has-icon-left.mbsc-ltr:before,
+    &.mbsc-textfield-wrapper-has-icon-left.mbsc-ltr:after {
+      left: 3.375em;
+    }
+
+    &.mbsc-textfield-wrapper-has-icon-right.mbsc-rtl:after,
+    &.mbsc-textfield-wrapper-has-icon-right.mbsc-rtl:before {
+      right: 3.375em;
+    }
+
+    /* Inner element */
+
+    &.mbsc-textfield-inner {
+      position: static;
+      flex: 1 auto;
+      z-index: -1;
+    }
+
+    &.mbsc-textfield-inner.mbsc-disabled {
+      opacity: 0.5;
+    }
+
+    /* Form element */
+
+    &.mbsc-textfield {
+      display: flex;
+      height: 2.75em;
+      padding: 0 1em;
+      background: transparent;
+      height: 2.75em;
+    }
+
+    &.mbsc-textfield-has-icon-left {
+      padding-left: 3.375em;
+    }
+
+    &.mbsc-textfield-has-icon-right {
+      padding-right: 3.375em;
+    }
+
+    &.mbsc-textfield-stacked,
+    &.mbsc-textfield-floating {
+      height: 3.5em;
+      padding-top: 1.25em;
+    }
+
+    /* Icons */
+
+    &.mbsc-textfield-icon {
+      top: 0.625em;
+      z-index: 1;
+    }
+
+    &.mbsc-textfield-icon-left {
+      left: 0.9375em;
+    }
+
+    &.mbsc-textfield-icon-right {
+      right: 0.9375em;
+    }
+
+    &.mbsc-textfield-icon-floating,
+    &.mbsc-textfield-icon-stacked {
+      top: 1em;
+    }
+
+    /* Label */
+
+    &.mbsc-label-inline {
+      line-height: 2.75em;
+    }
+
+    &.mbsc-label-inline.mbsc-ltr {
+      padding-left: 1em;
+    }
+
+    &.mbsc-label-inline.mbsc-rtl {
+      padding-right: 1em;
+    }
+
+    &.mbsc-label-stacked {
+      top: 0.666667em;
+      font-size: 0.75em;
+      line-height: 1em;
+    }
+
+    &.mbsc-label-stacked.mbsc-ltr {
+      left: 1.333334em;
+    }
+
+    &.mbsc-label-stacked.mbsc-rtl {
+      right: 1.333334em;
+    }
+
+    &.mbsc-label-floating {
+      top: 0.875em;
+      line-height: 2em;
+    }
+
+    &.mbsc-label-floating.mbsc-ltr {
+      left: 1em;
+    }
+
+    &.mbsc-label-floating.mbsc-rtl {
+      right: 1em;
+    }
+
+    &.mbsc-label-floating-active.mbsc-label {
+      transform: translateY(-0.75em) scale(0.75);
+    }
+
+    &.mbsc-label.mbsc-disabled {
+      opacity: 0.5;
+    }
+
+    /* Error message */
+
+    &.mbsc-error-message {
+      display: block;
+      padding: 0 1.333334em;
+      line-height: 1.666667em;
+    }
+
+    &.mbsc-error-message-underline {
+      position: static;
+    }
+
+    &.mbsc-error-message-has-icon-left.mbsc-ltr {
+      padding-left: 4.5em;
+    }
+
+    &.mbsc-error-message-has-icon-right.mbsc-rtl {
+      padding-right: 4.5em;
+    }
+
+    /* Underline input --------------------------------------------------------------------------- */
+
+    .mbsc-textfield-wrapper-underline {
+      // Cut corners of select dropdown in case of inset form group
+      overflow: hidden;
+    }
+
+    /* Form element*/
+
+    &.mbsc-textfield-underline-inline-has-icon-left.mbsc-ltr {
+      padding-left: 1em;
+    }
+
+    &.mbsc-textfield-underline-inline-has-icon-right.mbsc-rtl {
+      padding-right: 1em;
+    }
+
+    /* Label */
+
+    &.mbsc-label-underline {
+      margin: 0;
+    }
+
+    &.mbsc-label-underline-stacked-has-icon-left.mbsc-ltr {
+      left: 4.5em;
+    }
+
+    &.mbsc-label-underline-stacked-has-icon-right.mbsc-rtl {
+      right: 4.5em;
+    }
+
+    &.mbsc-label-underline-inline-has-icon-left.mbsc-ltr {
+      padding-left: 3.375em;
+    }
+
+    &.mbsc-label-underline-inline-has-icon-right.mbsc-rtl {
+      padding-right: 3.375em;
+    }
+
+    &.mbsc-label-underline-floating-has-icon-left.mbsc-ltr {
+      left: 3.375em;
+    }
+
+    &.mbsc-label-underline-floating-has-icon-right.mbsc-rtl {
+      right: 3.375em;
+    }
+
+    /* Error message */
+
+    &.mbsc-error-message-underline.mbsc-error-message-inline.mbsc-ltr {
+      padding-left: 1.333334em;
+    }
+
+    &.mbsc-error-message-underline.mbsc-error-message-inline.mbsc-rtl {
+      padding-right: 1.333334em;
+    }
+
+    /* ------------------------------------------------------------------------------------------- */
+
+    /* Box & outline input common styles --------------------------------------------------------- */
+
+    /* Wrapper */
+
+    &.mbsc-textfield-wrapper-outline,
+    &.mbsc-textfield-wrapper-box {
+      margin: 1.5em 1em;
+    }
+
+    &.mbsc-textfield-wrapper-outline.mbsc-font::after,
+    &.mbsc-textfield-wrapper-outline.mbsc-font::before,
+    &.mbsc-textfield-wrapper-box.mbsc-font::after,
+    &.mbsc-textfield-wrapper-box.mbsc-font::before {
+      border: none;
+    }
+
+    /* Form element */
+
+    &.mbsc-textfield-box,
+    &.mbsc-textfield-outline {
+      border-radius: 0.5em;
+      border: 1px solid transparent;
+    }
+
+    &.mbsc-textfield-inner-box,
+    &.mbsc-textfield-inner-outline {
+      position: relative;
+    }
+
+    /* Label */
+
+    &.mbsc-label-box-stacked-has-icon-left.mbsc-ltr,
+    &.mbsc-label-outline-stacked-has-icon-left.mbsc-ltr {
+      left: 4.5em;
+    }
+
+    &.mbsc-label-outline-stacked-has-icon-right.mbsc-rtl,
+    &.mbsc-label-box-stacked-has-icon-right.mbsc-rtl {
+      right: 4.5em;
+    }
+
+    &.mbsc-label-box-stacked,
+    &.mbsc-label-outline-stacked,
+    &.mbsc-label-box-floating,
+    &.mbsc-label-outline-floating {
+      margin: 0 1px;
+    }
+
+    &.mbsc-label-outline-floating-has-icon-left.mbsc-ltr,
+    &.mbsc-label-box-floating-has-icon-left.mbsc-ltr {
+      left: 3.375em;
+    }
+
+    &.mbsc-label-outline-floating-has-icon-right.mbsc-rtl,
+    &.mbsc-label-box-floating-has-icon-right.mbsc-rtl {
+      right: 3.375em;
+    }
+
+    /* Error message */
+
+    &.mbsc-error-message-outline,
+    &.mbsc-error-message-box {
+      margin: 0 1px;
+    }
+
+    /* ------------------------------------------------------------------------------------------- */
+
+    /* Select */
+
+    &.mbsc-select.mbsc-ltr {
+      padding-right: 3.375em;
+    }
+
+    &.mbsc-select.mbsc-rtl {
+      padding-left: 3.375em;
+    }
+
+    &.mbsc-select.mbsc-textfield-has-icon-right.mbsc-ltr {
+      padding-right: 4.875em;
+    }
+
+    &.mbsc-select.mbsc-textfield-has-icon-left.mbsc-rtl {
+      padding-left: 4.875em;
+    }
+
+    /* Select icon */
+
+    &.mbsc-select-icon {
+      top: 0.625em;
+    }
+
+    &.mbsc-select-icon-stacked,
+    &.mbsc-select-icon-floating {
+      top: 1em;
+    }
+
+    &.mbsc-select-icon.mbsc-ltr {
+      right: 0.9375em;
+    }
+
+    &.mbsc-select-icon.mbsc-rtl {
+      left: 0.9375em;
+    }
+
+    &.mbsc-select-icon-right.mbsc-ltr {
+      right: 3.375em;
+    }
+
+    &.mbsc-select-icon-left.mbsc-rtl {
+      left: 3.375em;
+    }
+
+    /* Textarea */
+
+    &.mbsc-textarea {
+      height: 3em;
+      border: 0;
+    }
+
+    &.mbsc-textarea.mbsc-textfield-stacked,
+    &.mbsc-textarea.mbsc-textfield-floating {
+      padding-top: 0;
+    }
+
+    &.mbsc-textarea-inner {
+      padding-top: 0.625em;
+      padding-bottom: 0.625em;
+    }
+
+    &.mbsc-textarea-inner.mbsc-textfield-inner-box,
+    &.mbsc-textarea-inner.mbsc-textfield-inner-outline {
+      border: 1px solid transparent;
+      border-radius: 0.5em;
+    }
+
+    &.mbsc-textarea-inner.mbsc-textfield-inner-stacked,
+    &.mbsc-textarea-inner.mbsc-textfield-inner-floating {
+      padding-top: 1.375em;
+    }
+
+    /* Input tags */
+
+    &.mbsc-textfield-tags-inner {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    &.mbsc-textfield.mbsc-textfield-tags {
+      padding-top: 0.3125em;
+      padding-bottom: 0.3125em;
+      min-height: 2.75em;
+    }
+
+    &.mbsc-textfield-tags.mbsc-textfield-stacked,
+    &.mbsc-textfield-tags.mbsc-textfield-floating {
+      min-height: 2.125em;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    &.mbsc-textfield-tag {
+      border-radius: 1em;
+    }
+  }
+
+  @include colors.mbsc-ios-legacy-input('ios-legacy', ios-legacy.$mbsc-ios-colors);
+  @include colors.mbsc-ios-legacy-input('ios-legacy-dark', ios-legacy.$mbsc-ios-dark-colors);
+}

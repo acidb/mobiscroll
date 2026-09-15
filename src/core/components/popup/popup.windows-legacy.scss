@@ -1,0 +1,69 @@
+@use '../../themes/common';
+@use '../../themes/windows-legacy';
+@use './popup.windows-legacy.colors' as colors;
+
+@if (common.$mbsc-windows-theme and common.$mbsc-popup) {
+  .mbsc-windows-legacy {
+    &.mbsc-popup {
+      border: 1px solid;
+    }
+
+    &.mbsc-popup-arrow {
+      width: 1em;
+      height: 1em;
+      border: 1px solid;
+    }
+
+    &.mbsc-popup-arrow-bottom,
+    &.mbsc-popup-arrow-top {
+      margin-left: -0.5em;
+    }
+
+    &.mbsc-popup-arrow-left,
+    &.mbsc-popup-arrow-right {
+      margin-top: -0.5em;
+    }
+
+    &.mbsc-popup-arrow-bottom {
+      top: 1.5em;
+    }
+
+    &.mbsc-popup-arrow-top {
+      bottom: 1.5em;
+    }
+
+    &.mbsc-popup-arrow-left {
+      right: 1.5em;
+    }
+
+    &.mbsc-popup-arrow-right {
+      left: 1.5em;
+    }
+
+    &.mbsc-popup-header {
+      padding: 0.5em;
+      font-weight: bold;
+      text-align: center;
+      border-bottom: 1px solid;
+    }
+
+    &.mbsc-popup-buttons {
+      display: flex;
+      flex-direction: row-reverse;
+      border-top: 1px solid;
+    }
+
+    &.mbsc-popup-button.mbsc-font {
+      flex: 1 1;
+      padding-top: 0.25em;
+      padding-bottom: 0.25em;
+    }
+
+    &.mbsc-popup-button.mbsc-button-flat {
+      margin: 0;
+    }
+  }
+
+  @include colors.mbsc-windows-legacy-popup('windows-legacy', windows-legacy.$mbsc-windows-colors);
+  @include colors.mbsc-windows-legacy-popup('windows-legacy-dark', windows-legacy.$mbsc-windows-dark-colors);
+}

@@ -1,0 +1,95 @@
+@use 'sass:map';
+@use './common';
+
+$mbsc-material-accent: #1a73e8 !default;
+$mbsc-material-background: #fff !default;
+$mbsc-material-text: #303030 !default;
+
+$mbsc-material-dark-accent: #87b0f3 !default;
+$mbsc-material-dark-background: #000 !default;
+$mbsc-material-dark-text: #fff !default;
+
+/* Base colors */
+$mbsc-material-primary: #3f97f6 !default;
+$mbsc-material-secondary: #90979e !default;
+$mbsc-material-success: #43be5f !default;
+$mbsc-material-danger: #f5504e !default;
+$mbsc-material-warning: #f8b042 !default;
+$mbsc-material-info: #5bb7c5 !default;
+$mbsc-material-light: #fff !default;
+$mbsc-material-dark: #47494a !default;
+
+$mbsc-material-error: #de3226;
+
+/* Form colors */
+
+$mbsc-material-form-background: common.$mbsc-form-background-light !default;
+$mbsc-material-dark-form-background: common.$mbsc-form-background-dark !default;
+$mbsc-material-form-text: common.$mbsc-form-text-light !default;
+$mbsc-material-dark-form-text: common.$mbsc-form-text-dark !default;
+$mbsc-material-form-accent: common.$mbsc-form-accent-light !default;
+$mbsc-material-dark-form-accent: common.$mbsc-form-accent-dark !default;
+$mbsc-material-form-error: common.$mbsc-form-error-light !default;
+$mbsc-material-dark-form-error: common.$mbsc-form-error-dark !default;
+
+/* Calendar colors (will be used by eventcalendar, calendar, range) */
+
+$mbsc-material-calendar-background: common.$mbsc-calendar-background-light !default;
+$mbsc-material-calendar-text: common.$mbsc-calendar-text-light !default;
+$mbsc-material-calendar-accent: common.$mbsc-calendar-accent-light !default;
+$mbsc-material-calendar-border: common.$mbsc-calendar-border-light !default;
+$mbsc-material-calendar-mark: common.$mbsc-calendar-mark-light !default;
+$mbsc-material-calendar-event: common.$mbsc-calendar-event-light !default;
+
+$mbsc-material-dark-calendar-background: common.$mbsc-calendar-background-dark !default;
+$mbsc-material-dark-calendar-text: common.$mbsc-calendar-text-dark !default;
+$mbsc-material-dark-calendar-accent: common.$mbsc-calendar-accent-dark !default;
+$mbsc-material-dark-calendar-border: common.$mbsc-calendar-border-dark !default;
+$mbsc-material-dark-calendar-mark: common.$mbsc-calendar-mark-dark !default;
+$mbsc-material-dark-calendar-event: common.$mbsc-calendar-event-dark !default;
+
+$mbsc-material-colors: (
+  // Colors map
+  'background': $mbsc-material-background,
+  'text': $mbsc-material-text,
+  'accent': $mbsc-material-accent,
+
+  'calendar-background': $mbsc-material-calendar-background,
+  'calendar-text': $mbsc-material-calendar-text,
+  'calendar-accent': $mbsc-material-calendar-accent,
+  'calendar-border': $mbsc-material-calendar-border,
+  'calendar-mark': $mbsc-material-calendar-mark,
+  'calendar-event': $mbsc-material-calendar-event,
+
+  'form-background': $mbsc-material-form-background,
+  'form-text': $mbsc-material-form-text,
+  'form-accent': $mbsc-material-form-accent,
+  'form-error': $mbsc-material-form-error
+);
+
+$mbsc-material-dark-colors: (
+  // Colors map
+  'background': $mbsc-material-dark-background,
+  'text': $mbsc-material-dark-text,
+  'accent': $mbsc-material-dark-accent,
+
+  'calendar-background': $mbsc-material-dark-calendar-background,
+  'calendar-text': $mbsc-material-dark-calendar-text,
+  'calendar-accent': $mbsc-material-dark-calendar-accent,
+  'calendar-border': $mbsc-material-dark-calendar-border,
+  'calendar-mark': $mbsc-material-dark-calendar-mark,
+  'calendar-event': $mbsc-material-dark-calendar-event,
+
+  'form-background': $mbsc-material-dark-form-background,
+  'form-text': $mbsc-material-dark-form-text,
+  'form-accent': $mbsc-material-dark-form-accent,
+  'form-error': $mbsc-material-dark-form-error
+);
+
+@function mbsc-material-colors($params) {
+  $background: map.get($params, 'background');
+  $text: map.get($params, 'text');
+  $accent: map.get($params, 'accent');
+
+  @return ();
+}

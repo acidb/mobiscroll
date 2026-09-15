@@ -1,0 +1,58 @@
+@use '../../themes/common';
+@use '../../themes/material-legacy';
+@use './popup.material-legacy.colors' as colors;
+
+@if (common.$mbsc-material-theme and common.$mbsc-popup) {
+  .mbsc-material-legacy {
+    &.mbsc-popup-body-center,
+    &.mbsc-popup-body-anchored,
+    &.mbsc-popup-body-round {
+      border-radius: 0.25em;
+    }
+
+    &.mbsc-popup-header {
+      font-size: 1.25em;
+      font-weight: 500;
+      padding: 0.8em 0.8em 0 0.8em;
+      line-height: 1.4em;
+    }
+
+    &.mbsc-popup-buttons {
+      padding: 0.5em;
+      display: block;
+    }
+
+    &.mbsc-popup-buttons.mbsc-ltr {
+      text-align: right;
+    }
+
+    &.mbsc-popup-buttons.mbsc-rtl {
+      text-align: right;
+    }
+
+    &.mbsc-popup-button.mbsc-button-flat {
+      margin-left: 0;
+      margin-right: 0;
+    }
+
+    &.mbsc-popup-button.mbsc-font {
+      margin-top: 0;
+      margin-bottom: 0;
+      font-weight: 500;
+      font-size: 0.9375em;
+    }
+
+    &.mbsc-popup-round {
+      .mbsc-popup-body-bottom-full {
+        border-radius: 0.25em 0.25em 0 0;
+      }
+
+      .mbsc-popup-body-top-full {
+        border-radius: 0 0 0.25em 0.25em;
+      }
+    }
+  }
+
+  @include colors.mbsc-material-legacy-popup('material-legacy', material-legacy.$mbsc-material-colors);
+  @include colors.mbsc-material-legacy-popup('material-legacy-dark', material-legacy.$mbsc-material-dark-colors);
+}

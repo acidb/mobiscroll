@@ -1,0 +1,135 @@
+:root {
+  --mbsc-safe-top: 0;
+  --mbsc-safe-right: 0;
+  --mbsc-safe-bottom: 0;
+  --mbsc-safe-left: 0;
+
+  @supports (top: constant(safe-area-inset-top)) {
+    --mbsc-safe-top: constant(safe-area-inset-top);
+    --mbsc-safe-right: constant(safe-area-inset-right);
+    --mbsc-safe-bottom: constant(safe-area-inset-bottom);
+    --mbsc-safe-left: constant(safe-area-inset-left);
+  }
+
+  @supports (top: env(safe-area-inset-top)) {
+    --mbsc-safe-top: env(safe-area-inset-top);
+    --mbsc-safe-right: env(safe-area-inset-right);
+    --mbsc-safe-bottom: env(safe-area-inset-bottom);
+    --mbsc-safe-left: env(safe-area-inset-left);
+  }
+}
+
+.mbsc-font {
+  font-family: -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-size: 16px;
+  font-weight: normal;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-text-size-adjust: 100%;
+}
+
+.mbsc-reset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: none;
+  // border-radius: 0;
+  // font-family: inherit;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.mbsc-resize {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.mbsc-resize-i {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.mbsc-resize-y {
+  width: 200%;
+  height: 200%;
+}
+
+.mbsc-hidden {
+  visibility: hidden;
+}
+
+.mbsc-overflow-hidden {
+  overflow: hidden;
+}
+
+.mbsc-hidden-content {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  user-select: none;
+  clip: rect(1px, 1px, 1px, 1px);
+  white-space: nowrap;
+}
+
+.mbsc-ltr {
+  direction: ltr;
+}
+
+.mbsc-rtl {
+  direction: rtl;
+}
+
+.mbsc-ripple {
+  background: currentColor;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  border-radius: 1000em;
+  pointer-events: none;
+  transform: scale(0);
+}
+
+/* Flex util classes */
+
+.mbsc-flex,
+.mbsc-flex-col {
+  display: flex;
+}
+
+.mbsc-flex-col {
+  flex-direction: column;
+}
+
+.mbsc-flex-1-1 {
+  flex: 1 1 auto;
+}
+
+.mbsc-flex-1-0 {
+  flex: 1 0 auto;
+}
+
+.mbsc-flex-1-0-0 {
+  flex: 1 0 0;
+}
+
+.mbsc-flex-none {
+  flex: none;
+}
+
+@media (-webkit-min-device-pixel-ratio: 2) {
+  .mbsc-hb,
+  .mbsc-hb:before,
+  .mbsc-hb:after {
+    border-style: none; // Needed for Tailwind css compatibility
+    border-width: 0.5px !important;
+  }
+}

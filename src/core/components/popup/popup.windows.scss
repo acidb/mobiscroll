@@ -1,0 +1,90 @@
+@use '../../themes/common';
+@use '../../themes/windows';
+@use './popup.windows.colors' as colors;
+
+@if (common.$mbsc-windows-theme and common.$mbsc-popup) {
+  .mbsc-windows {
+    &.mbsc-popup-wrapper-bottom-full {
+      padding-top: 1em;
+    }
+
+    &.mbsc-popup-wrapper-top-full {
+      padding-bottom: 1em;
+    }
+
+    &.mbsc-popup-body {
+      border-radius: 0.5em;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.12), 0 32px 64px rgba(0, 0, 0, 0.14);
+    }
+
+    &.mbsc-popup-body-bottom-full {
+      border-radius: 0.5em 0.5em 0 0;
+    }
+
+    &.mbsc-popup-body-top-full {
+      border-radius: 0 0 0.5em 0.5em;
+    }
+
+    &.mbsc-popup-arrow {
+      width: 1em;
+      height: 1em;
+    }
+
+    &.mbsc-popup-arrow-bottom,
+    &.mbsc-popup-arrow-top {
+      margin-left: -0.5em;
+    }
+
+    &.mbsc-popup-arrow-left,
+    &.mbsc-popup-arrow-right {
+      margin-top: -0.5em;
+    }
+
+    &.mbsc-popup-arrow-bottom {
+      top: 1.5em;
+    }
+
+    &.mbsc-popup-arrow-top {
+      bottom: 1.5em;
+    }
+
+    &.mbsc-popup-arrow-left {
+      right: 1.5em;
+    }
+
+    &.mbsc-popup-arrow-right {
+      left: 1.5em;
+    }
+
+    &.mbsc-popup-header {
+      font-size: 1.25em; // 20px
+      font-weight: 600;
+      padding: 1.2em 1.2em 0 1.2em; // 24px
+      line-height: 1.4em; // 28px
+    }
+
+    &.mbsc-popup-padding {
+      padding: 1em 1.5em;
+    }
+
+    &.mbsc-popup-buttons {
+      display: block;
+      padding: 0 1.25em 1.5em 1.25em;
+      text-align: end;
+    }
+
+    &.mbsc-popup-button.mbsc-button {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    &.mbsc-popup-button-primary {
+      --mbsc-button-standard-bg-color: var(--mbsc-popup-accent);
+      --mbsc-button-standard-text-color: var(--mbsc-popup-on-accent);
+      --mbsc-button-outline-border-color: var(--mbsc-popup-accent);
+    }
+  }
+
+  @include colors.mbsc-windows-popup('windows', windows.$mbsc-windows-colors);
+  @include colors.mbsc-windows-popup('windows-dark', windows.$mbsc-windows-dark-colors);
+}

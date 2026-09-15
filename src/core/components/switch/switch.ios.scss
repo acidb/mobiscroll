@@ -1,0 +1,101 @@
+@use '../../themes/common';
+@use '../../themes/ios';
+@use './switch.ios.colors' as colors;
+
+@if (common.$mbsc-ios-theme and common.$mbsc-forms) {
+  .mbsc-ios {
+    // Glass test
+    // &.mbsc-switch-handle {
+    //   background: transparent;
+    //   transform: scale(1);
+    //   transition: transform 0.3s ease;
+
+    //   .mbsc-switch.mbsc-active &,
+    //   &:active {
+    //     transform: scale(1.5);
+    //     background: rgba(255, 255, 255, 0.15);
+    //     backdrop-filter: blur(0.5px) saturate(150%);
+    //     box-shadow: inset 0 -1px 3px rgba(0, 0, 0, 0.125), inset 0 3px 5px rgba(0, 0, 0, 0.45), inset 0 0 5px rgba(255, 255, 255, 0.2),
+    //       0 0 5px rgba(0, 0, 0, 0.2);
+    //   }
+    // }
+
+    &.mbsc-switch-right {
+      padding: 1em 6.25em 1em 1em;
+    }
+
+    &.mbsc-switch-left {
+      padding: 1em 1em 1em 6.25em;
+    }
+
+    /* Track */
+
+    &.mbsc-switch-track {
+      width: 1.625em; // 26px
+      height: 1.875em; // 30px
+      margin: -0.9375em 1.1875em 0 1.1875em; // -15px 19px 0 19px
+
+      &::after {
+        content: '';
+        position: absolute;
+        z-index: 1;
+        top: 0;
+        right: -1.3125em; // -21px
+        bottom: 0;
+        left: -1.3125em; // -21px
+        border-radius: 1.875em;
+        background: var(--mbsc-switch-track-color);
+        transition: background-color 0.2s ease-out;
+      }
+
+      &.mbsc-focus:after {
+        outline: 2px solid var(--mbsc-switch-focus);
+        outline-offset: 2px;
+      }
+
+      &.mbsc-checked:after {
+        background: var(--mbsc-switch-selected-track-color);
+      }
+
+      &.mbsc-disabled {
+        opacity: 0.3;
+      }
+    }
+
+    &.mbsc-switch-track-right {
+      right: 1em;
+    }
+
+    &.mbsc-switch-track-left {
+      left: 1em;
+    }
+
+    /* Handle */
+
+    &.mbsc-switch-handle {
+      z-index: 2;
+      top: 50%;
+      left: 50%;
+      width: 2.375em; // 38px
+      height: 1.625em; // 26px
+      margin: -0.8125em 0 0 -1.1875em; // -13px 0 0 19px
+      border-radius: 1.625em;
+      background: var(--mbsc-switch-handle-color);
+
+      &.mbsc-active {
+        transform: scale(0.97, 0.95);
+      }
+    }
+
+    /* Color presets */
+
+    @each $name in common.$mbsc-color-variants {
+      &.mbsc-switch-track.mbsc-switch-#{$name} {
+        --mbsc-switch-selected-track-color: var(--mbsc-ios-#{$name});
+      }
+    }
+  }
+
+  @include colors.mbsc-ios-switch('ios', ios.$mbsc-ios-colors);
+  @include colors.mbsc-ios-switch('ios-dark', ios.$mbsc-ios-dark-colors);
+}

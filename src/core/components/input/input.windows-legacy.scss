@@ -1,0 +1,211 @@
+@use '../../themes/common';
+@use '../../themes/windows-legacy';
+@use './input.windows-legacy.colors' as colors;
+
+@if (common.$mbsc-windows-theme and common.$mbsc-input) {
+  .mbsc-windows-legacy {
+    /* Wrapper */
+
+    &.mbsc-textfield-wrapper {
+      margin: 1em;
+    }
+
+    &.mbsc-textfield-wrapper-inline {
+      margin: 1.75em 1em;
+    }
+
+    &.mbsc-textfield-wrapper-floating {
+      padding-top: 1.75em;
+    }
+
+    /* Form element */
+
+    &.mbsc-textfield {
+      height: 2em;
+      padding: 0 0.5em;
+      border: 1px solid;
+      border-radius: 2px;
+    }
+
+    /* Icons */
+
+    &.mbsc-textfield-icon {
+      top: 0.4375em;
+      width: 1.125em;
+      height: 1.125em;
+      line-height: 1.125em;
+      margin: 0 1px; // For border
+    }
+
+    &.mbsc-textfield-has-icon-right {
+      padding-right: 2em;
+    }
+
+    &.mbsc-textfield-has-icon-left {
+      padding-left: 2em;
+    }
+
+    &.mbsc-textfield-icon-left {
+      left: 0.4375em;
+    }
+
+    &.mbsc-textfield-icon-right {
+      right: 0.4375em;
+    }
+
+    /* Error  */
+
+    &.mbsc-error-message {
+      font-size: 0.75em;
+    }
+
+    /* Label */
+
+    &.mbsc-label {
+      line-height: 2em;
+      font-size: 0.875em;
+      font-weight: 600;
+    }
+
+    &.mbsc-label-inline {
+      line-height: 2.285715em;
+    }
+
+    &.mbsc-label-floating {
+      top: 2.142858em;
+    }
+
+    &.mbsc-label-stacked {
+      position: static;
+    }
+
+    &.mbsc-label-floating.mbsc-ltr {
+      transform: translateX(0.571429em);
+    }
+
+    &.mbsc-label-floating.mbsc-rtl {
+      transform: translateX(-0.5em);
+    }
+
+    // TODO: check if simplify elsewhere too if there is a separate mbsc-label-{labeltype}-has-icon-{align} class?
+    &.mbsc-label-underline-floating-has-icon-left.mbsc-ltr,
+    &.mbsc-label-outline-floating-has-icon-left.mbsc-ltr,
+    &.mbsc-label-box-floating-has-icon-left.mbsc-ltr {
+      transform: translateX(2.285715em);
+    }
+
+    &.mbsc-label-underline-floating-has-icon-right.mbsc-rtl,
+    &.mbsc-label-outline-floating-has-icon-right.mbsc-rtl,
+    &.mbsc-label-box-floating-has-icon-right.mbsc-rtl {
+      transform: translateX(-2.285715em);
+    }
+
+    &.mbsc-label.mbsc-label-floating-active {
+      transform: translate(0, -2.142858em);
+    }
+
+    /* Underline input --------------------------------------------------------------------------- */
+
+    /* Wrapper */
+    &.mbsc-textfield-wrapper-underline {
+      border-bottom: 1px solid;
+    }
+
+    /* Form element */
+    &.mbsc-textfield-underline {
+      border: 0;
+      border-radius: 0;
+    }
+
+    /* ------------------------------------------------------------------------------------------- */
+
+    /* Select */
+
+    &.mbsc-select.mbsc-ltr {
+      padding-right: 2em;
+    }
+
+    &.mbsc-select.mbsc-rtl {
+      padding-left: 2em;
+    }
+
+    &.mbsc-select.mbsc-textfield-has-icon-right.mbsc-ltr {
+      padding-right: 3.125em;
+    }
+
+    &.mbsc-select.mbsc-textfield-has-icon-left.mbsc-rtl {
+      padding-left: 3.125em;
+    }
+
+    /* Select icon */
+
+    &.mbsc-select-icon {
+      top: 0.4375em;
+      width: 1.125em;
+      height: 1.125em;
+      line-height: 1.125em;
+      margin: 0 1px; // For border
+    }
+
+    &.mbsc-select-icon.mbsc-ltr {
+      right: 0.4375em;
+    }
+
+    &.mbsc-select-icon.mbsc-rtl {
+      left: 0.4375em;
+    }
+
+    &.mbsc-select-icon-right.mbsc-ltr {
+      right: 2em;
+    }
+
+    &.mbsc-select-icon-left.mbsc-rtl {
+      left: 2em;
+    }
+
+    /* Textarea */
+
+    &.mbsc-textarea {
+      height: 3.5em;
+      padding-top: 0.1875em;
+      padding-bottom: 0.1875em;
+    }
+
+    /* Input tags */
+
+    &.mbsc-textfield.mbsc-textfield-tags {
+      padding: 0.125em;
+      min-height: 2em;
+    }
+
+    &.mbsc-textfield-tag {
+      margin: 0.125em;
+    }
+
+    &.mbsc-textfield-tag.mbsc-ltr {
+      margin-right: 0.125em;
+    }
+
+    &.mbsc-textfield-tag.mbsc-rtl {
+      margin-left: 0.125em;
+    }
+
+    &.mbsc-textfield-tag-text {
+      line-height: 1.571429em; // 22px
+    }
+
+    &.mbsc-textfield-tag-clear.mbsc-icon {
+      width: 1.375em;
+      height: 1.375em;
+      border-width: 0.125em;
+    }
+
+    &.mbsc-textfield-tags-placeholder {
+      padding: 0 0.375em;
+      line-height: 1.625em;
+    }
+  }
+
+  @include colors.mbsc-windows-legacy-input('windows-legacy', windows-legacy.$mbsc-windows-colors);
+  @include colors.mbsc-windows-legacy-input('windows-legacy-dark', windows-legacy.$mbsc-windows-dark-colors);
+}

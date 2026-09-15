@@ -1,0 +1,12 @@
+@mixin mbsc-windows-stepper($theme, $params) {
+  .mbsc-#{$theme} {
+    &.mbsc-stepper {
+      --mbsc-stepper-bg-color: var(--mbsc-#{$theme}-stepper-bg-color, var(--mbsc-#{$theme}-background));
+      --mbsc-stepper-text-color: var(--mbsc-#{$theme}-stepper-text-color, var(--mbsc-#{$theme}-text));
+      --mbsc-stepper-border-color: var(--mbsc-#{$theme}-stepper-border-color, var(--mbsc-#{$theme}-border));
+      --mbsc-stepper-focus: var(--mbsc-#{$theme}-stepper-focus, var(--mbsc-#{$theme}-text));
+      --mbsc-stepper-disabled-bg: var(--mbsc-#{$theme}-stepper-disabled-bg, var(--mbsc-#{$theme}-text));
+      --mbsc-stepper-disabled-text: var(--mbsc-#{$theme}-stepper-disabled-text, var(--mbsc-#{$theme}-text));
+    }
+  }
+}

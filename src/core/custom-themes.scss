@@ -1,0 +1,213 @@
+@import './themes/ios.scss';
+@import './themes/material.scss';
+@import './themes/windows.scss';
+// button component
+@import './components/button/button.ios.colors';
+@import './components/button/button.material.colors';
+@import './components/button/button.windows.colors';
+// checkbox component
+@import './components/checkbox/checkbox.ios.colors';
+@import './components/checkbox/checkbox.material.colors';
+@import './components/checkbox/checkbox.windows.colors';
+// form-controls component
+@import './shared/form-controls/form-controls.ios.colors';
+@import './shared/form-controls/form-controls.material.colors';
+@import './shared/form-controls/form-controls.windows.colors';
+// input component
+@import './components/input/input.ios.colors';
+@import './components/input/input.material.colors';
+@import './components/input/input.windows.colors';
+// notifications component
+@import './components/notifications/notification.ios.colors';
+@import './components/notifications/notification.material.colors';
+@import './components/notifications/notification.windows.colors';
+// page component
+@import './components/page/page.ios.colors';
+@import './components/page/page.material.colors';
+@import './components/page/page.windows.colors';
+// popup component
+@import './components/popup/popup.ios.colors';
+@import './components/popup/popup.material.colors';
+@import './components/popup/popup.windows.colors';
+// radio component
+@import './components/radio/radio.ios.colors';
+@import './components/radio/radio.material.colors';
+@import './components/radio/radio.windows.colors';
+// segmented component
+@import './components/segmented/segmented.ios.colors';
+@import './components/segmented/segmented.material.colors';
+@import './components/segmented/segmented.windows.colors';
+// stepper component
+@import './components/stepper/stepper.ios.colors';
+@import './components/stepper/stepper.material.colors';
+@import './components/stepper/stepper.windows.colors';
+// switch component
+@import './components/switch/switch.ios.colors';
+@import './components/switch/switch.material.colors';
+@import './components/switch/switch.windows.colors';
+
+// Legacy themes
+
+// button component
+@import './components/button/button.ios-legacy.colors';
+@import './components/button/button.material-legacy.colors';
+@import './components/button/button.windows-legacy.colors';
+// checkbox component
+@import './components/checkbox/checkbox.ios-legacy.colors';
+@import './components/checkbox/checkbox.material-legacy.colors';
+@import './components/checkbox/checkbox.windows-legacy.colors';
+// form-controls component
+@import './shared/form-controls/form-controls.ios-legacy.colors';
+@import './shared/form-controls/form-controls.material-legacy.colors';
+@import './shared/form-controls/form-controls.windows-legacy.colors';
+// input component
+@import './components/input/input.ios-legacy.colors';
+@import './components/input/input.material-legacy.colors';
+@import './components/input/input.windows-legacy.colors';
+// notifications component
+@import './components/notifications/notification.ios-legacy.colors';
+@import './components/notifications/notification.material-legacy.colors';
+@import './components/notifications/notification.windows-legacy.colors';
+// page component
+@import './components/page/page.ios-legacy.colors';
+@import './components/page/page.material-legacy.colors';
+@import './components/page/page.windows-legacy.colors';
+// popup component
+@import './components/popup/popup.ios-legacy.colors';
+@import './components/popup/popup.material-legacy.colors';
+@import './components/popup/popup.windows-legacy.colors';
+// radio component
+@import './components/radio/radio.ios-legacy.colors';
+@import './components/radio/radio.material-legacy.colors';
+@import './components/radio/radio.windows-legacy.colors';
+// segmented component
+@import './components/segmented/segmented.ios-legacy.colors';
+@import './components/segmented/segmented.material-legacy.colors';
+@import './components/segmented/segmented.windows-legacy.colors';
+// stepper component
+@import './components/stepper/stepper.ios-legacy.colors';
+@import './components/stepper/stepper.material-legacy.colors';
+@import './components/stepper/stepper.windows-legacy.colors';
+// switch component
+@import './components/switch/switch.ios-legacy.colors';
+@import './components/switch/switch.material-legacy.colors';
+@import './components/switch/switch.windows-legacy.colors';
+
+// Theme builder function for ios theme
+@mixin mbsc-ios-theme($theme, $colors) {
+  @include mbsc-ios-vars($theme, $colors);
+  @include mbsc-ios-button($theme, $colors);
+  @include mbsc-ios-checkbox($theme, $colors);
+  @include mbsc-ios-form-controls($theme, $colors);
+  @include mbsc-ios-input($theme, $colors);
+  @include mbsc-ios-notifications($theme, $colors);
+  @include mbsc-ios-page($theme, $colors);
+  @include mbsc-ios-popup($theme, $colors);
+  @include mbsc-ios-radio($theme, $colors);
+  @include mbsc-ios-segmented($theme, $colors);
+  @include mbsc-ios-stepper($theme, $colors);
+  @include mbsc-ios-switch($theme, $colors);
+}
+
+// Theme builder function for material theme
+@mixin mbsc-material-theme($theme, $colors) {
+  @include mbsc-material-vars($theme, $colors);
+  @include mbsc-material-button($theme, $colors);
+  @include mbsc-material-checkbox($theme, $colors);
+  @include mbsc-material-form-controls($theme, $colors);
+  @include mbsc-material-input($theme, $colors);
+  @include mbsc-material-notifications($theme, $colors);
+  @include mbsc-material-page($theme, $colors);
+  @include mbsc-material-popup($theme, $colors);
+  @include mbsc-material-radio($theme, $colors);
+  @include mbsc-material-segmented($theme, $colors);
+  @include mbsc-material-stepper($theme, $colors);
+  @include mbsc-material-switch($theme, $colors);
+}
+
+// Theme builder function for windows theme
+@mixin mbsc-windows-theme($theme, $colors) {
+  @include mbsc-windows-vars($theme, $colors);
+  @include mbsc-windows-button($theme, $colors);
+  @include mbsc-windows-checkbox($theme, $colors);
+  @include mbsc-windows-form-controls($theme, $colors);
+  @include mbsc-windows-input($theme, $colors);
+  @include mbsc-windows-notifications($theme, $colors);
+  @include mbsc-windows-page($theme, $colors);
+  @include mbsc-windows-popup($theme, $colors);
+  @include mbsc-windows-radio($theme, $colors);
+  @include mbsc-windows-segmented($theme, $colors);
+  @include mbsc-windows-stepper($theme, $colors);
+  @include mbsc-windows-switch($theme, $colors);
+}
+
+// Theme builder function for ios legacy theme
+@mixin mbsc-ios-legacy-theme($theme, $colors) {
+  @include mbsc-ios-legacy-button($theme, $colors);
+  @include mbsc-ios-legacy-checkbox($theme, $colors);
+  @include mbsc-ios-legacy-form-controls($theme, $colors);
+  @include mbsc-ios-legacy-input($theme, $colors);
+  @include mbsc-ios-legacy-notifications($theme, $colors);
+  @include mbsc-ios-legacy-page($theme, $colors);
+  @include mbsc-ios-legacy-popup($theme, $colors);
+  @include mbsc-ios-legacy-radio($theme, $colors);
+  @include mbsc-ios-legacy-segmented($theme, $colors);
+  @include mbsc-ios-legacy-stepper($theme, $colors);
+  @include mbsc-ios-legacy-switch($theme, $colors);
+}
+
+// Theme builder function for material legacy theme
+@mixin mbsc-material-legacy-theme($theme, $colors) {
+  @include mbsc-material-legacy-button($theme, $colors);
+  @include mbsc-material-legacy-checkbox($theme, $colors);
+  @include mbsc-material-legacy-form-controls($theme, $colors);
+  @include mbsc-material-legacy-input($theme, $colors);
+  @include mbsc-material-legacy-notifications($theme, $colors);
+  @include mbsc-material-legacy-page($theme, $colors);
+  @include mbsc-material-legacy-popup($theme, $colors);
+  @include mbsc-material-legacy-radio($theme, $colors);
+  @include mbsc-material-legacy-segmented($theme, $colors);
+  @include mbsc-material-legacy-stepper($theme, $colors);
+  @include mbsc-material-legacy-switch($theme, $colors);
+}
+
+// Theme builder function for windows legacy theme
+@mixin mbsc-windows-legacy-theme($theme, $colors) {
+  @include mbsc-windows-legacy-button($theme, $colors);
+  @include mbsc-windows-legacy-checkbox($theme, $colors);
+  @include mbsc-windows-legacy-form-controls($theme, $colors);
+  @include mbsc-windows-legacy-input($theme, $colors);
+  @include mbsc-windows-legacy-notifications($theme, $colors);
+  @include mbsc-windows-legacy-page($theme, $colors);
+  @include mbsc-windows-legacy-popup($theme, $colors);
+  @include mbsc-windows-legacy-radio($theme, $colors);
+  @include mbsc-windows-legacy-segmented($theme, $colors);
+  @include mbsc-windows-legacy-stepper($theme, $colors);
+  @include mbsc-windows-legacy-switch($theme, $colors);
+}
+
+@mixin mbsc-custom-theme($theme, $base-theme, $colors) {
+  @if $base-theme== 'ios' {
+    @include mbsc-ios-theme($theme, $colors);
+  }
+
+  @if $base-theme== 'material' {
+    @include mbsc-material-theme($theme, $colors);
+  }
+
+  @if $base-theme== 'windows' {
+    @include mbsc-windows-theme($theme, $colors);
+  }
+
+  @if $base-theme== 'ios-legacy' {
+    @include mbsc-ios-legacy-theme($theme, $colors);
+  }
+
+  @if $base-theme== 'material-legacy' {
+    @include mbsc-material-legacy-theme($theme, $colors);
+  }
+
+  @if $base-theme== 'windows-legacy' {
+    @include mbsc-windows-legacy-theme($theme, $colors);
+  }
+}

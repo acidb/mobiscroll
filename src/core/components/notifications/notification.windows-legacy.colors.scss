@@ -1,0 +1,20 @@
+@use 'sass:map';
+@use 'sass:color';
+@use '../../themes/common';
+
+@mixin mbsc-windows-legacy-notifications($theme, $params) {
+  $background: map.get($params, 'background');
+  $text: map.get($params, 'text');
+  $accent: map.get($params, 'accent');
+
+  .mbsc-#{$theme} {
+    .mbsc-toast-background {
+      background: $text;
+      color: common.get-contrast-color($text);
+    }
+
+    &.mbsc-color-none .mbsc-snackbar-button.mbsc-button {
+      color: color.adjust($accent, $lightness: 10%);
+    }
+  }
+}

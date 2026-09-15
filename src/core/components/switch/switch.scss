@@ -1,0 +1,44 @@
+@use '../../themes/common';
+@use './switch.ios' as ios;
+@use './switch.material' as material;
+@use './switch.windows' as windows;
+
+@if common.$mbsc-forms {
+  .mbsc-switch {
+    position: relative;
+    display: block;
+    margin: 0;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    line-height: 1.25em;
+  }
+
+  .mbsc-switch-track {
+    position: absolute;
+    top: 50%;
+    z-index: 4;
+    display: block;
+    box-sizing: border-box;
+  }
+
+  .mbsc-switch-handle {
+    display: block;
+    position: absolute;
+    cursor: pointer;
+
+    &.mbsc-disabled {
+      cursor: not-allowed;
+    }
+  }
+
+  .mbsc-switch-handle-animate {
+    transition: left 0.1s ease-in-out;
+  }
+
+  .mbsc-description {
+    display: block;
+    font-size: 0.75em;
+    opacity: 0.6;
+  }
+}

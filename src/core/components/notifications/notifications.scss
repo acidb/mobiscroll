@@ -1,0 +1,91 @@
+@use '../../themes/common';
+@use './notification.ios' as ios;
+@use './notification.material' as material;
+@use './notification.windows' as windows;
+
+@if common.$mbsc-forms {
+  /* Toast */
+
+  .mbsc-toast.mbsc-font .mbsc-popup-body,
+  .mbsc-toast.mbsc-font .mbsc-popup,
+  .mbsc-snackbar.mbsc-font .mbsc-popup-body,
+  .mbsc-snackbar.mbsc-font .mbsc-popup {
+    background: none;
+    box-shadow: none;
+    border: 0;
+    border-radius: 0;
+    margin: 0;
+    pointer-events: none;
+  }
+
+  .mbsc-toast.mbsc-font .mbsc-popup-content {
+    text-align: center;
+    padding-bottom: 4em;
+  }
+
+  .mbsc-toast-background {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .mbsc-toast-background::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: -1;
+    opacity: 0.8;
+  }
+
+  .mbsc-toast-message {
+    display: inline-block;
+    min-width: 10em;
+    max-width: 50em;
+    padding: 0.857143em 2em;
+    font-size: 0.875em;
+    line-height: 1.428572;
+  }
+
+  /* Snackbar */
+
+  .mbsc-snackbar-cont {
+    align-items: center;
+    min-width: 18em;
+    max-width: 36em;
+    margin: 0 auto;
+    padding: 0.5em;
+    pointer-events: auto;
+  }
+
+  .mbsc-snackbar-message {
+    padding: 0.5em 1em;
+    font-size: 0.875em; // 14px
+    line-height: 1.571429em; // 22px
+  }
+
+  .mbsc-snackbar-button.mbsc-button.mbsc-font {
+    margin: 0;
+    color: #fff;
+  }
+
+  /* Alert, Confirm, Prompt*/
+
+  .mbsc-alert-content {
+    max-width: 20em;
+  }
+
+  .mbsc-alert-title {
+    margin: 0 0 1em 0;
+    padding: 0;
+    font-size: 1.428572em;
+    font-weight: bold;
+  }
+
+  .mbsc-alert-message {
+    margin: 1em 0;
+    padding: 0;
+    font-size: 1em;
+  }
+}

@@ -1,0 +1,309 @@
+@use '../../themes/common';
+@use './page.ios' as ios;
+@use './page.material' as material;
+@use './page.windows' as windows;
+
+@if common.$mbsc-forms {
+  .mbsc-page {
+    display: block;
+    min-height: 100%;
+    padding: var(--mbsc-safe-top) var(--mbsc-safe-right) var(--mbsc-safe-bottom) var(--mbsc-safe-left);
+    background: var(--mbsc-page-bg-color);
+    color: var(--mbsc-page-text-color);
+
+    a {
+      color: var(--mbsc-page-accent);
+    }
+  }
+
+  .mbsc-page:before,
+  .mbsc-page:after {
+    content: '';
+    display: table;
+  }
+
+  /* Block */
+
+  .mbsc-block,
+  .mbsc-form-group {
+    margin: 1.5em 0;
+  }
+
+  .mbsc-form-group-inset {
+    margin: 2em 1em;
+  }
+
+  .mbsc-block-title,
+  .mbsc-form-group-title {
+    color: var(--mbsc-page-title-text-color);
+  }
+
+  .mbsc-form-grid .mbsc-form-group-title {
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  /* Typography */
+
+  .mbsc-page h1,
+  .mbsc-page h2,
+  .mbsc-page h3,
+  .mbsc-page h4,
+  .mbsc-page h5,
+  .mbsc-page h6,
+  .mbsc-h1,
+  .mbsc-h2,
+  .mbsc-h3,
+  .mbsc-h4,
+  .mbsc-h5,
+  .mbsc-h6 {
+    margin: 0;
+    padding: 0;
+    color: inherit;
+    font-weight: normal;
+    font-family: inherit;
+  }
+
+  .mbsc-page p,
+  .mbsc-p {
+    margin: 1em 0;
+    padding: 0;
+    line-height: 1.5;
+  }
+
+  .mbsc-page a,
+  .mbsc-a {
+    text-decoration: none;
+  }
+
+  .mbsc-page a:hover,
+  .mbsc-a:hover {
+    text-decoration: underline;
+  }
+
+  .mbsc-page a.mbsc-btn:hover,
+  .mbsc-a.mbsc-btn:hover {
+    text-decoration: none;
+  }
+
+  .mbsc-page h1,
+  .mbsc-h1 {
+    margin: 0.347826em 0;
+    font-size: 2.875em;
+  }
+
+  .mbsc-page h2,
+  .mbsc-h2 {
+    margin: 0.470588em 0;
+    font-size: 2.125em;
+  }
+
+  .mbsc-page h3,
+  .mbsc-h3 {
+    margin: 0.666666em 0;
+    font-size: 1.5em;
+  }
+
+  .mbsc-page h4,
+  .mbsc-h4 {
+    margin: 0.8em 0;
+    font-size: 1.25em;
+  }
+
+  .mbsc-page h5,
+  .mbsc-h5 {
+    margin: 1.066666em 0;
+    font-size: 0.9375em;
+  }
+
+  .mbsc-page h6,
+  .mbsc-h6 {
+    margin: 1.333333em 0;
+    font-size: 0.75em;
+  }
+
+  /* Padding, margin */
+
+  .mbsc-padding {
+    padding: 1em;
+  }
+
+  .mbsc-padding > p:first-child {
+    margin-top: 0;
+  }
+
+  .mbsc-padding > p:last-child {
+    margin-bottom: 0;
+  }
+
+  .mbsc-margin {
+    margin: 1em 0;
+  }
+
+  .mbsc-margin:first-child {
+    margin-top: 0;
+  }
+
+  .mbsc-margin:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Lists */
+
+  .mbsc-page ul,
+  .mbsc-page ol,
+  .mbsc-ul,
+  .mbsc-ol {
+    padding: 0;
+    margin: 1em 0 1em 1.25em;
+    line-height: 1.5;
+  }
+
+  .mbsc-page ul ul,
+  .mbsc-page ol ol,
+  .mbsc-ul .mbsc-ul,
+  .mbsc-ol .mbsc-ol {
+    margin: 0 0 0 1.25em;
+  }
+
+  /* Font sizes */
+
+  .mbsc-txt-xs {
+    font-size: 0.625em;
+  }
+
+  .mbsc-txt-s {
+    font-size: 0.75em;
+  }
+
+  .mbsc-txt-m {
+    font-size: 1.25em;
+  }
+
+  .mbsc-txt-l {
+    font-size: 1.5em;
+  }
+
+  .mbsc-txt-xl {
+    font-size: 2em;
+  }
+
+  .mbsc-txt-muted {
+    opacity: 0.6;
+  }
+
+  /* Line heights */
+  .mbsc-line-height-xs {
+    line-height: 1;
+  }
+
+  .mbsc-line-height-s {
+    line-height: 1.25;
+  }
+
+  .mbsc-line-height-m {
+    line-height: 1.5;
+  }
+
+  .mbsc-line-height-l {
+    line-height: 1.75;
+  }
+
+  .mbsc-line-height-xl {
+    line-height: 2;
+  }
+
+  /* Font weights */
+
+  .mbsc-ultra-bold {
+    font-weight: 900;
+  }
+
+  .mbsc-bold {
+    font-weight: bold;
+  }
+
+  .mbsc-medium {
+    font-weight: 500;
+  }
+
+  .mbsc-light {
+    font-weight: 300;
+  }
+
+  .mbsc-thin {
+    font-weight: 100;
+  }
+
+  .mbsc-italic {
+    font-style: italic;
+  }
+
+  /* Text align */
+
+  .mbsc-align-left {
+    text-align: left;
+  }
+
+  .mbsc-align-right {
+    text-align: right;
+  }
+
+  .mbsc-align-center {
+    text-align: center;
+  }
+
+  .mbsc-align-justify {
+    text-align: justify;
+  }
+
+  /* Float */
+
+  .mbsc-pull-right {
+    float: right;
+  }
+
+  .mbsc-pull-left {
+    float: left;
+  }
+
+  /* Image section */
+
+  .mbsc-media-fluid {
+    display: block;
+    width: 100%;
+  }
+
+  .mbsc-img-thumbnail {
+    width: 6em;
+    height: 6em;
+    margin: 1em;
+  }
+
+  /* Avatar image */
+
+  .mbsc-avatar {
+    width: 2.5em;
+    height: 2.5em;
+    padding: 0;
+    border-radius: 1.25em;
+  }
+
+  /* Note */
+
+  .mbsc-note {
+    position: relative;
+    padding: 0.75em 1.25em;
+    margin: 1em;
+    border: 1px solid transparent;
+    font-size: 0.875em;
+  }
+
+  @media (max-width: 600px) {
+    .mbsc-note {
+      text-align: center;
+    }
+  }
+}

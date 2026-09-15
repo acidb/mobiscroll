@@ -1,0 +1,161 @@
+@use 'sass:color';
+@use 'sass:map';
+@use 'sass:math';
+@use './common';
+
+$mbsc-material-accent: #1a73e8 !default; // #7f5700 !default; // #6750a4 !default; // #1a73e8
+$mbsc-material-background: #fff !default;
+$mbsc-material-text: #303030 !default;
+
+$mbsc-material-dark-accent: #87b0f3 !default;
+$mbsc-material-dark-background: #000 !default;
+$mbsc-material-dark-text: #fff !default;
+
+/* Base colors */
+$mbsc-material-primary: #3f97f6 !default;
+$mbsc-material-secondary: #90979e !default;
+$mbsc-material-success: #43be5f !default;
+$mbsc-material-danger: #f5504e !default;
+$mbsc-material-warning: #f8b042 !default;
+$mbsc-material-info: #5bb7c5 !default;
+$mbsc-material-light: #fff !default;
+$mbsc-material-dark: #47494a !default;
+$mbsc-material-error: #de3226 !default;
+
+$mbsc-material-colors: (
+  'background': $mbsc-material-background,
+  'text': $mbsc-material-text,
+  'accent': $mbsc-material-accent,
+);
+
+$mbsc-material-dark-colors: (
+  'background': $mbsc-material-dark-background,
+  'text': $mbsc-material-dark-text,
+  'accent': $mbsc-material-dark-accent,
+);
+
+// Material 3 uses different hue shifts for different color roles
+// These are approximate values based on Material's neutral/neutral-variant palettes
+@function get-neutral-hue($primary-hue) {
+  // Shift slightly toward blue-gray for neutrals
+  @return ($primary-hue + 15) % 360;
+}
+
+@function get-neutral-variant-hue($primary-hue) {
+  // Less shift for neutral variants
+  @return ($primary-hue + 10) % 360;
+}
+
+// Generate a neutral color with specific tone (lightness)
+// Chroma (saturation) decreases as we move away from mid-tones
+@function neutral-tone($hue, $tone) {
+  // Material 3 uses very low chroma for neutrals (typically 4-8% in HCT)
+  // We approximate this with saturation that varies by tone
+  $base-saturation: 0.08;
+
+  // Reduce saturation at extreme lightness/darkness
+  $saturation-factor: 1 - math.pow(math.div(math.abs($tone - 50), 50), 1.5) * 0.4;
+  $saturation: $base-saturation * $saturation-factor;
+
+  @return hsl($hue, $saturation * 100%, $tone * 1%);
+}
+
+// Generate a neutral-variant color (slightly more chroma than neutral)
+@function neutral-variant-tone($hue, $tone) {
+  $base-saturation: 0.06;
+  $saturation-factor: 1 - math.pow(math.div(math.abs($tone - 50), 50), 1.5) * 0.3;
+  $saturation: $base-saturation * $saturation-factor;
+
+  @return hsl($hue, $saturation * 100%, $tone * 1%);
+}
+
+@function get-secondary-hue($primary-hue) {
+  // Material 3 typically shifts secondary 30-60 degrees from primary
+  // This creates a harmonious but distinct color
+  @return ($primary-hue + 5) % 360;
+}
+
+@function secondary-tone($hue, $tone, $base) {
+  // Secondary colors have moderate chroma (more than neutrals, less than primary)
+  $base-saturation: $base;
+
+  // Reduce saturation at extreme tones
+  $saturation-factor: 1 - math.pow(math.div(math.abs($tone - 50), 50), 1.5) * 0.3;
+  $saturation: $base-saturation * $saturation-factor;
+
+  @return hsl($hue, $saturation * 100%, $tone * 1%);
+}
+
+@mixin mbsc-material-vars($theme, $params) {
+  $background: map.get($params, 'background');
+  $text: map.get($params, 'text');
+  $accent: map.get($params, 'accent');
+  $action-success: map.get($params, 'action-success');
+  $action-error: map.get($params, 'action-error');
+
+  $base-hue: color.channel($accent, 'hue', $space: hsl);
+  $neutral-hue: get-neutral-hue($base-hue);
+  $neutral-variant-hue: get-neutral-variant-hue($base-hue);
+  $secondary-hue: get-secondary-hue($base-hue);
+
+  $secondary: '';
+  $secondary-container: '';
+  $surface-container-lowest: '';
+  $surface-container: '';
+  $surface-container-high: '';
+  $surface-container-highest: '';
+  $outline: '';
+  $outline-variant: '';
+  $shadow: '';
+  $action-success: common.choose($action-success, $action-success, #4cd764);
+  $action-error: common.choose($action-error, $action-error, #b3261e);
+  $on-accent: common.color-contrast($accent);
+  $on-surface-variant: '';
+
+  @if (color.channel($background, 'lightness', $space: hsl) > 50%) {
+    $background: neutral-tone($neutral-hue, 98);
+    $text: neutral-tone($neutral-hue, 10);
+    $outline: neutral-variant-tone($neutral-hue, 50);
+    $outline-variant: neutral-variant-tone($neutral-variant-hue, 80);
+    $secondary: secondary-tone($secondary-hue, 40, 0.24);
+    $secondary-container: secondary-tone($secondary-hue, 90, 0.6);
+    $surface-container-lowest: #fff;
+    $surface-container: neutral-tone($neutral-hue, 94);
+    $surface-container-high: neutral-tone($neutral-hue, 92);
+    $surface-container-highest: neutral-tone($neutral-hue, 90);
+    $on-surface-variant: neutral-variant-tone($neutral-variant-hue, 30);
+    $shadow: rgba(0, 0, 0, 0.14);
+  } @else {
+    $background: neutral-tone($neutral-hue, 6);
+    $text: neutral-tone($neutral-hue, 90);
+    $outline: neutral-variant-tone($neutral-hue, 60);
+    $outline-variant: neutral-variant-tone($neutral-variant-hue, 30);
+    $secondary: secondary-tone($secondary-hue, 80, 0.24);
+    $secondary-container: secondary-tone($secondary-hue, 30, 0.6);
+    $surface-container-lowest: #000;
+    $surface-container: neutral-tone($neutral-hue, 12);
+    $surface-container-high: neutral-tone($neutral-hue, 17);
+    $surface-container-highest: neutral-tone($neutral-hue, 22);
+    $on-surface-variant: neutral-variant-tone($neutral-variant-hue, 80);
+    $shadow: rgba(255, 255, 255, 0.28);
+  }
+
+  :root {
+    --mbsc-#{$theme}-accent: #{$accent}; // primary
+    --mbsc-#{$theme}-background: #{$background}; // surface
+    --mbsc-#{$theme}-text: #{$text}; // on-surface
+    --mbsc-#{$theme}-outline: #{$outline}; // button outline, switch outline & handle
+    --mbsc-#{$theme}-outline-variant: #{$outline-variant}; // eventcalendar border
+    --mbsc-#{$theme}-secondary-accent: #{$secondary}; // focus outline
+    --mbsc-#{$theme}-secondary-container: #{$secondary-container}; // scroller selected line, segmented selected, stepper background, range highlight
+    --mbsc-#{$theme}-surface-container-lowest: #{$surface-container-lowest}; // eventcalendar bg
+    --mbsc-#{$theme}-surface-container: #{$surface-container}; // timeline parent
+    --mbsc-#{$theme}-surface-container-high: #{$surface-container-high}; // popup bg, eventcalendar disabled
+    --mbsc-#{$theme}-surface-container-highest: #{$surface-container-highest}; // input box bg, timeline parent hover
+    --mbsc-#{$theme}-on-accent: #{$on-accent};
+    --mbsc-#{$theme}-on-surface-variant: #{$on-surface-variant}; // input border, checkbox border, radio border
+    --mbsc-#{$theme}-shadow: #{$shadow}; // selected event shadow
+    --mbsc-#{$theme}-action-success: #{$action-success};
+    --mbsc-#{$theme}-action-error: #{$action-error};
+  }
+}

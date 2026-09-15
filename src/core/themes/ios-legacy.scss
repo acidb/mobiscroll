@@ -1,0 +1,111 @@
+@use 'sass:map';
+@use 'sass:color';
+@use './common';
+
+$mbsc-ios-accent: #007aff !default;
+$mbsc-ios-background: #f7f7f7 !default;
+$mbsc-ios-text: #000000 !default;
+
+$mbsc-ios-dark-accent: #ff9f0a !default;
+$mbsc-ios-dark-background: #000000 !default;
+$mbsc-ios-dark-text: #ffffff !default;
+
+/* Base colors */
+$mbsc-ios-primary: #3f97f6 !default;
+$mbsc-ios-secondary: #90979e !default;
+$mbsc-ios-success: #43be5f !default;
+$mbsc-ios-danger: #f5504e !default;
+$mbsc-ios-warning: #f8b042 !default;
+$mbsc-ios-info: #5bb7c5 !default;
+$mbsc-ios-light: #fff !default;
+$mbsc-ios-dark: #47494a !default;
+
+$mbsc-ios-error: #d8332a;
+
+/* Form colors */
+
+$mbsc-ios-form-background: common.$mbsc-form-background-light !default;
+$mbsc-ios-dark-form-background: common.$mbsc-form-background-dark !default;
+$mbsc-ios-form-text: common.$mbsc-form-text-light !default;
+$mbsc-ios-dark-form-text: common.$mbsc-form-text-dark !default;
+$mbsc-ios-form-accent: common.$mbsc-form-accent-light !default;
+$mbsc-ios-dark-form-accent: common.$mbsc-form-accent-dark !default;
+$mbsc-ios-form-error: common.$mbsc-form-error-light !default;
+$mbsc-ios-dark-form-error: common.$mbsc-form-error-dark !default;
+
+/* Calendar colors (will be used by eventcalendar, calendar, range) */
+
+$mbsc-ios-calendar-background: common.$mbsc-calendar-background-light !default;
+$mbsc-ios-calendar-text: common.$mbsc-calendar-text-light !default;
+$mbsc-ios-calendar-accent: common.$mbsc-calendar-accent-light !default;
+$mbsc-ios-calendar-border: common.$mbsc-calendar-border-light !default;
+$mbsc-ios-calendar-mark: common.$mbsc-calendar-mark-light !default;
+$mbsc-ios-calendar-event: common.$mbsc-calendar-event-light !default;
+
+$mbsc-ios-dark-calendar-background: common.$mbsc-calendar-background-dark !default;
+$mbsc-ios-dark-calendar-text: common.$mbsc-calendar-text-dark !default;
+$mbsc-ios-dark-calendar-accent: common.$mbsc-calendar-accent-dark !default;
+$mbsc-ios-dark-calendar-border: common.$mbsc-calendar-border-dark !default;
+$mbsc-ios-dark-calendar-mark: common.$mbsc-calendar-mark-dark !default;
+$mbsc-ios-dark-calendar-event: common.$mbsc-calendar-event-dark !default;
+
+$mbsc-ios-colors: (
+  // Colors map
+  'background': $mbsc-ios-background,
+  'text': $mbsc-ios-text,
+  'accent': $mbsc-ios-accent,
+
+  'calendar-background': $mbsc-ios-calendar-background,
+  'calendar-text': $mbsc-ios-calendar-text,
+  'calendar-accent': $mbsc-ios-calendar-accent,
+  'calendar-border': $mbsc-ios-calendar-border,
+  'calendar-mark': $mbsc-ios-calendar-mark,
+  'calendar-event': $mbsc-ios-calendar-event,
+
+  'form-background': $mbsc-ios-form-background,
+  'form-text': $mbsc-ios-form-text,
+  'form-accent': $mbsc-ios-form-accent,
+  'form-error': $mbsc-ios-form-error
+);
+
+$mbsc-ios-dark-colors: (
+  // Colors map
+  'background': $mbsc-ios-dark-background,
+  'text': $mbsc-ios-dark-text,
+  'accent': $mbsc-ios-dark-accent,
+
+  'calendar-background': $mbsc-ios-dark-calendar-background,
+  'calendar-text': $mbsc-ios-dark-calendar-text,
+  'calendar-accent': $mbsc-ios-dark-calendar-accent,
+  'calendar-border': $mbsc-ios-dark-calendar-border,
+  'calendar-mark': $mbsc-ios-dark-calendar-mark,
+  'calendar-event': $mbsc-ios-dark-calendar-event,
+
+  'form-background': $mbsc-ios-dark-form-background,
+  'form-text': $mbsc-ios-dark-form-text,
+  'form-accent': $mbsc-ios-dark-form-accent,
+  'form-error': $mbsc-ios-dark-form-error
+);
+
+@function mbsc-ios-colors($params) {
+  $background: map.get($params, 'background');
+  $text: map.get($params, 'text');
+  $accent: map.get($params, 'accent');
+
+  $background-limited: color.adjust($background, $lightness: 3%);
+  $background-alt: color.adjust($background, $lightness: 6%);
+  $border-color: '';
+
+  @if (color.channel($background, 'lightness', $space: hsl) > 50%) {
+    $border-color: color.adjust($background-limited, $lightness: -17%);
+  } @else {
+    $border-color: color.adjust($background, $lightness: 20%);
+  }
+
+  @return (
+    // General colors
+    'background-alt': $background-alt,
+    'background-limited': $background-limited,
+    'border-color': $border-color
+  );
+}

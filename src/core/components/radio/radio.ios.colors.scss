@@ -1,0 +1,10 @@
+@mixin mbsc-ios-radio($theme, $params) {
+  .mbsc-#{$theme} {
+    &.mbsc-radio {
+      --mbsc-radio-border-color: var(--mbsc-#{$theme}-radio-border-color, transparent);
+      --mbsc-radio-selected-color: var(--mbsc-#{$theme}-radio-selected-color, var(--mbsc-#{$theme}-accent));
+      --mbsc-radio-focus: var(--mbsc-#{$theme}-radio-focus, var(--mbsc-#{$theme}-focus));
+      --mbsc-radio-disabled: var(--mbsc-#{$theme}-surface-5);
+    }
+  }
+}

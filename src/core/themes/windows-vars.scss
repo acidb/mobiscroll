@@ -1,0 +1,27 @@
+@use './common';
+@use './windows';
+
+@if (common.$mbsc-windows-theme) {
+  :root {
+    --mbsc-windows-primary: #{windows.$mbsc-windows-primary};
+    --mbsc-windows-secondary: #{windows.$mbsc-windows-secondary};
+    --mbsc-windows-success: #{windows.$mbsc-windows-success};
+    --mbsc-windows-danger: #{windows.$mbsc-windows-danger};
+    --mbsc-windows-warning: #{windows.$mbsc-windows-warning};
+    --mbsc-windows-info: #{windows.$mbsc-windows-info};
+    --mbsc-windows-light: #{windows.$mbsc-windows-light};
+    --mbsc-windows-dark: #{windows.$mbsc-windows-dark};
+
+    --mbsc-windows-on-primary: #{common.color-contrast(windows.$mbsc-windows-primary)};
+    --mbsc-windows-on-secondary: #{common.color-contrast(windows.$mbsc-windows-secondary)};
+    --mbsc-windows-on-success: #{common.color-contrast(windows.$mbsc-windows-success)};
+    --mbsc-windows-on-danger: #{common.color-contrast(windows.$mbsc-windows-danger)};
+    --mbsc-windows-on-warning: #{common.color-contrast(windows.$mbsc-windows-warning)};
+    --mbsc-windows-on-info: #{common.color-contrast(windows.$mbsc-windows-info)};
+    --mbsc-windows-on-light: #{common.color-contrast(windows.$mbsc-windows-light)};
+    --mbsc-windows-on-dark: #{common.color-contrast(windows.$mbsc-windows-dark)};
+  }
+
+  @include windows.mbsc-windows-vars('windows', windows.$mbsc-windows-colors);
+  @include windows.mbsc-windows-vars('windows-dark', windows.$mbsc-windows-dark-colors);
+}

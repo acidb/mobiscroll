@@ -1,0 +1,68 @@
+@use 'sass:map';
+@use 'sass:color';
+@use '../../themes/common';
+
+@mixin mbsc-windows-legacy-switch($theme, $params) {
+  $background: map.get($params, 'background');
+  $accent: map.get($params, 'accent');
+  $text: map.get($params, 'text');
+
+  $bg-param: map.get($params, 'form-background');
+  $ac-param: map.get($params, 'form-accent');
+  $text-param: map.get($params, 'form-text');
+
+  $background: common.choose($bg-param, $bg-param, $background);
+  $accent: common.choose($ac-param, $ac-param, $accent);
+  $text: common.choose($text-param, $text-param, $text);
+
+  $active: '';
+  $focus: '';
+
+  @if (color.channel($background, 'lightness', $space: hsl) > 50%) {
+    $active: color.adjust($background, $lightness: -55%);
+    $focus: color.adjust($text, $lightness: 45%);
+  } @else {
+    $active: color.adjust($background, $lightness: 55%);
+    $focus: color.adjust($text, $lightness: -45%);
+  }
+
+  .mbsc-#{$theme} {
+    // Track
+
+    &.mbsc-switch-track {
+      &.mbsc-checked:before {
+        border-color: $accent;
+        background: $accent;
+      }
+
+      &:before,
+      &.mbsc-disabled:before {
+        border-color: $text;
+        background: none;
+      }
+
+      &.mbsc-active:before {
+        border-color: $active;
+        background: $active;
+      }
+
+      &.mbsc-focus:after {
+        border-color: $focus;
+      }
+    }
+
+    // Handle
+
+    &.mbsc-switch-handle {
+      background: $text;
+
+      &.mbsc-checked {
+        background: $background;
+      }
+
+      &.mbsc-disabled {
+        background: $text;
+      }
+    }
+  }
+}

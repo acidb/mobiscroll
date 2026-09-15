@@ -1,0 +1,36 @@
+@use 'sass:map';
+@use 'sass:color';
+@use '../../themes/common';
+
+@mixin mbsc-material-legacy-checkbox($theme, $params) {
+  $background: map.get($params, 'background');
+  $text: map.get($params, 'text');
+  $accent: map.get($params, 'accent');
+
+  $bg-param: map.get($params, 'form-background');
+  $text-param: map.get($params, 'form-text');
+  $acc-param: map.get($params, 'form-accent');
+
+  $background: common.choose($bg-param, $bg-param, $background);
+  $text: common.choose($text-param, $text-param, $text);
+  $accent: common.choose($acc-param, $acc-param, $accent);
+
+  $checkbox: '';
+
+  @if (color.channel($background, 'lightness', $space: hsl) > 50%) {
+    $checkbox: color.adjust($background, $lightness: 7%);
+  } @else {
+    $checkbox: $background;
+  }
+
+  .mbsc-#{$theme} {
+    &.mbsc-checkbox-box {
+      color: $accent;
+      border-color: $text;
+    }
+
+    &.mbsc-checkbox-box:after {
+      border-color: $checkbox;
+    }
+  }
+}

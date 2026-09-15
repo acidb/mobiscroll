@@ -1,0 +1,81 @@
+@use '../../themes/common';
+@use '../../themes/windows';
+@use './stepper.windows.colors' as colors;
+
+@if (common.$mbsc-windows-theme and common.$mbsc-forms) {
+  .mbsc-windows {
+    &.mbsc-stepper {
+      padding-top: 1em;
+      padding-bottom: 1em;
+    }
+
+    &.mbsc-stepper.mbsc-ltr {
+      padding-right: 9.75em;
+    }
+
+    &.mbsc-stepper.mbsc-rtl {
+      padding-left: 9.75em;
+    }
+
+    &.mbsc-stepper-button {
+      &.mbsc-button {
+        border: 1px solid var(--mbsc-stepper-border-color);
+        --mbsc-button-standard-bg-color: var(--mbsc-stepper-bg-color);
+        --mbsc-button-standard-text-color: var(--mbsc-stepper-text-color);
+        --mbsc-button-focus: var(--mbsc-stepper-focus);
+        --mbsc-button-disabled-bg: var(--mbsc-stepper-disabled-bg);
+        --mbsc-button-disabled-text: var(--mbsc-stepper-disabled-text);
+      }
+
+      &.mbsc-button.mbsc-font {
+        width: 2.5em;
+      }
+
+      &.mbsc-focus {
+        z-index: 4;
+      }
+
+      .mbsc-button-bg {
+        border: 0;
+        border-radius: 0;
+      }
+    }
+
+    &.mbsc-stepper-inner {
+      font-size: 1.428572em;
+      font-weight: 500;
+      line-height: 0.9em;
+      margin-top: -0.05em;
+    }
+
+    &.mbsc-stepper-input {
+      width: 3em;
+      border: 1px solid var(--mbsc-stepper-border-color);
+      border-left: 0;
+      border-right: 0;
+      color: inherit;
+
+      &:focus-visible {
+        outline: 2px solid var(--mbsc-stepper-focus);
+        outline-offset: -1px;
+      }
+
+      &.mbsc-disabled {
+        color: var(--mbsc-stepper-disabled-text);
+      }
+    }
+
+    /* Color presets */
+
+    @each $name in common.$mbsc-color-variants {
+      &.mbsc-stepper.mbsc-#{$name} {
+        --mbsc-stepper-bg-color: var(--mbsc-windows-#{$name});
+        --mbsc-stepper-text-color: var(--mbsc-windows-on-#{$name});
+        --mbsc-stepper-border-color: var(--mbsc-windows-#{$name});
+      }
+    }
+  }
+
+  @include colors.mbsc-windows-stepper('windows', windows.$mbsc-windows-colors);
+  @include colors.mbsc-windows-stepper('windows-dark', windows.$mbsc-windows-dark-colors);
+}

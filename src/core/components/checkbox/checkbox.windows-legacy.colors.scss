@@ -1,0 +1,48 @@
+@use 'sass:map';
+@use 'sass:color';
+@use '../../themes/common';
+
+@mixin mbsc-windows-legacy-checkbox($theme, $params) {
+  $background: map.get($params, 'background');
+  $text: map.get($params, 'text');
+  $accent: map.get($params, 'accent');
+
+  $bg-param: map.get($params, 'form-background');
+  $text-param: map.get($params, 'form-text');
+  $acc-param: map.get($params, 'form-accent');
+
+  $background: common.choose($bg-param, $bg-param, $background);
+  $text: common.choose($text-param, $text-param, $text);
+  $accent: common.choose($acc-param, $acc-param, $accent);
+
+  $checkbox-border: '';
+  $input-hover: '';
+
+  @if (color.channel($background, 'lightness', $space: hsl) > 50%) {
+    $checkbox-border: color.adjust($accent, $lightness: 52%, $saturation: -24%);
+    $input-hover: color.adjust($background, $lightness: -55%);
+  } @else {
+    $checkbox-border: color.adjust($accent, $lightness: -52%, $saturation: 24%);
+    $input-hover: color.adjust($background, $lightness: 55%);
+  }
+
+  .mbsc-#{$theme} {
+    &.mbsc-checkbox-box {
+      color: $accent;
+      border-color: $text;
+    }
+
+    &.mbsc-checkbox-box:after {
+      border-color: $checkbox-border;
+    }
+
+    &.mbsc-checkbox-box:before {
+      background: $input-hover;
+    }
+
+    &.mbsc-checkbox-box.mbsc-active {
+      border-color: $input-hover;
+      background: $input-hover;
+    }
+  }
+}

@@ -1,0 +1,82 @@
+@use '../../themes/common';
+@use '../../themes/material-legacy';
+@use './button.material-legacy.colors' as colors;
+
+@if (common.$mbsc-material-theme and common.$mbsc-button) {
+  .mbsc-material-legacy {
+    &.mbsc-button {
+      min-width: 4.571429em;
+      padding: 0.428572em 1.142858em;
+      border-radius: 0.285715em;
+      font-size: 0.875em;
+      font-weight: 600;
+      text-transform: uppercase;
+      line-height: 1.714286em;
+      transition: box-shadow 0.2s ease-out, background-color 0.2s ease-out;
+      margin: 0.5em;
+    }
+
+    &.mbsc-button-outline {
+      border: 1px solid;
+    }
+
+    &.mbsc-button .mbsc-icon {
+      font-size: 1.142858em;
+    }
+
+    &.mbsc-icon-button {
+      min-width: 0;
+      padding: 0.5em;
+      border-radius: 2em;
+      font-size: 1em;
+      line-height: normal;
+    }
+
+    &.mbsc-icon-button .mbsc-icon {
+      width: 1.5em;
+      height: 1.5em;
+      font-size: 1em;
+    }
+
+    &.mbsc-button:disabled,
+    &.mbsc-button.mbsc-disabled {
+      opacity: 0.3;
+    }
+
+    &.mbsc-ltr {
+      &.mbsc-button-icon-start {
+        padding-right: 0.5em;
+        margin-left: -0.25em;
+      }
+
+      &.mbsc-button-icon-end {
+        padding-left: 0.5em;
+        margin-right: -0.25em;
+      }
+    }
+
+    &.mbsc-rtl {
+      &.mbsc-button-icon-start {
+        padding-left: 0.5em;
+        margin-right: -0.25em;
+      }
+
+      &.mbsc-button-icon-end {
+        padding-right: 0.5em;
+        margin-left: -0.25em;
+      }
+    }
+
+    .mbsc-button-group,
+    .mbsc-button-group-justified {
+      margin: 0.5em;
+    }
+
+    .mbsc-button-group-block {
+      margin: 0.5em 1em;
+    }
+  }
+
+  @include colors.mbsc-material-legacy-button('material-legacy', material-legacy.$mbsc-material-colors);
+  @include colors.mbsc-material-legacy-button('material-legacy-dark', material-legacy.$mbsc-material-dark-colors);
+}

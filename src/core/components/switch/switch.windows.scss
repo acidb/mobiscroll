@@ -1,0 +1,143 @@
+@use '../../themes/common';
+@use '../../themes/windows';
+@use './switch.windows.colors' as colors;
+
+@if (common.$mbsc-windows-theme and common.$mbsc-forms) {
+  .mbsc-windows {
+    &.mbsc-switch-right {
+      padding: 1em 4.5em 1em 1em;
+    }
+
+    &.mbsc-switch-left {
+      padding: 1em 1em 1em 4.5em;
+    }
+
+    /* Track */
+
+    &.mbsc-switch-track {
+      width: 1.25em; // 20px
+      height: 1.25em; // 20px
+      margin: -0.625em 0.625em 0 0.625em; // -10px 10px 0 10px
+
+      /* Track background */
+      &::before {
+        content: '';
+        position: absolute;
+        z-index: 1;
+        top: 0;
+        bottom: 0;
+        left: -0.625em; // -10px
+        right: -0.625em; // -10px
+        border: 1px solid var(--mbsc-switch-border-color);
+        border-radius: 1em;
+        background: var(--mbsc-switch-track-color);
+        transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+      }
+
+      /* State layer */
+      &::after {
+        content: '';
+        position: absolute;
+        z-index: 1;
+        top: 0;
+        bottom: 0;
+        left: -0.625em; // -10px
+        right: -0.625em; // -10px
+        border-radius: 1em;
+        background: var(--mbsc-switch-border-hover);
+        opacity: 0;
+      }
+
+      &.mbsc-hover::before {
+        border-color: var(--mbsc-switch-border-hover);
+      }
+
+      &.mbsc-active::before {
+        border-color: var(--mbsc-switch-border-active);
+      }
+
+      &.mbsc-focus::before {
+        outline: 2px solid var(--mbsc-switch-focus);
+        outline-offset: 2px;
+      }
+
+      &.mbsc-checked {
+        &::before {
+          background: var(--mbsc-switch-selected-track-color);
+          border-color: transparent;
+        }
+
+        &.mbsc-hover::after {
+          opacity: 0.3;
+        }
+
+        &.mbsc-active::after {
+          opacity: 0.5;
+        }
+      }
+
+      &.mbsc-disabled::before {
+        opacity: 0.2;
+      }
+
+      &.mbsc-disabled.mbsc-checked::before {
+        background: var(--mbsc-switch-border-color);
+        opacity: 0.1;
+      }
+    }
+
+    &.mbsc-switch-track-right {
+      right: 1em;
+    }
+
+    &.mbsc-switch-track-left {
+      left: 1em;
+    }
+
+    /* Handle */
+
+    &.mbsc-switch-handle {
+      z-index: 2;
+      top: 50%;
+      left: 50%;
+      height: 0.875em; // 14px
+      width: 0.875em; // 14px
+      margin: -0.4375em 0 0 -0.4375em; // -7px 0 0 -7px
+      border-radius: 0.875em;
+      background: var(--mbsc-switch-handle-color);
+
+      &.mbsc-hover {
+        background: var(--mbsc-switch-border-hover);
+      }
+
+      &.mbsc-active {
+        background: var(--mbsc-switch-border-active);
+        opacity: 0.8;
+      }
+
+      &.mbsc-checked {
+        background: var(--mbsc-switch-selected-handle-color);
+
+        &.mbsc-active {
+          opacity: 1;
+        }
+      }
+
+      &.mbsc-disabled {
+        background: var(--mbsc-switch-handle-color);
+        opacity: 0.3;
+      }
+    }
+
+    /* Color presets */
+
+    @each $name in common.$mbsc-color-variants {
+      &.mbsc-switch-track.mbsc-switch-#{$name} {
+        --mbsc-switch-selected-track-color: var(--mbsc-windows-#{$name});
+      }
+    }
+  }
+
+  @include colors.mbsc-windows-switch('windows', windows.$mbsc-windows-colors);
+  @include colors.mbsc-windows-switch('windows-dark', windows.$mbsc-windows-dark-colors);
+}

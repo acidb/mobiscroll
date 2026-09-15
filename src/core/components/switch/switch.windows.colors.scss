@@ -1,0 +1,14 @@
+@mixin mbsc-windows-switch($theme, $params) {
+  .mbsc-#{$theme} {
+    &.mbsc-switch {
+      --mbsc-switch-handle-color: var(--mbsc-#{$theme}-switch-handle-color, var(--mbsc-#{$theme}-border-strong));
+      --mbsc-switch-track-color: var(--mbsc-#{$theme}-switch-track-color, var(--mbsc-#{$theme}-background));
+      --mbsc-switch-selected-handle-color: var(--mbsc-#{$theme}-switch-selected-handle-color, var(--mbsc-#{$theme}-background));
+      --mbsc-switch-selected-track-color: var(--mbsc-#{$theme}-switch-selected-track-color, var(--mbsc-#{$theme}-accent));
+      --mbsc-switch-border-color: var(--mbsc-#{$theme}-switch-border-color, var(--mbsc-#{$theme}-border-strong));
+      --mbsc-switch-border-hover: var(--mbsc-#{$theme}-switch-border-hover, var(--mbsc-#{$theme}-border-strong-hover));
+      --mbsc-switch-border-active: var(--mbsc-#{$theme}-switch-border-active, var(--mbsc-#{$theme}-text));
+      --mbsc-switch-focus: var(--mbsc-#{$theme}-switch-focus, var(--mbsc-#{$theme}-text));
+    }
+  }
+}
