@@ -5,7 +5,7 @@ the calendar connectivity layer for scheduling products.
 
 [![npm](https://img.shields.io/npm/v/@mobiscroll/react-lite)](https://www.npmjs.com/package/@mobiscroll/react-lite)
 [![downloads](https://img.shields.io/npm/dm/@mobiscroll/react-lite)](https://www.npmjs.com/package/@mobiscroll/react-lite)
-[![license](https://img.shields.io/github/license/acidb/mobiscroll)](LICENSE.md)
+[![license](https://img.shields.io/github/license/acidb/mobiscroll)](LICENSE)
 
 Two products, used independently or together, for teams building scheduling, booking,
 planning and resource-management systems — rota and shift planning, field service, crew
