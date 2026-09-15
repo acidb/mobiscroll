@@ -1,194 +1,125 @@
-Mobiscroll
-==========
+# Mobiscroll
 
-What is Mobiscroll?
------------------
-Mobiscroll is a UI library for progressive webapps and hybrid development. Created with a lot of attention to usability and performance. [Mobiscroll Forms](https://mobiscroll.com/forms) ships with 15 customizable controls that you can use for free that are included in this repository. For advanced functionality use Forms with:
+Scheduling, event calendar and resource management UI components, and Mobiscroll Connect,
+the calendar connectivity layer for scheduling products.
 
-* [Event calendar & Scheduler](https://mobiscroll.com/event-calendar-scheduler)
-* [Datetime pickers & Calendars](https://mobiscroll.com/date-time-picker-calendar)
-* [Select, pickers & dropdowns](https://mobiscroll.com/select-pickers-scroller-dropdown)
-* [Listview & card layout](https://mobiscroll.com/listview-with-cards-gestures)
+[![npm](https://img.shields.io/npm/v/@mobiscroll/react-lite)](https://www.npmjs.com/package/@mobiscroll/react-lite)
+[![downloads](https://img.shields.io/npm/dm/@mobiscroll/react-lite)](https://www.npmjs.com/package/@mobiscroll/react-lite)
+[![license](https://img.shields.io/github/license/acidb/mobiscroll)](LICENSE)
 
-Where can I use Mobiscroll?
------------------
-You can use the controls in web and hybrid/native cross-platform apps. At its core Mobiscroll is framework agnostic, but API variants for jQuery/jQuery Mobile, Angular/Ionic, Angular JS/Ionic 1 and React is available.
+Two products, used independently or together, for teams building scheduling, booking,
+planning and resource-management systems — rota and shift planning, field service, crew
+management, appointment scheduling.
 
-Elements
------------------
+This repository is the index for both, and holds the source of the open-source Mobiscroll
+form, notification and popup components.
 
-#### Single and multiline text ([live example](https://demo.mobiscroll.com/inputs-fields))
+---
 
-Text fields are the backbone of every form. Use them to capture a wide range of properties from plain text to passwords.
+## Mobiscroll UI
 
-Use labels, icons, placeholders or a combination of them to help users get meaning at a glance. Show/hide functionality built in for password fields.
+Scheduler, event calendar, resource timeline and agenda views, plus the calendar, date, time
+and range pickers. Ships as plain JavaScript and jQuery builds, and as native React, Angular
+and Vue components — not wrappers.
 
-<img src="https://github.com/acidb/mobiscroll/blob/master/img/text-input.png?raw=true" width="50%">
+- Product — https://mobiscroll.com/scheduling-ui
+- Documentation — https://mobiscroll.com/docs
+- Demos — 400+ runnable examples with source, https://demo.mobiscroll.com
 
-#### Select styling ([live example](https://demo.mobiscroll.com/inputs-fields/select))
+### What is in this repository
 
-Similar to the single line input styling, it features a chevron/dropdown arrow to clearly signal the difference between select and text input.
+The **open-source form, notification and popup components**, Apache-2.0, published as the
+`@mobiscroll/{framework}-lite` packages on public npm.
 
-<img src="https://github.com/acidb/mobiscroll/blob/master/img/select-styling.png?raw=true" width="50%">
+| Group         | Components                                                                                                                            |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| Forms         | Button, Checkbox, Dropdown, Input, Radio button, Segmented, Stepper, Switch, Textarea                                                 |
+| Notifications | Alert, Confirm, Prompt, Snackbar, Toast                                                                                               |
+| Popup         | Modal dialog, anchored popover, bottom sheet and inline display modes, with a focus trap, the ARIA dialog role and keyboard dismissal |
 
-#### Buttons ([live example](https://demo.mobiscroll.com/buttons))
+Same design system, theming and accessibility work as the rest of Mobiscroll — a form built
+with these sits next to a Mobiscroll scheduler without looking bolted on.
 
-Buttons with different states, styles and alignments. Inline or raised, left aligned, right aligned, centered or justified. Full-width buttons supported as well.
+```
+npm install @mobiscroll/react-lite        # React
+npm install @mobiscroll/angular-lite      # Angular
+npm install @mobiscroll/vue-lite          # Vue
+npm install @mobiscroll/javascript-lite   # plain JavaScript
+npm install @mobiscroll/jquery-lite       # jQuery
+```
 
-Use it with or without icons.
+Public npm — no CLI, no registry configuration, no licence key.
 
-<img src="https://github.com/acidb/mobiscroll/blob/master/img/buttons.png?raw=true" width="50%">
+```jsx
+import { Input, Button, Popup, toast } from '@mobiscroll/react-lite';
+import '@mobiscroll/react-lite/dist/css/mobiscroll.min.css';
 
-#### Segmented control ([live example](https://demo.mobiscroll.com/buttons/segmented))
+export default function ContactForm() {
+  return (
+    <>
+      <Input label="Email" type="email" />
+      <Button onClick={() => toast({ message: 'Saved' })}>Save</Button>
+    </>
+  );
+}
+```
 
-Easily lay out two to five options for single and multiple select. Making all options instantly visible lets users make selections with a single interaction instead of at least 3 (tap to open select, do the select, hit set - like for the traditional dropdown).
+### What is not in this repository
 
-<img src="https://github.com/acidb/mobiscroll/blob/master/img/segmented.png?raw=true" width="50%">
+The scheduling components are commercial and distributed separately:
 
-#### Checkbox and checklist ([live example](https://demo.mobiscroll.com/toggle-radio))
+| Group                 | Components                                  |
+| --------------------- | ------------------------------------------- |
+| Event calendar system | Event Calendar, Scheduler, Timeline, Agenda |
+| Date and time         | Calendar, Date & Time, Range                |
+| Supporting            | Select                                      |
 
-Similar to the native checkbox in functionality, but with a look and feel that fits with the overall user experience and theme. Features description text, checkbox list and disabled styling.
+They need a trial or a licence and install through the Mobiscroll CLI:
+https://mobiscroll.com/docs/react/getting-started/installation
 
-Excellent choice for inline multi-select lists.
+---
 
-<img src="https://github.com/acidb/mobiscroll/blob/master/img/checkbox.png?raw=true" width="50%">
+## Mobiscroll Connect
 
-#### Radio button list ([live example](https://demo.mobiscroll.com/toggle-radio/radio-button))
+One integration for Google Calendar, Microsoft Outlook, Apple Calendar and CalDAV, with a
+unified Calendar API, normalized calendar data, OAuth and consent flows, calendar sync and
+webhooks. Backend only — it works with your own UI and does not require Mobiscroll UI.
 
-Single select for a list of options. Use it instead of the segmented control if there are more items that would fit in a single line.
+- Product — https://mobiscroll.com/connect
+- Documentation — https://mobiscroll.com/docs/connect/overview
+- SDKs — https://github.com/acidb/mobiscroll-connect-sdks
+  (Node.js, Python, PHP, .NET, Java, Go, Ruby, plus direct REST)
+- Runnable example — https://github.com/acidb/mobiscroll-connect-demo
 
-Usually a good choice for five options and above. Features disabled styling and optional description.
+No Connect source lives in this repository. The SDK monorepo above is its home.
 
-<img src="https://github.com/acidb/mobiscroll/blob/master/img/radio.png?raw=true" width="50%">
+---
 
-#### Switch ([live example](https://demo.mobiscroll.com/toggle-radio/switch))
+## Tooling
 
-Just like the checkbox, the switch lets users turn options on/off. Can be rendered as a list of fields, like the checkbox list or as a stand-alone control.
+- **CLI** — installs and configures Mobiscroll in a project,
+  https://mobiscroll.com/docs/javascript/core-concepts/cli
+- **AI tooling** — MCP server at https://mcp.mobiscroll.com, agent skills for Claude Code and
+  Codex, rule files for Cursor and GitHub Copilot.
+  https://mobiscroll.com/docs/javascript/guides/ai-integration
 
-Features optional description and disabled styling.
+## Releases
 
-<img src="https://github.com/acidb/mobiscroll/blob/master/img/switch.png?raw=true" width="50%">
+[CHANGELOG.md](CHANGELOG.md) covers both products in separate sections — Mobiscroll UI on the
+v6 line, Mobiscroll Connect on its own, since they version independently. Entries cover the
+whole of each product rather than only the components in this repository, and each links to
+the full notes rather than restating them:
 
-#### Stepper ([live example](https://demo.mobiscroll.com/buttons/stepper))
+- Mobiscroll UI — https://mobiscroll.com/releases
+- Mobiscroll Connect — https://mobiscroll.com/releases/connect
 
-When users need to make small adjustments to values by increasing or decreasing it avoid free-form input and dropdowns. Steppers help in minimizing mistakes, and reduce the number of taps for getting the values right.
+## Support
 
-<img src="https://github.com/acidb/mobiscroll/blob/master/img/stepper.png?raw=true" width="50%">
+Issues with the components in this repository: open an issue here.
+Licensed customers: https://mobiscroll.com/support
 
-#### Page and typography ([live example](https://demo.mobiscroll.com/styling))
+## Licence
 
-Takes care of setting the background colors, spacing and typographic styling. It makes sure that the content you add shows up nicely on any screen-size.
-
-<img src="https://github.com/acidb/mobiscroll/blob/master/img/typography.png?raw=true" width="50%">
-
-#### Slider ([live example](https://demo.mobiscroll.com/slider-progress))
-
-Work your way from a monotone, dropdown heavy form to an easily scannable page by switching controls. Consider using sliders for selecting one or multiple values from a range.
-
-Continuous ranges, steps, floating value display, disabled styling and usage with icons is supported out of the box.
-
-<img src="https://github.com/acidb/mobiscroll/blob/master/img/slider.png?raw=true" width="50%">
-
-#### Progress ([live example](https://demo.mobiscroll.com/slider-progress/progress))
-
-Provide visual feedback to the user. Reduce anxiety and help people understand progress with the control. You can also use it as a completness meter to show how the user does on completing a purchase.
-
-With a powerful API control the state, value programtically and restart, pause it if you need to.
-
-<img src="https://github.com/acidb/mobiscroll/blob/master/img/progress.png?raw=true" width="50%">
-
-#### Alert, confirm and prompt ([live example](https://demo.mobiscroll.com/alerts-notifications))
-
-Show alert messages, confirmation dialogs and prompt for focused value entry. With a platform-specific look and feel, you can make your users feel at home and communicate what they actually need to see.
-
-These controls cannot be dismissed by pressing the overlay, avoiding closing it by mistake.
-
-<img src="https://github.com/acidb/mobiscroll/blob/master/img/alert.png?raw=true" width="50%">
-
-#### Toast and snackbar ([live example](https://demo.mobiscroll.com/alerts-notifications/notifications))
-
-Keep your users up to date with notifications. Either in form of a toast or a snackbar.
-
-You can optionally provide an action with the message - such as UNDO or RETRY - which will help the user make progress faster towards their goal.
-
-<img src="https://github.com/acidb/mobiscroll/blob/master/img/notifications.png?raw=true" width="50%">
-
-Commercial Components
------------------
-
-#### Date & time pickers
-
-* [Calendar](https://demo.mobiscroll.com/calendar)
-* [Date & Time](https://demo.mobiscroll.com/datetime)
-* [Range](https://demo.mobiscroll.com/range)
-* [Timespan](https://demo.mobiscroll.com/timespan)
-
-#### Event calendar
-
-* [Agenda](https://demo.mobiscroll.com/agenda)
-* [Calendar view](https://demo.mobiscroll.com/eventcalendar)
-* [Scheduler](https://demo.mobiscroll.com/scheduler)
-
-#### Pickers & dropdowns
-
-* [Select](https://demo.mobiscroll.com/select)
-* [Scroller](https://demo.mobiscroll.com/scroller)
-* [Treelist](https://demo.mobiscroll.com/list)
-* [Image](https://demo.mobiscroll.com/image)
-* [Color](https://demo.mobiscroll.com/color)
-* [Optionlist](https://demo.mobiscroll.com/optionlist)
-
-#### Pickers & dropdowns
-
-* [Numpad](https://demo.mobiscroll.com/numpad)
-* [Number](https://demo.mobiscroll.com/number)
-* [Measurement](https://demo.mobiscroll.com/measurement)
-
-#### Gesture enabled responsive list
-
-* [Listview](https://demo.mobiscroll.com/listview)
-* [Scrollview](https://demo.mobiscroll.com/scrollview)
-* [Cards](https://demo.mobiscroll.com/cards)
-
-Documentation
------------------
-For the complete documentation of Mobiscroll Forms and all products, please visit https://docs.mobiscroll.com
-
-Demos and examples
------------------
-- Demos for Mobiscroll Forms (FREE) can be found at https://demo.mobiscroll.com/forms
-- Over 250 live demos with downloadable code can be found at https://demo.mobiscroll.com
-
-Getting help
------------------
-- Report bugs to the [issues list](https://github.com/acidb/mobiscroll/issues?q=is%3Aopen) for all Mobiscroll products.
-- Browse the [learning section](https://mobiscroll.com/support) and [help center](http://help.mobiscroll.com) for resources and more information on the products.
-- Submit and answer questions on the [Community Forum](https://forum.mobiscroll.com) and [StackOverflow](http://stackoverflow.com/questions/tagged/mobiscroll) with the 'mobiscroll' tag.
-- Join the [community forum](https://forum.mobiscroll.com).
-
-The Mobiscroll team does not provide technical support for Mobiscroll Lite. To get support from the team [purchase a license](https://mobiscroll.com/pricing) or join the [community forums](https://forum.mobiscroll.com)
-
-Release notes
------------------
-For the complete release history and changelog, visit https://mobiscroll.com/releases
-
-Get in touch
------------------
-Contact https://mobiscroll.com/contact
-
-Twitter http://twitter.com/mobiscroll
-
-Facebook https://www.facebook.com/mobiscroll
-
-License Information
------------------
-
-This project has been released under the Apache License, version 2.0, the text of which is included below. This license applies ONLY to the source of this repository and does not extend to any other Mobiscroll distribution or variant, or any other 3rd party libraries used in a repository. For licensing information about Mobiscroll, see the [License Agreements page at mobiscroll.com](https://mobiscroll.com/eula).
-
->Copyright © 2021 Mobiscroll
-
->Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
-
->http://www.apache.org/licenses/LICENSE-2.0
-
->Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+The source in this repository is licensed under the Apache License 2.0 — see [LICENSE](LICENSE).
+The commercial Mobiscroll UI components and Mobiscroll Connect are not covered by it and are
+distributed under separate commercial terms.

@@ -1,7 +1,7 @@
 {
   "name": "mobiscroll",
   "version": "6.1.3",
-  "description": "Mobiscroll lite - free UI components for progressive web and hybrid apps",
+  "description": "Scheduling, event calendar and resource management UI components, and Mobiscroll Connect, the calendar connectivity layer for scheduling products. Index for both; holds the open-source form components and the changelogs.",
   "homepage": "https://mobiscroll.com/",
   "license": "Apache-2.0",
   "private": true,
