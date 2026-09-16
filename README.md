@@ -53,7 +53,7 @@ Public npm — no CLI, no registry configuration, no licence key.
 React:
 
 ```jsx
-import { Input, Button, Popup, toast } from '@mobiscroll/react-lite';
+import { Input, Button, toast } from '@mobiscroll/react-lite';
 import '@mobiscroll/react-lite/dist/css/mobiscroll.min.css';
 
 export default function ContactForm() {
