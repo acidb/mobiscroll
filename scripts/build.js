@@ -78,6 +78,10 @@ getFiles(tempDir).forEach((filePath) =>
 getFiles(tempDir).forEach((filePath) => {
   if (/.+\.tsx?$/.test(filePath)) {
     let fileContent = fse.readFileSync(filePath, "utf8");
+    if (fw === "vue") {
+      fileContent = fileContent.replace(/\/\*\* @jsxRuntime classic \*\//g, "");
+      fileContent = fileContent.replace(/\/\*\* @jsx createElement \*\//g, "");
+    }
     fileContent = fileContent.replace(/@Directive\([^)]*\)/g, "");
     fileContent = fileContent.replace(
       /import { Directive } from '@angular\/core';/g,
