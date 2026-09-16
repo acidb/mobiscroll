@@ -50,6 +50,8 @@ npm install @mobiscroll/jquery-lite       # jQuery
 
 Public npm — no CLI, no registry configuration, no licence key.
 
+React:
+
 ```jsx
 import { Input, Button, Popup, toast } from '@mobiscroll/react-lite';
 import '@mobiscroll/react-lite/dist/css/mobiscroll.min.css';
@@ -62,6 +64,80 @@ export default function ContactForm() {
     </>
   );
 }
+```
+
+Angular:
+
+```ts
+import { Component } from '@angular/core';
+import { MbscModule, Notifications } from '@mobiscroll/angular-lite';
+
+@Component({
+  selector: 'contact-form',
+  standalone: true,
+  imports: [MbscModule],
+  template: `
+    <mbsc-input label="Email" type="email"></mbsc-input>
+    <mbsc-button (click)="save()">Save</mbsc-button>
+  `,
+})
+export class ContactForm {
+  constructor(private notify: Notifications) {}
+
+  save() {
+    this.notify.toast({ message: 'Saved' });
+  }
+}
+```
+
+Vue:
+
+```vue
+<script setup>
+import { ref } from 'vue';
+import { MbscInput, MbscButton, MbscToast } from '@mobiscroll/vue-lite';
+import '@mobiscroll/vue-lite/dist/css/mobiscroll.min.css';
+
+const showToast = ref(false);
+</script>
+
+<template>
+  <MbscInput label="Email" type="email" />
+  <MbscButton @click="showToast = true">Save</MbscButton>
+  <MbscToast :is-open="showToast" message="Saved" @close="showToast = false" />
+</template>
+```
+
+JavaScript:
+
+```html
+<label>
+  Email
+  <input mbsc-input id="email" />
+</label>
+<button mbsc-button id="save">Save</button>
+```
+
+```js
+document.getElementById('save').addEventListener('click', function () {
+  mobiscroll.toast({ message: 'Saved' });
+});
+```
+
+jQuery:
+
+```html
+<label>
+  Email
+  <input mbsc-input id="email" />
+</label>
+<button mbsc-button id="save">Save</button>
+```
+
+```js
+$('#save').on('click', function () {
+  mobiscroll.toast({ message: 'Saved' });
+});
 ```
 
 ### What is not in this repository
