@@ -1,6 +1,6 @@
-# @mobiscroll/react-lite
+# @mobiscroll/vue-lite
 
-Open-source React form, notification and popup components from Mobiscroll — the scheduling,
+Open-source Vue form, notification and popup components from Mobiscroll — the scheduling,
 event calendar and resource management UI library. Apache-2.0.
 
 | Group         | Components                                                                                                                            |
@@ -15,25 +15,27 @@ with these sits next to a Mobiscroll scheduler without looking bolted on.
 ## Install
 
 ```bash
-npm install @mobiscroll/react-lite
+npm install @mobiscroll/vue-lite
 ```
 
 Public npm — no CLI, no registry configuration, no licence key.
 
 ## Usage
 
-```jsx
-import { Input, Button, toast } from '@mobiscroll/react-lite';
-import '@mobiscroll/react-lite/dist/css/mobiscroll.min.css';
+```vue
+<script setup>
+import { ref } from 'vue';
+import { MbscInput, MbscButton, MbscToast } from '@mobiscroll/vue-lite';
+import '@mobiscroll/vue-lite/dist/css/mobiscroll.min.css';
 
-export default function ContactForm() {
-  return (
-    <>
-      <Input label="Email" type="email" />
-      <Button onClick={() => toast({ message: 'Saved' })}>Save</Button>
-    </>
-  );
-}
+const showToast = ref(false);
+</script>
+
+<template>
+  <MbscInput label="Email" type="email" />
+  <MbscButton @click="showToast = true">Save</MbscButton>
+  <MbscToast :is-open="showToast" message="Saved" @close="showToast = false" />
+</template>
 ```
 
 ## Free vs. commercial
@@ -48,12 +50,12 @@ distributed separately:
 | Supporting            | Select                                      |
 
 They need a trial or a licence and install through the Mobiscroll CLI:
-https://mobiscroll.com/docs/react/getting-started/installation
+https://mobiscroll.com/docs/vue/getting-started/installation
 
 ## Links
 
-- Documentation — https://mobiscroll.com/docs/react
-- Demos — https://demo.mobiscroll.com/react
+- Documentation — https://mobiscroll.com/docs/vue
+- Demos — https://demo.mobiscroll.com/vue
 - Product — https://mobiscroll.com/scheduling-ui
 - Issues — https://github.com/acidb/mobiscroll/issues
 - Licensed support — https://mobiscroll.com/support
