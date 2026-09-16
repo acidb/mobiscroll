@@ -1,0 +1,87 @@
+name: Bug report
+description: Report a problem with one of the Mobiscroll Lite components
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug! Please fill out the sections below so we can reproduce and fix the issue.
+
+  - type: dropdown
+    id: package
+    attributes:
+      label: Package
+      description: Which package are you using?
+      options:
+        - React
+        - Angular
+        - Vue
+        - JavaScript
+        - jQuery
+        - Not sure
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Mobiscroll version
+      description: The version from your package.json (e.g. 6.1.3)
+      placeholder: 6.1.3
+    validations:
+      required: true
+
+  - type: input
+    id: component
+    attributes:
+      label: Component(s) affected
+      description: e.g. Button, Input, Checkbox, Radio, Switch, Segmented, Stepper, Popup, Notifications, Page, Icon, Grid Layout
+      placeholder: Popup
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: A clear and concise description of the bug.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: What did you expect to happen instead?
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      description: |
+        Please include a minimal reproduction, ideally as a StackBlitz/CodeSandbox link or a small repo. Issues without a reproduction may take longer to investigate or be closed.
+      placeholder: |
+        1. ...
+        2. ...
+        3. ...
+    validations:
+      required: true
+
+  - type: input
+    id: environment
+    attributes:
+      label: Browser / OS
+      description: Browser(s) and OS where the issue occurs
+      placeholder: Chrome 128 on macOS 14
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional context
+      description: Screenshots, console errors, or anything else that might help.
+    validations:
+      required: false

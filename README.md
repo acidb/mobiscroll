@@ -191,7 +191,7 @@ the full notes rather than restating them:
 
 ## Support
 
-Issues with the components in this repository: open an issue here.
+Issues with the components in this repository: [open an issue here](https://github.com/acidb/mobiscroll/issues).
 Licensed customers: https://mobiscroll.com/support
 
 ## Licence
