@@ -40,9 +40,9 @@ is forward-compatible only: a library compiled with an _older_ Angular compiler 
 _newer_ Angular apps, but not the reverse. Compiling `packages/angular` with Angular 22
 would produce output that Angular 13–2x consumers can no longer link, breaking the
 `"@angular/core": ">=13.0.0"` peer-dependency promise in `packages/angular/package.json`.
-`@angular/compiler-cli@16` (the version this repo currently builds with) also caps
-`typescript` at `<5.2`, so bumping Angular for audit purposes would force a TypeScript
-downgrade path as well.
+`@angular/compiler-cli@13` (the version this repo currently builds with) also caps
+`typescript` at `<4.7`, so bumping Angular for audit purposes would force a TypeScript
+upgrade path as well.
 
 If the minimum supported Angular version is ever raised, `@angular/*`, `zone.js`, and
 `typescript` can be revisited together — re-run `npm audit` at that point to see whether a

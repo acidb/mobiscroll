@@ -18,6 +18,7 @@
       "@framework/*": ["src/react/*"]
     },
     "typeRoots": ["node_modules/@types"],
+    "types": [],
     "lib": ["es2017", "dom"]
   },
   "include": ["src/angular", "src/core"]
