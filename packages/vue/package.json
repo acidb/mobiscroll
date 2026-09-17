@@ -49,6 +49,7 @@
   "main": "dist/js/mobiscroll.vue.min.cjs",
   "module": "dist/esm5/mobiscroll.vue.min.mjs",
   "types": "dist/src/vue/bundle.d.ts",
+  "sideEffects": false,
   "style": "dist/css/mobiscroll.min.css",
   "files": [
     "dist/js/*",

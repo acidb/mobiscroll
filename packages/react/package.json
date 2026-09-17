@@ -49,6 +49,7 @@
   "main": "dist/js/mobiscroll.react.min.cjs",
   "module": "dist/esm5/mobiscroll.react.min.mjs",
   "types": "dist/src/react/bundle.d.ts",
+  "sideEffects": false,
   "style": "dist/css/mobiscroll.min.css",
   "files": [
     "dist/js/*",
