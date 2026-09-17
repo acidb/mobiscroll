@@ -4,6 +4,9 @@
   "description": "Open-source JavaScript form, notification and popup components from Mobiscroll — the scheduling, event calendar and resource management UI library. No framework required. Apache-2.0. Scheduler, timeline, agenda and date pickers are commercial.",
   "homepage": "https://mobiscroll.com/docs/javascript",
   "license": "Apache-2.0",
+  "publishConfig": {
+    "access": "public"
+  },
   "keywords": [
     "mobiscroll",
     "javascript",
@@ -31,7 +34,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/acidb/mobiscroll.git",
+    "url": "git+https://github.com/acidb/mobiscroll.git",
     "directory": "packages/javascript"
   },
   "bugs": {

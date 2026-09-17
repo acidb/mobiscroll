@@ -7,7 +7,7 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/acidb/mobiscroll.git"
+    "url": "git+https://github.com/acidb/mobiscroll.git"
   },
   "bugs": {
     "url": "https://github.com/acidb/mobiscroll/issues"

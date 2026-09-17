@@ -4,6 +4,9 @@
   "description": "Open-source Vue form, notification and popup components from Mobiscroll — the scheduling, event calendar and resource management UI library. Apache-2.0. Scheduler, timeline, agenda and date pickers are commercial.",
   "homepage": "https://mobiscroll.com/docs/vue",
   "license": "Apache-2.0",
+  "publishConfig": {
+    "access": "public"
+  },
   "keywords": [
     "mobiscroll",
     "vue",
@@ -31,7 +34,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/acidb/mobiscroll.git",
+    "url": "git+https://github.com/acidb/mobiscroll.git",
     "directory": "packages/vue"
   },
   "bugs": {
