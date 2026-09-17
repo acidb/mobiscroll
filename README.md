@@ -50,22 +50,6 @@ npm install @mobiscroll/jquery-lite       # jQuery
 
 Public npm — no CLI, no registry configuration, no licence key.
 
-React:
-
-```jsx
-import { Input, Button, toast } from '@mobiscroll/react-lite';
-import '@mobiscroll/react-lite/dist/css/mobiscroll.min.css';
-
-export default function ContactForm() {
-  return (
-    <>
-      <Input label="Email" type="email" />
-      <Button onClick={() => toast({ message: 'Saved' })}>Save</Button>
-    </>
-  );
-}
-```
-
 Angular:
 
 ```ts
@@ -87,6 +71,22 @@ export class ContactForm {
   save() {
     this.notify.toast({ message: 'Saved' });
   }
+}
+```
+
+React:
+
+```jsx
+import { Input, Button, toast } from '@mobiscroll/react-lite';
+import '@mobiscroll/react-lite/dist/css/mobiscroll.min.css';
+
+export default function ContactForm() {
+  return (
+    <>
+      <Input label="Email" type="email" />
+      <Button onClick={() => toast({ message: 'Saved' })}>Save</Button>
+    </>
+  );
 }
 ```
 
@@ -189,10 +189,20 @@ the full notes rather than restating them:
 - Mobiscroll UI — https://mobiscroll.com/releases
 - Mobiscroll Connect — https://mobiscroll.com/releases/connect
 
+The seven Connect SDKs version independently of the API and their changelogs live with their
+code: https://github.com/acidb/mobiscroll-connect-sdks
+
 ## Support
 
-Issues with the components in this repository: [open an issue here](https://github.com/acidb/mobiscroll/issues).
-Licensed customers: https://mobiscroll.com/support
+**Issues and questions about any part of Mobiscroll are welcome here** — the open-source
+components in this repository, the commercial UI components, and Mobiscroll Connect. A bug
+report, a reproduction or a documentation problem is useful wherever it comes from.
+
+Licensed customers can also use https://mobiscroll.com/support, which is tied to your licence
+and private. Use that channel for anything involving an account, a licence key or data you
+would rather not post publicly.
+
+Security issues: please do not open a public issue. Email security@mobiscroll.com.
 
 ## Licence
 

@@ -1,17 +1,33 @@
 name: Feature request
-description: Suggest an enhancement or new capability for Mobiscroll Lite
+description: Suggest an enhancement or new capability for Mobiscroll UI or Mobiscroll Connect
 labels: ["enhancement"]
 body:
   - type: markdown
     attributes:
       value: |
-        Thanks for the suggestion! Please give us as much detail as you can.
+        Thanks for the suggestion! This covers any part of Mobiscroll - the open-source
+        components in this repo, the commercial Mobiscroll UI components, and Mobiscroll
+        Connect (API and SDKs). Please give us as much detail as you can.
+
+  - type: dropdown
+    id: product
+    attributes:
+      label: Product
+      description: Which product does this relate to?
+      multiple: true
+      options:
+        - Mobiscroll UI
+        - Mobiscroll Connect API
+        - Mobiscroll Connect SDK
+        - Not applicable / all
+    validations:
+      required: true
 
   - type: dropdown
     id: package
     attributes:
-      label: Package
-      description: Which package(s) does this relate to?
+      label: Package / SDK
+      description: Which framework package(s) or SDK language(s) does this relate to?
       multiple: true
       options:
         - React
@@ -19,6 +35,13 @@ body:
         - Vue
         - JavaScript
         - jQuery
+        - Node.js SDK
+        - PHP SDK
+        - .NET SDK
+        - Python SDK
+        - Java SDK
+        - Go SDK
+        - Ruby SDK
         - Not applicable / all
     validations:
       required: true
