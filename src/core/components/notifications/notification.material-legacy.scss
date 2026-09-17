@@ -1,0 +1,53 @@
+@use '../../themes/common';
+@use '../../themes/material-legacy';
+@use './notification.material-legacy.colors' as colors;
+
+@if (common.$mbsc-material-theme and common.$mbsc-forms) {
+  .mbsc-material-legacy {
+    .mbsc-toast-message {
+      border-radius: 1.571429em;
+    }
+
+    .mbsc-toast-background {
+      background: #444;
+      color: #fff;
+    }
+
+    &.mbsc-prompt-input.mbsc-font {
+      margin: 1.5em 0 0 0;
+    }
+
+    &.mbsc-primary .mbsc-toast-background {
+      background: material-legacy.$mbsc-material-primary;
+      color: common.get-contrast-color(material-legacy.$mbsc-material-primary);
+    }
+
+    &.mbsc-secondary .mbsc-toast-background {
+      background: material-legacy.$mbsc-material-secondary;
+      color: common.get-contrast-color(material-legacy.$mbsc-material-secondary);
+    }
+
+    &.mbsc-success .mbsc-toast-background {
+      background: material-legacy.$mbsc-material-success;
+      color: common.get-contrast-color(material-legacy.$mbsc-material-success);
+    }
+
+    &.mbsc-danger .mbsc-toast-background {
+      background: material-legacy.$mbsc-material-danger;
+      color: common.get-contrast-color(material-legacy.$mbsc-material-danger);
+    }
+
+    &.mbsc-warning .mbsc-toast-background {
+      background: material-legacy.$mbsc-material-warning;
+      color: common.get-contrast-color(material-legacy.$mbsc-material-warning);
+    }
+
+    &.mbsc-info .mbsc-toast-background {
+      background: material-legacy.$mbsc-material-info;
+      color: common.get-contrast-color(material-legacy.$mbsc-material-info);
+    }
+  }
+
+  @include colors.mbsc-material-legacy-notifications('material-legacy', material-legacy.$mbsc-material-colors);
+  @include colors.mbsc-material-legacy-notifications('material-legacy-dark', material-legacy.$mbsc-material-dark-colors);
+}

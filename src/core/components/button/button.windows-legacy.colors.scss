@@ -1,0 +1,364 @@
+@use 'sass:map';
+@use 'sass:color';
+@use '../../themes/common';
+@use '../../themes/windows-legacy';
+
+@mixin mbsc-windows-legacy-button($theme, $params) {
+  $background: map.get($params, 'background');
+  $text: map.get($params, 'text');
+  $accent: map.get($params, 'accent');
+
+  $button-background-param: map.get($params, 'button-color');
+  $button-text-param: map.get($params, 'button-text');
+
+  $button-text: common.choose($button-text-param, $button-text-param, $text);
+
+  $button-bg: '';
+  $hover: '';
+  $button-border: '';
+  $button-border-hover: '';
+  $dark-text: color.adjust(windows-legacy.$mbsc-windows-dark, $lightness: -30%);
+
+  @if (color.channel($background, 'lightness', $space: hsl) > 50%) {
+    $button-bg: color.adjust($background, $lightness: -20%);
+    $hover: color.adjust($button-text, $lightness: 70%);
+    $button-border: color.adjust($background, $lightness: -40%);
+    $button-border-hover: color.adjust($background, $lightness: -50%);
+  } @else {
+    $button-bg: color.adjust($background, $lightness: 15%);
+    $hover: color.adjust($button-text, $lightness: -70%);
+    $button-border: color.adjust($background, $lightness: 35%);
+    $button-border-hover: color.adjust($background, $lightness: 45%);
+  }
+
+  $button-bg: common.choose($button-background-param, $button-background-param, $button-bg);
+
+  @if ($button-background-param) {
+    $button-border: $button-background-param;
+
+    @if (color.lightness($button-background-param) > 50%) {
+      $button-border-hover: color.adjust($button-border, $lightness: -10%);
+    } @else {
+      $button-border-hover: color.adjust($button-border, $lightness: 10%);
+    }
+  }
+
+  $active-base: common.choose($button-background-param, $button-background-param, $background);
+  $button-active: '';
+
+  @if (color.channel($active-base, 'lightness', $space: hsl) > 50%) {
+    $button-active: color.adjust($button-text, $lightness: 28%);
+  } @else {
+    $button-active: color.adjust($button-text, $lightness: -33%);
+  }
+
+  $flat-color: common.choose($button-background-param, $button-bg, $button-text);
+  $flat-active: common.choose($button-background-param, $button-text, $button-bg);
+
+  .mbsc-#{$theme} {
+    &.mbsc-button-standard {
+      background: $button-bg;
+      border-color: $button-bg;
+      color: $button-text;
+
+      &.mbsc-hover {
+        border-color: $button-active;
+      }
+
+      &.mbsc-active {
+        border-color: $button-active;
+        background: $button-active;
+      }
+    }
+
+    /* Flat buttons */
+    &.mbsc-button-flat {
+      color: $flat-color;
+
+      &.mbsc-active {
+        background: color.adjust($button-bg, $lightness: 15%);
+        border-color: color.adjust($button-bg, $lightness: 15%);
+        color: $button-text;
+      }
+    }
+
+    /* Outline buttons */
+    &.mbsc-button-outline {
+      border: 0.125em solid $button-border;
+      color: $button-border;
+
+      &.mbsc-hover {
+        border-color: $button-border-hover;
+      }
+
+      &.mbsc-active {
+        border-color: $button-border-hover;
+        background: $button-border-hover;
+        color: common.get-contrast-color($button-border-hover);
+      }
+    }
+
+    &.mbsc-button.mbsc-focus {
+      // background: rgba($accent, .3);
+      box-shadow: 0 0 0 1px $button-text;
+    }
+
+    /* Predefined colors */
+    &.mbsc-button-primary.mbsc-button-standard {
+      background: windows-legacy.$mbsc-windows-primary;
+      border-color: windows-legacy.$mbsc-windows-primary;
+      color: common.get-contrast-color(windows-legacy.$mbsc-windows-primary);
+    }
+
+    &.mbsc-button-secondary.mbsc-button-standard {
+      background: windows-legacy.$mbsc-windows-secondary;
+      border-color: windows-legacy.$mbsc-windows-secondary;
+      color: common.get-contrast-color(windows-legacy.$mbsc-windows-secondary);
+    }
+
+    &.mbsc-button-success.mbsc-button-standard {
+      background: windows-legacy.$mbsc-windows-success;
+      border-color: windows-legacy.$mbsc-windows-success;
+      color: common.get-contrast-color(windows-legacy.$mbsc-windows-success);
+    }
+
+    &.mbsc-button-danger.mbsc-button-standard {
+      background: windows-legacy.$mbsc-windows-danger;
+      border-color: windows-legacy.$mbsc-windows-danger;
+      color: common.get-contrast-color(windows-legacy.$mbsc-windows-danger);
+    }
+
+    &.mbsc-button-warning.mbsc-button-standard {
+      background: windows-legacy.$mbsc-windows-warning;
+      border-color: windows-legacy.$mbsc-windows-warning;
+      color: common.get-contrast-color(windows-legacy.$mbsc-windows-warning);
+    }
+
+    &.mbsc-button-info.mbsc-button-standard {
+      background: windows-legacy.$mbsc-windows-info;
+      border-color: windows-legacy.$mbsc-windows-info;
+      color: common.get-contrast-color(windows-legacy.$mbsc-windows-info);
+    }
+
+    &.mbsc-button-dark.mbsc-button-standard {
+      background: windows-legacy.$mbsc-windows-dark;
+      border-color: windows-legacy.$mbsc-windows-dark;
+      color: common.get-contrast-color(windows-legacy.$mbsc-windows-dark);
+    }
+
+    &.mbsc-button-light.mbsc-button-standard {
+      background: windows-legacy.$mbsc-windows-light;
+      border-color: windows-legacy.$mbsc-windows-light;
+      color: $dark-text;
+    }
+
+    &.mbsc-button-primary.mbsc-button-flat {
+      color: windows-legacy.$mbsc-windows-primary;
+
+      &.mbsc-active {
+        background: color.adjust(windows-legacy.$mbsc-windows-primary, $lightness: 15%);
+        border-color: color.adjust(windows-legacy.$mbsc-windows-primary, $lightness: 15%);
+      }
+    }
+
+    &.mbsc-button-secondary.mbsc-button-flat {
+      color: windows-legacy.$mbsc-windows-secondary;
+
+      &.mbsc-active {
+        background: color.adjust(windows-legacy.$mbsc-windows-secondary, $lightness: 15%);
+        border-color: color.adjust(windows-legacy.$mbsc-windows-secondary, $lightness: 15%);
+      }
+    }
+
+    &.mbsc-button-success.mbsc-button-flat {
+      color: windows-legacy.$mbsc-windows-success;
+
+      &.mbsc-active {
+        background: color.adjust(windows-legacy.$mbsc-windows-success, $lightness: 15%);
+        border-color: color.adjust(windows-legacy.$mbsc-windows-success, $lightness: 15%);
+      }
+    }
+
+    &.mbsc-button-danger.mbsc-button-flat {
+      color: windows-legacy.$mbsc-windows-danger;
+
+      &.mbsc-active {
+        background: color.adjust(windows-legacy.$mbsc-windows-danger, $lightness: 15%);
+        border-color: color.adjust(windows-legacy.$mbsc-windows-danger, $lightness: 15%);
+      }
+    }
+
+    &.mbsc-button-warning.mbsc-button-flat {
+      color: windows-legacy.$mbsc-windows-warning;
+
+      &.mbsc-active {
+        background: color.adjust(windows-legacy.$mbsc-windows-warning, $lightness: 15%);
+        border-color: color.adjust(windows-legacy.$mbsc-windows-warning, $lightness: 15%);
+      }
+    }
+
+    &.mbsc-button-info.mbsc-button-flat {
+      color: windows-legacy.$mbsc-windows-info;
+
+      &.mbsc-active {
+        background: color.adjust(windows-legacy.$mbsc-windows-info, $lightness: 15%);
+        border-color: color.adjust(windows-legacy.$mbsc-windows-info, $lightness: 15%);
+      }
+    }
+
+    &.mbsc-button-dark.mbsc-button-flat {
+      color: windows-legacy.$mbsc-windows-dark;
+
+      &.mbsc-active {
+        background: color.adjust(windows-legacy.$mbsc-windows-dark, $lightness: 15%);
+        border-color: color.adjust(windows-legacy.$mbsc-windows-dark, $lightness: 15%);
+      }
+    }
+
+    &.mbsc-button-light.mbsc-button-flat {
+      color: color.adjust(windows-legacy.$mbsc-windows-light, $lightness: -20%);
+
+      &.mbsc-active {
+        background: color.adjust(windows-legacy.$mbsc-windows-light, $lightness: 15%);
+        border-color: color.adjust(windows-legacy.$mbsc-windows-light, $lightness: 15%);
+      }
+    }
+
+    &.mbsc-button-primary.mbsc-button-outline {
+      border-color: windows-legacy.$mbsc-windows-primary;
+      color: windows-legacy.$mbsc-windows-primary;
+    }
+
+    &.mbsc-button-secondary.mbsc-button-outline {
+      border-color: windows-legacy.$mbsc-windows-secondary;
+      color: windows-legacy.$mbsc-windows-secondary;
+    }
+
+    &.mbsc-button-success.mbsc-button-outline {
+      border-color: windows-legacy.$mbsc-windows-success;
+      color: windows-legacy.$mbsc-windows-success;
+    }
+
+    &.mbsc-button-danger.mbsc-button-outline {
+      border-color: windows-legacy.$mbsc-windows-danger;
+      color: windows-legacy.$mbsc-windows-danger;
+    }
+
+    &.mbsc-button-warning.mbsc-button-outline {
+      border-color: windows-legacy.$mbsc-windows-warning;
+      color: windows-legacy.$mbsc-windows-warning;
+    }
+
+    &.mbsc-button-info.mbsc-button-outline {
+      border-color: windows-legacy.$mbsc-windows-info;
+      color: windows-legacy.$mbsc-windows-info;
+    }
+
+    &.mbsc-button-dark.mbsc-button-outline {
+      border-color: windows-legacy.$mbsc-windows-dark;
+      color: windows-legacy.$mbsc-windows-dark;
+    }
+
+    &.mbsc-button-light.mbsc-button-outline {
+      border-color: color.adjust(windows-legacy.$mbsc-windows-light, $lightness: -20%);
+      color: color.adjust(windows-legacy.$mbsc-windows-light, $lightness: -20%);
+    }
+
+    /* Predefined colors - hover for standard and outline buttons */
+    &.mbsc-button-primary.mbsc-button-standard,
+    &.mbsc-button-primary.mbsc-button-outline {
+      &.mbsc-hover {
+        border-color: color.adjust(windows-legacy.$mbsc-windows-primary, $lightness: -20%);
+      }
+
+      &.mbsc-active {
+        background: color.adjust(windows-legacy.$mbsc-windows-primary, $lightness: -20%);
+        color: windows-legacy.$mbsc-windows-light;
+      }
+    }
+
+    &.mbsc-button-secondary.mbsc-button-standard,
+    &.mbsc-button-secondary.mbsc-button-outline {
+      &.mbsc-hover {
+        border-color: color.adjust(windows-legacy.$mbsc-windows-secondary, $lightness: -20%);
+      }
+
+      &.mbsc-active {
+        background: color.adjust(windows-legacy.$mbsc-windows-secondary, $lightness: -20%);
+        color: windows-legacy.$mbsc-windows-light;
+      }
+    }
+
+    &.mbsc-button-success.mbsc-button-standard,
+    &.mbsc-button-success.mbsc-button-outline {
+      &.mbsc-hover {
+        border-color: color.adjust(windows-legacy.$mbsc-windows-success, $lightness: -20%);
+      }
+
+      &.mbsc-active {
+        background: color.adjust(windows-legacy.$mbsc-windows-success, $lightness: -20%);
+        color: windows-legacy.$mbsc-windows-light;
+      }
+    }
+
+    &.mbsc-button-danger.mbsc-button-standard,
+    &.mbsc-button-danger.mbsc-button-outline {
+      &.mbsc-hover {
+        border-color: color.adjust(windows-legacy.$mbsc-windows-danger, $lightness: -20%);
+      }
+
+      &.mbsc-active {
+        background: color.adjust(windows-legacy.$mbsc-windows-danger, $lightness: -20%);
+        color: windows-legacy.$mbsc-windows-light;
+      }
+    }
+
+    &.mbsc-button-warning.mbsc-button-standard,
+    &.mbsc-button-warning.mbsc-button-outline {
+      &.mbsc-hover {
+        border-color: color.adjust(windows-legacy.$mbsc-windows-warning, $lightness: -20%);
+      }
+
+      &.mbsc-active {
+        background: color.adjust(windows-legacy.$mbsc-windows-warning, $lightness: -20%);
+        color: windows-legacy.$mbsc-windows-light;
+      }
+    }
+
+    &.mbsc-button-info.mbsc-button-standard,
+    &.mbsc-button-info.mbsc-button-outline {
+      &.mbsc-hover {
+        border-color: color.adjust(windows-legacy.$mbsc-windows-info, $lightness: -20%);
+      }
+
+      &.mbsc-active {
+        background: color.adjust(windows-legacy.$mbsc-windows-info, $lightness: -20%);
+        color: windows-legacy.$mbsc-windows-light;
+      }
+    }
+
+    &.mbsc-button-dark.mbsc-button-standard,
+    &.mbsc-button-dark.mbsc-button-outline {
+      &.mbsc-hover {
+        border-color: color.adjust(windows-legacy.$mbsc-windows-dark, $lightness: -30%);
+      }
+
+      &.mbsc-active {
+        background: color.adjust(windows-legacy.$mbsc-windows-dark, $lightness: -30%);
+        color: windows-legacy.$mbsc-windows-light;
+      }
+    }
+
+    &.mbsc-button-light.mbsc-button-standard,
+    &.mbsc-button-light.mbsc-button-outline {
+      &.mbsc-hover {
+        border-color: color.adjust(windows-legacy.$mbsc-windows-light, $lightness: -40%);
+      }
+
+      &.mbsc-active {
+        background: color.adjust(windows-legacy.$mbsc-windows-light, $lightness: -40%);
+        color: windows-legacy.$mbsc-windows-dark;
+      }
+    }
+  }
+}

@@ -1,0 +1,57 @@
+@use 'sass:color';
+@use '../../themes/common';
+@use '../../themes/windows';
+@use './notification.windows.colors.scss' as colors;
+
+@if (common.$mbsc-windows-theme and common.$mbsc-forms) {
+  .mbsc-windows {
+    .mbsc-toast-background {
+      color: var(--mbsc-toast-text-color);
+
+      &::after {
+        background: var(--mbsc-toast-bg-color);
+      }
+    }
+
+    .mbsc-toast-message {
+      border-radius: 0.285715em;
+    }
+
+    .mbsc-snackbar-cont {
+      color: var(--mbsc-snackbar-text-color);
+
+      &::after {
+        background: var(--mbsc-snackbar-bg-color);
+      }
+    }
+
+    &.mbsc-color-none .mbsc-snackbar-button .mbsc-button-txt {
+      color: var(--mbsc-snackbar-button-color);
+    }
+
+    &.mbsc-prompt .mbsc-form-group-inset {
+      margin: 0;
+    }
+
+    &.mbsc-prompt-input.mbsc-font {
+      margin: 1em 0 0 0;
+    }
+
+    /* Color presets */
+
+    @each $name in common.$mbsc-color-variants {
+      &.mbsc-toast.mbsc-#{$name} {
+        --mbsc-toast-bg-color: var(--mbsc-windows-#{$name});
+        --mbsc-toast-text-color: var(--mbsc-windows-on-#{$name});
+      }
+
+      &.mbsc-snackbar.mbsc-#{$name} {
+        --mbsc-snackbar-bg-color: var(--mbsc-windows-#{$name});
+        --mbsc-snackbar-text-color: var(--mbsc-windows-on-#{$name});
+      }
+    }
+  }
+
+  @include colors.mbsc-windows-notifications('windows', windows.$mbsc-windows-colors);
+  @include colors.mbsc-windows-notifications('windows-dark', windows.$mbsc-windows-dark-colors);
+}

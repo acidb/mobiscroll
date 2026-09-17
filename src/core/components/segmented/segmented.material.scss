@@ -1,0 +1,73 @@
+@use '../../themes/common';
+@use '../../themes/material';
+@use './segmented.material.colors' as colors;
+
+@if (common.$mbsc-material-theme and common.$mbsc-segmented) {
+  .mbsc-material {
+    &.mbsc-segmented-button .mbsc-button-bg {
+      display: block;
+      border-radius: 0;
+      background: var(--mbsc-segmented-bg-color);
+    }
+
+    &.mbsc-segmented-button.mbsc-button {
+      margin: 0;
+      padding: 0.5625em 1em;
+      border-radius: 0;
+      border: 1px solid var(--mbsc-segmented-border-color);
+      border-right-width: 0;
+      color: var(--mbsc-segmented-text-color);
+
+      &.mbsc-selected {
+        color: var(--mbsc-segmented-selected-text-color);
+      }
+
+      &.mbsc-selected .mbsc-button-bg {
+        background: var(--mbsc-segmented-selected-bg-color);
+      }
+
+      &.mbsc-hover,
+      &.mbsc-active {
+        box-shadow: none;
+      }
+
+      &.mbsc-focus {
+        outline: 3px solid var(--mbsc-segmented-focus);
+        z-index: 2;
+      }
+
+      &.mbsc-disabled .mbsc-button-bg {
+        background: var(--mbsc-segmented-bg-color);
+      }
+
+      &.mbsc-disabled.mbsc-selected .mbsc-button-bg {
+        background: var(--mbsc-segmented-disabled);
+      }
+    }
+
+    &.mbsc-segmented-item:first-child .mbsc-segmented-button.mbsc-ltr,
+    &.mbsc-segmented-item:last-child .mbsc-segmented-button.mbsc-rtl {
+      border-radius: 2em 0 0 2em;
+    }
+
+    &.mbsc-segmented-item:last-child .mbsc-segmented-button.mbsc-ltr,
+    &.mbsc-segmented-item:first-child .mbsc-segmented-button.mbsc-rtl {
+      border-radius: 0 2em 2em 0;
+      border-right-width: 1px;
+    }
+
+    /* Color presets */
+
+    @each $name in common.$mbsc-color-variants {
+      &.mbsc-button-#{$name} {
+        --mbsc-segmented-selected-bg-color: var(--mbsc-material-#{$name});
+        --mbsc-segmented-selected-text-color: var(--mbsc-material-on-#{$name});
+        --mbsc-segmented-border-color: var(--mbsc-material-#{$name});
+        --mbsc-segmented-focus: var(--mbsc-material-#{$name});
+      }
+    }
+  }
+
+  @include colors.mbsc-material-segmented('material', material.$mbsc-material-colors);
+  @include colors.mbsc-material-segmented('material-dark', material.$mbsc-material-dark-colors);
+}

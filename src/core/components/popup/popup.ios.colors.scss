@@ -1,0 +1,10 @@
+@mixin mbsc-ios-popup($theme, $params) {
+  .mbsc-#{$theme} {
+    &.mbsc-popup-wrapper {
+      --mbsc-popup-bg-color: var(--mbsc-#{$theme}-popup-bg-color, var(--mbsc-#{$theme}-surface-1));
+      --mbsc-popup-text-color: var(--mbsc-#{$theme}-popup-text-color, var(--mbsc-#{$theme}-text));
+      --mbsc-popup-accent: var(--mbsc-#{$theme}-popup-accent, var(--mbsc-#{$theme}-accent));
+      --mbsc-popup-on-accent: var(--mbsc-#{$theme}-popup-on-accent, var(--mbsc-#{$theme}-on-accent));
+    }
+  }
+}

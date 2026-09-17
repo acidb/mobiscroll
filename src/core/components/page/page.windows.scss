@@ -1,0 +1,16 @@
+@use '../../themes/common';
+@use '../../themes/windows';
+@use './page.windows.colors' as colors;
+
+@if (common.$mbsc-windows-theme and common.$mbsc-forms) {
+  .mbsc-windows {
+    .mbsc-block-title,
+    .mbsc-form-group-title {
+      padding: 0.5em 1em;
+      font-weight: 600;
+    }
+  }
+
+  @include colors.mbsc-windows-page('windows', windows.$mbsc-windows-colors);
+  @include colors.mbsc-windows-page('windows-dark', windows.$mbsc-windows-dark-colors);
+}

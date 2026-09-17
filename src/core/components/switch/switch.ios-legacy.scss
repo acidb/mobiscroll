@@ -1,0 +1,92 @@
+@use '../../themes/common';
+@use '../../themes/ios-legacy';
+@use './switch.ios-legacy.colors' as colors;
+
+@if (common.$mbsc-ios-theme and common.$mbsc-forms) {
+  .mbsc-ios-legacy {
+    &.mbsc-switch-right {
+      padding: 0.875em 5em 0.875em 1em;
+    }
+
+    &.mbsc-switch-left {
+      padding: 0.875em 1em 0.875em 5em;
+    }
+
+    // Track
+
+    &.mbsc-switch-track {
+      width: 1.25em;
+      height: 2em;
+      padding: 0;
+      margin: -0.96875em 0.875em 0 0.875em;
+      border-radius: 1.25em;
+    }
+
+    &.mbsc-switch-track-right {
+      right: 1em;
+    }
+
+    &.mbsc-switch-track-left {
+      left: 1em;
+    }
+
+    &.mbsc-switch-track:after {
+      content: '';
+      position: absolute;
+      z-index: 1;
+      top: 0;
+      right: -1em;
+      bottom: 0;
+      left: -1em;
+      border-radius: 1.25em;
+      transition: background-color 0.2s ease-out;
+    }
+
+    &.mbsc-switch-track.mbsc-disabled {
+      opacity: 0.3;
+    }
+
+    // Handle
+
+    &.mbsc-switch-handle {
+      z-index: 2;
+      top: 50%;
+      left: 50%;
+      width: 1.75em;
+      height: 1.75em;
+      margin: -0.875em 0 0 -0.875em;
+      border-radius: 1.75em;
+      box-shadow: 0 0.1875em 0.75em rgba(0, 0, 0, 0.16), 0 0.1875em 0.0625em rgba(0, 0, 0, 0.1);
+      background: #fff;
+    }
+
+    // Color presets
+
+    &.mbsc-switch-track.mbsc-switch-primary.mbsc-checked:after {
+      background: ios-legacy.$mbsc-ios-primary;
+    }
+
+    &.mbsc-switch-track.mbsc-switch-secondary.mbsc-checked:after {
+      background: ios-legacy.$mbsc-ios-secondary;
+    }
+
+    &.mbsc-switch-track.mbsc-switch-success.mbsc-checked:after {
+      background: ios-legacy.$mbsc-ios-success;
+    }
+
+    &.mbsc-switch-track.mbsc-switch-danger.mbsc-checked:after {
+      background: ios-legacy.$mbsc-ios-danger;
+    }
+
+    &.mbsc-switch-track.mbsc-switch-warning.mbsc-checked:after {
+      background: ios-legacy.$mbsc-ios-warning;
+    }
+
+    &.mbsc-switch-track.mbsc-switch-info.mbsc-checked:after {
+      background: ios-legacy.$mbsc-ios-info;
+    }
+  }
+
+  @include colors.mbsc-ios-legacy-switch('ios-legacy', ios-legacy.$mbsc-ios-colors);
+  @include colors.mbsc-ios-legacy-switch('ios-legacy-dark', ios-legacy.$mbsc-ios-dark-colors);
+}

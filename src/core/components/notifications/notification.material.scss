@@ -1,0 +1,56 @@
+@use '../../themes/common';
+@use '../../themes/material';
+@use './notification.material.colors' as colors;
+
+@if (common.$mbsc-material-theme and common.$mbsc-forms) {
+  .mbsc-material {
+    .mbsc-toast-background {
+      color: var(--mbsc-toast-text-color);
+
+      &::after {
+        background: var(--mbsc-toast-bg-color);
+      }
+    }
+
+    .mbsc-toast-message {
+      border-radius: 1.571429em;
+    }
+
+    .mbsc-snackbar-cont {
+      color: var(--mbsc-snackbar-text-color);
+
+      &::after {
+        background: var(--mbsc-snackbar-bg-color);
+      }
+    }
+
+    &.mbsc-color-none .mbsc-snackbar-button .mbsc-button-txt {
+      color: var(--mbsc-snackbar-button-color);
+    }
+
+    &.mbsc-prompt .mbsc-form-group-inset {
+      margin: 0;
+    }
+
+    &.mbsc-prompt-input.mbsc-font {
+      margin: 1.5em 0 0 0;
+    }
+
+    /* Color presets */
+
+    @each $name in common.$mbsc-color-variants {
+      &.mbsc-toast.mbsc-#{$name} {
+        --mbsc-toast-bg-color: var(--mbsc-material-#{$name});
+        --mbsc-toast-text-color: var(--mbsc-material-on-#{$name});
+      }
+
+      &.mbsc-snackbar.mbsc-#{$name} {
+        --mbsc-snackbar-bg-color: var(--mbsc-material-#{$name});
+        --mbsc-snackbar-text-color: var(--mbsc-material-on-#{$name});
+      }
+    }
+  }
+
+  @include colors.mbsc-material-notifications('material', material.$mbsc-material-colors);
+  @include colors.mbsc-material-notifications('material-dark', material.$mbsc-material-dark-colors);
+}

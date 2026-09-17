@@ -1,0 +1,111 @@
+@use '../../themes/common';
+@use '../../themes/material';
+@use './checkbox.material.colors' as colors;
+
+@if (common.$mbsc-material-theme and common.$mbsc-forms) {
+  .mbsc-material {
+    &.mbsc-checkbox-right {
+      padding: 0.875em 3.125em 0.875em 1em;
+    }
+
+    &.mbsc-checkbox-left {
+      padding: 0.875em 1em 0.875em 3.125em;
+    }
+
+    &.mbsc-checkbox-box {
+      width: 1.125em;
+      height: 1.125em;
+      margin-top: -0.5625em;
+      border: 2px solid currentColor;
+      border-radius: 0.125em;
+      color: var(--mbsc-checkbox-border-color);
+      transition: background-color 0.1s ease-out;
+
+      &::before {
+        content: '';
+        position: absolute;
+        z-index: -1;
+        top: -0.8125em;
+        left: -0.8125em;
+        width: 2.5em;
+        height: 2.5em;
+        border-radius: 2.5em;
+        background: currentColor;
+        opacity: 0;
+        transition: opacity 0.2s ease-in-out;
+      }
+
+      &::after {
+        width: 0.75em;
+        height: 0.375em;
+        top: 0.1875em;
+        left: 0.0625em;
+        opacity: 1;
+        border: 0.125em solid;
+        border-top: 0;
+        border-right: 0;
+        transform: scale(0) rotate(-45deg);
+        transition: transform 0.1s ease-out;
+        color: var(--mbsc-checkbox-checkmark-color);
+      }
+
+      &.mbsc-hover::before {
+        opacity: 0.1;
+      }
+
+      &.mbsc-active::before {
+        opacity: 0.2;
+      }
+
+      &.mbsc-focus .mbsc-checkbox-ring {
+        position: absolute;
+        z-index: -1;
+        top: -0.8125em;
+        left: -0.8125em;
+        width: 2.5em;
+        height: 2.5em;
+        border-radius: 2.5em;
+        outline-offset: 2px;
+        outline: 2px solid var(--mbsc-checkbox-focus);
+        animation-delay: 0ms, 150ms;
+        animation-name: mbsc-button-outline-grow, mbsc-button-outline-shrink;
+        animation-duration: 150ms, 450ms;
+        animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
+      }
+
+      &.mbsc-checked {
+        color: var(--mbsc-checkbox-selected-color);
+        background: currentColor;
+      }
+
+      &.mbsc-checked::after {
+        transform: scale(1) rotate(-45deg);
+      }
+
+      &.mbsc-disabled {
+        color: var(--mbsc-checkbox-border-color);
+        opacity: 0.3;
+      }
+    }
+
+    &.mbsc-checkbox-box-right {
+      right: 1em;
+    }
+
+    &.mbsc-checkbox-box-left {
+      left: 1em;
+    }
+
+    /* Color presets */
+
+    @each $name in common.$mbsc-color-variants {
+      &.mbsc-checkbox-box.mbsc-checkbox-box-#{$name} {
+        --mbsc-checkbox-selected-color: var(--mbsc-material-#{$name});
+        --mbsc-checkbox-focus: var(--mbsc-material-#{$name});
+      }
+    }
+  }
+
+  @include colors.mbsc-material-checkbox('material', material.$mbsc-material-colors);
+  @include colors.mbsc-material-checkbox('material-dark', material.$mbsc-material-dark-colors);
+}

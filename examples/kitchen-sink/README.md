@@ -1,1 +1,0 @@
-Run `npm install` and `grunt build` to build the necessary css and js files into the `dist` folder.

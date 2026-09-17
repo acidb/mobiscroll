@@ -1,0 +1,45 @@
+@use 'sass:map';
+@use 'sass:color';
+@use '../../themes/common';
+@use '../../themes/ios-legacy';
+
+@mixin mbsc-ios-legacy-page($theme, $params) {
+  $background: map.get($params, 'background');
+  $text: map.get($params, 'text');
+  $accent: map.get($params, 'accent');
+
+  $title-text: '';
+
+  @if (color.channel($background, 'lightness', $space: hsl) > 50%) {
+    // $background: darken($background, 2%);
+    $background: color.adjust($background, $saturation: 24%, $lightness: -1%, $hue: 240deg);
+    $title-text: color.adjust($text, $lightness: 43%);
+  } @else {
+    // $background: adjust-hue(lighten(desaturate($background, 19%), 10%), 240deg);
+    // $background: lighten($background, 2%);
+    $title-text: color.adjust($text, $lightness: -43%);
+  }
+
+  // get custom params
+  $text-param: map.get($params, 'page-text');
+  $background-param: map.get($params, 'page-background');
+  // overwrite params with custom variables
+  $background: common.choose($background-param, $background-param, $background);
+  $text: common.choose($text-param, $text-param, common.choose($background-param, common.get-contrast-color($background-param), $text));
+
+  .mbsc-#{$theme} {
+    &.mbsc-page {
+      background: $background;
+      color: $text;
+
+      a {
+        color: $accent;
+      }
+    }
+
+    .mbsc-block-title,
+    .mbsc-form-group-title {
+      color: $title-text;
+    }
+  }
+}

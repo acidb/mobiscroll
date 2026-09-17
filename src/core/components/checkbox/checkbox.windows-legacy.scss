@@ -1,0 +1,95 @@
+@use '../../themes/common';
+@use '../../themes/windows-legacy';
+@use './checkbox.windows-legacy.colors' as colors;
+
+@if (common.$mbsc-windows-theme and common.$mbsc-forms) {
+  .mbsc-windows-legacy {
+    &.mbsc-checkbox-left {
+      padding: 1.125em 1em 1.125em 2.875em;
+    }
+
+    &.mbsc-checkbox-right {
+      padding: 1.125em 2.875em 1.125em 1em;
+    }
+
+    &.mbsc-checkbox-box {
+      margin-top: -0.6875em;
+      width: 1.3125em;
+      height: 1.3125em;
+      border: 0.125em solid;
+    }
+
+    &.mbsc-checkbox-box-left {
+      left: 1em;
+    }
+
+    &.mbsc-checkbox-box-right {
+      right: 1em;
+    }
+
+    &.mbsc-checkbox-box:after {
+      top: 16%;
+      left: 10%;
+      width: 0.875em;
+      height: 0.475em;
+      border: 0.125em solid;
+      border-top: 0;
+      border-right: 0;
+    }
+
+    &.mbsc-checkbox-box:before {
+      content: '';
+      position: absolute;
+      top: -0.75em;
+      left: -0.75em;
+      z-index: -1;
+      width: 2.5em;
+      height: 2.5em;
+      opacity: 0;
+      border-radius: 2.5em;
+      transition: opacity 0.2s ease-in-out;
+    }
+
+    &.mbsc-checkbox-box.mbsc-focus:before {
+      opacity: 0.12;
+    }
+
+    &.mbsc-checkbox-box.mbsc-checked {
+      background: currentColor;
+      border-color: currentColor;
+    }
+
+    &.mbsc-checkbox-box.mbsc-disabled {
+      opacity: 0.3;
+    }
+
+    /* Color presets */
+
+    &.mbsc-checkbox-box.mbsc-checkbox-box-primary {
+      color: windows-legacy.$mbsc-windows-primary;
+    }
+
+    &.mbsc-checkbox-box.mbsc-checkbox-box-secondary {
+      color: windows-legacy.$mbsc-windows-secondary;
+    }
+
+    &.mbsc-checkbox-box.mbsc-checkbox-box-success {
+      color: windows-legacy.$mbsc-windows-success;
+    }
+
+    &.mbsc-checkbox-box.mbsc-checkbox-box-danger {
+      color: windows-legacy.$mbsc-windows-danger;
+    }
+
+    &.mbsc-checkbox-box.mbsc-checkbox-box-warning {
+      color: windows-legacy.$mbsc-windows-warning;
+    }
+
+    &.mbsc-checkbox-box.mbsc-checkbox-box-info {
+      color: windows-legacy.$mbsc-windows-info;
+    }
+  }
+
+  @include colors.mbsc-windows-legacy-checkbox('windows-legacy', windows-legacy.$mbsc-windows-colors);
+  @include colors.mbsc-windows-legacy-checkbox('windows-legacy-dark', windows-legacy.$mbsc-windows-dark-colors);
+}

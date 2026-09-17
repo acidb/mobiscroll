@@ -1,0 +1,53 @@
+@use '../../themes/common';
+@use './segmented.ios' as ios;
+@use './segmented.material' as material;
+@use './segmented.windows' as windows;
+
+@if common.$mbsc-segmented {
+  .mbsc-segmented {
+    // display: table;
+    // table-layout: fixed;
+    // width: 100%;
+    padding: 0.75em;
+    // overflow: hidden;
+    // box-sizing: border-box;
+    .mbsc-button-bg {
+      display: none;
+    }
+  }
+
+  .mbsc-segmented-item {
+    margin: 0;
+    // display: table-cell;
+    position: relative;
+    // vertical-align: top;
+    text-align: center;
+    font-size: 1em;
+    flex: 1 1 0;
+    user-select: none;
+    min-width: 0; // needed for the items to have equal widths
+  }
+
+  .mbsc-segmented-selectbox {
+    display: none;
+  }
+
+  .mbsc-segmented-label {
+    display: block;
+    margin: 0;
+    padding: 0;
+  }
+
+  .mbsc-segmented-input {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    position: absolute;
+  }
+
+  .mbsc-segmented-button.mbsc-button {
+    width: 100%;
+  }
+}

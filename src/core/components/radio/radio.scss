@@ -1,0 +1,44 @@
+@use '../../themes/common';
+@use './radio.ios' as ios;
+@use './radio.material' as material;
+@use './radio.windows' as windows;
+
+@if common.$mbsc-forms {
+  .mbsc-radio {
+    position: relative;
+    display: block;
+    margin: 0;
+    z-index: 0;
+    line-height: 1.25em;
+    user-select: none;
+  }
+
+  .mbsc-radio-box {
+    position: absolute;
+    top: 50%;
+    display: block;
+    width: 1.25em;
+    height: 1.25em;
+    margin-top: -0.625em;
+    border-radius: 1.25em;
+    box-sizing: border-box;
+  }
+
+  .mbsc-radio-box:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0.625em;
+    height: 0.625em;
+    margin-top: -0.3125em;
+    margin-left: -0.3125em;
+    border-radius: 0.625em;
+    box-sizing: border-box;
+    opacity: 0;
+  }
+
+  .mbsc-radio-box.mbsc-checked:after {
+    opacity: 1;
+  }
+}

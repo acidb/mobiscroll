@@ -1,54 +1,64 @@
 {
-    "name": "@mobiscroll/angular-lite",
-    "version": "4.10.9",
-    "description": "Angular UI library for progressive web and hybrid apps",
-    "homepage": "https://mobiscroll.com/",
-    "license": "Apache-2.0",
-    "keywords": [
-        "mobile web",
-        "hybrid apps",
-        "javascript",
-        "mobiscroll",
-        "javascript library",
-        "angular",
-        "component library",
-        "ui components",
-        "ui kit",
-        "ionic plugin"
-    ],
-    "author": {
-        "name": "Mobiscroll",
-        "url": "https://mobiscroll.com/"
+  "name": "@mobiscroll/angular-lite",
+  "version": "6.1.3",
+  "description": "Open-source Angular form, notification and popup components from Mobiscroll — the scheduling, event calendar and resource management UI library. Apache-2.0. Scheduler, timeline, agenda and date pickers are commercial.",
+  "homepage": "https://mobiscroll.com/docs/angular",
+  "license": "Apache-2.0",
+  "keywords": [
+    "mobiscroll",
+    "angular",
+    "ui-components",
+    "form-components",
+    "forms",
+    "input",
+    "checkbox",
+    "switch",
+    "stepper",
+    "notifications",
+    "toast",
+    "snackbar",
+    "modal",
+    "dialog",
+    "popover",
+    "bottom-sheet",
+    "open-source",
+    "popup",
+    "accessibility"
+  ],
+  "author": {
+    "name": "Mobiscroll",
+    "url": "https://mobiscroll.com/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/acidb/mobiscroll.git",
+    "directory": "packages/angular"
+  },
+  "bugs": {
+    "url": "https://github.com/acidb/mobiscroll/issues"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/esm5/mobiscroll.angular.min.d.ts",
+      "import": "./dist/esm5/mobiscroll.angular.min.mjs",
+      "require": "./dist/js/mobiscroll.angular.min.cjs"
     },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/acidb/mobiscroll.git"
-    },
-    "bugs": {
-        "url": "https://github.com/acidb/mobiscroll/issues"
-    },
-    "main": "dist/bundles/mobiscroll.angular.min.js",
-    "module": "dist/esm5/mobiscroll.angular.min.js",
-    "metadata": "dist/mobiscroll.angular.min.metadata.json",
-    "types": "dist/mobiscroll.angular.min.d.ts",
-    "sideEffects": false,
-    "style": "dist/css/mobiscroll.min.css",
-    "files": [
-        "dist/mobiscroll.angular.d.ts",
-        "dist/mobiscroll.angular.min.d.ts",
-        "dist/mobiscroll.angular.min.metadata.json",
-        "dist/bundles/mobiscroll.angular.min.js",
-        "dist/esm5/mobiscroll.angular.min.js",
-        "dist/css/mobiscroll.css",
-        "dist/css/mobiscroll.scss",
-        "dist/css/mobiscroll.min.css",
-        "dist/css/icons_mobiscroll.ttf",
-        "dist/css/icons_mobiscroll.woff",
-        "src/**"
-    ],
-    "peerDependencies": {
-        "@angular/core": ">=2.0.0",
-        "@angular/common": ">=2.0.0",
-        "@angular/forms": ">=2.0.0"
-    }
+    "./dist/css/*": "./dist/css/*",
+    "./dist/js/*": "./dist/js/*"
+  },
+  "main": "dist/js/mobiscroll.angular.min.cjs",
+  "module": "dist/esm5/mobiscroll.angular.min.mjs",
+  "types": "dist/js/mobiscroll.angular.min.d.ts",
+  "sideEffects": false,
+  "style": "dist/css/mobiscroll.min.css",
+  "files": [
+    "dist/js/**",
+    "dist/esm5/**",
+    "dist/css/**"
+  ],
+  "peerDependencies": {
+    "@angular/core": ">=13.0.0",
+    "@angular/common": ">=13.0.0",
+    "@angular/forms": ">=13.0.0"
+  }
 }

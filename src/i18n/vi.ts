@@ -1,0 +1,81 @@
+// Vietnamese
+
+import { MbscLocale } from './locale';
+
+const vi: MbscLocale = {
+  // Core
+  setText: 'Đặt',
+  cancelText: 'Hủy bò',
+  clearText: 'Xóa',
+  closeText: 'Đóng',
+  selectedText: '{count} chọn',
+  // Datetime component
+  dateFormat: 'DD/MM/YYYY',
+  dateFormatFull: 'DDDD, D MMMM YYYY',
+  dateFormatLong: 'DDD D, MMM YYYY',
+  dateWheelFormat: '|DDD D MMM|',
+  dayNames: ['Chủ Nhật', 'Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy'],
+  dayNamesShort: ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'],
+  dayNamesMin: ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'],
+  dayText: '',
+  hourText: 'Giờ',
+  minuteText: 'Phút',
+  fromText: 'Từ',
+  monthNames: [
+    'Tháng Một',
+    'Tháng Hai',
+    'Tháng Ba',
+    'Tháng Tư',
+    'Tháng Năm',
+    'Tháng Sáu',
+    'Tháng Bảy',
+    'Tháng Tám',
+    'Tháng Chín',
+    'Tháng Mười',
+    'Tháng Mười Một',
+    'Tháng Mười Hai',
+  ],
+  monthNamesShort: [
+    'Tháng 1',
+    'Tháng 2',
+    'Tháng 3',
+    'Tháng 4',
+    'Tháng 5',
+    'Tháng 6',
+    'Tháng 7',
+    'Tháng 8',
+    'Tháng 9',
+    'Tháng 10',
+    'Tháng 11',
+    'Tháng 12',
+  ],
+  monthText: 'Tháng',
+  secondText: 'Giây',
+  timeFormat: 'H:mm',
+  yearText: 'Năm',
+  toText: 'Tới',
+  nowText: 'Bây giờ',
+  pmText: 'pm',
+  amText: 'am',
+  // Calendar component
+  firstDay: 0,
+  dateText: 'Ngày',
+  timeText: 'Hồi',
+  todayText: 'Hôm nay',
+  eventText: 'Sự kiện',
+  eventsText: 'Sự kiện',
+  allDayText: 'Cả ngày',
+  noEventsText: 'Không có sự kiện',
+  moreEventsText: '{count} thẻ khác',
+  weekText: 'Tuần {count}',
+  // Daterange component
+  rangeStartLabel: 'Từ',
+  rangeEndLabel: 'Tới',
+  rangeStartHelp: 'Chọn',
+  rangeEndHelp: 'Chọn',
+  // Select component
+  filterEmptyText: 'Không kết quả',
+  filterPlaceholderText: 'Tìm kiếm',
+};
+
+export default vi;

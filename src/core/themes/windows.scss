@@ -1,0 +1,96 @@
+@use 'sass:color';
+@use 'sass:map';
+@use './common';
+
+$mbsc-windows-accent: #0078d7 !default;
+$mbsc-windows-background: #ffffff !default;
+$mbsc-windows-text: #242424 !default;
+
+$mbsc-windows-dark-accent: #0078d7 !default;
+$mbsc-windows-dark-background: #1f1f1f !default; // hsl(0, 0%, 12%)
+$mbsc-windows-dark-text: #ffffff !default;
+
+/* Base colors */
+$mbsc-windows-primary: #3f97f6 !default;
+$mbsc-windows-secondary: #90979e !default;
+$mbsc-windows-success: #43be5f !default;
+$mbsc-windows-danger: #f5504e !default;
+$mbsc-windows-warning: #f8b042 !default;
+$mbsc-windows-info: #5bb7c5 !default;
+$mbsc-windows-light: #fff !default;
+$mbsc-windows-dark: #47494a !default;
+
+$mbsc-windows-colors: (
+  'background': $mbsc-windows-background,
+  'text': $mbsc-windows-text,
+  'accent': $mbsc-windows-accent,
+);
+
+$mbsc-windows-dark-colors: (
+  'background': $mbsc-windows-dark-background,
+  'text': $mbsc-windows-dark-text,
+  'accent': $mbsc-windows-dark-accent,
+);
+
+@mixin mbsc-windows-vars($theme, $params) {
+  $background: map.get($params, 'background');
+  $text: map.get($params, 'text');
+  $accent: map.get($params, 'accent');
+  $action-success: map.get($params, 'action-success');
+  $action-error: map.get($params, 'action-error');
+
+  $surface-1: '';
+  $surface-2: '';
+  $surface-3: '';
+  $accent-soft: '';
+  $border: '';
+  $border-hover: '';
+  $border-focus: '';
+  $border-strong: '';
+  $border-strong-hover: '';
+  $action-success: common.choose($action-success, $action-success, #4cd764);
+  $action-error: common.choose($action-error, $action-error, #bc2f32);
+  $on-accent: common.color-contrast($accent);
+
+  @if (color.channel($background, 'lightness', $space: hsl) > 50%) {
+    // Background is light
+    $accent-soft: color.adjust($accent, $lightness: 44.5%); // #bbe1ff
+    $border: color.adjust($background, $lightness: -18%); // #d1d1d1
+    $border-hover: color.adjust($background, $lightness: -22%); // #c7c7c7
+    $border-focus: color.adjust($background, $lightness: -30%); // #b3b3b3
+    $border-strong: color.adjust($background, $lightness: -61.96%); // #616161
+    $border-strong-hover: color.adjust($background, $lightness: -66%); // #575757
+    $surface-1: color.adjust($background, $lightness: -6%); // #f0f0f0
+    $surface-2: color.adjust($background, $lightness: -2.8%); // #f8f8f8
+    $surface-3: color.adjust($background, $lightness: -11%); // #e3e3e3
+  } @else {
+    // Background is dark
+    $accent-soft: color.change($accent, $alpha: 0.35);
+    $border: color.adjust($background, $lightness: 27.84%); // #666
+    $border-hover: color.adjust($background, $lightness: 34%); // #757575
+    $border-focus: color.adjust($background, $lightness: 30%); // #6b6b6b
+    $border-strong: color.adjust($background, $lightness: 55.84%); // #adadad
+    $border-strong-hover: color.adjust($background, $lightness: 62%); // #bdbdbd
+    $surface-1: color.adjust($background, $lightness: 10%); // #393939
+    $surface-2: color.adjust($background, $lightness: 8%); // #3e3e3e
+    $surface-3: color.adjust($background, $lightness: 12%); // #333
+  }
+
+  :root {
+    --mbsc-#{$theme}-background: #{$background};
+    --mbsc-#{$theme}-surface-1: #{$surface-1}; // eventcalendar disabled, input tag
+    --mbsc-#{$theme}-surface-2: #{$surface-2}; // timeline parent
+    --mbsc-#{$theme}-surface-3: #{$surface-3}; // timeline parent hover
+    --mbsc-#{$theme}-text: #{$text};
+    --mbsc-#{$theme}-accent: #{$accent};
+    --mbsc-#{$theme}-accent-soft: #{$accent-soft}; // segmented selected, range highlight, scroller selected line
+    --mbsc-#{$theme}-border: #{$border}; // button border, input border
+    --mbsc-#{$theme}-border-hover: #{$border-hover};
+    --mbsc-#{$theme}-border-focus: #{$border-focus};
+    --mbsc-#{$theme}-border-strong: #{$border-strong}; // checkbox border, radio border, switch border, input bottom border
+    --mbsc-#{$theme}-border-strong-hover: #{$border-strong-hover};
+    --mbsc-#{$theme}-action-success: #{$action-success};
+    --mbsc-#{$theme}-action-error: #{$action-error};
+    --mbsc-#{$theme}-on-accent: #{$on-accent};
+  }
+}

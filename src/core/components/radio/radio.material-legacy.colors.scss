@@ -1,0 +1,21 @@
+@use 'sass:map';
+@use '../../themes/common';
+
+@mixin mbsc-material-legacy-radio($theme, $params) {
+  $background: map.get($params, 'background');
+  $text: map.get($params, 'text');
+  $accent: map.get($params, 'accent');
+
+  $accent-param: map.get($params, 'form-accent');
+  $text-param: map.get($params, 'form-text');
+
+  $accent: common.choose($accent-param, $accent-param, $accent);
+  $text: common.choose($text-param, $text-param, $text);
+
+  .mbsc-#{$theme} {
+    &.mbsc-radio-box {
+      color: $accent;
+      border-color: $text;
+    }
+  }
+}

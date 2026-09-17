@@ -1,0 +1,15 @@
+@use '../../themes/common';
+@use '../../themes/windows-legacy';
+@use './form-controls.windows-legacy.colors.scss' as colors;
+
+@if (common.$mbsc-windows-theme and common.$mbsc-forms) {
+  .mbsc-windows-legacy {
+    &.mbsc-form-control-label.mbsc-disabled,
+    &.mbsc-description.mbsc-disabled {
+      opacity: 0.3;
+    }
+  }
+
+  @include colors.mbsc-windows-legacy-form-controls('windows-legacy', windows-legacy.$mbsc-windows-colors);
+  @include colors.mbsc-windows-legacy-form-controls('windows-legacy-dark', windows-legacy.$mbsc-windows-dark-colors);
+}

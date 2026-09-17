@@ -1,0 +1,15 @@
+@use '../../themes/common';
+@use '../../themes/material-legacy';
+@use './form-controls.material-legacy.colors.scss' as colors;
+
+@if (common.$mbsc-material-theme and common.$mbsc-forms) {
+  .mbsc-material-legacy {
+    &.mbsc-form-control-label.mbsc-disabled,
+    &.mbsc-description.mbsc-disabled {
+      opacity: 0.3;
+    }
+  }
+
+  @include colors.mbsc-material-legacy-form-controls('material-legacy', material-legacy.$mbsc-material-colors);
+  @include colors.mbsc-material-legacy-form-controls('material-legacy-dark', material-legacy.$mbsc-material-dark-colors);
+}

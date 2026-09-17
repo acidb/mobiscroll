@@ -1,0 +1,24 @@
+@mixin mbsc-windows-notifications($theme, $params) {
+  .mbsc-#{$theme} {
+    /* Alert, confirm, prompt */
+    &.mbsc-alert.mbsc-popup-wrapper {
+      --mbsc-alert-bg-color: var(--mbsc-#{$theme}-alert-bg-color, var(--mbsc-#{$theme}-background));
+      --mbsc-alert-text-color: var(--mbsc-#{$theme}-alert-text-color, var(--mbsc-#{$theme}-text));
+
+      // Popup variables
+      --mbsc-popup-bg-color: var(--mbsc-alert-bg-color);
+      --mbsc-popup-text-color: var(--mbsc-alert-text-color);
+    }
+
+    &.mbsc-toast {
+      --mbsc-toast-bg-color: var(--mbsc-#{$theme}-toast-bg-color, var(--mbsc-#{$theme}-text));
+      --mbsc-toast-text-color: var(--mbsc-#{$theme}-toast-text-color, var(--mbsc-#{$theme}-background));
+    }
+
+    &.mbsc-snackbar {
+      --mbsc-snackbar-bg-color: var(--mbsc-#{$theme}-snackbar-bg-color, var(--mbsc-#{$theme}-text));
+      --mbsc-snackbar-text-color: var(--mbsc-#{$theme}-snackbar-text-color, var(--mbsc-#{$theme}-background));
+      --mbsc-snackbar-button-color: var(--mbsc-#{$theme}-snackbar-button-color, var(--mbsc-#{$theme}-accent));
+    }
+  }
+}

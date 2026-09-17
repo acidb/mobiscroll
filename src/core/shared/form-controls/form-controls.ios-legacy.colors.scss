@@ -1,0 +1,58 @@
+@use 'sass:map';
+@use 'sass:color';
+@use '../../themes/common';
+@use '../../themes/ios-legacy';
+
+@mixin mbsc-ios-legacy-form-controls($theme, $params) {
+  $text: map.get($params, 'text');
+  $background: map.get($params, 'background');
+
+  $bg-param: map.get($params, 'form-background');
+  $err-param: map.get($params, 'form-error');
+
+  $background: common.choose($bg-param, $bg-param, $background);
+
+  $is-dark: false;
+  $border-color: '';
+  $wrapper-background: '';
+  $wrapper-background-popup: '';
+
+  @if (color.channel($background, 'lightness', $space: hsl) > 50%) {
+    $border-color: color.adjust($background, $lightness: -17%);
+    $wrapper-background: color.adjust($background, $lightness: 6%);
+    $wrapper-background-popup: $wrapper-background;
+  } @else {
+    $is-dark: true;
+    $border-color: color.adjust($background, $lightness: 20%);
+    $wrapper-background: color.adjust($background, $lightness: 11%);
+    $wrapper-background-popup: color.adjust($background, $lightness: 17%);
+  }
+
+  $error: common.choose($err-param, $err-param, ios-legacy.$mbsc-ios-error);
+
+  .mbsc-#{$theme} {
+    /* Wrapper */
+
+    &.mbsc-form-control-wrapper {
+      background: $wrapper-background;
+    }
+
+    &.mbsc-form-control-wrapper:before,
+    &.mbsc-form-control-wrapper:after {
+      border-color: $border-color;
+    }
+
+    &.mbsc-form-control-wrapper.mbsc-error:after,
+    &.mbsc-form-control-wrapper.mbsc-error + .mbsc-form-control-wrapper:before {
+      border-color: $error;
+    }
+
+    /* Inside popup */
+
+    @if ($is-dark) {
+      &.mbsc-popup &.mbsc-form-control-wrapper {
+        background: $wrapper-background-popup;
+      }
+    }
+  }
+}

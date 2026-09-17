@@ -1,0 +1,162 @@
+@use 'sass:color';
+@use '../../themes/common';
+@use '../../themes/material';
+@use './switch.material.colors' as colors;
+
+@if (common.$mbsc-material-theme and common.$mbsc-forms) {
+  .mbsc-material {
+    &.mbsc-switch-right {
+      padding: 0.9375em 5em 0.9375em 1em;
+    }
+
+    &.mbsc-switch-left {
+      padding: 0.9375em 1em 0.9375em 5em;
+    }
+
+    /* Track */
+
+    &.mbsc-switch-track {
+      width: 1.25em; // 20px
+      height: 2em; // 32px
+      margin: -1em 1em 0 1em; // -16px 16px 0 16px
+
+      &::after {
+        content: '';
+        position: absolute;
+        z-index: 1;
+        top: 0;
+        right: -1em; // -16px
+        bottom: 0;
+        left: -1em; // -16px
+        border: 2px solid var(--mbsc-switch-border-color);
+        border-radius: 2em;
+        background: var(--mbsc-switch-track-color);
+      }
+
+      &.mbsc-focus::after {
+        outline-offset: 2px;
+        outline: 2px solid var(--mbsc-switch-focus);
+        animation-delay: 0ms, 150ms;
+        animation-name: mbsc-button-outline-grow, mbsc-button-outline-shrink;
+        animation-duration: 150ms, 450ms;
+        animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
+      }
+
+      &.mbsc-checked::after {
+        background: var(--mbsc-switch-selected-track-color);
+        border: 0;
+      }
+
+      &.mbsc-disabled::after {
+        opacity: 0.2;
+      }
+
+      &.mbsc-disabled.mbsc-checked::after {
+        background: var(--mbsc-switch-border-color);
+      }
+    }
+
+    &.mbsc-switch-track-left {
+      left: 1.25em;
+    }
+
+    &.mbsc-switch-track-right {
+      right: 1.25em;
+    }
+
+    /* Handle */
+
+    &.mbsc-switch-handle {
+      z-index: 2;
+      top: 50%;
+      left: 50%;
+      width: 1em; // 16px
+      height: 1em; // 16px
+      margin: -0.5em 0 0 -0.5em; // -8px 0 0 -8px
+      border-radius: 1em;
+      background: var(--mbsc-switch-handle-color);
+      transition: width 0.2s ease-in-out, height 0.2s ease-in-out, margin 0.2s ease-in-out, left 0.1s ease-in-out;
+
+      &::before {
+        content: '';
+        position: absolute;
+        z-index: -1; // TODO: this is not working for some reason
+        top: 50%;
+        left: 50%;
+        width: 2.5em;
+        height: 2.5em;
+        margin: -1.25em 0 0 -1.25em;
+        opacity: 0;
+        background: var(--mbsc-switch-border-color);
+        border-radius: 1.25em;
+        transition: opacity 0.2s ease-in-out;
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        border-radius: 1em;
+        background: var(--mbsc-switch-border-color);
+        opacity: 0;
+      }
+
+      &.mbsc-checked {
+        width: 1.5em; // 24px
+        height: 1.5em; // 24px
+        margin: -0.75em 0 0 -0.75em; // -12px 0 0 -12px
+        background: var(--mbsc-switch-selected-handle-color);
+      }
+
+      &.mbsc-hover::before {
+        opacity: 0.1;
+      }
+
+      &.mbsc-active {
+        width: 1.75em;
+        height: 1.75em;
+        margin: -0.875em 0 0 -0.875em;
+
+        &::before {
+          opacity: 0.2;
+        }
+      }
+
+      &.mbsc-hover::after,
+      &.mbsc-focus::after {
+        opacity: 0.6;
+      }
+
+      &.mbsc-hover.mbsc-checked::after,
+      &.mbsc-focus.mbsc-checked::after {
+        background: var(--mbsc-switch-selected-track-color);
+        opacity: 0.3;
+      }
+
+      &.mbsc-disabled {
+        background: var(--mbsc-switch-border-color);
+        opacity: 0.5;
+      }
+
+      &.mbsc-disabled.mbsc-checked {
+        background: var(--mbsc-switch-selected-handle-color);
+        opacity: 1;
+      }
+    }
+
+    /* Color presets */
+
+    @each $name in common.$mbsc-color-variants {
+      &.mbsc-switch-track.mbsc-switch-#{$name} {
+        --mbsc-switch-selected-track-color: var(--mbsc-material-#{$name});
+        --mbsc-switch-focus: var(--mbsc-material-#{$name});
+      }
+    }
+  }
+
+  @include colors.mbsc-material-switch('material', material.$mbsc-material-colors);
+  @include colors.mbsc-material-switch('material-dark', material.$mbsc-material-dark-colors);
+}

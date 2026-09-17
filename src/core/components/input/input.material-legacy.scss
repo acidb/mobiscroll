@@ -1,0 +1,540 @@
+@use '../../themes/common';
+@use '../../themes/material-legacy';
+@use './input.material-legacy.colors' as colors;
+
+@if (common.$mbsc-material-theme and common.$mbsc-input) {
+  .mbsc-material-legacy {
+    /* Wrapper */
+
+    &.mbsc-textfield-wrapper {
+      margin: 1.5em 1em;
+      box-sizing: border-box;
+    }
+
+    /* Inner wrapper */
+
+    &.mbsc-textfield-inner.mbsc-disabled {
+      opacity: 0.5;
+    }
+
+    /* Form element */
+
+    &.mbsc-textfield {
+      display: block;
+      width: 100%;
+      height: 2.25em;
+      background-color: transparent;
+      border-bottom: 1px solid;
+      font-size: 1em;
+      transition: border-color 0.2s;
+    }
+
+    &.mbsc-textfield-has-icon-left {
+      padding-left: 2em;
+    }
+
+    &.mbsc-textfield-has-icon-right {
+      padding-right: 2em;
+    }
+
+    /* Icon */
+
+    &.mbsc-textfield-icon {
+      top: 0.375em;
+    }
+
+    &.mbsc-textfield-icon-floating,
+    &.mbsc-textfield-icon-stacked,
+    &.mbsc-textfield-icon-outline {
+      top: 1em;
+    }
+
+    /* Ripple */
+
+    .mbsc-textfield-ripple {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      transform: scaleX(0);
+      transition: transform 180ms cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 2;
+    }
+
+    .mbsc-textfield-ripple-active {
+      transform: scaleX(1);
+    }
+
+    /* Label */
+
+    &.mbsc-label {
+      font-size: 0.75em;
+    }
+
+    &.mbsc-label-inline {
+      line-height: 2em;
+      font-size: 1em;
+    }
+
+    &.mbsc-label-inline.mbsc-ltr {
+      padding-right: 0.5em;
+    }
+
+    &.mbsc-label-inline.mbsc-rtl {
+      padding-left: 0.5em;
+    }
+
+    &.mbsc-label-floating {
+      font-size: 1em;
+      line-height: 1.5em;
+      top: 1.125em;
+    }
+
+    &.mbsc-label-floating-active {
+      transform: translateY(-1.125em) scale(0.75);
+    }
+
+    &.mbsc-label.mbsc-disabled {
+      opacity: 0.5;
+    }
+
+    /* Error message */
+
+    &.mbsc-error-message.mbsc-ltr {
+      left: 0;
+    }
+
+    &.mbsc-error-message.mbsc-rtl {
+      right: 0;
+    }
+
+    &.mbsc-error-message-has-icon-left.mbsc-ltr {
+      left: 2.66667em;
+    }
+
+    &.mbsc-error-message-has-icon-right.mbsc-rtl {
+      right: 2.66667em;
+    }
+
+    /* Underline input --------------------------------------------------------------------------- */
+
+    /* Form element */
+
+    &.mbsc-textfield-underline-stacked,
+    &.mbsc-textfield-underline-floating {
+      height: 3em;
+      padding-top: 0.875em;
+    }
+
+    /* Icon */
+
+    &.mbsc-textfield-icon-underline {
+      top: 0.25em;
+    }
+
+    &.mbsc-textfield-icon-underline.mbsc-textfield-icon-floating,
+    &.mbsc-textfield-icon-underline.mbsc-textfield-icon-stacked {
+      top: 1.125em;
+    }
+
+    /* Label */
+
+    &.mbsc-label-underline-inline {
+      padding-top: 1px;
+    }
+
+    &.mbsc-label-underline-stacked-has-icon-left.mbsc-ltr {
+      left: 2.66667em;
+    }
+
+    &.mbsc-label-underline-stacked-has-icon-right.mbsc-rtl {
+      right: 2.66667em;
+    }
+
+    &.mbsc-label-underline-floating-has-icon-left.mbsc-ltr {
+      left: 2em;
+    }
+
+    &.mbsc-label-underline-floating-has-icon-right.mbsc-rtl {
+      right: 2em;
+    }
+
+    /* ------------------------------------------------------------------------------------------- */
+
+    /* Box input --------------------------------------------------------------------------------- */
+
+    /* Inner wrapper */
+
+    &.mbsc-textfield-box,
+    &.mbsc-textfield-inner-box {
+      border-radius: 0.25em 0.25em 0 0;
+    }
+
+    /* Form element */
+
+    &.mbsc-textfield-box {
+      padding: 0 1em;
+    }
+
+    &.mbsc-textfield-box-stacked,
+    &.mbsc-textfield-box-floating {
+      height: 3.5em;
+      padding-top: 1.25em;
+    }
+
+    &.mbsc-textfield-underline.mbsc-disabled {
+      border-style: dotted;
+    }
+
+    /* Label */
+
+    &.mbsc-label-box-inline {
+      padding-top: 1px;
+    }
+
+    &.mbsc-label-box-stacked {
+      top: 0.666667em;
+    }
+
+    &.mbsc-label-box-floating {
+      top: 1em;
+    }
+
+    &.mbsc-label-box-floating.mbsc-label-floating-active {
+      transform: translateY(-0.625em) scale(0.75);
+    }
+
+    /* ------------------------------------------------------------------------------------------- */
+
+    /* Outline input ----------------------------------------------------------------------------- */
+
+    /* Inner wrapper */
+
+    &.mbsc-textfield-inner-outline {
+      padding: 0 2px;
+    }
+
+    /* Form element */
+
+    &.mbsc-textfield-outline {
+      height: 3.5em;
+      padding: 2px 1em;
+      border: 0;
+      border-radius: 4px;
+    }
+
+    &.mbsc-textfield-fieldset {
+      top: -0.5em;
+      border: 1px solid;
+      border-radius: 4px;
+      transition: border-color 0.2s;
+    }
+
+    &.mbsc-textfield-fieldset-has-icon-left {
+      padding-left: 3em;
+    }
+
+    &.mbsc-textfield-fieldset-has-icon-right {
+      padding-right: 3em;
+    }
+
+    &.mbsc-textfield-fieldset.mbsc-focus {
+      border-width: 2px;
+    }
+
+    &.mbsc-textfield-legend {
+      padding: 0;
+      margin: 0;
+      font-size: 0.75em;
+      color: transparent;
+      width: 0;
+      white-space: nowrap;
+    }
+
+    &.mbsc-textfield-legend-active {
+      width: auto;
+      padding: 0 0.333334em;
+      margin: 0 -0.333334em;
+    }
+
+    /* Label */
+
+    &.mbsc-label-outline-inline {
+      line-height: 3.375em;
+    }
+
+    &.mbsc-label-outline-stacked {
+      top: -0.5em;
+      margin: 0 2px; // Compensate borders
+    }
+
+    &.mbsc-label-outline-floating {
+      top: 1em;
+      margin: 0 2px; // Compensate borders
+    }
+
+    &.mbsc-label-outline-floating.mbsc-label-floating-active {
+      margin-top: -1px;
+      transform: translateY(-1.5em) scale(0.75);
+    }
+
+    /* Error message */
+
+    &.mbsc-error-message-outline {
+      margin: 0 2px; // Compensate border
+    }
+
+    /* ------------------------------------------------------------------------------------------- */
+
+    /* Box & outline input common styles --------------------------------------------------------- */
+
+    /* Form element */
+
+    &.mbsc-textfield-outline-has-icon-left,
+    &.mbsc-textfield-box-has-icon-left {
+      padding-left: 3em;
+    }
+
+    &.mbsc-textfield-outline-has-icon-right,
+    &.mbsc-textfield-box-has-icon-right {
+      padding-right: 3em;
+    }
+
+    /* Icon */
+
+    &.mbsc-textfield-icon-outline-left,
+    &.mbsc-textfield-icon-box-left {
+      left: 0.75em;
+    }
+
+    &.mbsc-textfield-icon-outline-right,
+    &.mbsc-textfield-icon-box-right {
+      right: 0.75em;
+    }
+
+    /* Label */
+
+    &.mbsc-label-box-stacked.mbsc-ltr,
+    &.mbsc-label-outline-stacked.mbsc-ltr {
+      left: 1.333334em;
+    }
+
+    &.mbsc-label-box-stacked.mbsc-rtl,
+    &.mbsc-label-outline-stacked.mbsc-rtl {
+      right: 1.333334em;
+    }
+
+    &.mbsc-label-outline-stacked-has-icon-left.mbsc-ltr,
+    &.mbsc-label-box-stacked-has-icon-left.mbsc-ltr {
+      left: 4em;
+    }
+
+    &.mbsc-label-box-stacked-has-icon-right.mbsc-rtl,
+    &.mbsc-label-outline-stacked-has-icon-right.mbsc-rtl {
+      right: 4em;
+    }
+
+    &.mbsc-label-box-floating.mbsc-ltr,
+    &.mbsc-label-outline-floating.mbsc-ltr {
+      left: 1em;
+    }
+
+    &.mbsc-label-box-floating.mbsc-rtl,
+    &.mbsc-label-outline-floating.mbsc-rtl {
+      right: 1em;
+    }
+
+    &.mbsc-label-outline-floating-has-icon-left.mbsc-ltr,
+    &.mbsc-label-box-floating-has-icon-left.mbsc-ltr {
+      left: 3em;
+    }
+
+    &.mbsc-label-outline-floating-has-icon-left.mbsc-rtl,
+    &.mbsc-label-box-floating-has-icon-left.mbsc-rtl {
+      right: 1em;
+    }
+
+    &.mbsc-label-outline-floating-has-icon-right.mbsc-rtl,
+    &.mbsc-label-box-floating-has-icon-right.mbsc-rtl {
+      right: 3em;
+    }
+
+    /* Error message */
+
+    &.mbsc-error-message-box.mbsc-ltr,
+    &.mbsc-error-message-outline.mbsc-ltr {
+      left: 1.333334em;
+    }
+
+    &.mbsc-error-message-box.mbsc-rtl,
+    &.mbsc-error-message-outline.mbsc-rtl {
+      right: 1.333334em;
+    }
+
+    &.mbsc-error-message-box.mbsc-error-message-has-icon-left.mbsc-ltr,
+    &.mbsc-error-message-outline.mbsc-error-message-has-icon-left.mbsc-ltr {
+      left: 4em;
+    }
+
+    &.mbsc-error-message-box.mbsc-error-message-has-icon-right.mbsc-rtl,
+    &.mbsc-error-message-outline.mbsc-error-message-has-icon-right.mbsc-rtl {
+      right: 4em;
+    }
+
+    /* ------------------------------------------------------------------------------------------- */
+
+    /* Select */
+
+    &.mbsc-select.mbsc-ltr {
+      padding-right: 3em;
+    }
+
+    &.mbsc-select.mbsc-rtl {
+      padding-left: 3em;
+    }
+
+    &.mbsc-select.mbsc-textfield-has-icon-right.mbsc-ltr {
+      padding-right: 4.5em;
+    }
+
+    &.mbsc-select.mbsc-textfield-has-icon-left.mbsc-rtl {
+      padding-left: 4.5em;
+    }
+
+    &.mbsc-select.mbsc-textfield-underline-has-icon-right.mbsc-ltr {
+      padding-right: 3.75em;
+    }
+
+    &.mbsc-select.mbsc-textfield-underline-has-icon-left.mbsc-rtl {
+      padding-left: 3.75em;
+    }
+
+    /* Select icon */
+
+    &.mbsc-select-icon {
+      top: 0.375em;
+    }
+
+    &.mbsc-select-icon.mbsc-ltr {
+      right: 0.75em;
+    }
+
+    &.mbsc-select-icon.mbsc-rtl {
+      left: 0.75em;
+    }
+
+    &.mbsc-select-icon-right.mbsc-ltr {
+      right: 3em;
+    }
+
+    &.mbsc-select-icon-left.mbsc-rtl {
+      left: 3em;
+    }
+
+    &.mbsc-select-icon-stacked,
+    &.mbsc-select-icon-floating,
+    &.mbsc-select-icon-outline {
+      top: 1em;
+    }
+
+    &.mbsc-select-icon-underline {
+      top: 0.25em;
+    }
+
+    &.mbsc-select-icon-underline.mbsc-ltr {
+      right: 0;
+    }
+
+    &.mbsc-select-icon-underline.mbsc-rtl {
+      left: 0;
+    }
+
+    &.mbsc-select-icon-underline.mbsc-select-icon-right.mbsc-ltr {
+      right: 2.25em;
+    }
+
+    &.mbsc-select-icon-underline.mbsc-select-icon-left.mbsc-rtl {
+      left: 2.25em;
+    }
+
+    &.mbsc-select-icon-underline.mbsc-select-icon-floating,
+    &.mbsc-select-icon-underline.mbsc-select-icon-stacked {
+      top: 1.125em;
+    }
+
+    /* Textarea */
+
+    &.mbsc-textarea {
+      height: 1.875em;
+      padding-bottom: 0.375em;
+    }
+
+    &.mbsc-textarea.mbsc-textfield-stacked,
+    &.mbsc-textarea.mbsc-textfield-floating {
+      padding-top: 0;
+    }
+
+    &.mbsc-textarea.mbsc-textfield-outline {
+      height: 1.5em;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    &.mbsc-textarea.mbsc-textfield-underline {
+      padding-bottom: 0.3125em;
+    }
+
+    &.mbsc-textarea-inner.mbsc-textfield-inner-box {
+      padding-top: 0.375em;
+    }
+
+    &.mbsc-textarea-inner.mbsc-textfield-inner-stacked,
+    &.mbsc-textarea-inner.mbsc-textfield-inner-floating {
+      padding-top: 1.625em;
+    }
+
+    &.mbsc-textarea-inner.mbsc-textfield-inner-outline {
+      padding-top: 1em;
+      padding-bottom: 1em;
+    }
+
+    &.mbsc-textarea-inner.mbsc-textfield-inner-underline {
+      padding-top: 0.25em;
+    }
+
+    &.mbsc-textarea-inner.mbsc-textfield-inner-underline.mbsc-textfield-inner-stacked,
+    &.mbsc-textarea-inner.mbsc-textfield-inner-underline.mbsc-textfield-inner-floating {
+      padding-top: 1.125em;
+    }
+
+    /* Input tags */
+
+    &.mbsc-textfield-tags-inner.mbsc-textfield-inner-underline,
+    &.mbsc-textfield-tags-inner.mbsc-textfield-inner-inline {
+      padding-top: 0;
+    }
+
+    &.mbsc-textfield-tags-inner.mbsc-textfield-inner-outline {
+      padding-top: 0.625em;
+      padding-bottom: 0.625em;
+    }
+
+    &.mbsc-textfield-tags.mbsc-textfield {
+      padding-bottom: 0;
+      min-height: 2.25em;
+    }
+
+    &.mbsc-textfield-tags.mbsc-textfield-outline {
+      padding-top: 1px;
+      padding-bottom: 1px;
+    }
+
+    &.mbsc-textfield-tag {
+      border-radius: 1em;
+    }
+  }
+
+  @include colors.mbsc-material-legacy-input('material-legacy', material-legacy.$mbsc-material-colors);
+  @include colors.mbsc-material-legacy-input('material-legacy-dark', material-legacy.$mbsc-material-dark-colors);
+}

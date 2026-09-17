@@ -1,0 +1,87 @@
+@use '../../themes/common';
+@use '../../themes/ios-legacy';
+@use './radio.ios-legacy.colors' as colors;
+
+@if (common.$mbsc-ios-theme and common.$mbsc-forms) {
+  .mbsc-ios-legacy {
+    &.mbsc-radio-left {
+      padding: 0.875em 1em 0.875em 3.75em;
+    }
+
+    &.mbsc-radio-right {
+      padding: 0.875em 3.75em 0.875em 1em;
+    }
+
+    &.mbsc-radio-box:after {
+      top: 44%;
+      left: 23%;
+      width: 0.875em;
+      height: 0.375em;
+      border: 0.125em solid;
+      border-top: 0;
+      border-right: 0;
+      border-radius: 0;
+      transform: rotate(-45deg);
+      transition: opacity 0.2s ease-in-out;
+    }
+
+    &.mbsc-radio-box:before {
+      content: '';
+      position: absolute;
+      top: -0.75em;
+      left: -0.75em;
+      z-index: -1;
+      width: 2.5em;
+      height: 2.5em;
+      opacity: 0;
+      border-radius: 2.5em;
+      transition: opacity 0.2s ease-in-out;
+      background: #ccc;
+    }
+
+    &.mbsc-radio-box.mbsc-focus:before {
+      opacity: 0.12;
+    }
+
+    &.mbsc-radio-box-left {
+      left: 1.125em;
+    }
+
+    &.mbsc-radio-box-right {
+      right: 1.125em;
+    }
+
+    &.mbsc-radio-box.mbsc-disabled {
+      opacity: 0.3;
+    }
+
+    /* Color presets */
+
+    &.mbsc-radio-box.mbsc-radio-box-primary:after {
+      border-color: ios-legacy.$mbsc-ios-primary;
+    }
+
+    &.mbsc-radio-box.mbsc-radio-box-secondary:after {
+      border-color: ios-legacy.$mbsc-ios-secondary;
+    }
+
+    &.mbsc-radio-box.mbsc-radio-box-success:after {
+      border-color: ios-legacy.$mbsc-ios-success;
+    }
+
+    &.mbsc-radio-box.mbsc-radio-box-danger:after {
+      border-color: ios-legacy.$mbsc-ios-danger;
+    }
+
+    &.mbsc-radio-box.mbsc-radio-box-warning:after {
+      border-color: ios-legacy.$mbsc-ios-warning;
+    }
+
+    &.mbsc-radio-box.mbsc-radio-box-info:after {
+      border-color: ios-legacy.$mbsc-ios-info;
+    }
+  }
+
+  @include colors.mbsc-ios-legacy-radio('ios-legacy', ios-legacy.$mbsc-ios-colors);
+  @include colors.mbsc-ios-legacy-radio('ios-legacy-dark', ios-legacy.$mbsc-ios-dark-colors);
+}

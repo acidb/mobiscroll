@@ -1,0 +1,23 @@
+@use 'sass:map';
+
+@mixin mbsc-material-legacy-page($theme, $params) {
+  $background: map.get($params, 'background');
+  $text: map.get($params, 'text');
+  $accent: map.get($params, 'accent');
+
+  .mbsc-#{$theme} {
+    &.mbsc-page {
+      background-color: $background;
+      color: $text;
+
+      a {
+        color: $accent;
+      }
+    }
+
+    .mbsc-block-title,
+    .mbsc-form-group-title {
+      color: $accent;
+    }
+  }
+}

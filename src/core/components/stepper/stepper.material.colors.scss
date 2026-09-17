@@ -1,0 +1,12 @@
+@mixin mbsc-material-stepper($theme, $params) {
+  .mbsc-#{$theme} {
+    &.mbsc-stepper {
+      --mbsc-stepper-bg-color: var(--mbsc-#{$theme}-stepper-bg-color, var(--mbsc-#{$theme}-secondary-container));
+      --mbsc-stepper-text-color: var(--mbsc-#{$theme}-stepper-text-color, var(--mbsc-#{$theme}-text));
+      --mbsc-stepper-border-color: var(--mbsc-#{$theme}-stepper-border-color, var(--mbsc-#{$theme}-outline));
+      --mbsc-stepper-focus: var(--mbsc-#{$theme}-stepper-focus, var(--mbsc-#{$theme}-secondary-accent));
+      --mbsc-stepper-disabled-bg: var(--mbsc-#{$theme}-stepper-disabled-bg, var(--mbsc-#{$theme}-text));
+      --mbsc-stepper-disabled-text: var(--mbsc-#{$theme}-stepper-disabled-text, var(--mbsc-#{$theme}-text));
+    }
+  }
+}

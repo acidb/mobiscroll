@@ -1,0 +1,110 @@
+@use '../../themes/common';
+@use '../../themes/windows';
+@use './radio.windows.colors' as colors;
+
+@if (common.$mbsc-windows-theme and common.$mbsc-forms) {
+  .mbsc-windows {
+    &.mbsc-radio-left {
+      padding: 1em 1em 1em 3em;
+    }
+
+    &.mbsc-radio-right {
+      padding: 1em 3em 1em 1em;
+    }
+
+    &.mbsc-radio .mbsc-form-control-label {
+      opacity: 0.8;
+    }
+
+    &.mbsc-radio-box {
+      width: 1.25em;
+      height: 1.25em;
+      border: 1px solid var(--mbsc-radio-border-color);
+
+      &::before {
+        content: '';
+        position: absolute;
+        z-index: 1;
+        width: 0.75em;
+        height: 0.75em;
+        top: 0.25em;
+        left: 0.25em;
+        margin: -1px 0 0 -1px;
+        border-radius: inherit;
+        background: var(--mbsc-radio-border-hover);
+        outline: 1px solid var(--mbsc-radio-border-hover);
+        outline-offset: calc(0.25em - 1px);
+        opacity: 0;
+      }
+
+      &::after {
+        width: 0.75em;
+        height: 0.75em;
+        margin-top: -0.375em;
+        margin-left: -0.375em;
+        background: var(--mbsc-radio-selected-color);
+      }
+
+      &.mbsc-hover {
+        border-color: var(--mbsc-checkbox-border-hover);
+
+        + .mbsc-form-control-label {
+          opacity: 1;
+        }
+      }
+
+      &.mbsc-checked {
+        border-color: var(--mbsc-radio-selected-color);
+
+        + .mbsc-form-control-label {
+          opacity: 1;
+        }
+
+        &.mbsc-hover::before {
+          opacity: 0.3;
+        }
+
+        &.mbsc-active::before {
+          opacity: 0.5;
+        }
+      }
+
+      &.mbsc-focus {
+        outline: 2px solid var(--mbsc-radio-focus);
+        outline-offset: 2px;
+      }
+
+      &.mbsc-disabled {
+        border-color: var(--mbsc-radio-border-color);
+        opacity: 0.3;
+
+        + .mbsc-form-control-label {
+          opacity: 0.3;
+        }
+
+        &::after {
+          background: var(--mbsc-radio-border-color);
+        }
+      }
+    }
+
+    &.mbsc-radio-box-left {
+      left: 1em;
+    }
+
+    &.mbsc-radio-box-right {
+      right: 1em;
+    }
+
+    /* Color presets */
+
+    @each $name in common.$mbsc-color-variants {
+      &.mbsc-radio-box-#{$name}.mbsc-checked {
+        --mbsc-radio-selected-color: var(--mbsc-windows-#{$name});
+      }
+    }
+  }
+
+  @include colors.mbsc-windows-radio('windows', windows.$mbsc-windows-colors);
+  @include colors.mbsc-windows-radio('windows-dark', windows.$mbsc-windows-dark-colors);
+}

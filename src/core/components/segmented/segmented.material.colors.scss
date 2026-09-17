@@ -1,0 +1,13 @@
+@mixin mbsc-material-segmented($theme, $params) {
+  .mbsc-#{$theme} {
+    &.mbsc-segmented {
+      --mbsc-segmented-bg-color: var(--mbsc-#{$theme}-segmented-bg-color, var(--mbsc-#{$theme}-background));
+      --mbsc-segmented-text-color: var(--mbsc-#{$theme}-segmented-text-color, var(--mbsc-#{$theme}-text));
+      --mbsc-segmented-selected-bg-color: var(--mbsc-#{$theme}-segmented-selected-bg-color, var(--mbsc-#{$theme}-secondary-container));
+      --mbsc-segmented-selected-text-color: var(--mbsc-#{$theme}-segmented-selected-text-color, var(--mbsc-#{$theme}-text));
+      --mbsc-segmented-border-color: var(--mbsc-#{$theme}-segmented-border-color, var(--mbsc-#{$theme}-outline));
+      --mbsc-segmented-focus: var(--mbsc-#{$theme}-segmented-focus, var(--mbsc-#{$theme}-secondary-accent));
+      --mbsc-segmented-disabled: var(--mbsc-#{$theme}-segmented-disabled, var(--mbsc-#{$theme}-text));
+    }
+  }
+}

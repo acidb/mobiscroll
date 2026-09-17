@@ -1,0 +1,33 @@
+@use 'sass:map';
+@use 'sass:color';
+
+@mixin mbsc-material-legacy-popup($theme, $params) {
+  $background: map.get($params, 'background');
+  $text: map.get($params, 'text');
+  $accent: map.get($params, 'accent');
+
+  $popup-background: '';
+
+  @if (color.channel($background, 'lightness', $space: hsl) > 50%) {
+    $popup-background: $background;
+  } @else {
+    $popup-background: color.adjust($background, $lightness: 19%);
+  }
+
+  .mbsc-#{$theme} {
+    &.mbsc-popup-body {
+      background: $popup-background;
+      box-shadow: 0px 11px 15px -7px rgba(0, 0, 0, 0.2), 0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);
+      color: $text;
+    }
+
+    &.mbsc-popup-arrow {
+      background: $popup-background;
+      box-shadow: 0 0 1em rgba(0, 0, 0, 0.2);
+    }
+
+    &.mbsc-popup-button.mbsc-font {
+      color: $accent;
+    }
+  }
+}

@@ -1,0 +1,135 @@
+@use '../../themes/common';
+@use '../../themes/windows';
+@use './button.windows.colors' as colors;
+
+@if (common.$mbsc-windows-theme and common.$mbsc-button) {
+  .mbsc-windows {
+    &.mbsc-button {
+      padding: 0.375em 0.75em; // 6px 12px
+      line-height: 1.25em; // 20px
+      margin: 0.5em 0.25em;
+      border-radius: 0.25em; // 4px
+
+      &.mbsc-focus {
+        outline-offset: -1px;
+        outline: 2px solid var(--mbsc-button-focus);
+      }
+
+      &.mbsc-active::after {
+        opacity: 0.18;
+      }
+
+      &:disabled .mbsc-button-bg,
+      &.mbsc-disabled .mbsc-button-bg {
+        opacity: 0.12;
+      }
+
+      &:disabled .mbsc-button-txt,
+      &.mbsc-disabled .mbsc-button-txt {
+        color: var(--mbsc-button-disabled-text);
+        opacity: 0.38;
+      }
+    }
+
+    &.mbsc-button-bg {
+      border-radius: 0.25em;
+    }
+
+    &.mbsc-button-txt {
+      font-size: 0.875em; // 14px
+      font-weight: 600;
+    }
+
+    /* Icons */
+
+    &.mbsc-button-icon {
+      width: 1.111112em; // 20px
+      height: 1.111112em; // 20px
+      line-height: 1.111112em; // 20px
+      font-size: 1.285715em; // 18px
+    }
+
+    &.mbsc-button-icon-start.mbsc-ltr,
+    &.mbsc-button-icon-end.mbsc-rtl {
+      padding-right: 0.333334em;
+    }
+
+    &.mbsc-button-icon-end.mbsc-ltr,
+    &.mbsc-button-icon-start.mbsc-rtl {
+      padding-left: 0.333334em;
+    }
+
+    /* Icon only button */
+
+    &.mbsc-icon-button {
+      height: 2em;
+    }
+
+    /* Standard button */
+
+    &.mbsc-button-standard {
+      color: var(--mbsc-button-standard-text-color);
+
+      &.mbsc-focus .mbsc-button-bg {
+        box-shadow: 0 0 0 1px var(--mbsc-button-focus-contrast) inset;
+      }
+    }
+
+    &.mbsc-button-standard-bg {
+      background: var(--mbsc-button-standard-bg-color);
+      border: 1px solid var(--mbsc-button-outline-border-color);
+    }
+
+    &.mbsc-button-standard:disabled .mbsc-button-bg,
+    &.mbsc-button-standard.mbsc-disabled .mbsc-button-bg {
+      background: var(--mbsc-button-disabled-bg);
+    }
+
+    /* Outline button */
+
+    &.mbsc-button-outline {
+      color: var(--mbsc-button-outline-text-color);
+    }
+
+    &.mbsc-button-outline-bg {
+      border: 1px solid var(--mbsc-button-outline-border-color);
+    }
+
+    &.mbsc-button-outline:disabled .mbsc-button-bg,
+    &.mbsc-button-outline.mbsc-disabled .mbsc-button-bg {
+      border-color: var(--mbsc-button-disabled-bg);
+    }
+
+    /* Flat button */
+
+    &.mbsc-button-flat {
+      color: var(--mbsc-button-flat-text-color);
+    }
+
+    /* Groups */
+
+    .mbsc-button-group,
+    .mbsc-button-group-justified {
+      margin: 0.5em 0.75em;
+    }
+
+    .mbsc-button-group-block {
+      margin: 0.5em 1em;
+    }
+
+    /* Color presets */
+
+    @each $name in common.$mbsc-color-variants {
+      &.mbsc-button.mbsc-button-#{$name} {
+        --mbsc-button-standard-bg-color: var(--mbsc-windows-#{$name});
+        --mbsc-button-standard-text-color: var(--mbsc-windows-on-#{$name});
+        --mbsc-button-outline-border-color: var(--mbsc-windows-#{$name});
+        --mbsc-button-outline-text-color: var(--mbsc-windows-#{$name});
+        --mbsc-button-flat-text-color: var(--mbsc-windows-#{$name});
+      }
+    }
+  }
+
+  @include colors.mbsc-windows-button('windows', windows.$mbsc-windows-colors);
+  @include colors.mbsc-windows-button('windows-dark', windows.$mbsc-windows-dark-colors);
+}

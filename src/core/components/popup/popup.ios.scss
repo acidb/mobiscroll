@@ -1,0 +1,92 @@
+@use '../../themes/common';
+@use '../../themes/ios';
+@use './popup.ios.colors' as colors;
+
+@if (common.$mbsc-ios-theme and common.$mbsc-popup) {
+  .mbsc-ios {
+    &.mbsc-popup-wrapper-bottom-full {
+      padding-top: 1.25em;
+    }
+
+    &.mbsc-popup-wrapper-top-full {
+      padding-bottom: 1.25em;
+    }
+
+    &.mbsc-popup-body-round,
+    &.mbsc-popup-body-center,
+    &.mbsc-popup-body-anchored {
+      border-radius: 2em;
+      box-shadow: 0px 11px 15px -7px rgba(0, 0, 0, 0.2), 0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);
+    }
+
+    &.mbsc-popup-body-bottom-full {
+      border-radius: 2em 2em 0 0;
+    }
+
+    &.mbsc-popup-body-top-full {
+      border-radius: 0 0 2em 2em;
+    }
+
+    &.mbsc-popup-arrow {
+      border-radius: 0 0.375em;
+    }
+
+    &.mbsc-popup-header {
+      line-height: 2.444445em;
+      padding: 0.888889em 0.888889em 0 0.888889em;
+      font-size: 1.125em;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    &.mbsc-popup-top-full .mbsc-popup-header,
+    &.mbsc-popup-bottom-full .mbsc-popup-header {
+      padding: 0.888889em 4em 0 4em;
+    }
+
+    &.mbsc-popup-buttons {
+      padding: 0 0.75em 0.75em 0.75em;
+      text-align: end;
+    }
+
+    &.mbsc-popup-buttons-top-full,
+    &.mbsc-popup-buttons-bottom-full {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 0.75em 0.75em 0 0.75em;
+    }
+
+    &.mbsc-popup-button.mbsc-button {
+      margin: 0.25em;
+    }
+
+    &.mbsc-popup-button.mbsc-icon-button {
+      height: 2.75em;
+    }
+
+    &.mbsc-popup-button-primary {
+      --mbsc-button-standard-bg-color: var(--mbsc-popup-accent);
+      --mbsc-button-standard-text-color: var(--mbsc-popup-on-accent);
+    }
+
+    &.mbsc-popup-button-close.mbsc-ltr {
+      float: left;
+    }
+
+    &.mbsc-popup-button-close.mbsc-rtl {
+      float: right;
+    }
+
+    /* Button styling for centered popup */
+
+    &.mbsc-popup-button-flex.mbsc-font {
+      flex: 1 1 100%;
+      display: block;
+    }
+  }
+
+  @include colors.mbsc-ios-popup('ios', ios.$mbsc-ios-colors);
+  @include colors.mbsc-ios-popup('ios-dark', ios.$mbsc-ios-dark-colors);
+}

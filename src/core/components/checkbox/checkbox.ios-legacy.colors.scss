@@ -1,0 +1,29 @@
+@use 'sass:map';
+@use 'sass:color';
+@use '../../themes/common';
+
+@mixin mbsc-ios-legacy-checkbox($theme, $params) {
+  $background: map.get($params, 'background');
+  $text: map.get($params, 'text');
+  $accent: map.get($params, 'accent');
+
+  $bg-param: map.get($params, 'form-background');
+  $acc-param: map.get($params, 'form-accent');
+
+  $background: common.choose($bg-param, $bg-param, $background);
+  $accent: common.choose($acc-param, $acc-param, $accent);
+
+  $form-selection: '';
+
+  @if (color.channel($accent, 'lightness', $space: hsl) > 50%) {
+    $form-selection: color.adjust($accent, $saturation: 15%, $lightness: 3%);
+  } @else {
+    $form-selection: color.adjust($accent, $saturation: -15%, $lightness: -3%);
+  }
+
+  .mbsc-#{$theme} {
+    &.mbsc-checkbox-box {
+      color: $form-selection;
+    }
+  }
+}

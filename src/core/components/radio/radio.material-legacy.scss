@@ -1,0 +1,97 @@
+@use '../../themes/common';
+@use '../../themes/material-legacy';
+@use './radio.material-legacy.colors' as colors;
+
+@if (common.$mbsc-material-theme and common.$mbsc-forms) {
+  .mbsc-material-legacy {
+    &.mbsc-radio-left {
+      padding: 0.9375em 1em 0.9375em 3.5em;
+    }
+
+    &.mbsc-radio-right {
+      padding: 0.9375em 3.5em 0.9375em 1em;
+    }
+
+    &.mbsc-radio-box {
+      border: 0.125em solid;
+      transition: background-color 0.1s ease-out;
+    }
+
+    &.mbsc-radio-box-left {
+      left: 1.125em;
+    }
+
+    &.mbsc-radio-box-right {
+      right: 1.125em;
+    }
+
+    &.mbsc-radio-box:before {
+      content: '';
+      position: absolute;
+      top: -0.75em;
+      left: -0.75em;
+      z-index: -1;
+      width: 2.5em;
+      height: 2.5em;
+      opacity: 0;
+      border-radius: 2.5em;
+      transition: opacity 0.2s ease-in-out;
+      background: currentColor;
+    }
+
+    &.mbsc-radio-box.mbsc-focus:before {
+      opacity: 0.12;
+    }
+
+    &.mbsc-radio-box.mbsc-active:before {
+      opacity: 0.2;
+    }
+
+    &.mbsc-radio-box:after {
+      background: currentColor;
+      transform: scale(0);
+      transition: transform 0.1s ease-out;
+    }
+
+    &.mbsc-radio-box.mbsc-checked {
+      border-color: currentColor;
+    }
+
+    &.mbsc-radio-box.mbsc-checked:after {
+      transform: scale(1);
+    }
+
+    &.mbsc-radio-box.mbsc-disabled {
+      opacity: 0.3;
+    }
+
+    /* Color presets */
+
+    &.mbsc-radio-box.mbsc-radio-box-primary {
+      color: material-legacy.$mbsc-material-primary;
+    }
+
+    &.mbsc-radio-box.mbsc-radio-box-secondary {
+      color: material-legacy.$mbsc-material-secondary;
+    }
+
+    &.mbsc-radio-box.mbsc-radio-box-success {
+      color: material-legacy.$mbsc-material-success;
+    }
+
+    &.mbsc-radio-box.mbsc-radio-box-danger {
+      color: material-legacy.$mbsc-material-danger;
+    }
+
+    &.mbsc-radio-box.mbsc-radio-box-warning {
+      color: material-legacy.$mbsc-material-warning;
+    }
+
+    &.mbsc-radio-box.mbsc-radio-box-info {
+      color: material-legacy.$mbsc-material-info;
+    }
+  }
+
+  @include colors.mbsc-material-legacy-radio('material-legacy', material-legacy.$mbsc-material-colors);
+  @include colors.mbsc-material-legacy-radio('material-legacy-dark', material-legacy.$mbsc-material-dark-colors);
+}

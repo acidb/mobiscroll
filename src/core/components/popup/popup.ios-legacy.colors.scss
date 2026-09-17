@@ -1,0 +1,89 @@
+@use 'sass:map';
+@use 'sass:color';
+
+@mixin mbsc-ios-legacy-popup($theme, $params) {
+  $background: map.get($params, 'background');
+  $text: map.get($params, 'text');
+  $accent: map.get($params, 'accent');
+
+  $is-dark: false;
+  $button-hover: '';
+  $buttons-background: '';
+  $popup-border: '';
+  $popup-background: '';
+
+  @if (color.channel($background, 'lightness', $space: hsl) > 50%) {
+    $button-hover: color.adjust($background, $lightness: -5%);
+    $buttons-background: $background; // color.adjust($background, $lightness: -3%);
+    $popup-border: color.adjust($background, $lightness: -17%);
+    $popup-background: color.adjust(color.adjust($background, $saturation: 24%), $lightness: -1%, $hue: 240deg);
+  } @else {
+    $is-dark: true;
+    $button-hover: color.adjust($background, $lightness: 14%);
+    $buttons-background: color.adjust($background, $lightness: 16%);
+    $popup-border: color.adjust($background, $lightness: 20%);
+    $popup-background: color.adjust($background, $lightness: 11%);
+  }
+
+  .mbsc-#{$theme} {
+    &.mbsc-popup-arrow {
+      background: $popup-background;
+      // border-color: $popup-border;
+      box-shadow: 0 0 1em rgba(0, 0, 0, 0.2);
+    }
+
+    &.mbsc-popup-top,
+    &.mbsc-popup-bottom {
+      border-color: $popup-border;
+    }
+
+    &.mbsc-popup-body {
+      background: $popup-background;
+      // border-color: $popup-border;
+      color: $text;
+    }
+
+    &.mbsc-popup-body-round,
+    &.mbsc-popup-body-center,
+    &.mbsc-popup-body-anchored {
+      box-shadow: 0px 11px 15px -7px rgba(0, 0, 0, 0.2), 0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);
+    }
+
+    &.mbsc-popup-header-center {
+      border-color: $popup-border;
+    }
+
+    &.mbsc-popup-buttons,
+    &.mbsc-popup-header-no-buttons {
+      border-color: $popup-border;
+    }
+
+    &.mbsc-popup-buttons-bottom,
+    &.mbsc-popup-buttons-top {
+      background: $buttons-background;
+    }
+
+    @if ($is-dark) {
+      &.mbsc-popup-buttons-anchored {
+        background: $buttons-background;
+      }
+    }
+
+    &.mbsc-popup-button-flex.mbsc-button-flat.mbsc-font {
+      border-color: $popup-border;
+    }
+
+    &.mbsc-popup-button-flex.mbsc-font.mbsc-hover,
+    &.mbsc-popup-button-flex.mbsc-font.mbsc-focus {
+      background: $button-hover;
+    }
+
+    &.mbsc-popup-button-flex.mbsc-font.mbsc-active {
+      background: $popup-border;
+    }
+
+    &.mbsc-popup-button-flex.mbsc-button.mbsc-disabled {
+      color: color.change($accent, $alpha: 0.2);
+    }
+  }
+}

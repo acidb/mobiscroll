@@ -1,0 +1,98 @@
+@use '../../themes/common';
+@use '../../themes/material';
+@use './radio.material.colors' as colors;
+
+@if (common.$mbsc-material-theme and common.$mbsc-forms) {
+  .mbsc-material {
+    &.mbsc-radio-right {
+      padding: 0.875em 3.125em 0.875em 1em;
+    }
+
+    &.mbsc-radio-left {
+      padding: 0.875em 1em 0.875em 3.125em;
+    }
+
+    &.mbsc-radio-box {
+      border: 2px solid currentColor;
+      color: var(--mbsc-radio-border-color);
+      transition: background-color 0.1s ease-out;
+
+      &::before {
+        content: '';
+        position: absolute;
+        z-index: -1;
+        top: -0.75em;
+        left: -0.75em;
+        width: 2.5em;
+        height: 2.5em;
+        border-radius: 2.5em;
+        background: currentColor;
+        opacity: 0;
+        transition: opacity 0.2s ease-in-out;
+      }
+
+      &::after {
+        background: currentColor;
+        transform: scale(0);
+        transition: transform 0.1s ease-out;
+      }
+
+      &.mbsc-hover::before {
+        opacity: 0.1;
+      }
+
+      &.mbsc-active::before {
+        opacity: 0.2;
+      }
+
+      &.mbsc-focus .mbsc-radio-ring {
+        position: absolute;
+        z-index: -1;
+        top: -0.75em;
+        left: -0.75em;
+        width: 2.5em;
+        height: 2.5em;
+        border-radius: 2.5em;
+        outline-offset: 2px;
+        outline: 2px solid var(--mbsc-radio-focus);
+        animation-delay: 0ms, 150ms;
+        animation-name: mbsc-button-outline-grow, mbsc-button-outline-shrink;
+        animation-duration: 150ms, 450ms;
+        animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
+      }
+
+      &.mbsc-checked {
+        color: var(--mbsc-radio-selected-color);
+
+        &::after {
+          transform: scale(1);
+        }
+      }
+
+      &.mbsc-disabled {
+        color: var(--mbsc-checkbox-border-color);
+        opacity: 0.3;
+      }
+    }
+
+    &.mbsc-radio-box-left {
+      left: 0.9375em;
+    }
+
+    &.mbsc-radio-box-right {
+      right: 0.9375em;
+    }
+
+    /* Color presets */
+
+    @each $name in common.$mbsc-color-variants {
+      &.mbsc-radio-box-#{$name} {
+        --mbsc-radio-selected-color: var(--mbsc-material-#{$name});
+        --mbsc-radio-focus: var(--mbsc-material-#{$name});
+      }
+    }
+  }
+
+  @include colors.mbsc-material-radio('material', material.$mbsc-material-colors);
+  @include colors.mbsc-material-radio('material-dark', material.$mbsc-material-dark-colors);
+}

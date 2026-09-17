@@ -1,0 +1,136 @@
+@use 'sass:color';
+@use 'sass:math';
+
+// Theme variables for download builder
+$mbsc-ios-theme: 'true' !default;
+$mbsc-material-theme: 'true' !default;
+$mbsc-windows-theme: 'true' !default;
+
+// Component conditional loading variables
+$mbsc-datepicker: true !default;
+$mbsc-eventcalendar: true !default;
+$mbsc-forms: true !default;
+$mbsc-grid-layout: true !default;
+$mbsc-popup: true !default;
+$mbsc-select: true !default;
+
+// Sub-components and Dependencies
+$mbsc-button: false !default;
+$mbsc-input: false !default;
+$mbsc-scroller: false !default;
+$mbsc-segmented: false !default;
+$mbsc-calendar-view: false !default;
+
+@if $mbsc-datepicker or $mbsc-eventcalendar {
+  $mbsc-calendar-view: true;
+}
+
+@if $mbsc-datepicker or $mbsc-select {
+  // pickers
+  $mbsc-button: true;
+  $mbsc-input: true;
+  $mbsc-popup: true;
+  $mbsc-scroller: true;
+}
+
+@if $mbsc-forms {
+  $mbsc-button: true;
+  $mbsc-input: true;
+  $mbsc-segmented: true;
+}
+
+@if $mbsc-datepicker {
+  $mbsc-segmented: true;
+}
+
+@if $mbsc-popup or $mbsc-eventcalendar {
+  $mbsc-button: true;
+}
+
+$mbsc-color-variants: primary, secondary, success, danger, warning, info, light, dark;
+
+/* #region Legacy component variables */
+
+$mbsc-page-background-light: null !default;
+$mbsc-page-background-dark: null !default;
+$mbsc-page-text-light: null !default;
+$mbsc-page-text-dark: null !default;
+
+$mbsc-button-color-light: null !default;
+$mbsc-button-color-dark: null !default;
+$mbsc-button-text-light: null !default;
+$mbsc-button-text-dark: null !default;
+
+$mbsc-form-background-light: null !default;
+$mbsc-form-background-dark: null !default;
+$mbsc-form-accent-light: null !default;
+$mbsc-form-accent-dark: null !default;
+$mbsc-form-text-light: null !default;
+$mbsc-form-text-dark: null !default;
+$mbsc-form-error-light: null !default;
+$mbsc-form-error-dark: null !default;
+
+$mbsc-input-background-light: null !default;
+$mbsc-input-background-dark: null !default;
+$mbsc-input-text-light: null !default;
+$mbsc-input-text-dark: null !default;
+$mbsc-input-accent-light: null !default;
+$mbsc-input-accent-dark: null !default;
+$mbsc-input-border-light: null !default;
+$mbsc-input-border-dark: null !default;
+
+$mbsc-calendar-background-light: null !default;
+$mbsc-calendar-background-dark: null !default;
+$mbsc-calendar-text-light: null !default;
+$mbsc-calendar-text-dark: null !default;
+$mbsc-calendar-accent-light: null !default;
+$mbsc-calendar-accent-dark: null !default;
+$mbsc-calendar-border-light: null !default;
+$mbsc-calendar-border-dark: null !default;
+$mbsc-calendar-mark-light: null !default;
+$mbsc-calendar-mark-dark: null !default;
+$mbsc-calendar-event-light: null !default;
+$mbsc-calendar-event-dark: null !default;
+
+/* #endregion Legacy component variables */
+
+// Only used by legacy themes
+@function get-contrast-color($color) {
+  @if ($color != null and color.channel($color, 'lightness', $space: hsl) > 67%) {
+    @return #000;
+  } @else {
+    @return #fff;
+  }
+}
+
+@function luminance($color) {
+  $r: math.div(color.channel($color, 'red', $space: rgb), 255);
+  $g: math.div(color.channel($color, 'green', $space: rgb), 255);
+  $b: math.div(color.channel($color, 'blue', $space: rgb), 255);
+
+  @each $channel in ($r, $g, $b) {
+    @if ($channel < 0.03928) {
+      $channel: math.div($channel, 12.92);
+    } @else {
+      $channel: pow(math.div(($channel + 0.055), 1.055), 2.4);
+    }
+  }
+
+  @return 0.2126 * $r + 0.7152 * $g + 0.0722 * $b;
+}
+
+@function color-contrast($color) {
+  @if (luminance($color) > 0.58) {
+    @return #000;
+  } @else {
+    @return #fff;
+  }
+}
+
+@function choose($condition, $if-true, $if-false) {
+  @if $condition {
+    @return $if-true;
+  } @else {
+    @return $if-false;
+  }
+}

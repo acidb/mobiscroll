@@ -1,0 +1,60 @@
+@use 'sass:map';
+@use 'sass:color';
+@use '../../themes/common';
+
+@mixin mbsc-windows-legacy-segmented($theme, $params) {
+  $background: map.get($params, 'background');
+  $text: map.get($params, 'text');
+  $accent: map.get($params, 'accent');
+
+  $bg-param: map.get($params, 'form-background');
+  $text-param: map.get($params, 'form-text');
+  $acc-param: map.get($params, 'form-accent');
+
+  $background: common.choose($bg-param, $bg-param, $background);
+  $text: common.choose($text-param, $text-param, $text);
+  $accent: common.choose($acc-param, $acc-param, $accent);
+
+  $button-border: '';
+  $button-hover: '';
+  $button-active: '';
+  $border: '';
+  $form-background: '';
+  $button-bg: '';
+
+  @if (color.channel($background, 'lightness', $space: hsl) > 50%) {
+    $button-border: color.adjust($background, $lightness: -40%);
+    $button-hover: color.adjust($background, $lightness: -17%);
+    $button-active: color.adjust($text, $lightness: 28%);
+    $button-bg: color.adjust($background, $lightness: -20%);
+    $border: color.adjust($background, $lightness: -10%);
+    $form-background: color.adjust($background, $lightness: 13%);
+  } @else {
+    $button-border: color.adjust($background, $lightness: 35%);
+    $button-active: color.adjust($text, $lightness: -33%);
+    $button-hover: color.adjust($background, $lightness: 17%);
+    $button-bg: color.adjust($background, $lightness: 15%);
+    $border: color.adjust($background, $lightness: 10%);
+    $form-background: color.adjust($background, $lightness: -12%);
+  }
+
+  .mbsc-#{$theme} {
+    &.mbsc-segmented-button.mbsc-button {
+      background: $button-bg;
+      color: $text;
+
+      &.mbsc-hover {
+        background: $button-hover;
+      }
+
+      &.mbsc-active {
+        background: $button-hover;
+      }
+
+      &.mbsc-selected {
+        background: $button-active;
+        color: $form-background;
+      }
+    }
+  }
+}

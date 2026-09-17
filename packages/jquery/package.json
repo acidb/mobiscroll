@@ -1,45 +1,62 @@
 {
-    "name": "@mobiscroll/jquery-lite",
-    "version": "4.10.9",
-    "description": "jQuery and jQuery Mobile UI library for progressive web and hybrid apps",
-    "homepage": "https://mobiscroll.com/",
-    "license": "Apache-2.0",
-    "keywords": [
-        "mobile web",
-        "hybrid apps",
-        "javascript",
-        "mobiscroll",
-        "jquery",
-        "javascript library",
-        "component library",
-        "ui components",
-        "ui kit"
-    ],
-    "author": {
-        "name": "Mobiscroll",
-        "url": "https://mobiscroll.com/"
+  "name": "@mobiscroll/jquery-lite",
+  "version": "6.1.3",
+  "description": "Open-source jQuery form, notification and popup components from Mobiscroll — the scheduling, event calendar and resource management UI library. Apache-2.0. Scheduler, timeline, agenda and date pickers are commercial.",
+  "homepage": "https://mobiscroll.com/docs/jquery",
+  "license": "Apache-2.0",
+  "keywords": [
+    "mobiscroll",
+    "jquery",
+    "ui-components",
+    "form-components",
+    "forms",
+    "input",
+    "checkbox",
+    "switch",
+    "stepper",
+    "notifications",
+    "toast",
+    "snackbar",
+    "modal",
+    "dialog",
+    "popover",
+    "bottom-sheet",
+    "open-source",
+    "popup",
+    "accessibility"
+  ],
+  "author": {
+    "name": "Mobiscroll",
+    "url": "https://mobiscroll.com/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/acidb/mobiscroll.git",
+    "directory": "packages/jquery"
+  },
+  "bugs": {
+    "url": "https://github.com/acidb/mobiscroll/issues"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/esm5/mobiscroll.jquery.min.d.ts",
+      "import": "./dist/esm5/mobiscroll.jquery.min.mjs",
+      "require": "./dist/js/mobiscroll.jquery.min.cjs"
     },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/acidb/mobiscroll.git"
-    },
-    "bugs": {
-        "url": "https://github.com/acidb/mobiscroll/issues"
-    },
-    "main": "dist/js/mobiscroll.jquery.min.js",
-    "typings": "dist/src/js/frameworks/jquery.d.ts",
-    "style": "dist/css/mobiscroll.min.css",
-    "files": [
-        "dist/js/mobiscroll.jquery.js",
-        "dist/js/mobiscroll.jquery.min.js",
-        "dist/css/mobiscroll.css",
-        "dist/css/mobiscroll.scss",
-        "dist/css/mobiscroll.min.css",
-        "dist/css/icons_mobiscroll.ttf",
-        "dist/css/icons_mobiscroll.woff",
-        "dist/src/**"
-    ],
-    "peerDependencies": {
-        "jquery": ">=1.7.0"
-    }
+    "./dist/css/*": "./dist/css/*",
+    "./dist/src/*": "./dist/src/*"
+  },
+  "main": "dist/js/mobiscroll.jquery.min.cjs",
+  "module": "dist/esm5/mobiscroll.jquery.min.mjs",
+  "types": "dist/src/jquery/bundle.d.ts",
+  "style": "dist/css/mobiscroll.min.css",
+  "files": [
+    "dist/js/*",
+    "dist/esm5/*",
+    "dist/css/*",
+    "dist/src/**"
+  ],
+  "peerDependencies": {
+    "jquery": ">=1.7.0"
+  }
 }

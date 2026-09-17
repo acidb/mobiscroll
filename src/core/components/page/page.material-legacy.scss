@@ -1,0 +1,17 @@
+@use '../../themes/common';
+@use '../../themes/material-legacy';
+@use './page.material-legacy.colors' as colors;
+
+@if (common.$mbsc-material-theme and common.$mbsc-forms) {
+  .mbsc-material-legacy {
+    .mbsc-block-title,
+    .mbsc-form-group-title {
+      padding: 0.666667em 1.333334em;
+      font-size: 0.75em;
+      text-transform: uppercase;
+    }
+  }
+
+  @include colors.mbsc-material-legacy-page('material-legacy', material-legacy.$mbsc-material-colors);
+  @include colors.mbsc-material-legacy-page('material-legacy-dark', material-legacy.$mbsc-material-dark-colors);
+}

@@ -1,0 +1,93 @@
+@use '../../themes/common';
+@use '../../themes/ios-legacy';
+@use './checkbox.ios-legacy.colors' as colors;
+
+@if (common.$mbsc-ios-theme and common.$mbsc-forms) {
+  .mbsc-ios-legacy {
+    &.mbsc-checkbox-right {
+      padding: 0.875em 3.75em 0.875em 1em;
+    }
+
+    &.mbsc-checkbox-left {
+      padding: 0.875em 1em 0.875em 3.75em;
+    }
+
+    &.mbsc-checkbox-box {
+      width: 1.75em;
+      height: 1.75em;
+      margin-top: -0.875em;
+      border: 0.125em solid currentColor;
+      border-radius: 2em;
+    }
+
+    &.mbsc-checkbox-box-right {
+      right: 1em;
+    }
+
+    &.mbsc-checkbox-box-left {
+      left: 1em;
+    }
+
+    &.mbsc-checkbox-box:after {
+      top: 32%;
+      left: 26%;
+      width: 0.75em;
+      height: 0.375em;
+      border: 0.125em solid currentColor;
+      border-top: 0;
+      border-right: 0;
+      transition: opacity 0.2s ease-in-out;
+    }
+
+    &.mbsc-checkbox-box:before {
+      content: '';
+      position: absolute;
+      top: -0.5em;
+      left: -0.5em;
+      z-index: -1;
+      width: 2.5em;
+      height: 2.5em;
+      opacity: 0;
+      border-radius: 2.5em;
+      background: #ccc;
+      transition: opacity 0.2s ease-in-out;
+    }
+
+    &.mbsc-checkbox-box.mbsc-focus:before {
+      opacity: 0.12;
+    }
+
+    &.mbsc-checkbox-box.mbsc-disabled {
+      opacity: 0.3;
+    }
+
+    /* Color presets */
+
+    &.mbsc-checkbox-box.mbsc-checkbox-box-primary {
+      color: ios-legacy.$mbsc-ios-primary;
+    }
+
+    &.mbsc-checkbox-box.mbsc-checkbox-box-secondary {
+      color: ios-legacy.$mbsc-ios-secondary;
+    }
+
+    &.mbsc-checkbox-box.mbsc-checkbox-box-success {
+      color: ios-legacy.$mbsc-ios-success;
+    }
+
+    &.mbsc-checkbox-box.mbsc-checkbox-box-danger {
+      color: ios-legacy.$mbsc-ios-danger;
+    }
+
+    &.mbsc-checkbox-box.mbsc-checkbox-box-warning {
+      color: ios-legacy.$mbsc-ios-warning;
+    }
+
+    &.mbsc-checkbox-box.mbsc-checkbox-box-info {
+      color: ios-legacy.$mbsc-ios-info;
+    }
+  }
+
+  @include colors.mbsc-ios-legacy-checkbox('ios-legacy', ios-legacy.$mbsc-ios-colors);
+  @include colors.mbsc-ios-legacy-checkbox('ios-legacy-dark', ios-legacy.$mbsc-ios-dark-colors);
+}

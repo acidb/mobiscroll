@@ -1,0 +1,109 @@
+@use '../../themes/common';
+@use '../../themes/material-legacy';
+@use './checkbox.material-legacy.colors' as colors;
+
+@if (common.$mbsc-material-theme and common.$mbsc-forms) {
+  .mbsc-material-legacy {
+    &.mbsc-checkbox-right {
+      padding: 0.9375em 3.5em 0.9375em 1em;
+    }
+
+    &.mbsc-checkbox-left {
+      padding: 0.9375em 1em 0.9375em 3.5em;
+    }
+
+    &.mbsc-checkbox-box {
+      border-radius: 0.1875em;
+      width: 1.125em;
+      height: 1.125em;
+      margin-top: -0.5625em;
+      border: 0.125em solid;
+      transition: background-color 0.1s ease-out;
+    }
+
+    &.mbsc-checkbox-box-right {
+      right: 1.25em;
+    }
+
+    &.mbsc-checkbox-box-left {
+      left: 1.25em;
+    }
+
+    &.mbsc-checkbox-box:after {
+      top: 0.125em;
+      left: 0.0625em;
+      width: 0.8125em;
+      height: 0.4375em;
+      opacity: 1;
+      border: 0.125em solid;
+      border-top: 0;
+      border-right: 0;
+      transform: scale(0) rotate(-45deg);
+      transition: transform 0.1s ease-out;
+    }
+
+    &.mbsc-checkbox-box:before {
+      content: '';
+      position: absolute;
+      top: -0.8125em;
+      left: -0.8125em;
+      z-index: -1;
+      width: 2.5em;
+      height: 2.5em;
+      opacity: 0;
+      border-radius: 2.5em;
+      background: currentColor;
+      transition: opacity 0.2s ease-in-out;
+    }
+
+    &.mbsc-checkbox-box.mbsc-focus:before {
+      opacity: 0.12;
+    }
+
+    &.mbsc-checkbox-box.mbsc-active:before {
+      opacity: 0.2;
+    }
+
+    &.mbsc-checkbox-box.mbsc-checked {
+      background: currentColor;
+      border-color: currentColor;
+    }
+
+    &.mbsc-checkbox-box.mbsc-checked:after {
+      transform: scale(1) rotate(-45deg);
+    }
+
+    &.mbsc-checkbox-box.mbsc-disabled {
+      opacity: 0.3;
+    }
+
+    /* Color presets */
+
+    &.mbsc-checkbox-box.mbsc-checkbox-box-primary {
+      color: material-legacy.$mbsc-material-primary;
+    }
+
+    &.mbsc-checkbox-box.mbsc-checkbox-box-secondary {
+      color: material-legacy.$mbsc-material-secondary;
+    }
+
+    &.mbsc-checkbox-box.mbsc-checkbox-box-success {
+      color: material-legacy.$mbsc-material-success;
+    }
+
+    &.mbsc-checkbox-box.mbsc-checkbox-box-danger {
+      color: material-legacy.$mbsc-material-danger;
+    }
+
+    &.mbsc-checkbox-box.mbsc-checkbox-box-warning {
+      color: material-legacy.$mbsc-material-warning;
+    }
+
+    &.mbsc-checkbox-box.mbsc-checkbox-box-info {
+      color: material-legacy.$mbsc-material-info;
+    }
+  }
+
+  @include colors.mbsc-material-legacy-checkbox('material-legacy', material-legacy.$mbsc-material-colors);
+  @include colors.mbsc-material-legacy-checkbox('material-legacy-dark', material-legacy.$mbsc-material-dark-colors);
+}

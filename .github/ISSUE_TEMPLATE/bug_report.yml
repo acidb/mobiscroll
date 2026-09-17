@@ -1,0 +1,115 @@
+name: Bug report
+description: Report a problem with Mobiscroll UI (open-source or commercial) or Mobiscroll Connect
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug! Issues are welcome here for any part of
+        Mobiscroll — the open-source components in this repo, the commercial Mobiscroll UI
+        components, and Mobiscroll Connect (API and SDKs). Please fill out the sections below
+        so we can reproduce and fix the issue.
+
+  - type: dropdown
+    id: product
+    attributes:
+      label: Product
+      description: Which product does this affect?
+      options:
+        - Mobiscroll UI
+        - Mobiscroll Connect API
+        - Mobiscroll Connect SDK
+        - Not sure
+    validations:
+      required: true
+
+  - type: dropdown
+    id: package
+    attributes:
+      label: Package / SDK
+      description: Which framework package or SDK language? Choose "Not applicable" for direct REST API use.
+      options:
+        - React
+        - Angular
+        - Vue
+        - JavaScript
+        - jQuery
+        - Node.js SDK
+        - PHP SDK
+        - .NET SDK
+        - Python SDK
+        - Java SDK
+        - Go SDK
+        - Ruby SDK
+        - Not applicable
+        - Not sure
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: The version from your package.json/composer.json/etc (e.g. 6.1.3 for Mobiscroll UI, 1.5.2 for Connect API)
+      placeholder: 6.1.3
+    validations:
+      required: true
+
+  - type: input
+    id: component
+    attributes:
+      label: Component(s) / endpoint affected
+      description: |
+        For Mobiscroll UI: e.g. Button, Input, Popup, Scheduler, Eventcalendar, Calendar picker.
+        For Mobiscroll Connect: the endpoint or SDK method, e.g. POST /events, getEvents.
+      placeholder: Eventcalendar
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: A clear and concise description of the bug.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: What did you expect to happen instead?
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      description: |
+        Please include a minimal reproduction - ideally a StackBlitz/CodeSandbox link or small
+        repo for Mobiscroll UI, or example request/response payloads for Connect. Issues without
+        a reproduction may take longer to investigate or be closed.
+      placeholder: |
+        1. ...
+        2. ...
+        3. ...
+    validations:
+      required: true
+
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: Browser(s)/OS for Mobiscroll UI, or runtime/OS version for Connect SDKs
+      placeholder: Chrome 128 on macOS 14, or Node.js 20 on Ubuntu 22.04
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional context
+      description: Screenshots, console errors, or anything else that might help.
+    validations:
+      required: false

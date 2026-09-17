@@ -1,0 +1,45 @@
+@use 'sass:color';
+@use '../../themes/common';
+@use '../../themes/windows-legacy';
+@use './notification.windows-legacy.colors.scss' as colors;
+
+@if (common.$mbsc-windows-theme and common.$mbsc-forms) {
+  .mbsc-windows-legacy {
+    &.mbsc-prompt-input.mbsc-font {
+      margin: 1em 0 0 0;
+    }
+
+    &.mbsc-primary .mbsc-toast-background {
+      background: windows-legacy.$mbsc-windows-primary;
+      color: color.adjust(windows-legacy.$mbsc-windows-primary, $lightness: -50%);
+    }
+
+    &.mbsc-secondary .mbsc-toast-background {
+      background: windows-legacy.$mbsc-windows-secondary;
+      color: color.adjust(windows-legacy.$mbsc-windows-secondary, $lightness: -50%);
+    }
+
+    &.mbsc-success .mbsc-toast-background {
+      background: windows-legacy.$mbsc-windows-success;
+      color: color.adjust(windows-legacy.$mbsc-windows-success, $lightness: -50%);
+    }
+
+    &.mbsc-danger .mbsc-toast-background {
+      background: windows-legacy.$mbsc-windows-danger;
+      color: color.adjust(windows-legacy.$mbsc-windows-danger, $lightness: -50%);
+    }
+
+    &.mbsc-warning .mbsc-toast-background {
+      background: windows-legacy.$mbsc-windows-warning;
+      color: color.adjust(windows-legacy.$mbsc-windows-warning, $lightness: -50%);
+    }
+
+    &.mbsc-info .mbsc-toast-background {
+      background: windows-legacy.$mbsc-windows-info;
+      color: color.adjust(windows-legacy.$mbsc-windows-info, $lightness: -50%);
+    }
+  }
+
+  @include colors.mbsc-windows-legacy-notifications('windows-legacy', windows-legacy.$mbsc-windows-colors);
+  @include colors.mbsc-windows-legacy-notifications('windows-legacy-dark', windows-legacy.$mbsc-windows-dark-colors);
+}
