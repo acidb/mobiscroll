@@ -20,7 +20,6 @@
     "build-angular": "node ./scripts/build-angular.js",
     "build-npm": "npm run build-react && npm run build-vue && npm run build-javascript && npm run build-jquery && npm run build-angular",
     "publish": "cd ./packages/react && npm publish && cd ../vue && npm publish && cd ../javascript && npm publish && cd ../jquery && npm publish && cd ../angular && npm publish",
-    "tag-legacy-v4": "npm dist-tag add @mobiscroll/react-lite@4.10.9 v4 && npm dist-tag add @mobiscroll/javascript-lite@4.10.9 v4 && npm dist-tag add @mobiscroll/jquery-lite@4.10.9 v4 && npm dist-tag add @mobiscroll/angular-lite@4.10.9 v4 && npm deprecate @mobiscroll/react-lite@'4.x' 'Mobiscroll Lite 4.x is no longer maintained. Upgrade to 6.x: npm install @mobiscroll/react-lite@6 (need to stay on 4? install @mobiscroll/react-lite@v4).' && npm deprecate @mobiscroll/javascript-lite@'4.x' 'Mobiscroll Lite 4.x is no longer maintained. Upgrade to 6.x: npm install @mobiscroll/javascript-lite@6 (need to stay on 4? install @mobiscroll/javascript-lite@v4).' && npm deprecate @mobiscroll/jquery-lite@'4.x' 'Mobiscroll Lite 4.x is no longer maintained. Upgrade to 6.x: npm install @mobiscroll/jquery-lite@6 (need to stay on 4? install @mobiscroll/jquery-lite@v4).' && npm deprecate @mobiscroll/angular-lite@'4.x' 'Mobiscroll Lite 4.x is no longer maintained. Upgrade to 6.x: npm install @mobiscroll/angular-lite@6 (need to stay on 4? install @mobiscroll/angular-lite@v4).'",
     "eslint": "eslint src/**",
     "tsc": "tsc"
   },
