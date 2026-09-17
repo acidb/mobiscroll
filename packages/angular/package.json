@@ -2,7 +2,7 @@
   "name": "@mobiscroll/angular-lite",
   "version": "6.1.3",
   "description": "Open-source Angular form, notification and popup components from Mobiscroll — the scheduling, event calendar and resource management UI library. Apache-2.0. Scheduler, timeline, agenda and date pickers are commercial.",
-  "homepage": "https://mobiscroll.com/docs/angular/",
+  "homepage": "https://mobiscroll.com/docs/angular",
   "license": "Apache-2.0",
   "keywords": [
     "mobiscroll",
@@ -21,7 +21,9 @@
     "dialog",
     "popover",
     "bottom-sheet",
-    "open-source"
+    "open-source",
+    "popup",
+    "accessibility"
   ],
   "author": {
     "name": "Mobiscroll",
@@ -29,7 +31,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/acidb/mobiscroll.git"
+    "url": "https://github.com/acidb/mobiscroll.git",
+    "directory": "packages/angular"
   },
   "bugs": {
     "url": "https://github.com/acidb/mobiscroll/issues"

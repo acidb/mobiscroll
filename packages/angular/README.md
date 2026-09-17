@@ -3,14 +3,20 @@
 Open-source Angular form, notification and popup components from Mobiscroll — the scheduling,
 event calendar and resource management UI library. Apache-2.0.
 
-| Group         | Components                                                                                                                            |
-| ------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| Forms         | Button, Checkbox, Dropdown, Input, Radio button, Segmented, Stepper, Switch, Textarea                                                 |
-| Notifications | Alert, Confirm, Prompt, Snackbar, Toast                                                                                               |
-| Popup         | Modal dialog, anchored popover, bottom sheet and inline display modes, with a focus trap, the ARIA dialog role and keyboard dismissal |
+Scheduling screens are mostly forms: the dialog that creates an event, the filters above a
+timeline, the confirmation when something moves. These are those components, built for the rest
+of Mobiscroll and published on their own.
 
-Same design system, theming and accessibility work as the rest of Mobiscroll — a form built
-with these sits next to a Mobiscroll scheduler without looking bolted on.
+| Group                                                                           | Components                                                                            |
+| ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| [Forms](https://demo.mobiscroll.com/angular/forms)                              | Button, Checkbox, Dropdown, Input, Radio button, Segmented, Stepper, Switch, Textarea |
+| [Notifications](https://demo.mobiscroll.com/angular/forms/alert-confirm-prompt) | Alert, Confirm, Prompt, Snackbar, Toast                                               |
+| [Popup](https://demo.mobiscroll.com/angular/popup)                              | Modal dialog, anchored popover, bottom sheet, inline                                  |
+
+The popup handles focus trapping, the ARIA dialog role and keyboard dismissal, so anything built
+on it behaves the way assistive technology expects. Same design system and theming as the rest
+of Mobiscroll — a form built with these sits next to a Mobiscroll scheduler without looking
+bolted on. TypeScript types and both ESM and CommonJS builds are in the package.
 
 ## Install
 
@@ -44,16 +50,28 @@ export class ContactForm {
 }
 ```
 
-## Free vs. commercial
+Load the stylesheet once, in `angular.json`:
 
-This package only ships the components above. The rest of Mobiscroll UI is commercial and
-distributed separately:
+```json
+"styles": [
+  "src/styles.css",
+  "node_modules/@mobiscroll/angular-lite/dist/css/mobiscroll.min.css"
+]
+```
 
-| Group                 | Components                                  |
-| --------------------- | -------------------------------------------- |
-| Event calendar system | Event Calendar, Scheduler, Timeline, Agenda |
-| Date and time         | Calendar, Date & Time, Range                |
-| Supporting            | Select                                      |
+The standalone component above needs Angular 14 or later. On Angular 13, declare `MbscModule`
+in an `NgModule` instead.
+
+## The rest of Mobiscroll UI
+
+This package ships only the components above. The event calendar, scheduler, timeline and date
+pickers are commercial and distributed separately:
+
+| Group                 | Components                                                                                                                                                                                                                                      |
+| --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Event calendar system | [Event Calendar](https://demo.mobiscroll.com/angular/eventcalendar), [Scheduler](https://demo.mobiscroll.com/angular/scheduler), [Timeline](https://demo.mobiscroll.com/angular/timeline), [Agenda](https://demo.mobiscroll.com/angular/agenda) |
+| Date and time         | [Calendar](https://demo.mobiscroll.com/angular/calendar), [Date & Time](https://demo.mobiscroll.com/angular/datetime), [Range](https://demo.mobiscroll.com/angular/range)                                                                       |
+| Supporting            | [Select](https://demo.mobiscroll.com/angular/select)                                                                                                                                                                                            |
 
 They need a trial or a licence and install through the Mobiscroll CLI:
 https://mobiscroll.com/docs/angular/getting-started/installation
@@ -62,7 +80,8 @@ https://mobiscroll.com/docs/angular/getting-started/installation
 
 - Documentation — https://mobiscroll.com/docs/angular
 - Demos — https://demo.mobiscroll.com/angular
-- Product — https://mobiscroll.com/scheduling-ui
+- Mobiscroll scheduling UI — https://mobiscroll.com/scheduling-ui
+- Releases and changelog — https://mobiscroll.com/releases
 - Issues — https://github.com/acidb/mobiscroll/issues
 - Licensed support — https://mobiscroll.com/support
-- Licence — [Apache-2.0](../../LICENSE)
+- Licence — https://github.com/acidb/mobiscroll/blob/master/LICENSE
