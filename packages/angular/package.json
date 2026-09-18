@@ -57,7 +57,9 @@
   "files": [
     "dist/js/**",
     "dist/esm5/**",
-    "dist/css/**"
+    "dist/css/**",
+    "AGENTS.md",
+    "CLAUDE.md"
   ],
   "peerDependencies": {
     "@angular/core": ">=13.0.0",

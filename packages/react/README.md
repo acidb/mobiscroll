@@ -33,14 +33,18 @@ Public npm — no CLI, no registry configuration, no licence key.
 ## Usage
 
 ```jsx
-import { Input, Button, toast } from '@mobiscroll/react-lite';
+import { useState } from 'react';
+import { Input, Button, Toast } from '@mobiscroll/react-lite';
 import '@mobiscroll/react-lite/dist/css/mobiscroll.min.css';
 
 export default function ContactForm() {
+  const [showToast, setShowToast] = useState(false);
+
   return (
     <>
       <Input label="Email" type="email" />
-      <Button onClick={() => toast({ message: 'Saved' })}>Save</Button>
+      <Button onClick={() => setShowToast(true)}>Save</Button>
+      <Toast isOpen={showToast} message="Saved" onClose={() => setShowToast(false)} />
     </>
   );
 }

@@ -58,6 +58,8 @@
     "dist/js/*",
     "dist/esm5/*",
     "dist/css/*",
-    "dist/src/**"
+    "dist/src/**",
+    "AGENTS.md",
+    "CLAUDE.md"
   ]
 }
