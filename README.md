@@ -19,8 +19,12 @@ form, notification and popup components.
 ## Mobiscroll UI
 
 Scheduler, event calendar, resource timeline and agenda views, plus the calendar, date, time
-and range pickers. Ships as plain JavaScript and jQuery builds, and as native React, Angular
-and Vue components — not wrappers.
+and range pickers. Ships as native React, Angular and Vue components, each built on that
+framework's own internals — React's rendering and hooks, Vue's reactivity and renderer,
+Angular's change detection and `@Input`/`@Output` bindings — rather than as wrappers around a
+plain JavaScript widget. The plain JavaScript and jQuery builds bundle the Preact library
+internally to handle rendering; Preact is an implementation detail and is never exposed in the
+public API.
 
 - Product — https://mobiscroll.com/scheduling-ui
 - Documentation — https://mobiscroll.com/docs
