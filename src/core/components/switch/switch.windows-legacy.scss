@@ -1,0 +1,109 @@
+@use '../../themes/common';
+@use '../../themes/windows-legacy';
+@use './switch.windows-legacy.colors' as colors;
+
+@if (common.$mbsc-windows-theme and common.$mbsc-forms) {
+  .mbsc-windows-legacy {
+    &.mbsc-switch-right {
+      padding: 1.125em 5.25em 1.125em 1em;
+    }
+
+    &.mbsc-switch-left {
+      padding: 1.125em 1em 1.125em 5.25em;
+    }
+
+    // Track
+
+    &.mbsc-switch-track {
+      width: 1.5em;
+      height: 1em;
+      margin-top: -0.5em;
+    }
+
+    &.mbsc-switch-track-right {
+      right: 1.75em; // .125 padding + .625 visible track relative position
+    }
+
+    &.mbsc-switch-track-left {
+      left: 1.75em; // .125 padding + .625 visible track relative position
+    }
+
+    &.mbsc-switch-track:before,
+    &.mbsc-switch-track:after {
+      content: '';
+      position: absolute;
+      z-index: 1;
+      border: 0.125em solid transparent;
+    }
+
+    &.mbsc-switch-track:before {
+      top: -0.125em; // .125em border
+      bottom: -0.125em; // .125em border
+      left: -0.625em; // .125em border + .5em space
+      right: -0.625em; // .125em border + .5em space
+      border-radius: 0.625em;
+      transition: background-color 0.2s ease-in-out, border 0.2s ease-in-out;
+    }
+
+    // used for the focus outline
+    &.mbsc-switch-track:after {
+      top: -0.25em;
+      bottom: -0.25em;
+      left: -0.75em;
+      right: -0.75em;
+      border-radius: 0.75em;
+    }
+
+    &.mbsc-switch-track.mbsc-disabled {
+      opacity: 0.2;
+    }
+
+    // Handle
+
+    &.mbsc-switch-handle {
+      z-index: 2;
+      top: 50%;
+      left: 50%;
+      right: auto;
+      height: 0.625em;
+      width: 0.625em;
+      border-radius: 10px;
+      margin: -0.3125em 0 0 -0.3125em;
+    }
+
+    // Color presets
+
+    &.mbsc-switch-track.mbsc-switch-primary.mbsc-checked:before {
+      border-color: windows-legacy.$mbsc-windows-primary;
+      background: windows-legacy.$mbsc-windows-primary;
+    }
+
+    &.mbsc-switch-track.mbsc-switch-secondary.mbsc-checked:before {
+      border-color: windows-legacy.$mbsc-windows-secondary;
+      background: windows-legacy.$mbsc-windows-secondary;
+    }
+
+    &.mbsc-switch-track.mbsc-switch-success.mbsc-checked:before {
+      border-color: windows-legacy.$mbsc-windows-success;
+      background: windows-legacy.$mbsc-windows-success;
+    }
+
+    &.mbsc-switch-track.mbsc-switch-danger.mbsc-checked:before {
+      border-color: windows-legacy.$mbsc-windows-danger;
+      background: windows-legacy.$mbsc-windows-danger;
+    }
+
+    &.mbsc-switch-track.mbsc-switch-warning.mbsc-checked:before {
+      border-color: windows-legacy.$mbsc-windows-warning;
+      background: windows-legacy.$mbsc-windows-warning;
+    }
+
+    &.mbsc-switch-track.mbsc-switch-info.mbsc-checked:before {
+      border-color: windows-legacy.$mbsc-windows-info;
+      background: windows-legacy.$mbsc-windows-info;
+    }
+  }
+
+  @include colors.mbsc-windows-legacy-switch('windows-legacy', windows-legacy.$mbsc-windows-colors);
+  @include colors.mbsc-windows-legacy-switch('windows-legacy-dark', windows-legacy.$mbsc-windows-dark-colors);
+}

@@ -1,0 +1,22 @@
+@use '../../themes/common';
+@use './form-controls.ios' as ios;
+@use './form-controls.material' as material;
+@use './form-controls.windows' as windows;
+
+@if common.$mbsc-forms {
+  .mbsc-form-control-label {
+    display: block;
+  }
+
+  .mbsc-form-control-input {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    border: 0;
+    opacity: 0;
+    margin: 0;
+    z-index: 3;
+  }
+}

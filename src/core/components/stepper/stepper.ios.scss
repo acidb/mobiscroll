@@ -1,0 +1,88 @@
+@use '../../themes/common';
+@use '../../themes/ios';
+@use './stepper.ios.colors' as colors;
+
+@if (common.$mbsc-ios-theme and common.$mbsc-forms) {
+  .mbsc-ios {
+    &.mbsc-stepper {
+      padding-top: 1em;
+      padding-bottom: 1em;
+    }
+
+    &.mbsc-stepper-input {
+      border: 1px solid var(--mbsc-stepper-bg-color);
+      color: inherit;
+
+      &:focus-visible {
+        outline: 2px solid var(--mbsc-stepper-focus);
+        outline-offset: -2px;
+      }
+
+      &.mbsc-disabled {
+        color: var(--mbsc-stepper-disabled-bg);
+      }
+    }
+
+    &.mbsc-stepper-button.mbsc-button {
+      border: 1px solid var(--mbsc-stepper-bg-color);
+      --mbsc-button-standard-bg-color: var(--mbsc-stepper-bg-color);
+      --mbsc-button-standard-text-color: var(--mbsc-stepper-text-color);
+      --mbsc-button-focus: var(--mbsc-stepper-focus);
+      --mbsc-button-disabled-bg: var(--mbsc-stepper-disabled-bg);
+      --mbsc-button-disabled-text: var(--mbsc-stepper-disabled-text);
+
+      &.mbsc-font {
+        width: 3em;
+      }
+    }
+
+    &.mbsc-stepper-inner {
+      font-size: 1.5em;
+      font-weight: 500;
+      line-height: 0.916667em;
+      margin-top: -0.090909em;
+    }
+
+    &.mbsc-stepper-plus.mbsc-ltr,
+    &.mbsc-stepper-minus.mbsc-rtl {
+      border-left: 0;
+    }
+
+    &.mbsc-stepper-minus.mbsc-ltr,
+    &.mbsc-stepper-plus.mbsc-rtl {
+      border-right: 0;
+    }
+
+    &.mbsc-stepper-plus:before {
+      content: '';
+      position: absolute;
+      border-left: 1px solid var(--mbsc-stepper-divider-color);
+      top: 0.3125em;
+      bottom: 0.3125em;
+    }
+
+    &.mbsc-stepper-plus.mbsc-ltr:before {
+      left: 0;
+    }
+
+    &.mbsc-stepper-plus.mbsc-rtl:before {
+      right: 0;
+    }
+
+    &.mbsc-stepper-center .mbsc-stepper-plus:before {
+      display: none;
+    }
+
+    /* Color presets */
+
+    @each $name in common.$mbsc-color-variants {
+      &.mbsc-stepper.mbsc-#{$name} {
+        --mbsc-stepper-bg-color: var(--mbsc-ios-#{$name});
+        --mbsc-stepper-text-color: var(--mbsc-ios-on-#{$name});
+      }
+    }
+  }
+
+  @include colors.mbsc-ios-stepper('ios', ios.$mbsc-ios-colors);
+  @include colors.mbsc-ios-stepper('ios-dark', ios.$mbsc-ios-dark-colors);
+}

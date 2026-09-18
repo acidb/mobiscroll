@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Licensed customer support
+    url: https://mobiscroll.com/support
+    about: For anything involving your account, license key, or data you'd rather not post publicly. Otherwise, bug reports and feature requests for any Mobiscroll product are welcome as GitHub issues.
+  - name: Security issue
+    url: mailto:security@mobiscroll.com
+    about: Please do not open a public issue for security vulnerabilities. Email us instead.
+  - name: Mobiscroll website
+    url: https://mobiscroll.com/
+    about: General product information, docs, and releases.

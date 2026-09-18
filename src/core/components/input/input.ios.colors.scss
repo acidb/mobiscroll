@@ -1,0 +1,15 @@
+@mixin mbsc-ios-input($theme, $params) {
+  .mbsc-#{$theme} {
+    &.mbsc-textfield-wrapper {
+      --mbsc-textfield-focus: var(--mbsc-#{$theme}-textfield-focus, var(--mbsc-#{$theme}-focus));
+      --mbsc-textfield-icon-color: var(--mbsc-#{$theme}-textfield-icon-color, var(--mbsc-#{$theme}-text-soft));
+      --mbsc-textfield-tag-bg-color: var(--mbsc-#{$theme}-textfield-tag-bg-color, var(--mbsc-#{$theme}-surface-5));
+
+      --mbsc-form-control-bg-color: var(--mbsc-#{$theme}-textfield-bg-color, var(--_mbsc-form-control-bg-color));
+      --mbsc-form-control-bg-color-popup: var(--mbsc-#{$theme}-textfield-bg-color-popup, var(--_mbsc-form-control-bg-color-popup));
+      --mbsc-form-control-text-color: var(--mbsc-#{$theme}-textfield-text-color, var(--_mbsc-form-control-text-color));
+      --mbsc-form-control-border-color: var(--mbsc-#{$theme}-textfield-border-color, var(--_mbsc-form-control-border-color));
+      --mbsc-form-control-error: var(--mbsc-#{$theme}-textfield-error, var(--_mbsc-form-control-error));
+    }
+  }
+}

@@ -1,0 +1,27 @@
+@use './common';
+@use './material';
+
+@if (common.$mbsc-material-theme) {
+  :root {
+    --mbsc-material-primary: #{material.$mbsc-material-primary};
+    --mbsc-material-secondary: #{material.$mbsc-material-secondary};
+    --mbsc-material-success: #{material.$mbsc-material-success};
+    --mbsc-material-danger: #{material.$mbsc-material-danger};
+    --mbsc-material-warning: #{material.$mbsc-material-warning};
+    --mbsc-material-info: #{material.$mbsc-material-info};
+    --mbsc-material-light: #{material.$mbsc-material-light};
+    --mbsc-material-dark: #{material.$mbsc-material-dark};
+
+    --mbsc-material-on-primary: #{common.color-contrast(material.$mbsc-material-primary)};
+    --mbsc-material-on-secondary: #{common.color-contrast(material.$mbsc-material-secondary)};
+    --mbsc-material-on-success: #{common.color-contrast(material.$mbsc-material-success)};
+    --mbsc-material-on-danger: #{common.color-contrast(material.$mbsc-material-danger)};
+    --mbsc-material-on-warning: #{common.color-contrast(material.$mbsc-material-warning)};
+    --mbsc-material-on-info: #{common.color-contrast(material.$mbsc-material-info)};
+    --mbsc-material-on-light: #{common.color-contrast(material.$mbsc-material-light)};
+    --mbsc-material-on-dark: #{common.color-contrast(material.$mbsc-material-dark)};
+  }
+
+  @include material.mbsc-material-vars('material', material.$mbsc-material-colors);
+  @include material.mbsc-material-vars('material-dark', material.$mbsc-material-dark-colors);
+}

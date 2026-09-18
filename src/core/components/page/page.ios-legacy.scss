@@ -1,0 +1,18 @@
+@use '../../themes/common';
+@use '../../themes/ios-legacy';
+@use './page.ios-legacy.colors' as colors;
+
+@if (common.$mbsc-ios-theme and common.$mbsc-forms) {
+  .mbsc-ios-legacy {
+    .mbsc-block-title,
+    .mbsc-form-group-title {
+      padding: 0.5em 1.333334em;
+      font-size: 0.75em;
+      line-height: 1.5em;
+      text-transform: uppercase;
+    }
+  }
+
+  @include colors.mbsc-ios-legacy-page('ios-legacy', ios-legacy.$mbsc-ios-colors);
+  @include colors.mbsc-ios-legacy-page('ios-legacy-dark', ios-legacy.$mbsc-ios-dark-colors);
+}

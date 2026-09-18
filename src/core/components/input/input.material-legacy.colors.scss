@@ -1,0 +1,178 @@
+@use 'sass:map';
+@use 'sass:color';
+@use '../../themes/common';
+@use '../../themes/material-legacy';
+
+@mixin mbsc-material-legacy-input($theme, $params) {
+  $background: map.get($params, 'background');
+  $accent: map.get($params, 'accent');
+  $text: map.get($params, 'text');
+
+  $bg-param: map.get($params, 'input-background');
+  $text-param: map.get($params, 'input-text');
+  $acc-param: map.get($params, 'input-accent');
+  $err-param: map.get($params, 'form-error');
+  $brd-param: map.get($params, 'input-border');
+
+  $text: common.choose($text-param, $text-param, $text);
+  $accent: common.choose($acc-param, $acc-param, $accent);
+  $error: common.choose($err-param, $err-param, material-legacy.$mbsc-material-error);
+
+  $input-base-color: '';
+  $input-text: '';
+  $input-icon-color: '';
+  $input-border-color: '';
+  $input-label-color: '';
+  $input-background: '';
+  $input-box-background: '';
+  $input-box-hover-background: '';
+  $input-box-focus-background: '';
+  $input-tag-background: '';
+
+  // Light background
+  @if (color.channel($background, 'lightness', $space: hsl) > 50%) {
+    $input-base-color: color.adjust($text, $lightness: -19%);
+    $input-text: color.change($input-base-color, $alpha: 0.87);
+    $input-border-color: color.change($input-base-color, $alpha: 0.42);
+    $input-icon-color: color.change($input-base-color, $alpha: 0.54);
+    $input-label-color: color.change($input-base-color, $alpha: 0.6);
+    $input-background: common.choose($bg-param, $bg-param, $background);
+    $input-box-background: common.choose($bg-param, $bg-param, color.adjust($background, $lightness: -4%));
+    $input-box-hover-background: color.adjust($input-box-background, $lightness: -3%);
+    $input-box-focus-background: color.adjust($input-box-background, $lightness: -7%);
+    $input-tag-background: color.adjust($background, $lightness: -17%);
+  }
+
+  // Dark background
+  @else {
+    $input-base-color: $text;
+    $input-text: $input-base-color;
+    $input-border-color: $input-base-color;
+    $input-icon-color: $input-base-color;
+    $input-label-color: color.change($input-base-color, $alpha: 0.6);
+    $input-background: common.choose($bg-param, $bg-param, $background);
+    $input-box-background: common.choose($bg-param, $bg-param, color.adjust($background, $lightness: 4%));
+    $input-box-hover-background: color.adjust($input-box-background, $lightness: 3%);
+    $input-box-focus-background: color.adjust($input-box-background, $lightness: 7%);
+    $input-tag-background: color.adjust($background, $lightness: 27%);
+  }
+
+  $input-text: common.choose($text-param, $text-param, $input-text);
+  $input-icon-color: common.choose($text-param, $text-param, $input-icon-color);
+  $input-label-color: common.choose($text-param, $text-param, $input-label-color);
+  $input-border-color: common.choose($brd-param, $brd-param, $input-border-color);
+
+  .mbsc-#{$theme} {
+    /* Form element */
+
+    &.mbsc-textfield {
+      border-bottom-color: $input-border-color;
+      color: $input-text;
+    }
+
+    &.mbsc-textfield.mbsc-hover {
+      border-color: $input-text;
+    }
+
+    &.mbsc-textfield.mbsc-error {
+      border-color: $error;
+    }
+
+    /* Icon */
+
+    &.mbsc-textfield-icon,
+    &.mbsc-select-icon {
+      color: $input-icon-color;
+    }
+
+    /* Ripple */
+
+    &.mbsc-textfield-ripple {
+      background-color: $accent;
+    }
+
+    &.mbsc-textfield-ripple.mbsc-error {
+      background-color: $error;
+    }
+
+    /* Label */
+
+    &.mbsc-label {
+      color: $input-label-color;
+    }
+
+    &.mbsc-label-stacked.mbsc-focus,
+    &.mbsc-label-floating.mbsc-focus {
+      color: $accent;
+    }
+
+    &.mbsc-label.mbsc-error {
+      color: $error;
+    }
+
+    /* Error message */
+
+    &.mbsc-error-message {
+      color: $error;
+    }
+
+    /* Select */
+
+    &.mbsc-select {
+      background: $input-background;
+    }
+
+    /* Box input ------------------------------------------------------------------------------- */
+
+    &.mbsc-textfield-box.mbsc-select,
+    &.mbsc-textfield-inner-box {
+      background: $input-box-background;
+    }
+
+    &.mbsc-textfield-box.mbsc-select.mbsc-hover,
+    &.mbsc-textfield-inner-box.mbsc-hover {
+      background: $input-box-hover-background;
+    }
+
+    &.mbsc-textfield-box.mbsc-select.mbsc-focus,
+    &.mbsc-textfield-inner-box.mbsc-focus {
+      background: $input-box-focus-background;
+    }
+
+    /* ----------------------------------------------------------------------------------------- */
+
+    /* Outline input --------------------------------------------------------------------------- */
+
+    &.mbsc-textfield-fieldset {
+      border-color: $input-border-color;
+    }
+
+    &.mbsc-textfield-fieldset.mbsc-hover {
+      border-color: $input-text;
+    }
+
+    &.mbsc-textfield-fieldset.mbsc-focus {
+      border-color: $accent;
+    }
+
+    &.mbsc-textfield-fieldset.mbsc-error {
+      border-color: $error;
+    }
+
+    &.mbsc-textfield-fieldset.disabled {
+      border-color: $input-text;
+    }
+
+    /* Input tag */
+
+    &.mbsc-textfield-tag {
+      background: $input-tag-background;
+    }
+
+    &.mbsc-textfield-tag-clear {
+      color: $input-icon-color;
+    }
+
+    /* ----------------------------------------------------------------------------------------- */
+  }
+}

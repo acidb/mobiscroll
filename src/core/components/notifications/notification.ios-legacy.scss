@@ -1,0 +1,82 @@
+@use 'sass:color';
+@use '../../themes/common';
+@use '../../themes/ios-legacy';
+@use './notification.ios-legacy.colors' as colors;
+
+@if (common.$mbsc-ios-theme and common.$mbsc-forms) {
+  .mbsc-ios-legacy {
+    .mbsc-toast-message {
+      line-height: 1.857143em; // 26px / 14px based
+      border-radius: 1.785715em; // 25px / 14px based
+    }
+
+    .mbsc-alert-title {
+      margin: 0.277778em 0;
+      font-size: 1.125em;
+      text-align: center;
+    }
+
+    .mbsc-alert-message {
+      margin: 0.357143em 0;
+      font-size: 0.875em;
+      text-align: center;
+    }
+
+    &.mbsc-prompt-input.mbsc-font {
+      margin-top: 1em;
+      border-radius: 0.5em;
+      border-width: 1px;
+      border-style: solid;
+    }
+
+    &.mbsc-prompt-input::after,
+    &.mbsc-prompt-input::before {
+      display: none;
+    }
+
+    &.mbsc-prompt-input .mbsc-textfield {
+      height: 1.75em;
+      line-height: 1.75em;
+      padding: 0 0.25em;
+    }
+
+    &.mbsc-prompt-input .mbsc-label {
+      height: 1.75em;
+      line-height: 1.75em;
+      padding-left: 0.25em;
+    }
+
+    &.mbsc-primary .mbsc-toast-background {
+      background: ios-legacy.$mbsc-ios-primary;
+      color: color.adjust(ios-legacy.$mbsc-ios-primary, $lightness: -50%);
+    }
+
+    &.mbsc-secondary .mbsc-toast-background {
+      background: ios-legacy.$mbsc-ios-secondary;
+      color: color.adjust(ios-legacy.$mbsc-ios-secondary, $lightness: -50%);
+    }
+
+    &.mbsc-success .mbsc-toast-background {
+      background: ios-legacy.$mbsc-ios-success;
+      color: color.adjust(ios-legacy.$mbsc-ios-success, $lightness: -50%);
+    }
+
+    &.mbsc-danger .mbsc-toast-background {
+      background: ios-legacy.$mbsc-ios-danger;
+      color: color.adjust(ios-legacy.$mbsc-ios-danger, $lightness: -50%);
+    }
+
+    &.mbsc-warning .mbsc-toast-background {
+      background: ios-legacy.$mbsc-ios-warning;
+      color: color.adjust(ios-legacy.$mbsc-ios-warning, $lightness: -50%);
+    }
+
+    &.mbsc-info .mbsc-toast-background {
+      background: ios-legacy.$mbsc-ios-info;
+      color: color.adjust(ios-legacy.$mbsc-ios-info, $lightness: -50%);
+    }
+  }
+
+  @include colors.mbsc-ios-legacy-notifications('ios-legacy', ios-legacy.$mbsc-ios-colors);
+  @include colors.mbsc-ios-legacy-notifications('ios-legacy-dark', ios-legacy.$mbsc-ios-dark-colors);
+}

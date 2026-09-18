@@ -1,0 +1,106 @@
+@use '../../themes/common';
+@use '../../themes/material-legacy';
+@use './stepper.material-legacy.colors' as colors;
+
+@if (common.$mbsc-material-theme and common.$mbsc-forms) {
+  .mbsc-material-legacy {
+    &.mbsc-stepper-control {
+      height: 2.25em;
+    }
+
+    &.mbsc-stepper-inner {
+      font-size: 2.142857em;
+      font-weight: 750;
+    }
+
+    &.mbsc-stepper-button.mbsc-button {
+      line-height: 1em;
+      box-shadow: none;
+      border: 2px solid currentColor;
+    }
+
+    &.mbsc-stepper-minus.mbsc-ltr,
+    &.mbsc-stepper-plus.mbsc-rtl {
+      border-right: 0;
+    }
+
+    &.mbsc-stepper-minus.mbsc-rtl,
+    &.mbsc-stepper-plus.mbsc-ltr {
+      border-left: 0;
+    }
+
+    &.mbsc-stepper-button.mbsc-disabled {
+      opacity: 1;
+    }
+
+    &.mbsc-stepper-input {
+      z-index: 1;
+      border-top: 2px solid;
+      border-bottom: 2px solid;
+      border-left: 0;
+      border-right: 0;
+      width: 4em;
+    }
+
+    // button colors
+
+    &.mbsc-primary .mbsc-stepper-button {
+      background: material-legacy.$mbsc-material-primary;
+      border-color: material-legacy.$mbsc-material-primary;
+    }
+
+    &.mbsc-secondary .mbsc-stepper-button {
+      background: material-legacy.$mbsc-material-secondary;
+      border-color: material-legacy.$mbsc-material-secondary;
+    }
+
+    &.mbsc-success .mbsc-stepper-button {
+      background: material-legacy.$mbsc-material-success;
+      border-color: material-legacy.$mbsc-material-success;
+    }
+
+    &.mbsc-danger .mbsc-stepper-button {
+      background: material-legacy.$mbsc-material-danger;
+      border-color: material-legacy.$mbsc-material-danger;
+    }
+
+    &.mbsc-warning .mbsc-stepper-button {
+      background: material-legacy.$mbsc-material-warning;
+      border-color: material-legacy.$mbsc-material-warning;
+    }
+
+    &.mbsc-info .mbsc-stepper-button {
+      background: material-legacy.$mbsc-material-info;
+      border-color: material-legacy.$mbsc-material-info;
+    }
+
+    // input border colors
+
+    &.mbsc-primary .mbsc-stepper-input {
+      border-color: material-legacy.$mbsc-material-primary;
+    }
+
+    &.mbsc-secondary .mbsc-stepper-input {
+      border-color: material-legacy.$mbsc-material-secondary;
+    }
+
+    &.mbsc-success .mbsc-stepper-input {
+      border-color: material-legacy.$mbsc-material-success;
+    }
+
+    &.mbsc-danger .mbsc-stepper-input {
+      border-color: material-legacy.$mbsc-material-danger;
+    }
+
+    &.mbsc-warning .mbsc-stepper-input {
+      border-color: material-legacy.$mbsc-material-warning;
+    }
+
+    &.mbsc-info .mbsc-stepper-input {
+      border-color: material-legacy.$mbsc-material-info;
+    }
+  }
+
+  @include colors.mbsc-material-legacy-stepper('material-legacy', material-legacy.$mbsc-material-colors);
+  @include colors.mbsc-material-legacy-stepper('material-legacy-dark', material-legacy.$mbsc-material-dark-colors);
+}

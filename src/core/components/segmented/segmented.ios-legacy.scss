@@ -1,0 +1,148 @@
+@use '../../themes/common';
+@use '../../themes/ios-legacy';
+@use './segmented.ios-legacy.colors' as colors;
+
+@if (common.$mbsc-ios-theme and common.$mbsc-segmented) {
+  .mbsc-ios-legacy {
+    &.mbsc-segmented {
+      margin: 0.75em;
+      padding: 0.0625em;
+      position: relative;
+      border-radius: 0.5625em;
+    }
+
+    &.mbsc-segmented-item:before {
+      content: '';
+      position: absolute;
+      border-left: 1px solid;
+      top: 0.3125em;
+      bottom: 0.3125em;
+      opacity: 1;
+      transition: opacity 0.2s ease-in-out;
+    }
+
+    &.mbsc-segmented-item.mbsc-ltr:before {
+      left: 0;
+    }
+
+    &.mbsc-segmented-item.mbsc-rtl:before {
+      right: 0;
+    }
+
+    &.mbsc-segmented-item:first-child:before,
+    &.mbsc-segmented-item-selected:before,
+    &.mbsc-segmented-item-selected + .mbsc-segmented-item:before {
+      opacity: 0;
+    }
+
+    &.mbsc-segmented-selectbox {
+      position: absolute;
+      padding: 0.0625em;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      user-select: none;
+      border-radius: 0.4375em;
+      display: none;
+    }
+
+    &.mbsc-segmented-selectbox.mbsc-selected {
+      display: block;
+    }
+
+    &.mbsc-segmented-selectbox-animate {
+      transition: transform 0.2s ease-in-out;
+    }
+
+    &.mbsc-segmented-selectbox-inner {
+      height: 100%;
+      border-radius: 0.4375em;
+      transition: transform 0.1s ease-in-out;
+      visibility: hidden;
+    }
+
+    &.mbsc-segmented-selectbox-inner-visible {
+      visibility: visible;
+    }
+
+    &.mbsc-segmented-item:first-child .mbsc-segmented-selectbox-inner {
+      transform-origin: left;
+    }
+
+    &.mbsc-segmented-item:last-child .mbsc-segmented-selectbox-inner {
+      transform-origin: right;
+    }
+
+    &.mbsc-segmented-dragging {
+      cursor: pointer;
+
+      .mbsc-segmented-item-selected {
+        z-index: 2;
+      }
+
+      // Needed to prevent firing click on the wrong segmented item, when the pointer is close to the next segmented item.
+      // For some reason, the browser will fire the click on the next segmented item's input element
+      .mbsc-segmented-item-selected::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: -4px;
+        left: -4px;
+        bottom: 0;
+        cursor: pointer;
+      }
+
+      .mbsc-segmented-selectbox-inner {
+        transform: scale(0.97, 0.95);
+      }
+
+      .mbsc-segmented-item:first-child .mbsc-segmented-selectbox-inner {
+        transform: scale(0.97, 0.95) translateX(0.0625em);
+      }
+
+      .mbsc-segmented-item:last-child .mbsc-segmented-selectbox-inner {
+        transform: scale(0.97, 0.95) translateX(-0.0625em);
+      }
+    }
+
+    &.mbsc-segmented-button.mbsc-icon-button {
+      height: 2.307693em; // 30px / 13px
+    }
+
+    &.mbsc-segmented-button.mbsc-button {
+      margin: 0;
+      padding: 0 0.615385em; // 0 8px
+      border-radius: 0;
+      font-size: 0.8125em; // 13px
+      line-height: 2.307693em; // 30px / 13px
+      transition: opacity 0.1s ease-out, background-color 0.1s ease-out, transform 0.1s ease-in-out;
+      // for the scaling to look better
+      -webkit-font-smoothing: subpixel-antialiased;
+
+      &.mbsc-active,
+      &.mbsc-hover {
+        opacity: 1;
+      }
+
+      &.mbsc-hover::after {
+        opacity: 0;
+      }
+    }
+
+    &.mbsc-segmented-dragging .mbsc-segmented-item-selected .mbsc-segmented-button {
+      transform: scale(0.97, 0.95);
+    }
+
+    &.mbsc-segmented-item-selected:first-child .mbsc-segmented-button {
+      transform-origin: left;
+    }
+
+    &.mbsc-segmented-item-selected:last-child .mbsc-segmented-button {
+      transform-origin: right;
+    }
+  }
+
+  @include colors.mbsc-ios-legacy-segmented('ios-legacy', ios-legacy.$mbsc-ios-colors);
+  @include colors.mbsc-ios-legacy-segmented('ios-legacy-dark', ios-legacy.$mbsc-ios-dark-colors);
+}

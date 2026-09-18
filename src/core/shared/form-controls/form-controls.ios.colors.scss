@@ -1,0 +1,20 @@
+@use 'sass:map';
+@use 'sass:color';
+
+@mixin mbsc-ios-form-controls($theme, $params) {
+  .mbsc-#{$theme} {
+    &.mbsc-form-control-wrapper {
+      --_mbsc-form-control-bg-color: var(--mbsc-#{$theme}-form-control-bg-color, var(--mbsc-#{$theme}-surface-3));
+      --_mbsc-form-control-bg-color-popup: var(--mbsc-#{$theme}-form-control-bg-color-popup, var(--mbsc-#{$theme}-surface-7));
+      --_mbsc-form-control-border-color: var(--mbsc-#{$theme}-form-control-border-color, var(--mbsc-#{$theme}-border));
+      --_mbsc-form-control-text-color: var(--mbsc-#{$theme}-form-control-text-color, var(--mbsc-#{$theme}-text));
+      --_mbsc-form-control-error: var(--mbsc-#{$theme}-form-control-error, var(--mbsc-#{$theme}-action-error));
+
+      --mbsc-form-control-bg-color: var(--_mbsc-form-control-bg-color);
+      --mbsc-form-control-bg-color-popup: var(--_mbsc-form-control-bg-color-popup);
+      --mbsc-form-control-border-color: var(--_mbsc-form-control-border-color);
+      --mbsc-form-control-text-color: var(--_mbsc-form-control-text-color);
+      --mbsc-form-control-error: var(--_mbsc-form-control-error);
+    }
+  }
+}

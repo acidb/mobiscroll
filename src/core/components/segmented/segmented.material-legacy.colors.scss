@@ -1,0 +1,51 @@
+@use 'sass:map';
+@use 'sass:color';
+@use '../../themes/common';
+
+@mixin mbsc-material-legacy-segmented($theme, $params) {
+  $background: map.get($params, 'background');
+  $text: map.get($params, 'text');
+  $accent: map.get($params, 'accent');
+
+  $bg-param: map.get($params, 'form-background');
+  $acc-param: map.get($params, 'form-accent');
+  $text-param: map.get($params, 'form-text');
+  $background: common.choose($bg-param, $bg-param, $background);
+  $accent: common.choose($acc-param, $acc-param, $accent);
+  $text: common.choose($text-param, $text-param, $text);
+
+  $button-color: '';
+  $button-background: '';
+  $button-text: '';
+
+  @if (color.channel($background, 'lightness', $space: hsl) > 50%) {
+    $button-background: color.adjust($background, $lightness: -19%);
+    $button-color: color.adjust($text, $lightness: -36%);
+    $button-text: color.adjust($text, $lightness: -36%);
+  } @else {
+    $button-background: color.adjust($background, $lightness: 17%);
+    $button-color: color.adjust($text, $lightness: 24%);
+    $button-text: color.adjust($text, $lightness: 24%);
+  }
+
+  .mbsc-#{$theme} {
+    &.mbsc-segmented-button.mbsc-button {
+      border-color: $accent;
+      color: $button-text;
+
+      &.mbsc-hover,
+      &.mbsc-active {
+        background: color.change($button-color, $alpha: 0.2);
+      }
+
+      &.mbsc-selected {
+        background: $accent;
+        color: $background;
+      }
+
+      &.mbsc-focus::after {
+        background: color.change($button-text, $alpha: 0.2);
+      }
+    }
+  }
+}

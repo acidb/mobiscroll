@@ -1,0 +1,79 @@
+@use '../../themes/common';
+@use '../../themes/ios-legacy';
+@use './stepper.ios-legacy.colors' as colors;
+
+@if (common.$mbsc-ios-theme and common.$mbsc-forms) {
+  .mbsc-ios-legacy {
+    &.mbsc-stepper-input {
+      margin-left: -1px;
+      margin-right: -1px;
+      z-index: 1;
+      border: 1px solid;
+    }
+
+    &.mbsc-stepper-button.mbsc-button {
+      line-height: 1.625em;
+    }
+
+    &.mbsc-stepper-button.mbsc-disabled {
+      opacity: 1;
+    }
+
+    &.mbsc-stepper-inner {
+      font-weight: normal;
+    }
+
+    &.mbsc-disabled .mbsc-stepper-inner {
+      opacity: 0.2;
+    }
+
+    &.mbsc-stepper-plus:before {
+      content: '';
+      position: absolute;
+      border-left: 1px solid;
+      top: 0.4125em;
+      bottom: 0.4125em;
+    }
+
+    &.mbsc-stepper-plus.mbsc-ltr:before {
+      left: 0;
+    }
+
+    &.mbsc-stepper-plus.mbsc-rtl:before {
+      right: 0;
+    }
+
+    &.mbsc-stepper-center .mbsc-stepper-plus:before {
+      display: none;
+    }
+
+    // button colors
+
+    &.mbsc-primary .mbsc-stepper-button {
+      color: ios-legacy.$mbsc-ios-primary;
+    }
+
+    &.mbsc-secondary .mbsc-stepper-button {
+      color: ios-legacy.$mbsc-ios-secondary;
+    }
+
+    &.mbsc-success .mbsc-stepper-button {
+      color: ios-legacy.$mbsc-ios-success;
+    }
+
+    &.mbsc-danger .mbsc-stepper-button {
+      color: ios-legacy.$mbsc-ios-danger;
+    }
+
+    &.mbsc-warning .mbsc-stepper-button {
+      color: ios-legacy.$mbsc-ios-warning;
+    }
+
+    &.mbsc-info .mbsc-stepper-button {
+      color: ios-legacy.$mbsc-ios-info;
+    }
+  }
+
+  @include colors.mbsc-ios-legacy-stepper('ios-legacy', ios-legacy.$mbsc-ios-colors);
+  @include colors.mbsc-ios-legacy-stepper('ios-legacy-dark', ios-legacy.$mbsc-ios-dark-colors);
+}

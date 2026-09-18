@@ -1,0 +1,33 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.web.json",
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": "../",
+    "sourceMap": false,
+    "declaration": true,
+    "importHelpers": true,
+    "target": "es5",
+    "isolatedModules": false,
+    "preserveValueImports": false,
+    "importsNotUsedAsValues": "remove",
+    "experimentalDecorators": true,
+    "noImplicitThis": false,
+    "useDefineForClassFields": false,
+    "jsx": "preserve",
+    "jsxImportSource": "vue",
+    "baseUrl": ".",
+    "paths": {
+      "@framework/*": ["./*"]
+    }
+  },
+  "typedocOptions": {
+    "entryPoints": ["./bundle-docs.ts"],
+    "out": "../../dist/doc-vue",
+    "json": "../../dist/doc-vue/doc.json",
+    "disableSources": true,
+    "excludeExternals": true,
+    "excludePrivate": true,
+    "excludeProtected": true,
+    "hideGenerator": true
+  }
+}

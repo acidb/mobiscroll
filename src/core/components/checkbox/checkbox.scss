@@ -1,0 +1,43 @@
+@use '../../themes/common';
+@use './checkbox.ios' as ios;
+@use './checkbox.material' as material;
+@use './checkbox.windows' as windows;
+
+@if common.$mbsc-forms {
+  .mbsc-checkbox {
+    line-height: 1.25em;
+    position: relative;
+    display: block;
+    margin: 0;
+    z-index: 0;
+    user-select: none;
+  }
+
+  .mbsc-checkbox-box {
+    box-sizing: border-box;
+    position: absolute;
+    top: 50%;
+    display: block;
+    width: 1.375em;
+    height: 1.375em;
+  }
+
+  .mbsc-checkbox-box:after {
+    content: '';
+    box-sizing: border-box;
+    position: absolute;
+    display: block;
+    opacity: 0;
+    transform: rotate(-45deg);
+  }
+
+  .mbsc-checkbox-box.mbsc-checked:after {
+    opacity: 1;
+  }
+
+  .mbsc-description {
+    display: block;
+    font-size: 0.75em;
+    opacity: 0.6;
+  }
+}

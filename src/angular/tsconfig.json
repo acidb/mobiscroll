@@ -1,0 +1,40 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "outDir": "./bundle",
+    "declaration": true,
+    "declarationDir": "./dist/js",
+    "importHelpers": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "es5",
+    "jsx": "react",
+    "baseUrl": "./",
+    "paths": {
+      "@framework/*": ["./*"]
+    },
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2017", "dom"]
+  },
+  "angularCompilerOptions": {
+    "skipTemplateCodegen": true,
+    "strictMetadataEmit": true,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true,
+    "flatModuleOutFile": "mobiscroll.angular.min",
+    "enableResourceInlining": true
+  },
+  "typedocOptions": {
+    "entryPoints": ["./bundle-docs.ts"],
+    "out": "../../../doc-angular",
+    "json": "../../../doc-angular/doc.json",
+    "disableSources": true,
+    "excludeExternals": true,
+    "excludePrivate": true,
+    "excludeProtected": true,
+    "hideGenerator": true
+  }
+}

@@ -1,0 +1,323 @@
+@use 'sass:map';
+@use 'sass:color';
+@use '../../themes/common';
+@use '../../themes/material-legacy';
+
+@mixin mbsc-material-legacy-button($theme, $params) {
+  $background: map.get($params, 'background');
+  $text: map.get($params, 'text');
+  $accent: map.get($params, 'accent');
+
+  $button-background-param: map.get($params, 'button-color');
+  $button-text-param: map.get($params, 'button-text');
+
+  $button-active: color.adjust($background, $lightness: -13%);
+  $button-text: '';
+  $button-background: '';
+
+  @if (color.channel($background, 'lightness', $space: hsl) > 50%) {
+    $button-text: color.adjust($text, $lightness: -36%);
+    $button-background: color.adjust($background, $lightness: -19%);
+  } @else {
+    $button-text: color.adjust($text, $lightness: 24%);
+    $button-background: color.adjust($background, $lightness: 17%);
+  }
+
+  $button-background: common.choose($button-background-param, $button-background-param, $button-background);
+  $button-text: common.choose($button-text-param, $button-text-param, $button-text);
+  $flatout-color: common.choose($button-background-param, $button-background, $button-text);
+
+  .mbsc-#{$theme} {
+    &.mbsc-button-standard {
+      background: $button-background;
+      color: $button-text;
+      box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+
+      &.mbsc-hover {
+        box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
+      }
+
+      &.mbsc-focus,
+      &.mbsc-active {
+        box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+      }
+    }
+
+    /* Flat buttons */
+    &.mbsc-button-flat,
+    &.mbsc-button-outline {
+      color: $flatout-color;
+
+      &.mbsc-hover,
+      &.mbsc-active {
+        background: color.change($flatout-color, $alpha: 0.2);
+      }
+
+      &.mbsc-focus {
+        background: color.change($flatout-color, $alpha: 0.3);
+      }
+    }
+
+    /* Outline buttons */
+    &.mbsc-button-outline {
+      border-color: $flatout-color;
+    }
+
+    /* Predefined colors */
+    &.mbsc-button-primary.mbsc-button-standard {
+      background: material-legacy.$mbsc-material-primary;
+      color: $background;
+    }
+
+    &.mbsc-button-secondary.mbsc-button-standard {
+      background: material-legacy.$mbsc-material-secondary;
+      color: $background;
+    }
+
+    &.mbsc-button-success.mbsc-button-standard {
+      background: material-legacy.$mbsc-material-success;
+      color: $background;
+    }
+
+    &.mbsc-button-danger.mbsc-button-standard {
+      background: material-legacy.$mbsc-material-danger;
+      color: $background;
+    }
+
+    &.mbsc-button-warning.mbsc-button-standard {
+      background: material-legacy.$mbsc-material-warning;
+      color: $background;
+    }
+
+    &.mbsc-button-info.mbsc-button-standard {
+      background: material-legacy.$mbsc-material-info;
+      color: $background;
+    }
+
+    &.mbsc-button-dark.mbsc-button-standard {
+      background: material-legacy.$mbsc-material-dark;
+      color: $background;
+    }
+
+    &.mbsc-button-light.mbsc-button-standard {
+      background: material-legacy.$mbsc-material-light;
+      color: $text;
+    }
+
+    &.mbsc-button-primary.mbsc-button-flat {
+      color: material-legacy.$mbsc-material-primary;
+
+      &.mbsc-hover,
+      &.mbsc-active {
+        background: color.change(material-legacy.$mbsc-material-primary, $alpha: 0.2);
+      }
+
+      &.mbsc-focus {
+        background: color.change(material-legacy.$mbsc-material-primary, $alpha: 0.3);
+      }
+    }
+
+    &.mbsc-button-secondary.mbsc-button-flat {
+      color: material-legacy.$mbsc-material-secondary;
+
+      &.mbsc-hover,
+      &.mbsc-active {
+        background: color.change(material-legacy.$mbsc-material-secondary, $alpha: 0.2);
+      }
+
+      &.mbsc-focus {
+        background: color.change(material-legacy.$mbsc-material-secondary, $alpha: 0.3);
+      }
+    }
+
+    &.mbsc-button-success.mbsc-button-flat {
+      color: material-legacy.$mbsc-material-success;
+
+      &.mbsc-hover,
+      &.mbsc-active {
+        background: color.change(material-legacy.$mbsc-material-success, $alpha: 0.2);
+      }
+
+      &.mbsc-focus {
+        background: color.change(material-legacy.$mbsc-material-success, $alpha: 0.3);
+      }
+    }
+
+    &.mbsc-button-danger.mbsc-button-flat {
+      color: material-legacy.$mbsc-material-danger;
+
+      &.mbsc-hover,
+      &.mbsc-active {
+        background: color.change(material-legacy.$mbsc-material-danger, $alpha: 0.2);
+      }
+
+      &.mbsc-focus {
+        background: color.change(material-legacy.$mbsc-material-danger, $alpha: 0.3);
+      }
+    }
+
+    &.mbsc-button-warning.mbsc-button-flat {
+      color: material-legacy.$mbsc-material-warning;
+
+      &.mbsc-hover,
+      &.mbsc-active {
+        background: color.change(material-legacy.$mbsc-material-warning, $alpha: 0.2);
+      }
+
+      &.mbsc-focus {
+        background: color.change(material-legacy.$mbsc-material-warning, $alpha: 0.3);
+      }
+    }
+
+    &.mbsc-button-info.mbsc-button-flat {
+      color: material-legacy.$mbsc-material-info;
+
+      &.mbsc-hover,
+      &.mbsc-active {
+        background: color.change(material-legacy.$mbsc-material-info, $alpha: 0.2);
+      }
+
+      &.mbsc-focus {
+        background: color.change(material-legacy.$mbsc-material-info, $alpha: 0.3);
+      }
+    }
+
+    &.mbsc-button-dark.mbsc-button-flat {
+      color: material-legacy.$mbsc-material-dark;
+
+      &.mbsc-hover,
+      &.mbsc-active {
+        background: color.change(material-legacy.$mbsc-material-dark, $alpha: 0.2);
+      }
+
+      &.mbsc-focus {
+        background: color.change(material-legacy.$mbsc-material-dark, $alpha: 0.3);
+      }
+    }
+
+    &.mbsc-button-light.mbsc-button-flat {
+      color: color.adjust(material-legacy.$mbsc-material-light, $lightness: -20%);
+
+      &.mbsc-hover,
+      &.mbsc-active {
+        background: color.change(material-legacy.$mbsc-material-light, $alpha: 0.2);
+      }
+
+      &.mbsc-focus {
+        background: color.change(material-legacy.$mbsc-material-light, $alpha: 0.3);
+      }
+    }
+
+    &.mbsc-button-primary.mbsc-button-outline {
+      border-color: material-legacy.$mbsc-material-primary;
+      color: material-legacy.$mbsc-material-primary;
+
+      &.mbsc-hover,
+      &.mbsc-active {
+        background: color.change(material-legacy.$mbsc-material-primary, $alpha: 0.2);
+      }
+
+      &.mbsc-focus {
+        background: color.change(material-legacy.$mbsc-material-primary, $alpha: 0.3);
+      }
+    }
+
+    &.mbsc-button-secondary.mbsc-button-outline {
+      border-color: material-legacy.$mbsc-material-secondary;
+      color: material-legacy.$mbsc-material-secondary;
+
+      &.mbsc-hover,
+      &.mbsc-active {
+        background: color.change(material-legacy.$mbsc-material-secondary, $alpha: 0.2);
+      }
+
+      &.mbsc-focus {
+        background: color.change(material-legacy.$mbsc-material-secondary, $alpha: 0.3);
+      }
+    }
+
+    &.mbsc-button-success.mbsc-button-outline {
+      border-color: material-legacy.$mbsc-material-success;
+      color: material-legacy.$mbsc-material-success;
+
+      &.mbsc-hover,
+      &.mbsc-active {
+        background: color.change(material-legacy.$mbsc-material-success, $alpha: 0.2);
+      }
+
+      &.mbsc-focus {
+        background: color.change(material-legacy.$mbsc-material-success, $alpha: 0.3);
+      }
+    }
+
+    &.mbsc-button-danger.mbsc-button-outline {
+      border-color: material-legacy.$mbsc-material-danger;
+      color: material-legacy.$mbsc-material-danger;
+
+      &.mbsc-hover,
+      &.mbsc-active {
+        background: color.change(material-legacy.$mbsc-material-danger, $alpha: 0.2);
+      }
+
+      &.mbsc-focus {
+        background: color.change(material-legacy.$mbsc-material-danger, $alpha: 0.3);
+      }
+    }
+
+    &.mbsc-button-warning.mbsc-button-outline {
+      border-color: material-legacy.$mbsc-material-warning;
+      color: material-legacy.$mbsc-material-warning;
+
+      &.mbsc-hover,
+      &.mbsc-active {
+        background: color.change(material-legacy.$mbsc-material-warning, $alpha: 0.2);
+      }
+
+      &.mbsc-focus {
+        background: color.change(material-legacy.$mbsc-material-warning, $alpha: 0.3);
+      }
+    }
+
+    &.mbsc-button-info.mbsc-button-outline {
+      border-color: material-legacy.$mbsc-material-info;
+      color: material-legacy.$mbsc-material-info;
+
+      &.mbsc-hover,
+      &.mbsc-active {
+        background: color.change(material-legacy.$mbsc-material-info, $alpha: 0.2);
+      }
+
+      &.mbsc-focus {
+        background: color.change(material-legacy.$mbsc-material-info, $alpha: 0.3);
+      }
+    }
+
+    &.mbsc-button-dark.mbsc-button-outline {
+      border-color: material-legacy.$mbsc-material-dark;
+      color: material-legacy.$mbsc-material-dark;
+
+      &.mbsc-hover,
+      &.mbsc-active {
+        background: color.change(material-legacy.$mbsc-material-dark, $alpha: 0.2);
+      }
+
+      &.mbsc-focus {
+        background: color.change(material-legacy.$mbsc-material-dark, $alpha: 0.3);
+      }
+    }
+
+    &.mbsc-button-light.mbsc-button-outline {
+      border-color: color.adjust(material-legacy.$mbsc-material-light, $lightness: -20%);
+      color: color.adjust(material-legacy.$mbsc-material-light, $lightness: -20%);
+
+      &.mbsc-hover,
+      &.mbsc-active {
+        background: color.change(material-legacy.$mbsc-material-light, $alpha: 0.2);
+      }
+
+      &.mbsc-focus {
+        background: color.change(material-legacy.$mbsc-material-light, $alpha: 0.3);
+      }
+    }
+  }
+}

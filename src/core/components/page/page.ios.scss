@@ -1,0 +1,17 @@
+@use '../../themes/common';
+@use '../../themes/ios';
+@use './page.ios.colors' as colors;
+
+@if (common.$mbsc-ios-theme and common.$mbsc-forms) {
+  .mbsc-ios {
+    .mbsc-block-title,
+    .mbsc-form-group-title {
+      padding: 0.25em 1em;
+      line-height: 1.5em;
+      font-weight: 500;
+    }
+  }
+
+  @include colors.mbsc-ios-page('ios', ios.$mbsc-ios-colors);
+  @include colors.mbsc-ios-page('ios-dark', ios.$mbsc-ios-dark-colors);
+}

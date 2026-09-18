@@ -1,0 +1,71 @@
+@use '../../themes/common';
+@use '../../themes/material';
+@use './stepper.material.colors' as colors;
+
+@if (common.$mbsc-material-theme and common.$mbsc-forms) {
+  .mbsc-material {
+    &.mbsc-stepper-control {
+      height: 2.5em;
+      margin-top: -1.25em;
+    }
+
+    &.mbsc-stepper-button {
+      &.mbsc-button {
+        box-shadow: none;
+        border: 1px solid var(--mbsc-stepper-border-color);
+        --mbsc-button-standard-bg-color: var(--mbsc-stepper-bg-color);
+        --mbsc-button-standard-text-color: var(--mbsc-stepper-text-color);
+        --mbsc-button-focus: var(--mbsc-stepper-focus);
+        --mbsc-button-disabled-bg: var(--mbsc-stepper-disabled-bg);
+        --mbsc-button-disabled-text: var(--mbsc-stepper-disabled-text);
+      }
+
+      &.mbsc-focus {
+        z-index: 4;
+      }
+
+      .mbsc-button-bg {
+        border-radius: 0;
+      }
+    }
+
+    &.mbsc-stepper-inner {
+      font-size: 1.428572em;
+      font-weight: 500;
+      line-height: 0.9em;
+      margin-top: -0.05em;
+    }
+
+    &.mbsc-stepper-input {
+      width: 4em;
+      border: 1px solid var(--mbsc-stepper-border-color);
+      border-left: 0;
+      border-right: 0;
+      color: inherit;
+
+      &:focus-visible {
+        outline: 2px solid var(--mbsc-stepper-focus);
+        outline-offset: 2px;
+        animation-delay: 0ms, 150ms;
+        animation-name: mbsc-button-outline-grow, mbsc-button-outline-shrink;
+        animation-duration: 150ms, 450ms;
+        animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
+      }
+
+      &.mbsc-disabled {
+        color: var(--mbsc-stepper-disabled-text);
+      }
+    }
+
+    @each $name in common.$mbsc-color-variants {
+      &.mbsc-stepper.mbsc-#{$name} {
+        --mbsc-stepper-bg-color: var(--mbsc-material-#{$name});
+        --mbsc-stepper-text-color: var(--mbsc-material-on-#{$name});
+        --mbsc-stepper-border-color: var(--mbsc-material-#{$name});
+      }
+    }
+  }
+
+  @include colors.mbsc-material-stepper('material', material.$mbsc-material-colors);
+  @include colors.mbsc-material-stepper('material-dark', material.$mbsc-material-dark-colors);
+}

@@ -1,0 +1,18 @@
+Mobiscroll
+Copyright © 2017-2026 Mobiscroll
+
+This product includes software developed by Mobiscroll (https://mobiscroll.com/).
+
+The Apache License, Version 2.0 covers the source code contained in this
+repository — Mobiscroll Lite, a limited set of free, open-source UI
+components.
+
+It does not cover:
+
+- The additional commercial Mobiscroll UI components (Event Calendar, Scheduler, Timeline, Agenda, Calendar, Date & Time, Range, Select) that are distributed
+  outside this repository. Their use is governed by Mobiscroll's own license
+  terms — see https://mobiscroll.com/eula.
+- Mobiscroll Connect, the server-side OAuth calendar sync service, which is
+  a separate commercial product distributed under its own terms.
+
+Mobiscroll and the Mobiscroll logo are trademarks of Mobiscroll.

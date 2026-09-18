@@ -1,0 +1,227 @@
+@use 'sass:map';
+@use 'sass:color';
+@use '../../themes/common';
+@use '../../themes/ios-legacy';
+
+@mixin mbsc-ios-legacy-button($theme, $params) {
+  $background: map.get($params, 'background');
+  $text: map.get($params, 'text');
+  $accent: map.get($params, 'accent');
+
+  $button-background-param: map.get($params, 'button-color');
+  $button-text-param: map.get($params, 'button-text');
+
+  $white: #fff;
+  $black: #000;
+  $button-background: '';
+  $background-contrast: '';
+
+  @if (color.channel($background, 'lightness', $space: hsl) > 50%) {
+    $button-background: color.adjust($background, $lightness: 10%);
+    $background-contrast: #000;
+  } @else {
+    $button-background: color.adjust($background, $lightness: 23%);
+    $background-contrast: #fff;
+  }
+
+  $button-background: common.choose($button-background-param, $button-background-param, $button-background);
+  $button-text: common.choose($button-text-param, $button-text-param, $accent);
+
+  $form-background: $background;
+  $form-selection: '';
+
+  @if (color.channel($accent, 'lightness', $space: hsl) > 50%) {
+    $form-selection: color.adjust(color.adjust($accent, $saturation: 15%), $lightness: 3%);
+  } @else {
+    $form-selection: color.adjust(color.adjust($accent, $saturation: -15%), $lightness: -3%);
+  }
+
+  $form-selection: common.choose($button-background-param, $button-background-param, $form-selection);
+  $flat-color: common.choose($button-background-param, $button-background-param, $accent);
+
+  .mbsc-#{$theme} {
+    &.mbsc-button-standard {
+      background: $button-background;
+      color: $button-text;
+    }
+
+    // &.mbsc-button:disabled {
+    //   background: $disabled-background;
+    //   color: $disabled-color;
+    // }
+
+    /* Flat buttons */
+    &.mbsc-button-flat {
+      color: $flat-color;
+    }
+
+    /* Outline buttons */
+    &.mbsc-button-outline {
+      border: 1px solid $form-selection;
+      color: $form-selection;
+
+      &.mbsc-active {
+        background: $form-selection;
+        color: $background;
+      }
+    }
+
+    &.mbsc-button.mbsc-focus {
+      background: rgba($background-contrast, 0.05);
+      // box-shadow: 0 0 0 2px rgba($text, .3);
+    }
+
+    /* Predefined colors */
+    &.mbsc-button-primary.mbsc-button-standard {
+      background: ios-legacy.$mbsc-ios-primary;
+      color: $white;
+    }
+
+    &.mbsc-button-secondary.mbsc-button-standard {
+      background: ios-legacy.$mbsc-ios-secondary;
+      color: $white;
+    }
+
+    &.mbsc-button-success.mbsc-button-standard {
+      background: ios-legacy.$mbsc-ios-success;
+      color: $white;
+    }
+
+    &.mbsc-button-danger.mbsc-button-standard {
+      background: ios-legacy.$mbsc-ios-danger;
+      color: $white;
+    }
+
+    &.mbsc-button-warning.mbsc-button-standard {
+      background: ios-legacy.$mbsc-ios-warning;
+      color: $white;
+    }
+
+    &.mbsc-button-info.mbsc-button-standard {
+      background: ios-legacy.$mbsc-ios-info;
+      color: $white;
+    }
+
+    &.mbsc-button-dark.mbsc-button-standard {
+      background: ios-legacy.$mbsc-ios-dark;
+      color: $white;
+    }
+
+    &.mbsc-button-light.mbsc-button-standard {
+      background: ios-legacy.$mbsc-ios-light;
+      color: $black;
+    }
+
+    &.mbsc-button-primary.mbsc-button-flat {
+      color: ios-legacy.$mbsc-ios-primary;
+    }
+
+    &.mbsc-button-secondary.mbsc-button-flat {
+      color: ios-legacy.$mbsc-ios-secondary;
+    }
+
+    &.mbsc-button-success.mbsc-button-flat {
+      color: ios-legacy.$mbsc-ios-success;
+    }
+
+    &.mbsc-button-danger.mbsc-button-flat {
+      color: ios-legacy.$mbsc-ios-danger;
+    }
+
+    &.mbsc-button-warning.mbsc-button-flat {
+      color: ios-legacy.$mbsc-ios-warning;
+    }
+
+    &.mbsc-button-info.mbsc-button-flat {
+      color: ios-legacy.$mbsc-ios-info;
+    }
+
+    &.mbsc-button-dark.mbsc-button-flat {
+      color: ios-legacy.$mbsc-ios-dark;
+    }
+
+    &.mbsc-button-light.mbsc-button-flat {
+      color: color.adjust(ios-legacy.$mbsc-ios-light, $lightness: -20%);
+    }
+
+    &.mbsc-button-primary.mbsc-button-outline {
+      border-color: ios-legacy.$mbsc-ios-primary;
+      color: ios-legacy.$mbsc-ios-primary;
+
+      &.mbsc-active {
+        background: ios-legacy.$mbsc-ios-primary;
+        color: ios-legacy.$mbsc-ios-light;
+      }
+    }
+
+    &.mbsc-button-secondary.mbsc-button-outline {
+      border-color: ios-legacy.$mbsc-ios-secondary;
+      color: ios-legacy.$mbsc-ios-secondary;
+
+      &.mbsc-active {
+        background: ios-legacy.$mbsc-ios-secondary;
+        color: ios-legacy.$mbsc-ios-light;
+      }
+    }
+
+    &.mbsc-button-success.mbsc-button-outline {
+      border-color: ios-legacy.$mbsc-ios-success;
+      color: ios-legacy.$mbsc-ios-success;
+
+      &.mbsc-active {
+        background: ios-legacy.$mbsc-ios-success;
+        color: ios-legacy.$mbsc-ios-light;
+      }
+    }
+
+    &.mbsc-button-danger.mbsc-button-outline {
+      border-color: ios-legacy.$mbsc-ios-danger;
+      color: ios-legacy.$mbsc-ios-danger;
+
+      &.mbsc-active {
+        background: ios-legacy.$mbsc-ios-danger;
+        color: ios-legacy.$mbsc-ios-light;
+      }
+    }
+
+    &.mbsc-button-warning.mbsc-button-outline {
+      border-color: ios-legacy.$mbsc-ios-warning;
+      color: ios-legacy.$mbsc-ios-warning;
+
+      &.mbsc-active {
+        background: ios-legacy.$mbsc-ios-warning;
+        color: ios-legacy.$mbsc-ios-light;
+      }
+    }
+
+    &.mbsc-button-info.mbsc-button-outline {
+      border-color: ios-legacy.$mbsc-ios-info;
+      color: ios-legacy.$mbsc-ios-info;
+
+      &.mbsc-active {
+        background: ios-legacy.$mbsc-ios-info;
+        color: ios-legacy.$mbsc-ios-light;
+      }
+    }
+
+    &.mbsc-button-dark.mbsc-button-outline {
+      border-color: ios-legacy.$mbsc-ios-dark;
+      color: ios-legacy.$mbsc-ios-dark;
+
+      &.mbsc-active {
+        background: ios-legacy.$mbsc-ios-dark;
+        color: ios-legacy.$mbsc-ios-light;
+      }
+    }
+
+    &.mbsc-button-light.mbsc-button-outline {
+      border-color: color.adjust(ios-legacy.$mbsc-ios-light, $lightness: -25%);
+      color: color.adjust(ios-legacy.$mbsc-ios-light, $lightness: -25%);
+
+      &.mbsc-active {
+        background: color.adjust(ios-legacy.$mbsc-ios-light, $lightness: -25%);
+        color: ios-legacy.$mbsc-ios-light;
+      }
+    }
+  }
+}

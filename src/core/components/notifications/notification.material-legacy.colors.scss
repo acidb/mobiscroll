@@ -1,0 +1,14 @@
+@use 'sass:map';
+@use 'sass:color';
+
+@mixin mbsc-material-legacy-notifications($theme, $params) {
+  $background: map.get($params, 'background');
+  $text: map.get($params, 'text');
+  $accent: map.get($params, 'accent');
+
+  .mbsc-#{$theme} {
+    &.mbsc-color-none .mbsc-snackbar-button.mbsc-button {
+      color: color.adjust($accent, $lightness: 10%);
+    }
+  }
+}

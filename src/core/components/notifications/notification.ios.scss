@@ -1,0 +1,64 @@
+@use 'sass:color';
+@use '../../themes/common';
+@use '../../themes/ios';
+@use './notification.ios.colors' as colors;
+
+@if (common.$mbsc-ios-theme and common.$mbsc-forms) {
+  .mbsc-ios {
+    .mbsc-toast-background {
+      color: var(--mbsc-toast-text-color);
+
+      &::after {
+        background: var(--mbsc-toast-bg-color);
+      }
+    }
+
+    .mbsc-toast-message {
+      line-height: 1.857143em; // 26px / 14px based
+      border-radius: 1.785715em; // 25px / 14px based
+    }
+
+    .mbsc-snackbar-cont {
+      color: var(--mbsc-snackbar-text-color);
+
+      &::after {
+        background: var(--mbsc-snackbar-bg-color);
+      }
+    }
+
+    &.mbsc-color-none .mbsc-snackbar-button .mbsc-button-txt {
+      color: var(--mbsc-snackbar-button-color);
+    }
+
+    .mbsc-alert-title {
+      margin: 0.555556em;
+      font-size: 1.125em;
+    }
+
+    .mbsc-alert-message {
+      margin: 0.666667em;
+      font-size: 0.9375em;
+    }
+
+    &.mbsc-prompt .mbsc-form-group-inset {
+      margin: 1em 0 0 0;
+    }
+
+    /* Color presets */
+
+    @each $name in common.$mbsc-color-variants {
+      &.mbsc-toast.mbsc-#{$name} {
+        --mbsc-toast-bg-color: var(--mbsc-ios-#{$name});
+        --mbsc-toast-text-color: var(--mbsc-ios-on-#{$name});
+      }
+
+      &.mbsc-snackbar.mbsc-#{$name} {
+        --mbsc-snackbar-bg-color: var(--mbsc-ios-#{$name});
+        --mbsc-snackbar-text-color: var(--mbsc-ios-on-#{$name});
+      }
+    }
+  }
+
+  @include colors.mbsc-ios-notifications('ios', ios.$mbsc-ios-colors);
+  @include colors.mbsc-ios-notifications('ios-dark', ios.$mbsc-ios-dark-colors);
+}

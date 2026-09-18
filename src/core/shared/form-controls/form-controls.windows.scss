@@ -1,0 +1,15 @@
+@use '../../themes/common';
+@use '../../themes/windows';
+@use './form-controls.windows.colors.scss' as colors;
+
+@if (common.$mbsc-windows-theme and common.$mbsc-forms) {
+  .mbsc-windows {
+    &.mbsc-form-control-label.mbsc-disabled,
+    &.mbsc-description.mbsc-disabled {
+      opacity: 0.3;
+    }
+  }
+
+  @include colors.mbsc-windows-form-controls('windows', windows.$mbsc-windows-colors);
+  @include colors.mbsc-windows-form-controls('windows-dark', windows.$mbsc-windows-dark-colors);
+}

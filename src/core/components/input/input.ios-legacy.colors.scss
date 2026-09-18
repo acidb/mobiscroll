@@ -1,0 +1,141 @@
+@use 'sass:map';
+@use 'sass:color';
+@use '../../themes/common';
+@use '../../themes/ios-legacy';
+
+@mixin mbsc-ios-legacy-input($theme, $params) {
+  $background: map.get($params, 'background');
+  $text: map.get($params, 'text');
+
+  $bg-param: map.get($params, 'input-background');
+  $text-param: map.get($params, 'input-text');
+  $brd-param: map.get($params, 'input-border');
+  $err-param: map.get($params, 'form-error');
+
+  $background: common.choose($bg-param, $bg-param, $background);
+  $text: common.choose($text-param, $text-param, $text);
+  $error: common.choose($err-param, $err-param, ios-legacy.$mbsc-ios-error);
+
+  $is-dark: false;
+  $border-color: '';
+  $input-background: '';
+  $input-background-popup: '';
+  $input-tag-background: '';
+  $textfield-text: $text;
+  $textfield-icon-color: '';
+
+  // Light background
+  @if (color.channel($background, 'lightness', $space: hsl) > 50%) {
+    $input-background: color.adjust($background, $lightness: 6%);
+    $input-background-popup: $input-background;
+    $input-tag-background: color.adjust($background, $lightness: -10%);
+    $textfield-icon-color: color.adjust($text, $lightness: 54.9%);
+    $border-color: color.adjust($background, $lightness: -17%);
+  }
+
+  // Dark background
+  @else {
+    $is-dark: true;
+    $input-background: color.adjust($background, $lightness: 11%);
+    $input-background-popup: color.adjust($background, $lightness: 17%);
+    $input-tag-background: color.adjust($background, $lightness: 23%);
+    $textfield-icon-color: ios-legacy.$mbsc-ios-dark-text;
+    $border-color: color.adjust($background, $lightness: 20%);
+  }
+
+  $border-color: common.choose($brd-param, $brd-param, $border-color);
+
+  .mbsc-#{$theme} {
+    /* Wrapper */
+
+    &.mbsc-textfield-wrapper {
+      background: none;
+    }
+
+    &.mbsc-textfield-wrapper-underline {
+      background: $input-background;
+    }
+
+    /* Form element */
+
+    &.mbsc-label,
+    &.mbsc-textfield {
+      color: $textfield-text;
+    }
+
+    &.mbsc-textfield-box,
+    &.mbsc-textfield-outline {
+      background: $input-background;
+    }
+
+    &.mbsc-textfield-outline {
+      border-color: $border-color;
+    }
+
+    /* Icon */
+
+    &.mbsc-textfield-icon,
+    &.mbsc-select-icon {
+      color: $textfield-icon-color;
+    }
+
+    /* Error */
+
+    &.mbsc-textfield-outline.mbsc-error,
+    &.mbsc-textfield-box.mbsc-error {
+      border-color: $error;
+    }
+
+    &.mbsc-error-message {
+      color: $error;
+    }
+
+    /* Select */
+
+    &.mbsc-select {
+      background: $input-background;
+    }
+
+    /* Textarea */
+
+    &.mbsc-textarea-inner.mbsc-textfield-inner-box,
+    &.mbsc-textarea-inner.mbsc-textfield-inner-outline {
+      background: $input-background;
+    }
+
+    &.mbsc-textarea-inner.mbsc-textfield-inner-outline {
+      border-color: $border-color;
+    }
+
+    &.mbsc-textarea-inner.mbsc-error {
+      border-color: $error;
+    }
+
+    /* Inside popup */
+
+    @if ($is-dark) {
+      &.mbsc-popup &.mbsc-textfield-wrapper {
+        background: none;
+      }
+
+      &.mbsc-popup &.mbsc-select,
+      &.mbsc-popup &.mbsc-textfield-wrapper-underline,
+      &.mbsc-popup &.mbsc-textfield-box,
+      &.mbsc-popup &.mbsc-textfield-outline,
+      &.mbsc-popup &.mbsc-textarea-inner.mbsc-textfield-inner-box,
+      &.mbsc-popup &.mbsc-textarea-inner.mbsc-textfield-inner-outline {
+        background: $input-background-popup;
+      }
+    }
+
+    /* Input tags */
+
+    &.mbsc-textfield-tag {
+      background: $input-tag-background;
+    }
+
+    &.mbsc-textfield-tag-clear {
+      color: $textfield-icon-color;
+    }
+  }
+}

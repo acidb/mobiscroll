@@ -1,0 +1,109 @@
+@use 'sass:color';
+@use 'sass:map';
+@use './common';
+
+$mbsc-ios-accent: #007aff !default;
+$mbsc-ios-background: #ffffff !default;
+$mbsc-ios-text: #000000 !default;
+
+$mbsc-ios-dark-accent: #ff9f0a !default;
+$mbsc-ios-dark-background: #000000 !default;
+$mbsc-ios-dark-text: #ffffff !default;
+
+/* Base colors */
+$mbsc-ios-primary: #3f97f6 !default;
+$mbsc-ios-secondary: #90979e !default;
+$mbsc-ios-success: #43be5f !default;
+$mbsc-ios-danger: #f5504e !default;
+$mbsc-ios-warning: #f8b042 !default;
+$mbsc-ios-info: #5bb7c5 !default;
+$mbsc-ios-light: #fff !default;
+$mbsc-ios-dark: #47494a !default;
+
+$mbsc-ios-colors: (
+  'background': $mbsc-ios-background,
+  'text': $mbsc-ios-text,
+  'accent': $mbsc-ios-accent,
+);
+
+$mbsc-ios-dark-colors: (
+  'background': $mbsc-ios-dark-background,
+  'text': $mbsc-ios-dark-text,
+  'accent': $mbsc-ios-dark-accent,
+);
+
+@mixin mbsc-ios-vars($theme, $params) {
+  $background: map.get($params, 'background');
+  $text: map.get($params, 'text');
+  $accent: map.get($params, 'accent');
+  $accent-soft: map.get($params, 'accent-soft');
+  $action-success: map.get($params, 'action-success');
+  $action-error: map.get($params, 'action-error');
+
+  $background-alt: '';
+  $text-soft: '';
+  $surface-1: '';
+  $surface-2: '';
+  $surface-3: '';
+  $surface-4: '';
+  $surface-5: '';
+  $surface-6: '';
+  $surface-7: '';
+  $border: '';
+  $focus: rgba($text, 0.7);
+  $highlight: '';
+  $action-success: common.choose($action-success, $action-success, #4cd764);
+  $action-error: common.choose($action-error, $action-error, #d8332a);
+  $accent-soft: common.choose($accent-soft, $accent-soft, #1badf8);
+  $on-accent: common.color-contrast($accent);
+  $on-accent-soft: common.color-contrast($accent-soft);
+
+  @if (color.channel($background, 'lightness', $space: hsl) > 50%) {
+    $background-alt: color.adjust($background, $lightness: -5%); // #f2f2f2
+    $text-soft: color.adjust($text, $lightness: 54.9%); // #8c8c8c
+    $surface-1: $background-alt; // #f2f2f2
+    $surface-2: $background; // #fff
+    $surface-3: $background; // #fff
+    $surface-4: $background; // #fff
+    $surface-5: color.adjust($background, $lightness: -11%); // #e3e3e3
+    $surface-6: color.adjust($background, $lightness: -2.8%); // #f8f8f8
+    $surface-7: $background; // #fff
+    $border: color.adjust($background, $lightness: -20%); // #ccc
+    $highlight: color.adjust($accent, $lightness: 35%);
+  } @else {
+    $background-alt: $background; // #000
+    $text-soft: color.adjust($text, $lightness: -54.9%); // #737373
+    $surface-1: color.adjust($background, $lightness: 11%); // #1c1c1c
+    $surface-2: color.adjust($text, $lightness: 100%); // #fff
+    $surface-3: $surface-1; // #1c1c1c
+    $surface-4: color.adjust($background, $lightness: 35.3%); // #5a5a5a
+    $surface-5: color.adjust($background, $lightness: 22%); // #383838
+    $surface-6: color.adjust($background, $lightness: 11%); // #1c1c1c
+    $surface-7: color.adjust($background, $lightness: 17.2%); // #2c2c2c
+    $border: color.adjust($background, $lightness: 20%); // #333
+    $highlight: color.adjust($accent, $lightness: -35%);
+  }
+
+  :root {
+    --mbsc-#{$theme}-background: #{$background}; // Calendar bg
+    --mbsc-#{$theme}-background-alt: #{$background-alt}; // Page bg
+    --mbsc-#{$theme}-surface-1: #{$surface-1}; // Popup bg, Eventcalendar/Scheduler/Timeline disabled bg
+    --mbsc-#{$theme}-surface-2: #{$surface-2};
+    --mbsc-#{$theme}-surface-3: #{$surface-3};
+    --mbsc-#{$theme}-surface-4: #{$surface-4}; // Segmented selected bg
+    --mbsc-#{$theme}-surface-5: #{$surface-5}; // Button standard bg, Switch track, Segmented bg, Timeline parent resource hover
+    --mbsc-#{$theme}-surface-6: #{$surface-6}; // Timeline parent resource bg
+    --mbsc-#{$theme}-surface-7: #{$surface-7}; // Form control bg inside popup, List item bg inside popup
+    --mbsc-#{$theme}-text: #{$text};
+    --mbsc-#{$theme}-text-soft: #{$text-soft};
+    --mbsc-#{$theme}-accent: #{$accent};
+    --mbsc-#{$theme}-accent-soft: #{$accent-soft}; // Calendar event bg
+    --mbsc-#{$theme}-border: #{$border};
+    --mbsc-#{$theme}-focus: #{$focus};
+    --mbsc-#{$theme}-highlight: #{$highlight}; // Range selection bg, Day hover bg
+    --mbsc-#{$theme}-action-success: #{$action-success}; // Switch on bg, Resource drag valid
+    --mbsc-#{$theme}-action-error: #{$action-error}; // Resource drag invalid
+    --mbsc-#{$theme}-on-accent: #{$on-accent};
+    --mbsc-#{$theme}-on-accent-soft: #{$on-accent-soft};
+  }
+}

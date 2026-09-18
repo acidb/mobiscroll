@@ -1,0 +1,66 @@
+@use 'sass:map';
+@use 'sass:color';
+@use '../../themes/common';
+
+@mixin mbsc-windows-legacy-stepper($theme, $params) {
+  $text: map.get($params, 'text');
+  $background: map.get($params, 'background');
+
+  $bg-param: map.get($params, 'form-background');
+  $text-param: map.get($params, 'form-text');
+
+  $background: common.choose($bg-param, $bg-param, $background);
+  $text: common.choose($text-param, $text-param, $text);
+
+  $border-color: '';
+  $disabled-text-color: '';
+  $disabled-button-color: '';
+  $hover: '';
+
+  // Light background
+  @if (color.channel($background, 'lightness', $space: hsl) > 50%) {
+    $border-color: color.adjust($background, $lightness: -20%);
+    $disabled-text-color: color.adjust($background, $lightness: -30%);
+    $disabled-button-color: color.adjust($background, $lightness: -20%);
+    $hover: #000;
+  }
+
+  // Dark background
+  @else {
+    $border-color: color.adjust($background, $lightness: 15%);
+    $disabled-text-color: color.adjust($background, $lightness: 40%);
+    $disabled-button-color: color.adjust($background, $lightness: 15%);
+    $hover: #fff;
+  }
+
+  .mbsc-#{$theme} {
+    &.mbsc-stepper-input {
+      border-color: $border-color;
+      color: $text;
+    }
+
+    &.mbsc-stepper-input.mbsc-disabled {
+      color: $disabled-text-color;
+    }
+
+    &.mbsc-stepper-button {
+      color: $border-color;
+    }
+
+    &.mbsc-stepper-button.mbsc-hover:before {
+      background: rgba($hover, 0.2);
+    }
+
+    &.mbsc-stepper-button.mbsc-disabled {
+      background: $disabled-button-color;
+    }
+
+    &.mbsc-stepper-inner {
+      color: $text;
+    }
+
+    &.mbsc-stepper-button.mbsc-disabled .mbsc-stepper-inner {
+      color: $disabled-text-color;
+    }
+  }
+}

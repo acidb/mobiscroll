@@ -1,0 +1,31 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": "../",
+    "sourceMap": false,
+    "declaration": true,
+    "importHelpers": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "es5",
+    "jsx": "react",
+    "baseUrl": "./",
+    "paths": {
+      "@framework/*": ["./*"]
+    },
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2017", "dom"]
+  },
+  "typedocOptions": {
+    "entryPoints": ["./bundle-docs.ts"],
+    "out": "../../dist/doc-react",
+    "json": "../../dist/doc-react/doc.json",
+    "disableSources": true,
+    "excludeExternals": true,
+    "excludePrivate": true,
+    "excludeProtected": true,
+    "hideGenerator": true
+  }
+}

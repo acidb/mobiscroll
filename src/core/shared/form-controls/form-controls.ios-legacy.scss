@@ -1,0 +1,82 @@
+@use '../../themes/common';
+@use '../../themes/ios-legacy';
+@use './form-controls.ios-legacy.colors.scss' as colors;
+
+@if (common.$mbsc-ios-theme and common.$mbsc-forms) {
+  .mbsc-ios-legacy {
+    &.mbsc-form-control-wrapper {
+      margin-top: -1px;
+    }
+
+    &.mbsc-form-control-wrapper.mbsc-error {
+      z-index: 2;
+    }
+
+    &.mbsc-form-control-wrapper:before,
+    &.mbsc-form-control-wrapper:after {
+      content: '';
+      position: absolute;
+      border-top: 1px solid transparent;
+    }
+
+    &.mbsc-form-control-wrapper.mbsc-ltr:after,
+    &.mbsc-form-control-wrapper.mbsc-ltr:before {
+      right: 0;
+      left: 1em;
+    }
+
+    &.mbsc-form-control-wrapper.mbsc-rtl:after,
+    &.mbsc-form-control-wrapper.mbsc-rtl:before {
+      left: 0;
+      right: 1em;
+    }
+
+    &.mbsc-form-control-wrapper:before {
+      top: 0;
+    }
+
+    &.mbsc-form-control-wrapper:after {
+      bottom: 0;
+    }
+
+    .mbsc-block-title + &.mbsc-form-control-wrapper.mbsc-ltr:before,
+    .mbsc-form-group-title + &.mbsc-form-control-wrapper.mbsc-ltr:before,
+    &.mbsc-form-control-wrapper.mbsc-ltr:first-child:before,
+    &.mbsc-form-control-wrapper.mbsc-ltr:last-child:after {
+      left: 0;
+    }
+
+    .mbsc-block-title + &.mbsc-form-control-wrapper.mbsc-rtl:before,
+    .mbsc-form-group-title + &.mbsc-form-control-wrapper.mbsc-rtl:before,
+    &.mbsc-form-control-wrapper.mbsc-rtl:first-child:before,
+    &.mbsc-form-control-wrapper.mbsc-rtl:last-child:after {
+      right: 0;
+    }
+
+    &.mbsc-form-control-label.mbsc-disabled,
+    &.mbsc-description.mbsc-disabled {
+      opacity: 0.3;
+    }
+
+    .mbsc-form-group-inset .mbsc-form-group-title + .mbsc-form-control-wrapper,
+    .mbsc-form-group-inset .mbsc-form-control-wrapper:first-child {
+      border-top-left-radius: 0.5em;
+      border-top-right-radius: 0.5em;
+    }
+
+    .mbsc-form-group-inset .mbsc-form-control-wrapper:last-child {
+      border-bottom-left-radius: 0.5em;
+      border-bottom-right-radius: 0.5em;
+    }
+
+    .mbsc-form-group-inset .mbsc-form-group-title,
+    .mbsc-form-group-inset .mbsc-form-group-title + .mbsc-form-control-wrapper:before,
+    .mbsc-form-group-inset .mbsc-form-control-wrapper:first-child:before,
+    .mbsc-form-group-inset .mbsc-form-control-wrapper:last-child:after {
+      border-width: 0;
+    }
+  }
+
+  @include colors.mbsc-ios-legacy-form-controls('ios-legacy', ios-legacy.$mbsc-ios-colors);
+  @include colors.mbsc-ios-legacy-form-controls('ios-legacy-dark', ios-legacy.$mbsc-ios-dark-colors);
+}

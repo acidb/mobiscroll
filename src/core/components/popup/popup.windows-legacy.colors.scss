@@ -1,0 +1,35 @@
+@use 'sass:map';
+@use 'sass:color';
+
+@mixin mbsc-windows-legacy-popup($theme, $params) {
+  $background: map.get($params, 'background');
+  $text: map.get($params, 'text');
+  $accent: map.get($params, 'accent');
+
+  $border: '';
+
+  @if (color.channel($background, 'lightness', $space: hsl) > 50%) {
+    $border: color.adjust($background, $lightness: -10%);
+  } @else {
+    $border: color.adjust($background, $lightness: 10%);
+  }
+
+  .mbsc-#{$theme} {
+    &.mbsc-popup {
+      background: $background;
+      border-color: $border;
+      box-shadow: rgba(0, 0, 0, 0.133) 0 6px 14px 0, rgba(0, 0, 0, 0.11) 0 1px 4px 0;
+      color: $text;
+    }
+
+    &.mbsc-popup-arrow {
+      background: $background;
+      border-color: $border;
+    }
+
+    &.mbsc-popup-header,
+    &.mbsc-popup-buttons {
+      border-color: $border;
+    }
+  }
+}

@@ -1,0 +1,12 @@
+@mixin mbsc-material-switch($theme, $params) {
+  .mbsc-#{$theme} {
+    &.mbsc-switch {
+      --mbsc-switch-handle-color: var(--mbsc-#{$theme}-switch-handle-color, var(--mbsc-#{$theme}-outline));
+      --mbsc-switch-track-color: var(--mbsc-#{$theme}-switch-track-color, var(--mbsc-#{$theme}-surface-container-highest));
+      --mbsc-switch-selected-handle-color: var(--mbsc-#{$theme}-switch-selected-handle-color, var(--mbsc-#{$theme}-on-accent));
+      --mbsc-switch-selected-track-color: var(--mbsc-#{$theme}-switch-selected-track-color, var(--mbsc-#{$theme}-accent));
+      --mbsc-switch-border-color: var(--mbsc-#{$theme}-switch-border-color, var(--mbsc-#{$theme}-outline));
+      --mbsc-switch-focus: var(--mbsc-#{$theme}-switch-focus, var(--mbsc-#{$theme}-secondary-accent));
+    }
+  }
+}

@@ -1,0 +1,26 @@
+
+$mbsc-font-path: '' !default;
+
+@font-face {
+    font-family: 'Mobiscroll';
+    src: url();
+    font-weight: normal;
+    font-style: normal;
+}
+
+.mbsc-font-icon:before {
+    font-family: 'Mobiscroll';
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Icons */
+{% for glyph in glyphs %}
+.{{ className }}-{{ glyph.name }}::before {
+    content: "\{{ glyph.unicode[0].charCodeAt(0).toString(16) }}";
+}{% endfor %}

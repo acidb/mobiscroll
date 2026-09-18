@@ -1,0 +1,18 @@
+@mixin mbsc-windows-input($theme, $params) {
+  .mbsc-#{$theme} {
+    &.mbsc-textfield-wrapper {
+      --mbsc-textfield-focus: var(--mbsc-#{$theme}-textfield-focus, var(--mbsc-#{$theme}-accent));
+      --mbsc-textfield-icon-color: var(--mbsc-#{$theme}-textfield-icon-color, var(--mbsc-#{$theme}-text));
+      --mbsc-textfield-border: var(--mbsc-#{$theme}-textfield-border, var(--mbsc-#{$theme}-border-strong));
+      --mbsc-textfield-border-hover: var(--mbsc-#{$theme}-textfield-border-hover, var(--mbsc-#{$theme}-border-strong-hover));
+      --mbsc-textfield-tag-bg-color: var(--mbsc-#{$theme}-surface-1);
+
+      --mbsc-form-control-bg-color: var(--mbsc-#{$theme}-textfield-bg-color, var(--mbsc-#{$theme}-background));
+      --mbsc-form-control-text-color: var(--mbsc-#{$theme}-textfield-text-color, var(--mbsc-#{$theme}-text));
+      --mbsc-form-control-border-color: var(--mbsc-#{$theme}-textfield-border-color, var(--mbsc-#{$theme}-border));
+      --mbsc-form-control-border-hover: var(--mbsc-#{$theme}-border-hover);
+      --mbsc-form-control-border-focus: var(--mbsc-#{$theme}-border-focus);
+      --mbsc-form-control-error: var(--mbsc-#{$theme}-textfield-error, var(--mbsc-#{$theme}-action-error)); /// TODO: rename generic
+    }
+  }
+}

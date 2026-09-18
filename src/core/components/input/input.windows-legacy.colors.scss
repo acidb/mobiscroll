@@ -1,0 +1,141 @@
+@use 'sass:map';
+@use 'sass:color';
+@use '../../themes/common';
+@use '../../themes/windows-legacy';
+
+@mixin mbsc-windows-legacy-input($theme, $params) {
+  $background: map.get($params, 'background');
+  $text: map.get($params, 'text');
+  $accent: map.get($params, 'accent');
+
+  $bg-param: map.get($params, 'input-background');
+  $text-param: map.get($params, 'input-text');
+  $brd-param: map.get($params, 'input-border');
+  $acc-param: map.get($params, 'input-accent');
+  $err-param: map.get($params, 'form-error');
+
+  $background: common.choose($bg-param, $bg-param, $background);
+  $text: common.choose($text-param, $text-param, $text);
+  $accent: common.choose($acc-param, $acc-param, $accent);
+  $error: common.choose($err-param, $err-param, windows-legacy.$mbsc-windows-error);
+
+  $input-backgound: $background;
+  $input-hover: $text;
+  $input-border: '';
+  $input-disabled-background: '';
+  $input-disabled-color: '';
+  $input-tag-background: '';
+
+  // Light background
+  @if (color.channel($background, 'lightness', $space: hsl) > 50%) {
+    $input-border: color.adjust($text, $lightness: 33%);
+    $input-disabled-background: color.adjust($background, $lightness: -5%);
+    $input-disabled-color: color.adjust($text, $lightness: 42%);
+    $input-tag-background: color.adjust($background, $lightness: -10%);
+  }
+
+  // Dark background
+  @else {
+    $input-border: color.adjust($text, $lightness: -33%);
+    $input-disabled-background: color.adjust($background, $lightness: 5%);
+    $input-disabled-color: color.adjust($text, $lightness: -42%);
+    $input-tag-background: color.adjust($background, $lightness: 27%);
+  }
+
+  $input-border: common.choose($brd-param, $brd-param, $input-border);
+
+  .mbsc-#{$theme} {
+    /* Wrapper */
+
+    &.mbsc-textfield-wrapper {
+      color: $text;
+    }
+
+    &.mbsc-textfield-wrapper.mbsc-disabled {
+      color: $input-disabled-color;
+    }
+
+    /* Form element */
+
+    &.mbsc-textfield {
+      background: $input-backgound;
+      color: $text;
+    }
+
+    &.mbsc-textfield-box,
+    &.mbsc-textfield-outline {
+      border-color: $input-border;
+    }
+
+    &.mbsc-textfield.mbsc-hover {
+      border-color: $input-hover;
+    }
+
+    &.mbsc-textfield-box.mbsc-focus,
+    &.mbsc-textfield-outline.mbsc-focus {
+      border-color: $accent;
+      box-shadow: 0 0 0 1px $accent inset;
+    }
+
+    &.mbsc-textfield.mbsc-disabled {
+      background: $input-disabled-background;
+      border-color: $input-disabled-background;
+    }
+
+    &.mbsc-textfield.mbsc-error {
+      border-color: $error;
+    }
+
+    &.mbsc-textfield-box.mbsc-error.mbsc-focus,
+    &.mbsc-textfield-outline.mbsc-error.mbsc-focus {
+      box-shadow: 0 0 0 1px $error inset;
+    }
+
+    /* Error message */
+
+    &.mbsc-error-message {
+      color: $error;
+    }
+
+    /* Label */
+
+    &.mbsc-label {
+      color: $text;
+    }
+
+    /* Underline input --------------------------------------------------------------------------- */
+
+    &.mbsc-textfield-wrapper-underline {
+      border-color: $input-border;
+    }
+
+    &.mbsc-textfield-wrapper-underline.mbsc-hover {
+      border-color: $input-hover;
+    }
+
+    &.mbsc-textfield-wrapper-underline.mbsc-focus {
+      border-color: $accent;
+      box-shadow: 0 1px 0 0 $accent;
+    }
+
+    &.mbsc-textfield-wrapper-underline.mbsc-disabled {
+      border-color: $input-disabled-background;
+    }
+
+    &.mbsc-textfield-wrapper-underline.mbsc-error {
+      border-color: $error;
+    }
+
+    &.mbsc-textfield-wrapper-underline.mbsc-error.mbsc-focus {
+      box-shadow: 0 1px 0 0 $error;
+    }
+
+    /* ----------------------------------------------------------------------------------------- */
+
+    /* Input tags */
+
+    &.mbsc-textfield-tag {
+      background: $input-tag-background;
+    }
+  }
+}

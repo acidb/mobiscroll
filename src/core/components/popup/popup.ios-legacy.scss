@@ -1,0 +1,196 @@
+@use '../../themes/common';
+@use '../../themes/ios-legacy';
+@use './popup.ios-legacy.colors' as colors;
+
+@if (common.$mbsc-ios-theme and common.$mbsc-popup) {
+  .mbsc-ios-legacy {
+    &.mbsc-popup-wrapper-bottom-full {
+      padding-top: 1em;
+    }
+
+    &.mbsc-popup-wrapper-top-full {
+      padding-bottom: 1em;
+    }
+
+    // &.mbsc-popup-overlay {
+    //   background: rgba(0, 0, 0, .2);
+    // }
+
+    &.mbsc-popup-top {
+      border-bottom: 1px solid;
+    }
+
+    &.mbsc-popup-bottom {
+      border-top: 1px solid;
+    }
+
+    &.mbsc-popup-body-center {
+      border-radius: 0.9375em;
+    }
+
+    &.mbsc-popup-body-bottom-full {
+      border-radius: 0.75em 0.75em 0 0;
+    }
+
+    &.mbsc-popup-body-top-full {
+      border-radius: 0 0 0.75em 0.75em;
+    }
+
+    &.mbsc-popup-body-anchored {
+      border-radius: 0.9375em;
+    }
+
+    &.mbsc-popup-arrow {
+      border-radius: 0 0.375em;
+    }
+
+    &.mbsc-popup-header {
+      position: absolute;
+      z-index: 1;
+      top: 0;
+      right: 0;
+      left: 0;
+      line-height: 1.25em;
+      padding: 0.75em 4.375em;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    &.mbsc-popup-header-no-buttons {
+      position: relative;
+      border-bottom: 1px solid;
+    }
+
+    &.mbsc-popup-header-center {
+      position: relative;
+      padding: 0.75em 0.5em;
+      border-bottom: 1px solid;
+    }
+
+    &.mbsc-popup-top-full .mbsc-popup-header,
+    &.mbsc-popup-bottom-full .mbsc-popup-header {
+      padding: 1.125em 4.375em;
+    }
+
+    &.mbsc-popup-buttons {
+      order: -1;
+      border-bottom: 1px solid;
+    }
+
+    &.mbsc-popup-buttons.mbsc-ltr {
+      text-align: right;
+    }
+
+    &.mbsc-popup-buttons.mbsc-rtl {
+      text-align: left;
+    }
+
+    &.mbsc-popup-button.mbsc-font {
+      // line-height: 2.75em;
+      margin-top: 0.25em;
+      margin-bottom: 0.25em;
+      z-index: 2;
+    }
+
+    &.mbsc-popup-button-primary {
+      font-weight: bold;
+    }
+
+    &.mbsc-popup-button-close.mbsc-ltr {
+      float: left;
+    }
+
+    &.mbsc-popup-button-close.mbsc-rtl {
+      float: right;
+    }
+
+    &.mbsc-popup-buttons-anchored,
+    &.mbsc-popup-buttons-top,
+    &.mbsc-popup-buttons-bottom {
+      padding: 0 0.25em;
+    }
+
+    &.mbsc-popup-buttons-top-full,
+    &.mbsc-popup-buttons-bottom-full {
+      padding: 0.375em 0.25em;
+    }
+
+    /* Button styling for centered popup and desktop styled top/bottom popup */
+
+    &.mbsc-popup-buttons.mbsc-flex {
+      order: 0;
+      border: 0;
+      padding: 0;
+      background: none;
+    }
+
+    &.mbsc-popup-button-flex.mbsc-font {
+      flex: 1 1 100%;
+      display: block;
+    }
+
+    &.mbsc-popup-button-flex.mbsc-icon-button {
+      padding: 0 0.5em;
+    }
+
+    &.mbsc-popup-button-flex.mbsc-font.mbsc-button {
+      opacity: 1;
+      margin-top: 0.5em;
+      margin-bottom: 0.5em;
+    }
+
+    &.mbsc-popup-button-flex.mbsc-font.mbsc-button-flat {
+      background: none;
+      border-top: 1px solid;
+      border-radius: 0;
+      margin: 0;
+      line-height: 2.75em;
+    }
+
+    &.mbsc-popup-button-flex.mbsc-button-flat.mbsc-ltr {
+      border-right-style: solid;
+      border-right-width: 1px;
+    }
+
+    &.mbsc-popup-button-flex.mbsc-button-flat.mbsc-rtl {
+      border-left-style: solid;
+      border-left-width: 1px;
+    }
+
+    &.mbsc-popup-button-flex.mbsc-button-flat:last-child {
+      border-left: 0;
+      border-right: 0;
+    }
+
+    /* Desktop styling */
+
+    &.mbsc-popup-body-round {
+      border-radius: 0.9375em;
+    }
+
+    &.mbsc-popup-pointer {
+      .mbsc-popup-body-round {
+        border-radius: 0.5em;
+      }
+    }
+
+    &.mbsc-popup-round {
+      .mbsc-popup {
+        border: 0;
+      }
+
+      // .mbsc-popup-body-bottom.mbsc-popup-short,
+      .mbsc-popup-body-bottom-full {
+        border-radius: 0.75em 0.75em 0 0;
+      }
+
+      // .mbsc-popup-body-top.mbsc-popup-short,
+      .mbsc-popup-body-top-full {
+        border-radius: 0 0 0.75em 0.75em;
+      }
+    }
+  }
+
+  @include colors.mbsc-ios-legacy-popup('ios-legacy', ios-legacy.$mbsc-ios-colors);
+  @include colors.mbsc-ios-legacy-popup('ios-legacy-dark', ios-legacy.$mbsc-ios-dark-colors);
+}

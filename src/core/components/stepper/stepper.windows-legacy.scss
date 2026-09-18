@@ -1,0 +1,111 @@
+@use '../../themes/common';
+@use '../../themes/windows-legacy';
+@use './stepper.windows-legacy.colors' as colors;
+
+@if (common.$mbsc-windows-theme and common.$mbsc-forms) {
+  .mbsc-windows-legacy {
+    &.mbsc-stepper-button.mbsc-button {
+      width: 3.625em;
+      line-height: 1.5em;
+      border-color: currentColor;
+    }
+
+    &.mbsc-stepper-button.mbsc-hover:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+    }
+
+    &.mbsc-stepper-button.mbsc-disabled {
+      opacity: 1;
+    }
+
+    &.mbsc-stepper-minus.mbsc-ltr,
+    &.mbsc-stepper-plus.mbsc-rtl {
+      border-right: 0;
+    }
+
+    &.mbsc-stepper-minus.mbsc-rtl,
+    &.mbsc-stepper-plus.mbsc-ltr {
+      border-left: 0;
+    }
+
+    &.mbsc-stepper-inner {
+      font-size: 1.75em;
+      font-weight: 800;
+    }
+
+    &.mbsc-stepper-input {
+      z-index: 1;
+      border-top: 2px solid;
+      border-bottom: 2px solid;
+      border-left: 0;
+      border-right: 0;
+      width: 4em;
+    }
+
+    // button colors
+
+    &.mbsc-primary .mbsc-stepper-button {
+      background: windows-legacy.$mbsc-windows-primary;
+      border-color: windows-legacy.$mbsc-windows-primary;
+    }
+
+    &.mbsc-secondary .mbsc-stepper-button {
+      background: windows-legacy.$mbsc-windows-secondary;
+      border-color: windows-legacy.$mbsc-windows-secondary;
+    }
+
+    &.mbsc-success .mbsc-stepper-button {
+      background: windows-legacy.$mbsc-windows-success;
+      border-color: windows-legacy.$mbsc-windows-success;
+    }
+
+    &.mbsc-danger .mbsc-stepper-button {
+      background: windows-legacy.$mbsc-windows-danger;
+      border-color: windows-legacy.$mbsc-windows-danger;
+    }
+
+    &.mbsc-warning .mbsc-stepper-button {
+      background: windows-legacy.$mbsc-windows-warning;
+      border-color: windows-legacy.$mbsc-windows-warning;
+    }
+
+    &.mbsc-info .mbsc-stepper-button {
+      background: windows-legacy.$mbsc-windows-info;
+      border-color: windows-legacy.$mbsc-windows-info;
+    }
+
+    // input border colors
+
+    &.mbsc-primary .mbsc-stepper-input {
+      border-color: windows-legacy.$mbsc-windows-primary;
+    }
+
+    &.mbsc-secondary .mbsc-stepper-input {
+      border-color: windows-legacy.$mbsc-windows-secondary;
+    }
+
+    &.mbsc-success .mbsc-stepper-input {
+      border-color: windows-legacy.$mbsc-windows-success;
+    }
+
+    &.mbsc-danger .mbsc-stepper-input {
+      border-color: windows-legacy.$mbsc-windows-danger;
+    }
+
+    &.mbsc-warning .mbsc-stepper-input {
+      border-color: windows-legacy.$mbsc-windows-warning;
+    }
+
+    &.mbsc-info .mbsc-stepper-input {
+      border-color: windows-legacy.$mbsc-windows-info;
+    }
+  }
+
+  @include colors.mbsc-windows-legacy-stepper('windows-legacy', windows-legacy.$mbsc-windows-colors);
+  @include colors.mbsc-windows-legacy-stepper('windows-legacy-dark', windows-legacy.$mbsc-windows-dark-colors);
+}

@@ -1,0 +1,32 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "outDir": "./bundle",
+    "declaration": true,
+    "declarationDir": "./dist/js",
+    "declarationMap": false,
+    "importHelpers": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "es5",
+    "jsx": "react",
+    "baseUrl": "./",
+    "paths": {
+      "@framework/*": ["./*"]
+    },
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2017", "dom"]
+  },
+  "files": ["src/public_api.ts"],
+  "angularCompilerOptions": {
+    "annotationsAs": "static fields",
+    "enableIvy": true,
+    "compilationMode": "partial",
+    "skipTemplateCodegen": true,
+    "strictMetadataEmit": true,
+    "flatModuleOutFile": "mobiscroll.angular.min",
+    "enableResourceInlining": true
+  }
+}

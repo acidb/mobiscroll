@@ -1,0 +1,42 @@
+@use 'sass:map';
+@use 'sass:color';
+@use '../../themes/common';
+
+@mixin mbsc-ios-legacy-switch($theme, $params) {
+  $background: map.get($params, 'background');
+  $text: map.get($params, 'text');
+
+  $bg-param: map.get($params, 'form-background');
+  $ac-param: map.get($params, 'form-accent');
+  $text-param: map.get($params, 'form-text');
+
+  $background: common.choose($bg-param, $bg-param, $background);
+  $switch-track-checked: common.choose($ac-param, $ac-param, #4cd764);
+  $text: common.choose($text-param, $text-param, $text);
+
+  $switch-track: '';
+
+  @if (color.channel($background, 'lightness', $space: hsl) > 50%) {
+    $switch-track: color.adjust($background, $lightness: -7%);
+  } @else {
+    $switch-track: color.adjust($background, $lightness: 22%);
+  }
+
+  .mbsc-#{$theme} {
+    &.mbsc-switch-track {
+      // when the switch is not checked
+      &:after {
+        background: $switch-track;
+      }
+
+      &.mbsc-focus:after {
+        box-shadow: 0 0 0 0.125em rgba($text, 0.5);
+      }
+
+      // when the switch is checked
+      &.mbsc-checked:after {
+        background: $switch-track-checked;
+      }
+    }
+  }
+}

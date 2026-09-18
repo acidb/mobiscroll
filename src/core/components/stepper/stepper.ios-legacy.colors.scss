@@ -1,0 +1,49 @@
+@use 'sass:map';
+@use 'sass:color';
+@use '../../themes/common';
+
+@mixin mbsc-ios-legacy-stepper($theme, $params) {
+  $background: map.get($params, 'background');
+  $text: map.get($params, 'text');
+
+  $bg-param: map.get($params, 'form-background');
+  $text-param: map.get($params, 'form-text');
+
+  $background: common.choose($bg-param, $bg-param, $background);
+  $text: common.choose($text-param, $text-param, $text);
+
+  $button-background: '';
+  $border: '';
+
+  // Light background
+  @if (color.channel($background, 'lightness', $space: hsl) > 50%) {
+    $button-background: color.adjust($background, $lightness: -10%);
+    $border: #000;
+  }
+
+  // Dark background
+  @else {
+    $button-background: color.adjust($background, $lightness: 17%);
+    $border: #fff;
+  }
+
+  .mbsc-#{$theme} {
+    &.mbsc-stepper-input {
+      border-color: $button-background;
+      color: $text;
+    }
+
+    &.mbsc-stepper-input.mbsc-disabled {
+      color: rgba($text, 0.2);
+    }
+
+    &.mbsc-stepper-button {
+      background: $button-background;
+      color: $text;
+    }
+
+    &.mbsc-stepper-plus:before {
+      border-color: rgba($border, 0.2);
+    }
+  }
+}

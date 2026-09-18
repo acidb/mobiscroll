@@ -1,0 +1,156 @@
+@use '../../themes/common';
+@use '../../themes/material-legacy';
+@use './segmented.material-legacy.colors' as colors;
+
+@if (common.$mbsc-material-theme and common.$mbsc-segmented) {
+  .mbsc-material-legacy {
+    &.mbsc-segmented {
+      padding: 0.75em;
+    }
+
+    &.mbsc-segmented-selectbox {
+      display: none;
+    }
+
+    &.mbsc-segmented-item:first-child {
+      .mbsc-segmented-button {
+        border-top-left-radius: 0.25em;
+        border-bottom-left-radius: 0.25em;
+      }
+
+      .mbsc-segmented-button.mbsc-rtl {
+        border-radius: 0 0.25em 0.25em 0;
+        border-right-width: 0.142858em;
+      }
+    }
+
+    &.mbsc-segmented-item:last-child {
+      .mbsc-segmented-button {
+        border-top-right-radius: 0.25em;
+        border-bottom-right-radius: 0.25em;
+        border-right-width: 0.142858em;
+      }
+
+      .mbsc-segmented-button.mbsc-rtl {
+        border-radius: 0.25em 0 0 0.25em;
+        border-right-width: 0;
+      }
+    }
+
+    &.mbsc-segmented-button.mbsc-button {
+      margin: 0;
+      padding: 0.285715em 1.142858em;
+      border: 0.142858em solid transparent;
+      border-right-width: 0;
+      border-radius: 0;
+      background: none;
+      box-shadow: none;
+      min-width: auto;
+      font-size: 0.875em;
+
+      &.mbsc-hover,
+      &.mbsc-active {
+        box-shadow: none;
+      }
+
+      &.mbsc-focus:after {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+      }
+
+      /* Color presets */
+
+      &.mbsc-button-primary {
+        color: material-legacy.$mbsc-material-primary;
+        border-color: material-legacy.$mbsc-material-primary;
+
+        &.mbsc-hover,
+        &.mbsc-active {
+          background: rgba(material-legacy.$mbsc-material-primary, 0.2);
+        }
+
+        &.mbsc-selected {
+          background: material-legacy.$mbsc-material-primary;
+        }
+      }
+
+      &.mbsc-button-secondary {
+        color: material-legacy.$mbsc-material-secondary;
+        border-color: material-legacy.$mbsc-material-secondary;
+
+        &.mbsc-hover,
+        &.mbsc-active {
+          background: rgba(material-legacy.$mbsc-material-secondary, 0.2);
+        }
+
+        &.mbsc-selected {
+          background: material-legacy.$mbsc-material-secondary;
+        }
+      }
+
+      &.mbsc-button-success {
+        color: material-legacy.$mbsc-material-success;
+        border-color: material-legacy.$mbsc-material-success;
+
+        &.mbsc-hover,
+        &.mbsc-active {
+          background: rgba(material-legacy.$mbsc-material-success, 0.2);
+        }
+
+        &.mbsc-selected {
+          background: material-legacy.$mbsc-material-success;
+        }
+      }
+
+      &.mbsc-button-danger {
+        color: material-legacy.$mbsc-material-danger;
+        border-color: material-legacy.$mbsc-material-danger;
+
+        &.mbsc-hover,
+        &.mbsc-active {
+          background: rgba(material-legacy.$mbsc-material-danger, 0.2);
+        }
+
+        &.mbsc-selected {
+          background: material-legacy.$mbsc-material-danger;
+        }
+      }
+
+      &.mbsc-button-warning {
+        color: material-legacy.$mbsc-material-warning;
+        border-color: material-legacy.$mbsc-material-warning;
+
+        &.mbsc-hover,
+        &.mbsc-active {
+          background: rgba(material-legacy.$mbsc-material-warning, 0.2);
+        }
+
+        &.mbsc-selected {
+          background: material-legacy.$mbsc-material-warning;
+        }
+      }
+
+      &.mbsc-button-info {
+        color: material-legacy.$mbsc-material-info;
+        border-color: material-legacy.$mbsc-material-info;
+
+        &.mbsc-hover,
+        &.mbsc-active {
+          background: rgba(material-legacy.$mbsc-material-info, 0.2);
+        }
+
+        &.mbsc-selected {
+          background: material-legacy.$mbsc-material-info;
+        }
+      }
+    }
+  }
+
+  @include colors.mbsc-material-legacy-segmented('material-legacy', material-legacy.$mbsc-material-colors);
+  @include colors.mbsc-material-legacy-segmented('material-legacy-dark', material-legacy.$mbsc-material-dark-colors);
+}
