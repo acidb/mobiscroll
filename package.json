@@ -1,6 +1,6 @@
 {
   "name": "mobiscroll",
-  "version": "6.1.3",
+  "version": "6.1.4",
   "description": "Scheduling, event calendar and resource management UI components, and Mobiscroll Connect, the calendar connectivity layer for scheduling products. Index for both; holds the open-source form components and the changelogs.",
   "homepage": "https://mobiscroll.com/",
   "license": "Apache-2.0",
@@ -19,6 +19,7 @@
     "build-jquery": "node ./scripts/build.js jquery",
     "build-angular": "node ./scripts/build-angular.js",
     "build-npm": "npm run build-react && npm run build-vue && npm run build-javascript && npm run build-jquery && npm run build-angular",
+    "bump-version": "node ./scripts/bump-version.js",
     "publish": "cd ./packages/react && npm publish && cd ../vue && npm publish && cd ../javascript && npm publish && cd ../jquery && npm publish && cd ../angular && npm publish",
     "eslint": "eslint src/**",
     "tsc": "tsc"

@@ -10,6 +10,11 @@ Each product adheres to [Semantic Versioning](https://semver.org/).
 
 ## Mobiscroll UI
 
+### [6.1.4] - 2026-09-22
+
+Angular datepicker module resolution, scheduler navigation, and timeline accessibility fixes.
+[Full release notes](https://mobiscroll.com/releases#product-v614).
+
 ### [6.1.3] - 2026-08-07
 
 Drag & drop accuracy and timezone/DST handling fixes across components.
