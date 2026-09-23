@@ -18,6 +18,10 @@ on it behaves the way assistive technology expects. Same design system and themi
 of Mobiscroll — a form built with these sits next to a Mobiscroll scheduler without looking
 bolted on. TypeScript types and both ESM and CommonJS builds are in the package.
 
+These are native Angular components, built on Angular's own template rendering and change
+detection — not wrappers around a plain JavaScript widget. `@Input`/`@Output` bindings, forms
+integration and dependency injection all work the way they do in any other Angular component.
+
 ## Install
 
 ```bash

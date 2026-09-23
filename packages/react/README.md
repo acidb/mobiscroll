@@ -18,6 +18,10 @@ on it behaves the way assistive technology expects. Same design system and themi
 of Mobiscroll — a form built with these sits next to a Mobiscroll scheduler without looking
 bolted on. TypeScript types and both ESM and CommonJS builds are in the package.
 
+These are native React components, built on React's own rendering and hooks — not wrappers
+around a plain JavaScript widget. State, props and events all work the way they do in any other
+React component.
+
 ## Install
 
 ```bash
@@ -29,14 +33,18 @@ Public npm — no CLI, no registry configuration, no licence key.
 ## Usage
 
 ```jsx
-import { Input, Button, toast } from '@mobiscroll/react-lite';
+import { useState } from 'react';
+import { Input, Button, Toast } from '@mobiscroll/react-lite';
 import '@mobiscroll/react-lite/dist/css/mobiscroll.min.css';
 
 export default function ContactForm() {
+  const [showToast, setShowToast] = useState(false);
+
   return (
     <>
       <Input label="Email" type="email" />
-      <Button onClick={() => toast({ message: 'Saved' })}>Save</Button>
+      <Button onClick={() => setShowToast(true)}>Save</Button>
+      <Toast isOpen={showToast} message="Saved" onClose={() => setShowToast(false)} />
     </>
   );
 }

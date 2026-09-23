@@ -1,6 +1,6 @@
 {
   "name": "@mobiscroll/jquery-lite",
-  "version": "6.1.3",
+  "version": "6.1.4",
   "description": "Open-source jQuery form, notification and popup components from Mobiscroll — the scheduling, event calendar and resource management UI library. Apache-2.0. Scheduler, timeline, agenda and date pickers are commercial.",
   "homepage": "https://mobiscroll.com/docs/jquery",
   "license": "Apache-2.0",
@@ -58,7 +58,9 @@
     "dist/js/*",
     "dist/esm5/*",
     "dist/css/*",
-    "dist/src/**"
+    "dist/src/**",
+    "AGENTS.md",
+    "CLAUDE.md"
   ],
   "peerDependencies": {
     "jquery": ">=1.7.0"

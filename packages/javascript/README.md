@@ -18,6 +18,10 @@ on it behaves the way assistive technology expects. Same design system and themi
 of Mobiscroll — a form built with these sits next to a Mobiscroll scheduler without looking
 bolted on. TypeScript types and both ESM and CommonJS builds are in the package.
 
+The Preact library is bundled inside and handles rendering internally — it's an implementation
+detail, never exposed in the public API, so components are used through plain DOM attributes and
+elements as shown below.
+
 ## Install
 
 ```bash
