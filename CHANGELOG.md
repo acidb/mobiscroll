@@ -47,6 +47,11 @@ Major release: API improvements, theme rewrites, CSS variables, and scheduler vi
 
 ## Mobiscroll Connect API
 
+### [1.5.3] - 2026-09-22
+
+Event writes, webhooks, and calendar filtering for users with more than one account on the same provider.
+[Full release notes](https://mobiscroll.com/releases#connect-v153).
+
 ### [1.5.2] - 2026-09-08
 
 Event identifiers on iCloud calendars.
