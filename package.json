@@ -25,12 +25,6 @@
     "tsc": "tsc"
   },
   "devDependencies": {
-    "@angular/common": "^13.4.0",
-    "@angular/compiler": "^13.4.0",
-    "@angular/compiler-cli": "^13.4.0",
-    "@angular/core": "^13.4.0",
-    "@angular/forms": "^13.4.0",
-    "@angular/platform-browser": "^13.4.0",
     "@babel/core": "^7.23.0",
     "@babel/preset-env": "^7.22.20",
     "@rollup/plugin-babel": "^6.0.4",

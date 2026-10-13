@@ -34,6 +34,11 @@ const angularGlobals = {
   "@angular/platform-browser": "angularPlatformBrowser",
 };
 
+if (!fs.existsSync("vendor/node_modules")) {
+  console.info("Installing vendor Angular 13 toolchain...");
+  execSync("npm install", { cwd: path.resolve("vendor"), stdio: "inherit" });
+}
+
 fse.emptyDirSync(outDir + "/dist");
 fse.emptyDirSync(outDir + "/src");
 fse.emptyDirSync(outDir + "/bundle");
@@ -85,7 +90,7 @@ fs.writeFileSync(outDir + "/src/angular/bundle.ts", content, "utf8");
 console.info("Run ngc build...");
 execSync(
   '"' +
-    path.normalize("node_modules/.bin/ngc") +
+    path.normalize("vendor/node_modules/.bin/ngc") +
     '" -p ' +
     outDir +
     "/tsconfig.json"
