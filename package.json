@@ -35,12 +35,12 @@
     "@vue/tsconfig": "^0.1.3",
     "autoprefixer": "^10.4.19",
     "fs-extra": "^8.1.0",
+    "globs": "^0.1.4",
     "postcss": "^8.4.38",
     "remove-empty-directories": "0.0.1",
     "rollup": "^4.18.0",
     "rollup-plugin-postcss": "^4.0.2",
     "sass": "1.92.0",
-    "scss-bundle": "^3.1.1",
     "typescript": "4.6.4"
   },
   "dependencies": {
