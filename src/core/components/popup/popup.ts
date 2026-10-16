@@ -441,7 +441,7 @@ export class PopupBase extends BaseComponent<MbscPopupOptions, MbscPopupState> {
     this._vpWidth = Math.min(wrapper.clientWidth, hasContext ? Infinity : this._win!.innerWidth);
     this._vpHeight = Math.min(wrapper.clientHeight, hasContext ? Infinity : this._win!.innerHeight);
     this._maxWidth = this._limitator!.offsetWidth;
-    this._maxHeight = this.s.maxHeight !== UNDEFINED || this._vpWidth < 768 || this._vpHeight < 650 ? this._limitator!.offsetHeight : 600;
+    this._maxHeight = this.s.maxHeight !== UNDEFINED || this._vpWidth < 768 || this._vpHeight < 672 ? this._limitator!.offsetHeight : 640;
     // TODO: this._round = this.s.touchUi === false || (this._popup.offsetWidth < this._vpWidth && this._vpWidth > this._maxWidth);
     this._round = true;
 

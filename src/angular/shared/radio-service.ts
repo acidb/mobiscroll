@@ -8,5 +8,5 @@ export class MbscRadioService {
   public position?: 'start' | 'end';
   public select?: 'single' | 'multiple';
   public value?: any;
-  public onChange?: (ev: any, value: any) => void;
+  public onChange?: (ev: any, value?: any) => void;
 }

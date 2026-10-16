@@ -59,8 +59,6 @@ export interface MbscButtonOptions extends IBaseProps {
   /** @hidden */
   id?: string;
   /** @hidden */
-  onClick?: any;
-  /** @hidden */
   responsive?: any;
   /** @hidden */
   ripple?: boolean;
@@ -76,4 +74,17 @@ export interface MbscButtonOptions extends IBaseProps {
   type?: 'button' | 'submit' | 'reset';
 
   // #endregion Hidden options
+
+  // #region Events
+
+  /**
+   * @event
+   * Triggered when the button is clicked.
+   * @param event The click event.
+   * @option react
+   * @option vue
+   */
+  onClick?: (event: any) => void;
+
+  // #endregion Events
 }

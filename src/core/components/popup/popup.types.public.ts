@@ -242,7 +242,7 @@ export interface MbscPopupOptions extends IBaseProps<MbscPopupOptions> {
    */
   isOpen?: boolean;
   /**
-   * Sets the maximum height of the component. If not specified, on larger screens (>=768px width) it defaults to 600px.
+   * Sets the maximum height of the component. If not specified, on larger screens (>=768px width) it defaults to 640px.
    * @defaultValue undefined
    */
   maxHeight?: string | number;
@@ -355,6 +355,9 @@ export interface MbscPopupOptions extends IBaseProps<MbscPopupOptions> {
    * Useful if dimensions needs to be modified before the positioning happens, e.g. set a custom width or height.
    * Custom positioning can also be implemented in this handler. In that case, returning `false` from the handler function will prevent
    * the built in positioning.
+   * @angularNote
+   * Returning `false` only works when the handler is passed through the `[options]` object.
+   * It has no effect when using the `(onPosition)` event binding.
    * @param args The event argument with the following properties:
    *    - `target`: *HTMLElement* - The DOM element of the popup.
    *    - `windowWidth`: *number* - The window width.

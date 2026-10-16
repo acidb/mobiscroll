@@ -35,6 +35,7 @@ export class MbscCheckbox extends CheckboxBase {
   @Input()
   public color?: 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'dark' | 'light';
 
+  // TODO: not documented for Angular (Switch and Radio don't have it), remove in v7 if not used
   @Input()
   public defaultChecked?: boolean;
 

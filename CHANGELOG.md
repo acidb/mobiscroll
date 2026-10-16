@@ -10,6 +10,11 @@ Each product adheres to [Semantic Versioning](https://semver.org/).
 
 ## Mobiscroll UI
 
+### [6.1.5] - 2026-09-22
+
+Scheduler and Timeline event navigation, Timeline event connection rendering, and Datepicker popup layout fixes.
+[Full release notes](https://mobiscroll.com/releases#product-v615).
+
 ### [6.1.4] - 2026-09-22
 
 Angular datepicker module resolution, scheduler navigation, and timeline accessibility fixes.

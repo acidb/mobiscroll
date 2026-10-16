@@ -308,6 +308,10 @@ export class MbscPopup extends PopupBase {
   @Output()
   public onOpen: EventEmitter<MbscPopupOpenEvent> = new EventEmitter();
 
+  /**
+   * Returning `false` from the `(onPosition)` event binding has no effect.
+   * To prevent the built-in positioning, pass the handler through the `[options]` object instead.
+   */
   @Output()
   public onPosition: EventEmitter<MbscPopupPositionEvent> = new EventEmitter();
 
