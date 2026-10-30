@@ -88,7 +88,7 @@ export class Notifications {
     const vcr = this._app.components[0].injector.get<ViewContainerRef>(ViewContainerRef);
     const ref = vcr.createComponent(Comp as any, {
       injector: this._injector,
-      projectableNodes: body ? [[body]] : undefined,
+      projectableNodes: body ? [[body]] : UNDEFINED,
     }) as ComponentRef<T>;
     /* @mbsc-ivy-end */
     /* @mbsc-legacy-start

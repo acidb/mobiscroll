@@ -7,4 +7,3 @@ import { MbscIfDirective } from './mbsc-if.directive';
   exports: [MbscIfDirective, MbscForDirective],
 })
 export class MbscStructuralDirectivesModule {}
-

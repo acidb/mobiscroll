@@ -10,6 +10,11 @@ Each product adheres to [Semantic Versioning](https://semver.org/).
 
 ## Mobiscroll UI
 
+### [6.2.0] - 2026-10-30
+
+Multi-event drag and drop, richer event lifecycle data, Timeline per-day resource collapse, and Angular year selection and Timeline fixes.
+[Full release notes](https://mobiscroll.com/releases#product-v620).
+
 ### [6.1.5] - 2026-09-22
 
 Scheduler and Timeline event navigation, Timeline event connection rendering, and Datepicker popup layout fixes.

@@ -243,7 +243,7 @@ export function map<T, U>(v: T | T[], fn: (data: T, index: number, array: T[]) =
 /**
  * Converts map to array.
  */
-export function toArray(m: { [key: string]: any }) {
+export function toArray<T>(m: { [key: string]: T }): Array<T> {
   const arr = [];
   if (m) {
     for (const key of Object.keys(m)) {

@@ -1,4 +1,5 @@
 import { Directive, DoCheck, Input, TemplateRef, ViewContainerRef } from '@angular/core';
+import { UNDEFINED } from '../../core/util/misc';
 
 interface MbscForContext<T> {
   $implicit: T;
@@ -34,7 +35,7 @@ export class MbscForDirective<T = any> implements DoCheck {
   @Input()
   public set mbscForTrackBy(fn: ((index: number, item: T) => any) | null | undefined) {
     // Avoid `??` for older TypeScript versions used by angular-legacy builds.
-    this._trackByFn = fn !== null && fn !== undefined ? fn : null;
+    this._trackByFn = fn !== null && fn !== UNDEFINED ? fn : null;
     this._dirty = true;
   }
 

@@ -8,7 +8,7 @@ import { isDarkQuery, os, touchUi } from './util/platform';
 
 /* TRIALPARAM */
 
-export const version = '6.1.5';
+export const version = '6.2.0';
 
 let guid = 0;
 
@@ -260,7 +260,7 @@ export class BaseComponent<PropType extends IBaseProps, StateType> extends Base<
 
   /** @hidden */
   public _v: any = {
-    version: '6.1.5', // TODO this is for CLI only, should be removed later
+    version: '6.2.0', // TODO this is for CLI only, should be removed later
   };
 
   /**
