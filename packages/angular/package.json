@@ -52,7 +52,9 @@
   "main": "dist/js/mobiscroll.angular.min.cjs",
   "module": "dist/esm5/mobiscroll.angular.min.mjs",
   "types": "dist/js/mobiscroll.angular.min.d.ts",
-  "sideEffects": false,
+  "sideEffects": [
+    "**/*.css"
+  ],
   "style": "dist/css/mobiscroll.min.css",
   "files": [
     "dist/js/**",
