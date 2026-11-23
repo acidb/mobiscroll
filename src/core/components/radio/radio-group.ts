@@ -6,7 +6,7 @@ import { MbscRadioGroupOptions } from './radio.types.public';
 let guid = 1;
 
 /** @hidden */
-@Directive({ selector: '[mbsc-rg-b]' })
+@Directive({ selector: '[mbsc-rg-b]', standalone: false })
 export class RadioGroupBase extends BaseComponent<MbscRadioGroupOptions, any> {
   public static defaults: MbscRadioGroupOptions = {};
 

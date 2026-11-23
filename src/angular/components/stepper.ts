@@ -12,6 +12,7 @@ let guid = 0;
     '[class]': '_cssClass',
   },
   selector: 'mbsc-stepper',
+  standalone: false,
   styleUrls: ['../../core/base.scss', '../../core/shared/form-controls/form-controls.scss', '../../core/components/stepper/stepper.scss'],
   template: `
     <label class="mbsc-stepper-content" [for]="id || _id">

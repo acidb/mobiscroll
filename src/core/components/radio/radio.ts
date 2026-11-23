@@ -17,7 +17,7 @@ export interface MbscRadioState {
 }
 
 /** @hidden */
-@Directive({ selector: '[mbsc-radio-b]' })
+@Directive({ selector: '[mbsc-radio-b]', standalone: false })
 export class RadioBase extends BaseComponent<MbscRadioOptions, MbscRadioState> {
   public static defaults: MbscRadioOptions = {
     position: 'start',

@@ -2,6 +2,7 @@ import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
 
 @Directive({
   selector: '[mbscIf]',
+  standalone: false,
 })
 export class MbscIfDirective {
   // eslint-disable-next-line @typescript-eslint/prefer-as-const

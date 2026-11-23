@@ -15,6 +15,7 @@ import { MbscRadioService } from '../shared/radio-service';
   },
   providers: [MbscRadioService],
   selector: 'mbsc-segmented-group',
+  standalone: false,
   styleUrls: ['../../core/components/segmented/segmented.scss'],
   template: `<ng-content></ng-content>`,
 })

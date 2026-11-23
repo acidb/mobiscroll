@@ -13,6 +13,7 @@ import { MbscRadioService } from '../shared/radio-service';
   },
   providers: [MbscRadioService],
   selector: 'mbsc-radio-group',
+  standalone: false,
   styleUrls: ['../../core/components/radio/radio.scss'],
   template: `<ng-content></ng-content>`,
 })

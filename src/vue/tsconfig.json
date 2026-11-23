@@ -3,6 +3,7 @@
   "compileOnSave": false,
   "compilerOptions": {
     "rootDir": "../",
+    "preserveSymlinks": true,
     "sourceMap": false,
     "declaration": true,
     "importHelpers": true,

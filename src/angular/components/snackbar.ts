@@ -6,6 +6,7 @@ import { MbscPopup } from './popup';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   selector: 'mbsc-snackbar',
+  standalone: false,
   styleUrls: ['../../core/base.scss', '../../core/components/notifications/notifications.scss'],
   template: `
     <mbsc-popup #popup [options]="props">

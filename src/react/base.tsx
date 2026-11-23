@@ -1,10 +1,6 @@
 import { PureComponent, ReactNode } from 'react';
 import { Options } from './options';
 
-export interface IDirectiveType {
-  standalone?: boolean;
-}
-
 export function Directive(args: any) {
   return (ctor: any) => ctor;
 }

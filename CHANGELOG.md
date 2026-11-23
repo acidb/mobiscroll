@@ -10,132 +10,147 @@ Each product adheres to [Semantic Versioning](https://semver.org/).
 
 ## Mobiscroll UI
 
+### [6.2.1] - 2026-11-22
+
+Scheduler and Timeline drag & drop, timezone, and range fixes, a ResizeObserver sizing fix, and Vue and Angular fixes.
+[Full release notes](https://mobiscroll.com/releases#v6.2.1).
+
 ### [6.2.0] - 2026-10-30
 
 Multi-event drag and drop, richer event lifecycle data, Timeline per-day resource collapse, and Angular year selection and Timeline fixes.
-[Full release notes](https://mobiscroll.com/releases#product-v620).
+[Full release notes](https://mobiscroll.com/releases#v6.2.0).
 
 ### [6.1.5] - 2026-09-22
 
 Scheduler and Timeline event navigation, Timeline event connection rendering, and Datepicker popup layout fixes.
-[Full release notes](https://mobiscroll.com/releases#product-v615).
+[Full release notes](https://mobiscroll.com/releases#v6.1.5).
 
 ### [6.1.4] - 2026-09-22
 
 Angular datepicker module resolution, scheduler navigation, and timeline accessibility fixes.
-[Full release notes](https://mobiscroll.com/releases#product-v614).
+[Full release notes](https://mobiscroll.com/releases#v6.1.4).
 
 ### [6.1.3] - 2026-08-07
 
 Drag & drop accuracy and timezone/DST handling fixes across components.
-[Full release notes](https://mobiscroll.com/releases#product-v613).
+[Full release notes](https://mobiscroll.com/releases#v6.1.3).
 
 ### [6.1.2] - 2026-06-25
 
 Drag & drop stability, controlled mode behavior, and rendering issue resolutions.
-[Full release notes](https://mobiscroll.com/releases#product-v612).
+[Full release notes](https://mobiscroll.com/releases#v6.1.2).
 
 ### [6.1.1] - 2026-06-05
 
 Angular 22 compatibility fix for the removed `ComponentFactoryResolver` API.
-[Full release notes](https://mobiscroll.com/releases#product-v611).
+[Full release notes](https://mobiscroll.com/releases#v6.1.1).
 
 ### [6.1.0] - 2026-05-20
 
 Angular 22 support, scheduler improvements, and custom header templating.
-[Full release notes](https://mobiscroll.com/releases#product-v610).
+[Full release notes](https://mobiscroll.com/releases#v6.1.0).
 
 ### [6.0.1] - 2026-04-02
 
 Datepicker focus styling, popup arrow positioning, and event label improvements.
-[Full release notes](https://mobiscroll.com/releases#product-v601).
+[Full release notes](https://mobiscroll.com/releases#v6.0.1).
 
 ### [6.0.0] - 2026-03-19
 
 Major release: API improvements, theme rewrites, CSS variables, and scheduler virtualization.
-[Full release notes](https://mobiscroll.com/releases#product-v600).
+[Full release notes](https://mobiscroll.com/releases#v6.0.0).
 
 ## Mobiscroll Connect API
+
+### [1.6.1] - 2026-11-11
+
+Conference data URLs, webhook delivery and subscription fixes, iCloud and CalDAV event identifiers, and OAuth revoke and disconnect fixes.
+[Full release notes](https://mobiscroll.com/releases/connect#api-v1.6.1).
+
+### [1.6.0] - 2026-10-08
+
+Signed webhook deliveries with retries, safer OAuth refresh token rotation, and sync state in connection status.
+[Full release notes](https://mobiscroll.com/releases/connect#api-v1.6.0).
 
 ### [1.5.3] - 2026-09-22
 
 Event writes, webhooks, and calendar filtering for users with more than one account on the same provider.
-[Full release notes](https://mobiscroll.com/releases#connect-v153).
+[Full release notes](https://mobiscroll.com/releases/connect#api-v1.5.3).
 
 ### [1.5.2] - 2026-09-08
 
 Event identifiers on iCloud calendars.
-[Full release notes](https://mobiscroll.com/releases#connect-v152).
+[Full release notes](https://mobiscroll.com/releases/connect#api-v1.5.2).
 
 ### [1.5.1] - 2026-08-31
 
 37 languages on the Connect pages.
-[Full release notes](https://mobiscroll.com/releases#connect-v151).
+[Full release notes](https://mobiscroll.com/releases/connect#api-v1.5.1).
 
 ### [1.5.0] - 2026-08-27
 
 Calendar access that was never granted.
-[Full release notes](https://mobiscroll.com/releases#connect-v150).
+[Full release notes](https://mobiscroll.com/releases/connect#api-v1.5.0).
 
 ### [1.4.1] - 2026-08-26
 
 Microsoft webhook payloads and echo filtering.
-[Full release notes](https://mobiscroll.com/releases#connect-v141).
+[Full release notes](https://mobiscroll.com/releases/connect#api-v1.4.1).
 
 ### [1.4.0] - 2026-08-18
 
 Application verification.
-[Full release notes](https://mobiscroll.com/releases#connect-v140).
+[Full release notes](https://mobiscroll.com/releases/connect#api-v1.4.0).
 
 ### [1.3.3] - 2026-08-13
 
 Correct Google attendee lists, and four new languages.
-[Full release notes](https://mobiscroll.com/releases#connect-v133).
+[Full release notes](https://mobiscroll.com/releases/connect#api-v1.3.3).
 
 ### [1.3.2] - 2026-08-10
 
 Correct event times for Microsoft (Outlook) calendars.
-[Full release notes](https://mobiscroll.com/releases#connect-v132).
+[Full release notes](https://mobiscroll.com/releases/connect#api-v1.3.2).
 
 ### [1.3.1] - 2026-07-20
 
 Webhook sync reliability.
-[Full release notes](https://mobiscroll.com/releases#connect-v131).
+[Full release notes](https://mobiscroll.com/releases/connect#api-v1.3.1).
 
 ### [1.3.0] - 2026-06-30
 
 Per-application branding.
-[Full release notes](https://mobiscroll.com/releases#connect-v130).
+[Full release notes](https://mobiscroll.com/releases/connect#api-v1.3.0).
 
 ### [1.2.0] - 2026-06-19
 
 A brand-new, personalized Connect experience.
-[Full release notes](https://mobiscroll.com/releases#connect-v120).
+[Full release notes](https://mobiscroll.com/releases/connect#api-v1.2.0).
 
 ### [1.1.0] - 2026-06-03
 
 Connect pages - Localization.
-[Full release notes](https://mobiscroll.com/releases#connect-v110).
+[Full release notes](https://mobiscroll.com/releases/connect#api-v1.1.0).
 
 ### [1.0.4] - 2026-04-23
 
 OAuth session/transaction TTL extended from 30 minutes to 2 hours.
-[Full release notes](https://mobiscroll.com/releases#connect-v104).
+[Full release notes](https://mobiscroll.com/releases/connect#api-v1.0.4).
 
 ### [1.0.3] - 2026-04-15
 
 Bearer-token authentication for disconnect and connection-status endpoints.
-[Full release notes](https://mobiscroll.com/releases#connect-v103).
+[Full release notes](https://mobiscroll.com/releases/connect#api-v1.0.3).
 
 ### [1.0.2] - 2026-03-12
 
 Refresh token support and revoke functionality for public OAuth clients.
-[Full release notes](https://mobiscroll.com/releases#connect-v102).
+[Full release notes](https://mobiscroll.com/releases/connect#api-v1.0.2).
 
 ### [1.0.1] - 2026-03-11
 
 Fixed a type mismatch for `projectId` in database queries.
-[Full release notes](https://mobiscroll.com/releases#connect-v101).
+[Full release notes](https://mobiscroll.com/releases/connect#api-v1.0.1).
 
 ## Mobiscroll Connect SDK
 

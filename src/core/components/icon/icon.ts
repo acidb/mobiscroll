@@ -12,7 +12,7 @@ export interface MbscIconOptions {
 }
 
 /** @hidden */
-@Directive({ selector: '[mbsc-i-b]' })
+@Directive({ selector: '[mbsc-i-b]', standalone: false })
 export class IconBase extends BaseComponent<MbscIconOptions, any> {
   public _cssClass?: string;
   public _hasChildren?: boolean;

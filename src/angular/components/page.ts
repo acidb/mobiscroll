@@ -8,6 +8,7 @@ import { PageBase } from '../../core/components/page/page';
     '[class]': '_cssClass',
   },
   selector: 'mbsc-page',
+  standalone: false,
   styleUrls: ['../../core/components/page/page.scss'],
   template: `<ng-content></ng-content>`,
 })

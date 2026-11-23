@@ -1,5 +1,13 @@
 /** @jsxRuntime classic */
 /** @jsx createElement */
+import { Button } from '@framework/components/button';
+import { Input } from '@framework/components/input';
+import { Popup } from '@framework/components/popup';
+import { createElement, render, unmountComponentAtNode } from '@framework/renderer';
+import { doc } from '../../util/dom';
+import { UNDEFINED } from '../../util/misc';
+import { PopupBase } from '../popup/popup';
+import { MbscPopupOptions } from '../popup/popup.types.public';
 import {
   getAlertOptions,
   getConfirmOptions,
@@ -9,7 +17,7 @@ import {
   promise,
   showModal,
   showNotification,
-} from '@framework/../core/components/notifications/notifications';
+} from './notifications';
 import {
   INotificationOptions,
   MbscAlertOptions,
@@ -17,15 +25,7 @@ import {
   MbscPromptOptions,
   MbscSnackbarOptions,
   MbscToastOptions,
-} from '@framework/../core/components/notifications/notifications.types';
-import { PopupBase } from '@framework/../core/components/popup/popup';
-import { MbscPopupOptions } from '@framework/../core/components/popup/popup.types.public';
-import { Button } from '@framework/components/button';
-import { Input } from '@framework/components/input';
-import { Popup } from '@framework/components/popup';
-import { createElement, render, unmountComponentAtNode } from '@framework/renderer';
-import { doc } from '../../util/dom';
-import { UNDEFINED } from '../../util/misc';
+} from './notifications.types';
 
 import './notifications.scss';
 

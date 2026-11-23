@@ -27,8 +27,13 @@ import { MbscOptions } from '../core/commons';
 import { noop } from '../core/util/misc';
 import { MBSC_OPTIONS, MbscOptionsService } from './options.service';
 
-export interface IDirectiveType extends Directive {
-  standalone?: boolean;
+// Angular < 14 has no `standalone` option, Angular 19+ defaults it to true. Every directive and component
+// sets it to false explicitly, because they are declared in NgModules.
+declare module '@angular/core' {
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  interface Directive {
+    standalone?: boolean;
+  }
 }
 
 export interface INgModuleType extends NgModule {
@@ -49,7 +54,7 @@ export function updateValue(inst: any, val: any) {
 // With Angular Ivy even @Injectable does not solve this, so we need to use @Directive here
 // See https://github.com/angular/angular/issues/30080
 // This has the side effect that all inherited classes needs to be added to modules as well
-@Directive({ selector: '[mbsc-b]' })
+@Directive({ selector: '[mbsc-b]', standalone: false })
 export class Base<PropsType extends MbscOptions, StateType>
   implements AfterViewChecked, AfterViewInit, DoCheck, OnChanges, OnDestroy, OnInit
 {

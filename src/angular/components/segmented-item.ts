@@ -9,6 +9,7 @@ import { MbscRadioService } from '../shared/radio-service';
     '[class]': '_cssClass',
   },
   selector: 'mbsc-segmented',
+  standalone: false,
   template: `
     <label class="mbsc-segmented-label">
       <div

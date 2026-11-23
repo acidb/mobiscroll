@@ -204,6 +204,11 @@
     user-select: none;
   }
 
+  // Don't catch the mouse while positioning (opacity: 0)
+  .mbsc-popup-hidden .mbsc-popup {
+    pointer-events: none;
+  }
+
   .mbsc-popup-center {
     min-width: 16em;
   }

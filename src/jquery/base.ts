@@ -1,8 +1,8 @@
-import { createComponent, enhance, registerComponent as register } from '@framework/renderer';
 import jQuery from 'jquery';
 import { doc } from '../core/util/dom';
 import { isString, UNDEFINED } from '../core/util/misc';
 import { isBrowser } from '../core/util/platform';
+import { createComponent, enhance, registerComponent as register } from '../preact/renderer';
 
 const extend = jQuery.extend;
 const components = {};

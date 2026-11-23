@@ -130,7 +130,7 @@ function getPrevActive(modal: PopupBase, i = 0): PopupBase | undefined {
 }
 
 /** @hidden */
-@Directive({ selector: '[mbsc-popup-b]' })
+@Directive({ selector: '[mbsc-popup-b]', standalone: false })
 export class PopupBase extends BaseComponent<MbscPopupOptions, MbscPopupState> {
   /** @hidden */
   public static defaults: MbscPopupOptions = {

@@ -14,7 +14,7 @@ export interface MbscCheckboxState {
 }
 
 /** @hidden */
-@Directive({ selector: '[mbsc-cb-b]' })
+@Directive({ selector: '[mbsc-cb-b]', standalone: false })
 export class CheckboxBase extends BaseComponent<MbscCheckboxOptions, MbscCheckboxState> {
   public static defaults: MbscCheckboxOptions = {
     position: 'start',

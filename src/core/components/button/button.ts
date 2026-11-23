@@ -13,7 +13,7 @@ export interface MbscButtonState {
 }
 
 /** @hidden */
-@Directive({ selector: '[mbsc-btn-b]' })
+@Directive({ selector: '[mbsc-btn-b]', standalone: false })
 export class ButtonBase extends BaseComponent<MbscButtonOptions, MbscButtonState> {
   /** @hidden */
   public static defaults: MbscButtonOptions = {

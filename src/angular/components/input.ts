@@ -13,6 +13,7 @@ let guid = 0;
     '[class]': '_cssClass',
   },
   selector: 'mbsc-input',
+  standalone: false,
   styleUrls: ['../../core/base.scss', '../../core/shared/form-controls/form-controls.scss', '../../core/components/input/input.scss'],
   template: `
     <label #lbl [for]="_id" [class]="_labelClass">

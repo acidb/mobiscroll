@@ -8,6 +8,7 @@ import { MbscInput } from './input';
     '[class]': '_cssClass',
   },
   selector: 'mbsc-textarea',
+  standalone: false,
   styleUrls: ['../../core/base.scss', '../../core/shared/form-controls/form-controls.scss', '../../core/components/input/input.scss'],
   template: `
     <label [for]="_id" [class]="_labelClass">

@@ -15,10 +15,6 @@ declare module 'vue' {
   }
 }
 
-export interface IDirectiveType {
-  standalone?: boolean;
-}
-
 export function Directive(args: any) {
   return (ctor: any) => ctor;
 }

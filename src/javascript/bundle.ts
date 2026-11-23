@@ -18,4 +18,4 @@ registerComponent(Stepper);
 registerComponent(Switch);
 
 export { registerComponent };
-export { enhance, getInst } from '@framework/renderer';
+export { enhance, getInst } from '../preact/renderer';

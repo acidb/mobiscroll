@@ -31,7 +31,7 @@ registerComponent(Switch);
 registerComponent(Popup);
 
 export { registerComponent };
-export { enhance, getInst } from '@framework/renderer';
+export { enhance, getInst } from '../preact/renderer';
 
 declare global {
   interface MobiscrollBundle {

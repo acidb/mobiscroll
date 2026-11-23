@@ -3,7 +3,7 @@ import { BaseComponent } from '../../base';
 import { MbscPageOptions } from './page.types.public';
 
 /** @hidden */
-@Directive({ selector: '[mbsc-page-b]' })
+@Directive({ selector: '[mbsc-page-b]', standalone: false })
 export class PageBase extends BaseComponent<MbscPageOptions, any> {
   /** @hidden */
   public static defaults: MbscPageOptions = {};

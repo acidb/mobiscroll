@@ -1,10 +1,6 @@
 import { PureComponent } from './pure';
 import { enhance } from './renderer';
 
-export interface IDirectiveType {
-  standalone?: boolean;
-}
-
 export function Directive(args: any) {
   return (ctor: any) => ctor;
 }

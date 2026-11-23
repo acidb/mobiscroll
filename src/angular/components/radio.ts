@@ -9,6 +9,7 @@ import { MbscRadioService } from '../shared/radio-service';
     '[class]': '_cssClass',
   },
   selector: 'mbsc-radio',
+  standalone: false,
   styleUrls: ['../../core/shared/form-controls/form-controls.scss', '../../core/components/radio/radio.scss'],
   template: `
     <input

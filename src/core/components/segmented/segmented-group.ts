@@ -13,7 +13,7 @@ export interface MbscSegmentedGroupState {
 }
 
 /** @hidden */
-@Directive({ selector: '[mbsc-sgr-b]' })
+@Directive({ selector: '[mbsc-sgr-b]', standalone: false })
 export class SegmentedGroupBase extends BaseComponent<MbscSegmentedGroupOptions, MbscSegmentedGroupState> {
   public static defaults: MbscSegmentedGroupOptions = {
     select: 'single',

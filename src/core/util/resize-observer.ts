@@ -7,6 +7,7 @@ const markup =
 
 let observer: any;
 let count = 0;
+let queue: any[] = [];
 
 export function resizeObserver(el: HTMLElement, callback: () => void, zone?: any) {
   let expand: HTMLElement;
@@ -58,15 +59,18 @@ export function resizeObserver(el: HTMLElement, callback: () => void, zone?: any
   if (win && (win as any).ResizeObserver) {
     if (!observer) {
       observer = new (win as any).ResizeObserver((entries: any) => {
+        // Entries arriving while the frame is pending are handled in that frame, not dropped
+        queue = queue.concat(entries);
         if (!rafId) {
           rafId = raf(() => {
-            for (const entry of entries) {
+            for (const entry of queue) {
               // Sometimes this fires after unobserve has been called,
               // so we need to check if the callback function is still there
               if (entry.target.__mbscResize) {
                 entry.target.__mbscResize();
               }
             }
+            queue = [];
             rafId = 0;
           });
         }

@@ -14,6 +14,7 @@ interface MbscForContext<T> {
 
 @Directive({
   selector: '[mbscFor][mbscForOf]',
+  standalone: false,
 })
 export class MbscForDirective<T = any> implements DoCheck {
   private _mbscForOf: T[] = [];

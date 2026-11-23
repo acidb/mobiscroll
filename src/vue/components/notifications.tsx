@@ -1,7 +1,6 @@
 /* eslint-disable react/no-string-refs */
 /** @jsxRuntime classic */
 /** @jsx createElement */
-import { createElement } from '@framework/renderer';
 import { defineComponent } from 'vue';
 import {
   getAlertOptions,
@@ -20,6 +19,7 @@ import {
 } from '../../core/components/notifications/notifications.common';
 import { UNDEFINED } from '../../core/util/misc';
 import { Bool } from '../base';
+import { createElement } from '../renderer';
 import { Popup } from './popup';
 
 export * from '../../core/components/notifications/notifications.types.public';

@@ -8,7 +8,7 @@ import { isDarkQuery, os, touchUi } from './util/platform';
 
 /* TRIALPARAM */
 
-export const version = '6.2.0';
+export const version = '6.2.1';
 
 let guid = 0;
 
@@ -224,7 +224,7 @@ if (isDarkQuery) {
 }
 
 /** @hidden */
-@Directive({ selector: '[mbsc-bc]' })
+@Directive({ selector: '[mbsc-bc]', standalone: false })
 export class BaseComponent<PropType extends IBaseProps, StateType> extends Base<PropType, StateType> {
   /** @hidden */
   public static defaults: any = UNDEFINED;
@@ -260,7 +260,7 @@ export class BaseComponent<PropType extends IBaseProps, StateType> extends Base<
 
   /** @hidden */
   public _v: any = {
-    version: '6.2.0', // TODO this is for CLI only, should be removed later
+    version: '6.2.1', // TODO this is for CLI only, should be removed later
   };
 
   /**

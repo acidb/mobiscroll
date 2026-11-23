@@ -1,13 +1,13 @@
 import { ChangeDetectionStrategy, Component, Directive, Input, ViewEncapsulation } from '@angular/core';
 import { IconBase } from '../../core/components/icon/icon';
 
-@Directive({ selector: '[mbsc-icon]' })
+@Directive({ selector: '[mbsc-icon]', standalone: false })
 export class MbscCustomIcon {}
 
-@Directive({ selector: '[mbsc-start-icon]' })
+@Directive({ selector: '[mbsc-start-icon]', standalone: false })
 export class MbscCustomStartIcon {}
 
-@Directive({ selector: '[mbsc-end-icon]' })
+@Directive({ selector: '[mbsc-end-icon]', standalone: false })
 export class MbscCustomEndIcon {}
 
 @Component({
@@ -17,6 +17,7 @@ export class MbscCustomEndIcon {}
     '[class]': '_cssClass',
   },
   selector: 'mbsc-icon',
+  standalone: false,
   styleUrls: ['../../core/components/icon/icon.scss'],
   template: `<ng-content></ng-content>`,
 })

@@ -13,6 +13,7 @@ import { MbscCustomEndIcon, MbscCustomIcon, MbscCustomStartIcon } from './icon';
     '[class]': '_cssClass',
   },
   selector: 'mbsc-button',
+  standalone: false,
   styleUrls: ['../../core/base.scss', '../../core/components/button/button.scss'],
   template: `
     <span [class]="'mbsc-button-bg mbsc-button-' + s.variant + '-bg' + _theme"></span>

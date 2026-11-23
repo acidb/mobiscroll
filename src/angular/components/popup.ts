@@ -23,6 +23,7 @@ import { getDocument } from '../../core/util/dom';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   selector: 'mbsc-popup',
+  standalone: false,
   styleUrls: ['../../core/base.scss', '../../core/components/popup/popup.scss', '../../core/components/notifications/notifications.scss'],
   template: `
     <ng-template #ngcontent>
@@ -107,9 +108,9 @@ import { getDocument } from '../../core/util/dom';
               "
             >
               <ng-template *mbscIf="headerTemplate" [ngTemplateOutlet]="headerTemplate"></ng-template>
-              <ng-template *mbscIf="!headerTemplate">
+              <ng-container *mbscIf="!headerTemplate">
                 {{ s.headerText }}
-              </ng-template>
+              </ng-container>
             </div>
 
             <div #content [class]="'mbsc-flex-1-1 mbsc-popup-content' + (s.contentPadding ? ' mbsc-popup-padding' : '') + _theme">

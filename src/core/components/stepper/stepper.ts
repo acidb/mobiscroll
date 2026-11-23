@@ -12,7 +12,7 @@ export interface MbscStepperState {
 }
 
 /** @hidden */
-@Directive({ selector: '[mbsc-stepper]' })
+@Directive({ selector: '[mbsc-stepper]', standalone: false })
 export class StepperBase extends BaseComponent<MbscStepperOptions, MbscStepperState> {
   public static defaults: MbscStepperOptions = {
     inputPosition: 'center',

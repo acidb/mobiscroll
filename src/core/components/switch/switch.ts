@@ -28,7 +28,7 @@ const CLICK_MOVE_THRESHOLD = 3;
 const CLICK_HOLD_THRESHOLD = 300;
 
 /** @hidden */
-@Directive({ selector: '[mbsc-sw-b]' })
+@Directive({ selector: '[mbsc-sw-b]', standalone: false })
 export class SwitchBase extends BaseComponent<MbscSwitchOptions, MbscSwitchState> {
   public static defaults: MbscSwitchOptions = {
     position: 'end',

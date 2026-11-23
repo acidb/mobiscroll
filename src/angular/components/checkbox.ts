@@ -8,6 +8,7 @@ import { CheckboxBase } from '../../core/components/checkbox/checkbox';
     '[class]': '_cssClass',
   },
   selector: 'mbsc-checkbox',
+  standalone: false,
   styleUrls: ['../../core/base.scss', '../../core/shared/form-controls/form-controls.scss', '../../core/components/checkbox/checkbox.scss'],
   template: `
     <input

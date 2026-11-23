@@ -10,6 +10,7 @@ let guid = 0;
     '[class]': '_cssClass',
   },
   selector: 'mbsc-switch',
+  standalone: false,
   styleUrls: ['../../core/base.scss', '../../core/shared/form-controls/form-controls.scss', '../../core/components/switch/switch.scss'],
   template: `
     <label *mbscIf="s.label" [for]="id || _id" [class]="'mbsc-form-control-label' + _theme + (_disabled ? ' mbsc-disabled' : '')"

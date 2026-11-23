@@ -17,7 +17,7 @@ export interface MbscSegmentedState {
 }
 
 /** @hidden */
-@Directive({ selector: '[mbsc-seg-b]' })
+@Directive({ selector: '[mbsc-seg-b]', standalone: false })
 export class SegmentedBase extends BaseComponent<MbscSegmentedOptions, MbscSegmentedState> {
   public static defaults: MbscSegmentedOptions = {
     select: 'single',

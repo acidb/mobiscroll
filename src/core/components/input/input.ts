@@ -58,7 +58,7 @@ function checkAutoFill(el: HTMLElement): boolean {
 }
 
 /** @hidden */
-@Directive({ selector: '[mbsc-inp-b]' })
+@Directive({ selector: '[mbsc-inp-b]', standalone: false })
 export class InputBase extends BaseComponent<MbscInputOptions, MbscInputState> {
   public static defaults: MbscInputOptions = {
     dropdown: false,

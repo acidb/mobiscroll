@@ -7,6 +7,7 @@ import { MbscOptionsService } from './options.service';
   encapsulation: ViewEncapsulation.None,
   providers: [{ provide: MbscOptionsService, useClass: MbscOptionsService }],
   selector: 'mbsc-options-provider',
+  standalone: false,
   template: `<ng-content></ng-content>`,
 })
 export class MbscOptionsProviderComponent implements OnChanges {

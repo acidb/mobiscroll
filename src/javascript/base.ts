@@ -1,7 +1,7 @@
-import { createComponent, enhance, registerComponent } from '@framework/renderer';
 import { doc, forEach } from '../core/util/dom';
 import { isString } from '../core/util/misc';
 import { isBrowser } from '../core/util/platform';
+import { createComponent, enhance, registerComponent } from '../preact/renderer';
 
 export { registerComponent };
 
