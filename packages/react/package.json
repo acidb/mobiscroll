@@ -5,7 +5,9 @@
   "homepage": "https://mobiscroll.com/docs/react",
   "license": "Apache-2.0",
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "registry": "https://registry.npmjs.org/",
+    "@mobiscroll:registry": "https://registry.npmjs.org/"
   },
   "keywords": [
     "mobiscroll",
