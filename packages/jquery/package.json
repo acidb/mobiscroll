@@ -52,7 +52,9 @@
   "main": "dist/js/mobiscroll.jquery.min.cjs",
   "module": "dist/esm5/mobiscroll.jquery.min.mjs",
   "types": "dist/src/jquery/bundle.d.ts",
-  "sideEffects": false,
+  "sideEffects": [
+    "**/*.css"
+  ],
   "style": "dist/css/mobiscroll.min.css",
   "files": [
     "dist/js/*",
